@@ -1,0 +1,41 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+      time: '11:55'
+      timezone: 'Asia/Tokyo'
+  - package-ecosystem: 'npm'
+    directory: '/web/'
+    schedule:
+      interval: 'daily'
+      time: '11:55'
+      timezone: 'Asia/Tokyo'
+    groups:
+      storybook:
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+        exclude-patterns:
+          - '@storybook/testing-library'
+  - package-ecosystem: 'npm'
+    directory: '/backend/'
+    schedule:
+      interval: 'daily'
+      time: '11:55'
+      timezone: 'Asia/Tokyo'
+    groups:
+      opentelemetry:
+        patterns:
+          - '@opentelemetry/*'
+    ignore:
+      - dependency-name: 'passport'
+        versions: ['0.5.x', '0.6.0']
+      - dependency-name: 'cache-manager'
+        versions: ['5.x.x']
