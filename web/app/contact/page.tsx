@@ -1,16 +1,16 @@
-"use client";
-import { useRef, type FormEvent } from "react";
-import Page from "../../components/Page";
-import { sendGTMEvent } from "@next/third-parties/google";
+'use client'
+import { useRef, type FormEvent } from 'react'
+import Page from '../../components/Page'
+import { sendGTMEvent } from '@next/third-parties/google'
 
 export default function About() {
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const inputRef = useRef<HTMLTextAreaElement | null>(null)
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    sendGTMEvent({ event: "message submit", value: inputRef.current?.value });
-    inputRef.current!.value = "";
-  };
+    e.preventDefault()
+    sendGTMEvent({ event: 'message submit', value: inputRef.current?.value })
+    inputRef.current!.value = ''
+  }
 
   return (
     <Page>
@@ -23,5 +23,5 @@ export default function About() {
         <button type="submit">submit</button>
       </form>
     </Page>
-  );
+  )
 }
