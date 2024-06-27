@@ -9,7 +9,7 @@
       {
         "source": "/api",
         "run": {
-          "serviceId": "helloworld",
+          "serviceId": "closed-api-server",
           "region": "asia-east1"
         }
       }
