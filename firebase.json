@@ -12,6 +12,13 @@
           "serviceId": "closed-api-server",
           "region": "asia-east1"
         }
+      },
+      {
+        "source": "/api/**",
+        "run": {
+          "serviceId": "closed-api-server",
+          "region": "asia-east1"
+        }
       }
     ]
   },
