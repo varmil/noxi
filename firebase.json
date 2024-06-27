@@ -4,7 +4,16 @@
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "frameworksBackend": {
       "region": "asia-east1"
-    }
+    },
+    "rewrites": [
+      {
+        "source": "/api",
+        "run": {
+          "serviceId": "helloworld",
+          "region": "asia-east1"
+        }
+      }
+    ]
   },
   "firestore": {
     "rules": "./firebase/firestore.rules",
