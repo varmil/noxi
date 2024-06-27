@@ -1,0 +1,8 @@
+{
+  "name": "noxi",
+  "version": "1.0.0",
+  "scripts": {
+    "emulator": "firebase emulators:start"
+  },
+  "license": "ISC"
+}
