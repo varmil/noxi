@@ -1,6 +1,8 @@
 {
   "private": true,
   "scripts": {
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "dev": "next",
     "build": "next build",
     "start": "next start"
@@ -14,6 +16,8 @@
   "devDependencies": {
     "@types/node": "20.14.9",
     "@types/react": "^18.3.2",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.4",
     "typescript": "^5.4.5"
   }
 }
