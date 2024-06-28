@@ -14,4 +14,9 @@ export class AppController {
   getFoo(): string {
     return this.appService.getFoo()
   }
+
+  @Get('/youtubers')
+  getTopYouTubers(): Promise<string> {
+    return this.appService.getTopYouTubers()
+  }
 }
