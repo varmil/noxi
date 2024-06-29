@@ -3,7 +3,15 @@
     "source.addMissingImports",
     "source.fixAll.eslint"
   ],
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "eslint.workingDirectories": ["./web", "./backend"],
-  "eslint.useFlatConfig": true
+  "eslint.useFlatConfig": true,
+
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
