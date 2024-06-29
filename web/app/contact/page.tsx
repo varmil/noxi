@@ -1,27 +1,18 @@
-'use client'
-import { useRef, type FormEvent } from 'react'
 import Page from '../../components/Page'
-import { sendGTMEvent } from '@next/third-parties/google'
+import { Metadata } from 'next'
+import Contact from '../../features/contact/Contact'
+import Site from '../config/constants/Site'
+
+export const metadata: Metadata = {
+  title: `お問い合わせ | ${Site.TITLE}`,
+  description: `お問い合わせ | ${Site.TITLE}`
+}
 
 export default function About() {
-  const inputRef = useRef<HTMLTextAreaElement | null>(null)
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    sendGTMEvent({ event: 'message submit', value: inputRef.current?.value })
-    inputRef.current!.value = ''
-  }
-
   return (
     <Page>
       <h1>This is the Contact page</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <span>Message:</span>
-          <textarea ref={inputRef} />
-        </label>
-        <button type="submit">submit</button>
-      </form>
+      <Contact />
     </Page>
   )
 }

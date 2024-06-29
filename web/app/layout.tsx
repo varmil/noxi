@@ -1,7 +1,10 @@
+import './globals.css'
 import { GoogleTagManager } from '@next/third-parties/google'
+import { Metadata } from 'next'
+import Site from './config/constants/Site'
 
-export const metadata = {
-  title: 'Google Analytics Next.js',
+export const metadata: Metadata = {
+  title: `${Site.TITLE}`,
   description:
     'This example shows how to use Next.js along with Google Analytics.'
 }
