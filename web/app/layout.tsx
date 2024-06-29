@@ -1,3 +1,4 @@
+import './globals.css'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Metadata } from 'next'
 import Site from './config/constants/Site'
