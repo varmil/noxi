@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
-
-const apiKey = process.env.YOUTUBE_DATA_API_KEY
+import { Channel } from '@domain/youtube/Channel.entity'
 
 interface SearchListItem {
   id: {
@@ -25,30 +24,31 @@ interface SearchListItem {
   }
 }
 
-interface Channel {
-  id: SearchListItem['id']['channelId']
-  title: SearchListItem['snippet']['title']
-  description: SearchListItem['snippet']['description']
-  thumbnails: SearchListItem['snippet']['thumbnails']
-  publishedAt: SearchListItem['snippet']['publishedAt']
-}
+// interface Channel {
+//   id: SearchListItem['id']['channelId']
+//   title: SearchListItem['snippet']['title']
+//   description: SearchListItem['snippet']['description']
+//   thumbnails: SearchListItem['snippet']['thumbnails']
+//   publishedAt: SearchListItem['snippet']['publishedAt']
+// }
+
+const PER_PAGE = 5 // 50
 
 @Injectable()
-export class AppService {
-  getHello(): string {
-    return 'Hello World! v1.1.0'
+export class YoutubeDataApiInfrastructureService {
+  private readonly API_KEY = process.env.YOUTUBE_DATA_API_KEY
+
+  constructor() {}
+
+  async getChannels(limit: number): Promise<Channel[]> {
+    return this._getChannels('', limit / PER_PAGE)
   }
 
-  getFoo(): string {
-    return 'FOOOOO!'
-  }
-
-  getBar(): string {
-    return 'BARRRRR!'
-  }
-
-  async getChannels(pageToken = '', callCount = 1): Promise<Channel[]> {
-    if (callCount >= 2) return []
+  private async _getChannels(
+    pageToken = '',
+    remainingTimes = 1
+  ): Promise<Channel[]> {
+    if (remainingTimes === 0) return []
 
     try {
       const response = await axios.get(
@@ -58,17 +58,17 @@ export class AppService {
             part: 'snippet',
             type: 'channel',
             q: 'FF14',
-            maxResults: 5, // 50,
+            maxResults: PER_PAGE,
             order: 'title',
             regionCode: 'JP',
             relevanceLanguage: 'ja',
             pageToken: pageToken,
-            key: apiKey
+            key: this.API_KEY
           }
         }
       )
 
-      const channelInfos: Channel[] = response.data.items.map(
+      const channels: Channel[] = response.data.items.map(
         (item: SearchListItem): Channel => ({
           id: item.id.channelId,
           title: item.snippet.channelTitle,
@@ -81,26 +81,17 @@ export class AppService {
 
       // 次のページがある場合、再帰的に取得
       if (response.data.nextPageToken) {
-        const nextPageChannelInfos = await this.getChannels(
+        const nextPageChannelInfos = await this._getChannels(
           response.data.nextPageToken,
-          callCount + 1
+          remainingTimes - 1
         )
-        return channelInfos.concat(nextPageChannelInfos)
+        return channels.concat(nextPageChannelInfos)
       }
 
-      return channelInfos
+      return channels
     } catch (error) {
       console.error('Error fetching channel IDs from YouTube API', error)
       return []
-    }
-  }
-
-  async getTopYouTubers(): Promise<string> {
-    try {
-      const channels = await this.getChannels()
-      return JSON.stringify(channels)
-    } catch (error) {
-      console.error('Error fetching data from YouTube API', error)
     }
   }
 }
