@@ -17,7 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
-      <body>{children}</body>
+      <body>
+        <div className="sm:gap-4 sm:py-4 sm:pl-14 bg-muted/40">{children}</div>
+      </body>
     </html>
   )
 }
