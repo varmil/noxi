@@ -3,10 +3,10 @@ import { ChannelsService } from '@app/youtube/channels.service'
 
 @Controller('youtube/channels')
 export class ChannelsController {
-  constructor(private readonly appService: ChannelsService) {}
+  constructor(private readonly channelsService: ChannelsService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello()
+  async getChannels() {
+    return await this.channelsService.findAll()
   }
 }
