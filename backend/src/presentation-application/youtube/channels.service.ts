@@ -1,6 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ChannelRepository } from '@domain/youtube/Channel.repository'
 
+// TODO:
+// Create (Youtube)DataApiService which directly access infra service
+// for scraping (<--> ChannelsService only treats Domain Objects)
+// DataApiService --> (API) --> ChannelsService --> ChannelRepository.save() --> Firestore
+
 @Injectable()
 export class ChannelsService {
   constructor(

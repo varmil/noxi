@@ -5,14 +5,12 @@ import { YoutubeDataApiInfrastructureService } from '@infra/service/youtube-data
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
-  private readonly PAGE_SIZE = 10
-
   constructor(
     private youtubeDataApiInfrastructureService: YoutubeDataApiInfrastructureService
   ) {}
 
   // TODO: fetch from Firestore, not from Data API
-  async findAll({ limit = this.PAGE_SIZE }: { limit?: number }) {
+  async findAll({ limit = 10 }: { limit?: number }) {
     const channels =
       await this.youtubeDataApiInfrastructureService.getChannels(limit)
     return new Channels(channels)

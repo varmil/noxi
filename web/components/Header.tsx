@@ -7,7 +7,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem
-} from '@radix-ui/react-dropdown-menu'
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
+
 import {
   HomeIcon,
   ShoppingCartIcon,
@@ -17,7 +19,6 @@ import {
   SearchIcon
 } from 'lucide-react'
 import Link from 'next/link'
-import { Input } from '@/components/ui/input'
 import Site from '../app/config/constants/Site'
 import Logo from './Logo'
 
