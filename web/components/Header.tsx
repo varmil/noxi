@@ -14,10 +14,12 @@ import {
   PackageIcon,
   UsersIcon,
   LineChartIcon,
-  SearchIcon
+  SearchIcon,
+  MountainIcon
 } from 'lucide-react'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
+import Site from '../app/config/constants/Site'
 
 export default function Header() {
   return (
@@ -82,6 +84,12 @@ export default function Header() {
           </nav>
         </SheetContent>
       </Sheet>
+
+      <Link href="#" className="flex items-center gap-2" prefetch={false}>
+        <MountainIcon className="w-6 h-6" />
+        <span className="hidden md:flex text-lg font-bold">{Site.TITLE}</span>
+      </Link>
+
       <div className="relative ml-auto flex-1 md:grow-0">
         <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
         <Input
