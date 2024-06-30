@@ -3,8 +3,7 @@ import {
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
-  BreadcrumbSeparator,
-  BreadcrumbPage
+  BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import Link from 'next/link'
 import React, { PropsWithoutRef } from 'react'
