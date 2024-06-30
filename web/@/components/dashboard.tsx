@@ -41,7 +41,7 @@ export function Dashboard() {
         <GlobalBreadcrumb
           items={[
             { href: '#', name: 'Home' },
-            { href: '#', name: 'Youtubers' },
+            { href: '#', name: 'Youtube' },
             { href: '#', name: 'Channels' }
           ]}
         />

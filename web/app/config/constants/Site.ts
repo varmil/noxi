@@ -1,3 +1,3 @@
 export default {
-  TITLE: 'Youtube チャンネル ランキング'
+  TITLE: 'Youtube 登録者数 ランキング'
 }

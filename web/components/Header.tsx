@@ -14,12 +14,12 @@ import {
   PackageIcon,
   UsersIcon,
   LineChartIcon,
-  SearchIcon,
-  MountainIcon
+  SearchIcon
 } from 'lucide-react'
 import Link from 'next/link'
 import { Input } from '@/components/ui/input'
 import Site from '../app/config/constants/Site'
+import Logo from './Logo'
 
 export default function Header() {
   return (
@@ -86,7 +86,7 @@ export default function Header() {
       </Sheet>
 
       <Link href="#" className="flex items-center gap-2" prefetch={false}>
-        <MountainIcon className="w-6 h-6" />
+        <Logo className="w-6 h-6" />
         <span className="hidden md:flex text-lg font-bold">{Site.TITLE}</span>
       </Link>
 
