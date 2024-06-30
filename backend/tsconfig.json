@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "paths": {
+      "@app": ["src/presentation-application"],
+      "@app/*": ["src/presentation-application/*"],
+      "@domain": ["src/domain"],
+      "@domain/*": ["src/domain/*"],
+      "@infra": ["src/infrastructure"],
+      "@infra/*": ["src/infrastructure/*"]
+    },
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
