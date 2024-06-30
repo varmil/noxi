@@ -21,7 +21,7 @@ export default function GlobalBreadcrumb({
   items = []
 }: PropsWithoutRef<Props>) {
   return (
-    <div className="hidden md:flex p-4 sm:p-6">
+    <div className="hidden md:flex sm:px-6">
       <Breadcrumb className="">
         <BreadcrumbList>
           {items.map((item, i) => (
