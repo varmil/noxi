@@ -10,7 +10,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   ) {}
 
   // TODO: fetch from Firestore, not from Data API
-  async findAll({ limit = 10 }: { limit?: number }) {
+  async findAll({ limit = 50 }: { limit?: number }) {
     const channels =
       await this.youtubeDataApiInfrastructureService.getChannels(limit)
     return new Channels(channels)

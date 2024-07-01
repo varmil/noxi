@@ -23,8 +23,11 @@ import {
   CardFooter
 } from '@/components/ui/card'
 import { ChannelCards } from 'features/youtube/channel/ChannelCards'
+import { getChannels } from 'features/youtube/api/getChannels'
 
-export function YoutubeDashboard() {
+export async function YoutubeDashboard() {
+  const channels = await getChannels()
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
@@ -77,7 +80,7 @@ export function YoutubeDashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <ChannelCards />
+                <ChannelCards channels={channels} />
               </CardContent>
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
