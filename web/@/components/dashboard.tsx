@@ -32,6 +32,7 @@ import {
   TableCell
 } from '@/components/ui/table'
 import { Badge } from '@/components/ui/badge'
+import { MoreHorizontal } from 'lucide-react'
 
 export function Dashboard() {
   return (
@@ -93,28 +94,28 @@ export function Dashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead className="hidden w-[100px] sm:table-cell">
+                      <TableHead className="w-[100px] sm:table-cell">
                         <span className="sr-only">Image</span>
                       </TableHead>
                       <TableHead>Name</TableHead>
-                      <TableHead>Status</TableHead>
                       <TableHead className="hidden md:table-cell">
-                        Price
+                        Status
                       </TableHead>
+                      <TableHead>Price</TableHead>
                       <TableHead className="hidden md:table-cell">
                         Total Sales
                       </TableHead>
                       <TableHead className="hidden md:table-cell">
                         Created at
                       </TableHead>
-                      <TableHead>
+                      <TableHead className="hidden md:table-cell">
                         <span className="sr-only">Actions</span>
                       </TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     <TableRow>
-                      <TableCell className="hidden sm:table-cell">
+                      <TableCell className="sm:table-cell">
                         <img
                           alt="Product image"
                           className="aspect-square rounded-md object-cover"
@@ -126,17 +127,15 @@ export function Dashboard() {
                       <TableCell className="font-medium">
                         Laser Lemonade Machine
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant="outline">Draft</Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        $499.99
-                      </TableCell>
+                      <TableCell>$499.99</TableCell>
                       <TableCell className="hidden md:table-cell">25</TableCell>
                       <TableCell className="hidden md:table-cell">
                         2023-07-12 10:42 AM
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -144,7 +143,7 @@ export function Dashboard() {
                               size="icon"
                               variant="ghost"
                             >
-                              <MoveHorizontalIcon className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
                           </DropdownMenuTrigger>
@@ -157,7 +156,7 @@ export function Dashboard() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="hidden sm:table-cell">
+                      <TableCell className="sm:table-cell">
                         <img
                           alt="Product image"
                           className="aspect-square rounded-md object-cover"
@@ -169,19 +168,17 @@ export function Dashboard() {
                       <TableCell className="font-medium">
                         Hypernova Headphones
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant="outline">Active</Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        $129.99
-                      </TableCell>
+                      <TableCell>$129.99</TableCell>
                       <TableCell className="hidden md:table-cell">
                         100
                       </TableCell>
                       <TableCell className="hidden md:table-cell">
                         2023-10-18 03:21 PM
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -189,7 +186,7 @@ export function Dashboard() {
                               size="icon"
                               variant="ghost"
                             >
-                              <MoveHorizontalIcon className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
                           </DropdownMenuTrigger>
@@ -202,7 +199,7 @@ export function Dashboard() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="hidden sm:table-cell">
+                      <TableCell className="sm:table-cell">
                         <img
                           alt="Product image"
                           className="aspect-square rounded-md object-cover"
@@ -214,17 +211,15 @@ export function Dashboard() {
                       <TableCell className="font-medium">
                         AeroGlow Desk Lamp
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant="outline">Active</Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        $39.99
-                      </TableCell>
+                      <TableCell>$39.99</TableCell>
                       <TableCell className="hidden md:table-cell">50</TableCell>
                       <TableCell className="hidden md:table-cell">
                         2023-11-29 08:15 AM
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -232,7 +227,7 @@ export function Dashboard() {
                               size="icon"
                               variant="ghost"
                             >
-                              <MoveHorizontalIcon className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
                           </DropdownMenuTrigger>
@@ -245,7 +240,7 @@ export function Dashboard() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="hidden sm:table-cell">
+                      <TableCell className="sm:table-cell">
                         <img
                           alt="Product image"
                           className="aspect-square rounded-md object-cover"
@@ -257,17 +252,15 @@ export function Dashboard() {
                       <TableCell className="font-medium">
                         TechTonic Energy Drink
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant="secondary">Draft</Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        $2.99
-                      </TableCell>
+                      <TableCell>$2.99</TableCell>
                       <TableCell className="hidden md:table-cell">0</TableCell>
                       <TableCell className="hidden md:table-cell">
                         2023-12-25 11:59 PM
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -275,7 +268,7 @@ export function Dashboard() {
                               size="icon"
                               variant="ghost"
                             >
-                              <MoveHorizontalIcon className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
                           </DropdownMenuTrigger>
@@ -288,7 +281,7 @@ export function Dashboard() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="hidden sm:table-cell">
+                      <TableCell className="sm:table-cell">
                         <img
                           alt="Product image"
                           className="aspect-square rounded-md object-cover"
@@ -300,17 +293,15 @@ export function Dashboard() {
                       <TableCell className="font-medium">
                         Gamer Gear Pro Controller
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant="outline">Active</Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        $59.99
-                      </TableCell>
+                      <TableCell>$59.99</TableCell>
                       <TableCell className="hidden md:table-cell">75</TableCell>
                       <TableCell className="hidden md:table-cell">
                         2024-01-01 12:00 AM
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -318,7 +309,7 @@ export function Dashboard() {
                               size="icon"
                               variant="ghost"
                             >
-                              <MoveHorizontalIcon className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
                           </DropdownMenuTrigger>
@@ -331,7 +322,7 @@ export function Dashboard() {
                       </TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell className="hidden sm:table-cell">
+                      <TableCell className="sm:table-cell">
                         <img
                           alt="Product image"
                           className="aspect-square rounded-md object-cover"
@@ -343,17 +334,15 @@ export function Dashboard() {
                       <TableCell className="font-medium">
                         Luminous VR Headset
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <Badge variant="outline">Active</Badge>
                       </TableCell>
-                      <TableCell className="hidden md:table-cell">
-                        $199.99
-                      </TableCell>
+                      <TableCell>$199.99</TableCell>
                       <TableCell className="hidden md:table-cell">30</TableCell>
                       <TableCell className="hidden md:table-cell">
                         2024-02-14 02:14 PM
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="hidden md:table-cell">
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button
@@ -361,7 +350,7 @@ export function Dashboard() {
                               size="icon"
                               variant="ghost"
                             >
-                              <MoveHorizontalIcon className="h-4 w-4" />
+                              <MoreHorizontal className="h-4 w-4" />
                               <span className="sr-only">Toggle menu</span>
                             </Button>
                           </DropdownMenuTrigger>
@@ -448,27 +437,6 @@ function ListFilterIcon(props) {
       <path d="M3 6h18" />
       <path d="M7 12h10" />
       <path d="M10 18h4" />
-    </svg>
-  )
-}
-
-function MoveHorizontalIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="18 8 22 12 18 16" />
-      <polyline points="6 8 2 12 6 16" />
-      <line x1="2" x2="22" y1="12" y2="12" />
     </svg>
   )
 }

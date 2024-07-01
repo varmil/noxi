@@ -1,10 +1,6 @@
-import {
-  ClassSerializerInterceptor,
-  Inject,
-  Injectable,
-  UseInterceptors
-} from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { ChannelRepository } from '@domain/youtube/Channel.repository'
+import { Channels } from '@domain/youtube/Channels.collection'
 
 // TODO:
 // Use DataApiInfraService directly from Scenario
@@ -19,8 +15,7 @@ export class ChannelsService {
     private readonly channelRepository: ChannelRepository
   ) {}
 
-  @UseInterceptors(ClassSerializerInterceptor)
-  async findAll() {
+  async findAll(): Promise<Channels> {
     try {
       const channels = await this.channelRepository.findAll({})
       return channels
