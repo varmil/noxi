@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
-import Page from '../components/Page'
-import YoutubeChannelRanking from '../features/youtube/channel/Ranking'
+import Page from 'components/Page'
 import Site from './config/constants/Site'
+import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
+import { YoutubeDashboard } from 'features/youtube/YoutubeDashboard'
 
 export const metadata: Metadata = {
   title: `チャンネル | ${Site.TITLE}`,
@@ -11,7 +12,14 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <Page>
-      <YoutubeChannelRanking />
+      <GlobalBreadcrumb
+        items={[
+          { href: '#', name: 'Home' },
+          { href: '#', name: 'Youtube' },
+          { href: '#', name: 'Channels' }
+        ]}
+      />
+      <YoutubeDashboard />
     </Page>
   )
 }
