@@ -6,6 +6,8 @@ export default {
     './@/**/*.{ts,tsx}',
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
+    './features/**/*.{ts,tsx}',
+    './lib/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}'
   ],
   prefix: '',

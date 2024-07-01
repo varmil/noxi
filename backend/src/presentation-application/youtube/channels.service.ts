@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ChannelRepository } from '@domain/youtube/Channel.repository'
+import { Channels } from '@domain/youtube/Channels.collection'
 
 // TODO:
 // Use DataApiInfraService directly from Scenario
@@ -14,11 +15,10 @@ export class ChannelsService {
     private readonly channelRepository: ChannelRepository
   ) {}
 
-  // TODO: use class serializer
-  async findAll(): Promise<string> {
+  async findAll(): Promise<Channels> {
     try {
       const channels = await this.channelRepository.findAll({})
-      return JSON.stringify(channels)
+      return channels
     } catch (error) {
       console.error('Error fetching data from YouTube API', error)
     }

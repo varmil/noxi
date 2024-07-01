@@ -2,7 +2,14 @@
   "name": "noxi",
   "version": "1.0.0",
   "scripts": {
-    "emulator": "firebase emulators:start"
+    "emulator": "firebase emulators:start",
+    "conc": "npx ts-node scripts/concurrently/main"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.9"
+  }
 }

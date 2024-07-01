@@ -32,7 +32,7 @@ interface SearchListItem {
 //   publishedAt: SearchListItem['snippet']['publishedAt']
 // }
 
-const PER_PAGE = 5 // 50
+const PER_PAGE = 50 // 50
 
 @Injectable()
 export class YoutubeDataApiInfrastructureService {
