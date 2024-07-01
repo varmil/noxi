@@ -1,5 +1,5 @@
 import { DollarSignIcon, UsersIcon } from 'lucide-react'
-import { StaticImport } from 'next/dist/shared/lib/get-img-props'
+import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PropsWithoutRef } from 'react'
@@ -20,14 +20,7 @@ export default function ChannelCard({ name, src }: PropsWithoutRef<Props>) {
         alt={`チャンネル: ${name}`}
         width={300}
         height={200}
-        //   className="object-cover w-[30%] h-full rounded-l-lg"
-        style={{
-          objectFit: 'cover',
-          width: '30%',
-          height: '100%',
-          borderTopLeftRadius: 'var(--radius)',
-          borderBottomLeftRadius: 'var(--radius)'
-        }}
+        className="object-cover w-[30%] h-full rounded-l-lg"
         priority={false}
       />
       <div className="px-4 py-2 bg-background flex-1 w-[70%]">

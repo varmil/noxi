@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "lint": "next lint",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc --noEmit --pretty --project tsconfig.watch.json",
     "dev": "next",
     "build": "next build",
     "start": "next start"
