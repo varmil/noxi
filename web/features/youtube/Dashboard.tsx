@@ -22,7 +22,7 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
-import { V0Cards } from '@/components/V0Cards'
+import { ChannelCards } from 'features/youtube/channel/ChannelCards'
 
 export function Dashboard() {
   return (
@@ -77,13 +77,12 @@ export function Dashboard() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* <V0Table /> */}
-                <V0Cards />
+                <ChannelCards />
               </CardContent>
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
                   Showing <strong>1-10</strong> of <strong>32</strong>
-                  products
+                  channels
                 </div>
               </CardFooter>
             </Card>
@@ -111,26 +110,6 @@ function CirclePlusIcon(props) {
       <circle cx="12" cy="12" r="10" />
       <path d="M8 12h8" />
       <path d="M12 8v8" />
-    </svg>
-  )
-}
-
-function FileIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
     </svg>
   )
 }

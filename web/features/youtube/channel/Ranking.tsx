@@ -1,5 +1,5 @@
-import { Dashboard } from '@/components/dashboard'
-import GlobalBreadcrumb from '../../../components/GlobalBreadcrumb'
+import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
+import { Dashboard } from 'features/youtube/Dashboard'
 
 export default function YoutubeChannelRanking() {
   return (
