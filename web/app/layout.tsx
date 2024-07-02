@@ -1,29 +1,12 @@
 import './globals.css'
-import { GoogleTagManager } from '@next/third-parties/google'
-import { Metadata } from 'next'
-import Site from './config/constants/Site'
-import Aside from '../components/Aside'
+import { ReactNode } from 'react'
 
-export const metadata: Metadata = {
-  title: `${Site.TITLE}`,
-  description:
-    'This example shows how to use Next.js along with Google Analytics.'
+type Props = {
+  children: ReactNode
 }
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
-      <body>
-        <Aside />
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-muted/40">
-          {children}
-        </div>
-      </body>
-    </html>
-  )
+// Since we have a `not-found.tsx` page on the root, a layout file
+// is required, even if it's just passing children through.
+export default function RootLayout({ children }: Props) {
+  return children
 }

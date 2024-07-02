@@ -21,7 +21,7 @@ type Props = {
 
 export function ChannelCards({ channels }: PropsWithoutRef<Props>) {
   return (
-    <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <section className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
       {channels.map(channel => (
         <ChannelCard
           key={channel.id}

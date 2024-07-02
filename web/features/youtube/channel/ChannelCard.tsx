@@ -11,7 +11,7 @@ type Props = {
 
 export default function ChannelCard({ name, src }: PropsWithoutRef<Props>) {
   return (
-    <div className="relative overflow-hidden transition-transform duration-300 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center">
+    <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
       <Link href="#" className="absolute inset-0 z-10" prefetch={false}>
         <span className="sr-only">View Channel</span>
       </Link>
@@ -20,7 +20,7 @@ export default function ChannelCard({ name, src }: PropsWithoutRef<Props>) {
         alt={`チャンネル: ${name}`}
         width={300}
         height={200}
-        className="object-cover w-[30%] h-full rounded-l-lg"
+        className="object-cover w-[33%] h-full rounded-l-lg"
         priority={false}
       />
       <div className="px-4 py-2 bg-background flex-1 w-[70%]">
