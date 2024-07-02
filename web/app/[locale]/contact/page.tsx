@@ -1,7 +1,7 @@
-import Page from '../../components/Page'
+import Page from 'components/Page'
+import Site from 'config/constants/Site'
+import { Contact } from 'lucide-react'
 import { Metadata } from 'next'
-import Contact from '../../features/contact/Contact'
-import Site from '../config/constants/Site'
 
 export const metadata: Metadata = {
   title: `お問い合わせ | ${Site.TITLE}`,

@@ -19,7 +19,7 @@ import {
   SearchIcon
 } from 'lucide-react'
 import Link from 'next/link'
-import Site from '../app/config/constants/Site'
+import Site from '../config/constants/Site'
 import Logo from './Logo'
 
 export default function Header() {
