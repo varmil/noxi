@@ -1,3 +1,3 @@
 export default {
-  TITLE: 'Youtube | PeakX (ピークX)'
+  TITLE: 'Youtube | PeakX ピークX'
 }
