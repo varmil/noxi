@@ -5,7 +5,7 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
-import Link from 'next/link'
+import { Link } from 'components/navigation'
 import React, { PropsWithoutRef } from 'react'
 
 type Props = {

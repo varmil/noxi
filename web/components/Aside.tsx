@@ -5,10 +5,10 @@ import {
   TooltipContent
 } from '@/components/ui/tooltip'
 import { SettingsIcon, MountainIcon } from 'lucide-react'
-import Link from 'next/link'
 import { SVGProps } from 'react'
 import Logo from './Logo'
 import Site from 'config/constants/Site'
+import { Link } from 'components/navigation'
 
 export default function Aside() {
   return (

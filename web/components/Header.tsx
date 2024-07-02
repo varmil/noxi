@@ -18,9 +18,9 @@ import {
   LineChartIcon,
   SearchIcon
 } from 'lucide-react'
-import Link from 'next/link'
-import Site from '../config/constants/Site'
 import Logo from './Logo'
+import Site from 'config/constants/Site'
+import { Link } from 'components/navigation'
 
 export default function Header() {
   return (
@@ -86,7 +86,7 @@ export default function Header() {
         </SheetContent>
       </Sheet>
 
-      <Link href="#" className="flex items-center gap-2" prefetch={false}>
+      <Link href="/" className="flex items-center gap-2" prefetch={false}>
         <Logo className="w-6 h-6" />
         <span className="hidden md:flex text-lg font-bold">{Site.TITLE}</span>
       </Link>
