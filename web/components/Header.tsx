@@ -20,7 +20,7 @@ import {
 } from 'lucide-react'
 import Logo from './Logo'
 import Site from 'config/constants/Site'
-import { Link } from 'components/navigation'
+import { Link } from 'lib/navigation'
 
 export default function Header() {
   return (

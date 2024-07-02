@@ -1,5 +1,5 @@
 import createMiddleware from 'next-intl/middleware'
-import { locales } from 'config/locale'
+import { locales } from 'config/i18n/locale'
 
 export default createMiddleware({
   // A list of all locales that are supported

@@ -4,11 +4,11 @@ import {
   TooltipTrigger,
   TooltipContent
 } from '@/components/ui/tooltip'
-import { SettingsIcon, MountainIcon } from 'lucide-react'
+import { SettingsIcon } from 'lucide-react'
 import { SVGProps } from 'react'
 import Logo from './Logo'
 import Site from 'config/constants/Site'
-import { Link } from 'components/navigation'
+import { Link } from 'lib/navigation'
 
 export default function Aside() {
   return (

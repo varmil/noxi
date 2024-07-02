@@ -1,7 +1,7 @@
 import { GoogleTagManager } from '@next/third-parties/google'
 import Aside from 'components/Aside'
 import Site from 'config/constants/Site'
-import { locales } from 'config/locale'
+import { locales } from 'config/i18n/locale'
 import { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
