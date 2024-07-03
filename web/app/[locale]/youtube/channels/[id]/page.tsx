@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
 
-const channelName = 'ぷろと'
+const channelName = 'さいさーハウジングちゃんねる'
 
 type Props = {
   params: { locale: string; name: string }
