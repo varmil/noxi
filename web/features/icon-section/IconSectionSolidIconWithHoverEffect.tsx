@@ -1,47 +1,54 @@
 import IconBlock from 'features/icon-section/IconBlock'
-import {
-  BookOpenIcon,
-  ChevronRightIcon,
-  MessagesSquareIcon,
-  Settings2Icon,
-  TabletSmartphoneIcon
-} from 'lucide-react'
+import { Axe, Gamepad2, Play, Rainbow } from 'lucide-react'
 
 export default function IconSectionSolidIconWithHoverEffect() {
   return (
-    <div className="container px-0 py-24">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-2">
-        <IconBlock
-          icon={
-            <TabletSmartphoneIcon className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
-          }
-          title="Responsive"
-          description={
-            'Responsive, and mobile-first project on the web Responsive, and mobile-first project on the web'
-          }
-        />
-        <IconBlock
-          icon={
-            <Settings2Icon className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
-          }
-          title="Customizable"
-          description="Components are easily customized and extendable"
-        />
-        <IconBlock
-          icon={
-            <BookOpenIcon className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
-          }
-          title="Documentation"
-          description="Every component and plugin is well documented"
-        />
-        <IconBlock
-          icon={
-            <MessagesSquareIcon className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
-          }
-          title="24/7 Support"
-          description="Contact us 24 hours a day, 7 days a week"
-        />
-      </div>
-    </div>
+    <>
+      <section className="py-4">
+        <h3 className="mb-2 text-2xl lg:text-3xl">ゲーム</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-2">
+          <IconBlock
+            href="/youtube/queries/apex/channels"
+            icon={
+              <Axe className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
+            }
+            title="Apex Legends"
+            description={
+              '「エーペックスレジェンズ」は伝説の戦士が結集してフロンティアの辺境で富と名声を懸けて戦う、基本プレイ無料のヒーローシューター。'
+            }
+          />
+          <IconBlock
+            href="/youtube/queries/ff14/channels"
+            icon={
+              <Gamepad2 className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
+            }
+            title="FF14"
+            description="冒険者3000万突破のオンラインRPG。全ての冒険者よ、集え 仲間たちの待つエオルゼアの地へ。"
+          />
+        </div>
+      </section>
+
+      <section className="py-4">
+        <h3 className="mb-2 text-2xl lg:text-3xl">VTuber</h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-2">
+          <IconBlock
+            href="/youtube/queries/hololive/channels"
+            icon={
+              <Play className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
+            }
+            title="ホロライブ"
+            description="ゲーム実況や歌、雑談やコラボ配信などバラエティ豊かなライブ配信をしています。"
+          />
+          <IconBlock
+            href="/youtube/queries/nijisanji/channels"
+            icon={
+              <Rainbow className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
+            }
+            title="にじさんじ"
+            description="個性豊かな約150名のライバーが所属し、YouTubeなどの動画配信プラットフォームで活動しています。"
+          />
+        </div>
+      </section>
+    </>
   )
 }
