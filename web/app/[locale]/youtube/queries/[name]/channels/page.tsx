@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 
 type Props = {
-  params: { locale: string }
+  params: { locale: string; name: string }
 }
 
 export async function generateMetadata({
@@ -21,19 +21,24 @@ export async function generateMetadata({
   }
 }
 
-export default function IndexPage({ params: { locale } }: Props) {
+export default function YoutubeQueriesNameChannelsPage({
+  params: { locale, name }
+}: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
+
+  const t = useTranslations('Breadcrumb')
 
   return (
     <Page>
       <GlobalBreadcrumb
         items={[
           { href: '#', name: 'Home' },
-          { href: '#', name: 'Youtube' }
+          { href: '#', name: 'Youtube' },
+          { href: '#', name: t('channels') }
         ]}
       />
-      Hello
+      <YoutubeDashboard keyword={name} />
     </Page>
   )
 }

@@ -24,9 +24,16 @@ import {
 } from '@/components/ui/card'
 import { ChannelCards } from 'features/youtube/channel/ChannelCards'
 import { getChannels } from 'features/youtube/api/getChannels'
+import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 
-export async function YoutubeDashboard() {
+type Props = {
+  keyword: string
+}
+
+export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
   const channels = await getChannels()
+  const t = await getTranslations('YoutubeDashboard')
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -73,10 +80,9 @@ export async function YoutubeDashboard() {
           <TabsContent value="all">
             <Card x-chunk="dashboard-06-chunk-0">
               <CardHeader>
-                <CardTitle>Channels</CardTitle>
+                <CardTitle>{keyword} | Channels</CardTitle>
                 <CardDescription>
-                  日本のYoutube。 チャンネル登録者数Top
-                  100を誇る人気ユーチューバーたちのチャンネルランキングです。
+                  {t('description', { keyword })}
                 </CardDescription>
               </CardHeader>
               <CardContent>
