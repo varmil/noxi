@@ -16,12 +16,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'IndexPage' })
 
   return {
-    title: `${name}に関連するチャンネル | ${Site.TITLE}`,
-    description: `${name}に関連するチャンネル | ${Site.TITLE}`
+    title: `ぷろとのチャンネル情報 | ${Site.TITLE}`,
+    description: `ぷろとのチャンネル情報 | ${Site.TITLE}`
   }
 }
 
-export default function YoutubeQueriesNameChannelsPage({
+export default function YoutubeChannelsIdPage({
   params: { locale, name }
 }: Props) {
   // Enable static rendering
@@ -38,7 +38,7 @@ export default function YoutubeQueriesNameChannelsPage({
           { href: '#', name: t('channels') }
         ]}
       />
-      <YoutubeDashboard keyword={name} />
+      HELLO
     </Page>
   )
 }
