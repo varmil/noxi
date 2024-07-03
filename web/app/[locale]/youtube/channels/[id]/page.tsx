@@ -5,6 +5,9 @@ import { YoutubeDashboard } from 'features/youtube/components/YoutubeDashboard'
 import Site from 'config/constants/Site'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
+
+const channelName = 'ぷろと'
 
 type Props = {
   params: { locale: string; name: string }
@@ -16,8 +19,8 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'IndexPage' })
 
   return {
-    title: `ぷろとのチャンネル情報 | ${Site.TITLE}`,
-    description: `ぷろとのチャンネル情報 | ${Site.TITLE}`
+    title: `${channelName}のチャンネル情報 | ${Site.TITLE}`,
+    description: `${channelName}のチャンネル情報 | ${Site.TITLE}`
   }
 }
 
@@ -38,7 +41,7 @@ export default function YoutubeChannelsIdPage({
           { href: '#', name: t('channels') }
         ]}
       />
-      HELLO
+      <ChannelIdDashboard channelName={channelName} />
     </Page>
   )
 }
