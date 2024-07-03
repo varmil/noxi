@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Page from 'components/Page'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import { YoutubeDashboard } from 'features/youtube/YoutubeDashboard'
+import { YoutubeDashboard } from 'features/youtube/components/YoutubeDashboard'
 import Site from 'config/constants/Site'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'

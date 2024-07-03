@@ -22,7 +22,7 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
-import { ChannelCards } from 'features/youtube/channel/ChannelCards'
+import { ChannelCards } from 'features/youtube/components/channel/ChannelCards'
 import { getChannels } from 'features/youtube/api/getChannels'
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
