@@ -41,11 +41,11 @@ export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
         <Tabs defaultValue="all">
           <div className="flex items-center">
             <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="active">Active</TabsTrigger>
-              <TabsTrigger value="draft">Draft</TabsTrigger>
+              <TabsTrigger value="all">Apex</TabsTrigger>
+              <TabsTrigger value="active">FF14</TabsTrigger>
+              <TabsTrigger value="draft">ホロライブ</TabsTrigger>
               <TabsTrigger value="archived" className="hidden sm:flex">
-                Archived
+                にじさんじ
               </TabsTrigger>
             </TabsList>
             <div className="ml-auto flex items-center gap-2">
@@ -69,12 +69,12 @@ export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button size="sm" className="h-8 gap-1">
+              {/* <Button size="sm" className="h-8 gap-1">
                 <CirclePlusIcon className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                   Add Product
                 </span>
-              </Button>
+              </Button> */}
             </div>
           </div>
           <TabsContent value="all">
@@ -90,7 +90,7 @@ export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
               </CardContent>
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
-                  Showing <strong>1-10</strong> of <strong>32</strong>
+                  Showing <strong>1-50</strong> of <strong>706789 </strong>
                   channels
                 </div>
               </CardFooter>
