@@ -22,11 +22,18 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
-import { ChannelCards } from 'features/youtube/channel/ChannelCards'
+import { ChannelCards } from 'features/youtube/components/channel/ChannelCards'
 import { getChannels } from 'features/youtube/api/getChannels'
+import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 
-export async function YoutubeDashboard() {
+type Props = {
+  keyword: string
+}
+
+export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
   const channels = await getChannels()
+  const t = await getTranslations('YoutubeDashboard')
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -34,11 +41,11 @@ export async function YoutubeDashboard() {
         <Tabs defaultValue="all">
           <div className="flex items-center">
             <TabsList>
-              <TabsTrigger value="all">All</TabsTrigger>
-              <TabsTrigger value="active">Active</TabsTrigger>
-              <TabsTrigger value="draft">Draft</TabsTrigger>
+              <TabsTrigger value="all">Apex</TabsTrigger>
+              <TabsTrigger value="active">FF14</TabsTrigger>
+              <TabsTrigger value="draft">ホロライブ</TabsTrigger>
               <TabsTrigger value="archived" className="hidden sm:flex">
-                Archived
+                にじさんじ
               </TabsTrigger>
             </TabsList>
             <div className="ml-auto flex items-center gap-2">
@@ -62,21 +69,20 @@ export async function YoutubeDashboard() {
                 </DropdownMenuContent>
               </DropdownMenu>
 
-              <Button size="sm" className="h-8 gap-1">
+              {/* <Button size="sm" className="h-8 gap-1">
                 <CirclePlusIcon className="h-3.5 w-3.5" />
                 <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                   Add Product
                 </span>
-              </Button>
+              </Button> */}
             </div>
           </div>
           <TabsContent value="all">
             <Card x-chunk="dashboard-06-chunk-0">
               <CardHeader>
-                <CardTitle>Channels</CardTitle>
+                <CardTitle>{keyword} | Channels</CardTitle>
                 <CardDescription>
-                  日本のYoutube。 チャンネル登録者数Top
-                  100を誇る人気ユーチューバーたちのチャンネルランキングです。
+                  {t('description', { keyword })}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -84,7 +90,7 @@ export async function YoutubeDashboard() {
               </CardContent>
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
-                  Showing <strong>1-10</strong> of <strong>32</strong>
+                  Showing <strong>1-50</strong> of <strong>706789 </strong>
                   channels
                 </div>
               </CardFooter>

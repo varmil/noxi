@@ -5,5 +5,9 @@
   },
   "Breadcrumb": {
     "channels": "Channels"
+  },
+
+  "YoutubeDashboard": {
+    "description": "We will introduce you to YouTube channels related to {keyword}."
   }
 }
