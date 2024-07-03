@@ -4,7 +4,6 @@ export default {
   darkMode: ['class'],
   content: [
     './@/**/*.{ts,tsx}',
-    './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './features/**/*.{ts,tsx}',
     './lib/**/*.{ts,tsx}',
