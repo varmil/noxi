@@ -2,62 +2,150 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
+import { z } from 'zod'
 import {
   Select,
   SelectTrigger,
   SelectValue,
-  SelectContent,
-  SelectItem
-} from '@radix-ui/react-select'
-import { FormEventHandler } from 'react'
+  SelectItem,
+  SelectContent
+} from '@/components/ui/select'
+import { useForm } from 'react-hook-form'
+import { toast } from '@/components/ui/use-toast'
+
+const formSchema = z.object({
+  httpMethod: z.string(),
+  url: z
+    .string({
+      required_error: 'Please enter url to request.'
+    })
+    .url(),
+  body: z.string().optional(),
+  headers: z.string().optional()
+})
+
+type FormValues = z.infer<typeof formSchema>
+
+const defaultValues: Partial<FormValues> = {
+  httpMethod: 'POST',
+  url: 'http://localhost:15000/api/'
+}
 
 export function SuperAdminRequestForm() {
-  const onSubmit: FormEventHandler<HTMLFormElement> = e => {
-    console.log('submitted', e)
-    e.preventDefault()
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues,
+    mode: 'onChange'
+  })
+
+  const onSubmit = (data: FormValues) => {
+    console.log('submitted', data)
+
+    toast({
+      title: 'You submitted the following values:',
+      description: (
+        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      )
+    })
   }
 
   return (
-    <form className="grid gap-4" onSubmit={onSubmit}>
-      <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-        <Label htmlFor="method">HTTP Method</Label>
-        <Select defaultValue="GET">
-          <SelectTrigger>
-            <SelectValue placeholder="Select HTTP method" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="GET">GET</SelectItem>
-            <SelectItem value="POST">POST</SelectItem>
-            <SelectItem value="PUT">PUT</SelectItem>
-            <SelectItem value="DELETE">DELETE</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-        <Label htmlFor="url">URL</Label>
-        <Input
-          id="url"
-          type="text"
-          placeholder="https://api.example.com/endpoint"
+    <Form {...form}>
+      <form className="grid gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name={'httpMethod'}
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-[120px_1fr] items-center gap-4">
+              <FormLabel>HTTP Method</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select HTTP method" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="GET">GET</SelectItem>
+                  <SelectItem value="POST">POST</SelectItem>
+                  <SelectItem value="PUT">PUT</SelectItem>
+                  <SelectItem value="DELETE">DELETE</SelectItem>
+                </SelectContent>
+              </Select>
+            </FormItem>
+          )}
         />
-      </div>
-      <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-        <Label htmlFor="body">Request Body</Label>
-        <Textarea id="body" rows={4} placeholder='{ "key": "value" }' />
-      </div>
-      <div className="grid grid-cols-[120px_1fr] items-center gap-4">
-        <Label htmlFor="headers">Headers</Label>
-        <Textarea
-          id="headers"
-          rows={4}
-          placeholder="Content-Type: application/json"
+
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-[120px_1fr] items-center gap-4">
+              <FormLabel>URL</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="https://api.example.com/endpoint"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </div>
-      <div className="flex justify-end">
-        <Button type="submit">Send Request</Button>
-      </div>
-    </form>
+
+        <FormField
+          control={form.control}
+          name="body"
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-[120px_1fr] items-center gap-4">
+              <FormLabel>Request Body</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder='{ "key": "value" }'
+                  className="resize"
+                  rows={4}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="headers"
+          render={({ field }) => (
+            <FormItem className="grid grid-cols-[120px_1fr] items-center gap-4">
+              <FormLabel>Headers</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Content-Type: application/json"
+                  className="resize"
+                  rows={4}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-end">
+          <Button type="submit">Send Request</Button>
+        </div>
+      </form>
+    </Form>
   )
 }

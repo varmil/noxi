@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster'
 import { GoogleTagManager } from '@next/third-parties/google'
 import Site from 'config/constants/Site'
 import { locales } from 'config/i18n/locale'
@@ -38,6 +39,7 @@ export default async function LocaleLayout({
       <body>
         <NextIntlClientProvider messages={messages}>
           {children}
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>
