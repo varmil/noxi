@@ -26,7 +26,9 @@ export function ChannelCards({ channels }: PropsWithoutRef<Props>) {
         <ChannelCard
           key={channel.id}
           name={channel.title}
+          description={channel.description}
           src={channel.thumbnails['medium'].url}
+          publishedAt={channel.publishedAt}
         />
       ))}
     </section>

@@ -13,6 +13,6 @@ export class ChannelsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async getChannels() {
-    return await this.channelsService.findAll()
+    return await this.channelsService.findAll({ limit: 50 })
   }
 }

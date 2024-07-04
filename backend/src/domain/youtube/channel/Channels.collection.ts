@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer'
-import { Channel } from './Channel.entity'
+import { Channel } from '@domain/youtube/channel/Channel.entity'
 
 export class Channels {
   constructor(private readonly list: Channel[]) {}

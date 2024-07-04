@@ -1,12 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { ChannelRepository } from '@domain/youtube/Channel.repository'
-import { Channels } from '@domain/youtube/Channels.collection'
-
-// TODO:
-// Use DataApiInfraService directly from Scenario
-// for scraping (<--> ChannelsService only treats Domain Objects)
-// DataApiInfraService --> (API) -->
-// ChannelsService.save() --> ChannelRepository.save() --> Firestore
+import { Channel } from '@domain/youtube/channel/Channel.entity'
+import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
+import { Channels } from '@domain/youtube/channel/Channels.collection'
 
 @Injectable()
 export class ChannelsService {
@@ -15,12 +10,18 @@ export class ChannelsService {
     private readonly channelRepository: ChannelRepository
   ) {}
 
-  async findAll(): Promise<Channels> {
+  async save(channel: Channel): Promise<void> {
+    await this.channelRepository.save(channel)
+    return
+  }
+
+  async findAll(args: { limit?: number }): Promise<Channels> {
     try {
-      const channels = await this.channelRepository.findAll({})
+      const channels = await this.channelRepository.findAll(args)
       return channels
     } catch (error) {
       console.error('Error fetching data from YouTube API', error)
+      return new Channels([])
     }
   }
 }

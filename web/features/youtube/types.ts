@@ -11,7 +11,7 @@ export type Channel = {
   title: string
   description: string
   thumbnails: Thumbnails
-  publishedAt: Date
+  publishedAt: string
 }
 
 export type Channels = Channel[]
