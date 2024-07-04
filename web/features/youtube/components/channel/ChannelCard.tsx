@@ -10,9 +10,15 @@ const id = 'abcd1234'
 type Props = {
   name: string
   src: string | StaticImport
+  description: string
+  publishedAt: string
 }
 
-export default function ChannelCard({ name, src }: PropsWithoutRef<Props>) {
+export default function ChannelCard({
+  name,
+  src,
+  publishedAt
+}: PropsWithoutRef<Props>) {
   return (
     <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
       <Link
@@ -42,7 +48,7 @@ export default function ChannelCard({ name, src }: PropsWithoutRef<Props>) {
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Cake className="w-4 h-4" />
-          <span>2019/07/01</span>
+          <span>{new Date(publishedAt).toDateString()}</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <UsersIcon className="w-4 h-4" />

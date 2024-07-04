@@ -8,7 +8,7 @@ interface Res {
 export async function getChannels(): Promise<Channels> {
   // const res = await fetchAPI('/api/youtube/channels', { cache: 'no-store' })
   const res = await fetchAPI('/api/youtube/channels', {
-    // next: { revalidate: 600 },
+    // next: { revalidate: 600 }
     cache: 'no-store'
   })
   // The return value is *not* serialized

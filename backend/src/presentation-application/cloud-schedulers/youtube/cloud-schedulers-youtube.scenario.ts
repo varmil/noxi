@@ -21,4 +21,16 @@ export class CloudSchedulersYoutubeScenario {
       })
     )
   }
+
+  async saveVideos() {
+    // TODO: use channelId or something to find the appropriate channel
+    const channels = await this.channelsService.findAll({
+      limit: FETCH_LIMIT
+    })
+    await Promise.all(
+      channels.map(async channel => {
+        await this.channelsService.save(channel)
+      })
+    )
+  }
 }

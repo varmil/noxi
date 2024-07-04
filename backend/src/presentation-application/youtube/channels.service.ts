@@ -3,12 +3,6 @@ import { Channel } from '@domain/youtube/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/Channel.repository'
 import { Channels } from '@domain/youtube/Channels.collection'
 
-// TODO:
-// Use DataApiInfraService directly from Scenario
-// for scraping (<--> ChannelsService only treats Domain Objects)
-// DataApiInfraService --> (API) -->
-// ChannelsService.save() --> ChannelRepository.save() --> Firestore
-
 @Injectable()
 export class ChannelsService {
   constructor(
@@ -21,9 +15,9 @@ export class ChannelsService {
     return
   }
 
-  async findAll(): Promise<Channels> {
+  async findAll(args: { limit?: number }): Promise<Channels> {
     try {
-      const channels = await this.channelRepository.findAll({})
+      const channels = await this.channelRepository.findAll(args)
       return channels
     } catch (error) {
       console.error('Error fetching data from YouTube API', error)
