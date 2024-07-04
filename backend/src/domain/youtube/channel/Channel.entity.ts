@@ -1,17 +1,4 @@
-type Thumbnails =
-  | Partial<
-      Record<
-        'default' | 'medium' | 'high' | 'standard' | 'maxres',
-        { url: string; width?: number; height?: number }
-      >
-    >
-  | {
-      (key: 'default' | 'medium' | 'high' | 'standard' | 'maxres'): {
-        url: string
-        width?: number
-        height?: number
-      }
-    }
+import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
 export class Channel {
   public readonly id: string

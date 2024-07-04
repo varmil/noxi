@@ -39,14 +39,19 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   // upsert with channel id
   async save(channel: Channel) {
     const { id, title, description, thumbnails, publishedAt } = channel
-    await admin.firestore().collection(this.COLLECTION_NAME).doc(id).set({
-      id,
-      title,
-      description,
-      thumbnails,
-      publishedAt,
-      updatedAt: admin.firestore.FieldValue.serverTimestamp()
-    })
+    await admin
+      .firestore()
+      .collection(this.COLLECTION_NAME)
+      .doc(id)
+      .withConverter(channelConverter)
+      .set({
+        id,
+        title,
+        description,
+        thumbnails,
+        publishedAt: admin.firestore.Timestamp.fromDate(publishedAt),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+      })
   }
 
   async findOne() {

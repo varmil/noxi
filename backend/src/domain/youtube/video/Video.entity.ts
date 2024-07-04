@@ -1,33 +1,14 @@
-interface _Video {
-  id: string
-  snippet: {
-    publishedAt: string
-    title: string
-    liveBroadcastContent: string
-  }
-  statistics: {
-    viewCount: string
-    likeCount: string
-    commentCount: string
-    engagementRate?: number
-  }
-}
+import { Snippet } from '@domain/youtube/video/Snippet'
+import { Statistics } from '@domain/youtube/video/Statistics'
 
 export class Video {
   public readonly id: string
-  public readonly title: string
-  public readonly description: string
-  public readonly publishedAt: Date
+  public readonly snippet: Snippet
+  public readonly statistics: Statistics
 
-  constructor(args: {
-    id: string
-    title: string
-    description: string
-    publishedAt: Date
-  }) {
+  constructor(args: { id: string; snippet: Snippet; statistics: Statistics }) {
     this.id = args.id
-    this.title = args.title
-    this.description = args.description
-    this.publishedAt = args.publishedAt
+    this.snippet = args.snippet
+    this.statistics = args.statistics
   }
 }

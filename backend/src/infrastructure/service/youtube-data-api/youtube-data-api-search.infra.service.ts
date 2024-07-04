@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import axios from 'axios'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
+import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
 interface SearchListItem {
   id: {
@@ -13,25 +14,11 @@ interface SearchListItem {
     description: string
 
     title: string
-    thumbnails: {
-      (key: 'default' | 'medium' | 'high' | 'standard' | 'maxres'): {
-        url: string
-        width: number
-        height: number
-      }
-    }
+    thumbnails: Thumbnails
 
     publishedAt: Date
   }
 }
-
-// interface Channel {
-//   id: SearchListItem['id']['channelId']
-//   title: SearchListItem['snippet']['title']
-//   description: SearchListItem['snippet']['description']
-//   thumbnails: SearchListItem['snippet']['thumbnails']
-//   publishedAt: SearchListItem['snippet']['publishedAt']
-// }
 
 const PER_PAGE = 50 // 50
 

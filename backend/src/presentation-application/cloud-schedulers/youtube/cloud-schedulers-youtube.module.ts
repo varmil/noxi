@@ -2,10 +2,10 @@ import { Module } from '@nestjs/common'
 import { CloudSchedulersYoutubeController } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.controller'
 import { CloudSchedulersYoutubeScenario } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.scenario'
 import { ChannelsService } from '@app/youtube/channels.service'
-import { ChannelInfraModule } from '@infra/youtube/channel.infra.module'
+import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
 @Module({
-  imports: [ChannelInfraModule],
+  imports: [YoutubeInfraModule],
   controllers: [CloudSchedulersYoutubeController],
   providers: [CloudSchedulersYoutubeScenario, ChannelsService]
 })
