@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
 import { Channel } from '@domain/youtube/Channel.entity'
+import { Channels } from '@domain/youtube/Channels.collection'
 
 interface SearchListItem {
   id: {
@@ -40,8 +41,9 @@ export class YoutubeDataApiSearchInfraService {
 
   constructor() {}
 
-  async getChannels(limit: number): Promise<Channel[]> {
-    return this._getChannels('', limit / PER_PAGE)
+  async getChannels({ limit }: { limit: number }): Promise<Channels> {
+    const channels = await this._getChannels('', Math.ceil(limit / PER_PAGE))
+    return new Channels(channels)
   }
 
   private async _getChannels(

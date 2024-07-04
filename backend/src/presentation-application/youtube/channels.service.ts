@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { Channel } from '@domain/youtube/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/Channel.repository'
 import { Channels } from '@domain/youtube/Channels.collection'
 
@@ -14,6 +15,11 @@ export class ChannelsService {
     @Inject('ChannelRepository')
     private readonly channelRepository: ChannelRepository
   ) {}
+
+  async save(channel: Channel): Promise<void> {
+    await this.channelRepository.save(channel)
+    return
+  }
 
   async findAll(): Promise<Channels> {
     try {
