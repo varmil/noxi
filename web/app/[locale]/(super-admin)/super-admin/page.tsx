@@ -1,5 +1,5 @@
+import { SuperAdminDashboard } from 'features/super-admin/components/SuperAdminDashboard'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { SuperAdminDashboard } from '@/components/super-admin-dashboard'
 
 type Props = {
   params: { locale: string }
