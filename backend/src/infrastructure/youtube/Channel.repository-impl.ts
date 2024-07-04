@@ -1,8 +1,8 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import admin from 'firebase-admin'
-import { Channel } from '@domain/youtube/Channel.entity'
-import { ChannelRepository } from '@domain/youtube/Channel.repository'
-import { Channels } from '@domain/youtube/Channels.collection'
+import { Channel } from '@domain/youtube/channel/Channel.entity'
+import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
+import { Channels } from '@domain/youtube/channel/Channels.collection'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 
