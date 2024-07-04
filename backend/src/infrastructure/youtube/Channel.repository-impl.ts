@@ -21,13 +21,14 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     return channels
   }
 
-  // TODO: unique upsert with id
+  // upsert with channel id
   async save(channel: Channel) {
     const { id, title, description, thumbnails, publishedAt } = channel
     await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
-      .add({ id, title, description, thumbnails, publishedAt })
+      .doc(id)
+      .set({ id, title, description, thumbnails, publishedAt })
   }
 
   async findOne() {

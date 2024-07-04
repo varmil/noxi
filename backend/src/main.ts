@@ -4,6 +4,8 @@ import { ClosedApiServerModule } from './closed-api-server.module'
 async function bootstrap() {
   const app = await NestFactory.create(ClosedApiServerModule)
 
+  app.enableCors()
+
   /**
    * /api/* にすべてマッピング
    */

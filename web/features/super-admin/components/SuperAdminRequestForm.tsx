@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select'
 import { useForm } from 'react-hook-form'
 import { toast } from '@/components/ui/use-toast'
+import { requestFromSuperAdmin } from 'features/super-admin/api/requestFromSuperAdmin'
 
 const formSchema = z.object({
   httpMethod: z.string(),
@@ -38,7 +39,7 @@ type FormValues = z.infer<typeof formSchema>
 
 const defaultValues: Partial<FormValues> = {
   httpMethod: 'POST',
-  url: 'http://localhost:15000/api/'
+  url: 'http://localhost:15000/api/cloud-schedulers/youtube/channels'
 }
 
 export function SuperAdminRequestForm() {
@@ -48,17 +49,27 @@ export function SuperAdminRequestForm() {
     mode: 'onChange'
   })
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     console.log('submitted', data)
 
-    toast({
-      title: 'You submitted the following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      )
-    })
+    try {
+      await requestFromSuperAdmin(data)
+
+      toast({
+        title: 'You submitted the following values:',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        )
+      })
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: 'There was a problem with your request.'
+      })
+    }
   }
 
   return (
@@ -95,7 +106,7 @@ export function SuperAdminRequestForm() {
               <FormLabel>URL</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="https://api.example.com/endpoint"
+                  placeholder="http://localhost:15000/api/cloud-schedulers/youtube/channels"
                   {...field}
                 />
               </FormControl>
