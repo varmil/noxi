@@ -35,7 +35,7 @@ interface SearchListItem {
 const PER_PAGE = 50 // 50
 
 @Injectable()
-export class YoutubeDataApiInfrastructureService {
+export class YoutubeDataApiSearchInfraService {
   private readonly API_KEY = process.env.YOUTUBE_DATA_API_KEY
 
   constructor() {}

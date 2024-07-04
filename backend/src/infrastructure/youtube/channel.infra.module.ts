@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common'
-import { YoutubeDataApiInfrastructureModule } from '@infra/service/youtube-data-api/youtube-data-api.infrastructure.module'
+import { YoutubeDataApiInfraModule } from '@infra/service/youtube-data-api/youtube-data-api.infra.module'
 import { ChannelRepositoryImpl } from '@infra/youtube/Channel.repository-impl'
 
 @Module({
-  imports: [YoutubeDataApiInfrastructureModule],
+  imports: [YoutubeDataApiInfraModule],
   providers: [
     ChannelRepositoryImpl,
     { provide: 'ChannelRepository', useClass: ChannelRepositoryImpl }
   ],
   exports: [
-    YoutubeDataApiInfrastructureModule,
+    YoutubeDataApiInfraModule,
     ChannelRepositoryImpl,
     { provide: 'ChannelRepository', useClass: ChannelRepositoryImpl }
   ]
 })
-export class ChannelInfrastructureModule {}
+export class ChannelInfraModule {}

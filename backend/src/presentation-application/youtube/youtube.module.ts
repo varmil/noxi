@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ChannelsController } from '@app/youtube/channels.controller'
 import { ChannelsService } from '@app/youtube/channels.service'
-import { ChannelInfrastructureModule } from '@infra/youtube/channel.infrastructure.module'
+import { ChannelInfraModule } from '@infra/youtube/channel.infra.module'
 
 @Module({
-  imports: [ChannelInfrastructureModule],
+  imports: [ChannelInfraModule],
   controllers: [ChannelsController],
   providers: [ChannelsService]
 })
