@@ -27,6 +27,7 @@ export class ChannelsService {
       return channels
     } catch (error) {
       console.error('Error fetching data from YouTube API', error)
+      return new Channels([])
     }
   }
 }
