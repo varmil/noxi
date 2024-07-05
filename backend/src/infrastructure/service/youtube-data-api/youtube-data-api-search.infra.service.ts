@@ -16,7 +16,7 @@ interface SearchListItem {
     title: string
     thumbnails: Thumbnails
 
-    publishedAt: Date
+    publishedAt: string // ISO 8601
   }
 }
 
@@ -40,22 +40,23 @@ export class YoutubeDataApiSearchInfraService {
     if (remainingTimes === 0) return []
 
     try {
-      const response = await axios.get(
-        'https://www.googleapis.com/youtube/v3/search',
-        {
-          params: {
-            part: 'snippet',
-            type: 'channel',
-            q: 'FF14',
-            maxResults: PER_PAGE,
-            order: 'title',
-            regionCode: 'JP',
-            relevanceLanguage: 'ja',
-            pageToken: pageToken,
-            key: this.API_KEY
-          }
+      const response = await axios.get<{
+        items: SearchListItem[]
+        pageInfo: { totalResults: number; resultsPerPage: number }
+        nextPageToken: string
+      }>('https://www.googleapis.com/youtube/v3/search', {
+        params: {
+          part: 'snippet',
+          type: 'channel',
+          q: 'FF14',
+          maxResults: PER_PAGE,
+          order: 'title',
+          regionCode: 'JP',
+          relevanceLanguage: 'ja',
+          pageToken: pageToken,
+          key: this.API_KEY
         }
-      )
+      })
 
       const channels: Channel[] = response.data.items.map(
         (item: SearchListItem): Channel => ({

@@ -8,4 +8,10 @@ export class Channels {
   map = <U>(
     callbackfn: (value: Channel, index: number, array: Channel[]) => U
   ): U[] => this.list.map(callbackfn)
+
+  @Exclude()
+  first = () => this.list[0]
+
+  @Exclude()
+  take = (n: number) => this.list.slice(0, n)
 }
