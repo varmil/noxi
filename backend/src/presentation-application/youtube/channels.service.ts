@@ -20,7 +20,7 @@ export class ChannelsService {
       const channels = await this.channelRepository.findAll(args)
       return channels
     } catch (error) {
-      console.error('Error fetching data from YouTube API', error)
+      console.error('Error fetching data from DB', error)
       return new Channels([])
     }
   }

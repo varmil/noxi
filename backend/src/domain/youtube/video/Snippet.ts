@@ -15,7 +15,7 @@ export class Snippet {
     title: string
     description: string
     thumbnails: Thumbnails
-    tags: string[]
+    tags?: string[]
     categoryId: string
   }) {
     this.publishedAt = args.publishedAt
@@ -23,7 +23,7 @@ export class Snippet {
     this.title = args.title
     this.description = args.description
     this.thumbnails = args.thumbnails
-    this.tags = args.tags
+    this.tags = args.tags ?? []
     this.categoryId = args.categoryId
   }
 }

@@ -16,9 +16,15 @@ export class CloudSchedulersYoutubeController {
     await this.cloudSchedulersYoutubeScenario.saveChannels()
   }
 
+  // TODO: select appropriate channels to update
   @Post('/videos')
   async saveVideos() {
-    // TODO: select appropriate channels to update
     await this.cloudSchedulersYoutubeScenario.saveVideos()
+  }
+
+  // TODO: select appropriate channels to update
+  @Post('/video-aggregations')
+  async saveVideoAggregations() {
+    await this.cloudSchedulersYoutubeScenario.saveVideoAggregations()
   }
 }
