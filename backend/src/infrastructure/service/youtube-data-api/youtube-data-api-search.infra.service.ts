@@ -48,7 +48,7 @@ export class YoutubeDataApiSearchInfraService {
         params: {
           part: 'snippet',
           type: 'channel',
-          q: 'FF14',
+          q: 'ホロライブ',
           maxResults: PER_PAGE,
           order: 'title',
           regionCode: 'JP',

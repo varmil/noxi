@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
+import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
 import { Snippet } from '@domain/youtube/video/Snippet'
 import { Statistics } from '@domain/youtube/video/Statistics'
 import { Video } from '@domain/youtube/video/Video.entity'
@@ -30,6 +31,10 @@ interface DataAPIVideo {
     viewCount?: string
     likeCount?: string
     commentCount?: string
+  }
+  liveStreamingDetails?: {
+    actualStartTime: string // ISO 8601
+    actualEndTime: string // ISO 8601
   }
 }
 const PER_PAGE = 50 // 50
@@ -64,7 +69,15 @@ export class YoutubeDataApiVideosInfraService {
               ...v.snippet,
               publishedAt: new Date(v.snippet.publishedAt)
             }),
-            statistics: new Statistics(v.statistics)
+            statistics: new Statistics(v.statistics),
+            liveStreamingDetails: v.liveStreamingDetails
+              ? new LiveStreamingDetails({
+                  actualStartTime: new Date(
+                    v.liveStreamingDetails.actualStartTime
+                  ),
+                  actualEndTime: new Date(v.liveStreamingDetails.actualEndTime)
+                })
+              : undefined
           })
       )
     )
@@ -102,7 +115,7 @@ export class YoutubeDataApiVideosInfraService {
         items: DataAPIVideo[]
       }>('https://www.googleapis.com/youtube/v3/videos', {
         params: {
-          part: 'snippet,statistics',
+          part: 'snippet,statistics,liveStreamingDetails',
           id: videoIds.join(','),
           key: this.API_KEY
         }
@@ -119,16 +132,6 @@ export class YoutubeDataApiVideosInfraService {
       nextPageToken = response.data.nextPageToken
       count += videoDetailsResponse.data.items.length
     } while (nextPageToken && count < limit)
-
-    // TODO: This should be the method in the Video entity
-    // 各動画のエンゲージメント率を計算
-    // videos.forEach(video => {
-    //   const viewCount = parseInt(video.statistics.viewCount)
-    //   const likeCount = parseInt(video.statistics.likeCount)
-    //   const commentCount = parseInt(video.statistics.commentCount)
-    //   const engagementCount = likeCount + commentCount
-    //   video.statistics.engagementRate = (engagementCount / viewCount) * 100
-    // })
 
     return videos
   }

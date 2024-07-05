@@ -29,6 +29,12 @@ export const videoSchema = z.object({
     likeCount: z.string(),
     commentCount: z.string()
   }),
+  liveStreamingDetails: z
+    .object({
+      actualStartTime: firestoreTimestampSchema,
+      actualEndTime: firestoreTimestampSchema
+    })
+    .optional(),
 
   updatedAt: firestoreFieldValueOrTimestampSchema
 })

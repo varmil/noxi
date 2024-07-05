@@ -86,7 +86,12 @@ export default function Header() {
         </SheetContent>
       </Sheet>
 
-      <Link href="/" className="flex items-center gap-2" prefetch={false}>
+      <Link
+        href="/"
+        className="flex items-center gap-2"
+        prefetch={false}
+        scroll={false}
+      >
         <Logo className="w-6 h-6" />
         <span className="hidden md:flex text-lg font-bold">{Site.TITLE}</span>
       </Link>
