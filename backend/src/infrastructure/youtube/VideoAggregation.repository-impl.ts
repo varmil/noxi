@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import admin from 'firebase-admin'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 import { VideoAggregationRepository } from '@domain/youtube/video-aggregation/VideoAggregation.repository'
+import { channelConverter } from '@infra/schema/ChannelSchema'
 import { videoAggregationConverter } from '@infra/schema/VideoAggregationSchema'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 
@@ -91,12 +92,12 @@ export class VideoAggregationRepositoryImpl
     // get sub collection doc
     const subDoc = dayjs().format('YYYY-MM')
 
-    // TODO: first write
+    // first write
     await admin
       .firestore()
       .collection('channel')
       .doc(channelId)
-      // .withConverter(videoAggregationConverter)
+      .withConverter(channelConverter)
       .set(
         {
           latestVideoAggregation: {
