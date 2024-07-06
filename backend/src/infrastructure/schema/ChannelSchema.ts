@@ -6,18 +6,21 @@ import {
 } from '@infra/schema/TimeStampSchema'
 
 export const channelSchema = z.object({
-  // This is the BasicInfo from /v3/search
-  id: z.string(),
-  title: z.string(),
-  description: z.string(),
-  thumbnails: z.record(
-    z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
-    z.object({
-      url: z.string(),
-      width: z.number().optional(),
-      height: z.number().optional()
-    })
-  ),
+  // from /v3/search
+  basicInfo: z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.string(),
+    thumbnails: z.record(
+      z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
+      z.object({
+        url: z.string(),
+        width: z.number().optional(),
+        height: z.number().optional()
+      })
+    ),
+    publishedAt: firestoreTimestampSchema
+  }),
 
   // from /v3/channels
   statistics: z
@@ -47,7 +50,6 @@ export const channelSchema = z.object({
     })
     .optional(),
 
-  publishedAt: firestoreTimestampSchema,
   updatedAt: firestoreFieldValueOrTimestampSchema
 })
 

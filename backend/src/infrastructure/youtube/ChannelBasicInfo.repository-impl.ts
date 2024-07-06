@@ -26,7 +26,9 @@ export class ChannelBasicInfoRepositoryImpl
 
     return new ChannelBasicInfos(
       channels.docs.map(doc => {
-        const { id, title, description, thumbnails, publishedAt } = doc.data()
+        const { id, title, description, thumbnails, publishedAt } =
+          doc.data().basicInfo
+
         return new ChannelBasicInfo({
           id,
           title,
@@ -46,14 +48,19 @@ export class ChannelBasicInfoRepositoryImpl
       .collection(this.COLLECTION_NAME)
       .doc(id)
       .withConverter(channelConverter)
-      .set({
-        id,
-        title,
-        description,
-        thumbnails,
-        publishedAt: admin.firestore.Timestamp.fromDate(publishedAt),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      })
+      .set(
+        {
+          basicInfo: {
+            id,
+            title,
+            description,
+            thumbnails,
+            publishedAt: admin.firestore.Timestamp.fromDate(publishedAt)
+          },
+          updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        },
+        { merge: true }
+      )
   }
 
   async findOne() {
