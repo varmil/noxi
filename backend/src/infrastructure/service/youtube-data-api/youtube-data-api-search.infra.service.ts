@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
-import { ChannelBasicInfo } from '@domain/youtube/channel/ChannelBasicInfo.entity'
-import { ChannelBasicInfos } from '@domain/youtube/channel/ChannelBasicInfos.collection'
+import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
+import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
 interface SearchListItem {

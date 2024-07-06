@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { ChannelBasicInfoRepository } from '@domain/youtube/channel/ChannelBasicInfo.repository'
-import { ChannelBasicInfos } from '@domain/youtube/channel/ChannelBasicInfos.collection'
+import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
+import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
 
 @Injectable()
 export class ChannelsService {

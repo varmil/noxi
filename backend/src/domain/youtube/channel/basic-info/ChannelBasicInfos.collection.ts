@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer'
-import { ChannelBasicInfo } from '@domain/youtube/channel/ChannelBasicInfo.entity'
+import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 
 export class ChannelBasicInfos {
   constructor(private readonly list: ChannelBasicInfo[]) {}
