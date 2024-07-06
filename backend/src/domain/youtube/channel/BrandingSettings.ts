@@ -6,7 +6,7 @@ export class BrandingSettings {
   public readonly country: Country
 
   constructor(args: { keywords: Keywords; country: Country }) {
-    this.keywords = args.keywords ?? new Keywords([])
+    this.keywords = args.keywords
     this.country = args.country
   }
 }

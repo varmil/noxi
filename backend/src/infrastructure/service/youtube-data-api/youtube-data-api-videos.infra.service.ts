@@ -121,13 +121,6 @@ export class YoutubeDataApiVideosInfraService {
         }
       })
 
-      console.log(
-        'videoDetailsResponse.items.tags:',
-        videoDetailsResponse.data.items
-          .map(i => i.snippet.tags)
-          .filter(i => i === undefined).length
-      )
-
       videos = videos.concat(videoDetailsResponse.data.items)
       nextPageToken = response.data.nextPageToken
       count += videoDetailsResponse.data.items.length

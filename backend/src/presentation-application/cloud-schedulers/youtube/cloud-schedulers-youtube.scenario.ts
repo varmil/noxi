@@ -73,7 +73,8 @@ export class CloudSchedulersYoutubeScenario {
 
     await Promise.all(
       basicInfos.take(TAKE).map(async basicInfo => {
-        // ここはFirestoreから取得でも可（事前に保存していれば）
+        // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
+        // ここはFirestoreから取得でも可（事前に保存していれば）。というか↑はFirestoreでWhereしないと厳しいか
         const videos = await this.videosInfraService.getVideos(basicInfo.id, {
           limit: FETCH_LIMIT
         })
@@ -101,7 +102,7 @@ export class CloudSchedulersYoutubeScenario {
     })
 
     await Promise.all(
-      channels.take(TAKE).map(async channel => {
+      channels.map(async channel => {
         await this.channelsService.save(channel)
       })
     )

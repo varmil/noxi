@@ -6,7 +6,8 @@ export class Country extends StringValueObject {
   @IsString()
   protected readonly val: string // JP
 
-  constructor(val: string) {
+  // TODO: default should not be JP
+  constructor(val = 'JP') {
     super(val)
     this.val = val
   }

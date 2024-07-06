@@ -63,30 +63,33 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       .collection(this.COLLECTION_NAME)
       .doc(id)
       .withConverter(channelConverter)
-      .set({
-        basicInfo: {
-          id,
-          title,
-          description,
-          thumbnails,
-          publishedAt: admin.firestore.Timestamp.fromDate(publishedAt)
-        },
-        statistics: statistics
-          ? {
-              viewCount: statistics.viewCount,
-              subscriberCount: statistics.subscriberCount,
-              videoCount: statistics.videoCount
-            }
-          : undefined,
-        brandingSettings: brandingSettings
-          ? {
-              keywords: brandingSettings.keywords.map(k => k.get()),
-              country: brandingSettings.country.get()
-            }
-          : undefined,
+      .set(
+        {
+          basicInfo: {
+            id,
+            title,
+            description,
+            thumbnails,
+            publishedAt: admin.firestore.Timestamp.fromDate(publishedAt)
+          },
+          statistics: statistics
+            ? {
+                viewCount: statistics.viewCount,
+                subscriberCount: statistics.subscriberCount,
+                videoCount: statistics.videoCount
+              }
+            : undefined,
+          brandingSettings: brandingSettings
+            ? {
+                keywords: brandingSettings.keywords.map(k => k.get()),
+                country: brandingSettings.country.get()
+              }
+            : undefined,
 
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      })
+          updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        },
+        { merge: true }
+      )
   }
 
   async findOne() {

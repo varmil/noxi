@@ -4,7 +4,6 @@ import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasi
 import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
 import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
 import { channelConverter } from '@infra/schema/ChannelSchema'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 
 @Injectable()
 export class ChannelBasicInfoRepositoryImpl
@@ -12,11 +11,11 @@ export class ChannelBasicInfoRepositoryImpl
 {
   private readonly COLLECTION_NAME = 'channel'
 
-  constructor(
-    private youtubeDataApiSearchInfraService: YoutubeDataApiSearchInfraService
-  ) {}
+  constructor() {}
 
-  async findAll({ limit = 50 }: { limit?: number }) {
+  async findAll({
+    limit = 50
+  }: Parameters<ChannelBasicInfoRepository['findAll']>[0]) {
     const channels = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
@@ -41,7 +40,7 @@ export class ChannelBasicInfoRepositoryImpl
   }
 
   // upsert with channel id
-  async save(basicInfo: ChannelBasicInfo) {
+  async save(basicInfo: Parameters<ChannelBasicInfoRepository['save']>[0]) {
     const { id, title, description, thumbnails, publishedAt } = basicInfo
     await admin
       .firestore()
