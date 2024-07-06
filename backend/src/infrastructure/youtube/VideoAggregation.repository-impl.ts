@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common'
+import dayjs from 'dayjs'
 import admin from 'firebase-admin'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 import { VideoAggregationRepository } from '@domain/youtube/video-aggregation/VideoAggregation.repository'
 import { videoAggregationConverter } from '@infra/schema/VideoAggregationSchema'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
-
-// TODO: impl dayjs?
-const subDoc = '2024-07'
 
 @Injectable()
 export class VideoAggregationRepositoryImpl
@@ -22,6 +20,9 @@ export class VideoAggregationRepositoryImpl
   async findOne({
     where: { channelId }
   }: Parameters<VideoAggregationRepository['findOne']>[0]) {
+    // TODO: impl dayjs?
+    const subDoc = '2024-07'
+
     const videoAggregations = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
@@ -86,6 +87,9 @@ export class VideoAggregationRepositoryImpl
       liveFrequency,
       averageEngagementRate
     } = data
+
+    // get sub collection doc
+    const subDoc = dayjs().format('YYYY-MM')
 
     // TODO: first write
     await admin
