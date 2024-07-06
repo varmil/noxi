@@ -1,6 +1,9 @@
+/**
+ * 88 240 880
+ */
 export type Thumbnails = Partial<
   Record<
-    'default' | 'medium' | 'high' | 'standard' | 'maxres',
+    'default' | 'medium' | 'high',
     { url: string; width?: number; height?: number }
   >
 >

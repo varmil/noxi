@@ -5,25 +5,51 @@ import {
   firestoreTimestampSchema
 } from '@infra/schema/TimeStampSchema'
 
-// スキーマを定義
 export const channelSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  description: z.string(),
-  thumbnails: z.record(
-    z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
-    z.object({
-      url: z.string(),
-      width: z.number().optional(),
-      height: z.number().optional()
+  // from /v3/search
+  basicInfo: z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.string(),
+    thumbnails: z.record(
+      z.enum(['default', 'medium', 'high']),
+      z.object({
+        url: z.string(),
+        width: z.number().optional(),
+        height: z.number().optional()
+      })
+    ),
+    publishedAt: firestoreTimestampSchema
+  }),
+
+  // from /v3/channels
+  statistics: z
+    .object({
+      viewCount: z.string(),
+      subscriberCount: z.string(),
+      videoCount: z.string()
     })
-  ),
-  publishedAt: firestoreTimestampSchema,
+    .optional(),
+  brandingSettings: z
+    .object({
+      keywords: z.array(z.string()),
+      country: z.string()
+    })
+    .optional(),
+
+  // from VideoAggregation
+  latestVideoAggregation: z
+    .object({
+      averageViews: z.number(),
+      uploadFrequency: z.number(),
+      liveFrequency: z.number(),
+      averageEngagementRate: z.number().min(0).max(100),
+      updatedAt: firestoreFieldValueOrTimestampSchema
+    })
+    .optional(),
+
   updatedAt: firestoreFieldValueOrTimestampSchema
 })
 
-// スキーマをもとに型を作成
 export type ChannelSchema = z.infer<typeof channelSchema>
-
-// スキーマをもとにコンバーターを作成
 export const channelConverter = converter(channelSchema)

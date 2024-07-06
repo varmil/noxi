@@ -3,6 +3,16 @@ import { Videos } from '@domain/youtube/video/Videos.collection'
 
 /**
  * 通常、１Channel = １VideoAggregation
+ *
+ * TODO:
+ * shortVideoViews regularVideoViews の区別
+ * 変動指数（ショート、通常）：指数数値が大きければ大きいほど、コンテンツのインプッションが不安定になります。0-1は優秀，1-2は良好，2-3は普通，3-4は合格，4-5は悪い
+ *
+ * uploadFrequencyのショート、通常区別
+ * 平均投稿頻度：コンテンツの投稿頻度と示します。アクティブ程度と安定性を表す重要な指標になります。
+ *
+ * averageEngagementRateのショート、通常区別
+ * 0.59%-2.6% というのは登録者数相当のチャンネルの平均エンゲージメント数値です
  */
 export class VideoAggregation {
   public readonly averageViews: number

@@ -1,36 +1,35 @@
 import { Metadata } from 'next'
 import Page from 'components/Page'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import { YoutubeDashboard } from 'features/youtube/components/YoutubeDashboard'
 import Site from 'config/constants/Site'
-import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
-
-const channelName = 'さいさーハウジングちゃんねる'
+import { getChannel } from 'features/youtube/api/getChannel'
 
 type Props = {
-  params: { locale: string; name: string }
+  params: { locale: string; id: string }
 }
 
 export async function generateMetadata({
-  params: { locale, name }
+  params: { locale, id }
 }: Props): Promise<Metadata> {
+  const { basicInfo } = await getChannel(id)
   const t = await getTranslations({ locale, namespace: 'IndexPage' })
 
   return {
-    title: `${channelName}のチャンネル情報 | ${Site.TITLE}`,
-    description: `${channelName}のチャンネル情報 | ${Site.TITLE}`
+    title: `${basicInfo.title}のチャンネル情報 | ${Site.TITLE}`,
+    description: `${basicInfo.title}のチャンネル情報 | ${Site.TITLE}`
   }
 }
 
-export default function YoutubeChannelsIdPage({
-  params: { locale, name }
+export default async function YoutubeChannelsIdPage({
+  params: { locale, id }
 }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
-  const t = useTranslations('Breadcrumb')
+  const { basicInfo } = await getChannel(id)
+  const t = await getTranslations('Breadcrumb')
 
   return (
     <Page>
@@ -38,10 +37,11 @@ export default function YoutubeChannelsIdPage({
         items={[
           { href: '/', name: 'Home' },
           { href: '/', name: 'Youtube' },
-          { href: '#', name: t('channels') }
+          { href: '#', name: t('channels') },
+          { href: '#', name: basicInfo.title }
         ]}
       />
-      <ChannelIdDashboard channelName={channelName} />
+      <ChannelIdDashboard id={id} />
     </Page>
   )
 }

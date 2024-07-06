@@ -12,27 +12,35 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 import ChannelCard from 'features/youtube/components/channel/ChannelCard'
-import { Channels } from 'features/youtube/types'
-import { PropsWithoutRef, Suspense } from 'react'
+import { ChannelSchema } from 'features/youtube/types'
+import { PropsWithoutRef } from 'react'
 
 type Props = {
-  channels: Channels
+  channels: ChannelSchema[]
 }
 
 export function ChannelCards({ channels }: PropsWithoutRef<Props>) {
   return (
     <section className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-      {channels.map(channel => (
-        <Suspense fallback={<p>Loading card...</p>} key={channel.id}>
+      {channels.map(channel => {
+        const {
+          basicInfo: { id, title, description, thumbnails, publishedAt },
+          statistics,
+          brandingSettings
+        } = channel
+        return (
           <ChannelCard
-            key={channel.id}
-            name={channel.title}
-            description={channel.description}
-            src={channel.thumbnails['medium'].url}
-            publishedAt={channel.publishedAt}
+            key={id}
+            id={id}
+            name={title}
+            description={description}
+            src={thumbnails['medium'].url}
+            totalViewCount={statistics.viewCount}
+            subscriberCount={statistics.subscriberCount}
+            publishedAt={publishedAt}
           />
-        </Suspense>
-      ))}
+        )
+      })}
     </section>
   )
 }

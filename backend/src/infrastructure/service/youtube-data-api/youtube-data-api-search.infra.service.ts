@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
-import { Channel } from '@domain/youtube/channel/Channel.entity'
-import { Channels } from '@domain/youtube/channel/Channels.collection'
+import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
+import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
 interface SearchListItem {
@@ -28,15 +28,22 @@ export class YoutubeDataApiSearchInfraService {
 
   constructor() {}
 
-  async getChannels({ limit }: { limit: number }): Promise<Channels> {
-    const channels = await this._getChannels('', Math.ceil(limit / PER_PAGE))
-    return new Channels(channels)
+  async getChannelBasicInfos({
+    limit
+  }: {
+    limit: number
+  }): Promise<ChannelBasicInfos> {
+    const basicInfos = await this._getBasicInfos(
+      '',
+      Math.ceil(limit / PER_PAGE)
+    )
+    return new ChannelBasicInfos(basicInfos)
   }
 
-  private async _getChannels(
+  private async _getBasicInfos(
     pageToken = '',
     remainingTimes = 1
-  ): Promise<Channel[]> {
+  ): Promise<ChannelBasicInfo[]> {
     if (remainingTimes === 0) return []
 
     try {
@@ -58,8 +65,8 @@ export class YoutubeDataApiSearchInfraService {
         }
       })
 
-      const channels: Channel[] = response.data.items.map(
-        (item: SearchListItem): Channel => ({
+      const basicInfos: ChannelBasicInfo[] = response.data.items.map(
+        (item: SearchListItem): ChannelBasicInfo => ({
           id: item.id.channelId,
           title: item.snippet.channelTitle,
           description: item.snippet.description,
@@ -71,14 +78,14 @@ export class YoutubeDataApiSearchInfraService {
 
       // 次のページがある場合、再帰的に取得
       if (response.data.nextPageToken) {
-        const nextPageChannelInfos = await this._getChannels(
+        const nextPageChannelInfos = await this._getBasicInfos(
           response.data.nextPageToken,
           remainingTimes - 1
         )
-        return channels.concat(nextPageChannelInfos)
+        return basicInfos.concat(nextPageChannelInfos)
       }
 
-      return channels
+      return basicInfos
     } catch (error) {
       console.error('Error fetching channel IDs from YouTube API', error)
       return []

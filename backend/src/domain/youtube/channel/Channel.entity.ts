@@ -1,23 +1,24 @@
-import { Thumbnails } from '@domain/youtube/image/Thumbnail'
+import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
+import { ChannelStatistics } from '@domain/youtube/channel/ChannelStatistics'
+import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 
+/**
+ * 本当は全チャンネル /v3/channels を１回でも回せば
+ * ChannelStatistics, BrandingSettings は
+ * データとして挿入されるので、そうなったらOptional外す
+ */
 export class Channel {
-  public readonly id: string
-  public readonly title: string
-  public readonly description: string
-  public readonly thumbnails: Thumbnails
-  public readonly publishedAt: Date
+  public readonly basicInfo: ChannelBasicInfo
+  public readonly statistics?: ChannelStatistics
+  public readonly brandingSettings?: BrandingSettings
 
   constructor(args: {
-    id: string
-    title: string
-    description: string
-    thumbnails: Thumbnails
-    publishedAt: Date
+    basicInfo: ChannelBasicInfo
+    statistics?: ChannelStatistics
+    brandingSettings?: BrandingSettings
   }) {
-    this.id = args.id
-    this.title = args.title
-    this.description = args.description
-    this.thumbnails = args.thumbnails
-    this.publishedAt = args.publishedAt
+    this.basicInfo = args.basicInfo
+    this.statistics = args.statistics
+    this.brandingSettings = args.brandingSettings
   }
 }

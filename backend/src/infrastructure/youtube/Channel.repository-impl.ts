@@ -1,20 +1,25 @@
-import { Injectable, NotImplementedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
+import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
+import { ChannelStatistics } from '@domain/youtube/channel/ChannelStatistics'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
-import { channelConverter } from '@infra/schema/ChannelSchema'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
+import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
+import { Country } from '@domain/youtube/channel/branding-settings/Country'
+import { Keyword } from '@domain/youtube/channel/branding-settings/Keyword'
+import { Keywords } from '@domain/youtube/channel/branding-settings/Keywords'
+import { channelConverter, ChannelSchema } from '@infra/schema/ChannelSchema'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
   private readonly COLLECTION_NAME = 'channel'
 
-  constructor(
-    private youtubeDataApiSearchInfraService: YoutubeDataApiSearchInfraService
-  ) {}
+  constructor() {}
 
-  async findAll({ limit = 50 }: { limit?: number }) {
+  async findAll({
+    limit
+  }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
     const channels = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
@@ -24,37 +29,84 @@ export class ChannelRepositoryImpl implements ChannelRepository {
 
     return new Channels(
       channels.docs.map(doc => {
-        const { id, title, description, thumbnails, publishedAt } = doc.data()
-        return new Channel({
-          id,
-          title,
-          description,
-          thumbnails,
-          publishedAt: publishedAt.toDate()
-        })
+        return this.toDomain(doc.data())
       })
     )
   }
 
+  async findById(
+    id: Parameters<ChannelRepository['findById']>[0]
+  ): Promise<Channel | null> {
+    const doc = await admin
+      .firestore()
+      .collection(this.COLLECTION_NAME)
+      .doc(id)
+      .withConverter(channelConverter)
+      .get()
+
+    const data = doc.data()
+    if (!data) return null
+
+    return this.toDomain(data)
+  }
+
   // upsert with channel id
-  async save(channel: Channel) {
-    const { id, title, description, thumbnails, publishedAt } = channel
+  async save(channel: Parameters<ChannelRepository['save']>[0]) {
+    const {
+      basicInfo: { id, title, description, thumbnails, publishedAt },
+      statistics,
+      brandingSettings
+    } = channel
     await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
       .doc(id)
       .withConverter(channelConverter)
-      .set({
-        id,
-        title,
-        description,
-        thumbnails,
-        publishedAt: admin.firestore.Timestamp.fromDate(publishedAt),
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
-      })
+      .set(
+        {
+          basicInfo: {
+            id,
+            title,
+            description,
+            thumbnails,
+            publishedAt: admin.firestore.Timestamp.fromDate(publishedAt)
+          },
+          statistics: statistics
+            ? {
+                viewCount: statistics.viewCount,
+                subscriberCount: statistics.subscriberCount,
+                videoCount: statistics.videoCount
+              }
+            : undefined,
+          brandingSettings: brandingSettings
+            ? {
+                keywords: brandingSettings.keywords.map(k => k.get()),
+                country: brandingSettings.country.get()
+              }
+            : undefined,
+
+          updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        },
+        { merge: true }
+      )
   }
 
-  async findOne() {
-    throw new NotImplementedException()
+  private toDomain(doc: ChannelSchema) {
+    const { basicInfo, statistics, brandingSettings } = doc
+    return new Channel({
+      basicInfo: new ChannelBasicInfo({
+        ...basicInfo,
+        publishedAt: basicInfo.publishedAt.toDate()
+      }),
+      statistics: statistics ? new ChannelStatistics(statistics) : undefined,
+      brandingSettings: brandingSettings
+        ? new BrandingSettings({
+            keywords: new Keywords(
+              brandingSettings.keywords.map(k => new Keyword(k))
+            ),
+            country: new Country(brandingSettings.country)
+          })
+        : undefined
+    })
   }
 }

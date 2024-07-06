@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common'
+import dayjs from 'dayjs'
 import admin from 'firebase-admin'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 import { VideoAggregationRepository } from '@domain/youtube/video-aggregation/VideoAggregation.repository'
+import { channelConverter } from '@infra/schema/ChannelSchema'
 import { videoAggregationConverter } from '@infra/schema/VideoAggregationSchema'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
-
-// TODO: impl dayjs?
-const subDoc = '2024-07'
 
 @Injectable()
 export class VideoAggregationRepositoryImpl
@@ -22,6 +21,9 @@ export class VideoAggregationRepositoryImpl
   async findOne({
     where: { channelId }
   }: Parameters<VideoAggregationRepository['findOne']>[0]) {
+    // TODO: impl dayjs?
+    const subDoc = '2024-07'
+
     const videoAggregations = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
@@ -39,35 +41,6 @@ export class VideoAggregationRepositoryImpl
 
     return new VideoAggregation(args)
   }
-
-  // async findAll({
-  //   where: { channelId },
-  //   limit = 30
-  // }: Parameters<VideoAggregationRepository['findAll']>[0]) {
-  //   const videoAggregations = await admin
-  //     .firestore()
-  //     .collection(this.COLLECTION_NAME)
-  //     .where('channelId', 'in', [...new Set(channelId)])
-  //     .limit(limit)
-  //     .withConverter(videoAggregationConverter)
-  //     .get()
-  //   return new VideoAggregations(
-  //     videoAggregations.docs.map(doc => {
-  //       const {
-  //         averageViews,
-  //         uploadFrequency,
-  //         liveFrequency,
-  //         averageEngagementRate
-  //       } = doc.data()
-  //       return new VideoAggregation({
-  //         averageViews,
-  //         uploadFrequency,
-  //         liveFrequency,
-  //         averageEngagementRate
-  //       })
-  //     })
-  //   )
-  // }
 
   /**
    * upsert with channel id
@@ -87,12 +60,15 @@ export class VideoAggregationRepositoryImpl
       averageEngagementRate
     } = data
 
-    // TODO: first write
+    // get sub collection doc
+    const subDoc = dayjs().format('YYYY-MM')
+
+    // first write
     await admin
       .firestore()
       .collection('channel')
       .doc(channelId)
-      // .withConverter(videoAggregationConverter)
+      .withConverter(channelConverter)
       .set(
         {
           latestVideoAggregation: {
