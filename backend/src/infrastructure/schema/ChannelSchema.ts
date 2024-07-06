@@ -12,7 +12,7 @@ export const channelSchema = z.object({
     title: z.string(),
     description: z.string(),
     thumbnails: z.record(
-      z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
+      z.enum(['default', 'medium', 'high']),
       z.object({
         url: z.string(),
         width: z.number().optional(),

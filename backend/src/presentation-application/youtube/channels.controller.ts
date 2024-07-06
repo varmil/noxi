@@ -2,6 +2,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Param,
   UseInterceptors
 } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels.service'
@@ -15,6 +16,12 @@ export class ChannelsController {
   @Get('/')
   async getChannels() {
     return await this.channelsService.findAll({ limit: 50 })
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get(':id')
+  async getChannel(@Param('id') id: string) {
+    return await this.channelsService.findById(id)
   }
 
   // NOTE: 使わないかも？

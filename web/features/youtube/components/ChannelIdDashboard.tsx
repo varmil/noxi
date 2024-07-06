@@ -1,17 +1,16 @@
-import { getChannels } from 'features/youtube/api/getChannels'
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import StatsCard from 'features/youtube/components/stats/StatsCard'
 import StatsProgressCard from 'features/youtube/components/stats/StatsProgressCard'
 import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
+import { getChannel } from 'features/youtube/api/getChannel'
 
 type Props = {
-  channelName: string
+  id: string
 }
 
-export async function ChannelIdDashboard({
-  channelName
-}: PropsWithoutRef<Props>) {
+export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
+  const { basicInfo, statistics, brandingSettings } = await getChannel(id)
   const t = await getTranslations('YoutubeDashboard')
 
   return (
@@ -20,10 +19,10 @@ export async function ChannelIdDashboard({
       {/* <div className="flex items-center"> */}
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <ChannelProfileHeader
-          src={
-            'https://yt3.ggpht.com/ytc/AIdro_mDfvpyERcscb5IkZJQgwbPOTHcgfnwEk9zI7SPDLetuQ=s240-c-k-c0xffffffff-no-rj-mo'
-          }
-          name={channelName}
+          src={basicInfo.thumbnails['medium'].url}
+          name={basicInfo.title}
+          description={basicInfo.description}
+          subscriberCount={statistics.subscriberCount}
         />
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
           <StatsCard />
