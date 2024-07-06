@@ -30,7 +30,13 @@ export class CloudSchedulersYoutubeScenario {
     )
   }
 
-  // Channel Category は Video から推測するしかないかも？
+  //
+  /**
+   * 毎月（？）呼ぶ想定で５０本だけ取得
+   * DBはPrimary Keyが videoId なのでupsertになる
+   *
+   * NOTE: Channel Category は Video から推測するしかないかも？
+   */
   async saveVideos() {
     const channels = await this.channelsService.findAll({
       limit: FETCH_LIMIT
