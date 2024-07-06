@@ -9,6 +9,8 @@ type Props = {
   name: string
   src: string | StaticImport
   description: string
+  totalViewCount: string
+  subscriberCount: string
   publishedAt: string
 }
 
@@ -16,6 +18,8 @@ export default function ChannelCard({
   id,
   name,
   src,
+  totalViewCount,
+  subscriberCount,
   publishedAt
 }: PropsWithoutRef<Props>) {
   return (
@@ -40,18 +44,20 @@ export default function ChannelCard({
 
         <div className="ra-val mb-0 sm:mb-2">
           <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
-            <span>最新動画の再生回数</span>
+            <span>動画の総再生回数</span>
           </div>
-          <span className="text-lg font-bold text-primary">123万4567回</span>
+          <span className="text-lg font-bold text-primary">
+            {totalViewCount}回
+          </span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Cake className="w-4 h-4" />
-          <span>{new Date(publishedAt).toDateString()}</span>
+          <UsersIcon className="w-4 h-4" />
+          <span>{subscriberCount} Subscribers</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <UsersIcon className="w-4 h-4" />
-          <span>3.45M Subscribers</span>
+          <Cake className="w-4 h-4" />
+          <span>{new Date(publishedAt).toDateString()}</span>
         </div>
       </div>
     </div>

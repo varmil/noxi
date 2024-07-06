@@ -35,6 +35,8 @@ export function ChannelCards({ channels }: PropsWithoutRef<Props>) {
             name={title}
             description={description}
             src={thumbnails['medium'].url}
+            totalViewCount={statistics.viewCount}
+            subscriberCount={statistics.subscriberCount}
             publishedAt={publishedAt}
           />
         )
