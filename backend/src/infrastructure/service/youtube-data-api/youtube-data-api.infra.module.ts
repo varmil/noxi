@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
 
@@ -6,8 +7,13 @@ import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-ap
   imports: [],
   providers: [
     YoutubeDataApiSearchInfraService,
-    YoutubeDataApiVideosInfraService
+    YoutubeDataApiVideosInfraService,
+    YoutubeDataApiChannelsInfraService
   ],
-  exports: [YoutubeDataApiSearchInfraService, YoutubeDataApiVideosInfraService]
+  exports: [
+    YoutubeDataApiSearchInfraService,
+    YoutubeDataApiVideosInfraService,
+    YoutubeDataApiChannelsInfraService
+  ]
 })
 export class YoutubeDataApiInfraModule {}

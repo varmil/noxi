@@ -1,5 +1,5 @@
 export type Thumbnails = {
-  (key: 'default' | 'medium' | 'high' | 'standard' | 'maxres'): {
+  (key: 'default' | 'medium' | 'high'): {
     url: string
     width: number
     height: number

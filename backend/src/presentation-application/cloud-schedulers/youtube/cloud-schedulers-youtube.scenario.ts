@@ -3,10 +3,12 @@ import { ChannelsService } from '@app/youtube/channels.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { VideosService } from '@app/youtube/videos.service'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
+import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
 
 const FETCH_LIMIT = 50
+const TAKE = 5
 
 @Injectable()
 export class CloudSchedulersYoutubeScenario {
@@ -15,7 +17,8 @@ export class CloudSchedulersYoutubeScenario {
     private readonly videosService: VideosService,
     private readonly aggregationsService: VideoAggregationsService,
     private readonly searchInfraService: YoutubeDataApiSearchInfraService,
-    private readonly videosInfraService: YoutubeDataApiVideosInfraService
+    private readonly videosInfraService: YoutubeDataApiVideosInfraService,
+    private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
   ) {}
 
   // TODO: N本以上投稿してるチャンネルのみ保存（効率化）
@@ -30,7 +33,6 @@ export class CloudSchedulersYoutubeScenario {
     )
   }
 
-  //
   /**
    * 毎月（？）呼ぶ想定で５０本だけ取得
    * DBはPrimary Keyが videoId なのでupsertになる
@@ -43,7 +45,7 @@ export class CloudSchedulersYoutubeScenario {
     })
 
     await Promise.all(
-      basicInfos.take(5).map(async basicInfo => {
+      basicInfos.take(TAKE).map(async basicInfo => {
         const videos = await this.videosInfraService.getVideos(basicInfo.id, {
           limit: FETCH_LIMIT
         })
@@ -70,7 +72,7 @@ export class CloudSchedulersYoutubeScenario {
     })
 
     await Promise.all(
-      basicInfos.take(5).map(async basicInfo => {
+      basicInfos.take(TAKE).map(async basicInfo => {
         // ここはFirestoreから取得でも可（事前に保存していれば）
         const videos = await this.videosInfraService.getVideos(basicInfo.id, {
           limit: FETCH_LIMIT
@@ -86,7 +88,24 @@ export class CloudSchedulersYoutubeScenario {
     )
   }
 
-  // TODO: call /v3/commentThreads
+  /**
+   * GET /v3/channels?channelId=A,B,C...
+   */
+  async saveChannels() {
+    const basicInfos = await this.channelsService.findAllBasicInfos({
+      limit: FETCH_LIMIT
+    })
 
-  // TODO: call /v3/channels?channelId=A,B,C...
+    const channels = await this.channelsInfraService.getChannels({
+      where: { channelIds: basicInfos.map(i => i.id) }
+    })
+
+    await Promise.all(
+      channels.take(TAKE).map(async channel => {
+        await this.channelsService.save(channel)
+      })
+    )
+  }
+
+  // TODO: call /v3/commentThreads
 }

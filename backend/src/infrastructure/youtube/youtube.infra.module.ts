@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { YoutubeDataApiInfraModule } from '@infra/service/youtube-data-api/youtube-data-api.infra.module'
+import { ChannelRepositoryImpl } from '@infra/youtube/Channel.repository-impl'
 import { ChannelBasicInfoRepositoryImpl } from '@infra/youtube/ChannelBasicInfo.repository-impl'
 import { VideoRepositoryImpl } from '@infra/youtube/Video.repository-impl'
 import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.repository-impl'
@@ -7,6 +8,11 @@ import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.
 @Module({
   imports: [YoutubeDataApiInfraModule],
   providers: [
+    ChannelRepositoryImpl,
+    {
+      provide: 'ChannelRepository',
+      useClass: ChannelRepositoryImpl
+    },
     ChannelBasicInfoRepositoryImpl,
     {
       provide: 'ChannelBasicInfoRepository',
@@ -22,6 +28,12 @@ import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.
   ],
   exports: [
     YoutubeDataApiInfraModule,
+
+    ChannelRepositoryImpl,
+    {
+      provide: 'ChannelRepository',
+      useClass: ChannelRepositoryImpl
+    },
     ChannelBasicInfoRepositoryImpl,
     {
       provide: 'ChannelBasicInfoRepository',
