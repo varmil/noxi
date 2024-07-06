@@ -1,27 +1,36 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Channel } from '@domain/youtube/channel/Channel.entity'
-import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
-import { Channels } from '@domain/youtube/channel/Channels.collection'
+import { ChannelBasicInfoRepository } from '@domain/youtube/channel/ChannelBasicInfo.repository'
+import { ChannelBasicInfos } from '@domain/youtube/channel/ChannelBasicInfos.collection'
 
 @Injectable()
 export class ChannelsService {
   constructor(
-    @Inject('ChannelRepository')
-    private readonly channelRepository: ChannelRepository
+    @Inject('ChannelBasicInfoRepository')
+    private readonly channelBasicInfoRepository: ChannelBasicInfoRepository
   ) {}
 
-  async save(channel: Channel): Promise<void> {
-    await this.channelRepository.save(channel)
-    return
+  async findAll(
+    args: Parameters<ChannelBasicInfoRepository['findAll']>[0]
+  ): Promise<ChannelBasicInfos> {
+    return await this.channelBasicInfoRepository.findAll(args)
   }
 
-  async findAll(args: { limit?: number }): Promise<Channels> {
-    try {
-      const channels = await this.channelRepository.findAll(args)
-      return channels
-    } catch (error) {
-      console.error('Error fetching data from DB', error)
-      return new Channels([])
-    }
+  // async save(
+  //   args: Parameters<ChannelBasicInfoRepository['findAll']>[0]
+  // ): Promise<ChannelBasicInfos> {
+  //   throw new NotImplementedException()
+  // }
+
+  async findAllBasicInfos(
+    args: Parameters<ChannelBasicInfoRepository['findAll']>[0]
+  ): Promise<ChannelBasicInfos> {
+    return await this.channelBasicInfoRepository.findAll(args)
+  }
+
+  async saveBasicInfo(
+    channelBasicInfo: Parameters<ChannelBasicInfoRepository['save']>[0]
+  ): Promise<void> {
+    await this.channelBasicInfoRepository.save(channelBasicInfo)
+    return
   }
 }

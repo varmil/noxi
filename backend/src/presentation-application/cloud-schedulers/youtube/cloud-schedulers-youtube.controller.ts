@@ -11,9 +11,9 @@ export class CloudSchedulersYoutubeController {
     private readonly cloudSchedulersYoutubeScenario: CloudSchedulersYoutubeScenario
   ) {}
 
-  @Post('/channels')
+  @Post('/channels/basic-infos')
   async saveChannels() {
-    await this.cloudSchedulersYoutubeScenario.saveChannels()
+    await this.cloudSchedulersYoutubeScenario.saveChannelBasicInfos()
   }
 
   // TODO: select appropriate channels to update
@@ -27,4 +27,10 @@ export class CloudSchedulersYoutubeController {
   async saveVideoAggregations() {
     await this.cloudSchedulersYoutubeScenario.saveVideoAggregations()
   }
+
+  // TODO: select appropriate channels to update
+  // @Post('/video-aggregations')
+  // async saveVideoAggregations() {
+  //   await this.cloudSchedulersYoutubeScenario.saveVideoAggregations()
+  // }
 }

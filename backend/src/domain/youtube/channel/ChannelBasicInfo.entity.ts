@@ -1,6 +1,6 @@
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
-export class Channel {
+export class ChannelBasicInfo {
   public readonly id: string
   public readonly title: string
   public readonly description: string

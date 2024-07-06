@@ -6,7 +6,7 @@ import {
 } from '@infra/schema/TimeStampSchema'
 
 export const channelSchema = z.object({
-  // from /v3/search
+  // This is the BasicInfo from /v3/search
   id: z.string(),
   title: z.string(),
   description: z.string(),

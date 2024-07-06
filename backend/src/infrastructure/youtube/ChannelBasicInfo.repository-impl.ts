@@ -1,13 +1,15 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import admin from 'firebase-admin'
-import { Channel } from '@domain/youtube/channel/Channel.entity'
-import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
-import { Channels } from '@domain/youtube/channel/Channels.collection'
+import { ChannelBasicInfo } from '@domain/youtube/channel/ChannelBasicInfo.entity'
+import { ChannelBasicInfoRepository } from '@domain/youtube/channel/ChannelBasicInfo.repository'
+import { ChannelBasicInfos } from '@domain/youtube/channel/ChannelBasicInfos.collection'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 
 @Injectable()
-export class ChannelRepositoryImpl implements ChannelRepository {
+export class ChannelBasicInfoRepositoryImpl
+  implements ChannelBasicInfoRepository
+{
   private readonly COLLECTION_NAME = 'channel'
 
   constructor(
@@ -22,10 +24,10 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       .withConverter(channelConverter)
       .get()
 
-    return new Channels(
+    return new ChannelBasicInfos(
       channels.docs.map(doc => {
         const { id, title, description, thumbnails, publishedAt } = doc.data()
-        return new Channel({
+        return new ChannelBasicInfo({
           id,
           title,
           description,
@@ -37,8 +39,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   // upsert with channel id
-  async save(channel: Channel) {
-    const { id, title, description, thumbnails, publishedAt } = channel
+  async save(basicInfo: ChannelBasicInfo) {
+    const { id, title, description, thumbnails, publishedAt } = basicInfo
     await admin
       .firestore()
       .collection(this.COLLECTION_NAME)

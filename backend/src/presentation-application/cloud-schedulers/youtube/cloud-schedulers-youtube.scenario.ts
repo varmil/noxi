@@ -19,13 +19,13 @@ export class CloudSchedulersYoutubeScenario {
   ) {}
 
   // TODO: N本以上投稿してるチャンネルのみ保存（効率化）
-  async saveChannels() {
-    const channels = await this.searchInfraService.getChannels({
+  async saveChannelBasicInfos() {
+    const basicInfos = await this.searchInfraService.getChannelBasicInfos({
       limit: FETCH_LIMIT
     })
     await Promise.all(
-      channels.map(async channel => {
-        await this.channelsService.save(channel)
+      basicInfos.map(async basicInfo => {
+        await this.channelsService.saveBasicInfo(basicInfo)
       })
     )
   }
@@ -38,13 +38,13 @@ export class CloudSchedulersYoutubeScenario {
    * NOTE: Channel Category は Video から推測するしかないかも？
    */
   async saveVideos() {
-    const channels = await this.channelsService.findAll({
+    const basicInfos = await this.channelsService.findAllBasicInfos({
       limit: FETCH_LIMIT
     })
 
     await Promise.all(
-      channels.take(5).map(async channel => {
-        const videos = await this.videosInfraService.getVideos(channel.id, {
+      basicInfos.take(5).map(async basicInfo => {
+        const videos = await this.videosInfraService.getVideos(basicInfo.id, {
           limit: FETCH_LIMIT
         })
 
@@ -65,21 +65,21 @@ export class CloudSchedulersYoutubeScenario {
    * このシナリオでは「直近の」動画のみを取得してヒストリ更新（差分更新に近い）
    */
   async saveVideoAggregations() {
-    const channels = await this.channelsService.findAll({
+    const basicInfos = await this.channelsService.findAllBasicInfos({
       limit: FETCH_LIMIT
     })
 
     await Promise.all(
-      channels.take(5).map(async channel => {
+      basicInfos.take(5).map(async basicInfo => {
         // ここはFirestoreから取得でも可（事前に保存していれば）
-        const videos = await this.videosInfraService.getVideos(channel.id, {
+        const videos = await this.videosInfraService.getVideos(basicInfo.id, {
           limit: FETCH_LIMIT
         })
 
         // NOTE: 直近１ヶ月Max50本だけ考慮したもので十分か？
         const aggregation = VideoAggregation.fromVideos(videos)
         await this.aggregationsService.save({
-          where: { channelId: channel.id },
+          where: { channelId: basicInfo.id },
           data: aggregation
         })
       })
