@@ -30,6 +30,7 @@ export class CloudSchedulersYoutubeScenario {
     )
   }
 
+  // Channel Category は Video から推測するしかないかも？
   async saveVideos() {
     const channels = await this.channelsService.findAll({
       limit: FETCH_LIMIT
@@ -51,7 +52,7 @@ export class CloudSchedulersYoutubeScenario {
   }
 
   /**
-   * 下記のダブルWrite戦略が妥当かも
+   * 下記のダブルWrite戦略
    * /channel/{channelId}/latestVideoAggregation
    * /videoAggregation/{channelId}/history/{year-month}
    *
