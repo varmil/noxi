@@ -4,10 +4,8 @@ import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
 import Image from 'next/image'
 import { PropsWithoutRef } from 'react'
 
-// TODO:
-const id = 'abcd1234'
-
 type Props = {
+  id: string
   name: string
   src: string | StaticImport
   description: string
@@ -15,6 +13,7 @@ type Props = {
 }
 
 export default function ChannelCard({
+  id,
   name,
   src,
   publishedAt

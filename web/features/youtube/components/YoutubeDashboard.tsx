@@ -24,7 +24,7 @@ import {
 } from '@/components/ui/card'
 import { ChannelCards } from 'features/youtube/components/channel/ChannelCards'
 import { getChannels } from 'features/youtube/api/getChannels'
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 type Props = {
@@ -86,7 +86,9 @@ export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <ChannelCards channels={channels} />
+                <Suspense fallback={<p>Loading cards...</p>}>
+                  <ChannelCards channels={channels} />
+                </Suspense>
               </CardContent>
               <CardFooter>
                 <div className="text-xs text-muted-foreground">
