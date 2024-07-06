@@ -5,11 +5,11 @@ const rootDir = process.cwd()
 
 concurrently(
   [
-    {
-      command: `npm run emulator`,
-      name: 'emu ',
-      cwd: path.resolve(rootDir)
-    },
+    // {
+    //   command: `npm run emulator`,
+    //   name: 'emu ',
+    //   cwd: path.resolve(rootDir)
+    // },
 
     {
       command: `npm run dev`,
