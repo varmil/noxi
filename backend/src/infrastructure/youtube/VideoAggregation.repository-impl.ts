@@ -42,35 +42,6 @@ export class VideoAggregationRepositoryImpl
     return new VideoAggregation(args)
   }
 
-  // async findAll({
-  //   where: { channelId },
-  //   limit = 30
-  // }: Parameters<VideoAggregationRepository['findAll']>[0]) {
-  //   const videoAggregations = await admin
-  //     .firestore()
-  //     .collection(this.COLLECTION_NAME)
-  //     .where('channelId', 'in', [...new Set(channelId)])
-  //     .limit(limit)
-  //     .withConverter(videoAggregationConverter)
-  //     .get()
-  //   return new VideoAggregations(
-  //     videoAggregations.docs.map(doc => {
-  //       const {
-  //         averageViews,
-  //         uploadFrequency,
-  //         liveFrequency,
-  //         averageEngagementRate
-  //       } = doc.data()
-  //       return new VideoAggregation({
-  //         averageViews,
-  //         uploadFrequency,
-  //         liveFrequency,
-  //         averageEngagementRate
-  //       })
-  //     })
-  //   )
-  // }
-
   /**
    * upsert with channel id
    *
