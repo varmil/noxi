@@ -6,8 +6,8 @@ import StatsBirthdayCard from 'features/youtube/components/stats/simple-card/Sta
 import StatsCumulativeVideoCard from 'features/youtube/components/stats/simple-card/StatsCumulativeUploadCard'
 import StatsCumulativeViewCard from 'features/youtube/components/stats/simple-card/StatsCumulativeViewCard'
 import StatsSubscriberCard from 'features/youtube/components/stats/simple-card/StatsSubscriberCard'
-import StatsProgressCard from 'features/youtube/components/stats/progress-card/StatsProgressCard'
 import StatsPopularityProgressCard from 'features/youtube/components/stats/progress-card/StatsPopularityProgressCard'
+import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
 
 type Props = {
   id: string
@@ -34,8 +34,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
             date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
           />
           <StatsPopularityProgressCard {...statistics} />
-          <StatsProgressCard />
-          <StatsProgressCard />
+          <StatsLoyaltyProgressCard {...statistics} />
         </div>
       </main>
     </div>

@@ -4,31 +4,31 @@ import StatsProgressCardContent from 'features/youtube/components/stats/progress
 import StatsProgressCardFooter from 'features/youtube/components/stats/progress-card/StatsProgressCardFooter'
 import StatsProgressCardHeader from 'features/youtube/components/stats/progress-card/StatsProgressCardHeader'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
-import { getPopularity } from 'features/youtube/utils/popularity'
+import { getLoyalty } from 'features/youtube/utils/loyalty'
 import { PropsWithoutRef } from 'react'
 
 type Props = ChannelSchema['statistics']
 
-export default function StatsPopularityProgressCard(
+export default function StatsLoyaltyProgressCard(
   props: PropsWithoutRef<Props>
 ) {
-  const popularity = getPopularity(props)
+  const loyalty = getLoyalty(props)
 
   return (
     <Card>
       <StatsProgressCardHeader
         description={
           <AnnotationText annotation="弊サービス独自指標です">
-            人気スコア
+            ファン獲得スコア
           </AnnotationText>
         }
-        mainText={popularity.toString()}
+        mainText={loyalty.toString()}
         subText="points"
       />
       <StatsProgressCardContent>
-        0-100。これまでの全活動を考慮したこのチャンネルの総合的な人気度
+        0-100。動画を見てくれた視聴者をファンに変えていく能力の高さ
       </StatsProgressCardContent>
-      <StatsProgressCardFooter value={popularity} label="25% increase" />
+      <StatsProgressCardFooter value={loyalty} label="25% increase" />
     </Card>
   )
 }
