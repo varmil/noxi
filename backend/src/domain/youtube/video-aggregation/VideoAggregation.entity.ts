@@ -1,35 +1,56 @@
+import { IsDecimal, IsInt, Min } from 'class-validator'
 import { Video } from '@domain/youtube/video/Video.entity'
 import { Videos } from '@domain/youtube/video/Videos.collection'
 
-/**
- * 通常、１Channel = １VideoAggregation
- *
- * TODO:
- * shortVideoViews regularVideoViews の区別
- * 変動指数（ショート、通常）：指数数値が大きければ大きいほど、コンテンツのインプッションが不安定になります。0-1は優秀，1-2は良好，2-3は普通，3-4は合格，4-5は悪い
- *
- * uploadFrequencyのショート、通常区別
- * 平均投稿頻度：コンテンツの投稿頻度と示します。アクティブ程度と安定性を表す重要な指標になります。
- *
- * averageEngagementRateのショート、通常区別
- * 0.59%-2.6% というのは登録者数相当のチャンネルの平均エンゲージメント数値です
- */
-export class VideoAggregation {
+class Aggregation {
+  @IsInt()
+  @Min(0)
   public readonly averageViews: number
-  public readonly uploadFrequency: number
-  public readonly liveFrequency: number
-  public readonly averageEngagementRate: number
+  @IsInt()
+  @Min(0)
+  public readonly frequency: number
+  @IsInt()
+  @Min(0)
+  public readonly averageEngagementCount: number
+  @IsDecimal({ decimal_digits: '2' })
+  @Min(0)
+  public readonly averageEngagementRate: string
 
   constructor(args: {
     averageViews: number
-    uploadFrequency: number
-    liveFrequency: number
+    frequency: number
+    averageEngagementCount: number
     averageEngagementRate: number
   }) {
-    this.averageViews = args.averageViews
-    this.uploadFrequency = args.uploadFrequency
-    this.liveFrequency = args.liveFrequency
-    this.averageEngagementRate = args.averageEngagementRate
+    this.averageViews = Math.round(args.averageViews)
+    this.frequency = Math.round(args.frequency)
+    this.averageEngagementCount = Math.round(args.averageEngagementCount)
+    this.averageEngagementRate = args.averageEngagementRate.toFixed(2)
+  }
+}
+
+/**
+ * １Channel = １VideoAggregation
+ *
+ * 変動指数（ショート、通常）：指数数値が大きければ大きいほど、コンテンツのインプッションが不安定になります。0-1は優秀，1-2は良好，2-3は普通，3-4は合格，4-5は悪い
+ *
+ * 平均投稿頻度：コンテンツの投稿頻度と示します。アクティブ程度と安定性を表す重要な指標になります。
+ *
+ * 0.59%-2.6% というのは登録者数相当のチャンネルの平均エンゲージメント数値です
+ */
+export class VideoAggregation {
+  public readonly regular: Aggregation
+  public readonly short: Aggregation
+  public readonly live: Aggregation
+
+  constructor(args: {
+    regular: Aggregation
+    short: Aggregation
+    live: Aggregation
+  }) {
+    this.regular = args.regular
+    this.short = args.short
+    this.live = args.live
   }
 
   static fromVideos(list: Video[] | Videos): VideoAggregation {
@@ -37,40 +58,61 @@ export class VideoAggregation {
   }
 
   private static calculateStats(videos: Video[] | Videos): VideoAggregation {
-    const now = new Date()
-    const oneMonthAgo = new Date(now.getMonth() - 1)
-    // oneMonthAgo.setMonth(now.getMonth() - 1
+    const { short, regular, live } = this.getRecentVideos(videos)
+    return new VideoAggregation({
+      regular: this.getAggregation(regular),
+      short: this.getAggregation(short),
+      live: this.getAggregation(live)
+    })
+  }
 
-    const views = videos.map(video => parseInt(video.statistics.viewCount))
-    const averageViews =
-      views.reduce((acc, curr) => acc + curr, 0) / views.length
+  private static getRecentVideos(videos: Video[] | Videos): {
+    short: Videos
+    regular: Videos
+    live: Videos
+  } {
+    const now = new Date()
+    const oneMonthAgo = new Date()
+    oneMonthAgo.setMonth(now.getMonth() - 1)
 
     const recentVideos = videos.filter(
       video => video.snippet.publishedAt > oneMonthAgo
     )
-    const uploadFrequency = recentVideos.length
 
-    // FIXME:
-    // const recentLiveVideos = recentVideos.filter(
-    //   video => video.snippet.liveBroadcastContent === 'live'
-    // )
-    // const liveFrequency = recentLiveVideos.length
-    const recentLiveVideos = recentVideos.filter(
-      video =>
-        video.liveStreamingDetails &&
-        new Date(video.liveStreamingDetails.actualStartTime) > oneMonthAgo
-    )
-    const liveFrequency = recentLiveVideos.length
+    return {
+      short: new Videos(recentVideos.filter(video => video.isShort())),
+      regular: new Videos(recentVideos.filter(video => !video.isShort())),
+      live: new Videos(
+        recentVideos.filter(
+          video =>
+            video.liveStreamingDetails &&
+            new Date(video.liveStreamingDetails.actualStartTime) > oneMonthAgo
+        )
+      )
+    }
+  }
+
+  private static getAggregation(videos: Videos): Aggregation {
+    const views = videos.map(video => video.statistics.viewCount)
+    let averageViews = views.reduce((acc, curr) => acc + curr, 0) / views.length
+    if (isNaN(averageViews)) averageViews = 0
+
+    const engagementCounts = videos.map(video => video.engagementCount() || 0)
+    let averageEngagementCount =
+      engagementCounts.reduce((acc, curr) => acc + curr, 0) /
+      engagementCounts.length
+    if (isNaN(averageEngagementCount)) averageEngagementCount = 0
 
     const engagementRates = videos.map(video => video.engagementRate() || 0)
-    const averageEngagementRate =
+    let averageEngagementRate =
       engagementRates.reduce((acc, curr) => acc + curr, 0) /
-      engagementRates.length
+        engagementRates.length ?? 0
+    if (isNaN(averageEngagementRate)) averageEngagementRate = 0
 
-    return new VideoAggregation({
+    return new Aggregation({
       averageViews,
-      uploadFrequency,
-      liveFrequency,
+      frequency: videos.length(),
+      averageEngagementCount,
       averageEngagementRate
     })
   }

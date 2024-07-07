@@ -53,13 +53,6 @@ export class VideoAggregationRepositoryImpl
     where: { channelId },
     data
   }: Parameters<VideoAggregationRepository['save']>[0]) {
-    const {
-      averageViews,
-      uploadFrequency,
-      liveFrequency,
-      averageEngagementRate
-    } = data
-
     // get sub collection doc
     const subDoc = dayjs().format('YYYY-MM')
 
@@ -72,10 +65,7 @@ export class VideoAggregationRepositoryImpl
       .set(
         {
           latestVideoAggregation: {
-            averageViews,
-            uploadFrequency,
-            liveFrequency,
-            averageEngagementRate,
+            ...data,
             updatedAt: admin.firestore.FieldValue.serverTimestamp()
           }
         },
@@ -91,10 +81,7 @@ export class VideoAggregationRepositoryImpl
       .doc(subDoc)
       .withConverter(videoAggregationConverter)
       .set({
-        averageViews,
-        uploadFrequency,
-        liveFrequency,
-        averageEngagementRate,
+        ...data,
         updatedAt: admin.firestore.FieldValue.serverTimestamp()
       })
   }

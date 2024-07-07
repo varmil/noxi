@@ -1,3 +1,4 @@
+import { videoAggregationSchema } from 'features/youtube/types/videoAggregationSchema'
 import { z } from 'zod'
 
 const channelSchema = z.object({
@@ -20,9 +21,9 @@ const channelSchema = z.object({
   // from /v3/channels
   statistics: z
     .object({
-      viewCount: z.string(),
-      subscriberCount: z.string(),
-      videoCount: z.string()
+      viewCount: z.number().min(0),
+      subscriberCount: z.number().min(0),
+      videoCount: z.number().min(0)
     })
     .optional(),
   brandingSettings: z
@@ -33,15 +34,7 @@ const channelSchema = z.object({
     .optional(),
 
   // from VideoAggregation
-  latestVideoAggregation: z
-    .object({
-      averageViews: z.number(),
-      uploadFrequency: z.number(),
-      liveFrequency: z.number(),
-      averageEngagementRate: z.number().min(0).max(100),
-      updatedAt: z.string()
-    })
-    .optional(),
+  latestVideoAggregation: videoAggregationSchema.optional(),
 
   updatedAt: z.string()
 })

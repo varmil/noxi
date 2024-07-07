@@ -5,6 +5,7 @@ import { locales } from 'config/i18n/locale'
 import { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import NextTopLoader from 'nextjs-toploader'
 import { ReactNode } from 'react'
 
 type Props = {
@@ -37,6 +38,7 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
       <body>
+        <NextTopLoader color="hsl(var(--primary))" showSpinner={false} />
         <NextIntlClientProvider messages={messages}>
           {children}
           <Toaster />

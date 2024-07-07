@@ -1,4 +1,4 @@
-import { ChannelsSchema } from 'features/youtube/types'
+import { ChannelsSchema } from 'features/youtube/types/channelSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 interface Res {

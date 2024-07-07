@@ -9,8 +9,8 @@ type Props = {
   name: string
   src: string | StaticImport
   description: string
-  totalViewCount: string
-  subscriberCount: string
+  totalViewCount: number
+  subscriberCount: number
   publishedAt: string
 }
 

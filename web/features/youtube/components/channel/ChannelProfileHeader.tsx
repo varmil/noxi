@@ -5,7 +5,7 @@ type Props = {
   name: string
   src: string
   description: string
-  subscriberCount: string
+  subscriberCount: number
 }
 
 export function ChannelProfileHeader({

@@ -24,10 +24,11 @@ export const videoSchema = z.object({
     tags: z.array(z.string()),
     categoryId: z.string()
   }),
+  duration: z.string().duration(),
   statistics: z.object({
-    viewCount: z.string(),
-    likeCount: z.string(),
-    commentCount: z.string()
+    viewCount: z.number().min(0),
+    likeCount: z.number().min(0),
+    commentCount: z.number().min(0)
   }),
   liveStreamingDetails: z
     .object({
