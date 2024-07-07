@@ -1,12 +1,13 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import StatsProgressCard from 'features/youtube/components/stats/StatsProgressCard'
 import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
 import { getChannel } from 'features/youtube/api/getChannel'
-import StatsPopularityCard from 'features/youtube/components/stats/card/StatsPopularityCard'
-import StatsSubscriberCard from 'features/youtube/components/stats/card/StatsSubscriberCard'
-import StatsCumulativeViewCard from 'features/youtube/components/stats/card/StatsCumulativeViewCard'
-import StatsCumulativeVideoCard from 'features/youtube/components/stats/card/StatsCumulativeUploadCard'
+import StatsBirthdayCard from 'features/youtube/components/stats/simple-card/StatsBirthdayCard'
+import StatsCumulativeVideoCard from 'features/youtube/components/stats/simple-card/StatsCumulativeUploadCard'
+import StatsCumulativeViewCard from 'features/youtube/components/stats/simple-card/StatsCumulativeViewCard'
+import StatsSubscriberCard from 'features/youtube/components/stats/simple-card/StatsSubscriberCard'
+import StatsProgressCard from 'features/youtube/components/stats/progress-card/StatsProgressCard'
+import StatsPopularityProgressCard from 'features/youtube/components/stats/progress-card/StatsPopularityProgressCard'
 
 type Props = {
   id: string
@@ -26,12 +27,13 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           subscriberCount={statistics.subscriberCount}
         />
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-          <StatsPopularityCard />
-          <StatsSubscriberCard count={statistics?.subscriberCount ?? 'N/A'} />
-          <StatsCumulativeViewCard count={statistics?.viewCount ?? 'N/A'} />
-          <StatsCumulativeVideoCard count={statistics?.videoCount ?? 'N/A'} />
-          <StatsProgressCard />
-          <StatsProgressCard />
+          <StatsSubscriberCard count={statistics?.subscriberCount ?? 0} />
+          <StatsCumulativeViewCard count={statistics?.viewCount ?? 0} />
+          <StatsCumulativeVideoCard count={statistics?.videoCount ?? 0} />
+          <StatsBirthdayCard
+            date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
+          />
+          <StatsPopularityProgressCard {...statistics} />
           <StatsProgressCard />
           <StatsProgressCard />
         </div>
@@ -57,27 +59,6 @@ function CirclePlusIcon(props) {
       <circle cx="12" cy="12" r="10" />
       <path d="M8 12h8" />
       <path d="M12 8v8" />
-    </svg>
-  )
-}
-
-function ListFilterIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 6h18" />
-      <path d="M7 12h10" />
-      <path d="M10 18h4" />
     </svg>
   )
 }

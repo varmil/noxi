@@ -26,9 +26,9 @@ export const channelSchema = z.object({
   // from /v3/channels
   statistics: z
     .object({
-      viewCount: z.string(),
-      subscriberCount: z.string(),
-      videoCount: z.string()
+      viewCount: z.number().min(0),
+      subscriberCount: z.number().min(0),
+      videoCount: z.number().min(0)
     })
     .optional(),
   brandingSettings: z

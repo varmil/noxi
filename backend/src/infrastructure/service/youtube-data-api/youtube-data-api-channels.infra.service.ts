@@ -57,7 +57,7 @@ export class YoutubeDataApiChannelsInfraService {
       channels.map(channel => {
         const {
           snippet: { title, description, thumbnails, publishedAt },
-          statistics,
+          statistics: { viewCount, subscriberCount, videoCount },
           brandingSettings
         } = channel
 
@@ -71,7 +71,11 @@ export class YoutubeDataApiChannelsInfraService {
             thumbnails,
             publishedAt: new Date(publishedAt)
           },
-          statistics: new ChannelStatistics(statistics),
+          statistics: new ChannelStatistics({
+            viewCount: Number(viewCount),
+            subscriberCount: Number(subscriberCount),
+            videoCount: Number(videoCount)
+          }),
           brandingSettings: new BrandingSettings({
             keywords: Keywords.fromString(keywords ?? ''),
             country: new Country(country)

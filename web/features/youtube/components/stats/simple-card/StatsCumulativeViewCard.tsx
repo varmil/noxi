@@ -1,11 +1,11 @@
 import { Play } from 'lucide-react'
 import { Card } from '@/components/ui/card'
-import StatsCardHeader from 'features/youtube/components/stats/card/StatsCardHeader'
-import StatsCardContent from 'features/youtube/components/stats/card/StatsCardContent'
+import StatsCardHeader from './StatsCardHeader'
+import StatsCardContent from './StatsCardContent'
 import { PropsWithoutRef } from 'react'
 
 type Props = {
-  count: string
+  count: number
 }
 
 export default function StatsCumulativeViewCard({
@@ -14,9 +14,7 @@ export default function StatsCumulativeViewCard({
   return (
     <Card>
       <StatsCardHeader Icon={Play}>Cumulative Views</StatsCardHeader>
-      <StatsCardContent subText="+18.1% from last week">
-        {count}
-      </StatsCardContent>
+      <StatsCardContent subText="動画の累計再生回数">{count}</StatsCardContent>
     </Card>
   )
 }
