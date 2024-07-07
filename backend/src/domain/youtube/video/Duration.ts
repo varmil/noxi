@@ -1,4 +1,4 @@
-import { IsISO8601, IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsString } from 'class-validator'
 import { StringValueObject } from '@domain/lib/StringValueObject'
 
 /**
