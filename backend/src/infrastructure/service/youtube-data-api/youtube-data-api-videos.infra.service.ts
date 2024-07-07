@@ -74,7 +74,11 @@ export class YoutubeDataApiVideosInfraService {
               publishedAt: new Date(v.snippet.publishedAt)
             }),
             duration: new Duration(v.contentDetails.duration),
-            statistics: new Statistics(v.statistics),
+            statistics: new Statistics({
+              viewCount: Number(v.statistics.viewCount),
+              likeCount: Number(v.statistics.likeCount),
+              commentCount: Number(v.statistics.commentCount)
+            }),
             liveStreamingDetails: v.liveStreamingDetails
               ? new LiveStreamingDetails({
                   actualStartTime: new Date(
