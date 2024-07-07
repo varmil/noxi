@@ -1,3 +1,4 @@
+import { videoAggregationSchema } from 'features/youtube/types/videoAggregationSchema'
 import { z } from 'zod'
 
 const channelSchema = z.object({
@@ -33,15 +34,7 @@ const channelSchema = z.object({
     .optional(),
 
   // from VideoAggregation
-  latestVideoAggregation: z
-    .object({
-      averageViews: z.number(),
-      uploadFrequency: z.number(),
-      liveFrequency: z.number(),
-      averageEngagementRate: z.number().min(0).max(100),
-      updatedAt: z.string()
-    })
-    .optional(),
+  latestVideoAggregation: videoAggregationSchema.optional(),
 
   updatedAt: z.string()
 })

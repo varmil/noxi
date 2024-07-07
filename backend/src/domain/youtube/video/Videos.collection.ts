@@ -13,4 +13,7 @@ export class Videos {
   filter = (
     callbackfn: (value: Video, index: number, array: Video[]) => unknown
   ): Video[] => this.list.filter(callbackfn)
+
+  @Exclude()
+  length = () => this.list.length
 }

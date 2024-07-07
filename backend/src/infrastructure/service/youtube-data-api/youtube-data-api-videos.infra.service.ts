@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
+import { Duration } from '@domain/youtube/video/Duration'
 import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
 import { Snippet } from '@domain/youtube/video/Snippet'
 import { Statistics } from '@domain/youtube/video/Statistics'
@@ -26,6 +27,9 @@ interface DataAPIVideo {
     tags?: string[]
     categoryId: string
     liveBroadcastContent: string
+  }
+  contentDetails: {
+    duration: string
   }
   statistics: {
     viewCount?: string
@@ -69,6 +73,7 @@ export class YoutubeDataApiVideosInfraService {
               ...v.snippet,
               publishedAt: new Date(v.snippet.publishedAt)
             }),
+            duration: new Duration(v.contentDetails.duration),
             statistics: new Statistics(v.statistics),
             liveStreamingDetails: v.liveStreamingDetails
               ? new LiveStreamingDetails({
@@ -115,7 +120,7 @@ export class YoutubeDataApiVideosInfraService {
         items: DataAPIVideo[]
       }>('https://www.googleapis.com/youtube/v3/videos', {
         params: {
-          part: 'snippet,statistics,liveStreamingDetails',
+          part: 'snippet,contentDetails,statistics,liveStreamingDetails',
           id: videoIds.join(','),
           key: this.API_KEY
         }

@@ -1,5 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import admin from 'firebase-admin'
+import { Duration } from '@domain/youtube/video/Duration'
 import { Snippet } from '@domain/youtube/video/Snippet'
 import { Statistics } from '@domain/youtube/video/Statistics'
 import { Video } from '@domain/youtube/video/Video.entity'
@@ -37,6 +38,7 @@ export class VideoRepositoryImpl implements VideoRepository {
             tags,
             categoryId
           },
+          duration,
           statistics: { viewCount, likeCount, commentCount }
         } = doc.data()
         return new Video({
@@ -50,6 +52,7 @@ export class VideoRepositoryImpl implements VideoRepository {
             tags,
             categoryId
           }),
+          duration: new Duration(duration),
           statistics: new Statistics({ viewCount, likeCount, commentCount })
         })
       })
@@ -69,6 +72,7 @@ export class VideoRepositoryImpl implements VideoRepository {
         tags,
         categoryId
       },
+      duration,
       statistics
     } = video
     await admin
@@ -87,6 +91,7 @@ export class VideoRepositoryImpl implements VideoRepository {
           tags,
           categoryId
         },
+        duration: duration.get(),
         statistics,
 
         updatedAt: admin.firestore.FieldValue.serverTimestamp()

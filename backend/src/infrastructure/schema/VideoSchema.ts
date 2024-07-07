@@ -24,6 +24,7 @@ export const videoSchema = z.object({
     tags: z.array(z.string()),
     categoryId: z.string()
   }),
+  duration: z.string().duration(),
   statistics: z.object({
     viewCount: z.string(),
     likeCount: z.string(),

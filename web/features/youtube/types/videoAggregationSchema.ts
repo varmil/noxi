@@ -1,6 +1,4 @@
 import { z } from 'zod'
-import { converter } from '@infra/lib/converter'
-import { firestoreFieldValueOrTimestampSchema } from '@infra/schema/TimeStampSchema'
 
 const aggregation = z.object({
   averageViews: z.number(),
@@ -14,8 +12,7 @@ export const videoAggregationSchema = z.object({
   short: aggregation,
   live: aggregation,
 
-  updatedAt: firestoreFieldValueOrTimestampSchema
+  updatedAt: z.string().datetime()
 })
 
 export type VideoAggregationSchema = z.infer<typeof videoAggregationSchema>
-export const videoAggregationConverter = converter(videoAggregationSchema)
