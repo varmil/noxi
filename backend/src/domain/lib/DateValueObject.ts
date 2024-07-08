@@ -1,12 +1,12 @@
-import dayjs from 'dayjs'
+import dayjs, { extend } from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { ValueObject } from '@domain/lib/ValueObject'
 
-dayjs.extend(isToday)
-dayjs.extend(utc)
-dayjs.extend(timezone)
+extend(isToday)
+extend(utc)
+extend(timezone)
 
 export abstract class DateValueObject extends ValueObject<Date> {
   format = (template?: string) => {

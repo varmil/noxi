@@ -1,6 +1,6 @@
+import { PropsWithoutRef } from 'react'
 import { CardFooter } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { PropsWithoutRef } from 'react'
 
 type Props = {
   value: number

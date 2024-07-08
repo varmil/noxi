@@ -1,9 +1,9 @@
+import { ReactNode } from 'react'
+import { Metadata } from 'next'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import Aside from 'components/Aside'
 import Site from 'config/constants/Site'
 import { locales } from 'config/i18n/locale'
-import { Metadata } from 'next'
-import { unstable_setRequestLocale } from 'next-intl/server'
-import { ReactNode } from 'react'
 
 type Props = {
   children: ReactNode

@@ -1,5 +1,5 @@
-import { CardHeader, CardTitle } from '@/components/ui/card'
 import React, { PropsWithoutRef } from 'react'
+import { CardHeader, CardTitle } from '@/components/ui/card'
 
 type Props = {
   description: React.ReactNode

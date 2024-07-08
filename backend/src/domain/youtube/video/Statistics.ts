@@ -8,9 +8,9 @@ export class Statistics {
     likeCount?: number
     commentCount?: number
   }) {
-    this.viewCount = Number(args.viewCount) ?? 0
-    this.likeCount = Number(args.likeCount) ?? 0
-    this.commentCount = Number(args.commentCount) ?? 0
+    this.viewCount = Number(args.viewCount ?? 0)
+    this.likeCount = Number(args.likeCount ?? 0)
+    this.commentCount = Number(args.commentCount ?? 0)
   }
 
   engagementCount() {

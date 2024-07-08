@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
 import { Duration } from '@domain/youtube/video/Duration'
 import { Snippet } from '@domain/youtube/video/Snippet'
@@ -96,9 +96,5 @@ export class VideoRepositoryImpl implements VideoRepository {
 
         updatedAt: admin.firestore.FieldValue.serverTimestamp()
       })
-  }
-
-  async findOne() {
-    throw new NotImplementedException()
   }
 }

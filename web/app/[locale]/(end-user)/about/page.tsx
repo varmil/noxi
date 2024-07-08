@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
+import { unstable_setRequestLocale } from 'next-intl/server'
 import Page from 'components/Page'
 import Site from 'config/constants/Site'
-import { unstable_setRequestLocale } from 'next-intl/server'
 
 type Props = {
   params: { locale: string }

@@ -1,12 +1,12 @@
-import { Toaster } from '@/components/ui/toaster'
+import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
-import Site from 'config/constants/Site'
-import { locales } from 'config/i18n/locale'
 import { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
-import { ReactNode } from 'react'
+import { Toaster } from '@/components/ui/toaster'
+import Site from 'config/constants/Site'
+import { locales } from 'config/i18n/locale'
 
 type Props = {
   children: ReactNode

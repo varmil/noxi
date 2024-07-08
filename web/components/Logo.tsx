@@ -1,5 +1,5 @@
-import { LucideProps, MountainIcon } from 'lucide-react'
 import react from 'react'
+import { LucideProps, MountainIcon } from 'lucide-react'
 
 export default function Logo(
   props: react.PropsWithoutRef<

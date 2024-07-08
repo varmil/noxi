@@ -1,6 +1,6 @@
 'use client'
-import { sendGTMEvent } from '@next/third-parties/google'
 import { useRef, FormEvent } from 'react'
+import { sendGTMEvent } from '@next/third-parties/google'
 
 export default function Contact() {
   const inputRef = useRef<HTMLTextAreaElement | null>(null)

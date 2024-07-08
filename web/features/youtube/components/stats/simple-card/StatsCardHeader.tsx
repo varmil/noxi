@@ -1,6 +1,6 @@
+import React, { PropsWithChildren } from 'react'
 import { LucideProps } from 'lucide-react'
 import { CardHeader, CardTitle } from '@/components/ui/card'
-import React, { PropsWithChildren } from 'react'
 
 type Props = {
   Icon: React.ForwardRefExoticComponent<

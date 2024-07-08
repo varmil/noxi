@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
-import Page from 'components/Page'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import Site from 'config/constants/Site'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
+import Page from 'components/Page'
+import Site from 'config/constants/Site'
 import IconSectionSolidIconWithHoverEffect from 'features/icon-section/IconSectionSolidIconWithHoverEffect'
 
 type Props = {
