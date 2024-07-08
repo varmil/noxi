@@ -1,5 +1,5 @@
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { PropsWithoutRef } from 'react'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 
 type Props = {
   name: string

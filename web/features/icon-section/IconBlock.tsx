@@ -1,6 +1,6 @@
-import { Link } from 'lib/navigation'
-import { ChevronRightIcon } from 'lucide-react'
 import React, { PropsWithoutRef } from 'react'
+import { ChevronRightIcon } from 'lucide-react'
+import { Link } from 'lib/navigation'
 
 type Props = {
   icon: React.ReactNode

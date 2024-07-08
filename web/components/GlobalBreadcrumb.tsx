@@ -1,3 +1,4 @@
+import React, { PropsWithoutRef } from 'react'
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -6,7 +7,6 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { Link } from 'lib/navigation'
-import React, { PropsWithoutRef } from 'react'
 
 type Props = {
   items: Item[]

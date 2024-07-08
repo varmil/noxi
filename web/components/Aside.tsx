@@ -1,14 +1,14 @@
+import { SVGProps } from 'react'
+import { SettingsIcon } from 'lucide-react'
 import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent
 } from '@/components/ui/tooltip'
-import { SettingsIcon } from 'lucide-react'
-import { SVGProps } from 'react'
-import Logo from './Logo'
 import Site from 'config/constants/Site'
 import { Link } from 'lib/navigation'
+import Logo from './Logo'
 
 export default function Aside() {
   return (

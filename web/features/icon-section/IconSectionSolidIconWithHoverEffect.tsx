@@ -1,5 +1,5 @@
-import IconBlock from 'features/icon-section/IconBlock'
 import { Axe, Gamepad2, Play, Rainbow } from 'lucide-react'
+import IconBlock from 'features/icon-section/IconBlock'
 
 export default function IconSectionSolidIconWithHoverEffect() {
   return (

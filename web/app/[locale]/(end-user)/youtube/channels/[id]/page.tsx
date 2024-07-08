@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
-import Page from 'components/Page'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import Site from 'config/constants/Site'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
+import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
+import Page from 'components/Page'
+import Site from 'config/constants/Site'
 import { getChannel } from 'features/youtube/api/getChannel'
+import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
 
 type Props = {
   params: { locale: string; id: string }

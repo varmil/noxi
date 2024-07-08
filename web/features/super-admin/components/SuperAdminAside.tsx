@@ -1,10 +1,10 @@
-import { Link } from 'lib/navigation'
 import {
   Package2Icon,
   InboxIcon,
   CalendarIcon,
   SettingsIcon
 } from 'lucide-react'
+import { Link } from 'lib/navigation'
 
 export function SuperAdminAside() {
   return (

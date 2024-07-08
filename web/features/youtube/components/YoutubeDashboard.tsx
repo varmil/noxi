@@ -1,4 +1,14 @@
+import { PropsWithoutRef, Suspense } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter
+} from '@/components/ui/card'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -8,18 +18,8 @@ import {
   DropdownMenuCheckboxItem
 } from '@/components/ui/dropdown-menu'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter
-} from '@/components/ui/card'
-import { ChannelCards } from 'features/youtube/components/channel/ChannelCards'
 import { getChannels } from 'features/youtube/api/getChannels'
-import { PropsWithoutRef, Suspense } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { ChannelCards } from 'features/youtube/components/channel/ChannelCards'
 
 type Props = {
   keyword: string

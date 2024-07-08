@@ -1,8 +1,8 @@
-import { Link } from 'lib/navigation'
-import { Cake, UsersIcon } from 'lucide-react'
-import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
-import Image from 'next/image'
 import { PropsWithoutRef } from 'react'
+import { Cake, UsersIcon } from 'lucide-react'
+import Image from 'next/image'
+import { Link } from 'lib/navigation'
+import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
 type Props = {
   id: string

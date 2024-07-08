@@ -1,12 +1,12 @@
+import { PropsWithChildren } from 'react'
+import { InfoIcon } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent
 } from '@/components/ui/tooltip'
-import { Button } from '@/components/ui/button'
-import { InfoIcon } from 'lucide-react'
-import { PropsWithChildren } from 'react'
 
 type Props = {
   annotation: string

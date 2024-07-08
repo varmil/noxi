@@ -1,5 +1,5 @@
-import { videoAggregationSchema } from 'features/youtube/types/videoAggregationSchema'
 import { z } from 'zod'
+import { videoAggregationSchema } from 'features/youtube/types/videoAggregationSchema'
 
 const channelSchema = z.object({
   // from /v3/search

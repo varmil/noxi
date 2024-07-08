@@ -1,6 +1,6 @@
+import { PropsWithoutRef } from 'react'
 import { Users } from 'lucide-react'
 import { Card } from '@/components/ui/card'
-import { PropsWithoutRef } from 'react'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 

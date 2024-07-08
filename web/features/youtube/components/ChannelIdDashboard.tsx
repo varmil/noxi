@@ -1,13 +1,13 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
 import { getChannel } from 'features/youtube/api/getChannel'
+import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
+import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
+import StatsPopularityProgressCard from 'features/youtube/components/stats/progress-card/StatsPopularityProgressCard'
 import StatsBirthdayCard from 'features/youtube/components/stats/simple-card/StatsBirthdayCard'
 import StatsCumulativeVideoCard from 'features/youtube/components/stats/simple-card/StatsCumulativeUploadCard'
 import StatsCumulativeViewCard from 'features/youtube/components/stats/simple-card/StatsCumulativeViewCard'
 import StatsSubscriberCard from 'features/youtube/components/stats/simple-card/StatsSubscriberCard'
-import StatsPopularityProgressCard from 'features/youtube/components/stats/progress-card/StatsPopularityProgressCard'
-import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
 
 type Props = {
   id: string

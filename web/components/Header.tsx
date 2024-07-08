@@ -1,5 +1,12 @@
+import {
+  HomeIcon,
+  ShoppingCartIcon,
+  PackageIcon,
+  UsersIcon,
+  LineChartIcon,
+  SearchIcon
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -9,18 +16,10 @@ import {
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-
-import {
-  HomeIcon,
-  ShoppingCartIcon,
-  PackageIcon,
-  UsersIcon,
-  LineChartIcon,
-  SearchIcon
-} from 'lucide-react'
-import Logo from './Logo'
+import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
 import Site from 'config/constants/Site'
 import { Link } from 'lib/navigation'
+import Logo from './Logo'
 
 export default function Header() {
   return (

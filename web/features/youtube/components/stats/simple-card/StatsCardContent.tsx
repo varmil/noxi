@@ -1,5 +1,5 @@
-import { CardContent } from '@/components/ui/card'
 import { PropsWithChildren } from 'react'
+import { CardContent } from '@/components/ui/card'
 
 type Props = {
   subText?: string

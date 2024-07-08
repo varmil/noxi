@@ -1,3 +1,4 @@
+import { PropsWithoutRef } from 'react'
 import { Card } from '@/components/ui/card'
 import AnnotationText from 'components/styles/AnnotationText'
 import StatsProgressCardContent from 'features/youtube/components/stats/progress-card/StatsProgressCardContent'
@@ -5,7 +6,6 @@ import StatsProgressCardFooter from 'features/youtube/components/stats/progress-
 import StatsProgressCardHeader from 'features/youtube/components/stats/progress-card/StatsProgressCardHeader'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
 import { getPopularity } from 'features/youtube/utils/popularity'
-import { PropsWithoutRef } from 'react'
 
 type Props = ChannelSchema['statistics']
 

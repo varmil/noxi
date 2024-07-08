@@ -25,7 +25,7 @@ const compat = new FlatCompat({
 export default [
   includeIgnoreFile(gitignorePath),
   {
-    ignores: ['**/eslint.config.{js,,mjs,cjs}', '**/*.md', '**/*.json']
+    ignores: ['**/eslint.config.{js,mjs,cjs}', '**/*.md', '**/*.json']
   },
   ...fixupConfigRules(
     compat.extends(
