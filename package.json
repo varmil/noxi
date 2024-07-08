@@ -1,7 +1,10 @@
 {
   "name": "noxi",
   "version": "1.0.0",
+  "prepare": "git config --local core.hooksPath .githooks",
   "scripts": {
+    "lint:web": "cd web && npm run lint",
+    "lint:backend": "cd backend && npm run lint",
     "emulator": "firebase emulators:start --import=./firebase-emulator-data --export-on-exit",
     "conc": "npx ts-node scripts/concurrently/main & npm run emulator"
   },
