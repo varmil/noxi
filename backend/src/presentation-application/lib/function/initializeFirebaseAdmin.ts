@@ -9,7 +9,7 @@ export const initializeFirebaseAdmin = () => {
   }
 
   // NOTE: 'noxi-production' is for LOCAL EMULATOR
-  const projectId = !!process.env.ENV_NAME ? undefined : 'noxi-production'
+  const projectId = process.env.ENV_NAME ? undefined : 'noxi-production'
 
   admin.initializeApp({
     projectId,

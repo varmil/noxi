@@ -1,74 +1,28 @@
-import {
-  fixupConfigRules,
-  fixupPluginRules,
-  includeIgnoreFile
-} from '@eslint/compat'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
-import _import from 'eslint-plugin-import'
-import globals from 'globals'
-import tsParser from '@typescript-eslint/parser'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
+import eslint from '@eslint/js'
+import importPlugin from 'eslint-plugin-import'
+import tseslint from 'typescript-eslint'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const gitignorePath = path.resolve(__dirname, '.gitignore')
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-})
-
-export default [
-  includeIgnoreFile(gitignorePath),
-  {
-    ignores: ['**/eslint.config.{js,mjs,cjs}', '**/*.md', '**/*.json']
-  },
-  ...fixupConfigRules(
-    compat.extends(
-      'plugin:@typescript-eslint/recommended',
-      'plugin:import/recommended',
-      'plugin:prettier/recommended'
-    )
-  ),
+export default tseslint.config(
+  eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.stylistic,
   {
     plugins: {
-      '@typescript-eslint': fixupPluginRules(typescriptEslint),
-      _import: fixupPluginRules(_import)
+      import: importPlugin
+      // 'unused-imports': unuserdPlugin
     },
 
     languageOptions: {
-      globals: {
-        ...globals.node,
-        ...globals.jest
-      },
-
-      parser: tsParser,
-      ecmaVersion: 5,
-      sourceType: 'module',
-
       parserOptions: {
-        project: 'tsconfig.json',
-        tsconfigRootDir: __dirname
-      }
-    },
-
-    settings: {
-      'import/resolver': {
-        typescript: true,
-        node: true
+        project: true,
+        tsconfigRootDir: import.meta.dirname
       }
     },
 
     rules: {
-      '@typescript-eslint/prefer-optional-chain': 2,
-      '@typescript-eslint/interface-name-prefix': 'off',
-      '@typescript-eslint/explicit-function-return-type': 'off',
-      '@typescript-eslint/explicit-module-boundary-types': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      // 'unused-imports/no-unused-imports': 'warn',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-unused-vars': 'warn',
 
       'import/order': [
         'error',
@@ -84,11 +38,23 @@ export default [
             'type'
           ],
 
+          pathGroupsExcludedImportTypes: ['builtin'],
+
+          pathGroups: [
+            { pattern: '@app/**', group: 'parent', position: 'before' },
+            { pattern: '@domain/**', group: 'parent', position: 'before' },
+            { pattern: '@infra/**', group: 'parent', position: 'before' }
+          ],
+
           alphabetize: {
             order: 'asc'
           }
         }
       ]
     }
+  },
+  {
+    files: ['eslint.config.mjs', '**/*.js'],
+    ...tseslint.configs.disableTypeChecked
   }
-]
+)

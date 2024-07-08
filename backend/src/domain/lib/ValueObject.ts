@@ -6,7 +6,7 @@ export abstract class ValueObject<T> {
     if (errors.length) {
       throw new TypeError(
         JSON.stringify(
-          errors.map(e => ({ constraints: e.constraints, value: e.value }))
+          errors.map(e => ({ constraints: e.constraints, value: e.value as T }))
         )
       )
     }

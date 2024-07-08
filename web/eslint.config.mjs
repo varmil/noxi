@@ -17,11 +17,11 @@ const compat = new FlatCompat({
   allConfig: js.configs.all
 })
 
+const { ignores } = includeIgnoreFile(gitignorePath)
+
 /** @type {import("eslint").Linter.FlatConfig[]} */
 export default [
-  includeIgnoreFile(gitignorePath),
-
-  { ignores: ['**/*.md', '**/*.json'] },
+  { ignores: [...ignores, '**/*.md', '**/*.json'] },
 
   ...compat.extends('next/core-web-vitals'),
 

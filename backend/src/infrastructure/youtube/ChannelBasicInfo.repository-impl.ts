@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
@@ -60,9 +60,5 @@ export class ChannelBasicInfoRepositoryImpl
         },
         { merge: true }
       )
-  }
-
-  async findOne() {
-    throw new NotImplementedException()
   }
 }
