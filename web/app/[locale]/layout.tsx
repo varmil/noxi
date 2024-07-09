@@ -1,11 +1,9 @@
 import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
-import { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/toaster'
-import Site from 'config/constants/Site'
 import { locales } from 'config/i18n/locale'
 
 type Props = {
@@ -15,12 +13,6 @@ type Props = {
 
 export function generateStaticParams() {
   return locales.map(locale => ({ locale }))
-}
-
-export const metadata: Metadata = {
-  title: `${Site.TITLE}`,
-  description:
-    'This example shows how to use Next.js along with Google Analytics.'
 }
 
 export default async function LocaleLayout({

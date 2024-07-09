@@ -1,8 +1,7 @@
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import Aside from 'components/Aside'
-import Site from 'config/constants/Site'
 import { locales } from 'config/i18n/locale'
 
 type Props = {
@@ -14,10 +13,15 @@ export function generateStaticParams() {
   return locales.map(locale => ({ locale }))
 }
 
-export const metadata: Metadata = {
-  title: `${Site.TITLE}`,
-  description:
-    'This example shows how to use Next.js along with Google Analytics.'
+export async function generateMetadata({
+  params: { locale }
+}: Props): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: 'Global' })
+
+  return {
+    title: `Home | ${t('title')}`,
+    description: `Home`
+  }
 }
 
 export default async function LocaleLayout({

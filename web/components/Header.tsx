@@ -6,6 +6,7 @@ import {
   LineChartIcon,
   SearchIcon
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -17,11 +18,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
-import Site from 'config/constants/Site'
 import { Link } from 'lib/navigation'
 import Logo from './Logo'
 
 export default function Header() {
+  const t = useTranslations('Global')
+
   return (
     <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <Sheet>
@@ -92,7 +94,7 @@ export default function Header() {
         scroll={false}
       >
         <Logo className="w-6 h-6" />
-        <span className="hidden md:flex text-lg font-bold">{Site.TITLE}</span>
+        <span className="hidden md:flex text-lg font-bold">{t('title')}</span>
       </Link>
 
       <div className="relative ml-auto flex-1 md:grow-0">

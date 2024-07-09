@@ -1,6 +1,6 @@
 import { Contact } from 'lucide-react'
 import { Metadata } from 'next'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import Page from 'components/Page'
 import Site from 'config/constants/Site'
 
@@ -8,9 +8,16 @@ type Props = {
   params: { locale: string }
 }
 
-export const metadata: Metadata = {
-  title: `お問い合わせ | ${Site.TITLE}`,
-  description: `お問い合わせ | ${Site.TITLE}`
+export async function generateMetadata({
+  params: { locale }
+}: Props): Promise<Metadata> {
+  const tg = await getTranslations({ locale, namespace: 'Global' })
+  const t = await getTranslations({ locale, namespace: 'Contact' })
+
+  return {
+    title: `${t('title')} | ${tg('title')}`,
+    description: `${t('description')}`
+  }
 }
 
 export default function About({ params: { locale } }: Props) {

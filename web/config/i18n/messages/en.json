@@ -1,10 +1,35 @@
 {
-  "IndexPage": {
-    "title": "next-intl example",
-    "description": "This is a basic example that demonstrates the usage of <code>next-intl</code> with the Next.js App Router. Try changing the locale in the top right corner and see how the content changes."
+  "Global": {
+    "title": "Youtube | PeakX"
   },
+
   "Breadcrumb": {
     "channels": "Channels"
+  },
+
+  "IndexPage": {
+    "title": "Welcome to PeakX",
+    "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from YouTube, Twitch, Tiktok, and Instagram."
+  },
+
+  "AboutUs": {
+    "title": "About Us",
+    "description": "Learn more about our services and beliefs."
+  },
+
+  "Contact": {
+    "title": "Contact",
+    "description": "Contact us here."
+  },
+
+  "ChannelsId": {
+    "title": "'s channel information",
+    "description": "Contact us here."
+  },
+
+  "QueriesNameChannels": {
+    "title": "List of channels",
+    "description": "We will introduce you to YouTube channels related to {keyword}."
   },
 
   "YoutubeDashboard": {

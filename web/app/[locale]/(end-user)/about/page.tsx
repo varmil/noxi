@@ -1,15 +1,21 @@
 import { Metadata } from 'next'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import Page from 'components/Page'
-import Site from 'config/constants/Site'
 
 type Props = {
   params: { locale: string }
 }
 
-export const metadata: Metadata = {
-  title: `私たちに関して | ${Site.TITLE}`,
-  description: `私たちに関して | ${Site.TITLE}`
+export async function generateMetadata({
+  params: { locale }
+}: Props): Promise<Metadata> {
+  const tg = await getTranslations({ locale, namespace: 'Global' })
+  const t = await getTranslations({ locale, namespace: 'AboutUs' })
+
+  return {
+    title: `${t('title')} | ${tg('title')}`,
+    description: `${t('description')}`
+  }
 }
 
 export default function About({ params: { locale } }: Props) {
