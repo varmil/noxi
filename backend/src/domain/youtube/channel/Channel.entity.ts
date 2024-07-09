@@ -20,7 +20,9 @@ export class Channel {
     brandingSettings?: BrandingSettings
   }) {
     this.basicInfo = args.basicInfo
-    this.statistics = args.statistics ?? new ChannelStatistics({})
+    this.statistics =
+      args.statistics ??
+      new ChannelStatistics({ viewCount: 0, subscriberCount: 0, videoCount: 0 })
     this.brandingSettings =
       args.brandingSettings ??
       new BrandingSettings({

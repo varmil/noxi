@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { Cake, UsersIcon } from 'lucide-react'
 import Image from 'next/image'
+import { useTranslations } from 'next-intl'
 import { Link } from 'lib/navigation'
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
@@ -22,6 +23,7 @@ export default function ChannelCard({
   subscriberCount,
   publishedAt
 }: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.youtube.channel')
   return (
     <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
       <Link
@@ -29,11 +31,11 @@ export default function ChannelCard({
         className="absolute inset-0 z-10"
         prefetch={false}
       >
-        <span className="sr-only">View Channel</span>
+        <span className="sr-only">{t('viewChannel')}</span>
       </Link>
       <Image
         src={src}
-        alt={`チャンネル: ${name}`}
+        alt={`${t('channel')}: ${name}`}
         width={300}
         height={200}
         className="object-cover w-[33%] h-full rounded-l-lg"
@@ -44,16 +46,18 @@ export default function ChannelCard({
 
         <div className="ra-val mb-0 sm:mb-2">
           <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
-            <span>動画の総再生回数</span>
+            <span>{t('totalVideoViews')}</span>
           </div>
           <span className="text-lg font-bold text-primary">
-            {totalViewCount}回
+            {totalViewCount} {t('unit')}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <UsersIcon className="w-4 h-4" />
-          <span>{subscriberCount} Subscribers</span>
+          <span>
+            {subscriberCount} {t('totalSubscriberCount')}
+          </span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Cake className="w-4 h-4" />

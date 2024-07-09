@@ -9,7 +9,10 @@
 
   "IndexPage": {
     "title": "Welcome to PeakX",
-    "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from YouTube, Twitch, Tiktok, and Instagram."
+    "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from YouTube, Twitch, Tiktok, and Instagram.",
+    "section": {
+      "keyword": { "title": "Search for channels by keyword" }
+    }
   },
 
   "AboutUs": {
@@ -23,8 +26,7 @@
   },
 
   "ChannelsId": {
-    "title": "'s channel information",
-    "description": "Contact us here."
+    "title": "'s channel statistics"
   },
 
   "QueriesNameChannels": {
@@ -34,5 +36,33 @@
 
   "YoutubeDashboard": {
     "description": "We will introduce you to YouTube channels related to {keyword}."
+  },
+
+  "Features": {
+    "youtube": {
+      "channel": {
+        "channel": "channel",
+        "viewChannel": "Here is the analysis of the channel",
+        "unit": "views",
+        "totalVideoViews": "Total video views",
+        "totalSubscriberCount": "subscribers"
+      },
+
+      "stats": {
+        "annotation": "This is our service's unique indicator.",
+
+        "totalVideoViews": "Total video views",
+        "totalSubscriberCount": "Total subscribers",
+        "cumulativeUploads": "Total number of videos uploaded",
+        "birthday": "Date the channel was registered",
+
+        "progress": {
+          "popularityScore": "Popularity Score",
+          "popularityDescription": "The influencer's overall popularity based on their past activities",
+          "fanAcquisitionScore": "Fan Acquisition Score",
+          "fanAcquisitionDescription": "The ability to turn viewers who watch their contents into fans"
+        }
+      }
+    }
   }
 }

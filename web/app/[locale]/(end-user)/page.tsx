@@ -3,7 +3,8 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
-import IconSectionSolidIconWithHoverEffect from 'features/icon-section/IconSectionSolidIconWithHoverEffect'
+import IconSectionForReview from 'features/icon-section/IconSectionForReview'
+// import IconSectionSolidIconWithHoverEffect from 'features/icon-section/IconSectionSolidIconWithHoverEffect'
 
 type Props = {
   params: { locale: string }
@@ -45,10 +46,10 @@ export default function IndexPage({ params: { locale } }: Props) {
 
           <section className="container px-0 py-24">
             <h2 className="text-3xl font-bold lg:text-4xl">
-              キーワードでチャンネルを探す
+              {t('section.keyword.title')}
             </h2>
             <div className="mt-3">
-              <IconSectionSolidIconWithHoverEffect />
+              <IconSectionForReview />
             </div>
           </section>
         </div>

@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'features/youtube/api/getChannel'
 import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
 import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
@@ -15,7 +14,6 @@ type Props = {
 
 export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
   const { basicInfo, statistics, brandingSettings } = await getChannel(id)
-  const t = await getTranslations('YoutubeDashboard')
 
   return (
     <div className="flex min-h-screen w-full flex-col">

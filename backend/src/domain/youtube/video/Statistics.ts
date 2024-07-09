@@ -4,13 +4,13 @@ export class Statistics {
   public readonly commentCount: number
 
   constructor(args: {
-    viewCount?: number
-    likeCount?: number
-    commentCount?: number
+    viewCount: number
+    likeCount: number
+    commentCount: number
   }) {
-    this.viewCount = Number(args.viewCount ?? 0)
-    this.likeCount = Number(args.likeCount ?? 0)
-    this.commentCount = Number(args.commentCount ?? 0)
+    this.viewCount = args.viewCount
+    this.likeCount = args.likeCount
+    this.commentCount = args.commentCount
   }
 
   engagementCount() {

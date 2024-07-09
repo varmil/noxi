@@ -22,10 +22,10 @@ interface ChannelListItem {
     }
   }
   statistics: {
-    viewCount: string
-    subscriberCount: string
+    viewCount?: string
+    subscriberCount?: string
     hiddenSubscriberCount: boolean
-    videoCount: string
+    videoCount?: string
   }
   brandingSettings: {
     channel: {
@@ -72,9 +72,9 @@ export class YoutubeDataApiChannelsInfraService {
             publishedAt: new Date(publishedAt)
           },
           statistics: new ChannelStatistics({
-            viewCount: Number(viewCount),
-            subscriberCount: Number(subscriberCount),
-            videoCount: Number(videoCount)
+            viewCount: Number(viewCount ?? 0),
+            subscriberCount: Number(subscriberCount ?? 0),
+            videoCount: Number(videoCount ?? 0)
           }),
           brandingSettings: new BrandingSettings({
             keywords: Keywords.fromString(keywords ?? ''),

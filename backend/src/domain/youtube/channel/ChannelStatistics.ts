@@ -4,12 +4,12 @@ export class ChannelStatistics {
   public readonly videoCount: number
 
   constructor(args: {
-    viewCount?: number
-    subscriberCount?: number
-    videoCount?: number
+    viewCount: number
+    subscriberCount: number
+    videoCount: number
   }) {
-    this.viewCount = args.viewCount ?? 0
-    this.subscriberCount = args.subscriberCount ?? 0
-    this.videoCount = args.videoCount ?? 0
+    this.viewCount = args.viewCount
+    this.subscriberCount = args.subscriberCount
+    this.videoCount = args.videoCount
   }
 }
