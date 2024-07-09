@@ -35,15 +35,15 @@ export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
         <Tabs defaultValue="all">
           <div className="flex items-center">
             <TabsList>
-              <TabsTrigger value="all">Apex</TabsTrigger>
-              <TabsTrigger value="active">FF14</TabsTrigger>
+              <TabsTrigger value="all">travel vlog english</TabsTrigger>
+              {/* <TabsTrigger value="active">FF14</TabsTrigger>
               <TabsTrigger value="draft">ホロライブ</TabsTrigger>
               <TabsTrigger value="archived" className="hidden sm:flex">
                 にじさんじ
-              </TabsTrigger>
+              </TabsTrigger> */}
             </TabsList>
             <div className="ml-auto flex items-center gap-2">
-              <DropdownMenu>
+              {/* <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="h-8 gap-1">
                     <ListFilterIcon className="h-3.5 w-3.5" />
@@ -61,7 +61,7 @@ export async function YoutubeDashboard({ keyword }: PropsWithoutRef<Props>) {
                   <DropdownMenuCheckboxItem>Draft</DropdownMenuCheckboxItem>
                   <DropdownMenuCheckboxItem>Archived</DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
-              </DropdownMenu>
+              </DropdownMenu> */}
 
               {/* <Button size="sm" className="h-8 gap-1">
                 <CirclePlusIcon className="h-3.5 w-3.5" />
