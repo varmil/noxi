@@ -3,6 +3,9 @@ import axios from 'axios'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
+import { Q } from '@domain/youtube/search/Q.vo'
+import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
+import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 
 interface SearchListItem {
   id: {
@@ -20,6 +23,13 @@ interface SearchListItem {
   }
 }
 
+interface Params {
+  limit: number
+  q: Q
+  regionCode?: RegionCode
+  relevanceLanguage?: RelevanceLanguage
+}
+
 const PER_PAGE = 50 // 50
 
 @Injectable()
@@ -29,22 +39,25 @@ export class YoutubeDataApiSearchInfraService {
   constructor() {}
 
   async getChannelBasicInfos({
-    limit
-  }: {
-    limit: number
-  }): Promise<ChannelBasicInfos> {
+    limit,
+    ...params
+  }: Params): Promise<ChannelBasicInfos> {
     const basicInfos = await this._getBasicInfos(
       '',
-      Math.ceil(limit / PER_PAGE)
+      Math.ceil(limit / PER_PAGE),
+      params
     )
     return new ChannelBasicInfos(basicInfos)
   }
 
   private async _getBasicInfos(
     pageToken = '',
-    remainingTimes = 1
+    remainingTimes = 1,
+    params: Omit<Params, 'limit'>
   ): Promise<ChannelBasicInfo[]> {
     if (remainingTimes === 0) return []
+
+    const { q, regionCode, relevanceLanguage } = params
 
     try {
       const response = await axios.get<{
@@ -55,11 +68,11 @@ export class YoutubeDataApiSearchInfraService {
         params: {
           part: 'snippet',
           type: 'channel',
-          q: 'ホロライブ',
+          q: q.get(),
           maxResults: PER_PAGE,
           order: 'title',
-          regionCode: 'JP',
-          relevanceLanguage: 'ja',
+          regionCode: regionCode?.get() || 'JP',
+          relevanceLanguage: relevanceLanguage?.get() || 'ja',
           pageToken: pageToken,
           key: this.API_KEY
         }
@@ -80,7 +93,8 @@ export class YoutubeDataApiSearchInfraService {
       if (response.data.nextPageToken) {
         const nextPageChannelInfos = await this._getBasicInfos(
           response.data.nextPageToken,
-          remainingTimes - 1
+          remainingTimes - 1,
+          params
         )
         return basicInfos.concat(nextPageChannelInfos)
       }

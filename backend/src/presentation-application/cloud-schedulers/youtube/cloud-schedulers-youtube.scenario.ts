@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { VideosService } from '@app/youtube/videos.service'
+import { Q } from '@domain/youtube/search/Q.vo'
+import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
+import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
@@ -24,7 +27,10 @@ export class CloudSchedulersYoutubeScenario {
   // TODO: N本以上投稿してるチャンネルのみ保存（効率化）
   async saveChannelBasicInfos() {
     const basicInfos = await this.searchInfraService.getChannelBasicInfos({
-      limit: FETCH_LIMIT
+      limit: FETCH_LIMIT,
+      q: new Q('ホロライブ'),
+      regionCode: new RegionCode('JP'),
+      relevanceLanguage: new RelevanceLanguage('ja')
     })
     await Promise.all(
       basicInfos.map(async basicInfo => {
