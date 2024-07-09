@@ -33,10 +33,10 @@ export default function Aside() {
                 prefetch={false}
               >
                 <YoutubeIcon className="h-5 w-5" />
-                <span className="sr-only">Youtube</span>
+                <span className="sr-only">YouTube</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Youtube</TooltipContent>
+            <TooltipContent side="right">YouTube</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger>

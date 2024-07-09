@@ -24,16 +24,28 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           description={basicInfo.description}
           subscriberCount={statistics.subscriberCount}
         />
-        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-          <StatsSubscriberCard count={statistics?.subscriberCount ?? 0} />
-          <StatsCumulativeViewCard count={statistics?.viewCount ?? 0} />
-          <StatsCumulativeVideoCard count={statistics?.videoCount ?? 0} />
-          <StatsBirthdayCard
-            date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
-          />
-          <StatsPopularityProgressCard {...statistics} />
-          <StatsLoyaltyProgressCard {...statistics} />
-        </div>
+        <section>
+          <div className="pb-8">
+            <h2 className="text-2xl font-bold lg:text-3xl pb-4">
+              YouTube Data
+            </h2>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <StatsSubscriberCard count={statistics?.subscriberCount ?? 0} />
+              <StatsCumulativeViewCard count={statistics?.viewCount ?? 0} />
+              <StatsCumulativeVideoCard count={statistics?.videoCount ?? 0} />
+              <StatsBirthdayCard
+                date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
+              />
+            </div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold lg:text-3xl pb-4">AI Analysis</h2>
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+              <StatsPopularityProgressCard {...statistics} />
+              <StatsLoyaltyProgressCard {...statistics} />
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )
