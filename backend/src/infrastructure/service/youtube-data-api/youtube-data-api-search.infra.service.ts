@@ -72,7 +72,7 @@ export class YoutubeDataApiSearchInfraService {
           maxResults: PER_PAGE,
           order: 'title',
           regionCode: regionCode?.get() || 'JP',
-          relevanceLanguage: relevanceLanguage?.get() || 'ja',
+          relevanceLanguage: relevanceLanguage?.get() || '',
           pageToken: pageToken,
           key: this.API_KEY
         }
