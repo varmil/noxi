@@ -45,7 +45,7 @@ export default function IndexPage({ params: { locale } }: Props) {
 
           <section className="container px-0 py-24">
             <h2 className="text-3xl font-bold lg:text-4xl">
-              キーワードでチャンネルを探す
+              {t('section.keyword.title')}
             </h2>
             <div className="mt-3">
               <IconSectionSolidIconWithHoverEffect />
