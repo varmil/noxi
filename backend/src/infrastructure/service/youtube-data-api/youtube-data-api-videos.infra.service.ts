@@ -65,30 +65,30 @@ export class YoutubeDataApiVideosInfraService {
   ): Promise<Videos> {
     const videos = await this._getVideos(channelId, { limit })
     return new Videos(
-      videos.map(
-        v =>
-          new Video({
-            id: v.id,
-            snippet: new Snippet({
-              ...v.snippet,
-              publishedAt: new Date(v.snippet.publishedAt)
-            }),
-            duration: new Duration(v.contentDetails.duration),
-            statistics: new Statistics({
-              viewCount: Number(v.statistics.viewCount),
-              likeCount: Number(v.statistics.likeCount),
-              commentCount: Number(v.statistics.commentCount)
-            }),
-            liveStreamingDetails: v.liveStreamingDetails
-              ? new LiveStreamingDetails({
-                  actualStartTime: new Date(
-                    v.liveStreamingDetails.actualStartTime
-                  ),
-                  actualEndTime: new Date(v.liveStreamingDetails.actualEndTime)
-                })
-              : undefined
-          })
-      )
+      videos.map(v => {
+        const { viewCount, likeCount, commentCount } = v.statistics
+        return new Video({
+          id: v.id,
+          snippet: new Snippet({
+            ...v.snippet,
+            publishedAt: new Date(v.snippet.publishedAt)
+          }),
+          duration: new Duration(v.contentDetails.duration),
+          statistics: new Statistics({
+            viewCount: Number(viewCount ?? 0),
+            likeCount: Number(likeCount ?? 0),
+            commentCount: Number(commentCount ?? 0)
+          }),
+          liveStreamingDetails: v.liveStreamingDetails
+            ? new LiveStreamingDetails({
+                actualStartTime: new Date(
+                  v.liveStreamingDetails.actualStartTime
+                ),
+                actualEndTime: new Date(v.liveStreamingDetails.actualEndTime)
+              })
+            : undefined
+        })
+      })
     )
   }
 

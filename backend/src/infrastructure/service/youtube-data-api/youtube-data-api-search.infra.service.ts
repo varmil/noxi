@@ -70,7 +70,7 @@ export class YoutubeDataApiSearchInfraService {
           type: 'channel',
           q: q.get(),
           maxResults: PER_PAGE,
-          order: 'title',
+          order: 'relevance',
           regionCode: regionCode?.get() || 'JP',
           relevanceLanguage: relevanceLanguage?.get() || '',
           pageToken: pageToken,

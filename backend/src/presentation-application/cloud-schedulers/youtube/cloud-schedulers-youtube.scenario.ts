@@ -28,9 +28,12 @@ export class CloudSchedulersYoutubeScenario {
   async saveChannelBasicInfos() {
     const basicInfos = await this.searchInfraService.getChannelBasicInfos({
       limit: FETCH_LIMIT,
-      q: new Q('ホロライブ'),
-      regionCode: new RegionCode('JP'),
-      relevanceLanguage: new RelevanceLanguage('ja')
+      // q: new Q('ホロライブ'),
+      // regionCode: new RegionCode('JP'),
+      // relevanceLanguage: new RelevanceLanguage('ja')
+      q: new Q('travel vlog english'),
+      regionCode: new RegionCode('US'),
+      relevanceLanguage: new RelevanceLanguage('en')
     })
     await Promise.all(
       basicInfos.map(async basicInfo => {
