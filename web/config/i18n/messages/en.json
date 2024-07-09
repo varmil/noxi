@@ -26,8 +26,7 @@
   },
 
   "ChannelsId": {
-    "title": "'s channel information",
-    "description": "Contact us here."
+    "title": "'s channel information"
   },
 
   "QueriesNameChannels": {
@@ -37,5 +36,25 @@
 
   "YoutubeDashboard": {
     "description": "We will introduce you to YouTube channels related to {keyword}."
+  },
+
+  "Features": {
+    "youtube": {
+      "stats": {
+        "annotation": "This is our service's unique indicator.",
+
+        "totalVideoViews": "Total video views",
+        "totalSubscriberCount": "Total subscribers",
+        "cumulativeUploads": "Total number of videos uploaded",
+        "birthday": "Date the channel was registered",
+
+        "progress": {
+          "popularityScore": "Popularity Score",
+          "popularityDescription": "The influencer's overall popularity based on their past activities",
+          "fanAcquisitionScore": "Fan Acquisition Score",
+          "fanAcquisitionDescription": "The ability to turn viewers who watch their contents into fans"
+        }
+      }
+    }
   }
 }

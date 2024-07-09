@@ -26,8 +26,7 @@
   },
 
   "ChannelsId": {
-    "title": "のチャンネル情報",
-    "description": "Contact us here."
+    "title": "のチャンネル情報"
   },
 
   "QueriesNameChannels": {
@@ -37,5 +36,25 @@
 
   "YoutubeDashboard": {
     "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
+  },
+
+  "Features": {
+    "youtube": {
+      "stats": {
+        "annotation": "弊サービス独自指標です",
+
+        "totalVideoViews": "動画の累計再生回数",
+        "totalSubscriberCount": "チャンネル登録者数",
+        "cumulativeUploads": "動画の累計アップロード数",
+        "birthday": "Youtubeを始めた日",
+
+        "progress": {
+          "popularityScore": "人気スコア",
+          "popularityDescription": "これまでの全活動を考慮したこのチャンネルの総合的な人気度です",
+          "fanAcquisitionScore": "ファン獲得スコア",
+          "fanAcquisitionDescription": "動画を見てくれた視聴者をファンに変えていく能力の高さです"
+        }
+      }
+    }
   }
 }

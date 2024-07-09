@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import AnnotationText from 'components/styles/AnnotationText'
 import StatsProgressCardContent from 'features/youtube/components/stats/progress-card/StatsProgressCardContent'
@@ -12,21 +13,22 @@ type Props = ChannelSchema['statistics']
 export default function StatsPopularityProgressCard(
   props: PropsWithoutRef<Props>
 ) {
+  const t = useTranslations('Features.youtube.stats')
   const popularity = getPopularity(props)
 
   return (
     <Card>
       <StatsProgressCardHeader
         description={
-          <AnnotationText annotation="弊サービス独自指標です">
-            人気スコア
+          <AnnotationText annotation={t('annotation')}>
+            {t('progress.popularityScore')}
           </AnnotationText>
         }
         mainText={popularity.toString()}
         subText="points"
       />
       <StatsProgressCardContent>
-        0-100。これまでの全活動を考慮したこのチャンネルの総合的な人気度
+        {t('progress.popularityDescription')}
       </StatsProgressCardContent>
       <StatsProgressCardFooter value={popularity} label="25% increase" />
     </Card>

@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { Users } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
@@ -9,10 +10,13 @@ type Props = {
 }
 
 export default function StatsSubscriberCard({ count }: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.youtube.stats')
   return (
     <Card>
       <StatsCardHeader Icon={Users}>Subscribers</StatsCardHeader>
-      <StatsCardContent subText="チャンネル登録者数">{count}</StatsCardContent>
+      <StatsCardContent subText={t('totalSubscriberCount')}>
+        {count}
+      </StatsCardContent>
     </Card>
   )
 }
