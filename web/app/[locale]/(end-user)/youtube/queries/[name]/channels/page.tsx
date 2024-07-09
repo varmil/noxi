@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
-import Site from 'config/constants/Site'
 import { YoutubeDashboard } from 'features/youtube/components/YoutubeDashboard'
 
 type Props = {
@@ -13,11 +12,12 @@ type Props = {
 export async function generateMetadata({
   params: { locale, name }
 }: Props): Promise<Metadata> {
-  const t = await getTranslations({ locale, namespace: 'IndexPage' })
+  const tg = await getTranslations({ locale, namespace: 'Global' })
+  const t = await getTranslations({ locale, namespace: 'QueriesNameChannels' })
 
   return {
-    title: `${name}に関連するチャンネル | ${Site.TITLE}`,
-    description: `${name}に関連するチャンネル | ${Site.TITLE}`
+    title: `${name} | ${t('title')} | ${tg('title')}`,
+    description: `${t('description', { keyword: name })}`
   }
 }
 
