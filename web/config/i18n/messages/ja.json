@@ -40,6 +40,14 @@
 
   "Features": {
     "youtube": {
+      "channel": {
+        "channel": "チャンネル",
+        "viewChannel": "チャンネルの分析はこちら",
+        "unit": "回",
+        "totalVideoViews": "動画の累計再生回数",
+        "totalSubscriberCount": "チャンネル登録者数"
+      },
+
       "stats": {
         "annotation": "弊サービス独自指標です",
 
