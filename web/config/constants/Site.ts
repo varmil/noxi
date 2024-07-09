@@ -1,5 +1,3 @@
-const Site = {
-  TITLE: 'Youtube | PeakX ピークX'
-}
+const Site = {}
 
 export default Site

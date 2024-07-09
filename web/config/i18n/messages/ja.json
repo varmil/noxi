@@ -3,6 +3,10 @@
     "title": "Youtube | PeakX ピークX"
   },
 
+  "Breadcrumb": {
+    "channels": "チャンネル"
+  },
+
   "IndexPage": {
     "title": "PeakX（ピークX）へようこそ",
     "description": "私たちは世界中（まずは日本から始めます）のインフルエンサーの情報を整理整頓します。それらの情報をユーザーの興味に沿う形に最適化して提供し続けることを使命としています。Youtube, Twitch, Tiktok,Instagramを含むインフルエンサーをご紹介します。"
@@ -26,10 +30,6 @@
   "QueriesNameChannels": {
     "title": "に関連するチャンネル一覧",
     "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
-  },
-
-  "Breadcrumb": {
-    "channels": "チャンネル"
   },
 
   "YoutubeDashboard": {

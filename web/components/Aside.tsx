@@ -1,16 +1,18 @@
 import { SVGProps } from 'react'
 import { SettingsIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent
 } from '@/components/ui/tooltip'
-import Site from 'config/constants/Site'
 import { Link } from 'lib/navigation'
 import Logo from './Logo'
 
 export default function Aside() {
+  const t = useTranslations('Global')
+
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
@@ -21,7 +23,7 @@ export default function Aside() {
             prefetch={false}
           >
             <Logo className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">{Site.TITLE}</span>
+            <span className="sr-only">{t('title')}</span>
           </Link>
           <Tooltip>
             <TooltipTrigger>
