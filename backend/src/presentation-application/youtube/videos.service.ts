@@ -16,12 +16,6 @@ export class VideosService {
   }
 
   async findAll(args: { limit?: number }): Promise<Videos> {
-    try {
-      const videos = await this.videoRepository.findAll(args)
-      return videos
-    } catch (error) {
-      console.error('Error fetching data from DB', error)
-      return new Videos([])
-    }
+    return await this.videoRepository.findAll(args)
   }
 }

@@ -7,15 +7,12 @@ import { Video } from '@domain/youtube/video/Video.entity'
 import { VideoRepository } from '@domain/youtube/video/Video.repository'
 import { Videos } from '@domain/youtube/video/Videos.collection'
 import { videoConverter } from '@infra/schema/VideoSchema'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 
 @Injectable()
 export class VideoRepositoryImpl implements VideoRepository {
   private readonly COLLECTION_NAME = 'video'
 
-  constructor(
-    private youtubeDataApiSearchInfraService: YoutubeDataApiSearchInfraService
-  ) {}
+  constructor() {}
 
   async findAll({ limit = 1000 }: { limit?: number }) {
     const videos = await admin
