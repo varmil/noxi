@@ -18,6 +18,7 @@ export class Statistics {
   }
 
   engagementRate() {
+    if (this.viewCount === 0) return 0
     return (this.engagementCount() / this.viewCount) * 100
   }
 }

@@ -7,7 +7,7 @@ import StatsBirthdayCard from 'features/youtube/components/stats/simple-card/Sta
 import StatsCumulativeVideoCard from 'features/youtube/components/stats/simple-card/StatsCumulativeUploadCard'
 import StatsCumulativeViewCard from 'features/youtube/components/stats/simple-card/StatsCumulativeViewCard'
 import StatsSubscriberCard from 'features/youtube/components/stats/simple-card/StatsSubscriberCard'
-import VideoCard from 'features/youtube/components/video/VideoCard'
+import { VideoCards } from 'features/youtube/components/video/VideoCards'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
 type Props = {
@@ -40,7 +40,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
             <StatsLoyaltyProgressCard {...statistics} />
           </Section>
           <Section className="pb-8" title="Contents">
-            <VideoCard />
+            <VideoCards />
           </Section>
         </div>
       </main>

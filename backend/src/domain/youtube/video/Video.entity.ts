@@ -1,3 +1,4 @@
+import { Expose, Transform } from 'class-transformer'
 import { Duration } from '@domain/youtube/video/Duration'
 import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
 import { Snippet } from '@domain/youtube/video/Snippet'
@@ -6,6 +7,7 @@ import { Statistics } from '@domain/youtube/video/Statistics'
 export class Video {
   public readonly id: string
   public readonly snippet: Snippet
+  @Transform(({ value }: { value: Duration }) => value.get())
   public readonly duration: Duration
   public readonly statistics: Statistics
   public readonly liveStreamingDetails?: LiveStreamingDetails
@@ -24,15 +26,18 @@ export class Video {
     this.liveStreamingDetails = args.liveStreamingDetails
   }
 
+  @Expose()
   isShort(): boolean {
     return this.duration.isShort()
   }
 
-  engagementCount() {
+  @Expose()
+  get engagementCount() {
     return this.statistics.engagementCount()
   }
 
-  engagementRate() {
+  @Expose()
+  get engagementRate() {
     return this.statistics.engagementRate()
   }
 }

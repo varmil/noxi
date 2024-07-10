@@ -19,6 +19,7 @@ export class VideoRepositoryImpl implements VideoRepository {
       .firestore()
       .collection(this.COLLECTION_NAME)
       .limit(limit)
+      .orderBy('id', 'asc')
       .withConverter(videoConverter)
       .get()
 

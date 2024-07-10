@@ -38,6 +38,7 @@ export const schema = z.object({
 
   updatedAt: z.string().datetime().optional()
 })
+export const listSchema = z.object({ list: z.array(schema) })
 
 export type ChannelSchema = z.infer<typeof schema>
 export type ChannelsSchema = ChannelSchema[]

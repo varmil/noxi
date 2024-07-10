@@ -97,13 +97,13 @@ export class VideoAggregation {
     let averageViews = views.reduce((acc, curr) => acc + curr, 0) / views.length
     if (isNaN(averageViews)) averageViews = 0
 
-    const engagementCounts = videos.map(video => video.engagementCount() || 0)
+    const engagementCounts = videos.map(video => video.engagementCount || 0)
     let averageEngagementCount =
       engagementCounts.reduce((acc, curr) => acc + curr, 0) /
       engagementCounts.length
     if (isNaN(averageEngagementCount)) averageEngagementCount = 0
 
-    const engagementRates = videos.map(video => video.engagementRate() || 0)
+    const engagementRates = videos.map(video => video.engagementRate || 0)
     let averageEngagementRate =
       engagementRates.reduce((acc, curr) => acc + curr, 0) /
       engagementRates.length

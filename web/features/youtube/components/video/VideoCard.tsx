@@ -1,7 +1,23 @@
+import dayjs from 'dayjs'
+import durationPlugin from 'dayjs/plugin/duration'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import toArray from 'dayjs/plugin/toArray'
 import { Card, CardContent } from '@/components/ui/card'
+import { VideoSchema } from 'features/youtube/types/videoSchema'
 import { Link } from 'lib/navigation'
 
-export default function VideoCard() {
+dayjs.extend(durationPlugin)
+dayjs.extend(toArray)
+dayjs.extend(relativeTime)
+
+export default function VideoCard(video: VideoSchema) {
+  const { id, snippet, duration, statistics } = video
+  const { title, description, thumbnails, publishedAt } = snippet
+  const { viewCount, likeCount, commentCount } = statistics
+
+  const d = dayjs.duration(duration)
+  const hours = d.hours()
+
   return (
     <Card className="w-full max-w-md">
       <Link
@@ -10,7 +26,7 @@ export default function VideoCard() {
         prefetch={false}
       >
         <img
-          src="/placeholder.svg"
+          src={thumbnails['medium'].url}
           alt="Video Thumbnail"
           width={400}
           height={225}
@@ -20,31 +36,33 @@ export default function VideoCard() {
           <PlayIcon className="h-12 w-12 text-white" />
         </div>
         <div className="absolute bottom-2 left-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
-          <span>2:34</span>
+          <span>
+            {d.format(
+              [hours && 'H', 'm', 'ss'].filter(Boolean).join(':').trim()
+            )}
+          </span>
         </div>
         <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
-          <span>Uploaded 2 days ago</span>
+          <span>{dayjs(publishedAt).fromNow()}</span>
         </div>
       </Link>
       <CardContent className="space-y-2 p-4">
         <div>
-          <h3 className="text-lg font-medium line-clamp-2">
-            Introducing v0: Generative UI
-          </h3>
+          <h3 className="text-lg font-medium line-clamp-2">{title}</h3>
           <p className="text-sm text-muted-foreground line-clamp-1">Vercel</p>
         </div>
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <EyeIcon className="h-4 w-4" />
-            <span>300K views</span>
+            <span>{viewCount} views</span>
           </div>
           <div className="flex items-center gap-2">
             <ThumbsUpIcon className="h-4 w-4" />
-            <span>15K likes</span>
+            <span>{likeCount} likes</span>
           </div>
           <div className="flex items-center gap-2">
             <MessageCircleIcon className="h-4 w-4" />
-            <span>1.2K comments</span>
+            <span>{commentCount} comments</span>
           </div>
         </div>
       </CardContent>

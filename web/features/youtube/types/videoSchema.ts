@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const videoSchema = z.object({
+export const schema = z.object({
   id: z.string(),
 
   snippet: z.object({
@@ -32,8 +32,13 @@ export const videoSchema = z.object({
     })
     .optional(),
 
-  updatedAt: z.string().datetime()
-})
+  isShort: z.boolean(),
+  engagementCount: z.number().min(0),
+  engagementRate: z.number().min(0),
 
-export type VideoSchema = z.infer<typeof videoSchema>
+  updatedAt: z.string().datetime().optional()
+})
+export const listSchema = z.object({ list: z.array(schema) })
+
+export type VideoSchema = z.infer<typeof schema>
 export type VideosSchema = VideoSchema[]
