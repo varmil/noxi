@@ -12,6 +12,7 @@ import { VideosService } from '@app/youtube/videos.service'
 export class VideosController {
   constructor(private readonly videosService: VideosService) {}
 
+  // TODO: channelId query string
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/')
   async getVideos() {

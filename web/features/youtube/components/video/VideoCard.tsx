@@ -36,19 +36,20 @@ export default function VideoCard(video: VideoSchema) {
           <PlayIcon className="h-12 w-12 text-white" />
         </div>
         <div className="absolute bottom-2 left-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
+          <span>{dayjs(publishedAt).fromNow()}</span>
+        </div>
+        <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
           <span>
             {d.format(
               [hours && 'H', 'm', 'ss'].filter(Boolean).join(':').trim()
             )}
           </span>
         </div>
-        <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
-          <span>{dayjs(publishedAt).fromNow()}</span>
-        </div>
       </Link>
       <CardContent className="space-y-2 p-4">
         <div>
           <h3 className="text-lg font-medium line-clamp-2">{title}</h3>
+          {/* TODO: get channel name */}
           <p className="text-sm text-muted-foreground line-clamp-1">Vercel</p>
         </div>
         <div className="flex items-center justify-between text-sm text-muted-foreground">
