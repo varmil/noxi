@@ -4,6 +4,7 @@ import {
   Get,
   NotImplementedException,
   Param,
+  Query,
   UseInterceptors
 } from '@nestjs/common'
 import { VideosService } from '@app/youtube/videos.service'
@@ -12,11 +13,10 @@ import { VideosService } from '@app/youtube/videos.service'
 export class VideosController {
   constructor(private readonly videosService: VideosService) {}
 
-  // TODO: channelId query string
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/')
-  async getVideos() {
-    return await this.videosService.findAll({ limit: 50 })
+  async getVideos(@Query('channelId') channelId: string) {
+    return await this.videosService.findAll({ where: { channelId }, limit: 50 })
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

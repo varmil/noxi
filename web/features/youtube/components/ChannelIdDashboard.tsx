@@ -40,7 +40,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
             <StatsLoyaltyProgressCard {...statistics} />
           </Section>
           <Section className="pb-8" title="Contents">
-            <VideoCards />
+            <VideoCards channelId={basicInfo.id} />
           </Section>
         </div>
       </main>

@@ -14,12 +14,16 @@ export class VideoRepositoryImpl implements VideoRepository {
 
   constructor() {}
 
-  async findAll({ limit = 1000 }: { limit?: number }) {
+  async findAll({
+    where: { channelId },
+    limit = 1000
+  }: Parameters<VideoRepository['findAll']>[0]) {
     const videos = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
+      .where('snippet.channelId', '==', channelId)
       .limit(limit)
-      .orderBy('id', 'asc')
+      .orderBy('snippet.publishedAt', 'desc')
       .withConverter(videoConverter)
       .get()
 
@@ -58,7 +62,7 @@ export class VideoRepositoryImpl implements VideoRepository {
   }
 
   // upsert with video id
-  async save(video: Video) {
+  async save(video: Parameters<VideoRepository['save']>[0]) {
     const {
       id,
       snippet: {
