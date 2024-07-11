@@ -33,7 +33,6 @@ export default function YoutubeQueriesNameChannelsPage({
     <Page>
       <GlobalBreadcrumb
         items={[
-          { href: '/', name: 'Home' },
           { href: '/', name: 'YouTube' },
           { href: '#', name: t('channels') }
         ]}
