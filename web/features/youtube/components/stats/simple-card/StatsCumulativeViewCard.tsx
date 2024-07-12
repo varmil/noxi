@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { Play } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
@@ -18,7 +19,7 @@ export default function StatsCumulativeViewCard({
     <Card>
       <StatsCardHeader Icon={Play}>Cumulative Views</StatsCardHeader>
       <StatsCardContent subText={t('totalVideoViews')}>
-        {count}
+        <IntlNumberFormat>{count}</IntlNumberFormat>
       </StatsCardContent>
     </Card>
   )

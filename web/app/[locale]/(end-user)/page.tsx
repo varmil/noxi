@@ -1,3 +1,4 @@
+import { HomeIcon } from 'lucide-react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
@@ -29,12 +30,7 @@ export default function IndexPage({ params: { locale } }: Props) {
 
   return (
     <Page>
-      <GlobalBreadcrumb
-        items={[
-          { href: '#', name: 'Home' },
-          { href: '#', name: 'YouTube' }
-        ]}
-      />
+      <GlobalBreadcrumb items={[{ href: '/', name: 'YouTube' }]} />
       <div className="container py-24 lg:py-32">
         <div className="max-w-2xl mx-auto">
           <div className="grid gap-12">

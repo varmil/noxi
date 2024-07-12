@@ -7,21 +7,23 @@ import { Video } from '@domain/youtube/video/Video.entity'
 import { VideoRepository } from '@domain/youtube/video/Video.repository'
 import { Videos } from '@domain/youtube/video/Videos.collection'
 import { videoConverter } from '@infra/schema/VideoSchema'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 
 @Injectable()
 export class VideoRepositoryImpl implements VideoRepository {
   private readonly COLLECTION_NAME = 'video'
 
-  constructor(
-    private youtubeDataApiSearchInfraService: YoutubeDataApiSearchInfraService
-  ) {}
+  constructor() {}
 
-  async findAll({ limit = 1000 }: { limit?: number }) {
+  async findAll({
+    where: { channelId },
+    limit = 1000
+  }: Parameters<VideoRepository['findAll']>[0]) {
     const videos = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
+      .where('snippet.channelId', '==', channelId)
       .limit(limit)
+      .orderBy('snippet.publishedAt', 'desc')
       .withConverter(videoConverter)
       .get()
 
@@ -60,7 +62,7 @@ export class VideoRepositoryImpl implements VideoRepository {
   }
 
   // upsert with video id
-  async save(video: Video) {
+  async save(video: Parameters<VideoRepository['save']>[0]) {
     const {
       id,
       snippet: {

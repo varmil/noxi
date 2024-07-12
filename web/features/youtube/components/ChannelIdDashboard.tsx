@@ -1,4 +1,4 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { getChannel } from 'features/youtube/api/getChannel'
 import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
 import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
@@ -7,6 +7,8 @@ import StatsBirthdayCard from 'features/youtube/components/stats/simple-card/Sta
 import StatsCumulativeVideoCard from 'features/youtube/components/stats/simple-card/StatsCumulativeUploadCard'
 import StatsCumulativeViewCard from 'features/youtube/components/stats/simple-card/StatsCumulativeViewCard'
 import StatsSubscriberCard from 'features/youtube/components/stats/simple-card/StatsSubscriberCard'
+import { VideoCards } from 'features/youtube/components/video/VideoCards'
+import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
 type Props = {
   id: string
@@ -24,50 +26,39 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           description={basicInfo.description}
           subscriberCount={statistics.subscriberCount}
         />
-        <section>
-          <div className="pb-8">
-            <h2 className="text-2xl font-bold lg:text-3xl pb-4">
-              YouTube Data
-            </h2>
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <StatsSubscriberCard count={statistics?.subscriberCount ?? 0} />
-              <StatsCumulativeViewCard count={statistics?.viewCount ?? 0} />
-              <StatsCumulativeVideoCard count={statistics?.videoCount ?? 0} />
-              <StatsBirthdayCard
-                date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
-              />
-            </div>
-          </div>
-          <div>
-            <h2 className="text-2xl font-bold lg:text-3xl pb-4">AI Analysis</h2>
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-              <StatsPopularityProgressCard {...statistics} />
-              <StatsLoyaltyProgressCard {...statistics} />
-            </div>
-          </div>
-        </section>
+        <div>
+          <Section className="pb-8" title="YouTube Data">
+            <StatsSubscriberCard count={statistics?.subscriberCount ?? 0} />
+            <StatsCumulativeViewCard count={statistics?.viewCount ?? 0} />
+            <StatsCumulativeVideoCard count={statistics?.videoCount ?? 0} />
+            <StatsBirthdayCard
+              date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
+            />
+          </Section>
+          <Section className="pb-8" title="AI Analysis">
+            <StatsPopularityProgressCard {...statistics} />
+            <StatsLoyaltyProgressCard {...statistics} />
+          </Section>
+          <Section className="pb-8" title="Contents">
+            <VideoCards channelId={basicInfo.id} />
+          </Section>
+        </div>
       </main>
     </div>
   )
 }
 
-function CirclePlusIcon(props) {
+function Section({
+  className,
+  title,
+  children
+}: PropsWithChildren<ChannelSchema & { className: string; title: string }>) {
   return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M8 12h8" />
-      <path d="M12 8v8" />
-    </svg>
+    <section className={className}>
+      <h2 className="text-2xl font-bold lg:text-3xl pb-4">{title}</h2>
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+        {children}
+      </div>
+    </section>
   )
 }

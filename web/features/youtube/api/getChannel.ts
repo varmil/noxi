@@ -1,10 +1,7 @@
-import { ChannelSchema } from 'features/youtube/types/channelSchema'
+import { schema, ChannelSchema } from 'features/youtube/types/channelSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
-type Res = ChannelSchema
-
 export async function getChannel(id: string): Promise<ChannelSchema> {
-  // const res = await fetchAPI('/api/youtube/channels', { cache: 'no-store' })
   const res = await fetchAPI(`/api/youtube/channels/${id}`, {
     // next: { revalidate: 600 }
     cache: 'no-store'
@@ -17,5 +14,6 @@ export async function getChannel(id: string): Promise<ChannelSchema> {
     throw new Error('Failed to fetch data')
   }
 
-  return await (res.json() as Promise<Res>)
+  const data = schema.parse(await res.json())
+  return data
 }

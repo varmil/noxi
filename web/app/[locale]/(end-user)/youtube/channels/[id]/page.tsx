@@ -35,7 +35,6 @@ export default async function YoutubeChannelsIdPage({
     <Page>
       <GlobalBreadcrumb
         items={[
-          { href: '/', name: 'Home' },
           { href: '/', name: 'YouTube' },
           { href: '#', name: t('channels') },
           { href: '#', name: basicInfo.title }

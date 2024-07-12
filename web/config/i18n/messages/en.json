@@ -43,7 +43,7 @@
       "channel": {
         "channel": "channel",
         "viewChannel": "Here is the analysis of the channel",
-        "unit": "views",
+        "unit": " views",
         "totalVideoViews": "Total video views",
         "totalSubscriberCount": "subscribers"
       },

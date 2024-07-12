@@ -1,4 +1,5 @@
 import React, { PropsWithoutRef } from 'react'
+import { HomeIcon } from 'lucide-react'
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -6,6 +7,7 @@ import {
   BreadcrumbLink,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -14,30 +16,41 @@ type Props = {
 
 type Item = {
   href: string
-  name: string
+  name: string | React.ReactNode
 }
 
 export default function GlobalBreadcrumb({
   items = []
 }: PropsWithoutRef<Props>) {
   return (
-    <div className="hidden md:flex sm:px-6">
-      <Breadcrumb className="">
-        <BreadcrumbList>
-          {items.map((item, i) => (
-            <React.Fragment key={item.name + item.href}>
-              {i !== 0 && <BreadcrumbSeparator />}
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href={item.href} prefetch={false}>
-                    {item.name}
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-            </React.Fragment>
-          ))}
-        </BreadcrumbList>
-      </Breadcrumb>
-    </div>
+    <ScrollArea className="whitespace-nowrap pt-4 sm:pt-0 px-4 sm:px-6">
+      <div className="w-max overflow-hidden">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/" prefetch={false}>
+                  <HomeIcon className="h-5 w-5" />
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+
+            {items.map((item, i) => (
+              <React.Fragment key={item.name + item.href}>
+                {<BreadcrumbSeparator />}
+                <BreadcrumbItem>
+                  <BreadcrumbLink asChild>
+                    <Link href={item.href} prefetch={false}>
+                      {item.name}
+                    </Link>
+                  </BreadcrumbLink>
+                </BreadcrumbItem>
+              </React.Fragment>
+            ))}
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+      <ScrollBar orientation="horizontal" className="hidden" />
+    </ScrollArea>
   )
 }

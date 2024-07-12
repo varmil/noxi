@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { videoAggregationSchema } from 'features/youtube/types/videoAggregationSchema'
 
-const channelSchema = z.object({
+export const schema = z.object({
   // from /v3/search
   basicInfo: z.object({
     id: z.string(),
@@ -15,7 +15,7 @@ const channelSchema = z.object({
         height: z.number().optional()
       })
     ),
-    publishedAt: z.string()
+    publishedAt: z.string().datetime()
   }),
 
   // from /v3/channels
@@ -36,8 +36,9 @@ const channelSchema = z.object({
   // from VideoAggregation
   latestVideoAggregation: videoAggregationSchema.optional(),
 
-  updatedAt: z.string()
+  updatedAt: z.string().datetime().optional()
 })
+export const listSchema = z.object({ list: z.array(schema) })
 
-export type ChannelSchema = z.infer<typeof channelSchema>
+export type ChannelSchema = z.infer<typeof schema>
 export type ChannelsSchema = ChannelSchema[]

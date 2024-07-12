@@ -1,12 +1,13 @@
-import {
-  ChannelsSchema,
-  listSchema
-} from 'features/youtube/types/channelSchema'
+import { listSchema, VideosSchema } from 'features/youtube/types/videoSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
-export async function getChannels(): Promise<ChannelsSchema> {
-  const res = await fetchAPI('/api/youtube/channels', {
-    // next: { revalidate: 600 }
+export async function getVideos({
+  channelId
+}: {
+  channelId: string
+}): Promise<VideosSchema> {
+  const params = new URLSearchParams({ channelId })
+  const res = await fetchAPI(`/api/youtube/videos?${params.toString()}`, {
     cache: 'no-store'
   })
   // The return value is *not* serialized
