@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
@@ -15,7 +16,7 @@ export default function StatsSubscriberCard({ count }: PropsWithoutRef<Props>) {
     <Card>
       <StatsCardHeader Icon={Users}>Subscribers</StatsCardHeader>
       <StatsCardContent subText={t('totalSubscriberCount')}>
-        {count}
+        <IntlNumberFormat>{count}</IntlNumberFormat>
       </StatsCardContent>
     </Card>
   )
