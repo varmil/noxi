@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { Cake, UsersIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { Link } from 'lib/navigation'
 import type { StaticImport } from 'next/dist/shared/lib/get-img-props'
 
@@ -49,14 +50,16 @@ export default function ChannelCard({
             <span>{t('totalVideoViews')}</span>
           </div>
           <span className="text-lg font-bold text-primary">
-            {totalViewCount} {t('unit')}
+            <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>
+            {t('unit')}
           </span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <UsersIcon className="w-4 h-4" />
           <span>
-            {subscriberCount} {t('totalSubscriberCount')}
+            <IntlNumberFormat>{subscriberCount}</IntlNumberFormat>{' '}
+            {t('totalSubscriberCount')}
           </span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
