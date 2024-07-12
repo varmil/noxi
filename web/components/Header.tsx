@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
+import { ModeToggle } from 'components/ModeToggle'
 import { Link } from 'lib/navigation'
 import Logo from './Logo'
 
@@ -105,7 +106,8 @@ export default function Header() {
           className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
         />
       </div>
-      <DropdownMenu>
+
+      {/* <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
@@ -129,7 +131,11 @@ export default function Header() {
           <DropdownMenuSeparator />
           <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu>
+      </DropdownMenu> */}
+
+      <div>
+        <ModeToggle />
+      </div>
     </header>
   )
 }
