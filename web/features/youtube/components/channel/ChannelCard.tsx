@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { Cake, UsersIcon } from 'lucide-react'
+import { Cake, Play, UsersIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
@@ -45,14 +45,17 @@ export default function ChannelCard({
       <div className="px-4 py-2 bg-background flex-1 w-[70%]">
         <h3 className="line-clamp-1 mb-2">{name}</h3>
 
-        <div className="ra-val mb-0 sm:mb-2">
-          <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
-            <span>{t('totalVideoViews')}</span>
+        <div className="flex items-center gap-2">
+          <Play className="w-4 h-4 text-muted-foreground" />
+          <div className="ra-val mb-0 sm:mb-2">
+            <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
+              <span>{t('totalVideoViews')}</span>
+            </div>
+            <span className="text-lg font-bold text-primary">
+              <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>
+              {t('unit')}
+            </span>
           </div>
-          <span className="text-lg font-bold text-primary">
-            <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>
-            {t('unit')}
-          </span>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">

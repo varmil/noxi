@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 
 type Props = {
   name: string
@@ -26,7 +27,7 @@ export function ChannelProfileHeader({
             <h1 className="text-xl font-bold">{name}</h1>
             <div className="max-w-lg break-all">{description}</div>
             <div className="text-sm text-secondary-foreground">
-              {subscriberCount} Subscribers
+              <IntlNumberFormat>{subscriberCount}</IntlNumberFormat> Subscribers
             </div>
           </div>
         </div>
