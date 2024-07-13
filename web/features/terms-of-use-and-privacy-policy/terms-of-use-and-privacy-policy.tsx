@@ -38,9 +38,10 @@ export default function TermsOfUseAndPrivacyPolicy() {
           </h2>
           <div className="mt-4 space-y-4">
             <p>
-              These Terms of Use (the "Terms") set forth the terms and
-              conditions for using PeakX (the "Service"). By using the Service,
-              users ("Users") agree to be bound by these Terms.
+              These Terms of Use (the &quot;Terms&quot;) set forth the terms and
+              conditions for using PeakX (the &quot;Service&quot;). By using the
+              Service, users (&quot;Users&quot;) agree to be bound by these
+              Terms.
             </p>
 
             <h3 className="text-l font-bold">1. Conditions of Use</h3>
@@ -58,7 +59,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <p>
               1.2 The Service uses the YouTube Data API to provide information.
               Information obtained through the YouTube Data API is subject to
-              YouTube's Privacy Policy (
+              YouTube&apos;s Privacy Policy (
               <a
                 href="https://policies.google.com/privacy"
                 target="_blank"
@@ -85,9 +86,9 @@ export default function TermsOfUseAndPrivacyPolicy() {
 
             <h3 className="text-l font-bold">3. Disclaimer</h3>
             <p>
-              3.1 The Service is provided "as is" without warranties of any
-              kind, whether express or implied, including but not limited to
-              implied warranties of merchantability, fitness for a particular
+              3.1 The Service is provided &quot;as is&quot; without warranties
+              of any kind, whether express or implied, including but not limited
+              to implied warranties of merchantability, fitness for a particular
               purpose, and non-infringement.
             </p>
 
@@ -108,9 +109,9 @@ export default function TermsOfUseAndPrivacyPolicy() {
           </h2>
           <div className="mt-4 space-y-4">
             <p>
-              PeakX (the "Service") respects your privacy and is committed to
-              protecting your personal information. This Privacy Policy explains
-              how we collect, use, and share your information.
+              PeakX (the &quot;Service&quot;) respects your privacy and is
+              committed to protecting your personal information. This Privacy
+              Policy explains how we collect, use, and share your information.
             </p>
 
             <h3 className="text-l font-bold">1. Information Collection</h3>
@@ -154,7 +155,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <h3 className="text-l font-bold">4. Use of YouTube API Services</h3>
             <p>
               4.1 The Service uses the YouTube Data API. Information obtained
-              through the YouTube Data API is subject to YouTube's Privacy
+              through the YouTube Data API is subject to YouTube&apos;s Privacy
               Policy (
               <a
                 href="https://policies.google.com/privacy"
