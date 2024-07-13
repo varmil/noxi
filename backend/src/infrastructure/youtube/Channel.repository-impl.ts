@@ -9,6 +9,7 @@ import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasi
 import { Country } from '@domain/youtube/channel/branding-settings/Country'
 import { Keyword } from '@domain/youtube/channel/branding-settings/Keyword'
 import { Keywords } from '@domain/youtube/channel/branding-settings/Keywords'
+import { getExpireAt } from '@infra/lib/getExpireAt'
 import { channelConverter, ChannelSchema } from '@infra/schema/ChannelSchema'
 
 @Injectable()
@@ -85,7 +86,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
               }
             : undefined,
 
-          updatedAt: admin.firestore.FieldValue.serverTimestamp()
+          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          expireAt: getExpireAt()
         },
         { merge: true }
       )
