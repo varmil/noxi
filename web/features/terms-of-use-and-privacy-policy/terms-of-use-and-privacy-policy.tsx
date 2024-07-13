@@ -95,11 +95,14 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <h3 className="text-l font-bold">4. Contact Information</h3>
             <p>
               4.1 If you have any questions about these Terms, please contact us
-              at:
-            </p>
-            <p>
-              Email: support@example.com
-              <br /> Address: 123-4567, Shibuya, Tokyo, 1-2-3, Japan
+              here:{' '}
+              <a
+                href="https://forms.gle/AtHChW8N4R2NRDbu5"
+                target="_blank"
+                className="underline"
+              >
+                Google Forms
+              </a>
             </p>
           </div>
         </div>
@@ -182,7 +185,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
               However, if you believe the Service has accessed your Authorized
               Data, you have the right to request to review, correct, or delete
               your Personal Information. You can revoke these requests by
-              visiting the Google Security Settings page here:
+              visiting the Google Security Settings page here:{' '}
               <a
                 href="https://security.google.com/settings/security/permissions"
                 target="_blank"
@@ -196,11 +199,14 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <h3 className="text-l font-bold">7. Contact Information</h3>
             <p>
               7.1 If you have any questions about this Privacy Policy, please
-              contact us at:
-            </p>
-            <p>
-              Email: support@example.com
-              <br /> Address: 123-4567, Shibuya, Tokyo, 1-2-3, Japan
+              contact us here:{' '}
+              <a
+                href="https://forms.gle/AtHChW8N4R2NRDbu5"
+                target="_blank"
+                className="underline"
+              >
+                Google Forms
+              </a>
             </p>
           </div>
         </div>
