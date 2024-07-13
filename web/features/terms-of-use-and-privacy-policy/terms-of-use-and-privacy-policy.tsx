@@ -45,20 +45,42 @@ export default function TermsOfUseAndPrivacyPolicy() {
 
             <h3 className="text-l font-bold">1. Conditions of Use</h3>
             <p>
-              1.1 Users agree to comply with the YouTube Terms of Service
-              (https://www.youtube.com/t/terms) when using the Service.
+              1.1 Users agree to comply with the YouTube Terms of Service (
+              <a
+                href="https://www.youtube.com/t/terms"
+                target="_blank"
+                className="underline"
+              >
+                https://www.youtube.com/t/terms
+              </a>
+              ) when using the Service.
             </p>
             <p>
               1.2 The Service uses the YouTube Data API to provide information.
               Information obtained through the YouTube Data API is subject to
-              YouTube's Privacy Policy (https://policies.google.com/privacy).
+              YouTube's Privacy Policy (
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                className="underline"
+              >
+                https://policies.google.com/privacy
+              </a>
+              ).
             </p>
 
             <h3 className="text-l font-bold">2. Privacy</h3>
             <p>
-              2.1 Our Privacy Policy (https://www.example.com/privacy-policy)
-              explains how we collect, use, and share your information. By using
-              the Service, Users agree to our Privacy Policy.
+              2.1 Our Privacy Policy (
+              <Link
+                href="#privacy-policy"
+                className="hover:underline"
+                prefetch={false}
+              >
+                #privacy-policy
+              </Link>
+              ) explains how we collect, use, and share your information. By
+              using the Service, Users agree to our Privacy Policy.
             </p>
 
             <h3 className="text-l font-bold">3. Disclaimer</h3>
@@ -133,7 +155,15 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <p>
               4.1 The Service uses the YouTube Data API. Information obtained
               through the YouTube Data API is subject to YouTube's Privacy
-              Policy (https://policies.google.com/privacy).
+              Policy (
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                className="underline"
+              >
+                https://policies.google.com/privacy
+              </a>
+              ).
             </p>
 
             <h3 className="text-l font-bold">
@@ -152,7 +182,14 @@ export default function TermsOfUseAndPrivacyPolicy() {
               Data, you have the right to request to review, correct, or delete
               your Personal Information. You can revoke these requests by
               visiting the Google Security Settings page here:
-              https://security.google.com/settings/security/permissions.
+              <a
+                href="https://security.google.com/settings/security/permissions"
+                target="_blank"
+                className="underline"
+              >
+                https://security.google.com/settings/security/permissions
+              </a>
+              .
             </p>
 
             <h3 className="text-l font-bold">7. Contact Information</h3>
