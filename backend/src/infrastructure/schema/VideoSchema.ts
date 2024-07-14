@@ -37,7 +37,8 @@ export const videoSchema = z.object({
     })
     .optional(),
 
-  updatedAt: firestoreFieldValueOrTimestampSchema
+  updatedAt: firestoreFieldValueOrTimestampSchema,
+  expireAt: firestoreTimestampSchema
 })
 
 export type VideoSchema = z.infer<typeof videoSchema>

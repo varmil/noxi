@@ -3,10 +3,10 @@ import { getChannel } from 'features/youtube/api/getChannel'
 import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
 import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
 import StatsPopularityProgressCard from 'features/youtube/components/stats/progress-card/StatsPopularityProgressCard'
-import StatsBirthdayCard from 'features/youtube/components/stats/simple-card/StatsBirthdayCard'
-import StatsCumulativeVideoCard from 'features/youtube/components/stats/simple-card/StatsCumulativeUploadCard'
-import StatsCumulativeViewCard from 'features/youtube/components/stats/simple-card/StatsCumulativeViewCard'
-import StatsSubscriberCard from 'features/youtube/components/stats/simple-card/StatsSubscriberCard'
+import StatsJoinedCard from 'features/youtube/components/stats/simple-card/StatsJoinedCard'
+import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/StatsSubscribersCard'
+import StatsVideosCard from 'features/youtube/components/stats/simple-card/StatsVideosCard'
+import StatsViewsCard from 'features/youtube/components/stats/simple-card/StatsViewsCard'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
@@ -28,18 +28,19 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
         />
         <div>
           <Section className="pb-8" title="YouTube Data">
-            <StatsSubscriberCard count={statistics?.subscriberCount ?? 0} />
-            <StatsCumulativeViewCard count={statistics?.viewCount ?? 0} />
-            <StatsCumulativeVideoCard count={statistics?.videoCount ?? 0} />
-            <StatsBirthdayCard
+            <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
+            <StatsViewsCard count={statistics?.viewCount ?? 0} />
+            <StatsVideosCard count={statistics?.videoCount ?? 0} />
+            <StatsJoinedCard
               date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
             />
           </Section>
-          <Section className="pb-8" title="AI Analysis">
+          {/* TODO: Impl AI Analysis */}
+          {/* <Section className="pb-8" title="AI Analysis">
             <StatsPopularityProgressCard {...statistics} />
             <StatsLoyaltyProgressCard {...statistics} />
-          </Section>
-          <Section className="pb-8" title="Contents">
+          </Section> */}
+          <Section className="pb-8" title="Videos">
             <VideoCards channelId={basicInfo.id} />
           </Section>
         </div>

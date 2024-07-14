@@ -11,7 +11,7 @@ import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-ap
 import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
 
 const FETCH_LIMIT = 50
-const TAKE = 5
+const TAKE = 20
 
 @Injectable()
 export class CloudSchedulersYoutubeScenario {

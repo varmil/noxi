@@ -1,3 +1,4 @@
+import { SVGProps } from 'react'
 import dayjs from 'dayjs'
 import durationPlugin from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -5,6 +6,7 @@ import toArray from 'dayjs/plugin/toArray'
 import { LineChart } from 'lucide-react'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { VideoSchema } from 'features/youtube/types/videoSchema'
 import { Link } from 'lib/navigation'
 
@@ -21,7 +23,7 @@ export default function VideoCard(video: VideoSchema) {
   const hours = d.hours()
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full">
       <Link
         href="#"
         className="group relative block aspect-video overflow-hidden rounded-lg"
@@ -29,14 +31,15 @@ export default function VideoCard(video: VideoSchema) {
       >
         <Image
           src={thumbnails['medium'].url}
-          alt="Video Thumbnail"
+          alt={`Video Thumbnail: ${title}`}
           width={400}
           height={225}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        {/* TODO: When /videos/:id page is created, comment in here. */}
+        {/* <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <LineChart className="h-12 w-12 text-white" />
-        </div>
+        </div> */}
         <div className="absolute bottom-2 left-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
           <span>{dayjs(publishedAt).fromNow()}</span>
         </div>
@@ -57,16 +60,31 @@ export default function VideoCard(video: VideoSchema) {
         </div>
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
-            <EyeIcon className="h-4 w-4" />
-            <span>{viewCount} views</span>
+            {/* <EyeIcon className="h-4 w-4" /> */}
+            <span>
+              <IntlNumberFormat maximumSignificantDigits={3}>
+                {viewCount}
+              </IntlNumberFormat>{' '}
+              <span>views</span>
+            </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             <ThumbsUpIcon className="h-4 w-4" />
-            <span>{likeCount} likes</span>
+            <span>
+              <IntlNumberFormat maximumSignificantDigits={2}>
+                {likeCount}
+              </IntlNumberFormat>
+              <span className="sr-only">likes</span>
+            </span>
           </div>
-          <div className="flex items-center gap-2">
-            <MessageCircleIcon className="h-4 w-4" />
-            <span>{commentCount} comments</span>
+          <div className="flex items-center gap-1">
+            <CommentIcon className="h-4 w-4" />
+            <span>
+              <IntlNumberFormat maximumSignificantDigits={2}>
+                {commentCount}
+              </IntlNumberFormat>
+              <span className="sr-only">comments</span>
+            </span>
           </div>
         </div>
       </CardContent>
@@ -94,24 +112,24 @@ function EyeIcon(props) {
   )
 }
 
-function MessageCircleIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-    </svg>
-  )
-}
+// function MessageCircleIcon(props) {
+//   return (
+//     <svg
+//       {...props}
+//       xmlns="http://www.w3.org/2000/svg"
+//       width="24"
+//       height="24"
+//       viewBox="0 0 24 24"
+//       fill="none"
+//       stroke="currentColor"
+//       strokeWidth="2"
+//       strokeLinecap="round"
+//       strokeLinejoin="round"
+//     >
+//       <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+//     </svg>
+//   )
+// }
 
 function ThumbsUpIcon(props) {
   return (
@@ -132,3 +150,21 @@ function ThumbsUpIcon(props) {
     </svg>
   )
 }
+
+const CommentIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    {...props}
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    fill="currentColor"
+    stroke="currentColor"
+    strokeWidth="1"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    focusable="false"
+  >
+    <g width="24" height="24" viewBox="0 0 24 24">
+      <path d="M8 7H16V9H8V7ZM8 13H13V11H8V13ZM5 3V16H15H15.41L15.7 16.29L19 19.59V3H5ZM4 2H20V22L15 17H4V2Z"></path>
+    </g>
+  </svg>
+)

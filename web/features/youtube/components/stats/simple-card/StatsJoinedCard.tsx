@@ -1,23 +1,22 @@
 import { PropsWithoutRef } from 'react'
-import { Upload } from 'lucide-react'
+import dayjs from 'dayjs'
+import { Info } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
 type Props = {
-  count: number
+  date: string
 }
 
-export default function StatsCumulativeVideoCard({
-  count
-}: PropsWithoutRef<Props>) {
+export default function StatsJoinedCard({ date }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats')
   return (
     <Card>
-      <StatsCardHeader Icon={Upload}>Cumulative Uploads</StatsCardHeader>
-      <StatsCardContent subText={t('cumulativeUploads')}>
-        {count}
+      <StatsCardHeader Icon={Info}>Joined</StatsCardHeader>
+      <StatsCardContent subText={t('joinedDescription')}>
+        {dayjs(date).format('MMM DD, YYYY')}
       </StatsCardContent>
     </Card>
   )

@@ -1,6 +1,7 @@
 {
   "Global": {
-    "title": "YouTube | PeakX"
+    "title": "YouTube | PeakX",
+    "headerTitle": "PeakX"
   },
 
   "Breadcrumb": {
@@ -44,17 +45,18 @@
         "channel": "channel",
         "viewChannel": "Here is the analysis of the channel",
         "unit": " views",
-        "totalVideoViews": "Total video views",
-        "totalSubscriberCount": "subscribers"
+        "totalViews": "Total views",
+        "totalSubscribers": "subscribers",
+        "joined": "Joind {date}"
       },
 
       "stats": {
         "annotation": "This is our service's unique indicator.",
 
-        "totalVideoViews": "Total video views",
-        "totalSubscriberCount": "Total subscribers",
-        "cumulativeUploads": "Total number of videos uploaded",
-        "birthday": "Date the channel was registered",
+        "totalViews": "Total views",
+        "totalSubscribers": "Total subscribers",
+        "totalVideos": "Total number of videos uploaded",
+        "joinedDescription": "Date the channel was registered",
 
         "progress": {
           "popularityScore": "Popularity Score",

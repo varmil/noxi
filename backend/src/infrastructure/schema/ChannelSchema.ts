@@ -41,7 +41,8 @@ export const channelSchema = z.object({
   // from VideoAggregation
   latestVideoAggregation: videoAggregationSchema.optional(),
 
-  updatedAt: firestoreFieldValueOrTimestampSchema
+  updatedAt: firestoreFieldValueOrTimestampSchema,
+  expireAt: firestoreFieldValueOrTimestampSchema
 })
 
 export type ChannelSchema = z.infer<typeof channelSchema>

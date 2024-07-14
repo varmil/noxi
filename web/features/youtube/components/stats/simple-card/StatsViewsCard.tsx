@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { Users } from 'lucide-react'
+import { TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
@@ -10,12 +10,13 @@ type Props = {
   count: number
 }
 
-export default function StatsSubscriberCard({ count }: PropsWithoutRef<Props>) {
+export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats')
+
   return (
     <Card>
-      <StatsCardHeader Icon={Users}>Subscribers</StatsCardHeader>
-      <StatsCardContent subText={t('totalSubscriberCount')}>
+      <StatsCardHeader Icon={TrendingUp}>Views</StatsCardHeader>
+      <StatsCardContent subText={t('totalViews')}>
         <IntlNumberFormat>{count}</IntlNumberFormat>
       </StatsCardContent>
     </Card>

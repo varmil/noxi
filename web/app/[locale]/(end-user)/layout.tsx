@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import Aside from 'components/Aside'
+import { CookieAgreeBanner } from 'components/CookieAgreeBanner'
 import { locales } from 'config/i18n/locale'
 
 type Props = {
@@ -34,9 +35,10 @@ export default async function LocaleLayout({
   return (
     <>
       <Aside />
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-muted/40">
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-16 bg-muted/40">
         {children}
       </div>
+      <CookieAgreeBanner />
     </>
   )
 }

@@ -10,8 +10,8 @@ export default function Logo(
     <>
       <MountainIcon
         className={`${props.className ?? 'w-6 h-6'}`}
-        fill="red"
-        stroke="currentColor"
+        fill="#FF8C00"
+        stroke="#696969"
       />
     </>
   )

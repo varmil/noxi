@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import dayjs from 'dayjs'
 import { Cake, Play, UsersIcon } from 'lucide-react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
@@ -46,10 +47,10 @@ export default function ChannelCard({
         <h3 className="line-clamp-1 mb-2">{name}</h3>
 
         <div className="flex items-center gap-2">
-          <Play className="w-4 h-4 text-muted-foreground" />
+          {/* <Play className="w-4 h-4 text-muted-foreground" /> */}
           <div className="ra-val mb-0 sm:mb-2">
             <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
-              <span>{t('totalVideoViews')}</span>
+              <span>{t('totalViews')}</span>
             </div>
             <span className="text-lg font-bold text-primary">
               <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>
@@ -59,15 +60,17 @@ export default function ChannelCard({
         </div>
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <UsersIcon className="w-4 h-4" />
+          {/* <UsersIcon className="w-4 h-4" /> */}
           <span>
             <IntlNumberFormat>{subscriberCount}</IntlNumberFormat>{' '}
-            {t('totalSubscriberCount')}
+            {t('totalSubscribers')}
           </span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Cake className="w-4 h-4" />
-          <span>{new Date(publishedAt).toDateString()}</span>
+          {/* <Cake className="w-4 h-4" /> */}
+          <span>
+            {t('joined', { date: dayjs(publishedAt).format('MMM DD, YYYY') })}
+          </span>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ import { Statistics } from '@domain/youtube/video/Statistics'
 import { Video } from '@domain/youtube/video/Video.entity'
 import { VideoRepository } from '@domain/youtube/video/Video.repository'
 import { Videos } from '@domain/youtube/video/Videos.collection'
+import { getExpireAt } from '@infra/lib/getExpireAt'
 import { videoConverter } from '@infra/schema/VideoSchema'
 
 @Injectable()
@@ -77,6 +78,7 @@ export class VideoRepositoryImpl implements VideoRepository {
       duration,
       statistics
     } = video
+
     await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
@@ -96,7 +98,8 @@ export class VideoRepositoryImpl implements VideoRepository {
         duration: duration.get(),
         statistics,
 
-        updatedAt: admin.firestore.FieldValue.serverTimestamp()
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+        expireAt: getExpireAt()
       })
   }
 }

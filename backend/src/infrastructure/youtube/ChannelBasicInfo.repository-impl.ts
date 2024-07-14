@@ -3,6 +3,7 @@ import admin from 'firebase-admin'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
 import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
+import { getExpireAt } from '@infra/lib/getExpireAt'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 
 @Injectable()
@@ -56,7 +57,8 @@ export class ChannelBasicInfoRepositoryImpl
             thumbnails,
             publishedAt: admin.firestore.Timestamp.fromDate(publishedAt)
           },
-          updatedAt: admin.firestore.FieldValue.serverTimestamp()
+          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          expireAt: getExpireAt()
         },
         { merge: true }
       )

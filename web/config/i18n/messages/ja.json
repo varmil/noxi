@@ -1,6 +1,7 @@
 {
   "Global": {
-    "title": "YouTube | PeakX ピークX"
+    "title": "YouTube | PeakX ピークX",
+    "headerTitle": "PeakX | ピークX"
   },
 
   "Breadcrumb": {
@@ -44,17 +45,18 @@
         "channel": "チャンネル",
         "viewChannel": "チャンネルの分析はこちら",
         "unit": "回",
-        "totalVideoViews": "動画の累計再生回数",
-        "totalSubscriberCount": "チャンネル登録者数"
+        "totalViews": "動画,ショートの再生回数",
+        "totalSubscribers": "チャンネル登録者",
+        "joined": "{date}に開始"
       },
 
       "stats": {
         "annotation": "弊サービス独自指標です",
 
-        "totalVideoViews": "動画の累計再生回数",
-        "totalSubscriberCount": "チャンネル登録者数",
-        "cumulativeUploads": "動画の累計アップロード数",
-        "birthday": "Youtubeを始めた日",
+        "totalViews": "動画,ショートの再生回数",
+        "totalSubscribers": "チャンネル登録者数",
+        "totalVideos": "動画のアップロード数",
+        "joinedDescription": "Youtubeを始めた日",
 
         "progress": {
           "popularityScore": "人気スコア",
