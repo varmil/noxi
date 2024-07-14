@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import dayjs from 'dayjs'
 import { Cake } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
@@ -9,12 +10,14 @@ type Props = {
   date: string
 }
 
-export default function StatsBirthdayCard({ date }: PropsWithoutRef<Props>) {
+export default function StatsJoinedCard({ date }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats')
   return (
     <Card>
-      <StatsCardHeader Icon={Cake}>Birthday</StatsCardHeader>
-      <StatsCardContent subText={t('birthday')}>{date}</StatsCardContent>
+      <StatsCardHeader Icon={Cake}>Joined</StatsCardHeader>
+      <StatsCardContent subText={t('joinedDescription')}>
+        {dayjs(date).format('MMM DD, YYYY')}
+      </StatsCardContent>
     </Card>
   )
 }

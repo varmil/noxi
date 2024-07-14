@@ -10,12 +10,14 @@ type Props = {
   count: number
 }
 
-export default function StatsSubscriberCard({ count }: PropsWithoutRef<Props>) {
+export default function StatsSubscribersCard({
+  count
+}: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats')
   return (
     <Card>
       <StatsCardHeader Icon={Users}>Subscribers</StatsCardHeader>
-      <StatsCardContent subText={t('totalSubscriberCount')}>
+      <StatsCardContent subText={t('totalSubscribers')}>
         <IntlNumberFormat>{count}</IntlNumberFormat>
       </StatsCardContent>
     </Card>
