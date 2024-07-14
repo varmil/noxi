@@ -126,6 +126,14 @@ export default function TermsOfUseAndPrivacyPolicy() {
                   - Information we collect automatically when you use the
                   Service (e.g., usage data, device information)
                 </li>
+                <li>
+                  - Cookies and Similar Technologies: The Service may use
+                  cookies or similar technologies to enhance the user
+                  experience. These technologies allow us to recognize your
+                  device or browser and provide personalized content. You have
+                  the option to manage or disable cookies through your browser
+                  settings.
+                </li>
               </ul>
             </div>
 
