@@ -197,7 +197,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
               <a
                 href="https://security.google.com/settings/security/permissions"
                 target="_blank"
-                className="underline"
+                className="underline break-all"
               >
                 https://security.google.com/settings/security/permissions
               </a>
