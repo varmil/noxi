@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { Play } from 'lucide-react'
+import { TrendingUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
@@ -15,7 +15,7 @@ export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {
 
   return (
     <Card>
-      <StatsCardHeader Icon={Play}>Views</StatsCardHeader>
+      <StatsCardHeader Icon={TrendingUp}>Views</StatsCardHeader>
       <StatsCardContent subText={t('totalViews')}>
         <IntlNumberFormat>{count}</IntlNumberFormat>
       </StatsCardContent>

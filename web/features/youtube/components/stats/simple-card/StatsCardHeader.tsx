@@ -1,11 +1,13 @@
-import React, { PropsWithChildren } from 'react'
+import React, { PropsWithChildren, SVGProps } from 'react'
 import { LucideProps } from 'lucide-react'
 import { CardHeader, CardTitle } from '@/components/ui/card'
 
 type Props = {
-  Icon: React.ForwardRefExoticComponent<
-    Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
-  >
+  Icon:
+    | React.ForwardRefExoticComponent<
+        Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+      >
+    | React.ComponentType<SVGProps<SVGSVGElement>>
 }
 
 export default function StatsCardHeader({
