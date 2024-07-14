@@ -95,7 +95,7 @@ export default function Header() {
         scroll={false}
       >
         <Logo className="w-6 h-6" />
-        <span className="md:flex text-lg font-bold">{t('title')}</span>
+        <span className="md:flex text-lg font-bold">{t('headerTitle')}</span>
       </Link>
 
       {/* Search Icon */}

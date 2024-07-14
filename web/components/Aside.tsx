@@ -20,10 +20,10 @@ export default function Aside() {
         <TooltipProvider>
           <Link
             href="#"
-            className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary text-lg font-semibold text-secondary-foreground md:h-8 md:w-8 md:text-base"
+            className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary"
             prefetch={false}
           >
-            <Logo className="h-4 w-4 transition-all group-hover:scale-110" />
+            <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
             <span className="sr-only">{t('title')}</span>
           </Link>
           <Tooltip>
@@ -58,7 +58,9 @@ export default function Aside() {
                 <span className="sr-only">Twitch</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Twitch</TooltipContent>
+            <TooltipContent side="right">
+              Twitch | Coming soon...
+            </TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger>
@@ -71,7 +73,9 @@ export default function Aside() {
                 <span className="sr-only">TikTok</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">TikTok</TooltipContent>
+            <TooltipContent side="right">
+              TikTok | Coming soon...
+            </TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger>
@@ -84,7 +88,9 @@ export default function Aside() {
                 <span className="sr-only">Instagram</span>
               </Link>
             </TooltipTrigger>
-            <TooltipContent side="right">Instagram</TooltipContent>
+            <TooltipContent side="right">
+              Instagram | Coming soon...
+            </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </nav>
