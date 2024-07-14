@@ -35,11 +35,12 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
               date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
             />
           </Section>
-          <Section className="pb-8" title="AI Analysis">
+          {/* TODO: Impl AI Analysis */}
+          {/* <Section className="pb-8" title="AI Analysis">
             <StatsPopularityProgressCard {...statistics} />
             <StatsLoyaltyProgressCard {...statistics} />
-          </Section>
-          <Section className="pb-8" title="Contents">
+          </Section> */}
+          <Section className="pb-8" title="Videos">
             <VideoCards channelId={basicInfo.id} />
           </Section>
         </div>

@@ -23,7 +23,7 @@ export default function StatsSubscribersCard({
   )
 }
 
-const Icon = (props: SVGProps<SVGSVGElement>): JSX.Element => (
+const Icon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
