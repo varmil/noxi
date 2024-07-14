@@ -1,5 +1,6 @@
 import { SVGProps } from 'react'
 import { SettingsIcon } from 'lucide-react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import {
   TooltipProvider,
@@ -14,7 +15,7 @@ export default function Aside() {
   const t = useTranslations('Global')
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+    <aside className="fixed inset-y-0 left-0 z-10 hidden w-16 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
           <Link
@@ -28,11 +29,19 @@ export default function Aside() {
           <Tooltip>
             <TooltipTrigger>
               <Link
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-lg transition-colors text-accent-foreground bg-accent hover:text-foreground md:h-8 md:w-8"
+                href="/"
+                className="group flex h-9 w-9 items-center justify-center rounded-lg md:h-8 md:w-8"
                 prefetch={false}
               >
-                <YoutubeIcon className="h-5 w-5" />
+                <Image
+                  src={'/yt_icon_rgb.png'}
+                  alt={`YouTube icon`}
+                  width={734 / 4}
+                  height={518 / 4}
+                  className="transition-all group-hover:scale-110"
+                  priority={false}
+                />
+
                 <span className="sr-only">YouTube</span>
               </Link>
             </TooltipTrigger>
@@ -45,7 +54,7 @@ export default function Aside() {
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 prefetch={false}
               >
-                <TwitchIcon className="h-5 w-5" />
+                <TwitchIcon className="h-6 w-6" />
                 <span className="sr-only">Twitch</span>
               </Link>
             </TooltipTrigger>
@@ -58,7 +67,7 @@ export default function Aside() {
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 prefetch={false}
               >
-                <TikTokIcon className="h-5 w-5" />
+                <TikTokIcon className="h-6 w-6" />
                 <span className="sr-only">TikTok</span>
               </Link>
             </TooltipTrigger>
@@ -71,7 +80,7 @@ export default function Aside() {
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 prefetch={false}
               >
-                <InstagramIcon className="h-5 w-5" />
+                <InstagramIcon className="h-6 w-6" />
                 <span className="sr-only">Instagram</span>
               </Link>
             </TooltipTrigger>
@@ -97,27 +106,6 @@ export default function Aside() {
         </TooltipProvider>
       </nav>
     </aside>
-  )
-}
-
-function YoutubeIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      role="img"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="currentColor"
-      strokeWidth="1"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <title>YouTube</title>
-      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-    </svg>
   )
 }
 
