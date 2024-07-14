@@ -5,6 +5,7 @@ import toArray from 'dayjs/plugin/toArray'
 import { LineChart } from 'lucide-react'
 import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { VideoSchema } from 'features/youtube/types/videoSchema'
 import { Link } from 'lib/navigation'
 
@@ -21,7 +22,7 @@ export default function VideoCard(video: VideoSchema) {
   const hours = d.hours()
 
   return (
-    <Card className="w-full max-w-md">
+    <Card className="w-full">
       <Link
         href="#"
         className="group relative block aspect-video overflow-hidden rounded-lg"
@@ -58,15 +59,22 @@ export default function VideoCard(video: VideoSchema) {
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-2">
             <EyeIcon className="h-4 w-4" />
-            <span>{viewCount} views</span>
+            <span>
+              <IntlNumberFormat>{viewCount}</IntlNumberFormat>{' '}
+              <span className="sr-only">views</span>
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <ThumbsUpIcon className="h-4 w-4" />
-            <span>{likeCount} likes</span>
+            <span>
+              {likeCount} <span className="sr-only">likes</span>
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <MessageCircleIcon className="h-4 w-4" />
-            <span>{commentCount} comments</span>
+            <span>
+              {commentCount} <span className="sr-only">comments</span>
+            </span>
           </div>
         </div>
       </CardContent>
