@@ -2,7 +2,7 @@ import { Link } from 'lib/navigation'
 
 export default function TermsOfUseAndPrivacyPolicy() {
   return (
-    <div className="container mx-auto max-w-4xl py-12 px-4 md:px-6">
+    <div className="container mx-auto max-w-4xl py-12 px-4 md:px-6 mb-44">
       <div className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">
