@@ -27,7 +27,7 @@ export class VideoAggregationRepositoryImpl
     const videoAggregations = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
-      .doc(channelId)
+      .doc(channelId.get())
       .collection(this.SUB_COLLECTION_NAME)
       .doc(subDoc)
       .withConverter(videoAggregationConverter)
@@ -60,7 +60,7 @@ export class VideoAggregationRepositoryImpl
     await admin
       .firestore()
       .collection('channel')
-      .doc(channelId)
+      .doc(channelId.get())
       .withConverter(channelConverter)
       .set(
         {
@@ -76,7 +76,7 @@ export class VideoAggregationRepositoryImpl
     await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
-      .doc(channelId)
+      .doc(channelId.get())
       .collection(this.SUB_COLLECTION_NAME)
       .doc(subDoc)
       .withConverter(videoAggregationConverter)

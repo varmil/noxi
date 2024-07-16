@@ -32,14 +32,7 @@ const PER_PAGE = 50 // 50
 
 /**
  * TODO:
- *
- * - [ ]
- * Search Channels
- * Search Videos
- * でサービスを更に分ける。このファイルは前者用にする
- *
- * - [ ] snippetを消して id だけ取得する
- * - [ ] search-videos.infra.service.ts にリネーム
+ * - [ ] search-videos.infra.service.ts 実装
  */
 @Injectable()
 export class SearchVideosInfraService {

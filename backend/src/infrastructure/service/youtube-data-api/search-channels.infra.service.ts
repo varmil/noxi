@@ -1,22 +1,16 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
-import { Q, RegionCode, RelevanceLanguage, Thumbnails } from '@domain/youtube'
-import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
-import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
+import {
+  ChannelId,
+  ChannelIds,
+  Q,
+  RegionCode,
+  RelevanceLanguage
+} from '@domain/youtube'
 
 interface SearchListItem {
   id: {
     channelId: string
-  }
-  snippet: {
-    channelId: string
-    channelTitle: string
-    description: string
-
-    title: string
-    thumbnails: Thumbnails
-
-    publishedAt: string // ISO 8601
   }
 }
 
@@ -31,15 +25,7 @@ interface Params {
 const PER_PAGE = 50 // 50
 
 /**
- * TODO:
- *
- * - [ ]
- * Search Channels
- * Search Videos
- * でサービスを更に分ける。このファイルは前者用にする
- *
- * - [ ] snippetを消して id だけ取得する
- * - [ ] search-videos.infra.service.ts にリネーム
+ * /v3/search を使って軽量なIDのみ返すサービス
  */
 @Injectable()
 export class SearchChannelsInfraService {
@@ -47,15 +33,15 @@ export class SearchChannelsInfraService {
 
   constructor() {}
 
-  async getChannelBasicInfos(params: Params): Promise<ChannelBasicInfos> {
-    const basicInfos = await this._getBasicInfos(params)
-    return new ChannelBasicInfos(basicInfos)
+  async getChannelIds(params: Params): Promise<ChannelIds> {
+    const ids = await this.getIds(params)
+    return new ChannelIds(ids)
   }
 
-  private async _getBasicInfos(params: Params): Promise<ChannelBasicInfo[]> {
+  private async getIds(params: Params): Promise<ChannelId[]> {
     const { q, regionCode, relevanceLanguage, limit, pageToken } = params
 
-    let results: ChannelBasicInfo[] = []
+    let results: ChannelId[] = []
     let nextPageToken = pageToken ?? ''
     let count = 0
 
@@ -66,7 +52,7 @@ export class SearchChannelsInfraService {
         nextPageToken: string
       }>('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          part: 'snippet',
+          part: 'id',
           type: 'channel',
           q: q.get(),
           maxResults: PER_PAGE,
@@ -78,22 +64,16 @@ export class SearchChannelsInfraService {
         }
       })
 
-      const basicInfos: ChannelBasicInfo[] = response.data.items.map(
-        (item: SearchListItem): ChannelBasicInfo => ({
-          id: item.id.channelId,
-          title: item.snippet.channelTitle,
-          description: item.snippet.description,
-          thumbnails: item.snippet.thumbnails,
-          publishedAt: new Date(item.snippet.publishedAt)
-        })
+      const channelIds: ChannelId[] = response.data.items.map(
+        (item: SearchListItem): ChannelId => new ChannelId(item.id.channelId)
       )
-      if (basicInfos.length === 0) break
+      if (channelIds.length === 0) break
 
-      console.log('Channels in JP: ', response.data.pageInfo.totalResults)
+      console.log('Channels count: ', response.data.pageInfo.totalResults)
 
-      results = results.concat(basicInfos)
+      results = results.concat(channelIds)
       nextPageToken = response.data.nextPageToken
-      count += basicInfos.length
+      count += channelIds.length
     } while (nextPageToken && count < limit)
 
     return results

@@ -10,6 +10,6 @@ export const converter = <T extends z.AnyZodObject>(
   fromFirestore: (
     snapshot: admin.firestore.QueryDocumentSnapshot<z.infer<T>>
   ): z.infer<T> => {
-    return schema.strict().parse(snapshot.data())
+    return schema.partial().strict().parse(snapshot.data())
   }
 })

@@ -1,7 +1,6 @@
-import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
-import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface ChannelBasicInfoRepository {
-  findAll: (args: { limit?: number }) => Promise<ChannelBasicInfos>
-  save: (basicInfo: ChannelBasicInfo) => Promise<void>
+  findIds: (args: { limit?: number }) => Promise<ChannelIds>
+  save: (id: ChannelId) => Promise<void>
 }

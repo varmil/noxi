@@ -28,6 +28,6 @@ export class ChannelsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/basic-infos')
   async getChannelBasicInfos() {
-    return await this.channelsService.findAllBasicInfos({ limit: 50 })
+    return await this.channelsService.findIds({ limit: 50 })
   }
 }
