@@ -20,4 +20,8 @@ export class Keyword extends StringValueObject {
   static isValidLength(str: string) {
     return 0 < str.length && str.length <= MAX_LENGTH
   }
+
+  static removeQuotes(str: string) {
+    return str.replace(/['"]+/g, '')
+  }
 }
