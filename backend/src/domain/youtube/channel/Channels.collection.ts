@@ -5,6 +5,17 @@ export class Channels {
   constructor(private readonly list: Channel[]) {}
 
   @Exclude()
+  get length() {
+    return this.list.length
+  }
+
+  @Exclude()
+  selectWithAtLeastNVideos = (n: number) =>
+    new Channels(
+      this.list.filter(channel => channel.statistics.videoCount >= n)
+    )
+
+  @Exclude()
   map = <U>(
     callbackfn: (value: Channel, index: number, array: Channel[]) => U
   ): U[] => this.list.map(callbackfn)

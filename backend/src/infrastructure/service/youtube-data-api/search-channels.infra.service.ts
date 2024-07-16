@@ -14,7 +14,7 @@ interface SearchListItem {
   }
 }
 
-interface Params {
+export interface Params {
   limit: number
   q: Q
   regionCode?: RegionCode
@@ -33,23 +33,27 @@ export class SearchChannelsInfraService {
 
   constructor() {}
 
-  async getChannelIds(params: Params): Promise<ChannelIds> {
-    const ids = await this.getIds(params)
-    return new ChannelIds(ids)
+  async getChannelIds(
+    params: Params
+  ): Promise<{ nextPageToken?: string; ids: ChannelIds }> {
+    const { nextPageToken, ids } = await this.getIds(params)
+    return { nextPageToken, ids: new ChannelIds(ids) }
   }
 
-  private async getIds(params: Params): Promise<ChannelId[]> {
+  private async getIds(
+    params: Params
+  ): Promise<{ nextPageToken?: string; ids: ChannelId[] }> {
     const { q, regionCode, relevanceLanguage, limit, pageToken } = params
 
     let results: ChannelId[] = []
-    let nextPageToken = pageToken ?? ''
+    let nextPageToken = pageToken ?? undefined
     let count = 0
 
     do {
       const response = await axios.get<{
         items: SearchListItem[]
         pageInfo: { totalResults: number; resultsPerPage: number }
-        nextPageToken: string
+        nextPageToken?: string
       }>('https://www.googleapis.com/youtube/v3/search', {
         params: {
           part: 'id',
@@ -76,6 +80,6 @@ export class SearchChannelsInfraService {
       count += channelIds.length
     } while (nextPageToken && count < limit)
 
-    return results
+    return { nextPageToken, ids: results }
   }
 }

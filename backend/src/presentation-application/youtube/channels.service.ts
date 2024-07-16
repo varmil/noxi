@@ -37,9 +37,9 @@ export class ChannelsService {
     return await this.channelBasicInfoRepository.findIds(args)
   }
 
-  async saveId(
-    id: Parameters<ChannelBasicInfoRepository['save']>[0]
-  ): Promise<void> {
-    await this.channelBasicInfoRepository.save(id)
-  }
+  // async saveId(
+  //   id: Parameters<ChannelBasicInfoRepository['save']>[0]
+  // ): Promise<void> {
+  //   await this.channelBasicInfoRepository.save(id)
+  // }
 }
