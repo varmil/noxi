@@ -16,6 +16,7 @@
   },
   "exportall.config.folderListener": [
     "/backend/src/domain/youtube",
-    "/backend/src/domain/youtube/channel"
+    "/backend/src/domain/youtube/channel",
+    "/backend/src/infrastructure/service/youtube-data-api"
   ]
 }
