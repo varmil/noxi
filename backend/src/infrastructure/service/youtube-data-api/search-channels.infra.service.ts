@@ -47,7 +47,7 @@ const PER_PAGE = 50 // 50
  * - [ ] search-videos.infra.service.ts にリネーム
  */
 @Injectable()
-export class YoutubeDataApiSearchInfraService {
+export class SearchChannelsInfraService {
   private readonly API_KEY = process.env.YOUTUBE_DATA_API_KEY
 
   constructor() {}

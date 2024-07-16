@@ -6,8 +6,8 @@ import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
+import { SearchChannelsInfraService } from '@infra/service/youtube-data-api/search-channels.infra.service'
 import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
 
 const FETCH_LIMIT = 50
@@ -19,7 +19,7 @@ export class CloudSchedulersYoutubeScenario {
     private readonly channelsService: ChannelsService,
     private readonly videosService: VideosService,
     private readonly aggregationsService: VideoAggregationsService,
-    private readonly searchInfraService: YoutubeDataApiSearchInfraService,
+    private readonly searchInfraService: SearchChannelsInfraService,
     private readonly videosInfraService: YoutubeDataApiVideosInfraService,
     private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
   ) {}

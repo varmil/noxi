@@ -5,7 +5,7 @@ import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggrega
 import { VideoAggregationRepository } from '@domain/youtube/video-aggregation/VideoAggregation.repository'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 import { videoAggregationConverter } from '@infra/schema/VideoAggregationSchema'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
+import { SearchChannelsInfraService } from '@infra/service/youtube-data-api/search-channels.infra.service'
 
 @Injectable()
 export class VideoAggregationRepositoryImpl
@@ -15,7 +15,7 @@ export class VideoAggregationRepositoryImpl
   private readonly SUB_COLLECTION_NAME = 'history'
 
   constructor(
-    private youtubeDataApiSearchInfraService: YoutubeDataApiSearchInfraService
+    private youtubeDataApiSearchInfraService: SearchChannelsInfraService
   ) {}
 
   async findOne({
