@@ -32,6 +32,20 @@ interface Params {
 
 const PER_PAGE = 50 // 50
 
+/**
+ * TODO:
+ *
+ * - [ ]
+ * Search Channels
+ * Search Videos
+ * でサービスを更に分ける。このファイルは前者用にする
+ *
+ * - [ ] 再帰呼び出しを辞める
+ * - [ ] snippetを消して id だけ取得する
+ *
+ * - [ ] search-channels.infra.service.ts にリネーム
+ * - [ ] search-videos.infra.service.ts にリネーム
+ */
 @Injectable()
 export class YoutubeDataApiSearchInfraService {
   private readonly API_KEY = process.env.YOUTUBE_DATA_API_KEY
