@@ -33,6 +33,7 @@ export class CloudSchedulersYoutubeScenario {
    * batch
    *
    * こっちはクエリを使う場合、全部舐めたりIｄがわからない場合に用いる
+   * TODO: saveChannelsBySearch() など名前を変える
    */
   async saveChannelBasicInfos() {
     const params: SearchChannelsParams = {
@@ -146,6 +147,7 @@ export class CloudSchedulersYoutubeScenario {
    *
    * batch
    * こっちはTOP10,000のチャンネル更新、などIdがわかってる場合の更新に用いる
+   * TODO: saveChannelsByIds() など名前を変える
    * GET /v3/channels?channelId=A,B,C...
    */
   async saveChannels() {
