@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { Q, RegionCode, RelevanceLanguage, Thumbnails } from '@domain/youtube'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
-import { Thumbnails } from '@domain/youtube/image/Thumbnail'
-import { Q } from '@domain/youtube/search/Q.vo'
-import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
-import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 
 interface SearchListItem {
   id: {
