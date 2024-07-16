@@ -12,7 +12,14 @@ import {
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet'
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetDescription,
+  SheetTitle
+} from '@/components/ui/sheet'
 import { ModeToggle } from 'components/ModeToggle'
 import InstagramIcon from 'components/icons/InstagramIcon'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
@@ -38,6 +45,10 @@ export default function Header() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="sm:max-w-xs">
+          <SheetHeader hidden>
+            <SheetTitle hidden>PeakX</SheetTitle>
+            <SheetDescription hidden></SheetDescription>
+          </SheetHeader>
           <nav className="grid gap-6 text-lg font-medium">
             <Link
               href="/"

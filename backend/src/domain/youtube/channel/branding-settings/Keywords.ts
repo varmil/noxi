@@ -20,13 +20,17 @@ export class Keywords {
    */
   @Exclude()
   static fromString(val: string) {
-    return new Keywords(
+    const set = new Set(
       val
         .split(' ')
         .filter(str => Keyword.isValidLength(str))
-        .map(str => new Keyword(str))
-        .slice(0, MAX_LENGTH)
+        .map(str => Keyword.removeQuotes(str))
     )
+    const keywords = Array.from(set)
+      .map(str => new Keyword(str))
+      .slice(0, MAX_LENGTH)
+
+    return new Keywords(keywords)
   }
 
   @Exclude()

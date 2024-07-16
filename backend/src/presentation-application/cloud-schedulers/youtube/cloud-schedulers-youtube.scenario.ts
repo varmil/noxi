@@ -24,7 +24,11 @@ export class CloudSchedulersYoutubeScenario {
     private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
   ) {}
 
-  // TODO: N本以上投稿してるチャンネルのみ保存（効率化）
+  // TODO: N本以上投稿してるチャンネルのみ保存（効率化）。すると this.channelsService.save(channel) が呼べるようになる
+  // TODO: getChannelBasicInfos should only return "id" (without snippet)
+  /**
+   * batch
+   */
   async saveChannelBasicInfos() {
     const basicInfos = await this.searchInfraService.getChannelBasicInfos({
       limit: FETCH_LIMIT,
@@ -35,6 +39,10 @@ export class CloudSchedulersYoutubeScenario {
       regionCode: new RegionCode('US'),
       relevanceLanguage: new RelevanceLanguage('en')
     })
+
+    // TODO: call this.channelsInfraService.getChannels() to get "videoCount"
+    // chunk 50
+
     await Promise.all(
       basicInfos.map(async basicInfo => {
         await this.channelsService.saveBasicInfo(basicInfo)
@@ -43,6 +51,8 @@ export class CloudSchedulersYoutubeScenario {
   }
 
   /**
+   * deleteme (instead, use AggregationByKeyword)
+   *
    * 毎月（？）呼ぶ想定で５０本だけ取得
    * DBはPrimary Keyが videoId なのでupsertになる
    *
@@ -69,6 +79,8 @@ export class CloudSchedulersYoutubeScenario {
   }
 
   /**
+   * batch
+   *
    * 下記のダブルWrite戦略
    * /channel/{channelId}/latestVideoAggregation
    * /videoAggregation/{channelId}/history/{year-month}
@@ -83,7 +95,6 @@ export class CloudSchedulersYoutubeScenario {
     await Promise.all(
       basicInfos.take(TAKE).map(async basicInfo => {
         // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
-        // ここはFirestoreから取得でも可（事前に保存していれば）。というか↑はFirestoreでWhereしないと厳しいか
         const videos = await this.videosInfraService.getVideos(basicInfo.id, {
           limit: FETCH_LIMIT
         })
@@ -99,6 +110,12 @@ export class CloudSchedulersYoutubeScenario {
   }
 
   /**
+   * ondemand
+   *
+   * FIXME: このシナリオはオンデマンドの「単一CH」更新専用にする
+   * usecase: ユーザーがヒカキンのチャンネルページを開いた際に更新リクエストを送る
+   *          GET /v3/channels?channelId=XXX
+   *
    * GET /v3/channels?channelId=A,B,C...
    */
   async saveChannels() {
@@ -116,6 +133,4 @@ export class CloudSchedulersYoutubeScenario {
       })
     )
   }
-
-  // TODO: call /v3/commentThreads
 }
