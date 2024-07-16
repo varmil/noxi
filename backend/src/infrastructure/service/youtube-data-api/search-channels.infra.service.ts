@@ -25,6 +25,7 @@ interface Params {
   q: Q
   regionCode?: RegionCode
   relevanceLanguage?: RelevanceLanguage
+  pageToken?: string
 }
 
 const PER_PAGE = 50 // 50
@@ -37,9 +38,7 @@ const PER_PAGE = 50 // 50
  * Search Videos
  * でサービスを更に分ける。このファイルは前者用にする
  *
- * - [ ] 再帰呼び出しを辞める
  * - [ ] snippetを消して id だけ取得する
- *
  * - [ ] search-videos.infra.service.ts にリネーム
  */
 @Injectable()
@@ -48,28 +47,19 @@ export class SearchChannelsInfraService {
 
   constructor() {}
 
-  async getChannelBasicInfos({
-    limit,
-    ...params
-  }: Params): Promise<ChannelBasicInfos> {
-    const basicInfos = await this._getBasicInfos(
-      '',
-      Math.ceil(limit / PER_PAGE),
-      params
-    )
+  async getChannelBasicInfos(params: Params): Promise<ChannelBasicInfos> {
+    const basicInfos = await this._getBasicInfos(params)
     return new ChannelBasicInfos(basicInfos)
   }
 
-  private async _getBasicInfos(
-    pageToken = '',
-    remainingTimes = 1,
-    params: Omit<Params, 'limit'>
-  ): Promise<ChannelBasicInfo[]> {
-    if (remainingTimes === 0) return []
+  private async _getBasicInfos(params: Params): Promise<ChannelBasicInfo[]> {
+    const { q, regionCode, relevanceLanguage, limit, pageToken } = params
 
-    const { q, regionCode, relevanceLanguage } = params
+    let results: ChannelBasicInfo[] = []
+    let nextPageToken = pageToken ?? ''
+    let count = 0
 
-    try {
+    do {
       const response = await axios.get<{
         items: SearchListItem[]
         pageInfo: { totalResults: number; resultsPerPage: number }
@@ -83,7 +73,7 @@ export class SearchChannelsInfraService {
           order: 'relevance',
           regionCode: regionCode?.get() || 'JP',
           relevanceLanguage: relevanceLanguage?.get() || '',
-          pageToken: pageToken,
+          pageToken: nextPageToken,
           key: this.API_KEY
         }
       })
@@ -97,22 +87,15 @@ export class SearchChannelsInfraService {
           publishedAt: new Date(item.snippet.publishedAt)
         })
       )
+      if (basicInfos.length === 0) break
+
       console.log('Channels in JP: ', response.data.pageInfo.totalResults)
 
-      // 次のページがある場合、再帰的に取得
-      if (response.data.nextPageToken) {
-        const nextPageChannelInfos = await this._getBasicInfos(
-          response.data.nextPageToken,
-          remainingTimes - 1,
-          params
-        )
-        return basicInfos.concat(nextPageChannelInfos)
-      }
+      results = results.concat(basicInfos)
+      nextPageToken = response.data.nextPageToken
+      count += basicInfos.length
+    } while (nextPageToken && count < limit)
 
-      return basicInfos
-    } catch (error) {
-      console.error('Error fetching channel IDs from YouTube API', error)
-      return []
-    }
+    return results
   }
 }
