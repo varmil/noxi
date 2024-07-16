@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { ChannelIds } from '@domain/youtube'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
 import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
-import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
 
 @Injectable()
 export class ChannelsService {
@@ -31,15 +31,15 @@ export class ChannelsService {
     await this.channelRepository.save(args)
   }
 
-  async findAllBasicInfos(
-    args: Parameters<ChannelBasicInfoRepository['findAll']>[0]
-  ): Promise<ChannelBasicInfos> {
-    return await this.channelBasicInfoRepository.findAll(args)
+  async findIds(
+    args: Parameters<ChannelBasicInfoRepository['findIds']>[0]
+  ): Promise<ChannelIds> {
+    return await this.channelBasicInfoRepository.findIds(args)
   }
 
-  async saveBasicInfo(
-    channelBasicInfo: Parameters<ChannelBasicInfoRepository['save']>[0]
-  ): Promise<void> {
-    await this.channelBasicInfoRepository.save(channelBasicInfo)
-  }
+  // async saveId(
+  //   id: Parameters<ChannelBasicInfoRepository['save']>[0]
+  // ): Promise<void> {
+  //   await this.channelBasicInfoRepository.save(id)
+  // }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { ChannelId } from '@domain/youtube'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 import { Duration } from '@domain/youtube/video/Duration'
 import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
@@ -60,7 +61,7 @@ export class YoutubeDataApiVideosInfraService {
   constructor() {}
 
   async getVideos(
-    channelId: string,
+    channelId: ChannelId,
     { limit }: { limit: number }
   ): Promise<Videos> {
     const videos = await this._getVideos(channelId, { limit })
@@ -94,7 +95,7 @@ export class YoutubeDataApiVideosInfraService {
 
   // YouTubeチャンネルの動画情報を取得する関数
   private async _getVideos(
-    channelId: string,
+    channelId: ChannelId,
     { limit }: { limit: number }
   ): Promise<DataAPIVideo[]> {
     let videos: DataAPIVideo[] = []
@@ -109,7 +110,7 @@ export class YoutubeDataApiVideosInfraService {
         params: {
           part: 'snippet',
           type: 'video',
-          channelId: channelId,
+          channelId: channelId.get(),
           maxResults: PER_PAGE,
           order: 'date',
           pageToken: nextPageToken,

@@ -5,7 +5,7 @@ import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggrega
 import { VideoAggregationRepository } from '@domain/youtube/video-aggregation/VideoAggregation.repository'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 import { videoAggregationConverter } from '@infra/schema/VideoAggregationSchema'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
+import { SearchChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class VideoAggregationRepositoryImpl
@@ -15,7 +15,7 @@ export class VideoAggregationRepositoryImpl
   private readonly SUB_COLLECTION_NAME = 'history'
 
   constructor(
-    private youtubeDataApiSearchInfraService: YoutubeDataApiSearchInfraService
+    private youtubeDataApiSearchInfraService: SearchChannelsInfraService
   ) {}
 
   async findOne({
@@ -27,7 +27,7 @@ export class VideoAggregationRepositoryImpl
     const videoAggregations = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
-      .doc(channelId)
+      .doc(channelId.get())
       .collection(this.SUB_COLLECTION_NAME)
       .doc(subDoc)
       .withConverter(videoAggregationConverter)
@@ -60,7 +60,7 @@ export class VideoAggregationRepositoryImpl
     await admin
       .firestore()
       .collection('channel')
-      .doc(channelId)
+      .doc(channelId.get())
       .withConverter(channelConverter)
       .set(
         {
@@ -76,7 +76,7 @@ export class VideoAggregationRepositoryImpl
     await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
-      .doc(channelId)
+      .doc(channelId.get())
       .collection(this.SUB_COLLECTION_NAME)
       .doc(subDoc)
       .withConverter(videoAggregationConverter)

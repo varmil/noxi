@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { ChannelIds } from '@domain/youtube'
 import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelStatistics } from '@domain/youtube/channel/ChannelStatistics'
@@ -50,7 +51,7 @@ export class YoutubeDataApiChannelsInfraService {
   async getChannels({
     where: { channelIds }
   }: {
-    where: { channelIds: string[] }
+    where: { channelIds: ChannelIds }
   }): Promise<Channels> {
     const channels = await this._getChannels(channelIds)
     return new Channels(
@@ -86,7 +87,7 @@ export class YoutubeDataApiChannelsInfraService {
   }
 
   // call /v3/channels
-  async _getChannels(channelIds: string[]): Promise<ChannelListItem[]> {
+  async _getChannels(channelIds: ChannelIds): Promise<ChannelListItem[]> {
     let results: ChannelListItem[] = []
 
     for (let i = 0; i < channelIds.length; i += maxResultsPerRequest) {

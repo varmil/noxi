@@ -6,12 +6,17 @@ import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
+import {
+  SearchChannelsInfraService,
+  type Params as SearchChannelsParams
+} from '@infra/service/youtube-data-api'
 import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
-import { YoutubeDataApiSearchInfraService } from '@infra/service/youtube-data-api/youtube-data-api-search.infra.service'
 import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
 
+const TOTAL_LIMIT = 100
 const FETCH_LIMIT = 50
 const TAKE = 20
+const MIN_N = 3
 
 @Injectable()
 export class CloudSchedulersYoutubeScenario {
@@ -19,18 +24,19 @@ export class CloudSchedulersYoutubeScenario {
     private readonly channelsService: ChannelsService,
     private readonly videosService: VideosService,
     private readonly aggregationsService: VideoAggregationsService,
-    private readonly searchInfraService: YoutubeDataApiSearchInfraService,
+    private readonly searchInfraService: SearchChannelsInfraService,
     private readonly videosInfraService: YoutubeDataApiVideosInfraService,
     private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
   ) {}
 
-  // TODO: N本以上投稿してるチャンネルのみ保存（効率化）。すると this.channelsService.save(channel) が呼べるようになる
-  // TODO: getChannelBasicInfos should only return "id" (without snippet)
   /**
    * batch
+   *
+   * こっちはクエリを使う場合、全部舐めたりIｄがわからない場合に用いる
+   * TODO: saveChannelsBySearch() など名前を変える
    */
   async saveChannelBasicInfos() {
-    const basicInfos = await this.searchInfraService.getChannelBasicInfos({
+    const params: SearchChannelsParams = {
       limit: FETCH_LIMIT,
       // q: new Q('ホロライブ'),
       // regionCode: new RegionCode('JP'),
@@ -38,16 +44,36 @@ export class CloudSchedulersYoutubeScenario {
       q: new Q('travel vlog english'),
       regionCode: new RegionCode('US'),
       relevanceLanguage: new RelevanceLanguage('en')
+    }
+
+    let nextPageToken: string | undefined
+    let count = 0
+
+    do {
+      nextPageToken = await this.saveChannelsInChunkOf50({
+        ...params,
+        pageToken: nextPageToken
+      })
+      count += FETCH_LIMIT
+    } while (nextPageToken && count < TOTAL_LIMIT)
+  }
+
+  private async saveChannelsInChunkOf50(params: SearchChannelsParams) {
+    const { nextPageToken, ids } =
+      await this.searchInfraService.getChannelIds(params)
+
+    const channels = await this.channelsInfraService.getChannels({
+      where: { channelIds: ids }
     })
 
-    // TODO: call this.channelsInfraService.getChannels() to get "videoCount"
-    // chunk 50
-
+    // N本以上投稿してるチャンネルのみ保存
     await Promise.all(
-      basicInfos.map(async basicInfo => {
-        await this.channelsService.saveBasicInfo(basicInfo)
+      channels.selectWithAtLeastNVideos(MIN_N).map(async channel => {
+        await this.channelsService.save(channel)
       })
     )
+
+    return nextPageToken
   }
 
   /**
@@ -59,13 +85,13 @@ export class CloudSchedulersYoutubeScenario {
    * NOTE: Channel Category は Video から推測するしかないかも？
    */
   async saveVideos() {
-    const basicInfos = await this.channelsService.findAllBasicInfos({
+    const channelIds = await this.channelsService.findIds({
       limit: FETCH_LIMIT
     })
 
     await Promise.all(
-      basicInfos.take(TAKE).map(async basicInfo => {
-        const videos = await this.videosInfraService.getVideos(basicInfo.id, {
+      channelIds.take(TAKE).map(async channelId => {
+        const videos = await this.videosInfraService.getVideos(channelId, {
           limit: FETCH_LIMIT
         })
 
@@ -88,21 +114,22 @@ export class CloudSchedulersYoutubeScenario {
    * このシナリオでは「直近の」動画のみを取得してヒストリ更新（差分更新に近い）
    */
   async saveVideoAggregations() {
-    const basicInfos = await this.channelsService.findAllBasicInfos({
+    const channelIds = await this.channelsService.findIds({
       limit: FETCH_LIMIT
     })
 
     await Promise.all(
-      basicInfos.take(TAKE).map(async basicInfo => {
+      channelIds.take(TAKE).map(async channelId => {
         // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
-        const videos = await this.videosInfraService.getVideos(basicInfo.id, {
+        // search-videosを使ってクエリする
+        const videos = await this.videosInfraService.getVideos(channelId, {
           limit: FETCH_LIMIT
         })
 
         // NOTE: 直近１ヶ月Max50本だけ考慮したもので十分か？
         const aggregation = VideoAggregation.fromVideos(videos)
         await this.aggregationsService.save({
-          where: { channelId: basicInfo.id },
+          where: { channelId },
           data: aggregation
         })
       })
@@ -110,21 +137,26 @@ export class CloudSchedulersYoutubeScenario {
   }
 
   /**
-   * ondemand
+   * ondemand, batch
    *
-   * FIXME: このシナリオはオンデマンドの「単一CH」更新専用にする
+   * ondemand
+   * このシナリオをオンデマンドの「単一CH」更新でも使う
    * usecase: ユーザーがヒカキンのチャンネルページを開いた際に更新リクエストを送る
    *          GET /v3/channels?channelId=XXX
    *
+   *
+   * batch
+   * こっちはTOP10,000のチャンネル更新、などIdがわかってる場合の更新に用いる
+   * TODO: saveChannelsByIds() など名前を変える
    * GET /v3/channels?channelId=A,B,C...
    */
   async saveChannels() {
-    const basicInfos = await this.channelsService.findAllBasicInfos({
+    const channelIds = await this.channelsService.findIds({
       limit: FETCH_LIMIT
     })
 
     const channels = await this.channelsInfraService.getChannels({
-      where: { channelIds: basicInfos.map(i => i.id) }
+      where: { channelIds }
     })
 
     await Promise.all(
