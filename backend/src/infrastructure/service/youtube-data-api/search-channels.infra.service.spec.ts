@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { SearchChannelsInfraService } from './search-channels.infra.service'
+import { SearchChannelsInfraService } from '@infra/service/youtube-data-api'
 
 describe('SearchChannelsInfraService', () => {
   let service: SearchChannelsInfraService

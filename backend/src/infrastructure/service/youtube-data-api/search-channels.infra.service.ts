@@ -43,7 +43,6 @@ const PER_PAGE = 50 // 50
  * - [ ] 再帰呼び出しを辞める
  * - [ ] snippetを消して id だけ取得する
  *
- * - [ ] search-channels.infra.service.ts にリネーム
  * - [ ] search-videos.infra.service.ts にリネーム
  */
 @Injectable()

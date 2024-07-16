@@ -6,7 +6,7 @@ import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
-import { SearchChannelsInfraService } from '@infra/service/youtube-data-api/search-channels.infra.service'
+import { SearchChannelsInfraService } from '@infra/service/youtube-data-api'
 import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
 

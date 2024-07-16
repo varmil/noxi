@@ -5,7 +5,7 @@ import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggrega
 import { VideoAggregationRepository } from '@domain/youtube/video-aggregation/VideoAggregation.repository'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 import { videoAggregationConverter } from '@infra/schema/VideoAggregationSchema'
-import { SearchChannelsInfraService } from '@infra/service/youtube-data-api/search-channels.infra.service'
+import { SearchChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class VideoAggregationRepositoryImpl
