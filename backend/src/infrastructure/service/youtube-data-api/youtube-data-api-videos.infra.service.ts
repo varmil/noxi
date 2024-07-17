@@ -1,13 +1,18 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
-import { ChannelId } from '@domain/youtube'
-import { Thumbnails } from '@domain/youtube/image/Thumbnail'
-import { Duration } from '@domain/youtube/video/Duration'
-import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
-import { Snippet } from '@domain/youtube/video/Snippet'
-import { Statistics } from '@domain/youtube/video/Statistics'
-import { Video } from '@domain/youtube/video/Video.entity'
-import { Videos } from '@domain/youtube/video/Videos.collection'
+import {
+  ChannelId,
+  Duration,
+  LiveStreamingDetails,
+  Q,
+  RegionCode,
+  RelevanceLanguage,
+  Snippet,
+  Statistics,
+  Thumbnails,
+  Video,
+  Videos
+} from '@domain/youtube'
 
 // /search の型定義
 interface DataAPISearch {
@@ -42,6 +47,16 @@ interface DataAPIVideo {
     actualEndTime: string // ISO 8601
   }
 }
+
+export interface SearchVideosParams {
+  limit: number
+  q?: Q
+  channelId?: ChannelId
+  regionCode?: RegionCode
+  relevanceLanguage?: RelevanceLanguage
+  pageToken?: string
+}
+
 const PER_PAGE = 50 // 50
 
 /**
@@ -61,45 +76,50 @@ export class YoutubeDataApiVideosInfraService {
   constructor() {}
 
   async getVideos(
-    channelId: ChannelId,
-    { limit }: { limit: number }
-  ): Promise<Videos> {
-    const videos = await this._getVideos(channelId, { limit })
-    return new Videos(
-      videos.map(v => {
-        const { viewCount, likeCount, commentCount } = v.statistics
-        return new Video({
-          id: v.id,
-          snippet: new Snippet({
-            ...v.snippet,
-            publishedAt: new Date(v.snippet.publishedAt)
-          }),
-          duration: new Duration(v.contentDetails.duration),
-          statistics: new Statistics({
-            viewCount: Number(viewCount ?? 0),
-            likeCount: Number(likeCount ?? 0),
-            commentCount: Number(commentCount ?? 0)
-          }),
-          liveStreamingDetails: v.liveStreamingDetails
-            ? new LiveStreamingDetails({
-                actualStartTime: new Date(
-                  v.liveStreamingDetails.actualStartTime
-                ),
-                actualEndTime: new Date(v.liveStreamingDetails.actualEndTime)
-              })
-            : undefined
+    params: SearchVideosParams
+  ): Promise<{ nextPageToken?: string; videos: Videos }> {
+    const { nextPageToken, videos } = await this._getVideos(params)
+
+    return {
+      nextPageToken,
+      videos: new Videos(
+        videos.map(v => {
+          const { viewCount, likeCount, commentCount } = v.statistics
+          return new Video({
+            id: v.id,
+            snippet: new Snippet({
+              ...v.snippet,
+              publishedAt: new Date(v.snippet.publishedAt)
+            }),
+            duration: new Duration(v.contentDetails.duration),
+            statistics: new Statistics({
+              viewCount: Number(viewCount ?? 0),
+              likeCount: Number(likeCount ?? 0),
+              commentCount: Number(commentCount ?? 0)
+            }),
+            liveStreamingDetails: v.liveStreamingDetails
+              ? new LiveStreamingDetails({
+                  actualStartTime: new Date(
+                    v.liveStreamingDetails.actualStartTime
+                  ),
+                  actualEndTime: new Date(v.liveStreamingDetails.actualEndTime)
+                })
+              : undefined
+          })
         })
-      })
-    )
+      )
+    }
   }
 
   // YouTubeチャンネルの動画情報を取得する関数
   private async _getVideos(
-    channelId: ChannelId,
-    { limit }: { limit: number }
-  ): Promise<DataAPIVideo[]> {
+    params: SearchVideosParams
+  ): Promise<{ nextPageToken?: string; videos: DataAPIVideo[] }> {
+    const { channelId, q, regionCode, relevanceLanguage, limit, pageToken } =
+      params
+
     let videos: DataAPIVideo[] = []
-    let nextPageToken = ''
+    let nextPageToken = pageToken ?? undefined
     let count = 0
 
     do {
@@ -108,11 +128,14 @@ export class YoutubeDataApiVideosInfraService {
         nextPageToken: string
       }>('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          part: 'snippet',
+          part: 'id',
           type: 'video',
-          channelId: channelId.get(),
+          channelId: channelId?.get(),
+          q: q?.get(),
           maxResults: PER_PAGE,
           order: 'date',
+          regionCode: regionCode?.get() || 'JP',
+          relevanceLanguage: relevanceLanguage?.get() || '',
           pageToken: nextPageToken,
           key: this.API_KEY
         }
@@ -136,6 +159,6 @@ export class YoutubeDataApiVideosInfraService {
       count += videoDetailsResponse.data.items.length
     } while (nextPageToken && count < limit)
 
-    return videos
+    return { nextPageToken, videos }
   }
 }

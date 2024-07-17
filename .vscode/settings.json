@@ -18,6 +18,6 @@
     "/backend/src/domain/youtube",
     "/backend/src/domain/youtube/channel",
     "/backend/src/infrastructure/service/youtube-data-api",
-    "/backend/src/presentation-application/cloud-schedulers/youtube"
+    "/backend/src/domain/youtube/video"
   ]
 }

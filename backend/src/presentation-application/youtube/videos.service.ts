@@ -9,11 +9,11 @@ export class VideosService {
     private readonly videoRepository: VideoRepository
   ) {}
 
-  async findAll(
-    args: Parameters<VideoRepository['findAll']>[0]
-  ): Promise<Videos> {
-    return await this.videoRepository.findAll(args)
-  }
+  // async findAll(
+  //   args: Parameters<VideoRepository['findAll']>[0]
+  // ): Promise<Videos> {
+  //   return await this.videoRepository.findAll(args)
+  // }
 
   async save(video: Parameters<VideoRepository['save']>[0]): Promise<void> {
     await this.videoRepository.save(video)

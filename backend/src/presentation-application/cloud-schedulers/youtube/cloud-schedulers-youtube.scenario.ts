@@ -20,29 +20,23 @@ export class CloudSchedulersYoutubeScenario {
   ) {}
 
   /**
-   * deleteme (instead, use AggregationByKeyword)
+   * batch
    *
-   * 毎月（？）呼ぶ想定で５０本だけ取得
-   * DBはPrimary Keyが videoId なのでupsertになる
-   *
-   * NOTE: Channel Category は Video から推測するしかないかも？
+   * TODO: Impl
    */
-  async saveVideos() {
+  async saveVideoCategories() {
     const channelIds = await this.channelsService.findIds({
       limit: FETCH_LIMIT
     })
 
     await Promise.all(
       channelIds.take(TAKE).map(async channelId => {
-        const videos = await this.videosInfraService.getVideos(channelId, {
+        const videos = await this.videosInfraService.getVideos({
+          channelId,
           limit: FETCH_LIMIT
         })
 
-        await Promise.all(
-          videos.map(async video => {
-            await this.videosService.save(video)
-          })
-        )
+        // reduce videos for categories, then save the category into a channel.
       })
     )
   }
@@ -64,8 +58,8 @@ export class CloudSchedulersYoutubeScenario {
     await Promise.all(
       channelIds.take(TAKE).map(async channelId => {
         // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
-        // search-videosを使ってクエリする
-        const videos = await this.videosInfraService.getVideos(channelId, {
+        const { videos } = await this.videosInfraService.getVideos({
+          channelId,
           limit: FETCH_LIMIT
         })
 
@@ -90,7 +84,6 @@ export class CloudSchedulersYoutubeScenario {
    *
    * batch
    * こっちはTOP10,000のチャンネル更新、などIdがわかってる場合の更新に用いる
-   * TODO: saveChannelsByIds() など名前を変える
    * GET /v3/channels?channelId=A,B,C...
    */
   async saveChannelsByIds() {

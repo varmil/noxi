@@ -1,4 +1,7 @@
-import { listSchema, VideosSchema } from 'features/youtube/types/videoSchema'
+import {
+  responseSchema,
+  VideosSchema
+} from 'features/youtube/types/videoSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getVideos({
@@ -18,6 +21,6 @@ export async function getVideos({
     throw new Error('Failed to fetch data')
   }
 
-  const data = listSchema.parse(await res.json())
-  return data.list
+  const data = responseSchema.parse(await res.json())
+  return data.videos.list
 }
