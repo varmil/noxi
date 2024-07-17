@@ -22,28 +22,6 @@ export class CloudSchedulersYoutubeScenario {
   /**
    * batch
    *
-   * TODO: Impl
-   */
-  async saveVideoCategories() {
-    const channelIds = await this.channelsService.findIds({
-      limit: FETCH_LIMIT
-    })
-
-    await Promise.all(
-      channelIds.take(TAKE).map(async channelId => {
-        const videos = await this.videosInfraService.getVideos({
-          channelId,
-          limit: FETCH_LIMIT
-        })
-
-        // reduce videos for categories, then save the category into a channel.
-      })
-    )
-  }
-
-  /**
-   * batch
-   *
    * 下記のダブルWrite戦略
    * /channel/{channelId}/latestVideoAggregation
    * /videoAggregation/{channelId}/history/{year-month}
@@ -98,6 +76,28 @@ export class CloudSchedulersYoutubeScenario {
     await Promise.all(
       channels.map(async channel => {
         await this.channelsService.save(channel)
+      })
+    )
+  }
+
+  /**
+   * batch
+   *
+   * TODO: Impl
+   */
+  async saveChannelCategory() {
+    const channelIds = await this.channelsService.findIds({
+      limit: FETCH_LIMIT
+    })
+
+    await Promise.all(
+      channelIds.take(TAKE).map(async channelId => {
+        const videos = await this.videosInfraService.getVideos({
+          channelId,
+          limit: FETCH_LIMIT
+        })
+
+        // reduce videos for categories, then save the category into a channel.
       })
     )
   }
