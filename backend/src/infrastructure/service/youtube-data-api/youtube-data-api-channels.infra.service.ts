@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { ChannelIds } from '@domain/youtube'
 import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
@@ -92,16 +93,16 @@ export class YoutubeDataApiChannelsInfraService {
 
     for (let i = 0; i < channelIds.length; i += maxResultsPerRequest) {
       const batchIds = channelIds.slice(i, i + maxResultsPerRequest)
-      const response = await axios.get<{
-        items: ChannelListItem[]
-        nextPageToken: string
-      }>('https://www.googleapis.com/youtube/v3/channels', {
-        params: {
-          part: 'snippet,statistics,brandingSettings',
-          id: batchIds.join(','),
-          key: this.API_KEY
+      const response = await axios.get<PaginationResponse<ChannelListItem[]>>(
+        'https://www.googleapis.com/youtube/v3/channels',
+        {
+          params: {
+            part: 'snippet,statistics,brandingSettings',
+            id: batchIds.join(','),
+            key: this.API_KEY
+          }
         }
-      })
+      )
       results = results.concat(response.data.items)
     }
 

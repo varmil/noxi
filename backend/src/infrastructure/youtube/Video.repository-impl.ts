@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
-import { Duration } from '@domain/youtube/video/Duration'
-import { Snippet } from '@domain/youtube/video/Snippet'
-import { Statistics } from '@domain/youtube/video/Statistics'
-import { Video } from '@domain/youtube/video/Video.entity'
-import { VideoRepository } from '@domain/youtube/video/Video.repository'
-import { Videos } from '@domain/youtube/video/Videos.collection'
+import {
+  Duration,
+  Snippet,
+  Statistics,
+  Video,
+  VideoRepository,
+  Videos
+} from '@domain/youtube'
 import { getExpireAt } from '@infra/lib/getExpireAt'
 import { videoConverter } from '@infra/schema/VideoSchema'
 

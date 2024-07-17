@@ -7,16 +7,27 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { VideosService } from '@app/youtube/videos.service'
+import { VideosScenario } from '@app/youtube/scenario/videos.scenario'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
+import { ChannelId, Videos } from '@domain/youtube'
+import { SearchVideosInfraService } from '@infra/service/youtube-data-api'
 
 @Controller('youtube/videos')
 export class VideosController {
-  constructor(private readonly videosService: VideosService) {}
+  constructor(
+    private readonly videosScenario: VideosScenario,
+    private readonly searchVideosInfraService: SearchVideosInfraService
+  ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/')
-  async getVideos(@Query('channelId') channelId: string) {
-    return await this.videosService.findAll({ where: { channelId }, limit: 50 })
+  async getVideos(
+    @Query('channelId') channelId: string
+  ): Promise<PaginationResponse<Videos>> {
+    return await this.videosScenario.findAll({
+      channelId: new ChannelId(channelId),
+      limit: 50
+    })
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

@@ -1,28 +1,23 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
-import { Q, RegionCode, RelevanceLanguage, Thumbnails } from '@domain/youtube'
-import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
-import { ChannelBasicInfos } from '@domain/youtube/channel/basic-info/ChannelBasicInfos.collection'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
+import {
+  VideoId,
+  VideoIds,
+  Q,
+  RegionCode,
+  RelevanceLanguage,
+  ChannelId
+} from '@domain/youtube'
 
 interface SearchListItem {
-  id: {
-    channelId: string
-  }
-  snippet: {
-    channelId: string
-    channelTitle: string
-    description: string
-
-    title: string
-    thumbnails: Thumbnails
-
-    publishedAt: string // ISO 8601
-  }
+  id: { videoId: string }
 }
 
 interface Params {
   limit: number
-  q: Q
+  q?: Q
+  channelId?: ChannelId
   regionCode?: RegionCode
   relevanceLanguage?: RelevanceLanguage
   pageToken?: string
@@ -31,8 +26,7 @@ interface Params {
 const PER_PAGE = 50 // 50
 
 /**
- * TODO:
- * - [ ] search-videos.infra.service.ts 実装
+ * 使わないかも？
  */
 @Injectable()
 export class SearchVideosInfraService {
@@ -40,30 +34,31 @@ export class SearchVideosInfraService {
 
   constructor() {}
 
-  async getChannelBasicInfos(params: Params): Promise<ChannelBasicInfos> {
-    const basicInfos = await this._getBasicInfos(params)
-    return new ChannelBasicInfos(basicInfos)
+  async getVideoIds(params: Params): Promise<PaginationResponse<VideoIds>> {
+    return await this.getIds(params)
   }
 
-  private async _getBasicInfos(params: Params): Promise<ChannelBasicInfo[]> {
-    const { q, regionCode, relevanceLanguage, limit, pageToken } = params
+  private async getIds(params: Params): Promise<PaginationResponse<VideoIds>> {
+    const { channelId, q, regionCode, relevanceLanguage, limit, pageToken } =
+      params
 
-    let results: ChannelBasicInfo[] = []
-    let nextPageToken = pageToken ?? ''
+    let results: VideoId[] = []
+    let nextPageToken = pageToken ?? undefined
     let count = 0
 
     do {
       const response = await axios.get<{
         items: SearchListItem[]
         pageInfo: { totalResults: number; resultsPerPage: number }
-        nextPageToken: string
+        nextPageToken?: string
       }>('https://www.googleapis.com/youtube/v3/search', {
         params: {
-          part: 'snippet',
-          type: 'channel',
-          q: q.get(),
+          part: 'id',
+          type: 'video',
+          channelId: channelId?.get(),
+          q: q?.get(),
           maxResults: PER_PAGE,
-          order: 'relevance',
+          order: 'date',
           regionCode: regionCode?.get() || 'JP',
           relevanceLanguage: relevanceLanguage?.get() || '',
           pageToken: nextPageToken,
@@ -71,24 +66,18 @@ export class SearchVideosInfraService {
         }
       })
 
-      const basicInfos: ChannelBasicInfo[] = response.data.items.map(
-        (item: SearchListItem): ChannelBasicInfo => ({
-          id: item.id.channelId,
-          title: item.snippet.channelTitle,
-          description: item.snippet.description,
-          thumbnails: item.snippet.thumbnails,
-          publishedAt: new Date(item.snippet.publishedAt)
-        })
+      const videoIds: VideoId[] = response.data.items.map(
+        (item: SearchListItem): VideoId => new VideoId(item.id.videoId)
       )
-      if (basicInfos.length === 0) break
+      if (videoIds.length === 0) break
 
-      console.log('Channels in JP: ', response.data.pageInfo.totalResults)
+      console.log('Videos count: ', response.data.pageInfo.totalResults)
 
-      results = results.concat(basicInfos)
+      results = results.concat(videoIds)
       nextPageToken = response.data.nextPageToken
-      count += basicInfos.length
+      count += videoIds.length
     } while (nextPageToken && count < limit)
 
-    return results
+    return { nextPageToken, items: new VideoIds(results) }
   }
 }
