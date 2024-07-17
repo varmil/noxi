@@ -22,5 +22,5 @@ export async function getVideos({
   }
 
   const data = responseSchema.parse(await res.json())
-  return data.videos.list
+  return data.items.list
 }

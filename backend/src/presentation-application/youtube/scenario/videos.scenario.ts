@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { Videos, Q, RegionCode, RelevanceLanguage } from '@domain/youtube'
+import { Q, RegionCode, RelevanceLanguage } from '@domain/youtube'
 import {
   YoutubeDataApiVideosInfraService,
   type SearchVideosParams
@@ -11,10 +11,7 @@ export class VideosScenario {
     private readonly videosInfraService: YoutubeDataApiVideosInfraService
   ) {}
 
-  async findAll(params: SearchVideosParams): Promise<{
-    nextPageToken?: string
-    videos: Videos
-  }> {
+  async findAll(params: SearchVideosParams) {
     const _params: SearchVideosParams = {
       ...params,
       // q: new Q('ホロライブ'),

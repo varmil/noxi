@@ -50,11 +50,11 @@ export class SaveChannelsBySearchScenario {
   }
 
   private async saveChannelsInChunkOf50(params: SearchChannelsParams) {
-    const { nextPageToken, ids } =
+    const { nextPageToken, items } =
       await this.searchInfraService.getChannelIds(params)
 
     const channels = await this.channelsInfraService.getChannels({
-      where: { channelIds: ids }
+      where: { channelIds: items }
     })
 
     // N本以上投稿してるチャンネルのみ保存

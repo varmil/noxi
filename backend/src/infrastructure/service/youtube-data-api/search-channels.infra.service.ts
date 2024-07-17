@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import {
   ChannelId,
   ChannelIds,
@@ -33,16 +34,13 @@ export class SearchChannelsInfraService {
 
   constructor() {}
 
-  async getChannelIds(
-    params: Params
-  ): Promise<{ nextPageToken?: string; ids: ChannelIds }> {
-    const { nextPageToken, ids } = await this.getIds(params)
-    return { nextPageToken, ids: new ChannelIds(ids) }
+  async getChannelIds(params: Params): Promise<PaginationResponse<ChannelIds>> {
+    return await this.getIds(params)
   }
 
   private async getIds(
     params: Params
-  ): Promise<{ nextPageToken?: string; ids: ChannelId[] }> {
+  ): Promise<PaginationResponse<ChannelIds>> {
     const { q, regionCode, relevanceLanguage, limit, pageToken } = params
 
     let results: ChannelId[] = []
@@ -80,6 +78,6 @@ export class SearchChannelsInfraService {
       count += channelIds.length
     } while (nextPageToken && count < limit)
 
-    return { nextPageToken, ids: results }
+    return { nextPageToken, items: new ChannelIds(results) }
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import {
   ChannelId,
   Duration,
@@ -77,12 +78,12 @@ export class YoutubeDataApiVideosInfraService {
 
   async getVideos(
     params: SearchVideosParams
-  ): Promise<{ nextPageToken?: string; videos: Videos }> {
+  ): Promise<PaginationResponse<Videos>> {
     const { nextPageToken, videos } = await this._getVideos(params)
 
     return {
       nextPageToken,
-      videos: new Videos(
+      items: new Videos(
         videos.map(v => {
           const { viewCount, likeCount, commentCount } = v.statistics
           return new Video({
@@ -123,23 +124,23 @@ export class YoutubeDataApiVideosInfraService {
     let count = 0
 
     do {
-      const response = await axios.get<{
-        items: DataAPISearch[]
-        nextPageToken: string
-      }>('https://www.googleapis.com/youtube/v3/search', {
-        params: {
-          part: 'id',
-          type: 'video',
-          channelId: channelId?.get(),
-          q: q?.get(),
-          maxResults: PER_PAGE,
-          order: 'date',
-          regionCode: regionCode?.get() || 'JP',
-          relevanceLanguage: relevanceLanguage?.get() || '',
-          pageToken: nextPageToken,
-          key: this.API_KEY
+      const response = await axios.get<PaginationResponse<DataAPISearch[]>>(
+        'https://www.googleapis.com/youtube/v3/search',
+        {
+          params: {
+            part: 'id',
+            type: 'video',
+            channelId: channelId?.get(),
+            q: q?.get(),
+            maxResults: PER_PAGE,
+            order: 'date',
+            regionCode: regionCode?.get() || 'JP',
+            relevanceLanguage: relevanceLanguage?.get() || '',
+            pageToken: nextPageToken,
+            key: this.API_KEY
+          }
         }
-      })
+      )
 
       const videoIds = response.data.items.map(item => item.id.videoId)
       if (videoIds.length === 0) break

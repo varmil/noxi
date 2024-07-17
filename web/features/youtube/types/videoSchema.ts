@@ -39,8 +39,9 @@ export const schema = z.object({
   updatedAt: z.string().datetime().optional()
 })
 export const responseSchema = z.object({
-  videos: z.object({ list: z.array(schema) }),
-  nextPageToken: z.string().optional()
+  items: z.object({ list: z.array(schema) }),
+  nextPageToken: z.string().optional(),
+  prevPageToken: z.string().optional()
 })
 
 export type VideoSchema = z.infer<typeof schema>
