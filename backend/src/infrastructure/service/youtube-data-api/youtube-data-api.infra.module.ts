@@ -2,8 +2,7 @@ import { Module } from '@nestjs/common'
 import {
   SearchChannelsInfraService,
   SearchVideosInfraService,
-  YoutubeDataApiChannelsInfraService,
-  YoutubeDataApiVideosInfraService
+  YoutubeDataApiChannelsInfraService
 } from '@infra/service/youtube-data-api'
 
 @Module({
@@ -11,13 +10,11 @@ import {
   providers: [
     SearchChannelsInfraService,
     SearchVideosInfraService,
-    YoutubeDataApiVideosInfraService,
     YoutubeDataApiChannelsInfraService
   ],
   exports: [
     SearchChannelsInfraService,
     SearchVideosInfraService,
-    YoutubeDataApiVideosInfraService,
     YoutubeDataApiChannelsInfraService
   ]
 })
