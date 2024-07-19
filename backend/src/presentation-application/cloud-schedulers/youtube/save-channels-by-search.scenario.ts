@@ -24,7 +24,10 @@ export class SaveChannelsBySearchScenario {
   /**
    * batch
    *
-   * こっちはクエリを使う場合、全部舐めたりIｄがわからない場合に用いる
+   * qを使う場合、全部舐めたりIdがわからない場合に用いる
+   *
+   * MIN_N本以上Videosがある && １年以内にVideo uploadしてる
+   * チャンネルのみ保存
    */
   async execute() {
     const params: SearchChannelsParams = {
@@ -57,7 +60,6 @@ export class SaveChannelsBySearchScenario {
       where: { channelIds: items }
     })
 
-    // N本以上投稿してるチャンネルのみ保存
     await Promise.all(
       channels.selectWithAtLeastNVideos(MIN_N).map(async channel => {
         await this.channelsService.save(channel)
