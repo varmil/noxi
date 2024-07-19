@@ -113,8 +113,7 @@ export class YoutubeDataApiChannelsInfraService {
 
       const response = await this.client.channels.list({
         part: ['snippet', 'contentDetails', 'statistics', 'brandingSettings'],
-        id: batchIds.map(id => id.get()),
-        key: this.API_KEY
+        id: batchIds.map(id => id.get())
       })
 
       results = results.concat(response.data.items ?? [])

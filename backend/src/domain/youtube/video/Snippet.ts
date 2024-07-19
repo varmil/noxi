@@ -15,7 +15,7 @@ export class Snippet {
     title: string
     description: string
     thumbnails: Thumbnails
-    tags?: string[]
+    tags?: string[] | null
     categoryId: string
   }) {
     this.publishedAt = args.publishedAt
