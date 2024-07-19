@@ -1,9 +1,4 @@
-import {
-  BrandingSettings,
-  ChannelStatistics,
-  Country,
-  Keywords
-} from '@domain/youtube/channel'
+import { BrandingSettings, ChannelStatistics } from '@domain/youtube/channel'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
 

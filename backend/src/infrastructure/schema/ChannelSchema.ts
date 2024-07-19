@@ -14,9 +14,9 @@ export const channelSchema = z.object({
     thumbnails: z.record(
       z.enum(['default', 'medium', 'high']),
       z.object({
-        url: z.string(),
-        width: z.number().optional(),
-        height: z.number().optional()
+        url: z.string().optional().nullable(),
+        width: z.number().optional().nullable(),
+        height: z.number().optional().nullable()
       })
     ),
     publishedAt: firestoreTimestampSchema

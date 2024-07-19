@@ -9,7 +9,7 @@ import {
 } from '@infra/service/youtube-data-api'
 import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 
-const TOTAL_LIMIT = 100
+const TOTAL_LIMIT = 50
 const FETCH_LIMIT = 50
 const MIN_N = 3
 

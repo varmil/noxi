@@ -12,7 +12,11 @@ export class Channels {
   @Exclude()
   selectWithAtLeastNVideos = (n: number) =>
     new Channels(
-      this.list.filter(channel => channel.statistics.videoCount >= n)
+      this.list.filter(channel => {
+        const ok = channel.statistics.videoCount >= n
+        if (!ok) console.log('[MIN_N] title', channel.basicInfo.title)
+        return ok
+      })
     )
 
   @Exclude()

@@ -16,9 +16,9 @@ export const videoSchema = z.object({
     thumbnails: z.record(
       z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
       z.object({
-        url: z.string(),
-        width: z.number().optional(),
-        height: z.number().optional()
+        url: z.string().optional().nullable(),
+        width: z.number().optional().nullable(),
+        height: z.number().optional().nullable()
       })
     ),
     tags: z.array(z.string()),
