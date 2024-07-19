@@ -13,7 +13,7 @@ export class CloudSchedulersYoutubeController {
     private readonly saveChannelsBySearchScenario: SaveChannelsBySearchScenario
   ) {}
 
-  @Post('/channels/ids')
+  @Post('/channels-by-search')
   async saveChannelsBySearch() {
     await this.saveChannelsBySearchScenario.execute()
   }
@@ -25,8 +25,8 @@ export class CloudSchedulersYoutubeController {
   }
 
   // TODO: select appropriate channels to update
-  @Post('/channels')
-  async saveChannels() {
+  @Post('/channels-by-ids')
+  async saveChannelsByIds() {
     await this.cloudSchedulersYoutubeScenario.saveChannelsByIds()
   }
 }
