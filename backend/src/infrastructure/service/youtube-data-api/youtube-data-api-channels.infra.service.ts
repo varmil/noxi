@@ -54,7 +54,7 @@ export class YoutubeDataApiChannelsInfraService {
             !country
           ) {
             console.log(
-              '[NULL] ChannelsInfraService.getChannels()',
+              '[NULL] Channels',
               'contentDetails?.relatedPlaylists?.uploads',
               !!contentDetails?.relatedPlaylists?.uploads,
               'brandingSettings?.channel',

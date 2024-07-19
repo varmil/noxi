@@ -82,8 +82,28 @@ export class SearchVideosInfraService {
               !thumbnails ||
               !categoryId ||
               !duration
-            )
+            ) {
+              console.log(
+                '[NULL] SearchVideos',
+                'id',
+                !!id,
+                'publishedAt',
+                !!publishedAt,
+                'channelId',
+                !!channelId,
+                'title',
+                !!title,
+                'description',
+                !!description,
+                'thumbnails',
+                !!thumbnails,
+                'categoryId',
+                !!categoryId,
+                'duration',
+                !!duration
+              )
               return undefined
+            }
 
             return new Video({
               id,
