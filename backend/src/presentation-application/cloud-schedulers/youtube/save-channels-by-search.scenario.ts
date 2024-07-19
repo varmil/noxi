@@ -4,10 +4,10 @@ import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import {
+  ChannelsInfraService,
   SearchChannelsInfraService,
   type Params as SearchChannelsParams
 } from '@infra/service/youtube-data-api'
-import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 
 const TOTAL_LIMIT = 50
 const FETCH_LIMIT = 50
@@ -18,7 +18,7 @@ export class SaveChannelsBySearchScenario {
   constructor(
     private readonly channelsService: ChannelsService,
     private readonly searchInfraService: SearchChannelsInfraService,
-    private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
+    private readonly channelsInfraService: ChannelsInfraService
   ) {}
 
   /**

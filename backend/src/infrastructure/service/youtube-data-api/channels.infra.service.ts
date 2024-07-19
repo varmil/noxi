@@ -13,7 +13,7 @@ import { ContentDetails } from '@domain/youtube/channel/content-details/ContentD
 const maxResultsPerRequest = 50
 
 @Injectable()
-export class YoutubeDataApiChannelsInfraService {
+export class ChannelsInfraService {
   private readonly API_KEY = process.env.YOUTUBE_DATA_API_KEY
   private readonly client: youtube_v3.Youtube
 

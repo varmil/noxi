@@ -3,8 +3,10 @@ import { ChannelsService } from '@app/youtube/channels.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { VideosService } from '@app/youtube/videos.service'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
-import { SearchVideosInfraService } from '@infra/service/youtube-data-api'
-import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
+import {
+  ChannelsInfraService,
+  SearchVideosInfraService
+} from '@infra/service/youtube-data-api'
 
 const FETCH_LIMIT = 50
 const TAKE = 20
@@ -16,7 +18,7 @@ export class CloudSchedulersYoutubeScenario {
     private readonly videosService: VideosService,
     private readonly aggregationsService: VideoAggregationsService,
     private readonly searchVideosInfraService: SearchVideosInfraService,
-    private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
+    private readonly channelsInfraService: ChannelsInfraService
   ) {}
 
   /**
