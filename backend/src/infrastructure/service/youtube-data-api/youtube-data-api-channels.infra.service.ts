@@ -8,6 +8,7 @@ import { ChannelStatistics } from '@domain/youtube/channel/ChannelStatistics'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
 import { Country } from '@domain/youtube/channel/branding-settings/Country'
 import { Keywords } from '@domain/youtube/channel/branding-settings/Keywords'
+import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
 interface ChannelListItem {
@@ -21,6 +22,11 @@ interface ChannelListItem {
     localized: {
       title: string
       description: string
+    }
+  }
+  contentDetails: {
+    relatedPlaylists: {
+      uploads: string // playlist id
     }
   }
   statistics: {
@@ -59,6 +65,7 @@ export class YoutubeDataApiChannelsInfraService {
       channels.map(channel => {
         const {
           snippet: { title, description, thumbnails, publishedAt },
+          contentDetails,
           statistics: { viewCount, subscriberCount, videoCount },
           brandingSettings
         } = channel
@@ -73,6 +80,11 @@ export class YoutubeDataApiChannelsInfraService {
             thumbnails,
             publishedAt: new Date(publishedAt)
           },
+          contentDetails: new ContentDetails({
+            relatedPlaylists: {
+              uploads: contentDetails.relatedPlaylists.uploads
+            }
+          }),
           statistics: new ChannelStatistics({
             viewCount: Number(viewCount ?? 0),
             subscriberCount: Number(subscriberCount ?? 0),
@@ -97,7 +109,7 @@ export class YoutubeDataApiChannelsInfraService {
         'https://www.googleapis.com/youtube/v3/channels',
         {
           params: {
-            part: 'snippet,statistics,brandingSettings',
+            part: 'snippet,contentDetails,statistics,brandingSettings',
             id: batchIds.join(','),
             key: this.API_KEY
           }
