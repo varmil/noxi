@@ -88,20 +88,5 @@ export class CloudSchedulersYoutubeScenario {
    *
    * TODO: Impl
    */
-  async saveChannelCategory() {
-    const channelIds = await this.channelsService.findIds({
-      limit: FETCH_LIMIT
-    })
-
-    // await Promise.all(
-    //   channelIds.take(TAKE).map(async channelId => {
-    //     const { items } = await this.videosInfraService.getVideos({
-    //       channelId,
-    //       limit: FETCH_LIMIT
-    //     })
-
-    //     // reduce videos for categories, then save the category into a channel.
-    //   })
-    // )
-  }
+  async saveChannelCategory() {}
 }
