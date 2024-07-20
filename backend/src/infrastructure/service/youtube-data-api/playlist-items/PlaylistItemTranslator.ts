@@ -11,17 +11,23 @@ export class PlaylistItemTranslator {
   ) {}
 
   translate(): PlaylistItem | undefined {
-    const { playlistId, item } = this
+    const item = this.parse()
+    if (!item) return undefined
 
-    try {
-      const { contentDetails } = playlistItemAPISchema.parse(item)
-      return new PlaylistItem({
-        playlistId,
-        contentDetails: new ContentDetails({
-          videoId: new VideoId(contentDetails.videoId),
-          videoPublishedAt: new Date(contentDetails.videoPublishedAt)
-        })
+    const { playlistId } = this
+
+    return new PlaylistItem({
+      playlistId,
+      contentDetails: new ContentDetails({
+        videoId: new VideoId(item.contentDetails.videoId),
+        videoPublishedAt: new Date(item.contentDetails.videoPublishedAt)
       })
+    })
+  }
+
+  private parse() {
+    try {
+      return playlistItemAPISchema.parse(this.item)
     } catch (err) {
       if (err instanceof z.ZodError) {
         console.log(err.issues)

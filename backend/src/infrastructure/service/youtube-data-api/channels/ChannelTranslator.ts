@@ -1,4 +1,5 @@
 import { type youtube_v3 } from '@googleapis/youtube'
+import { z } from 'zod'
 import {
   BrandingSettings,
   Channel,
@@ -7,54 +8,19 @@ import {
   Keywords
 } from '@domain/youtube'
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
+import { channelAPISchema } from '@infra/service/youtube-data-api/channels/ChannelAPISchema'
 
 export class ChannelTranslator {
   constructor(private readonly channel: youtube_v3.Schema$Channel) {}
 
   translate(): Channel | undefined {
-    const channel = this.channel
-    const { snippet, contentDetails, statistics, brandingSettings } = channel
-    const { title, description, thumbnails, publishedAt } = snippet ?? {}
-    const { viewCount, subscriberCount, videoCount } = statistics ?? {}
-    const { keywords, country } = brandingSettings?.channel ?? {}
+    const channel = this.parse()
+    if (!channel) return undefined
 
-    if (
-      !snippet ||
-      !contentDetails ||
-      !statistics ||
-      !brandingSettings ||
-      !brandingSettings.channel ||
-      !channel.id ||
-      !title ||
-      !description ||
-      !thumbnails ||
-      !publishedAt ||
-      !contentDetails.relatedPlaylists?.uploads ||
-      !country
-    ) {
-      console.log(
-        '[NULL] Channels',
-        'contentDetails?.relatedPlaylists?.uploads',
-        !!contentDetails?.relatedPlaylists?.uploads,
-        'brandingSettings?.channel',
-        !!brandingSettings?.channel,
-        'channel.id',
-        !!channel.id,
-        'title',
-        !!title,
-        'description',
-        !!description,
-        'thumbnails',
-        !!thumbnails,
-        'publishedAt',
-        !!publishedAt,
-        'contentDetails',
-        !!contentDetails,
-        'country',
-        !!country
-      )
-      return undefined
-    }
+    const { snippet, contentDetails, statistics, brandingSettings } = channel
+    const { title, description, thumbnails, publishedAt } = snippet
+    const { viewCount, subscriberCount, videoCount } = statistics
+    const { keywords, country } = brandingSettings.channel
 
     return new Channel({
       basicInfo: {
@@ -79,5 +45,18 @@ export class ChannelTranslator {
         country: new Country(country)
       })
     })
+  }
+
+  private parse() {
+    try {
+      return channelAPISchema.parse(this.channel)
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        console.log(err.issues)
+        return undefined
+      } else {
+        throw err
+      }
+    }
   }
 }
