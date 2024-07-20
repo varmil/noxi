@@ -1,7 +1,8 @@
 import { type youtube_v3 } from '@googleapis/youtube'
+import { z } from 'zod'
 import { PlaylistId, PlaylistItem, VideoId } from '@domain/youtube'
 import { ContentDetails } from '@domain/youtube/playlist-item/content-details/ContentDetails'
-import { playlistItemSchema } from '@infra/service/youtube-data-api/playlist-items/PlaylistItemSchema'
+import { playlistItemAPISchema } from '@infra/service/youtube-data-api/playlist-items/PlaylistItemAPISchema'
 
 export class PlaylistItemTranslator {
   constructor(
@@ -13,7 +14,7 @@ export class PlaylistItemTranslator {
     const { playlistId, item } = this
 
     try {
-      const { contentDetails } = playlistItemSchema.parse(item)
+      const { contentDetails } = playlistItemAPISchema.parse(item)
       return new PlaylistItem({
         playlistId,
         contentDetails: new ContentDetails({
@@ -21,9 +22,13 @@ export class PlaylistItemTranslator {
           videoPublishedAt: new Date(contentDetails.videoPublishedAt)
         })
       })
-    } catch (error) {
-      console.info(error)
-      return undefined
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        console.log(err.issues)
+        return undefined
+      } else {
+        throw err
+      }
     }
   }
 }

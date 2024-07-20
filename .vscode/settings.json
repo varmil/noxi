@@ -28,6 +28,7 @@
   "exportall.config.relExclusion": [
     "/backend/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
     "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemSchema.ts"
+    "/backend/src/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemSchema.ts",
+    "/backend/src/infrastructure/service/youtube-data-api/search-videos/SearchVideosAPISchema.ts"
   ]
 }
