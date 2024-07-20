@@ -1,26 +1,19 @@
 import { youtube, type youtube_v3 } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
-import {
-  ChannelId,
-  ChannelIds,
-  Q,
-  RegionCode,
-  RelevanceLanguage
-} from '@domain/youtube'
+import { PlaylistId, PlaylistItem, PlaylistItems } from '@domain/youtube'
+import { PlaylistItemTranslator } from '@infra/service/youtube-data-api/playlist-items/PlaylistItemTranslator'
 
 export interface PlaylistItemsParams {
   limit: number
-  q: Q
-  regionCode?: RegionCode
-  relevanceLanguage?: RelevanceLanguage
+  playlistId: PlaylistId
   pageToken?: string
 }
 
 const PER_PAGE = 50
 
 /**
- * /v3/playlistItems を使って軽量なVideoID, pulishedAtのみ返すサービス
+ * /v3/playlistItems を使って軽量なVideoID, ContentDetailsを返すサービス
  */
 @Injectable()
 export class PlaylistItemsInfraService {
@@ -34,53 +27,43 @@ export class PlaylistItemsInfraService {
     })
   }
 
-  async getChannelIds(
+  async getPlaylistItems(
     params: PlaylistItemsParams
-  ): Promise<PaginationResponse<ChannelIds>> {
-    return await this.getIds(params)
+  ): Promise<PaginationResponse<PlaylistItems>> {
+    return await this.getItems(params)
   }
 
-  private async getIds(
+  private async getItems(
     params: PlaylistItemsParams
-  ): Promise<PaginationResponse<ChannelIds>> {
-    const { q, regionCode, relevanceLanguage, limit, pageToken } = params
+  ): Promise<PaginationResponse<PlaylistItems>> {
+    const { limit, playlistId, pageToken } = params
 
-    let results: ChannelId[] = []
+    let results: PlaylistItem[] = []
     let nextPageToken = pageToken ?? undefined
     let count = 0
 
     do {
-      const response = await this.client.search.list({
-        part: ['id'],
-        type: ['channel'],
-        q: q.get(),
+      const response = await this.client.playlistItems.list({
+        part: ['contentDetails'],
+        playlistId: playlistId.get(),
         maxResults: PER_PAGE,
-        order: 'relevance',
-        regionCode: regionCode?.get() || 'JP',
-        relevanceLanguage: relevanceLanguage?.get() || '',
         pageToken: nextPageToken
       })
 
-      const channelIds =
+      const playlistItems =
         response.data.items
-          ?.map(item => item.id?.channelId)
-          .filter(channelId => channelId !== undefined && channelId !== null)
-          .map(channelId => new ChannelId(channelId)) ?? []
+          ?.map(item =>
+            new PlaylistItemTranslator(playlistId, item).translate()
+          )
+          .filter(e => e !== undefined) ?? []
 
-      if (channelIds.length === 0) break
+      if (playlistItems.length === 0) break
 
-      console.log(
-        'Channels count: ',
-        response.data.pageInfo?.totalResults,
-        'current count: ',
-        count
-      )
-
-      results = results.concat(channelIds)
+      results = results.concat(playlistItems)
       nextPageToken = response.data.nextPageToken ?? undefined
-      count += channelIds.length
+      count += playlistItems.length
     } while (nextPageToken && count < limit)
 
-    return { nextPageToken, items: new ChannelIds(results) }
+    return { nextPageToken, items: new PlaylistItems(results) }
   }
 }

@@ -60,6 +60,10 @@ export class SaveChannelsBySearchScenario {
       where: { channelIds: items }
     })
 
+    // TODO: filter using
+    // PlaylistItemsInfraService,
+    // VideosInfraService
+
     await Promise.all(
       channels.selectWithAtLeastNVideos(MIN_N).map(async channel => {
         await this.channelsService.save(channel)
