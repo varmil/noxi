@@ -1,4 +1,4 @@
-import { Expose, Transform } from 'class-transformer'
+import { Exclude, Expose, Transform } from 'class-transformer'
 import { Duration } from '@domain/youtube/video/Duration'
 import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
 import { Snippet } from '@domain/youtube/video/Snippet'
@@ -35,6 +35,7 @@ export class Video {
    * The time that the broadcast actually started.
    * This value will not be available until the broadcast begins.
    */
+  @Exclude()
   get liveActualStartTime() {
     return this.liveStreamingDetails?.actualStartTime
   }

@@ -27,8 +27,9 @@ export const schema = z.object({
   }),
   liveStreamingDetails: z
     .object({
-      actualStartTime: z.string().datetime(),
-      actualEndTime: z.string().datetime()
+      actualStartTime: z.string().datetime().optional(),
+      actualEndTime: z.string().datetime().optional(),
+      concurrentViewers: z.number().optional()
     })
     .optional(),
 
