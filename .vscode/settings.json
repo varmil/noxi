@@ -23,5 +23,9 @@
     "/backend/src/infrastructure/service/youtube-data-api/search-videos",
     "/backend/src/infrastructure/service/youtube-data-api/search-channels",
     "/backend/src/infrastructure/service/youtube-data-api/channels"
+  ],
+  "exportall.config.relExclusion": [
+    "/backend/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
+    "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts"
   ]
 }

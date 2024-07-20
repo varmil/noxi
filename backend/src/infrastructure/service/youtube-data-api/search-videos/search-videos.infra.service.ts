@@ -3,17 +3,13 @@ import { Injectable } from '@nestjs/common'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import {
   ChannelId,
-  Duration,
-  LiveStreamingDetails,
   Q,
   RegionCode,
   RelevanceLanguage,
-  Snippet,
-  Statistics,
-  Video,
   VideoId,
   Videos
 } from '@domain/youtube'
+import { VideoTranslator } from '@infra/service/youtube-data-api/search-videos/VideoTranslator'
 
 export interface SearchVideosParams {
   limit: number
@@ -57,86 +53,7 @@ export class SearchVideosInfraService {
       nextPageToken,
       items: new Videos(
         videos
-          .map(v => {
-            const { id } = v
-            const {
-              publishedAt,
-              channelId,
-              title,
-              description,
-              thumbnails,
-              tags,
-              categoryId
-            } = v.snippet ?? {}
-            const { duration } = v.contentDetails ?? {}
-            const { viewCount, likeCount, commentCount } = v.statistics ?? {}
-            const { actualStartTime, actualEndTime, concurrentViewers } =
-              v.liveStreamingDetails ?? {}
-
-            if (
-              !id ||
-              !publishedAt ||
-              !channelId ||
-              !title ||
-              !description ||
-              !thumbnails ||
-              !categoryId ||
-              !duration
-            ) {
-              console.log(
-                '[NULL] SearchVideos',
-                'id',
-                !!id,
-                'publishedAt',
-                !!publishedAt,
-                'channelId',
-                !!channelId,
-                'title',
-                !!title,
-                'description',
-                !!description,
-                'thumbnails',
-                !!thumbnails,
-                'categoryId',
-                !!categoryId,
-                'duration',
-                !!duration
-              )
-              return undefined
-            }
-
-            return new Video({
-              id,
-              snippet: new Snippet({
-                publishedAt: new Date(publishedAt),
-                channelId,
-                title,
-                description,
-                thumbnails,
-                tags,
-                categoryId
-              }),
-              duration: new Duration(duration),
-              statistics: new Statistics({
-                viewCount: Number(viewCount ?? 0),
-                likeCount: Number(likeCount ?? 0),
-                commentCount: Number(commentCount ?? 0)
-              }),
-              liveStreamingDetails: v.liveStreamingDetails
-                ? new LiveStreamingDetails({
-                    actualStartTime: actualStartTime
-                      ? new Date(actualStartTime)
-                      : undefined,
-                    actualEndTime: actualEndTime
-                      ? new Date(actualEndTime)
-                      : undefined,
-                    concurrentViewers: concurrentViewers
-                      ? Number(concurrentViewers)
-                      : undefined
-                  })
-                : undefined
-            })
-          })
+          .map(v => new VideoTranslator().translate(v))
           .filter(e => e !== undefined)
       )
     }
