@@ -26,7 +26,7 @@ export class ChannelsInfraService {
     const channels = await this._getChannels(channelIds)
     return new Channels(
       channels
-        .map(channel => new ChannelTranslator().translate(channel))
+        .map(channel => new ChannelTranslator(channel).translate())
         .filter(e => e !== undefined)
     )
   }

@@ -53,7 +53,7 @@ export class SearchVideosInfraService {
       nextPageToken,
       items: new Videos(
         videos
-          .map(v => new VideoTranslator().translate(v))
+          .map(v => new VideoTranslator(v).translate())
           .filter(e => e !== undefined)
       )
     }

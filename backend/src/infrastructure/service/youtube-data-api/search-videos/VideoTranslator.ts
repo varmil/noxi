@@ -8,9 +8,10 @@ import {
 } from '@domain/youtube'
 
 export class VideoTranslator {
-  constructor() {}
+  constructor(private readonly v: youtube_v3.Schema$Video) {}
 
-  translate(v: youtube_v3.Schema$Video): Video | undefined {
+  translate(): Video | undefined {
+    const v = this.v
     const { id } = v
     const {
       publishedAt,

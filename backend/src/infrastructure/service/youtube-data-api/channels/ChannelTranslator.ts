@@ -9,9 +9,10 @@ import {
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
 
 export class ChannelTranslator {
-  constructor() {}
+  constructor(private readonly channel: youtube_v3.Schema$Channel) {}
 
-  translate(channel: youtube_v3.Schema$Channel): Channel | undefined {
+  translate(): Channel | undefined {
+    const channel = this.channel
     const { snippet, contentDetails, statistics, brandingSettings } = channel
     const { title, description, thumbnails, publishedAt } = snippet ?? {}
     const { viewCount, subscriberCount, videoCount } = statistics ?? {}
