@@ -1,4 +1,4 @@
-export * from './channels.infra.service'
-export * from './search-channels.infra.service'
-export * from './search-videos.infra.service'
+export * from './channels'
+export * from './search-channels'
+export * from './search-videos'
 export * from './youtube-data-api.infra.module'

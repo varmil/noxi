@@ -9,7 +9,7 @@ import {
 } from '@infra/service/youtube-data-api'
 
 const FETCH_LIMIT = 50
-const TAKE = 20
+const TAKE = 5
 
 @Injectable()
 export class CloudSchedulersYoutubeScenario {
