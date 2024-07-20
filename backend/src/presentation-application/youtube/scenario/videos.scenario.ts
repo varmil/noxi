@@ -25,6 +25,6 @@ export class VideosScenario {
       relevanceLanguage: new RelevanceLanguage('en')
     }
 
-    return await this.searchVideosInfraService.getVideos(_params)
+    return await this.searchVideosInfraService.list(_params)
   }
 }

@@ -39,7 +39,7 @@ export class CloudSchedulersYoutubeScenario {
       channelIds.take(TAKE).map(async channelId => {
         // TODO: playlist方式へ
         // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
-        const { items } = await this.searchVideosInfraService.getVideos({
+        const { items } = await this.searchVideosInfraService.list({
           channelId,
           limit: FETCH_LIMIT
         })
@@ -72,7 +72,7 @@ export class CloudSchedulersYoutubeScenario {
       limit: FETCH_LIMIT
     })
 
-    const channels = await this.channelsInfraService.getChannels({
+    const channels = await this.channelsInfraService.list({
       where: { channelIds }
     })
 

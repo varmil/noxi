@@ -54,9 +54,9 @@ export class SaveChannelsBySearchScenario {
 
   private async saveChannelsInChunkOf50(params: SearchChannelsParams) {
     const { nextPageToken, items } =
-      await this.searchInfraService.getChannelIds(params)
+      await this.searchInfraService.listIds(params)
 
-    const channels = await this.channelsInfraService.getChannels({
+    const channels = await this.channelsInfraService.list({
       where: { channelIds: items }
     })
 

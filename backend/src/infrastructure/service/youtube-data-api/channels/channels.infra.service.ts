@@ -18,7 +18,7 @@ export class ChannelsInfraService {
     })
   }
 
-  async getChannels({
+  async list({
     where: { channelIds }
   }: {
     where: { channelIds: ChannelIds }

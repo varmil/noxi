@@ -34,7 +34,7 @@ export class SearchChannelsInfraService {
     })
   }
 
-  async getChannelIds(params: Params): Promise<PaginationResponse<ChannelIds>> {
+  async listIds(params: Params): Promise<PaginationResponse<ChannelIds>> {
     return await this.getIds(params)
   }
 

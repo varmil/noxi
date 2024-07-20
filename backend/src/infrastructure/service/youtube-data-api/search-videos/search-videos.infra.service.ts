@@ -44,9 +44,7 @@ export class SearchVideosInfraService {
     })
   }
 
-  async getVideos(
-    params: SearchVideosParams
-  ): Promise<PaginationResponse<Videos>> {
+  async list(params: SearchVideosParams): Promise<PaginationResponse<Videos>> {
     const { nextPageToken, videos } = await this._getVideos(params)
 
     return {

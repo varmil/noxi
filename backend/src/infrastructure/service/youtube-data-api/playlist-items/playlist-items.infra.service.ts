@@ -27,7 +27,7 @@ export class PlaylistItemsInfraService {
     })
   }
 
-  async getPlaylistItems(
+  async list(
     params: PlaylistItemsParams
   ): Promise<PaginationResponse<PlaylistItems>> {
     return await this.getItems(params)
