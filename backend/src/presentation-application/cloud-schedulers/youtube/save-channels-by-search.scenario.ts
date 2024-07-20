@@ -4,12 +4,12 @@ import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import {
+  ChannelsInfraService,
   SearchChannelsInfraService,
   type Params as SearchChannelsParams
 } from '@infra/service/youtube-data-api'
-import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
 
-const TOTAL_LIMIT = 100
+const TOTAL_LIMIT = 50
 const FETCH_LIMIT = 50
 const MIN_N = 3
 
@@ -18,13 +18,16 @@ export class SaveChannelsBySearchScenario {
   constructor(
     private readonly channelsService: ChannelsService,
     private readonly searchInfraService: SearchChannelsInfraService,
-    private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
+    private readonly channelsInfraService: ChannelsInfraService
   ) {}
 
   /**
    * batch
    *
-   * こっちはクエリを使う場合、全部舐めたりIｄがわからない場合に用いる
+   * qを使う場合、全部舐めたりIdがわからない場合に用いる
+   *
+   * MIN_N本以上Videosがある && １年以内にVideo uploadしてる
+   * チャンネルのみ保存
    */
   async execute() {
     const params: SearchChannelsParams = {
@@ -57,7 +60,6 @@ export class SaveChannelsBySearchScenario {
       where: { channelIds: items }
     })
 
-    // N本以上投稿してるチャンネルのみ保存
     await Promise.all(
       channels.selectWithAtLeastNVideos(MIN_N).map(async channel => {
         await this.channelsService.save(channel)

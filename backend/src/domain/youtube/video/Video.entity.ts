@@ -31,6 +31,14 @@ export class Video {
     return this.duration.isShort()
   }
 
+  /**
+   * The time that the broadcast actually started.
+   * This value will not be available until the broadcast begins.
+   */
+  get liveActualStartTime() {
+    return this.liveStreamingDetails?.actualStartTime
+  }
+
   @Expose()
   get engagementCount() {
     return this.statistics.engagementCount()

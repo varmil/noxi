@@ -39,7 +39,7 @@ type FormValues = z.infer<typeof formSchema>
 
 const defaultValues: Partial<FormValues> = {
   httpMethod: 'POST',
-  url: 'http://localhost:15000/api/cloud-schedulers/youtube/channels/ids'
+  url: 'http://localhost:15000/api/cloud-schedulers/youtube/channels-by-search'
 }
 
 export function SuperAdminRequestForm() {
@@ -106,7 +106,7 @@ export function SuperAdminRequestForm() {
               <FormLabel>URL</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="http://localhost:15000/api/cloud-schedulers/youtube/channels/ids"
+                  placeholder="http://localhost:15000/api/cloud-schedulers/youtube/channels-by-search"
                   {...field}
                 />
               </FormControl>

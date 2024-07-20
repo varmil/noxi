@@ -3,11 +3,13 @@ import { ChannelsService } from '@app/youtube/channels.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { VideosService } from '@app/youtube/videos.service'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
-import { YoutubeDataApiChannelsInfraService } from '@infra/service/youtube-data-api/youtube-data-api-channels.infra.service'
-import { YoutubeDataApiVideosInfraService } from '@infra/service/youtube-data-api/youtube-data-api-videos.infra.service'
+import {
+  ChannelsInfraService,
+  SearchVideosInfraService
+} from '@infra/service/youtube-data-api'
 
 const FETCH_LIMIT = 50
-const TAKE = 20
+const TAKE = 5
 
 @Injectable()
 export class CloudSchedulersYoutubeScenario {
@@ -15,8 +17,8 @@ export class CloudSchedulersYoutubeScenario {
     private readonly channelsService: ChannelsService,
     private readonly videosService: VideosService,
     private readonly aggregationsService: VideoAggregationsService,
-    private readonly videosInfraService: YoutubeDataApiVideosInfraService,
-    private readonly channelsInfraService: YoutubeDataApiChannelsInfraService
+    private readonly searchVideosInfraService: SearchVideosInfraService,
+    private readonly channelsInfraService: ChannelsInfraService
   ) {}
 
   /**
@@ -36,7 +38,7 @@ export class CloudSchedulersYoutubeScenario {
     await Promise.all(
       channelIds.take(TAKE).map(async channelId => {
         // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
-        const { items } = await this.videosInfraService.getVideos({
+        const { items } = await this.searchVideosInfraService.getVideos({
           channelId,
           limit: FETCH_LIMIT
         })
@@ -90,15 +92,15 @@ export class CloudSchedulersYoutubeScenario {
       limit: FETCH_LIMIT
     })
 
-    await Promise.all(
-      channelIds.take(TAKE).map(async channelId => {
-        const { items } = await this.videosInfraService.getVideos({
-          channelId,
-          limit: FETCH_LIMIT
-        })
+    // await Promise.all(
+    //   channelIds.take(TAKE).map(async channelId => {
+    //     const { items } = await this.videosInfraService.getVideos({
+    //       channelId,
+    //       limit: FETCH_LIMIT
+    //     })
 
-        // reduce videos for categories, then save the category into a channel.
-      })
-    )
+    //     // reduce videos for categories, then save the category into a channel.
+    //   })
+    // )
   }
 }

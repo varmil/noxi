@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
-import { getExpireAt } from '@infra/lib/getExpireAt'
 import { channelConverter } from '@infra/schema/ChannelSchema'
 
 @Injectable()
@@ -27,20 +26,19 @@ export class ChannelBasicInfoRepositoryImpl
     return new ChannelIds(channels.docs.map(doc => new ChannelId(doc.id)))
   }
 
-  // upsert with channel id
-  async save(id: Parameters<ChannelBasicInfoRepository['save']>[0]) {
-    const idStr = id.get()
-    await admin
-      .firestore()
-      .collection(this.COLLECTION_NAME)
-      .doc(idStr)
-      .withConverter(channelConverter)
-      .set(
-        {
-          updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-          expireAt: getExpireAt()
-        },
-        { merge: true }
-      )
-  }
+  // async save(id: Parameters<ChannelBasicInfoRepository['save']>[0]) {
+  //   const idStr = id.get()
+  //   await admin
+  //     .firestore()
+  //     .collection(this.COLLECTION_NAME)
+  //     .doc(idStr)
+  //     .withConverter(channelConverter)
+  //     .set(
+  //       {
+  //         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+  //         expireAt: getExpireAt()
+  //       },
+  //       { merge: true }
+  //     )
+  // }
 }

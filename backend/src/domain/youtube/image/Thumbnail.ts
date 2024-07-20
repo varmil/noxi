@@ -4,6 +4,6 @@
 export type Thumbnails = Partial<
   Record<
     'default' | 'medium' | 'high',
-    { url: string; width?: number; height?: number }
+    { url?: string | null; width?: number | null; height?: number | null }
   >
 >

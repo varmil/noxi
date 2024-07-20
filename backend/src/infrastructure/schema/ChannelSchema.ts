@@ -7,7 +7,6 @@ import {
 import { videoAggregationSchema } from '@infra/schema/VideoAggregationSchema'
 
 export const channelSchema = z.object({
-  // from /v3/search
   basicInfo: z.object({
     id: z.string(),
     title: z.string(),
@@ -15,28 +14,25 @@ export const channelSchema = z.object({
     thumbnails: z.record(
       z.enum(['default', 'medium', 'high']),
       z.object({
-        url: z.string(),
-        width: z.number().optional(),
-        height: z.number().optional()
+        url: z.string().optional().nullable(),
+        width: z.number().optional().nullable(),
+        height: z.number().optional().nullable()
       })
     ),
     publishedAt: firestoreTimestampSchema
   }),
-
-  // from /v3/channels
-  statistics: z
-    .object({
-      viewCount: z.number().min(0),
-      subscriberCount: z.number().min(0),
-      videoCount: z.number().min(0)
-    })
-    .optional(),
-  brandingSettings: z
-    .object({
-      keywords: z.array(z.string()),
-      country: z.string()
-    })
-    .optional(),
+  contentDetails: z.object({
+    relatedPlaylists: z.object({ uploads: z.string() })
+  }),
+  statistics: z.object({
+    viewCount: z.number().min(0),
+    subscriberCount: z.number().min(0),
+    videoCount: z.number().min(0)
+  }),
+  brandingSettings: z.object({
+    keywords: z.array(z.string()),
+    country: z.string()
+  }),
 
   // from VideoAggregation
   latestVideoAggregation: videoAggregationSchema.optional(),

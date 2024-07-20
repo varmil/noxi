@@ -18,6 +18,14 @@
     "/backend/src/domain/youtube",
     "/backend/src/domain/youtube/channel",
     "/backend/src/infrastructure/service/youtube-data-api",
-    "/backend/src/domain/youtube/video"
+    "/backend/src/domain/youtube/video",
+    "/backend/src/domain/youtube/channel/branding-settings",
+    "/backend/src/infrastructure/service/youtube-data-api/search-videos",
+    "/backend/src/infrastructure/service/youtube-data-api/search-channels",
+    "/backend/src/infrastructure/service/youtube-data-api/channels"
+  ],
+  "exportall.config.relExclusion": [
+    "/backend/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
+    "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts"
   ]
 }

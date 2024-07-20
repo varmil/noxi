@@ -10,14 +10,10 @@ import {
 import { VideosScenario } from '@app/youtube/scenario/videos.scenario'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { ChannelId, Videos } from '@domain/youtube'
-import { SearchVideosInfraService } from '@infra/service/youtube-data-api'
 
 @Controller('youtube/videos')
 export class VideosController {
-  constructor(
-    private readonly videosScenario: VideosScenario,
-    private readonly searchVideosInfraService: SearchVideosInfraService
-  ) {}
+  constructor(private readonly videosScenario: VideosScenario) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/')

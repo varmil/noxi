@@ -84,9 +84,7 @@ export class VideoAggregation {
       regular: new Videos(recentVideos.filter(video => !video.isShort())),
       live: new Videos(
         recentVideos.filter(
-          video =>
-            video.liveStreamingDetails &&
-            new Date(video.liveStreamingDetails.actualStartTime) > oneMonthAgo
+          video => (video.liveActualStartTime ?? 0) > oneMonthAgo
         )
       )
     }

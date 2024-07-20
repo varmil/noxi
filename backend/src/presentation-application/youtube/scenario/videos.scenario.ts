@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { Q, RegionCode, RelevanceLanguage } from '@domain/youtube'
 import {
-  YoutubeDataApiVideosInfraService,
+  SearchVideosInfraService,
   type SearchVideosParams
 } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class VideosScenario {
   constructor(
-    private readonly videosInfraService: YoutubeDataApiVideosInfraService
+    private readonly searchVideosInfraService: SearchVideosInfraService
   ) {}
 
   async findAll(params: SearchVideosParams) {
@@ -22,6 +22,6 @@ export class VideosScenario {
       relevanceLanguage: new RelevanceLanguage('en')
     }
 
-    return await this.videosInfraService.getVideos(_params)
+    return await this.searchVideosInfraService.getVideos(_params)
   }
 }
