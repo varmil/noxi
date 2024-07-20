@@ -37,13 +37,14 @@ export class CloudSchedulersYoutubeScenario {
 
     await Promise.all(
       channelIds.take(TAKE).map(async channelId => {
+        // TODO: playlist方式へ
         // TODO: （直近）１ヶ月間をデフォルト集計挙動にする場合、ここでpublishedAtなどで絞り込み
         const { items } = await this.searchVideosInfraService.getVideos({
           channelId,
           limit: FETCH_LIMIT
         })
 
-        // NOTE: 直近１ヶ月Max50本だけ考慮したもので十分か？
+        // NOTE: 直近１ヶ月Max50本だけ考慮
         const aggregation = VideoAggregation.fromVideos(items)
         await this.aggregationsService.save({
           where: { channelId },

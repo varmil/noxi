@@ -11,7 +11,10 @@ export class VideosScenario {
     private readonly searchVideosInfraService: SearchVideosInfraService
   ) {}
 
-  async findAll(params: SearchVideosParams) {
+  /**
+   * TODO: impl Filter
+   */
+  async filterVideos(params: SearchVideosParams) {
     const _params: SearchVideosParams = {
       ...params,
       // q: new Q('ホロライブ'),
