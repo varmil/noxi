@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   Param,
-  Query,
   UseInterceptors
 } from '@nestjs/common'
 import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
@@ -41,9 +40,9 @@ export class ChannelsController {
   }
 
   // NOTE: 使わないかも？
-  @UseInterceptors(ClassSerializerInterceptor)
-  @Get('/basic-infos')
-  async getChannelBasicInfos() {
-    return await this.channelsService.findIds({ limit: 50 })
-  }
+  // @UseInterceptors(ClassSerializerInterceptor)
+  // @Get('/basic-infos')
+  // async getChannelBasicInfos() {
+  //   return await this.channelsService.findIds({ limit: 50 })
+  // }
 }

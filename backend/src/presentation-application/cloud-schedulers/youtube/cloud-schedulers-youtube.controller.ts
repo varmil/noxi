@@ -1,5 +1,6 @@
 import { Controller, Post } from '@nestjs/common'
 import { CloudSchedulersYoutubeScenario } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.scenario'
+import { SaveAggregationsByChannelScenario } from '@app/cloud-schedulers/youtube/save-aggregations-by-channel.scenario'
 import { SaveChannelsBySearchScenario } from '@app/cloud-schedulers/youtube/save-channels-by-search.scenario'
 
 /**
@@ -10,6 +11,7 @@ import { SaveChannelsBySearchScenario } from '@app/cloud-schedulers/youtube/save
 export class CloudSchedulersYoutubeController {
   constructor(
     private readonly cloudSchedulersYoutubeScenario: CloudSchedulersYoutubeScenario,
+    private readonly saveAggregationsByChannelScenario: SaveAggregationsByChannelScenario,
     private readonly saveChannelsBySearchScenario: SaveChannelsBySearchScenario
   ) {}
 
@@ -21,7 +23,7 @@ export class CloudSchedulersYoutubeController {
   // TODO: select appropriate channels to update
   @Post('/video-aggregations')
   async saveVideoAggregations() {
-    await this.cloudSchedulersYoutubeScenario.saveVideoAggregations()
+    await this.saveAggregationsByChannelScenario.execute()
   }
 
   // TODO: select appropriate channels to update
