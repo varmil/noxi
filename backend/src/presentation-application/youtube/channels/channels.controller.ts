@@ -6,13 +6,17 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { ChannelsService } from '@app/youtube/channels.service'
+import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
-import { Videos } from '@domain/youtube'
+import { ChannelId, Videos } from '@domain/youtube'
 
 @Controller('youtube/channels')
 export class ChannelsController {
-  constructor(private readonly channelsService: ChannelsService) {}
+  constructor(
+    private readonly channelsScenario: ChannelsScenario,
+    private readonly channelsService: ChannelsService
+  ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/')
@@ -23,18 +27,17 @@ export class ChannelsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async getChannel(@Param('id') id: string) {
-    return await this.channelsService.findById(id)
+    return await this.channelsService.findById(new ChannelId(id))
   }
 
-  // TODO: フロントエンドの getVideos をコピって
-  // getVideosInChannel.ts をつくる
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id/videos')
   async getVideosInChannel(
-    @Query('channelId') channelId: string
+    @Param('id') channelId: string
   ): Promise<PaginationResponse<Videos>> {
-    // TODO: playlist から取得
-    return await Promise.resolve({ items: new Videos([]) })
+    return await this.channelsScenario.getVideosInChannel({
+      where: { channelId: new ChannelId(channelId) }
+    })
   }
 
   // NOTE: 使わないかも？

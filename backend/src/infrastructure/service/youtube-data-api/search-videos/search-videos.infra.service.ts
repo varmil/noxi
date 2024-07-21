@@ -9,7 +9,7 @@ import {
   VideoId,
   Videos
 } from '@domain/youtube'
-import { VideoTranslator } from '@infra/service/youtube-data-api/search-videos/VideoTranslator'
+import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTranslator'
 
 export interface SearchVideosParams {
   limit: number
@@ -45,7 +45,7 @@ export class SearchVideosInfraService {
   }
 
   async list(params: SearchVideosParams): Promise<PaginationResponse<Videos>> {
-    const { nextPageToken, videos } = await this._getVideos(params)
+    const { nextPageToken, videos } = await this.getVideos(params)
 
     return {
       nextPageToken,
@@ -57,7 +57,7 @@ export class SearchVideosInfraService {
     }
   }
 
-  private async _getVideos(
+  private async getVideos(
     params: SearchVideosParams
   ): Promise<{ nextPageToken?: string; videos: youtube_v3.Schema$Video[] }> {
     const { channelId, q, regionCode, relevanceLanguage, limit, pageToken } =

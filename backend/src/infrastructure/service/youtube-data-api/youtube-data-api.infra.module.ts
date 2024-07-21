@@ -5,6 +5,7 @@ import {
   ChannelsInfraService,
   PlaylistItemsInfraService
 } from '@infra/service/youtube-data-api'
+import { VideosInfraService } from '@infra/service/youtube-data-api/videos/videos.infra.service'
 
 @Module({
   imports: [],
@@ -12,13 +13,15 @@ import {
     PlaylistItemsInfraService,
     SearchChannelsInfraService,
     SearchVideosInfraService,
-    ChannelsInfraService
+    ChannelsInfraService,
+    VideosInfraService
   ],
   exports: [
     PlaylistItemsInfraService,
     SearchChannelsInfraService,
     SearchVideosInfraService,
-    ChannelsInfraService
+    ChannelsInfraService,
+    VideosInfraService
   ]
 })
 export class YoutubeDataApiInfraModule {}

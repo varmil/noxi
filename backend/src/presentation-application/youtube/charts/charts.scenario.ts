@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Q, RegionCode, RelevanceLanguage } from '@domain/youtube'
 import {
   SearchVideosInfraService,
@@ -6,15 +6,15 @@ import {
 } from '@infra/service/youtube-data-api'
 
 @Injectable()
-export class VideosScenario {
+export class ChartsScenario {
   constructor(
     private readonly searchVideosInfraService: SearchVideosInfraService
   ) {}
 
   /**
-   * TODO: impl Filter
+   * Videosチャート
    */
-  async filterVideos(params: SearchVideosParams) {
+  async getChartOfVideos(params: SearchVideosParams) {
     const _params: SearchVideosParams = {
       ...params,
       // q: new Q('ホロライブ'),
@@ -26,5 +26,12 @@ export class VideosScenario {
     }
 
     return await this.searchVideosInfraService.list(_params)
+  }
+
+  /**
+   * Channels チャート
+   */
+  getChartOfChannels() {
+    throw new NotImplementedException()
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ChannelsService } from '@app/youtube/channels.service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
@@ -60,7 +60,7 @@ export class SaveChannelsBySearchScenario {
       where: { channelIds: items }
     })
 
-    // TODO: filter using
+    // TODO: select channels within a year upload, using
     // PlaylistItemsInfraService,
     // VideosInfraService
 

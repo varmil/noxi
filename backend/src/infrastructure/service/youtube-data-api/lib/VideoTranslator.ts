@@ -7,7 +7,7 @@ import {
   Statistics,
   Video
 } from '@domain/youtube'
-import { searchVideosAPISchema } from '@infra/service/youtube-data-api/search-videos/SearchVideosAPISchema'
+import { videoAPISchema } from './VideoAPISchema'
 
 export class VideoTranslator {
   constructor(private readonly v: youtube_v3.Schema$Video) {}
@@ -48,7 +48,7 @@ export class VideoTranslator {
 
   private parse() {
     try {
-      return searchVideosAPISchema.parse(this.v)
+      return videoAPISchema.parse(this.v)
     } catch (err) {
       if (err instanceof z.ZodError) {
         console.log(err.issues)

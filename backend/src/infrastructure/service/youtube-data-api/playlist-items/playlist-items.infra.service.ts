@@ -46,7 +46,7 @@ export class PlaylistItemsInfraService {
       const response = await this.client.playlistItems.list({
         part: ['contentDetails'],
         playlistId: playlistId.get(),
-        maxResults: PER_PAGE,
+        maxResults: Math.min(limit, PER_PAGE),
         pageToken: nextPageToken
       })
 

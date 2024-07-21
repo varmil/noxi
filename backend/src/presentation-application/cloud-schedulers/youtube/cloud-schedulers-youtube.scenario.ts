@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
-import { ChannelsService } from '@app/youtube/channels.service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
-import { VideosService } from '@app/youtube/videos.service'
+import { VideosService } from '@app/youtube/videos/videos.service'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 import {
   ChannelsInfraService,

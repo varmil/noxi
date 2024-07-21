@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { VideoRepository } from '@domain/youtube/video/Video.repository'
-import { Videos } from '@domain/youtube/video/Videos.collection'
 
 @Injectable()
 export class VideosService {
@@ -15,7 +14,7 @@ export class VideosService {
   //   return await this.videoRepository.findAll(args)
   // }
 
-  async save(video: Parameters<VideoRepository['save']>[0]): Promise<void> {
-    await this.videoRepository.save(video)
-  }
+  // async save(video: Parameters<VideoRepository['save']>[0]): Promise<void> {
+  //   await this.videoRepository.save(video)
+  // }
 }

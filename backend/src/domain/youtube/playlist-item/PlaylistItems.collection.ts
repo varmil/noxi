@@ -1,8 +1,13 @@
 import { Exclude } from 'class-transformer'
 import { PlaylistItem } from '@domain/youtube/playlist-item/PlaylistItem.entity'
+import { VideoIds } from '@domain/youtube/video'
 
 export class PlaylistItems {
   constructor(private readonly list: PlaylistItem[]) {}
+
+  @Exclude()
+  getVideoIds = () =>
+    new VideoIds(this.list.map(item => item.contentDetails.videoId))
 
   @Exclude()
   get length() {

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const searchVideosAPISchema = z.object({
+export const videoAPISchema = z.object({
   id: z.string(),
 
   snippet: z.object({
