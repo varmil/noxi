@@ -4,13 +4,12 @@ import {
 } from 'features/youtube/types/videoSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
-export async function getVideos({
+export async function getVideosInChannel({
   channelId
 }: {
   channelId: string
 }): Promise<VideosSchema> {
-  const params = new URLSearchParams({ channelId })
-  const res = await fetchAPI(`/api/youtube/videos?${params.toString()}`, {
+  const res = await fetchAPI(`/api/youtube/channels/${channelId}/videos`, {
     cache: 'no-store'
   })
   // The return value is *not* serialized

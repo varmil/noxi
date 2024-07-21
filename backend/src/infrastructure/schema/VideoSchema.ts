@@ -32,8 +32,9 @@ export const videoSchema = z.object({
   }),
   liveStreamingDetails: z
     .object({
-      actualStartTime: firestoreTimestampSchema,
-      actualEndTime: firestoreTimestampSchema
+      actualStartTime: firestoreTimestampSchema.optional(),
+      actualEndTime: firestoreTimestampSchema.optional(),
+      concurrentViewers: z.number().optional()
     })
     .optional(),
 

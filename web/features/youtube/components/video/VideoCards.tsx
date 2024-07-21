@@ -1,11 +1,11 @@
 import { PropsWithoutRef } from 'react'
-import { getVideos } from 'features/youtube/api/getVideos'
+import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
 import VideoCard from 'features/youtube/components/video/VideoCard'
 
 type Props = { channelId: string }
 
 export async function VideoCards({ channelId }: PropsWithoutRef<Props>) {
-  const videos = await getVideos({ channelId })
+  const videos = await getVideosInChannel({ channelId })
   return (
     <>
       {videos.map(video => {

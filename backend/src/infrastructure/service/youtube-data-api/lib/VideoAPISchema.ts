@@ -1,12 +1,15 @@
 import { z } from 'zod'
 
-export const schema = z.object({
+export const videoAPISchema = z.object({
   id: z.string(),
 
   snippet: z.object({
     publishedAt: z.string().datetime(),
     channelId: z.string(),
     title: z.string(),
+    /**
+     * ここが割とnullable/undefinedになる
+     */
     description: z.string(),
     thumbnails: z.record(
       z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
@@ -16,34 +19,25 @@ export const schema = z.object({
         height: z.number().optional()
       })
     ),
-    tags: z.array(z.string()),
+    tags: z.array(z.string()).optional(),
     categoryId: z.string()
   }),
-  duration: z.string().duration(),
-  statistics: z.object({
-    viewCount: z.number().min(0),
-    likeCount: z.number().min(0),
-    commentCount: z.number().min(0)
+
+  contentDetails: z.object({
+    duration: z.string().duration()
   }),
+
+  statistics: z.object({
+    viewCount: z.string().min(0),
+    likeCount: z.string().min(0).optional(),
+    commentCount: z.string().min(0).optional()
+  }),
+
   liveStreamingDetails: z
     .object({
       actualStartTime: z.string().datetime().optional(),
       actualEndTime: z.string().datetime().optional(),
       concurrentViewers: z.number().optional()
     })
-    .optional(),
-
-  isShort: z.boolean(),
-  engagementCount: z.number().min(0),
-  engagementRate: z.number().min(0),
-
-  updatedAt: z.string().datetime().optional()
+    .optional()
 })
-export const responseSchema = z.object({
-  items: z.object({ list: z.array(schema) }),
-  nextPageToken: z.string().optional(),
-  prevPageToken: z.string().optional()
-})
-
-export type VideoSchema = z.infer<typeof schema>
-export type VideosSchema = VideoSchema[]

@@ -42,7 +42,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     const doc = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
-      .doc(id)
+      .doc(id.get())
       .withConverter(channelConverter)
       .get()
 

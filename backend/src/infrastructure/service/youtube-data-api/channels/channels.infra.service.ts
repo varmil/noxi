@@ -18,7 +18,7 @@ export class ChannelsInfraService {
     })
   }
 
-  async getChannels({
+  async list({
     where: { channelIds }
   }: {
     where: { channelIds: ChannelIds }
@@ -31,7 +31,7 @@ export class ChannelsInfraService {
     )
   }
 
-  async _getChannels(channelIds: ChannelIds) {
+  private async _getChannels(channelIds: ChannelIds) {
     let results: youtube_v3.Schema$Channel[] = []
 
     for (let i = 0; i < channelIds.length; i += maxResultsPerRequest) {

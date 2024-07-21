@@ -1,4 +1,6 @@
 export * from './channels'
+export * from './playlist-items'
 export * from './search-channels'
 export * from './search-videos'
+export * from './videos'
 export * from './youtube-data-api.infra.module'
