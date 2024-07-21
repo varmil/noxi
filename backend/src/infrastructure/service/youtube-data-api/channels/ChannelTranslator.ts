@@ -52,7 +52,7 @@ export class ChannelTranslator {
       return channelAPISchema.parse(this.channel)
     } catch (err) {
       if (err instanceof z.ZodError) {
-        console.log(err.issues)
+        console.log('ChannelTranslator', err.issues)
         return undefined
       } else {
         throw err
