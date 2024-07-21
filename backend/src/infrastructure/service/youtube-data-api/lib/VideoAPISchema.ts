@@ -30,7 +30,7 @@ export const videoAPISchema = z.object({
   statistics: z.object({
     viewCount: z.string().min(0),
     likeCount: z.string().min(0).optional(),
-    commentCount: z.string().min(0)
+    commentCount: z.string().min(0).optional()
   }),
 
   liveStreamingDetails: z
