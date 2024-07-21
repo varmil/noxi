@@ -12,4 +12,8 @@ export class PlaylistItem {
     this.playlistId = args.playlistId
     this.contentDetails = args.contentDetails
   }
+
+  get publishedAt() {
+    return this.contentDetails.videoPublishedAt
+  }
 }

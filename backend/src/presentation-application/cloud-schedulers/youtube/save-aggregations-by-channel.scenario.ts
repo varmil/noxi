@@ -61,6 +61,7 @@ export class SaveAggregationsByChannelScenario {
   }): Promise<PaginationResponse<Videos>> {
     const { channelId } = where
 
+    // NOTE: select で `contentDetails` だけ取るとか最適化
     const channel = await this.channelsService.findById(channelId)
     if (!channel) return { items: new Videos([]) }
 
