@@ -54,35 +54,25 @@ export default function VideoCard(video: VideoSchema) {
       <CardContent className="space-y-2 p-4 pt-2">
         <div>
           <h3 className="font-medium line-clamp-2 leading-tight">{title}</h3>
-          {/* <p className="text-sm text-muted-foreground line-clamp-1 pt-1">
-            Vercel
-          </p> */}
         </div>
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            {/* <EyeIcon className="h-4 w-4" /> */}
+        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center">
             <span>
-              <IntlNumberFormat maximumSignificantDigits={3}>
-                {viewCount}
-              </IntlNumberFormat>{' '}
+              <IntlNumberFormat>{viewCount}</IntlNumberFormat>{' '}
               <span>views</span>
             </span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             <ThumbsUpIcon className="h-4 w-4" />
             <span>
-              <IntlNumberFormat maximumSignificantDigits={2}>
-                {likeCount}
-              </IntlNumberFormat>
+              <IntlNumberFormat>{likeCount}</IntlNumberFormat>
               <span className="sr-only">likes</span>
             </span>
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             <CommentIcon className="h-4 w-4" />
             <span>
-              <IntlNumberFormat maximumSignificantDigits={2}>
-                {commentCount}
-              </IntlNumberFormat>
+              <IntlNumberFormat>{commentCount}</IntlNumberFormat>
               <span className="sr-only">comments</span>
             </span>
           </div>
