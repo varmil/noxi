@@ -17,7 +17,12 @@ export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {
     <Card>
       <StatsCardHeader Icon={TrendingUp}>Views</StatsCardHeader>
       <StatsCardContent subText={t('totalViews')}>
-        <IntlNumberFormat>{count}</IntlNumberFormat>
+        <IntlNumberFormat
+          minimumSignificantDigits={1}
+          maximumSignificantDigits={4}
+        >
+          {count}
+        </IntlNumberFormat>
       </StatsCardContent>
     </Card>
   )

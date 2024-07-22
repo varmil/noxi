@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import { useFormatter } from 'next-intl'
 
 type Props = {
+  minimumSignificantDigits?: number
   maximumSignificantDigits?: number
   children: number
 }
@@ -16,8 +17,6 @@ export default function IntlNumberFormat({
     <>
       {format.number(children, {
         notation: 'compact',
-        minimumSignificantDigits: 1,
-        maximumSignificantDigits: 4,
         ...rest
       })}
     </>

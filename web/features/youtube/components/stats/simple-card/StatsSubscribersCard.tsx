@@ -17,7 +17,12 @@ export default function StatsSubscribersCard({
     <Card>
       <StatsCardHeader Icon={Icon}>Subscribers</StatsCardHeader>
       <StatsCardContent subText={t('totalSubscribers')}>
-        <IntlNumberFormat>{count}</IntlNumberFormat>
+        <IntlNumberFormat
+          minimumSignificantDigits={1}
+          maximumSignificantDigits={4}
+        >
+          {count}
+        </IntlNumberFormat>
       </StatsCardContent>
     </Card>
   )
