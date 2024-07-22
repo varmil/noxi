@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { SuperAdminDashboard } from 'features/super-admin/components/SuperAdminDashboard'
 
@@ -12,6 +13,10 @@ export default function SuperAdminPage({ params: { locale } }: Props) {
   return (
     <>
       <SuperAdminDashboard />
+
+      <section>
+        <pre>{JSON.stringify(headers(), null, 2)}</pre>
+      </section>
     </>
   )
 }
