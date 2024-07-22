@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common'
+import dayjs from 'dayjs'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { Channel, PlaylistId } from '@domain/youtube'
 import { Q } from '@domain/youtube/search/Q.vo'
 import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import {
   ChannelsInfraService,
+  PlaylistItemsInfraService,
   SearchChannelsInfraService,
   type Params as SearchChannelsParams
 } from '@infra/service/youtube-data-api'
@@ -18,7 +21,8 @@ export class SaveChannelsBySearchScenario {
   constructor(
     private readonly channelsService: ChannelsService,
     private readonly searchInfraService: SearchChannelsInfraService,
-    private readonly channelsInfraService: ChannelsInfraService
+    private readonly channelsInfraService: ChannelsInfraService,
+    private readonly playlistItemsInfraService: PlaylistItemsInfraService
   ) {}
 
   /**
@@ -60,16 +64,49 @@ export class SaveChannelsBySearchScenario {
       where: { channelIds: items }
     })
 
-    // TODO: select channels within a year upload, using
-    // PlaylistItemsInfraService,
-    // VideosInfraService
+    const filtered = (
+      await Promise.all(
+        channels
+          // N本以上アップロードしている
+          .selectWithAtLeastNVideos(MIN_N)
+          // 1年以内にVideoアップロードしている
+          .map(async channel => {
+            const publishedAtOfLatestVideo =
+              await this.getPublishedAtOfLatestVideo(channel)
+
+            const ok = dayjs(publishedAtOfLatestVideo)
+              .add(1, 'year')
+              .isAfter(dayjs())
+
+            if (!ok) {
+              console.log(
+                'no video found within 1 year: ',
+                channel.basicInfo.title,
+                'id: ',
+                channel.basicInfo.id
+              )
+            }
+
+            return ok ? channel : undefined
+          })
+      )
+    ).filter(e => e !== undefined)
 
     await Promise.all(
-      channels.selectWithAtLeastNVideos(MIN_N).map(async channel => {
+      filtered.map(async channel => {
         await this.channelsService.save(channel)
       })
     )
 
     return nextPageToken
+  }
+
+  private async getPublishedAtOfLatestVideo(channel: Channel): Promise<Date> {
+    const { items } = await this.playlistItemsInfraService.list({
+      limit: 1,
+      playlistId: new PlaylistId(channel.contentDetails.uploadsPlaylistId)
+    })
+
+    return items.first().publishedAt
   }
 }
