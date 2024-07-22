@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -79,6 +80,22 @@ export function SuperAdminDashboard() {
     { "id": 3, "name": "Item 3" }
   ]
 }`}</pre>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Request Headers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                <div className="grid grid-cols-[120px_1fr] items-start gap-4">
+                  <Label>value</Label>
+                  <pre className="bg-muted p-4 rounded-md overflow-auto">
+                    {JSON.stringify(headers(), null, 2)}
+                  </pre>
                 </div>
               </div>
             </CardContent>
