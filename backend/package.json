@@ -57,7 +57,7 @@
     "ts-jest": "^29.2.3",
     "ts-loader": "^9.4.3",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.5.3",
+    "typescript": "^5.5.4",
     "typescript-eslint": "^7.16.1"
   },
   "jest": {
