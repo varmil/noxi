@@ -23,7 +23,7 @@ export async function YoutubeChart({ keyword }: PropsWithoutRef<Props>) {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main>
-        <section className="mt-4 sm:mt-0 sm:px-6">
+        <section className="mt-4 px-1 sm:mt-0 sm:px-6">
           <FilterAndSort />
         </section>
 

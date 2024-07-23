@@ -14,38 +14,31 @@ import {
 } from '@/components/ui/drawer'
 import { Select } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
+import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
 
-const SelectButton = ({
-  active,
-  children
-}: React.PropsWithChildren<{ active?: boolean }>) => {
-  const bg = active ? ' bg-accent ' : ''
-  return (
-    <Button variant="ghost" className={`justify-start w-full ${bg}`}>
-      {children}
-    </Button>
-  )
-}
-
-export function SortDrawer({ children }: React.PropsWithChildren) {
+export function SortByDrawer({ children }: React.PropsWithChildren) {
   return (
     <Drawer>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader className="text-left">
-            <DrawerTitle>Sort by...</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
+            <DrawerTitle>Sort</DrawerTitle>
+            <DrawerDescription>
+              Sort by avarage views, total views, subscribers, etc.
+            </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
             <div className="flex flex-col items-center border rounded-md">
-              <SelectButton active>Default</SelectButton>
+              <DrawerSelectButton active>Not sorted</DrawerSelectButton>
               <Separator />
-              <SelectButton>Ghost</SelectButton>
+              <DrawerSelectButton>Avarage views this month</DrawerSelectButton>
               <Separator />
-              <SelectButton>Ghost</SelectButton>
+              <DrawerSelectButton>Views</DrawerSelectButton>
               <Separator />
-              <SelectButton>Ghost</SelectButton>
+              <DrawerSelectButton>Subscribers</DrawerSelectButton>
+              {/* <Separator /> */}
+              {/* <DrawerSelectButton>Engagement rate</DrawerSelectButton> */}
             </div>
           </div>
           {/* <DrawerFooter>
