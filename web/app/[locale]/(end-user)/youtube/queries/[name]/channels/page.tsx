@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
-import { YoutubeDashboard } from 'features/youtube/components/YoutubeDashboard'
+import { YoutubeChart } from 'features/youtube/components/YoutubeChart'
 
 type Props = {
   params: { locale: string; name: string }
@@ -37,7 +37,7 @@ export default function YoutubeQueriesNameChannelsPage({
           { href: '#', name: t('channels') }
         ]}
       />
-      <YoutubeDashboard keyword={name} />
+      <YoutubeChart keyword={name} />
     </Page>
   )
 }
