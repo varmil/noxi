@@ -4,11 +4,20 @@ import {
 } from 'features/youtube/types/channelSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
-export async function getChannels(): Promise<ChannelsSchema> {
-  const res = await fetchAPI('/api/youtube/channels', {
-    // next: { revalidate: 600 }
-    cache: 'no-store'
-  })
+type Params = {
+  searchParams: URLSearchParams
+}
+
+export async function getChartOfChannels({
+  searchParams
+}: Params): Promise<ChannelsSchema> {
+  const res = await fetchAPI(
+    `/api/youtube/charts/channels?${searchParams.toString()}`,
+    {
+      // next: { revalidate: 600 }
+      cache: 'no-store'
+    }
+  )
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 

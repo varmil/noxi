@@ -2,10 +2,11 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  NotImplementedException,
+  Query,
   UseInterceptors
 } from '@nestjs/common'
 import { ChartsScenario } from '@app/youtube/charts/charts.scenario'
+import { GetChartOfChannels } from '@app/youtube/charts/dto/GetChartOfChannels.dto'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { Videos } from '@domain/youtube'
 
@@ -27,6 +28,15 @@ export class ChartsController {
   @Get('/videos')
   async getChartOfVideos(): Promise<PaginationResponse<Videos>> {
     return await this.chartsScenario.getChartOfVideos({
+      limit: 50
+    })
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get('/channels')
+  async getChartOfChannels(@Query() dto: GetChartOfChannels) {
+    return await this.chartsScenario.getChartOfChannels({
+      sort: dto.toSort(),
       limit: 50
     })
   }

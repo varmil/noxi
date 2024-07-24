@@ -1,4 +1,5 @@
 export * from './channel'
+export * from './chart'
 export * from './image'
 export * from './playlist'
 export * from './playlist-item'

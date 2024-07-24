@@ -7,6 +7,7 @@ import { YoutubeChart } from 'features/youtube/components/YoutubeChart'
 
 type Props = {
   params: { locale: string; name: string }
+  searchParams?: { [key: string]: string | undefined }
 }
 
 export async function generateMetadata({
@@ -22,7 +23,8 @@ export async function generateMetadata({
 }
 
 export default function YoutubeQueriesNameChannelsPage({
-  params: { locale, name }
+  params: { locale, name },
+  searchParams
 }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
@@ -37,7 +39,10 @@ export default function YoutubeQueriesNameChannelsPage({
           { href: '#', name: t('channels') }
         ]}
       />
-      <YoutubeChart keyword={name} />
+      <YoutubeChart
+        keyword={name}
+        searchParams={new URLSearchParams(searchParams)}
+      />
     </Page>
   )
 }

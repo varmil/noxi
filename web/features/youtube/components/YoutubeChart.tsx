@@ -13,9 +13,13 @@ import { FilterAndSort } from 'features/youtube/components/chart/channel/FilterA
 
 type Props = {
   keyword: string
+  searchParams: URLSearchParams
 }
 
-export async function YoutubeChart({ keyword }: PropsWithoutRef<Props>) {
+export async function YoutubeChart({
+  keyword,
+  searchParams
+}: PropsWithoutRef<Props>) {
   const t = await getTranslations('YoutubeDashboard')
 
   return (
@@ -33,7 +37,7 @@ export async function YoutubeChart({ keyword }: PropsWithoutRef<Props>) {
             </CardHeader>
             <CardContent>
               <Suspense fallback={<p>Loading cards...</p>}>
-                <ChannelCards />
+                <ChannelCards searchParams={searchParams} />
               </Suspense>
             </CardContent>
             <CardFooter>
