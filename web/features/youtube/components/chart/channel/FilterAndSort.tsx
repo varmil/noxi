@@ -15,10 +15,10 @@ const ButtonWithIcon = ({ text }: React.PropsWithoutRef<{ text: string }>) => (
 
 export async function FilterAndSort() {
   return (
-    <ScrollArea className=" whitespace-nowrap">
+    <ScrollArea className="whitespace-nowrap">
       <div className="flex w-max items-center gap-2">
         <SortByDrawer>
-          <ButtonWithIcon text="Travel vlog english" />
+          <ButtonWithIcon text="Sort" />
         </SortByDrawer>
         <CategoryDrawer>
           <ButtonWithIcon text="Category" />

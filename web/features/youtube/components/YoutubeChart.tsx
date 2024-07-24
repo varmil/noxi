@@ -8,7 +8,6 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
-import { getChannels } from 'features/youtube/api/getChannels'
 import { ChannelCards } from 'features/youtube/components/channel/ChannelCards'
 import { FilterAndSort } from 'features/youtube/components/chart/channel/FilterAndSort'
 
@@ -17,7 +16,6 @@ type Props = {
 }
 
 export async function YoutubeChart({ keyword }: PropsWithoutRef<Props>) {
-  const channels = await getChannels()
   const t = await getTranslations('YoutubeDashboard')
 
   return (
@@ -35,7 +33,7 @@ export async function YoutubeChart({ keyword }: PropsWithoutRef<Props>) {
             </CardHeader>
             <CardContent>
               <Suspense fallback={<p>Loading cards...</p>}>
-                <ChannelCards channels={channels} />
+                <ChannelCards />
               </Suspense>
             </CardContent>
             <CardFooter>

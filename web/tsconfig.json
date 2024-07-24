@@ -24,6 +24,7 @@
       "config/*": ["./config/*"],
       "features/*": ["./features/*"],
       "components/*": ["./components/*"],
+      "hooks/*": ["./hooks/*"],
       "lib/*": ["./lib/*"]
     }
   },

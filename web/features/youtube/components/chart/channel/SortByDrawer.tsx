@@ -1,22 +1,25 @@
 'use client'
 
 import * as React from 'react'
-import { Button } from '@/components/ui/button'
+import useQueryString from 'hooks/useQueryString'
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import { Select } from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
+import { Link, usePathname } from 'lib/navigation'
+
+const QS_KEY = 'sort'
 
 export function SortByDrawer({ children }: React.PropsWithChildren) {
+  const pathname = usePathname()
+  const { has, createQueryString } = useQueryString()
+
   return (
     <Drawer>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
@@ -30,23 +33,51 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
             <div className="flex flex-col items-center border rounded-md">
-              <DrawerSelectButton active>Not sorted</DrawerSelectButton>
+              <DrawerSelectButton active={!has(QS_KEY)}>
+                <Link
+                  href={`${pathname}?${createQueryString(QS_KEY, null)}`}
+                  scroll={false}
+                >
+                  Not sorted
+                </Link>
+              </DrawerSelectButton>
               <Separator />
-              <DrawerSelectButton>Avarage views this month</DrawerSelectButton>
+              <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
+                <Link
+                  href={`${pathname}?${createQueryString(
+                    QS_KEY,
+                    'avarage-views'
+                  )}`}
+                  scroll={false}
+                >
+                  Avarage views this month
+                </Link>
+              </DrawerSelectButton>
               <Separator />
-              <DrawerSelectButton>Views</DrawerSelectButton>
+              <DrawerSelectButton asChild active={has(QS_KEY, 'views')}>
+                <Link
+                  href={`${pathname}?${createQueryString(QS_KEY, 'views')}`}
+                  scroll={false}
+                >
+                  Views
+                </Link>
+              </DrawerSelectButton>
               <Separator />
-              <DrawerSelectButton>Subscribers</DrawerSelectButton>
+              <DrawerSelectButton asChild active={has(QS_KEY, 'subscribers')}>
+                <Link
+                  href={`${pathname}?${createQueryString(
+                    QS_KEY,
+                    'subscribers'
+                  )}`}
+                  scroll={false}
+                >
+                  Subscribers
+                </Link>
+              </DrawerSelectButton>
               {/* <Separator /> */}
               {/* <DrawerSelectButton>Engagement rate</DrawerSelectButton> */}
             </div>
           </div>
-          {/* <DrawerFooter>
-            <Button>Submit</Button>
-            <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DrawerClose>
-          </DrawerFooter> */}
         </div>
       </DrawerContent>
     </Drawer>
