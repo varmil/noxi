@@ -7,9 +7,9 @@ import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggrega
 import { PlaylistItemsInfraService } from '@infra/service/youtube-data-api'
 import { VideosInfraService } from '@infra/service/youtube-data-api/videos/videos.infra.service'
 
-const CHANNEL_FETCH_LIMIT = 50
+const CHANNEL_FETCH_LIMIT = 100
 const VIDEO_FETCH_LIMIT = 50
-const TAKE = 15
+const TAKE = 100
 
 @Injectable()
 export class SaveAggregationsByChannelScenario {

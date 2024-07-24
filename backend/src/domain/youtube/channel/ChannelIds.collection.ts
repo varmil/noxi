@@ -25,5 +25,6 @@ export class ChannelIds {
   first = () => this.list[0]
 
   @Exclude()
-  take = (n: number) => new ChannelIds(this.list.slice(0, n))
+  take = (n: number) =>
+    new ChannelIds(this.list.slice(0, Math.min(n, this.list.length)))
 }
