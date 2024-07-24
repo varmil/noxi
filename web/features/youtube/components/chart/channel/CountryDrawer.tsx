@@ -24,7 +24,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren) {
             </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
-            <div className="flex flex-col items-center border rounded-md">
+            <div className="flex flex-col [&>*:not(:last-child)]:border-b items-center border rounded-md">
               <DrawerSelectButton active>All Regions</DrawerSelectButton>
             </div>
           </div>

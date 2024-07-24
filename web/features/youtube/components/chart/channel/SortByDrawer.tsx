@@ -10,7 +10,6 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import { Separator } from '@/components/ui/separator'
 import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
 import { Link, usePathname } from 'lib/navigation'
 
@@ -32,7 +31,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
             </DrawerDescription>
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
-            <div className="flex flex-col items-center border rounded-md">
+            <div className="flex flex-col [&>*:not(:last-child)]:border-b items-center border rounded-md">
               <DrawerSelectButton asChild active={!has(QS_KEY)}>
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, null)}`}
@@ -41,7 +40,6 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                   Not sorted
                 </Link>
               </DrawerSelectButton>
-              <Separator />
               <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
                 <Link
                   href={`${pathname}?${createQueryString(
@@ -53,7 +51,6 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                   Avarage views this month
                 </Link>
               </DrawerSelectButton>
-              <Separator />
               <DrawerSelectButton asChild active={has(QS_KEY, 'views')}>
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, 'views')}`}
@@ -62,7 +59,6 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                   Views
                 </Link>
               </DrawerSelectButton>
-              <Separator />
               <DrawerSelectButton asChild active={has(QS_KEY, 'subscribers')}>
                 <Link
                   href={`${pathname}?${createQueryString(
