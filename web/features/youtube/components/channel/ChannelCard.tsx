@@ -47,7 +47,7 @@ export default function ChannelCard({
         <h3 className="line-clamp-1 mb-2">{name}</h3>
 
         <div className="flex items-center gap-2">
-          <div className="ra-val mb-0 sm:mb-2">
+          <div className="ra-val mb-0 sm:mb-0.5">
             <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
               <span>{t('totalSubscribers')}</span>
             </div>
