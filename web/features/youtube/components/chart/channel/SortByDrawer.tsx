@@ -32,12 +32,30 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
             <div className="flex flex-col [&>*:not(:last-child)]:border-b items-center border rounded-md">
-              <DrawerSelectButton asChild active={!has(QS_KEY)}>
+              {/* <DrawerSelectButton asChild active={!has(QS_KEY)}>
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, null)}`}
                   scroll={false}
                 >
                   Not sorted
+                </Link>
+              </DrawerSelectButton> */}
+
+              {/**
+               * Default is sorted by subscribers
+               */}
+              <DrawerSelectButton
+                asChild
+                active={!has(QS_KEY) || has(QS_KEY, 'subscribers')}
+              >
+                <Link
+                  href={`${pathname}?${createQueryString(
+                    QS_KEY,
+                    'subscribers'
+                  )}`}
+                  scroll={false}
+                >
+                  Subscribers
                 </Link>
               </DrawerSelectButton>
               <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
@@ -59,18 +77,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                   Views
                 </Link>
               </DrawerSelectButton>
-              <DrawerSelectButton asChild active={has(QS_KEY, 'subscribers')}>
-                <Link
-                  href={`${pathname}?${createQueryString(
-                    QS_KEY,
-                    'subscribers'
-                  )}`}
-                  scroll={false}
-                >
-                  Subscribers
-                </Link>
-              </DrawerSelectButton>
-              {/* <Separator /> */}
+
               {/* <DrawerSelectButton>Engagement rate</DrawerSelectButton> */}
             </div>
           </div>
