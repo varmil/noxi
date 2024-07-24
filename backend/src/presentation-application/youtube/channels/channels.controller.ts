@@ -18,12 +18,6 @@ export class ChannelsController {
   ) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Get('/')
-  async getChannels() {
-    return await this.channelsService.findAll({ limit: 50 })
-  }
-
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   async getChannel(@Param('id') id: string) {
     return await this.channelsService.findById(new ChannelId(id))
@@ -38,11 +32,4 @@ export class ChannelsController {
       where: { channelId: new ChannelId(channelId) }
     })
   }
-
-  // NOTE: 使わないかも？
-  // @UseInterceptors(ClassSerializerInterceptor)
-  // @Get('/basic-infos')
-  // async getChannelBasicInfos() {
-  //   return await this.channelsService.findIds({ limit: 50 })
-  // }
 }

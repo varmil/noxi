@@ -1,5 +1,12 @@
-import { Injectable, NotImplementedException } from '@nestjs/common'
-import { Q, RegionCode, RelevanceLanguage } from '@domain/youtube'
+import { Injectable } from '@nestjs/common'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
+import {
+  ChannelRepository,
+  Q,
+  RegionCode,
+  RelevanceLanguage,
+  ChannelSort
+} from '@domain/youtube'
 import {
   SearchVideosInfraService,
   type SearchVideosParams
@@ -8,6 +15,7 @@ import {
 @Injectable()
 export class ChartsScenario {
   constructor(
+    private readonly channelsService: ChannelsService,
     private readonly searchVideosInfraService: SearchVideosInfraService
   ) {}
 
@@ -31,7 +39,7 @@ export class ChartsScenario {
   /**
    * Channels チャート
    */
-  getChartOfChannels() {
-    throw new NotImplementedException()
+  async getChartOfChannels(args: Parameters<ChannelRepository['findAll']>[0]) {
+    return await this.channelsService.findAll(args)
   }
 }

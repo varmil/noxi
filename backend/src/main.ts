@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import { ClosedApiServerModule } from './closed-api-server.module'
 
@@ -5,6 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(ClosedApiServerModule)
 
   app.enableCors()
+
+  app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
   /**
    * /api/* にすべてマッピング

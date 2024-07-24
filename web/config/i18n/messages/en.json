@@ -44,8 +44,7 @@
       "channel": {
         "channel": "channel",
         "viewChannel": "Here is the analysis of the channel",
-        "unit": " views",
-        "totalViews": "Total views",
+        "totalViews": "views",
         "totalSubscribers": "subscribers",
         "joined": "Joind {date}"
       },

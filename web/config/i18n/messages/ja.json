@@ -44,8 +44,7 @@
       "channel": {
         "channel": "チャンネル",
         "viewChannel": "チャンネルの分析はこちら",
-        "unit": "回",
-        "totalViews": "動画,ショートの再生回数",
+        "totalViews": "動画の再生回数",
         "totalSubscribers": "チャンネル登録者",
         "joined": "{date}に開始"
       },

@@ -47,27 +47,25 @@ export default function ChannelCard({
         <h3 className="line-clamp-1 mb-2">{name}</h3>
 
         <div className="flex items-center gap-2">
-          {/* <Play className="w-4 h-4 text-muted-foreground" /> */}
           <div className="ra-val mb-0 sm:mb-2">
             <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
-              <span>{t('totalViews')}</span>
+              <span>{t('totalSubscribers')}</span>
             </div>
             <span className="text-lg font-bold text-primary">
-              <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>
-              {t('unit')}
+              <IntlNumberFormat minimumSignificantDigits={3}>
+                {subscriberCount}
+              </IntlNumberFormat>
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          {/* <UsersIcon className="w-4 h-4" /> */}
           <span>
-            <IntlNumberFormat>{subscriberCount}</IntlNumberFormat>{' '}
-            {t('totalSubscribers')}
+            <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>{' '}
+            {t('totalViews')}
           </span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          {/* <Cake className="w-4 h-4" /> */}
           <span>
             {t('joined', { date: dayjs(publishedAt).format('MMM DD, YYYY') })}
           </span>

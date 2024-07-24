@@ -12,14 +12,16 @@ To read more about using these font, please visit the Next.js documentation:
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
 import { PropsWithoutRef } from 'react'
+import { getChartOfChannels } from 'features/youtube/api/getChartOfChannels'
 import ChannelCard from 'features/youtube/components/channel/ChannelCard'
-import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
 type Props = {
-  channels: ChannelSchema[]
+  searchParams: URLSearchParams
 }
 
-export function ChannelCards({ channels }: PropsWithoutRef<Props>) {
+export async function ChannelCards({ searchParams }: PropsWithoutRef<Props>) {
+  const channels = await getChartOfChannels({ searchParams })
+
   return (
     <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {channels.map(channel => {

@@ -20,12 +20,14 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   constructor() {}
 
   async findAll({
+    sort,
     limit
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
     const channels = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
       .limit(limit)
+      .orderBy(sort.toOrderBy(), 'desc')
       .withConverter(channelConverter)
       .get()
 
