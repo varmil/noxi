@@ -33,7 +33,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
             <div className="flex flex-col items-center border rounded-md">
-              <DrawerSelectButton active={!has(QS_KEY)}>
+              <DrawerSelectButton asChild active={!has(QS_KEY)}>
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, null)}`}
                   scroll={false}
