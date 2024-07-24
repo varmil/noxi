@@ -87,7 +87,6 @@ export default [
           ],
           message: 'Please import from `lib/navigation` instead.'
         },
-        ,
         {
           name: 'next/router',
           importNames: ['useRouter'],

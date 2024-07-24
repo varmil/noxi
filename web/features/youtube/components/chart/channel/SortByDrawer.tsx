@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import useQueryString from 'hooks/useQueryString'
 import {
   Drawer,
   DrawerContent,
@@ -11,6 +10,7 @@ import {
   DrawerTrigger
 } from '@/components/ui/drawer'
 import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
+import useQueryString from 'hooks/useQueryString'
 import { Link, usePathname } from 'lib/navigation'
 
 const QS_KEY = 'sort'
