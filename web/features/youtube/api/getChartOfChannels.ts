@@ -14,8 +14,8 @@ export async function getChartOfChannels({
   const res = await fetchAPI(
     `/api/youtube/charts/channels?${searchParams.toString()}`,
     {
-      // next: { revalidate: 600 }
-      cache: 'no-store'
+      next: { revalidate: 600 }
+      // cache: 'no-store'
     }
   )
   // The return value is *not* serialized
