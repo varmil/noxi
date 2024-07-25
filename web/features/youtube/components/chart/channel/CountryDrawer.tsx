@@ -10,8 +10,17 @@ import {
   DrawerTrigger
 } from '@/components/ui/drawer'
 import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
+import useQueryString from 'hooks/useQueryString'
+import { Link, usePathname } from 'lib/navigation'
 
-export function CountryDrawer({ children }: React.PropsWithChildren) {
+type Props = {}
+
+const QS_KEY = 'country'
+
+export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
+  const pathname = usePathname()
+  const { has, createQueryString } = useQueryString()
+
   return (
     <Drawer>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
@@ -25,7 +34,36 @@ export function CountryDrawer({ children }: React.PropsWithChildren) {
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
             <div className="flex flex-col [&>*:not(:last-child)]:border-b items-center border rounded-md">
-              <DrawerSelectButton active>All Regions</DrawerSelectButton>
+              <DrawerSelectButton
+                asChild
+                active={!has(QS_KEY) || has(QS_KEY, 'US')}
+              >
+                <Link
+                  href={`${pathname}?${createQueryString(QS_KEY, 'US')}`}
+                  scroll={false}
+                >
+                  US
+                </Link>
+              </DrawerSelectButton>
+              <DrawerSelectButton asChild active={has(QS_KEY, 'JP')}>
+                <Link
+                  href={`${pathname}?${createQueryString(QS_KEY, 'JP')}`}
+                  scroll={false}
+                >
+                  Japan
+                </Link>
+              </DrawerSelectButton>
+              <DrawerSelectButton asChild active={has(QS_KEY, 'all-regions')}>
+                <Link
+                  href={`${pathname}?${createQueryString(
+                    QS_KEY,
+                    'all-regions'
+                  )}`}
+                  scroll={false}
+                >
+                  All regions
+                </Link>
+              </DrawerSelectButton>
             </div>
           </div>
         </div>

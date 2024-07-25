@@ -1,15 +1,10 @@
-import createMiddleware from 'next-intl/middleware'
-import { defaultLocale, locales, localePrefix } from 'config/i18n/locale'
+import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
+import { withIntl } from 'lib/middleware/withIntl'
+import { withQSOfCountry } from 'lib/middleware/withQSOfCountry'
 
-export default createMiddleware({
-  // A list of all locales that are supported
-  locales,
+const middlewares = [withQSOfCountry, withIntl]
 
-  // Used when no locale matches
-  defaultLocale,
-
-  localePrefix
-})
+export default stackMiddlewares(middlewares)
 
 export const config = {
   matcher: [
