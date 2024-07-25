@@ -1,4 +1,4 @@
-import { PropsWithChildren, PropsWithoutRef } from 'react'
+import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getChannel } from 'features/youtube/api/getChannel'
 import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
 import StatsLoyaltyProgressCard from 'features/youtube/components/stats/progress-card/StatsLoyaltyProgressCard'
@@ -41,7 +41,9 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
             <StatsLoyaltyProgressCard {...statistics} />
           </Section> */}
           <Section className="pb-8" title="Videos">
-            <VideoCards channelId={basicInfo.id} />
+            <Suspense fallback={<p>Loading cards...</p>}>
+              <VideoCards channelId={basicInfo.id} />
+            </Suspense>
           </Section>
         </div>
       </main>

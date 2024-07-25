@@ -31,7 +31,7 @@ export default function ChannelCard({
       <Link
         href={`/youtube/channels/${id}`}
         className="absolute inset-0 z-10"
-        prefetch={false}
+        prefetch={true}
       >
         <span className="sr-only">{t('viewChannel')}</span>
       </Link>
