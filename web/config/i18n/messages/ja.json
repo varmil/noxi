@@ -30,7 +30,7 @@
     "title": "のチャンネル分析情報"
   },
 
-  "QueriesNameChannels": {
+  "ChartsChannels": {
     "title": "に関連するチャンネル一覧",
     "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
   },

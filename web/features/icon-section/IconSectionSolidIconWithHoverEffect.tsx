@@ -8,7 +8,7 @@ export default function IconSectionSolidIconWithHoverEffect() {
         <h3 className="mb-2 text-2xl lg:text-3xl">ゲーム</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-2">
           <IconBlock
-            href="/youtube/queries/apex/channels"
+            href="/youtube/charts/channels"
             icon={
               <Axe className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
             }
@@ -18,7 +18,7 @@ export default function IconSectionSolidIconWithHoverEffect() {
             }
           />
           <IconBlock
-            href="/youtube/queries/ff14/channels"
+            href="/youtube/charts/channels"
             icon={
               <Gamepad2 className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
             }
@@ -32,7 +32,7 @@ export default function IconSectionSolidIconWithHoverEffect() {
         <h3 className="mb-2 text-2xl lg:text-3xl">VTuber</h3>
         <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-2">
           <IconBlock
-            href="/youtube/queries/hololive/channels"
+            href="/youtube/charts/channels"
             icon={
               <Play className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
             }
@@ -40,7 +40,7 @@ export default function IconSectionSolidIconWithHoverEffect() {
             description="ゲーム実況や歌、雑談やコラボ配信などバラエティ豊かなライブ配信をしています。"
           />
           <IconBlock
-            href="/youtube/queries/nijisanji/channels"
+            href="/youtube/charts/channels"
             icon={
               <Rainbow className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
             }

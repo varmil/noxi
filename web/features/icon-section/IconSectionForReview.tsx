@@ -8,7 +8,7 @@ export default function IconSectionForReview() {
         <h3 className="mb-2 text-2xl lg:text-3xl">Travel</h3>
         <div className="grid  gap-2">
           <IconBlock
-            href="/youtube/queries/travel_vlog_english/channels"
+            href="/youtube/charts/channels"
             icon={
               <Plane className="flex-shrink-0 w-6 h-6 text-primary-foreground" />
             }
