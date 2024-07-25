@@ -25,8 +25,9 @@ export const withQSOfCountry: MiddlewareFactory = next => {
     if (PATHNAMES.some(path => pathname.includes(path))) {
       const has = searchParams.has('country')
       if (!has) {
+        searchParams.set('country', getCountryCode(request))
         const url = new URL(
-          `${pathname}?country=${getCountryCode(request)}`,
+          `${pathname}?${searchParams.toString()}`,
           request.url
         )
         return NextResponse.redirect(url)
