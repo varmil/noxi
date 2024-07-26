@@ -61,7 +61,15 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                   India
                 </Link>
               </DrawerSelectButton>
-              <DrawerSelectButton asChild active={has(QS_KEY, 'all-regions')}>
+              <DrawerSelectButton asChild active={has(QS_KEY, 'GB')}>
+                <Link
+                  href={`${pathname}?${createQueryString(QS_KEY, 'GB')}`}
+                  scroll={false}
+                >
+                  UK
+                </Link>
+              </DrawerSelectButton>
+              {/* <DrawerSelectButton asChild active={has(QS_KEY, 'all-regions')}>
                 <Link
                   href={`${pathname}?${createQueryString(
                     QS_KEY,
@@ -71,7 +79,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                 >
                   All regions
                 </Link>
-              </DrawerSelectButton>
+              </DrawerSelectButton> */}
             </div>
           </div>
         </div>
