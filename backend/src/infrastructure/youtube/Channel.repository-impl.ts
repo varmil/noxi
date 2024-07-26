@@ -15,23 +15,19 @@ import { channelConverter, ChannelSchema } from '@infra/schema/ChannelSchema'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
-  private readonly COLLECTION_NAME = 'channel'
+  private readonly ROOT_COLLECTION_NAME = 'youtube'
+  private readonly SUB_COLLECTION_NAME = 'yt:channel'
 
   constructor() {}
 
   async findAll({
     sort,
-    country,
+    where: { country },
     limit
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
-    const channels = await admin
-      .firestore()
-      .collection(this.COLLECTION_NAME)
-      // FIXME: use subcollection
-      .where('brandingSettings.country', '==', country.get())
+    const channels = await this.getQuery(country)
       .limit(limit)
       .orderBy(sort.toOrderBy(), 'desc')
-      .withConverter(channelConverter)
       .get()
 
     return new Channels(
@@ -44,17 +40,15 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   async findById(
     id: Parameters<ChannelRepository['findById']>[0]
   ): Promise<Channel | null> {
-    const doc = await admin
+    const snapshot = await admin
       .firestore()
-      .collection(this.COLLECTION_NAME)
-      .doc(id.get())
+      .collectionGroup(this.SUB_COLLECTION_NAME)
+      .where('basicInfo.id', '==', id.get())
       .withConverter(channelConverter)
       .get()
-
-    const data = doc.data()
-    if (!data) return null
-
-    return this.toDomain(data)
+    const first = snapshot.docs.at(0)
+    if (!first) return null
+    return this.toDomain(first.data())
   }
 
   // upsert with channel id
@@ -63,13 +57,10 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       basicInfo: { id, title, description, thumbnails, publishedAt },
       contentDetails,
       statistics,
-      brandingSettings
+      brandingSettings: { keywords, country }
     } = channel
-    await admin
-      .firestore()
-      .collection(this.COLLECTION_NAME)
+    await this.getQuery(country)
       .doc(id)
-      .withConverter(channelConverter)
       .set(
         {
           basicInfo: {
@@ -90,8 +81,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
             videoCount: statistics.videoCount
           },
           brandingSettings: {
-            keywords: brandingSettings.keywords.map(k => k.get()),
-            country: brandingSettings.country.get()
+            keywords: keywords.map(k => k.get()),
+            country: country.get()
           },
 
           updatedAt: admin.firestore.FieldValue.serverTimestamp(),
@@ -99,6 +90,15 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         },
         { merge: true }
       )
+  }
+
+  private getQuery(country: CountryCode) {
+    return admin
+      .firestore()
+      .collection(this.ROOT_COLLECTION_NAME) // youtube >
+      .doc(country.get()) // Country Code >
+      .collection(this.SUB_COLLECTION_NAME) // yt:channel >
+      .withConverter(channelConverter)
   }
 
   private toDomain(doc: ChannelSchema) {

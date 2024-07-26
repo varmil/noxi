@@ -12,7 +12,7 @@ import {
   type Params as SearchChannelsParams
 } from '@infra/service/youtube-data-api'
 
-const TOTAL_LIMIT = 50
+const TOTAL_LIMIT = 100
 const FETCH_LIMIT = 50
 const MIN_N = 3
 
