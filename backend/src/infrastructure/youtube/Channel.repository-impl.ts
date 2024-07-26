@@ -21,11 +21,14 @@ export class ChannelRepositoryImpl implements ChannelRepository {
 
   async findAll({
     sort,
+    country,
     limit
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
     const channels = await admin
       .firestore()
       .collection(this.COLLECTION_NAME)
+      // FIXME: use subcollection
+      .where('brandingSettings.country', '==', country.get())
       .limit(limit)
       .orderBy(sort.toOrderBy(), 'desc')
       .withConverter(channelConverter)

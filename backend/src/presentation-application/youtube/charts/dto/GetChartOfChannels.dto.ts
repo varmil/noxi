@@ -1,9 +1,13 @@
-import { IsOptional } from 'class-validator'
+import { IsNotEmpty, IsOptional } from 'class-validator'
+import { CountryCode } from '@domain/country'
 import { ChannelSort } from '@domain/youtube'
 
 export class GetChartOfChannels {
   @IsOptional()
   sort?: string
+
+  @IsNotEmpty()
+  country: string
 
   //   @IsNotEmpty()
   //   @IsInt()
@@ -11,4 +15,6 @@ export class GetChartOfChannels {
   //   limit: number
 
   toSort = () => new ChannelSort(this.sort)
+
+  toCountryCode = () => new CountryCode(this.country)
 }
