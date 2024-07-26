@@ -28,7 +28,5 @@ export class CloudSchedulersYoutubeController {
 
   // TODO: select appropriate channels to update
   @Post('/channels-by-ids')
-  async saveChannelsByIds() {
-    await this.cloudSchedulersYoutubeScenario.saveChannelsByIds()
-  }
+  async saveChannelsByIds() {}
 }

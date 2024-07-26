@@ -3,16 +3,12 @@ import { ChannelIds } from '@domain/youtube'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
-import { ChannelBasicInfoRepository } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.repository'
 
 @Injectable()
 export class ChannelsService {
   constructor(
     @Inject('ChannelRepository')
-    private readonly channelRepository: ChannelRepository,
-
-    @Inject('ChannelBasicInfoRepository')
-    private readonly channelBasicInfoRepository: ChannelBasicInfoRepository
+    private readonly channelRepository: ChannelRepository
   ) {}
 
   async findAll(
@@ -32,14 +28,8 @@ export class ChannelsService {
   }
 
   async findIds(
-    args: Parameters<ChannelBasicInfoRepository['findIds']>[0]
+    args: Parameters<ChannelRepository['findIds']>[0]
   ): Promise<ChannelIds> {
-    return await this.channelBasicInfoRepository.findIds(args)
+    return await this.channelRepository.findIds(args)
   }
-
-  // async saveId(
-  //   id: Parameters<ChannelBasicInfoRepository['save']>[0]
-  // ): Promise<void> {
-  //   await this.channelBasicInfoRepository.save(id)
-  // }
 }

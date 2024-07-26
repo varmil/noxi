@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
 import { CountryCode } from '@domain/country'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
@@ -35,6 +36,20 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         return this.toDomain(doc.data())
       })
     )
+  }
+
+  async findIds({
+    sort,
+    where: { country },
+    limit
+  }: Parameters<ChannelRepository['findIds']>[0]) {
+    const channels = await this.getQuery(country)
+      .select()
+      .limit(limit)
+      .orderBy(sort.toOrderBy(), 'desc')
+      .get()
+
+    return new ChannelIds(channels.docs.map(doc => new ChannelId(doc.id)))
   }
 
   async findById(
