@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common'
 import { ChartsScenario } from '@app/youtube/charts/charts.scenario'
 import { GetChartOfChannels } from '@app/youtube/charts/dto/GetChartOfChannels.dto'
+import { CountryCode } from '@domain/country'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { Videos } from '@domain/youtube'
 
@@ -37,6 +38,7 @@ export class ChartsController {
   async getChartOfChannels(@Query() dto: GetChartOfChannels) {
     return await this.chartsScenario.getChartOfChannels({
       sort: dto.toSort(),
+      country: new CountryCode('TODO'),
       limit: 50
     })
   }

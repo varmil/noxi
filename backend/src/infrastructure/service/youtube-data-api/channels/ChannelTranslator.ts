@@ -1,10 +1,10 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
+import { CountryCode } from '@domain/country'
 import {
   BrandingSettings,
   Channel,
   ChannelStatistics,
-  Country,
   Keywords
 } from '@domain/youtube'
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
@@ -42,7 +42,7 @@ export class ChannelTranslator {
       }),
       brandingSettings: new BrandingSettings({
         keywords: Keywords.fromString(keywords ?? ''),
-        country: new Country(country)
+        country: new CountryCode(country)
       })
     })
   }

@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
+import { CountryCode } from '@domain/country'
 import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
 import { ChannelStatistics } from '@domain/youtube/channel/ChannelStatistics'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
-import { Country } from '@domain/youtube/channel/branding-settings/Country'
 import { Keyword } from '@domain/youtube/channel/branding-settings/Keyword'
 import { Keywords } from '@domain/youtube/channel/branding-settings/Keywords'
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
@@ -111,7 +111,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         keywords: new Keywords(
           brandingSettings.keywords.map(k => new Keyword(k))
         ),
-        country: new Country(brandingSettings.country)
+        country: new CountryCode(brandingSettings.country)
       })
     })
   }

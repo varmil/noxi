@@ -1,12 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import {
-  ChannelRepository,
-  Q,
-  RegionCode,
-  RelevanceLanguage,
-  ChannelSort
-} from '@domain/youtube'
+import { CountryCode } from '@domain/country'
+import { ChannelRepository, Q, RelevanceLanguage } from '@domain/youtube'
 import {
   SearchVideosInfraService,
   type SearchVideosParams
@@ -29,7 +24,7 @@ export class ChartsScenario {
       // regionCode: new RegionCode('JP'),
       // relevanceLanguage: new RelevanceLanguage('ja')
       q: new Q('travel vlog english'),
-      regionCode: new RegionCode('US'),
+      regionCode: new CountryCode('US'),
       relevanceLanguage: new RelevanceLanguage('en')
     }
 

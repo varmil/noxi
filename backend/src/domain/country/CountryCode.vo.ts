@@ -21,7 +21,7 @@ import { StringValueObject } from '@domain/lib/StringValueObject'
  * インド: IN
  * 韓国: KR
  */
-export class RegionCode extends StringValueObject {
+export class CountryCode extends StringValueObject {
   @IsNotEmpty()
   @IsString()
   @IsISO31661Alpha2()

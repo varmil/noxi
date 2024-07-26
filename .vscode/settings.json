@@ -25,7 +25,8 @@
     "/backend/src/infrastructure/service/youtube-data-api/channels",
     "/backend/src/domain/youtube/playlist",
     "/backend/src/domain/youtube/chart/channel",
-    "/backend/src/domain/youtube/chart"
+    "/backend/src/domain/youtube/chart",
+    "/backend/src/domain/country"
   ],
   "exportall.config.relExclusion": [
     "/backend/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
