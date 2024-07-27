@@ -66,7 +66,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                   )}`}
                   scroll={false}
                 >
-                  Avarage views this month
+                  Avarage views in the past 30 days
                 </Link>
               </DrawerSelectButton>
               <DrawerSelectButton asChild active={has(QS_KEY, 'views')}>

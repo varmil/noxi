@@ -66,6 +66,9 @@ export class VideoAggregation {
     })
   }
 
+  /**
+   * Recent === The Past 1 month
+   */
   private static getRecentVideos(videos: Video[] | Videos): {
     short: Videos
     regular: Videos
