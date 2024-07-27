@@ -35,7 +35,9 @@ export const channelSchema = z.object({
   }),
 
   // from VideoAggregation
-  latestVideoAggregation: videoAggregationSchema.optional(),
+  latestVideoAggregation: videoAggregationSchema
+    .omit({ channelId: true })
+    .optional(),
 
   updatedAt: firestoreFieldValueOrTimestampSchema,
   expireAt: firestoreFieldValueOrTimestampSchema

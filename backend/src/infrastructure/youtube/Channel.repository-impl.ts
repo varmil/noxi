@@ -66,7 +66,6 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     return this.toDomain(first.data())
   }
 
-  // upsert with channel id
   async save(channel: Parameters<ChannelRepository['save']>[0]) {
     const {
       basicInfo: { id, title, description, thumbnails, publishedAt },

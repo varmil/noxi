@@ -30,10 +30,6 @@ export class SaveAggregationsByChannelScenario {
   /**
    * batch
    *
-   * 下記のダブルWrite戦略
-   * /channel/{channelId}/latestVideoAggregation
-   * /videoAggregation/{channelId}/history/{year-month}
-   *
    * 直近１ヶ月 x Max50本を取得して更新（差分更新に近い）
    */
   async execute() {
@@ -56,7 +52,10 @@ export class SaveAggregationsByChannelScenario {
         const aggregation = VideoAggregation.fromVideos(items)
 
         await this.aggregationsService.save({
-          where: { channelId: new ChannelId(channel.basicInfo.id) },
+          where: {
+            channelId: new ChannelId(channel.basicInfo.id),
+            country: channel.brandingSettings.country
+          },
           data: aggregation
         })
       })

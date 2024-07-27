@@ -1,14 +1,19 @@
+import { CountryCode } from '@domain/country'
+import { TimePeriod } from '@domain/time-period'
 import { ChannelId } from '@domain/youtube/channel'
-import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
+import {
+  VideoAggregation,
+  VideoAggregations
+} from '@domain/youtube/video-aggregation'
 
 export interface VideoAggregationRepository {
-  // startDate, endDate （チャンネル詳細でヒストリ参照するときなど）
-  findOne: (args: {
-    where: { channelId: ChannelId }
-  }) => Promise<VideoAggregation | null>
+  findByChannelId: (
+    id: ChannelId,
+    args: { timePeriod: TimePeriod }
+  ) => Promise<VideoAggregations | null>
 
   save: (args: {
-    where: { channelId: ChannelId }
+    where: { channelId: ChannelId; country: CountryCode }
     data: VideoAggregation
   }) => Promise<void>
 }
