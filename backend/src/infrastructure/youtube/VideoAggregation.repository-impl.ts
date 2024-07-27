@@ -29,9 +29,11 @@ export class VideoAggregationRepositoryImpl
   /**
    * これを呼ぶのは過去分をまとめて取得したいとき
    */
-  async findByChannelId(
-    id: Parameters<VideoAggregationRepository['findByChannelId']>[0],
-    { timePeriod }: Parameters<VideoAggregationRepository['findByChannelId']>[1]
+  async findAllByChannelId(
+    id: Parameters<VideoAggregationRepository['findAllByChannelId']>[0],
+    {
+      timePeriod
+    }: Parameters<VideoAggregationRepository['findAllByChannelId']>[1]
   ) {
     // const doc = dayjs().format('YYYY-MM')
 
@@ -112,8 +114,10 @@ export class VideoAggregationRepositoryImpl
   }
 
   private getQueryByCollectionGroup(
-    channelId: Parameters<VideoAggregationRepository['findByChannelId']>[0],
-    { timePeriod }: Parameters<VideoAggregationRepository['findByChannelId']>[1]
+    channelId: Parameters<VideoAggregationRepository['findAllByChannelId']>[0],
+    {
+      timePeriod
+    }: Parameters<VideoAggregationRepository['findAllByChannelId']>[1]
   ) {
     return admin
       .firestore()

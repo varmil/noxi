@@ -7,7 +7,7 @@ import {
 } from '@domain/youtube/video-aggregation'
 
 export interface VideoAggregationRepository {
-  findByChannelId: (
+  findAllByChannelId: (
     id: ChannelId,
     args: { timePeriod: TimePeriod }
   ) => Promise<VideoAggregations | null>

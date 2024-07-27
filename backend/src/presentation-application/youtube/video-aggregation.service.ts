@@ -9,11 +9,11 @@ export class VideoAggregationsService {
     private readonly videoAggregationRepository: VideoAggregationRepository
   ) {}
 
-  async findByChannelId(
-    id: Parameters<VideoAggregationRepository['findByChannelId']>[0],
-    args: Parameters<VideoAggregationRepository['findByChannelId']>[1]
+  async findAllByChannelId(
+    id: Parameters<VideoAggregationRepository['findAllByChannelId']>[0],
+    args: Parameters<VideoAggregationRepository['findAllByChannelId']>[1]
   ): Promise<VideoAggregations | null> {
-    return await this.videoAggregationRepository.findByChannelId(id, args)
+    return await this.videoAggregationRepository.findAllByChannelId(id, args)
   }
 
   async save(
