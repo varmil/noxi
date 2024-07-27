@@ -52,9 +52,7 @@ export default function ChannelCard({
               <span>{t('totalSubscribers')}</span>
             </div>
             <span className="text-lg font-bold text-primary">
-              <IntlNumberFormat minimumSignificantDigits={3}>
-                {subscriberCount}
-              </IntlNumberFormat>
+              <IntlNumberFormat>{subscriberCount}</IntlNumberFormat>
             </span>
           </div>
         </div>

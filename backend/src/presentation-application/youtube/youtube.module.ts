@@ -4,6 +4,7 @@ import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChartsController } from '@app/youtube/charts/charts.controller'
 import { ChartsScenario } from '@app/youtube/charts/charts.scenario'
+import { CountriesService } from '@app/youtube/countries/countries.service'
 import { VideosScenario } from '@app/youtube/videos/scenario/videos.scenario'
 import { VideosController } from '@app/youtube/videos/videos.controller'
 import { VideosService } from '@app/youtube/videos/videos.service'
@@ -17,6 +18,7 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     ChannelsScenario,
     VideosScenario,
     ChannelsService,
+    CountriesService,
     VideosService
   ]
 })

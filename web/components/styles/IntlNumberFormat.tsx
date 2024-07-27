@@ -4,6 +4,7 @@ import { useFormatter } from 'next-intl'
 type Props = {
   minimumSignificantDigits?: number
   maximumSignificantDigits?: number
+  maximumFractionDigits?: number
   children: number
 }
 

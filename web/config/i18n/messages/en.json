@@ -30,7 +30,7 @@
     "title": "'s channel statistics"
   },
 
-  "QueriesNameChannels": {
+  "ChartsChannels": {
     "title": "List of channels",
     "description": "We will introduce you to YouTube channels related to {keyword}."
   },

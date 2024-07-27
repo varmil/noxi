@@ -6,24 +6,24 @@ import Page from 'components/Page'
 import { YoutubeChart } from 'features/youtube/components/YoutubeChart'
 
 type Props = {
-  params: { locale: string; name: string }
+  params: { locale: string }
   searchParams?: { [key: string]: string | undefined }
 }
 
 export async function generateMetadata({
-  params: { locale, name }
+  params: { locale }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'QueriesNameChannels' })
+  const t = await getTranslations({ locale, namespace: 'ChartsChannels' })
 
   return {
-    title: `${name} | ${t('title')} | ${tg('title')}`,
-    description: `${t('description', { keyword: name })}`
+    title: `${'Travel vlog english'} | ${t('title')} | ${tg('title')}`,
+    description: `${t('description', { keyword: 'Travel vlog english' })}`
   }
 }
 
-export default function YoutubeQueriesNameChannelsPage({
-  params: { locale, name },
+export default function YoutubeChartsChannelsPage({
+  params: { locale },
   searchParams
 }: Props) {
   // Enable static rendering
@@ -36,13 +36,10 @@ export default function YoutubeQueriesNameChannelsPage({
       <GlobalBreadcrumb
         items={[
           { href: '/', name: 'YouTube' },
-          { href: '#', name: t('channels') }
+          { href: '/youtube/charts/channels', name: t('channels') }
         ]}
       />
-      <YoutubeChart
-        keyword={name}
-        searchParams={new URLSearchParams(searchParams)}
-      />
+      <YoutubeChart searchParams={new URLSearchParams(searchParams)} />
     </Page>
   )
 }

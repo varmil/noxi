@@ -10,6 +10,7 @@ const aggregation = z.object({
 })
 
 export const videoAggregationSchema = z.object({
+  channelId: z.string(),
   regular: aggregation,
   short: aggregation,
   live: aggregation,

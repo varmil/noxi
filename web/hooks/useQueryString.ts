@@ -1,6 +1,9 @@
 import { useCallback } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+/**
+ * Use with 'use client'
+ */
 export default function useQueryString() {
   const searchParams = useSearchParams()
 

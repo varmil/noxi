@@ -1,18 +1,13 @@
 import { youtube, type youtube_v3 } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
+import { CountryCode } from '@domain/country'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
-import {
-  ChannelId,
-  ChannelIds,
-  Q,
-  RegionCode,
-  RelevanceLanguage
-} from '@domain/youtube'
+import { ChannelId, ChannelIds, Q, RelevanceLanguage } from '@domain/youtube'
 
 export interface Params {
   limit: number
   q: Q
-  regionCode?: RegionCode
+  regionCode?: CountryCode
   relevanceLanguage?: RelevanceLanguage
   pageToken?: string
 }

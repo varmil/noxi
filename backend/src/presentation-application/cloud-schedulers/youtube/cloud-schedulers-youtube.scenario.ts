@@ -1,8 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotImplementedException } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
-
-const FETCH_LIMIT = 50
 
 @Injectable()
 export class CloudSchedulersYoutubeScenario {
@@ -24,26 +22,14 @@ export class CloudSchedulersYoutubeScenario {
    * こっちはTOP10,000のチャンネル更新、などIdがわかってる場合の更新に用いる
    * GET /v3/channels?channelId=A,B,C...
    */
-  async saveChannelsByIds() {
-    const channelIds = await this.channelsService.findIds({
-      limit: FETCH_LIMIT
-    })
-
-    const channels = await this.channelsInfraService.list({
-      where: { channelIds }
-    })
-
-    await Promise.all(
-      channels.map(async channel => {
-        await this.channelsService.save(channel)
-      })
-    )
+  saveChannelsByIds() {
+    throw new NotImplementedException()
   }
 
   /**
    * batch
-   *
-   * TODO: Impl
    */
-  async saveChannelCategory() {}
+  saveChannelCategory() {
+    throw new NotImplementedException()
+  }
 }

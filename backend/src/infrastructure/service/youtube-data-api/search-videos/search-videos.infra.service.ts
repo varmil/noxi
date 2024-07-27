@@ -1,10 +1,10 @@
 import { type youtube_v3, youtube } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
+import { CountryCode } from '@domain/country'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import {
   ChannelId,
   Q,
-  RegionCode,
   RelevanceLanguage,
   VideoId,
   Videos
@@ -15,7 +15,7 @@ export interface SearchVideosParams {
   limit: number
   q?: Q
   channelId?: ChannelId
-  regionCode?: RegionCode
+  regionCode?: CountryCode
   relevanceLanguage?: RelevanceLanguage
   pageToken?: string
 }

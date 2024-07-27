@@ -4,6 +4,7 @@ import { CloudSchedulersYoutubeScenario } from '@app/cloud-schedulers/youtube/cl
 import { SaveAggregationsByChannelScenario } from '@app/cloud-schedulers/youtube/save-aggregations-by-channel.scenario'
 import { SaveChannelsBySearchScenario } from '@app/cloud-schedulers/youtube/save-channels-by-search.scenario'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { CountriesService } from '@app/youtube/countries/countries.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
@@ -16,6 +17,7 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     SaveAggregationsByChannelScenario,
     SaveChannelsBySearchScenario,
     ChannelsService,
+    CountriesService,
     VideosService,
     VideoAggregationsService
   ]

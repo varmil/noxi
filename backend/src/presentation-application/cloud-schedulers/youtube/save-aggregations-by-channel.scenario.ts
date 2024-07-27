@@ -1,20 +1,29 @@
 import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { CountriesService } from '@app/youtube/countries/countries.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
+import { CountryCode } from '@domain/country'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
-import { ChannelId, Videos, PlaylistId } from '@domain/youtube'
+import {
+  ChannelId,
+  Videos,
+  PlaylistId,
+  ChannelSort,
+  Channel
+} from '@domain/youtube'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 import { PlaylistItemsInfraService } from '@infra/service/youtube-data-api'
 import { VideosInfraService } from '@infra/service/youtube-data-api/videos/videos.infra.service'
 
-const CHANNEL_FETCH_LIMIT = 100
+const CHANNEL_FETCH_LIMIT = 200
 const VIDEO_FETCH_LIMIT = 50
-const TAKE = 100
+const TAKE = 200
 
 @Injectable()
 export class SaveAggregationsByChannelScenario {
   constructor(
     private readonly channelsService: ChannelsService,
+    private readonly countriesService: CountriesService,
     private readonly aggregationsService: VideoAggregationsService,
     private readonly playlistItemsInfraService: PlaylistItemsInfraService,
     private readonly videosInfraService: VideosInfraService
@@ -23,21 +32,31 @@ export class SaveAggregationsByChannelScenario {
   /**
    * batch
    *
-   * 下記のダブルWrite戦略
-   * /channel/{channelId}/latestVideoAggregation
-   * /videoAggregation/{channelId}/history/{year-month}
-   *
-   * このシナリオでは直近１ヶ月Max50本だけを取得してヒストリ更新（差分更新に近い）
+   * 直近１ヶ月 x Max50本を取得して更新（差分更新に近い）
    */
   async execute() {
-    const channelIds = await this.channelsService.findIds({
+    // fetch all countries docs from youtube
+    const countries = await this.countriesService.findAll()
+
+    await Promise.all(
+      countries.map(async code => {
+        console.log('next: ', code.get())
+        return await this.executeByCountry(code)
+      })
+    )
+  }
+
+  private async executeByCountry(country: CountryCode) {
+    const channels = await this.channelsService.findAll({
+      sort: new ChannelSort(),
+      where: { country },
       limit: CHANNEL_FETCH_LIMIT
     })
 
     await Promise.all(
-      channelIds.take(TAKE).map(async channelId => {
+      channels.take(TAKE).map(async channel => {
         const { items } = await this.getVideosInChannel({
-          where: { channelId },
+          where: { channel },
           limit: VIDEO_FETCH_LIMIT
         })
 
@@ -45,7 +64,10 @@ export class SaveAggregationsByChannelScenario {
         const aggregation = VideoAggregation.fromVideos(items)
 
         await this.aggregationsService.save({
-          where: { channelId },
+          where: {
+            channelId: new ChannelId(channel.basicInfo.id),
+            country
+          },
           data: aggregation
         })
       })
@@ -56,13 +78,10 @@ export class SaveAggregationsByChannelScenario {
     where,
     limit
   }: {
-    where: { channelId: ChannelId }
+    where: { channel: Channel }
     limit: number
   }): Promise<PaginationResponse<Videos>> {
-    const { channelId } = where
-
-    // NOTE: select で `contentDetails` だけ取るとか最適化
-    const channel = await this.channelsService.findById(channelId)
+    const { channel } = where
     if (!channel) return { items: new Videos([]) }
 
     const { items: playlistItems } = await this.playlistItemsInfraService.list({

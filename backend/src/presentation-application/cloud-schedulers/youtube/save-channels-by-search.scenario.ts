@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { CountryCode } from '@domain/country'
 import { Channel, PlaylistId } from '@domain/youtube'
 import { Q } from '@domain/youtube/search/Q.vo'
-import { RegionCode } from '@domain/youtube/search/RegionCode.vo'
 import { RelevanceLanguage } from '@domain/youtube/search/RelevanceLanguage.vo'
 import {
   ChannelsInfraService,
@@ -12,7 +12,7 @@ import {
   type Params as SearchChannelsParams
 } from '@infra/service/youtube-data-api'
 
-const TOTAL_LIMIT = 50
+const TOTAL_LIMIT = 200
 const FETCH_LIMIT = 50
 const MIN_N = 3
 
@@ -40,7 +40,7 @@ export class SaveChannelsBySearchScenario {
       // regionCode: new RegionCode('JP'),
       // relevanceLanguage: new RelevanceLanguage('ja')
       q: new Q('travel vlog english'),
-      regionCode: new RegionCode('US'),
+      regionCode: new CountryCode('US'),
       relevanceLanguage: new RelevanceLanguage('en')
     }
 

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { YoutubeDataApiInfraModule } from '@infra/service/youtube-data-api/youtube-data-api.infra.module'
 import { ChannelRepositoryImpl } from '@infra/youtube/Channel.repository-impl'
-import { ChannelBasicInfoRepositoryImpl } from '@infra/youtube/ChannelBasicInfo.repository-impl'
+import { CountryRepositoryImpl } from '@infra/youtube/Country.repository-impl'
 import { VideoRepositoryImpl } from '@infra/youtube/Video.repository-impl'
 import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.repository-impl'
 
@@ -13,11 +13,8 @@ import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.
       provide: 'ChannelRepository',
       useClass: ChannelRepositoryImpl
     },
-    ChannelBasicInfoRepositoryImpl,
-    {
-      provide: 'ChannelBasicInfoRepository',
-      useClass: ChannelBasicInfoRepositoryImpl
-    },
+    CountryRepositoryImpl,
+    { provide: 'CountryRepository', useClass: CountryRepositoryImpl },
     VideoRepositoryImpl,
     { provide: 'VideoRepository', useClass: VideoRepositoryImpl },
     VideoAggregationRepositoryImpl,
@@ -34,11 +31,8 @@ import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.
       provide: 'ChannelRepository',
       useClass: ChannelRepositoryImpl
     },
-    ChannelBasicInfoRepositoryImpl,
-    {
-      provide: 'ChannelBasicInfoRepository',
-      useClass: ChannelBasicInfoRepositoryImpl
-    },
+    CountryRepositoryImpl,
+    { provide: 'CountryRepository', useClass: CountryRepositoryImpl },
     VideoRepositoryImpl,
     { provide: 'VideoRepository', useClass: VideoRepositoryImpl },
     VideoAggregationRepositoryImpl,
