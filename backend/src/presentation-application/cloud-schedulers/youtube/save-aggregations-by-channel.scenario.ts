@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { CountriesService } from '@app/youtube/countries/countries.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { CountryCode } from '@domain/country'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
@@ -22,6 +23,7 @@ const TAKE = 100
 export class SaveAggregationsByChannelScenario {
   constructor(
     private readonly channelsService: ChannelsService,
+    private readonly countriesService: CountriesService,
     private readonly aggregationsService: VideoAggregationsService,
     private readonly playlistItemsInfraService: PlaylistItemsInfraService,
     private readonly videosInfraService: VideosInfraService
@@ -33,11 +35,21 @@ export class SaveAggregationsByChannelScenario {
    * 直近１ヶ月 x Max50本を取得して更新（差分更新に近い）
    */
   async execute() {
-    // TODO: fetch all countries docs from yt:channel
+    // fetch all countries docs from youtube
+    const countries = await this.countriesService.findAll()
 
+    await Promise.all(
+      countries.map(async code => {
+        console.log('next: ', code.get())
+        return await this.executeByCountry(code)
+      })
+    )
+  }
+
+  private async executeByCountry(country: CountryCode) {
     const channels = await this.channelsService.findAll({
       sort: new ChannelSort(),
-      where: { country: new CountryCode('US') },
+      where: { country },
       limit: CHANNEL_FETCH_LIMIT
     })
 
@@ -54,7 +66,7 @@ export class SaveAggregationsByChannelScenario {
         await this.aggregationsService.save({
           where: {
             channelId: new ChannelId(channel.basicInfo.id),
-            country: channel.brandingSettings.country
+            country
           },
           data: aggregation
         })

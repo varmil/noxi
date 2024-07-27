@@ -38,6 +38,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     )
   }
 
+  // FIXME: ? see CountryRepositoryImpl.findAll select() だと動かないかも？
   async findIds({
     sort,
     where: { country },
