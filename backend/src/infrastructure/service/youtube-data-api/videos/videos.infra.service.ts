@@ -1,9 +1,18 @@
 import { type youtube_v3, youtube } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
+import { CountryCode } from '@domain/country'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { VideoIds, Videos } from '@domain/youtube'
 import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTranslator'
 
 const maxResultsPerRequest = 50
+
+interface Params {
+  hl?: CountryCode
+  limit: number
+  videoIds: VideoIds
+  pageToken?: string
+}
 
 @Injectable()
 export class VideosInfraService {
@@ -17,21 +26,14 @@ export class VideosInfraService {
     })
   }
 
-  async list({
-    where: { videoIds }
-  }: {
-    where: { videoIds: VideoIds }
-  }): Promise<Videos> {
-    const videos = await this.getVideos(videoIds)
-    return new Videos(
-      videos
-        .map(video => new VideoTranslator(video).translate())
-        .filter(e => e !== undefined)
-    )
+  async list(params: Params): Promise<PaginationResponse<Videos>> {
+    return await this.getVideos(params)
   }
 
-  private async getVideos(videoIds: VideoIds) {
+  private async getVideos(params: Params): Promise<PaginationResponse<Videos>> {
+    const { hl, videoIds, limit, pageToken } = params
     let results: youtube_v3.Schema$Video[] = []
+    const nextPageToken = pageToken ?? undefined
 
     for (let i = 0; i < videoIds.length; i += maxResultsPerRequest) {
       const batchIds = videoIds.slice(i, i + maxResultsPerRequest)
@@ -49,6 +51,13 @@ export class VideosInfraService {
       results = results.concat(response.data.items ?? [])
     }
 
-    return results
+    return {
+      nextPageToken,
+      items: new Videos(
+        results
+          .map(video => new VideoTranslator(video).translate())
+          .filter(e => e !== undefined)
+      )
+    }
   }
 }

@@ -2,18 +2,10 @@ import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { CountriesService } from '@app/youtube/countries/countries.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
+import { VideosService } from '@app/youtube/videos/videos.service'
 import { CountryCode } from '@domain/country'
-import { PaginationResponse } from '@domain/lib/PaginationResponse'
-import {
-  ChannelId,
-  Videos,
-  PlaylistId,
-  ChannelSort,
-  Channel
-} from '@domain/youtube'
+import { ChannelId, ChannelSort } from '@domain/youtube'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
-import { PlaylistItemsInfraService } from '@infra/service/youtube-data-api'
-import { VideosInfraService } from '@infra/service/youtube-data-api/videos/videos.infra.service'
 
 const CHANNEL_FETCH_LIMIT = 200
 const VIDEO_FETCH_LIMIT = 50
@@ -25,8 +17,7 @@ export class SaveAggregationsByChannelScenario {
     private readonly channelsService: ChannelsService,
     private readonly countriesService: CountriesService,
     private readonly aggregationsService: VideoAggregationsService,
-    private readonly playlistItemsInfraService: PlaylistItemsInfraService,
-    private readonly videosInfraService: VideosInfraService
+    private readonly videosService: VideosService
   ) {}
 
   /**
@@ -55,7 +46,7 @@ export class SaveAggregationsByChannelScenario {
 
     await Promise.all(
       channels.take(TAKE).map(async channel => {
-        const { items } = await this.getVideosInChannel({
+        const { items } = await this.videosService.findAll({
           where: { channel },
           limit: VIDEO_FETCH_LIMIT
         })
@@ -72,27 +63,5 @@ export class SaveAggregationsByChannelScenario {
         })
       })
     )
-  }
-
-  private async getVideosInChannel({
-    where,
-    limit
-  }: {
-    where: { channel: Channel }
-    limit: number
-  }): Promise<PaginationResponse<Videos>> {
-    const { channel } = where
-    if (!channel) return { items: new Videos([]) }
-
-    const { items: playlistItems } = await this.playlistItemsInfraService.list({
-      limit: limit,
-      playlistId: new PlaylistId(channel.contentDetails.uploadsPlaylistId)
-    })
-
-    const videos = await this.videosInfraService.list({
-      where: { videoIds: playlistItems.getVideoIds() }
-    })
-
-    return { nextPageToken: undefined, items: videos }
   }
 }
