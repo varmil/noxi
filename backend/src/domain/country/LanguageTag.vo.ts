@@ -1,9 +1,6 @@
 import { IsLocale, IsNotEmpty, IsString } from 'class-validator'
 import { StringValueObject } from '@domain/lib/StringValueObject'
 
-/**
- *
- */
 export class LanguageTag extends StringValueObject {
   @IsNotEmpty()
   @IsString()

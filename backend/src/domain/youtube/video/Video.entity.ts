@@ -53,20 +53,20 @@ export class Video {
     return this.statistics.engagementRate()
   }
 
+  /**
+   * @Beta search '#PR', '#pr' in title, description
+   */
   @Expose()
   get isPaidPromotion(): IsPaidPromotion | undefined {
-    // currently, 日本語のVideoのみ対応
-    if (!this.snippet.defaultLanguage?.isJapanese()) {
-      return undefined
-    }
-
     const { title, description } = this.snippet
     const searchStrs = ['#PR', '#pr']
     const isPaidPromotion = [title, description].some(str => {
       return searchStrs.some(e => str.includes(e))
     })
 
-    console.log('Japanese video: ', title, isPaidPromotion)
+    if (isPaidPromotion) {
+      console.log('PP: ', title, description)
+    }
     return new IsPaidPromotion(isPaidPromotion)
   }
 }
