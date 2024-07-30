@@ -15,17 +15,22 @@ class Aggregation {
   @IsDecimal({ decimal_digits: '2' })
   @Min(0)
   public readonly averageEngagementRate: string
+  @IsInt()
+  @Min(0)
+  public readonly prCount: number
 
   constructor(args: {
     averageViews: number
     frequency: number
     averageEngagementCount: number
     averageEngagementRate: number
+    prCount: number
   }) {
     this.averageViews = Math.round(args.averageViews)
     this.frequency = Math.round(args.frequency)
     this.averageEngagementCount = Math.round(args.averageEngagementCount)
     this.averageEngagementRate = args.averageEngagementRate.toFixed(2)
+    this.prCount = args.prCount
   }
 }
 
@@ -53,11 +58,11 @@ export class VideoAggregation {
     this.live = args.live
   }
 
-  static fromVideos(list: Video[] | Videos): VideoAggregation {
+  static fromVideos(list: Videos): VideoAggregation {
     return this.calculateStats(list)
   }
 
-  private static calculateStats(videos: Video[] | Videos): VideoAggregation {
+  private static calculateStats(videos: Videos): VideoAggregation {
     const { short, regular, live } = this.getRecentVideos(videos)
     return new VideoAggregation({
       regular: this.getAggregation(regular),
@@ -69,7 +74,7 @@ export class VideoAggregation {
   /**
    * Recent === The Past 1 month
    */
-  private static getRecentVideos(videos: Video[] | Videos): {
+  private static getRecentVideos(videos: Videos): {
     short: Videos
     regular: Videos
     live: Videos
@@ -82,39 +87,28 @@ export class VideoAggregation {
       video => video.snippet.publishedAt > oneMonthAgo
     )
 
+    const regular = recentVideos.filter(
+      video => !video.isShort() && !video.isLive()
+    )
+    const short = recentVideos.filter(video => video.isShort())
+    const live = recentVideos.filter(
+      video => (video.liveActualStartTime ?? 0) > oneMonthAgo
+    )
+
     return {
-      short: new Videos(recentVideos.filter(video => video.isShort())),
-      regular: new Videos(recentVideos.filter(video => !video.isShort())),
-      live: new Videos(
-        recentVideos.filter(
-          video => (video.liveActualStartTime ?? 0) > oneMonthAgo
-        )
-      )
+      regular,
+      short,
+      live
     }
   }
 
   private static getAggregation(videos: Videos): Aggregation {
-    const views = videos.map(video => video.statistics.viewCount)
-    let averageViews = views.reduce((acc, curr) => acc + curr, 0) / views.length
-    if (isNaN(averageViews)) averageViews = 0
-
-    const engagementCounts = videos.map(video => video.engagementCount || 0)
-    let averageEngagementCount =
-      engagementCounts.reduce((acc, curr) => acc + curr, 0) /
-      engagementCounts.length
-    if (isNaN(averageEngagementCount)) averageEngagementCount = 0
-
-    const engagementRates = videos.map(video => video.engagementRate || 0)
-    let averageEngagementRate =
-      engagementRates.reduce((acc, curr) => acc + curr, 0) /
-      engagementRates.length
-    if (isNaN(averageEngagementRate)) averageEngagementRate = 0
-
     return new Aggregation({
-      averageViews,
+      averageViews: videos.averageViews(),
       frequency: videos.length(),
-      averageEngagementCount,
-      averageEngagementRate
+      averageEngagementCount: videos.averageEngagementCount(),
+      averageEngagementRate: videos.averageEngagementRate(),
+      prCount: videos.prCount()
     })
   }
 }

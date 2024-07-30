@@ -1,8 +1,11 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
-import { Duration } from '@domain/youtube/video/Duration'
-import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
-import { Snippet } from '@domain/youtube/video/Snippet'
-import { Statistics } from '@domain/youtube/video/Statistics'
+import {
+  Duration,
+  LiveStreamingDetails,
+  IsPaidPromotion,
+  Snippet,
+  Statistics
+} from '@domain/youtube/video'
 
 export class Video {
   public readonly id: string
@@ -31,6 +34,11 @@ export class Video {
     return this.duration.isShort()
   }
 
+  @Exclude()
+  isLive(): boolean {
+    return this.liveActualStartTime !== undefined
+  }
+
   /**
    * The time that the broadcast actually started.
    * This value will not be available until the broadcast begins.
@@ -48,5 +56,23 @@ export class Video {
   @Expose()
   get engagementRate() {
     return this.statistics.engagementRate()
+  }
+
+  /**
+   * @Beta search '#PR', '#pr' in title, description
+   * match whole WORD
+   */
+  @Expose()
+  @Transform(({ value }: { value: IsPaidPromotion }) => value.get())
+  get isPaidPromotion(): IsPaidPromotion | undefined {
+    const { title, description } = this.snippet
+    const searchStrs = ['#PR']
+    const isPaidPromotion = [title, description].some(str =>
+      searchStrs.some(e => {
+        return new RegExp(String.raw`${e}\b`, 'i').test(str)
+      })
+    )
+
+    return new IsPaidPromotion(isPaidPromotion)
   }
 }

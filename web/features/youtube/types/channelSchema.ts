@@ -14,7 +14,8 @@ export const schema = z.object({
         height: z.number().optional()
       })
     ),
-    publishedAt: z.string().datetime()
+    publishedAt: z.string().datetime(),
+    defaultLanguage: z.string().optional()
   }),
   contentDetails: z.object({
     relatedPlaylists: z.object({ uploads: z.string() })

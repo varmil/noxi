@@ -19,7 +19,8 @@ export const channelSchema = z.object({
         height: z.number().optional().nullable()
       })
     ),
-    publishedAt: firestoreTimestampSchema
+    publishedAt: firestoreTimestampSchema,
+    defaultLanguage: z.string().optional()
   }),
   contentDetails: z.object({
     relatedPlaylists: z.object({ uploads: z.string() })

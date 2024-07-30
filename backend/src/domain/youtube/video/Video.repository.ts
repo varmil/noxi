@@ -1,10 +1,12 @@
-import { Video } from '@domain/youtube/video/Video.entity'
+import { LanguageTag } from '@domain/country'
+import { PaginationResponse } from '@domain/lib/PaginationResponse'
+import { Channel } from '@domain/youtube'
 import { Videos } from '@domain/youtube/video/Videos.collection'
 
 export interface VideoRepository {
   findAll: (args: {
-    where: { channelId: string }
-    limit?: number
-  }) => Promise<Videos>
-  save: (video: Video) => Promise<void>
+    hl?: LanguageTag
+    where: { channel: Channel }
+    limit: number
+  }) => Promise<PaginationResponse<Videos>>
 }

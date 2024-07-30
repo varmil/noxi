@@ -1,6 +1,6 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
-import { CountryCode } from '@domain/country'
+import { CountryCode, LanguageTag } from '@domain/country'
 import {
   BrandingSettings,
   Channel,
@@ -18,7 +18,8 @@ export class ChannelTranslator {
     if (!channel) return undefined
 
     const { snippet, contentDetails, statistics, brandingSettings } = channel
-    const { title, description, thumbnails, publishedAt } = snippet
+    const { title, description, thumbnails, publishedAt, defaultLanguage } =
+      snippet
     const { viewCount, subscriberCount, videoCount } = statistics
     const { keywords, country } = brandingSettings.channel
 
@@ -28,7 +29,10 @@ export class ChannelTranslator {
         title,
         description,
         thumbnails,
-        publishedAt: new Date(publishedAt)
+        publishedAt: new Date(publishedAt),
+        defaultLanguage: defaultLanguage
+          ? new LanguageTag(defaultLanguage)
+          : undefined
       },
       contentDetails: new ContentDetails({
         relatedPlaylists: {

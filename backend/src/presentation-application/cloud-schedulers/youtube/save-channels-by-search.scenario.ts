@@ -37,7 +37,7 @@ export class SaveChannelsBySearchScenario {
     const params: SearchChannelsParams = {
       limit: FETCH_LIMIT,
       // q: new Q('ホロライブ'),
-      // regionCode: new RegionCode('JP'),
+      // regionCode: new CountryCode('JP'),
       // relevanceLanguage: new RelevanceLanguage('ja')
       q: new Q('travel vlog english'),
       regionCode: new CountryCode('US'),

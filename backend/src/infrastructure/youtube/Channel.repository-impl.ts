@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import admin from 'firebase-admin'
-import { CountryCode } from '@domain/country'
+import { CountryCode, LanguageTag } from '@domain/country'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
 import { Channel } from '@domain/youtube/channel/Channel.entity'
@@ -69,7 +69,14 @@ export class ChannelRepositoryImpl implements ChannelRepository {
 
   async save(channel: Parameters<ChannelRepository['save']>[0]) {
     const {
-      basicInfo: { id, title, description, thumbnails, publishedAt },
+      basicInfo: {
+        id,
+        title,
+        description,
+        thumbnails,
+        publishedAt,
+        defaultLanguage
+      },
       contentDetails,
       statistics,
       brandingSettings: { keywords, country }
@@ -83,7 +90,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
             title,
             description,
             thumbnails,
-            publishedAt: admin.firestore.Timestamp.fromDate(publishedAt)
+            publishedAt: admin.firestore.Timestamp.fromDate(publishedAt),
+            defaultLanguage: defaultLanguage?.get()
           },
           contentDetails: {
             relatedPlaylists: {
@@ -117,11 +125,19 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   private toDomain(doc: ChannelSchema) {
-    const { basicInfo, contentDetails, statistics, brandingSettings } = doc
+    const {
+      basicInfo: { publishedAt, defaultLanguage, ...bIrest },
+      contentDetails,
+      statistics,
+      brandingSettings
+    } = doc
     return new Channel({
       basicInfo: new ChannelBasicInfo({
-        ...basicInfo,
-        publishedAt: basicInfo.publishedAt.toDate()
+        ...bIrest,
+        publishedAt: publishedAt.toDate(),
+        defaultLanguage: defaultLanguage
+          ? new LanguageTag(defaultLanguage)
+          : undefined
       }),
       contentDetails: new ContentDetails(contentDetails),
       statistics: new ChannelStatistics(statistics),

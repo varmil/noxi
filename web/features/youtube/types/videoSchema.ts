@@ -36,6 +36,7 @@ export const schema = z.object({
   isShort: z.boolean(),
   engagementCount: z.number().min(0),
   engagementRate: z.number().min(0),
+  isPaidPromotion: z.boolean().optional(),
 
   updatedAt: z.string().datetime().optional()
 })
