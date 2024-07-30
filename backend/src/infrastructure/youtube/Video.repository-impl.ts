@@ -17,6 +17,7 @@ export class VideoRepositoryImpl implements VideoRepository {
    * @param where channel is required
    */
   async findAll({
+    hl,
     where: { channel },
     limit
   }: Parameters<VideoRepository['findAll']>[0]) {
@@ -26,6 +27,7 @@ export class VideoRepositoryImpl implements VideoRepository {
     })
 
     return await this.videosInfraService.list({
+      hl,
       videoIds: playlistItems.getVideoIds(),
       limit
     })

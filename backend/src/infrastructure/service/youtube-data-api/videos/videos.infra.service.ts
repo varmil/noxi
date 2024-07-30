@@ -1,6 +1,6 @@
 import { type youtube_v3, youtube } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
-import { CountryCode } from '@domain/country'
+import { LanguageTag } from '@domain/country'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { VideoIds, Videos } from '@domain/youtube'
 import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTranslator'
@@ -8,7 +8,7 @@ import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTransl
 const maxResultsPerRequest = 50
 
 interface Params {
-  hl?: CountryCode
+  hl?: LanguageTag
   limit: number
   videoIds: VideoIds
   pageToken?: string
@@ -39,6 +39,7 @@ export class VideosInfraService {
       const batchIds = videoIds.slice(i, i + maxResultsPerRequest)
 
       const response = await this.client.videos.list({
+        hl: hl?.get(),
         part: [
           'snippet',
           'contentDetails',
