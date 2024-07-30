@@ -14,4 +14,9 @@ export class LanguageTag extends StringValueObject {
     super(val)
     this.val = val
   }
+
+  isJapanese() {
+    const locale = new Intl.Locale(this.val)
+    return locale.language === 'ja'
+  }
 }

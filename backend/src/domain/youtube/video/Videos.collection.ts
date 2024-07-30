@@ -1,18 +1,8 @@
 import { Exclude } from 'class-transformer'
-import { IsPaidPromotionObject, Video } from '@domain/youtube/video'
+import { Video } from '@domain/youtube/video'
 
 export class Videos {
   constructor(private readonly list: Video[]) {}
-
-  setIsPaidPromotion = (arr: IsPaidPromotionObject[]) => {
-    this.list.forEach(video => {
-      const isPaidPromotion = arr.find(
-        e => e.videoId.get() === video.id
-      )?.isPaidPromotion
-
-      isPaidPromotion && video.setIsPaidPromotion(isPaidPromotion)
-    })
-  }
 
   @Exclude()
   map = <U>(

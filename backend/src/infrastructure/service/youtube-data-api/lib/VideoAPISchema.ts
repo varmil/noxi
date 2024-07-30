@@ -20,7 +20,8 @@ export const videoAPISchema = z.object({
       })
     ),
     tags: z.array(z.string()).optional(),
-    categoryId: z.string()
+    categoryId: z.string(),
+    defaultLanguage: z.string().optional()
   }),
 
   contentDetails: z.object({

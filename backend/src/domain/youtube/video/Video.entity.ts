@@ -14,7 +14,6 @@ export class Video {
   public readonly duration: Duration
   public readonly statistics: Statistics
   public readonly liveStreamingDetails?: LiveStreamingDetails
-  private _isPaidPromotion?: IsPaidPromotion
 
   constructor(args: {
     id: string
@@ -22,14 +21,12 @@ export class Video {
     duration: Duration
     statistics: Statistics
     liveStreamingDetails?: LiveStreamingDetails
-    isPaidPromotion?: IsPaidPromotion
   }) {
     this.id = args.id
     this.snippet = args.snippet
     this.duration = args.duration
     this.statistics = args.statistics
     this.liveStreamingDetails = args.liveStreamingDetails
-    this._isPaidPromotion = args.isPaidPromotion
   }
 
   @Expose()
@@ -57,12 +54,19 @@ export class Video {
   }
 
   @Expose()
-  get isPaidPromotion() {
-    return this._isPaidPromotion?.get()
-  }
+  get isPaidPromotion(): IsPaidPromotion | undefined {
+    // currently, 日本語のVideoのみ対応
+    if (!this.snippet.defaultLanguage?.isJapanese()) {
+      return undefined
+    }
 
-  @Exclude()
-  setIsPaidPromotion(bool: IsPaidPromotion) {
-    this._isPaidPromotion = bool
+    const { title, description } = this.snippet
+    const searchStrs = ['#PR', '#pr']
+    const isPaidPromotion = [title, description].some(str => {
+      return searchStrs.some(e => str.includes(e))
+    })
+
+    console.log('Japanese video: ', title, isPaidPromotion)
+    return new IsPaidPromotion(isPaidPromotion)
   }
 }

@@ -1,5 +1,6 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
+import { LanguageTag } from '@domain/country'
 import {
   Duration,
   LiveStreamingDetails,
@@ -16,6 +17,7 @@ export class VideoTranslator {
     const v = this.parse()
     if (!v) return undefined
 
+    const { publishedAt, defaultLanguage, ...sRest } = v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
     const { actualStartTime, actualEndTime, concurrentViewers } =
       v.liveStreamingDetails ?? {}
@@ -23,8 +25,11 @@ export class VideoTranslator {
     return new Video({
       id: v.id,
       snippet: new Snippet({
-        ...v.snippet,
-        publishedAt: new Date(v.snippet.publishedAt)
+        ...sRest,
+        publishedAt: new Date(publishedAt),
+        defaultLanguage: defaultLanguage
+          ? new LanguageTag(defaultLanguage)
+          : undefined
       }),
       duration: new Duration(v.contentDetails.duration),
       statistics: new Statistics({
