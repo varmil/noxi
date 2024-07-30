@@ -1,4 +1,5 @@
 export * from './Duration'
+export * from './IsPaidPromotion.vo'
 export * from './LiveStreamingDetails'
 export * from './Snippet'
 export * from './Statistics'

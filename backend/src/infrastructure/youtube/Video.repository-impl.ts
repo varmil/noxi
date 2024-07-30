@@ -1,5 +1,11 @@
 import { Injectable } from '@nestjs/common'
-import { PlaylistId, VideoRepository } from '@domain/youtube'
+import {
+  IsPaidPromotion,
+  IsPaidPromotionObject,
+  PlaylistId,
+  VideoIds,
+  VideoRepository
+} from '@domain/youtube'
 import {
   PlaylistItemsInfraService,
   VideosInfraService
@@ -25,9 +31,47 @@ export class VideoRepositoryImpl implements VideoRepository {
       playlistId: new PlaylistId(channel.contentDetails.uploadsPlaylistId)
     })
 
-    return await this.videosInfraService.list({
-      videoIds: playlistItems.getVideoIds(),
-      limit
+    const [list, paidPromotionArray] = await Promise.all([
+      this.videosInfraService.list({
+        videoIds: playlistItems.getVideoIds(),
+        limit
+      }),
+      this.fetchIsPaidPromotion(playlistItems.getVideoIds())
+    ])
+
+    // Set isPaidPromotion to each video
+    list.items.setIsPaidPromotion(paidPromotionArray)
+
+    return list
+  }
+
+  // FIXME: 遅すぎてtimeoutエラーが出まくるので
+  // 素直にtitle, descriptionから判定する
+  private async fetchIsPaidPromotion(
+    videoIds: VideoIds
+  ): Promise<IsPaidPromotionObject[]> {
+    const result = videoIds.map(async videoId => {
+      const res = await fetch(
+        `https://www.youtube.com/watch?v=${videoId.get()}`
+      )
+
+      if (!res.ok) {
+        console.error(`Failed to fetchIsPaidPromotion ${videoId.get()}`)
+        result[videoId.get()] = undefined
+        return { videoId, isPaidPromotion: undefined }
+      }
+
+      // grep `paidContentOverlayRenderer` from HTML
+      const isPaidPromotion = (await res.text()).includes(
+        'paidContentOverlayRenderer'
+      )
+
+      return {
+        videoId,
+        isPaidPromotion: new IsPaidPromotion(isPaidPromotion)
+      }
     })
+
+    return await Promise.all(result)
   }
 }

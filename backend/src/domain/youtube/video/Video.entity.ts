@@ -1,8 +1,11 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
-import { Duration } from '@domain/youtube/video/Duration'
-import { LiveStreamingDetails } from '@domain/youtube/video/LiveStreamingDetails'
-import { Snippet } from '@domain/youtube/video/Snippet'
-import { Statistics } from '@domain/youtube/video/Statistics'
+import {
+  Duration,
+  LiveStreamingDetails,
+  IsPaidPromotion,
+  Snippet,
+  Statistics
+} from '@domain/youtube/video'
 
 export class Video {
   public readonly id: string
@@ -11,6 +14,7 @@ export class Video {
   public readonly duration: Duration
   public readonly statistics: Statistics
   public readonly liveStreamingDetails?: LiveStreamingDetails
+  private _isPaidPromotion?: IsPaidPromotion
 
   constructor(args: {
     id: string
@@ -18,12 +22,14 @@ export class Video {
     duration: Duration
     statistics: Statistics
     liveStreamingDetails?: LiveStreamingDetails
+    isPaidPromotion?: IsPaidPromotion
   }) {
     this.id = args.id
     this.snippet = args.snippet
     this.duration = args.duration
     this.statistics = args.statistics
     this.liveStreamingDetails = args.liveStreamingDetails
+    this._isPaidPromotion = args.isPaidPromotion
   }
 
   @Expose()
@@ -48,5 +54,15 @@ export class Video {
   @Expose()
   get engagementRate() {
     return this.statistics.engagementRate()
+  }
+
+  @Expose()
+  get isPaidPromotion() {
+    return this._isPaidPromotion?.get()
+  }
+
+  @Exclude()
+  setIsPaidPromotion(bool: IsPaidPromotion) {
+    this._isPaidPromotion = bool
   }
 }
