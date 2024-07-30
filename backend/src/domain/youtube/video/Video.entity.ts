@@ -55,18 +55,19 @@ export class Video {
 
   /**
    * @Beta search '#PR', '#pr' in title, description
+   * match whole WORD
    */
   @Expose()
+  @Transform(({ value }: { value: IsPaidPromotion }) => value.get())
   get isPaidPromotion(): IsPaidPromotion | undefined {
     const { title, description } = this.snippet
-    const searchStrs = ['#PR', '#pr']
-    const isPaidPromotion = [title, description].some(str => {
-      return searchStrs.some(e => str.includes(e))
-    })
+    const searchStrs = ['#PR']
+    const isPaidPromotion = [title, description].some(str =>
+      searchStrs.some(e => {
+        return new RegExp(String.raw`${e}\b`, 'i').test(str)
+      })
+    )
 
-    if (isPaidPromotion) {
-      console.log('PP: ', title, description)
-    }
     return new IsPaidPromotion(isPaidPromotion)
   }
 }

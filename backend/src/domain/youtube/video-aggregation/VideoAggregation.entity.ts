@@ -15,17 +15,22 @@ class Aggregation {
   @IsDecimal({ decimal_digits: '2' })
   @Min(0)
   public readonly averageEngagementRate: string
+  @IsInt()
+  @Min(0)
+  public readonly prCount: number
 
   constructor(args: {
     averageViews: number
     frequency: number
     averageEngagementCount: number
     averageEngagementRate: number
+    prCount: number
   }) {
     this.averageViews = Math.round(args.averageViews)
     this.frequency = Math.round(args.frequency)
     this.averageEngagementCount = Math.round(args.averageEngagementCount)
     this.averageEngagementRate = args.averageEngagementRate.toFixed(2)
+    this.prCount = args.prCount
   }
 }
 
@@ -94,27 +99,12 @@ export class VideoAggregation {
   }
 
   private static getAggregation(videos: Videos): Aggregation {
-    const views = videos.map(video => video.statistics.viewCount)
-    let averageViews = views.reduce((acc, curr) => acc + curr, 0) / views.length
-    if (isNaN(averageViews)) averageViews = 0
-
-    const engagementCounts = videos.map(video => video.engagementCount || 0)
-    let averageEngagementCount =
-      engagementCounts.reduce((acc, curr) => acc + curr, 0) /
-      engagementCounts.length
-    if (isNaN(averageEngagementCount)) averageEngagementCount = 0
-
-    const engagementRates = videos.map(video => video.engagementRate || 0)
-    let averageEngagementRate =
-      engagementRates.reduce((acc, curr) => acc + curr, 0) /
-      engagementRates.length
-    if (isNaN(averageEngagementRate)) averageEngagementRate = 0
-
     return new Aggregation({
-      averageViews,
+      averageViews: videos.averageViews(),
       frequency: videos.length(),
-      averageEngagementCount,
-      averageEngagementRate
+      averageEngagementCount: videos.averageEngagementCount(),
+      averageEngagementRate: videos.averageEngagementRate(),
+      prCount: videos.prCount()
     })
   }
 }

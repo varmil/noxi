@@ -6,7 +6,8 @@ const aggregation = z.object({
   averageViews: z.number(),
   frequency: z.number(),
   averageEngagementCount: z.number(),
-  averageEngagementRate: z.string()
+  averageEngagementRate: z.string(),
+  prCount: z.number()
 })
 
 export const videoAggregationSchema = z.object({
