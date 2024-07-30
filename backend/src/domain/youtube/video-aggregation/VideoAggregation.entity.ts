@@ -58,11 +58,11 @@ export class VideoAggregation {
     this.live = args.live
   }
 
-  static fromVideos(list: Video[] | Videos): VideoAggregation {
+  static fromVideos(list: Videos): VideoAggregation {
     return this.calculateStats(list)
   }
 
-  private static calculateStats(videos: Video[] | Videos): VideoAggregation {
+  private static calculateStats(videos: Videos): VideoAggregation {
     const { short, regular, live } = this.getRecentVideos(videos)
     return new VideoAggregation({
       regular: this.getAggregation(regular),
@@ -74,7 +74,7 @@ export class VideoAggregation {
   /**
    * Recent === The Past 1 month
    */
-  private static getRecentVideos(videos: Video[] | Videos): {
+  private static getRecentVideos(videos: Videos): {
     short: Videos
     regular: Videos
     live: Videos
@@ -87,14 +87,18 @@ export class VideoAggregation {
       video => video.snippet.publishedAt > oneMonthAgo
     )
 
+    const regular = recentVideos.filter(
+      video => !video.isShort() && !video.isLive()
+    )
+    const short = recentVideos.filter(video => video.isShort())
+    const live = recentVideos.filter(
+      video => (video.liveActualStartTime ?? 0) > oneMonthAgo
+    )
+
     return {
-      short: new Videos(recentVideos.filter(video => video.isShort())),
-      regular: new Videos(recentVideos.filter(video => !video.isShort())),
-      live: new Videos(
-        recentVideos.filter(
-          video => (video.liveActualStartTime ?? 0) > oneMonthAgo
-        )
-      )
+      regular,
+      short,
+      live
     }
   }
 

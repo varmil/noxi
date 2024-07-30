@@ -34,6 +34,11 @@ export class Video {
     return this.duration.isShort()
   }
 
+  @Exclude()
+  isLive(): boolean {
+    return this.liveActualStartTime !== undefined
+  }
+
   /**
    * The time that the broadcast actually started.
    * This value will not be available until the broadcast begins.
