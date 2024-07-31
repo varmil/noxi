@@ -11,6 +11,9 @@ updates:
       interval: 'daily'
       time: '11:55'
       timezone: 'Asia/Tokyo'
+    ignore:
+      - dependency-name: '@types/node'
+        versions: ['22.x.x', '21.x.x']
   - package-ecosystem: 'npm'
     directory: '/web/'
     schedule:
@@ -24,6 +27,9 @@ updates:
           - '@storybook/*'
         exclude-patterns:
           - '@storybook/testing-library'
+    ignore:
+      - dependency-name: '@types/node'
+        versions: ['22.x.x', '21.x.x']
   - package-ecosystem: 'npm'
     directory: '/backend/'
     schedule:
@@ -35,7 +41,7 @@ updates:
         patterns:
           - '@opentelemetry/*'
     ignore:
-      - dependency-name: 'passport'
-        versions: ['0.5.x', '0.6.0']
+      - dependency-name: '@types/node'
+        versions: ['22.x.x', '21.x.x']
       - dependency-name: 'cache-manager'
         versions: ['5.x.x']
