@@ -1,6 +1,8 @@
 import './globals.css'
 import { ReactNode } from 'react'
 
+export const runtime = 'edge'
+
 type Props = {
   children: ReactNode
 }
