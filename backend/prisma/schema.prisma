@@ -8,25 +8,35 @@ generator client {
   provider = "prisma-client-js"
 }
 
+/// Always after the prisma-client-js generator
+generator json {
+  provider = "prisma-json-types-generator"
+  // namespace = "PrismaJson"
+  // clientOutput = "<finds it automatically>"
+  // (./ -> relative to schema, or an importable path to require() it)
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Channel {
-  id String @id
-  title String
-  description String
-  thumbnails Json
-  publishedAt DateTime
+  id              String   @id
+  title           String
+  description     String
+  /// [Thumbnails]
+  thumbnails      Json
+  publishedAt     DateTime
   defaultLanguage String?
 
   playlistId String
 
-  viewCount Int
+  viewCount       Int
   subscriberCount Int
-  videoCount Int
+  videoCount      Int
 
+  /// [Keywords]
   keywords Json
-  country String
+  country  String
 }

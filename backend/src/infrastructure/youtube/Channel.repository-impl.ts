@@ -13,13 +13,14 @@ import { Keywords } from '@domain/youtube/channel/branding-settings/Keywords'
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
 import { getExpireAt } from '@infra/lib/getExpireAt'
 import { channelConverter, ChannelSchema } from '@infra/schema/ChannelSchema'
+import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
   private readonly ROOT_COLLECTION_NAME = 'youtube'
   private readonly SUB_COLLECTION_NAME = 'yt:channel'
 
-  constructor() {}
+  constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
     sort,
