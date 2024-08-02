@@ -8,5 +8,8 @@ declare namespace NodeJS {
 
     /** YouTube Data API v3 key */
     readonly YOUTUBE_DATA_API_KEY: string
+
+    /** Prisma DB */
+    readonly DATABASE_URL: string
   }
 }
