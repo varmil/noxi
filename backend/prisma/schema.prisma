@@ -1,0 +1,42 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// Always after the prisma-client-js generator
+generator json {
+  provider = "prisma-json-types-generator"
+  // namespace = "PrismaJson"
+  // clientOutput = "<finds it automatically>"
+  // (./ -> relative to schema, or an importable path to require() it)
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  id              String   @id
+  title           String
+  description     String
+  /// [Thumbnails]
+  thumbnails      Json
+  publishedAt     DateTime
+  defaultLanguage String?
+
+  playlistId String
+
+  viewCount       Int
+  subscriberCount Int
+  videoCount      Int
+
+  /// [Keywords]
+  keywords Json
+  country  String
+}
