@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "type-check": "tsc --noEmit",
-    "build": "nest build",
+    "build": "nest build --webpack",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
