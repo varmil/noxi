@@ -27,6 +27,12 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     where: { country },
     limit
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
+    // deleteme
+    {
+      const x = await this.prismaInfraService.channel.findFirst()
+      console.log('Neon', x?.id)
+    }
+
     const channels = await this.getQuery(country)
       .limit(limit)
       .orderBy(sort.toOrderBy(), 'desc')
