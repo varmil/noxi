@@ -13,3 +13,21 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Channel {
+  id String @id
+  title String
+  description String
+  thumbnails Json
+  publishedAt DateTime
+  defaultLanguage String?
+
+  playlistId String
+
+  viewCount Int
+  subscriberCount Int
+  videoCount Int
+
+  keywords Json
+  country String
+}
