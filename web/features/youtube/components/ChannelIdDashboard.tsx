@@ -8,7 +8,6 @@ import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/
 import StatsVideosCard from 'features/youtube/components/stats/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube/components/stats/simple-card/StatsViewsCard'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
-import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
 type Props = {
   id: string
@@ -21,7 +20,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <ChannelProfileHeader
-          src={basicInfo.thumbnails['medium'].url}
+          thumbnails={basicInfo.thumbnails}
           name={basicInfo.title}
           description={basicInfo.description}
           subscriberCount={statistics.subscriberCount}
@@ -55,7 +54,7 @@ function Section({
   className,
   title,
   children
-}: PropsWithChildren<ChannelSchema & { className: string; title: string }>) {
+}: PropsWithChildren<{ className: string; title: string }>) {
   return (
     <section className={className}>
       <h2 className="text-2xl font-bold lg:text-3xl pb-4">{title}</h2>

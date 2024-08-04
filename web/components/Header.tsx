@@ -1,17 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { SearchIcon, SettingsIcon } from 'lucide-react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem
-} from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
 import {
   Sheet,
   SheetTrigger,
@@ -25,6 +15,7 @@ import InstagramIcon from 'components/icons/InstagramIcon'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import TikTokIcon from 'components/icons/TikTokIcon'
 import TwitchIcon from 'components/icons/TwitchIcon'
+import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 import Logo from './Logo'
 
@@ -53,7 +44,6 @@ export default function Header() {
             <Link
               href="/"
               className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary text-lg font-semibold text-primary-foreground md:text-base"
-              prefetch={false}
             >
               <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
               <span className="sr-only">PeakX</span>
@@ -61,7 +51,6 @@ export default function Header() {
             <Link
               href="/"
               className="flex items-center gap-4 px-2.5 text-foreground"
-              prefetch={false}
             >
               <Image
                 src={'/yt_icon_rgb.png'}
@@ -69,7 +58,6 @@ export default function Header() {
                 width={734 / 4}
                 height={518 / 4}
                 className="h-8 w-8 object-contain transition-all group-hover:scale-110"
-                priority={false}
               />
               <span className="flex-1">YouTube</span>
             </Link>

@@ -1,17 +1,18 @@
 import { PropsWithoutRef } from 'react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
 type Props = {
   name: string
-  src: string
+  thumbnails: ChannelSchema['basicInfo']['thumbnails']
   description: string
   subscriberCount: number
 }
 
 export function ChannelProfileHeader({
   name,
-  src,
+  thumbnails,
   description,
   subscriberCount
 }: PropsWithoutRef<Props>) {
@@ -20,7 +21,7 @@ export function ChannelProfileHeader({
       <div className="flex items-center max-w-5xl">
         <div className="flex items-center gap-4">
           <Avatar className="w-24 h-24 sm:w-32 sm:h-32">
-            <AvatarImage src={src} />
+            <AvatarImage src={thumbnails.medium?.url} />
             <AvatarFallback>{name}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-2">

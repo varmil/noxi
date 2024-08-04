@@ -7,7 +7,7 @@ import { YoutubeChart } from 'features/youtube/components/YoutubeChart'
 
 type Props = {
   params: { locale: string }
-  searchParams?: { [key: string]: string | undefined }
+  searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
 export async function generateMetadata({
