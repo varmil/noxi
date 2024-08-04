@@ -1,24 +1,25 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { HololiveSaveAggregationsByChannelModule } from './../src/hololive-save-aggregations-by-channel.module';
+import { INestApplication } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
+import * as request from 'supertest'
+import { App } from 'supertest/types'
+import { HololiveSaveAggregationsByChannelModule } from './../src/hololive-save-aggregations-by-channel.module'
 
 describe('HololiveSaveAggregationsByChannelController (e2e)', () => {
-  let app: INestApplication;
+  let app: INestApplication
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [HololiveSaveAggregationsByChannelModule],
-    }).compile();
+      imports: [HololiveSaveAggregationsByChannelModule]
+    }).compile()
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+    app = moduleFixture.createNestApplication()
+    await app.init()
+  })
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as App)
       .get('/')
       .expect(200)
-      .expect('Hello World!');
-  });
-});
+      .expect('Hello World!')
+  })
+})
