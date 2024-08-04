@@ -1,10 +1,49 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/closed-api-server/src",
   "compilerOptions": {
-    "builder": "swc",
+    "builder": "webpack",
     "typeCheck": true,
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "tsConfigPath": "apps/closed-api-server/tsconfig.app.json",
+    "webpack": true
+  },
+  "monorepo": true,
+  "root": "apps/closed-api-server",
+  "projects": {
+    "backend": {
+      "type": "application",
+      "root": "apps/closed-api-server",
+      "entryFile": "main",
+      "sourceRoot": "apps/closed-api-server/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
+      }
+    },
+    "hololive-save-aggregations-by-channel": {
+      "type": "application",
+      "root": "apps/hololive-save-aggregations-by-channel",
+      "entryFile": "main",
+      "sourceRoot": "apps/hololive-save-aggregations-by-channel/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/hololive-save-aggregations-by-channel/tsconfig.app.json"
+      }
+    },
+    "application": {
+      "type": "library",
+      "root": "libs/application",
+      "sourceRoot": "libs/application"
+    },
+    "domain": {
+      "type": "library",
+      "root": "libs/domain",
+      "sourceRoot": "libs/domain"
+    },
+    "infrastructure": {
+      "type": "library",
+      "root": "libs/infrastructure",
+      "sourceRoot": "libs/infrastructure"
+    }
   }
 }

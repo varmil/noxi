@@ -3,20 +3,23 @@
   "private": true,
   "scripts": {
     "type-check": "tsc --noEmit",
-    "build": "nest build --webpack",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "dev": "nest start --watch",
-    "debug": "nest start --debug --watch",
-    "prod": "node dist/main",
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "//": "--------------------------------------------------",
+    "dev": "nest start --watch",
+    "build": "nest build --webpack",
+    "prod": "node dist/apps/closed-api-server/main",
+    "//": "--------------------------------------------------",
+    "dev:standalone:001": "nest start --watch hololive-save-aggregations-by-channel",
+    "build:standalone:001": "nest build --webpack hololive-save-aggregations-by-channel",
+    "prod:standalone:001": "node dist/apps/hololive-save-aggregations-by-channel/main",
+    "//": "--------------------------------------------------",
     "prisma:dev": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json"
   },
   "dependencies": {
     "@googleapis/youtube": "^19.0.0",
@@ -71,7 +74,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -79,7 +82,16 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "roots": [
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^@app(|/.*)$": "<rootDir>/libs/application/$1",
+      "^@domain(|/.*)$": "<rootDir>/libs/domain/$1",
+      "^@infra(|/.*)$": "<rootDir>/libs/infrastructure/$1"
+    }
   }
 }

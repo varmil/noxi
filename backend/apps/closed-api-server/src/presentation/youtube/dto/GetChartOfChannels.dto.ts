@@ -2,7 +2,7 @@ import { IsNotEmpty, IsOptional } from 'class-validator'
 import { CountryCode } from '@domain/country'
 import { ChannelSort } from '@domain/youtube'
 
-export class GetChartOfChannels {
+export class GetChartOfChannelsDto {
   @IsOptional()
   sort?: string
 

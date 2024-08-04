@@ -2,14 +2,14 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import * as request from 'supertest'
 import { App } from 'supertest/types'
-import { ClosedApiServerModule } from '../src/closed-api-server.module'
+import { HololiveSaveAggregationsByChannelModule } from './../src/hololive-save-aggregations-by-channel.module'
 
-describe('AppController (e2e)', () => {
+describe('HololiveSaveAggregationsByChannelController (e2e)', () => {
   let app: INestApplication
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ClosedApiServerModule]
+      imports: [HololiveSaveAggregationsByChannelModule]
     }).compile()
 
     app = moduleFixture.createNestApplication()

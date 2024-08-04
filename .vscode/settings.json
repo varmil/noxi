@@ -18,26 +18,25 @@
     "*.css": "tailwindcss"
   },
   "exportall.config.folderListener": [
-    "/backend/src/domain/youtube",
-    "/backend/src/domain/youtube/channel",
-    "/backend/src/infrastructure/service/youtube-data-api",
-    "/backend/src/domain/youtube/video",
-    "/backend/src/domain/youtube/channel/branding-settings",
-    "/backend/src/infrastructure/service/youtube-data-api/search-videos",
-    "/backend/src/infrastructure/service/youtube-data-api/search-channels",
-    "/backend/src/infrastructure/service/youtube-data-api/channels",
-    "/backend/src/domain/youtube/playlist",
-    "/backend/src/domain/youtube/chart/channel",
-    "/backend/src/domain/youtube/chart",
-    "/backend/src/domain/country",
-    "/backend/src/domain/time-period",
-    "/backend/src/domain/youtube/country"
+    "/backend/libs/infrastructure/service/youtube-data-api",
+    "/backend/libs/infrastructure/service/youtube-data-api/search-videos",
+    "/backend/libs/infrastructure/service/youtube-data-api/search-channels",
+    "/backend/libs/infrastructure/service/youtube-data-api/channels",
+    "/backend/libs/domain/youtube",
+    "/backend/libs/domain/youtube/channel",
+    "/backend/libs/domain/youtube/video",
+    "/backend/libs/domain/youtube/channel/branding-settings",
+    "/backend/libs/domain/youtube/playlist",
+    "/backend/libs/domain/youtube/chart/channel",
+    "/backend/libs/domain/youtube/chart",
+    "/backend/libs/domain/country",
+    "/backend/libs/domain/time-period",
+    "/backend/libs/domain/youtube/country"
   ],
   "exportall.config.relExclusion": [
-    "/backend/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemSchema.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/search-videos/SearchVideosAPISchema.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelAPISchema.ts"
+    "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",
+    "/backend/libs/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts",
+    "/backend/libs/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemAPISchema.ts",
+    "/backend/libs/infrastructure/service/youtube-data-api/channels/ChannelAPISchema.ts"
   ]
 }
