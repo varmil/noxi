@@ -3,12 +3,11 @@
     "paths": {
       "@app": ["apps/closed-api-server/src/presentation-application"],
       "@app/*": ["apps/closed-api-server/src/presentation-application/*"],
-      "@domain": ["apps/closed-api-server/src/domain"],
-      "@domain/*": ["apps/closed-api-server/src/domain/*"],
       "@infra": ["apps/closed-api-server/src/infrastructure"],
-      "@infra/*": ["apps/closed-api-server/src/infrastructure/*"]
+      "@infra/*": ["apps/closed-api-server/src/infrastructure/*"],
+      "@domain": ["libs/domain"],
+      "@domain/*": ["libs/domain/*"]
     },
-
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,

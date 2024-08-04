@@ -6,11 +6,11 @@
     "builder": "webpack",
     "typeCheck": true,
     "deleteOutDir": true,
-    "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
+    "tsConfigPath": "apps/closed-api-server/tsconfig.app.json",
+    "webpack": true
   },
   "monorepo": true,
   "root": "apps/closed-api-server",
-
   "projects": {
     "backend": {
       "type": "application",
@@ -28,6 +28,14 @@
       "sourceRoot": "apps/hololive-save-aggregations-by-channel/src",
       "compilerOptions": {
         "tsConfigPath": "apps/hololive-save-aggregations-by-channel/tsconfig.app.json"
+      }
+    },
+    "domain": {
+      "type": "library",
+      "root": "libs/domain",
+      "sourceRoot": "libs/domain",
+      "compilerOptions": {
+        "tsConfigPath": "libs/domain/tsconfig.lib.json"
       }
     }
   }
