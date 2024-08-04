@@ -3,8 +3,8 @@
     "paths": {
       "@presentation": ["apps/closed-api-server/src/presentation"],
       "@presentation/*": ["apps/closed-api-server/src/presentation/*"],
-      "@app": ["apps/closed-api-server/src/presentation-application"],
-      "@app/*": ["apps/closed-api-server/src/presentation-application/*"],
+      "@app": ["apps/closed-api-server/src/application"],
+      "@app/*": ["apps/closed-api-server/src/application/*"],
       "@domain": ["libs/domain"],
       "@domain/*": ["libs/domain/*"],
       "@infra": ["libs/infrastructure"],

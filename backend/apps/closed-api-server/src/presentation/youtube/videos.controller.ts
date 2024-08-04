@@ -6,7 +6,7 @@ import {
   Param,
   UseInterceptors
 } from '@nestjs/common'
-import { VideosScenario } from '@app/youtube/videos/scenario/videos.scenario'
+import { VideosScenario } from 'apps/closed-api-server/src/application/youtube/videos/scenario/videos.scenario'
 
 /**
  *

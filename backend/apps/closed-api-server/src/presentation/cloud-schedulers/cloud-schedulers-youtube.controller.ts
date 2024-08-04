@@ -1,7 +1,7 @@
 import { Controller, Post } from '@nestjs/common'
-import { CloudSchedulersYoutubeScenario } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.scenario'
-import { SaveAggregationsByChannelScenario } from '@app/cloud-schedulers/youtube/save-aggregations-by-channel.scenario'
-import { SaveChannelsBySearchScenario } from '@app/cloud-schedulers/youtube/save-channels-by-search.scenario'
+import { CloudSchedulersYoutubeScenario } from 'apps/closed-api-server/src/application/cloud-schedulers/youtube/cloud-schedulers-youtube.scenario'
+import { SaveAggregationsByChannelScenario } from 'apps/closed-api-server/src/application/cloud-schedulers/youtube/save-aggregations-by-channel.scenario'
+import { SaveChannelsBySearchScenario } from 'apps/closed-api-server/src/application/cloud-schedulers/youtube/save-channels-by-search.scenario'
 
 /**
  * @IMPORTANT There are no authorization in this controller !

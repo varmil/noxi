@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { ChannelsService } from 'apps/closed-api-server/src/application/youtube/channels/channels.service'
 import { CountryCode } from '@domain/country'
 import { Channel, PlaylistId } from '@domain/youtube'
 import { Q } from '@domain/youtube/search/Q.vo'

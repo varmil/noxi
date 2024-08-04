@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { initializeFirebaseAdmin } from '@app/lib/function/initializeFirebaseAdmin'
+import { initializeFirebaseAdmin } from 'apps/closed-api-server/src/application/lib/function/initializeFirebaseAdmin'
 
 @Injectable()
 export class FirebaseAdminSDKService {
