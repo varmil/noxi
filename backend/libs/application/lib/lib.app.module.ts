@@ -6,4 +6,4 @@ import { FirebaseAdminSDKService } from './firebase-admin-sdk.service'
   exports: [FirebaseAdminSDKService],
   imports: []
 })
-export class LibModule {}
+export class LibAppModule {}

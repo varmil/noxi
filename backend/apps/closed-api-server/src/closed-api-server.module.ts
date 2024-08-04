@@ -3,16 +3,16 @@ import { ConfigModule } from '@nestjs/config'
 import { CloudSchedulersYoutubeController } from '@presentation/cloud-schedulers/cloud-schedulers-youtube.controller'
 import { HealthController } from '@presentation/health/health.controller'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
-import { CloudSchedulersYoutubeModule } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.module'
-import { LibModule } from '@app/lib/lib.module'
+import { CloudSchedulersYoutubeAppModule } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.app.module'
+import { LibAppModule } from '@app/lib/lib.app.module'
 
 @Module({
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
-    LibModule,
+    LibAppModule,
     YoutubePresentationModule,
-    CloudSchedulersYoutubeModule
+    CloudSchedulersYoutubeAppModule
   ],
   controllers: [HealthController, CloudSchedulersYoutubeController],
   providers: []

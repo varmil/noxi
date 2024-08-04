@@ -5,8 +5,8 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
+import { GetChartOfChannelsDto } from '@presentation/youtube/dto/GetChartOfChannels.dto'
 import { ChartsScenario } from '@app/youtube/charts/charts.scenario'
-import { GetChartOfChannels } from '@app/youtube/charts/dto/GetChartOfChannels.dto'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { Videos } from '@domain/youtube'
 
@@ -34,7 +34,7 @@ export class ChartsController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/channels')
-  async getChartOfChannels(@Query() dto: GetChartOfChannels) {
+  async getChartOfChannels(@Query() dto: GetChartOfChannelsDto) {
     return await this.chartsScenario.getChartOfChannels({
       sort: dto.toSort(),
       where: { country: dto.toCountryCode() },

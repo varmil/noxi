@@ -26,4 +26,4 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     SaveChannelsBySearchScenario
   ]
 })
-export class CloudSchedulersYoutubeModule {}
+export class CloudSchedulersYoutubeAppModule {}
