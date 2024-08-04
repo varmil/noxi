@@ -1,5 +1,5 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
-import { ChannelsService } from 'apps/closed-api-server/src/application/youtube/channels/channels.service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()

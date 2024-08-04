@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ChannelsService } from 'apps/closed-api-server/src/application/youtube/channels/channels.service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { CountryCode } from '@domain/country'
 import { ChannelRepository, Q, RelevanceLanguage } from '@domain/youtube'
 import {

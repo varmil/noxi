@@ -30,7 +30,11 @@
         "tsConfigPath": "apps/hololive-save-aggregations-by-channel/tsconfig.app.json"
       }
     },
-
+    "application": {
+      "type": "library",
+      "root": "libs/application",
+      "sourceRoot": "libs/application"
+    },
     "domain": {
       "type": "library",
       "root": "libs/domain",

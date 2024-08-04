@@ -85,6 +85,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
+      "^@app(|/.*)$": "<rootDir>/libs/application/$1",
       "^@domain(|/.*)$": "<rootDir>/libs/domain/$1",
       "^@infra(|/.*)$": "<rootDir>/libs/infrastructure/$1"
     }

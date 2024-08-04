@@ -3,8 +3,8 @@ import { ConfigModule } from '@nestjs/config'
 import { CloudSchedulersYoutubeController } from '@presentation/cloud-schedulers/cloud-schedulers-youtube.controller'
 import { HealthController } from '@presentation/health/health.controller'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
-import { CloudSchedulersYoutubeModule } from 'apps/closed-api-server/src/application/cloud-schedulers/youtube/cloud-schedulers-youtube.module'
-import { LibModule } from './application/lib/lib.module'
+import { CloudSchedulersYoutubeModule } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.module'
+import { LibModule } from '@app/lib/lib.module'
 
 @Module({
   imports: [

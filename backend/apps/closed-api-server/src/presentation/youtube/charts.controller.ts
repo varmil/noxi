@@ -5,8 +5,8 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { ChartsScenario } from 'apps/closed-api-server/src/application/youtube/charts/charts.scenario'
-import { GetChartOfChannels } from 'apps/closed-api-server/src/application/youtube/charts/dto/GetChartOfChannels.dto'
+import { ChartsScenario } from '@app/youtube/charts/charts.scenario'
+import { GetChartOfChannels } from '@app/youtube/charts/dto/GetChartOfChannels.dto'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { Videos } from '@domain/youtube'
 

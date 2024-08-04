@@ -5,8 +5,8 @@ import {
   Param,
   UseInterceptors
 } from '@nestjs/common'
-import { ChannelsScenario } from 'apps/closed-api-server/src/application/youtube/channels/channels.scenario'
-import { ChannelsService } from 'apps/closed-api-server/src/application/youtube/channels/channels.service'
+import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { ChannelId, Videos } from '@domain/youtube'
 
