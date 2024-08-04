@@ -3,14 +3,14 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "apps/closed-api-server/src",
   "compilerOptions": {
-    "builder": "swc",
+    "builder": "webpack",
     "typeCheck": true,
     "deleteOutDir": true,
-    "webpack": true,
     "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
   },
   "monorepo": true,
   "root": "apps/closed-api-server",
+
   "projects": {
     "backend": {
       "type": "application",
