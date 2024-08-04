@@ -13,5 +13,7 @@ async function bootstrap() {
     where: { channelId: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA') }
   })
   console.log(videos.items.map(e => e.snippet.title))
+
+  await app.close()
 }
 bootstrap().catch(reason => console.error(reason))
