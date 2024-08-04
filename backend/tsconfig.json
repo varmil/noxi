@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "paths": {
-      "@app": ["src/presentation-application"],
-      "@app/*": ["src/presentation-application/*"],
-      "@domain": ["src/domain"],
-      "@domain/*": ["src/domain/*"],
-      "@infra": ["src/infrastructure"],
-      "@infra/*": ["src/infrastructure/*"]
+      "@app": ["apps/closed-api-server/src/presentation-application"],
+      "@app/*": ["apps/closed-api-server/src/presentation-application/*"],
+      "@domain": ["apps/closed-api-server/src/domain"],
+      "@domain/*": ["apps/closed-api-server/src/domain/*"],
+      "@infra": ["apps/closed-api-server/src/infrastructure"],
+      "@infra/*": ["apps/closed-api-server/src/infrastructure/*"]
     },
+
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,

@@ -18,26 +18,26 @@
     "*.css": "tailwindcss"
   },
   "exportall.config.folderListener": [
-    "/backend/src/domain/youtube",
-    "/backend/src/domain/youtube/channel",
-    "/backend/src/infrastructure/service/youtube-data-api",
-    "/backend/src/domain/youtube/video",
-    "/backend/src/domain/youtube/channel/branding-settings",
-    "/backend/src/infrastructure/service/youtube-data-api/search-videos",
-    "/backend/src/infrastructure/service/youtube-data-api/search-channels",
-    "/backend/src/infrastructure/service/youtube-data-api/channels",
-    "/backend/src/domain/youtube/playlist",
-    "/backend/src/domain/youtube/chart/channel",
-    "/backend/src/domain/youtube/chart",
-    "/backend/src/domain/country",
-    "/backend/src/domain/time-period",
-    "/backend/src/domain/youtube/country"
+    "/backend/closed-api-server/src/domain/youtube",
+    "/backend/closed-api-server/src/domain/youtube/channel",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api",
+    "/backend/closed-api-server/src/domain/youtube/video",
+    "/backend/closed-api-server/src/domain/youtube/channel/branding-settings",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/search-videos",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/search-channels",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/channels",
+    "/backend/closed-api-server/src/domain/youtube/playlist",
+    "/backend/closed-api-server/src/domain/youtube/chart/channel",
+    "/backend/closed-api-server/src/domain/youtube/chart",
+    "/backend/closed-api-server/src/domain/country",
+    "/backend/closed-api-server/src/domain/time-period",
+    "/backend/closed-api-server/src/domain/youtube/country"
   ],
   "exportall.config.relExclusion": [
-    "/backend/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemSchema.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/search-videos/SearchVideosAPISchema.ts",
-    "/backend/src/infrastructure/service/youtube-data-api/channels/ChannelAPISchema.ts"
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/search-videos/VideoTranslator.ts",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemSchema.ts",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/search-videos/SearchVideosAPISchema.ts",
+    "/backend/closed-api-server/src/infrastructure/service/youtube-data-api/channels/ChannelAPISchema.ts"
   ]
 }
