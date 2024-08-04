@@ -36,7 +36,7 @@ export async function ChannelCards({ searchParams }: PropsWithoutRef<Props>) {
             id={id}
             name={title}
             description={description}
-            src={thumbnails['medium'].url}
+            thumbnails={thumbnails}
             totalViewCount={statistics.viewCount}
             subscriberCount={statistics.subscriberCount}
             publishedAt={publishedAt}

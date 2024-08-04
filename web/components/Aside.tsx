@@ -1,5 +1,4 @@
 import { SettingsIcon } from 'lucide-react'
-import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import {
   TooltipProvider,
@@ -11,6 +10,7 @@ import InstagramIcon from 'components/icons/InstagramIcon'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import TikTokIcon from 'components/icons/TikTokIcon'
 import TwitchIcon from 'components/icons/TwitchIcon'
+import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 import Logo from './Logo'
 
@@ -42,7 +42,6 @@ export default function Aside() {
                   width={734 / 4}
                   height={518 / 4}
                   className="transition-all group-hover:scale-110"
-                  priority={false}
                 />
 
                 <span className="sr-only">YouTube</span>

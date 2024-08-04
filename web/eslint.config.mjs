@@ -19,7 +19,7 @@ const compat = new FlatCompat({
 
 const { ignores } = includeIgnoreFile(gitignorePath)
 
-/** @type {import("eslint").Linter.FlatConfig[]} */
+/** @type {import("eslint").Linter.Config[]} */
 export default [
   { ignores: [...ignores, '**/*.md', '**/*.json'] },
 
@@ -36,6 +36,8 @@ export default [
     },
 
     rules: {
+      '@next/next/no-img-element': 'off',
+
       'import/order': [
         'error',
         {
@@ -76,6 +78,10 @@ export default [
         {
           name: 'next/link',
           message: 'Please import from `lib/navigation` instead.'
+        },
+        {
+          name: 'next/image',
+          message: 'Please import from `components/styles/Image` instead.'
         },
         {
           name: 'next/navigation',

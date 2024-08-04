@@ -4,8 +4,8 @@ import durationPlugin from 'dayjs/plugin/duration'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import toArray from 'dayjs/plugin/toArray'
 import { LineChart } from 'lucide-react'
-import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
+import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { VideoSchema } from 'features/youtube/types/videoSchema'
 import { Link } from 'lib/navigation'
@@ -30,7 +30,10 @@ export default function VideoCard(video: VideoSchema) {
         prefetch={false}
       >
         <Image
-          src={thumbnails['medium'].url}
+          src={{
+            '1x': thumbnails['medium']?.url,
+            '2x': thumbnails['high']?.url
+          }}
           alt={`Video Thumbnail: ${title}`}
           width={400}
           height={225}
