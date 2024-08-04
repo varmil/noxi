@@ -1,6 +1,7 @@
 import eslint from '@eslint/js'
 import importPlugin from 'eslint-plugin-import'
 import tseslint from 'typescript-eslint'
+import { zones } from './no-restricted-pahts.mjs'
 
 export default tseslint.config(
   eslint.configs.recommended,
@@ -19,10 +20,18 @@ export default tseslint.config(
       }
     },
 
+    settings: {
+      'import/resolver': {
+        typescript: true
+      }
+    },
+
     rules: {
       // 'unused-imports/no-unused-imports': 'warn',
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
+
+      'import/no-restricted-paths': ['error', { zones }],
 
       'import/order': [
         'error',
