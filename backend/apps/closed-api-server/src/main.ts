@@ -1,9 +1,13 @@
 import { ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
+import { NestExpressApplication } from '@nestjs/platform-express'
 import { ClosedApiServerModule } from './closed-api-server.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(ClosedApiServerModule)
+  const app = await NestFactory.create<NestExpressApplication>(
+    ClosedApiServerModule,
+    { rawBody: true }
+  )
 
   app.enableCors()
 
