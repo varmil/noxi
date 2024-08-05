@@ -5,7 +5,6 @@ import { PubsubhubbubModule } from './pubsubhubbub.module'
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(PubsubhubbubModule)
   const service = app.get(PubsubhubbubService)
-
   await service.subscribe()
   await app.close()
 }

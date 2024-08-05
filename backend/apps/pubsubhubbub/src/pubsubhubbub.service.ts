@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
+import HololiveList from '@domain/hololive/list'
 import { ChannelId } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
@@ -12,10 +13,16 @@ interface SubscribeYouTubePubsubQuery {
 
 @Injectable()
 export class PubsubhubbubService {
+  /**
+   * Rate Limitがあるので適当にsleepが必要
+   */
   async subscribe() {
-    return await this.send({
-      channelId: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA')
-    })
+    // for (const channel of HololiveList) {
+    //   await this.send({
+    //     channelId: new ChannelId(channel.id)
+    //   })
+    //   await this.sleep(1000)
+    // }
   }
 
   private async send(query: SubscribeYouTubePubsubQuery): Promise<void> {
@@ -43,8 +50,18 @@ export class PubsubhubbubService {
       )
       console.log('Subscription request sent:', query.channelId.get())
     } catch (error) {
-      console.error(error)
+      if (error instanceof AxiosError) {
+        console.error('error status:', error.status, 'message:', error.message)
+      }
       throw new Error('Failed to send subscription request')
     }
+  }
+
+  /**
+   * 指定時間処理を停止する関数
+   * @param {number} ms 待機するミリ秒数
+   */
+  private async sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms))
   }
 }
