@@ -1,24 +1,25 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { PubsubhubbubModule } from './../src/pubsubhubbub.module';
+import { INestApplication } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
+import * as request from 'supertest'
+import { App } from 'supertest/types'
+import { PubsubhubbubModule } from './../src/pubsubhubbub.module'
 
 describe('PubsubhubbubController (e2e)', () => {
-  let app: INestApplication;
+  let app: INestApplication
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [PubsubhubbubModule],
-    }).compile();
+      imports: [PubsubhubbubModule]
+    }).compile()
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+    app = moduleFixture.createNestApplication()
+    await app.init()
+  })
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
+    return request(app.getHttpServer() as App)
       .get('/')
       .expect(200)
-      .expect('Hello World!');
-  });
-});
+      .expect('Hello World!')
+  })
+})
