@@ -1,8 +1,13 @@
-import { NestFactory } from '@nestjs/core';
-import { PubsubhubbubModule } from './pubsubhubbub.module';
+import { NestFactory } from '@nestjs/core'
+import { PubsubhubbubService } from 'apps/pubsubhubbub/src/pubsubhubbub.service'
+import { PubsubhubbubModule } from './pubsubhubbub.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(PubsubhubbubModule);
-  await app.listen(3000);
+  const app = await NestFactory.createApplicationContext(PubsubhubbubModule)
+  const service = app.get(PubsubhubbubService)
+
+  await service.subscribe()
+  await app.close()
 }
-bootstrap();
+
+bootstrap().catch(reason => console.error(reason))
