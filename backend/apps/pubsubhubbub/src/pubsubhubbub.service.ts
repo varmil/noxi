@@ -23,6 +23,9 @@ export class PubsubhubbubService {
     //   })
     //   await this.sleep(1000)
     // }
+
+    // さくらみこ
+    await this.send({ channelId: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA') })
   }
 
   private async send(query: SubscribeYouTubePubsubQuery): Promise<void> {

@@ -5,12 +5,14 @@ import {
   HttpStatus,
   Post,
   Query,
-  Res
+  Res,
+  UseGuards
 } from '@nestjs/common'
 import { Response } from 'express'
+import { PubsubhubbubGuard } from '@presentation/youtube/guard/pubsubhubbub.guard'
 
 /**
- * callbackを扱うコントローラー
+ * challenge, callbackを扱う
  */
 @Controller('youtube/pubsubhubbub')
 export class PubsubhubbubController {
@@ -44,7 +46,9 @@ export class PubsubhubbubController {
   }
 
   @Post('/callback')
+  @UseGuards(PubsubhubbubGuard)
   callback(@Body() body: unknown) {
+    // TODO: 多分XMLを扱う必要がある
     console.log('callback:', body)
   }
 }
