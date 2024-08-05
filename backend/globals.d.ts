@@ -11,6 +11,12 @@ declare namespace NodeJS {
 
     /** Prisma DB */
     readonly DATABASE_URL: string
+
+    /** https://xxxxxxxx/api のx */
+    readonly SERVER_HOSTNAME: string
+
+    /** Use in Pubsubhubbub challenge */
+    readonly YOUTUBE_PUBSUB_SECRET: string
   }
 }
 
