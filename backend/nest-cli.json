@@ -30,6 +30,15 @@
         "tsConfigPath": "apps/hololive-save-aggregations-by-channel/tsconfig.app.json"
       }
     },
+    "pubsubhubbub": {
+      "type": "application",
+      "root": "apps/pubsubhubbub",
+      "entryFile": "main",
+      "sourceRoot": "apps/pubsubhubbub/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/pubsubhubbub/tsconfig.app.json"
+      }
+    },
     "application": {
       "type": "library",
       "root": "libs/application",
