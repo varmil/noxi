@@ -1,21 +1,23 @@
-import { PropsWithoutRef } from 'react'
+'use client'
+
+import { PropsWithoutRef, useState } from 'react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import { Button } from '@/components/ui/button'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
 
 type Props = {
   name: string
   thumbnails: ChannelSchema['basicInfo']['thumbnails']
   description: string
-  subscriberCount: number
 }
 
 export function ChannelProfileHeader({
   name,
   thumbnails,
-  description,
-  subscriberCount
+  description
 }: PropsWithoutRef<Props>) {
+  const [isExpanded, setIsExpanded] = useState(false)
+
   return (
     <div className="py-6 px-0">
       <div className="flex items-center max-w-5xl">
@@ -26,9 +28,23 @@ export function ChannelProfileHeader({
           </Avatar>
           <div className="flex flex-col gap-2">
             <h1 className="text-xl font-bold">{name}</h1>
-            <div className="max-w-lg break-all">{description}</div>
-            <div className="text-sm text-secondary-foreground">
-              <IntlNumberFormat>{subscriberCount}</IntlNumberFormat> Subscribers
+            <div className="max-w-lg break-all">
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  isExpanded ? 'max-h-[1000px]' : 'max-h-[100px]'
+                }`}
+              >
+                {description}
+              </div>
+
+              <div className="mt-2 flex justify-end">
+                <Button
+                  variant={isExpanded ? 'outline' : 'ghost'}
+                  onClick={() => setIsExpanded(!isExpanded)}
+                >
+                  {isExpanded ? 'Read Less' : 'Read More'}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
