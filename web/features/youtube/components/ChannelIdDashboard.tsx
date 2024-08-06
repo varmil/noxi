@@ -25,8 +25,8 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           description={basicInfo.description}
           subscriberCount={statistics.subscriberCount}
         />
-        <div>
-          <Section className="pb-8" title="YouTube Data">
+        <div className="grid gap-1 grid-cols-1 md:gap-2 lg:grid-cols-3">
+          <Section className="pb-8 col-span-1 lg:order-2" title="YouTube Data">
             <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
             <StatsViewsCard count={statistics?.viewCount ?? 0} />
             <StatsVideosCard count={statistics?.videoCount ?? 0} />
@@ -34,12 +34,8 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
               date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
             />
           </Section>
-          {/* TODO: Impl AI Analysis */}
-          {/* <Section className="pb-8" title="AI Analysis">
-            <StatsPopularityProgressCard {...statistics} />
-            <StatsLoyaltyProgressCard {...statistics} />
-          </Section> */}
-          <Section className="pb-8" title="Videos">
+
+          <Section className="pb-8 col-span-2 lg:order-1" title="Videos">
             <Suspense fallback={<p>Loading cards...</p>}>
               <VideoCards channelId={basicInfo.id} />
             </Suspense>
@@ -58,7 +54,7 @@ function Section({
   return (
     <section className={className}>
       <h2 className="text-2xl font-bold lg:text-3xl pb-4">{title}</h2>
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+      <div className="grid gap-1 grid-cols-2 lg:gap-2 lg:grid-cols-1">
         {children}
       </div>
     </section>
