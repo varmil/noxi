@@ -16,9 +16,8 @@
     "prod:pubsubhubbub": "node dist/apps/pubsubhubbub/main",
     "prisma:dev": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
-    "test": "jest",
+    "test": "jest --silent",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json"
   },
   "dependencies": {

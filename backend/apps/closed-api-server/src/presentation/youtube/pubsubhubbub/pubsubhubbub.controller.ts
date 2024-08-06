@@ -5,18 +5,18 @@ import {
   HttpStatus,
   Post,
   Query,
-  Res,
-  UseGuards
+  Req,
+  Res
 } from '@nestjs/common'
-import { Response } from 'express'
-import { PubsubhubbubGuard } from '@presentation/youtube/guard/pubsubhubbub.guard'
+import { Request, Response } from 'express'
+import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 
 /**
  * challenge, callbackを扱う
  */
 @Controller('youtube/pubsubhubbub')
 export class PubsubhubbubController {
-  constructor() {}
+  constructor(private readonly cryptoService: CryptoService) {}
 
   /**
    * Handle the subscription verification challenge
@@ -46,8 +46,9 @@ export class PubsubhubbubController {
   }
 
   @Post('/callback')
-  @UseGuards(PubsubhubbubGuard)
-  callback(@Body() body: unknown) {
+  callback(@Req() req: Request, @Res() res: Response, @Body() body: unknown) {
+    if (!this.cryptoService.verify({ req, res })) return
+
     // TODO: 多分XMLを扱う必要がある
     console.log('callback:', body)
   }
