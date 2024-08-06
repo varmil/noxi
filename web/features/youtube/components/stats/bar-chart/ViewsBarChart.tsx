@@ -1,8 +1,8 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { format } from 'path'
 import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import { TrendingUp } from 'lucide-react'
 import { useFormatter } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
@@ -20,7 +20,10 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
+import { ChannelSchema } from 'features/youtube/types/channelSchema'
 import { VideosSchema } from 'features/youtube/types/videoSchema'
+
+dayjs.extend(localizedFormat)
 
 const chartConfig = {
   desktop: {
@@ -33,9 +36,15 @@ const chartConfig = {
   // }
 } satisfies ChartConfig
 
-type Props = { videos: VideosSchema }
+type Props = {
+  videoAggregation: ChannelSchema['latestVideoAggregation']
+  videos: VideosSchema
+}
 
-export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
+export default function ViewsBarChart({
+  videoAggregation,
+  videos
+}: PropsWithoutRef<Props>) {
   const format = useFormatter()
 
   const data = videos
@@ -50,8 +59,8 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
       <CardHeader>
         <CardTitle>Views Chart</CardTitle>
         <CardDescription>
-          {dayjs(data[data.length - 1].date).format('MMMM DD')} -{' '}
-          {dayjs(data[0].date).format('MMMM DD')}
+          {dayjs(data[0].date).format('LL')} -{' '}
+          {dayjs(data[data.length - 1].date).format('LL')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -73,9 +82,7 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
               tickSize={0}
               axisLine={false}
               tickFormatter={value =>
-                format.number(value, {
-                  notation: 'compact'
-                })
+                format.number(value, { notation: 'compact' })
               }
             />
             <ChartTooltip
@@ -87,12 +94,33 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
+        {/* <div className="flex gap-2 font-medium leading-none">
+          {videoAggregation?.live.averageViews ?? 0} avarage views in the past
+          30 days
+          <TrendingUp className="h-4 w-4" />
+        </div> */}
+
         <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+          {Math.round(
+            videos.reduce((acc, cur) => acc + cur.statistics.viewCount, 0) /
+              videos.length
+          )}{' '}
+          avarage views in the past {videos.length} videos
+        </div>
+        {/* <div className="leading-none text-muted-foreground">
+          {Math.round(
+            videos.reduce((acc, cur) => acc + cur.statistics.likeCount, 0) /
+              videos.length
+          )}{' '}
+          avarage likes in the past {videos.length} videos
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
+          {Math.round(
+            videos.reduce((acc, cur) => acc + cur.statistics.commentCount, 0) /
+              videos.length
+          )}{' '}
+          avarage comments in the past {videos.length} videos
+        </div> */}
       </CardFooter>
     </Card>
   )
