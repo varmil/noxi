@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import { createHmac, type BinaryLike } from 'crypto'
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
 import { Request, Response } from 'express'
 
@@ -22,8 +22,20 @@ export class PubsubhubbubGuard implements CanActivate {
       return false
     }
 
-    const hmac = crypto.createHmac('sha1', key)
-    hmac.update(req.body as crypto.BinaryLike) // TODO: あってる？
+    return this.verify({ key, data: req.body as BinaryLike, signature })
+  }
+
+  verify({
+    key,
+    data,
+    signature
+  }: {
+    key: string
+    data: BinaryLike
+    signature: string
+  }) {
+    const hmac = createHmac('sha1', key)
+    hmac.update(data)
     const expected = hmac.digest('hex')
 
     if (expected !== signature.split('=')[1]) {
