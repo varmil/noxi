@@ -1,9 +1,6 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
-import { TrendingUp } from 'lucide-react'
 import { useFormatter } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import {
@@ -17,13 +14,12 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent
+  ChartTooltip
 } from '@/components/ui/chart'
+import ThumbnailTooltip from 'features/youtube/components/stats/bar-chart/ThumbnailTooltip'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
 import { VideosSchema } from 'features/youtube/types/videoSchema'
-
-dayjs.extend(localizedFormat)
+import dayjs from 'lib/dayjs'
 
 const chartConfig = {
   desktop: {
@@ -41,16 +37,27 @@ type Props = {
   videos: VideosSchema
 }
 
+export type ViewsBarChartData = {
+  date: string
+  views: number
+  likes: number
+  comments: number
+  thumnbnail: string | undefined
+}
+
 export default function ViewsBarChart({
   videoAggregation,
   videos
 }: PropsWithoutRef<Props>) {
   const format = useFormatter()
 
-  const data = videos
+  const data: ViewsBarChartData[] = videos
     .map(video => ({
       date: video.snippet.publishedAt,
-      views: video.statistics.viewCount
+      views: video.statistics.viewCount,
+      likes: video.statistics.likeCount,
+      comments: video.statistics.commentCount,
+      thumnbnail: video.snippet.thumbnails['medium']?.url
     }))
     .reverse()
 
@@ -85,11 +92,8 @@ export default function ViewsBarChart({
                 format.number(value, { notation: 'compact' })
               }
             />
-            <ChartTooltip
-              cursor={true}
-              content={<ChartTooltipContent indicator="dashed" />}
-            />
-            <Bar dataKey="views" fill="var(--color-desktop)" radius={4} />
+            <ChartTooltip cursor={true} content={<ThumbnailTooltip />} />
+            <Bar dataKey="views" fill="var(--color-desktop)" radius={2} />
           </BarChart>
         </ChartContainer>
       </CardContent>

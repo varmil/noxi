@@ -76,6 +76,10 @@ export default [
       'no-restricted-imports': [
         'error',
         {
+          name: 'dayjs',
+          message: 'Please import from `lib/dayjs` instead.'
+        },
+        {
           name: 'next/link',
           message: 'Please import from `lib/navigation` instead.'
         },

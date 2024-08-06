@@ -1,9 +1,9 @@
 import { PropsWithoutRef } from 'react'
-import dayjs from 'dayjs'
 import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { ChannelSchema } from 'features/youtube/types/channelSchema'
+import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 type Props = {

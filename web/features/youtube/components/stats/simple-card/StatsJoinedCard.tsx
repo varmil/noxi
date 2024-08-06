@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
-import dayjs from 'dayjs'
 import { Info } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
+import dayjs from 'lib/dayjs'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 

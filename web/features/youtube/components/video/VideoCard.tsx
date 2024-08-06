@@ -1,18 +1,10 @@
-import { SVGProps } from 'react'
-import dayjs from 'dayjs'
-import durationPlugin from 'dayjs/plugin/duration'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import toArray from 'dayjs/plugin/toArray'
-import { LineChart } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { VideoSchema } from 'features/youtube/types/videoSchema'
+import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
-
-dayjs.extend(durationPlugin)
-dayjs.extend(toArray)
-dayjs.extend(relativeTime)
 
 export default function VideoCard(video: VideoSchema) {
   const { id, snippet, duration, statistics } = video
@@ -145,21 +137,3 @@ function ThumbsUpIcon(props) {
     </svg>
   )
 }
-
-const CommentIcon = (props: SVGProps<SVGSVGElement>) => (
-  <svg
-    {...props}
-    viewBox="0 0 24 24"
-    preserveAspectRatio="xMidYMid meet"
-    fill="currentColor"
-    stroke="currentColor"
-    strokeWidth="1"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    focusable="false"
-  >
-    <g width="24" height="24" viewBox="0 0 24 24">
-      <path d="M8 7H16V9H8V7ZM8 13H13V11H8V13ZM5 3V16H15H15.41L15.7 16.29L19 19.59V3H5ZM4 2H20V22L15 17H4V2Z"></path>
-    </g>
-  </svg>
-)
