@@ -1,7 +1,11 @@
 'use client'
 
+import { PropsWithoutRef } from 'react'
+import { format } from 'path'
+import dayjs from 'dayjs'
 import { TrendingUp } from 'lucide-react'
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts'
+import { useFormatter } from 'next-intl'
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import {
   Card,
   CardContent,
@@ -16,50 +20,69 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
-]
+import { VideosSchema } from 'features/youtube/types/videoSchema'
 
 const chartConfig = {
   desktop: {
     label: 'Desktop',
     color: 'hsl(var(--chart-1))'
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'hsl(var(--chart-2))'
   }
+  // mobile: {
+  //   label: 'Mobile',
+  //   color: 'hsl(var(--chart-2))'
+  // }
 } satisfies ChartConfig
 
-export default function ViewsBarChart() {
+type Props = { videos: VideosSchema }
+
+export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
+  const format = useFormatter()
+
+  const data = videos
+    .map(video => ({
+      date: video.snippet.publishedAt,
+      views: video.statistics.viewCount
+    }))
+    .reverse()
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Multiple</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Views Chart</CardTitle>
+        <CardDescription>
+          {dayjs(data[data.length - 1].date).format('MMMM DD')} -{' '}
+          {dayjs(data[0].date).format('MMMM DD')}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
-              tickLine={false}
+              dataKey="date"
+              tickLine={true}
               tickMargin={10}
+              tickSize={3}
+              minTickGap={32}
               axisLine={false}
-              tickFormatter={value => value.slice(0, 3)}
+              tickFormatter={value => dayjs(value).format('MMM D')}
+            />
+            <YAxis
+              width={37}
+              tickMargin={8}
+              tickSize={0}
+              axisLine={false}
+              tickFormatter={value =>
+                format.number(value, {
+                  notation: 'compact'
+                })
+              }
             />
             <ChartTooltip
-              cursor={false}
+              cursor={true}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="desktop" fill="var(--color-desktop)" radius={4} />
-            <Bar dataKey="mobile" fill="var(--color-mobile)" radius={4} />
+            <Bar dataKey="views" fill="var(--color-desktop)" radius={4} />
           </BarChart>
         </ChartContainer>
       </CardContent>
