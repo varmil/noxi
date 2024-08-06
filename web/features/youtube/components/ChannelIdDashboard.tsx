@@ -24,7 +24,6 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           thumbnails={basicInfo.thumbnails}
           name={basicInfo.title}
           description={basicInfo.description}
-          subscriberCount={statistics.subscriberCount}
         />
         <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-3">
           <Section
@@ -48,7 +47,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
             <Suspense fallback={<p>Loading cards...</p>}>
               <VideoCards
                 gridClassName={
-                  'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
+                  'grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
                 }
                 channelId={basicInfo.id}
               />

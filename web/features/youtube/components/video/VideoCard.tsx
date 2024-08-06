@@ -56,9 +56,11 @@ export default function VideoCard(video: VideoSchema) {
       </Link>
       <CardContent className="space-y-2 p-4 pt-2">
         <div>
-          <h3 className="font-medium line-clamp-2 leading-tight">{title}</h3>
+          <h3 className="font-normal line-clamp-2 leading-tight text-sm">
+            {title}
+          </h3>
         </div>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 md:gap-4 text-xs text-muted-foreground">
           <div className="flex items-center">
             <span>
               <IntlNumberFormat>{viewCount}</IntlNumberFormat>{' '}

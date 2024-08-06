@@ -19,8 +19,10 @@ export async function VideoCards({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Latest 36 videos</CardTitle>
-        <CardDescription>The latest 36 videos are displayed.</CardDescription>
+        <CardTitle>Latest {videos.length} videos</CardTitle>
+        <CardDescription>
+          The latest {videos.length} videos are displayed.
+        </CardDescription>
       </CardHeader>
       <CardContent className={`grid gap-2 ${gridClassName ?? ''}`}>
         {videos.map(video => {
