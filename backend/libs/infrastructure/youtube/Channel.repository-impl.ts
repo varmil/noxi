@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import admin from 'firebase-admin'
 import { CountryCode, LanguageTag } from '@domain/country'
 import { ChannelId, ChannelIds } from '@domain/youtube'
@@ -120,6 +121,53 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         },
         { merge: true }
       )
+  }
+
+  async bulkSave(channels: Parameters<ChannelRepository['bulkSave']>[0]) {
+    const prismaData: Prisma.ChannelCreateInput[] = channels.map(channel => {
+      const {
+        basicInfo: {
+          id,
+          title,
+          description,
+          thumbnails,
+          publishedAt,
+          defaultLanguage
+        },
+        contentDetails,
+        statistics: { viewCount, subscriberCount, videoCount },
+        brandingSettings: { keywords, country }
+      } = channel
+
+      return {
+        id,
+        title,
+        description,
+        thumbnails,
+        publishedAt,
+        defaultLanguage: defaultLanguage?.get(),
+        playlistId: contentDetails.uploadsPlaylistId,
+        viewCount,
+        subscriberCount,
+        videoCount,
+        keywords: keywords.map(k => k.get()),
+        country: country.get()
+      }
+    })
+
+    const query = prismaData.map(channel =>
+      this.prismaInfraService.channel.upsert({
+        where: {
+          id: channel.id
+        },
+        update: channel,
+        create: channel
+      })
+    )
+
+    console.time('channel.bulkSave')
+    await this.prismaInfraService.$transaction([...query])
+    console.timeEnd('channel.bulkSave')
   }
 
   private getQuery(country: CountryCode) {

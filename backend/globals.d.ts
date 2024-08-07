@@ -21,6 +21,7 @@ declare namespace NodeJS {
 }
 
 declare namespace PrismaJson {
+  // TODO: firebaseやめたらnull, undefinedなしにしてOK
   type Thumbnails = Partial<
     Record<
       'default' | 'medium' | 'high',

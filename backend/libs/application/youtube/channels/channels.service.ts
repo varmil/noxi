@@ -23,8 +23,16 @@ export class ChannelsService {
     return await this.channelRepository.findById(args)
   }
 
+  /** @deprecated use bulkSave instead */
   async save(args: Parameters<ChannelRepository['save']>[0]): Promise<void> {
     await this.channelRepository.save(args)
+  }
+
+  /** rename to save in the future */
+  async bulkSave(
+    args: Parameters<ChannelRepository['bulkSave']>[0]
+  ): Promise<void> {
+    await this.channelRepository.bulkSave(args)
   }
 
   async findIds(
