@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core'
 import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { ChannelId } from '@domain/youtube'
-import { HololiveSaveAggregationsByChannelModule } from './hololive-save-aggregations-by-channel.module'
+import { HololiveSaveAggregationsByChannelModule } from './save-aggregations-by-channel.module'
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(
