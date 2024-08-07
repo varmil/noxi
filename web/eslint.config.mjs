@@ -6,6 +6,7 @@ import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import tsParser from '@typescript-eslint/parser'
 import _import from 'eslint-plugin-import'
+import { zones } from './no-restricted-pahts.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -37,6 +38,8 @@ export default [
 
     rules: {
       '@next/next/no-img-element': 'off',
+
+      'import/no-restricted-paths': ['error', { zones }],
 
       'import/order': [
         'error',

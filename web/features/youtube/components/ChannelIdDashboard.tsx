@@ -1,13 +1,13 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
-import { getChannel } from 'features/youtube/api/getChannel'
-import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
-import { ChannelProfileHeader } from 'features/youtube/components/channel/ChannelProfileHeader'
+import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
 import ViewsBarChart from 'features/youtube/components/stats/bar-chart/ViewsBarChart'
 import StatsJoinedCard from 'features/youtube/components/stats/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube/components/stats/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube/components/stats/simple-card/StatsViewsCard'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
+import { getChannel } from '../api/getChannel'
+import { getVideosInChannel } from '../api/getVideosInChannel'
 
 type Props = {
   id: string

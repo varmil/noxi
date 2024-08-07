@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import admin from 'firebase-admin'
 import { CountryCode, LanguageTag } from '@domain/country'
 import { ChannelId, ChannelIds } from '@domain/youtube'
@@ -14,6 +15,7 @@ import { ContentDetails } from '@domain/youtube/channel/content-details/ContentD
 import { getExpireAt } from '@infra/lib/getExpireAt'
 import { channelConverter, ChannelSchema } from '@infra/schema/ChannelSchema'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+import type { Channel as PrismaChannel } from '@prisma/client'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
@@ -27,20 +29,34 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     where: { country },
     limit
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
-    // deleteme
-    {
-      const x = await this.prismaInfraService.channel.findFirst()
-      console.log('Neon', x?.id)
-    }
-
     const channels = await this.getQuery(country)
       .limit(limit)
-      .orderBy(sort.toOrderBy(), 'desc')
+      .orderBy(sort.toFirestoreOrderBy(), 'desc')
       .get()
 
     return new Channels(
       channels.docs.map(doc => {
-        return this.toDomain(doc.data())
+        return this.firestoreToDomain(doc.data())
+      })
+    )
+  }
+
+  async prismaFindAll({
+    sort,
+    where: { id, country },
+    limit
+  }: Parameters<ChannelRepository['prismaFindAll']>[0]): Promise<Channels> {
+    console.time('channel.prismaFindAll')
+    const channels = await this.prismaInfraService.channel.findMany({
+      where: { id: { in: id?.map(e => e.get()) }, country: country?.get() },
+      orderBy: { [sort.toOrderBy()]: 'desc' },
+      take: limit
+    })
+    console.timeEnd('channel.prismaFindAll')
+
+    return new Channels(
+      channels.map(channel => {
+        return this.toDomain(channel)
       })
     )
   }
@@ -54,7 +70,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     const channels = await this.getQuery(country)
       .select()
       .limit(limit)
-      .orderBy(sort.toOrderBy(), 'desc')
+      .orderBy(sort.toFirestoreOrderBy(), 'desc')
       .get()
 
     return new ChannelIds(channels.docs.map(doc => new ChannelId(doc.id)))
@@ -71,7 +87,20 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       .get()
     const first = snapshot.docs.at(0)
     if (!first) return null
-    return this.toDomain(first.data())
+    return this.firestoreToDomain(first.data())
+  }
+
+  async prismaFindById(
+    id: Parameters<ChannelRepository['prismaFindById']>[0]
+  ): Promise<Channel | null> {
+    console.time('channel.prismaFindById')
+    const channel = await this.prismaInfraService.channel.findUnique({
+      where: { id: id.get() }
+    })
+    console.timeEnd('channel.prismaFindById')
+
+    if (!channel) return null
+    return this.toDomain(channel)
   }
 
   async save(channel: Parameters<ChannelRepository['save']>[0]) {
@@ -122,6 +151,53 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       )
   }
 
+  async bulkSave(channels: Parameters<ChannelRepository['bulkSave']>[0]) {
+    const prismaData: Prisma.ChannelCreateInput[] = channels.map(channel => {
+      const {
+        basicInfo: {
+          id,
+          title,
+          description,
+          thumbnails,
+          publishedAt,
+          defaultLanguage
+        },
+        contentDetails,
+        statistics: { viewCount, subscriberCount, videoCount },
+        brandingSettings: { keywords, country }
+      } = channel
+
+      return {
+        id,
+        title,
+        description,
+        thumbnails,
+        publishedAt,
+        defaultLanguage: defaultLanguage?.get(),
+        playlistId: contentDetails.uploadsPlaylistId,
+        viewCount,
+        subscriberCount,
+        videoCount,
+        keywords: keywords.map(k => k.get()),
+        country: country.get()
+      }
+    })
+
+    const query = prismaData.map(channel =>
+      this.prismaInfraService.channel.upsert({
+        where: {
+          id: channel.id
+        },
+        update: channel,
+        create: channel
+      })
+    )
+
+    console.time('channel.bulkSave')
+    await this.prismaInfraService.$transaction([...query])
+    console.timeEnd('channel.bulkSave')
+  }
+
   private getQuery(country: CountryCode) {
     return admin
       .firestore()
@@ -131,7 +207,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       .withConverter(channelConverter)
   }
 
-  private toDomain(doc: ChannelSchema) {
+  /** @deprecated */
+  private firestoreToDomain(doc: ChannelSchema) {
     const {
       basicInfo: { publishedAt, defaultLanguage, ...bIrest },
       contentDetails,
@@ -153,6 +230,47 @@ export class ChannelRepositoryImpl implements ChannelRepository {
           brandingSettings.keywords.map(k => new Keyword(k))
         ),
         country: new CountryCode(brandingSettings.country)
+      })
+    })
+  }
+
+  private toDomain(row: PrismaChannel) {
+    const {
+      id,
+      title,
+      description,
+      thumbnails,
+      publishedAt,
+      defaultLanguage,
+      playlistId,
+      viewCount,
+      subscriberCount,
+      videoCount,
+      keywords,
+      country
+    } = row
+    return new Channel({
+      basicInfo: new ChannelBasicInfo({
+        id,
+        title,
+        description,
+        thumbnails,
+        publishedAt: publishedAt,
+        defaultLanguage: defaultLanguage
+          ? new LanguageTag(defaultLanguage)
+          : undefined
+      }),
+      contentDetails: new ContentDetails({
+        relatedPlaylists: { uploads: playlistId }
+      }),
+      statistics: new ChannelStatistics({
+        viewCount,
+        subscriberCount,
+        videoCount
+      }),
+      brandingSettings: new BrandingSettings({
+        keywords: new Keywords(keywords.map(k => new Keyword(k))),
+        country: new CountryCode(country)
       })
     })
   }

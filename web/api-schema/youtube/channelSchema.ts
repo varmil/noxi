@@ -1,5 +1,5 @@
+import { videoAggregationSchema } from 'api-schema/youtube/videoAggregationSchema'
 import { z } from 'zod'
-import { videoAggregationSchema } from 'features/youtube/types/videoAggregationSchema'
 
 export const schema = z.object({
   basicInfo: z.object({

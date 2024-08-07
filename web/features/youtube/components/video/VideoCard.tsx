@@ -1,8 +1,8 @@
 import { Card, CardContent } from '@/components/ui/card'
+import { VideoSchema } from 'api-schema/youtube/videoSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
-import { VideoSchema } from 'features/youtube/types/videoSchema'
 import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 

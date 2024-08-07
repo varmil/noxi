@@ -1,4 +1,4 @@
-import { ChannelSchema } from 'features/youtube/types/channelSchema'
+import { ChannelSchema } from 'api-schema/youtube/channelSchema'
 import { normalize } from 'lib/normalization'
 
 // NOX

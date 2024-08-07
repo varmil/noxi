@@ -9,10 +9,9 @@ export async function getChartOfChannels({
   searchParams
 }: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/charts/channels?${searchParams.toString()}`,
+    `/api/hololive/charts/channels?${searchParams.toString()}`,
     {
       next: { revalidate: 600 }
-      // cache: 'no-store'
     }
   )
   // The return value is *not* serialized
@@ -20,7 +19,9 @@ export async function getChartOfChannels({
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
+    throw new Error(
+      `Failed to fetch data. status:${res.status} ${res.statusText}`
+    )
   }
 
   const data = listSchema.parse(await res.json())

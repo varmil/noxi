@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
-import { getChannel } from 'features/youtube/api/getChannel'
 import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
+import { getChannel } from '../../../../../../features/youtube/api/getChannel'
 
 type Props = {
   params: { locale: string; id: string }

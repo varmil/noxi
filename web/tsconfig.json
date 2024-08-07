@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@/*": ["./@/*"],
+      "api-schema/*": ["./api-schema/*"],
       "app/*": ["./app/*"],
       "config/*": ["./config/*"],
       "features/*": ["./features/*"],
