@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import { HololiveSaveAggregationsByChannelModule } from 'apps/hololive/save-aggregations-by-channel/src/hololive-save-aggregations-by-channel.module'
 import * as request from 'supertest'
 import { App } from 'supertest/types'
-import { HololiveSaveAggregationsByChannelModule } from 'apps/hololive/save-aggregations-by-channel/src/hololive-save-aggregations-by-channel.module'
 
 describe('HololiveSaveAggregationsByChannelController (e2e)', () => {
   let app: INestApplication

@@ -1,7 +1,7 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
+import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
 import { getChannel } from 'features/youtube/api/getChannel'
 import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
-import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
 import ViewsBarChart from 'features/youtube/components/stats/bar-chart/ViewsBarChart'
 import StatsJoinedCard from 'features/youtube/components/stats/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/StatsSubscribersCard'
