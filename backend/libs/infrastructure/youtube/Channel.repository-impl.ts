@@ -90,6 +90,19 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     return this.firestoreToDomain(first.data())
   }
 
+  async prismaFindById(
+    id: Parameters<ChannelRepository['prismaFindById']>[0]
+  ): Promise<Channel | null> {
+    console.time('channel.prismaFindById')
+    const channel = await this.prismaInfraService.channel.findUnique({
+      where: { id: id.get() }
+    })
+    console.timeEnd('channel.prismaFindById')
+
+    if (!channel) return null
+    return this.toDomain(channel)
+  }
+
   async save(channel: Parameters<ChannelRepository['save']>[0]) {
     const {
       basicInfo: {

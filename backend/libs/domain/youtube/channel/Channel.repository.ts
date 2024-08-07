@@ -25,7 +25,10 @@ export interface ChannelRepository {
     args: Parameters<ChannelRepository['findAll']>[0]
   ) => Promise<ChannelIds>
 
+  /** @deprecated use prismaFindById instead */
   findById: (id: ChannelId) => Promise<Channel | null>
+
+  prismaFindById: (id: ChannelId) => Promise<Channel | null>
 
   save: (args: Channel) => Promise<void>
 

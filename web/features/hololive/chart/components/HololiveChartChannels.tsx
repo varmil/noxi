@@ -31,9 +31,7 @@ export async function HololiveChartChannels({
           <Card x-chunk="dashboard-06-chunk-0">
             <CardHeader>
               <CardTitle>{'ホロライブ'} | Hololive</CardTitle>
-              <CardDescription>
-                {t('description', { keyword: 'Travel vlog english' })}
-              </CardDescription>
+              <CardDescription>ホロライブのメンバー一覧です。</CardDescription>
             </CardHeader>
             <CardContent>
               <Suspense fallback={<p>Loading cards...</p>}>

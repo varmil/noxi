@@ -27,7 +27,11 @@ export class ChannelsService {
   async findById(
     args: Parameters<ChannelRepository['findById']>[0]
   ): Promise<Channel | null> {
-    return await this.channelRepository.findById(args)
+    let result: Channel | null
+    // TODO: delete this.channelRepository.findById
+    result = await this.channelRepository.findById(args)
+    if (!result) result = await this.channelRepository.prismaFindById(args)
+    return result
   }
 
   /** @deprecated use bulkSave instead */
