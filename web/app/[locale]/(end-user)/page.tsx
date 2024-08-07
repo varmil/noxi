@@ -44,6 +44,7 @@ export default function IndexPage({ params: { locale } }: Props) {
             <h2 className="text-3xl font-bold lg:text-4xl">
               {t('section.keyword.title')}
             </h2>
+
             <div className="mt-3">
               <IconSectionForReview />
             </div>
