@@ -9,8 +9,8 @@ import {
   CardFooter
 } from '@/components/ui/card'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
-import { getChartOfChannels } from 'features/youtube/api/getChartOfChannels'
 import { FilterAndSort } from 'features/youtube/components/chart/channel/FilterAndSort'
+import { getChartOfChannels } from '../api/getChartOfChannels'
 
 type Props = {
   searchParams: URLSearchParams

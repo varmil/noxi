@@ -6,8 +6,8 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
 import VideoCard from 'features/youtube/components/video/VideoCard'
+import { getVideosInChannel } from '../../api/getVideosInChannel'
 
 type Props = { channelId: string; gridClassName: string }
 

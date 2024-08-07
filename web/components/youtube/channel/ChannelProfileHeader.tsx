@@ -3,7 +3,7 @@
 import { PropsWithoutRef, useState } from 'react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { ChannelSchema } from 'features/youtube/types/channelSchema'
+import { ChannelSchema } from 'api-schema/youtube/channelSchema'
 
 type Props = {
   name: string

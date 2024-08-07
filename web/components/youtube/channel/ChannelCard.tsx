@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { ChannelSchema } from 'api-schema/youtube/channelSchema'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
-import { ChannelSchema } from 'features/youtube/types/channelSchema'
 import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 

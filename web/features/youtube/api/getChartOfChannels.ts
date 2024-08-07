@@ -1,7 +1,4 @@
-import {
-  ChannelsSchema,
-  listSchema
-} from 'features/youtube/types/channelSchema'
+import { ChannelsSchema, listSchema } from 'api-schema/youtube/channelSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
