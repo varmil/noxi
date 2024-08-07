@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
-import { YoutubeChart } from 'features/youtube/components/YoutubeChart'
+import { HololiveChartChannels } from 'features/hololive/chart/components/HololiveChartChannels'
 
 type Props = {
   params: { locale: string }
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'ChartsChannels' })
 
   return {
-    title: `${'Travel vlog english'} | ${t('title')} | ${tg('title')}`,
+    title: `${'ホロライブ'} | ${t('title')} | ${tg('title')}`,
     description: `${t('description', { keyword: 'Travel vlog english' })}`
   }
 }
@@ -35,11 +35,11 @@ export default function HololivePage({
     <Page>
       <GlobalBreadcrumb
         items={[
-          { href: '/', name: 'YouTube' },
-          { href: '/youtube/charts/channels', name: t('channels') }
+          { href: '/', name: 'ホロライブ' },
+          { href: '/hololive/charts/channels', name: t('channels') }
         ]}
       />
-      <YoutubeChart searchParams={new URLSearchParams(searchParams)} />
+      <HololiveChartChannels searchParams={new URLSearchParams(searchParams)} />
     </Page>
   )
 }

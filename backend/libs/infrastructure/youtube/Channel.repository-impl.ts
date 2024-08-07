@@ -29,12 +29,6 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     where: { country },
     limit
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
-    // deleteme
-    {
-      const x = await this.prismaInfraService.channel.findFirst()
-      console.log('Neon', x?.id)
-    }
-
     const channels = await this.getQuery(country)
       .limit(limit)
       .orderBy(sort.toFirestoreOrderBy(), 'desc')
@@ -52,12 +46,13 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     where: { id, country },
     limit
   }: Parameters<ChannelRepository['prismaFindAll']>[0]): Promise<Channels> {
+    console.time('channel.prismaFindAll')
     const channels = await this.prismaInfraService.channel.findMany({
       where: { id: { in: id?.map(e => e.get()) }, country: country?.get() },
       orderBy: { [sort.toOrderBy()]: 'desc' },
       take: limit
     })
-    console.log(channels)
+    console.timeEnd('channel.prismaFindAll')
 
     return new Channels(
       channels.map(channel => {
