@@ -15,9 +15,10 @@ export class ChannelSort extends StringValueObject {
   }
 
   /**
+   * @deprecated
    * Firestore uses this value
    */
-  toOrderBy() {
+  toFirestoreOrderBy() {
     switch (this.val) {
       default:
       case 'subscribers':
@@ -28,6 +29,23 @@ export class ChannelSort extends StringValueObject {
 
       case 'views':
         return 'statistics.viewCount'
+    }
+  }
+
+  /**
+   * Prisma uses this value
+   */
+  toOrderBy() {
+    switch (this.val) {
+      default:
+      case 'subscribers':
+        return 'subscriberCount'
+
+      case 'avarage-views':
+        return 'viewCount' // TODO:
+
+      case 'views':
+        return 'viewCount'
     }
   }
 }

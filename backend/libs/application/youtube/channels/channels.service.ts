@@ -11,10 +11,17 @@ export class ChannelsService {
     private readonly channelRepository: ChannelRepository
   ) {}
 
+  /** @deprecated use prismaFindAll instead */
   async findAll(
     args: Parameters<ChannelRepository['findAll']>[0]
   ): Promise<Channels> {
     return await this.channelRepository.findAll(args)
+  }
+
+  async prismaFindAll(
+    args: Parameters<ChannelRepository['prismaFindAll']>[0]
+  ): Promise<Channels> {
+    return await this.channelRepository.prismaFindAll(args)
   }
 
   async findById(

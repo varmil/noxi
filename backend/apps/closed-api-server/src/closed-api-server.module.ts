@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { HololivePresentationModule } from '@presentation/hololive/hololive.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
-import { CloudSchedulersYoutubeAppModule } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.app.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 
 @Module({
@@ -12,8 +12,8 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
     LibAppModule,
     CloudSchedulersPresentationModule,
-    YoutubePresentationModule,
-    CloudSchedulersYoutubeAppModule
+    HololivePresentationModule,
+    YoutubePresentationModule
   ],
   controllers: [HealthController],
   providers: []
