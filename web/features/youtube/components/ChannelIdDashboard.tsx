@@ -1,5 +1,6 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
+import UploadsPerDayOfWeekBarChart from 'features/youtube/components/stats/bar-chart/UploadsPerDoWBarChart'
 import ViewsBarChart from 'features/youtube/components/stats/bar-chart/ViewsBarChart'
 import StatsJoinedCard from 'features/youtube/components/stats/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/StatsSubscribersCard'
@@ -27,7 +28,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
       <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-3">
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
-          className="pb-6 lg:col-span-1 lg:order-2"
+          className="pb-6 lg:pb-0 lg:col-span-1 lg:order-2"
           title="Data"
         >
           <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
@@ -38,14 +39,27 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           />
         </Section>
 
-        <Section className="pb-6 lg:col-span-2 lg:order-1" title="Charts">
+        <Section
+          className="pb-6 lg:pb-0 lg:col-span-2 lg:order-1"
+          title="Charts"
+        >
           <ViewsBarChart
             videoAggregation={latestVideoAggregation}
             videos={videos}
           />
         </Section>
 
-        <Section className="pb-6 lg:col-span-3 lg:order-3" title="Videos">
+        <Section
+          className="pb-6 lg:col-span-3 lg:order-3"
+          title="Days of the week analysis"
+        >
+          <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
+            <UploadsPerDayOfWeekBarChart />
+            <UploadsPerDayOfWeekBarChart />
+          </div>
+        </Section>
+
+        <Section className="pb-6 lg:col-span-3 lg:order-5" title="Videos">
           <Suspense fallback={<p>Loading cards...</p>}>
             <VideoCards
               gridClassName={
@@ -72,7 +86,7 @@ function Section({
 }>) {
   return (
     <section className={className}>
-      <h2 className="text-2xl font-bold lg:text-3xl pb-4">{title}</h2>
+      <h2 className="text-xl font-bold lg:text-2xl pb-4">{title}</h2>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}
       </div>

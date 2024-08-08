@@ -68,7 +68,7 @@
         "annotation": "This is our service's unique indicator.",
 
         "chart": {
-          "viewsChart": "Views Chart"
+          "viewsChart": "Views per video"
         },
 
         "totalViews": "Total views",
