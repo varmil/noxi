@@ -27,7 +27,11 @@ export default function ChannelCard({
   const t = useTranslations('Features.youtube.channel')
   return (
     <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
-      <Link href={`/youtube/channels/${id}`} className="absolute inset-0 z-10">
+      <Link
+        href={`/youtube/channels/${id}`}
+        className="absolute inset-0 z-10"
+        prefetch={true}
+      >
         <span className="sr-only">{t('viewChannel')}</span>
       </Link>
       <Image

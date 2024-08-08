@@ -22,6 +22,7 @@ export default function IconBlock({
       <Link
         className="group flex flex-col justify-center hover:bg-primary-foreground/90 rounded-lg p-4 md:p-7"
         href={href}
+        prefetch={true}
       >
         {icon && (
           <div className="flex justify-center items-center w-12 bg-primary h-12 border rounded-lg">
