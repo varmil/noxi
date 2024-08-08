@@ -14,9 +14,7 @@ type Props = {
   searchParams: URLSearchParams
 }
 
-export async function HololiveChartChannels({
-  searchParams
-}: PropsWithoutRef<Props>) {
+export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
   const t = await getTranslations('Page.holilive.charts')
   const channels = await getChartOfChannels({ searchParams })
 

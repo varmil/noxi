@@ -9,14 +9,14 @@ import {
   CardFooter
 } from '@/components/ui/card'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
+import { getChartOfChannels } from 'features/youtube/api/getChartOfChannels'
 import { FilterAndSort } from 'features/youtube/components/chart/channel/FilterAndSort'
-import { getChartOfChannels } from '../api/getChartOfChannels'
 
 type Props = {
   searchParams: URLSearchParams
 }
 
-export async function YoutubeChart({ searchParams }: PropsWithoutRef<Props>) {
+export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
   const t = await getTranslations('YoutubeDashboard')
   const channels = await getChartOfChannels({ searchParams })
 
