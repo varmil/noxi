@@ -26,7 +26,9 @@ export async function HololiveChartChannels({
         <Card>
           <CardHeader>
             <CardTitle>{'ホロライブ'} | Hololive</CardTitle>
-            <CardDescription>ホロライブのメンバー一覧です。</CardDescription>
+            <CardDescription>
+              ホロライブに所属するタレントのYouTubeチャンネル一覧をご紹介します。兎田ぺこら、宝鐘マリン、湊あくあ、さくらみこなどのまとめが含まれます。
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <Suspense fallback={<p>Loading cards...</p>}>
