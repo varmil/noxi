@@ -21,26 +21,20 @@ export async function HololiveChartChannels({
   const channels = await getChartOfChannels({ searchParams })
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <main>
-        {/* <section className="mt-4 px-1 sm:mt-0 sm:px-6">
-          <FilterAndSort />
-        </section> */}
-
-        <section className="grid flex-1 items-start gap-4 p-4 sm:px-6 md:gap-8">
-          <Card x-chunk="dashboard-06-chunk-0">
-            <CardHeader>
-              <CardTitle>{'ホロライブ'} | Hololive</CardTitle>
-              <CardDescription>ホロライブのメンバー一覧です。</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Suspense fallback={<p>Loading cards...</p>}>
-                <ChannelCards channels={channels} />
-              </Suspense>
-            </CardContent>
-          </Card>
-        </section>
-      </main>
-    </div>
+    <main className="min-h-screen">
+      <section className="p-4 sm:px-6 md:gap-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>{'ホロライブ'} | Hololive</CardTitle>
+            <CardDescription>ホロライブのメンバー一覧です。</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Suspense fallback={<p>Loading cards...</p>}>
+              <ChannelCards channels={channels} />
+            </Suspense>
+          </CardContent>
+        </Card>
+      </section>
+    </main>
   )
 }
