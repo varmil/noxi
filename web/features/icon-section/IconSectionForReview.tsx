@@ -28,7 +28,7 @@ export default function IconSectionForReview() {
 
         <Separator className="my-2 sm:my-4" />
 
-        <h3 className="mb-2 text-2xl lg:text-3xl">Travel</h3>
+        <h3 className="mb-2 text-2xl lg:text-3xl">YouTube</h3>
         <div className="grid gap-2">
           <IconBlock
             href="/youtube/charts/channels"

@@ -30,7 +30,7 @@ export async function HololiveChartChannels({
           </CardHeader>
           <CardContent>
             <Suspense fallback={<p>Loading cards...</p>}>
-              <ChannelCards channels={channels} />
+              <ChannelCards channels={channels} hololive />
             </Suspense>
           </CardContent>
         </Card>
