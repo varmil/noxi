@@ -6,7 +6,7 @@ import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import dayjs from 'lib/dayjs'
-import type { ViewsBarChartData } from 'features/youtube/components/stats/bar-chart/ViewsBarChart'
+import type { ViewsBarChartData } from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
 
 type Props = {
   payload?: { payload: ViewsBarChartData }[]

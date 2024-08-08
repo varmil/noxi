@@ -1,14 +1,14 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
-import UploadsPerDayOfWeekBarChart from 'features/youtube/components/stats/bar-chart/UploadsPerDoWBarChart'
-import ViewsBarChart from 'features/youtube/components/stats/bar-chart/ViewsBarChart'
-import StatsJoinedCard from 'features/youtube/components/stats/simple-card/StatsJoinedCard'
-import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/StatsSubscribersCard'
-import StatsVideosCard from 'features/youtube/components/stats/simple-card/StatsVideosCard'
-import StatsViewsCard from 'features/youtube/components/stats/simple-card/StatsViewsCard'
+import { getChannel } from 'features/youtube/api/getChannel'
+import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
-import { getChannel } from '../api/getChannel'
-import { getVideosInChannel } from '../api/getVideosInChannel'
+import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
+import ViewsBarChart from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
+import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
+import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
+import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
+import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
 
 type Props = {
   id: string
@@ -41,7 +41,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
 
         <Section
           className="pb-6 lg:pb-0 lg:col-span-2 lg:order-1"
-          title="Charts"
+          title="Trends"
         >
           <ViewsBarChart
             videoAggregation={latestVideoAggregation}
@@ -54,8 +54,8 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           title="Days of the week analysis"
         >
           <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
-            <UploadsPerDayOfWeekBarChart />
-            <UploadsPerDayOfWeekBarChart />
+            <UploadsPerDayOfWeekBarChart videos={videos} />
+            <UploadsPerDayOfWeekBarChart videos={videos} />
           </div>
         </Section>
 

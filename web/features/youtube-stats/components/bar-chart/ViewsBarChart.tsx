@@ -26,7 +26,7 @@ import {
 } from '@/components/ui/chart'
 import { ChannelSchema } from 'api-schema/youtube/channelSchema'
 import { VideosSchema } from 'api-schema/youtube/videoSchema'
-import ThumbnailTooltip from 'features/youtube/components/stats/bar-chart/ThumbnailTooltip'
+import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
 import dayjs from 'lib/dayjs'
 
 const chartConfig = {

@@ -1,11 +1,12 @@
 'use client'
 
+import { PropsWithoutRef } from 'react'
 import { TrendingUp } from 'lucide-react'
+import { useFormatter } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle
@@ -16,14 +17,8 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-const chartData = [
-  { month: 'January', desktop: 186, mobile: 80 },
-  { month: 'February', desktop: 305, mobile: 200 },
-  { month: 'March', desktop: 237, mobile: 120 },
-  { month: 'April', desktop: 73, mobile: 190 },
-  { month: 'May', desktop: 209, mobile: 130 },
-  { month: 'June', desktop: 214, mobile: 140 }
-]
+import { VideosSchema } from 'api-schema/youtube/videoSchema'
+import * as dayOfWeek from '../../utils/dayOfWeek'
 
 const chartConfig = {
   desktop: {
@@ -39,57 +34,59 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
-export default function UploadsPerDayOfWeekBarChart() {
+type Props = {
+  videos: VideosSchema
+}
+
+export default function UploadsPerDayOfWeekBarChart({
+  videos
+}: PropsWithoutRef<Props>) {
+  const format = useFormatter()
+  const data = dayOfWeek.reduce(videos)
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Custom Label</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Avarage Views per day</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
-            data={chartData}
+            data={data}
             layout="vertical"
-            margin={{
-              right: 16
-            }}
+            margin={{ right: 16 }}
           >
             <CartesianGrid horizontal={false} />
             <YAxis
-              dataKey="month"
+              dataKey="dayOfWeek"
               type="category"
+              width={47}
               tickLine={false}
               tickMargin={10}
               axisLine={false}
               tickFormatter={value => value.slice(0, 3)}
-              hide
             />
-            <XAxis dataKey="desktop" type="number" hide />
+            <XAxis dataKey="views" type="number" hide />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
             />
             <Bar
-              dataKey="desktop"
+              dataKey="views"
               layout="vertical"
               fill="var(--color-desktop)"
               radius={4}
             >
               <LabelList
-                dataKey="month"
-                position="insideLeft"
-                offset={8}
-                className="fill-[--color-label]"
-                fontSize={12}
-              />
-              <LabelList
-                dataKey="desktop"
+                dataKey="views"
                 position="right"
                 offset={8}
                 className="fill-foreground"
                 fontSize={12}
+                formatter={(v: number) =>
+                  format.number(v, { notation: 'compact' })
+                }
               />
             </Bar>
           </BarChart>

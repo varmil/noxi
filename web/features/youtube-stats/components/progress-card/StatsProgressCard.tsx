@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card'
-import StatsProgressCardContent from 'features/youtube/components/stats/progress-card/StatsProgressCardContent'
-import StatsProgressCardFooter from 'features/youtube/components/stats/progress-card/StatsProgressCardFooter'
-import StatsProgressCardHeader from 'features/youtube/components/stats/progress-card/StatsProgressCardHeader'
+import StatsProgressCardContent from 'features/youtube-stats/components/progress-card/StatsProgressCardContent'
+import StatsProgressCardFooter from 'features/youtube-stats/components/progress-card/StatsProgressCardFooter'
+import StatsProgressCardHeader from 'features/youtube-stats/components/progress-card/StatsProgressCardHeader'
 
 export default function StatsProgressCard() {
   return (
