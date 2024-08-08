@@ -6,7 +6,7 @@ import AnnotationText from 'components/styles/AnnotationText'
 import StatsProgressCardContent from 'features/youtube-stats/components/progress-card/StatsProgressCardContent'
 import StatsProgressCardFooter from 'features/youtube-stats/components/progress-card/StatsProgressCardFooter'
 import StatsProgressCardHeader from 'features/youtube-stats/components/progress-card/StatsProgressCardHeader'
-import { getPopularity } from 'features/youtube/utils/popularity'
+import { getPopularity } from 'features/youtube-stats/utils/popularity'
 
 type Props = ChannelSchema['statistics']
 
