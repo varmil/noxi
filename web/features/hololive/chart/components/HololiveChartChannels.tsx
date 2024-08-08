@@ -17,7 +17,7 @@ type Props = {
 export async function HololiveChartChannels({
   searchParams
 }: PropsWithoutRef<Props>) {
-  const t = await getTranslations('YoutubeDashboard')
+  const t = await getTranslations('Page.holilive.charts')
   const channels = await getChartOfChannels({ searchParams })
 
   return (
@@ -25,10 +25,8 @@ export async function HololiveChartChannels({
       <section className="p-4 sm:px-6 md:gap-8">
         <Card>
           <CardHeader>
-            <CardTitle>{'ホロライブ'} | Hololive</CardTitle>
-            <CardDescription>
-              ホロライブに所属するタレントのYouTubeチャンネル一覧をご紹介します。兎田ぺこら、宝鐘マリン、湊あくあ、さくらみこなどのまとめが含まれます。
-            </CardDescription>
+            <CardTitle>{t('cardTitle')}</CardTitle>
+            <CardDescription>{t('cardDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <Suspense fallback={<p>Loading cards...</p>}>

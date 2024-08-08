@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { useFormatter } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 import {
   Card,
@@ -49,6 +49,7 @@ export default function ViewsBarChart({
   videoAggregation,
   videos
 }: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
 
   const data: ViewsBarChartData[] = videos
@@ -64,7 +65,7 @@ export default function ViewsBarChart({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Views Chart</CardTitle>
+        <CardTitle>{t('viewsChart')}</CardTitle>
         <CardDescription>
           {dayjs(data[0].date).format('LL')} -{' '}
           {dayjs(data[data.length - 1].date).format('LL')}

@@ -1,9 +1,12 @@
 import { Plane } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Separator } from '@/components/ui/separator'
 import Image from 'components/styles/Image'
 import IconBlock from 'features/icon-section/IconBlock'
 
 export default function IconSectionForReview() {
+  const t = useTranslations('Page.index.section.holilive')
+
   return (
     <>
       <section className="py-4">
@@ -20,9 +23,7 @@ export default function IconSectionForReview() {
                 className=""
               />
             }
-            description={
-              'ホロライブとは、カバー株式会社が運営するバーチャルYouTuber（VTuber）事務所「ホロライブプロダクション」に所属する女性VTuberグループです。ホロライブのメンバーは、ゲーム実況や歌、雑談、コラボ配信など、さまざまなライブ配信を行っています。個性豊かなメンバーが在籍しており、ホロライブ間でのコラボも多いのが特徴です。また、カバー株式会社のVR/AR技術を活用して、リアル会場でのライブ活動なども行っています。ホロライブは国内外で人気を博しており、YouTube総チャンネル登録者数は約8,000万人を超えています。日本のゲームやコンテンツを世界中にリーチできることも強みの一つです。視聴者の年齢層は18歳～24歳が約45％、25歳～34歳が約30％と、若者が中心となっています。'
-            }
+            description={t('description')}
           />
         </div>
 

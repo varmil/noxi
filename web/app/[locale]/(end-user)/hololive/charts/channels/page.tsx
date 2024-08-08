@@ -35,7 +35,7 @@ export default function HololivePage({
     <Page>
       <GlobalBreadcrumb
         items={[
-          { href: '/', name: 'ホロライブ' },
+          { href: '/', name: t('hololive') },
           { href: '/hololive/charts/channels', name: t('channels') }
         ]}
       />

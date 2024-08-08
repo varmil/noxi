@@ -28,7 +28,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
           className="pb-6 lg:col-span-1 lg:order-2"
-          title="YouTube Data"
+          title="Data"
         >
           <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
           <StatsViewsCard count={statistics?.viewCount ?? 0} />

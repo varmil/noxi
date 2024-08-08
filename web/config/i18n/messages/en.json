@@ -5,23 +5,29 @@
   },
 
   "Breadcrumb": {
+    "hololive": "Hololive",
     "channels": "Channels"
   },
 
   "Page": {
+    "index": {
+      "title": "Welcome to PeakX",
+      "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from VTubers, YouTube, Twitch, Tiktok, and Instagram.",
+      "section": {
+        "keyword": { "title": "Search for channels" },
+        "holilive": {
+          "description": "Hololive is a female VTuber group belonging to Hololive Production, a virtual YouTuber (VTuber) agency operated by Cover Corporation. Hololive members broadcast a variety of live streams, including gameplay commentary, singing, chatting, and collaborations. The group is made up of members with a wide variety of personalities, and there are many collaborations between Hololive members. They also use Cover Corporation's VR/AR technology to hold live performances at real venues. Hololive is popular both in Japan and overseas, with a total of over 80 million subscribers on YouTube. One of their strengths is their ability to reach Japanese games and content around the world. The age group of viewers is mainly young people, with about 45% being 18-24 years old and about 30% being 25-34 years old."
+        }
+      }
+    },
+
     "holilive": {
       "charts": {
         "title": "List of Hololive channels",
-        "description": "We will introduce you to Hololive YouTube channels."
+        "description": "We will introduce you to Hololive YouTube channels.",
+        "cardTitle": "Hololive",
+        "cardDescription": "Here is a list of YouTube channels for talents affiliated with Hololive. This includes a compilation of Usada Pekora, Houshou Marine, Minato Aqua, Sakura Miko, and more."
       }
-    }
-  },
-
-  "IndexPage": {
-    "title": "Welcome to PeakX",
-    "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from VTubers, YouTube, Twitch, Tiktok, and Instagram.",
-    "section": {
-      "keyword": { "title": "Search for channels" }
     }
   },
 
@@ -60,6 +66,10 @@
 
       "stats": {
         "annotation": "This is our service's unique indicator.",
+
+        "chart": {
+          "viewsChart": "Views Chart"
+        },
 
         "totalViews": "Total views",
         "totalSubscribers": "Total subscribers",

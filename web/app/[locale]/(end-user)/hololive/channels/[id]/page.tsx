@@ -35,7 +35,7 @@ export default async function HololiveChannelsIdPage({
     <Page>
       <GlobalBreadcrumb
         items={[
-          { href: '/', name: 'ホロライブ' },
+          { href: '/', name: t('hololive') },
           { href: '/hololive/charts/channels', name: t('channels') },
           { href: '#', name: basicInfo.title }
         ]}
