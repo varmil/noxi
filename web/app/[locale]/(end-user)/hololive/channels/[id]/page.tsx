@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { ChannelIdDashboard } from 'app/[locale]/(end-user)/_components/ChannelIdDashboard'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 import { getChannel } from 'features/youtube/api/getChannel'
-import { ChannelIdDashboard } from 'features/youtube/components/ChannelIdDashboard'
 
 type Props = {
   params: { locale: string; id: string }
@@ -35,7 +35,7 @@ export default async function HololiveChannelsIdPage({
     <Page>
       <GlobalBreadcrumb
         items={[
-          { href: '/', name: 'ホロライブ' },
+          { href: '/', name: t('hololive') },
           { href: '/hololive/charts/channels', name: t('channels') },
           { href: '#', name: basicInfo.title }
         ]}

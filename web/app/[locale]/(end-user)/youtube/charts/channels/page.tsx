@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { ChartTemplate } from 'app/[locale]/(end-user)/youtube/charts/channels/_components/ChartTemplate'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
-import { YoutubeChart } from 'features/youtube/components/YoutubeChart'
 
 type Props = {
   params: { locale: string }
@@ -39,7 +39,7 @@ export default function YoutubeChartsChannelsPage({
           { href: '/youtube/charts/channels', name: t('channels') }
         ]}
       />
-      <YoutubeChart searchParams={new URLSearchParams(searchParams)} />
+      <ChartTemplate searchParams={new URLSearchParams(searchParams)} />
     </Page>
   )
 }

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { CookieAgreeBanner } from 'app/[locale]/(end-user)/_components/CookieAgreeBanner'
 import Aside from 'components/Aside'
-import { CookieAgreeBanner } from 'components/CookieAgreeBanner'
 import { locales } from 'config/i18n/locale'
 
 type Props = {

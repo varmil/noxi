@@ -1,13 +1,20 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { useFormatter } from 'next-intl'
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { useFormatter, useTranslations } from 'next-intl'
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Label,
+  ReferenceLine,
+  XAxis,
+  YAxis
+} from 'recharts'
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
@@ -18,7 +25,7 @@ import {
 } from '@/components/ui/chart'
 import { ChannelSchema } from 'api-schema/youtube/channelSchema'
 import { VideosSchema } from 'api-schema/youtube/videoSchema'
-import ThumbnailTooltip from 'features/youtube/components/stats/bar-chart/ThumbnailTooltip'
+import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
 import dayjs from 'lib/dayjs'
 
 const chartConfig = {
@@ -49,6 +56,7 @@ export default function ViewsBarChart({
   videoAggregation,
   videos
 }: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
 
   const data: ViewsBarChartData[] = videos
@@ -64,7 +72,7 @@ export default function ViewsBarChart({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Views Chart</CardTitle>
+        <CardTitle>{t('viewsChart')}</CardTitle>
         <CardDescription>
           {dayjs(data[0].date).format('LL')} -{' '}
           {dayjs(data[data.length - 1].date).format('LL')}
@@ -94,38 +102,37 @@ export default function ViewsBarChart({
             />
             <ChartTooltip cursor={true} content={<ThumbnailTooltip />} />
             <Bar dataKey="views" fill="var(--color-desktop)" radius={2} />
+
+            <ReferenceLine
+              y={averageViews(videos)}
+              stroke="hsl(var(--muted-foreground))"
+              strokeDasharray="3 3"
+              strokeWidth={1}
+            >
+              <Label
+                position="insideBottomLeft"
+                value="Average Views"
+                className="text-sm"
+                offset={10}
+                fill="hsl(var(--foreground))"
+              />
+            </ReferenceLine>
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        {/* <div className="flex gap-2 font-medium leading-none">
-          {videoAggregation?.live.averageViews ?? 0} avarage views in the past
-          30 days
-          <TrendingUp className="h-4 w-4" />
-        </div> */}
-
+      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
         <div className="flex gap-2 font-medium leading-none">
-          {Math.round(
-            videos.reduce((acc, cur) => acc + cur.statistics.viewCount, 0) /
-              videos.length
-          )}{' '}
-          avarage views in the past {videos.length} videos
+          {averageViews(videos)} avarage views in the past {videos.length}{' '}
+          videos
         </div>
-        {/* <div className="leading-none text-muted-foreground">
-          {Math.round(
-            videos.reduce((acc, cur) => acc + cur.statistics.likeCount, 0) /
-              videos.length
-          )}{' '}
-          avarage likes in the past {videos.length} videos
-        </div>
-        <div className="leading-none text-muted-foreground">
-          {Math.round(
-            videos.reduce((acc, cur) => acc + cur.statistics.commentCount, 0) /
-              videos.length
-          )}{' '}
-          avarage comments in the past {videos.length} videos
-        </div> */}
-      </CardFooter>
+      </CardFooter> */}
     </Card>
+  )
+}
+
+const averageViews = (videos: VideosSchema) => {
+  return Math.round(
+    videos.reduce((acc, cur) => acc + cur.statistics.viewCount, 0) /
+      videos.length
   )
 }

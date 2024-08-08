@@ -1,13 +1,15 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
-import ViewsBarChart from 'features/youtube/components/stats/bar-chart/ViewsBarChart'
-import StatsJoinedCard from 'features/youtube/components/stats/simple-card/StatsJoinedCard'
-import StatsSubscribersCard from 'features/youtube/components/stats/simple-card/StatsSubscribersCard'
-import StatsVideosCard from 'features/youtube/components/stats/simple-card/StatsVideosCard'
-import StatsViewsCard from 'features/youtube/components/stats/simple-card/StatsViewsCard'
+import { getChannel } from 'features/youtube/api/getChannel'
+import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
-import { getChannel } from '../api/getChannel'
-import { getVideosInChannel } from '../api/getVideosInChannel'
+import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
+import ViewsBarChart from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
+import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
+import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
+import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
+import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
+import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
 
 type Props = {
   id: string
@@ -28,7 +30,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
           className="pb-6 lg:col-span-1 lg:order-2"
-          title="YouTube Data"
+          title="Data"
         >
           <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
           <StatsViewsCard count={statistics?.viewCount ?? 0} />
@@ -38,14 +40,24 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           />
         </Section>
 
-        <Section className="pb-6 lg:col-span-2 lg:order-1" title="Charts">
+        <Section className="pb-6 lg:col-span-2 lg:order-1" title="Trends">
           <ViewsBarChart
             videoAggregation={latestVideoAggregation}
             videos={videos}
           />
         </Section>
 
-        <Section className="pb-6 lg:col-span-3 lg:order-3" title="Videos">
+        <Section
+          className="pb-6 lg:col-span-3 lg:order-3"
+          title="Days of the week analysis"
+        >
+          <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
+            <UploadsPerDayOfWeekBarChart videos={videos} />
+            <ViewsPerDoWBarChart videos={videos} />
+          </div>
+        </Section>
+
+        <Section className="pb-6 lg:col-span-3 lg:order-5" title="Videos">
           <Suspense fallback={<p>Loading cards...</p>}>
             <VideoCards
               gridClassName={
@@ -72,7 +84,7 @@ function Section({
 }>) {
   return (
     <section className={className}>
-      <h2 className="text-2xl font-bold lg:text-3xl pb-4">{title}</h2>
+      <h2 className="text-xl font-bold lg:text-2xl pb-4">{title}</h2>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}
       </div>

@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { ChannelSchema } from 'api-schema/youtube/channelSchema'
 import AnnotationText from 'components/styles/AnnotationText'
-import StatsProgressCardContent from 'features/youtube/components/stats/progress-card/StatsProgressCardContent'
-import StatsProgressCardFooter from 'features/youtube/components/stats/progress-card/StatsProgressCardFooter'
-import StatsProgressCardHeader from 'features/youtube/components/stats/progress-card/StatsProgressCardHeader'
-import { getLoyalty } from 'features/youtube/utils/loyalty'
+import StatsProgressCardContent from 'features/youtube-stats/components/progress-card/StatsProgressCardContent'
+import StatsProgressCardFooter from 'features/youtube-stats/components/progress-card/StatsProgressCardFooter'
+import StatsProgressCardHeader from 'features/youtube-stats/components/progress-card/StatsProgressCardHeader'
+import { getLoyalty } from 'features/youtube-stats/utils/loyalty'
 
 type Props = ChannelSchema['statistics']
 

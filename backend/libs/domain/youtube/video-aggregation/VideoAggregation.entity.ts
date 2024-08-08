@@ -1,5 +1,4 @@
 import { IsDecimal, IsInt, Min } from 'class-validator'
-import { Video } from '@domain/youtube/video/Video.entity'
 import { Videos } from '@domain/youtube/video/Videos.collection'
 
 class Aggregation {

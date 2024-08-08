@@ -5,36 +5,46 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent
+  CardContent,
+  CardFooter
 } from '@/components/ui/card'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
-import { getChartOfChannels } from 'features/hololive/chart/api/getChartOfChannels'
+import { getChartOfChannels } from 'features/youtube/api/getChartOfChannels'
+import { FilterAndSort } from 'features/youtube/components/chart/channel/FilterAndSort'
 
 type Props = {
   searchParams: URLSearchParams
 }
 
-export async function HololiveChartChannels({
-  searchParams
-}: PropsWithoutRef<Props>) {
+export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
   const t = await getTranslations('YoutubeDashboard')
   const channels = await getChartOfChannels({ searchParams })
 
   return (
     <main className="min-h-screen">
+      <section className="mt-4 px-1 sm:mt-0 sm:px-6">
+        <FilterAndSort />
+      </section>
+
       <section className="p-4 sm:px-6 md:gap-8">
         <Card>
           <CardHeader>
-            <CardTitle>{'ホロライブ'} | Hololive</CardTitle>
+            <CardTitle>{'Travel vlog english'} | Channels</CardTitle>
             <CardDescription>
-              ホロライブに所属するタレントのYouTubeチャンネル一覧をご紹介します。兎田ぺこら、宝鐘マリン、湊あくあ、さくらみこなどのまとめが含まれます。
+              {t('description', { keyword: 'Travel vlog english' })}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <Suspense fallback={<p>Loading cards...</p>}>
-              <ChannelCards channels={channels} hololive />
+              <ChannelCards channels={channels} />
             </Suspense>
           </CardContent>
+          <CardFooter>
+            <div className="text-xs text-muted-foreground">
+              Showing <strong>1-50</strong> of <strong>706789 </strong>
+              channels
+            </div>
+          </CardFooter>
         </Card>
       </section>
     </main>
