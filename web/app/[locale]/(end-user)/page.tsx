@@ -30,7 +30,7 @@ export default function IndexPage({ params: { locale } }: Props) {
 
   return (
     <Page>
-      <GlobalBreadcrumb items={[{ href: '/', name: 'YouTube' }]} />
+      <GlobalBreadcrumb items={[]} />
       <div className="container py-24 lg:py-32">
         <div className="max-w-2xl mx-auto">
           <div className="grid gap-12">

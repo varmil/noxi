@@ -8,11 +8,20 @@
     "channels": "Channels"
   },
 
+  "Page": {
+    "holilive": {
+      "charts": {
+        "title": "List of Hololive channels",
+        "description": "We will introduce you to Hololive YouTube channels."
+      }
+    }
+  },
+
   "IndexPage": {
     "title": "Welcome to PeakX",
-    "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from YouTube, Twitch, Tiktok, and Instagram.",
+    "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from VTubers, YouTube, Twitch, Tiktok, and Instagram.",
     "section": {
-      "keyword": { "title": "Search for channels by keyword" }
+      "keyword": { "title": "Search for channels" }
     }
   },
 

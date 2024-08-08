@@ -17,16 +17,19 @@ import ChannelCard from 'components/youtube/channel/ChannelCard'
 
 type Props = {
   channels: ChannelsSchema
+  hololive?: boolean
 }
 
-export async function ChannelCards({ channels }: PropsWithoutRef<Props>) {
+export async function ChannelCards({
+  channels,
+  hololive
+}: PropsWithoutRef<Props>) {
   return (
     <section className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {channels.map(channel => {
         const {
           basicInfo: { id, title, description, thumbnails, publishedAt },
-          statistics,
-          brandingSettings
+          statistics
         } = channel
         return (
           <ChannelCard
@@ -38,6 +41,7 @@ export async function ChannelCards({ channels }: PropsWithoutRef<Props>) {
             totalViewCount={statistics.viewCount}
             subscriberCount={statistics.subscriberCount}
             publishedAt={publishedAt}
+            hololive={hololive}
           />
         )
       })}
