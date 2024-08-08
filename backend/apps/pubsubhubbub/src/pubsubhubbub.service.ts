@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
-import HololiveList from '@domain/hololive/list'
+// import HololiveList from '@domain/hololive/list'
 import { ChannelId } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
