@@ -5,6 +5,7 @@ import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
+import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
 import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
@@ -28,7 +29,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
       <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-3">
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
-          className="pb-6 lg:pb-0 lg:col-span-1 lg:order-2"
+          className="pb-6 lg:col-span-1 lg:order-2"
           title="Data"
         >
           <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
@@ -39,10 +40,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           />
         </Section>
 
-        <Section
-          className="pb-6 lg:pb-0 lg:col-span-2 lg:order-1"
-          title="Trends"
-        >
+        <Section className="pb-6 lg:col-span-2 lg:order-1" title="Trends">
           <ViewsBarChart
             videoAggregation={latestVideoAggregation}
             videos={videos}
@@ -55,7 +53,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
         >
           <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
             <UploadsPerDayOfWeekBarChart videos={videos} />
-            <UploadsPerDayOfWeekBarChart videos={videos} />
+            <ViewsPerDoWBarChart videos={videos} />
           </div>
         </Section>
 

@@ -22,7 +22,7 @@ import * as dayOfWeek from '../../utils/dayOfWeek'
 
 const chartConfig = {
   desktop: {
-    color: 'hsl(var(--chart-2))'
+    color: 'hsl(var(--chart-4))'
   },
   label: {
     color: 'hsl(var(--background))'
@@ -33,16 +33,16 @@ type Props = {
   videos: VideosSchema
 }
 
-export default function UploadsPerDayOfWeekBarChart({
+export default function ViewsPerDoWBarChart({
   videos
 }: PropsWithoutRef<Props>) {
   const format = useFormatter()
-  const data = dayOfWeek.groupByDay(videos)
+  const data = dayOfWeek.avarage(videos)
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Video Uploads per day</CardTitle>
+        <CardTitle>Avarage Views by uploaded day</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -62,23 +62,26 @@ export default function UploadsPerDayOfWeekBarChart({
               axisLine={false}
               tickFormatter={value => value.slice(0, 3)}
             />
-            <XAxis dataKey="count" type="number" hide />
+            <XAxis dataKey="views" type="number" hide />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="line" />}
             />
             <Bar
-              dataKey="count"
+              dataKey="views"
               layout="vertical"
               fill="var(--color-desktop)"
               radius={4}
             >
               <LabelList
-                dataKey="count"
+                dataKey="views"
                 position="right"
                 offset={8}
                 className="fill-foreground"
                 fontSize={12}
+                formatter={(v: number) =>
+                  format.number(v, { notation: 'compact' })
+                }
               />
             </Bar>
           </BarChart>
@@ -86,10 +89,11 @@ export default function UploadsPerDayOfWeekBarChart({
       </CardContent>
       <CardFooter className="flex-col items-start gap-1">
         <CardDescription>
-          The most videos are uploaded on{' '}
+          Uploaded on{' '}
           <span className="font-medium text-foreground">
-            {dayOfWeek.maxVideosDay(videos).dayOfWeek}
-          </span>
+            {dayOfWeek.maxViewsDay(videos).dayOfWeek}
+          </span>{' '}
+          are the most viewed
         </CardDescription>
       </CardFooter>
     </Card>
