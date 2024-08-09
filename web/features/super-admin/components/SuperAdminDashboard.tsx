@@ -52,6 +52,27 @@ export function SuperAdminDashboard() {
         <main className="flex-1 p-6 grid gap-6">
           <Card>
             <CardHeader>
+              <CardTitle>env</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                  <Label>NODE_ENV</Label>
+                  <div className="font-medium">{process.env.NODE_ENV}</div>
+                </div>
+                <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                  <Label>ENV_NAME</Label>
+                  <div className="font-medium">{process.env.ENV_NAME}</div>
+                </div>
+                <div className="grid grid-cols-[120px_1fr] items-center gap-4">
+                  <Label>BASE_URL</Label>
+                  <div className="font-medium">{process.env.BASE_URL}</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
               <CardTitle>Make API Request</CardTitle>
               <CardDescription>
                 Use the form below to make API requests and view the response.
