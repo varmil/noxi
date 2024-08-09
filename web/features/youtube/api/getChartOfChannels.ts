@@ -9,10 +9,10 @@ export async function getChartOfChannels({
   searchParams
 }: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/charts/channels?${searchParams.toString()}`,
-    {
-      next: { revalidate: 3600 }
-    }
+    `/api/youtube/charts/channels?${searchParams.toString()}`
+    // {
+    //   next: { revalidate: 3600 }
+    // }
   )
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
