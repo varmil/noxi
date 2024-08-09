@@ -11,7 +11,7 @@ export async function getChartOfChannels({
   const res = await fetchAPI(
     `/api/hololive/charts/channels?${searchParams.toString()}`,
     {
-      next: { revalidate: 600 }
+      next: { revalidate: 3600 }
     }
   )
   // The return value is *not* serialized
