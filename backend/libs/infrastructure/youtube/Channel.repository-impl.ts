@@ -46,13 +46,14 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     where: { id, country },
     limit
   }: Parameters<ChannelRepository['prismaFindAll']>[0]): Promise<Channels> {
-    console.time('channel.prismaFindAll')
+    const label = Date.now() + 'channel.prismaFindAll'
+    console.time(label)
     const channels = await this.prismaInfraService.channel.findMany({
       where: { id: { in: id?.map(e => e.get()) }, country: country?.get() },
       orderBy: { [sort.toOrderBy()]: 'desc' },
       take: limit
     })
-    console.timeEnd('channel.prismaFindAll')
+    console.timeEnd(label)
 
     return new Channels(
       channels.map(channel => {
@@ -93,11 +94,12 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   async prismaFindById(
     id: Parameters<ChannelRepository['prismaFindById']>[0]
   ): Promise<Channel | null> {
-    console.time('channel.prismaFindById')
+    const label = Date.now() + 'channel.prismaFindById'
+    console.time(label)
     const channel = await this.prismaInfraService.channel.findUnique({
       where: { id: id.get() }
     })
-    console.timeEnd('channel.prismaFindById')
+    console.timeEnd(label)
 
     if (!channel) return null
     return this.toDomain(channel)
@@ -193,9 +195,10 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       })
     )
 
-    console.time('channel.bulkSave')
+    const label = Date.now() + 'channel.bulkSave'
+    console.time(label)
     await this.prismaInfraService.$transaction([...query])
-    console.timeEnd('channel.bulkSave')
+    console.timeEnd(label)
   }
 
   private getQuery(country: CountryCode) {
