@@ -12,9 +12,7 @@ export const withIntl: MiddlewareFactory = next => {
       // Used when no locale matches
       defaultLocale,
 
-      localePrefix,
-
-      localeDetection: false
+      localePrefix
     })
 
     return handleI18nRouting(request)
