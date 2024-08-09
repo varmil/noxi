@@ -1,4 +1,5 @@
 import { ChannelsSchema, listSchema } from 'api-schema/youtube/channelSchema'
+import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   searchParams: URLSearchParams
@@ -7,10 +8,8 @@ type Params = {
 export async function getChartOfChannels({
   searchParams
 }: Params): Promise<ChannelsSchema> {
-  const res = await fetch(
-    `${
-      process.env.BASE_URL
-    }/api/hololive/charts/channels?${searchParams.toString()}`,
+  const res = await fetchAPI(
+    `/api/hololive/charts/channels?${searchParams.toString()}`,
     {
       next: { revalidate: 3600 }
     }

@@ -1,12 +1,10 @@
 import { ChannelSchema, schema } from 'api-schema/youtube/channelSchema'
+import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getChannel(id: string): Promise<ChannelSchema> {
-  const res = await fetch(
-    `${process.env.BASE_URL}/api/youtube/channels/${id}`,
-    {
-      next: { revalidate: 1800 }
-    }
-  )
+  const res = await fetchAPI(`/api/youtube/channels/${id}`, {
+    next: { revalidate: 1800 }
+  })
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
 
