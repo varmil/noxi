@@ -10,8 +10,8 @@ const nextConfig = {
         source: '/:path*',
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'max-age=600, s-maxage=3600'
+            key: 'CDN-Cache-Control',
+            value: 'public, max-age=600, s-maxage=3600'
           }
         ]
       }
