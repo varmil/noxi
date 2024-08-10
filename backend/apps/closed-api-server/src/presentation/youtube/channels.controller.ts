@@ -5,11 +5,13 @@ import {
   Param,
   UseInterceptors
 } from '@nestjs/common'
+import { CacheControlInterceptor } from '@presentation/interceptors/cache-control.interceptor'
 import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { ChannelId, Videos } from '@domain/youtube'
 
+@UseInterceptors(CacheControlInterceptor)
 @Controller('youtube/channels')
 export class ChannelsController {
   constructor(
