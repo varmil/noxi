@@ -8,7 +8,7 @@ const PATHNAMES = ['/youtube/charts/channels']
  * If not exists on header, uses default value (US)
  */
 function getCountryCode(req: NextRequest): string {
-  return req.headers.get('x-country-code') || defaultCountry
+  return req.headers.get('x-vercel-ip-country') || defaultCountry
 }
 
 /**
