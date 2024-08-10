@@ -3,15 +3,10 @@ import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { CookieAgreeBanner } from 'app/[locale]/(end-user)/_components/CookieAgreeBanner'
 import Aside from 'components/Aside'
-import { locales } from 'config/i18n/locale'
 
 type Props = {
   children: ReactNode
   params: { locale: string }
-}
-
-export function generateStaticParams() {
-  return locales.map(locale => ({ locale }))
 }
 
 export async function generateMetadata({

@@ -5,7 +5,7 @@
     "prepare": "git config --local core.hooksPath .githooks",
     "lint:web": "cd web && npm run lint",
     "lint:backend": "cd backend && npm run lint",
-    "emulator": "firebase emulators:start --import=./firebase-emulator-data --export-on-exit",
+    "emulator": "firebase emulators:start --only firestore --import=./firebase-emulator-data --export-on-exit",
     "conc": "npx ts-node scripts/concurrently/main & npm run emulator"
   },
   "license": "ISC",
