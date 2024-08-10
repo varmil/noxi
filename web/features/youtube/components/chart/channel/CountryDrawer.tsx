@@ -39,7 +39,10 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                 active={!has(QS_KEY) || has(QS_KEY, 'US')}
               >
                 <Link
-                  href={`${pathname}?${createQueryString(QS_KEY, 'US')}`}
+                  href={{
+                    pathname: pathname,
+                    query: createQueryString(QS_KEY, 'US')
+                  }}
                   scroll={false}
                 >
                   US
@@ -47,7 +50,10 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               </DrawerSelectButton>
               <DrawerSelectButton asChild active={has(QS_KEY, 'JP')}>
                 <Link
-                  href={`${pathname}?${createQueryString(QS_KEY, 'JP')}`}
+                  href={{
+                    pathname: pathname,
+                    query: createQueryString(QS_KEY, 'JP')
+                  }}
                   scroll={false}
                 >
                   Japan
@@ -55,7 +61,10 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               </DrawerSelectButton>
               <DrawerSelectButton asChild active={has(QS_KEY, 'IN')}>
                 <Link
-                  href={`${pathname}?${createQueryString(QS_KEY, 'IN')}`}
+                  href={{
+                    pathname: pathname,
+                    query: createQueryString(QS_KEY, 'IN')
+                  }}
                   scroll={false}
                 >
                   India
@@ -63,23 +72,15 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               </DrawerSelectButton>
               <DrawerSelectButton asChild active={has(QS_KEY, 'GB')}>
                 <Link
-                  href={`${pathname}?${createQueryString(QS_KEY, 'GB')}`}
+                  href={{
+                    pathname: pathname,
+                    query: createQueryString(QS_KEY, 'GB')
+                  }}
                   scroll={false}
                 >
                   UK
                 </Link>
               </DrawerSelectButton>
-              {/* <DrawerSelectButton asChild active={has(QS_KEY, 'all-regions')}>
-                <Link
-                  href={`${pathname}?${createQueryString(
-                    QS_KEY,
-                    'all-regions'
-                  )}`}
-                  scroll={false}
-                >
-                  All regions
-                </Link>
-              </DrawerSelectButton> */}
             </div>
           </div>
         </div>
