@@ -6,8 +6,10 @@ import {
   UseInterceptors
 } from '@nestjs/common'
 import { GetChartOfChannelsDto } from '@presentation/hololive/dto/GetChartOfChannels.dto'
+import { CacheControlInterceptor } from '@presentation/interceptors/cache-control.interceptor'
 import { ChartsScenario } from '@app/hololive/charts/charts.scenario'
 
+@UseInterceptors(CacheControlInterceptor)
 @Controller('hololive/charts')
 export class ChartsController {
   constructor(private readonly chartsScenario: ChartsScenario) {}

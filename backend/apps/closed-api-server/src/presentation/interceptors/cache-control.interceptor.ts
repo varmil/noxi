@@ -2,7 +2,7 @@ import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common'
 import type { Response, Request } from 'express'
 
 /**
- * GETメソッドに'Cache-Control': 'public, max-age=1800' をセット
+ * GETメソッドにキャッシュ可能なヘッダーをセット
  */
 export class CacheControlInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler) {
@@ -11,7 +11,7 @@ export class CacheControlInterceptor implements NestInterceptor {
 
     if (request.method === 'GET') {
       if (!response.getHeader('Cache-Control')) {
-        response.header('Cache-Control', 'public, max-age=1800')
+        response.header('Cache-Control', 'public, max-age=0, s-maxage=600')
       }
     }
 
