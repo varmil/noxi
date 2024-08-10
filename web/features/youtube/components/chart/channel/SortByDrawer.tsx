@@ -41,7 +41,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
               >
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'subscribers')
                   }}
                   scroll={false}
@@ -52,7 +52,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
               <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'avarage-views')
                   }}
                   scroll={false}
@@ -63,7 +63,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
               <DrawerSelectButton asChild active={has(QS_KEY, 'views')}>
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'views')
                   }}
                   scroll={false}

@@ -40,7 +40,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               >
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'US')
                   }}
                   scroll={false}
@@ -51,7 +51,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               <DrawerSelectButton asChild active={has(QS_KEY, 'JP')}>
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'JP')
                   }}
                   scroll={false}
@@ -62,7 +62,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               <DrawerSelectButton asChild active={has(QS_KEY, 'IN')}>
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'IN')
                   }}
                   scroll={false}
@@ -73,7 +73,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
               <DrawerSelectButton asChild active={has(QS_KEY, 'GB')}>
                 <Link
                   href={{
-                    pathname: pathname,
+                    pathname,
                     query: createQueryString(QS_KEY, 'GB')
                   }}
                   scroll={false}
