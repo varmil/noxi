@@ -31,7 +31,7 @@ export default function YoutubeChartsChannelsPage({
   searchParams
 }: Props) {
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  // unstable_setRequestLocale(locale)
 
   const t = useTranslations('Breadcrumb')
 
