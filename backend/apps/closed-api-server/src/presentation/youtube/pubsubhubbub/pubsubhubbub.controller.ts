@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   HttpStatus,
@@ -10,13 +9,17 @@ import {
 } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
+import { PubsubhubbubScenario } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.scenario'
 
 /**
  * challenge, callbackを扱う
  */
 @Controller('youtube/pubsubhubbub')
 export class PubsubhubbubController {
-  constructor(private readonly cryptoService: CryptoService) {}
+  constructor(
+    private readonly pubsubhubbubScenario: PubsubhubbubScenario,
+    private readonly cryptoService: CryptoService
+  ) {}
 
   /**
    * Handle the subscription verification challenge
@@ -49,8 +52,8 @@ export class PubsubhubbubController {
   callback(@Req() req: Request, @Res() res: Response) {
     if (!this.cryptoService.verify({ req, res })) return
 
-    // TODO: parse XML string to object
-    console.log('callback:', req.body)
+    // parse XML string to object
+    this.pubsubhubbubScenario.handleCallback({ xml: req.body })
 
     return res.status(HttpStatus.ACCEPTED).send()
   }

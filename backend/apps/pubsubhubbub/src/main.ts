@@ -1,10 +1,10 @@
 import { NestFactory } from '@nestjs/core'
-import { PubsubhubbubService } from 'apps/pubsubhubbub/src/pubsubhubbub.service'
-import { PubsubhubbubModule } from './pubsubhubbub.module'
+import { SubscribeService } from '@app/youtube/pubsubhubbub/subscribe.service'
+import { MainModule } from './main.module'
 
 async function bootstrap() {
-  const app = await NestFactory.createApplicationContext(PubsubhubbubModule)
-  const service = app.get(PubsubhubbubService)
+  const app = await NestFactory.createApplicationContext(MainModule)
+  const service = app.get(SubscribeService)
   await service.subscribe()
   await app.close()
 }
