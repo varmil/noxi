@@ -11,7 +11,7 @@ const nextConfig = {
         headers: [
           {
             key: 'CDN-Cache-Control',
-            value: 'max-age=0, s-maxage=10800'
+            value: 'public, max-age=10800, s-maxage=10800'
           }
         ]
       }

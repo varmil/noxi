@@ -41,6 +41,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, 'US')}`}
                   scroll={false}
+                  prefetch={true}
                 >
                   US
                 </Link>
@@ -49,6 +50,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, 'JP')}`}
                   scroll={false}
+                  prefetch={true}
                 >
                   Japan
                 </Link>
@@ -57,6 +59,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, 'IN')}`}
                   scroll={false}
+                  prefetch={true}
                 >
                   India
                 </Link>
@@ -65,6 +68,7 @@ export function CountryDrawer({ children }: React.PropsWithChildren<Props>) {
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, 'GB')}`}
                   scroll={false}
+                  prefetch={true}
                 >
                   UK
                 </Link>
