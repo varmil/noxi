@@ -32,15 +32,6 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
           </DrawerHeader>
           <div className="p-4 px-6 pb-4">
             <div className="flex flex-col [&>*:not(:last-child)]:border-b items-center border rounded-md">
-              {/* <DrawerSelectButton asChild active={!has(QS_KEY)}>
-                <Link
-                  href={`${pathname}?${createQueryString(QS_KEY, null)}`}
-                  scroll={false}
-                >
-                  Not sorted
-                </Link>
-              </DrawerSelectButton> */}
-
               {/**
                * Default is sorted by subscribers
                */}
@@ -53,26 +44,26 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                     QS_KEY,
                     'subscribers'
                   )}`}
-                  scroll={false}
+                  prefetch={true}
                 >
                   Subscribers
                 </Link>
               </DrawerSelectButton>
-              <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
+              {/* <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
                 <Link
                   href={`${pathname}?${createQueryString(
                     QS_KEY,
                     'avarage-views'
                   )}`}
-                  scroll={false}
+                  prefetch={true}
                 >
                   Avarage views in the past 30 days
                 </Link>
-              </DrawerSelectButton>
+              </DrawerSelectButton> */}
               <DrawerSelectButton asChild active={has(QS_KEY, 'views')}>
                 <Link
                   href={`${pathname}?${createQueryString(QS_KEY, 'views')}`}
-                  scroll={false}
+                  prefetch={true}
                 >
                   Views
                 </Link>
