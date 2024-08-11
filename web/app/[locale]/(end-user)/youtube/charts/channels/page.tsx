@@ -5,6 +5,10 @@ import { ChartTemplate } from 'app/[locale]/(end-user)/youtube/charts/channels/_
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 
+export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+export const revalidate = 0
+
 type Props = {
   params: { locale: string }
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
