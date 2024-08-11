@@ -25,7 +25,7 @@ export default async function LocaleLayout({
   params: { locale }
 }: Props) {
   // Enable static rendering
-  // unstable_setRequestLocale(locale)
+  unstable_setRequestLocale(locale)
 
   return (
     <>
