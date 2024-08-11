@@ -14,21 +14,27 @@ const nextConfig = {
             value: 'public, max-age=10800, s-maxage=10800'
           }
         ]
+      },
+      /**
+       * exclude paths which may include query params
+       */
+      {
+        source: '/:locale/youtube/charts/:path*',
+        has: [
+          {
+            type: 'query',
+            key: '_rsc'
+          }
+        ],
+        headers: [
+          {
+            key: 'CDN-Cache-Control',
+            value: ''
+          }
+        ]
       }
     ]
   }
-  // images: {
-  //   remotePatterns: [
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'yt3.ggpht.com'
-  //     },
-  //     {
-  //       protocol: 'https',
-  //       hostname: 'i.ytimg.com'
-  //     }
-  //   ]
-  // }
 }
 
 module.exports = withNextIntl(nextConfig)
