@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
-// import HololiveList from '@domain/hololive/list'
+import HololiveList from '@domain/hololive/list'
 import { ChannelId } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
@@ -17,19 +17,20 @@ export class PubsubhubbubService {
    * Rate Limitがあるので適当にsleepが必要
    */
   async subscribe() {
-    // for (const channel of HololiveList) {
-    //   await this.send({
-    //     channelId: new ChannelId(channel.id)
-    //   })
-    //   await this.sleep(1000)
-    // }
+    for (const channel of HololiveList) {
+      await this.send({
+        channelId: new ChannelId(channel.id)
+      })
+      await this.sleep(5000)
+    }
 
     // さくらみこ
-    await this.send({ channelId: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA') })
+    // await this.send({ channelId: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA') })
   }
 
   private async send(query: SubscribeYouTubePubsubQuery): Promise<void> {
-    const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME
+    // const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME
+    const SERVER_HOSTNAME = 'closed-api-server-o4obunvh4q-de.a.run.app'
     const YOUTUBE_PUBSUB_SECRET = process.env.YOUTUBE_PUBSUB_SECRET
 
     if (!SERVER_HOSTNAME || !YOUTUBE_PUBSUB_SECRET) {

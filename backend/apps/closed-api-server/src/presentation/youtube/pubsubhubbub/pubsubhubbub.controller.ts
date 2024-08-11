@@ -46,10 +46,12 @@ export class PubsubhubbubController {
   }
 
   @Post('/callback')
-  callback(@Req() req: Request, @Res() res: Response, @Body() body: unknown) {
+  callback(@Req() req: Request, @Res() res: Response) {
     if (!this.cryptoService.verify({ req, res })) return
 
-    // TODO: 多分XMLを扱う必要がある
-    console.log('callback:', body)
+    // TODO: parse XML string to object
+    console.log('callback:', req.body)
+
+    return res.status(HttpStatus.ACCEPTED).send()
   }
 }
