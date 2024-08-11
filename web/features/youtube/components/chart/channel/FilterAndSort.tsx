@@ -2,6 +2,7 @@ import * as React from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { Skeleton } from '@/components/ui/skeleton'
 import { CategoryDrawer } from 'features/youtube/components/chart/channel/CategoryDrawer'
 import { CountryDrawer } from 'features/youtube/components/chart/channel/CountryDrawer'
 import { SortByDrawer } from 'features/youtube/components/chart/channel/SortByDrawer'
@@ -13,20 +14,30 @@ const ButtonWithIcon = ({ text }: React.PropsWithoutRef<{ text: string }>) => (
   </Button>
 )
 
+const DrawerSkeleton = () => (
+  <>
+    <Skeleton className="h-10 w-28 rounded-sm" />
+    <Skeleton className="h-10 w-28 rounded-sm" />
+    <Skeleton className="h-10 w-28 rounded-sm" />
+  </>
+)
+
 export async function FilterAndSort() {
   return (
     <ScrollArea className="whitespace-nowrap">
       <div className="flex w-max items-center gap-2">
-        <SortByDrawer>
-          <ButtonWithIcon text="Sort" />
-        </SortByDrawer>
-        <CategoryDrawer>
-          <ButtonWithIcon text="Category" />
-        </CategoryDrawer>
-        {/* <ButtonWithIcon text="Date" /> */}
-        <CountryDrawer>
-          <ButtonWithIcon text="Country" />
-        </CountryDrawer>
+        <React.Suspense fallback={<DrawerSkeleton />}>
+          <SortByDrawer>
+            <ButtonWithIcon text="Sort" />
+          </SortByDrawer>
+          <CategoryDrawer>
+            <ButtonWithIcon text="Category" />
+          </CategoryDrawer>
+          {/* <ButtonWithIcon text="Date" /> */}
+          <CountryDrawer>
+            <ButtonWithIcon text="Country" />
+          </CountryDrawer>
+        </React.Suspense>
       </div>
       <ScrollBar orientation="horizontal" />
     </ScrollArea>
