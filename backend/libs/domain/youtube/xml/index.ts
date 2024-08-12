@@ -1,2 +1,2 @@
-export * from './XML.vo'
+export * from './UpdatedEntry.vo'
 export * from './XMLFactory'

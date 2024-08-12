@@ -37,6 +37,8 @@ const FeedSchema = z.object({
   entry: EntrySchema
 })
 
-const ParsedXMLSchema = z.object({
+export const updatedEntryXMLSchema = z.object({
   feed: FeedSchema
 })
+
+export type UpdatedEntryXMLSchema = z.infer<typeof updatedEntryXMLSchema>

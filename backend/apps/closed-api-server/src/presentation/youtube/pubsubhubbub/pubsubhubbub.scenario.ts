@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
-import { XML } from '@domain/youtube/xml/XML.vo'
+import { UpdatedEntry } from '@domain/youtube'
 
 /**
  * callbackを扱う
@@ -9,7 +9,7 @@ import { XML } from '@domain/youtube/xml/XML.vo'
 export class PubsubhubbubScenario {
   constructor(private readonly cryptoService: CryptoService) {}
 
-  handleCallback({ xml }: { xml: XML }) {
-    console.log('handleCallback', xml)
+  handleUpdatedCallback({ entry }: { entry: UpdatedEntry }) {
+    console.log('handleUpdatedCallback', entry)
   }
 }

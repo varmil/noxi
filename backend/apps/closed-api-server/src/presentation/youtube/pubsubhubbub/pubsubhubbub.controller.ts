@@ -10,7 +10,8 @@ import {
 import { Request, Response } from 'express'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 import { PubsubhubbubScenario } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.scenario'
-import { XML } from '@domain/youtube/xml/XML.vo'
+import { XMLFactory } from '@domain/youtube'
+import { UpdatedEntry } from '@domain/youtube/xml/UpdatedEntry.vo'
 
 /**
  * challenge, callbackを扱う
@@ -53,9 +54,12 @@ export class PubsubhubbubController {
   callback(@Req() req: Request, @Res() res: Response) {
     if (!this.cryptoService.verify({ req, res })) return
 
-    this.pubsubhubbubScenario.handleCallback({
-      xml: new XML(req.body as string)
-    })
+    const updatedEntry = XMLFactory.convertToUpdatedEntry(req.body as string)
+    if (updatedEntry) {
+      this.pubsubhubbubScenario.handleUpdatedCallback({
+        entry: new UpdatedEntry(updatedEntry)
+      })
+    }
 
     return res.status(HttpStatus.ACCEPTED).send()
   }
