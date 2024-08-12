@@ -12,7 +12,7 @@ interface SubscribeYouTubePubsubQuery {
 }
 
 @Injectable()
-export class PubsubhubbubService {
+export class SubscribeService {
   /**
    * Rate Limitがあるので適当にsleepが必要
    */
@@ -23,9 +23,6 @@ export class PubsubhubbubService {
       })
       await this.sleep(5000)
     }
-
-    // さくらみこ
-    // await this.send({ channelId: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA') })
   }
 
   private async send(query: SubscribeYouTubePubsubQuery): Promise<void> {

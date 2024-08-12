@@ -1,4 +1,5 @@
 {
+  "name": "web",
   "private": true,
   "scripts": {
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint --fix './*.{ts,tsx}' './**/*.{ts,tsx}'",

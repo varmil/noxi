@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed
+	xmlns:yt="http://www.youtube.com/xml/schemas/2015"
+	xmlns="http://www.w3.org/2005/Atom">
+	<link rel="hub" href="https://pubsubhubbub.appspot.com"/>
+	<link rel="self" href="https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCCzUftO8KOVkV4wQG1vkUvg"/>
+	<title>YouTube video feed</title>
+	<updated>2024-08-11T13:19:00.617888181+00:00</updated>
+	<entry>
+		<id>yt:video:WG3FIk8edh8</id>
+		<yt:videoId>WG3FIk8edh8</yt:videoId>
+		<yt:channelId>UCCzUftO8KOVkV4wQG1vkUvg</yt:channelId>
+		<title>【新衣装お披露目】告知あり！！初のユニット衣装！！3期生お披露目リレー！！！【ホロライブ/宝鐘マリン】</title>
+		<link rel="alternate" href="https://www.youtube.com/watch?v=WG3FIk8edh8"/>
+		<author>
+			<name>Marine Ch. 宝鐘マリン</name>
+			<uri>https://www.youtube.com/channel/UCCzUftO8KOVkV4wQG1vkUvg</uri>
+		</author>
+		<published>2024-08-11T13:18:30+00:00</published>
+		<updated>2024-08-11T13:19:00.617888181+00:00</updated>
+	</entry>
+</feed>

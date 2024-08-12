@@ -22,23 +22,13 @@ describe('AppController (e2e)', () => {
   })
 
   it('/api/youtube/pubsubhubbub/callback (POST)', () => {
-    const dto = `<entry>
-    <id>yt:video:1qmpGt2wTv0</id>
-    <yt:videoId>1qmpGt2wTv0</yt:videoId>
-    <yt:channelId>UC1DCedRgGHBdm81E1llLhOQ</yt:channelId>
-    <title>【FGO】9周年福袋＆ディスティニーオーダー、水着エレちゃんPUガチャ引くぞおおおおおおおおおおおおおおおおおおおおおおおおおおぺこ！【ホロライブ/兎田ぺこら】</title>
-    <link rel="alternate" href="https://www.youtube.com/watch?v=1qmpGt2wTv0"/>
-    <author>
-     <name>Pekora Ch. 兎田ぺこら</name>
-     <uri>https://www.youtube.com/channel/UC1DCedRgGHBdm81E1llLhOQ</uri>
-    </author>
-    <published>2024-08-10T16:20:46+00:00</published>
-    <updated>2024-08-10T16:21:22.220666866+00:00</updated>
-   </entry>`
+    const dto =
+      '<?xml version=\'1.0\' encoding=\'UTF-8\'?>\n<feed xmlns:yt="http://www.youtube.com/xml/schemas/2015" xmlns="http://www.w3.org/2005/Atom"><link rel="hub" href="https://pubsubhubbub.appspot.com"/><link rel="self" href="https://www.youtube.com/xml/feeds/videos.xml?channel_id=UCCzUftO8KOVkV4wQG1vkUvg"/><title>YouTube video feed</title><updated>2024-08-11T13:19:00.617888181+00:00</updated><entry>\n  <id>yt:video:WG3FIk8edh8</id>\n  <yt:videoId>WG3FIk8edh8</yt:videoId>\n  <yt:channelId>UCCzUftO8KOVkV4wQG1vkUvg</yt:channelId>\n  <title>【新衣装お披露目】告知あり！！初のユニット衣装！！3期生お披露目リレー！！！【ホロライブ/宝鐘マリン】</title>\n  <link rel="alternate" href="https://www.youtube.com/watch?v=WG3FIk8edh8"/>\n  <author>\n   <name>Marine Ch. 宝鐘マリン</name>\n   <uri>https://www.youtube.com/channel/UCCzUftO8KOVkV4wQG1vkUvg</uri>\n  </author>\n  <published>2024-08-11T13:18:30+00:00</published>\n  <updated>2024-08-11T13:19:00.617888181+00:00</updated>\n </entry></feed>\n'
 
     return request(app.getHttpServer())
       .post('/api/youtube/pubsubhubbub/callback')
       .set('Content-Type', 'application/atom+xml')
+      .set('x-hub-signature', 'sha1=f666cc500eb650b774ae3088603111e151751d04')
       .send(dto)
       .expect(202)
   })

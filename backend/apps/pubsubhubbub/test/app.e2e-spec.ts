@@ -2,7 +2,7 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import request from 'supertest'
 import { App } from 'supertest/types'
-import { PubsubhubbubModule } from './../src/pubsubhubbub.module'
+import { PubsubhubbubModule } from '../../../libs/application/youtube/pubsubhubbub/pubsubhubbub.module'
 
 describe('PubsubhubbubController (e2e)', () => {
   let app: INestApplication

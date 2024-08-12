@@ -13,10 +13,10 @@ export class CryptoService {
     const signature = req.headers['x-hub-signature'] as string
     const key = process.env.YOUTUBE_PUBSUB_SECRET
 
-    {
-      console.info('req.headers', JSON.stringify(req.headers))
-      console.info('req.body', JSON.stringify(req.body))
-    }
+    // {
+    //   console.info('req.headers', JSON.stringify(req.headers))
+    //   console.info('req.body', JSON.stringify(req.body))
+    // }
 
     if (!signature) {
       console.info('Header x-hub-signature is not present')

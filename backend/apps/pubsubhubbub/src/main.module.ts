@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { PubsubhubbubService } from './pubsubhubbub.service'
+import { PubsubhubbubModule } from '@app/youtube/pubsubhubbub/pubsubhubbub.module'
 
 @Module({
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
-    ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME })
+    ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
+    PubsubhubbubModule
   ],
   controllers: [],
-  providers: [PubsubhubbubService]
+  providers: []
 })
-export class PubsubhubbubModule {}
+export class MainModule {}
