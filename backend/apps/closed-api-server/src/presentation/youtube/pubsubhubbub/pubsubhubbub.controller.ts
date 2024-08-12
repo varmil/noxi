@@ -10,7 +10,7 @@ import {
 import { Request, Response } from 'express'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 import { PubsubhubbubScenario } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.scenario'
-import { XMLFactory } from '@domain/youtube'
+import { DeletedEntry, XMLFactory } from '@domain/youtube'
 import { UpdatedEntry } from '@domain/youtube/xml/UpdatedEntry.vo'
 
 /**
@@ -51,13 +51,20 @@ export class PubsubhubbubController {
   }
 
   @Post('/callback')
-  callback(@Req() req: Request, @Res() res: Response) {
+  async callback(@Req() req: Request, @Res() res: Response) {
     if (!this.cryptoService.verify({ req, res })) return
 
     const updatedEntry = XMLFactory.convertToUpdatedEntry(req.body as string)
     if (updatedEntry) {
-      this.pubsubhubbubScenario.handleUpdatedCallback({
+      await this.pubsubhubbubScenario.handleUpdatedCallback({
         entry: new UpdatedEntry(updatedEntry)
+      })
+    }
+
+    const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
+    if (deletedEntry) {
+      this.pubsubhubbubScenario.handleDeletedCallback({
+        entry: new DeletedEntry(deletedEntry)
       })
     }
 

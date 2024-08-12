@@ -1,3 +1,5 @@
+import { ChannelId } from '@domain/youtube/channel'
+import { VideoId } from '@domain/youtube/video'
 import { DeletedEntryXMLSchema } from '@domain/youtube/xml/schema/DeletedEntryXMLSchema'
 
 export class DeletedEntry {
@@ -6,13 +8,17 @@ export class DeletedEntry {
   }
 
   get channelId() {
-    return this.data.feed['at:deleted-entry']['at:by'].uri.replace(
-      'https://www.youtube.com/channel/',
-      ''
+    return new ChannelId(
+      this.data.feed['at:deleted-entry']['at:by'].uri.replace(
+        'https://www.youtube.com/channel/',
+        ''
+      )
     )
   }
 
   get videoId() {
-    return this.data.feed['at:deleted-entry'].ref.replace('yt:video:', '')
+    return new VideoId(
+      this.data.feed['at:deleted-entry'].ref.replace('yt:video:', '')
+    )
   }
 }

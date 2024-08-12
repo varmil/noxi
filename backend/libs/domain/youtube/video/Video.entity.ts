@@ -49,6 +49,17 @@ export class Video {
   }
 
   @Expose()
+  get status() {
+    // return if detail.actual_end_time.is_some() {
+    //     StreamStatus::Ended
+    // } else if detail.actual_start_time.is_some() {
+    //     StreamStatus::Live
+    // } else {
+    //     StreamStatus::Scheduled
+    // }
+  }
+
+  @Expose()
   get engagementCount() {
     return this.statistics.engagementCount()
   }

@@ -1,3 +1,5 @@
+import { ChannelId } from '@domain/youtube/channel'
+import { VideoId } from '@domain/youtube/video'
 import { UpdatedEntryXMLSchema } from '@domain/youtube/xml/schema/UpdatedEntryXMLSchema'
 
 export class UpdatedEntry {
@@ -6,10 +8,10 @@ export class UpdatedEntry {
   }
 
   get channelId() {
-    return this.data.feed.entry['yt:channelId']
+    return new ChannelId(this.data.feed.entry['yt:channelId'])
   }
 
   get videoId() {
-    return this.data.feed.entry['yt:videoId']
+    return new VideoId(this.data.feed.entry['yt:videoId'])
   }
 }
