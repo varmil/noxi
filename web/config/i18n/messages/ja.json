@@ -6,7 +6,7 @@
 
   "Breadcrumb": {
     "hololive": "ホロライブ",
-    "channels": "チャンネル"
+    "channels": "チャンネルまとめ"
   },
 
   "Page": {
@@ -23,10 +23,10 @@
 
     "holilive": {
       "charts": {
-        "title": "ホロライブ所属タレントのチャンネル一覧",
-        "description": "ホロライブに所属するタレントのYouTubeチャンネル一覧をご紹介します。",
-        "cardTitle": "ホロライブ | Hololive",
-        "cardDescription": "ホロライブに所属するタレントのYouTubeチャンネル一覧をご紹介します。兎田ぺこら、宝鐘マリン、湊あくあ、さくらみこなどのまとめが含まれます。"
+        "title": "ホロライブまとめ：所属タレントのチャンネル一覧",
+        "description": "ホロライブまとめ：YouTubeチャンネル一覧をまとめてご紹介します。",
+        "cardTitle": "ホロライブまとめ",
+        "cardDescription": "ホロライブに所属するタレントのYouTubeチャンネル一覧をまとめています。兎田ぺこらのまとめ、宝鐘マリンのまとめ、湊あくあのまとめ、さくらみこのまとめなどが含まれます。"
       }
     }
   },
@@ -42,7 +42,7 @@
   },
 
   "ChannelsId": {
-    "title": "のチャンネル分析情報"
+    "title": "のチャンネルまとめ"
   },
 
   "ChartsChannels": {
