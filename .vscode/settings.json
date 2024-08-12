@@ -29,9 +29,10 @@
     "/backend/libs/domain/youtube/playlist",
     "/backend/libs/domain/youtube/chart/channel",
     "/backend/libs/domain/youtube/chart",
+    "/backend/libs/domain/youtube/country",
+    "/backend/libs/domain/youtube/xml",
     "/backend/libs/domain/country",
-    "/backend/libs/domain/time-period",
-    "/backend/libs/domain/youtube/country"
+    "/backend/libs/domain/time-period"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",

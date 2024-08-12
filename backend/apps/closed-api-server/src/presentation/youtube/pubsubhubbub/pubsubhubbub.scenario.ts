@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
-import { XML } from '@domain/xml/XML.vo'
+import { XML } from '@domain/youtube/xml/XML.vo'
 
 /**
  * callbackを扱う

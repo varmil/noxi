@@ -10,7 +10,7 @@ import {
 import { Request, Response } from 'express'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 import { PubsubhubbubScenario } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.scenario'
-import { XML } from '@domain/xml/XML.vo'
+import { XML } from '@domain/youtube/xml/XML.vo'
 
 /**
  * challenge, callbackを扱う
