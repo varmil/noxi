@@ -40,3 +40,32 @@ model Channel {
   keywords Json
   country  String
 }
+
+model YoutubeStream {
+  videoId         String   @id
+  publishedAt     DateTime @db.Timestamptz(3)
+  channelId       String
+  title           String
+  description     String?
+  /// [Thumbnails]
+  thumbnails      Json
+  tags            String[]
+  categoryId      Int      @db.SmallInt
+  defaultLanguage String?
+
+  duration String?
+
+  scheduledStartTime DateTime  @db.Timestamptz(3)
+  actualStartTime    DateTime? @db.Timestamptz(3)
+  actualEndTime      DateTime? @db.Timestamptz(3)
+  maxViewerCount     Int       @default(0)
+  chatCount          Int       @default(0)
+  likeCount          Int       @default(0)
+
+  status String
+
+  updatedAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([channelId])
+  @@index([status])
+}
