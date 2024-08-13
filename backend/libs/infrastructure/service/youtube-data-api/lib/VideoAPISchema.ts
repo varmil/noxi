@@ -36,6 +36,7 @@ export const videoAPISchema = z.object({
 
   liveStreamingDetails: z
     .object({
+      scheduledStartTime: z.string().datetime(),
       actualStartTime: z.string().datetime().optional(),
       actualEndTime: z.string().datetime().optional(),
       concurrentViewers: z.string().optional()

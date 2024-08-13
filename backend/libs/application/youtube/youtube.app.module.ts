@@ -16,6 +16,12 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     ChannelsService,
     VideosService
   ],
-  exports: [ChartsScenario, ChannelsScenario, VideosScenario, ChannelsService]
+  exports: [
+    ChartsScenario,
+    ChannelsScenario,
+    VideosScenario,
+    ChannelsService,
+    VideosService
+  ]
 })
 export class YoutubeAppModule {}

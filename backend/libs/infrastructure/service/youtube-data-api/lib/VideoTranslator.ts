@@ -39,6 +39,9 @@ export class VideoTranslator {
       }),
       liveStreamingDetails: v.liveStreamingDetails
         ? new LiveStreamingDetails({
+            scheduledStartTime: new Date(
+              v.liveStreamingDetails.scheduledStartTime
+            ),
             actualStartTime: actualStartTime
               ? new Date(actualStartTime)
               : undefined,

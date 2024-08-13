@@ -49,5 +49,8 @@ export class Videos {
   ): Videos => new Videos(this.list.filter(callbackfn))
 
   @Exclude()
+  first = (): Video | undefined => this.list[0]
+
+  @Exclude()
   length = () => this.list.length
 }

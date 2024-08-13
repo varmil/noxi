@@ -14,11 +14,11 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const { basicInfo } = await getChannel(id)
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'ChannelsId' })
+  const t = await getTranslations({ locale, namespace: 'Page.channelsId' })
 
   return {
-    title: `${basicInfo.title}${t('title')} | ${tg('title')}`,
-    description: `${basicInfo.title}${t('title')}. ${basicInfo.description}`
+    title: `${basicInfo.title} - ${t('title')} | ${tg('title')}`,
+    description: `${t('description', { channel: basicInfo.title })}`
   }
 }
 
