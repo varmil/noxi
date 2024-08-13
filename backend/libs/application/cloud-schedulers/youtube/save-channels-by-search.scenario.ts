@@ -101,12 +101,14 @@ export class SaveChannelsBySearchScenario {
     return nextPageToken
   }
 
-  private async getPublishedAtOfLatestVideo(channel: Channel): Promise<Date> {
+  private async getPublishedAtOfLatestVideo(
+    channel: Channel
+  ): Promise<Date | undefined> {
     const { items } = await this.playlistItemsInfraService.list({
       limit: 1,
       playlistId: new PlaylistId(channel.contentDetails.uploadsPlaylistId)
     })
 
-    return items.first().publishedAt
+    return items.first()?.publishedAt
   }
 }
