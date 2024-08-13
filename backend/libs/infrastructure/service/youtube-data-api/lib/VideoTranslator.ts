@@ -19,7 +19,7 @@ export class VideoTranslator {
     const v = this.parse()
     if (!v) return undefined
 
-    const { publishedAt, defaultLanguage, ...sRest } = v.snippet
+    const { publishedAt, categoryId, defaultLanguage, ...sRest } = v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
     const { actualStartTime, actualEndTime, concurrentViewers } =
       v.liveStreamingDetails ?? {}
@@ -29,6 +29,7 @@ export class VideoTranslator {
       snippet: new Snippet({
         ...sRest,
         publishedAt: new PublishedAt(new Date(publishedAt)),
+        categoryId: Number(categoryId),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
           : undefined

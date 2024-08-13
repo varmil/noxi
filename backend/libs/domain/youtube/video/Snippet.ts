@@ -10,7 +10,7 @@ export class Snippet {
   public readonly description: string
   public readonly thumbnails: Thumbnails
   public readonly tags: string[]
-  public readonly categoryId: string
+  public readonly categoryId: number
   @Exclude()
   public readonly defaultLanguage?: LanguageTag
 
@@ -21,7 +21,7 @@ export class Snippet {
     description: string
     thumbnails: Thumbnails
     tags?: string[] | null
-    categoryId: string
+    categoryId: number
     defaultLanguage?: LanguageTag
   }) {
     this.publishedAt = args.publishedAt
