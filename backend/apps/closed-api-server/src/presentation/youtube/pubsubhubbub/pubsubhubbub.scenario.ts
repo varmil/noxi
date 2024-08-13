@@ -34,8 +34,9 @@ export class PubsubhubbubScenario {
       return
     }
 
-    /** UPSERT */
-    // TODO: status impl
+    // TODO: convert from Video to Stream
+
+    // TODO: StreamRepository.save(stream)
   }
 
   handleDeletedCallback({ entry }: { entry: DeletedEntry }) {

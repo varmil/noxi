@@ -1,8 +1,4 @@
-import {
-  StreamStatusEnded,
-  StreamStatusLive,
-  StreamStatusScheduled
-} from '@domain/stream'
+import { StreamTimes } from '@domain/youtube'
 
 /**
  * liveStreamingDetails オブジェクトには、動画のライブ配信に関するメタデータが含まれます。
@@ -10,30 +6,11 @@ import {
  * このオブジェクトが video リソースに含まれます。
  */
 export class LiveStreamingDetails {
-  public readonly scheduledStartTime: Date
-  public readonly actualStartTime?: Date
-  public readonly actualEndTime?: Date
+  public readonly streamTimes: StreamTimes
   public readonly concurrentViewers?: number
 
-  constructor(args: {
-    scheduledStartTime: Date
-    actualStartTime?: Date
-    actualEndTime?: Date
-    concurrentViewers?: number
-  }) {
-    this.scheduledStartTime = args.scheduledStartTime
-    this.actualStartTime = args.actualStartTime
-    this.actualEndTime = args.actualEndTime
+  constructor(args: { streamTimes: StreamTimes; concurrentViewers?: number }) {
+    this.streamTimes = args.streamTimes
     this.concurrentViewers = args.concurrentViewers
-  }
-
-  get streamStatus() {
-    if (this.actualEndTime) {
-      return StreamStatusEnded
-    }
-    if (this.actualStartTime) {
-      return StreamStatusLive
-    }
-    return StreamStatusScheduled
   }
 }

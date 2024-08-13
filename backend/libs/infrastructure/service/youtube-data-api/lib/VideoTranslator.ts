@@ -4,8 +4,10 @@ import { LanguageTag } from '@domain/country'
 import {
   Duration,
   LiveStreamingDetails,
+  PublishedAt,
   Snippet,
   Statistics,
+  StreamTimes,
   Video
 } from '@domain/youtube'
 import { videoAPISchema } from './VideoAPISchema'
@@ -17,7 +19,7 @@ export class VideoTranslator {
     const v = this.parse()
     if (!v) return undefined
 
-    const { publishedAt, defaultLanguage, ...sRest } = v.snippet
+    const { publishedAt, categoryId, defaultLanguage, ...sRest } = v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
     const { actualStartTime, actualEndTime, concurrentViewers } =
       v.liveStreamingDetails ?? {}
@@ -26,7 +28,8 @@ export class VideoTranslator {
       id: v.id,
       snippet: new Snippet({
         ...sRest,
-        publishedAt: new Date(publishedAt),
+        publishedAt: new PublishedAt(new Date(publishedAt)),
+        categoryId: Number(categoryId),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
           : undefined
@@ -39,13 +42,15 @@ export class VideoTranslator {
       }),
       liveStreamingDetails: v.liveStreamingDetails
         ? new LiveStreamingDetails({
-            scheduledStartTime: new Date(
-              v.liveStreamingDetails.scheduledStartTime
-            ),
-            actualStartTime: actualStartTime
-              ? new Date(actualStartTime)
-              : undefined,
-            actualEndTime: actualEndTime ? new Date(actualEndTime) : undefined,
+            streamTimes: new StreamTimes({
+              scheduledStartTime: new Date(
+                v.liveStreamingDetails.scheduledStartTime
+              ),
+              actualStartTime: actualStartTime
+                ? new Date(actualStartTime)
+                : undefined,
+              actualEndTime: actualEndTime ? new Date(actualEndTime) : undefined
+            }),
             concurrentViewers: concurrentViewers
               ? Number(concurrentViewers)
               : undefined

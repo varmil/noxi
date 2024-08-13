@@ -17,7 +17,7 @@ const schema = z.object({
       })
     ),
     tags: z.array(z.string()),
-    categoryId: z.string()
+    categoryId: z.number()
   }),
   duration: z.string().duration(),
   statistics: z.object({
@@ -27,9 +27,11 @@ const schema = z.object({
   }),
   liveStreamingDetails: z
     .object({
-      scheduledStartTime: z.string().datetime(),
-      actualStartTime: z.string().datetime().optional(),
-      actualEndTime: z.string().datetime().optional(),
+      streamTimes: z.object({
+        scheduledStartTime: z.string().datetime(),
+        actualStartTime: z.string().datetime().optional(),
+        actualEndTime: z.string().datetime().optional()
+      }),
       concurrentViewers: z.number().optional()
     })
     .optional(),

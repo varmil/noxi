@@ -82,8 +82,8 @@ export class VideoAggregation {
     const oneMonthAgo = new Date()
     oneMonthAgo.setMonth(now.getMonth() - 1)
 
-    const recentVideos = videos.filter(
-      video => video.snippet.publishedAt > oneMonthAgo
+    const recentVideos = videos.filter(video =>
+      video.snippet.publishedAt.isWithin30Days()
     )
 
     const regular = recentVideos.filter(
@@ -104,7 +104,7 @@ export class VideoAggregation {
   private static getAggregation(videos: Videos): Aggregation {
     return new Aggregation({
       averageViews: videos.averageViews(),
-      frequency: videos.length(),
+      frequency: videos.length,
       averageEngagementCount: videos.averageEngagementCount(),
       averageEngagementRate: videos.averageEngagementRate(),
       prCount: videos.prCount()

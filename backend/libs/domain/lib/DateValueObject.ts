@@ -18,6 +18,13 @@ export abstract class DateValueObject extends ValueObject<Date> {
   }
   isNotToday = () => !this.isToday()
 
+  isWithin30Days = () => {
+    const now = new Date()
+    const oneMonthAgo = new Date()
+    oneMonthAgo.setMonth(now.getMonth() - 1)
+    return this.val > oneMonthAgo
+  }
+
   protected subtractBy = (value: number) => {
     return dayjs(this.val).subtract(value, 'd').toDate()
   }

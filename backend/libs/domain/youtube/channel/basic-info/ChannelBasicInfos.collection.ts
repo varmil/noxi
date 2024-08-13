@@ -1,21 +1,8 @@
-import { Exclude } from 'class-transformer'
+import { Collection } from '@domain/lib/Collection'
 import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
 
-export class ChannelBasicInfos {
-  constructor(private readonly list: ChannelBasicInfo[]) {}
-
-  @Exclude()
-  map = <U>(
-    callbackfn: (
-      value: ChannelBasicInfo,
-      index: number,
-      array: ChannelBasicInfo[]
-    ) => U
-  ): U[] => this.list.map(callbackfn)
-
-  @Exclude()
-  first = () => this.list[0]
-
-  @Exclude()
-  take = (n: number) => this.list.slice(0, n)
+export class ChannelBasicInfos extends Collection<ChannelBasicInfo> {
+  constructor(protected readonly list: ChannelBasicInfo[]) {
+    super(list)
+  }
 }

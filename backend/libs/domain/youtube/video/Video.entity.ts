@@ -44,7 +44,7 @@ export class Video {
    */
   @Expose()
   get streamScheduledStartTime() {
-    return this.liveStreamingDetails?.scheduledStartTime
+    return this.liveStreamingDetails?.streamTimes.scheduledStartTime
   }
 
   /**
@@ -53,7 +53,7 @@ export class Video {
    */
   @Exclude()
   get streamActualStartTime() {
-    return this.liveStreamingDetails?.actualStartTime
+    return this.liveStreamingDetails?.streamTimes.actualStartTime
   }
 
   /**
@@ -61,7 +61,7 @@ export class Video {
    */
   @Expose()
   get streamStatus() {
-    return this.liveStreamingDetails?.streamStatus
+    return this.liveStreamingDetails?.streamTimes.streamStatus
   }
 
   @Expose()
