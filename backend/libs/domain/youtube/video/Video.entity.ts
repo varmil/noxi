@@ -36,7 +36,7 @@ export class Video {
 
   @Exclude()
   get isStream(): boolean {
-    return this.streamActualStartTime !== undefined
+    return this.liveStreamingDetails !== undefined
   }
 
   /**
