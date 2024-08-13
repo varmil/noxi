@@ -104,7 +104,7 @@ export class VideoAggregation {
   private static getAggregation(videos: Videos): Aggregation {
     return new Aggregation({
       averageViews: videos.averageViews(),
-      frequency: videos.length(),
+      frequency: videos.length,
       averageEngagementCount: videos.averageEngagementCount(),
       averageEngagementRate: videos.averageEngagementRate(),
       prCount: videos.prCount()

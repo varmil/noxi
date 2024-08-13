@@ -1,8 +1,11 @@
 import { Exclude } from 'class-transformer'
+import { Collection } from '@domain/lib/Collection'
 import { Video } from '@domain/youtube/video'
 
-export class Videos {
-  constructor(private readonly list: Video[]) {}
+export class Videos extends Collection<Video> {
+  constructor(protected readonly list: Video[]) {
+    super(list)
+  }
 
   @Exclude()
   averageViews = () => {
@@ -37,20 +40,4 @@ export class Videos {
     return this.list.filter(video => video.isPaidPromotion?.get() === true)
       .length
   }
-
-  @Exclude()
-  map = <U>(
-    callbackfn: (value: Video, index: number, array: Video[]) => U
-  ): U[] => this.list.map(callbackfn)
-
-  @Exclude()
-  filter = (
-    callbackfn: (value: Video, index: number, array: Video[]) => unknown
-  ): Videos => new Videos(this.list.filter(callbackfn))
-
-  @Exclude()
-  first = (): Video | undefined => this.list[0]
-
-  @Exclude()
-  length = () => this.list.length
 }

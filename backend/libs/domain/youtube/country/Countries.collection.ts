@@ -1,16 +1,8 @@
-import { Exclude } from 'class-transformer'
 import { CountryCode } from '@domain/country'
+import { Collection } from '@domain/lib/Collection'
 
-export class Countries {
-  constructor(private readonly list: CountryCode[]) {}
-
-  @Exclude()
-  get length() {
-    return this.list.length
+export class Countries extends Collection<CountryCode> {
+  constructor(protected readonly list: CountryCode[]) {
+    super(list)
   }
-
-  @Exclude()
-  map = <U>(
-    callbackfn: (value: CountryCode, index: number, array: CountryCode[]) => U
-  ): U[] => this.list.map(callbackfn)
 }
