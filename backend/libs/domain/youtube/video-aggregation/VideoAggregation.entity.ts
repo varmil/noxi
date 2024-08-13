@@ -82,8 +82,8 @@ export class VideoAggregation {
     const oneMonthAgo = new Date()
     oneMonthAgo.setMonth(now.getMonth() - 1)
 
-    const recentVideos = videos.filter(
-      video => video.snippet.publishedAt > oneMonthAgo
+    const recentVideos = videos.filter(video =>
+      video.snippet.publishedAt.isWithin30Days()
     )
 
     const regular = recentVideos.filter(

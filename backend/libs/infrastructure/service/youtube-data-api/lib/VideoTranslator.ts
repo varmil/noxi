@@ -4,8 +4,10 @@ import { LanguageTag } from '@domain/country'
 import {
   Duration,
   LiveStreamingDetails,
+  PublishedAt,
   Snippet,
   Statistics,
+  StreamTimes,
   Video
 } from '@domain/youtube'
 import { videoAPISchema } from './VideoAPISchema'
@@ -26,7 +28,7 @@ export class VideoTranslator {
       id: v.id,
       snippet: new Snippet({
         ...sRest,
-        publishedAt: new Date(publishedAt),
+        publishedAt: new PublishedAt(new Date(publishedAt)),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
           : undefined
@@ -39,13 +41,15 @@ export class VideoTranslator {
       }),
       liveStreamingDetails: v.liveStreamingDetails
         ? new LiveStreamingDetails({
-            scheduledStartTime: new Date(
-              v.liveStreamingDetails.scheduledStartTime
-            ),
-            actualStartTime: actualStartTime
-              ? new Date(actualStartTime)
-              : undefined,
-            actualEndTime: actualEndTime ? new Date(actualEndTime) : undefined,
+            streamTimes: new StreamTimes({
+              scheduledStartTime: new Date(
+                v.liveStreamingDetails.scheduledStartTime
+              ),
+              actualStartTime: actualStartTime
+                ? new Date(actualStartTime)
+                : undefined,
+              actualEndTime: actualEndTime ? new Date(actualEndTime) : undefined
+            }),
             concurrentViewers: concurrentViewers
               ? Number(concurrentViewers)
               : undefined
