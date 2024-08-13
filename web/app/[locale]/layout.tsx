@@ -44,7 +44,7 @@ export default async function LocaleLayout({
             <Toaster />
           </NextIntlClientProvider>
         </ThemeProvider>
-        <SpeedInsights />
+        <SpeedInsights sampleRate={0.5} />
       </body>
     </html>
   )
