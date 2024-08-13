@@ -14,11 +14,11 @@ export async function generateMetadata({
   params: { locale }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'Page' })
+  const t = await getTranslations({ locale, namespace: 'Page.hololive.charts' })
 
   return {
-    title: `${t('hololive.charts.title')} | ${tg('title')}`,
-    description: `${t('hololive.charts.description')}`
+    title: `${t('title')} | ${tg('title')}`,
+    description: `${t('description')}`
   }
 }
 
