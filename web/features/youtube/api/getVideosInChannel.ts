@@ -19,6 +19,5 @@ export async function getVideosInChannel({
   }
 
   const data = responseSchema.parse(await res.json())
-  console.log(data.items.list[1])
   return data.items.list
 }
