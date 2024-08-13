@@ -17,7 +17,7 @@ const schema = z.object({
       })
     ),
     tags: z.array(z.string()),
-    categoryId: z.union([z.string(), z.number()])
+    categoryId: z.number()
   }),
   duration: z.string().duration(),
   statistics: z.object({
