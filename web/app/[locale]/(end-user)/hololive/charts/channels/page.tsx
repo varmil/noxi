@@ -17,8 +17,8 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'Page' })
 
   return {
-    title: `${t('holilive.charts.title')} | ${tg('title')}`,
-    description: `${t('holilive.charts.description')}`
+    title: `${t('hololive.charts.title')} | ${tg('title')}`,
+    description: `${t('hololive.charts.description')}`
   }
 }
 

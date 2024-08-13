@@ -5,7 +5,7 @@ import Image from 'components/styles/Image'
 import IconBlock from 'features/icon-section/IconBlock'
 
 export default function IconSectionForReview() {
-  const t = useTranslations('Page.index.section.holilive')
+  const t = useTranslations('Page.index.section.hololive')
 
   return (
     <>

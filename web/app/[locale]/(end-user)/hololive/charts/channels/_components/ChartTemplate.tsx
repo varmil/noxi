@@ -15,7 +15,7 @@ type Props = {
 }
 
 export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.holilive.charts')
+  const t = await getTranslations('Page.hololive.charts')
   const channels = await getChartOfChannels({ searchParams })
 
   return (
