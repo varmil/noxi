@@ -87,11 +87,11 @@ export class VideoAggregation {
     )
 
     const regular = recentVideos.filter(
-      video => !video.isShort() && !video.isLive()
+      video => !video.isShort && !video.isStream
     )
-    const short = recentVideos.filter(video => video.isShort())
+    const short = recentVideos.filter(video => video.isShort)
     const live = recentVideos.filter(
-      video => (video.liveActualStartTime ?? 0) > oneMonthAgo
+      video => (video.streamActualStartTime ?? 0) > oneMonthAgo
     )
 
     return {

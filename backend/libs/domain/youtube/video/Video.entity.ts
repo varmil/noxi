@@ -30,13 +30,21 @@ export class Video {
   }
 
   @Expose()
-  isShort(): boolean {
+  get isShort(): boolean {
     return this.duration.isShort()
   }
 
   @Exclude()
-  isLive(): boolean {
-    return this.liveActualStartTime !== undefined
+  get isStream(): boolean {
+    return this.streamActualStartTime !== undefined
+  }
+
+  /**
+   * 配信の開始が予定されている時刻。値は ISO 8601 形式で指定します。
+   */
+  @Expose()
+  get streamScheduledStartTime() {
+    return this.liveStreamingDetails?.scheduledStartTime
   }
 
   /**
@@ -44,19 +52,16 @@ export class Video {
    * This value will not be available until the broadcast begins.
    */
   @Exclude()
-  get liveActualStartTime() {
+  get streamActualStartTime() {
     return this.liveStreamingDetails?.actualStartTime
   }
 
+  /**
+   * @return undefined if this video is not stream
+   */
   @Expose()
-  get status() {
-    // return if detail.actual_end_time.is_some() {
-    //     StreamStatus::Ended
-    // } else if detail.actual_start_time.is_some() {
-    //     StreamStatus::Live
-    // } else {
-    //     StreamStatus::Scheduled
-    // }
+  get streamStatus() {
+    return this.liveStreamingDetails?.streamStatus
   }
 
   @Expose()
