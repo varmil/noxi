@@ -26,13 +26,7 @@ export class PubsubhubbubScenario {
       return
     }
 
-    /** 最新の1件のみほしい */
-    const video = (
-      await this.videosService.findAll({
-        where: { channel },
-        limit: 1
-      })
-    ).items.first()
+    const video = await this.videosService.findById(entry.videoId)
     if (!video) {
       console.warn('handleUpdatedCallback video not found:', entry)
       return

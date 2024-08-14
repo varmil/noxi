@@ -5,7 +5,7 @@ import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { VideoIds, Videos } from '@domain/youtube'
 import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTranslator'
 
-const maxResultsPerRequest = 50
+const MaxResultsPerRequest = 50
 
 interface Params {
   hl?: LanguageTag
@@ -35,8 +35,8 @@ export class VideosInfraService {
     let results: youtube_v3.Schema$Video[] = []
     const nextPageToken = pageToken ?? undefined
 
-    for (let i = 0; i < videoIds.length; i += maxResultsPerRequest) {
-      const batchIds = videoIds.slice(i, i + maxResultsPerRequest)
+    for (let i = 0; i < videoIds.length; i += MaxResultsPerRequest) {
+      const batchIds = videoIds.slice(i, i + MaxResultsPerRequest)
 
       const response = await this.client.videos.list({
         hl: hl?.get(),
@@ -46,7 +46,8 @@ export class VideosInfraService {
           'statistics',
           'liveStreamingDetails'
         ],
-        id: batchIds.map(id => id.get())
+        id: batchIds.map(id => id.get()),
+        maxResults: Math.min(limit, MaxResultsPerRequest)
       })
 
       results = results.concat(response.data.items ?? [])
