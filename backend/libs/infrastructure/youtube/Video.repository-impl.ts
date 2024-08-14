@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PlaylistId, VideoRepository } from '@domain/youtube'
+import { PlaylistId, VideoIds, VideoRepository } from '@domain/youtube'
 import {
   PlaylistItemsInfraService,
   VideosInfraService
@@ -35,5 +35,14 @@ export class VideoRepositoryImpl implements VideoRepository {
     ])
 
     return list
+  }
+
+  async findById(id: Parameters<VideoRepository['findById']>[0]) {
+    // find Video with Data API(VideosInfraService)
+    const videos = await this.videosInfraService.list({
+      videoIds: new VideoIds([id]),
+      limit: 1
+    })
+    return videos.items.first() ?? null
   }
 }

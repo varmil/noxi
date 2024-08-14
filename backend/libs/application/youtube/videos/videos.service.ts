@@ -11,4 +11,8 @@ export class VideosService {
   async findAll(args: Parameters<VideoRepository['findAll']>[0]) {
     return await this.videoRepository.findAll(args)
   }
+
+  async findById(args: Parameters<VideoRepository['findById']>[0]) {
+    return await this.videoRepository.findById(args)
+  }
 }
