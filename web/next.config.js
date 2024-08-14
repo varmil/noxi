@@ -8,13 +8,6 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        missing: [
-          {
-            type: 'header',
-            key: 'Cache-Control',
-            value: '\\bpublic\\b' // "public" を含まない場合に適用
-          }
-        ],
         headers: [
           {
             key: 'CDN-Cache-Control',
