@@ -28,7 +28,6 @@ export class StreamRepositoryImpl implements StreamRepository {
     })
 
     if (!row) return null
-
     return new StreamTranslator(row).translate()
   }
 
@@ -38,6 +37,29 @@ export class StreamRepositoryImpl implements StreamRepository {
       where: { videoId: data.videoId.get() },
       update: toPrisma.translateToUpdate(),
       create: toPrisma.translateToCreate()
+    })
+  }
+
+  async delete({
+    where: { videoId }
+  }: Parameters<StreamRepository['delete']>[0]) {
+    await this.prismaInfraService.youtubeStream.delete({
+      where: { videoId: videoId.get() }
+    })
+  }
+
+  async updateStreamTimes({
+    where: { videoId },
+    data
+  }: Parameters<StreamRepository['updateStreamTimes']>[0]) {
+    await this.prismaInfraService.youtubeStream.update({
+      where: { videoId: videoId.get() },
+      data: {
+        scheduledStartTime: data.scheduledStartTime,
+        actualStartTime: data.actualStartTime,
+        actualEndTime: data.actualEndTime,
+        status: data.streamStatus.get()
+      }
     })
   }
 }

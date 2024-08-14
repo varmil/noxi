@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  HttpException,
   HttpStatus,
   Post,
   Query,
@@ -65,13 +66,17 @@ export class PubsubhubbubController {
 
       const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
       if (deletedEntry) {
-        this.pubsubhubbubScenario.handleDeletedCallback({
+        await this.pubsubhubbubScenario.handleDeletedCallback({
           entry: new DeletedEntry(deletedEntry)
         })
         return res.status(HttpStatus.ACCEPTED).send()
       }
     } catch (error) {
-      console.info('error:', error)
+      if (error instanceof HttpException) {
+        console.info('callback not done:', error.message)
+      } else {
+        console.info('callback not done:', error)
+      }
     }
 
     return res.status(HttpStatus.ACCEPTED).send()
