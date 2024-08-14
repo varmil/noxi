@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  HttpException,
   HttpStatus,
   Post,
   Query,
@@ -54,18 +55,28 @@ export class PubsubhubbubController {
   async callback(@Req() req: Request, @Res() res: Response) {
     if (!this.cryptoService.verify({ req, res })) return
 
-    const updatedEntry = XMLFactory.convertToUpdatedEntry(req.body as string)
-    if (updatedEntry) {
-      await this.pubsubhubbubScenario.handleUpdatedCallback({
-        entry: new UpdatedEntry(updatedEntry)
-      })
-    }
+    try {
+      const updatedEntry = XMLFactory.convertToUpdatedEntry(req.body as string)
+      if (updatedEntry) {
+        await this.pubsubhubbubScenario.handleUpdatedCallback({
+          entry: new UpdatedEntry(updatedEntry)
+        })
+        return res.status(HttpStatus.ACCEPTED).send()
+      }
 
-    const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
-    if (deletedEntry) {
-      this.pubsubhubbubScenario.handleDeletedCallback({
-        entry: new DeletedEntry(deletedEntry)
-      })
+      const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
+      if (deletedEntry) {
+        await this.pubsubhubbubScenario.handleDeletedCallback({
+          entry: new DeletedEntry(deletedEntry)
+        })
+        return res.status(HttpStatus.ACCEPTED).send()
+      }
+    } catch (error) {
+      if (error instanceof HttpException) {
+        console.info('callback not done:', error.message)
+      } else {
+        console.info('callback not done:', error)
+      }
     }
 
     return res.status(HttpStatus.ACCEPTED).send()

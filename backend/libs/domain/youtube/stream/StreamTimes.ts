@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer'
 import {
   StreamStatusEnded,
   StreamStatusLive,
@@ -27,5 +28,18 @@ export class StreamTimes {
       return StreamStatusLive
     }
     return StreamStatusScheduled
+  }
+
+  /**
+   * actualEndTimeを現在時刻で埋める
+   * @returns StreamTimes
+   */
+  @Exclude()
+  end() {
+    return new StreamTimes({
+      scheduledStartTime: this.scheduledStartTime,
+      actualStartTime: this.actualStartTime,
+      actualEndTime: new Date()
+    })
   }
 }

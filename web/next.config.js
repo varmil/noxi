@@ -8,10 +8,17 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
+        missing: [
+          {
+            type: 'header',
+            key: 'Cache-Control',
+            value: '\\bpublic\\b' // "public" を含まない場合に適用
+          }
+        ],
         headers: [
           {
             key: 'CDN-Cache-Control',
-            value: 'public, max-age=0, s-maxage=10800'
+            value: 'public, max-age=10800, s-maxage=10800'
           }
         ]
       },

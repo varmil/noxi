@@ -5,6 +5,7 @@ import { ChannelRepositoryImpl } from '@infra/youtube/Channel.repository-impl'
 import { CountryRepositoryImpl } from '@infra/youtube/Country.repository-impl'
 import { VideoRepositoryImpl } from '@infra/youtube/Video.repository-impl'
 import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.repository-impl'
+import { StreamRepositoryImpl } from '@infra/youtube/stream/Stream.repository-impl'
 
 @Module({
   imports: [PrismaInfraModule, YoutubeDataApiInfraModule],
@@ -14,10 +15,16 @@ import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.
       provide: 'ChannelRepository',
       useClass: ChannelRepositoryImpl
     },
+
     CountryRepositoryImpl,
     { provide: 'CountryRepository', useClass: CountryRepositoryImpl },
+
+    StreamRepositoryImpl,
+    { provide: 'StreamRepository', useClass: StreamRepositoryImpl },
+
     VideoRepositoryImpl,
     { provide: 'VideoRepository', useClass: VideoRepositoryImpl },
+
     VideoAggregationRepositoryImpl,
     {
       provide: 'VideoAggregationRepository',
@@ -33,10 +40,16 @@ import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.
       provide: 'ChannelRepository',
       useClass: ChannelRepositoryImpl
     },
+
     CountryRepositoryImpl,
     { provide: 'CountryRepository', useClass: CountryRepositoryImpl },
+
+    StreamRepositoryImpl,
+    { provide: 'StreamRepository', useClass: StreamRepositoryImpl },
+
     VideoRepositoryImpl,
     { provide: 'VideoRepository', useClass: VideoRepositoryImpl },
+
     VideoAggregationRepositoryImpl,
     {
       provide: 'VideoAggregationRepository',

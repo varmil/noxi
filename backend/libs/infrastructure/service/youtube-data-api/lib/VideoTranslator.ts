@@ -8,7 +8,8 @@ import {
   Snippet,
   Statistics,
   StreamTimes,
-  Video
+  Video,
+  VideoId
 } from '@domain/youtube'
 import { videoAPISchema } from './VideoAPISchema'
 
@@ -25,7 +26,7 @@ export class VideoTranslator {
       v.liveStreamingDetails ?? {}
 
     return new Video({
-      id: v.id,
+      id: new VideoId(v.id),
       snippet: new Snippet({
         ...sRest,
         publishedAt: new PublishedAt(new Date(publishedAt)),
