@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { DeletedEntry, UpdatedEntry } from '@domain/youtube'
+import { VideoToStreamConverter } from '@domain/youtube/converter/VideoToStreamConverter'
 
 /**
  * callbackを扱う
@@ -10,6 +12,7 @@ import { DeletedEntry, UpdatedEntry } from '@domain/youtube'
 export class PubsubhubbubScenario {
   constructor(
     private readonly channelsService: ChannelsService,
+    private readonly streamsService: StreamsService,
     private readonly videosService: VideosService
   ) {}
 
@@ -34,9 +37,8 @@ export class PubsubhubbubScenario {
       return
     }
 
-    // TODO: convert from Video to Stream
-
-    // TODO: StreamRepository.save(stream)
+    const stream = VideoToStreamConverter.convert(video)
+    await this.streamsService.save({ data: stream })
   }
 
   handleDeletedCallback({ entry }: { entry: DeletedEntry }) {
