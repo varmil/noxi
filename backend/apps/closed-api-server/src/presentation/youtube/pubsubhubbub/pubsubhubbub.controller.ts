@@ -59,6 +59,7 @@ export class PubsubhubbubController {
       await this.pubsubhubbubScenario.handleUpdatedCallback({
         entry: new UpdatedEntry(updatedEntry)
       })
+      return res.status(HttpStatus.ACCEPTED).send()
     }
 
     const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
@@ -66,6 +67,7 @@ export class PubsubhubbubController {
       this.pubsubhubbubScenario.handleDeletedCallback({
         entry: new DeletedEntry(deletedEntry)
       })
+      return res.status(HttpStatus.ACCEPTED).send()
     }
 
     return res.status(HttpStatus.ACCEPTED).send()
