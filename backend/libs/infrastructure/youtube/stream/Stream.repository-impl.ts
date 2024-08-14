@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { StreamRepository, Streams } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import { ToPrismaYoutubeStream } from '@infra/youtube/stream/ToPrismaYoutubeStream'
+import { StreamTranslator } from '@infra/youtube/stream/StreamTranslator'
+import { UpsertYoutubeStream } from '@infra/youtube/stream/UpsertYoutubeStream'
 
 @Injectable()
 export class StreamRepositoryImpl implements StreamRepository {
@@ -19,12 +20,24 @@ export class StreamRepositoryImpl implements StreamRepository {
     return new Streams([])
   }
 
+  async findOne({
+    where: { videoId }
+  }: Parameters<StreamRepository['findOne']>[0]) {
+    const row = await this.prismaInfraService.youtubeStream.findUnique({
+      where: { videoId: videoId.get() }
+    })
+
+    if (!row) return null
+
+    return new StreamTranslator(row).translate()
+  }
+
   async save({ data }: Parameters<StreamRepository['save']>[0]) {
-    const stream = new ToPrismaYoutubeStream(data).translate()
+    const toPrisma = new UpsertYoutubeStream(data)
     await this.prismaInfraService.youtubeStream.upsert({
       where: { videoId: data.videoId.get() },
-      update: stream,
-      create: stream
+      update: toPrisma.translateToUpdate(),
+      create: toPrisma.translateToCreate()
     })
   }
 }

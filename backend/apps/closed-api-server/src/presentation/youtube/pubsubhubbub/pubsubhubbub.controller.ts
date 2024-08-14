@@ -54,20 +54,24 @@ export class PubsubhubbubController {
   async callback(@Req() req: Request, @Res() res: Response) {
     if (!this.cryptoService.verify({ req, res })) return
 
-    const updatedEntry = XMLFactory.convertToUpdatedEntry(req.body as string)
-    if (updatedEntry) {
-      await this.pubsubhubbubScenario.handleUpdatedCallback({
-        entry: new UpdatedEntry(updatedEntry)
-      })
-      return res.status(HttpStatus.ACCEPTED).send()
-    }
+    try {
+      const updatedEntry = XMLFactory.convertToUpdatedEntry(req.body as string)
+      if (updatedEntry) {
+        await this.pubsubhubbubScenario.handleUpdatedCallback({
+          entry: new UpdatedEntry(updatedEntry)
+        })
+        return res.status(HttpStatus.ACCEPTED).send()
+      }
 
-    const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
-    if (deletedEntry) {
-      this.pubsubhubbubScenario.handleDeletedCallback({
-        entry: new DeletedEntry(deletedEntry)
-      })
-      return res.status(HttpStatus.ACCEPTED).send()
+      const deletedEntry = XMLFactory.convertToDeletedEntry(req.body as string)
+      if (deletedEntry) {
+        this.pubsubhubbubScenario.handleDeletedCallback({
+          entry: new DeletedEntry(deletedEntry)
+        })
+        return res.status(HttpStatus.ACCEPTED).send()
+      }
+    } catch (error) {
+      console.info('error:', error)
     }
 
     return res.status(HttpStatus.ACCEPTED).send()
