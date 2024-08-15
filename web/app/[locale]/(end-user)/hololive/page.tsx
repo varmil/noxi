@@ -5,8 +5,6 @@ import { IndexTemplate } from 'app/[locale]/(end-user)/hololive/_components/Inde
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 
-export const dynamic = 'force-dynamic'
-
 type Props = {
   params: { locale: string }
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
