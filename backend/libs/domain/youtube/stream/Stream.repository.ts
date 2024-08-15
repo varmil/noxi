@@ -9,7 +9,12 @@ import {
 
 export interface StreamRepository {
   findAll: (args: {
-    where: { channelId?: ChannelId; status: StreamStatus }
+    where: {
+      status: StreamStatus
+      channelId?: ChannelId
+      scheduledBefore?: Date
+      scheduledAfter?: Date
+    }
     limit: number
   }) => Promise<Streams>
 
