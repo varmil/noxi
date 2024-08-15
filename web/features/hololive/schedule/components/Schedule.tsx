@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { Users } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,7 +8,8 @@ import Image from 'components/styles/Image'
 const scheduleData = {
   '10:00 AM': [
     {
-      title: 'Welcome to DevCon 2023',
+      title:
+        'Welcome to DevCon 2023 / Welcome to DevCon 2023 / Welcome to DevCon 2023',
       channel: 'DevCon Official',
       thumbnail: '/placeholder.svg?height=120&width=220',
       avatar: '/placeholder.svg?height=40&width=40',
@@ -96,8 +96,14 @@ const scheduleData = {
 }
 
 const LiveBadge = () => (
-  <div className="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
+  <div className="absolute bottom-2 right-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
     <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+    LIVE
+  </div>
+)
+
+const SmallLiveBadge = () => (
+  <div className="text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
     LIVE
   </div>
 )
@@ -112,8 +118,8 @@ export default function Schedule({
   description
 }: PropsWithoutRef<Props>) {
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
+    <Card className="">
+      <CardHeader className="p-4 pb-1 sm:p-6">
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
             <Image
@@ -132,7 +138,7 @@ export default function Schedule({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[300px] sm:h-[500px] pr-4">
+        <ScrollArea className="h-[400px] sm:h-[750px] pr-4">
           {Object.entries(scheduleData).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
               <div className="sticky top-0 bg-background py-2 z-10 flex items-center gap-4 mb-4">
@@ -145,8 +151,8 @@ export default function Schedule({
               </div>
               {events.map((item, index) => (
                 <div key={index} className="mb-6 last:mb-0">
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="relative w-full sm:w-[220px] h-[120px] rounded-lg overflow-hidden">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+                    <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
                       <img
                         src={item.thumbnail}
                         alt={item.title}
@@ -154,24 +160,24 @@ export default function Schedule({
                       />
                       {time === '10:00 AM' && <LiveBadge />}
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg font-semibold line-clamp-2">
-                        {item.title}
-                      </h3>
-                      <div className="flex items-center gap-2 mt-2">
-                        <Avatar className="w-6 h-6">
+                    <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
+                      <div className="items-center text-center">
+                        <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
                           <AvatarImage src={item.avatar} />
                           <AvatarFallback>{item.channel[0]}</AvatarFallback>
                         </Avatar>
-                        <span className="text-sm text-muted-foreground">
-                          {item.channel}
-                        </span>
+                        {time === '10:00 AM' && <SmallLiveBadge />}
                       </div>
-                      <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
-                        <span className="flex items-center gap-1">
-                          <Users className="w-4 h-4" />
-                          {item.viewers.toLocaleString()}
-                        </span>
+                      <div>
+                        <h3 className="text-sm line-clamp-2 mb-1">
+                          {item.title}
+                        </h3>
+                        <div className="col-start-2 flex items-center gap-1">
+                          <span className="text-xs sm:text-sm text-muted-foreground">
+                            {item.channel} - {item.viewers.toLocaleString()}{' '}
+                            watching
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
