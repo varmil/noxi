@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { IndexTemplate } from 'app/[locale]/(end-user)/hololive/_components/IndexTemplate'
 import { ChartTemplate } from 'app/[locale]/(end-user)/hololive/charts/channels/_components/ChartTemplate'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
@@ -14,7 +15,7 @@ export async function generateMetadata({
   params: { locale }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'Page.hololive.charts' })
+  const t = await getTranslations({ locale, namespace: 'Page.hololive.index' })
 
   return {
     title: `${t('title')} | ${tg('title')}`,
@@ -22,7 +23,7 @@ export async function generateMetadata({
   }
 }
 
-export default function HololiveChartsPage({
+export default function HololivePage({
   params: { locale },
   searchParams
 }: Props) {
@@ -33,13 +34,8 @@ export default function HololiveChartsPage({
 
   return (
     <Page>
-      <GlobalBreadcrumb
-        items={[
-          { href: '/hololive', name: t('hololive') },
-          { href: '/hololive/charts/channels', name: t('channels') }
-        ]}
-      />
-      <ChartTemplate searchParams={new URLSearchParams(searchParams)} />
+      <GlobalBreadcrumb items={[{ href: '/hololive', name: t('hololive') }]} />
+      <IndexTemplate />
     </Page>
   )
 }
