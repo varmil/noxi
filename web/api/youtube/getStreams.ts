@@ -3,16 +3,22 @@ import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   status: 'scheduled' | 'live' | 'ended'
+  scehduledBefore: Date
+  scehduledAfter: Date
   limit: number
 }
 
 export async function getStreams({
   limit,
+  scehduledBefore,
+  scehduledAfter,
   ...rest
 }: Params): Promise<StreamsSchema> {
   const res = await fetchAPI(
     `/api/youtube/streams?${new URLSearchParams({
       limit: String(limit),
+      scheduledBefore: scehduledBefore.toISOString(),
+      scheduledAfter: scehduledAfter.toISOString(),
       ...rest
     }).toString()}`,
     {

@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { List } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,6 +12,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getStreams } from 'api/youtube/getStreams'
 import Image from 'components/styles/Image'
+import ScheduledStream from 'features/hololive/schedule/components/ScheduledStream'
 
 const scheduleData = {
   '10:00 AM': [
@@ -104,19 +104,6 @@ const scheduleData = {
   ]
 }
 
-const LiveBadge = () => (
-  <div className="absolute bottom-2 right-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
-    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-    LIVE
-  </div>
-)
-
-const SmallLiveBadge = () => (
-  <div className="text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
-    LIVE
-  </div>
-)
-
 type Props = {
   title: string
   description: string
@@ -126,7 +113,13 @@ export default async function Schedule({
   title,
   description
 }: PropsWithoutRef<Props>) {
-  const streams = await getStreams({ status: 'scheduled', limit: 100 })
+  const streams = await getStreams({
+    status: 'scheduled',
+    limit: 100,
+    scehduledAfter: new Date(),
+    // +24 hours from now
+    scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+  })
 
   return (
     <Card>
@@ -160,38 +153,9 @@ export default async function Schedule({
                     : `${events.length} event`}
                 </Badge>
               </div>
-              {events.map((item, index) => (
-                <div key={index} className="mb-6 last:mb-0">
-                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-                    <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
-                      <img
-                        src={item.thumbnail}
-                        alt={item.title}
-                        className="object-cover w-full h-full"
-                      />
-                      {time === '10:00 AM' && <LiveBadge />}
-                    </div>
-                    <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
-                      <div className="items-center text-center">
-                        <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
-                          <AvatarImage src={item.avatar} />
-                          <AvatarFallback>{item.channel[0]}</AvatarFallback>
-                        </Avatar>
-                        {time === '10:00 AM' && <SmallLiveBadge />}
-                      </div>
-                      <div>
-                        <h3 className="text-sm line-clamp-2 mb-1">
-                          {item.title}
-                        </h3>
-                        <div className="col-start-2 flex items-center gap-1">
-                          <span className="text-xs sm:text-sm text-muted-foreground">
-                            {item.channel} - {item.viewers.toLocaleString()}{' '}
-                            watching
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              {streams.slice(0, 3).map(stream => (
+                <div key={stream.videoId} className="mb-6 last:mb-0">
+                  <ScheduledStream time={time} stream={stream} />
                 </div>
               ))}
             </div>
