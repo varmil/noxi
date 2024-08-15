@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card'
-import { VideoSchema } from 'api-schema/youtube/videoSchema'
+import { VideoSchema } from 'api/youtube/schema/videoSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'

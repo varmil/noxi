@@ -5,11 +5,11 @@ type Params = {
   searchParams: URLSearchParams
 }
 
-export async function getChartOfChannels({
+export async function getStreams({
   searchParams
 }: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/charts/channels?${searchParams.toString()}`,
+    `/api/youtube/streams?${searchParams.toString()}`,
     {
       next: { revalidate: 600 }
     }
