@@ -15,7 +15,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           <Schedule title={t('title')} description={t('description')} />
 
           <section className="mt-8">
-            <Link href="hololive/charts/channels">
+            <Link href="hololive/charts/channels" prefetch={true}>
               <h2 className="text-2xl font-bold">チャート</h2>
             </Link>
           </section>
