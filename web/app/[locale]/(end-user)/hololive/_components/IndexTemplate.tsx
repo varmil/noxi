@@ -7,22 +7,17 @@ import {
   CardDescription,
   CardContent
 } from '@/components/ui/card'
+import Schedule from 'features/hololive/schedule/components/Schedule'
 
 type Props = {}
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.hololive.charts')
+  const t = await getTranslations('Page.hololive.index.card')
 
   return (
     <main className="min-h-screen">
       <section className="p-4 sm:px-6 md:gap-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('cardTitle')}</CardTitle>
-            <CardDescription>{t('cardDescription')}</CardDescription>
-          </CardHeader>
-          <CardContent>hello</CardContent>
-        </Card>
+        <Schedule title={t('title')} description={t('description')} />
       </section>
     </main>
   )

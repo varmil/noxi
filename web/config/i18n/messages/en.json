@@ -23,8 +23,14 @@
 
     "hololive": {
       "index": {
-        "title": "Hololive today's streaming schedule",
-        "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+        "metadata": {
+          "title": "Hololive today's streaming schedule",
+          "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+        },
+        "card": {
+          "title": "ホロライブ今日の配信予定",
+          "description": "ホロライブの今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+        }
       },
       "charts": {
         "title": "List of Hololive channels",
