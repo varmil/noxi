@@ -118,7 +118,7 @@ export default function Schedule({
   description
 }: PropsWithoutRef<Props>) {
   return (
-    <Card className="">
+    <Card>
       <CardHeader className="p-4 pb-1 sm:p-6">
         <CardTitle className="flex items-center justify-between">
           <span className="flex items-center gap-2">
