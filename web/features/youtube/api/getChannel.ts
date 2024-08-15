@@ -1,4 +1,4 @@
-import { ChannelSchema, schema } from 'api-schema/youtube/channelSchema'
+import { ChannelSchema, schema } from 'api/youtube/schema/channelSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getChannel(id: string): Promise<ChannelSchema> {

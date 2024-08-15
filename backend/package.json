@@ -18,7 +18,8 @@
     "prisma:deploy": "prisma migrate deploy",
     "test": "jest --silent",
     "test:watch": "jest --watch --silent",
-    "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json --runInBand"
+    "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json --runInBand",
+    "test:e2e:watch": "npm run test:e2e -- --watch"
   },
   "dependencies": {
     "@googleapis/youtube": "^19.0.0",

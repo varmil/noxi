@@ -1,4 +1,8 @@
-import { ValidationPipe } from '@nestjs/common'
+import {
+  BadRequestException,
+  ValidationError,
+  ValidationPipe
+} from '@nestjs/common'
 import { NestExpressApplication } from '@nestjs/platform-express'
 
 export function registerGlobals(app: NestExpressApplication) {
@@ -11,7 +15,15 @@ export function registerGlobals(app: NestExpressApplication) {
 
   app.enableCors()
 
-  app.useGlobalPipes(new ValidationPipe({ transform: true }))
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      exceptionFactory: (validationErrors: ValidationError[] = []) => {
+        console.error(JSON.stringify(validationErrors, null, 2))
+        return new BadRequestException(validationErrors)
+      }
+    })
+  )
 
   /**
    * /api/* にすべてマッピング

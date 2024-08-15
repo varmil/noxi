@@ -22,6 +22,16 @@
     },
 
     "hololive": {
+      "index": {
+        "metadata": {
+          "title": "Hololive today's streaming schedule",
+          "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+        },
+        "card": {
+          "title": "Hololive today's streaming schedule",
+          "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+        }
+      },
       "charts": {
         "title": "List of Hololive channels",
         "description": "We will introduce you to Hololive YouTube channels.",

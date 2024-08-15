@@ -42,4 +42,23 @@ describe('AppController (e2e)', () => {
       .get('/api/youtube/channels/UCdn5BQ06XqgXoAxIhbqw5Rg')
       .expect(200)
   })
+
+  describe('/api/youtube/streams (GET)', () => {
+    it('should be 200', () => {
+      const query = 'status=live&limit=10'
+      return request(app.getHttpServer())
+        .get(`/api/youtube/streams?${query}`)
+        .expect(200)
+    })
+
+    it('should be 200 with scheduledBefore', () => {
+      // build query with scheduledBefore=2025-01-01T00:00:00.000Z
+      const query = `status=scheduled&scheduledBefore=${new Date(
+        '2025-01-01T00:00:00.000Z'
+      ).toISOString()}`
+      return request(app.getHttpServer())
+        .get(`/api/youtube/streams?${query}`)
+        .expect(200)
+    })
+  })
 })

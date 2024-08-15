@@ -23,8 +23,8 @@ import {
   ChartContainer,
   ChartTooltip
 } from '@/components/ui/chart'
-import { ChannelSchema } from 'api-schema/youtube/channelSchema'
-import { VideosSchema } from 'api-schema/youtube/videoSchema'
+import { ChannelSchema } from 'api/youtube/schema/channelSchema'
+import { VideosSchema } from 'api/youtube/schema/videoSchema'
 import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
 import dayjs from 'lib/dayjs'
 

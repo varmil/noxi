@@ -13,7 +13,7 @@ export default function IconSectionForReview() {
         <h3 className="mb-2 text-2xl lg:text-3xl">VTubers</h3>
         <div className="grid gap-2">
           <IconBlock
-            href="/hololive/charts/channels"
+            href="/hololive"
             image={
               <Image
                 src={'/top_logo_hololive.svg'}
