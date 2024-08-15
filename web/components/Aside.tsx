@@ -22,13 +22,33 @@ export default function Aside() {
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
           <Link
-            href="#"
+            href="/"
             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary"
             prefetch={false}
           >
             <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
             <span className="sr-only">{t('title')}</span>
           </Link>
+          <Tooltip>
+            <TooltipTrigger>
+              <Link
+                href="/hololive"
+                className="group flex h-8 w-8 items-center justify-center rounded-lg"
+                prefetch={false}
+              >
+                <Image
+                  src={'/hololiveicon.png'}
+                  alt={`Hololive icon`}
+                  width={100}
+                  height={100}
+                  className="transition-all group-hover:scale-110"
+                />
+
+                <span className="sr-only">Hololive</span>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="right">Hololive</TooltipContent>
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger>
               <Link

@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/hololive/_components/IndexTemplate'
-import { ChartTemplate } from 'app/[locale]/(end-user)/hololive/charts/channels/_components/ChartTemplate'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 
@@ -23,10 +22,7 @@ export async function generateMetadata({
   }
 }
 
-export default function HololivePage({
-  params: { locale },
-  searchParams
-}: Props) {
+export default function HololivePage({ params: { locale } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
