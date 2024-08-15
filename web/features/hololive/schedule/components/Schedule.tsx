@@ -1,7 +1,15 @@
 import { PropsWithoutRef } from 'react'
+import { List } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Image from 'components/styles/Image'
 
@@ -187,6 +195,11 @@ export default function Schedule({
           ))}
         </ScrollArea>
       </CardContent>
+      <CardFooter className="p-4 sm:p-6 pt-0">
+        <Button variant="outline" className="w-full">
+          <List className="mr-2 h-4 w-4" /> Go to full list
+        </Button>
+      </CardFooter>
     </Card>
   )
 }
