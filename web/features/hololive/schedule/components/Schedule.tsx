@@ -11,6 +11,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getStreams } from 'api/youtube/getStreams'
 import Image from 'components/styles/Image'
 
 const scheduleData = {
@@ -121,10 +122,12 @@ type Props = {
   description: string
 }
 
-export default function Schedule({
+export default async function Schedule({
   title,
   description
 }: PropsWithoutRef<Props>) {
+  const streams = await getStreams({ status: 'scheduled', limit: 100 })
+
   return (
     <Card>
       <CardHeader className="p-4 pb-1 sm:p-6">

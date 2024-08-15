@@ -1,15 +1,20 @@
-import { ChannelsSchema, listSchema } from 'api/youtube/schema/channelSchema'
+import { StreamsSchema, responseSchema } from 'api/youtube/schema/streamSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  searchParams: URLSearchParams
+  status: 'scheduled' | 'live' | 'ended'
+  limit: number
 }
 
 export async function getStreams({
-  searchParams
-}: Params): Promise<ChannelsSchema> {
+  limit,
+  ...rest
+}: Params): Promise<StreamsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/streams?${searchParams.toString()}`,
+    `/api/youtube/streams?${new URLSearchParams({
+      limit: String(limit),
+      ...rest
+    }).toString()}`,
     {
       next: { revalidate: 600 }
     }
@@ -22,6 +27,7 @@ export async function getStreams({
     throw new Error('Failed to fetch data')
   }
 
-  const data = listSchema.parse(await res.json())
+  const data = responseSchema.parse(await res.json())
+  console.log(data.list.length)
   return data.list
 }

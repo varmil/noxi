@@ -1,12 +1,14 @@
-import { Expose } from 'class-transformer'
+import { Expose, Transform } from 'class-transformer'
 import { VideoId, Duration, Snippet, StreamTimes } from '@domain/youtube'
 
 export class Stream {
+  @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly videoId: VideoId
   public readonly snippet: Snippet
   /**
    * Live中はP0D（０）固定
    */
+  @Transform(({ value }: { value: Duration }) => value.get())
   public readonly duration?: Duration
   public readonly streamTimes: StreamTimes
 
