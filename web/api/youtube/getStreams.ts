@@ -5,25 +5,34 @@ type Params = {
   status: 'scheduled' | 'live' | 'ended'
   scehduledBefore: Date
   scehduledAfter: Date
+  orderBy: {
+    field: 'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'
+    order: 'asc' | 'desc'
+  }[]
   limit: number
 }
 
 export async function getStreams({
-  limit,
+  status,
   scehduledBefore,
   scehduledAfter,
-  ...rest
+  orderBy,
+  limit
 }: Params): Promise<StreamsSchema> {
+  const searchParams = new URLSearchParams({
+    status,
+    scheduledBefore: scehduledBefore.toISOString(),
+    scheduledAfter: scehduledAfter.toISOString(),
+    limit: String(limit)
+  })
+  orderBy.forEach((orderBy, index) => {
+    searchParams.append(`orderBy[${index}][field]`, orderBy.field)
+    searchParams.append(`orderBy[${index}][order]`, orderBy.order)
+  })
+
   const res = await fetchAPI(
-    `/api/youtube/streams?${new URLSearchParams({
-      limit: String(limit),
-      scheduledBefore: scehduledBefore.toISOString(),
-      scheduledAfter: scehduledAfter.toISOString(),
-      ...rest
-    }).toString()}`,
-    {
-      next: { revalidate: 600 }
-    }
+    `/api/youtube/streams?${searchParams.toString()}`,
+    { next: { revalidate: 600 } }
   )
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

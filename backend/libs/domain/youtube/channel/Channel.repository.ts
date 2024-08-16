@@ -16,8 +16,8 @@ export interface ChannelRepository {
   }) => Promise<Channels>
 
   prismaFindAll: (args: {
-    sort: ChannelSort
     where: { id?: ChannelIds; country?: CountryCode }
+    sort?: ChannelSort
     limit: number
   }) => Promise<Channels>
 

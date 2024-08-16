@@ -1,14 +1,17 @@
 import { Type } from 'class-transformer'
 import {
+  IsArray,
   IsIn,
   IsInt,
   IsNotEmpty,
   IsOptional,
   IsRFC3339,
-  IsString
+  IsString,
+  ValidateNested
 } from 'class-validator'
+import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { StreamStatus } from '@domain/stream'
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, StreamRepository } from '@domain/youtube'
 
 export class GetStreamsDto {
   @IsIn(['scheduled', 'live', 'ended'])
@@ -27,6 +30,13 @@ export class GetStreamsDto {
   @IsString()
   channelId: string
 
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => OrderByDto)
+  orderBy: OrderByDto<
+    'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'
+  >[]
+
   @IsOptional()
   @IsInt()
   @Type(() => Number)
@@ -44,6 +54,12 @@ export class GetStreamsDto {
 
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined
+
+  toOrderBy = () => {
+    return this.orderBy.map(({ field, order }) => ({
+      [field]: order
+    })) as Parameters<StreamRepository['findAll']>[0]['orderBy']
+  }
 
   toLimit = () => this.limit
 }

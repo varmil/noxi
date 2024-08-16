@@ -3,8 +3,10 @@ import {
   Controller,
   Get,
   Param,
+  Query,
   UseInterceptors
 } from '@nestjs/common'
+import { GetChannelsDto } from '@presentation/youtube/channels/dto/GetChannels.dto'
 import { ChannelsScenario } from '@app/youtube/channels/channels.scenario'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
@@ -16,6 +18,15 @@ export class ChannelsController {
     private readonly channelsScenario: ChannelsScenario,
     private readonly channelsService: ChannelsService
   ) {}
+
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Get()
+  async getChannels(@Query() dto: GetChannelsDto) {
+    return await this.channelsService.prismaFindAll({
+      where: { id: dto.toIds() },
+      limit: 1000
+    })
+  }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
