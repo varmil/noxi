@@ -43,12 +43,14 @@ export default async function Stream({
   return (
     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
       <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
-        <img
-          src={thumbnails['high']?.url}
-          alt={title}
-          className="object-cover w-full h-full"
-        />
-        {showLiveBadges && <LiveBadge />}
+        <a href={`https://youtube.com/watch?v=${videoId}`} target="_blank">
+          <img
+            src={thumbnails['high']?.url}
+            alt={title}
+            className="object-cover w-full h-full"
+          />
+          {showLiveBadges && <LiveBadge />}
+        </a>
       </div>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
         <div className="items-center text-center">
@@ -61,8 +63,9 @@ export default async function Stream({
           <h3 className="text-sm line-clamp-2 mb-1">{title}</h3>
           <div className="col-start-2 flex items-center gap-1">
             <span className="text-xs sm:text-sm text-muted-foreground">
-              {channel.basicInfo.title} - {likeCount} likes
-              {/* {maxViewerCount.toLocaleString()}{' '}watching */}
+              {channel.basicInfo.title}
+              {/* - {likeCount} likes */}
+              {/* - {maxViewerCount.toLocaleString()}{' '}watching */}
             </span>
           </div>
         </div>
