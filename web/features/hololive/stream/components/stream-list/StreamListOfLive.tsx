@@ -25,7 +25,7 @@ export default async function StreamListOfLive({
         description={description}
         badgeText="Live"
       />
-      <StreamListContent streams={streams} />
+      <StreamListContent streams={streams} showLiveBadges />
       <StreamListFooter />
     </Card>
   )

@@ -11,7 +11,7 @@ const LiveBadge = () => (
 )
 
 const SmallLiveBadge = () => (
-  <div className="text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
+  <div className="relative text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
     LIVE
   </div>
 )
@@ -23,12 +23,14 @@ type Props = {
   time: string
   stream: StreamSchema
   channel: ChannelSchema
+  showLiveBadges?: boolean
 }
 
 export default async function Stream({
   time,
   stream,
-  channel
+  channel,
+  showLiveBadges
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
@@ -46,14 +48,14 @@ export default async function Stream({
           alt={title}
           className="object-cover w-full h-full"
         />
-        {time === '10:00 AM' && <LiveBadge />}
+        {showLiveBadges && <LiveBadge />}
       </div>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
         <div className="items-center text-center">
           <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
             <AvatarImage src={channel.basicInfo.thumbnails['medium']?.url} />
           </Avatar>
-          {time === '10:00 AM' && <SmallLiveBadge />}
+          {showLiveBadges && <SmallLiveBadge />}
         </div>
         <div>
           <h3 className="text-sm line-clamp-2 mb-1">{title}</h3>

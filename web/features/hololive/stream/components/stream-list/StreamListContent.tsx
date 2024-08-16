@@ -10,9 +10,14 @@ import dayjs from 'lib/dayjs'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
+  // TODO: removeme after impl 本当はstream.status から取得すべき
+  showLiveBadges?: boolean
 }>
 
-export default async function StreamListContent({ streams }: Props) {
+export default async function StreamListContent({
+  streams,
+  showLiveBadges
+}: Props) {
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
@@ -42,7 +47,7 @@ export default async function StreamListContent({ streams }: Props) {
         {Object.entries(groupedStreams).map(([date, record]) =>
           Object.entries(record).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
-              <div className="sticky top-0 bg-background py-2 z-10 flex items-center gap-4 mb-4">
+              <div className="sticky -top-px bg-background py-2 z-20 flex items-center gap-4 mb-4">
                 <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
                 <Badge variant="outline">
                   {events.length > 1
@@ -60,7 +65,12 @@ export default async function StreamListContent({ streams }: Props) {
 
                 return (
                   <div key={stream.videoId} className="mb-6 last:mb-0">
-                    <Stream time={time} stream={stream} channel={channel} />
+                    <Stream
+                      time={time}
+                      stream={stream}
+                      channel={channel}
+                      showLiveBadges={showLiveBadges}
+                    />
                   </div>
                 )
               })}
