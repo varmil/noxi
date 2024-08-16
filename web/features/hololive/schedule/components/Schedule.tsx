@@ -18,96 +18,6 @@ import Image from 'components/styles/Image'
 import ScheduledStream from 'features/hololive/schedule/components/ScheduledStream'
 import dayjs from 'lib/dayjs'
 
-const scheduleData = {
-  '10:00 AM': [
-    {
-      title:
-        'Welcome to DevCon 2023 / Welcome to DevCon 2023 / Welcome to DevCon 2023',
-      channel: 'DevCon Official',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 1500
-    },
-    {
-      title: 'Getting Started with Web3',
-      channel: 'Blockchain Basics',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 2200
-    }
-  ],
-  '11:00 AM': [
-    {
-      title: 'The Future of AI in Web Development',
-      channel: 'TechTalks',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 3200
-    }
-  ],
-  '12:00 PM': [
-    {
-      title: 'Building Scalable Microservices',
-      channel: 'Cloud Experts',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 2800
-    }
-  ],
-  '1:00 PM': [
-    {
-      title: 'Lunch Break & Networking',
-      channel: 'DevCon Official',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 1000
-    }
-  ],
-  '2:00 PM': [
-    {
-      title: "React 18: What's New and Exciting",
-      channel: 'React Masters',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 4500
-    },
-    {
-      title: 'GraphQL vs REST: A Practical Comparison',
-      channel: 'API Enthusiasts',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 3800
-    }
-  ],
-  '3:00 PM': [
-    {
-      title: 'Optimizing Performance in Large-Scale Apps',
-      channel: 'Performance Gurus',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 3800
-    }
-  ],
-  '4:00 PM': [
-    {
-      title: 'The Art of Clean Code',
-      channel: 'Code Aesthetics',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 3100
-    }
-  ],
-  '5:00 PM': [
-    {
-      title: 'Closing Keynote: The Road Ahead',
-      channel: 'DevCon Official',
-      thumbnail: '/placeholder.svg?height=120&width=220',
-      avatar: '/placeholder.svg?height=40&width=40',
-      viewers: 5000
-    }
-  ]
-}
-
 type Props = {
   title: string
   description: string
@@ -119,7 +29,7 @@ export default async function Schedule({
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'scheduled',
-    scehduledAfter: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
+    scehduledAfter: new Date(),
     // +24 hours from now
     scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],

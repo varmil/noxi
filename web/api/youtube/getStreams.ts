@@ -32,12 +32,7 @@ export async function getStreams({
 
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      next: { revalidate: 600 }
-    }
+    { next: { revalidate: 600 } }
   )
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.
