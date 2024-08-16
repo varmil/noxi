@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { headers } from 'next/headers'
 import { getFormatter } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { CardContent } from '@/components/ui/card'
@@ -7,7 +8,6 @@ import { Separator } from '@/components/ui/separator'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import Stream from 'features/hololive/stream/components/Stream'
-import dayjs from 'lib/dayjs'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -22,9 +22,8 @@ export default async function StreamListContent({
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
-
   const format = await getFormatter()
-
+  const timezone = headers().get('x-vercel-ip-timezone')
   const groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
 
   streams.forEach(stream => {
@@ -33,7 +32,8 @@ export default async function StreamListContent({
       new Date(stream.streamTimes.scheduledStartTime),
       {
         month: '2-digit',
-        day: '2-digit'
+        day: '2-digit',
+        timeZone: timezone ?? 'Asia/Tokyo'
       }
     )
 
@@ -42,7 +42,8 @@ export default async function StreamListContent({
       new Date(stream.streamTimes.scheduledStartTime),
       {
         hour: '2-digit',
-        minute: '2-digit'
+        minute: '2-digit',
+        timeZone: timezone ?? 'Asia/Tokyo'
       }
     )
 
