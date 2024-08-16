@@ -13,9 +13,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
     <main className="min-h-screen">
       <section className="p-4 sm:px-6 md:gap-8">
         <div className="w-full max-w-3xl mx-auto grid gap-4 sm:gap-6">
-          <section>
-            <Live title={t('live.title')} description={t('live.description')} />
-          </section>
+          <Live title={t('live.title')} description={t('live.description')} />
           <Schedule
             title={t('scheduled.title')}
             description={t('scheduled.description')}

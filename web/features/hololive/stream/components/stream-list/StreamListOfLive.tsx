@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { Radio } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import StreamListContent from 'features/hololive/stream/components/stream-list/StreamListContent'
@@ -11,14 +12,19 @@ type Props = {
   description: string
 }
 
-export default async function StreamList({
+export default async function StreamListOfLive({
   streams,
   title,
   description
 }: PropsWithoutRef<Props>) {
   return (
     <Card>
-      <StreamListHeader title={title} description={description} />
+      <StreamListHeader
+        titleIcon={<Radio className="w-6 h-6 text-red-400" />}
+        title={title}
+        description={description}
+        badgeText="Live"
+      />
       <StreamListContent streams={streams} />
       <StreamListFooter />
     </Card>

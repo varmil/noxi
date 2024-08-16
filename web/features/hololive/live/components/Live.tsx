@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getStreams } from 'api/youtube/getStreams'
-import StreamList from 'features/hololive/stream/components/stream-list/StreamList'
+import StreamListOfLive from 'features/hololive/stream/components/stream-list/StreamListOfLive'
 
 type Props = {
   title: string
@@ -24,6 +24,10 @@ export default async function Live({
   })
 
   return (
-    <StreamList streams={streams} title={title} description={description} />
+    <StreamListOfLive
+      streams={streams}
+      title={title}
+      description={description}
+    />
   )
 }
