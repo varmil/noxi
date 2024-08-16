@@ -26,18 +26,9 @@ export async function getStreams({
     limit: String(limit)
   })
   orderBy.forEach((orderBy, index) => {
-    searchParams.append(`orderBy[0][field]`, orderBy.field)
-    searchParams.append(`orderBy[0][order]`, orderBy.order)
-    // searchParams.append(
-    //   `orderBy[]`,
-    //   new URLSearchParams({
-    //     field: orderBy.field,
-    //     order: orderBy.order
-    //   }).toString()
-    // )
+    searchParams.append(`orderBy[${index}][field]`, orderBy.field)
+    searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
-
-  console.log('searchParams', searchParams.toString())
 
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
