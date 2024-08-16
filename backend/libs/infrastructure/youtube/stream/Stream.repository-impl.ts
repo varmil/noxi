@@ -10,6 +10,7 @@ export class StreamRepositoryImpl implements StreamRepository {
 
   async findAll({
     where: { status, channelId, scheduledBefore, scheduledAfter },
+    orderBy,
     limit
   }: Parameters<StreamRepository['findAll']>[0]) {
     const rows = await this.prismaInfraService.youtubeStream.findMany({
@@ -21,6 +22,7 @@ export class StreamRepositoryImpl implements StreamRepository {
           lte: scheduledBefore
         }
       },
+      orderBy,
       take: limit
     })
 

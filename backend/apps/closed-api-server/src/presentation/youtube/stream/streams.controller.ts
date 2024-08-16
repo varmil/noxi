@@ -22,6 +22,7 @@ export class StreamsController {
         scheduledBefore: dto.toScheduledBefore(),
         scheduledAfter: dto.toScheduledAfter()
       },
+      orderBy: dto.toOrderBy(),
       limit: dto.toLimit()
     })
   }

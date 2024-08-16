@@ -119,26 +119,33 @@ export default async function Schedule({
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'scheduled',
-    limit: 100,
     scehduledAfter: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
     // +24 hours from now
-    scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+    scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+    orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
+    limit: 100
   })
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
 
-  const groupedStreams: Record<string, StreamsSchema> = {}
+  const groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
+
   streams.forEach(stream => {
-    // `scheduledStartTime` を1時間に丸めた時間に変換
+    // 日付 (例: "08/16")
+    const dateKey = dayjs(stream.streamTimes.scheduledStartTime).format('MM/DD')
+    // 時間 (例: "10:00 PM")
     const timeKey = dayjs(stream.streamTimes.scheduledStartTime).format(
       'hh:00 A'
     )
 
-    if (!groupedStreams[timeKey]) {
-      groupedStreams[timeKey] = []
+    if (!groupedStreams[dateKey]) {
+      groupedStreams[dateKey] = {}
     }
-    groupedStreams[timeKey].push(stream)
+    if (!groupedStreams[dateKey][timeKey]) {
+      groupedStreams[dateKey][timeKey] = []
+    }
+    groupedStreams[dateKey][timeKey].push(stream)
   })
 
   return (
@@ -163,40 +170,38 @@ export default async function Schedule({
       </CardHeader>
       <CardContent>
         <ScrollArea className="h-[500px] sm:h-[750px] pr-4">
-          {Object.entries(groupedStreams).map(([time, events]) => (
-            <div key={time} className="mb-8 last:mb-0">
-              <div className="sticky top-0 bg-background py-2 z-10 flex items-center gap-4 mb-4">
-                <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
-                <Badge variant="outline">
-                  {events.length > 1
-                    ? `${events.length} events`
-                    : `${events.length} event`}
-                </Badge>
-                <Separator className="flex-grow w-fit" />
-                <div className="ml-auto text-muted-foreground">
-                  {dayjs(events[0].streamTimes.scheduledStartTime).format(
-                    'MM/DD'
-                  )}
+          {Object.entries(groupedStreams).map(([date, record]) =>
+            Object.entries(record).map(([time, events]) => (
+              <div key={time} className="mb-8 last:mb-0">
+                <div className="sticky top-0 bg-background py-2 z-10 flex items-center gap-4 mb-4">
+                  <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
+                  <Badge variant="outline">
+                    {events.length > 1
+                      ? `${events.length} events`
+                      : `${events.length} event`}
+                  </Badge>
+                  <Separator className="flex-grow w-fit" />
+                  <div className="ml-auto text-muted-foreground">{date}</div>
                 </div>
-              </div>
-              {events.map(stream => {
-                const channel = channels.find(
-                  channel => channel.basicInfo.id === stream.snippet.channelId
-                )
-                if (!channel) return null
+                {events.map(stream => {
+                  const channel = channels.find(
+                    channel => channel.basicInfo.id === stream.snippet.channelId
+                  )
+                  if (!channel) return null
 
-                return (
-                  <div key={stream.videoId} className="mb-6 last:mb-0">
-                    <ScheduledStream
-                      time={time}
-                      stream={stream}
-                      channel={channel}
-                    />
-                  </div>
-                )
-              })}
-            </div>
-          ))}
+                  return (
+                    <div key={stream.videoId} className="mb-6 last:mb-0">
+                      <ScheduledStream
+                        time={time}
+                        stream={stream}
+                        channel={channel}
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            ))
+          )}
         </ScrollArea>
       </CardContent>
       <CardFooter className="p-4 sm:p-6 pt-0">

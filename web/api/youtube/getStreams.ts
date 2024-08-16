@@ -5,23 +5,46 @@ type Params = {
   status: 'scheduled' | 'live' | 'ended'
   scehduledBefore: Date
   scehduledAfter: Date
+  orderBy: {
+    field: 'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'
+    order: 'asc' | 'desc'
+  }[]
   limit: number
 }
 
 export async function getStreams({
-  limit,
+  status,
   scehduledBefore,
   scehduledAfter,
-  ...rest
+  orderBy,
+  limit
 }: Params): Promise<StreamsSchema> {
+  const searchParams = new URLSearchParams({
+    status,
+    scheduledBefore: scehduledBefore.toISOString(),
+    scheduledAfter: scehduledAfter.toISOString(),
+    limit: String(limit)
+  })
+  orderBy.forEach((orderBy, index) => {
+    searchParams.append(`orderBy[0][field]`, orderBy.field)
+    searchParams.append(`orderBy[0][order]`, orderBy.order)
+    // searchParams.append(
+    //   `orderBy[]`,
+    //   new URLSearchParams({
+    //     field: orderBy.field,
+    //     order: orderBy.order
+    //   }).toString()
+    // )
+  })
+
+  console.log('searchParams', searchParams.toString())
+
   const res = await fetchAPI(
-    `/api/youtube/streams?${new URLSearchParams({
-      limit: String(limit),
-      scheduledBefore: scehduledBefore.toISOString(),
-      scheduledAfter: scehduledAfter.toISOString(),
-      ...rest
-    }).toString()}`,
+    `/api/youtube/streams?${searchParams.toString()}`,
     {
+      headers: {
+        'Content-Type': 'application/json'
+      },
       next: { revalidate: 600 }
     }
   )

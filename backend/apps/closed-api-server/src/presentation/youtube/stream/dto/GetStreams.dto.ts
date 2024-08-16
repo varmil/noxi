@@ -1,3 +1,4 @@
+import { IntersectionType } from '@nestjs/mapped-types'
 import { Type } from 'class-transformer'
 import {
   IsIn,
@@ -7,10 +8,13 @@ import {
   IsRFC3339,
   IsString
 } from 'class-validator'
+import { OrderBysDto } from '@presentation/dto/OrderByDto'
 import { StreamStatus } from '@domain/stream'
 import { ChannelId } from '@domain/youtube'
 
-export class GetStreamsDto {
+export class GetStreamsDto extends IntersectionType(
+  OrderBysDto<'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'>
+) {
   @IsIn(['scheduled', 'live', 'ended'])
   @IsNotEmpty()
   status: 'scheduled' | 'live' | 'ended'
