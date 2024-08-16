@@ -28,8 +28,14 @@
           "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
         },
         "card": {
-          "title": "Hololive today's streaming schedule",
-          "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+          "live": {
+            "title": "Hololive today's live now on air",
+            "description": "Check out Hololive's live now on air for today!"
+          },
+          "scheduled": {
+            "title": "Hololive today's streaming schedule",
+            "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+          }
         }
       },
       "charts": {

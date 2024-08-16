@@ -7,16 +7,19 @@ type Props = {
   description: string
 }
 
-export default async function Schedule({
+export default async function Live({
   title,
   description
 }: PropsWithoutRef<Props>) {
+  // TODO: 本来はstatus: 'live'のものだけを取得する
+  // しかし今回は適当に5時間前-今を取得する
   const streams = await getStreams({
     status: 'scheduled',
-    scehduledAfter: new Date(),
-    // +24 hours from now
-    scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-    orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
+    // -5 hours from now
+    scehduledAfter: new Date(new Date().getTime() - 5 * 60 * 60 * 1000),
+    // now
+    scehduledBefore: new Date(),
+    orderBy: [{ field: 'scheduledStartTime', order: 'desc' }],
     limit: 100
   })
 
