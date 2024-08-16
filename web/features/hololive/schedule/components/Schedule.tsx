@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { channel } from 'diagnostics_channel'
 import { List } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -11,10 +10,13 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
 import { getChannels } from 'api/youtube/getChannels'
 import { getStreams } from 'api/youtube/getStreams'
+import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import Image from 'components/styles/Image'
 import ScheduledStream from 'features/hololive/schedule/components/ScheduledStream'
+import dayjs from 'lib/dayjs'
 
 const scheduleData = {
   '10:00 AM': [
@@ -118,12 +120,25 @@ export default async function Schedule({
   const streams = await getStreams({
     status: 'scheduled',
     limit: 100,
-    scehduledAfter: new Date(),
+    scehduledAfter: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),
     // +24 hours from now
     scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
   })
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
+  })
+
+  const groupedStreams: Record<string, StreamsSchema> = {}
+  streams.forEach(stream => {
+    // `scheduledStartTime` を1時間に丸めた時間に変換
+    const timeKey = dayjs(stream.streamTimes.scheduledStartTime).format(
+      'hh:00 A'
+    )
+
+    if (!groupedStreams[timeKey]) {
+      groupedStreams[timeKey] = []
+    }
+    groupedStreams[timeKey].push(stream)
   })
 
   return (
@@ -141,14 +156,14 @@ export default async function Schedule({
             <span className="inline">{title}</span>
             <span className="hidden">{description}</span>
           </span>
-          <Badge variant="destructive" className="flex items-center gap-1">
-            LIVE
+          <Badge variant="secondary" className="flex items-center gap-1">
+            Scheduled
           </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[400px] sm:h-[750px] pr-4">
-          {Object.entries(scheduleData).map(([time, events]) => (
+        <ScrollArea className="h-[500px] sm:h-[750px] pr-4">
+          {Object.entries(groupedStreams).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
               <div className="sticky top-0 bg-background py-2 z-10 flex items-center gap-4 mb-4">
                 <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
@@ -157,8 +172,14 @@ export default async function Schedule({
                     ? `${events.length} events`
                     : `${events.length} event`}
                 </Badge>
+                <Separator className="flex-grow w-fit" />
+                <div className="ml-auto text-muted-foreground">
+                  {dayjs(events[0].streamTimes.scheduledStartTime).format(
+                    'MM/DD'
+                  )}
+                </div>
               </div>
-              {streams.slice(0, 3).map(stream => {
+              {events.map(stream => {
                 const channel = channels.find(
                   channel => channel.basicInfo.id === stream.snippet.channelId
                 )
