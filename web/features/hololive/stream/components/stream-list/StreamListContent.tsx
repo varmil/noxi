@@ -1,4 +1,6 @@
 import { PropsWithoutRef } from 'react'
+import { headers } from 'next/headers'
+import { getFormatter } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -6,7 +8,6 @@ import { Separator } from '@/components/ui/separator'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import Stream from 'features/hololive/stream/components/Stream'
-import dayjs from 'lib/dayjs'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -21,15 +22,29 @@ export default async function StreamListContent({
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
-
+  const format = await getFormatter()
+  const timezone = headers().get('x-vercel-ip-timezone')
   const groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
 
   streams.forEach(stream => {
     // 日付 (例: "08/16")
-    const dateKey = dayjs(stream.streamTimes.scheduledStartTime).format('MM/DD')
+    const dateKey = format.dateTime(
+      new Date(stream.streamTimes.scheduledStartTime),
+      {
+        month: '2-digit',
+        day: '2-digit',
+        timeZone: timezone ?? 'Asia/Tokyo'
+      }
+    )
+
     // 時間 (例: "10:00 PM")
-    const timeKey = dayjs(stream.streamTimes.scheduledStartTime).format(
-      'hh:00 A'
+    const timeKey = format.dateTime(
+      new Date(stream.streamTimes.scheduledStartTime),
+      {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: timezone ?? 'Asia/Tokyo'
+      }
     )
 
     if (!groupedStreams[dateKey]) {
