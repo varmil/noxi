@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { ChannelsController } from '@presentation/youtube/channels.controller'
+import { ChannelsPresentationModule } from '@presentation/youtube/channels/channels.presentation.module'
 import { ChartsController } from '@presentation/youtube/charts.controller'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 import { PubsubhubbubPresentationModule } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.presentation.module'
@@ -9,11 +9,12 @@ import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 
 @Module({
   imports: [
+    ChannelsPresentationModule,
     PubsubhubbubPresentationModule,
     StreamsPresentationModule,
     YoutubeAppModule
   ],
-  controllers: [ChartsController, ChannelsController, VideosController],
+  controllers: [ChartsController, VideosController],
   providers: [CryptoService]
 })
 export class YoutubePresentationModule {}

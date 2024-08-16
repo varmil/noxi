@@ -1,4 +1,7 @@
-import { ChannelsSchema, listSchema } from 'api/youtube/schema/channelSchema'
+import {
+  ChannelsSchema,
+  responseSchema
+} from 'api/youtube/schema/channelSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
@@ -22,6 +25,6 @@ export async function getChartOfChannels({
     throw new Error('Failed to fetch data')
   }
 
-  const data = listSchema.parse(await res.json())
+  const data = responseSchema.parse(await res.json())
   return data.list
 }

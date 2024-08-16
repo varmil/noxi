@@ -5,16 +5,16 @@ import {
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  searchParams: URLSearchParams
+  ids: string[]
 }
 
-export async function getChartOfChannels({
-  searchParams
-}: Params): Promise<ChannelsSchema> {
+export async function getChannels({ ids }: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
-    `/api/hololive/charts/channels?${searchParams.toString()}`,
+    `/api/youtube/channels?${new URLSearchParams({
+      ids: ids.join(',')
+    }).toString()}`,
     {
-      next: { revalidate: 600 }
+      next: { revalidate: 1000 }
     }
   )
   // The return value is *not* serialized
@@ -22,9 +22,7 @@ export async function getChartOfChannels({
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error(
-      `Failed to fetch data. status:${res.status} ${res.statusText}`
-    )
+    throw new Error('Failed to fetch data')
   }
 
   const data = responseSchema.parse(await res.json())

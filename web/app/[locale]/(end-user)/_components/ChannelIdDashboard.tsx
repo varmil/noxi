@@ -1,6 +1,6 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
+import { getChannel } from 'api/youtube/getChannel'
 import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
-import { getChannel } from 'features/youtube/api/getChannel'
 import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
 import { VideoCards } from 'features/youtube/components/video/VideoCards'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'

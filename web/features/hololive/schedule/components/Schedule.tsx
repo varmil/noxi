@@ -10,6 +10,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getChannels } from 'api/youtube/getChannels'
 import { getStreams } from 'api/youtube/getStreams'
 import Image from 'components/styles/Image'
 import ScheduledStream from 'features/hololive/schedule/components/ScheduledStream'
@@ -120,6 +121,10 @@ export default async function Schedule({
     // +24 hours from now
     scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
   })
+  const channels = await getChannels({
+    ids: streams.map(stream => stream.snippet.channelId)
+  })
+  console.log(channels)
 
   return (
     <Card>

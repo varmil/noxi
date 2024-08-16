@@ -42,19 +42,16 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   async prismaFindAll({
-    sort,
     where: { id, country },
+    sort,
     limit
   }: Parameters<ChannelRepository['prismaFindAll']>[0]): Promise<Channels> {
-    const label = Date.now() + 'channel.prismaFindAll'
-    console.time(label)
+    const orderBy = sort ? { [sort.toOrderBy()]: 'desc' } : undefined
     const channels = await this.prismaInfraService.channel.findMany({
       where: { id: { in: id?.map(e => e.get()) }, country: country?.get() },
-      orderBy: { [sort.toOrderBy()]: 'desc' },
+      orderBy,
       take: limit
     })
-    console.timeEnd(label)
-
     return new Channels(
       channels.map(channel => {
         return this.toDomain(channel)
