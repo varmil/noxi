@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
 
 const LiveBadge = () => (
@@ -21,11 +22,13 @@ type Props = {
    */
   time: string
   stream: StreamSchema
+  channel: ChannelSchema
 }
 
 export default async function ScheduledStream({
   time,
-  stream
+  stream,
+  channel
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
@@ -35,7 +38,6 @@ export default async function ScheduledStream({
     likeCount
   } = stream
 
-  const channelTitle: string = 'fetch channel here'
   const avatar: string = '/placeholder.svg?height=40&width=40'
 
   return (
@@ -52,7 +54,7 @@ export default async function ScheduledStream({
         <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
           <div className="items-center text-center">
             <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
-              <AvatarImage src={avatar} />
+              <AvatarImage src={channel.basicInfo.thumbnails['medium']?.url} />
             </Avatar>
             {time === '10:00 AM' && <SmallLiveBadge />}
           </div>
@@ -60,7 +62,8 @@ export default async function ScheduledStream({
             <h3 className="text-sm line-clamp-2 mb-1">{title}</h3>
             <div className="col-start-2 flex items-center gap-1">
               <span className="text-xs sm:text-sm text-muted-foreground">
-                {channelTitle} - {maxViewerCount.toLocaleString()} watching
+                {channel.basicInfo.title} - {maxViewerCount.toLocaleString()}{' '}
+                watching
               </span>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { channel } from 'diagnostics_channel'
 import { List } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -124,7 +125,6 @@ export default async function Schedule({
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
-  console.log(channels)
 
   return (
     <Card>
@@ -158,11 +158,22 @@ export default async function Schedule({
                     : `${events.length} event`}
                 </Badge>
               </div>
-              {streams.slice(0, 3).map(stream => (
-                <div key={stream.videoId} className="mb-6 last:mb-0">
-                  <ScheduledStream time={time} stream={stream} />
-                </div>
-              ))}
+              {streams.slice(0, 3).map(stream => {
+                const channel = channels.find(
+                  channel => channel.basicInfo.id === stream.snippet.channelId
+                )
+                if (!channel) return null
+
+                return (
+                  <div key={stream.videoId} className="mb-6 last:mb-0">
+                    <ScheduledStream
+                      time={time}
+                      stream={stream}
+                      channel={channel}
+                    />
+                  </div>
+                )
+              })}
             </div>
           ))}
         </ScrollArea>

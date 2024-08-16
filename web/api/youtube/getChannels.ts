@@ -11,7 +11,7 @@ type Params = {
 export async function getChannels({ ids }: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
     `/api/youtube/channels?${new URLSearchParams({
-      ids: ids.join(',')
+      ids: [...new Set(ids)].join(',')
     }).toString()}`,
     {
       next: { revalidate: 1000 }
