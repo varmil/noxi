@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { getFormatter } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { CardContent } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -22,14 +23,27 @@ export default async function StreamListContent({
     ids: streams.map(stream => stream.snippet.channelId)
   })
 
+  const format = await getFormatter()
+
   const groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
 
   streams.forEach(stream => {
     // 日付 (例: "08/16")
-    const dateKey = dayjs(stream.streamTimes.scheduledStartTime).format('MM/DD')
+    const dateKey = format.dateTime(
+      new Date(stream.streamTimes.scheduledStartTime),
+      {
+        month: '2-digit',
+        day: '2-digit'
+      }
+    )
+
     // 時間 (例: "10:00 PM")
-    const timeKey = dayjs(stream.streamTimes.scheduledStartTime).format(
-      'hh:00 A'
+    const timeKey = format.dateTime(
+      new Date(stream.streamTimes.scheduledStartTime),
+      {
+        hour: '2-digit',
+        minute: '2-digit'
+      }
     )
 
     if (!groupedStreams[dateKey]) {
