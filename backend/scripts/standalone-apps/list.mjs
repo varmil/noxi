@@ -9,10 +9,10 @@ export default {
   /**
    * App 2
    */
-  'hololive/updateChannels:dev':
+  'hololive/update-channels:dev':
     'nest start --watch hololive/save-aggregations-by-channel',
-  'hololive/updateChannels:build':
+  'hololive/update-channels:build':
     'nest build --webpack hololive/save-aggregations-by-channel',
-  'hololive/updateChannels:prod':
+  'hololive/update-channels:prod':
     'node dist/apps/hololive/save-aggregations-by-channel/main'
 }

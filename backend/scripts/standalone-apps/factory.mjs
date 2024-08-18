@@ -13,8 +13,8 @@ console.log(x)
 
 const schema0 = z.union([
   z.literal('pubsubhubbub'),
-  z.literal('updateStreams'),
-  z.literal('hololive/updateChannels')
+  z.literal('update-streams'),
+  z.literal('hololive/update-channels')
 ])
 
 const schema1 = z.union([
