@@ -1,5 +1,6 @@
 {
   "name": "backend",
+  "type": "module",
   "private": true,
   "scripts": {
     "type-check": "tsc --noEmit",
@@ -8,12 +9,7 @@
     "dev": "nest start --watch",
     "build": "nest build --webpack",
     "prod": "node dist/apps/closed-api-server/main",
-    "dev:standalone:001": "nest start --watch hololive/save-aggregations-by-channel",
-    "build:standalone:001": "nest build --webpack hololive/save-aggregations-by-channel",
-    "prod:standalone:001": "node dist/apps/hololive/save-aggregations-by-channel/main",
-    "dev:pubsubhubbub": "nest start --watch pubsubhubbub",
-    "build:pubsubhubbub": "nest build --webpack pubsubhubbub",
-    "prod:pubsubhubbub": "node dist/apps/pubsubhubbub/main",
+    "zx": "zx ./scripts/standalone-apps/factory.mjs pubsubhubbub build",
     "prisma:dev": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "test": "jest --silent",
@@ -37,7 +33,8 @@
     "prisma-json-types-generator": "^3.0.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zx": "^8.1.4"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
