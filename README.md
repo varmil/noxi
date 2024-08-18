@@ -1,13 +1,24 @@
-## CORS
+## BACKEND APPS
 
-コンテナ化されたアプリに Hosting リクエストをリダイレクトする
+### example
 
-https://firebase.google.com/docs/hosting/cloud-run?hl=ja#direct_requests_to_container
+#### dev
 
-## docs
+```shell
+npm run app -- pubsubhubbub dev
+npm run app -- hololive/update-channels dev
+```
 
-[youtube のトレンド分析アプリを作ったが規約に罠があった話](https://note.com/africa_yoshi/n/nba41644f166a)
+#### build
 
-[日本の Top 100 登録者数の Youtuber](https://jp.noxinfluencer.com/youtube-channel-rank/top-100-jp-all-youtuber-sorted-by-subs-weekly)
+```shell
+npm run app -- pubsubhubbub build
+npm run app -- hololive/update-channels build
+```
 
-[Streams Charts](https://streamscharts.com/platforms)
+#### prod
+
+```shell
+npm run app -- pubsubhubbub prod
+npm run app -- hololive/update-channels prod
+```

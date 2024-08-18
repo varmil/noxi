@@ -8,18 +8,13 @@
     "dev": "nest start --watch",
     "build": "nest build --webpack",
     "prod": "node dist/apps/closed-api-server/main",
-    "dev:standalone:001": "nest start --watch hololive/save-aggregations-by-channel",
-    "build:standalone:001": "nest build --webpack hololive/save-aggregations-by-channel",
-    "prod:standalone:001": "node dist/apps/hololive/save-aggregations-by-channel/main",
-    "dev:pubsubhubbub": "nest start --watch pubsubhubbub",
-    "build:pubsubhubbub": "nest build --webpack pubsubhubbub",
-    "prod:pubsubhubbub": "node dist/apps/pubsubhubbub/main",
     "prisma:dev": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "test": "jest --silent",
     "test:watch": "jest --watch --silent",
     "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json --runInBand",
-    "test:e2e:watch": "npm run test:e2e -- --watch"
+    "test:e2e:watch": "npm run test:e2e -- --watch",
+    "app": "zx ./scripts/standalone-apps/factory.mjs"
   },
   "dependencies": {
     "@googleapis/youtube": "^19.0.0",
@@ -37,7 +32,8 @@
     "prisma-json-types-generator": "^3.0.4",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zx": "^8.1.4"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",

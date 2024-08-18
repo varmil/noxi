@@ -21,13 +21,13 @@
         "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
       }
     },
-    "hololive/save-aggregations-by-channel": {
+    "hololive/update-channels": {
       "type": "application",
-      "root": "apps/hololive/save-aggregations-by-channel",
+      "root": "apps/hololive/update-channels",
       "entryFile": "main",
-      "sourceRoot": "apps/hololive/save-aggregations-by-channel/src",
+      "sourceRoot": "apps/hololive/update-channels/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/hololive/save-aggregations-by-channel/tsconfig.app.json"
+        "tsConfigPath": "apps/hololive/update-channels/tsconfig.app.json"
       }
     },
     "pubsubhubbub": {
