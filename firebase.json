@@ -1,27 +1,4 @@
 {
-  "hosting": {
-    "source": "web",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "frameworksBackend": {
-      "region": "asia-east1"
-    },
-    "rewrites": [
-      {
-        "source": "/api",
-        "run": {
-          "serviceId": "closed-api-server",
-          "region": "asia-east1"
-        }
-      },
-      {
-        "source": "/api/**",
-        "run": {
-          "serviceId": "closed-api-server",
-          "region": "asia-east1"
-        }
-      }
-    ]
-  },
   "firestore": {
     "rules": "./firebase/firestore.rules",
     "indexes": "./firebase/firestore.indexes.json"
