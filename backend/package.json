@@ -8,13 +8,13 @@
     "dev": "nest start --watch",
     "build": "nest build --webpack",
     "prod": "node dist/apps/closed-api-server/main",
-    "zx": "zx ./scripts/standalone-apps/factory.mjs",
     "prisma:dev": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "test": "jest --silent",
     "test:watch": "jest --watch --silent",
     "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json --runInBand",
-    "test:e2e:watch": "npm run test:e2e -- --watch"
+    "test:e2e:watch": "npm run test:e2e -- --watch",
+    "app": "zx ./scripts/standalone-apps/factory.mjs"
   },
   "dependencies": {
     "@googleapis/youtube": "^19.0.0",
