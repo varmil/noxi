@@ -5,16 +5,14 @@
 import 'zx/globals'
 import { z } from 'zod'
 import { $, argv } from 'zx'
-import x from './list.mjs'
+import list from './list.mjs'
 
 $.verbose = true
 
-console.log(x)
-
 const schema0 = z.union([
+  z.literal('hololive/update-channels'),
   z.literal('pubsubhubbub'),
-  z.literal('update-streams'),
-  z.literal('hololive/update-channels')
+  z.literal('update-streams')
 ])
 
 const schema1 = z.union([
@@ -26,8 +24,6 @@ const schema1 = z.union([
 const appName = schema0.parse(argv._[0])
 const cmd = schema1.parse(argv._[1])
 
-console.log('argv:', appName, cmd)
-
-console.log('exec:', x[`${appName}:${cmd}`])
-
-// await $`npm run ${appName}:${cmd}`
+const exec = list[`${appName}:${cmd}`]
+console.log('exec:', exec)
+await $`eval ${exec}`

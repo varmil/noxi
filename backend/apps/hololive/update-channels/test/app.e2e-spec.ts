@@ -2,14 +2,14 @@ import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import request from 'supertest'
 import { App } from 'supertest/types'
-import { HololiveSaveAggregationsByChannelModule } from 'apps/hololive/save-aggregations-by-channel/src/save-aggregations-by-channel.module'
+import { UpdateChannelsModule } from 'apps/hololive/update-channels/src/update-channels.module'
 
 describe('HololiveSaveAggregationsByChannelController (e2e)', () => {
   let app: INestApplication
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [HololiveSaveAggregationsByChannelModule]
+      imports: [UpdateChannelsModule]
     }).compile()
 
     app = moduleFixture.createNestApplication()

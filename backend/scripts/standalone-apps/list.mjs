@@ -1,18 +1,18 @@
+const App1Name = 'pubsubhubbub'
+const App2Name = 'hololive/update-channels'
+
 export default {
   /**
    * App 1
    */
-  'pubsubhubbub:dev': 'nest start --watch pubsubhubbub',
-  'pubsubhubbub:build': 'nest build --webpack pubsubhubbub',
-  'pubsubhubbub:prod': 'node dist/apps/pubsubhubbub/main',
+  [`${App1Name}:dev`]: `nest start --watch ${App1Name}`,
+  [`${App1Name}:build`]: `nest build --webpack ${App1Name}`,
+  [`${App1Name}:prod`]: `node dist/apps/${App1Name}/main`,
 
   /**
    * App 2
    */
-  'hololive/update-channels:dev':
-    'nest start --watch hololive/save-aggregations-by-channel',
-  'hololive/update-channels:build':
-    'nest build --webpack hololive/save-aggregations-by-channel',
-  'hololive/update-channels:prod':
-    'node dist/apps/hololive/save-aggregations-by-channel/main'
+  [`${App2Name}:dev`]: `nest start --watch ${App2Name}`,
+  [`${App2Name}:build`]: `nest build --webpack ${App2Name}`,
+  [`${App2Name}:prod`]: `node dist/apps/${App2Name}/main`
 }

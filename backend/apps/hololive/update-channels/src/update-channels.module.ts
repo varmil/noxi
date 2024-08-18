@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { SaveChannelsScenario } from './save-channels.scenario'
+import { UpdateChannelsScenario } from './update-channels.scenario'
 
 @Module({
   imports: [
@@ -15,6 +15,6 @@ import { SaveChannelsScenario } from './save-channels.scenario'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [SaveChannelsScenario]
+  providers: [UpdateChannelsScenario]
 })
-export class HololiveSaveAggregationsByChannelModule {}
+export class UpdateChannelsModule {}

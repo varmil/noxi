@@ -1,18 +1,16 @@
 import { NestFactory } from '@nestjs/core'
-import { SaveChannelsScenario } from 'apps/hololive/save-aggregations-by-channel/src/save-channels.scenario'
-import { HololiveSaveAggregationsByChannelModule } from './save-aggregations-by-channel.module'
+import { UpdateChannelsScenario } from 'apps/hololive/update-channels/src/update-channels.scenario'
+import { UpdateChannelsModule } from './update-channels.module'
 
 async function bootstrap() {
-  const app = await NestFactory.createApplicationContext(
-    HololiveSaveAggregationsByChannelModule
-  )
+  const app = await NestFactory.createApplicationContext(UpdateChannelsModule)
 
   // チャンネル基本情報のUPSERT
   {
-    const saveChannelsScenario = app
-      .select(HololiveSaveAggregationsByChannelModule)
-      .get(SaveChannelsScenario)
-    await saveChannelsScenario.execute()
+    const updateChannelsScenario = app
+      .select(UpdateChannelsModule)
+      .get(UpdateChannelsScenario)
+    await updateChannelsScenario.execute()
   }
 
   // TODO: AggregationのUPSERT
