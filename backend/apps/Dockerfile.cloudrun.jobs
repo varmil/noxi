@@ -12,14 +12,14 @@
 ARG BUILD_CMD
 ARG START_CMD
 
-FROM node:20 AS deps
+FROM node:20-alpine AS deps
 WORKDIR /app/backend
 COPY ./package*.json ./
 RUN npm i --production=false
 
 
 # build the app
-FROM node:20 AS builder
+FROM node:20-alpine AS builder
 ARG BUILD_CMD
 WORKDIR /app/backend
 COPY . .
@@ -28,7 +28,7 @@ RUN $BUILD_CMD && npm prune --production
 
 
 # Production image, copy all the files and start
-FROM node:20 AS runner
+FROM node:20-alpine AS runner
 ARG START_CMD
 ENV NODE_ENV production
 WORKDIR /app/backend
