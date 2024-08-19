@@ -36,5 +36,5 @@ COPY --from=builder /app/backend/scripts ./scripts
 COPY --from=builder /app/backend/dist ./dist
 COPY --from=builder /app/backend/node_modules ./node_modules
 COPY --from=builder /app/backend/package.json ./package.json
-ENTRYPOINT ["sh", "-c", "$START_CMD"]
+ENTRYPOINT ["sh", "-c", $START_CMD]
 # CMD npm run app -- pubsubhubbub prod
