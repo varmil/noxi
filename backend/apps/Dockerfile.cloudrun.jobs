@@ -32,8 +32,9 @@ FROM node:20 AS runner
 ARG START_CMD
 ENV NODE_ENV production
 WORKDIR /app/backend
+COPY --from=builder /app/backend/scripts ./scripts
 COPY --from=builder /app/backend/dist ./dist
 COPY --from=builder /app/backend/node_modules ./node_modules
 COPY --from=builder /app/backend/package.json ./package.json
-# CMD ["sh", "-c", "$START_CMD"]
-CMD npm run app -- pubsubhubbub prod
+CMD ["sh", "-c", "$START_CMD"]
+# CMD npm run app -- pubsubhubbub prod
