@@ -21,13 +21,12 @@ export class SubscribeService {
       await this.send({
         channelId: new ChannelId(channel.id)
       })
-      await this.sleep(5000)
+      await this.sleep(2000)
     }
   }
 
   private async send(query: SubscribeYouTubePubsubQuery): Promise<void> {
-    // const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME
-    const SERVER_HOSTNAME = 'closed-api-server-o4obunvh4q-de.a.run.app'
+    const SERVER_HOSTNAME = process.env.SERVER_HOSTNAME
     const YOUTUBE_PUBSUB_SECRET = process.env.YOUTUBE_PUBSUB_SECRET
 
     if (!SERVER_HOSTNAME || !YOUTUBE_PUBSUB_SECRET) {
