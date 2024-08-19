@@ -7,7 +7,7 @@
 # -t your-image-name \
 # -f ./Dockerfile.cloudrun.jobs \
 # backend
-# 
+# a
 
 ARG BUILD_CMD
 ARG START_CMD
