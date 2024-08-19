@@ -1,0 +1,67 @@
+name: 'backend.deploy.pubsubhubbub'
+on:
+  push:
+    branches:
+      - develop
+      - main
+
+permissions: write-all
+
+env:
+  SERVICE_NAME: pubsubhubbub
+  GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+  GCP_REGION: ${{ vars.GCP_REGION }}
+  SERVICE_ACCOUNT_NAME: ${{ vars.SERVICE_ACCOUNT_NAME }}
+  IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/cloud-run-jobs/noxi/apps/${{ vars.SERVICE_NAME }}
+
+jobs:
+  paths-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changes: ${{ steps.changes.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            has-changes:
+              - backend/**
+
+  backend-build:
+    runs-on: ubuntu-latest
+    needs: paths-filter
+    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_JOBS_SA_KEY }}'
+
+      - name: Configure docker to use the gcloud cli
+        run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build a docker image
+        run: |
+          docker build -t ${{ env.IMAGE }} \
+            --build-arg BUILD_CMD="npm run app -- ${{ vars.SERVICE_NAME }} build" \
+            --build-arg START_CMD="npm run app -- ${{ vars.SERVICE_NAME }} prod" \
+            -f backend/apps/Dockerfile.cloudrun.jobs \
+            backend
+
+      - name: Push the docker image
+        run: docker push ${{ env.IMAGE }}
+
+      - name: Deploy to Cloud Run Jobs
+        run: |
+          gcloud run jobs deploy $SERVICE_NAME \
+            --tasks 1 \
+            --parallelism 1 \
+            --max-retries 0 \
+            --task-timeout 60m \
+            --image $IMAGE \
+            --project $GCP_PROJECT_ID \
+            --region $GCP_REGION \
+            --service-account $SERVICE_ACCOUNT_NAME \

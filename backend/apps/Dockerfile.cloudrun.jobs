@@ -1,0 +1,38 @@
+# 
+# e.g.
+#  
+# docker build \
+# --build-arg BUILD_CMD="npm run app -- pubsubhubbub build" \
+# --build-arg START_CMD="npm run app -- pubsubhubbub prod" \
+# -t your-image-name \
+# -f ./Dockerfile.cloudrun.jobs \
+# backend
+# 
+
+ARG BUILD_CMD
+ARG START_CMD
+
+FROM node:20 AS deps
+WORKDIR /app/backend
+COPY ../backend/package*.json ./
+RUN npm i --production=false
+
+
+# build the app
+FROM node:20 AS builder
+ARG BUILD_CMD
+WORKDIR /app/backend
+COPY ../backend .
+COPY --from=deps /app/backend/node_modules ./node_modules
+RUN $BUILD_CMD && npm prune --production
+
+
+# Production image, copy all the files and start
+FROM node:20 AS runner
+ARG START_CMD
+ENV NODE_ENV production
+WORKDIR /app/backend
+COPY --from=builder /app/backend/dist ./dist
+COPY --from=builder /app/backend/node_modules ./node_modules
+COPY --from=builder /app/backend/package.json ./package.json
+CMD $START_CMD
