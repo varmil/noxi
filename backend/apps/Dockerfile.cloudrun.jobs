@@ -1,6 +1,6 @@
 #
 # e.g.
-#  
+# 
 # docker build \
 # --build-arg BUILD_CMD="npm run app -- pubsubhubbub build" \
 # --build-arg START_CMD="npm run app -- pubsubhubbub prod" \

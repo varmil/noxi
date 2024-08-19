@@ -57,12 +57,13 @@ jobs:
 
       - name: Deploy to Cloud Run Jobs
         run: |
-          gcloud run jobs deploy $SERVICE_NAME \
+          gcloud run jobs deploy ${{ env.SERVICE_NAME }} \
             --tasks 1 \
             --parallelism 1 \
             --max-retries 0 \
             --task-timeout 60m \
-            --image $IMAGE \
-            --project $GCP_PROJECT_ID \
-            --region $GCP_REGION \
-            --service-account $SERVICE_ACCOUNT_NAME \
+            --image ${{ env.IMAGE }} \
+            --project ${{ env.GCP_PROJECT_ID }} \
+            --region ${{ env.GCP_REGION }} \
+            --service-account ${{ env.SERVICE_ACCOUNT_NAME }} \
+            --update-env-vars ENV_NAME=production
