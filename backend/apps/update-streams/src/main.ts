@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core'
-import { UpdateStreamsModule } from './update-streams.module'
+import { MainModule } from './main.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(UpdateStreamsModule)
-  await app.listen(3000)
+  const app = await NestFactory.create(MainModule)
+  await app.close()
 }
 bootstrap().catch(reason => console.error(reason))

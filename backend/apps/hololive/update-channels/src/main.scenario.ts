@@ -9,7 +9,7 @@ import {
 } from '@infra/service/youtube-data-api'
 
 @Injectable()
-export class UpdateChannelsScenario {
+export class MainScenario {
   constructor(
     private readonly channelsService: ChannelsService,
     private readonly searchInfraService: SearchChannelsInfraService,

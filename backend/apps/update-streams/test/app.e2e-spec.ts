@@ -1,13 +1,13 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { UpdateStreamsModule } from './../src/update-streams.module'
+import { MainModule } from '../src/main.module'
 
-describe('UpdateStreamsController (e2e)', () => {
+describe('Update Streams (e2e)', () => {
   let app: INestApplication
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [UpdateStreamsModule]
+      imports: [MainModule]
     }).compile()
 
     app = moduleFixture.createNestApplication()

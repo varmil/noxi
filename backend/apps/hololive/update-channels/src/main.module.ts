@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { UpdateChannelsScenario } from './update-channels.scenario'
+import { MainScenario } from './main.scenario'
 
 @Module({
   imports: [
@@ -15,6 +15,6 @@ import { UpdateChannelsScenario } from './update-channels.scenario'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [UpdateChannelsScenario]
+  providers: [MainScenario]
 })
-export class UpdateChannelsModule {}
+export class MainModule {}
