@@ -8,7 +8,6 @@ on:
 permissions: write-all
 
 env:
-  # SERVICE_NAME: pubsubhubbub
   GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   GCP_REGION: ${{ vars.GCP_REGION }}
   SERVICE_ACCOUNT_NAME: ${{ vars.SERVICE_ACCOUNT_NAME }}
@@ -33,8 +32,8 @@ jobs:
       matrix:
         service_name: [pubsubhubbub, hololive/update-channels]
     env:
-      IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${SERVICE_NAME}
-      JOB_NAME: ${matrix.SERVICE_NAME//\//-}
+      IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${matrix.service_name}
+      JOB_NAME: ${matrix.service_name//\//-}
     runs-on: ubuntu-latest
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
