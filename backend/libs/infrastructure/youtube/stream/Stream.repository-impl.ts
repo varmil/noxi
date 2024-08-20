@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { StreamStatus, StreamStatuses } from '@domain/stream'
 import { StreamRepository, Streams } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/youtube/stream/StreamTranslator'
@@ -13,9 +14,16 @@ export class StreamRepositoryImpl implements StreamRepository {
     orderBy,
     limit
   }: Parameters<StreamRepository['findAll']>[0]) {
+    let prismaStatus: string[]
+    if (status instanceof StreamStatus) {
+      prismaStatus = new StreamStatuses([status]).map(s => s.get())
+    } else {
+      prismaStatus = status.map(s => s.get())
+    }
+
     const rows = await this.prismaInfraService.youtubeStream.findMany({
       where: {
-        status: status.get(),
+        status: { in: prismaStatus },
         channelId: channelId?.get(),
         scheduledStartTime: {
           gte: scheduledAfter,

@@ -1,68 +1,59 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { MainService } from 'apps/update-streams/src/main.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
-import { VideosService } from '@app/youtube/videos/videos.service'
-import HololiveList from '@domain/hololive/list'
-import { StreamStatus } from '@domain/stream'
-import { ChannelId, ChannelIds, StreamTimes, VideoIds } from '@domain/youtube'
-import { ChannelsInfraService } from '@infra/service/youtube-data-api'
+import { StreamStatus, StreamStatuses } from '@domain/stream'
 
 @Injectable()
 export class MainScenario {
   constructor(
-    private readonly channelsService: ChannelsService,
-    private readonly streamsService: StreamsService,
-    private readonly videosService: VideosService
+    private readonly mainService: MainService,
+    private readonly streamsService: StreamsService
   ) {}
 
   async execute(): Promise<void> {
-    await this.checkScheduledStreams()
-    return
+    await this.updateIfEnded()
+    await this.updateIfLive()
   }
 
-  private async checkScheduledStreams(): Promise<void> {
-    // 今から半年後までの予定に絞る
+  /**
+   * scheduled --> live のステートを見る
+   * 今から半年後までの予定に絞る
+   */
+  private async updateIfLive() {
     const streams = await this.streamsService.findAll({
       where: {
-        status: new StreamStatus('scheduled'),
+        status: new StreamStatuses([new StreamStatus('scheduled')]),
         scheduledBefore: dayjs().add(180, 'day').toDate()
       },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
     if (streams.length === 0) return
+    console.log('updateIfLive/scheduled/streams', streams.length)
 
-    console.log('streams', streams.length)
+    await this.mainService.updateStreamsIfLive(streams)
+  }
 
-    const { items: videos } = await this.videosService.findAll({
+  /**
+   * scheduled, live --> ended のステートを見る
+   * 今から半年後までの予定に絞る
+   */
+  private async updateIfEnded(): Promise<void> {
+    const streams = await this.streamsService.findAll({
       where: {
-        ids: new VideoIds(streams.map(stream => stream.videoId))
+        status: new StreamStatuses([
+          new StreamStatus('scheduled'),
+          new StreamStatus('live')
+        ]),
+        scheduledBefore: dayjs().add(180, 'day').toDate()
       },
+      orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
+    if (streams.length === 0) return
+    console.log('updateIfEnded/scheduled-live/streams', streams.length)
 
-    console.log('videos', videos.length)
-
-    // select videos that's actualEndTime is not null
-    const promises = videos
-      .filter(video => !!video.liveStreamingDetails?.streamTimes.actualEndTime)
-      .map(async video => {
-        const { liveStreamingDetails } = video
-        if (!liveStreamingDetails) return
-        const { scheduledStartTime, actualStartTime, actualEndTime } =
-          liveStreamingDetails.streamTimes
-
-        await this.streamsService.end({
-          where: { videoId: video.id },
-          data: new StreamTimes({
-            scheduledStartTime,
-            actualStartTime,
-            actualEndTime
-          })
-        })
-      })
-
-    await Promise.all(promises)
+    await this.mainService.updateStreamsIfEnded(streams)
   }
 }

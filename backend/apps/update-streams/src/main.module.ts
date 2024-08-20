@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { MainScenario } from 'apps/update-streams/src/main.scenario'
+import { MainService } from 'apps/update-streams/src/main.service'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
@@ -12,6 +13,6 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [MainScenario]
+  providers: [MainScenario, MainService]
 })
 export class MainModule {}
