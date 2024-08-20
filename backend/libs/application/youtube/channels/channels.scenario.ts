@@ -19,7 +19,7 @@ export class ChannelsScenario {
     const channel = await this.channelsService.findById(channelId)
     if (!channel) return { items: new Videos([]) }
 
-    return await this.videosService.findAll({
+    return await this.videosService.findByChannel({
       hl: channel.basicInfo.defaultLanguage, // TODO: 本来はフロントエンドからhlを送る
       where: { channel },
       limit: 36

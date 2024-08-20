@@ -3,7 +3,7 @@ import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { Channel, Video, VideoId, Videos } from '@domain/youtube'
 
 export interface VideoRepository {
-  findAll: (args: {
+  findByChannel: (args: {
     hl?: LanguageTag
     where: { channel: Channel }
     limit: number
