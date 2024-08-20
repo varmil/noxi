@@ -55,4 +55,4 @@ jobs:
           node-version-file: .node-version
       - run: npm i
       - name: Build ${{ matrix.service_name }}
-        run: npm run app -- ${{ matrix.service_name }}}} build
+        run: npm run app -- ${{ matrix.service_name }} build
