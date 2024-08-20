@@ -12,15 +12,23 @@ export class MainScenario {
   ) {}
 
   async execute(): Promise<void> {
-    await this.updateIfEnded()
-    await this.updateIfLive()
+    // Streamが始まった、終わったの更新処理
+    {
+      await this.endScheduledLives()
+      await this.startScheduledLives()
+    }
+
+    // Live中のStreamのStats更新
+    {
+      await this.updateStats()
+    }
   }
 
   /**
    * scheduled --> live のステートを見る
    * 今から半年後までの予定に絞る
    */
-  private async updateIfLive() {
+  private async startScheduledLives() {
     const streams = await this.streamsService.findAll({
       where: {
         status: new StreamStatuses([new StreamStatus('scheduled')]),
@@ -29,17 +37,17 @@ export class MainScenario {
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
-    if (streams.length === 0) return
     console.log('updateIfLive/scheduled/streams', streams.length)
+    if (streams.length === 0) return
 
-    await this.mainService.updateStreamsIfLive(streams)
+    await this.mainService.startScheduledLives(streams)
   }
 
   /**
    * scheduled, live --> ended のステートを見る
    * 今から半年後までの予定に絞る
    */
-  private async updateIfEnded(): Promise<void> {
+  private async endScheduledLives(): Promise<void> {
     const streams = await this.streamsService.findAll({
       where: {
         status: new StreamStatuses([
@@ -51,9 +59,23 @@ export class MainScenario {
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
-    if (streams.length === 0) return
     console.log('updateIfEnded/scheduled-live/streams', streams.length)
+    if (streams.length === 0) return
 
-    await this.mainService.updateStreamsIfEnded(streams)
+    await this.mainService.endScheduledLives(streams)
+  }
+
+  private async updateStats() {
+    const streams = await this.streamsService.findAll({
+      where: {
+        status: new StreamStatuses([new StreamStatus('live')])
+      },
+      orderBy: [{ scheduledStartTime: 'asc' }],
+      limit: 1000
+    })
+    console.log('updateStats/live/streams', streams.length)
+    if (streams.length === 0) return
+
+    await this.mainService.updateStats(streams)
   }
 }

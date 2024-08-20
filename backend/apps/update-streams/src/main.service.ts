@@ -11,12 +11,12 @@ export class MainService {
   ) {}
 
   /**
-   * live streamを抽出しDBを更新する
+   * 'live'を抽出しDBを更新する
    *   * Stream.streamTimes.scheduledStartTime > 現在時刻
    *   * Video.liveStreamingDetails.streamTimes.actualStartTime is truely
    * のどちらかに当てはまれば、DBを更新
    */
-  async updateStreamsIfLive(streams: Streams) {
+  async startScheduledLives(streams: Streams) {
     const { items: videos } = await this.videosService.findAll({
       where: {
         ids: new VideoIds(streams.map(stream => stream.videoId))
@@ -45,13 +45,13 @@ export class MainService {
         })
       })
 
-    return Promise.all(promises)
+    await Promise.all(promises)
   }
 
   /**
-   * 引数のStreamsから、既に終了したストリームを抽出しDBを更新する
+   * 既に終了したストリームを抽出しDBを更新する
    */
-  async updateStreamsIfEnded(streams: Streams): Promise<void> {
+  async endScheduledLives(streams: Streams): Promise<void> {
     const { items: videos } = await this.videosService.findAll({
       where: {
         ids: new VideoIds(streams.map(stream => stream.videoId))
@@ -80,5 +80,12 @@ export class MainService {
       })
 
     await Promise.all(promises)
+  }
+
+  /**
+   * Live中に変化するStatsをDBに保存する
+   */
+  async updateStats(streams: Streams) {
+    throw new Error('Method not implemented.')
   }
 }
