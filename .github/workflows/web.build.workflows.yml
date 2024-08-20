@@ -7,6 +7,10 @@ on:
 
 permissions: write-all
 
+defaults:
+  run:
+    working-directory: web
+
 jobs:
   paths-filter:
     runs-on: ubuntu-latest
@@ -32,10 +36,6 @@ jobs:
         with:
           node-version-file: .node-version
       - run: npm ci
-        working-directory: web
       - run: npm run lint
-        working-directory: web
       - run: npm run type-check
-        working-directory: web
       - run: npm run build
-        working-directory: web

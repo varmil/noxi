@@ -1,4 +1,4 @@
-name: 'backend.deploy.pubsubhubbub'
+name: 'backend.deploy.jobs'
 on:
   push:
     branches:
@@ -7,7 +7,6 @@ on:
 permissions: write-all
 
 env:
-  SERVICE_NAME: pubsubhubbub
   GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   GCP_REGION: ${{ vars.GCP_REGION }}
   SERVICE_ACCOUNT_NAME: ${{ vars.SERVICE_ACCOUNT_NAME }}
@@ -24,11 +23,15 @@ jobs:
         with:
           filters: |
             has-changes:
+              - .github/workflows/backend.deploy.jobs.workflows.yml
               - backend/**
 
-  backend-build:
+  backend-jobs-build:
+    strategy:
+      matrix:
+        service_name: [pubsubhubbub, hololive/update-channels]
     env:
-      IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${SERVICE_NAME}
+      IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
     runs-on: ubuntu-latest
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
@@ -46,17 +49,22 @@ jobs:
       - name: Build a docker image
         run: |
           docker build -t ${{ env.IMAGE }} \
-            --build-arg BUILD_CMD="npm run app -- ${{ env.SERVICE_NAME }} build" \
-            --build-arg START_CMD="npm run app -- ${{ env.SERVICE_NAME }} prod" \
+            --build-arg BUILD_CMD="npm run app -- ${{ matrix.service_name }} build" \
+            --build-arg START_CMD="npm run app -- ${{ matrix.service_name }} prod" \
             -f backend/apps/Dockerfile.cloudrun.jobs \
             backend
 
       - name: Push the docker image
         run: docker push ${{ env.IMAGE }}
 
+      - name: Get Job name
+        run: |
+          JOB_NAME=${{ matrix.service_name }}
+          echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
+
       - name: Deploy to Cloud Run Jobs
         run: |
-          gcloud run jobs deploy ${{ env.SERVICE_NAME }} \
+          gcloud run jobs deploy ${{ env.JOB_NAME }} \
             --tasks 1 \
             --parallelism 1 \
             --max-retries 0 \
