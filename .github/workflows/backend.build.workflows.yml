@@ -37,5 +37,10 @@ jobs:
         working-directory: backend
       - run: npm run type-check
         working-directory: backend
-      - run: npm run build
+
+      - name: Build closed-api-server
+        run: npm run build
+        working-directory: backend
+      - name: Build pubsubhubbub
+        run: npm run app -- pubsubhubbub build
         working-directory: backend
