@@ -15,9 +15,11 @@ export interface StreamRepository {
       scheduledBefore?: Date
       scheduledAfter?: Date
     }
-    orderBy: Record<
-      'scheduledStartTime' | 'actualStartTime' | 'actualEndTime',
-      'asc' | 'desc'
+    orderBy: Partial<
+      Record<
+        'scheduledStartTime' | 'actualStartTime' | 'actualEndTime',
+        'asc' | 'desc'
+      >
     >[]
     limit: number
   }) => Promise<Streams>
