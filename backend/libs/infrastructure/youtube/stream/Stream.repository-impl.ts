@@ -67,7 +67,8 @@ export class StreamRepositoryImpl implements StreamRepository {
         scheduledStartTime: data.scheduledStartTime,
         actualStartTime: data.actualStartTime,
         actualEndTime: data.actualEndTime,
-        status: data.streamStatus.get()
+        status: data.streamStatus.get(),
+        updatedAt: new Date()
       }
     })
   }
