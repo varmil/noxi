@@ -25,6 +25,7 @@ jobs:
         with:
           filters: |
             has-changes:
+              - .github/workflows/backend.deploy.jobs.workflows.yml
               - backend/**
 
   backend-jobs-build:
