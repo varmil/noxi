@@ -85,6 +85,7 @@ export class MainService {
   /**
    * Live中に変化するStatsをDBに保存する
    */
+  // eslint-disable-next-line @typescript-eslint/require-await
   async updateStats(streams: Streams) {
     throw new Error('Method not implemented.')
   }
