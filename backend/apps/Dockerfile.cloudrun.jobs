@@ -15,6 +15,7 @@ ARG START_CMD
 FROM node:20-slim AS deps
 WORKDIR /app/backend
 COPY ./package*.json ./
+COPY ./prisma/schema.prisma ./prisma/schema.prisma
 RUN npm i --production=false
 RUN npx prisma generate
 
