@@ -1,18 +1,10 @@
-const App1Name = 'pubsubhubbub'
-const App2Name = 'hololive/update-channels'
+const AppNames = ['pubsubhubbub', 'hololive/update-channels', 'update-streams']
 
-export default {
-  /**
-   * App 1
-   */
-  [`${App1Name}:dev`]: `nest start --watch ${App1Name}`,
-  [`${App1Name}:build`]: `nest build --webpack ${App1Name}`,
-  [`${App1Name}:prod`]: `node dist/apps/${App1Name}/main`,
+const obj = AppNames.reduce((acc, name) => {
+  acc[`${name}:dev`] = `nest start --watch ${name}`
+  acc[`${name}:build`] = `nest build --webpack ${name}`
+  acc[`${name}:prod`] = `node dist/apps/${name}/main`
+  return acc
+}, {})
 
-  /**
-   * App 2
-   */
-  [`${App2Name}:dev`]: `nest start --watch ${App2Name}`,
-  [`${App2Name}:build`]: `nest build --webpack ${App2Name}`,
-  [`${App2Name}:prod`]: `node dist/apps/${App2Name}/main`
-}
+export default obj
