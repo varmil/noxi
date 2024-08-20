@@ -22,3 +22,10 @@ npm run app -- hololive/update-channels build
 npm run app -- pubsubhubbub prod
 npm run app -- hololive/update-channels prod
 ```
+
+### CREATE NEW APPS
+
+```shell
+cd backend
+npx nest generate app my-app-name
+```
