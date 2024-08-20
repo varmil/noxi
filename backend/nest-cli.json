@@ -39,6 +39,15 @@
         "tsConfigPath": "apps/pubsubhubbub/tsconfig.app.json"
       }
     },
+    "update-streams": {
+      "type": "application",
+      "root": "apps/update-streams",
+      "entryFile": "main",
+      "sourceRoot": "apps/update-streams/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/update-streams/tsconfig.app.json"
+      }
+    },
     "application": {
       "type": "library",
       "root": "libs/application",
