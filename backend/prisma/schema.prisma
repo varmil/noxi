@@ -69,3 +69,9 @@ model YoutubeStream {
   @@index([channelId])
   @@index([status])
 }
+
+model YoutubeStreamViewerCount {
+  videoId   String   @id
+  count     Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
