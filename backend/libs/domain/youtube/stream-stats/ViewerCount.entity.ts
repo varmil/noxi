@@ -6,11 +6,11 @@ export class ViewerCount {
   public readonly videoId: VideoId
   @Transform(({ value }: { value: Count }) => value.get())
   public readonly count: Count
-  public readonly cratedAt: Date
+  public readonly createdAt: Date
 
-  constructor(args: { videoId: VideoId; count: Count; cratedAt: Date }) {
+  constructor(args: { videoId: VideoId; count: Count; createdAt: Date }) {
     this.videoId = args.videoId
     this.count = args.count
-    this.cratedAt = args.cratedAt
+    this.createdAt = args.createdAt
   }
 }

@@ -8,17 +8,17 @@ export class ChatCount {
   public readonly all: Count
   @Transform(({ value }: { value: Count }) => value.get())
   public readonly member: Count
-  public readonly cratedAt: Date
+  public readonly createdAt: Date
 
   constructor(args: {
     videoId: VideoId
     all: Count
     member: Count
-    cratedAt: Date
+    createdAt: Date
   }) {
     this.videoId = args.videoId
     this.all = args.all
     this.member = args.member
-    this.cratedAt = args.cratedAt
+    this.createdAt = args.createdAt
   }
 }
