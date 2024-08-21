@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common'
+import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
-import { Streams, StreamTimes, VideoIds } from '@domain/youtube'
+import { Count, Streams, StreamTimes, VideoIds } from '@domain/youtube'
 
 @Injectable()
 export class MainService {
   constructor(
     private readonly streamsService: StreamsService,
+    private readonly streamStatsService: StreamStatsService,
     private readonly videosService: VideosService
   ) {}
 
@@ -18,9 +20,7 @@ export class MainService {
    */
   async startScheduledLives(streams: Streams) {
     const { items: videos } = await this.videosService.findAll({
-      where: {
-        ids: new VideoIds(streams.map(stream => stream.videoId))
-      },
+      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
       limit: 1000
     })
 
@@ -53,9 +53,7 @@ export class MainService {
    */
   async endScheduledLives(streams: Streams): Promise<void> {
     const { items: videos } = await this.videosService.findAll({
-      where: {
-        ids: new VideoIds(streams.map(stream => stream.videoId))
-      },
+      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
       limit: 1000
     })
 
@@ -85,8 +83,26 @@ export class MainService {
   /**
    * Live中に変化するStatsをDBに保存する
    */
-  // eslint-disable-next-line @typescript-eslint/require-await
   async updateStats(streams: Streams) {
-    throw new Error('Method not implemented.')
+    const { items: videos } = await this.videosService.findAll({
+      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
+      limit: 1000
+    })
+
+    // saveViewerCount
+    {
+      const promises = videos.map(async video =>
+        this.streamStatsService.saveViewerCount({
+          where: { videoId: video.id },
+          data: new Count(video.liveStreamingDetails?.concurrentViewers ?? 0)
+        })
+      )
+      await Promise.all(promises)
+    }
+
+    // saveChatCount
+    {
+      // TODO: fetch
+    }
   }
 }
