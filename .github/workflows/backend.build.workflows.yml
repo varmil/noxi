@@ -63,7 +63,7 @@ jobs:
     defaults:
       run:
         working-directory: .
-    needs: build-cloud-run-jobs
+    needs: [type-check-and-build-closed-api-server, build-cloud-run-jobs]
     if: always()
     steps:
       - name: All tests ok

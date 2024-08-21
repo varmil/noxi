@@ -74,4 +74,15 @@ model YoutubeStreamViewerCount {
   videoId   String   @id
   count     Int      @default(0)
   createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+}
+
+model YoutubeStreamChatCount {
+  videoId   String   @id
+  all       Int      @default(0)
+  member    Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
 }
