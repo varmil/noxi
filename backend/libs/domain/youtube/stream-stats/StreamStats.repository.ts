@@ -3,7 +3,6 @@ import {
   ChatCounts,
   Count,
   VideoId,
-  ViewerCount,
   ViewerCounts
 } from '@domain/youtube'
 
