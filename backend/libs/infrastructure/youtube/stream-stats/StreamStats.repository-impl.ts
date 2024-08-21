@@ -88,11 +88,11 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
 
     // update YoutubeStream.maxViewerCount if needed
     {
-      await this.prismaInfraService.$executeRaw`
+      await this.prismaInfraService.$executeRawUnsafe(`
         UPDATE "YoutubeStream"
         SET "maxViewerCount" = GREATEST("maxViewerCount", ${data.get()})
-        WHERE "videoId" = \'${videoId.get()}\';
-      `
+        WHERE "videoId" = '${videoId.get()}';
+      `)
     }
   }
 
