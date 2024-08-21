@@ -1,15 +1,13 @@
 import { NestFactory } from '@nestjs/core'
-import { UpdateChannelsScenario } from 'apps/hololive/update-channels/src/update-channels.scenario'
-import { UpdateChannelsModule } from './update-channels.module'
+import { MainScenario } from 'apps/hololive/update-channels/src/main.scenario'
+import { MainModule } from './main.module'
 
 async function bootstrap() {
-  const app = await NestFactory.createApplicationContext(UpdateChannelsModule)
+  const app = await NestFactory.createApplicationContext(MainModule)
 
   // チャンネル基本情報のUPSERT
   {
-    const updateChannelsScenario = app
-      .select(UpdateChannelsModule)
-      .get(UpdateChannelsScenario)
+    const updateChannelsScenario = app.select(MainModule).get(MainScenario)
     await updateChannelsScenario.execute()
   }
 

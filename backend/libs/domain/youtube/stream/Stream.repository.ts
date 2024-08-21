@@ -1,4 +1,4 @@
-import { StreamStatus } from '@domain/stream'
+import { StreamStatus, StreamStatuses } from '@domain/stream'
 import {
   ChannelId,
   Stream,
@@ -10,14 +10,16 @@ import {
 export interface StreamRepository {
   findAll: (args: {
     where: {
-      status: StreamStatus
+      status: StreamStatus | StreamStatuses
       channelId?: ChannelId
       scheduledBefore?: Date
       scheduledAfter?: Date
     }
-    orderBy: Record<
-      'scheduledStartTime' | 'actualStartTime' | 'actualEndTime',
-      'asc' | 'desc'
+    orderBy: Partial<
+      Record<
+        'scheduledStartTime' | 'actualStartTime' | 'actualEndTime',
+        'asc' | 'desc'
+      >
     >[]
     limit: number
   }) => Promise<Streams>

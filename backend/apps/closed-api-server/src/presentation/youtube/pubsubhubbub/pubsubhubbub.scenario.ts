@@ -52,7 +52,7 @@ export class PubsubhubbubScenario {
       await this.streamsService.delete({ where: { videoId: stream.videoId } })
     } else {
       console.info(`end stream ${stream.videoId.get()}`)
-      await this.streamsService.end({
+      await this.streamsService.updateStreamTimes({
         where: { videoId: stream.videoId },
         data: stream.streamTimes.end()
       })

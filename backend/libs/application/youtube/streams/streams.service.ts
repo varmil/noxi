@@ -28,7 +28,7 @@ export class StreamsService {
     await this.streamRepository.delete(args)
   }
 
-  async end(
+  async updateStreamTimes(
     args: Parameters<StreamRepository['updateStreamTimes']>[0]
   ): Promise<void> {
     await this.streamRepository.updateStreamTimes(args)

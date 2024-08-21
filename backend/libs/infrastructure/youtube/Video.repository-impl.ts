@@ -16,11 +16,11 @@ export class VideoRepositoryImpl implements VideoRepository {
    * find Videos with Data API
    * @param where channel is required
    */
-  async findAll({
+  async findByChannel({
     hl,
     where: { channel },
     limit
-  }: Parameters<VideoRepository['findAll']>[0]) {
+  }: Parameters<VideoRepository['findByChannel']>[0]) {
     const { items: playlistItems } = await this.playlistItemsInfraService.list({
       limit: limit,
       playlistId: new PlaylistId(channel.contentDetails.uploadsPlaylistId)
@@ -44,5 +44,18 @@ export class VideoRepositoryImpl implements VideoRepository {
       limit: 1
     })
     return videos.items.first() ?? null
+  }
+
+  async findAll({
+    where: { ids },
+    limit
+  }: Parameters<VideoRepository['findAll']>[0]) {
+    const [list] = await Promise.all([
+      this.videosInfraService.list({
+        videoIds: ids,
+        limit
+      })
+    ])
+    return list
   }
 }

@@ -69,3 +69,22 @@ model YoutubeStream {
   @@index([channelId])
   @@index([status])
 }
+
+model YoutubeStreamViewerCount {
+  id        Int      @id @default(autoincrement())
+  videoId   String
+  count     Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+}
+
+model YoutubeStreamChatCount {
+  id        Int      @id @default(autoincrement())
+  videoId   String
+  all       Int      @default(0)
+  member    Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+}

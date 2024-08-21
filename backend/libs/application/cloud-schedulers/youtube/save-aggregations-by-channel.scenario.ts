@@ -46,7 +46,7 @@ export class SaveAggregationsByChannelScenario {
 
     await Promise.all(
       channels.take(TAKE).map(async channel => {
-        const { items } = await this.videosService.findAll({
+        const { items } = await this.videosService.findByChannel({
           where: { channel },
           limit: VIDEO_FETCH_LIMIT
         })
