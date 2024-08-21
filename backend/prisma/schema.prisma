@@ -71,7 +71,8 @@ model YoutubeStream {
 }
 
 model YoutubeStreamViewerCount {
-  videoId   String   @id
+  id        Int      @id @default(autoincrement())
+  videoId   String
   count     Int      @default(0)
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
@@ -79,7 +80,8 @@ model YoutubeStreamViewerCount {
 }
 
 model YoutubeStreamChatCount {
-  videoId   String   @id
+  id        Int      @id @default(autoincrement())
+  videoId   String
   all       Int      @default(0)
   member    Int      @default(0)
   createdAt DateTime @default(now()) @db.Timestamptz(3)
