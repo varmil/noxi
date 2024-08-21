@@ -35,7 +35,8 @@
     "/backend/libs/domain/time-period",
     "/backend/libs/domain/stream",
     "/backend/libs/domain/youtube/datetime",
-    "/backend/libs/domain/youtube/stream"
+    "/backend/libs/domain/youtube/stream",
+    "/backend/libs/domain/youtube/stream-stats"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",
