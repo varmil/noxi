@@ -39,7 +39,7 @@ export default function HololiveChartsPage({
           { href: '/hololive/charts/channels', name: t('channels') }
         ]}
       />
-      <ChartTemplate searchParams={new URLSearchParams(searchParams)} />
+      <ChartTemplate />
     </Page>
   )
 }

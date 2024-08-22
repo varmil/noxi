@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
+import { HololiveChart } from 'features/hololive/chart/components/HololiveChart'
 import Live from 'features/hololive/live/components/Live'
 import Schedule from 'features/hololive/schedule/components/Schedule'
-import { Link } from 'lib/navigation'
 
 type Props = {}
 
@@ -12,17 +12,19 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   return (
     <main className="min-h-screen">
       <section className="p-4 sm:px-6 md:gap-8">
-        <div className="w-full max-w-3xl mx-auto grid gap-4 sm:gap-6">
-          <Live title={t('live.title')} description={t('live.description')} />
-          <Schedule
-            title={t('scheduled.title')}
-            description={t('scheduled.description')}
-          />
+        <div className="grid grid-cols-4 gap-2 sm:gap-2">
+          <section className="col-span-full sm:col-span-2">
+            <Live title={t('live.title')} description={t('live.description')} />
+          </section>
+          <section className="col-span-full sm:col-span-2">
+            <Schedule
+              title={t('scheduled.title')}
+              description={t('scheduled.description')}
+            />
+          </section>
 
-          <section>
-            <Link href="hololive/charts/channels" prefetch={true}>
-              <h2 className="text-2xl font-bold">チャート</h2>
-            </Link>
+          <section className="col-span-full">
+            <HololiveChart limit={6} footer />
           </section>
         </div>
       </section>
