@@ -23,14 +23,12 @@ type Props = {
   time: string
   stream: StreamSchema
   channel: ChannelSchema
-  showLiveBadges?: boolean
 }
 
 export default async function Stream({
   time,
   stream,
-  channel,
-  showLiveBadges
+  channel
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
@@ -39,6 +37,8 @@ export default async function Stream({
     maxViewerCount,
     likeCount
   } = stream
+
+  const isLive = stream.status === 'live'
 
   return (
     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
@@ -49,7 +49,7 @@ export default async function Stream({
             alt={title}
             className="object-cover w-full h-full"
           />
-          {showLiveBadges && <LiveBadge />}
+          {isLive && <LiveBadge />}
         </a>
       </div>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
@@ -57,15 +57,14 @@ export default async function Stream({
           <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
             <AvatarImage src={channel.basicInfo.thumbnails['medium']?.url} />
           </Avatar>
-          {showLiveBadges && <SmallLiveBadge />}
+          {isLive && <SmallLiveBadge />}
         </div>
         <div>
           <h3 className="text-sm line-clamp-2 mb-1">{title}</h3>
           <div className="col-start-2 flex items-center gap-1">
             <span className="text-xs sm:text-sm text-muted-foreground">
               {channel.basicInfo.title}
-              {/* - {likeCount} likes */}
-              {/* - {maxViewerCount.toLocaleString()}{' '}watching */}
+              {isLive && <> - {maxViewerCount.toLocaleString()} watching</>}
             </span>
           </div>
         </div>

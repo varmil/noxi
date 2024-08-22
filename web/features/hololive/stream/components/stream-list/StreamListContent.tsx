@@ -11,14 +11,9 @@ import Stream from 'features/hololive/stream/components/Stream'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
-  // TODO: removeme after impl 本当はstream.status から取得すべき
-  showLiveBadges?: boolean
 }>
 
-export default async function StreamListContent({
-  streams,
-  showLiveBadges
-}: Props) {
+export default async function StreamListContent({ streams }: Props) {
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
@@ -80,12 +75,7 @@ export default async function StreamListContent({
 
                 return (
                   <div key={stream.videoId} className="mb-6 last:mb-0">
-                    <Stream
-                      time={time}
-                      stream={stream}
-                      channel={channel}
-                      showLiveBadges={showLiveBadges}
-                    />
+                    <Stream time={time} stream={stream} channel={channel} />
                   </div>
                 )
               })}

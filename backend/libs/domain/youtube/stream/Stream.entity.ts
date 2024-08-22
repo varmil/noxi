@@ -1,4 +1,5 @@
 import { Expose, Transform } from 'class-transformer'
+import { StreamStatus } from '@domain/stream'
 import { VideoId, Duration, Snippet, StreamTimes } from '@domain/youtube'
 
 export class Stream {
@@ -37,6 +38,7 @@ export class Stream {
   }
 
   @Expose()
+  @Transform(({ value }: { value: StreamStatus }) => value.get())
   get status() {
     return this.streamTimes.streamStatus
   }
