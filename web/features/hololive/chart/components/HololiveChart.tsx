@@ -10,6 +10,7 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
+import Image from 'components/styles/Image'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
 import { getChartOfChannels } from 'features/hololive/chart/api/getChartOfChannels'
 import { Link } from 'lib/navigation'
@@ -28,7 +29,16 @@ export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('cardTitle')}</CardTitle>
+        <CardTitle className="flex items-center gap-2">
+          <Image
+            src={'/hololiveicon.png'}
+            alt={`Hololive icon`}
+            width={100}
+            height={100}
+            className="w-6 h-6"
+          />
+          {t('cardTitle')}
+        </CardTitle>
         <CardDescription>{t('cardDescription')}</CardDescription>
       </CardHeader>
       <CardContent>
