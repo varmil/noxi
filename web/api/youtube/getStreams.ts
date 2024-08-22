@@ -3,8 +3,8 @@ import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   status: 'scheduled' | 'live' | 'ended'
-  scehduledBefore: Date
-  scehduledAfter: Date
+  scehduledBefore?: Date
+  scehduledAfter?: Date
   orderBy: {
     field: 'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'
     order: 'asc' | 'desc'
@@ -21,10 +21,13 @@ export async function getStreams({
 }: Params): Promise<StreamsSchema> {
   const searchParams = new URLSearchParams({
     status,
-    scheduledBefore: scehduledBefore.toISOString(),
-    scheduledAfter: scehduledAfter.toISOString(),
     limit: String(limit)
   })
+  if (scehduledBefore)
+    searchParams.append('scheduledBefore', scehduledBefore.toISOString())
+  if (scehduledAfter)
+    searchParams.append('scehduledAfter', scehduledAfter.toISOString())
+
   orderBy.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
@@ -32,7 +35,6 @@ export async function getStreams({
 
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    // { next: { revalidate: 600 } }
     { cache: 'no-store' }
   )
   // The return value is *not* serialized

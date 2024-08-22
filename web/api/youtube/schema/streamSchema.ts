@@ -29,7 +29,14 @@ const schema = z.object({
   }),
 
   maxViewerCount: z.number(),
-  likeCount: z.number().min(0)
+  likeCount: z.number().min(0),
+
+  // using union() because it can be one of "scheduled", "live" or "ended"
+  status: z.union([
+    z.literal('scheduled'),
+    z.literal('live'),
+    z.literal('ended')
+  ])
 })
 export const responseSchema = z.object({
   list: z.array(schema)
