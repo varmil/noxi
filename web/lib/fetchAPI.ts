@@ -3,11 +3,11 @@ export const fetchAPI = async (
   init: RequestInit
 ): Promise<Response> => {
   // In local, no-store
-  // if (process.env.NODE_ENV === 'development') {
-  //   if (!init.next) init.next = {}
-  //   init.next.revalidate = undefined
-  //   init.cache = 'no-store'
-  // }
+  if (process.env.NODE_ENV === 'development') {
+    if (!init.next) init.next = {}
+    init.next.revalidate = undefined
+    init.cache = 'no-store'
+  }
 
   return await fetch(process.env.BASE_URL + input, init)
 }

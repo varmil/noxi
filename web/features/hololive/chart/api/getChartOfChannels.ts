@@ -5,14 +5,16 @@ import {
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  searchParams: URLSearchParams
+  limit: number
 }
 
 export async function getChartOfChannels({
-  searchParams
+  limit
 }: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
-    `/api/hololive/charts/channels?${searchParams.toString()}`,
+    `/api/hololive/charts/channels?${new URLSearchParams({
+      limit: String(limit)
+    }).toString()}`,
     {
       next: { revalidate: 600 }
     }

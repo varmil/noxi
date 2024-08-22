@@ -26,7 +26,7 @@ export class ChartsController {
     return await this.chartsScenario.getChartOfChannels({
       sort: dto.toSort(),
       where: { country: dto.toCountryCode() },
-      limit: 50
+      limit: dto.toLimit()
     })
   }
 }

@@ -1,37 +1,13 @@
-import { PropsWithoutRef, Suspense } from 'react'
-import { getTranslations } from 'next-intl/server'
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent
-} from '@/components/ui/card'
-import { ChannelCards } from 'components/youtube/channel/ChannelCards'
-import { getChartOfChannels } from 'features/hololive/chart/api/getChartOfChannels'
+import { PropsWithoutRef } from 'react'
+import { HololiveChart } from 'features/hololive/chart/components/HololiveChart'
 
-type Props = {
-  searchParams: URLSearchParams
-}
+type Props = {}
 
-export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.hololive.charts')
-  const channels = await getChartOfChannels({ searchParams })
-
+export async function ChartTemplate({}: PropsWithoutRef<Props>) {
   return (
     <main className="min-h-screen">
       <section className="p-4 sm:px-6 md:gap-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('cardTitle')}</CardTitle>
-            <CardDescription>{t('cardDescription')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Suspense fallback={<p>Loading cards...</p>}>
-              <ChannelCards channels={channels} hololive />
-            </Suspense>
-          </CardContent>
-        </Card>
+        <HololiveChart limit={1000} />
       </section>
     </main>
   )

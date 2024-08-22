@@ -53,7 +53,7 @@ export default async function StreamListContent({ streams }: Props) {
 
   return (
     <CardContent>
-      <ScrollArea className="h-[500px] sm:h-[750px] pr-4">
+      <ScrollArea className="h-[600px] sm:h-[750px] pr-4">
         {Object.entries(groupedStreams).map(([date, record]) =>
           Object.entries(record).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
