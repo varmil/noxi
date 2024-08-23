@@ -20,6 +20,13 @@ export const humanizeDuration = (ISO_8601: string | Duration) => {
     d = ISO_8601
   }
 
+  // ミリ秒は無視する。secondsが小数点の場合がある
   const hours = d.hours()
-  return d.format([hours && 'H', 'mm', 'ss'].filter(Boolean).join(':').trim())
+  const minutes = dayjs
+    .duration(Math.round(d.minutes()), 'minutes')
+    .format('mm')
+  const seconds = dayjs
+    .duration(Math.round(d.seconds()), 'seconds')
+    .format('ss')
+  return [hours, minutes, seconds].filter(Boolean).join(':').trim()
 }
