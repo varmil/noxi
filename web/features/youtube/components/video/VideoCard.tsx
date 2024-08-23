@@ -3,16 +3,13 @@ import { VideoSchema } from 'api/youtube/schema/videoSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
-import dayjs from 'lib/dayjs'
+import dayjs, { humanizeDuration } from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 export default function VideoCard(video: VideoSchema) {
   const { id, snippet, duration, statistics } = video
   const { title, description, thumbnails, publishedAt } = snippet
   const { viewCount, likeCount, commentCount } = statistics
-
-  const d = dayjs.duration(duration)
-  const hours = d.hours()
 
   return (
     <Card className="w-full">
@@ -39,11 +36,7 @@ export default function VideoCard(video: VideoSchema) {
           <span>{dayjs(publishedAt).fromNow()}</span>
         </div>
         <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
-          <span>
-            {d.format(
-              [hours && 'H', 'm', 'ss'].filter(Boolean).join(':').trim()
-            )}
-          </span>
+          <span>{humanizeDuration(duration)}</span>
         </div>
       </Link>
       <CardContent className="space-y-2 p-4 pt-2">
@@ -78,45 +71,6 @@ export default function VideoCard(video: VideoSchema) {
     </Card>
   )
 }
-
-function EyeIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
-      <circle cx="12" cy="12" r="3" />
-    </svg>
-  )
-}
-
-// function MessageCircleIcon(props) {
-//   return (
-//     <svg
-//       {...props}
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="24"
-//       height="24"
-//       viewBox="0 0 24 24"
-//       fill="none"
-//       stroke="currentColor"
-//       strokeWidth="2"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     >
-//       <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-//     </svg>
-//   )
-// }
 
 function ThumbsUpIcon(props) {
   return (
