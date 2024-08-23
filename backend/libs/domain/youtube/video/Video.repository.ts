@@ -12,6 +12,7 @@ export interface VideoRepository {
   findById: (id: VideoId) => Promise<Video | null>
 
   findAll: (args: {
+    hl?: LanguageTag
     where: { ids: VideoIds }
     limit: number
   }) => Promise<PaginationResponse<Videos>>
