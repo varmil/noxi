@@ -28,9 +28,21 @@ export class StreamsService {
     await this.streamRepository.delete(args)
   }
 
+  async updateDuration(
+    args: Parameters<StreamRepository['updateDuration']>[0]
+  ): Promise<void> {
+    await this.streamRepository.updateDuration(args)
+  }
+
   async updateStreamTimes(
     args: Parameters<StreamRepository['updateStreamTimes']>[0]
   ): Promise<void> {
     await this.streamRepository.updateStreamTimes(args)
+  }
+
+  async updateLikeCount(
+    args: Parameters<StreamRepository['updateLikeCount']>[0]
+  ): Promise<void> {
+    await this.streamRepository.updateLikeCount(args)
   }
 }

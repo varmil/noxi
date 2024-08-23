@@ -46,6 +46,5 @@ export async function getStreams({
   }
 
   const data = responseSchema.parse(await res.json())
-  console.log(data.list.length)
   return data.list
 }

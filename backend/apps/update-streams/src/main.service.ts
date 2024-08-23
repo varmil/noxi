@@ -2,7 +2,13 @@ import { Injectable } from '@nestjs/common'
 import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
-import { Count, Streams, StreamTimes, VideoIds } from '@domain/youtube'
+import {
+  Count,
+  Duration,
+  Streams,
+  StreamTimes,
+  VideoIds
+} from '@domain/youtube'
 
 @Injectable()
 export class MainService {
@@ -67,14 +73,22 @@ export class MainService {
 
         console.log('end the stream:', video.snippet.title)
 
-        await this.streamsService.updateStreamTimes({
-          where: { videoId: video.id },
-          data: new StreamTimes({
-            scheduledStartTime,
-            actualStartTime,
-            actualEndTime
+        await Promise.all([
+          // save actualEndTime
+          await this.streamsService.updateStreamTimes({
+            where: { videoId: video.id },
+            data: new StreamTimes({
+              scheduledStartTime,
+              actualStartTime,
+              actualEndTime
+            })
+          }),
+          // save duration here because it is not available while live
+          await this.streamsService.updateDuration({
+            where: { videoId: video.id },
+            data: video.duration
           })
-        })
+        ])
       })
 
     await Promise.all(promises)
@@ -89,20 +103,21 @@ export class MainService {
       limit: 1000
     })
 
-    // saveViewerCount
-    {
-      const promises = videos.map(async video =>
+    const promises = videos.map(async video => {
+      await Promise.all([
+        // saveViewerCount
         this.streamStatsService.saveViewerCount({
           where: { videoId: video.id },
           data: new Count(video.liveStreamingDetails?.concurrentViewers ?? 0)
+        }),
+        // updateLikeCount
+        this.streamsService.updateLikeCount({
+          where: { videoId: video.id },
+          data: video.statistics.likeCount
         })
-      )
-      await Promise.all(promises)
-    }
+      ])
+    })
 
-    // saveChatCount
-    {
-      // TODO: fetch
-    }
+    await Promise.all(promises)
   }
 }

@@ -1,6 +1,7 @@
 import { StreamStatus, StreamStatuses } from '@domain/stream'
 import {
   ChannelId,
+  Duration,
   Stream,
   Streams,
   StreamTimes,
@@ -30,8 +31,18 @@ export interface StreamRepository {
 
   delete: (args: { where: { videoId: VideoId } }) => Promise<void>
 
+  updateDuration: (args: {
+    where: { videoId: VideoId }
+    data: Duration
+  }) => Promise<void>
+
   updateStreamTimes: (args: {
     where: { videoId: VideoId }
     data: StreamTimes
+  }) => Promise<void>
+
+  updateLikeCount: (args: {
+    where: { videoId: VideoId }
+    data: number
   }) => Promise<void>
 }

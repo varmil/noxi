@@ -65,6 +65,19 @@ export class StreamRepositoryImpl implements StreamRepository {
     })
   }
 
+  async updateDuration({
+    where: { videoId },
+    data
+  }: Parameters<StreamRepository['updateDuration']>[0]): Promise<void> {
+    await this.prismaInfraService.youtubeStream.update({
+      where: { videoId: videoId.get() },
+      data: {
+        duration: data.get(),
+        updatedAt: new Date()
+      }
+    })
+  }
+
   async updateStreamTimes({
     where: { videoId },
     data
@@ -76,6 +89,19 @@ export class StreamRepositoryImpl implements StreamRepository {
         actualStartTime: data.actualStartTime,
         actualEndTime: data.actualEndTime,
         status: data.streamStatus.get(),
+        updatedAt: new Date()
+      }
+    })
+  }
+
+  async updateLikeCount({
+    where: { videoId },
+    data
+  }: Parameters<StreamRepository['updateLikeCount']>[0]): Promise<void> {
+    await this.prismaInfraService.youtubeStream.update({
+      where: { videoId: videoId.get() },
+      data: {
+        likeCount: data,
         updatedAt: new Date()
       }
     })
