@@ -2,9 +2,11 @@ import { PropsWithoutRef } from 'react'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
+import DurationBadge from 'features/hololive/stream/components/badge/DurationBadge'
+import dayjs from 'lib/dayjs'
 
 const LiveBadge = () => (
-  <div className="absolute bottom-2 right-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
+  <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
     <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
     LIVE
   </div>
@@ -50,6 +52,13 @@ export default async function Stream({
             className="object-cover w-full h-full"
           />
           {isLive && <LiveBadge />}
+          {isLive && (
+            <DurationBadge
+              duration={dayjs
+                .duration(dayjs(dayjs()).diff(streamTimes.actualStartTime))
+                .toISOString()}
+            />
+          )}
         </a>
       </div>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">

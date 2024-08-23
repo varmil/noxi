@@ -47,11 +47,13 @@ export class VideoRepositoryImpl implements VideoRepository {
   }
 
   async findAll({
+    hl,
     where: { ids },
     limit
   }: Parameters<VideoRepository['findAll']>[0]) {
     const [list] = await Promise.all([
       this.videosInfraService.list({
+        hl,
         videoIds: ids,
         limit
       })
