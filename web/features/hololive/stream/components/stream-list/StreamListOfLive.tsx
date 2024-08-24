@@ -26,7 +26,7 @@ export default async function StreamListOfLive({
         badgeText="Live"
       />
       <StreamListContentOfLive streams={streams} />
-      <StreamListFooter />
+      <StreamListFooter href="/hololive/live" />
     </Card>
   )
 }

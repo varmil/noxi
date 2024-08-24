@@ -26,7 +26,7 @@ export default async function StreamListOfScheduled({
         badgeText="Scheduled"
       />
       <StreamListContentOfScheduled streams={streams} />
-      <StreamListFooter />
+      <StreamListFooter href="/hololive/live" />
     </Card>
   )
 }

@@ -46,6 +46,18 @@
       "channelsId": {
         "title": "YouTubeチャンネルまとめ",
         "description": "{channel}のYouTubeチャンネルのまとめです。 ➥ チャンネル登録者数、今後の配信予定、配信中のライブ、過去のライブ履歴、スパチャ収入など"
+      },
+      "live": {
+        "metadata": {
+          "title": "配信中のライブ | ホロライブ | YouTube Live",
+          "description": "現在配信中のホロメンたちのYouTube Liveの配信情報です。"
+        }
+      },
+      "shceduled": {
+        "metadata": {
+          "title": "配信スケジュール | ホロライブ | YouTube Live",
+          "description": "今日～明日のホロメンたちのYouTube Live配信予定です。"
+        }
       }
     },
 

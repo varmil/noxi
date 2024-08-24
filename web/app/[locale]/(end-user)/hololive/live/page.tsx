@@ -7,7 +7,6 @@ import Page from 'components/Page'
 
 type Props = {
   params: { locale: string }
-  searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
 export async function generateMetadata({
@@ -16,7 +15,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.hololive.index.metadata'
+    namespace: 'Page.hololive.live.metadata'
   })
 
   return {
@@ -25,15 +24,14 @@ export async function generateMetadata({
   }
 }
 
-export default function HololivePage({ params: { locale } }: Props) {
+export default function HololiveLivePage({ params: { locale } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
   const t = useTranslations('Breadcrumb')
 
   return (
-    <Page>
-      <GlobalBreadcrumb items={[{ href: '/hololive', name: t('hololive') }]} />
+    <Page breadcrumb={[{ href: '/hololive', name: t('hololive') }]}>
       <IndexTemplate />
     </Page>
   )
