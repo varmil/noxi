@@ -14,7 +14,8 @@ export default function Page({
     <>
       <Header />
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
-      {children}
+
+      <main className="container min-h-screen p-4 sm:px-6">{children}</main>
     </>
   )
 }

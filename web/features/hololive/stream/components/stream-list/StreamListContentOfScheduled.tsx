@@ -57,7 +57,7 @@ export default async function StreamListContentOfScheduled({ streams }: Props) {
         {Object.entries(groupedStreams).map(([date, record]) =>
           Object.entries(record).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
-              <div className="sticky -top-px bg-background py-2 z-20 flex items-center gap-4 mb-4">
+              <div className="sticky -top-px bg-background py-0 z-20 flex items-center gap-4 pb-3">
                 <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
                 <Badge variant="outline">
                   {events.length > 1
