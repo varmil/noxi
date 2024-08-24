@@ -7,7 +7,8 @@
   "Breadcrumb": {
     "hololive": "ホロライブ",
     "channels": "チャンネルまとめ",
-    "live": "配信中のライブ"
+    "live": "配信中のライブ",
+    "scheduled": "配信スケジュール"
   },
 
   "Page": {
@@ -54,7 +55,7 @@
           "description": "現在配信中のホロメンたちのYouTube Liveの配信情報です。"
         }
       },
-      "shceduled": {
+      "scheduled": {
         "metadata": {
           "title": "配信スケジュール | ホロライブ | YouTube Live",
           "description": "今日～明日のホロメンたちのYouTube Live配信予定です。"

@@ -3,17 +3,21 @@ import { headers } from 'next/headers'
 import { getFormatter } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { CardContent } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import Stream from 'features/hololive/stream/components/Stream'
+import StreamListContentContainer from 'features/hololive/stream/components/stream-list/StreamListContentContainer'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
+  compact?: boolean
 }>
 
-export default async function StreamListContentOfScheduled({ streams }: Props) {
+export default async function StreamListContentOfScheduled({
+  streams,
+  compact
+}: Props) {
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
@@ -53,7 +57,7 @@ export default async function StreamListContentOfScheduled({ streams }: Props) {
 
   return (
     <CardContent>
-      <ScrollArea className="h-[600px] sm:h-[750px] pr-4">
+      <StreamListContentContainer compact={compact}>
         {Object.entries(groupedStreams).map(([date, record]) =>
           Object.entries(record).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
@@ -82,7 +86,7 @@ export default async function StreamListContentOfScheduled({ streams }: Props) {
             </div>
           ))
         )}
-      </ScrollArea>
+      </StreamListContentContainer>
     </CardContent>
   )
 }

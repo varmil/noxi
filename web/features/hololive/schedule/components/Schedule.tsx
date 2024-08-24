@@ -5,17 +5,19 @@ import StreamListOfScheduled from 'features/hololive/stream/components/stream-li
 type Props = {
   title: string
   description: string
+  compact?: boolean
 }
 
 export default async function Schedule({
   title,
-  description
+  description,
+  compact
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'scheduled',
     scehduledAfter: new Date(),
-    // +24 hours from now
-    scehduledBefore: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+    // +48 hours from now
+    scehduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
     orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
     limit: 100
   })
@@ -25,6 +27,7 @@ export default async function Schedule({
       streams={streams}
       title={title}
       description={description}
+      compact={compact}
     />
   )
 }

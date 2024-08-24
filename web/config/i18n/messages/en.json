@@ -7,7 +7,8 @@
   "Breadcrumb": {
     "hololive": "Hololive",
     "channels": "Channels",
-    "live": "live now on air"
+    "live": "live now on air",
+    "scheduled": "streaming schedule"
   },
 
   "Page": {
@@ -55,7 +56,7 @@
           "description": "Here is a list of Hololive YouTube Live currently being streamed."
         }
       },
-      "shceduled": {
+      "scheduled": {
         "metadata": {
           "title": "Hololive today's streaming schedule",
           "description": "Here is a list of Hololive YouTube Live broadcasts scheduled for today."
