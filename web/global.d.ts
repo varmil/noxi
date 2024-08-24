@@ -19,6 +19,16 @@ declare global {
       /** http(s)://... */
       readonly BASE_URL: string
 
+      /**
+       * A production domain name of the project.
+       * We select the shortest production custom domain,
+       * or vercel.app domain if no custom domain is available.
+       * Note, that this is always set, even in preview deployments.
+       * This is useful to reliably generate links that point to production such as OG-image URLs.
+       * The value does not include the protocol scheme https://.
+       */
+      readonly NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: string
+
       readonly NEXT_PUBLIC_GA_ID?: string
     }
   }

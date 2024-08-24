@@ -34,7 +34,10 @@ export class GetStreamsDto {
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
   orderBy: OrderByDto<
-    'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'
+    | 'scheduledStartTime'
+    | 'actualStartTime'
+    | 'actualEndTime'
+    | 'maxViewerCount'
   >[]
 
   @IsOptional()

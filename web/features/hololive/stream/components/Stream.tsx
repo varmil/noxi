@@ -19,16 +19,11 @@ const SmallLiveBadge = () => (
 )
 
 type Props = {
-  /**
-   * @example 10:00 AM
-   */
-  time: string
   stream: StreamSchema
   channel: ChannelSchema
 }
 
 export default async function Stream({
-  time,
   stream,
   channel
 }: PropsWithoutRef<Props>) {

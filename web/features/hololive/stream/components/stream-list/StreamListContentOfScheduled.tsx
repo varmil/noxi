@@ -13,7 +13,7 @@ type Props = PropsWithoutRef<{
   streams: StreamsSchema
 }>
 
-export default async function StreamListContent({ streams }: Props) {
+export default async function StreamListContentOfScheduled({ streams }: Props) {
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
@@ -75,7 +75,7 @@ export default async function StreamListContent({ streams }: Props) {
 
                 return (
                   <div key={stream.videoId} className="mb-6 last:mb-0">
-                    <Stream time={time} stream={stream} channel={channel} />
+                    <Stream stream={stream} channel={channel} />
                   </div>
                 )
               })}

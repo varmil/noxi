@@ -6,7 +6,11 @@ type Params = {
   scehduledBefore?: Date
   scehduledAfter?: Date
   orderBy: {
-    field: 'scheduledStartTime' | 'actualStartTime' | 'actualEndTime'
+    field:
+      | 'scheduledStartTime'
+      | 'actualStartTime'
+      | 'actualEndTime'
+      | 'maxViewerCount'
     order: 'asc' | 'desc'
   }[]
   limit: number
