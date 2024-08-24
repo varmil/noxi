@@ -13,7 +13,7 @@ export default async function Live({
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'live',
-    orderBy: [{ field: 'scheduledStartTime', order: 'desc' }],
+    orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: 100
   })
 

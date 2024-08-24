@@ -2,7 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { CalendarCheck } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
-import StreamListContent from 'features/hololive/stream/components/stream-list/StreamListContent'
+import StreamListContentOfScheduled from 'features/hololive/stream/components/stream-list/StreamListContentOfScheduled'
 import StreamListFooter from 'features/hololive/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/hololive/stream/components/stream-list/StreamListHeader'
 
@@ -25,7 +25,7 @@ export default async function StreamListOfScheduled({
         description={description}
         badgeText="Scheduled"
       />
-      <StreamListContent streams={streams} />
+      <StreamListContentOfScheduled streams={streams} />
       <StreamListFooter />
     </Card>
   )

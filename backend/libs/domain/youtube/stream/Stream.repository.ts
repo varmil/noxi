@@ -18,7 +18,10 @@ export interface StreamRepository {
     }
     orderBy: Partial<
       Record<
-        'scheduledStartTime' | 'actualStartTime' | 'actualEndTime',
+        | 'scheduledStartTime'
+        | 'actualStartTime'
+        | 'actualEndTime'
+        | 'maxViewerCount',
         'asc' | 'desc'
       >
     >[]
