@@ -1,8 +1,6 @@
-import { HomeIcon } from 'lucide-react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 import IconSectionForReview from 'features/icon-section/IconSectionForReview'
 // import IconSectionSolidIconWithHoverEffect from 'features/icon-section/IconSectionSolidIconWithHoverEffect'
@@ -30,8 +28,7 @@ export default function IndexPage({ params: { locale } }: Props) {
   const t = useTranslations('Page.index')
 
   return (
-    <Page>
-      <GlobalBreadcrumb items={[]} />
+    <Page breadcrumb={[]}>
       <div className="container py-24 lg:py-32">
         <div className="max-w-2xl mx-auto">
           <div className="grid gap-12">

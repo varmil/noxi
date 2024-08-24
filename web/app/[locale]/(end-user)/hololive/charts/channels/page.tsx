@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ChartTemplate } from 'app/[locale]/(end-user)/hololive/charts/channels/_components/ChartTemplate'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 
 type Props = {
@@ -32,13 +31,12 @@ export default function HololiveChartsPage({
   const t = useTranslations('Breadcrumb')
 
   return (
-    <Page>
-      <GlobalBreadcrumb
-        items={[
-          { href: '/hololive', name: t('hololive') },
-          { href: '/hololive/charts/channels', name: t('channels') }
-        ]}
-      />
+    <Page
+      breadcrumb={[
+        { href: '/hololive', name: t('hololive') },
+        { href: '/hololive/charts/channels', name: t('channels') }
+      ]}
+    >
       <ChartTemplate />
     </Page>
   )

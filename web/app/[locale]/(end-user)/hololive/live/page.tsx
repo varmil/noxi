@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/hololive/_components/IndexTemplate'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 
 type Props = {
@@ -31,7 +30,12 @@ export default function HololiveLivePage({ params: { locale } }: Props) {
   const t = useTranslations('Breadcrumb')
 
   return (
-    <Page breadcrumb={[{ href: '/hololive', name: t('hololive') }]}>
+    <Page
+      breadcrumb={[
+        { href: '/hololive', name: t('hololive') },
+        { href: '/hololive/live', name: t('live') }
+      ]}
+    >
       <IndexTemplate />
     </Page>
   )

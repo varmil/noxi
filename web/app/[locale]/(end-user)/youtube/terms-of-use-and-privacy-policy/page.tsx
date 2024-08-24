@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 import TermsOfUseAndPrivacyPolicy from 'features/terms-of-use-and-privacy-policy/terms-of-use-and-privacy-policy'
 
@@ -29,13 +28,12 @@ export default function TermsOfUseAndPrivacyPolicyPage({
   const t = useTranslations('Breadcrumb')
 
   return (
-    <Page>
-      <GlobalBreadcrumb
-        items={[
-          { href: '/', name: 'YouTube' },
-          { href: '#', name: 'Terms of Use and Privacy Policy' }
-        ]}
-      />
+    <Page
+      breadcrumb={[
+        { href: '/', name: 'YouTube' },
+        { href: '#', name: 'Terms of Use and Privacy Policy' }
+      ]}
+    >
       <TermsOfUseAndPrivacyPolicy />
     </Page>
   )
