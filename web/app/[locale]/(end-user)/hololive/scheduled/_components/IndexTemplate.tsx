@@ -10,7 +10,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   return (
     <>
       <div className="grid grid-cols-4 gap-2 sm:gap-2">
-        <section className="col-span-full sm:col-span-2">
+        <section className="col-span-full">
           <Schedule
             title={t('scheduled.title')}
             description={t('scheduled.description')}

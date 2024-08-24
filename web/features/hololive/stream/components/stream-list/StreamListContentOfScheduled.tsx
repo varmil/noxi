@@ -1,11 +1,10 @@
 import { PropsWithoutRef } from 'react'
 import { headers } from 'next/headers'
 import { getFormatter } from 'next-intl/server'
-import { Badge } from '@/components/ui/badge'
 import { CardContent } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
+import DynamicClockIcon from 'components/icons/DynamicClockIcon'
 import Stream from 'features/hololive/stream/components/Stream'
 import StreamListContentContainer from 'features/hololive/stream/components/stream-list/StreamListContentContainer'
 
@@ -62,13 +61,9 @@ export default async function StreamListContentOfScheduled({
           Object.entries(record).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">
               <div className="sticky -top-px bg-background py-0 z-20 flex items-center gap-4 pb-3">
+                <DynamicClockIcon hour={parseInt(time)} />
                 <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
-                <Badge variant="outline">
-                  {events.length > 1
-                    ? `${events.length} events`
-                    : `${events.length} event`}
-                </Badge>
-                <Separator className="flex-grow w-fit" />
+                {/* <Separator className="flex-grow w-fit" /> */}
                 <div className="ml-auto text-muted-foreground">{date}</div>
               </div>
               {events.map(stream => {
