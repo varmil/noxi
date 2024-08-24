@@ -5,7 +5,12 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
 /**
  * exclude paths which may include query params
  */
-const noCacheSources = ['/:locale/hololive', '/:locale/youtube/charts/:path*']
+const noCacheSources = [
+  '/:locale/hololive',
+  '/:locale/hololive/live',
+  '/:locale/hololive/scheduled',
+  '/:locale/youtube/charts/:path*'
+]
 const noCacheHeaders = noCacheSources.map(source => ({
   source,
   headers: [{ key: 'CDN-Cache-Control', value: '' }]
