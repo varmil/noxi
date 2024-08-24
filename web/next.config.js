@@ -8,7 +8,6 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
 const noCacheSources = ['/:locale/hololive', '/:locale/youtube/charts/:path*']
 const noCacheHeaders = noCacheSources.map(source => ({
   source,
-  has: [{ type: 'query', key: '_rsc' }],
   headers: [{ key: 'CDN-Cache-Control', value: '' }]
 }))
 
