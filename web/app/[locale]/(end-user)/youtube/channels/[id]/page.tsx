@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'api/youtube/getChannel'
 import { ChannelIdDashboard } from 'app/[locale]/(end-user)/_components/ChannelIdDashboard'
-import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Page from 'components/Page'
 
 type Props = {
@@ -32,14 +31,13 @@ export default async function YoutubeChannelsIdPage({
   const t = await getTranslations('Breadcrumb')
 
   return (
-    <Page>
-      <GlobalBreadcrumb
-        items={[
-          { href: '/', name: 'YouTube' },
-          { href: '/youtube/charts/channels', name: t('channels') },
-          { href: '#', name: basicInfo.title }
-        ]}
-      />
+    <Page
+      breadcrumb={[
+        { href: '/', name: 'YouTube' },
+        { href: '/youtube/charts/channels', name: t('channels') },
+        { href: '#', name: basicInfo.title }
+      ]}
+    >
       <ChannelIdDashboard id={id} />
     </Page>
   )

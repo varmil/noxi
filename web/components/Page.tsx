@@ -1,11 +1,21 @@
-import type { PropsWithChildren } from 'react'
+import type { ComponentProps, PropsWithChildren } from 'react'
+import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Header from './Header'
 
-export default function Page({ children }: PropsWithChildren<{}>) {
+type Props = {
+  breadcrumb?: ComponentProps<typeof GlobalBreadcrumb>['items']
+}
+
+export default function Page({
+  breadcrumb,
+  children
+}: PropsWithChildren<Props>) {
   return (
     <>
       <Header />
-      {children}
+      {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
+
+      <main className="container min-h-screen p-4 sm:px-6">{children}</main>
     </>
   )
 }

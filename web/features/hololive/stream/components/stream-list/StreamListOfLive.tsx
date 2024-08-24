@@ -10,12 +10,14 @@ type Props = {
   streams: StreamsSchema
   title: string
   description: string
+  compact?: boolean
 }
 
 export default async function StreamListOfLive({
   streams,
   title,
-  description
+  description,
+  compact
 }: PropsWithoutRef<Props>) {
   return (
     <Card>
@@ -25,8 +27,8 @@ export default async function StreamListOfLive({
         description={description}
         badgeText="Live"
       />
-      <StreamListContentOfLive streams={streams} />
-      <StreamListFooter />
+      <StreamListContentOfLive streams={streams} compact={compact} />
+      {compact && <StreamListFooter href="/hololive/live" />}
     </Card>
   )
 }

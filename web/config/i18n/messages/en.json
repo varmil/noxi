@@ -6,7 +6,9 @@
 
   "Breadcrumb": {
     "hololive": "Hololive",
-    "channels": "Channels"
+    "channels": "Channels",
+    "live": "Live now on air",
+    "scheduled": "Live schedule"
   },
 
   "Page": {
@@ -47,6 +49,18 @@
       "channelsId": {
         "title": "YouTube Stats, Analytics and Channel Overview",
         "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+      },
+      "live": {
+        "metadata": {
+          "title": "Hololive today's live now on air",
+          "description": "Here is a list of Hololive YouTube Live currently being streamed."
+        }
+      },
+      "scheduled": {
+        "metadata": {
+          "title": "Hololive today's streaming schedule",
+          "description": "Here is a list of Hololive YouTube Live broadcasts scheduled for today."
+        }
       }
     },
 

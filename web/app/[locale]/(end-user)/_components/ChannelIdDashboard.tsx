@@ -20,7 +20,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
   const videos = await getVideosInChannel({ channelId: basicInfo.id })
 
   return (
-    <main className="min-h-screen flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+    <section className="flex flex-1 flex-col gap-4">
       <ChannelProfileHeader
         thumbnails={basicInfo.thumbnails}
         name={basicInfo.title}
@@ -68,7 +68,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
           </Suspense>
         </Section>
       </div>
-    </main>
+    </section>
   )
 }
 

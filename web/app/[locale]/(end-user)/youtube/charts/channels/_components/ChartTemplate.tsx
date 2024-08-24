@@ -21,12 +21,12 @@ export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
   const channels = await getChartOfChannels({ searchParams })
 
   return (
-    <main className="min-h-screen">
-      <section className="mt-4 px-1 sm:mt-0 sm:px-6">
+    <>
+      <section className="">
         <FilterAndSort />
       </section>
 
-      <section className="p-4 sm:px-6 md:gap-8">
+      <section className="mt-4">
         <Card>
           <CardHeader>
             <CardTitle>{'Travel vlog english'} | Channels</CardTitle>
@@ -47,6 +47,6 @@ export async function ChartTemplate({ searchParams }: PropsWithoutRef<Props>) {
           </CardFooter>
         </Card>
       </section>
-    </main>
+    </>
   )
 }

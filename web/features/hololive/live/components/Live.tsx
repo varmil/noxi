@@ -5,11 +5,13 @@ import StreamListOfLive from 'features/hololive/stream/components/stream-list/St
 type Props = {
   title: string
   description: string
+  compact?: boolean
 }
 
 export default async function Live({
   title,
-  description
+  description,
+  compact
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'live',
@@ -22,6 +24,7 @@ export default async function Live({
       streams={streams}
       title={title}
       description={description}
+      compact={compact}
     />
   )
 }

@@ -16,6 +16,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: dayjs().subtract(1, 'day').toDate()
     }),
     getEntry({
+      pathname: '/hololive/live',
+      lastModified: new Date()
+    }),
+    getEntry({
+      pathname: '/hololive/scheduled',
+      lastModified: new Date()
+    }),
+    getEntry({
       pathname: '/youtube/charts/channels',
       lastModified: dayjs().subtract(1, 'day').toDate()
     }),

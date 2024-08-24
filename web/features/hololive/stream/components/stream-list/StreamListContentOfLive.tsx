@@ -1,22 +1,26 @@
 import { PropsWithoutRef } from 'react'
 import { CardContent } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import Stream from 'features/hololive/stream/components/Stream'
+import StreamListContentContainer from 'features/hololive/stream/components/stream-list/StreamListContentContainer'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
+  compact?: boolean
 }>
 
-export default async function StreamListContentOfLive({ streams }: Props) {
+export default async function StreamListContentOfLive({
+  streams,
+  compact
+}: Props) {
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
 
   return (
     <CardContent>
-      <ScrollArea className="h-[600px] sm:h-[750px] pr-4">
+      <StreamListContentContainer compact={compact}>
         {streams.map(stream => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId
@@ -29,7 +33,7 @@ export default async function StreamListContentOfLive({ streams }: Props) {
             </div>
           )
         })}
-      </ScrollArea>
+      </StreamListContentContainer>
     </CardContent>
   )
 }
