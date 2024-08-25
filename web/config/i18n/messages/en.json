@@ -118,6 +118,10 @@
           "fanAcquisitionDescription": "The ability to turn viewers who watch their contents into fans"
         }
       }
+    },
+    "stream": {
+      "likes": "likes",
+      "watching": "watching"
     }
   }
 }

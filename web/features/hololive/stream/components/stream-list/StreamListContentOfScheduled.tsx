@@ -25,17 +25,12 @@ export default async function StreamListContentOfScheduled({
   const groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
 
   streams.forEach(stream => {
-    // 日付 (例: "08/16")
-    const dateKey = format.dateTime(
-      new Date(stream.streamTimes.scheduledStartTime),
-      {
-        month: '2-digit',
-        day: '2-digit',
-        timeZone: timezone ?? 'Asia/Tokyo'
-      }
+    // 相対時間 (例: "19時間前")
+    const dateKey = format.relativeTime(
+      new Date(stream.streamTimes.scheduledStartTime)
     )
 
-    // 時間 (例: "10:00 PM")
+    // 時刻 (例: "10:00 PM")
     const timeKey = format.dateTime(
       new Date(stream.streamTimes.scheduledStartTime),
       {

@@ -1,29 +1,73 @@
 import { Injectable } from '@nestjs/common'
 import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
-import { VideosService } from '@app/youtube/videos/videos.service'
-import { Count, Streams, StreamTimes, VideoIds } from '@domain/youtube'
+import { Count, Streams, StreamTimes, Videos } from '@domain/youtube'
 
 @Injectable()
 export class MainService {
   constructor(
     private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService,
-    private readonly videosService: VideosService
+    private readonly streamStatsService: StreamStatsService
   ) {}
 
   /**
-   * 'live'を抽出しDBを更新する
-   *   * Stream.streamTimes.scheduledStartTime > 現在時刻
-   *   * Video.liveStreamingDetails.streamTimes.actualStartTime is truely
-   * のどちらかに当てはまれば、DBを更新
+   * scheduledStartTime などが変わりうるので、
+   * streams vs. videos を見比べて値が更新されていれば、DBを更新
    */
-  async startScheduledLives(streams: Streams) {
-    const { items: videos } = await this.videosService.findAll({
-      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
+  async saveLatestScheduledData({
+    streams,
+    videos
+  }: {
+    streams: Streams
+    videos: Videos
+  }) {
+    const promises = streams.map(async stream => {
+      const video = videos.find(video => video.id.equals(stream.videoId))
+      if (!video) return
+
+      const { streamScheduledStartTime, statistics } = video
+
+      // update StreamTimes if the latest scheduledStartTime is different
+      if (
+        streamScheduledStartTime &&
+        streamScheduledStartTime.getTime() !==
+          stream.streamTimes.scheduledStartTime.getTime()
+      ) {
+        console.log(
+          'update the ScheduledStartTime:',
+          JSON.stringify(
+            {
+              title: video.snippet.title,
+              old: stream.streamTimes.scheduledStartTime,
+              new: streamScheduledStartTime
+            },
+            null,
+            2
+          )
+        )
+        await this.streamsService.updateStreamTimes({
+          where: { videoId: stream.videoId },
+          data: new StreamTimes({
+            scheduledStartTime: streamScheduledStartTime
+          })
+        })
+      }
+
+      await this.streamsService.updateLikeCount({
+        where: { videoId: stream.videoId },
+        data: statistics.likeCount
+      })
     })
 
+    await Promise.all(promises)
+  }
+
+  /**
+   * 'live'を抽出しDBを更新する
+   *   * Video.liveStreamingDetails.streamTimes.actualStartTime is truely
+   * に当てはまれば、DBを更新
+   */
+  async startScheduledLives(videos: Videos) {
     const promises = videos
       .filter(
         video => !!video.liveStreamingDetails?.streamTimes.actualStartTime
@@ -51,12 +95,7 @@ export class MainService {
   /**
    * 既に終了したストリームを抽出しDBを更新する
    */
-  async endScheduledLives(streams: Streams): Promise<void> {
-    const { items: videos } = await this.videosService.findAll({
-      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
-    })
-
+  async endScheduledLives(videos: Videos): Promise<void> {
     const promises = videos
       .filter(video => !!video.liveStreamingDetails?.streamTimes.actualEndTime)
       .map(async video => {
@@ -91,12 +130,7 @@ export class MainService {
   /**
    * Live中に変化するStatsをDBに保存する
    */
-  async updateStats(streams: Streams) {
-    const { items: videos } = await this.videosService.findAll({
-      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
-    })
-
+  async updateStats(videos: Videos) {
     const promises = videos.map(async video => {
       await Promise.all([
         // saveViewerCount

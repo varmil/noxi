@@ -117,6 +117,10 @@
           "fanAcquisitionDescription": "動画を見てくれた視聴者をファンに変えていく能力の高さです"
         }
       }
+    },
+    "stream": {
+      "likes": "高評価",
+      "watching": "人が視聴中"
     }
   }
 }

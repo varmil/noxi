@@ -36,6 +36,11 @@ export abstract class Collection<T> {
   first = (): T | undefined => this.list[0]
 
   @Exclude()
+  find = (
+    predicate: (value: T, index: number, obj: T[]) => boolean
+  ): T | undefined => this.list.find(predicate)
+
+  @Exclude()
   take = (n: number) =>
     this.newInstance(this.list.slice(0, Math.min(n, this.list.length)))
 
