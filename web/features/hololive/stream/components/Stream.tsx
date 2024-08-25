@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
@@ -36,6 +37,7 @@ export default async function Stream({
   } = stream
 
   const isLive = stream.status === 'live'
+  const t = useTranslations('Features.stream')
 
   return (
     <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
@@ -66,10 +68,14 @@ export default async function Stream({
         <div>
           <h3 className="text-sm line-clamp-2 mb-1">{title}</h3>
           <div className="col-start-2 flex items-center gap-1">
-            <span className="text-xs sm:text-sm text-muted-foreground">
-              {channel.basicInfo.title}
-              {isLive && <> - {maxViewerCount.toLocaleString()} watching</>}
-            </span>
+            <div className="text-xs sm:text-sm text-muted-foreground">
+              <div>{channel.basicInfo.title}</div>
+              {isLive && (
+                <div>
+                  {maxViewerCount.toLocaleString()} {t('watching')}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
