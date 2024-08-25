@@ -37,6 +37,7 @@ export default async function Stream({
   } = stream
 
   const isLive = stream.status === 'live'
+  const isScheduled = stream.status === 'scheduled'
   const t = useTranslations('Features.stream')
 
   return (
@@ -73,6 +74,11 @@ export default async function Stream({
               {isLive && (
                 <div>
                   {maxViewerCount.toLocaleString()} {t('watching')}
+                </div>
+              )}
+              {isScheduled && (
+                <div>
+                  {likeCount.toLocaleString()} {t('likes')}
                 </div>
               )}
             </div>

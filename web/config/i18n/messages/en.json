@@ -120,6 +120,7 @@
       }
     },
     "stream": {
+      "likes": "likes",
       "watching": "watching"
     }
   }
