@@ -30,7 +30,7 @@
     "dayjs": "^1.11.13",
     "lucide-react": "^0.429.0",
     "next": "latest",
-    "next-intl": "^3.17.4",
+    "next-intl": "^3.17.6",
     "next-themes": "^0.3.0",
     "nextjs-toploader": "^1.6.12",
     "react": "^18.2.0",
