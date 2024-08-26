@@ -19,6 +19,12 @@
         "keyword": { "title": "Search for channels" },
         "hololive": {
           "description": "Hololive is a female VTuber group belonging to Hololive Production, a virtual YouTuber (VTuber) agency operated by Cover Corporation. Hololive members broadcast a variety of live streams, including gameplay commentary, singing, chatting, and collaborations. The group is made up of members with a wide variety of personalities, and there are many collaborations between Hololive members. They also use Cover Corporation's VR/AR technology to hold live performances at real venues. Hololive is popular both in Japan and overseas, with a total of over 80 million subscribers on YouTube. One of their strengths is their ability to reach Japanese games and content around the world. The age group of viewers is mainly young people, with about 45% being 18-24 years old and about 30% being 25-34 years old."
+        },
+        "hololive-english": {
+          "description": "Hololive English is a female VTuber group for English-speaking countries under Hololive Production, operated by Cover Corporation. They mainly post videos and live stream on platforms such as YouTube, and are good at live commentary and distribution using elaborate 2D and 3D character models. They are active as the next generation of two-dimensional idol groups, such as cheering on live streams and interacting on Twitter. On July 30, 2023, a new unit \"hololive English -Advent-\" was established, and on June 22, 2024, a new unit \"hololive English -Justice-\" was established, and the members debuted. The members of \"hololive English -Justice-\" are Elizabeth Rose Bloodflame, Gigi Murin, Cecilia Immergreen, and Raora Panthera. \"hololive English -Justice-\" is based in a special area for \"Justice\" in a corner of the organization's headquarters, and is set to have a deep connection with the escapees."
+        },
+        "hololive-indonesia": {
+          "description": "Hololive Indonesia is a Virtual YouTuber (VTuber) group operated by Cover Corporation. They mainly post videos and live stream on platforms such as YouTube, and are good at live commentary and distribution using elaborate 2D and 3D character models. They are known as the next generation of two-dimensional idol groups, and you can cheer them on during live streams and interact with them on Twitter. Hololive Indonesia's members include \"Vestia Zeta\", \"Kaela Kovalskia\", and \"Kobo Kanaeru\", who are third-generation members who debuted in March 2022."
         }
       }
     },

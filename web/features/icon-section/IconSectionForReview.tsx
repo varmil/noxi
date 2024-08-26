@@ -5,13 +5,13 @@ import Image from 'components/styles/Image'
 import IconBlock from 'features/icon-section/IconBlock'
 
 export default function IconSectionForReview() {
-  const t = useTranslations('Page.index.section.hololive')
+  const t = useTranslations('Page.index.section')
 
   return (
     <>
       <section className="py-4">
         <h3 className="mb-2 text-2xl lg:text-3xl">VTubers</h3>
-        <div className="grid gap-2">
+        <div className="grid gap-4">
           <IconBlock
             href="/hololive"
             image={
@@ -20,16 +20,39 @@ export default function IconSectionForReview() {
                 alt={`ホロライブ`}
                 width={734 / 2}
                 height={518 / 2}
-                className=""
               />
             }
-            description={t('description')}
+            description={t('hololive.description')}
+          />
+          <IconBlock
+            href="/hololive"
+            image={
+              <Image
+                src={'/top_logo_hololive_en.svg'}
+                alt={`Hololive English`}
+                width={734 / 2}
+                height={518 / 2}
+              />
+            }
+            description={t('hololive-english.description')}
+          />
+          <IconBlock
+            href="/hololive"
+            image={
+              <Image
+                src={'/top_logo_hololive_id.svg'}
+                alt={`Hololive Indonesia`}
+                width={734 / 2}
+                height={518 / 2}
+              />
+            }
+            description={t('hololive-indonesia.description')}
           />
         </div>
 
         <Separator className="my-2 sm:my-4" />
 
-        <h3 className="mb-2 text-2xl lg:text-3xl">YouTube</h3>
+        <h3 className="mt-8 mb-2 text-2xl lg:text-3xl">YouTube</h3>
         <div className="grid gap-2">
           <IconBlock
             href="/youtube/charts/channels"
