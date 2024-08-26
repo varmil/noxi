@@ -6,11 +6,8 @@ import {
   TooltipTrigger,
   TooltipContent
 } from '@/components/ui/tooltip'
-import InstagramIcon from 'components/icons/InstagramIcon'
+import AsideIcon from 'components/aside/AsideIcon'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
-import TikTokIcon from 'components/icons/TikTokIcon'
-import TwitchIcon from 'components/icons/TwitchIcon'
-import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 import Logo from './Logo'
 
@@ -29,47 +26,27 @@ export default function Aside() {
             <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
             <span className="sr-only">{t('title')}</span>
           </Link>
-          <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="/hololive"
-                className="group flex h-8 w-8 items-center justify-center rounded-lg"
-                prefetch={false}
-              >
-                <Image
-                  src={'/hololiveicon.png'}
-                  alt={`Hololive icon`}
-                  width={100}
-                  height={100}
-                  className="transition-all group-hover:scale-110"
-                />
+          <AsideIcon
+            name={`Hololive`}
+            href="/hololive"
+            src="/hololiveicon.png"
+          />
+          <AsideIcon
+            name={`Hololive English`}
+            href="/hololive"
+            src="/hololive/hololive_en_square.png"
+            roundedFull
+          />
+          <AsideIcon
+            name={`Hololive Indonesia`}
+            href="/hololive"
+            src="/hololive/hololive_id_square.png"
+            roundedFull
+          />
 
-                <span className="sr-only">Hololive</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Hololive</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="/"
-                className="group flex h-8 w-8 items-center justify-center rounded-lg"
-                prefetch={false}
-              >
-                <Image
-                  src={'/yt_icon_rgb.png'}
-                  alt={`YouTube icon`}
-                  width={734 / 4}
-                  height={518 / 4}
-                  className="transition-all group-hover:scale-110"
-                />
+          <AsideIcon name={`Youtube`} href="/" src="/yt_icon_rgb.png" />
 
-                <span className="sr-only">YouTube</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">YouTube</TooltipContent>
-          </Tooltip>
-          <Tooltip>
+          {/* <Tooltip>
             <TooltipTrigger>
               <Link
                 href="#"
@@ -83,8 +60,8 @@ export default function Aside() {
             <TooltipContent side="right">
               Twitch | Coming soon...
             </TooltipContent>
-          </Tooltip>
-          <Tooltip>
+          </Tooltip> */}
+          {/* <Tooltip>
             <TooltipTrigger>
               <Link
                 href="#"
@@ -98,8 +75,8 @@ export default function Aside() {
             <TooltipContent side="right">
               TikTok | Coming soon...
             </TooltipContent>
-          </Tooltip>
-          <Tooltip>
+          </Tooltip> */}
+          {/* <Tooltip>
             <TooltipTrigger>
               <Link
                 href="#"
@@ -113,7 +90,7 @@ export default function Aside() {
             <TooltipContent side="right">
               Instagram | Coming soon...
             </TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
         </TooltipProvider>
       </nav>
 

@@ -16,7 +16,7 @@ export default function IconSectionForReview() {
             href="/hololive"
             image={
               <Image
-                src={'/top_logo_hololive.svg'}
+                src={'/hololive/top_logo_hololive.svg'}
                 alt={`ホロライブ`}
                 width={734 / 2}
                 height={518 / 2}
@@ -29,7 +29,7 @@ export default function IconSectionForReview() {
             href="/hololive"
             image={
               <Image
-                src={'/top_logo_hololive_en.svg'}
+                src={'/hololive/top_logo_hololive_en.svg'}
                 alt={`Hololive English`}
                 width={734 / 2}
                 height={518 / 2}
@@ -42,7 +42,7 @@ export default function IconSectionForReview() {
             href="/hololive"
             image={
               <Image
-                src={'/top_logo_hololive_id.svg'}
+                src={'/hololive/top_logo_hololive_id.svg'}
                 alt={`Hololive Indonesia`}
                 width={734 / 2}
                 height={518 / 2}
