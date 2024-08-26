@@ -11,7 +11,7 @@ export default function IconSectionForReview() {
     <>
       <section className="py-4">
         <h3 className="mb-2 text-2xl lg:text-3xl">VTubers</h3>
-        <div className="grid gap-4">
+        <div className="grid gap-6">
           <IconBlock
             href="/hololive"
             image={
@@ -22,6 +22,7 @@ export default function IconSectionForReview() {
                 height={518 / 2}
               />
             }
+            title={t('hololive.title')}
             description={t('hololive.description')}
           />
           <IconBlock
@@ -34,6 +35,7 @@ export default function IconSectionForReview() {
                 height={518 / 2}
               />
             }
+            title={t('hololive-english.title')}
             description={t('hololive-english.description')}
           />
           <IconBlock
@@ -46,6 +48,7 @@ export default function IconSectionForReview() {
                 height={518 / 2}
               />
             }
+            title={t('hololive-indonesia.title')}
             description={t('hololive-indonesia.description')}
           />
         </div>

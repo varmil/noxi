@@ -1,11 +1,12 @@
 import React, { PropsWithoutRef } from 'react'
 import { ChevronRightIcon } from 'lucide-react'
+import Collapsible from 'features/icon-section/Collapsible'
 import { Link } from 'lib/navigation'
 
 type Props = {
   icon?: React.ReactNode
   image?: React.ReactNode
-  title?: string
+  title: string
   description: string
   href: string
 }
@@ -34,15 +35,12 @@ export default function IconBlock({
           <div className="flex w-full max-w-48 sm:max-w-60">{image}</div>
         )}
 
-        <div className="mt-5">
-          {title && <h3 className="text-lg font-semibold">{title}</h3>}
-          <p className="mt-1 text-muted-foreground">{description}</p>
-        </div>
         <span className="mt-2 flex flex-grow items-end gap-x-1.5 text-sm  decoration-2 group-hover:underline font-medium">
           Search channels
           <ChevronRightIcon className="flex-shrink-0 w-4 h-4" />
         </span>
       </Link>
+      <Collapsible title={title}>{description}</Collapsible>
     </div>
   )
 }
