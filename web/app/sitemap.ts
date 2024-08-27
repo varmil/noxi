@@ -1,27 +1,27 @@
 import { MetadataRoute } from 'next'
+import Site from 'config/constants/Site'
 import { defaultLocale, locales } from 'config/i18n/locale'
 import dayjs from 'lib/dayjs'
 
 const host = `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+
+const groupEntries = Site.Groups.flatMap(group => {
+  return [
+    getEntry({ pathname: `/${group}`, lastModified: new Date() }),
+    getEntry({ pathname: `/${group}/live`, lastModified: new Date() }),
+    getEntry({ pathname: `/${group}/scheduled`, lastModified: new Date() }),
+    getEntry({
+      pathname: `/${group}/charts/channels`,
+      lastModified: dayjs().subtract(1, 'day').toDate()
+    })
+  ]
+})
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     getEntry({
       pathname: '/',
       lastModified: dayjs().subtract(7, 'day').toDate()
-    }),
-    getEntry({ pathname: '/hololive', lastModified: new Date() }),
-    getEntry({
-      pathname: '/hololive/charts/channels',
-      lastModified: dayjs().subtract(1, 'day').toDate()
-    }),
-    getEntry({
-      pathname: '/hololive/live',
-      lastModified: new Date()
-    }),
-    getEntry({
-      pathname: '/hololive/scheduled',
-      lastModified: new Date()
     }),
     getEntry({
       pathname: '/youtube/charts/channels',
@@ -31,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       pathname: '/terms-of-use-and-privacy-policy',
       lastModified: dayjs().subtract(14, 'day').toDate()
     })
-  ]
+  ].concat(groupEntries)
 }
 
 function getEntry({

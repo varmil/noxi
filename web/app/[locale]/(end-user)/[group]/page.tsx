@@ -3,18 +3,18 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/_components/IndexTemplate'
 import Page from 'components/Page'
+import Site from 'config/constants/Site'
 
 type Props = {
-  params: { locale: string }
+  params: { locale: string; group: string }
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
 /**
- * The Root of the VTubers Group Page
+ * The Root of the Group Page
  */
 export function generateStaticParams(): { group: string }[] {
-  const GROUP_SLUGS = ['hololive', 'hololive-english', 'hololive-indonesia']
-  return GROUP_SLUGS.map(group => ({ group }))
+  return Site.Groups.map(group => ({ group }))
 }
 
 export async function generateMetadata({
@@ -32,12 +32,13 @@ export async function generateMetadata({
   }
 }
 
-export default function HololivePage({ params: { locale } }: Props) {
+export default function HololivePage({ params: { locale, group } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
   const t = useTranslations('Breadcrumb')
 
+  // TODO: modify link href
   return (
     <Page breadcrumb={[{ href: '/hololive', name: t('hololive') }]}>
       <IndexTemplate />

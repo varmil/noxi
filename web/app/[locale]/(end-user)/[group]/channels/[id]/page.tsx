@@ -5,7 +5,7 @@ import { ChannelIdDashboard } from 'app/[locale]/(end-user)/_components/ChannelI
 import Page from 'components/Page'
 
 type Props = {
-  params: { locale: string; id: string }
+  params: { locale: string; group: string; id: string }
 }
 
 export async function generateMetadata({
@@ -25,7 +25,7 @@ export async function generateMetadata({
 }
 
 export default async function HololiveChannelsIdPage({
-  params: { locale, id }
+  params: { locale, group, id }
 }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
