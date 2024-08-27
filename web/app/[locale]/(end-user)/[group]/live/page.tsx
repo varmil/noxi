@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { IndexTemplate } from 'app/[locale]/(end-user)/hololive/live/_components/IndexTemplate'
+import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/live/_components/IndexTemplate'
 import Page from 'components/Page'
 
 type Props = {

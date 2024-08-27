@@ -1,12 +1,20 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { IndexTemplate } from 'app/[locale]/(end-user)/hololive/_components/IndexTemplate'
+import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/_components/IndexTemplate'
 import Page from 'components/Page'
 
 type Props = {
   params: { locale: string }
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
+}
+
+/**
+ * The Root of the VTubers Group Page
+ */
+export function generateStaticParams(): { group: string }[] {
+  const GROUP_SLUGS = ['hololive', 'hololive-english', 'hololive-indonesia']
+  return GROUP_SLUGS.map(group => ({ group }))
 }
 
 export async function generateMetadata({
