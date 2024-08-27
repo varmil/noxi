@@ -18,7 +18,7 @@ export function generateStaticParams(): { group: string }[] {
 }
 
 export async function generateMetadata({
-  params: { locale }
+  params: { locale, group }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
@@ -28,7 +28,7 @@ export async function generateMetadata({
 
   return {
     title: `${t('title')} | ${tg('title')}`,
-    description: `${t('description')}`
+    description: `${t('description', { group: tg(`group.${group}`) })}`
   }
 }
 
@@ -39,14 +39,13 @@ export default function HololivePage({ params: { locale, group } }: Props) {
   const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
 
-  // TODO: modify link href
   return (
     <Page
       breadcrumb={[
         { href: `/${group}`, name: t('group', { group: tg(`group.${group}`) }) }
       ]}
     >
-      <IndexTemplate />
+      <IndexTemplate group={group} />
     </Page>
   )
 }

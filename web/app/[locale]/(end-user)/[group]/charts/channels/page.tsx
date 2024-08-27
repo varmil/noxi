@@ -11,14 +11,14 @@ type Props = {
 }
 
 export async function generateMetadata({
-  params: { locale }
+  params: { locale, group }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Page.group.charts' })
 
   return {
-    title: `${t('title')} | ${tg('title')}`,
-    description: `${t('description')}`
+    title: `${t('title', { group: tg(`group.${group}`) })} | ${tg('title')}`,
+    description: `${t('description', { group: tg(`group.${group}`) })}`
   }
 }
 
@@ -42,7 +42,7 @@ export default function HololiveChartsPage({
         { href: '/hololive/charts/channels', name: t('channels') }
       ]}
     >
-      <ChartTemplate />
+      <ChartTemplate group={group} />
     </Page>
   )
 }

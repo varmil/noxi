@@ -41,24 +41,24 @@
       "index": {
         "metadata": {
           "title": "配信中のタレント | 今日の配信予定",
-          "description": "ホロライブのライブ配信、今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+          "description": "{group}のライブ配信、今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
         },
         "card": {
           "live": {
             "title": "配信中のライブ一覧",
-            "description": "ホロライブの配信中のライブをまとめてチェック！"
+            "description": "{group}の配信中のライブをまとめてチェック！"
           },
           "scheduled": {
-            "title": "ホロライブ今日の配信予定",
-            "description": "ホロライブの今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+            "title": "{group}今日の配信予定",
+            "description": "{group}の今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
           }
         }
       },
       "charts": {
-        "title": "ホロライブYouTubeチャンネル一覧",
-        "description": "ホロライブの所属タレントをまとめてご紹介します。ホロライブのYouTubeチャンネル一覧をまとめてご紹介します。",
-        "cardTitle": "ホロライブ所属タレント一覧",
-        "cardDescription": "ホロライブに所属するタレントのYouTubeチャンネル一覧をまとめています。兎田ぺこらのまとめ、宝鐘マリンのまとめ、湊あくあのまとめ、さくらみこのまとめなどが含まれます。"
+        "title": "{group}YouTubeチャンネル一覧",
+        "description": "{group}の所属タレントをまとめてご紹介します。{group}のYouTubeチャンネル一覧をまとめてご紹介します。",
+        "cardTitle": "{group}所属タレント一覧",
+        "cardDescription": "{group}に所属するタレントのYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {
         "title": "YouTubeチャンネルまとめ",
@@ -66,14 +66,14 @@
       },
       "live": {
         "metadata": {
-          "title": "配信中のライブ | ホロライブ | YouTube Live",
-          "description": "現在配信中のホロメンたちのYouTube Liveの配信情報です。"
+          "title": "配信中のライブ | {group} | YouTube Live",
+          "description": "現在配信中の{group}タレントのYouTube Live情報です。"
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "配信スケジュール | ホロライブ | YouTube Live",
-          "description": "今日～明日のホロメンたちのYouTube Live配信予定です。"
+          "title": "配信スケジュール | {group} | YouTube Live",
+          "description": "今日～明日の{group}タレントのYouTube Live配信予定です。"
         }
       }
     },

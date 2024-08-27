@@ -12,15 +12,22 @@ import {
 } from '@/components/ui/card'
 import Image from 'components/styles/Image'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
+import Site from 'config/constants/Site'
 import { getChartOfChannels } from 'features/hololive/chart/api/getChartOfChannels'
 import { Link } from 'lib/navigation'
 
 type Props = {
+  group: (typeof Site.Groups)[number]
   limit: number
   footer?: boolean
 }
 
-export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
+export async function HololiveChart({
+  group,
+  limit,
+  footer
+}: PropsWithoutRef<Props>) {
+  const tg = await getTranslations('Global')
   const t = await getTranslations('Page.group.charts')
   const channels = await getChartOfChannels({
     limit
@@ -37,9 +44,11 @@ export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
             height={100}
             className="w-6 h-6"
           />
-          {t('cardTitle')}
+          {t('cardTitle', { group: tg(`group.${group}`) })}
         </CardTitle>
-        <CardDescription>{t('cardDescription')}</CardDescription>
+        <CardDescription>
+          {t('cardDescription', { group: tg(`group.${group}`) })}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<p>Loading cards...</p>}>
