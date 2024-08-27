@@ -37,7 +37,7 @@ export default function ViewsPerDoWBarChart({
   videos
 }: PropsWithoutRef<Props>) {
   const format = useFormatter()
-  const data = dayOfWeek.avarage(videos)
+  const data = dayOfWeek.useAvarage(videos)
 
   return (
     <Card>
@@ -91,7 +91,7 @@ export default function ViewsPerDoWBarChart({
         <CardDescription>
           Uploaded on{' '}
           <span className="font-medium text-foreground">
-            {dayOfWeek.maxViewsDay(videos).dayOfWeek}
+            {dayOfWeek.useMaxViewsDay(videos).dayOfWeek}
           </span>{' '}
           are the most viewed
         </CardDescription>

@@ -1,7 +1,6 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { useFormatter } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 import {
   Card,
@@ -36,8 +35,7 @@ type Props = {
 export default function UploadsPerDayOfWeekBarChart({
   videos
 }: PropsWithoutRef<Props>) {
-  const format = useFormatter()
-  const data = dayOfWeek.groupByDay(videos)
+  const data = dayOfWeek.useGroupByDay(videos)
 
   return (
     <Card>
@@ -88,7 +86,7 @@ export default function UploadsPerDayOfWeekBarChart({
         <CardDescription>
           The most videos are uploaded on{' '}
           <span className="font-medium text-foreground">
-            {dayOfWeek.maxVideosDay(videos).dayOfWeek}
+            {dayOfWeek.useMaxVideosDay(videos).dayOfWeek}
           </span>
         </CardDescription>
       </CardFooter>

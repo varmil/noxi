@@ -26,7 +26,6 @@ import {
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { VideosSchema } from 'api/youtube/schema/videoSchema'
 import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
-import dayjs from 'lib/dayjs'
 
 const chartConfig = {
   desktop: {
@@ -52,10 +51,7 @@ export type ViewsBarChartData = {
   thumnbnail: string | undefined
 }
 
-export default function ViewsBarChart({
-  videoAggregation,
-  videos
-}: PropsWithoutRef<Props>) {
+export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
 
@@ -74,8 +70,15 @@ export default function ViewsBarChart({
       <CardHeader>
         <CardTitle>{t('viewsChart')}</CardTitle>
         <CardDescription>
-          {dayjs(data[0].date).format('LL')} -{' '}
-          {dayjs(data[data.length - 1].date).format('LL')}
+          {format.dateTime(new Date(data[0].date), {
+            month: 'long',
+            day: 'numeric'
+          })}{' '}
+          -{' '}
+          {format.dateTime(new Date(data[data.length - 1].date), {
+            month: 'long',
+            day: 'numeric'
+          })}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -89,7 +92,12 @@ export default function ViewsBarChart({
               tickSize={3}
               minTickGap={32}
               axisLine={false}
-              tickFormatter={value => dayjs(value).format('MMM D')}
+              tickFormatter={value =>
+                format.dateTime(new Date(value), {
+                  month: 'long',
+                  day: 'numeric'
+                })
+              }
             />
             <YAxis
               width={37}

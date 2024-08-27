@@ -1,9 +1,8 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
-import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -24,6 +23,7 @@ export default function ChannelCard({
   subscriberCount,
   publishedAt
 }: PropsWithoutRef<Props>) {
+  const format = useFormatter()
   const t = useTranslations('Features.youtube.channel')
 
   return (
@@ -64,7 +64,11 @@ export default function ChannelCard({
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span>
-            {t('joined', { date: dayjs(publishedAt).format('MMM DD, YYYY') })}
+            {t('joined', {
+              date: format.dateTime(new Date(publishedAt), {
+                dateStyle: 'medium'
+              })
+            })}
           </span>
         </div>
       </div>
