@@ -41,25 +41,25 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "Hololive today's streaming schedule",
-          "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+          "title": "Today's Now on Air & Streaming Schedule",
+          "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
         },
         "card": {
           "live": {
-            "title": "Hololive today's live now on air",
-            "description": "Check out Hololive's live now on air for today!"
+            "title": "Today's Live now on air",
+            "description": "Check out {group}'s live now on air for today!"
           },
           "scheduled": {
-            "title": "Hololive today's streaming schedule",
-            "description": "Check out Hololive's streaming schedule for today! We'll also introduce the YouTube channels of the affiliated talents."
+            "title": "Today's Live schedule",
+            "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
           }
         }
       },
       "charts": {
-        "title": "List of Hololive channels",
-        "description": "We will introduce you to Hololive YouTube channels.",
-        "cardTitle": "Hololive Talents",
-        "cardDescription": "Here is a list of YouTube channels for talents affiliated with Hololive. This includes a compilation of Usada Pekora, Houshou Marine, Minato Aqua, Sakura Miko, and more."
+        "title": "List of {group} channels",
+        "description": "We will introduce you to {group} YouTube channels.",
+        "cardTitle": "{group} Talents",
+        "cardDescription": "Here is a list of YouTube channels for talents in {group}."
       },
       "channelsId": {
         "title": "YouTube Stats, Analytics and Channel Overview",
@@ -67,14 +67,14 @@
       },
       "live": {
         "metadata": {
-          "title": "Hololive today's live now on air",
-          "description": "Here is a list of Hololive YouTube Live currently being streamed."
+          "title": "{group} today's live now on air",
+          "description": "Here is a list of {group} YouTube Live currently being streamed."
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "Hololive today's streaming schedule",
-          "description": "Here is a list of Hololive YouTube Live broadcasts scheduled for today."
+          "title": "{group} today's streaming schedule",
+          "description": "Here is a list of {group} YouTube Live streams scheduled for today."
         }
       }
     },
