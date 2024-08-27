@@ -45,19 +45,19 @@
         },
         "card": {
           "live": {
-            "title": "配信中のライブ一覧",
-            "description": "{group}の配信中のライブをまとめてチェック！"
+            "title": "配信中のライブ",
+            "description": "{group}の配信中のライブ一覧をまとめてチェック！"
           },
           "scheduled": {
-            "title": "{group}今日の配信予定",
+            "title": "今日-明日の配信予定",
             "description": "{group}の今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
           }
         }
       },
       "charts": {
         "title": "{group}YouTubeチャンネル一覧",
-        "description": "{group}の所属タレントをまとめてご紹介します。{group}のYouTubeチャンネル一覧をまとめてご紹介します。",
-        "cardTitle": "{group}所属タレント一覧",
+        "description": "{group}の所属タレント一覧をまとめてご紹介します。{group}のYouTubeチャンネル一覧をまとめてご紹介します。",
+        "cardTitle": "{group} 所属タレント",
         "cardDescription": "{group}に所属するタレントのYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {

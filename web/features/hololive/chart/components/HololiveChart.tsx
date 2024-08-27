@@ -32,13 +32,6 @@ export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Image
-            src={'/hololiveicon.png'}
-            alt={`Hololive icon`}
-            width={100}
-            height={100}
-            className="w-6 h-6"
-          />
           {t('cardTitle', { group })}
         </CardTitle>
         <CardDescription>{t('cardDescription', { group })}</CardDescription>
