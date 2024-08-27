@@ -11,6 +11,11 @@ type Params = {
 export async function getChartOfChannels({
   limit
 }: Params): Promise<ChannelsSchema> {
+  /**
+   * TODO: /api/groups/${group}/charts/channels
+   * @example ${group}: hololive
+   * @example ${group}: hololive-english
+   */
   const res = await fetchAPI(
     `/api/hololive/charts/channels?${new URLSearchParams({
       limit: String(limit)

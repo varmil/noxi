@@ -10,7 +10,6 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
-import Image from 'components/styles/Image'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
 import { getChartOfChannels } from 'features/group/chart/api/getChartOfChannels'
 import { Link } from 'lib/navigation'
