@@ -1,11 +1,17 @@
 {
   "Global": {
     "title": "PeakX - VTubers and YouTube Creators Analytics",
-    "headerTitle": "PeakX"
+    "headerTitle": "PeakX",
+
+    "group": {
+      "hololive": "Hololive",
+      "hololive-english": "Hololive English",
+      "hololive-indonesia": "Hololive Indonesia"
+    }
   },
 
   "Breadcrumb": {
-    "hololive": "Hololive",
+    "group": "{group}",
     "channels": "Channels",
     "live": "Live now on air",
     "scheduled": "Live schedule"

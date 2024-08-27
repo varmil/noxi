@@ -1,11 +1,13 @@
+import { group } from 'console'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/scheduled/_components/IndexTemplate'
 import Page from 'components/Page'
+import Site from 'config/constants/Site'
 
 type Props = {
-  params: { locale: string }
+  params: { locale: string; group: (typeof Site.Groups)[number] }
 }
 
 export async function generateMetadata({
@@ -23,16 +25,22 @@ export async function generateMetadata({
   }
 }
 
-export default function HololiveScheduledPage({ params: { locale } }: Props) {
+export default function HololiveScheduledPage({
+  params: { locale, group }
+}: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
+  const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
 
   return (
     <Page
       breadcrumb={[
-        { href: '/hololive', name: t('hololive') },
+        {
+          href: `/${group}`,
+          name: t('group', { group: tg(`group.${group}`) })
+        },
         { href: '/hololive/scheduled', name: t('scheduled') }
       ]}
     >

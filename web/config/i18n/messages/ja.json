@@ -1,11 +1,17 @@
 {
   "Global": {
     "title": "PeakX - ホロライブまとめと配信予定",
-    "headerTitle": "PeakX | ピークX"
+    "headerTitle": "PeakX | ピークX",
+
+    "group": {
+      "hololive": "ホロライブ",
+      "hololive-english": "ホロライブEnglish",
+      "hololive-indonesia": "ホロライブIndonesia"
+    }
   },
 
   "Breadcrumb": {
-    "hololive": "ホロライブ",
+    "group": "{group}",
     "channels": "チャンネルまとめ",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール"

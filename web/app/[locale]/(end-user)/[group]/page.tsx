@@ -6,7 +6,7 @@ import Page from 'components/Page'
 import Site from 'config/constants/Site'
 
 type Props = {
-  params: { locale: string; group: string }
+  params: { locale: string; group: (typeof Site.Groups)[number] }
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
@@ -36,11 +36,16 @@ export default function HololivePage({ params: { locale, group } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
+  const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
 
   // TODO: modify link href
   return (
-    <Page breadcrumb={[{ href: '/hololive', name: t('hololive') }]}>
+    <Page
+      breadcrumb={[
+        { href: `/${group}`, name: t('group', { group: tg(`group.${group}`) }) }
+      ]}
+    >
       <IndexTemplate />
     </Page>
   )
