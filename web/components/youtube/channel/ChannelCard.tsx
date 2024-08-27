@@ -4,6 +4,7 @@ import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { Link } from 'lib/navigation'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   id: string
@@ -23,13 +24,14 @@ export default function ChannelCard({
   subscriberCount,
   publishedAt
 }: PropsWithoutRef<Props>) {
+  const group = getGroup()
   const format = useFormatter()
   const t = useTranslations('Features.youtube.channel')
 
   return (
     <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
       <Link
-        href={`/youtube/channels/${id}`}
+        href={`/${group}/channels/${id}`}
         className="absolute inset-0 z-10"
         prefetch={true}
       >

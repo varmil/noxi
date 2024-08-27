@@ -21,6 +21,9 @@ export async function generateMetadata({
   }
 }
 
+/**
+ * @deprecated use web/components/youtube/channel/ChannelCard.tsx instead
+ */
 export default async function YoutubeChannelsIdPage({
   params: { locale, id }
 }: Props) {
