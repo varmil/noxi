@@ -2,9 +2,9 @@ import { PropsWithoutRef } from 'react'
 import { CalendarCheck } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
-import StreamListContentOfScheduled from 'features/hololive/stream/components/stream-list/StreamListContentOfScheduled'
-import StreamListFooter from 'features/hololive/stream/components/stream-list/StreamListFooter'
-import StreamListHeader from 'features/hololive/stream/components/stream-list/StreamListHeader'
+import StreamListContentOfScheduled from 'features/group/stream/components/stream-list/StreamListContentOfScheduled'
+import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
+import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {

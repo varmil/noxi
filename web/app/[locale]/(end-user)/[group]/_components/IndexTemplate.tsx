@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { HololiveChart } from 'features/hololive/chart/components/HololiveChart'
-import Live from 'features/hololive/live/components/Live'
-import Schedule from 'features/hololive/schedule/components/Schedule'
+import { GroupChart } from 'features/group/chart/components/GroupChart'
+import Live from 'features/group/live/components/Live'
+import Schedule from 'features/group/schedule/components/Schedule'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {}
@@ -30,7 +30,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
         </section>
 
         <section className="col-span-full">
-          <HololiveChart limit={6} footer />
+          <GroupChart limit={6} footer />
         </section>
       </div>
     </>

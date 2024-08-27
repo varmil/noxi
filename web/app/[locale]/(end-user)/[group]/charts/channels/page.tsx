@@ -23,9 +23,7 @@ export async function generateMetadata({
   }
 }
 
-export default function HololiveChartsPage({
-  params: { locale, group }
-}: Props) {
+export default function GroupChartsPage({ params: { locale, group } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
   setGroup(group)

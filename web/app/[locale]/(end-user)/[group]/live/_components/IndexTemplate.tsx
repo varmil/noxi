@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import Live from 'features/hololive/live/components/Live'
+import Live from 'features/group/live/components/Live'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {}

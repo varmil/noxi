@@ -5,8 +5,8 @@ import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import DynamicClockIcon from 'components/icons/DynamicClockIcon'
-import Stream from 'features/hololive/stream/components/Stream'
-import StreamListContentContainer from 'features/hololive/stream/components/stream-list/StreamListContentContainer'
+import Stream from 'features/group/stream/components/Stream'
+import StreamListContentContainer from 'features/group/stream/components/stream-list/StreamListContentContainer'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema

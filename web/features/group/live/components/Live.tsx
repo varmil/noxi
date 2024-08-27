@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getStreams } from 'api/youtube/getStreams'
-import StreamListOfScheduled from 'features/hololive/stream/components/stream-list/StreamListOfScheduled'
+import StreamListOfLive from 'features/group/stream/components/stream-list/StreamListOfLive'
 
 type Props = {
   title: string
@@ -8,22 +8,19 @@ type Props = {
   compact?: boolean
 }
 
-export default async function Schedule({
+export default async function Live({
   title,
   description,
   compact
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
-    status: 'scheduled',
-    scehduledAfter: new Date(),
-    // +48 hours from now
-    scehduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
-    orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
+    status: 'live',
+    orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: 100
   })
 
   return (
-    <StreamListOfScheduled
+    <StreamListOfLive
       streams={streams}
       title={title}
       description={description}

@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import Schedule from 'features/hololive/schedule/components/Schedule'
+import Schedule from 'features/group/schedule/components/Schedule'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {}

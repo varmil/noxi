@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/card'
 import Image from 'components/styles/Image'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
-import { getChartOfChannels } from 'features/hololive/chart/api/getChartOfChannels'
+import { getChartOfChannels } from 'features/group/chart/api/getChartOfChannels'
 import { Link } from 'lib/navigation'
 import { getGroup } from 'lib/server-only-context/cache'
 
@@ -21,7 +21,7 @@ type Props = {
   footer?: boolean
 }
 
-export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
+export async function GroupChart({ limit, footer }: PropsWithoutRef<Props>) {
   const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Page.group.charts')
   const channels = await getChartOfChannels({

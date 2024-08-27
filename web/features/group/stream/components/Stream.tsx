@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
-import DurationBadge from 'features/hololive/stream/components/badge/DurationBadge'
+import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import dayjs from 'lib/dayjs'
 
 const LiveBadge = () => (
