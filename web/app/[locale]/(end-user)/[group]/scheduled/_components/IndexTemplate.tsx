@@ -5,7 +5,7 @@ import Schedule from 'features/hololive/schedule/components/Schedule'
 type Props = {}
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.hololive.index.card')
+  const t = await getTranslations('Page.group.index.card')
 
   return (
     <>

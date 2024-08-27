@@ -23,7 +23,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.hololive.index.metadata'
+    namespace: 'Page.group.index.metadata'
   })
 
   return {

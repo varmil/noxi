@@ -5,7 +5,7 @@ import Live from 'features/hololive/live/components/Live'
 type Props = {}
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.hololive.index.card')
+  const t = await getTranslations('Page.group.index.card')
 
   return (
     <>

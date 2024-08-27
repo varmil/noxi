@@ -14,7 +14,7 @@ export async function generateMetadata({
   params: { locale }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'Page.hololive.charts' })
+  const t = await getTranslations({ locale, namespace: 'Page.group.charts' })
 
   return {
     title: `${t('title')} | ${tg('title')}`,

@@ -38,7 +38,7 @@
       }
     },
 
-    "hololive": {
+    "group": {
       "index": {
         "metadata": {
           "title": "Hololive today's streaming schedule",

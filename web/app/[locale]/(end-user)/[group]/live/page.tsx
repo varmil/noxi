@@ -16,7 +16,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.hololive.live.metadata'
+    namespace: 'Page.group.live.metadata'
   })
 
   return {

@@ -21,7 +21,7 @@ type Props = {
 }
 
 export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.hololive.charts')
+  const t = await getTranslations('Page.group.charts')
   const channels = await getChartOfChannels({
     limit
   })
