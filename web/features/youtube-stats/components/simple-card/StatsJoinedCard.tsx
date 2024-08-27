@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { Info } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import dayjs from 'lib/dayjs'
 import StatsCardContent from './StatsCardContent'
@@ -11,12 +11,15 @@ type Props = {
 }
 
 export default function StatsJoinedCard({ date }: PropsWithoutRef<Props>) {
+  const format = useFormatter()
   const t = useTranslations('Features.youtube.stats')
   return (
     <Card>
       <StatsCardHeader Icon={Info}>Joined</StatsCardHeader>
       <StatsCardContent subText={t('joinedDescription')}>
-        {dayjs(date).format('MMM DD, YYYY')}
+        {format.dateTime(new Date(date), {
+          dateStyle: 'medium'
+        })}
       </StatsCardContent>
     </Card>
   )

@@ -1,10 +1,10 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
-import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   id: string
@@ -14,8 +14,6 @@ type Props = {
   totalViewCount: number
   subscriberCount: number
   publishedAt: string
-
-  hololive?: boolean
 }
 
 export default function ChannelCard({
@@ -24,15 +22,16 @@ export default function ChannelCard({
   thumbnails,
   totalViewCount,
   subscriberCount,
-  publishedAt,
-  hololive
+  publishedAt
 }: PropsWithoutRef<Props>) {
+  const group = getGroup()
+  const format = useFormatter()
   const t = useTranslations('Features.youtube.channel')
 
   return (
     <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
       <Link
-        href={getHref(id, { hololive })}
+        href={`/${group}/channels/${id}`}
         className="absolute inset-0 z-10"
         prefetch={true}
       >
@@ -67,15 +66,14 @@ export default function ChannelCard({
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span>
-            {t('joined', { date: dayjs(publishedAt).format('MMM DD, YYYY') })}
+            {t('joined', {
+              date: format.dateTime(new Date(publishedAt), {
+                dateStyle: 'medium'
+              })
+            })}
           </span>
         </div>
       </div>
     </div>
   )
-}
-
-const getHref = (id, { hololive }: { hololive?: boolean }) => {
-  if (hololive) return `/hololive/channels/${id}`
-  return `/youtube/channels/${id}`
 }

@@ -22,11 +22,11 @@ type ReducedData = ChartData & {
   count: number
 }
 
-export function groupByDay(videos: VideosSchema) {
+export function useGroupByDay(videos: VideosSchema) {
   const data = Object.values(
     videos
       .map<ChartData>(video => ({
-        dayOfWeek: dayjs(video.snippet.publishedAt).format('dddd'),
+        dayOfWeek: dayjs.utc(video.snippet.publishedAt).format('dddd'),
         views: video.statistics.viewCount,
         likes: video.statistics.likeCount,
         comments: video.statistics.commentCount
@@ -58,8 +58,8 @@ export function groupByDay(videos: VideosSchema) {
   return data
 }
 
-export function avarage(videos: VideosSchema): ChartData[] {
-  return groupByDay(videos).map(dayData => ({
+export function useAvarage(videos: VideosSchema): ChartData[] {
+  return useGroupByDay(videos).map(dayData => ({
     dayOfWeek: dayData.dayOfWeek,
     views: Math.round(dayData.views / dayData.count),
     likes: Math.round(dayData.likes / dayData.count),
@@ -70,8 +70,8 @@ export function avarage(videos: VideosSchema): ChartData[] {
 /**
  * avarage viewsが最も多い曜日がオブジェクト形式で抽出されます。
  */
-export function maxViewsDay(videos: VideosSchema) {
-  const grouped = avarage(videos)
+export function useMaxViewsDay(videos: VideosSchema) {
+  const grouped = useAvarage(videos)
   return grouped.reduce((maxDay, currentDay) => {
     return currentDay.views > maxDay.views ? currentDay : maxDay
   }, grouped[0])
@@ -80,8 +80,8 @@ export function maxViewsDay(videos: VideosSchema) {
 /**
  * video uploadsが最も多い曜日がオブジェクト形式で抽出されます。
  */
-export function maxVideosDay(videos: VideosSchema) {
-  const grouped = groupByDay(videos)
+export function useMaxVideosDay(videos: VideosSchema) {
+  const grouped = useGroupByDay(videos)
   return grouped.reduce((maxDay, currentDay) => {
     return currentDay.count > maxDay.count ? currentDay : maxDay
   }, grouped[0])

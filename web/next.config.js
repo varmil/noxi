@@ -5,31 +5,26 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
 /**
  * exclude paths which may include query params
  */
-const noCacheSources = [
-  '/:locale/hololive',
-  '/:locale/hololive/live',
-  '/:locale/hololive/scheduled',
-  '/:locale/youtube/charts/:path*'
+const cacheSources = [
+  '/:locale',
+  '/:locale/terms-of-use-and-privacy-policy',
+  '/:locale/:path*/charts/chanels',
+  '/:locale/:path*/chanels/:channelId'
 ]
-const noCacheHeaders = noCacheSources.map(source => ({
+const CacheHeaders = cacheSources.map(source => ({
   source,
-  headers: [{ key: 'CDN-Cache-Control', value: '' }]
+  headers: [
+    {
+      key: 'CDN-Cache-Control',
+      value: 'public, max-age=10800, s-maxage=10800'
+    }
+  ]
 }))
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'CDN-Cache-Control',
-            value: 'public, max-age=10800, s-maxage=10800'
-          }
-        ]
-      }
-    ].concat(noCacheHeaders)
+    return CacheHeaders
   }
 }
 

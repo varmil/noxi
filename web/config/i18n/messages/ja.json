@@ -1,11 +1,17 @@
 {
   "Global": {
     "title": "PeakX - ホロライブまとめと配信予定",
-    "headerTitle": "PeakX | ピークX"
+    "headerTitle": "PeakX | ピークX",
+
+    "group": {
+      "hololive": "ホロライブ",
+      "hololive-english": "ホロライブEnglish",
+      "hololive-indonesia": "ホロライブIndonesia"
+    }
   },
 
   "Breadcrumb": {
-    "hololive": "ホロライブ",
+    "group": "{group}",
     "channels": "チャンネルまとめ",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール"
@@ -14,36 +20,45 @@
   "Page": {
     "index": {
       "title": "PeakXへようこそ",
-      "description": "ホロライブやにじさんじをはじめとしたVTuber、バーチャルアイドルのまとめをご提供します。今後の配信予定を見やすく整理したり、配信中のライブ、過去のライブ履歴の視聴者数、スーパーチャット額などをまとめています。",
+      "description": "ホロライブをはじめとしたタレントVTuber、バーチャルアイドルのまとめをご提供します。今後の配信予定を見やすく整理したり、配信中のライブ、過去のライブ履歴の視聴者数、スーパーチャット額などをまとめています。",
       "section": {
         "keyword": { "title": "配信やチャンネルを探す" },
         "hololive": {
+          "title": "ホロライブとは",
           "description": "ホロライブとは、カバー株式会社が運営するバーチャルYouTuber（VTuber）事務所「ホロライブプロダクション」に所属する女性VTuberグループです。ホロライブのメンバーは、ゲーム実況や歌、雑談、コラボ配信など、さまざまなライブ配信を行っています。個性豊かなメンバーが在籍しており、ホロライブ間でのコラボも多いのが特徴です。また、カバー株式会社のVR/AR技術を活用して、リアル会場でのライブ活動なども行っています。ホロライブは国内外で人気を博しており、YouTube総チャンネル登録者数は約8,000万人を超えています。日本のゲームやコンテンツを世界中にリーチできることも強みの一つです。視聴者の年齢層は18歳～24歳が約45％、25歳～34歳が約30％と、若者が中心となっています。"
+        },
+        "hololive-english": {
+          "title": "ホロライブEnglishとは",
+          "description": "hololive English（ホロライブEnglish）は、カバー株式会社が運営する「ホロライブプロダクション」傘下の英語圏向けの女性VTuberグループです。YouTubeなどのプラットフォームで動画投稿やライブ配信を中心に活動し、精巧な2D・3Dキャラクターモデルを使用した実況・配信を得意としています。ライブ配信での応援やTwitterでの交流など、次世代の二次元アイドルグループとして活躍しています。2023年7月30日には新ユニット「hololive English -Advent-」が、2024年6月22日には新ユニット「hololive English -Justice-」が設立され、メンバーがデビューしました。「hololive English -Justice-」のメンバーは、Elizabeth Rose Bloodflame（エリザベス・ローズ・ブラッドフレイム）、Gigi Murin（ジジ・ムリン）、Cecilia Immergreen（セシリア・イマーグリーン）、Raora Panthera（ラオーラ・パンテーラ）の4名です。「hololive English -Justice-」は、組織本部の一角にある「Justice」の専用区画を活動拠点としており、脱獄者たちとは浅からぬ因縁があるという設定です。"
+        },
+        "hololive-indonesia": {
+          "title": "ホロライブIndonesiaとは",
+          "description": "ホロライブインドネシアは、カバー株式会社が運営するバーチャルYouTuber（VTuber）グループです。YouTubeなどのプラットフォームで動画投稿やライブ配信を中心に活動しており、精巧な2D・3Dキャラクターモデルを使用した実況・配信を得意としています。ライブ配信では応援やTwitterでの交流も可能で、次世代の二次元アイドルグループとして知られています。ホロライブインドネシアのメンバーには、2022年3月にデビューした3期生として「Vestia Zeta（ベスティア・ゼータ）」「Kaela Kovalskia（カエラ・コヴァルスキア）」「Kobo Kanaeru（こぼ・かなえる）」などがいます。"
         }
       }
     },
-    "hololive": {
+    "group": {
       "index": {
         "metadata": {
           "title": "配信中のタレント | 今日の配信予定",
-          "description": "ホロライブのライブ配信、今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+          "description": "{group}のライブ配信、今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
         },
         "card": {
           "live": {
-            "title": "配信中のライブ一覧",
-            "description": "ホロライブの配信中のライブをまとめてチェック！"
+            "title": "配信中のライブ",
+            "description": "{group}の配信中のライブ一覧をまとめてチェック！"
           },
           "scheduled": {
-            "title": "ホロライブ今日の配信予定",
-            "description": "ホロライブの今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+            "title": "今日-明日の配信予定",
+            "description": "{group}の今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
           }
         }
       },
       "charts": {
-        "title": "ホロライブYouTubeチャンネル一覧",
-        "description": "ホロライブの所属タレントをまとめてご紹介します。ホロライブのYouTubeチャンネル一覧をまとめてご紹介します。",
-        "cardTitle": "ホロライブ所属タレント一覧",
-        "cardDescription": "ホロライブに所属するタレントのYouTubeチャンネル一覧をまとめています。兎田ぺこらのまとめ、宝鐘マリンのまとめ、湊あくあのまとめ、さくらみこのまとめなどが含まれます。"
+        "title": "{group}YouTubeチャンネル一覧",
+        "description": "{group}の所属タレント一覧をまとめてご紹介します。{group}のYouTubeチャンネル一覧をまとめてご紹介します。",
+        "cardTitle": "{group} 所属タレント",
+        "cardDescription": "{group}に所属するタレントのYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {
         "title": "YouTubeチャンネルまとめ",
@@ -51,14 +66,14 @@
       },
       "live": {
         "metadata": {
-          "title": "配信中のライブ | ホロライブ | YouTube Live",
-          "description": "現在配信中のホロメンたちのYouTube Liveの配信情報です。"
+          "title": "配信中のライブ | {group} | YouTube Live",
+          "description": "現在配信中の{group}タレントのYouTube Live情報です。"
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "配信スケジュール | ホロライブ | YouTube Live",
-          "description": "今日～明日のホロメンたちのYouTube Live配信予定です。"
+          "title": "配信スケジュール | {group} | YouTube Live",
+          "description": "今日～明日の{group}タレントのYouTube Live配信予定です。"
         }
       }
     },
