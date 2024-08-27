@@ -1,14 +1,12 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import Site from 'config/constants/Site'
 import Live from 'features/hololive/live/components/Live'
+import { getGroup } from 'lib/server-only-context/cache'
 
-type Props = {
-  group: (typeof Site.Groups)[number]
-}
+type Props = {}
 
-export async function IndexTemplate({ group }: PropsWithoutRef<Props>) {
-  const tg = await getTranslations('Global')
+export async function IndexTemplate({}: PropsWithoutRef<Props>) {
+  const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Page.group.index.card')
 
   return (
@@ -17,7 +15,7 @@ export async function IndexTemplate({ group }: PropsWithoutRef<Props>) {
         <section className="col-span-full">
           <Live
             title={t('live.title')}
-            description={t('live.description', { group: tg(`group.${group}`) })}
+            description={t('live.description', { group })}
           />
         </section>
       </div>

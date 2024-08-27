@@ -4,6 +4,7 @@ import { getChannel } from 'api/youtube/getChannel'
 import { ChannelIdDashboard } from 'app/[locale]/(end-user)/_components/ChannelIdDashboard'
 import Page from 'components/Page'
 import Site from 'config/constants/Site'
+import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   params: { locale: string; group: (typeof Site.Groups)[number]; id: string }
@@ -30,6 +31,7 @@ export default async function GroupChannelsIdPage({
 }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
+  setGroup(group)
 
   const { basicInfo } = await getChannel(id)
   const tg = await getTranslations('Global')

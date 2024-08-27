@@ -4,6 +4,7 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ChartTemplate } from 'app/[locale]/(end-user)/[group]/charts/channels/_components/ChartTemplate'
 import Page from 'components/Page'
 import Site from 'config/constants/Site'
+import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   params: { locale: string; group: (typeof Site.Groups)[number] }
@@ -23,11 +24,11 @@ export async function generateMetadata({
 }
 
 export default function HololiveChartsPage({
-  params: { locale, group },
-  searchParams
+  params: { locale, group }
 }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
+  setGroup(group)
 
   const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
@@ -42,7 +43,7 @@ export default function HololiveChartsPage({
         { href: `/${group}/charts/channels`, name: t('channels') }
       ]}
     >
-      <ChartTemplate group={group} />
+      <ChartTemplate />
     </Page>
   )
 }

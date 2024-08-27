@@ -1,15 +1,12 @@
 import { PropsWithoutRef } from 'react'
-import Site from 'config/constants/Site'
 import { HololiveChart } from 'features/hololive/chart/components/HololiveChart'
 
-type Props = {
-  group: (typeof Site.Groups)[number]
-}
+type Props = {}
 
-export async function ChartTemplate({ group }: PropsWithoutRef<Props>) {
+export async function ChartTemplate({}: PropsWithoutRef<Props>) {
   return (
     <>
-      <HololiveChart group={group} limit={1000} />
+      <HololiveChart limit={1000} />
     </>
   )
 }

@@ -14,8 +14,6 @@ type Props = {
   totalViewCount: number
   subscriberCount: number
   publishedAt: string
-
-  hololive?: boolean
 }
 
 export default function ChannelCard({
@@ -24,15 +22,14 @@ export default function ChannelCard({
   thumbnails,
   totalViewCount,
   subscriberCount,
-  publishedAt,
-  hololive
+  publishedAt
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.channel')
 
   return (
     <div className="relative overflow-hidden transition-transform duration-75 ease-in-out rounded-lg border shadow-md group hover:shadow-lg hover:-translate-y-2 flex items-center max-h-48">
       <Link
-        href={getHref(id, { hololive })}
+        href={`/youtube/channels/${id}`}
         className="absolute inset-0 z-10"
         prefetch={true}
       >
@@ -73,9 +70,4 @@ export default function ChannelCard({
       </div>
     </div>
   )
-}
-
-const getHref = (id, { hololive }: { hololive?: boolean }) => {
-  if (hololive) return `/hololive/channels/${id}`
-  return `/youtube/channels/${id}`
 }

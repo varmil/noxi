@@ -12,22 +12,17 @@ import {
 } from '@/components/ui/card'
 import Image from 'components/styles/Image'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
-import Site from 'config/constants/Site'
 import { getChartOfChannels } from 'features/hololive/chart/api/getChartOfChannels'
 import { Link } from 'lib/navigation'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  group: (typeof Site.Groups)[number]
   limit: number
   footer?: boolean
 }
 
-export async function HololiveChart({
-  group,
-  limit,
-  footer
-}: PropsWithoutRef<Props>) {
-  const tg = await getTranslations('Global')
+export async function HololiveChart({ limit, footer }: PropsWithoutRef<Props>) {
+  const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Page.group.charts')
   const channels = await getChartOfChannels({
     limit
@@ -44,21 +39,19 @@ export async function HololiveChart({
             height={100}
             className="w-6 h-6"
           />
-          {t('cardTitle', { group: tg(`group.${group}`) })}
+          {t('cardTitle', { group })}
         </CardTitle>
-        <CardDescription>
-          {t('cardDescription', { group: tg(`group.${group}`) })}
-        </CardDescription>
+        <CardDescription>{t('cardDescription', { group })}</CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<p>Loading cards...</p>}>
-          <ChannelCards channels={channels} hololive />
+          <ChannelCards channels={channels} />
         </Suspense>
       </CardContent>
       {footer && (
         <CardFooter>
           <Button asChild variant="outline" className="w-full">
-            <Link href="hololive/charts/channels" prefetch={true}>
+            <Link href={`${getGroup()}/charts/channels`} prefetch={true}>
               <List className="mr-2 h-4 w-4" /> Go to full list
             </Link>
           </Button>

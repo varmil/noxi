@@ -5,6 +5,7 @@ import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import StreamListContentOfScheduled from 'features/hololive/stream/components/stream-list/StreamListContentOfScheduled'
 import StreamListFooter from 'features/hololive/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/hololive/stream/components/stream-list/StreamListHeader'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   streams: StreamsSchema
@@ -19,6 +20,8 @@ export default async function StreamListOfScheduled({
   description,
   compact
 }: PropsWithoutRef<Props>) {
+  const group = getGroup()
+
   return (
     <Card>
       <StreamListHeader
@@ -28,7 +31,7 @@ export default async function StreamListOfScheduled({
         badgeText="Scheduled"
       />
       <StreamListContentOfScheduled streams={streams} compact={compact} />
-      {compact && <StreamListFooter href="/hololive/scheduled" />}
+      {compact && <StreamListFooter href={`/${group}/scheduled`} />}
     </Card>
   )
 }

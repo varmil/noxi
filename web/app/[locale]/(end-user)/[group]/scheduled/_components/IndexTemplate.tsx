@@ -1,14 +1,12 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import Site from 'config/constants/Site'
 import Schedule from 'features/hololive/schedule/components/Schedule'
+import { getGroup } from 'lib/server-only-context/cache'
 
-type Props = {
-  group: (typeof Site.Groups)[number]
-}
+type Props = {}
 
-export async function IndexTemplate({ group }: PropsWithoutRef<Props>) {
-  const tg = await getTranslations('Global')
+export async function IndexTemplate({}: PropsWithoutRef<Props>) {
+  const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Page.group.index.card')
 
   return (
@@ -16,10 +14,8 @@ export async function IndexTemplate({ group }: PropsWithoutRef<Props>) {
       <div className="grid grid-cols-4 gap-2 sm:gap-2">
         <section className="col-span-full">
           <Schedule
-            title={t('scheduled.title', { group: tg(`group.${group}`) })}
-            description={t('scheduled.description', {
-              group: tg(`group.${group}`)
-            })}
+            title={t('scheduled.title', { group })}
+            description={t('scheduled.description', { group })}
           />
         </section>
       </div>
