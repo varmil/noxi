@@ -39,7 +39,7 @@ export default function HololiveChartsPage({
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: '/hololive/charts/channels', name: t('channels') }
+        { href: `/${group}/charts/channels`, name: t('channels') }
       ]}
     >
       <ChartTemplate group={group} />

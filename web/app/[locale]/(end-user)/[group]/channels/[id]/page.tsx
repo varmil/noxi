@@ -25,7 +25,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function HololiveChannelsIdPage({
+export default async function GroupChannelsIdPage({
   params: { locale, group, id }
 }: Props) {
   // Enable static rendering
@@ -42,7 +42,7 @@ export default async function HololiveChannelsIdPage({
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: '/hololive/charts/channels', name: t('channels') },
+        { href: `/${group}/charts/channels`, name: t('channels') },
         { href: '#', name: basicInfo.title }
       ]}
     >

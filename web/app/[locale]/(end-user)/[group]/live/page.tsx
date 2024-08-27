@@ -24,7 +24,7 @@ export async function generateMetadata({
   }
 }
 
-export default function HololiveLivePage({ params: { locale, group } }: Props) {
+export default function GroupLivePage({ params: { locale, group } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
@@ -38,7 +38,7 @@ export default function HololiveLivePage({ params: { locale, group } }: Props) {
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: '/hololive/live', name: t('live') }
+        { href: `/${group}/live`, name: t('live') }
       ]}
     >
       <IndexTemplate group={group} />

@@ -40,7 +40,7 @@ export default function HololiveScheduledPage({
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: '/hololive/scheduled', name: t('scheduled') }
+        { href: `/${group}/scheduled`, name: t('scheduled') }
       ]}
     >
       <IndexTemplate group={group} />
