@@ -26,7 +26,7 @@ export default function IconSectionForReview() {
             description={t('hololive.description')}
           />
           <IconBlock
-            href="/hololive"
+            href="/hololive-english"
             image={
               <Image
                 src={'/hololive/top_logo_hololive_en.svg'}
@@ -39,7 +39,7 @@ export default function IconSectionForReview() {
             description={t('hololive-english.description')}
           />
           <IconBlock
-            href="/hololive"
+            href="/hololive-indonesia"
             image={
               <Image
                 src={'/hololive/top_logo_hololive_id.svg'}

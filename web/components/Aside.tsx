@@ -33,13 +33,13 @@ export default function Aside() {
           />
           <AsideIcon
             name={`Hololive English`}
-            href="/hololive"
+            href="/hololive-english"
             src="/hololive/hololive_en_square.png"
             roundedFull
           />
           <AsideIcon
             name={`Hololive Indonesia`}
-            href="/hololive"
+            href="/hololive-indonesia"
             src="/hololive/hololive_id_square.png"
             roundedFull
           />
