@@ -42,13 +42,17 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   async prismaFindAll({
-    where: { id, country },
+    where: { id, group, country },
     sort,
     limit
   }: Parameters<ChannelRepository['prismaFindAll']>[0]): Promise<Channels> {
     const orderBy = sort ? { [sort.toOrderBy()]: 'desc' } : undefined
     const channels = await this.prismaInfraService.channel.findMany({
-      where: { id: { in: id?.map(e => e.get()) }, country: country?.get() },
+      where: {
+        id: { in: id?.map(e => e.get()) },
+        group: group?.get(),
+        country: country?.get()
+      },
       orderBy,
       take: limit
     })
@@ -117,11 +121,11 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       brandingSettings: { keywords, country }
     } = channel
     await this.getQuery(country)
-      .doc(id)
+      .doc(id.get())
       .set(
         {
           basicInfo: {
-            id,
+            id: id.get(),
             title,
             description,
             thumbnails,
@@ -150,7 +154,9 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       )
   }
 
-  async bulkSave(channels: Parameters<ChannelRepository['bulkSave']>[0]) {
+  async bulkSave({
+    data: { channels, group }
+  }: Parameters<ChannelRepository['bulkSave']>[0]) {
     const prismaData: Prisma.ChannelCreateInput[] = channels.map(channel => {
       const {
         basicInfo: {
@@ -167,7 +173,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       } = channel
 
       return {
-        id,
+        id: id.get(),
         title,
         description,
         thumbnails,
@@ -178,7 +184,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         subscriberCount,
         videoCount,
         keywords: keywords.map(k => k.get()),
-        country: country.get()
+        country: country.get(),
+        group: group.get()
       }
     })
 
@@ -192,10 +199,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       })
     )
 
-    const label = Date.now() + 'channel.bulkSave'
-    console.time(label)
     await this.prismaInfraService.$transaction([...query])
-    console.timeEnd(label)
   }
 
   private getQuery(country: CountryCode) {
@@ -210,7 +214,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   /** @deprecated */
   private firestoreToDomain(doc: ChannelSchema) {
     const {
-      basicInfo: { publishedAt, defaultLanguage, ...bIrest },
+      basicInfo: { id, publishedAt, defaultLanguage, ...bIrest },
       contentDetails,
       statistics,
       brandingSettings
@@ -218,6 +222,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     return new Channel({
       basicInfo: new ChannelBasicInfo({
         ...bIrest,
+        id: new ChannelId(id),
         publishedAt: publishedAt.toDate(),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
@@ -251,7 +256,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     } = row
     return new Channel({
       basicInfo: new ChannelBasicInfo({
-        id,
+        id: new ChannelId(id),
         title,
         description,
         thumbnails,

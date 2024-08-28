@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { GroupsService } from '@app/groups/groups.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
@@ -13,27 +14,36 @@ import { VideoToStreamConverter } from '@domain/youtube/converter/VideoToStreamC
 export class PubsubhubbubScenario {
   constructor(
     private readonly channelsService: ChannelsService,
+    private readonly groupsService: GroupsService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService
   ) {}
 
   async handleUpdatedCallback({ entry }: { entry: UpdatedEntry }) {
-    console.log('handleUpdatedCallback', entry.channelId, entry.videoId)
+    console.log('hUC', entry.channelId, entry.videoId)
 
     const channel = await this.channelsService.findById(entry.channelId)
     if (!channel) {
-      console.warn('handleUpdatedCallback channel not found:', entry)
+      console.warn('hUC channel not found:', entry)
+      return
+    }
+
+    const group = await this.groupsService.findOne({
+      where: { channelId: channel.basicInfo.id }
+    })
+    if (!group) {
+      console.warn('hUC group not found:', entry)
       return
     }
 
     const video = await this.videosService.findById(entry.videoId)
     if (!video) {
-      console.warn('handleUpdatedCallback video not found:', entry)
+      console.warn('hUC video not found:', entry)
       return
     }
 
     const stream = VideoToStreamConverter.convert(video)
-    await this.streamsService.save({ data: stream })
+    await this.streamsService.save({ data: { group, stream } })
   }
 
   async handleDeletedCallback({ entry }: { entry: DeletedEntry }) {

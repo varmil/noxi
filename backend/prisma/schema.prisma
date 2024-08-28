@@ -39,6 +39,10 @@ model Channel {
   /// [Keywords]
   keywords Json
   country  String
+
+  group String @default("")
+
+  @@index([group])
 }
 
 model YoutubeStream {
@@ -64,10 +68,12 @@ model YoutubeStream {
 
   status String
 
+  group String @default("")
+
   updatedAt DateTime @default(now()) @db.Timestamptz(3)
 
   @@index([channelId])
-  @@index([status])
+  @@index([status, group])
 }
 
 model YoutubeStreamViewerCount {

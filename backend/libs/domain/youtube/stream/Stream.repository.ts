@@ -1,3 +1,4 @@
+import { Group } from '@domain/group'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
 import {
   ChannelId,
@@ -30,7 +31,7 @@ export interface StreamRepository {
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>
 
-  save: (args: { data: Stream }) => Promise<void>
+  save: (args: { data: { group: Group; stream: Stream } }) => Promise<void>
 
   delete: (args: { where: { videoId: VideoId } }) => Promise<void>
 

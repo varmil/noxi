@@ -1,31 +1,32 @@
 import { Injectable } from '@nestjs/common'
+import { GroupsService } from '@app/groups/groups.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import HololiveList from '@domain/hololive/list'
-import { ChannelId, ChannelIds } from '@domain/youtube'
-import {
-  SearchChannelsInfraService,
-  ChannelsInfraService,
-  PlaylistItemsInfraService
-} from '@infra/service/youtube-data-api'
+import { ChannelIdsByGroup } from '@domain/group'
+import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class MainScenario {
   constructor(
     private readonly channelsService: ChannelsService,
-    private readonly searchInfraService: SearchChannelsInfraService,
     private readonly channelsInfraService: ChannelsInfraService,
-    private readonly playlistItemsInfraService: PlaylistItemsInfraService
+    private readonly groupsService: GroupsService
   ) {}
 
   async execute(): Promise<void> {
-    const channels = await this.channelsInfraService.list({
-      where: {
-        channelIds: new ChannelIds(HololiveList.map(e => new ChannelId(e.id)))
-      }
+    const promises = this.groupsService.findAll().map(async group => {
+      console.log(`start ${group.get()} length`)
+
+      const channelIds = ChannelIdsByGroup[group.get()]
+      const channels = await this.channelsInfraService.list({
+        where: { channelIds }
+      })
+
+      await this.channelsService.bulkSave({
+        data: { channels, group }
+      })
+      console.log(`end ${group.get()}`)
     })
 
-    await this.channelsService.bulkSave(channels)
-
-    return
+    await Promise.all(promises)
   }
 }

@@ -1,4 +1,5 @@
 import { CountryCode } from '@domain/country'
+import { Group } from '@domain/group'
 import {
   Channel,
   Channels,
@@ -16,7 +17,7 @@ export interface ChannelRepository {
   }) => Promise<Channels>
 
   prismaFindAll: (args: {
-    where: { id?: ChannelIds; country?: CountryCode }
+    where: { id?: ChannelIds; group?: Group; country?: CountryCode }
     sort?: ChannelSort
     limit: number
   }) => Promise<Channels>
@@ -32,5 +33,7 @@ export interface ChannelRepository {
 
   save: (args: Channel) => Promise<void>
 
-  bulkSave: (args: Channels) => Promise<void>
+  bulkSave: (args: {
+    data: { channels: Channels; group: Group }
+  }) => Promise<void>
 }

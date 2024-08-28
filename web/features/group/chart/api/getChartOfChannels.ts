@@ -2,22 +2,24 @@ import {
   ChannelsSchema,
   responseSchema
 } from 'api/youtube/schema/channelSchema'
+import Site from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
+  group: (typeof Site.Groups)[number]
   limit: number
 }
 
 export async function getChartOfChannels({
-  limit
-}: Params): Promise<ChannelsSchema> {
   /**
-   * TODO: /api/groups/${group}/charts/channels
    * @example ${group}: hololive
    * @example ${group}: hololive-english
    */
+  group,
+  limit
+}: Params): Promise<ChannelsSchema> {
   const res = await fetchAPI(
-    `/api/hololive/charts/channels?${new URLSearchParams({
+    `/api/groups/${group}/charts/channels?${new URLSearchParams({
       limit: String(limit)
     }).toString()}`,
     {
