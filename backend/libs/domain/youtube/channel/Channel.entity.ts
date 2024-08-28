@@ -3,9 +3,7 @@ import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasi
 import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
 
 /**
- * 本当は全チャンネル /v3/channels を１回でも回せば
- * ChannelStatistics, BrandingSettings は
- * データとして挿入されるので、そうなったらOptional外す
+ * Youtube > Channel
  */
 export class Channel {
   public readonly basicInfo: ChannelBasicInfo

@@ -4,6 +4,7 @@ import { CountryCode, LanguageTag } from '@domain/country'
 import {
   BrandingSettings,
   Channel,
+  ChannelId,
   ChannelStatistics,
   Keywords
 } from '@domain/youtube'
@@ -25,7 +26,7 @@ export class ChannelTranslator {
 
     return new Channel({
       basicInfo: {
-        id: channel.id,
+        id: new ChannelId(channel.id),
         title,
         description,
         thumbnails,

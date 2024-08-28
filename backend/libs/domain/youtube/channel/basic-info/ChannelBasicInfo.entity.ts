@@ -1,9 +1,11 @@
 import { Transform } from 'class-transformer'
 import { LanguageTag } from '@domain/country'
+import { ChannelId } from '@domain/youtube/channel/ChannelId'
 import { Thumbnails } from '@domain/youtube/image/Thumbnail'
 
 export class ChannelBasicInfo {
-  public readonly id: string
+  @Transform(({ value }: { value: ChannelId }) => value.get())
+  public readonly id: ChannelId
   public readonly title: string
   public readonly description: string
   public readonly thumbnails: Thumbnails
@@ -12,7 +14,7 @@ export class ChannelBasicInfo {
   public readonly defaultLanguage?: LanguageTag
 
   constructor(args: {
-    id: string
+    id: ChannelId
     title: string
     description: string
     thumbnails: Thumbnails

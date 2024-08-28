@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common'
 import { ChartsScenario } from '@app/groups/charts/charts.scenario'
-import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
+import { GroupsService } from '@app/groups/groups.service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { GroupInfraModule } from '@infra/group/group.infra.module'
+import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
 @Module({
-  imports: [YoutubeAppModule],
+  imports: [GroupInfraModule, YoutubeInfraModule],
   controllers: [],
-  providers: [ChartsScenario],
-  exports: [ChartsScenario]
+  providers: [ChartsScenario, ChannelsService, GroupsService],
+  exports: [ChartsScenario, GroupsService]
 })
 export class GroupsAppModule {}

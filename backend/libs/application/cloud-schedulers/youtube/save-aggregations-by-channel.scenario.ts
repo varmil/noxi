@@ -4,7 +4,7 @@ import { CountriesService } from '@app/youtube/countries/countries.service'
 import { VideoAggregationsService } from '@app/youtube/video-aggregation.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { CountryCode } from '@domain/country'
-import { ChannelId, ChannelSort } from '@domain/youtube'
+import { ChannelSort } from '@domain/youtube'
 import { VideoAggregation } from '@domain/youtube/video-aggregation/VideoAggregation.entity'
 
 const CHANNEL_FETCH_LIMIT = 200
@@ -56,7 +56,7 @@ export class SaveAggregationsByChannelScenario {
 
         await this.aggregationsService.save({
           where: {
-            channelId: new ChannelId(channel.basicInfo.id),
+            channelId: channel.basicInfo.id,
             country
           },
           data: aggregation
