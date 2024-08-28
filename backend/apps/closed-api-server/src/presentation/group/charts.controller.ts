@@ -2,13 +2,15 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Param,
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { GetChartOfChannelsDto } from '@presentation/hololive/dto/GetChartOfChannels.dto'
-import { ChartsScenario } from '@app/hololive/charts/charts.scenario'
+import { GetChartOfChannelsDto } from '@presentation/group/dto/GetChartOfChannels.dto'
+import { ChartsScenario } from '@app/groups/charts/charts.scenario'
+import { Group } from '@domain/group'
 
-@Controller('hololive/charts')
+@Controller('groups/:group/charts')
 export class ChartsController {
   constructor(private readonly chartsScenario: ChartsScenario) {}
 
@@ -22,10 +24,13 @@ export class ChartsController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/channels')
-  async getChartOfChannels(@Query() dto: GetChartOfChannelsDto) {
+  async getChartOfChannels(
+    @Param('group') group: string,
+    @Query() dto: GetChartOfChannelsDto
+  ) {
     return await this.chartsScenario.getChartOfChannels({
       sort: dto.toSort(),
-      where: { country: dto.toCountryCode() },
+      where: { group: new Group(group), country: dto.toCountryCode() },
       limit: dto.toLimit()
     })
   }
