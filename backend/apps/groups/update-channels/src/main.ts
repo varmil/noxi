@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core'
-import { MainScenario } from 'apps/hololive/update-channels/src/main.scenario'
+import { MainScenario } from 'apps/groups/update-channels/src/main.scenario'
 import { MainModule } from './main.module'
 
 async function bootstrap() {

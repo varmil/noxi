@@ -1,8 +1,8 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { MainModule } from 'apps/hololive/update-channels/src/main.module'
+import { MainModule } from 'apps/groups/update-channels/src/main.module'
 
-describe('Hololive > Update Channels (e2e)', () => {
+describe('Groups > Update Channels (e2e)', () => {
   let app: INestApplication
 
   beforeEach(async () => {

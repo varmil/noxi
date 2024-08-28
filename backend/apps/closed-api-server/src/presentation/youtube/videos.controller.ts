@@ -18,6 +18,7 @@ export class VideosController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id')
   getVideo(@Param('id') id: string) {
+    console.log(id)
     throw new NotImplementedException()
   }
 }

@@ -6,21 +6,21 @@
 
 ```shell
 npm run app -- pubsubhubbub dev
-npm run app -- hololive/update-channels dev
+npm run app -- groups/update-channels dev
 ```
 
 #### build
 
 ```shell
 npm run app -- pubsubhubbub build
-npm run app -- hololive/update-channels build
+npm run app -- groups/update-channels build
 ```
 
 #### prod
 
 ```shell
 npm run app -- pubsubhubbub prod
-npm run app -- hololive/update-channels prod
+npm run app -- groups/update-channels prod
 ```
 
 ### CREATE NEW APPS
