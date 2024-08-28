@@ -10,7 +10,7 @@ import list from './list.mjs'
 $.verbose = true
 
 const schema0 = z.union([
-  z.literal('hololive/update-channels'),
+  z.literal('groups/update-channels'),
   z.literal('pubsubhubbub'),
   z.literal('update-streams')
 ])

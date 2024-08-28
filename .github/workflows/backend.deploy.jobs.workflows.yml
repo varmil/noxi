@@ -29,7 +29,7 @@ jobs:
   backend-jobs-build:
     strategy:
       matrix:
-        service_name: [hololive/update-channels, pubsubhubbub, update-streams]
+        service_name: [groups/update-channels, pubsubhubbub, update-streams]
     env:
       IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
     runs-on: ubuntu-latest

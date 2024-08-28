@@ -1,4 +1,4 @@
-const AppNames = ['hololive/update-channels', 'pubsubhubbub', 'update-streams']
+const AppNames = ['groups/update-channels', 'pubsubhubbub', 'update-streams']
 
 const obj = AppNames.reduce((acc, name) => {
   acc[`${name}:dev`] = `nest start --watch ${name}`

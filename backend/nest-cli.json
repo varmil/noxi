@@ -21,13 +21,13 @@
         "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
       }
     },
-    "hololive/update-channels": {
+    "groups/update-channels": {
       "type": "application",
-      "root": "apps/hololive/update-channels",
+      "root": "apps/groups/update-channels",
       "entryFile": "main",
-      "sourceRoot": "apps/hololive/update-channels/src",
+      "sourceRoot": "apps/groups/update-channels/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/hololive/update-channels/tsconfig.app.json"
+        "tsConfigPath": "apps/groups/update-channels/tsconfig.app.json"
       }
     },
     "pubsubhubbub": {
