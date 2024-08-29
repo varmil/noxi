@@ -179,11 +179,39 @@ const List = [
     group: 'hololive',
     title: 'Iroha Ch. 風真いろは'
   },
-
   {
     id: new ChannelId('UCJFZiqLMntJufDCHc6bQixg'),
     group: 'hololive',
     title: 'ホロライブ公式'
+  },
+
+  /**
+   * ReGLOSS
+   */
+  {
+    id: new ChannelId('UCMGfV7TVTmHhEErVJg1oHBQ'),
+    group: 'hololive',
+    title: 'Ao Ch. 火威青 ‐ ReGLOSS'
+  },
+  {
+    id: new ChannelId('UCWQtYtq9EOB4-I5P-3fh8lA'),
+    group: 'hololive',
+    title: 'Kanade Ch. 音乃瀬奏 ‐ ReGLOSS'
+  },
+  {
+    id: new ChannelId('UCtyWhCj3AqKh2dXctLkDtng'),
+    group: 'hololive',
+    title: 'Ririka Ch. 一条莉々華 ‐ ReGLOSS'
+  },
+  {
+    id: new ChannelId('UCdXAk5MpyLD8594lm_OvtGQ'),
+    group: 'hololive',
+    title: 'Raden Ch. 儒烏風亭らでん ‐ ReGLOSS'
+  },
+  {
+    id: new ChannelId('UC1iA6_NT4mtAcIII6ygrvCw'),
+    group: 'hololive',
+    title: 'Hajime Ch. 轟はじめ ‐ ReGLOSS'
   }
 ]
 
