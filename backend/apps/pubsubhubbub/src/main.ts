@@ -5,7 +5,7 @@ import { MainModule } from './main.module'
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
   const service = app.get(SubscribeService)
-  await service.subscribe()
+  await service.execute()
   await app.close()
 }
 
