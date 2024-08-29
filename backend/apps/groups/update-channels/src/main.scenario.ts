@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { ChannelIdsByGroup } from '@domain/group'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()

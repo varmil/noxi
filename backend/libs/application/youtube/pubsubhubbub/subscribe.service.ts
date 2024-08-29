@@ -19,7 +19,7 @@ export class SubscribeService {
   async subscribe() {
     for (const channel of HololiveList) {
       await this.send({
-        channelId: new ChannelId(channel.id)
+        channelId: channel.id
       })
       await this.sleep(2000)
     }
