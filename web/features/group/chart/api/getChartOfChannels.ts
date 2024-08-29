@@ -2,11 +2,11 @@ import {
   ChannelsSchema,
   responseSchema
 } from 'api/youtube/schema/channelSchema'
-import Site from 'config/constants/Site'
+import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  group: (typeof Site.Groups)[number]
+  group: GroupString
   limit: number
 }
 

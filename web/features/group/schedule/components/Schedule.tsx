@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getStreams } from 'api/youtube/getStreams'
 import StreamListOfScheduled from 'features/group/stream/components/stream-list/StreamListOfScheduled'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   title: string
@@ -15,6 +16,7 @@ export default async function Schedule({
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'scheduled',
+    group: getGroup(),
     scehduledAfter: new Date(),
     // +48 hours from now
     scehduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),

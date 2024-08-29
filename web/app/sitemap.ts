@@ -1,11 +1,11 @@
 import { MetadataRoute } from 'next'
-import Site from 'config/constants/Site'
+import { GroupStrings } from 'config/constants/Site'
 import { defaultLocale, locales } from 'config/i18n/locale'
 import dayjs from 'lib/dayjs'
 
 const host = `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
 
-const groupEntries = Site.Groups.flatMap(group => {
+const groupEntries = GroupStrings.flatMap(group => {
   return [
     getEntry({ pathname: `/${group}`, lastModified: new Date() }),
     getEntry({ pathname: `/${group}/live`, lastModified: new Date() }),

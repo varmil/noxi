@@ -3,11 +3,11 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'api/youtube/getChannel'
 import { ChannelIdDashboard } from 'app/[locale]/(end-user)/_components/ChannelIdDashboard'
 import Page from 'components/Page'
-import Site from 'config/constants/Site'
+import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  params: { locale: string; group: (typeof Site.Groups)[number]; id: string }
+  params: { locale: string; group: GroupString; id: string }
 }
 
 export async function generateMetadata({

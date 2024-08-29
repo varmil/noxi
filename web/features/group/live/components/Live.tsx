@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getStreams } from 'api/youtube/getStreams'
 import StreamListOfLive from 'features/group/stream/components/stream-list/StreamListOfLive'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   title: string
@@ -15,6 +16,7 @@ export default async function Live({
 }: PropsWithoutRef<Props>) {
   const streams = await getStreams({
     status: 'live',
+    group: getGroup(),
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: 100
   })

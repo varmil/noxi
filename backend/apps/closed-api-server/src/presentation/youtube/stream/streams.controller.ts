@@ -18,6 +18,7 @@ export class StreamsController {
     return await this.streamsService.findAll({
       where: {
         status: dto.toStatus(),
+        group: dto.toGroup(),
         channelId: dto.toChannelId(),
         scheduledBefore: dto.toScheduledBefore(),
         scheduledAfter: dto.toScheduledAfter()
