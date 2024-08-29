@@ -1,6 +1,6 @@
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
-export default [
+const List = [
   {
     id: new ChannelId('UCp6993wxpyDPHUpavwDFqgg'),
     group: 'hololive',
@@ -186,3 +186,5 @@ export default [
     title: 'ホロライブ公式'
   }
 ]
+
+export const HololiveChannelIds = new ChannelIds(List.map(c => c.id))
