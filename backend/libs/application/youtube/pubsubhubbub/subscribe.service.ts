@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
-import HololiveList from '@domain/hololive/list'
-import { ChannelId } from '@domain/youtube'
+import { GroupsService } from '@app/groups/groups.service'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
 const TOPIC_BASE_URL =
@@ -13,14 +13,23 @@ interface SubscribeYouTubePubsubQuery {
 
 @Injectable()
 export class SubscribeService {
+  constructor(private readonly groupsService: GroupsService) {}
+
+  async execute(): Promise<void> {
+    const promises = this.groupsService.findAll().map(async group => {
+      console.log(`start ${group.get()} length`)
+      await this.subscribe(group.channelIds)
+      console.log(`end ${group.get()}`)
+    })
+    await Promise.all(promises)
+  }
+
   /**
    * Rate Limitがあるので適当にsleepが必要
    */
-  async subscribe() {
-    for (const channel of HololiveList) {
-      await this.send({
-        channelId: new ChannelId(channel.id)
-      })
+  private async subscribe(channelIds: ChannelIds): Promise<void> {
+    for (const channelId of channelIds) {
+      await this.send({ channelId })
       await this.sleep(2000)
     }
   }

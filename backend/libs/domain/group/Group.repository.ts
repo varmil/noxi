@@ -1,4 +1,4 @@
-import { Group } from '@domain/group/Group.vo'
+import { Group } from '@domain/group'
 import { ChannelId, VideoId } from '@domain/youtube'
 
 export interface GroupRepository {

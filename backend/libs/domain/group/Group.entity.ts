@@ -1,5 +1,7 @@
 import { IsIn, IsNotEmpty } from 'class-validator'
+import { ChannelIdsByGroup } from '@domain/group/list'
 import { StringValueObject } from '@domain/lib/StringValueObject'
+import { ChannelIds } from '@domain/youtube'
 
 export const GroupStrings = [
   'hololive',
@@ -17,5 +19,9 @@ export class Group extends StringValueObject<GroupString> {
   constructor(val: string) {
     super(val as GroupString)
     this.val = val as GroupString
+  }
+
+  get channelIds(): ChannelIds {
+    return ChannelIdsByGroup[this.val]
   }
 }
