@@ -95,4 +95,8 @@ const List = [
   }
 ]
 
-export const HololiveEnglishChannelIds = new ChannelIds(List.map(c => c.id))
+export class HololiveEnglish {
+  static get channelIds(): ChannelIds {
+    return new ChannelIds(List.map(c => c.id))
+  }
+}
