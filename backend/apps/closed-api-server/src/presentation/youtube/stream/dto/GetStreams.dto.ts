@@ -10,6 +10,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
+import { Group, GroupString, GroupStrings } from '@domain/group'
 import { StreamStatus } from '@domain/stream'
 import { ChannelId, StreamRepository } from '@domain/youtube'
 
@@ -17,6 +18,10 @@ export class GetStreamsDto {
   @IsIn(['scheduled', 'live', 'ended'])
   @IsNotEmpty()
   status: 'scheduled' | 'live' | 'ended'
+
+  @IsIn(GroupStrings)
+  @IsOptional()
+  group?: GroupString
 
   @IsOptional()
   @IsRFC3339()
@@ -46,6 +51,8 @@ export class GetStreamsDto {
   limit: number
 
   toStatus = () => new StreamStatus(this.status)
+
+  toGroup = () => (this.group ? new Group(this.group) : undefined)
 
   toScheduledBefore = () => {
     return this.scheduledBefore ? new Date(this.scheduledBefore) : undefined

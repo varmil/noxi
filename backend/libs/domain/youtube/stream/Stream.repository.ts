@@ -13,6 +13,7 @@ export interface StreamRepository {
   findAll: (args: {
     where: {
       status: StreamStatus | StreamStatuses
+      group?: Group
       channelId?: ChannelId
       scheduledBefore?: Date
       scheduledAfter?: Date
