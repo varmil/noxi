@@ -3,11 +3,11 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/live/_components/IndexTemplate'
 import Page from 'components/Page'
-import Site from 'config/constants/Site'
+import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  params: { locale: string; group: (typeof Site.Groups)[number] }
+  params: { locale: string; group: GroupString }
 }
 
 export async function generateMetadata({

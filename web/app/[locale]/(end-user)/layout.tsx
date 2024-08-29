@@ -2,12 +2,12 @@ import { ReactNode } from 'react'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { CookieAgreeBanner } from 'app/[locale]/(end-user)/_components/CookieAgreeBanner'
 import Aside from 'components/Aside'
-import Site from 'config/constants/Site'
+import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   children: ReactNode
-  params: { locale: string; group: (typeof Site.Groups)[number] }
+  params: { locale: string; group: GroupString }
 }
 
 export default async function LocaleLayout({

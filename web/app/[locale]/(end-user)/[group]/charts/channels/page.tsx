@@ -3,11 +3,11 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ChartTemplate } from 'app/[locale]/(end-user)/[group]/charts/channels/_components/ChartTemplate'
 import Page from 'components/Page'
-import Site from 'config/constants/Site'
+import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  params: { locale: string; group: (typeof Site.Groups)[number] }
+  params: { locale: string; group: GroupString }
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 

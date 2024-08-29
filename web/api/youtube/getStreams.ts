@@ -1,8 +1,10 @@
 import { StreamsSchema, responseSchema } from 'api/youtube/schema/streamSchema'
+import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   status: 'scheduled' | 'live' | 'ended'
+  group?: GroupString
   scehduledBefore?: Date
   scehduledAfter?: Date
   orderBy: {
@@ -18,6 +20,7 @@ type Params = {
 
 export async function getStreams({
   status,
+  group,
   scehduledBefore,
   scehduledAfter,
   orderBy,
@@ -27,6 +30,8 @@ export async function getStreams({
     status,
     limit: String(limit)
   })
+
+  if (group) searchParams.append('group', group)
   if (scehduledBefore)
     searchParams.append('scheduledBefore', scehduledBefore.toISOString())
   if (scehduledAfter)

@@ -1,5 +1,7 @@
-const Site = {
-  Groups: ['hololive', 'hololive-english', 'hololive-indonesia'] as const
-}
+export const GroupStrings = [
+  'hololive',
+  'hololive-english',
+  'hololive-indonesia'
+] as const
 
-export default Site
+export type GroupString = (typeof GroupStrings)[number]
