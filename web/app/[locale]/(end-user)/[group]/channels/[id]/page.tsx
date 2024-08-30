@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'api/youtube/getChannel'
-import { ChannelIdDashboard } from 'app/[locale]/(end-user)/_components/ChannelIdDashboard'
+import { ChannelIdTemplate } from 'app/[locale]/(end-user)/_components/ChannelIdTemplate'
 import Page from 'components/Page'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -48,7 +48,7 @@ export default async function GroupChannelsIdPage({
         { href: '#', name: basicInfo.title }
       ]}
     >
-      <ChannelIdDashboard id={id} />
+      <ChannelIdTemplate id={id} />
     </Page>
   )
 }

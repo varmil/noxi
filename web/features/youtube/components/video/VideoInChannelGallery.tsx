@@ -11,7 +11,7 @@ import { getVideosInChannel } from '../../api/getVideosInChannel'
 
 type Props = { channelId: string; gridClassName: string }
 
-export async function VideoCards({
+export async function VideoInChannelGallery({
   channelId,
   gridClassName
 }: PropsWithoutRef<Props>) {

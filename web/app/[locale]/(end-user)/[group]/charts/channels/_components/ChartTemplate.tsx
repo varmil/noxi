@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { GroupChart } from 'features/group/chart/components/GroupChart'
+import { ChannelGallery } from 'features/group/chart/components/ChannelGallery'
 
 type Props = {}
 
@@ -10,7 +10,7 @@ export async function ChartTemplate({}: PropsWithoutRef<Props>) {
         <FilterAndSort />
       </section> */}
 
-      <GroupChart limit={1000} />
+      <ChannelGallery limit={1000} />
     </>
   )
 }

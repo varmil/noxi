@@ -2,7 +2,7 @@ import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getChannel } from 'api/youtube/getChannel'
 import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
 import { getVideosInChannel } from 'features/youtube/api/getVideosInChannel'
-import { VideoCards } from 'features/youtube/components/video/VideoCards'
+import { VideoInChannelGallery } from 'features/youtube/components/video/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
 import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
@@ -15,7 +15,7 @@ type Props = {
   id: string
 }
 
-export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
+export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
   const { basicInfo, statistics } = await getChannel(id)
   const videos = await getVideosInChannel({ channelId: basicInfo.id })
 
@@ -56,7 +56,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
 
         <Section className="pb-6 lg:col-span-3 lg:order-5" title="Videos">
           <Suspense fallback={<p>Loading cards...</p>}>
-            <VideoCards
+            <VideoInChannelGallery
               gridClassName={
                 'grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
               }

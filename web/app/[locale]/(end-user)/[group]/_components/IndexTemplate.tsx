@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { GroupChart } from 'features/group/chart/components/GroupChart'
-import Live from 'features/group/live/components/Live'
-import Schedule from 'features/group/schedule/components/Schedule'
+import { ChannelGallery } from 'features/group/chart/components/ChannelGallery'
+import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
+import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {}
@@ -15,14 +15,14 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
     <>
       <div className="grid grid-cols-4 gap-2 sm:gap-2">
         <section className="col-span-full sm:col-span-2">
-          <Live
+          <LiveStreamGallery
             title={t('live.title')}
             description={t('live.description', { group })}
             compact
           />
         </section>
         <section className="col-span-full sm:col-span-2">
-          <Schedule
+          <ScheduledStreamGallery
             title={t('scheduled.title', { group })}
             description={t('scheduled.description', { group })}
             compact
@@ -30,7 +30,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
         </section>
 
         <section className="col-span-full">
-          <GroupChart limit={6} footer />
+          <ChannelGallery limit={6} footer />
         </section>
       </div>
     </>
