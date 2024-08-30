@@ -105,13 +105,16 @@
         "joined": "Joind {date}"
       },
 
+      "highlight-clip": {
+        "title": "Latest Highlight Clips",
+        "description": "Here are the highlight clips of {group}."
+      },
+
       "stats": {
         "annotation": "This is our service's unique indicator.",
-
         "chart": {
           "viewsChart": "Views per video"
         },
-
         "totalViews": "Total views",
         "totalSubscribers": "Total subscribers",
         "totalVideos": "Total number of videos uploaded",
