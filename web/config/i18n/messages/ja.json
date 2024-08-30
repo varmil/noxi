@@ -94,15 +94,6 @@
     "description": "お問い合わせはこちら"
   },
 
-  "ChartsChannels": {
-    "title": "に関連するチャンネル一覧",
-    "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
-  },
-
-  "YoutubeDashboard": {
-    "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
-  },
-
   "Features": {
     "youtube": {
       "channel": {
