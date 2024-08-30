@@ -48,7 +48,7 @@ export class GetStreamsDto {
   @IsOptional()
   @IsInt()
   @Type(() => Number)
-  limit: number
+  limit?: number
 
   toStatus = () => new StreamStatus(this.status)
 
