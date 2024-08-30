@@ -45,10 +45,10 @@ export class GetStreamsDto {
     | 'maxViewerCount'
   >[]
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   @Type(() => Number)
-  limit?: number
+  limit: number
 
   toStatus = () => new StreamStatus(this.status)
 

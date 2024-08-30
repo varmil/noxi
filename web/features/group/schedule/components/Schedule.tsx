@@ -17,9 +17,9 @@ export default async function Schedule({
   const streams = await getStreams({
     status: 'scheduled',
     group: getGroup(),
-    scehduledAfter: new Date(),
+    scheduledAfter: new Date(),
     // +48 hours from now
-    scehduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
+    scheduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
     orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
     limit: 100
   })
