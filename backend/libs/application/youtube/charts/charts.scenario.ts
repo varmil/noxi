@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { CountryCode } from '@domain/country'
-import { ChannelRepository, Q, RelevanceLanguage } from '@domain/youtube'
+import { Q, RelevanceLanguage } from '@domain/youtube'
 import {
   SearchVideosInfraService,
   type SearchVideosParams
@@ -29,12 +29,5 @@ export class ChartsScenario {
     }
 
     return await this.searchVideosInfraService.list(_params)
-  }
-
-  /**
-   * Channels チャート
-   */
-  async getChartOfChannels(args: Parameters<ChannelRepository['findAll']>[0]) {
-    return await this.channelsService.findAll(args)
   }
 }

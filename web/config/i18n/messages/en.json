@@ -95,15 +95,6 @@
     "description": "Contact us here."
   },
 
-  "ChartsChannels": {
-    "title": "List of channels",
-    "description": "We will introduce you to YouTube channels related to {keyword}."
-  },
-
-  "YoutubeDashboard": {
-    "description": "We will introduce you to YouTube channels related to {keyword}."
-  },
-
   "Features": {
     "youtube": {
       "channel": {
@@ -135,6 +126,8 @@
       }
     },
     "stream": {
+      "noLive": "There are no live streams at the moment.",
+      "noScheduled": "There are no scheduled live streams at the moment.",
       "likes": "likes",
       "watching": "watching"
     }

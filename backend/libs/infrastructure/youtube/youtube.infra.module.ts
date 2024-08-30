@@ -4,7 +4,6 @@ import { YoutubeDataApiInfraModule } from '@infra/service/youtube-data-api/youtu
 import { ChannelRepositoryImpl } from '@infra/youtube/Channel.repository-impl'
 import { CountryRepositoryImpl } from '@infra/youtube/Country.repository-impl'
 import { VideoRepositoryImpl } from '@infra/youtube/Video.repository-impl'
-import { VideoAggregationRepositoryImpl } from '@infra/youtube/VideoAggregation.repository-impl'
 import { StreamRepositoryImpl } from '@infra/youtube/stream/Stream.repository-impl'
 import { StreamStatsRepositoryImpl } from '@infra/youtube/stream-stats/StreamStats.repository-impl'
 
@@ -27,13 +26,7 @@ import { StreamStatsRepositoryImpl } from '@infra/youtube/stream-stats/StreamSta
     { provide: 'StreamStatsRepository', useClass: StreamStatsRepositoryImpl },
 
     VideoRepositoryImpl,
-    { provide: 'VideoRepository', useClass: VideoRepositoryImpl },
-
-    VideoAggregationRepositoryImpl,
-    {
-      provide: 'VideoAggregationRepository',
-      useClass: VideoAggregationRepositoryImpl
-    }
+    { provide: 'VideoRepository', useClass: VideoRepositoryImpl }
   ],
   exports: [
     PrismaInfraModule,
@@ -55,13 +48,7 @@ import { StreamStatsRepositoryImpl } from '@infra/youtube/stream-stats/StreamSta
     { provide: 'StreamStatsRepository', useClass: StreamStatsRepositoryImpl },
 
     VideoRepositoryImpl,
-    { provide: 'VideoRepository', useClass: VideoRepositoryImpl },
-
-    VideoAggregationRepositoryImpl,
-    {
-      provide: 'VideoAggregationRepository',
-      useClass: VideoAggregationRepositoryImpl
-    }
+    { provide: 'VideoRepository', useClass: VideoRepositoryImpl }
   ]
 })
 export class YoutubeInfraModule {}

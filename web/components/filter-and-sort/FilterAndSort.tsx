@@ -3,9 +3,9 @@ import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { Skeleton } from '@/components/ui/skeleton'
-import { CategoryDrawer } from 'features/youtube/components/chart/channel/CategoryDrawer'
-import { CountryDrawer } from 'features/youtube/components/chart/channel/CountryDrawer'
-import { SortByDrawer } from 'features/youtube/components/chart/channel/SortByDrawer'
+import { CategoryDrawer } from 'components/filter-and-sort/CategoryDrawer'
+import { CountryDrawer } from 'components/filter-and-sort/CountryDrawer'
+import { SortByDrawer } from 'components/filter-and-sort/SortByDrawer'
 
 const ButtonWithIcon = ({ text }: React.PropsWithoutRef<{ text: string }>) => (
   <Button variant="outline" className="bg-transparent">

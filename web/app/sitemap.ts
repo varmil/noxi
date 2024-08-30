@@ -24,10 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: dayjs().subtract(7, 'day').toDate()
     }),
     getEntry({
-      pathname: '/youtube/charts/channels',
-      lastModified: dayjs().subtract(1, 'day').toDate()
-    }),
-    getEntry({
       pathname: '/terms-of-use-and-privacy-policy',
       lastModified: dayjs().subtract(14, 'day').toDate()
     })

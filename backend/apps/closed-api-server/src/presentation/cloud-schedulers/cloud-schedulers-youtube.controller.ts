@@ -1,7 +1,4 @@
-import { Controller, Post } from '@nestjs/common'
-import { CloudSchedulersYoutubeScenario } from '@app/cloud-schedulers/youtube/cloud-schedulers-youtube.scenario'
-import { SaveAggregationsByChannelScenario } from '@app/cloud-schedulers/youtube/save-aggregations-by-channel.scenario'
-import { SaveChannelsBySearchScenario } from '@app/cloud-schedulers/youtube/save-channels-by-search.scenario'
+import { Controller } from '@nestjs/common'
 
 /**
  * @IMPORTANT There are no authorization in this controller !
@@ -9,24 +6,5 @@ import { SaveChannelsBySearchScenario } from '@app/cloud-schedulers/youtube/save
  */
 @Controller('cloud-schedulers/youtube')
 export class CloudSchedulersYoutubeController {
-  constructor(
-    private readonly cloudSchedulersYoutubeScenario: CloudSchedulersYoutubeScenario,
-    private readonly saveAggregationsByChannelScenario: SaveAggregationsByChannelScenario,
-    private readonly saveChannelsBySearchScenario: SaveChannelsBySearchScenario
-  ) {}
-
-  @Post('/channels-by-search')
-  async saveChannelsBySearch() {
-    await this.saveChannelsBySearchScenario.execute()
-  }
-
-  // TODO: select appropriate channels to update
-  @Post('/video-aggregations')
-  async saveVideoAggregations() {
-    await this.saveAggregationsByChannelScenario.execute()
-  }
-
-  // TODO: select appropriate channels to update
-  @Post('/channels-by-ids')
-  async saveChannelsByIds() {}
+  constructor() {}
 }

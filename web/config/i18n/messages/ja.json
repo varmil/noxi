@@ -94,15 +94,6 @@
     "description": "お問い合わせはこちら"
   },
 
-  "ChartsChannels": {
-    "title": "に関連するチャンネル一覧",
-    "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
-  },
-
-  "YoutubeDashboard": {
-    "description": "{keyword}に関連するユーチューバーのチャンネルをご紹介します。"
-  },
-
   "Features": {
     "youtube": {
       "channel": {
@@ -134,6 +125,8 @@
       }
     },
     "stream": {
+      "noLive": "現在配信中のライブはありません。",
+      "noScheduled": "配信予定のライブはありません。",
       "likes": "高評価",
       "watching": "人が視聴中"
     }

@@ -23,7 +23,6 @@ import {
   ChartContainer,
   ChartTooltip
 } from '@/components/ui/chart'
-import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { VideosSchema } from 'api/youtube/schema/videoSchema'
 import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
 
@@ -39,7 +38,6 @@ const chartConfig = {
 } satisfies ChartConfig
 
 type Props = {
-  videoAggregation: ChannelSchema['latestVideoAggregation']
   videos: VideosSchema
 }
 

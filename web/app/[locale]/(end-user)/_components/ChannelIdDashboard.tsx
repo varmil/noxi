@@ -16,7 +16,7 @@ type Props = {
 }
 
 export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
-  const { basicInfo, statistics, latestVideoAggregation } = await getChannel(id)
+  const { basicInfo, statistics } = await getChannel(id)
   const videos = await getVideosInChannel({ channelId: basicInfo.id })
 
   return (
@@ -41,10 +41,7 @@ export async function ChannelIdDashboard({ id }: PropsWithoutRef<Props>) {
         </Section>
 
         <Section className="pb-6 lg:col-span-2 lg:order-1" title="Trends">
-          <ViewsBarChart
-            videoAggregation={latestVideoAggregation}
-            videos={videos}
-          />
+          <ViewsBarChart videos={videos} />
         </Section>
 
         <Section

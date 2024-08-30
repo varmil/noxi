@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
@@ -14,6 +15,7 @@ export default async function StreamListContentOfLive({
   streams,
   compact
 }: Props) {
+  const t = await getTranslations('Features.stream')
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
@@ -21,6 +23,9 @@ export default async function StreamListContentOfLive({
   return (
     <CardContent>
       <StreamListContentContainer compact={compact}>
+        {streams.length === 0 && (
+          <p className="text-muted-foreground">{t('noLive')}</p>
+        )}
         {streams.map(stream => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId

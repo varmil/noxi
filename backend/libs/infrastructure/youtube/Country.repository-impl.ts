@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common'
-import admin from 'firebase-admin'
 import { CountryCode } from '@domain/country'
 import { Countries, CountryRepository } from '@domain/youtube'
+import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
 export class CountryRepositoryImpl implements CountryRepository {
-  private readonly ROOT_COLLECTION_NAME = 'youtube'
+  constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll() {
-    const snapshot = await admin
-      .firestore()
-      .collection(this.ROOT_COLLECTION_NAME)
-      .listDocuments()
+    const rows = await this.prismaInfraService.channel.findMany({
+      where: {},
+      distinct: ['country'],
+      select: { country: true }
+    })
 
-    return new Countries(snapshot.map(e => new CountryCode(e.id)))
+    return new Countries(rows.map(e => new CountryCode(e.country)))
   }
 }

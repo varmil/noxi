@@ -15,6 +15,4 @@ export const initializeFirebaseAdmin = () => {
     projectId,
     credential: admin.credential.applicationDefault()
   })
-
-  admin.firestore().settings({ ignoreUndefinedProperties: true })
 }

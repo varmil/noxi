@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
+import { DrawerSelectButton } from 'components/filter-and-sort/DrawerSelectButton'
 
 export function CategoryDrawer({ children }: React.PropsWithChildren) {
   return (

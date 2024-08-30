@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { headers } from 'next/headers'
-import { getFormatter } from 'next-intl/server'
+import { getFormatter, getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
@@ -17,6 +17,7 @@ export default async function StreamListContentOfScheduled({
   streams,
   compact
 }: Props) {
+  const t = await getTranslations('Features.stream')
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
@@ -52,6 +53,9 @@ export default async function StreamListContentOfScheduled({
   return (
     <CardContent>
       <StreamListContentContainer compact={compact}>
+        {streams.length === 0 && (
+          <p className="text-muted-foreground">{t('noScheduled')}</p>
+        )}
         {Object.entries(groupedStreams).map(([date, record]) =>
           Object.entries(record).map(([time, events]) => (
             <div key={time} className="mb-8 last:mb-0">

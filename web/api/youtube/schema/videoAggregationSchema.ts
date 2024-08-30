@@ -1,3 +1,7 @@
+/**
+ * 2024/08/30現在、使っていない
+ */
+
 import { z } from 'zod'
 
 const aggregation = z.object({
