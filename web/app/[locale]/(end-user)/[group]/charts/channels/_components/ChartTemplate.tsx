@@ -6,6 +6,10 @@ type Props = {}
 export async function ChartTemplate({}: PropsWithoutRef<Props>) {
   return (
     <>
+      {/* <section className="mb-4">
+        <FilterAndSort />
+      </section> */}
+
       <GroupChart limit={1000} />
     </>
   )

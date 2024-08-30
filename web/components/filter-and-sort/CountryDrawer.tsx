@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from '@/components/ui/drawer'
-import { DrawerSelectButton } from 'features/youtube/components/chart/channel/DrawerSelectButton'
+import { DrawerSelectButton } from 'components/filter-and-sort/DrawerSelectButton'
 import useQueryString from 'hooks/useQueryString'
 import { Link, usePathname } from 'lib/navigation'
 

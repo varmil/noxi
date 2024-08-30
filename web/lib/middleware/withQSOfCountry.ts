@@ -2,7 +2,11 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 import { defaultCountry } from 'config/i18n/country'
 import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
 
-const PATHNAMES = ['/youtube/charts/channels']
+/**
+ * e.g.
+ * /<group>/charts/channels
+ */
+const PATHNAMES = []
 
 /**
  * If not exists on header, uses default value (US)
