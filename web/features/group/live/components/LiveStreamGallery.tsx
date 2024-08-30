@@ -1,25 +1,29 @@
 import { PropsWithoutRef } from 'react'
 import { Radio } from 'lucide-react'
 import { Card } from '@/components/ui/card'
-import { StreamsSchema } from 'api/youtube/schema/streamSchema'
+import { getStreams } from 'api/youtube/getStreams'
 import StreamListContentOfLive from 'features/group/stream/components/stream-list/StreamListContentOfLive'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  streams: StreamsSchema
   title: string
   description: string
   compact?: boolean
 }
 
-export default async function StreamListOfLive({
-  streams,
+export default async function LiveStreamGallery({
   title,
   description,
   compact
 }: PropsWithoutRef<Props>) {
+  const streams = await getStreams({
+    status: 'live',
+    group: getGroup(),
+    orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
+    limit: 100
+  })
   const group = getGroup()
 
   return (

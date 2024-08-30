@@ -6,12 +6,12 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import VideoCard from 'features/youtube/components/video/VideoCard'
-import { getVideosInChannel } from '../../api/getVideosInChannel'
+import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
+import VideoCard from 'features/youtube/video/components/VideoCard'
 
 type Props = { channelId: string; gridClassName: string }
 
-export async function VideoCards({
+export async function VideoInChannelGallery({
   channelId,
   gridClassName
 }: PropsWithoutRef<Props>) {

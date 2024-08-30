@@ -1,12 +1,14 @@
+import { useFormatter } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'api/youtube/schema/videoSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
-import dayjs, { humanizeDuration } from 'lib/dayjs'
+import { humanizeDuration } from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 export default function VideoCard(video: VideoSchema) {
+  const format = useFormatter()
   const { id, snippet, duration, statistics } = video
   const { title, description, thumbnails, publishedAt } = snippet
   const { viewCount, likeCount, commentCount } = statistics
@@ -33,7 +35,7 @@ export default function VideoCard(video: VideoSchema) {
           <LineChart className="h-12 w-12 text-white" />
         </div> */}
         <div className="absolute bottom-2 left-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
-          <span>{dayjs(publishedAt).fromNow()}</span>
+          <span>{format.relativeTime(new Date(publishedAt))}</span>
         </div>
         <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
           <span>{humanizeDuration(duration)}</span>

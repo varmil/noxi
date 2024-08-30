@@ -14,13 +14,22 @@ import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTransl
 export interface SearchVideosParams {
   q: Q
   limit: number
+  /**
+   * date – リソースは作成日の新しい順に並べ替えられます。
+   * rating – リソースは評価が高い順に並べられます。
+   * relevance – リソースは、検索クエリとの関連性に基づいて並べ替えられます。このパラメータのデフォルト値です。
+   * viewCount – リソースを表示回数の多い順に並べ替えます。ライブ配信の場合、ブロードキャストの進行中、動画は同時視聴者数で並べ替えられます。
+   */
+  order?: 'date' | 'rating' | 'relevance' | 'viewCount'
+  publishedBefore?: Date
+  publishedAfter?: Date
   channelId?: ChannelId
   regionCode?: CountryCode
   relevanceLanguage?: RelevanceLanguage
   pageToken?: string
 }
 
-const PER_PAGE = 50 // 50
+const PER_PAGE = 50
 
 /**
  * This class uses...
@@ -38,15 +47,11 @@ export class SearchVideosInfraService {
   private readonly client: youtube_v3.Youtube
 
   constructor() {
-    this.client = youtube({
-      version: 'v3',
-      auth: this.API_KEY
-    })
+    this.client = youtube({ version: 'v3', auth: this.API_KEY })
   }
 
   async list(params: SearchVideosParams): Promise<PaginationResponse<Videos>> {
     const { nextPageToken, videos } = await this.getVideos(params)
-
     return {
       nextPageToken,
       items: new Videos(
@@ -60,8 +65,17 @@ export class SearchVideosInfraService {
   private async getVideos(
     params: SearchVideosParams
   ): Promise<{ nextPageToken?: string; videos: youtube_v3.Schema$Video[] }> {
-    const { channelId, q, regionCode, relevanceLanguage, limit, pageToken } =
-      params
+    const {
+      q,
+      order,
+      publishedBefore,
+      publishedAfter,
+      channelId,
+      regionCode,
+      relevanceLanguage,
+      limit,
+      pageToken
+    } = params
 
     let videos: youtube_v3.Schema$Video[] = []
     let nextPageToken = pageToken ?? undefined
@@ -71,10 +85,12 @@ export class SearchVideosInfraService {
       const response = await this.client.search.list({
         part: ['id'],
         type: ['video'],
-        channelId: channelId?.get(),
         q: q.get(),
-        maxResults: PER_PAGE,
-        order: 'date',
+        maxResults: Math.min(limit, PER_PAGE),
+        order,
+        publishedBefore: publishedBefore?.toISOString(),
+        publishedAfter: publishedAfter?.toISOString(),
+        channelId: channelId?.get(),
         regionCode: regionCode?.get(),
         relevanceLanguage: relevanceLanguage?.get(),
         pageToken: nextPageToken

@@ -20,7 +20,10 @@ type Props = {
   footer?: boolean
 }
 
-export async function GroupChart({ limit, footer }: PropsWithoutRef<Props>) {
+export async function ChannelGallery({
+  limit,
+  footer
+}: PropsWithoutRef<Props>) {
   const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Page.group.charts')
   const channels = await getChartOfChannels({

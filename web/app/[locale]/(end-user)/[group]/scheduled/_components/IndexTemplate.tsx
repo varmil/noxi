@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import Schedule from 'features/group/schedule/components/Schedule'
+import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {}
@@ -13,7 +13,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
     <>
       <div className="grid grid-cols-4 gap-2 sm:gap-2">
         <section className="col-span-full">
-          <Schedule
+          <ScheduledStreamGallery
             title={t('scheduled.title', { group })}
             description={t('scheduled.description', { group })}
           />

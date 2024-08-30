@@ -45,7 +45,7 @@ export class GetStreamsDto {
     | 'maxViewerCount'
   >[]
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsInt()
   @Type(() => Number)
   limit: number

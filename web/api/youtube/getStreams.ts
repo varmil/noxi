@@ -5,8 +5,8 @@ import { fetchAPI } from 'lib/fetchAPI'
 type Params = {
   status: 'scheduled' | 'live' | 'ended'
   group?: GroupString
-  scehduledBefore?: Date
-  scehduledAfter?: Date
+  scheduledBefore?: Date
+  scheduledAfter?: Date
   orderBy: {
     field:
       | 'scheduledStartTime'
@@ -21,21 +21,18 @@ type Params = {
 export async function getStreams({
   status,
   group,
-  scehduledBefore,
-  scehduledAfter,
+  scheduledBefore,
+  scheduledAfter,
   orderBy,
   limit
 }: Params): Promise<StreamsSchema> {
   const searchParams = new URLSearchParams({
     status,
-    limit: String(limit)
+    limit: String(limit),
+    ...(group && { group }),
+    ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
+    ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() })
   })
-
-  if (group) searchParams.append('group', group)
-  if (scehduledBefore)
-    searchParams.append('scheduledBefore', scehduledBefore.toISOString())
-  if (scehduledAfter)
-    searchParams.append('scehduledAfter', scehduledAfter.toISOString())
 
   orderBy.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)

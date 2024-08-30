@@ -104,13 +104,16 @@
         "joined": "{date}に開始"
       },
 
+      "highlight-clip": {
+        "title": "最新の切り抜き動画まとめ",
+        "description": "{group}の最新切り抜き動画集です！"
+      },
+
       "stats": {
         "annotation": "弊サービス独自指標です",
-
         "chart": {
           "viewsChart": "視聴回数グラフ"
         },
-
         "totalViews": "動画,ショートの再生回数",
         "totalSubscribers": "チャンネル登録者数",
         "totalVideos": "動画のアップロード数",
