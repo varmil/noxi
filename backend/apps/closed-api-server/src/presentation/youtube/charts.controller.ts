@@ -8,7 +8,7 @@ import {
 import { GetChartOfChannelsDto } from '@presentation/youtube/dto/GetChartOfChannels.dto'
 import { ChartsScenario } from '@app/youtube/charts/charts.scenario'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
-import { Videos } from '@domain/youtube'
+import { Q, Videos } from '@domain/youtube'
 
 /**
  *
@@ -24,10 +24,14 @@ import { Videos } from '@domain/youtube'
 export class ChartsController {
   constructor(private readonly chartsScenario: ChartsScenario) {}
 
+  /**
+   * @deprecated
+   */
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('/videos')
   async getChartOfVideos(): Promise<PaginationResponse<Videos>> {
     return await this.chartsScenario.getChartOfVideos({
+      q: new Q(''),
       limit: 50
     })
   }

@@ -135,6 +135,8 @@
       }
     },
     "stream": {
+      "noLive": "There are no live streams at the moment.",
+      "noScheduled": "There are no scheduled live streams at the moment.",
       "likes": "likes",
       "watching": "watching"
     }

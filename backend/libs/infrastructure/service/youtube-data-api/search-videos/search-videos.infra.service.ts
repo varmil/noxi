@@ -12,8 +12,8 @@ import {
 import { VideoTranslator } from '@infra/service/youtube-data-api/lib/VideoTranslator'
 
 export interface SearchVideosParams {
+  q: Q
   limit: number
-  q?: Q
   channelId?: ChannelId
   regionCode?: CountryCode
   relevanceLanguage?: RelevanceLanguage
@@ -72,11 +72,11 @@ export class SearchVideosInfraService {
         part: ['id'],
         type: ['video'],
         channelId: channelId?.get(),
-        q: q?.get(),
+        q: q.get(),
         maxResults: PER_PAGE,
         order: 'date',
-        regionCode: regionCode?.get() || 'JP',
-        relevanceLanguage: relevanceLanguage?.get() || '',
+        regionCode: regionCode?.get(),
+        relevanceLanguage: relevanceLanguage?.get(),
         pageToken: nextPageToken
       })
 
