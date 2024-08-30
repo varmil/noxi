@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { videoAggregationSchema } from 'api/youtube/schema/videoAggregationSchema'
 
 export const schema = z.object({
   basicInfo: z.object({
@@ -29,9 +28,6 @@ export const schema = z.object({
     keywords: z.array(z.string()),
     country: z.string()
   }),
-
-  // from VideoAggregation
-  latestVideoAggregation: videoAggregationSchema.optional(),
 
   updatedAt: z.string().datetime().optional()
 })
