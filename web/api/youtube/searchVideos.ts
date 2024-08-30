@@ -40,7 +40,6 @@ export async function searchVideos({
     `/api/youtube/searches/videos?${searchParams.toString()}`,
     {
       next: { revalidate: 600 }
-      // cache: 'no-store'
     }
   )
 

@@ -86,7 +86,7 @@ export class SearchVideosInfraService {
         part: ['id'],
         type: ['video'],
         q: q.get(),
-        maxResults: PER_PAGE,
+        maxResults: Math.min(limit, PER_PAGE),
         order,
         publishedBefore: publishedBefore?.toISOString(),
         publishedAfter: publishedAfter?.toISOString(),

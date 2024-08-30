@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { ChannelGallery } from 'features/group/chart/components/ChannelGallery'
 import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
 import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
+import { HighlightClipGallery } from 'features/youtube/highlight-clip/components/HighlightClipGallery'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {}
@@ -27,6 +28,10 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
             description={t('scheduled.description', { group })}
             compact
           />
+        </section>
+
+        <section className="col-span-full">
+          <HighlightClipGallery />
         </section>
 
         <section className="col-span-full">
