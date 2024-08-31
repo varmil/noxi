@@ -8,6 +8,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { searchVideos } from 'api/youtube/searchVideos'
+import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 import dayjs from 'lib/dayjs'
@@ -47,16 +48,32 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>{t('description', { group })}</CardDescription>
       </CardHeader>
-      <CardContent
-        className={`grid gap-x-2 gap-y-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4`}
-      >
-        {/* TODO: short, medium - long で分ける */}
-        {videos
-          .sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
-          .map(video => {
-            const { id } = video
-            return <VideoCard key={id} {...video} />
-          })}
+      <CardContent className="grid gap-8">
+        {/* short */}
+        <section>
+          <div className="flex items-center gap-1">
+            <Image
+              src={'/youtube/shorts-icon.svg'}
+              alt={`YouTube ショート動画`}
+              width={100}
+              height={100}
+              className="w-6 h-6"
+            />
+            <span className="font-bold">ショート</span>
+          </div>
+        </section>
+
+        {/*  medium - long  */}
+        <section
+          className={`grid gap-x-2 gap-y-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4`}
+        >
+          {videos
+            .sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
+            .map(video => {
+              const { id } = video
+              return <VideoCard key={id} {...video} />
+            })}
+        </section>
       </CardContent>
     </Card>
   )
