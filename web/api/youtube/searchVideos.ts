@@ -39,7 +39,7 @@ export async function searchVideos({
   const res = await fetchAPI(
     `/api/youtube/searches/videos?${searchParams.toString()}`,
     {
-      next: { revalidate: 600 }
+      next: { revalidate: 1000 }
     }
   )
 
