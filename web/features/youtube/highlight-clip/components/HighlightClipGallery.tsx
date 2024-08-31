@@ -10,7 +10,7 @@ import {
 import { searchVideos } from 'api/youtube/searchVideos'
 import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'
-import ShortsCard from 'features/youtube/shorts/ShortsCard'
+import { HighlightClipCarousel } from 'features/youtube/highlight-clip/components/HighlightClipCarousel'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 import dayjs from 'lib/dayjs'
 import { getGroup } from 'lib/server-only-context/cache'
@@ -70,13 +70,8 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
             <span className="font-bold">ショート</span>
           </div>
 
-          <section
-            className={`grid gap-x-2 sm:gap-x-5 gap-y-4 grid-cols-2 sm:grid-cols-4 md:grid-cols-5`}
-          >
-            {shorts.map(video => {
-              const { id } = video
-              return <ShortsCard key={id} {...video} />
-            })}
+          <section className="flex items-center justify-center w-full overflow-hidden">
+            <HighlightClipCarousel videos={shorts} />
           </section>
         </section>
 
