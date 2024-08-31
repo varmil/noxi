@@ -42,8 +42,8 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
     })
   ).sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
 
-  // take first 5
-  const shorts = videos.filter(video => video.isShort).slice(0, 5)
+  // take first 6
+  const shorts = videos.filter(video => video.isShort).slice(0, 6)
   // take first 6
   const notShorts = videos.filter(video => !video.isShort).slice(0, 6)
 
@@ -62,12 +62,12 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
           <div className="flex items-center gap-1">
             <Image
               src={'/youtube/shorts-icon.svg'}
-              alt={`YouTube ショート動画`}
+              alt={`YouTube ${t('shorts')}`}
               width={100}
               height={100}
               className="w-6 h-6"
             />
-            <span className="font-bold">ショート</span>
+            <span className="font-bold">{t('shorts')}</span>
           </div>
 
           <section className="flex items-center justify-center w-full overflow-hidden">

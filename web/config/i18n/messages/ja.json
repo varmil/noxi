@@ -106,10 +106,10 @@
       "video": {
         "views": "{count}回視聴"
       },
-
       "highlight-clip": {
         "title": "最新の切り抜き動画まとめ",
-        "description": "{group}の最新切り抜き動画集です！"
+        "description": "{group}の最新切り抜き動画集です！",
+        "shorts": "ショート"
       },
 
       "stats": {

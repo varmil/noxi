@@ -28,7 +28,7 @@ export function HighlightClipCarousel({
         {videos.map(video => (
           <CarouselItem
             key={video.id}
-            className="pl-1.5 sm:pl-3 md:pl-5 basis-1/2 sm:basis-1/4 md:basis-1/5"
+            className="pl-1.5 sm:pl-3 md:pl-5 basis-5/12 sm:basis-[31%] md:basis-[20%]"
           >
             <ShortsCard {...video} />
           </CarouselItem>

@@ -107,10 +107,10 @@
       "video": {
         "views": "{count} views"
       },
-
       "highlight-clip": {
         "title": "Latest Highlight Clips",
-        "description": "Here are the highlight clips of {group}."
+        "description": "Here are the highlight clips of {group}.",
+        "shorts": "Shorts"
       },
 
       "stats": {
