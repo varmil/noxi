@@ -24,11 +24,11 @@ export function HighlightClipCarousel({
       }}
       className="w-full max-w-fit"
     >
-      <CarouselContent className="-ml-1.5 sm:-ml-3 md:-ml-5">
+      <CarouselContent className="-ml-1.5 sm:-ml-2 md:-ml-3">
         {videos.map(video => (
           <CarouselItem
             key={video.id}
-            className="pl-1.5 sm:pl-3 md:pl-5 basis-5/12 sm:basis-[31%] md:basis-[20%]"
+            className="pl-1.5 sm:pl-2 md:pl-3 basis-5/12 sm:basis-[31%] md:basis-[18%]"
           >
             <ShortsCard {...video} />
           </CarouselItem>
