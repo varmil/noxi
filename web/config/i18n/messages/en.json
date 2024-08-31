@@ -104,6 +104,9 @@
         "totalSubscribers": "subscribers",
         "joined": "Joind {date}"
       },
+      "video": {
+        "views": "{count} views"
+      },
 
       "highlight-clip": {
         "title": "Latest Highlight Clips",
