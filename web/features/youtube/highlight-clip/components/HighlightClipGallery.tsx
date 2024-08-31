@@ -48,7 +48,7 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         <CardDescription>{t('description', { group })}</CardDescription>
       </CardHeader>
       <CardContent
-        className={`grid gap-2 grid-cols-1 sm:grid-cols-3 md:grid-cols-4`}
+        className={`grid gap-x-2 gap-y-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4`}
       >
         {/* TODO: short, medium - long で分ける */}
         {videos

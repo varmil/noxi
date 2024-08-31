@@ -1,7 +1,6 @@
 import { useFormatter } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'api/youtube/schema/videoSchema'
-import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { humanizeDuration } from 'lib/dayjs'
@@ -11,10 +10,10 @@ export default function VideoCard(video: VideoSchema) {
   const format = useFormatter()
   const { id, snippet, duration, statistics } = video
   const { title, description, thumbnails, publishedAt } = snippet
-  const { viewCount, likeCount, commentCount } = statistics
+  const { viewCount } = statistics
 
   return (
-    <Card className="w-full">
+    <Card className="w-full border-none shadow-none">
       <Link
         href="#"
         className="group relative block aspect-video overflow-hidden rounded-lg"
@@ -28,7 +27,7 @@ export default function VideoCard(video: VideoSchema) {
           alt={`Video Thumbnail: ${title}`}
           width={400}
           height={225}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
         />
         {/* TODO: When /videos/:id page is created, comment in here. */}
         {/* <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -41,7 +40,7 @@ export default function VideoCard(video: VideoSchema) {
           <span>{humanizeDuration(duration)}</span>
         </div>
       </Link>
-      <CardContent className="space-y-2 p-4 pt-2">
+      <CardContent className="p-2 space-y-1 px-1 pt-2">
         <div>
           <h3 className="font-normal line-clamp-2 leading-tight text-sm">
             {title}
@@ -54,20 +53,20 @@ export default function VideoCard(video: VideoSchema) {
               <span>views</span>
             </span>
           </div>
-          <div className="flex items-center gap-0.5">
+          {/* <div className="flex items-center gap-0.5">
             <ThumbsUpIcon className="h-4 w-4" />
             <span>
               <IntlNumberFormat>{likeCount}</IntlNumberFormat>
               <span className="sr-only">likes</span>
             </span>
-          </div>
-          <div className="flex items-center gap-0.5">
+          </div> */}
+          {/* <div className="flex items-center gap-0.5">
             <CommentIcon className="h-4 w-4" />
             <span>
               <IntlNumberFormat>{commentCount}</IntlNumberFormat>
               <span className="sr-only">comments</span>
             </span>
-          </div>
+          </div> */}
         </div>
       </CardContent>
     </Card>
