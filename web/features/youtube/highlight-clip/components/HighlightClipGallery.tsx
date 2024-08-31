@@ -10,7 +10,7 @@ import {
 import { searchVideos } from 'api/youtube/searchVideos'
 import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'
-import ShortCard from 'features/youtube/short/ShortCard'
+import ShortsCard from 'features/youtube/shorts/ShortsCard'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 import dayjs from 'lib/dayjs'
 import { getGroup } from 'lib/server-only-context/cache'
@@ -56,9 +56,9 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>{t('description', { group })}</CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-8">
+      <CardContent className="grid gap-12">
         {/* short */}
-        <section>
+        <section className="grid gap-y-4">
           <div className="flex items-center gap-1">
             <Image
               src={'/youtube/shorts-icon.svg'}
@@ -71,11 +71,11 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
           </div>
 
           <section
-            className={`grid gap-x-2 gap-y-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3`}
+            className={`grid gap-x-2 sm:gap-x-5 gap-y-4 grid-cols-2 sm:grid-cols-4 md:grid-cols-5`}
           >
             {shorts.map(video => {
               const { id } = video
-              return <ShortCard key={id} {...video} />
+              return <ShortsCard key={id} {...video} />
             })}
           </section>
         </section>
