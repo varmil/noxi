@@ -1,3 +1,4 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -17,6 +18,8 @@ import { Videos } from '@domain/youtube'
  *      /youtube/searches/videos
  */
 @Controller('youtube/searches')
+@UseInterceptors(CacheInterceptor)
+@CacheTTL(600 * 1000)
 export class SearchesController {
   constructor(private readonly searchesScenario: SearchesScenario) {}
 

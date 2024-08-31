@@ -25,6 +25,12 @@ const CacheHeaders = cacheSources.map(source => ({
 const nextConfig = {
   async headers() {
     return CacheHeaders
+  },
+
+  logging: {
+    fetches: {
+      fullUrl: true
+    }
   }
 }
 

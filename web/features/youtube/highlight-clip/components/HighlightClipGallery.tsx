@@ -34,7 +34,7 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
     q: qMap[groupStr][locale],
     limit: 12,
     order: 'relevance',
-    publishedAfter: dayjs().subtract(6, 'days').toDate(),
+    publishedAfter: dayjs().subtract(6, 'days').startOf('day').toDate(),
     language: locale
   })
 
