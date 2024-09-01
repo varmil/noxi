@@ -116,8 +116,7 @@ export default async function Stream({
                           day: '2-digit',
                           hour: 'numeric',
                           minute: 'numeric',
-                          hour12: false,
-                          timeZone: timezone ?? 'Asia/Tokyo'
+                          hour12: false
                         }
                       )
                     })}

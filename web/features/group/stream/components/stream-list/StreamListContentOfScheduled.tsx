@@ -30,26 +30,28 @@ export default async function StreamListContentOfScheduled({
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noScheduled')}</p>
         )}
-        {/* Loop by date */}
-        {Object.entries(groupedStreams).map(([date, events]) => {
-          return (
-            <GridCardContainer key={date}>
-              {events.map(stream => {
-                const channel = channels.find(
-                  channel => channel.basicInfo.id === stream.snippet.channelId
-                )
-                if (!channel) return null
-                return (
-                  <Stream
-                    key={stream.videoId}
-                    stream={stream}
-                    channel={channel}
-                  />
-                )
-              })}
-            </GridCardContainer>
-          )
-        })}
+        <section className="grid gap-y-10 sm:gap-y-16">
+          {/* Loop by date */}
+          {Object.entries(groupedStreams).map(([date, events]) => {
+            return (
+              <GridCardContainer key={date}>
+                {events.map(stream => {
+                  const channel = channels.find(
+                    channel => channel.basicInfo.id === stream.snippet.channelId
+                  )
+                  if (!channel) return null
+                  return (
+                    <Stream
+                      key={stream.videoId}
+                      stream={stream}
+                      channel={channel}
+                    />
+                  )
+                })}
+              </GridCardContainer>
+            )
+          })}
+        </section>
       </StreamListContentContainer>
     </CardContent>
   )
