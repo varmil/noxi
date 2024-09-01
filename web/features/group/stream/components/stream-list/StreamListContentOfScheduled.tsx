@@ -57,7 +57,7 @@ export default async function StreamListContentOfScheduled({
 
 /**
  * compact表示の場合、すべてのStreamsをlikeCountの降順でソートして
- * 最初のいくつかのみ表示
+ * 最初のいくつかのみ表示。dateKeyは使わないので適当
  */
 async function getCompactGroupedStreams({
   streams
@@ -104,7 +104,6 @@ async function getGroupedStreams({
     groupedStreams[dateKey].push(stream)
   })
 
-  // sort by statistics.likeCount
   for (const dateKey in groupedStreams) {
     groupedStreams[dateKey].sort((a, b) => {
       if (a.likeCount > b.likeCount) return -1
