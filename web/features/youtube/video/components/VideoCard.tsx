@@ -1,6 +1,7 @@
 import { useFormatter, useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'api/youtube/schema/videoSchema'
+import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
 import { humanizeDuration } from 'lib/dayjs'
 
@@ -55,7 +56,7 @@ export default function VideoCard(video: VideoSchema) {
                 count: format.number(viewCount, { notation: 'compact' })
               })}
             </span>
-            <span className="mx-0.5">•</span>
+            <Bullet />
             <span>{format.relativeTime(new Date(publishedAt))}</span>
           </div>
         </div>

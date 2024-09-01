@@ -20,6 +20,7 @@ export default async function StreamListContentOfLive({
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
+  const displayedStreams = compact ? streams.slice(0, 3) : streams
 
   return (
     <CardContent>
@@ -29,7 +30,7 @@ export default async function StreamListContentOfLive({
         )}
 
         <GridCardContainer>
-          {streams.map(stream => {
+          {displayedStreams.map(stream => {
             const channel = channels.find(
               channel => channel.basicInfo.id === stream.snippet.channelId
             )

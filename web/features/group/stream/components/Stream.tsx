@@ -1,8 +1,10 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { headers } from 'next/headers'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
+import Bullet from 'components/styles/Bullet'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import dayjs from 'lib/dayjs'
 
@@ -57,6 +59,8 @@ export default async function Stream({
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const t = useTranslations('Features.stream')
+  const timezone = headers().get('x-vercel-ip-timezone')
+  const format = useFormatter()
 
   return (
     <Container>
@@ -95,9 +99,21 @@ export default async function Stream({
                 </div>
               )}
               {isScheduled && (
-                <div>
-                  {likeCount.toLocaleString()} {t('likes')}
-                </div>
+                <>
+                  <span>
+                    {likeCount.toLocaleString()} {t('likes')}
+                    <Bullet />
+                    {format.dateTime(new Date(streamTimes.scheduledStartTime), {
+                      month: '2-digit',
+                      day: '2-digit',
+                      hour: 'numeric',
+                      minute: 'numeric',
+                      hour12: false,
+                      timeZone: timezone ?? 'Asia/Tokyo'
+                    })}{' '}
+                    に公開予定
+                  </span>
+                </>
               )}
             </div>
           </div>

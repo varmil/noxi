@@ -77,7 +77,7 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         </section>
 
         {/*  medium - long  */}
-        <GridCardContainer>
+        <GridCardContainer className="grid-cols-2">
           {notShorts.map(video => {
             const { id } = video
             return <VideoCard key={id} {...video} />
