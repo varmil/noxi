@@ -134,7 +134,9 @@
       "noLive": "現在配信中のライブはありません。",
       "noScheduled": "配信予定のライブはありません。",
       "likes": "高評価",
-      "watching": "人が視聴中"
+      "watching": "人が視聴中",
+      "scheduledFor": "{datetime} に公開予定",
+      "scheduledLabel ": "配信予定"
     }
   }
 }

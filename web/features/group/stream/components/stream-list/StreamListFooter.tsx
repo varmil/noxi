@@ -8,7 +8,7 @@ export default function StreamListFooter({
   href
 }: PropsWithoutRef<{ href: string }>) {
   return (
-    <CardFooter className="p-4 sm:p-6 pt-0">
+    <CardFooter className="p-4 sm:p-6 pt-0 sm:pt-0">
       <Button asChild variant="outline" className="w-full">
         <Link href={href} prefetch={true}>
           <List className="mr-2 h-4 w-4" /> Go to full list

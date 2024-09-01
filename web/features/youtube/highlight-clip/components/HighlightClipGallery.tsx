@@ -21,12 +21,12 @@ type Props = { channelId?: string }
 const qMap: Record<GroupString, Record<'ja' | 'en', string>> = {
   hololive: { ja: 'ホロライブ 切り抜き', en: 'hololive clips' },
   'hololive-english': {
-    ja: 'ホロライブ english 切り抜き',
-    en: 'hololive english clips'
+    ja: 'hololive-english clips',
+    en: 'hololive-english clips'
   },
   'hololive-indonesia': {
-    ja: 'ホロライブ indonesia 切り抜き',
-    en: 'hololive indonesia clips'
+    ja: 'hololive-indonesia clips',
+    en: 'hololive-indonesia clips'
   }
 }
 
@@ -38,7 +38,7 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
       q: qMap[groupStr][locale],
       limit: 50,
       order: 'relevance',
-      publishedAfter: dayjs().subtract(6, 'days').startOf('day').toDate(),
+      publishedAfter: dayjs().subtract(7, 'days').startOf('day').toDate(),
       language: locale
     })
   ).sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)

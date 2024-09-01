@@ -41,7 +41,7 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "Today's Now on Air & Streaming Schedule",
+          "title": "Today's Live & Streaming Schedule",
           "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
         },
         "card": {
@@ -50,7 +50,7 @@
             "description": "Check out {group}'s live now on air for today!"
           },
           "scheduled": {
-            "title": "Today's Live schedule",
+            "title": "Live Streaming schedule",
             "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
           }
         }
@@ -134,8 +134,10 @@
     "stream": {
       "noLive": "There are no live streams at the moment.",
       "noScheduled": "There are no scheduled live streams at the moment.",
-      "likes": "likes",
-      "watching": "watching"
+      "likes": "Likes",
+      "watching": "watching",
+      "scheduledFor": "Scheduled for {datetime}",
+      "scheduledLabel ": "UPCOMING"
     }
   }
 }

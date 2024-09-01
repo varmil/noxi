@@ -5,6 +5,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import dayjs from 'lib/dayjs'
 
@@ -26,7 +27,7 @@ const SmallLiveBadge = () => (
  */
 const Container = ({ children }: PropsWithChildren) => (
   // <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">{children}</div>
-  <div className="flex flex-col gap-2 sm:gap-4">{children}</div>
+  <div className="flex flex-col gap-2">{children}</div>
 )
 
 /**
@@ -95,23 +96,29 @@ export default async function Stream({
               <div>{channel.basicInfo.title}</div>
               {isLive && (
                 <div>
-                  {maxViewerCount.toLocaleString()} {t('watching')}
+                  <IntlNumberFormat>{maxViewerCount}</IntlNumberFormat>{' '}
+                  {t('watching')}
                 </div>
               )}
               {isScheduled && (
                 <>
                   <span>
-                    {likeCount.toLocaleString()} {t('likes')}
+                    <IntlNumberFormat>{likeCount}</IntlNumberFormat>{' '}
+                    {t('likes')}
                     <Bullet />
-                    {format.dateTime(new Date(streamTimes.scheduledStartTime), {
-                      month: '2-digit',
-                      day: '2-digit',
-                      hour: 'numeric',
-                      minute: 'numeric',
-                      hour12: false,
-                      timeZone: timezone ?? 'Asia/Tokyo'
-                    })}{' '}
-                    に公開予定
+                    {t('scheduledFor', {
+                      datetime: format.dateTime(
+                        new Date(streamTimes.scheduledStartTime),
+                        {
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: 'numeric',
+                          minute: 'numeric',
+                          hour12: false,
+                          timeZone: timezone ?? 'Asia/Tokyo'
+                        }
+                      )
+                    })}
                   </span>
                 </>
               )}
