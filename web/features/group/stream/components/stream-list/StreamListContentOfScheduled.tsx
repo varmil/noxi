@@ -50,9 +50,11 @@ export default async function StreamListContentOfScheduled({
                   if (!channel) return null
 
                   return (
-                    <div key={stream.videoId} className="mb-6 last:mb-0">
-                      <Stream stream={stream} channel={channel} />
-                    </div>
+                    <Stream
+                      key={stream.videoId}
+                      stream={stream}
+                      channel={channel}
+                    />
                   )
                 })}
               </GridCardContainer>
@@ -105,6 +107,17 @@ async function getGroupedStreams({
     }
     groupedStreams[dateKey][timeKey].push(stream)
   })
+
+  // sort by statistics.likeCount
+  for (const dateKey in groupedStreams) {
+    for (const timeKey in groupedStreams[dateKey]) {
+      groupedStreams[dateKey][timeKey].sort((a, b) => {
+        if (a.likeCount > b.likeCount) return -1
+        if (a.likeCount < b.likeCount) return 1
+        return 0
+      })
+    }
+  }
 
   return groupedStreams
 }

@@ -36,9 +36,7 @@ export default async function StreamListContentOfLive({
             if (!channel) return null
 
             return (
-              <div key={stream.videoId} className="mb-6 last:mb-0">
-                <Stream stream={stream} channel={channel} />
-              </div>
+              <Stream key={stream.videoId} stream={stream} channel={channel} />
             )
           })}
         </GridCardContainer>
