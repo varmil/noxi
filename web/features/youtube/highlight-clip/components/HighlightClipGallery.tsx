@@ -8,6 +8,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { searchVideos } from 'api/youtube/searchVideos'
+import GridCardContainer from 'components/styles/GridCardContainer'
 import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'
 import { HighlightClipCarousel } from 'features/youtube/highlight-clip/components/HighlightClipCarousel'
@@ -76,14 +77,12 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         </section>
 
         {/*  medium - long  */}
-        <section
-          className={`grid gap-x-2 gap-y-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3`}
-        >
+        <GridCardContainer>
           {notShorts.map(video => {
             const { id } = video
             return <VideoCard key={id} {...video} />
           })}
-        </section>
+        </GridCardContainer>
       </CardContent>
     </Card>
   )

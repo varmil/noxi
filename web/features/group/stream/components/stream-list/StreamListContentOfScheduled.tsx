@@ -5,6 +5,7 @@ import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
 import DynamicClockIcon from 'components/icons/DynamicClockIcon'
+import GridCardContainer from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
 import StreamListContentContainer from 'features/group/stream/components/stream-list/StreamListContentContainer'
 
@@ -38,21 +39,23 @@ export default async function StreamListContentOfScheduled({
               <div className="sticky -top-px bg-background py-0 z-20 flex items-center gap-4 pb-3">
                 <DynamicClockIcon hour={parseInt(time)} />
                 <div className={`text-xl sm:text-2xl font-bold`}>{time}</div>
-                {/* <Separator className="flex-grow w-fit" /> */}
                 <div className="ml-auto text-muted-foreground">{date}</div>
               </div>
-              {events.map(stream => {
-                const channel = channels.find(
-                  channel => channel.basicInfo.id === stream.snippet.channelId
-                )
-                if (!channel) return null
 
-                return (
-                  <div key={stream.videoId} className="mb-6 last:mb-0">
-                    <Stream stream={stream} channel={channel} />
-                  </div>
-                )
-              })}
+              <GridCardContainer>
+                {events.map(stream => {
+                  const channel = channels.find(
+                    channel => channel.basicInfo.id === stream.snippet.channelId
+                  )
+                  if (!channel) return null
+
+                  return (
+                    <div key={stream.videoId} className="mb-6 last:mb-0">
+                      <Stream stream={stream} channel={channel} />
+                    </div>
+                  )
+                })}
+              </GridCardContainer>
             </div>
           ))
         )}

@@ -1,4 +1,4 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
@@ -19,14 +19,29 @@ const SmallLiveBadge = () => (
   </div>
 )
 
+/**
+ * @note 関連動画を見せるUIとしてコメントアウト部分は使えそう
+ */
+const Container = ({ children }: PropsWithChildren) => (
+  // <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">{children}</div>
+  <div className="flex flex-col gap-2 sm:gap-4">{children}</div>
+)
+
+/**
+ * @note 関連動画を見せるUIとしてコメントアウト部分は使えそう
+ */
+const ImgContainer = ({ children }: PropsWithChildren) => (
+  // <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
+  <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+    {children}
+  </div>
+)
+
 type Props = {
   stream: StreamSchema
   channel: ChannelSchema
 }
 
-/**
- * @deprecated 配信をnoxi内で表示できるようになった際に、関連動画を見せるUIとして使えそう。今は非推奨
- */
 export default async function Stream({
   stream,
   channel
@@ -44,8 +59,8 @@ export default async function Stream({
   const t = useTranslations('Features.stream')
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-      <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
+    <Container>
+      <ImgContainer>
         <a href={`https://youtube.com/watch?v=${videoId}`} target="_blank">
           <img
             src={thumbnails['high']?.url}
@@ -61,7 +76,7 @@ export default async function Stream({
             />
           )}
         </a>
-      </div>
+      </ImgContainer>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
         <div className="items-center text-center">
           <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
@@ -88,6 +103,6 @@ export default async function Stream({
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

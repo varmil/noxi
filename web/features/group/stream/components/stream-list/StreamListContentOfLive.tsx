@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'api/youtube/getChannels'
 import { StreamsSchema } from 'api/youtube/schema/streamSchema'
+import GridCardContainer from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
 import StreamListContentContainer from 'features/group/stream/components/stream-list/StreamListContentContainer'
 
@@ -26,18 +27,21 @@ export default async function StreamListContentOfLive({
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noLive')}</p>
         )}
-        {streams.map(stream => {
-          const channel = channels.find(
-            channel => channel.basicInfo.id === stream.snippet.channelId
-          )
-          if (!channel) return null
 
-          return (
-            <div key={stream.videoId} className="mb-6 last:mb-0">
-              <Stream stream={stream} channel={channel} />
-            </div>
-          )
-        })}
+        <GridCardContainer>
+          {streams.map(stream => {
+            const channel = channels.find(
+              channel => channel.basicInfo.id === stream.snippet.channelId
+            )
+            if (!channel) return null
+
+            return (
+              <div key={stream.videoId} className="mb-6 last:mb-0">
+                <Stream stream={stream} channel={channel} />
+              </div>
+            )
+          })}
+        </GridCardContainer>
       </StreamListContentContainer>
     </CardContent>
   )
