@@ -24,6 +24,9 @@ type Props = {
   channel: ChannelSchema
 }
 
+/**
+ * @deprecated 配信をnoxi内で表示できるようになった際に、関連動画を見せるUIとして使えそう。今は非推奨
+ */
 export default async function Stream({
   stream,
   channel

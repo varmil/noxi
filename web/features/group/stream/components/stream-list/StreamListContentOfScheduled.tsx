@@ -21,33 +21,9 @@ export default async function StreamListContentOfScheduled({
   const channels = await getChannels({
     ids: streams.map(stream => stream.snippet.channelId)
   })
-  const format = await getFormatter()
-  const timezone = headers().get('x-vercel-ip-timezone')
-  const groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
-
-  streams.forEach(stream => {
-    // 相対時間 (例: "19時間前")
-    const dateKey = format.relativeTime(
-      new Date(stream.streamTimes.scheduledStartTime)
-    )
-
-    // 時刻 (例: "10:00 PM")
-    const timeKey = format.dateTime(
-      new Date(stream.streamTimes.scheduledStartTime),
-      {
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: timezone ?? 'Asia/Tokyo'
-      }
-    )
-
-    if (!groupedStreams[dateKey]) {
-      groupedStreams[dateKey] = {}
-    }
-    if (!groupedStreams[dateKey][timeKey]) {
-      groupedStreams[dateKey][timeKey] = []
-    }
-    groupedStreams[dateKey][timeKey].push(stream)
+  const groupedStreams = await getGroupedStreams({
+    streams,
+    compact
   })
 
   return (
@@ -83,4 +59,49 @@ export default async function StreamListContentOfScheduled({
       </StreamListContentContainer>
     </CardContent>
   )
+}
+
+/**
+ * compact表示の場合、最初のいくつかの時間帯のみ表示
+ * streamsは下記でソート済
+ * orderBy: [{ field: 'scheduledStartTime', order: 'asc' }]
+ */
+async function getGroupedStreams({
+  streams,
+  compact
+}: {
+  streams: StreamsSchema
+  compact?: boolean
+}) {
+  const format = await getFormatter()
+  const timezone = headers().get('x-vercel-ip-timezone')
+  let groupedStreams: Record<string, Record<string, StreamsSchema>> = {}
+
+  const displayedStreams = compact ? streams.slice(0, 4) : streams
+  displayedStreams.forEach(stream => {
+    // 相対時間 (例: "19時間前")
+    const dateKey = format.relativeTime(
+      new Date(stream.streamTimes.scheduledStartTime)
+    )
+
+    // 時刻 (例: "10:00 PM")
+    const timeKey = format.dateTime(
+      new Date(stream.streamTimes.scheduledStartTime),
+      {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: timezone ?? 'Asia/Tokyo'
+      }
+    )
+
+    if (!groupedStreams[dateKey]) {
+      groupedStreams[dateKey] = {}
+    }
+    if (!groupedStreams[dateKey][timeKey]) {
+      groupedStreams[dateKey][timeKey] = []
+    }
+    groupedStreams[dateKey][timeKey].push(stream)
+  })
+
+  return groupedStreams
 }

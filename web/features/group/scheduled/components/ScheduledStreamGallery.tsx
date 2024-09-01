@@ -21,7 +21,6 @@ export default async function ScheduledStreamGallery({
   const streams = await getStreams({
     status: 'scheduled',
     group: getGroup(),
-    scheduledAfter: new Date(),
     // +48 hours from now
     scheduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
     orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],

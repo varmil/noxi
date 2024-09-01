@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { ScrollArea } from '@/components/ui/scroll-area'
 
 const StreamListContentContainer = ({
   children,
@@ -8,12 +7,13 @@ const StreamListContentContainer = ({
   children: React.ReactNode
   compact?: boolean
 }>) => {
-  if (compact)
-    return (
-      <ScrollArea className="h-[600px] sm:h-[750px] pr-4">
-        {children}
-      </ScrollArea>
-    )
+  // 2024/09/01: 不要なのでコメントアウト。そのうち消してもいいかも
+  // if (compact)
+  //   return (
+  //     <ScrollArea className="h-[600px] sm:h-[750px] pr-4">
+  //       {children}
+  //     </ScrollArea>
+  //   )
 
   return <section>{children}</section>
 }
