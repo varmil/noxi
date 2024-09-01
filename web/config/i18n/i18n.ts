@@ -1,3 +1,4 @@
+import { headers } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getRequestConfig } from 'next-intl/server'
 import { locales } from 'config/i18n/locale'
@@ -7,6 +8,18 @@ export default getRequestConfig(async ({ locale }) => {
   if (!locales.includes(locale as any)) notFound()
 
   return {
-    messages: (await import(`./messages/${locale}.json`)).default
+    messages: (await import(`./messages/${locale}.json`)).default,
+    /** set server timezone which is used in formatting */
+    timeZone: getTimezone()
   }
 })
+
+function getTimezone() {
+  // In Local, use 'Asia/Tokyo'
+  if (process.env.NODE_ENV === 'development') {
+    console.log('next-intl: server timezone:Asia/Tokyo')
+    return 'Asia/Tokyo'
+  }
+
+  return headers().get('x-vercel-ip-timezone') ?? undefined
+}

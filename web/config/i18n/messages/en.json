@@ -41,8 +41,8 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "Today's Now on Air & Streaming Schedule",
-          "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
+          "title": "Today's Live & Streaming Schedule",
+          "description": "Check out {group}'s live now on air for today! We will introduce you to {group} Streaming Schedule! We'll also introduce the YouTube channels of the {group} talents."
         },
         "card": {
           "live": {
@@ -50,7 +50,7 @@
             "description": "Check out {group}'s live now on air for today!"
           },
           "scheduled": {
-            "title": "Today's Live schedule",
+            "title": "Live Streaming schedule",
             "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
           }
         }
@@ -67,14 +67,14 @@
       },
       "live": {
         "metadata": {
-          "title": "{group} today's live now on air",
+          "title": "{group}'s Live now on air",
           "description": "Here is a list of {group} YouTube Live currently being streamed."
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "{group} today's streaming schedule",
-          "description": "Here is a list of {group} YouTube Live streams scheduled for today."
+          "title": "{group}'s Streaming Schedule",
+          "description": "Here is a list of {group} YouTube Live Streams scheduled for today - tommorrow."
         }
       }
     },
@@ -134,8 +134,10 @@
     "stream": {
       "noLive": "There are no live streams at the moment.",
       "noScheduled": "There are no scheduled live streams at the moment.",
-      "likes": "likes",
-      "watching": "watching"
+      "likes": "Likes",
+      "watching": "watching",
+      "scheduledFor": "Scheduled for {datetime}",
+      "scheduledLabel": "UPCOMING"
     }
   }
 }

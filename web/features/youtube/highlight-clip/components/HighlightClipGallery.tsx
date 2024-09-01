@@ -8,6 +8,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { searchVideos } from 'api/youtube/searchVideos'
+import GridCardContainer from 'components/styles/GridCardContainer'
 import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'
 import { HighlightClipCarousel } from 'features/youtube/highlight-clip/components/HighlightClipCarousel'
@@ -20,12 +21,12 @@ type Props = { channelId?: string }
 const qMap: Record<GroupString, Record<'ja' | 'en', string>> = {
   hololive: { ja: 'ホロライブ 切り抜き', en: 'hololive clips' },
   'hololive-english': {
-    ja: 'ホロライブ english 切り抜き',
-    en: 'hololive english clips'
+    ja: 'hololive-english clips',
+    en: 'hololive-english clips'
   },
   'hololive-indonesia': {
-    ja: 'ホロライブ indonesia 切り抜き',
-    en: 'hololive indonesia clips'
+    ja: 'hololive-indonesia clips',
+    en: 'hololive-indonesia clips'
   }
 }
 
@@ -37,7 +38,7 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
       q: qMap[groupStr][locale],
       limit: 50,
       order: 'relevance',
-      publishedAfter: dayjs().subtract(6, 'days').startOf('day').toDate(),
+      publishedAfter: dayjs().subtract(7, 'days').startOf('day').toDate(),
       language: locale
     })
   ).sort((a, b) => b.statistics.viewCount - a.statistics.viewCount)
@@ -76,14 +77,12 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         </section>
 
         {/*  medium - long  */}
-        <section
-          className={`grid gap-x-2 gap-y-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-3`}
-        >
+        <GridCardContainer className="grid-cols-2">
           {notShorts.map(video => {
             const { id } = video
             return <VideoCard key={id} {...video} />
           })}
-        </section>
+        </GridCardContainer>
       </CardContent>
     </Card>
   )

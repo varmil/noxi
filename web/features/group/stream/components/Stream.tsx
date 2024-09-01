@@ -1,9 +1,12 @@
-import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { PropsWithChildren, PropsWithoutRef } from 'react'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { StreamSchema } from 'api/youtube/schema/streamSchema'
+import Bullet from 'components/styles/Bullet'
+import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
+import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import dayjs from 'lib/dayjs'
 
 const LiveBadge = () => (
@@ -16,6 +19,24 @@ const LiveBadge = () => (
 const SmallLiveBadge = () => (
   <div className="relative text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
     LIVE
+  </div>
+)
+
+/**
+ * @note 関連動画を見せるUIとしてコメントアウト部分は使えそう
+ */
+const Container = ({ children }: PropsWithChildren) => (
+  // <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">{children}</div>
+  <div className="flex flex-col gap-2">{children}</div>
+)
+
+/**
+ * @note 関連動画を見せるUIとしてコメントアウト部分は使えそう
+ */
+const ImgContainer = ({ children }: PropsWithChildren) => (
+  // <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
+  <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+    {children}
   </div>
 )
 
@@ -39,10 +60,11 @@ export default async function Stream({
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const t = useTranslations('Features.stream')
+  const format = useFormatter()
 
   return (
-    <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-      <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
+    <Container>
+      <ImgContainer>
         <a href={`https://youtube.com/watch?v=${videoId}`} target="_blank">
           <img
             src={thumbnails['high']?.url}
@@ -50,6 +72,7 @@ export default async function Stream({
             className="object-cover w-full h-full"
           />
           {isLive && <LiveBadge />}
+          {isScheduled && <UpcomingBadge />}
           {isLive && (
             <DurationBadge
               duration={dayjs
@@ -58,7 +81,7 @@ export default async function Stream({
             />
           )}
         </a>
-      </div>
+      </ImgContainer>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
         <div className="items-center text-center">
           <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
@@ -73,18 +96,35 @@ export default async function Stream({
               <div>{channel.basicInfo.title}</div>
               {isLive && (
                 <div>
-                  {maxViewerCount.toLocaleString()} {t('watching')}
+                  <IntlNumberFormat>{maxViewerCount}</IntlNumberFormat>{' '}
+                  {t('watching')}
                 </div>
               )}
               {isScheduled && (
-                <div>
-                  {likeCount.toLocaleString()} {t('likes')}
-                </div>
+                <>
+                  <span>
+                    <IntlNumberFormat>{likeCount}</IntlNumberFormat>{' '}
+                    {t('likes')}
+                    <Bullet />
+                    {t('scheduledFor', {
+                      datetime: format.dateTime(
+                        new Date(streamTimes.scheduledStartTime),
+                        {
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: 'numeric',
+                          minute: 'numeric',
+                          hour12: false
+                        }
+                      )
+                    })}
+                  </span>
+                </>
               )}
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Container>
   )
 }

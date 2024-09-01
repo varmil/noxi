@@ -15,14 +15,14 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   return (
     <>
       <div className="grid grid-cols-4 gap-2 sm:gap-2">
-        <section className="col-span-full sm:col-span-2">
+        <section className="col-span-full">
           <LiveStreamGallery
             title={t('live.title')}
             description={t('live.description', { group })}
             compact
           />
         </section>
-        <section className="col-span-full sm:col-span-2">
+        <section className="col-span-full">
           <ScheduledStreamGallery
             title={t('scheduled.title', { group })}
             description={t('scheduled.description', { group })}
