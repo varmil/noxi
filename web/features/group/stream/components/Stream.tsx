@@ -7,6 +7,7 @@ import { StreamSchema } from 'api/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
+import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import dayjs from 'lib/dayjs'
 
 const LiveBadge = () => (
@@ -73,6 +74,7 @@ export default async function Stream({
             className="object-cover w-full h-full"
           />
           {isLive && <LiveBadge />}
+          {isScheduled && <UpcomingBadge />}
           {isLive && (
             <DurationBadge
               duration={dayjs
