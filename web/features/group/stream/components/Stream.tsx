@@ -1,5 +1,4 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { headers } from 'next/headers'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'api/youtube/schema/channelSchema'
@@ -61,7 +60,6 @@ export default async function Stream({
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const t = useTranslations('Features.stream')
-  const timezone = headers().get('x-vercel-ip-timezone')
   const format = useFormatter()
 
   return (
