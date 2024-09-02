@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { SearchIcon, SettingsIcon } from 'lucide-react'
+import { SettingsIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -17,7 +17,7 @@ import TikTokIcon from 'components/icons/TikTokIcon'
 import TwitchIcon from 'components/icons/TwitchIcon'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
-import Logo from './Logo'
+import Logo from '../Logo'
 
 const IconWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div className="flex justify-center items-center h-8 w-8">{children}</div>
