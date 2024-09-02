@@ -1,6 +1,6 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import Header from './Header'
+import Header from './header/Header'
 
 type Props = {
   breadcrumb?: ComponentProps<typeof GlobalBreadcrumb>['items']

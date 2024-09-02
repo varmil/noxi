@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { CookieAgreeBanner } from 'app/[locale]/(end-user)/_components/CookieAgreeBanner'
-import Aside from 'components/Aside'
+import Aside from 'components/aside/Aside'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 

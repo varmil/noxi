@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react'
-import { SearchIcon, SettingsIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,13 +10,11 @@ import {
   SheetTitle
 } from '@/components/ui/sheet'
 import { ModeToggle } from 'components/ModeToggle'
-import InstagramIcon from 'components/icons/InstagramIcon'
+import HeaderLink from 'components/header/HeaderLink'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
-import TikTokIcon from 'components/icons/TikTokIcon'
-import TwitchIcon from 'components/icons/TwitchIcon'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
-import Logo from './Logo'
+import Logo from '../Logo'
 
 const IconWrapper = ({ children }: PropsWithChildren<{}>) => (
   <div className="flex justify-center items-center h-8 w-8">{children}</div>
@@ -40,78 +37,102 @@ export default function Header() {
             <SheetTitle hidden>PeakX</SheetTitle>
             <SheetDescription hidden></SheetDescription>
           </SheetHeader>
-          <nav className="grid gap-6 text-lg font-medium">
-            <Link
-              href="/"
-              className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary text-lg font-semibold text-primary-foreground md:text-base"
-            >
-              <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
-              <span className="sr-only">PeakX</span>
-            </Link>
-            <Link
-              href="/"
-              className="flex items-center gap-4 px-2.5 text-foreground"
-            >
-              <Image
-                src={'/yt_icon_rgb.png'}
-                alt={`YouTube icon`}
-                width={734 / 4}
-                height={518 / 4}
-                className="h-8 w-8 object-contain transition-all group-hover:scale-110"
-              />
-              <span className="flex-1">YouTube</span>
-            </Link>
+          <nav className="h-full flex flex-col text-lg font-medium">
+            <section className="grid gap-6">
+              <Link
+                href="/"
+                className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary text-lg font-semibold text-primary-foreground md:text-base"
+              >
+                <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
+                <span className="sr-only">PeakX</span>
+              </Link>
 
-            <Link
+              <HeaderLink
+                name={t('group.hololive')}
+                icon={
+                  <Image
+                    src={'/hololiveicon.png'}
+                    alt={t('group.hololive')}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8"
+                  />
+                }
+                href="/hololive"
+                active
+              />
+              <HeaderLink
+                name={t('group.hololive-english')}
+                icon={
+                  <Image
+                    src={'/hololive/hololive_en_square.png'}
+                    alt={t('group.hololive-english')}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8"
+                  />
+                }
+                href="/hololive-english"
+                active
+              />
+              <HeaderLink
+                name={t('group.hololive-indonesia')}
+                icon={
+                  <Image
+                    src={'/hololive/hololive_id_square.png'}
+                    alt={t('group.hololive-indonesia')}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8"
+                  />
+                }
+                href="/hololive-indonesia"
+                active
+              />
+
+              {/* <HeaderLink
+              name="YouTube"
+              icon={
+                <Image
+                  src={'/yt_icon_rgb.png'}
+                  alt={`YouTube icon`}
+                  width={734 / 4}
+                  height={518 / 4}
+                  className="h-8 w-8 object-contain transition-all group-hover:scale-110"
+                />
+              }
               href="#"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <IconWrapper>
-                <TwitchIcon className="h-6 w-6" />
-              </IconWrapper>
-              <span className="flex-1">Coming soon...</span>
-            </Link>
-            <Link
+              active
+            /> */}
+              {/* <HeaderLink
+              name="Twitch"
+              icon={<TwitchIcon className="h-6 w-6" />}
               href="#"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground"
-              prefetch={false}
-            >
-              <IconWrapper>
-                <TikTokIcon className="h-6 w-6" />
-              </IconWrapper>
-              <span className="flex-1">Coming soon...</span>
-            </Link>
-            <Link
+            />
+            <HeaderLink
+              name="TikTok"
+              icon={<TikTokIcon className="h-6 w-6" />}
               href="#"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <IconWrapper>
-                <InstagramIcon className="h-6 w-6" />
-              </IconWrapper>
-              <span className="flex-1">Coming soon...</span>
-            </Link>
-            <Link
+            />
+            <HeaderLink
+              name="Instagram"
+              icon={<InstagramIcon className="h-6 w-6" />}
               href="#"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <IconWrapper>
-                <SettingsIcon className="h-6 w-6" />
-              </IconWrapper>
-              <span className="flex-1">Settings</span>
-            </Link>
-            <Link
-              href="/youtube/terms-of-use-and-privacy-policy"
-              className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
-              prefetch={false}
-            >
-              <IconWrapper>
-                <PrivacyPolicyIcon className="h-6 w-6" />
-              </IconWrapper>
-              <span className="flex-1">Terms of Use and Privacy Policy</span>
-            </Link>
+            />
+            <HeaderLink
+              name="Settings"
+              icon={<SettingsIcon className="h-6 w-6" />}
+              href="#"
+            /> */}
+            </section>
+
+            <div className="mt-auto">
+              <HeaderLink
+                name="Terms of Use and Privacy Policy"
+                icon={<PrivacyPolicyIcon className="h-6 w-6" />}
+                href="/youtube/terms-of-use-and-privacy-policy"
+              />
+            </div>
           </nav>
         </SheetContent>
       </Sheet>
