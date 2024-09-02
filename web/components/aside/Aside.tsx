@@ -1,4 +1,3 @@
-import { SettingsIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   TooltipProvider,
@@ -9,7 +8,7 @@ import {
 import AsideIcon from 'components/aside/AsideIcon'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import { Link } from 'lib/navigation'
-import Logo from './Logo'
+import Logo from '../Logo'
 
 export default function Aside() {
   const t = useTranslations('Global')
@@ -44,7 +43,7 @@ export default function Aside() {
             roundedFull
           />
 
-          <AsideIcon name={`Youtube`} href="/" src="/yt_icon_rgb.png" />
+          {/* <AsideIcon name={`Youtube`} href="/" src="/yt_icon_rgb.png" /> */}
 
           {/* <Tooltip>
             <TooltipTrigger>
@@ -96,7 +95,7 @@ export default function Aside() {
 
       <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
-          <Tooltip>
+          {/* <Tooltip>
             <TooltipTrigger>
               <Link
                 href="#"
@@ -108,7 +107,7 @@ export default function Aside() {
               </Link>
             </TooltipTrigger>
             <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip>
             <TooltipTrigger>
               <Link
