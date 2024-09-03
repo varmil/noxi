@@ -1,6 +1,6 @@
 'use client'
 
-import React, { PropsWithoutRef } from 'react'
+import React, { useState, PropsWithoutRef } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import {
   Collapsible,
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
-  const [isOpen, setIsOpen] = React.useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>

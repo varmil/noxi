@@ -68,7 +68,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         </Section>
 
         <Section className="lg:col-span-3 lg:order-6" title="よくある質問">
-          <FAQGallery />
+          <FAQGallery channelId={basicInfo.id} />
         </Section>
       </div>
     </section>
