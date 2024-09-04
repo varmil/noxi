@@ -17,7 +17,6 @@ export default getRequestConfig(async ({ locale }) => {
 function getTimezone() {
   // In Local, use 'Asia/Tokyo'
   if (process.env.NODE_ENV === 'development') {
-    console.log('next-intl: server timezone:Asia/Tokyo')
     return 'Asia/Tokyo'
   }
 

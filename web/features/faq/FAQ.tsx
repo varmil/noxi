@@ -7,11 +7,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger
 } from '@/components/ui/collapsible'
+import type { FAQ } from 'features/faq/types/FAQs'
 
-type Props = {
-  question: string
-  answer: string
-}
+type Props = FAQ
 
 export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
   const [isOpen, setIsOpen] = useState(false)
@@ -24,8 +22,8 @@ export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
           itemProp="mainEntity"
           itemType="https://schema.org/Question"
         >
-          <CollapsibleTrigger className="flex justify-between items-center w-full p-4 bg-muted hover:bg-primary-foreground rounded-md">
-            <h3 itemProp="name" className="text-lg font-semibold text-left">
+          <CollapsibleTrigger className="flex justify-between items-center w-full p-4 bg-muted hover:bg-primary/70 rounded-md">
+            <h3 itemProp="name" className="font-semibold">
               {question}
             </h3>
             {isOpen ? (

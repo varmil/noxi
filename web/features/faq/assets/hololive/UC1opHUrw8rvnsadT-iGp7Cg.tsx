@@ -1,8 +1,9 @@
 import H3 from 'components/typography/H3'
 import Ol from 'components/typography/Ol'
 import Ul from 'components/typography/Ul'
+import type { FAQs } from 'features/faq/types/FAQs'
 
-export const faqs = [
+export const faqs: FAQs = [
   {
     question: '湊あくあの前世は？詳細解説',
     answer: (
