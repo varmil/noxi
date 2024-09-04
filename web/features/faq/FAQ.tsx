@@ -24,7 +24,7 @@ export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
           itemProp="mainEntity"
           itemType="https://schema.org/Question"
         >
-          <CollapsibleTrigger className="flex justify-between items-center w-full p-4 bg-muted hover:bg-primary-foreground rounded-t-lg">
+          <CollapsibleTrigger className="flex justify-between items-center w-full p-4 bg-muted hover:bg-primary-foreground rounded-md">
             <h3 itemProp="name" className="text-lg font-semibold text-left">
               {question}
             </h3>
@@ -34,13 +34,13 @@ export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
               <ChevronDown className="h-5 w-5" />
             )}
           </CollapsibleTrigger>
-          <CollapsibleContent className="p-4 bg-white border border-t-0 border-gray-200 rounded-b-lg">
+          <CollapsibleContent className="p-4">
             <div
               itemScope
               itemProp="acceptedAnswer"
               itemType="https://schema.org/Answer"
             >
-              <p itemProp="text">{answer}</p>
+              <div itemProp="text">{answer}</div>
             </div>
           </CollapsibleContent>
         </div>
