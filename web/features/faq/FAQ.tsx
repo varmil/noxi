@@ -24,7 +24,7 @@ export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
           itemProp="mainEntity"
           itemType="https://schema.org/Question"
         >
-          <CollapsibleTrigger className="flex justify-between items-center w-full p-4 bg-gray-100 hover:bg-gray-200 rounded-t-lg">
+          <CollapsibleTrigger className="flex justify-between items-center w-full p-4 bg-muted hover:bg-primary-foreground rounded-t-lg">
             <h3 itemProp="name" className="text-lg font-semibold text-left">
               {question}
             </h3>

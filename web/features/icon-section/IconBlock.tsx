@@ -21,7 +21,7 @@ export default function IconBlock({
   return (
     <div className="grid grid-cols-subgrid">
       <Link
-        className="group flex flex-col justify-center hover:bg-primary-foreground/90 rounded-lg p-4 md:p-7"
+        className="group flex flex-col justify-center hover:bg-primary-foreground rounded-lg p-4 md:p-7"
         href={href}
         prefetch={true}
       >

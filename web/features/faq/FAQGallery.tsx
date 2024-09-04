@@ -17,7 +17,6 @@ export default async function FAQGallery({
 }: PropsWithoutRef<Props>) {
   try {
     const { faqs } = await import(`./assets/hololive/${channelId}`)
-    console.log('faqs', channelId, faqs)
 
     return (
       <Card>
