@@ -1,7 +1,9 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getChannel } from 'api/youtube/getChannel'
 import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
+import { ChannelSchema } from 'api/youtube/schema/channelSchema'
 import { ChannelProfileHeader } from 'components/youtube/channel/ChannelProfileHeader'
+import FAQGallery from 'features/faq/FAQGallery'
 import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
@@ -10,10 +12,9 @@ import StatsJoinedCard from 'features/youtube-stats/components/simple-card/Stats
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
+import type { FAQs } from 'features/faq/types/FAQs'
 
-type Props = {
-  id: string
-}
+type Props = { id: string }
 
 export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
   const { basicInfo, statistics } = await getChannel(id)
@@ -26,10 +27,15 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         name={basicInfo.title}
         description={basicInfo.description}
       />
-      <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-3">
+      <div
+        className={`grid gap-x-1 gap-y-7 grid-cols-1 \
+        lg:gap-x-2 lg:gap-y-8 lg:grid-cols-3`}
+      >
+        <FAQSection basicInfo={basicInfo} />
+
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
-          className="pb-6 lg:col-span-1 lg:order-2"
+          className="lg:col-span-1 lg:order-2"
           title="Data"
         >
           <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
@@ -40,12 +46,12 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           />
         </Section>
 
-        <Section className="pb-6 lg:col-span-2 lg:order-1" title="Trends">
+        <Section className="lg:col-span-2 lg:order-1" title="Trends">
           <ViewsBarChart videos={videos} />
         </Section>
 
         <Section
-          className="pb-6 lg:col-span-3 lg:order-3"
+          className="lg:col-span-3 lg:order-3"
           title="Days of the week analysis"
         >
           <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
@@ -54,7 +60,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           </div>
         </Section>
 
-        <Section className="pb-6 lg:col-span-3 lg:order-5" title="Videos">
+        <Section className="lg:col-span-3 lg:order-last" title="Videos">
           <Suspense fallback={<p>Loading cards...</p>}>
             <VideoInChannelGallery
               gridClassName={
@@ -80,11 +86,33 @@ function Section({
   title: string
 }>) {
   return (
-    <section className={className}>
+    <section className={`${className}`}>
       <h2 className="text-xl font-bold lg:text-2xl pb-4">{title}</h2>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}
       </div>
     </section>
   )
+}
+
+async function FAQSection({
+  basicInfo
+}: PropsWithoutRef<{ basicInfo: ChannelSchema['basicInfo'] }>) {
+  try {
+    const { faqs } = (await import(
+      `features/faq/assets/hololive/${basicInfo.id}`
+    )) as {
+      faqs: FAQs
+    }
+    return (
+      <Section
+        className="lg:col-span-3 lg:order-first"
+        title={`${basicInfo.title}の前世､中の人は?`}
+      >
+        <FAQGallery name={basicInfo.title} faqs={faqs} />
+      </Section>
+    )
+  } catch (error) {
+    return null
+  }
 }
