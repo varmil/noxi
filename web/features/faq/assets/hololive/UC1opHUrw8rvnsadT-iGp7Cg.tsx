@@ -56,7 +56,7 @@ export const faqs: FAQs = [
     )
   },
   {
-    question: '湊あくあのプロフィールと経歴は？',
+    question: '湊あくあの経歴は？',
     answer: (
       <>
         <p>
