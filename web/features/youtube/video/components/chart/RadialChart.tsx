@@ -33,7 +33,7 @@ export function RadialChart({
       <div className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={config}
-          className="mx-auto aspect-square w-full max-w-[250px]"
+          className="aspect-[16/11.5] mx-auto w-full min-h-[50px] max-w-[250px]"
         >
           <RadialBarChart
             data={chartData}
