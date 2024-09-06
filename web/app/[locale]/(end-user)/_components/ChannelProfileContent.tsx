@@ -15,11 +15,12 @@ export function ChannelProfileContent({
 }: PropsWithChildren<Props>) {
   const { title: name, thumbnails } = basicInfo
   const [isExpanded, setIsExpanded] = useState(false)
+  const avatarIsHidden = isExpanded ? 'hidden sm:flex' : ''
 
   return (
     <div className="py-6 px-0">
       <div className="flex items-start max-w-5xl gap-2.5 sm:gap-4">
-        <Avatar className="w-20 h-20 sm:w-28 sm:h-28 mt-4">
+        <Avatar className={`w-20 h-20 sm:w-28 sm:h-28 mt-4 ${avatarIsHidden}`}>
           <AvatarImage src={thumbnails.medium?.url} />
           <AvatarFallback>{name}</AvatarFallback>
         </Avatar>

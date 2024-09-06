@@ -8,9 +8,7 @@ type Props = {
   basicInfo: ChannelSchema['basicInfo']
 }
 
-export async function ChannelProfileHeader({
-  basicInfo
-}: PropsWithoutRef<Props>) {
+export async function ChannelProfile({ basicInfo }: PropsWithoutRef<Props>) {
   try {
     const { faqs } = (await import(
       `features/faq/assets/hololive/${basicInfo.id}`

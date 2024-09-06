@@ -1,7 +1,7 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getChannel } from 'api/youtube/getChannel'
 import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
-import { ChannelProfileHeader } from 'app/[locale]/(end-user)/_components/ChannelProfileHeader'
+import { ChannelProfile } from 'app/[locale]/(end-user)/_components/ChannelProfile'
 import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
@@ -19,7 +19,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
 
   return (
     <section className="flex flex-1 flex-col gap-4">
-      <ChannelProfileHeader basicInfo={basicInfo} />
+      <ChannelProfile basicInfo={basicInfo} />
       <div
         className={`grid gap-x-1 gap-y-7 grid-cols-1 \
         lg:gap-x-2 lg:gap-y-8 lg:grid-cols-3`}
