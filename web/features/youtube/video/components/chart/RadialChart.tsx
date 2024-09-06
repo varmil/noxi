@@ -1,5 +1,6 @@
 'use client'
 
+import { PropsWithoutRef } from 'react'
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
 import {
   ChartConfig,
@@ -8,36 +9,38 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart'
 
-export const description = 'A radial chart with stacked sections'
+type Props = {
+  config: ChartConfig
+  name: string
+  rate: number
+  maxRate: number
+}
 
-const chartData = [{ month: 'january', desktop: 1260, mobile: 570 }]
+const INNER_R = 8 * 4
+const OUTER_R = 13 * 4
 
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'hsl(var(--chart-1))'
-  },
-  mobile: {
-    label: 'Mobile',
-    color: 'hsl(var(--chart-2))'
-  }
-} satisfies ChartConfig
-
-export function RadialChart() {
-  const totalVisitors = chartData[0].desktop + chartData[0].mobile
+export function RadialChart({
+  config,
+  name,
+  rate,
+  maxRate
+}: PropsWithoutRef<Props>) {
+  const chartData = [{ name, rate }]
+  const maxRateForBG = Math.max(0, maxRate - rate)
 
   return (
     <section className="flex flex-col">
       <div className="flex flex-1 items-center pb-0">
         <ChartContainer
-          config={chartConfig}
+          config={config}
           className="mx-auto aspect-square w-full max-w-[250px]"
         >
           <RadialBarChart
             data={chartData}
-            endAngle={180}
-            innerRadius={8 * 4}
-            outerRadius={13 * 4}
+            startAngle={180}
+            endAngle={0}
+            innerRadius={INNER_R}
+            outerRadius={OUTER_R}
           >
             <ChartTooltip
               cursor={false}
@@ -54,14 +57,14 @@ export function RadialChart() {
                           y={(viewBox.cy || 0) - 8}
                           className="fill-foreground text-xs font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {!!rate ? rate.toFixed(2) : 0}%
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 5}
                           className="fill-muted-foreground text-xs"
                         >
-                          Visitors
+                          {name}
                         </tspan>
                       </text>
                     )
@@ -70,18 +73,20 @@ export function RadialChart() {
               />
             </PolarRadiusAxis>
             <RadialBar
-              dataKey="desktop"
-              stackId="a"
+              dataKey="rate"
+              fill="var(--color-main)"
+              stackId="xxx"
               cornerRadius={5}
-              fill="var(--color-desktop)"
               className="stroke-transparent stroke-2"
+              background
             />
             <RadialBar
-              dataKey="mobile"
-              fill="var(--color-mobile)"
-              stackId="a"
+              dataKey={() => maxRateForBG}
+              tooltipType="none"
+              stroke="none"
+              stackId="xxx"
               cornerRadius={5}
-              className="stroke-transparent stroke-2"
+              className="fill-muted"
             />
           </RadialBarChart>
         </ChartContainer>

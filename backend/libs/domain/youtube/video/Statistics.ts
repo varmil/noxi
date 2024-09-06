@@ -13,12 +13,22 @@ export class Statistics {
     this.commentCount = args.commentCount
   }
 
-  engagementCount() {
+  get commentRate() {
+    if (this.viewCount === 0) return 0
+    return (this.commentCount / this.viewCount) * 100
+  }
+
+  get engagementCount() {
     return this.likeCount + this.commentCount
   }
 
-  engagementRate() {
+  get engagementRate() {
     if (this.viewCount === 0) return 0
-    return (this.engagementCount() / this.viewCount) * 100
+    return (this.engagementCount / this.viewCount) * 100
+  }
+
+  get likeRate() {
+    if (this.viewCount === 0) return 0
+    return (this.likeCount / this.viewCount) * 100
   }
 }

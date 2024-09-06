@@ -1,11 +1,9 @@
 import { useFormatter, useTranslations } from 'next-intl'
-import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'api/youtube/schema/videoSchema'
-import Bullet from 'components/styles/Bullet'
-import Image from 'components/styles/Image'
-import { RadialChart } from 'features/youtube/video/components/RadialChart'
 import VideoCard from 'features/youtube/video/components/VideoCard'
-import { humanizeDuration } from 'lib/dayjs'
+import { CommentsRadialChart } from 'features/youtube/video/components/chart/CommentsRadialChart'
+import { LikesRadialChart } from 'features/youtube/video/components/chart/LikesRadialChart'
+import { RadialChart } from 'features/youtube/video/components/chart/RadialChart'
 
 export default function VideoCardWithChart(video: VideoSchema) {
   const format = useFormatter()
@@ -21,10 +19,10 @@ export default function VideoCardWithChart(video: VideoSchema) {
           <VideoCard {...video} />
         </div>
         <div className="col-span-1 row-span-1">
-          <RadialChart />
+          <LikesRadialChart rate={video.likeRate} />
         </div>
         <div className="col-span-1 row-span-1">
-          <RadialChart />
+          <CommentsRadialChart rate={video.commentRate} />
         </div>
       </section>
     </>
