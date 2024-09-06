@@ -45,9 +45,7 @@ export default function VideoCard(video: VideoSchema) {
       {/* </Link> */}
       <CardContent className="p-2 space-y-1 px-1 pt-2">
         <div>
-          <h3 className="font-normal line-clamp-2 text-sm sm:text-base/5">
-            {title}
-          </h3>
+          <h3 className="font-normal line-clamp-2 text-sm">{title}</h3>
         </div>
         <div className="flex items-center gap-2 md:gap-4 text-xs sm:text-sm text-muted-foreground">
           <div className="flex items-center">

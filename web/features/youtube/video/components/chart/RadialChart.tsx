@@ -30,10 +30,10 @@ export function RadialChart({
 
   return (
     <section className="flex flex-col">
-      <div className="flex flex-1 items-center pb-0">
+      <div className="flex items-center pb-0">
         <ChartContainer
           config={config}
-          className="aspect-[16/11.5] mx-auto w-full min-h-[50px] max-w-[250px]"
+          className="aspect-video mx-auto w-full min-h-[50px] max-w-[250px]"
         >
           <RadialBarChart
             data={chartData}
@@ -41,6 +41,7 @@ export function RadialChart({
             endAngle={0}
             innerRadius={INNER_R}
             outerRadius={OUTER_R}
+            cy={'65%'}
           >
             <ChartTooltip
               cursor={false}
@@ -54,14 +55,14 @@ export function RadialChart({
                       <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
                         <tspan
                           x={viewBox.cx}
-                          y={(viewBox.cy || 0) - 8}
+                          y={(viewBox.cy || 0) - 3}
                           className="fill-foreground text-xs font-bold"
                         >
                           {!!rate ? rate.toFixed(2) : 0}%
                         </tspan>
                         <tspan
                           x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 5}
+                          y={(viewBox.cy || 0) + 12}
                           className="fill-muted-foreground text-xs"
                         >
                           {name}

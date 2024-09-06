@@ -8,8 +8,8 @@ export default function VideoCardWithChart(video: VideoSchema) {
 
   return (
     <>
-      <section className="grid grid-cols-3 grid-rows-2 gap-0">
-        <div className="col-span-2 row-span-2">
+      <section className="grid grid-cols-3 grid-rows-3 gap-y-0.5">
+        <div className="col-span-2 row-span-3">
           <VideoCard {...video} />
         </div>
         <div className="col-span-1 row-span-1">

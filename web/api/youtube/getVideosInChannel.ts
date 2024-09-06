@@ -7,8 +7,8 @@ export async function getVideosInChannel({
   channelId: string
 }): Promise<VideosSchema> {
   const res = await fetchAPI(`/api/youtube/channels/${channelId}/videos`, {
-    // next: { revalidate: 600 }
-    cache: 'no-store'
+    next: { revalidate: 600 }
+    // cache: 'no-store'
   })
   // The return value is *not* serialized
   // You can return Date, Map, Set, etc.

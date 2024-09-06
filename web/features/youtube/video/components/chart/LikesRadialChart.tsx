@@ -8,7 +8,7 @@ type Props = {
 
 const config = {
   main: {
-    color: 'hsl(var(--chart-3))'
+    color: 'hsl(var(--chart-4))'
   }
 } satisfies ChartConfig
 
