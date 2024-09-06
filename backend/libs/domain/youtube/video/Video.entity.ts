@@ -67,13 +67,23 @@ export class Video {
   }
 
   @Expose()
+  get commentRate() {
+    return this.statistics.commentRate
+  }
+
+  @Expose()
   get engagementCount() {
-    return this.statistics.engagementCount()
+    return this.statistics.engagementCount
   }
 
   @Expose()
   get engagementRate() {
-    return this.statistics.engagementRate()
+    return this.statistics.engagementRate
+  }
+
+  @Expose()
+  get likeRate() {
+    return this.statistics.likeRate
   }
 
   /**

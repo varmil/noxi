@@ -14,7 +14,7 @@ export default function GridCardContainer({
   return (
     <div
       className={`grid gap-x-2 gap-y-6 sm:gap-x-4 sm:gap-y-8 \
-        grid-cols-1 sm:grid-cols-3 md:grid-cols-3 ${className ?? ''}`}
+         ${className ?? 'grid-cols-1 sm:grid-cols-3 md:grid-cols-3'}`}
     >
       {children}
     </div>

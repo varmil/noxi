@@ -37,8 +37,10 @@ const schema = z.object({
     .optional(),
 
   isShort: z.boolean(),
+  commentRate: z.number().min(0).max(100),
   engagementCount: z.number().min(0),
-  engagementRate: z.number().min(0),
+  engagementRate: z.number().min(0).max(100),
+  likeRate: z.number().min(0).max(100),
   isPaidPromotion: z.boolean().optional(),
 
   updatedAt: z.string().datetime().optional()
