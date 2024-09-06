@@ -2,12 +2,7 @@
 
 import { PropsWithoutRef } from 'react'
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent
-} from '@/components/ui/chart'
+import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 
 type Props = {
   config: ChartConfig
@@ -43,10 +38,10 @@ export function RadialChart({
             outerRadius={OUTER_R}
             cy={'65%'}
           >
-            <ChartTooltip
+            {/* <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
-            />
+            /> */}
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {

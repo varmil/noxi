@@ -15,7 +15,7 @@ export class Statistics {
 
   get commentRate() {
     if (this.viewCount === 0) return 0
-    return (this.commentCount / this.viewCount) * 100
+    return Math.min(100, (this.commentCount / this.viewCount) * 100)
   }
 
   get engagementCount() {
@@ -24,11 +24,11 @@ export class Statistics {
 
   get engagementRate() {
     if (this.viewCount === 0) return 0
-    return (this.engagementCount / this.viewCount) * 100
+    return Math.min(100, (this.engagementCount / this.viewCount) * 100)
   }
 
   get likeRate() {
     if (this.viewCount === 0) return 0
-    return (this.likeCount / this.viewCount) * 100
+    return Math.min(100, (this.likeCount / this.viewCount) * 100)
   }
 }

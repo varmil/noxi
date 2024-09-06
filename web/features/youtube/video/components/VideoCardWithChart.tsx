@@ -4,7 +4,7 @@ import { CommentsRadialChart } from 'features/youtube/video/components/chart/Com
 import { LikesRadialChart } from 'features/youtube/video/components/chart/LikesRadialChart'
 
 export default function VideoCardWithChart(video: VideoSchema) {
-  const { id, snippet, duration, likeRate, commentRate } = video
+  const { likeRate, commentRate } = video
 
   return (
     <>
