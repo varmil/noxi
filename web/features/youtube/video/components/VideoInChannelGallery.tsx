@@ -7,15 +7,17 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
-import VideoCard from 'features/youtube/video/components/VideoCard'
+import VideoCardWithChart from 'features/youtube/video/components/VideoCardWithChart'
 
-type Props = { channelId: string; gridClassName: string }
+type Props = { channelId: string }
 
 export async function VideoInChannelGallery({
-  channelId,
-  gridClassName
+  channelId
 }: PropsWithoutRef<Props>) {
   const videos = await getVideosInChannel({ channelId })
+  const gridClassName =
+    'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4'
+
   return (
     <Card>
       <CardHeader>
@@ -24,10 +26,10 @@ export async function VideoInChannelGallery({
           The latest {videos.length} videos are displayed.
         </CardDescription>
       </CardHeader>
-      <CardContent className={`grid gap-x-2 gap-y-4 ${gridClassName ?? ''}`}>
+      <CardContent className={`grid gap-x-2 gap-y-4 ${gridClassName}`}>
         {videos.map(video => {
           const { id } = video
-          return <VideoCard key={id} {...video} />
+          return <VideoCardWithChart key={id} {...video} />
         })}
       </CardContent>
     </Card>

@@ -53,12 +53,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
 
         <Section className="lg:col-span-3 lg:order-last" title="Videos">
           <Suspense fallback={<p>Loading cards...</p>}>
-            <VideoInChannelGallery
-              gridClassName={
-                'grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'
-              }
-              channelId={basicInfo.id}
-            />
+            <VideoInChannelGallery channelId={basicInfo.id} />
           </Suspense>
         </Section>
       </div>
