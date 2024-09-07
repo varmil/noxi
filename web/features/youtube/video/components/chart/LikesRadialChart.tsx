@@ -9,13 +9,13 @@ type Props = {
   rate: number
 }
 
-const config = {
-  main: {
-    color: 'hsl(var(--chart-4))'
-  }
-} satisfies ChartConfig
-
 export function LikesRadialChart({ rate }: PropsWithoutRef<Props>) {
+  const config = {
+    main: {
+      color: rate > 10 ? 'hsl(var(--chart-3))' : 'hsl(var(--muted))'
+    }
+  } satisfies ChartConfig
+
   return (
     <RadialChart config={config} Icon={ThumbsUp} rate={rate} maxRate={15} />
   )

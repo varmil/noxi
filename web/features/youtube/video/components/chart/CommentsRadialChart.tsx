@@ -9,13 +9,12 @@ type Props = {
   rate: number
 }
 
-const config = {
-  main: {
-    color: 'hsl(var(--chart-3))'
-  }
-} satisfies ChartConfig
-
 export function CommentsRadialChart({ rate }: PropsWithoutRef<Props>) {
+  const config = {
+    main: {
+      color: rate > 0.2 ? 'hsl(var(--chart-3))' : 'hsl(var(--muted))'
+    }
+  } satisfies ChartConfig
   return (
     <RadialChart config={config} Icon={CommentIcon} rate={rate} maxRate={0.3} />
   )
