@@ -1,4 +1,7 @@
+'use client'
+
 import { PropsWithoutRef } from 'react'
+import { ThumbsUp } from 'lucide-react'
 import { ChartConfig } from '@/components/ui/chart'
 import { RadialChart } from 'features/youtube/video/components/chart/RadialChart'
 
@@ -13,5 +16,7 @@ const config = {
 } satisfies ChartConfig
 
 export function LikesRadialChart({ rate }: PropsWithoutRef<Props>) {
-  return <RadialChart config={config} name="Likes" rate={rate} maxRate={15} />
+  return (
+    <RadialChart config={config} Icon={ThumbsUp} rate={rate} maxRate={15} />
+  )
 }

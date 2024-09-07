@@ -1,5 +1,8 @@
+'use client'
+
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
+import CommentIcon from 'components/icons/CommentIcon'
 import { RadialChart } from 'features/youtube/video/components/chart/RadialChart'
 
 type Props = {
@@ -14,6 +17,6 @@ const config = {
 
 export function CommentsRadialChart({ rate }: PropsWithoutRef<Props>) {
   return (
-    <RadialChart config={config} name="Comments" rate={rate} maxRate={0.8} />
+    <RadialChart config={config} Icon={CommentIcon} rate={rate} maxRate={0.3} />
   )
 }

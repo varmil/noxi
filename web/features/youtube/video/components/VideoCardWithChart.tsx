@@ -8,15 +8,15 @@ export default function VideoCardWithChart(video: VideoSchema) {
 
   return (
     <>
-      <section className="grid grid-cols-3 grid-rows-3 gap-y-0.5">
-        <div className="col-span-2 row-span-3">
+      <section className="grid grid-cols-7 grid-rows-3 gap-y-0.5">
+        <div className="col-span-5 row-span-3">
           <VideoCard {...video} />
         </div>
-        <div className="col-span-1 row-span-1">
-          <LikesRadialChart rate={likeRate} />
-        </div>
-        <div className="col-span-1 row-span-1">
+        <div className="col-span-2 row-span-1">
           <CommentsRadialChart rate={commentRate} />
+        </div>
+        <div className="col-span-2 row-span-1">
+          <LikesRadialChart rate={likeRate} />
         </div>
       </section>
     </>
