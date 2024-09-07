@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-import { VideosSchema } from 'api/youtube/schema/videoSchema'
+import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import * as dayOfWeek from '../../utils/dayOfWeek'
 
 const chartConfig = {

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { getChannel } from 'api/youtube/getChannel'
+import { getChannel } from 'apis/youtube/getChannel'
 import { ChannelIdTemplate } from 'app/[locale]/(end-user)/_components/ChannelIdTemplate'
 import Page from 'components/Page'
 import { GroupString } from 'config/constants/Site'

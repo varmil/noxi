@@ -23,7 +23,7 @@ import {
   ChartContainer,
   ChartTooltip
 } from '@/components/ui/chart'
-import { VideosSchema } from 'api/youtube/schema/videoSchema'
+import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
 
 const chartConfig = {

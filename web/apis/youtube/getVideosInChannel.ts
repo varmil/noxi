@@ -1,4 +1,4 @@
-import { VideosSchema, responseSchema } from 'api/youtube/schema/videoSchema'
+import { VideosSchema, responseSchema } from 'apis/youtube/schema/videoSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getVideosInChannel({

@@ -1,4 +1,4 @@
-import { GroupsSchema, responseSchema } from 'api/youtube/schema/groupSchema'
+import { GroupsSchema, responseSchema } from 'apis/youtube/schema/groupSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getGroups(): Promise<GroupsSchema> {

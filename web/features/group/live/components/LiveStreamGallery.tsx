@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { Radio } from 'lucide-react'
 import { Card } from '@/components/ui/card'
-import { getStreams } from 'api/youtube/getStreams'
+import { getStreams } from 'apis/youtube/getStreams'
 import StreamListContentOfLive from 'features/group/stream/components/stream-list/StreamListContentOfLive'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'

@@ -1,5 +1,5 @@
+import { getGroups } from 'apis/youtube/getGroups'
 import { MetadataRoute } from 'next'
-import { getGroups } from 'api/youtube/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 import dayjs from 'lib/dayjs'
 

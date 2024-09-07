@@ -1,4 +1,4 @@
-import { VideoSchema } from 'api/youtube/schema/videoSchema'
+import { VideoSchema } from 'apis/youtube/schema/videoSchema'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 import { CommentsRadialChart } from 'features/youtube/video/components/chart/CommentsRadialChart'
 import { LikesRadialChart } from 'features/youtube/video/components/chart/LikesRadialChart'

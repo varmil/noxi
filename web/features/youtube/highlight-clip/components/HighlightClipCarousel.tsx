@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel'
-import { VideosSchema } from 'api/youtube/schema/videoSchema'
+import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import ShortsCard from 'features/youtube/shorts/ShortsCard'
 
 type Props = {

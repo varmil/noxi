@@ -1,6 +1,6 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
-import { getChannel } from 'api/youtube/getChannel'
-import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
+import { getChannel } from 'apis/youtube/getChannel'
+import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import { ChannelProfile } from 'app/[locale]/(end-user)/_components/ChannelProfile'
 import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'

@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
+import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import VideoCardWithChart from 'features/youtube/video/components/VideoCardWithChart'
 
 type Props = { channelId: string }

@@ -3,7 +3,7 @@
 import { PropsWithChildren, useState } from 'react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { ChannelSchema } from 'api/youtube/schema/channelSchema'
+import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']

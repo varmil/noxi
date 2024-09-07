@@ -1,4 +1,4 @@
-import { StreamsSchema, responseSchema } from 'api/youtube/schema/streamSchema'
+import { StreamsSchema, responseSchema } from 'apis/youtube/schema/streamSchema'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
