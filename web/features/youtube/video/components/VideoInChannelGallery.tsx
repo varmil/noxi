@@ -23,7 +23,9 @@ export async function VideoInChannelGallery({
       <CardHeader>
         <CardTitle>Latest {videos.length} videos</CardTitle>
         <CardDescription>
-          The latest {videos.length} videos are displayed.
+          The latest {videos.length} videos are displayed. It shows the comment
+          rate (comments / views), like rate (likes / views), and watch time
+          (duration x views).
         </CardDescription>
       </CardHeader>
       <CardContent className={`grid gap-x-4 gap-y-4 ${gridClassName}`}>
