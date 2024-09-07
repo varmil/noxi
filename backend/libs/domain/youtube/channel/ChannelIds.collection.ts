@@ -3,8 +3,11 @@ import { Collection } from '@domain/lib/Collection'
 import { ChannelId } from '@domain/youtube'
 
 export class ChannelIds extends Collection<ChannelId> {
-  constructor(protected readonly list: ChannelId[]) {
+  protected readonly list: ChannelId[]
+
+  constructor(list: ChannelId[]) {
     super(list)
+    this.list = list
   }
 
   @Exclude()
