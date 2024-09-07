@@ -26,7 +26,7 @@ export async function VideoInChannelGallery({
           The latest {videos.length} videos are displayed.
         </CardDescription>
       </CardHeader>
-      <CardContent className={`grid gap-x-2 gap-y-4 ${gridClassName}`}>
+      <CardContent className={`grid gap-x-4 gap-y-4 ${gridClassName}`}>
         {videos.map(video => {
           const { id } = video
           return <VideoCardWithChart key={id} {...video} />
