@@ -12,7 +12,7 @@ export class GroupsController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Get('')
-  async findAll() {
+  findAll() {
     return this.groupsService.findAll()
   }
 }

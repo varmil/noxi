@@ -1,8 +1,8 @@
+import { Expose, Transform } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
 import { ChannelIdsByGroup } from '@domain/group/list'
 import { StringValueObject } from '@domain/lib/StringValueObject'
 import { ChannelId, ChannelIds } from '@domain/youtube'
-import { Expose, Transform } from 'class-transformer'
 
 export const GroupStrings = [
   'hololive',
