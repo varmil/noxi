@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { useFormatter } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 import {
   Card,
@@ -36,6 +36,7 @@ type Props = {
 export default function ViewsPerDoWBarChart({
   videos
 }: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
   const data = dayOfWeek.useAvarage(videos)
 
@@ -96,6 +97,15 @@ export default function ViewsPerDoWBarChart({
           are the most viewed
         </CardDescription>
       </CardFooter>
+      <div className="sr-only">
+        {t('srViewsPerDoWChart')}
+        {data.map(dayData =>
+          t('srViewsPerDoWChartLoop', {
+            views: dayData.views,
+            DoW: dayData.dayOfWeek
+          })
+        )}
+      </div>
     </Card>
   )
 }

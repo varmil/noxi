@@ -31,10 +31,6 @@ const chartConfig = {
     label: 'Desktop',
     color: 'hsl(var(--chart-1))'
   }
-  // mobile: {
-  //   label: 'Mobile',
-  //   color: 'hsl(var(--chart-2))'
-  // }
 } satisfies ChartConfig
 
 type Props = {
@@ -63,21 +59,23 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
     }))
     .reverse()
 
+  const dateRange = [
+    format.dateTime(new Date(data[0].date), {
+      month: 'long',
+      day: 'numeric'
+    }),
+    '-',
+    format.dateTime(new Date(data[data.length - 1].date), {
+      month: 'long',
+      day: 'numeric'
+    })
+  ]
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>{t('viewsChart')}</CardTitle>
-        <CardDescription>
-          {format.dateTime(new Date(data[0].date), {
-            month: 'long',
-            day: 'numeric'
-          })}{' '}
-          -{' '}
-          {format.dateTime(new Date(data[data.length - 1].date), {
-            month: 'long',
-            day: 'numeric'
-          })}
-        </CardDescription>
+        <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -126,12 +124,12 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      {/* <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          {averageViews(videos)} avarage views in the past {videos.length}{' '}
-          videos
-        </div>
-      </CardFooter> */}
+      <div className="sr-only">
+        {t('srViewsChart', {
+          dateRange: dateRange.join(''),
+          views: averageViews(videos)
+        })}
+      </div>
     </Card>
   )
 }

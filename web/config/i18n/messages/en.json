@@ -119,7 +119,12 @@
       "stats": {
         "annotation": "This is our service's unique indicator.",
         "chart": {
-          "viewsChart": "Views per video"
+          "viewsChart": "Views per video",
+          "srViewsChart": "The bar graph shows the number of views of uploaded videos in {dateRange}. The average number of views is {views}.",
+          "srUploadsPerDoWChart": "The bar graph shows the number of videos uploaded on each day of the week. This allows you to analyze which days of the week the channel is most active.",
+          "srUploadsPerDoWChartLoop": "{count} is the number of videos uploaded on {DoW}.",
+          "srViewsPerDoWChart": "The bar graph shows the average number of views for videos uploaded on each day of the week. This allows you to analyze which days of the week tend to get more views.",
+          "srViewsPerDoWChartLoop": "Videos uploaded to {DoW} are played an average of {views} times."
         },
         "totalViews": "Total views",
         "totalSubscribers": "Total subscribers",

@@ -1,6 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts'
 import {
   Card,
@@ -35,6 +36,7 @@ type Props = {
 export default function UploadsPerDayOfWeekBarChart({
   videos
 }: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.youtube.stats.chart')
   const data = dayOfWeek.useGroupByDay(videos)
 
   return (
@@ -90,6 +92,15 @@ export default function UploadsPerDayOfWeekBarChart({
           </span>
         </CardDescription>
       </CardFooter>
+      <div className="sr-only">
+        {t('srUploadsPerDoWChart')}
+        {data.map(dayData =>
+          t('srUploadsPerDoWChartLoop', {
+            count: dayData.count,
+            DoW: dayData.dayOfWeek
+          })
+        )}
+      </div>
     </Card>
   )
 }
