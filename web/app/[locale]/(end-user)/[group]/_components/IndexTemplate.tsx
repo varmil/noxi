@@ -31,11 +31,11 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
         </section>
 
         <section className="col-span-full">
-          <HighlightClipGallery />
+          <ChannelGallery limit={6} footer />
         </section>
 
         <section className="col-span-full">
-          <ChannelGallery limit={6} footer />
+          <HighlightClipGallery />
         </section>
       </div>
     </>

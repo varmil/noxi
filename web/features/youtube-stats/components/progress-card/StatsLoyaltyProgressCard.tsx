@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
-import { ChannelSchema } from 'api/youtube/schema/channelSchema'
+import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import AnnotationText from 'components/styles/AnnotationText'
 import StatsProgressCardContent from 'features/youtube-stats/components/progress-card/StatsProgressCardContent'
 import StatsProgressCardFooter from 'features/youtube-stats/components/progress-card/StatsProgressCardFooter'

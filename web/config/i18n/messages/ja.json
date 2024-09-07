@@ -104,7 +104,10 @@
         "joined": "{date}に開始"
       },
       "video": {
-        "views": "{count}回視聴"
+        "views": "{count}回視聴",
+        "watchTime": "総再生時間",
+        "likeRatio": "この動画の高評価数 / 再生回数（高評価率）は{rate}%です。この値は視聴者の満足度や反応を測るのに役立ちます。",
+        "commentRatio": "この動画のコメント数 / 再生回数（コメント率）は{rate}%です。この値は視聴者が動画にどれだけ積極的にコメントを残しているかの指標です。"
       },
       "highlight-clip": {
         "title": "最新の切り抜き動画まとめ",
@@ -115,7 +118,12 @@
       "stats": {
         "annotation": "弊サービス独自指標です",
         "chart": {
-          "viewsChart": "視聴回数グラフ"
+          "viewsChart": "視聴回数グラフ",
+          "srViewsChart": "{dateRange}におけるアップロード動画の再生回数を棒グラフで示しています。平均再生回数は{views}回です。",
+          "srUploadsPerDoWChart": "1週間の各曜日における動画のアップロード数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
+          "srUploadsPerDoWChartLoop": "{DoW}に{count}本の動画がアップロードされました。",
+          "srViewsPerDoWChart": "各曜日にアップロードされた動画の平均再生回数を棒グラフで示しています。これにより再生回数が増えやすい曜日を分析できます。",
+          "srViewsPerDoWChartLoop": "{DoW}にアップロードされた動画は平均{views}回再生されています。"
         },
         "totalViews": "動画,ショートの再生回数",
         "totalSubscribers": "チャンネル登録者数",

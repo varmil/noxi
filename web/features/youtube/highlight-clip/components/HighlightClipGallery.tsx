@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { searchVideos } from 'api/youtube/searchVideos'
+import { searchVideos } from 'apis/youtube/searchVideos'
 import GridCardContainer from 'components/styles/GridCardContainer'
 import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'

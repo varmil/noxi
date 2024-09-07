@@ -1,9 +1,7 @@
 import { MetadataRoute } from 'next'
 import { GroupStrings } from 'config/constants/Site'
-import { defaultLocale, locales } from 'config/i18n/locale'
+import { getEntry } from 'config/sitemap/getEntry'
 import dayjs from 'lib/dayjs'
-
-const host = `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
 
 const groupEntries = GroupStrings.flatMap(group => {
   return [
@@ -28,26 +26,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: dayjs().subtract(14, 'day').toDate()
     })
   ].concat(groupEntries)
-}
-
-function getEntry({
-  pathname,
-  lastModified
-}: {
-  pathname: string
-  lastModified: Date
-}): MetadataRoute.Sitemap[0] {
-  return {
-    url: getUrl(pathname, defaultLocale),
-    lastModified,
-    alternates: {
-      languages: Object.fromEntries(
-        locales.map(locale => [locale, getUrl(pathname, locale)])
-      )
-    }
-  }
-}
-
-function getUrl(pathname: string, locale: string) {
-  return `${host}/${locale}${pathname === '/' ? '' : pathname}`
 }

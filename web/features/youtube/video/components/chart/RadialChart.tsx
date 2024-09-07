@@ -1,12 +1,17 @@
 'use client'
 
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, SVGProps } from 'react'
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
+import type { LucideProps } from 'lucide-react'
 
 type Props = {
   config: ChartConfig
-  name: string
+  Icon:
+    | React.ForwardRefExoticComponent<
+        Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+      >
+    | React.ComponentType<SVGProps<SVGSVGElement>>
   rate: number
   maxRate: number
 }
@@ -16,11 +21,11 @@ const OUTER_R = 13 * 4
 
 export function RadialChart({
   config,
-  name,
+  Icon,
   rate,
   maxRate
 }: PropsWithoutRef<Props>) {
-  const chartData = [{ name, rate }]
+  const chartData = [{ rate }]
   const maxRateForBG = Math.max(0, maxRate - rate)
 
   return (
@@ -36,33 +41,39 @@ export function RadialChart({
             endAngle={0}
             innerRadius={INNER_R}
             outerRadius={OUTER_R}
-            cy={'65%'}
+            cy={'72%'}
           >
-            {/* <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            /> */}
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                    const { cx = 0, cy = 0 } = viewBox
                     return (
-                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) - 3}
-                          className="fill-foreground text-xs font-bold"
-                        >
-                          {!!rate ? rate.toFixed(2) : 0}%
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 12}
-                          className="fill-muted-foreground text-xs"
-                        >
-                          {name}
-                        </tspan>
-                      </text>
+                      <>
+                        <Icon
+                          className="text-muted-foreground"
+                          height={12}
+                          width={12}
+                          x={cx - 26}
+                          y={cy + 2}
+                        />
+                        <text x={cx} y={cy} textAnchor="middle">
+                          <tspan
+                            x={cx}
+                            y={cy - 3}
+                            className="fill-foreground text-xs font-bold"
+                          >
+                            {!!rate ? rate.toFixed(2) + '%' : '--'}
+                          </tspan>
+                          <tspan
+                            x={cx + 7}
+                            y={cy + 12}
+                            className="fill-muted-foreground text-xs"
+                          >
+                            / views
+                          </tspan>
+                        </text>
+                      </>
                     )
                   }
                 }}
@@ -74,7 +85,7 @@ export function RadialChart({
               stackId="xxx"
               cornerRadius={5}
               className="stroke-transparent stroke-2"
-              background
+              // background
             />
             <RadialBar
               dataKey={() => maxRateForBG}
@@ -82,7 +93,7 @@ export function RadialChart({
               stroke="none"
               stackId="xxx"
               cornerRadius={5}
-              className="fill-muted"
+              className="fill-transparent"
             />
           </RadialBarChart>
         </ChartContainer>

@@ -1,7 +1,8 @@
+import { Expose, Transform } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
 import { ChannelIdsByGroup } from '@domain/group/list'
 import { StringValueObject } from '@domain/lib/StringValueObject'
-import { ChannelIds } from '@domain/youtube'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export const GroupStrings = [
   'hololive',
@@ -21,6 +22,10 @@ export class Group extends StringValueObject<GroupString> {
     this.val = val as GroupString
   }
 
+  @Expose()
+  @Transform(({ value }: { value: { list: ChannelId[] } }) =>
+    value.list.map(e => e.get())
+  )
   get channelIds(): ChannelIds {
     return ChannelIdsByGroup[this.val]
   }

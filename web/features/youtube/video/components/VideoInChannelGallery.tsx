@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { getVideosInChannel } from 'api/youtube/getVideosInChannel'
+import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import VideoCardWithChart from 'features/youtube/video/components/VideoCardWithChart'
 
 type Props = { channelId: string }
@@ -23,10 +23,12 @@ export async function VideoInChannelGallery({
       <CardHeader>
         <CardTitle>Latest {videos.length} videos</CardTitle>
         <CardDescription>
-          The latest {videos.length} videos are displayed.
+          The latest {videos.length} videos are displayed. It shows the comment
+          rate (comments / views), like rate (likes / views), and watch time
+          (duration x views).
         </CardDescription>
       </CardHeader>
-      <CardContent className={`grid gap-x-2 gap-y-4 ${gridClassName}`}>
+      <CardContent className={`grid gap-x-4 gap-y-4 ${gridClassName}`}>
         {videos.map(video => {
           const { id } = video
           return <VideoCardWithChart key={id} {...video} />

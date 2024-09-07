@@ -1,7 +1,7 @@
 import {
   ChannelsSchema,
   responseSchema
-} from 'api/youtube/schema/channelSchema'
+} from 'apis/youtube/schema/channelSchema'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 

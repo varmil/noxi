@@ -1,12 +1,8 @@
-import { VideosSchema, responseSchema } from 'api/youtube/schema/videoSchema'
+import { GroupsSchema, responseSchema } from 'apis/youtube/schema/groupSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
-export async function getVideosInChannel({
-  channelId
-}: {
-  channelId: string
-}): Promise<VideosSchema> {
-  const res = await fetchAPI(`/api/youtube/channels/${channelId}/videos`, {
+export async function getGroups(): Promise<GroupsSchema> {
+  const res = await fetchAPI(`/api/groups`, {
     next: { revalidate: 600 }
   })
   // The return value is *not* serialized
@@ -18,5 +14,5 @@ export async function getVideosInChannel({
   }
 
   const data = responseSchema.parse(await res.json())
-  return data.items.list
+  return data.list
 }

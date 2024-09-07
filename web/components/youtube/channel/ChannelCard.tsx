@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
-import { ChannelSchema } from 'api/youtube/schema/channelSchema'
+import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { Link } from 'lib/navigation'

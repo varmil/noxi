@@ -1,4 +1,4 @@
-import { VideosSchema } from 'api/youtube/schema/videoSchema'
+import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import dayjs from 'lib/dayjs'
 
 const DAYS_ORDER = [
