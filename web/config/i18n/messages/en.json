@@ -105,7 +105,8 @@
         "joined": "Joind {date}"
       },
       "video": {
-        "views": "{count} views"
+        "views": "{count} views",
+        "watchTime": "watch time"
       },
       "highlight-clip": {
         "title": "Latest Highlight Clips",

@@ -2,6 +2,7 @@ import { VideoSchema } from 'api/youtube/schema/videoSchema'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 import { CommentsRadialChart } from 'features/youtube/video/components/chart/CommentsRadialChart'
 import { LikesRadialChart } from 'features/youtube/video/components/chart/LikesRadialChart'
+import WatchTime from 'features/youtube/video/components/watch-time/WatchTime'
 
 export default function VideoCardWithChart(video: VideoSchema) {
   const { likeRate, commentRate } = video
@@ -17,6 +18,12 @@ export default function VideoCardWithChart(video: VideoSchema) {
         </div>
         <div className="col-span-2 row-span-1">
           <LikesRadialChart rate={likeRate} />
+        </div>
+        <div className="col-span-2 row-span-1">
+          <WatchTime
+            duration={video.duration}
+            viewCount={video.statistics?.viewCount ?? 0}
+          />
         </div>
       </section>
     </>

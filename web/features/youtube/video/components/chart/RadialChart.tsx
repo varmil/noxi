@@ -85,7 +85,7 @@ export function RadialChart({
               stackId="xxx"
               cornerRadius={5}
               className="stroke-transparent stroke-2"
-              background
+              // background
             />
             <RadialBar
               dataKey={() => maxRateForBG}
@@ -93,7 +93,7 @@ export function RadialChart({
               stroke="none"
               stackId="xxx"
               cornerRadius={5}
-              className="fill-muted"
+              className="fill-transparent"
             />
           </RadialBarChart>
         </ChartContainer>

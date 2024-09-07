@@ -104,7 +104,8 @@
         "joined": "{date}に開始"
       },
       "video": {
-        "views": "{count}回視聴"
+        "views": "{count}回視聴",
+        "watchTime": "総再生時間"
       },
       "highlight-clip": {
         "title": "最新の切り抜き動画まとめ",
