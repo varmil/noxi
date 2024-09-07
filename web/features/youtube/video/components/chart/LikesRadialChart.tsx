@@ -2,6 +2,7 @@
 
 import { PropsWithoutRef } from 'react'
 import { ThumbsUp } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { ChartConfig } from '@/components/ui/chart'
 import { RadialChart } from 'features/youtube/video/components/chart/RadialChart'
 
@@ -16,7 +17,11 @@ export function LikesRadialChart({ rate }: PropsWithoutRef<Props>) {
     }
   } satisfies ChartConfig
 
+  const t = useTranslations('Features.youtube.video')
   return (
-    <RadialChart config={config} Icon={ThumbsUp} rate={rate} maxRate={15} />
+    <>
+      <RadialChart config={config} Icon={ThumbsUp} rate={rate} maxRate={15} />
+      <div className="sr-only">{t('likeRatio', { rate: rate.toFixed(2) })}</div>
+    </>
   )
 }
