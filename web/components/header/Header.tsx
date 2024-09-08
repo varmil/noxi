@@ -1,4 +1,3 @@
-import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,13 +11,10 @@ import {
 import { ModeToggle } from 'components/ModeToggle'
 import HeaderLink from 'components/header/HeaderLink'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
+import PeakxText from 'components/peakx/svg/text'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
-
-const IconWrapper = ({ children }: PropsWithChildren<{}>) => (
-  <div className="flex justify-center items-center h-8 w-8">{children}</div>
-)
 
 export default function Header() {
   const t = useTranslations('Global')
@@ -139,12 +135,13 @@ export default function Header() {
 
       <Link
         href="/"
-        className="flex items-center gap-2"
+        className="flex items-center gap-2.5 transition-all hover:scale-105"
         prefetch={false}
         scroll={false}
       >
         <Logo className="w-6 h-6" />
-        <span className="md:flex text-lg font-bold">{t('headerTitle')}</span>
+        <PeakxText className="w-[49.64px] h-[17px]" />
+        <h2 className="sr-only">{t('headerTitle')}</h2>
       </Link>
 
       {/* Search Icon */}

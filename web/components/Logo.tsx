@@ -1,18 +1,15 @@
 import react from 'react'
-import { LucideProps, MountainIcon } from 'lucide-react'
+import { LucideProps } from 'lucide-react'
+import PeakxIcon from 'components/peakx/svg/icon'
 
-export default function Logo(
-  props: react.PropsWithoutRef<
-    Omit<LucideProps, 'ref'> & react.RefAttributes<SVGSVGElement>
-  >
-) {
+export default function Logo({
+  className
+}: react.PropsWithoutRef<
+  Omit<LucideProps, 'ref'> & react.RefAttributes<SVGSVGElement>
+>) {
   return (
     <>
-      <MountainIcon
-        className={`${props.className ?? 'w-6 h-6'}`}
-        fill="#FF8C00"
-        stroke="#696969"
-      />
+      <PeakxIcon className={`${className || ''}`} />
     </>
   )
 }
