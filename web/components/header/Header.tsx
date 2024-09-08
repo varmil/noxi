@@ -19,11 +19,16 @@ import Logo from '../Logo'
 export default function Header() {
   const t = useTranslations('Global')
 
+  const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/80'
+  const sm = 'sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'
+
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+    <header
+      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/40 bg-background px-4 ${bgFilter} ${sm}`}
+    >
       <Sheet>
         <SheetTrigger asChild>
-          <Button size="icon" variant="outline" className="sm:hidden">
+          <Button size="icon" variant="ghost" className="sm:hidden">
             <PanelLeftIcon className="h-5 w-5" />
             <span className="sr-only">Toggle Menu</span>
           </Button>
