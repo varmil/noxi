@@ -61,7 +61,8 @@ export function RadialChart({
                           <tspan
                             x={cx}
                             y={cy - 3}
-                            className="fill-foreground text-xs font-bold"
+                            fill="var(--color-text)"
+                            className="text-xs font-bold"
                           >
                             {!!rate ? rate.toFixed(2) + '%' : '--'}
                           </tspan>
@@ -85,7 +86,6 @@ export function RadialChart({
               stackId="xxx"
               cornerRadius={5}
               className="stroke-transparent stroke-2"
-              // background
             />
             <RadialBar
               dataKey={() => maxRateForBG}

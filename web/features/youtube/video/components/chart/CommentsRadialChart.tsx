@@ -10,12 +10,21 @@ type Props = {
   rate: number
 }
 
+const MAX_RATE = 0.3
+
 export function CommentsRadialChart({ rate }: PropsWithoutRef<Props>) {
   const config = {
     main: {
-      color: rate > 0.2 ? 'hsl(var(--chart-3))' : 'hsl(var(--muted))'
+      color: 'hsl(var(--muted))'
+    },
+    text: {
+      color:
+        rate >= MAX_RATE
+          ? 'hsl(var(--foreground))'
+          : 'hsl(var(--muted-foreground))'
     }
   } satisfies ChartConfig
+
   const t = useTranslations('Features.youtube.video')
   return (
     <>
@@ -23,7 +32,7 @@ export function CommentsRadialChart({ rate }: PropsWithoutRef<Props>) {
         config={config}
         Icon={CommentIcon}
         rate={rate}
-        maxRate={0.3}
+        maxRate={MAX_RATE}
       />
       <div className="sr-only">
         {t('commentRatio', { rate: rate.toFixed(2) })}

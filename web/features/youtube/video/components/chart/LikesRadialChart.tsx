@@ -10,17 +10,30 @@ type Props = {
   rate: number
 }
 
+const MAX_RATE = 15
+
 export function LikesRadialChart({ rate }: PropsWithoutRef<Props>) {
   const config = {
     main: {
-      color: rate > 10 ? 'hsl(var(--chart-3))' : 'hsl(var(--muted))'
+      color: 'hsl(var(--muted))'
+    },
+    text: {
+      color:
+        rate >= MAX_RATE
+          ? 'hsl(var(--foreground))'
+          : 'hsl(var(--muted-foreground))'
     }
   } satisfies ChartConfig
 
   const t = useTranslations('Features.youtube.video')
   return (
     <>
-      <RadialChart config={config} Icon={ThumbsUp} rate={rate} maxRate={15} />
+      <RadialChart
+        config={config}
+        Icon={ThumbsUp}
+        rate={rate}
+        maxRate={MAX_RATE}
+      />
       <div className="sr-only">{t('likeRatio', { rate: rate.toFixed(2) })}</div>
     </>
   )
