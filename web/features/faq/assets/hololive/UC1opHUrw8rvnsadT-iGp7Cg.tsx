@@ -1,3 +1,4 @@
+import ZoomableImage from 'components/image/ZoomableImage'
 import H3 from 'components/typography/H3'
 import Ol from 'components/typography/Ol'
 import Ul from 'components/typography/Ul'
@@ -19,13 +20,46 @@ export const faqs: FAQs = [
             10年以上前に活動を開始し、現在は当時のTwitterやニコニコ動画のアカウントは削除されていますが、いくつかの活動痕跡が残っています。
           </li>
           <li>
-            <strong>りんこ</strong>: 2015年から2018年まで活動していました。
+            <strong>りんこ</strong>:
+            2015年から2018年まで活動していました。X（Twitter）アカウントは
+            <a
+              href="https://x.com/rin_co_co"
+              target="_blank"
+              className="underline"
+            >
+              https://x.com/rin_co_co
+            </a>
+            です。
           </li>
           <li>
             <strong>湊あくあ</strong>:
             2018年8月にホロライブの2期生としてデビューしました。
           </li>
         </Ul>
+        <section className="grid gap-x-1 grid-cols-3">
+          <ZoomableImage
+            src={'/faq/UC1opHUrw8rvnsadT-iGp7Cg/noa-profile.webp'}
+            alt={`希空（のあ、のあうえ）のプロフィール画像`}
+            width={400}
+            height={400}
+            className={`rounded-md`}
+          />
+          <ZoomableImage
+            src={'/faq/UC1opHUrw8rvnsadT-iGp7Cg/rinko-x.png'}
+            alt={`りんこのTwitter（X)のプロフィール画像`}
+            width={400}
+            height={400}
+            className={`rounded-md`}
+          />
+          <ZoomableImage
+            src={`/faq/UC1opHUrw8rvnsadT-iGp7Cg/aqua-debut.png`}
+            alt={`湊あくあのデビュー画像`}
+            width={400}
+            height={400}
+            className={`rounded-md`}
+          />
+        </section>
+
         <H3>同一人物とされる理由</H3>
         <p>
           湊あくあさんが希空さん、りんこさんと同一人物であるとされる理由には以下の点があります。
@@ -59,9 +93,16 @@ export const faqs: FAQs = [
     question: '湊あくあの経歴は？',
     answer: (
       <>
-        <p>
+        <p className="mb-4">
           湊あくあさんは1999年12月7日生まれの24歳で、ホロライブの2期生としてデビューしました。身長は148cm、体重は44.5kgで、小柄な体型です。体重は非公開でしたが、WiiFitを使った配信をしている際にBMI値が出てしまい、視聴者に計算されて体重がバレてしまいました。
         </p>
+        <ZoomableImage
+          src={`/faq/UC1opHUrw8rvnsadT-iGp7Cg/bmi445.png`}
+          alt={`湊あくあの体重は44.5kg（BMI20.32）`}
+          width={400}
+          height={400}
+          className={`rounded-md`}
+        />
         <H3>経歴の概要</H3>
         <Ul>
           <li>
@@ -99,10 +140,37 @@ export const faqs: FAQs = [
           湊あくあさんは1999年12月7日生まれで、現在24歳です。りんこさんのプロフィールでは誕生日が1955年と記載されていますが、実際には1999年生まれと推測されています。
         </p>
         <H3>顔バレ</H3>
-        <p>
-          湊あくあさんの素顔に関する情報は確認されておらず、顔バレはしていません。りんこ時代のグループ「びたー♥すいーと」の集合写真はありました。
-          担当は「赤」のため、赤色で塗りつぶされているのが湊あくあさんの中の人のお姿です。
+        <p className="mb-4">
+          湊あくあさんの素顔に関する情報は確認されておらず、顔バレはしていません。しかしながらりんこ時代のグループ「びたー♥すいーと」の集合写真、
+          ニコ生配信中の写真を頑張って見つけたのでご紹介します。どれも可愛らしい雰囲気がありますね。
+          びたすい時代の担当は「赤」のため、赤色のお洋服を着ていて、赤色で塗りつぶされているのが湊あくあさんの中の人のお姿です。
         </p>
+
+        <section className="columns-3 gap-x-1.5">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="mb-1">
+              <ZoomableImage
+                src={`/faq/UC1opHUrw8rvnsadT-iGp7Cg/bitasui-00${i}.webp`}
+                alt={`びたすい時代の湊あくあの顔バレ画像その${i}`}
+                width={400}
+                height={400}
+                className={`rounded-md`}
+              />
+            </div>
+          ))}
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="mb-1.5">
+              <ZoomableImage
+                key={i}
+                src={`/faq/UC1opHUrw8rvnsadT-iGp7Cg/aqua-face-00${i}.webp`}
+                alt={`湊あくあの顔バレ画像その${i}`}
+                width={400}
+                height={400}
+                className={`rounded-md`}
+              />
+            </div>
+          ))}
+        </section>
       </>
     )
   },
@@ -131,8 +199,25 @@ export const faqs: FAQs = [
     answer: (
       <>
         <p>
-          湊あくあさんは、2024年8月28日をもって、ホロライブから卒業、引退されました。
+          湊あくあさんは、2024年8月28日をもって、ホロライブから卒業、引退されました。下記は引退配信のXツイート画像です。
+          また当日の配信は
+          <a
+            href="https://www.youtube.com/watch?v=wor3Qt90Yls"
+            target="_blank"
+            className="underline"
+          >
+            https://www.youtube.com/watch?v=wor3Qt90Yls
+          </a>
+          から視聴できます。
         </p>
+
+        <ZoomableImage
+          src={'/faq/UC1opHUrw8rvnsadT-iGp7Cg/intai-haishin.webp'}
+          alt={`りんこのTwitter（X)のプロフィール画像`}
+          width={400}
+          height={400}
+          className={`my-4 rounded-md`}
+        />
 
         <p>
           そんな、湊あくあさんの卒業理由は『会社との方向性の違い』と発表されました。
