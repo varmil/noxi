@@ -3,7 +3,8 @@ import {
   StreamStatsRepository,
   ViewerCounts,
   ChatCounts,
-  ChatCount
+  ChatCount,
+  AvgCount
 } from '@domain/youtube'
 
 @Injectable()
@@ -17,6 +18,12 @@ export class StreamStatsService {
     args: Parameters<StreamStatsRepository['findAllViewerCounts']>[0]
   ): Promise<ViewerCounts> {
     return await this.streamStatsRepository.findAllViewerCounts(args)
+  }
+
+  async findAvgViewerCount(
+    args: Parameters<StreamStatsRepository['findAvgViewerCount']>[0]
+  ): Promise<AvgCount> {
+    return await this.streamStatsRepository.findAvgViewerCount(args)
   }
 
   async findAllChatCounts(

@@ -78,7 +78,6 @@ export class MainScenario {
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
-    console.log('endLives/streams', streams.length)
     if (streams.length === 0) return
 
     const { items: videos } = await this.videosService.findAll({

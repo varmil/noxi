@@ -1,3 +1,4 @@
+export * from './AvgCount.vo'
 export * from './ChatCount.entity'
 export * from './ChatCounts.collection'
 export * from './Count.vo'

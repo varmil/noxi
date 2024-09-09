@@ -49,7 +49,7 @@ export interface StreamRepository {
 
   updateMetrics: (args: {
     where: { videoId: VideoId }
-    data: Partial<Metrics>
+    data: Partial<ConstructorParameters<typeof Metrics>[0]>
   }) => Promise<void>
 
   updateLikeCount: (args: {

@@ -99,7 +99,7 @@ export class StreamRepositoryImpl implements StreamRepository {
 
   updateMetrics: (args: {
     where: { videoId: VideoId }
-    data: Partial<Metrics>
+    data: Partial<ConstructorParameters<typeof Metrics>[0]>
   }) => Promise<void> = async ({ where: { videoId }, data }) => {
     await this.prismaInfraService.youtubeStream.update({
       where: { videoId: videoId.get() },

@@ -1,4 +1,5 @@
 import {
+  AvgCount,
   ChatCount,
   ChatCounts,
   Count,
@@ -10,6 +11,10 @@ export interface StreamStatsRepository {
   findAllViewerCounts: (args: {
     where: { videoId: VideoId }
   }) => Promise<ViewerCounts>
+
+  findAvgViewerCount: (args: {
+    where: { videoId: VideoId }
+  }) => Promise<AvgCount>
 
   findAllChatCounts: (args: {
     where: { videoId: VideoId }

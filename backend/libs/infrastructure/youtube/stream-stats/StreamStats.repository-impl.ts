@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import {
+  AvgCount,
   ChatCount,
   ChatCounts,
   Count,
@@ -32,6 +33,17 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
           })
       )
     )
+  }
+
+  findAvgViewerCount: (args: {
+    where: { videoId: VideoId }
+  }) => Promise<AvgCount> = async ({ where: { videoId } }) => {
+    const row =
+      await this.prismaInfraService.youtubeStreamViewerCount.aggregate({
+        where: { videoId: videoId.get() },
+        _avg: { count: true }
+      })
+    return new AvgCount(row._avg.count ?? 0)
   }
 
   async findAllChatCounts({
