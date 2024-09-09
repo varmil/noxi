@@ -26,7 +26,7 @@ export class UpsertYoutubeStream {
       metrics: {
         peakConcurrentViewers: maxViewerCount,
         avgConcurrentViewers,
-        chatMessages: chatCount,
+        chatMessages,
         views,
         likes: likeCount
       },
@@ -52,7 +52,7 @@ export class UpsertYoutubeStream {
 
       maxViewerCount,
       averageConcurrentViewers: avgConcurrentViewers,
-      chatCount,
+      chatMessages,
       views,
       likeCount,
 

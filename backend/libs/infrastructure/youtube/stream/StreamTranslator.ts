@@ -46,7 +46,7 @@ export class StreamTranslator {
       metrics: new Metrics({
         peakConcurrentViewers: row.maxViewerCount,
         avgConcurrentViewers: row.averageConcurrentViewers,
-        chatMessages: row.chatCount,
+        chatMessages: row.chatMessages,
         views: row.views,
         likes: row.likeCount
       })
