@@ -101,9 +101,23 @@ export class StreamRepositoryImpl implements StreamRepository {
     where: { videoId: VideoId }
     data: Partial<ConstructorParameters<typeof Metrics>[0]>
   }) => Promise<void> = async ({ where: { videoId }, data }) => {
+    const {
+      peakConcurrentViewers,
+      avgConcurrentViewers,
+      chatMessages,
+      views,
+      likes
+    } = data
     await this.prismaInfraService.youtubeStream.update({
       where: { videoId: videoId.get() },
-      data
+      data: {
+        maxViewerCount: peakConcurrentViewers,
+        averageConcurrentViewers: avgConcurrentViewers,
+        chatMessages,
+        views,
+        likeCount: likes,
+        updatedAt: new Date()
+      }
     })
   }
 
