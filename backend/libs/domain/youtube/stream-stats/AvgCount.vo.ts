@@ -1,6 +1,9 @@
 import { IsNotEmpty, IsNumber } from 'class-validator'
 import { NumberValueObject } from '@domain/lib/NumberValueObject'
 
+/**
+ * 整数値
+ */
 export class AvgCount extends NumberValueObject {
   @IsNotEmpty()
   @IsNumber()
@@ -8,6 +11,6 @@ export class AvgCount extends NumberValueObject {
 
   constructor(val: number) {
     super(val)
-    this.val = val
+    this.val = Math.round(val)
   }
 }
