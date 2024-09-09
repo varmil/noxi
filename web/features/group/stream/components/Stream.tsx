@@ -54,7 +54,7 @@ export default async function Stream({
     snippet: { title, thumbnails },
     streamTimes,
     maxViewerCount,
-    likeCount
+    likes
   } = stream
 
   const isLive = stream.status === 'live'
@@ -103,8 +103,7 @@ export default async function Stream({
               {isScheduled && (
                 <>
                   <span>
-                    <IntlNumberFormat>{likeCount}</IntlNumberFormat>{' '}
-                    {t('likes')}
+                    <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
                     <Bullet />
                     {t('scheduledFor', {
                       datetime: format.dateTime(

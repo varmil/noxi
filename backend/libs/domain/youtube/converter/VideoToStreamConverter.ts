@@ -19,11 +19,11 @@ export class VideoToStreamConverter {
       snippet: video.snippet,
       duration: video.duration,
       streamTimes: video.liveStreamingDetails.streamTimes,
-      maxViewerCount: video.liveStreamingDetails.concurrentViewers ?? 0,
+      peakConcurrentViewers: video.liveStreamingDetails.concurrentViewers ?? 0,
       avgConcurrentViewers: 0,
-      chatCount: 0,
+      chatMessages: 0,
       views: video.statistics.viewCount,
-      likeCount: video.statistics.likeCount
+      likes: video.statistics.likeCount
     })
   }
 }

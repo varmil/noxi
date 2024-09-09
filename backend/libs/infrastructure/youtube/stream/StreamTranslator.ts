@@ -41,11 +41,11 @@ export class StreamTranslator {
         actualEndTime: row.actualEndTime ?? undefined
       }),
 
-      maxViewerCount: row.maxViewerCount,
+      peakConcurrentViewers: row.maxViewerCount,
       avgConcurrentViewers: row.averageConcurrentViewers,
-      chatCount: row.chatCount,
+      chatMessages: row.chatCount,
       views: row.views,
-      likeCount: row.likeCount
+      likes: row.likeCount
     })
   }
 }

@@ -28,8 +28,11 @@ const schema = z.object({
     actualEndTime: z.string().datetime().optional()
   }),
 
-  maxViewerCount: z.number(),
-  likeCount: z.number().min(0),
+  peakConcurrentViewers: z.number().min(0),
+  avgConcurrentViewers: z.number().min(0),
+  chatMessages: z.number().min(0),
+  views: z.number().min(0),
+  likes: z.number().min(0),
 
   // using union() because it can be one of "scheduled", "live" or "ended"
   status: z.union([

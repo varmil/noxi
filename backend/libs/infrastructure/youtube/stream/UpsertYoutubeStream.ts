@@ -23,11 +23,11 @@ export class UpsertYoutubeStream {
       },
       duration,
       streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
-      maxViewerCount,
+      peakConcurrentViewers: maxViewerCount,
       avgConcurrentViewers,
-      chatCount,
+      chatMessages: chatCount,
       views,
-      likeCount,
+      likes: likeCount,
       status
     } = stream
 
