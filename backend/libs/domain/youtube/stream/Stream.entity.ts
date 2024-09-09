@@ -13,8 +13,14 @@ export class Stream {
   public readonly duration?: Duration
   public readonly streamTimes: StreamTimes
 
+  /** 最大同時視聴者数: ライブ配信を同時に視聴した視聴者数の最大値です。 */
   public readonly maxViewerCount: number
+  /** 平均同時視聴者数: ライブ配信を同時に視聴した視聴者数の平均値です。 */
+  public readonly avgConcurrentViewers: number
+  /** チャットメッセージ数: ライブ配信中に視聴者が送信したチャットメッセージの件数 */
   public readonly chatCount: number
+  /** 視聴回数: ライブ配信が配信中に視聴された合計回数です。 */
+  public readonly views: number
   public readonly likeCount: number
 
   constructor(args: {
@@ -24,7 +30,9 @@ export class Stream {
     streamTimes: StreamTimes
 
     maxViewerCount: number
+    avgConcurrentViewers: number
     chatCount: number
+    views: number
     likeCount: number
   }) {
     this.videoId = args.videoId
@@ -33,7 +41,9 @@ export class Stream {
     this.streamTimes = args.streamTimes
 
     this.maxViewerCount = args.maxViewerCount
+    this.avgConcurrentViewers = args.avgConcurrentViewers
     this.chatCount = args.chatCount
+    this.views = args.views
     this.likeCount = args.likeCount
   }
 

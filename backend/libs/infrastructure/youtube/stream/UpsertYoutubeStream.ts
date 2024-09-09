@@ -24,7 +24,9 @@ export class UpsertYoutubeStream {
       duration,
       streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
       maxViewerCount,
+      avgConcurrentViewers,
       chatCount,
+      views,
       likeCount,
       status
     } = stream
@@ -46,7 +48,9 @@ export class UpsertYoutubeStream {
       actualStartTime: actualStartTime ?? null,
       actualEndTime: actualEndTime ?? null,
       maxViewerCount,
+      averageConcurrentViewers: avgConcurrentViewers,
       chatCount,
+      views,
       likeCount,
 
       status: status.get(),

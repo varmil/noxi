@@ -42,7 +42,9 @@ export class StreamTranslator {
       }),
 
       maxViewerCount: row.maxViewerCount,
+      avgConcurrentViewers: row.averageConcurrentViewers,
       chatCount: row.chatCount,
+      views: row.views,
       likeCount: row.likeCount
     })
   }

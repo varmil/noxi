@@ -15,7 +15,7 @@ export class MainScenario {
   ) {}
 
   async execute(): Promise<void> {
-    let promises: Promise<void>[] = []
+    const promises: Promise<void>[] = []
 
     // Streamが始まった、終わったの更新処理
     {
