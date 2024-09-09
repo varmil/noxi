@@ -53,8 +53,13 @@ export default async function Stream({
     videoId,
     snippet: { title, thumbnails },
     streamTimes,
-    maxViewerCount,
-    likes
+    metrics: {
+      peakConcurrentViewers,
+      avgConcurrentViewers,
+      chatMessages,
+      views,
+      likes
+    }
   } = stream
 
   const isLive = stream.status === 'live'
@@ -96,7 +101,7 @@ export default async function Stream({
               <div>{channel.basicInfo.title}</div>
               {isLive && (
                 <div>
-                  <IntlNumberFormat>{maxViewerCount}</IntlNumberFormat>{' '}
+                  <IntlNumberFormat>{peakConcurrentViewers}</IntlNumberFormat>{' '}
                   {t('watching')}
                 </div>
               )}

@@ -1,6 +1,7 @@
 import { LanguageTag } from '@domain/country'
 import {
   Duration,
+  Metrics,
   PublishedAt,
   Snippet,
   Stream,
@@ -35,17 +36,20 @@ export class StreamTranslator {
       }),
 
       duration: row.duration ? new Duration(row.duration) : undefined,
+
       streamTimes: new StreamTimes({
         scheduledStartTime: row.scheduledStartTime,
         actualStartTime: row.actualStartTime ?? undefined,
         actualEndTime: row.actualEndTime ?? undefined
       }),
 
-      peakConcurrentViewers: row.maxViewerCount,
-      avgConcurrentViewers: row.averageConcurrentViewers,
-      chatMessages: row.chatCount,
-      views: row.views,
-      likes: row.likeCount
+      metrics: new Metrics({
+        peakConcurrentViewers: row.maxViewerCount,
+        avgConcurrentViewers: row.averageConcurrentViewers,
+        chatMessages: row.chatCount,
+        views: row.views,
+        likes: row.likeCount
+      })
     })
   }
 }

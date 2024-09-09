@@ -69,8 +69,8 @@ async function getCompactGroupedStreams({
   return {
     xxx: streams
       .sort((a, b) => {
-        if (a.likes > b.likes) return -1
-        if (a.likes < b.likes) return 1
+        if (a.metrics.likes > b.metrics.likes) return -1
+        if (a.metrics.likes < b.metrics.likes) return 1
         return 0
       })
       .slice(0, 3)
@@ -108,8 +108,8 @@ async function getGroupedStreams({
 
   for (const dateKey in groupedStreams) {
     groupedStreams[dateKey].sort((a, b) => {
-      if (a.likes > b.likes) return -1
-      if (a.likes < b.likes) return 1
+      if (a.metrics.likes > b.metrics.likes) return -1
+      if (a.metrics.likes < b.metrics.likes) return 1
       return 0
     })
   }
