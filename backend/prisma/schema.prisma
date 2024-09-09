@@ -57,21 +57,19 @@ model YoutubeStream {
   categoryId      Int      @db.SmallInt
   defaultLanguage String?
 
-  duration String?
+  duration           String?
+  scheduledStartTime DateTime  @db.Timestamptz(3)
+  actualStartTime    DateTime? @db.Timestamptz(3)
+  actualEndTime      DateTime? @db.Timestamptz(3)
 
-  scheduledStartTime       DateTime  @db.Timestamptz(3)
-  actualStartTime          DateTime? @db.Timestamptz(3)
-  actualEndTime            DateTime? @db.Timestamptz(3)
-  maxViewerCount           Int       @default(0)
-  averageConcurrentViewers Int       @default(0)
-  chatCount                Int       @default(0)
-  views                    Int       @default(0)
-  likeCount                Int       @default(0)
+  maxViewerCount           Int @default(0)
+  averageConcurrentViewers Int @default(0)
+  chatMessages             Int @default(0)
+  views                    Int @default(0)
+  likeCount                Int @default(0)
 
-  status String
-
-  group String
-
+  status    String
+  group     String
   updatedAt DateTime @default(now()) @db.Timestamptz(3)
 
   @@index([channelId])

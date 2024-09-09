@@ -31,8 +31,6 @@ export class SearchesController {
   async searchVideos(
     @Query() dto: SearchVideosDto
   ): Promise<PaginationResponse<Videos>> {
-    console.log('dto', dto)
-
     return await this.searchesScenario.searchVideos({
       q: dto.toQ(),
       limit: dto.limit,
