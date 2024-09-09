@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { MainService } from 'apps/update-streams/src/main.service'
+import { EndScheduledLivesScenario } from 'apps/update-streams/src/scenario/end-scheduled-lives.scenario'
 import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
-import { EndScheduledLivesScenario } from 'apps/update-streams/src/scenario/end-scheduled-lives.scenario'
 
 @Injectable()
 export class MainScenario {

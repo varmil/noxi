@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core'
-import { MainModule } from './main.module'
 import { MainScenario } from 'apps/update-streams/src/scenario/main.scenario'
+import { MainModule } from './main.module'
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)

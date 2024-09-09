@@ -1,7 +1,7 @@
+import { Injectable } from '@nestjs/common'
 import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
 import { Videos, StreamTimes, Video } from '@domain/youtube'
-import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class EndScheduledLivesScenario {
