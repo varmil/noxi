@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
-import { StreamRepository, Streams } from '@domain/youtube'
+import { Metrics, StreamRepository, Streams, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/youtube/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/youtube/stream/UpsertYoutubeStream'
@@ -94,6 +94,16 @@ export class StreamRepositoryImpl implements StreamRepository {
         status: data.streamStatus.get(),
         updatedAt: new Date()
       }
+    })
+  }
+
+  updateMetrics: (args: {
+    where: { videoId: VideoId }
+    data: Partial<Metrics>
+  }) => Promise<void> = async ({ where: { videoId }, data }) => {
+    await this.prismaInfraService.youtubeStream.update({
+      where: { videoId: videoId.get() },
+      data
     })
   }
 

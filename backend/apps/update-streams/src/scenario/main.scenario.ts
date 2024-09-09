@@ -5,10 +5,12 @@ import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
+import { EndScheduledLivesScenario } from 'apps/update-streams/src/scenario/end-scheduled-lives.scenario'
 
 @Injectable()
 export class MainScenario {
   constructor(
+    private readonly endScheduledLivesScenario: EndScheduledLivesScenario,
     private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService
@@ -84,7 +86,7 @@ export class MainScenario {
       limit: 1000
     })
 
-    await this.mainService.endScheduledLives(videos)
+    await this.endScheduledLivesScenario.execute(videos)
   }
 
   private async updateStats() {
