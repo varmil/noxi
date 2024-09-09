@@ -40,6 +40,12 @@ export class StreamsService {
     await this.streamRepository.updateStreamTimes(args)
   }
 
+  async updateMetrics(
+    args: Parameters<StreamRepository['updateMetrics']>[0]
+  ): Promise<void> {
+    await this.streamRepository.updateMetrics(args)
+  }
+
   async updateLikeCount(
     args: Parameters<StreamRepository['updateLikeCount']>[0]
   ): Promise<void> {

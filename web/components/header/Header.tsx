@@ -70,7 +70,7 @@ export default function Header() {
                     alt={t('group.hololive-english')}
                     width={100}
                     height={100}
-                    className="h-8 w-8"
+                    className="h-8 w-8 rounded-full"
                   />
                 }
                 href="/hololive-english"
@@ -84,7 +84,7 @@ export default function Header() {
                     alt={t('group.hololive-indonesia')}
                     width={100}
                     height={100}
-                    className="h-8 w-8"
+                    className="h-8 w-8 rounded-full"
                   />
                 }
                 href="/hololive-indonesia"

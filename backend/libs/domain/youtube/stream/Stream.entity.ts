@@ -1,6 +1,12 @@
 import { Expose, Transform } from 'class-transformer'
 import { StreamStatus } from '@domain/stream'
-import { VideoId, Duration, Snippet, StreamTimes } from '@domain/youtube'
+import {
+  VideoId,
+  Duration,
+  Snippet,
+  StreamTimes,
+  Metrics
+} from '@domain/youtube'
 
 export class Stream {
   @Transform(({ value }: { value: VideoId }) => value.get())
@@ -12,29 +18,20 @@ export class Stream {
   @Transform(({ value }: { value: Duration }) => value.get())
   public readonly duration?: Duration
   public readonly streamTimes: StreamTimes
-
-  public readonly maxViewerCount: number
-  public readonly chatCount: number
-  public readonly likeCount: number
+  public readonly metrics: Metrics
 
   constructor(args: {
     videoId: VideoId
     snippet: Snippet
     duration?: Duration
     streamTimes: StreamTimes
-
-    maxViewerCount: number
-    chatCount: number
-    likeCount: number
+    metrics: Metrics
   }) {
     this.videoId = args.videoId
     this.snippet = args.snippet
     this.duration = args.duration
     this.streamTimes = args.streamTimes
-
-    this.maxViewerCount = args.maxViewerCount
-    this.chatCount = args.chatCount
-    this.likeCount = args.likeCount
+    this.metrics = args.metrics
   }
 
   @Expose()

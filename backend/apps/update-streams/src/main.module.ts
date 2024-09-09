@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { MainScenario } from 'apps/update-streams/src/main.scenario'
 import { MainService } from 'apps/update-streams/src/main.service'
+import { EndScheduledLivesScenario } from 'apps/update-streams/src/scenario/end-scheduled-lives.scenario'
+import { MainScenario } from 'apps/update-streams/src/scenario/main.scenario'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
@@ -13,6 +14,6 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [MainScenario, MainService]
+  providers: [MainScenario, EndScheduledLivesScenario, MainService]
 })
 export class MainModule {}

@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core'
-import { MainScenario } from 'apps/update-streams/src/main.scenario'
+import { MainScenario } from 'apps/update-streams/src/scenario/main.scenario'
 import { MainModule } from './main.module'
 
 async function bootstrap() {

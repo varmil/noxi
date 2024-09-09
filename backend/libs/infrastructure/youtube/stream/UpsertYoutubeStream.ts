@@ -23,9 +23,13 @@ export class UpsertYoutubeStream {
       },
       duration,
       streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
-      maxViewerCount,
-      chatCount,
-      likeCount,
+      metrics: {
+        peakConcurrentViewers: maxViewerCount,
+        avgConcurrentViewers,
+        chatMessages,
+        views,
+        likes: likeCount
+      },
       status
     } = stream
 
@@ -45,21 +49,21 @@ export class UpsertYoutubeStream {
       scheduledStartTime,
       actualStartTime: actualStartTime ?? null,
       actualEndTime: actualEndTime ?? null,
+
       maxViewerCount,
-      chatCount,
+      averageConcurrentViewers: avgConcurrentViewers,
+      chatMessages,
+      views,
       likeCount,
 
       status: status.get(),
-
       group: group.get(),
-
       updatedAt: new Date()
     }
   }
 
   translateToUpdate(): Prisma.YoutubeStreamUpsertArgs['update'] {
     const { stream } = this.data
-
     const {
       snippet: { title, description }
     } = stream
