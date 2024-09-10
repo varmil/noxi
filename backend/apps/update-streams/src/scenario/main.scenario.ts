@@ -4,6 +4,7 @@ import { MainService } from 'apps/update-streams/src/main.service'
 import { EndScheduledLivesScenario } from 'apps/update-streams/src/scenario/end-scheduled-lives.scenario'
 import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
+import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
 
@@ -30,7 +31,7 @@ export class MainScenario {
       promises.push(this.updateStats())
     }
 
-    await Promise.all(promises)
+    await allSettled(promises)
   }
 
   /**
@@ -53,7 +54,7 @@ export class MainScenario {
       limit: 1000
     })
 
-    await Promise.all([
+    await allSettled([
       /**
        * scheduledStartTime などが変わりうるので、最新の値でDBを更新
        */

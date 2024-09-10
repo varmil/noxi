@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
+import { allSettled } from '@domain/lib/promise/allSettled'
 import { Videos, StreamTimes, Video } from '@domain/youtube'
 
 @Injectable()
@@ -28,14 +29,14 @@ export class EndScheduledLivesScenario {
 
         console.log('end the stream:', video.snippet.title)
 
-        await Promise.all([
+        await allSettled([
           // save duration here because it is not available while live
-          await this.streamsService.updateDuration({
+          this.streamsService.updateDuration({
             where: { videoId: video.id },
             data: video.duration
           }),
           // save actualEndTime
-          await this.streamsService.updateStreamTimes({
+          this.streamsService.updateStreamTimes({
             where: { videoId: video.id },
             data: new StreamTimes({
               scheduledStartTime,
@@ -44,11 +45,11 @@ export class EndScheduledLivesScenario {
             })
           }),
           // update metrics
-          await this.updateMetrics(video)
+          this.updateMetrics(video)
         ])
       })
 
-    await Promise.all(promises)
+    await allSettled(promises)
   }
 
   private async updateMetrics(video: Video) {

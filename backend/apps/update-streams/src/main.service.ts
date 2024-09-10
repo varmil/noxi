@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
+import { allSettled } from '@domain/lib/promise/allSettled'
 import { Count, Streams, StreamTimes, Videos } from '@domain/youtube'
 
 @Injectable()
@@ -59,7 +60,7 @@ export class MainService {
       })
     })
 
-    await Promise.all(promises)
+    await allSettled(promises)
   }
 
   /**
@@ -89,7 +90,7 @@ export class MainService {
         })
       })
 
-    await Promise.all(promises)
+    await allSettled(promises)
   }
 
   /**
@@ -111,6 +112,6 @@ export class MainService {
       ])
     })
 
-    await Promise.all(promises)
+    await allSettled(promises)
   }
 }

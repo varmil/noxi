@@ -26,15 +26,11 @@ export class VideoRepositoryImpl implements VideoRepository {
       playlistId: new PlaylistId(channel.contentDetails.uploadsPlaylistId)
     })
 
-    const [list] = await Promise.all([
-      this.videosInfraService.list({
-        hl,
-        videoIds: playlistItems.getVideoIds(),
-        limit
-      })
-    ])
-
-    return list
+    return await this.videosInfraService.list({
+      hl,
+      videoIds: playlistItems.getVideoIds(),
+      limit
+    })
   }
 
   async findById(id: Parameters<VideoRepository['findById']>[0]) {
@@ -51,13 +47,10 @@ export class VideoRepositoryImpl implements VideoRepository {
     where: { ids },
     limit
   }: Parameters<VideoRepository['findAll']>[0]) {
-    const [list] = await Promise.all([
-      this.videosInfraService.list({
-        hl,
-        videoIds: ids,
-        limit
-      })
-    ])
-    return list
+    return await this.videosInfraService.list({
+      hl,
+      videoIds: ids,
+      limit
+    })
   }
 }
