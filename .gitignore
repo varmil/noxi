@@ -68,3 +68,6 @@ node_modules/
 # firebase emulator
 firebase-emulator-data
 firebase-export-*
+
+# https keys
+*.pem

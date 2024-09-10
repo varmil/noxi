@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
+import YoutubeLiveTemplate from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/YoutubeLiveTemplate'
 import Page from 'components/Page'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -53,7 +54,7 @@ export default async function YoutubeLivePage({
         { href: '#', name: title }
       ]}
     >
-      hello
+      <YoutubeLiveTemplate stream={stream} />
     </Page>
   )
 }

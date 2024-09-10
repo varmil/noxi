@@ -4,7 +4,6 @@ import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getStream(id: string): Promise<StreamSchema> {
   const res = await fetchAPI(`/api/youtube/streams/${id}`, {
-    // next: { revalidate: 1000 }
     cache: 'no-store'
   })
 
