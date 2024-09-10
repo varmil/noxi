@@ -1,4 +1,5 @@
 import { BadRequestException } from '@nestjs/common'
+import { Group } from '@domain/group'
 import { Video, Stream, Metrics } from '@domain/youtube'
 
 /**
@@ -9,7 +10,7 @@ export class VideoToStreamConverter {
    * Convert video entity to stream entity
    * @param video
    */
-  static convert(video: Video): Stream {
+  static convert({ group, video }: { group: Group; video: Video }): Stream {
     if (!video.liveStreamingDetails) {
       throw new BadRequestException('video.liveStreamingDetails is undefined')
     }
@@ -26,7 +27,8 @@ export class VideoToStreamConverter {
         chatMessages: 0,
         views: video.statistics.viewCount,
         likes: video.statistics.likeCount
-      })
+      }),
+      group
     })
   }
 }

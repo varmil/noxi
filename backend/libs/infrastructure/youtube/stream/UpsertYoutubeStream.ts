@@ -1,14 +1,10 @@
-import { StreamRepository } from '@domain/youtube'
+import { Stream } from '@domain/youtube'
 import type { Prisma } from '@prisma/client'
 
 export class UpsertYoutubeStream {
-  constructor(
-    private readonly data: Parameters<StreamRepository['save']>[0]['data']
-  ) {}
+  constructor(private readonly stream: Stream) {}
 
   translateToCreate(): Prisma.YoutubeStreamUpsertArgs['create'] {
-    const { group, stream } = this.data
-
     const {
       videoId,
       snippet: {
@@ -30,8 +26,9 @@ export class UpsertYoutubeStream {
         views,
         likes: likeCount
       },
+      group,
       status
-    } = stream
+    } = this.stream
 
     return {
       videoId: videoId.get(),
@@ -56,17 +53,16 @@ export class UpsertYoutubeStream {
       views,
       likeCount,
 
-      status: status.get(),
       group: group.get(),
+      status: status.get(),
       updatedAt: new Date()
     }
   }
 
   translateToUpdate(): Prisma.YoutubeStreamUpsertArgs['update'] {
-    const { stream } = this.data
     const {
       snippet: { title, description }
-    } = stream
+    } = this.stream
 
     return {
       title,

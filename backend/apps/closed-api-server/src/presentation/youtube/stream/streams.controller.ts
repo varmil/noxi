@@ -2,11 +2,13 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Param,
   Query,
   UseInterceptors
 } from '@nestjs/common'
 import { GetStreamsDto } from '@presentation/youtube/stream/dto/GetStreams.dto'
 import { StreamsService } from '@app/youtube/streams/streams.service'
+import { VideoId } from '@domain/youtube'
 
 @Controller('youtube/streams')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -28,8 +30,10 @@ export class StreamsController {
     })
   }
 
-  //   @Get(':id')
-  //   async getStream(@Param('id') id: string) {
-  //     return await this.streamsService.findById(id)
-  //   }
+  @Get(':id')
+  async getStream(@Param('id') id: string) {
+    return await this.streamsService.findOne({
+      where: { videoId: new VideoId(id) }
+    })
+  }
 }

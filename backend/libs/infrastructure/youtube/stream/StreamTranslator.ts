@@ -1,4 +1,5 @@
 import { LanguageTag } from '@domain/country'
+import { Group } from '@domain/group'
 import {
   Duration,
   Metrics,
@@ -49,7 +50,9 @@ export class StreamTranslator {
         chatMessages: row.chatMessages,
         views: row.views,
         likes: row.likeCount
-      })
+      }),
+
+      group: new Group(row.group)
     })
   }
 }

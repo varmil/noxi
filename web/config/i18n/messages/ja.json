@@ -1,6 +1,6 @@
 {
   "Global": {
-    "title": "PeakX - ホロライブまとめと配信予定",
+    "title": "PeakX - ホロライブのライブ配信と配信予定",
     "headerTitle": "PeakX | ピークX",
 
     "group": {
@@ -81,6 +81,15 @@
     "channelsId": {
       "title": "YouTubeチャンネルまとめ",
       "description": "{channel}のYouTubeチャンネルのまとめです。 ➥ チャンネル登録者数、今後の配信予定、配信中のライブ、過去のライブ履歴、スパチャ収入など"
+    },
+
+    "youtube": {
+      "live": {
+        "metadata": {
+          "title": "{title}",
+          "description": "YouTubeライブのリアルタイム統計 ➥ ピーク視聴回数、平均視聴回数、平均視聴時間、チャット率など"
+        }
+      }
     }
   },
 
