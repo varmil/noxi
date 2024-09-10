@@ -1,9 +1,6 @@
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
-import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/_components/IndexTemplate'
-import NotFound from 'app/not-found'
 import Page from 'components/Page'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -19,12 +16,12 @@ export async function generateMetadata({
     locale,
     namespace: 'Page.youtube.live.metadata'
   })
-  const stream = await getStream(videoId)
+  const {
+    snippet: { title }
+  } = await getStream(videoId)
 
   return {
-    title: `${t('title', { title: stream?.snippet.title ?? '' })} | ${tg(
-      'title'
-    )}`,
+    title: `${t('title', { title })} | ${tg('title')}`,
     description: `${t('description')}`
   }
 }
