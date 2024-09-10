@@ -49,10 +49,8 @@ export class StreamRepositoryImpl implements StreamRepository {
     return new StreamTranslator(row).translate()
   }
 
-  async save({
-    data: { group, stream }
-  }: Parameters<StreamRepository['save']>[0]) {
-    const toPrisma = new UpsertYoutubeStream({ group, stream })
+  async save({ data: stream }: Parameters<StreamRepository['save']>[0]) {
+    const toPrisma = new UpsertYoutubeStream(stream)
     await this.prismaInfraService.youtubeStream.upsert({
       where: { videoId: stream.videoId.get() },
       update: toPrisma.translateToUpdate(),

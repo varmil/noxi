@@ -1,6 +1,7 @@
 import { z } from 'zod'
+import { GroupStrings } from 'config/constants/Site'
 
-const schema = z.object({
+export const schema = z.object({
   videoId: z.string(),
 
   snippet: z.object({
@@ -35,6 +36,8 @@ const schema = z.object({
     views: z.number().min(0),
     likes: z.number().min(0)
   }),
+
+  group: z.enum(GroupStrings),
 
   // using union() because it can be one of "scheduled", "live" or "ended"
   status: z.union([

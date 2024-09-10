@@ -33,7 +33,7 @@ export interface StreamRepository {
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>
 
-  save: (args: { data: { group: Group; stream: Stream } }) => Promise<void>
+  save: (args: { data: Stream }) => Promise<void>
 
   delete: (args: { where: { videoId: VideoId } }) => Promise<void>
 

@@ -82,6 +82,15 @@
     "channelsId": {
       "title": "YouTube Stats, Analytics and Channel Overview",
       "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+    },
+
+    "youtube": {
+      "live": {
+        "metadata": {
+          "title": "{title}",
+          "description": "YouTube Live realtime stats ➥ Peak Views, Avg. Views, Avg. Watch Time, Chat Rate and more"
+        }
+      }
     }
   },
 

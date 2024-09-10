@@ -42,8 +42,8 @@ export class PubsubhubbubScenario {
       return
     }
 
-    const stream = VideoToStreamConverter.convert(video)
-    await this.streamsService.save({ data: { group, stream } })
+    const stream = VideoToStreamConverter.convert({ group, video })
+    await this.streamsService.save({ data: stream })
   }
 
   async handleDeletedCallback({ entry }: { entry: DeletedEntry }) {
