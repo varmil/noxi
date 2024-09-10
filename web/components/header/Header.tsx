@@ -24,7 +24,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/40 bg-background px-4 ${bgFilter} ${sm}`}
+      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/40 bg-background px-1.5 ${bgFilter} ${sm}`}
     >
       <Sheet>
         <SheetTrigger asChild>
