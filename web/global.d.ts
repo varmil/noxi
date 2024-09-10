@@ -26,8 +26,10 @@ declare global {
        * Note, that this is always set, even in preview deployments.
        * This is useful to reliably generate links that point to production such as OG-image URLs.
        * The value does not include the protocol scheme https://.
+       *
+       * ローカルでのみundefined
        */
-      readonly NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL: string
+      readonly NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?: string
 
       readonly NEXT_PUBLIC_GA_ID?: string
     }

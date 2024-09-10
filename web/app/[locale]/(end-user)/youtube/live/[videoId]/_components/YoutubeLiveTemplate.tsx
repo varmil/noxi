@@ -9,6 +9,9 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 
+const embed_domain =
+  process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'localhost'
+
 type Props = {
   stream: StreamSchema
 }
@@ -106,7 +109,7 @@ export default function YoutubeLiveTemplate({
   ]
 
   return (
-    <div className="max-w-7xl mx-auto p-4 grid gap-4 md:grid-cols-[2fr,1fr]">
+    <div className="grid gap-4 md:grid-cols-[2fr,1fr]">
       <div className="space-y-4">
         <div className="aspect-video rounded-lg overflow-hidden">
           <iframe
@@ -152,15 +155,15 @@ export default function YoutubeLiveTemplate({
       </div>
       <div className="space-y-4">
         <div className="bg-secondary rounded-lg p-4 space-y-4">
-          <h2 className="text-xl font-semibold">Live Chat</h2>
-          <ScrollArea className="h-[400px] rounded-md border p-4">
+          <section className="h-[600px] rounded-md border">
             <iframe
-              src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`}
+              src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
+              //   src={`https://www.youtube.com/live_chat_replay?continuation=op2w0wR1Gl5DaWtxSndvWVZVTXdWRmhsWDB4WldqUnpZMkZYTWxoTmVXazFYMnQzRWd0TFZrSk5SVTV5ZDNnNE1Cb1Q2cWpkdVFFTkNndExWa0pOUlU1eWQzZzRNQ0FCTUFBJTNEQAFaBRCQ28wBcggIBBgCIAAoAHgB&authuser=0`}
               allow=""
               allowFullScreen
               className="w-full h-full"
             ></iframe>
-          </ScrollArea>
+          </section>
           <form onSubmit={handleSendMessage} className="flex space-x-2">
             <Input
               placeholder="Type a message..."
