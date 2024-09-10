@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
 import { GroupsService } from '@app/groups/groups.service'
+import { allSettled } from '@domain/lib/promise/allSettled'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
@@ -21,7 +22,7 @@ export class SubscribeService {
       await this.subscribe(group.channelIds)
       console.log(`end ${group.get()}`)
     })
-    await Promise.all(promises)
+    await allSettled(promises)
   }
 
   /**
