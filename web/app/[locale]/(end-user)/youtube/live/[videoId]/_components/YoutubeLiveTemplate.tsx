@@ -1,8 +1,9 @@
 import { PropsWithoutRef } from 'react'
-import { ThumbsUp, MessageSquare, Share2, MoreVertical } from 'lucide-react'
+import { ThumbsUp, MessageSquare, Share2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 
@@ -13,12 +14,12 @@ type Props = {
   stream: StreamSchema
 }
 
-export default function YoutubeLiveTemplate({
+export default async function YoutubeLiveTemplate({
   stream
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
-    snippet: { title },
+    snippet: { title, channelId },
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -28,6 +29,8 @@ export default function YoutubeLiveTemplate({
     },
     group
   } = stream
+
+  const { basicInfo, statistics } = await getChannel(channelId)
 
   const relatedVideos = [
     {
@@ -79,21 +82,26 @@ export default function YoutubeLiveTemplate({
           ></iframe>
         </div>
         <h1 className="text-xl sm:text-2xl font-bold">{title}</h1>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <Avatar>
-              <AvatarImage
-                src="/placeholder.svg?height=40&width=40"
-                alt="Channel Name"
-              />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="font-semibold">Channel Name</p>
-              <p className="text-sm text-gray-500">1.2M subscribers</p>
-            </div>
+        <div className="flex items-center space-x-2">
+          <Avatar className="w-7 h-7 sm:w-11 sm:h-11">
+            <AvatarImage
+              src={basicInfo.thumbnails.medium?.url}
+              alt={basicInfo.title}
+            />
+            <AvatarFallback>{basicInfo.title}</AvatarFallback>
+          </Avatar>
+          <div>
+            <p className="grid grid-cols-5 gap-x-0.5 items-center">
+              <span className="col-span-4 font-semibold">
+                {basicInfo.title}
+              </span>
+              <span className="col-span-1 text-sm text-muted-foreground">
+                <IntlNumberFormat>
+                  {statistics.subscriberCount}
+                </IntlNumberFormat>
+              </span>
+            </p>
           </div>
-          <Button>Subscribe</Button>
         </div>
         <div className="flex space-x-2">
           <Button variant="outline">
@@ -106,9 +114,6 @@ export default function YoutubeLiveTemplate({
           </Button>
           <Button variant="outline">
             <Share2 className="mr-2 h-4 w-4" /> Share
-          </Button>
-          <Button variant="outline">
-            <MoreVertical className="h-4 w-4" />
           </Button>
         </div>
       </div>
