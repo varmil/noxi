@@ -1,10 +1,7 @@
-'use client'
-
-import { PropsWithoutRef, useState } from 'react'
+import { PropsWithoutRef } from 'react'
 import { ThumbsUp, MessageSquare, Share2, MoreVertical } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
@@ -31,44 +28,6 @@ export default function YoutubeLiveTemplate({
     },
     group
   } = stream
-
-  const [_chatMessages, setChatMessages] = useState([
-    {
-      id: 1,
-      user: 'Alice',
-      message: 'Great stream!',
-      avatar: '/placeholder.svg?height=32&width=32'
-    },
-    {
-      id: 2,
-      user: 'Bob',
-      message: 'When is the next event?',
-      avatar: '/placeholder.svg?height=32&width=32'
-    },
-    {
-      id: 3,
-      user: 'Charlie',
-      message: 'This is awesome!',
-      avatar: '/placeholder.svg?height=32&width=32'
-    }
-  ])
-  const [newMessage, setNewMessage] = useState('')
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (newMessage.trim()) {
-      setChatMessages([
-        ..._chatMessages,
-        {
-          id: _chatMessages.length + 1,
-          user: 'You',
-          message: newMessage.trim(),
-          avatar: '/placeholder.svg?height=32&width=32'
-        }
-      ])
-      setNewMessage('')
-    }
-  }
 
   const relatedVideos = [
     {
@@ -154,25 +113,15 @@ export default function YoutubeLiveTemplate({
         </div>
       </div>
       <div className="space-y-4">
-        <div className="bg-secondary rounded-lg p-4 space-y-4">
-          <section className="h-[600px] rounded-md border">
-            <iframe
-              src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
-              //   src={`https://www.youtube.com/live_chat_replay?continuation=op2w0wR1Gl5DaWtxSndvWVZVTXdWRmhsWDB4WldqUnpZMkZYTWxoTmVXazFYMnQzRWd0TFZrSk5SVTV5ZDNnNE1Cb1Q2cWpkdVFFTkNndExWa0pOUlU1eWQzZzRNQ0FCTUFBJTNEQAFaBRCQ28wBcggIBBgCIAAoAHgB&authuser=0`}
-              allow=""
-              allowFullScreen
-              className="w-full h-full"
-            ></iframe>
-          </section>
-          <form onSubmit={handleSendMessage} className="flex space-x-2">
-            <Input
-              placeholder="Type a message..."
-              value={newMessage}
-              onChange={e => setNewMessage(e.target.value)}
-            />
-            <Button type="submit">Send</Button>
-          </form>
-        </div>
+        <section className="h-[600px] rounded-md border">
+          <iframe
+            src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
+            //   src={`https://www.youtube.com/live_chat_replay?continuation=op2w0wR1Gl5DaWtxSndvWVZVTXdWRmhsWDB4WldqUnpZMkZYTWxoTmVXazFYMnQzRWd0TFZrSk5SVTV5ZDNnNE1Cb1Q2cWpkdVFFTkNndExWa0pOUlU1eWQzZzRNQ0FCTUFBJTNEQAFaBRCQ28wBcggIBBgCIAAoAHgB&authuser=0`}
+            allow=""
+            allowFullScreen
+            className="w-full h-full rounded-md "
+          ></iframe>
+        </section>
         <div className="bg-secondary rounded-lg p-4 space-y-4">
           <h2 className="text-xl font-semibold">Related Videos</h2>
           <ScrollArea className="h-[400px]">
