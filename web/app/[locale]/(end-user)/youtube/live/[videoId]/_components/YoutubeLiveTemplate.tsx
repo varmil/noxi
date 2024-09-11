@@ -1,11 +1,9 @@
-'use client'
-
-import { PropsWithoutRef, useState } from 'react'
-import { ThumbsUp, MessageSquare, Share2, MoreVertical } from 'lucide-react'
+import { PropsWithoutRef } from 'react'
+import { ThumbsUp, MessageSquare, Share2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 
@@ -16,12 +14,12 @@ type Props = {
   stream: StreamSchema
 }
 
-export default function YoutubeLiveTemplate({
+export default async function YoutubeLiveTemplate({
   stream
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
-    snippet: { title },
+    snippet: { title, channelId },
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -32,43 +30,7 @@ export default function YoutubeLiveTemplate({
     group
   } = stream
 
-  const [_chatMessages, setChatMessages] = useState([
-    {
-      id: 1,
-      user: 'Alice',
-      message: 'Great stream!',
-      avatar: '/placeholder.svg?height=32&width=32'
-    },
-    {
-      id: 2,
-      user: 'Bob',
-      message: 'When is the next event?',
-      avatar: '/placeholder.svg?height=32&width=32'
-    },
-    {
-      id: 3,
-      user: 'Charlie',
-      message: 'This is awesome!',
-      avatar: '/placeholder.svg?height=32&width=32'
-    }
-  ])
-  const [newMessage, setNewMessage] = useState('')
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault()
-    if (newMessage.trim()) {
-      setChatMessages([
-        ..._chatMessages,
-        {
-          id: _chatMessages.length + 1,
-          user: 'You',
-          message: newMessage.trim(),
-          avatar: '/placeholder.svg?height=32&width=32'
-        }
-      ])
-      setNewMessage('')
-    }
-  }
+  const { basicInfo, statistics } = await getChannel(channelId)
 
   const relatedVideos = [
     {
@@ -119,60 +81,58 @@ export default function YoutubeLiveTemplate({
             className="w-full h-full"
           ></iframe>
         </div>
-        <h1 className="text-xl sm:text-2xl font-bold">{title}</h1>
-        <div className="flex items-center justify-between">
+
+        {/* タイトル、投稿者情報 */}
+        <section className="hidden md:block space-y-4">
+          <h1 className="text-lg sm:text-xl font-bold">{title}</h1>
           <div className="flex items-center space-x-2">
-            <Avatar>
+            <Avatar className="w-7 h-7 sm:w-11 sm:h-11">
               <AvatarImage
-                src="/placeholder.svg?height=40&width=40"
-                alt="Channel Name"
+                src={basicInfo.thumbnails.medium?.url}
+                alt={basicInfo.title}
               />
-              <AvatarFallback>CN</AvatarFallback>
+              <AvatarFallback>{basicInfo.title}</AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-semibold">Channel Name</p>
-              <p className="text-sm text-gray-500">1.2M subscribers</p>
+              <p className="grid grid-cols-5 gap-x-0.5 items-center">
+                <span className="col-span-4 font-semibold">
+                  {basicInfo.title}
+                </span>
+                <span className="col-span-1 text-sm text-muted-foreground">
+                  <IntlNumberFormat>
+                    {statistics.subscriberCount}
+                  </IntlNumberFormat>
+                </span>
+              </p>
             </div>
           </div>
-          <Button>Subscribe</Button>
-        </div>
-        <div className="flex space-x-2">
-          <Button variant="outline">
-            <ThumbsUp className="mr-2 h-4 w-4" />
-            <IntlNumberFormat>{likes}</IntlNumberFormat>
-          </Button>
-          <Button variant="outline">
-            <MessageSquare className="mr-2 h-4 w-4" />
-            <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
-          </Button>
-          <Button variant="outline">
-            <Share2 className="mr-2 h-4 w-4" /> Share
-          </Button>
-          <Button variant="outline">
-            <MoreVertical className="h-4 w-4" />
-          </Button>
-        </div>
+          <div className="flex space-x-2">
+            <Button variant="outline">
+              <ThumbsUp className="mr-2 h-4 w-4" />
+              <IntlNumberFormat>{likes}</IntlNumberFormat>
+            </Button>
+            <Button variant="outline">
+              <MessageSquare className="mr-2 h-4 w-4" />
+              <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
+            </Button>
+            <Button variant="outline">
+              <Share2 className="mr-2 h-4 w-4" /> Share
+            </Button>
+          </div>
+        </section>
       </div>
+
       <div className="space-y-4">
-        <div className="bg-secondary rounded-lg p-4 space-y-4">
-          <section className="h-[600px] rounded-md border">
-            <iframe
-              src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
-              //   src={`https://www.youtube.com/live_chat_replay?continuation=op2w0wR1Gl5DaWtxSndvWVZVTXdWRmhsWDB4WldqUnpZMkZYTWxoTmVXazFYMnQzRWd0TFZrSk5SVTV5ZDNnNE1Cb1Q2cWpkdVFFTkNndExWa0pOUlU1eWQzZzRNQ0FCTUFBJTNEQAFaBRCQ28wBcggIBBgCIAAoAHgB&authuser=0`}
-              allow=""
-              allowFullScreen
-              className="w-full h-full"
-            ></iframe>
-          </section>
-          <form onSubmit={handleSendMessage} className="flex space-x-2">
-            <Input
-              placeholder="Type a message..."
-              value={newMessage}
-              onChange={e => setNewMessage(e.target.value)}
-            />
-            <Button type="submit">Send</Button>
-          </form>
-        </div>
+        {/* Chat */}
+        <section className="h-[400px] rounded-md border">
+          <iframe
+            src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
+            allow=""
+            allowFullScreen
+            className="w-full h-full rounded-md"
+          ></iframe>
+        </section>
+        {/* Related Videos */}
         <div className="bg-secondary rounded-lg p-4 space-y-4">
           <h2 className="text-xl font-semibold">Related Videos</h2>
           <ScrollArea className="h-[400px]">

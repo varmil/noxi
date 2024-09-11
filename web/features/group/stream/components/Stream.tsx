@@ -95,7 +95,7 @@ export default async function Stream({
           {isLive && <SmallLiveBadge />}
         </div>
         <div>
-          <h3 className="text-sm line-clamp-2 mb-1">{title}</h3>
+          <h3 className="break-anywhere text-sm line-clamp-2 mb-1">{title}</h3>
           <div className="col-start-2 flex items-center gap-1">
             <div className="text-xs sm:text-sm text-muted-foreground">
               <div>{channel.basicInfo.title}</div>
