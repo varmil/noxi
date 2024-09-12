@@ -31,7 +31,7 @@ export default async function YoutubeLiveTemplate({
   } = stream
 
   return (
-    <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px]">
+    <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(650px,100%),minmax(320px,1fr)]">
       <LgContainer className="space-y-4">
         {/* Stream */}
         <div className="order-1 grid aspect-video overflow-hidden">
@@ -52,12 +52,12 @@ export default async function YoutubeLiveTemplate({
       <LgContainer className="space-y-4">
         {/* Chat */}
         <PadSection right className="order-2">
-          <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-12rem)]">
+          <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-10rem)]">
             <iframe
               src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
               allow=""
               allowFullScreen
-              className="w-full h-full rounded lg:rounded-none"
+              className="w-full h-full rounded-lg lg:rounded-none"
             ></iframe>
           </section>
         </PadSection>
