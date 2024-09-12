@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { ChannelIdTemplate } from 'app/[locale]/(end-user)/_components/ChannelIdTemplate'
-import Page from 'components/Page'
+import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
