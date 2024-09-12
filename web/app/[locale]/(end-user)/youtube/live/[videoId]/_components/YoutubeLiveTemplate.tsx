@@ -30,14 +30,20 @@ export default async function YoutubeLiveTemplate({
     group
   } = stream
 
+  const EMBED_QUERY = new URLSearchParams({
+    autoplay: '1',
+    mute: '1',
+    modestbranding: '1'
+  }).toString()
+
   return (
     <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(650px,100%),minmax(320px,1fr)]">
       <LgContainer className="space-y-4">
         {/* Stream */}
         <div className="order-1 grid aspect-video overflow-hidden">
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            src={`https://www.youtube.com/embed/${videoId}?${EMBED_QUERY}`}
+            allow="accelerometer; autoplay; encrypted-media; picture-in-picture; web-share"
             allowFullScreen
             className="w-full h-full"
           ></iframe>
