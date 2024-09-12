@@ -4,15 +4,27 @@ import Header from 'components/header/Header'
 
 type Props = {
   breadcrumb?: ComponentProps<typeof GlobalBreadcrumb>['items']
+  noPadding?: boolean
 }
 
-export function Page({ breadcrumb, children }: PropsWithChildren<Props>) {
+/** PageレベルのXSデフォルトXパディング値 */
+export const PageXSPX = 'px-4'
+const PX = `${PageXSPX} sm:px-6`
+const PY = 'py-4'
+
+export function Page({
+  breadcrumb,
+  children,
+  noPadding
+}: PropsWithChildren<Props>) {
+  const padding = noPadding ? 'px-0 py-4' : `${PX} ${PY}`
+
   return (
     <>
       <Header />
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
 
-      <main className="container min-h-screen p-4 sm:px-6">{children}</main>
+      <main className={`container min-h-screen ${padding}`}>{children}</main>
     </>
   )
 }

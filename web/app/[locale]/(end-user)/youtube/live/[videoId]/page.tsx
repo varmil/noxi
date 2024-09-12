@@ -53,6 +53,7 @@ export default async function YoutubeLivePage({
         },
         { href: '#', name: title }
       ]}
+      noPadding
     >
       <YoutubeLiveTemplate stream={stream} />
     </Page>

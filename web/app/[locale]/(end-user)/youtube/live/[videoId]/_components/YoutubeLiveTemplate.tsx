@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import { PageXSPX } from 'components/page'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 
 const embed_domain =
@@ -30,7 +31,7 @@ export default async function YoutubeLiveTemplate({
   } = stream
 
   return (
-    <div className="grid gap-y-4 lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px]">
+    <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px]">
       <LgContainer className="space-y-4">
         {/* Stream */}
         <div className="order-1 grid aspect-video overflow-hidden">
@@ -43,14 +44,14 @@ export default async function YoutubeLiveTemplate({
         </div>
 
         {/* タイトル、投稿者情報 */}
-        <section className="order-3">
+        <PadSection left className="order-3">
           <StreamBasicInfo stream={stream} />
-        </section>
+        </PadSection>
       </LgContainer>
 
       <LgContainer className="space-y-4">
         {/* Chat */}
-        <section className="order-2">
+        <PadSection right className="order-2">
           <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-12rem)]">
             <iframe
               src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
@@ -59,12 +60,12 @@ export default async function YoutubeLiveTemplate({
               className="w-full h-full rounded lg:rounded-none"
             ></iframe>
           </section>
-        </section>
+        </PadSection>
 
         {/* Related Videos */}
-        <section className="order-4">
+        <PadSection right className="order-4">
           <RelatedVideos />
-        </section>
+        </PadSection>
       </LgContainer>
     </div>
   )
@@ -77,6 +78,32 @@ function LgContainer({
 }: PropsWithChildren<{ className?: string }>) {
   return (
     <section className={`contents lg:block ${className ?? ''}`}>
+      {children}
+    </section>
+  )
+}
+
+/** paddingなしページなので個別にpadding必要な場所はセット */
+function PadSection({
+  className,
+  children,
+  left,
+  right
+}: PropsWithChildren<{
+  className?: string
+  /** 2カラム表示時：左カラム */
+  left?: boolean
+  /** 2カラム表示時：右カラム */
+  right?: boolean
+}>) {
+  const LG_LEFT_PX = 'lg:px-6'
+  const LG_RIGHT_PX = 'lg:px-0'
+  return (
+    <section
+      className={`${PageXSPX} ${left ? LG_LEFT_PX : ''} ${
+        right ? LG_RIGHT_PX : ''
+      } ${className ?? ''}`}
+    >
       {children}
     </section>
   )
