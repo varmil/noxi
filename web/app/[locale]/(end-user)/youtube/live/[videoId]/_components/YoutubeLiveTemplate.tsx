@@ -1,4 +1,4 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { ThumbsUp, MessageSquare, Share2 } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -30,10 +30,10 @@ export default async function YoutubeLiveTemplate({
   } = stream
 
   return (
-    <div className="grid gap-y-4 lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px] lg:grid-rows-2">
-      {/* Stream */}
-      <section className="space-y-4 lg:row-auto">
-        <div className="aspect-video overflow-hidden">
+    <div className="grid gap-y-4 lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px]">
+      <LgContainer className="space-y-4">
+        {/* Stream */}
+        <div className="order-1 grid aspect-video overflow-hidden">
           <iframe
             src={`https://www.youtube.com/embed/${videoId}`}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -41,30 +41,44 @@ export default async function YoutubeLiveTemplate({
             className="w-full h-full"
           ></iframe>
         </div>
-      </section>
 
-      {/* Chat */}
-      <section className="space-y-4 lg:row-span-2">
-        <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-12rem)]">
-          <iframe
-            src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
-            allow=""
-            allowFullScreen
-            className="w-full h-full rounded lg:rounded-none"
-          ></iframe>
+        {/* タイトル、投稿者情報 */}
+        <section className="order-3">
+          <StreamBasicInfo stream={stream} />
         </section>
-      </section>
+      </LgContainer>
 
-      {/* タイトル、投稿者情報 */}
-      <section className="lg:row-auto">
-        <StreamBasicInfo stream={stream} />
-      </section>
+      <LgContainer className="space-y-4">
+        {/* Chat */}
+        <section className="order-2">
+          <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-12rem)]">
+            <iframe
+              src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
+              allow=""
+              allowFullScreen
+              className="w-full h-full rounded lg:rounded-none"
+            ></iframe>
+          </section>
+        </section>
 
-      {/* Related Videos */}
-      <section className="lg:col-start-2">
-        <RelatedVideos />
-      </section>
+        {/* Related Videos */}
+        <section className="order-4">
+          <RelatedVideos />
+        </section>
+      </LgContainer>
     </div>
+  )
+}
+
+/** LG以上のブレークポイントでシンプルな２カラムを表現するために使用する */
+function LgContainer({
+  className,
+  children
+}: PropsWithChildren<{ className?: string }>) {
+  return (
+    <section className={`contents lg:block ${className ?? ''}`}>
+      {children}
+    </section>
   )
 }
 
