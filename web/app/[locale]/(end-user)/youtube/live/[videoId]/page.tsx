@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
 import YoutubeLiveTemplate from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/YoutubeLiveTemplate'
-import Page from 'components/Page'
+import { Page } from 'components/page'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {

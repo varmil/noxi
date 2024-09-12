@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/_components/IndexTemplate'
-import Page from 'components/Page'
+import { Page } from 'components/page'
 import { GroupString, GroupStrings } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 

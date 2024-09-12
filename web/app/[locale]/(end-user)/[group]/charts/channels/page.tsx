@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { ChartTemplate } from 'app/[locale]/(end-user)/[group]/charts/channels/_components/ChartTemplate'
-import Page from 'components/Page'
+import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 

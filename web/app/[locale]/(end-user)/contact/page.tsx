@@ -1,7 +1,7 @@
 import { Contact } from 'lucide-react'
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import Page from 'components/Page'
+import { Page } from 'components/page'
 
 type Props = {
   params: { locale: string }
