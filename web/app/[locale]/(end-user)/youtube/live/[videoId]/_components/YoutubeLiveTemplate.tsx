@@ -19,7 +19,6 @@ export default async function YoutubeLiveTemplate({
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
-    snippet: { title, channelId },
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -31,8 +30,9 @@ export default async function YoutubeLiveTemplate({
   } = stream
 
   return (
-    <div className="grid gap-y-4 lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px] lg:grid-rows-[auto,1fr]">
-      <section className="space-y-4">
+    <div className="grid gap-y-4 lg:gap-x-0 grid-cols-1 lg:grid-cols-[1fr,402px] lg:grid-rows-2">
+      {/* Stream */}
+      <section className="space-y-4 lg:row-auto">
         <div className="aspect-video overflow-hidden">
           <iframe
             src={`https://www.youtube.com/embed/${videoId}`}
@@ -41,13 +41,10 @@ export default async function YoutubeLiveTemplate({
             className="w-full h-full"
           ></iframe>
         </div>
-
-        {/* タイトル、投稿者情報 */}
-        <StreamBasicInfo stream={stream} />
       </section>
 
-      <section className="space-y-4">
-        {/* Chat */}
+      {/* Chat */}
+      <section className="space-y-4 lg:row-span-2">
         <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-12rem)]">
           <iframe
             src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
@@ -56,7 +53,15 @@ export default async function YoutubeLiveTemplate({
             className="w-full h-full rounded lg:rounded-none"
           ></iframe>
         </section>
-        {/* Related Videos */}
+      </section>
+
+      {/* タイトル、投稿者情報 */}
+      <section className="lg:row-auto">
+        <StreamBasicInfo stream={stream} />
+      </section>
+
+      {/* Related Videos */}
+      <section className="lg:col-start-2">
         <RelatedVideos />
       </section>
     </div>
@@ -79,7 +84,7 @@ async function StreamBasicInfo({ stream }: { stream: StreamSchema }) {
   const { basicInfo, statistics } = await getChannel(channelId)
 
   return (
-    <section className="hidden md:block space-y-4">
+    <section className="space-y-4">
       <h1 className="text-lg sm:text-xl font-bold">{title}</h1>
       <div className="flex items-center space-x-2">
         <Avatar className="w-7 h-7 sm:w-11 sm:h-11">
