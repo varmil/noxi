@@ -8,6 +8,7 @@ import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import dayjs from 'lib/dayjs'
+import { Link } from 'lib/navigation'
 
 const LiveBadge = () => (
   <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
@@ -70,7 +71,7 @@ export default async function Stream({
   return (
     <Container>
       <ImgContainer>
-        <a href={`https://youtube.com/watch?v=${videoId}`} target="_blank">
+        <Link href={`/youtube/live/${videoId}`} prefetch={true}>
           <img
             src={thumbnails['high']?.url}
             alt={title}
@@ -85,7 +86,7 @@ export default async function Stream({
                 .toISOString()}
             />
           )}
-        </a>
+        </Link>
       </ImgContainer>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
         <div className="items-center text-center">
