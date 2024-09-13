@@ -40,12 +40,12 @@ export default async function YoutubeLiveTemplate({
     <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(650px,100%),minmax(320px,1fr)]">
       <LgContainer className="space-y-4">
         {/* Stream */}
-        <div className="flex order-1 aspect-video w-full max-h-svh justify-center items-center">
+        <div className="flex order-1 aspect-video w-full max-h-[90svh] justify-center items-center bg-black">
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?${EMBED_QUERY}`}
             allow="accelerometer; autoplay; encrypted-media; picture-in-picture; web-share"
             allowFullScreen
-            className="w-full h-full"
+            className="aspect-video h-full max-h-[90svh] "
           ></iframe>
         </div>
 
