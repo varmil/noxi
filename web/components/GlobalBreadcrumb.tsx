@@ -29,7 +29,7 @@ export default function GlobalBreadcrumb({
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/" prefetch={false}>
+                <Link href="/" prefetch={true}>
                   <HomeIcon className="h-5 w-5" />
                 </Link>
               </BreadcrumbLink>
@@ -40,7 +40,7 @@ export default function GlobalBreadcrumb({
                 {<BreadcrumbSeparator />}
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href={item.href} prefetch={false}>
+                    <Link href={item.href} prefetch={true}>
                       {item.name}
                     </Link>
                   </BreadcrumbLink>

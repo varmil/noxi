@@ -43,6 +43,7 @@ export default function Header() {
               <Link
                 href="/"
                 className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary text-lg font-semibold text-primary-foreground md:text-base"
+                prefetch={true}
               >
                 <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
                 <span className="sr-only">PeakX</span>
@@ -141,7 +142,7 @@ export default function Header() {
       <Link
         href="/"
         className="flex items-center gap-2.5 transition-all hover:scale-105"
-        prefetch={false}
+        prefetch={true}
         scroll={false}
       >
         <Logo className="w-6 h-6" />

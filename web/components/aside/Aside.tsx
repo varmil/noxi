@@ -20,7 +20,7 @@ export default function Aside() {
           <Link
             href="/"
             className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary"
-            prefetch={false}
+            prefetch={true}
           >
             <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
             <span className="sr-only">{t('title')}</span>
