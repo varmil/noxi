@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/_components/IndexTemplate'
+import { ChartTemplate } from 'app/[locale]/(end-user)/(default)/[group]/charts/channels/_components/ChartTemplate'
 import { Page } from 'components/page'
-import { GroupString, GroupStrings } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -11,29 +11,19 @@ type Props = {
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
-/**
- * The Root of the Group Page
- */
-export function generateStaticParams(): { group: string }[] {
-  return GroupStrings.map(group => ({ group }))
-}
-
 export async function generateMetadata({
   params: { locale, group }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({
-    locale,
-    namespace: 'Page.group.index.metadata'
-  })
+  const t = await getTranslations({ locale, namespace: 'Page.group.charts' })
 
   return {
-    title: `${t('title')} | ${tg('title')}`,
+    title: `${t('title', { group: tg(`group.${group}`) })} | ${tg('title')}`,
     description: `${t('description', { group: tg(`group.${group}`) })}`
   }
 }
 
-export default function HololivePage({ params: { locale, group } }: Props) {
+export default function GroupChartsPage({ params: { locale, group } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
   setGroup(group)
@@ -44,10 +34,14 @@ export default function HololivePage({ params: { locale, group } }: Props) {
   return (
     <Page
       breadcrumb={[
-        { href: `/${group}`, name: t('group', { group: tg(`group.${group}`) }) }
+        {
+          href: `/${group}`,
+          name: t('group', { group: tg(`group.${group}`) })
+        },
+        { href: `/${group}/charts/channels`, name: t('channels') }
       ]}
     >
-      <IndexTemplate />
+      <ChartTemplate />
     </Page>
   )
 }

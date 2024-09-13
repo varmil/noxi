@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import EmbedStream from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/stream/EmbedStream'
+import EmbedStream from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/stream/EmbedStream'
 
 type Props = {
   videoId: string

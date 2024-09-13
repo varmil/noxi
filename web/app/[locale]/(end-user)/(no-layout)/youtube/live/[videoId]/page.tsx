@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
-import DefaultModeTemplate from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
-import TheaterModeTemplate from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
+import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
+import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
 import { Page } from 'components/page'
+import { isTheaterMode } from 'lib/isTheaterMode'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -36,19 +37,14 @@ export default async function YoutubeLivePage({
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
-  const isTheaterMode = new URLSearchParams(searchParams).get('theater') === '1'
-
-  return !isTheaterMode ? (
+  return !isTheaterMode(searchParams) ? (
     <DefaultModePage params={{ locale, videoId }} searchParams={searchParams} />
   ) : (
     <TheaterModePage params={{ locale, videoId }} searchParams={searchParams} />
   )
 }
 
-async function DefaultModePage({
-  params: { locale, videoId },
-  searchParams
-}: Props) {
+async function DefaultModePage({ params: { locale, videoId } }: Props) {
   const tg = await getTranslations('Global')
   const t = await getTranslations('Breadcrumb')
 
@@ -76,9 +72,6 @@ async function DefaultModePage({
   )
 }
 
-async function TheaterModePage({
-  params: { locale, videoId },
-  searchParams
-}: Props) {
-  return <TheaterModeTemplate />
+async function TheaterModePage({ params: { locale, videoId } }: Props) {
+  return <TheaterModeTemplate videoId={videoId} />
 }
