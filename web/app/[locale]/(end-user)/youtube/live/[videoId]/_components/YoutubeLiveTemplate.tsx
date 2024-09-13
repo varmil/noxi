@@ -1,9 +1,9 @@
 import { PropsWithoutRef } from 'react'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import RelatedVideos from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/RelatedVideos'
-import StreamBasicInfo from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/StreamBasicInfo'
 import LgContainer from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/layouts/LgContainer'
 import PadSection from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/layouts/PadSection'
+import RelatedVideos from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/RelatedVideos'
+import StreamBasicInfo from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/StreamBasicInfo'
 
 const embed_domain =
   process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'localhost'
