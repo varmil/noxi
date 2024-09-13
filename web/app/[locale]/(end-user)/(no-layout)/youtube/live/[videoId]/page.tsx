@@ -3,6 +3,8 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
+import DefaultLayout from 'components/layouts/DefaultLayout'
+import TheaterLayout from 'components/layouts/TheaterLayout'
 import { Page } from 'components/page'
 import { isTheaterMode } from 'lib/isTheaterMode'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -38,9 +40,19 @@ export default async function YoutubeLivePage({
   unstable_setRequestLocale(locale)
 
   return !isTheaterMode(searchParams) ? (
-    <DefaultModePage params={{ locale, videoId }} searchParams={searchParams} />
+    <DefaultLayout>
+      <DefaultModePage
+        params={{ locale, videoId }}
+        searchParams={searchParams}
+      />
+    </DefaultLayout>
   ) : (
-    <TheaterModePage params={{ locale, videoId }} searchParams={searchParams} />
+    <TheaterLayout>
+      <TheaterModePage
+        params={{ locale, videoId }}
+        searchParams={searchParams}
+      />
+    </TheaterLayout>
   )
 }
 

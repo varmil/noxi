@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import DefaultLayout from 'components/layouts/DefaultLayout'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -9,7 +8,7 @@ type Props = {
   params: { locale: string; group: GroupString }
 }
 
-export default async function LocaleLayout({
+export default async function NoLayout({
   children,
   params: { locale, group }
 }: Props) {
@@ -17,5 +16,5 @@ export default async function LocaleLayout({
   unstable_setRequestLocale(locale)
   setGroup(group)
 
-  return <DefaultLayout>{children}</DefaultLayout>
+  return <>{children}</>
 }
