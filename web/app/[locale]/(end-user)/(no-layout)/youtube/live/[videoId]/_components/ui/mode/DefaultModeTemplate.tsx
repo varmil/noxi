@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import MaximizeButton from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/button/MaximizeButton'
 import LgContainer from '../../layouts/LgContainer'
 import PadSection from '../../layouts/PadSection'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
@@ -35,7 +36,8 @@ export default async function DefaultModeTemplate({
         </div>
 
         {/* タイトル、投稿者情報 */}
-        <PadSection left className="order-3">
+        <PadSection left className="order-3 space-y-4">
+          <MaximizeButton />
           <StreamBasicInfo stream={stream} />
         </PadSection>
       </LgContainer>

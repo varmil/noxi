@@ -1,15 +1,27 @@
-import { MessageSquare, Users, Settings, Volume2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import EmbedLiveChat from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/stream/EmbedLiveChat'
-import EmbedStream from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/stream/EmbedStream'
+import { MessageSquare, Users } from 'lucide-react'
+import { getStream } from 'apis/youtube/getStream'
+import MinimizeButton from '../button/MinimizeButton'
+import EmbedLiveChat from '../stream/EmbedLiveChat'
+import EmbedStream from '../stream/EmbedStream'
 
 type Props = {
   videoId: string
 }
 
-export default function TheaterModeTemplate({ videoId }: Props) {
+export default async function TheaterModeTemplate({ videoId }: Props) {
+  const stream = await getStream(videoId)
+  const {
+    metrics: {
+      peakConcurrentViewers,
+      avgConcurrentViewers,
+      chatMessages,
+      views,
+      likes
+    }
+  } = stream
+
   return (
-    <div className="flex h-svh">
+    <div className="flex h-svh overflow-hidden">
       <div className="flex-1 flex flex-col">
         {/* Stream */}
         <section className="flex flex-1 aspect-video w-full h-hull justify-center items-center bg-black">
@@ -17,20 +29,21 @@ export default function TheaterModeTemplate({ videoId }: Props) {
         </section>
 
         {/* Bottom Bar */}
-        <div className="h-16 bg-secondary flex items-center px-4 space-x-4">
-          <Button variant="ghost" size="icon">
-            <Settings className="h-6 w-6" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Volume2 className="h-6 w-6" />
-          </Button>
-          <div className="flex-1" />
-          <Button variant="ghost" size="icon">
+        <div className="h-[15svh] min-h-10 max-h-16 bg-secondary flex items-center px-4 space-x-6">
+          <div className="flex gap-x-2">
             <Users className="h-6 w-6" />
-          </Button>
-          <Button variant="ghost" size="icon">
+            <span>
+              {peakConcurrentViewers
+                ? peakConcurrentViewers.toLocaleString()
+                : '--'}
+            </span>
+          </div>
+          <div className="flex gap-x-2">
             <MessageSquare className="h-6 w-6" />
-          </Button>
+            <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
+          </div>
+          <div className="flex-1" />
+          <MinimizeButton />
         </div>
       </div>
 
