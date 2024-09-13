@@ -1,7 +1,5 @@
 import { ReactNode } from 'react'
 import { unstable_setRequestLocale } from 'next-intl/server'
-import { CookieAgreeBanner } from 'app/[locale]/(end-user)/_components/CookieAgreeBanner'
-import Aside from 'components/aside/Aside'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -10,7 +8,7 @@ type Props = {
   params: { locale: string; group: GroupString }
 }
 
-export default async function LocaleLayout({
+export default async function NoLayout({
   children,
   params: { locale, group }
 }: Props) {
@@ -18,13 +16,5 @@ export default async function LocaleLayout({
   unstable_setRequestLocale(locale)
   setGroup(group)
 
-  return (
-    <>
-      <Aside />
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-16 bg-muted/40">
-        {children}
-      </div>
-      <CookieAgreeBanner />
-    </>
-  )
+  return <>{children}</>
 }

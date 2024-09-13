@@ -1,21 +1,23 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { ChartTemplate } from 'app/[locale]/(end-user)/[group]/charts/channels/_components/ChartTemplate'
+import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/scheduled/_components/IndexTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   params: { locale: string; group: GroupString }
-  searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
 export async function generateMetadata({
   params: { locale, group }
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'Page.group.charts' })
+  const t = await getTranslations({
+    locale,
+    namespace: 'Page.group.scheduled.metadata'
+  })
 
   return {
     title: `${t('title', { group: tg(`group.${group}`) })} | ${tg('title')}`,
@@ -23,7 +25,9 @@ export async function generateMetadata({
   }
 }
 
-export default function GroupChartsPage({ params: { locale, group } }: Props) {
+export default function HololiveScheduledPage({
+  params: { locale, group }
+}: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
   setGroup(group)
@@ -38,10 +42,10 @@ export default function GroupChartsPage({ params: { locale, group } }: Props) {
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: `/${group}/charts/channels`, name: t('channels') }
+        { href: `/${group}/scheduled`, name: t('scheduled') }
       ]}
     >
-      <ChartTemplate />
+      <IndexTemplate />
     </Page>
   )
 }

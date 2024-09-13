@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { IndexTemplate } from 'app/[locale]/(end-user)/[group]/scheduled/_components/IndexTemplate'
+import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/live/_components/IndexTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -16,7 +16,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.group.scheduled.metadata'
+    namespace: 'Page.group.live.metadata'
   })
 
   return {
@@ -25,9 +25,7 @@ export async function generateMetadata({
   }
 }
 
-export default function HololiveScheduledPage({
-  params: { locale, group }
-}: Props) {
+export default function GroupLivePage({ params: { locale, group } }: Props) {
   // Enable static rendering
   unstable_setRequestLocale(locale)
   setGroup(group)
@@ -42,7 +40,7 @@ export default function HololiveScheduledPage({
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: `/${group}/scheduled`, name: t('scheduled') }
+        { href: `/${group}/live`, name: t('live') }
       ]}
     >
       <IndexTemplate />
