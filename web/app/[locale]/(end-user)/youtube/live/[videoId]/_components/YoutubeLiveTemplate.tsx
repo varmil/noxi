@@ -40,7 +40,7 @@ export default async function YoutubeLiveTemplate({
     <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(650px,100%),minmax(320px,1fr)]">
       <LgContainer className="space-y-4">
         {/* Stream */}
-        <div className="order-1 grid aspect-video overflow-hidden">
+        <div className="flex order-1 aspect-video w-full max-h-svh justify-center items-center">
           <iframe
             src={`https://www.youtube.com/embed/${videoId}?${EMBED_QUERY}`}
             allow="accelerometer; autoplay; encrypted-media; picture-in-picture; web-share"
@@ -58,7 +58,7 @@ export default async function YoutubeLiveTemplate({
       <LgContainer className="space-y-4">
         {/* Chat */}
         <PadSection right className="order-2">
-          <section className="h-[calc(100svh-24rem)] lg:h-[calc(100svh-10rem)]">
+          <section className="min-h-80 h-[calc(100svh-24rem)] lg:h-[calc(100svh-10rem)]">
             <iframe
               src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
               allow=""
