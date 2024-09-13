@@ -9,15 +9,15 @@ type Props = {
 
 export default function TheaterModeTemplate({ videoId }: Props) {
   return (
-    <div className="flex h-svh bg-gray-900 text-white">
+    <div className="flex h-svh">
       <div className="flex-1 flex flex-col">
         {/* Stream */}
-        <section className="flex flex-1 aspect-video w-full h-hull justify-center items-center bg-black ">
+        <section className="flex flex-1 aspect-video w-full h-hull justify-center items-center bg-black">
           <EmbedStream videoId={videoId} className="w-full h-hull" />
         </section>
 
         {/* Bottom Bar */}
-        <div className="h-16 bg-gray-800 flex items-center px-4 space-x-4">
+        <div className="h-16 bg-secondary flex items-center px-4 space-x-4">
           <Button variant="ghost" size="icon">
             <Settings className="h-6 w-6" />
           </Button>
