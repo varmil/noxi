@@ -1,17 +1,17 @@
 import { PropsWithoutRef } from 'react'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import LgContainer from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/layouts/LgContainer'
-import PadSection from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/layouts/PadSection'
-import EmbedLiveChat from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/EmbedLiveChat'
-import EmbedStream from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/EmbedStream'
-import RelatedVideos from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/RelatedVideos'
-import StreamBasicInfo from 'app/[locale]/(end-user)/youtube/live/[videoId]/_components/ui/StreamBasicInfo'
+import LgContainer from '../../layouts/LgContainer'
+import PadSection from '../../layouts/PadSection'
+import EmbedLiveChat from '../stream/EmbedLiveChat'
+import EmbedStream from '../stream/EmbedStream'
+import RelatedVideos from '../stream/RelatedVideos'
+import StreamBasicInfo from '../stream/StreamBasicInfo'
 
 type Props = {
   stream: StreamSchema
 }
 
-export default async function YoutubeLiveTemplate({
+export default async function DefaultModeTemplate({
   stream
 }: PropsWithoutRef<Props>) {
   const {
