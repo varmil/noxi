@@ -48,7 +48,7 @@ export default async function DefaultModeTemplate({
       <LgContainer className="space-y-4">
         {/* Chat */}
         <PadSection right className="order-2">
-          <section className="min-h-80 h-[calc(100vh-24rem)] lg:h-[calc(100vh-9.5rem)]">
+          <section className="min-h-80 h-[calc(100vh-25rem)] lg:h-[calc(100vh-9.5rem)]">
             <EmbedLiveChat videoId={videoId} />
           </section>
         </PadSection>

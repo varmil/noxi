@@ -1,6 +1,6 @@
-import { ThumbsUp, MessageSquare, Share2 } from 'lucide-react'
+import { PropsWithChildren } from 'react'
+import { ThumbsUp, MessageSquare, Users } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
@@ -27,6 +27,8 @@ export default async function StreamBasicInfo({
   return (
     <section className="space-y-4">
       <h1 className="text-lg sm:text-xl font-bold">{title}</h1>
+
+      {/* Channel */}
       <div className="flex items-center space-x-2">
         <Avatar className="w-7 h-7 sm:w-11 sm:h-11">
           <AvatarImage
@@ -36,27 +38,46 @@ export default async function StreamBasicInfo({
           <AvatarFallback>{basicInfo.title}</AvatarFallback>
         </Avatar>
         <div>
-          <p className="grid grid-cols-5 gap-x-0.5 items-center">
-            <span className="col-span-4 font-semibold">{basicInfo.title}</span>
-            <span className="col-span-1 text-sm text-muted-foreground">
+          <p className="flex gap-x-1 items-center">
+            <span className="flex-1 font-semibold">{basicInfo.title}</span>
+            <span className="w-16 text-sm text-muted-foreground">
               <IntlNumberFormat>{statistics.subscriberCount}</IntlNumberFormat>
             </span>
           </p>
         </div>
       </div>
-      <div className="flex space-x-2">
-        <Button variant="outline">
-          <ThumbsUp className="mr-2 h-4 w-4" />
-          <IntlNumberFormat>{likes}</IntlNumberFormat>
-        </Button>
-        <Button variant="outline">
-          <MessageSquare className="mr-2 h-4 w-4" />
-          <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
-        </Button>
-        <Button variant="outline">
-          <Share2 className="mr-2 h-4 w-4" /> Share
-        </Button>
+
+      {/* Stats */}
+      <div className="flex space-x-4">
+        <OnelineStats>
+          <Users className="h-4 w-4" />
+          <span>
+            {peakConcurrentViewers
+              ? peakConcurrentViewers.toLocaleString()
+              : '--'}
+          </span>
+        </OnelineStats>
+        <OnelineStats>
+          <ThumbsUp className="h-4 w-4" />
+          <span>
+            <IntlNumberFormat>{likes}</IntlNumberFormat>
+          </span>
+        </OnelineStats>
+        <OnelineStats>
+          <MessageSquare className="h-4 w-4" />
+          <span>
+            <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
+          </span>
+        </OnelineStats>
       </div>
     </section>
+  )
+}
+
+function OnelineStats({ children }: PropsWithChildren) {
+  return (
+    <div className="flex items-center text-sm text-muted-foreground space-x-2 px-4 py-2 border rounded">
+      {children}
+    </div>
   )
 }
