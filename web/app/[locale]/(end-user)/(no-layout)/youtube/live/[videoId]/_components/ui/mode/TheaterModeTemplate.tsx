@@ -1,3 +1,4 @@
+import { AspectRatio } from '@radix-ui/react-aspect-ratio'
 import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
 import MinimizeButton from '../button/MinimizeButton'
@@ -24,8 +25,8 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
     <div className="flex h-svh overflow-hidden">
       <div className="flex-1 flex flex-col">
         {/* Stream */}
-        <section className="flex flex-1 aspect-video w-full h-hull justify-center items-center bg-black">
-          <EmbedStream videoId={videoId} className="w-full h-hull" />
+        <section className="flex flex-1 w-full h-full justify-center items-center bg-black">
+          <EmbedStream videoId={videoId} className="h-full w-full" />
         </section>
 
         {/* Bottom Bar */}
