@@ -1,5 +1,6 @@
 import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
+import RotateContainer from '../../layouts/RotateContainer'
 import MinimizeButton from '../button/MinimizeButton'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
@@ -21,15 +22,15 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   } = stream
 
   return (
-    <div className="flex h-svh overflow-hidden">
+    <RotateContainer>
       <div className="flex-1 flex flex-col">
         {/* Stream */}
-        <section className="flex flex-1 aspect-video w-full h-hull justify-center items-center bg-black">
-          <EmbedStream videoId={videoId} className="w-full h-hull" />
+        <section className="flex-1 w-full h-full justify-center items-center bg-black">
+          <EmbedStream videoId={videoId} className="h-full w-full" />
         </section>
 
         {/* Bottom Bar */}
-        <div className="h-[15svh] min-h-10 max-h-16 bg-secondary flex items-center px-4 space-x-6">
+        <div className="h-[11vh] min-h-9 max-h-16 bg-secondary flex items-center px-4 space-x-6">
           <div className="flex gap-x-2">
             <Users className="h-6 w-6" />
             <span>
@@ -50,9 +51,9 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
       {/* Chat */}
       <section className="w-80 flex flex-col">
         <div className="flex-1">
-          <EmbedLiveChat videoId={videoId} />
+          <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>
       </section>
-    </div>
+    </RotateContainer>
   )
 }
