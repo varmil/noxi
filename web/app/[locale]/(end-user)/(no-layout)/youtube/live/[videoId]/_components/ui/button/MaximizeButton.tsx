@@ -16,6 +16,7 @@ export default function MaximizeButton() {
       <Link
         href={`${pathname}?${createQueryString(QS_KEY, '1')}`}
         prefetch={true}
+        replace
       >
         <Maximize className="mr-2 h-4 w-4" />
         シアターモードで大きく表示する

@@ -9,7 +9,7 @@ export default function MinimizeButton() {
 
   return (
     <Button asChild variant="ghost" size="icon">
-      <Link href={`${pathname}`} prefetch={true}>
+      <Link href={`${pathname}`} prefetch={true} replace>
         <Minimize className="h-6 w-6" />
       </Link>
     </Button>
