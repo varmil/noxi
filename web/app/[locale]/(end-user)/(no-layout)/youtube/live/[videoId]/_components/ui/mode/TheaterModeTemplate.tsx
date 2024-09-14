@@ -1,4 +1,4 @@
-import { AspectRatio } from '@radix-ui/react-aspect-ratio'
+import { PropsWithChildren } from 'react'
 import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
 import MinimizeButton from '../button/MinimizeButton'
@@ -22,7 +22,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   } = stream
 
   return (
-    <div className="flex h-screen">
+    <RotateContainer>
       <div className="flex-1 flex flex-col">
         {/* Stream */}
         <section className="flex-1 w-full h-full justify-center items-center bg-black">
@@ -54,6 +54,21 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
           <EmbedLiveChat videoId={videoId} />
         </div>
       </section>
-    </div>
+    </RotateContainer>
+  )
+}
+
+/** XS(smartphone) でのみロテートしたい */
+function RotateContainer({ children }: PropsWithChildren) {
+  // TODO: sm以上での最適化
+  const pClass = 'w-screen h-screen overflow-hidden'
+  const cClassName = `flex \
+    rotate-90 mt-[calc((100vh-100vw)/2)] -ml-[calc((100vh-100vw)/2)] w-[100vh] h-[100vw] \
+    sm:transform-none sm:h-screen`
+
+  return (
+    <section className={pClass}>
+      <div className={cClassName}>{children}</div>
+    </section>
   )
 }
