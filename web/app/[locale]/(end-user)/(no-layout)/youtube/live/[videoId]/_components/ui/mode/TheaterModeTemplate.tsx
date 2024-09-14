@@ -25,12 +25,12 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
     <div className="flex h-screen">
       <div className="flex-1 flex flex-col">
         {/* Stream */}
-        <section className="w-full h-full max-h-[90vh] justify-center items-center bg-black">
+        <section className="flex-1 w-full h-full justify-center items-center bg-black">
           <EmbedStream videoId={videoId} className="h-full w-full" />
         </section>
 
         {/* Bottom Bar */}
-        <div className="flex-1 min-h-10 max-h-16 bg-secondary flex items-center px-4 space-x-6">
+        <div className="h-[11vh] min-h-9 max-h-16 bg-secondary flex items-center px-4 space-x-6">
           <div className="flex gap-x-2">
             <Users className="h-6 w-6" />
             <span>
