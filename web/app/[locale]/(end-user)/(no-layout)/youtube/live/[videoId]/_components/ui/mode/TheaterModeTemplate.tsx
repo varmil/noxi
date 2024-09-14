@@ -1,6 +1,6 @@
-import { PropsWithChildren } from 'react'
 import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
+import RotateContainer from '../../layouts/RotateContainer'
 import MinimizeButton from '../button/MinimizeButton'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
@@ -51,24 +51,9 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
       {/* Chat */}
       <section className="w-80 flex flex-col">
         <div className="flex-1">
-          <EmbedLiveChat videoId={videoId} />
+          <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>
       </section>
     </RotateContainer>
-  )
-}
-
-/** XS(smartphone) でのみロテートしたい */
-function RotateContainer({ children }: PropsWithChildren) {
-  // TODO: sm以上での最適化
-  const pClass = 'w-screen h-screen overflow-hidden'
-  const cClassName = `flex \
-    rotate-90 mt-[calc((100vh-100vw)/2)] -ml-[calc((100vh-100vw)/2)] w-[100vh] h-[100vw] \
-    sm:transform-none sm:h-screen`
-
-  return (
-    <section className={pClass}>
-      <div className={cClassName}>{children}</div>
-    </section>
   )
 }
