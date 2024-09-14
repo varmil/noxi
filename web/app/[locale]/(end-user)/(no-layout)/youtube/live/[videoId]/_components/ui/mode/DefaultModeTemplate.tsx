@@ -31,8 +31,11 @@ export default async function DefaultModeTemplate({
     <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(650px,100%),minmax(320px,1fr)]">
       <LgContainer className="space-y-4">
         {/* Stream */}
-        <div className="flex order-1 aspect-video w-full max-h-[94svh] justify-center items-center bg-black">
-          <EmbedStream videoId={videoId} className="h-full max-h-[94svh]" />
+        <div className="flex order-1 aspect-video w-full max-h-[94vh] justify-center items-center bg-black">
+          <EmbedStream
+            videoId={videoId}
+            className="w-full h-full max-h-[94vh]"
+          />
         </div>
 
         {/* タイトル、投稿者情報 */}
@@ -45,7 +48,7 @@ export default async function DefaultModeTemplate({
       <LgContainer className="space-y-4">
         {/* Chat */}
         <PadSection right className="order-2">
-          <section className="min-h-80 h-[calc(100svh-24rem)] lg:h-[calc(100svh-10rem)]">
+          <section className="min-h-80 h-[calc(100vh-24rem)] lg:h-[calc(100vh-9.5rem)]">
             <EmbedLiveChat videoId={videoId} />
           </section>
         </PadSection>
