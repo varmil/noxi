@@ -12,6 +12,7 @@ export default function Rotate180Button({ className }: { className?: string }) {
       variant="ghost"
       size="icon"
       onClick={() => setRotate180(!isRotate180)}
+      className="sm:hidden"
     >
       <RotateCwSquare className={className} />
     </Button>
