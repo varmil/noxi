@@ -1,6 +1,6 @@
 import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
-import RotateContainer from '../../layouts/RotateContainer'
+import { Theater, TheaterContent, ResizeHandle } from '../../layouts/Theater'
 import MinimizeButton from '../button/MinimizeButton'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
@@ -22,8 +22,8 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   } = stream
 
   return (
-    <>
-      <div className="flex-1 flex flex-col">
+    <Theater direction="horizontal">
+      <TheaterContent order={1} className="flex flex-col">
         {/* Stream */}
         <section className="flex-1 w-full h-full justify-center items-center bg-black">
           <EmbedStream videoId={videoId} className="h-full w-full" />
@@ -46,14 +46,16 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
           <div className="flex-1" />
           <MinimizeButton />
         </div>
-      </div>
+      </TheaterContent>
+
+      <ResizeHandle withHandle />
 
       {/* Chat */}
-      <section className="w-80 flex flex-col">
+      <TheaterContent order={2} defaultSize={30} className="flex flex-col">
         <div className="flex-1">
           <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>
-      </section>
-    </>
+      </TheaterContent>
+    </Theater>
   )
 }

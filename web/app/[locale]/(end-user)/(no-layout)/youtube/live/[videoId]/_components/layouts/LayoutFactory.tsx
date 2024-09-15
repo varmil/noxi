@@ -1,6 +1,6 @@
 'use client'
 
-import { PropsWithChildren, useRef } from 'react'
+import { PropsWithChildren } from 'react'
 import useGlobalTheaterMode from '../../_hooks/useGlobalTheaterMode'
 
 type Props = {
@@ -12,11 +12,10 @@ export default function LayoutFactory({
   DefaultLayout,
   TheaterLayout
 }: PropsWithChildren<Props>) {
-  const ref = useRef(null)
   const { isTheaterMode } = useGlobalTheaterMode()
 
   if (isTheaterMode) {
-    return <section ref={ref}>{TheaterLayout}</section>
+    return <section>{TheaterLayout}</section>
   }
 
   return DefaultLayout
