@@ -2,13 +2,13 @@
 
 import { Minimize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import useGlobalFullScreenToggle from '../../../_hooks/useGlobalFullScreenToggle'
+import useGlobalTheaterMode from '../../../_hooks/useGlobalTheaterMode'
 
 export default function MinimizeButton() {
-  const { setFullScreen } = useGlobalFullScreenToggle()
+  const { setTheaterMode } = useGlobalTheaterMode()
 
   return (
-    <Button variant="ghost" size="icon" onClick={() => setFullScreen(false)}>
+    <Button variant="ghost" size="icon" onClick={() => setTheaterMode(false)}>
       <Minimize className="h-6 w-6" />
     </Button>
   )

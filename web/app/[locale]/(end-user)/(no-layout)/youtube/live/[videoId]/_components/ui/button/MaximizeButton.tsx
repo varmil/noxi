@@ -2,16 +2,16 @@
 
 import { Maximize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import useGlobalFullScreenToggle from '../../../_hooks/useGlobalFullScreenToggle'
+import useGlobalTheaterMode from '../../../_hooks/useGlobalTheaterMode'
 
 export default function MaximizeButton() {
-  const { setFullScreen } = useGlobalFullScreenToggle()
+  const { setTheaterMode } = useGlobalTheaterMode()
 
   return (
     <Button
       variant="outline"
       className="w-full"
-      onClick={() => setFullScreen(true)}
+      onClick={() => setTheaterMode(true)}
     >
       <Maximize className="mr-2 h-4 w-4" />
       シアターモードで大きく表示する

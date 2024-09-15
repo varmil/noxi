@@ -1,13 +1,13 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
-import FullScreenContainer from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/layouts/FullScreenContainer'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
 import { Page } from 'components/page'
 import { setGroup } from 'lib/server-only-context/cache'
+import LayoutFactory from './_components/layouts/LayoutFactory'
 
 type Props = {
   params: { locale: string; videoId: string }
@@ -40,7 +40,7 @@ export default async function YoutubeLivePage({
   unstable_setRequestLocale(locale)
 
   return (
-    <FullScreenContainer
+    <LayoutFactory
       DefaultLayout={
         <DefaultLayout>
           <DefaultModePage
