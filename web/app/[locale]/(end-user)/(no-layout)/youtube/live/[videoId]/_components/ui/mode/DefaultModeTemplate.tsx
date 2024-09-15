@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
-import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import LgContainer from '../../layouts/LgContainer'
-import PadSection from '../../layouts/PadSection'
+import { getStream } from 'apis/youtube/getStream'
+import LgContainer from '../../layouts/default/LgContainer'
+import PadSection from '../../layouts/default/PadSection'
 import MaximizeButton from '../button/MaximizeButton'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
@@ -9,14 +9,14 @@ import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 
 type Props = {
-  stream: StreamSchema
+  videoId: string
 }
 
 export default async function DefaultModeTemplate({
-  stream
+  videoId
 }: PropsWithoutRef<Props>) {
+  const stream = await getStream(videoId)
   const {
-    videoId,
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,

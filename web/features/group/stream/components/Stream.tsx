@@ -52,7 +52,7 @@ export default async function Stream({
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
-    snippet: { title, thumbnails },
+    snippet: { title, thumbnails, channelId },
     streamTimes,
     metrics: {
       peakConcurrentViewers,
@@ -60,7 +60,8 @@ export default async function Stream({
       chatMessages,
       views,
       likes
-    }
+    },
+    group
   } = stream
 
   const isLive = stream.status === 'live'
@@ -90,16 +91,22 @@ export default async function Stream({
       </ImgContainer>
       <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
         <div className="items-center text-center">
-          <Avatar className="w-9 h-9 sm:w-11 sm:h-11">
-            <AvatarImage src={channel.basicInfo.thumbnails['medium']?.url} />
-          </Avatar>
+          <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
+            <Avatar className="w-9 h-9 sm:w-11 sm:h-11 transition-all hover:scale-105">
+              <AvatarImage src={channel.basicInfo.thumbnails['medium']?.url} />
+            </Avatar>
+          </Link>
           {isLive && <SmallLiveBadge />}
         </div>
         <div>
           <h3 className="break-anywhere text-sm line-clamp-2 mb-1">{title}</h3>
           <div className="col-start-2 flex items-center gap-1">
             <div className="text-xs sm:text-sm text-muted-foreground">
-              <div>{channel.basicInfo.title}</div>
+              <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
+                <div className="hover:text-accent-foreground">
+                  {channel.basicInfo.title}
+                </div>
+              </Link>
               {isLive && (
                 <div>
                   <IntlNumberFormat>{peakConcurrentViewers}</IntlNumberFormat>{' '}

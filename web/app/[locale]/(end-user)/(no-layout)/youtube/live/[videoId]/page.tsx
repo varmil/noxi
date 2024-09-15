@@ -1,13 +1,14 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
 import { Page } from 'components/page'
-import { isTheaterMode } from 'lib/isTheaterMode'
 import { setGroup } from 'lib/server-only-context/cache'
+import LayoutFactory from './_components/layouts/LayoutFactory'
 
 type Props = {
   params: { locale: string; videoId: string }
@@ -39,34 +40,38 @@ export default async function YoutubeLivePage({
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
-  return !isTheaterMode(searchParams) ? (
-    <DefaultLayout>
-      <DefaultModePage
-        params={{ locale, videoId }}
-        searchParams={searchParams}
-      />
-    </DefaultLayout>
-  ) : (
-    <TheaterLayout>
-      <TheaterModePage
-        params={{ locale, videoId }}
-        searchParams={searchParams}
-      />
-    </TheaterLayout>
+  return (
+    <LayoutFactory
+      DefaultLayout={
+        <DefaultLayout>
+          <DefaultModePage
+            params={{ locale, videoId }}
+            searchParams={searchParams}
+          />
+        </DefaultLayout>
+      }
+      TheaterLayout={
+        <TheaterLayout>
+          <TheaterModePage
+            params={{ locale, videoId }}
+            searchParams={searchParams}
+          />
+        </TheaterLayout>
+      }
+    />
   )
 }
 
 async function DefaultModePage({ params: { locale, videoId } }: Props) {
   const tg = await getTranslations('Global')
   const t = await getTranslations('Breadcrumb')
-
-  const stream = await getStream(videoId)
-  const group = stream.group
-  setGroup(group)
-
   const {
-    snippet: { title }
-  } = stream
+    snippet: { channelId, title },
+    group
+  } = await getStream(videoId)
+  const { basicInfo } = await getChannel(channelId)
+
+  setGroup(group)
 
   return (
     <Page
@@ -75,11 +80,15 @@ async function DefaultModePage({ params: { locale, videoId } }: Props) {
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
+        {
+          href: `/${group}/channels/${basicInfo.id}`,
+          name: basicInfo.title
+        },
         { href: '#', name: title }
       ]}
       noPadding
     >
-      <DefaultModeTemplate stream={stream} />
+      <DefaultModeTemplate videoId={videoId} />
     </Page>
   )
 }

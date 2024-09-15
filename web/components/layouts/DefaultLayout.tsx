@@ -6,7 +6,7 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Aside />
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-16 bg-muted/40">
+      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 bg-muted/40">
         {children}
       </div>
       <CookieAgreeBanner />

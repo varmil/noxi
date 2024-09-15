@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import { Link } from 'lib/navigation'
 
 export default async function StreamBasicInfo({
   stream
@@ -30,16 +31,24 @@ export default async function StreamBasicInfo({
 
       {/* Channel */}
       <div className="flex items-center space-x-2">
-        <Avatar className="w-7 h-7 sm:w-11 sm:h-11">
-          <AvatarImage
-            src={basicInfo.thumbnails.medium?.url}
-            alt={basicInfo.title}
-          />
-          <AvatarFallback>{basicInfo.title}</AvatarFallback>
-        </Avatar>
+        <Link href={`/${group}/channels/${basicInfo.id}`} prefetch={true}>
+          <Avatar className="w-7 h-7 sm:w-11 sm:h-11 transition-all hover:scale-105">
+            <AvatarImage
+              src={basicInfo.thumbnails.medium?.url}
+              alt={basicInfo.title}
+            />
+            <AvatarFallback>{basicInfo.title}</AvatarFallback>
+          </Avatar>
+        </Link>
         <div>
           <p className="flex gap-x-1 items-center">
-            <span className="flex-1 font-semibold">{basicInfo.title}</span>
+            <Link
+              href={`/${group}/channels/${basicInfo.id}`}
+              prefetch={true}
+              className="flex-1 font-semibold hover:text-accent-foreground"
+            >
+              {basicInfo.title}
+            </Link>
             <span className="w-16 text-sm text-muted-foreground">
               <IntlNumberFormat>{statistics.subscriberCount}</IntlNumberFormat>
             </span>

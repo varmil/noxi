@@ -1,9 +1,18 @@
-import { MessageSquare, Users } from 'lucide-react'
+import { MessageSquare, RotateCwSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
-import RotateContainer from '../../layouts/RotateContainer'
+import {
+  Theater,
+  TheaterContent,
+  ResizeHandle
+} from '../../layouts/theater/Theater'
 import MinimizeButton from '../button/MinimizeButton'
+import Rotate180Button from '../button/Rotate180Button'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
+import {
+  TheaterBottomBarIcon as BottomBarIcon,
+  TheaterBottomBar as BottomBar
+} from '../theater/BottomBar'
 
 type Props = {
   videoId: string
@@ -22,38 +31,41 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   } = stream
 
   return (
-    <RotateContainer>
-      <div className="flex-1 flex flex-col">
+    <Theater direction="horizontal">
+      <TheaterContent order={1} className="flex flex-col">
         {/* Stream */}
         <section className="flex-1 w-full h-full justify-center items-center bg-black">
           <EmbedStream videoId={videoId} className="h-full w-full" />
         </section>
 
         {/* Bottom Bar */}
-        <div className="h-[11vh] min-h-9 max-h-16 bg-secondary flex items-center px-4 space-x-6">
-          <div className="flex gap-x-2">
-            <Users className="h-6 w-6" />
+        <BottomBar>
+          <div className="flex items-center gap-x-2">
+            <BottomBarIcon Icon={Users} />
             <span>
               {peakConcurrentViewers
                 ? peakConcurrentViewers.toLocaleString()
                 : '--'}
             </span>
           </div>
-          <div className="flex gap-x-2">
-            <MessageSquare className="h-6 w-6" />
+          <div className="flex items-center gap-x-2">
+            <BottomBarIcon Icon={MessageSquare} />
             <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
           </div>
           <div className="flex-1" />
-          <MinimizeButton />
-        </div>
-      </div>
+          <BottomBarIcon className="sm:hidden" Icon={Rotate180Button} />
+          <BottomBarIcon Icon={MinimizeButton} />
+        </BottomBar>
+      </TheaterContent>
+
+      <ResizeHandle />
 
       {/* Chat */}
-      <section className="w-80 flex flex-col">
+      <TheaterContent order={2} defaultSize={29} className="flex flex-col">
         <div className="flex-1">
           <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>
-      </section>
-    </RotateContainer>
+      </TheaterContent>
+    </Theater>
   )
 }

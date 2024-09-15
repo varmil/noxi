@@ -2,16 +2,14 @@
 
 import { Minimize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Link, usePathname } from 'lib/navigation'
+import { useGlobalTheaterMode } from '../../../_hooks/theaterHooks'
 
-export default function MinimizeButton() {
-  const pathname = usePathname()
+export default function MinimizeButton({ className }: { className?: string }) {
+  const { setTheaterMode } = useGlobalTheaterMode()
 
   return (
-    <Button asChild variant="ghost" size="icon">
-      <Link href={`${pathname}`} prefetch={true} replace>
-        <Minimize className="h-6 w-6" />
-      </Link>
+    <Button variant="ghost" size="icon" onClick={() => setTheaterMode(false)}>
+      <Minimize className={className} />
     </Button>
   )
 }

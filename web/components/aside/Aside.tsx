@@ -14,15 +14,15 @@ export default function Aside() {
   const t = useTranslations('Global')
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-16 flex-col border-r bg-background sm:flex">
+    <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <TooltipProvider>
           <Link
             href="/"
-            className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary"
+            className="group flex h-8 w-8 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary"
             prefetch={true}
           >
-            <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
+            <Logo className="h-4 w-4 transition-all group-hover:scale-110" />
             <span className="sr-only">{t('title')}</span>
           </Link>
           <AsideIcon
@@ -42,54 +42,6 @@ export default function Aside() {
             src="/hololive/hololive_id_square.png"
             roundedFull
           />
-
-          {/* <AsideIcon name={`Youtube`} href="/" src="/yt_icon_rgb.png" /> */}
-
-          {/* <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="#"
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-                prefetch={false}
-              >
-                <TwitchIcon className="h-6 w-6" />
-                <span className="sr-only">Twitch</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              Twitch | Coming soon...
-            </TooltipContent>
-          </Tooltip> */}
-          {/* <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="#"
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-                prefetch={false}
-              >
-                <TikTokIcon className="h-6 w-6" />
-                <span className="sr-only">TikTok</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              TikTok | Coming soon...
-            </TooltipContent>
-          </Tooltip> */}
-          {/* <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="#"
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-                prefetch={false}
-              >
-                <InstagramIcon className="h-6 w-6" />
-                <span className="sr-only">Instagram</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              Instagram | Coming soon...
-            </TooltipContent>
-          </Tooltip> */}
         </TooltipProvider>
       </nav>
 
@@ -115,7 +67,7 @@ export default function Aside() {
                 className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
                 prefetch={false}
               >
-                <PrivacyPolicyIcon className="h-6 w-6" />
+                <PrivacyPolicyIcon className="h-5 w-5" />
                 <span className="sr-only">Terms of Use and Privacy Policy</span>
               </Link>
             </TooltipTrigger>
