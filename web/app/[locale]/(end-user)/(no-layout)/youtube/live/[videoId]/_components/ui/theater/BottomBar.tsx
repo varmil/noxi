@@ -4,11 +4,11 @@ import { LucideProps } from 'lucide-react'
 export function TheaterBottomBar({
   children
 }: PropsWithChildren<{ className?: string }>) {
-  const sizeClass = 'h-8 sm:h-[10vh] sm:max-h-14'
-  const textClass = 'text-xs lg:text-base'
+  const sizeClass = 'h-8 sm:h-[9vh] sm:max-h-14'
+  const textClass = 'text-xs lg:text-base text-gray-300'
   return (
     <section
-      className={`${sizeClass} ${textClass} bg-secondary flex items-center px-4 space-x-6`}
+      className={`${sizeClass} ${textClass} bg-black flex items-center px-4 space-x-6`}
     >
       {children}
     </section>

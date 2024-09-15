@@ -56,10 +56,10 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
         </BottomBar>
       </TheaterContent>
 
-      <ResizeHandle withHandle />
+      <ResizeHandle />
 
       {/* Chat */}
-      <TheaterContent order={2} defaultSize={30} className="flex flex-col">
+      <TheaterContent order={2} defaultSize={29} className="flex flex-col">
         <div className="flex-1">
           <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>

@@ -37,5 +37,11 @@ export function TheaterContent(props: ComponentProps<typeof ResizablePanel>) {
 }
 
 export function ResizeHandle(props: ComponentProps<typeof ResizableHandle>) {
-  return <ResizableHandle {...props} />
+  return (
+    <ResizableHandle
+      withHandle
+      className="bg-gray-700 hover:bg-border"
+      {...props}
+    />
+  )
 }
