@@ -1,4 +1,4 @@
-import { MessageSquare, Users } from 'lucide-react'
+import { MessageSquare, RotateCwSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
 import {
   Theater,
@@ -6,6 +6,7 @@ import {
   ResizeHandle
 } from '../../layouts/theater/Theater'
 import MinimizeButton from '../button/MinimizeButton'
+import Rotate180Button from '../button/Rotate180Button'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import {
@@ -52,6 +53,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
             <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
           </div>
           <div className="flex-1" />
+          <BottomBarIcon className="sm:hidden" Icon={Rotate180Button} />
           <BottomBarIcon Icon={MinimizeButton} />
         </BottomBar>
       </TheaterContent>

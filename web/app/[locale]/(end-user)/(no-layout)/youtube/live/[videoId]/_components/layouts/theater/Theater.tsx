@@ -6,6 +6,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup
 } from '@/components/ui/resizable'
+import { useGlobalRotate180 } from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_hooks/theaterHooks'
 
 /**
  * XS (smartphone) でのみrotate
@@ -15,13 +16,19 @@ export function Theater({
   children,
   ...props
 }: ComponentProps<typeof ResizablePanelGroup>) {
-  const pClass = `overflow-hidden \
+  const { isRotate180 } = useGlobalRotate180()
+
+  const pClass = `\
       w-screen h-screen \
       sm:contents sm:w-[inherit] sm:h-[inherit] \
     `
-  const cClass = `flex \
-      rotate-90 transform-gpu mt-[calc((100vh-100vw)/2)] -ml-[calc((100vh-100vw)/2)] w-[100vh] h-[100vw] \
-      sm:transform-none sm:mt-0 sm:ml-0 sm:w-full sm:h-screen`
+  const rotateClass = !isRotate180
+    ? `rotate-90 mt-[calc((100vh-100vw)/2)] -ml-[calc((100vh-100vw)/2)]`
+    : '-rotate-90 mt-[calc((100vh-100vw)/2)] -ml-[calc((100vh-100vw)/2)]'
+
+  const cClass = `flex ${rotateClass} \
+       w-[100vh] h-[100vw] transform-gpu \
+       sm:w-full sm:h-screen sm:transform-none sm:mt-0 sm:ml-0`
 
   return (
     <ResizablePanelGroup {...props}>

@@ -2,7 +2,7 @@
 
 import { Maximize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import useGlobalTheaterMode from '../../../_hooks/useGlobalTheaterMode'
+import { useGlobalTheaterMode } from '../../../_hooks/theaterHooks'
 
 export default function MaximizeButton() {
   const { setTheaterMode } = useGlobalTheaterMode()

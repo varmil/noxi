@@ -16,15 +16,21 @@ export function TheaterBottomBar({
 }
 
 export function TheaterBottomBarIcon({
-  Icon
+  Icon,
+  className
 }: {
   Icon:
     | React.ForwardRefExoticComponent<
         Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
       >
     | React.ComponentType<SVGProps<SVGSVGElement>>
+  className?: string
 }) {
   return (
-    <Icon className="h-3 w-3 sm:h-[5vh] sm:w-[5vh] sm:max-h-5 sm:max-w-5" />
+    <Icon
+      className={`h-3 w-3 sm:h-[5vh] sm:w-[5vh] sm:max-h-5 sm:max-w-5 ${
+        className ?? ''
+      }`}
+    />
   )
 }

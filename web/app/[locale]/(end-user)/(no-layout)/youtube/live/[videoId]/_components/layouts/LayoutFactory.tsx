@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import useGlobalTheaterMode from '../../_hooks/useGlobalTheaterMode'
+import { useGlobalTheaterMode } from '../../_hooks/theaterHooks'
 
 type Props = {
   DefaultLayout: React.ReactNode
