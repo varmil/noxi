@@ -1,9 +1,17 @@
 import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
-import { Theater, TheaterContent, ResizeHandle } from '../../layouts/Theater'
+import {
+  Theater,
+  TheaterContent,
+  ResizeHandle
+} from '../../layouts/theater/Theater'
 import MinimizeButton from '../button/MinimizeButton'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
+import {
+  TheaterBottomBarIcon as BottomBarIcon,
+  TheaterBottomBar as BottomBar
+} from '../theater/BottomBar'
 
 type Props = {
   videoId: string
@@ -30,22 +38,22 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
         </section>
 
         {/* Bottom Bar */}
-        <div className="h-[11vh] min-h-9 max-h-16 bg-secondary flex items-center px-4 space-x-6">
-          <div className="flex gap-x-2">
-            <Users className="h-6 w-6" />
+        <BottomBar>
+          <div className="flex items-center gap-x-2">
+            <BottomBarIcon Icon={Users} />
             <span>
               {peakConcurrentViewers
                 ? peakConcurrentViewers.toLocaleString()
                 : '--'}
             </span>
           </div>
-          <div className="flex gap-x-2">
-            <MessageSquare className="h-6 w-6" />
+          <div className="flex items-center gap-x-2">
+            <BottomBarIcon Icon={MessageSquare} />
             <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
           </div>
           <div className="flex-1" />
-          <MinimizeButton />
-        </div>
+          <BottomBarIcon Icon={MinimizeButton} />
+        </BottomBar>
       </TheaterContent>
 
       <ResizeHandle withHandle />
