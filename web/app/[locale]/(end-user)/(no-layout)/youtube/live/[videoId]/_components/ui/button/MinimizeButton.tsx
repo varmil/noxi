@@ -2,16 +2,14 @@
 
 import { Minimize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Link, usePathname } from 'lib/navigation'
+import useGlobalFullScreenToggle from '../../../_hooks/useGlobalFullScreenToggle'
 
 export default function MinimizeButton() {
-  const pathname = usePathname()
+  const { setFullScreen } = useGlobalFullScreenToggle()
 
   return (
-    <Button asChild variant="ghost" size="icon">
-      <Link href={`${pathname}`} prefetch={true} replace>
-        <Minimize className="h-6 w-6" />
-      </Link>
+    <Button variant="ghost" size="icon" onClick={() => setFullScreen(false)}>
+      <Minimize className="h-6 w-6" />
     </Button>
   )
 }

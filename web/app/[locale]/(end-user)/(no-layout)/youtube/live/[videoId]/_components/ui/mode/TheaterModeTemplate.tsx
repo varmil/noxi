@@ -22,7 +22,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   } = stream
 
   return (
-    <RotateContainer>
+    <>
       <div className="flex-1 flex flex-col">
         {/* Stream */}
         <section className="flex-1 w-full h-full justify-center items-center bg-black">
@@ -54,6 +54,6 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
           <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>
       </section>
-    </RotateContainer>
+    </>
   )
 }

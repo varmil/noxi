@@ -1,12 +1,12 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
+import FullScreenContainer from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/layouts/FullScreenContainer'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
 import { Page } from 'components/page'
-import { isTheaterMode } from 'lib/isTheaterMode'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -39,20 +39,25 @@ export default async function YoutubeLivePage({
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
-  return !isTheaterMode(searchParams) ? (
-    <DefaultLayout>
-      <DefaultModePage
-        params={{ locale, videoId }}
-        searchParams={searchParams}
-      />
-    </DefaultLayout>
-  ) : (
-    <TheaterLayout>
-      <TheaterModePage
-        params={{ locale, videoId }}
-        searchParams={searchParams}
-      />
-    </TheaterLayout>
+  return (
+    <FullScreenContainer
+      DefaultLayout={
+        <DefaultLayout>
+          <DefaultModePage
+            params={{ locale, videoId }}
+            searchParams={searchParams}
+          />
+        </DefaultLayout>
+      }
+      TheaterLayout={
+        <TheaterLayout>
+          <TheaterModePage
+            params={{ locale, videoId }}
+            searchParams={searchParams}
+          />
+        </TheaterLayout>
+      }
+    />
   )
 }
 
