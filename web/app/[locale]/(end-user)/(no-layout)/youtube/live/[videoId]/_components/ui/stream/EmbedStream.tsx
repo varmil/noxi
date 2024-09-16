@@ -1,3 +1,5 @@
+import { YouTubeEmbed } from '@next/third-parties/google'
+
 type Props = {
   videoId: string
   className?: string
@@ -9,6 +11,15 @@ export default function EmbedStream({ videoId, className }: Props) {
     mute: '1',
     modestbranding: '1'
   }).toString()
+
+  return (
+    <div className={`${className ?? ''}`}>
+      <YouTubeEmbed
+        videoid={videoId}
+        style={'width:100%; height:100%; max-width:100%;'}
+      />
+    </div>
+  )
 
   return (
     <iframe

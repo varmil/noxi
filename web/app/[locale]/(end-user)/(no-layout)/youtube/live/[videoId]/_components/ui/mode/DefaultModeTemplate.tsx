@@ -31,11 +31,8 @@ export default async function DefaultModeTemplate({
     <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(710px,100%),minmax(300px,380px)]">
       <LgContainer className="space-y-4">
         {/* Stream */}
-        <div className="flex order-1 aspect-video w-full max-h-[94vh] justify-center items-center bg-black">
-          <EmbedStream
-            videoId={videoId}
-            className="w-full h-full max-h-[94vh]"
-          />
+        <div className="order-1 aspect-video w-full bg-black">
+          <EmbedStream videoId={videoId} className="w-full h-full" />
         </div>
 
         {/* タイトル、投稿者情報 */}
