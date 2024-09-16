@@ -55,10 +55,10 @@ export default async function YoutubeLivePage({
   )
 }
 
-async function DefaultModePage({ params: { locale, videoId } }: Props) {
+async function DefaultModePage({ params: { videoId } }: Props) {
   return <DefaultModeTemplate videoId={videoId} />
 }
 
-async function TheaterModePage({ params: { locale, videoId } }: Props) {
+async function TheaterModePage({ params: { videoId } }: Props) {
   return <TheaterModeTemplate videoId={videoId} />
 }

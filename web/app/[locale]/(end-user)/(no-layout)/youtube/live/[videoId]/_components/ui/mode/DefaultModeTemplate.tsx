@@ -37,12 +37,10 @@ export default async function DefaultModeTemplate({
     group
   } = stream
   const { basicInfo } = await getChannel(channelId)
-  const colClass = ''
 
   return (
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
-      {/* sm:space-y-4 === DefaultLayoutのsm:gap-4 */}
-      <LeftContainer className={'sm:space-y-4'}>
+      <LeftContainer>
         <Page
           className="space-y-4 lg:grid lg:grid-cols-5"
           breadcrumb={[

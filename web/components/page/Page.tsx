@@ -22,13 +22,14 @@ export function Page({
   const padding = noPadding ? 'px-0 py-4' : `${PX} ${PY}`
 
   return (
-    <>
+    <section className="sm:space-y-4">
       <Header />
+
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
 
       <main className={`container min-h-screen ${padding} ${className ?? ''}`}>
         {children}
       </main>
-    </>
+    </section>
   )
 }
