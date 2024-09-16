@@ -35,7 +35,7 @@ export default async function DefaultModeTemplate({
 
   return (
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
-      <LeftContainer className="lg:grid-cols-3">
+      <LeftContainer className="lg:grid-cols-5">
         {/* Stream */}
         <section className="order-1 aspect-video w-full bg-black lg:col-span-full">
           <EmbedStream videoId={videoId} className="w-full h-full" />
@@ -44,7 +44,7 @@ export default async function DefaultModeTemplate({
         {/* タイトル、投稿者情報 */}
         <PadSection
           left
-          className="order-3 space-y-4 @xs:col-span-full @4xl:col-span-2"
+          className="order-3 space-y-4 @xs:col-span-full @4xl:col-span-3"
         >
           <MaximizeButton />
           <StreamBasicInfo stream={stream} />
@@ -53,7 +53,7 @@ export default async function DefaultModeTemplate({
         {/* Open ChatList & Related Videos */}
         <PadSection
           right
-          className="order-4 space-y-4 @xs:col-span-full @4xl:col-span-1"
+          className="order-4 space-y-4 @xs:col-span-full @4xl:col-span-2"
         >
           <OpenChatButton />
           <RelatedVideos />
