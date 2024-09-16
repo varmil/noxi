@@ -4,6 +4,7 @@ import Header from 'components/header/Header'
 
 type Props = {
   breadcrumb?: ComponentProps<typeof GlobalBreadcrumb>['items']
+  className?: string
   noPadding?: boolean
 }
 
@@ -14,6 +15,7 @@ const PY = 'py-4'
 
 export function Page({
   breadcrumb,
+  className,
   children,
   noPadding
 }: PropsWithChildren<Props>) {
@@ -24,7 +26,9 @@ export function Page({
       <Header />
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
 
-      <main className={`container min-h-screen ${padding}`}>{children}</main>
+      <main className={`container min-h-screen ${padding} ${className ?? ''}`}>
+        {children}
+      </main>
     </>
   )
 }

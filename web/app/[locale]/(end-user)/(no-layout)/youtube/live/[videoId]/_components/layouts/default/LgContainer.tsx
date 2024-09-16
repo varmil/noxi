@@ -10,7 +10,7 @@ type Props = {
 /** LG以上のブレークポイントでシンプルな２カラムを表現するために使用する */
 function LgContainer({ className, children }: Props) {
   return (
-    <section className={`@container contents lg:block ${className ?? ''}`}>
+    <section className={`contents lg:block ${className ?? ''}`}>
       {children}
     </section>
   )
@@ -21,12 +21,12 @@ export function LeftContainer(props: Props) {
   return (
     <LgContainer
       {...props}
-      className={`space-y-4 lg:flex-1 lg:grid ${props.className ?? ''}`}
+      className={`@container lg:flex-1 ${props.className ?? ''}`}
     />
   )
 }
 
-/** lg以上で表示するチャットリストコンテナ */
+/** lg以上で表示するチャットコンテナ */
 export function RightContainer(props: Omit<Props, 'className'>) {
   const { isOpenLiveChat } = useGlobalOpenLiveChat()
   if (isOpenLiveChat) {
