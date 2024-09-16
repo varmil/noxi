@@ -33,7 +33,7 @@ export function TheaterBottomBarIcon({
 }) {
   return (
     <Icon
-      className={`h-3 w-3 sm:h-[5vh] sm:w-[5vh] sm:max-h-5 sm:max-w-5 ${
+      className={`h-[clamp(1rem,4.1vmin,1.25rem)] w-[clamp(1rem,4.1vmin,1.25rem)] ${
         className ?? ''
       }`}
     />
