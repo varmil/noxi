@@ -13,7 +13,7 @@ export default function EmbedStream({ videoId, className }: Props) {
   }).toString()
 
   return (
-    <div className={`${className ?? ''}`}>
+    <div className={`grid items-center ${className ?? ''}`}>
       <YouTubeEmbed
         videoid={videoId}
         style={'width:100%; height:100%; max-width:100%;'}
