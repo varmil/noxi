@@ -1,11 +1,13 @@
 import { PropsWithChildren, SVGProps } from 'react'
 import { LucideProps } from 'lucide-react'
 
+export const BOTTOM_BAR_HEIGHT = 'clamp(2.5rem, 9vmin, 3.5rem)'
+
 export function TheaterBottomBar({
   className,
   children
 }: PropsWithChildren<{ className?: string }>) {
-  const sizeClass = 'h-8 sm:h-[clamp(2rem,9vh,3.5rem)]'
+  const sizeClass = 'h-[clamp(2.5rem,9vmin,3.5rem)]'
   const textClass = 'text-xs lg:text-base text-gray-300'
   return (
     <section

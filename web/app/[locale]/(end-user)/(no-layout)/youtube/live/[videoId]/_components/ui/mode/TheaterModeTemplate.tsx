@@ -1,4 +1,4 @@
-import { MessageSquare, RotateCwSquare, Users } from 'lucide-react'
+import { MessageSquare, Users } from 'lucide-react'
 import { getStream } from 'apis/youtube/getStream'
 import {
   Theater,
@@ -11,7 +11,8 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import {
   TheaterBottomBarIcon as BottomBarIcon,
-  TheaterBottomBar as BottomBar
+  TheaterBottomBar as BottomBar,
+  BOTTOM_BAR_HEIGHT
 } from '../theater/BottomBar'
 
 type Props = {
@@ -35,7 +36,12 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
       <TheaterContent order={1} className="flex flex-col">
         {/* Stream */}
         <section className="flex-1 w-full h-full bg-black">
-          <EmbedStream videoId={videoId} className="h-full w-full" />
+          <EmbedStream
+            videoId={videoId}
+            className="h-full w-full"
+            // BottomBarの高さをマイナスする
+            style={`max-height:calc(100vmin - ${BOTTOM_BAR_HEIGHT});`}
+          />
         </section>
 
         {/* Bottom Bar */}
