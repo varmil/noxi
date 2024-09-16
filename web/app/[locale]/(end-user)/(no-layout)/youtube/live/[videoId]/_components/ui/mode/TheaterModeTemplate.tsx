@@ -34,7 +34,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
     <Theater direction="horizontal">
       <TheaterContent order={1} className="flex flex-col">
         {/* Stream */}
-        <section className="flex-1 w-full h-full justify-center items-center bg-black">
+        <section className="flex-1 w-full h-full bg-black">
           <EmbedStream videoId={videoId} className="h-full w-full" />
         </section>
 
