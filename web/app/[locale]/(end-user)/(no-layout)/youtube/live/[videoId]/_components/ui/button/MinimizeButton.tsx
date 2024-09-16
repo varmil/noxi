@@ -2,7 +2,7 @@
 
 import { Minimize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useGlobalTheaterMode } from '../../../_hooks/theaterHooks'
+import { useGlobalTheaterMode } from '../../../_hooks/youtubeLiveStates'
 
 export default function MinimizeButton({ className }: { className?: string }) {
   const { setTheaterMode } = useGlobalTheaterMode()

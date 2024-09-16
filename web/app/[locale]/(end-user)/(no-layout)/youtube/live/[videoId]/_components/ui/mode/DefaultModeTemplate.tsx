@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getStream } from 'apis/youtube/getStream'
+import OpenChatButton from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/button/OpenChatButton'
 import LgContainer from '../../layouts/default/LgContainer'
 import PadSection from '../../layouts/default/PadSection'
 import MaximizeButton from '../button/MaximizeButton'
@@ -27,32 +28,35 @@ export default async function DefaultModeTemplate({
     group
   } = stream
 
+  const colClass = ''
+
   return (
-    <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(710px,100%),minmax(300px,380px)]">
-      <LgContainer className="space-y-4">
+    <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
+      <LgContainer className="space-y-4 lg:flex-1 lg:grid lg:grid-cols-3">
         {/* Stream */}
-        <div className="order-1 aspect-video w-full bg-black">
+        <section className="order-1 aspect-video w-full bg-black lg:col-span-full">
           <EmbedStream videoId={videoId} className="w-full h-full" />
-        </div>
+        </section>
 
         {/* タイトル、投稿者情報 */}
-        <PadSection left className="order-3 space-y-4">
+        <PadSection left className="order-3 space-y-4 lg:col-span-2">
           <MaximizeButton />
           <StreamBasicInfo stream={stream} />
         </PadSection>
+
+        {/* Open ChatList & Related Videos */}
+        <PadSection right className="order-4 space-y-4 lg:col-span-1">
+          <OpenChatButton />
+          <RelatedVideos />
+        </PadSection>
       </LgContainer>
 
-      <LgContainer className="space-y-4">
+      <LgContainer className="lg:w-80">
         {/* Chat */}
-        <PadSection right className="order-2">
+        <PadSection className="lg:px-0 order-2">
           <section className="min-h-80 h-[calc(100vh-25rem)] lg:h-[calc(100vh-9.5rem)]">
             <EmbedLiveChat videoId={videoId} />
           </section>
-        </PadSection>
-
-        {/* Related Videos */}
-        <PadSection right className="order-4">
-          <RelatedVideos />
         </PadSection>
       </LgContainer>
     </div>

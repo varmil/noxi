@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import { useGlobalTheaterMode } from '../../_hooks/theaterHooks'
+import { useGlobalTheaterMode } from '../../_hooks/youtubeLiveStates'
 
 type Props = {
   DefaultLayout: React.ReactNode

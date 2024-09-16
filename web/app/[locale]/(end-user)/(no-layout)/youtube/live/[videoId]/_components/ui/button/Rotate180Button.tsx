@@ -2,7 +2,7 @@
 
 import { Smartphone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useGlobalRotate180 } from '../../../_hooks/theaterHooks'
+import { useGlobalRotate180 } from '../../../_hooks/youtubeLiveStates'
 
 export default function Rotate180Button({ className }: { className?: string }) {
   const { isRotate180, setRotate180 } = useGlobalRotate180()

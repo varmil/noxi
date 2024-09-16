@@ -2,7 +2,7 @@
 
 import { Maximize } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useGlobalTheaterMode } from '../../../_hooks/theaterHooks'
+import { useGlobalTheaterMode } from '../../../_hooks/youtubeLiveStates'
 
 export default function MaximizeButton() {
   const { setTheaterMode } = useGlobalTheaterMode()
@@ -14,7 +14,7 @@ export default function MaximizeButton() {
       onClick={() => setTheaterMode(true)}
     >
       <Maximize className="mr-2 h-4 w-4" />
-      シアターモードで大きく表示する
+      シアターモードで大きく表示
     </Button>
   )
 }
