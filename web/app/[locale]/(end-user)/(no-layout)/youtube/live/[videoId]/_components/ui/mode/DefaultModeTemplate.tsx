@@ -63,8 +63,8 @@ export default async function DefaultModeTemplate({
       <RightContainer>
         {/* Chat */}
         <PadSection className="lg:px-0 order-2">
-          <section className="min-h-80 h-[calc(100vh-25rem)] lg:h-[calc(100vh-9.5rem)]">
-            <EmbedLiveChat videoId={videoId} />
+          <section className="relative min-h-80 h-[calc(100vh-25rem)] lg:h-[calc(100vh-9.5rem)]">
+            <EmbedLiveChat videoId={videoId} showCloseButton />
           </section>
         </PadSection>
       </RightContainer>

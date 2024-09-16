@@ -32,6 +32,8 @@ export function RightContainer(props: Omit<Props, 'className'>) {
   if (isOpenLiveChat) {
     return <LgContainer {...props} className="lg:w-[350px]" />
   } else {
-    return <LgContainer {...props} className="hidden" />
+    return (
+      <LgContainer {...props} className="relative hidden overflow-hidden" />
+    )
   }
 }
