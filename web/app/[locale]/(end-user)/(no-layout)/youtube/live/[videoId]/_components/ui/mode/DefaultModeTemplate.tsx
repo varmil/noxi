@@ -1,6 +1,10 @@
 import { PropsWithoutRef } from 'react'
 import { getStream } from 'apis/youtube/getStream'
-import LgContainer from '../../layouts/default/LgContainer'
+import OpenChatButton from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/button/OpenChatButton'
+import {
+  LeftContainer,
+  RightContainer
+} from '../../layouts/default/LgContainer'
 import PadSection from '../../layouts/default/PadSection'
 import MaximizeButton from '../button/MaximizeButton'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
@@ -27,34 +31,43 @@ export default async function DefaultModeTemplate({
     group
   } = stream
 
+  const colClass = ''
+
   return (
-    <div className="grid lg:gap-x-0 grid-cols-1 lg:grid-cols-[minmax(710px,100%),minmax(300px,380px)]">
-      <LgContainer className="space-y-4">
+    <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
+      <LeftContainer className="lg:grid-cols-5">
         {/* Stream */}
-        <div className="order-1 aspect-video w-full bg-black">
+        <section className="order-1 aspect-video w-full bg-black lg:col-span-full">
           <EmbedStream videoId={videoId} className="w-full h-full" />
-        </div>
+        </section>
 
         {/* タイトル、投稿者情報 */}
-        <PadSection left className="order-3 space-y-4">
+        <PadSection
+          left
+          className="order-3 space-y-4 @xs:col-span-full @4xl:col-span-3"
+        >
           <MaximizeButton />
           <StreamBasicInfo stream={stream} />
         </PadSection>
-      </LgContainer>
 
-      <LgContainer className="space-y-4">
-        {/* Chat */}
-        <PadSection right className="order-2">
-          <section className="min-h-80 h-[calc(100vh-25rem)] lg:h-[calc(100vh-9.5rem)]">
-            <EmbedLiveChat videoId={videoId} />
-          </section>
-        </PadSection>
-
-        {/* Related Videos */}
-        <PadSection right className="order-4">
+        {/* Open ChatList & Related Videos */}
+        <PadSection
+          right
+          className="order-4 space-y-4 @xs:col-span-full @4xl:col-span-2"
+        >
+          <OpenChatButton />
           <RelatedVideos />
         </PadSection>
-      </LgContainer>
+      </LeftContainer>
+
+      <RightContainer>
+        {/* Chat */}
+        <PadSection className="lg:px-0 order-2">
+          <section className="relative min-h-80 h-[calc(100vh-25rem)] lg:h-[calc(100vh-9.5rem)]">
+            <EmbedLiveChat videoId={videoId} showCloseButton />
+          </section>
+        </PadSection>
+      </RightContainer>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup
 } from '@/components/ui/resizable'
-import { useGlobalRotate180 } from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_hooks/theaterHooks'
+import { useGlobalRotate180 } from '../../../_hooks/youtubeLiveStates'
 
 /**
  * XS (smartphone) でのみrotate
