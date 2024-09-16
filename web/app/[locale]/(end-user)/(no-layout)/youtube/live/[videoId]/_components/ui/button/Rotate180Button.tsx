@@ -1,6 +1,6 @@
 'use client'
 
-import { RotateCwSquare } from 'lucide-react'
+import { Smartphone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useGlobalRotate180 } from '../../../_hooks/theaterHooks'
 
@@ -14,7 +14,7 @@ export default function Rotate180Button({ className }: { className?: string }) {
       onClick={() => setRotate180(!isRotate180)}
       className="sm:hidden"
     >
-      <RotateCwSquare className={className} />
+      <Smartphone className={`rotate-45 ${className}`} />
     </Button>
   )
 }

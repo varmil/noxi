@@ -1,22 +1,24 @@
+import { YouTubeEmbed } from '@next/third-parties/google'
+
 type Props = {
   videoId: string
   className?: string
+  style?: string
 }
 
-export default function EmbedStream({ videoId, className }: Props) {
+export default function EmbedStream({ videoId, className, style }: Props) {
   const EMBED_QUERY = new URLSearchParams({
-    autoplay: '1',
-    mute: '1',
-    modestbranding: '1'
+    modestbranding: '1',
+    enablejsapi: '1'
   }).toString()
 
   return (
-    <iframe
-      key={videoId}
-      src={`https://www.youtube.com/embed/${videoId}?${EMBED_QUERY}`}
-      allow="accelerometer; autoplay; encrypted-media; picture-in-picture; web-share"
-      allowFullScreen
-      className={`${className ?? ''} `}
-    ></iframe>
+    <div className={`grid items-center ${className ?? ''}`}>
+      <YouTubeEmbed
+        videoid={videoId}
+        style={`width:100%; height:100%; max-width:100%; ${style ?? ''}`}
+        params={EMBED_QUERY}
+      />
+    </div>
   )
 }
