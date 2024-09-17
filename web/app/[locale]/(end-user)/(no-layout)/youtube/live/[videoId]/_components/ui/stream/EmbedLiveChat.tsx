@@ -21,6 +21,7 @@ export default function EmbedLiveChat({
       )}
       <iframe
         key={videoId}
+        loading="lazy"
         src={`https://www.youtube.com/live_chat?v=${videoId}&embed_domain=${embed_domain}`}
         allowFullScreen
         className={`w-full h-full rounded-lg lg:rounded-none ${
