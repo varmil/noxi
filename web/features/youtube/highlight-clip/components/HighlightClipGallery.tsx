@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { searchVideos } from 'apis/youtube/searchVideos'
 import { getLocale, getTranslations } from 'next-intl/server'
 import {
   Card,
@@ -7,13 +8,11 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { searchVideos } from 'apis/youtube/searchVideos'
 import GridCardContainer from 'components/styles/GridCardContainer'
 import Image from 'components/styles/Image'
 import { GroupString } from 'config/constants/Site'
 import { HighlightClipCarousel } from 'features/youtube/highlight-clip/components/HighlightClipCarousel'
 import VideoCard from 'features/youtube/video/components/VideoCard'
-import VideoCardWithChart from 'features/youtube/video/components/VideoCardWithChart'
 import dayjs from 'lib/dayjs'
 import { getGroup } from 'lib/server-only-context/cache'
 
@@ -81,7 +80,7 @@ export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
         <GridCardContainer className="grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
           {notShorts.map(video => {
             const { id } = video
-            return <VideoCardWithChart key={id} {...video} />
+            return <VideoCard key={id} {...video} />
           })}
         </GridCardContainer>
       </CardContent>
