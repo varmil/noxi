@@ -1,12 +1,13 @@
 import { PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
+import { getTranslations } from 'next-intl/server'
 import { Page } from 'components/page'
 import {
-  LeftContainer,
-  RightContainer
-} from '../../layouts/default/LgContainer'
+  MainContainer,
+  LgChatContainer,
+  XSChatContainer
+} from '../../layouts/default/Default'
 import PadSection from '../../layouts/default/PadSection'
 import MaximizeButton from '../button/MaximizeButton'
 import OpenChatButton from '../button/OpenChatButton'
@@ -40,7 +41,7 @@ export default async function DefaultModeTemplate({
 
   return (
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
-      <LeftContainer>
+      <MainContainer>
         <Page
           className="space-y-4 lg:grid lg:grid-cols-5"
           breadcrumb={[
@@ -61,7 +62,10 @@ export default async function DefaultModeTemplate({
             <EmbedStream videoId={videoId} className="w-full h-full" />
           </section>
 
-          {/* TODO: Client.useMediaQuery && openChat などでここにChatを入れる（XS） */}
+          {/* XS: Chat mt-0 */}
+          <XSChatContainer>
+            <EmbedLiveChat videoId={videoId} showCloseButton />
+          </XSChatContainer>
 
           {/* タイトル、投稿者情報 */}
           <PadSection
@@ -72,7 +76,7 @@ export default async function DefaultModeTemplate({
             <StreamBasicInfo stream={stream} />
           </PadSection>
 
-          {/* Open ChatList & Related Videos */}
+          {/* Open Chat Button & Related Videos */}
           <PadSection
             right
             className="space-y-4 @xs:col-span-full @4xl:col-span-2"
@@ -81,17 +85,12 @@ export default async function DefaultModeTemplate({
             <RelatedVideos />
           </PadSection>
         </Page>
-      </LeftContainer>
+      </MainContainer>
 
-      {/* TODO: Client.useMediaQuery && openChat などでlg以上の場合Chatを入れる */}
-      <RightContainer>
-        {/* Chat */}
-        <PadSection className="lg:px-0">
-          <section className="relative min-h-80 h-[calc(100vh-26rem)] lg:h-[calc(100vh-9.5rem)] lg:fixed lg:w-[350px]">
-            <EmbedLiveChat videoId={videoId} showCloseButton />
-          </section>
-        </PadSection>
-      </RightContainer>
+      {/* Large: Chat */}
+      <LgChatContainer>
+        <EmbedLiveChat videoId={videoId} showCloseButton />
+      </LgChatContainer>
     </div>
   )
 }

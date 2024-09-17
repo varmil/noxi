@@ -8,8 +8,10 @@ type Props = {
   noPadding?: boolean
 }
 
-/** PageレベルのXSデフォルトXパディング値 */
+/** Page > XS > Xパディング値 */
 export const PageXSPX = 'px-4'
+/** （注意）Page> XS > Xマージン値 | 基本はpaddingを使う */
+export const PageXSMX = 'mx-4'
 const PX = `${PageXSPX} sm:px-6`
 const PY = 'py-4'
 
