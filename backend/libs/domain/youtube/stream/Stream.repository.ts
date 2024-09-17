@@ -7,6 +7,7 @@ import {
   Stream,
   Streams,
   StreamTimes,
+  Thumbnails,
   VideoId
 } from '@domain/youtube'
 
@@ -55,5 +56,10 @@ export interface StreamRepository {
   updateLikeCount: (args: {
     where: { videoId: VideoId }
     data: number
+  }) => Promise<void>
+
+  updateThumbnails: (args: {
+    where: { videoId: VideoId }
+    data: Thumbnails
   }) => Promise<void>
 }
