@@ -26,7 +26,11 @@ export class MainService {
       const video = videos.find(video => video.id.equals(stream.videoId))
       if (!video) return
 
-      const { streamScheduledStartTime, statistics } = video
+      const {
+        snippet: { thumbnails },
+        streamScheduledStartTime,
+        statistics
+      } = video
 
       // update StreamTimes if the latest scheduledStartTime is different
       if (
@@ -51,6 +55,18 @@ export class MainService {
           data: new StreamTimes({
             scheduledStartTime: streamScheduledStartTime
           })
+        })
+      }
+
+      // maxresのサムネイルが初回saveで生成されない場合があるのでここでチェック
+      if (thumbnails.maxres && !stream.snippet.thumbnails.maxres) {
+        console.log(
+          'update the maxres thumbnail:',
+          JSON.stringify({ title: video.snippet.title }, null, 2)
+        )
+        await this.streamsService.updateThumbnails({
+          where: { videoId: stream.videoId },
+          data: thumbnails
         })
       }
 

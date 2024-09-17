@@ -51,4 +51,10 @@ export class StreamsService {
   ): Promise<void> {
     await this.streamRepository.updateLikeCount(args)
   }
+
+  async updateThumbnails(
+    args: Parameters<StreamRepository['updateThumbnails']>[0]
+  ): Promise<void> {
+    await this.streamRepository.updateThumbnails(args)
+  }
 }
