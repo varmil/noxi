@@ -137,6 +137,36 @@ export default function TermsOfUseAndPrivacyPolicy() {
               </ul>
             </div>
 
+            <div>
+              1.2 We may collect the following type of user data:
+              <p>
+                At the Service, we use the YouTube Data API to obtain data
+                related to channels that are actively live-streaming on the
+                YouTube platform. However, we do not collect, use, or store any
+                API data related to the user accessing our service.
+              </p>
+              <p>
+                Specifically, we use the following YouTube Data API endpoints to
+                retrieve data:
+              </p>
+              <ul>
+                <li>- Channels</li>
+                <li>- Videos</li>
+                <li>- Search</li>
+                <li>- PlaylistItems</li>
+              </ul>
+              <p>Examples of data obtained from these APIs are as follows:</p>
+              <p>
+                Titles and descriptions of channels and videos, thumbnails,
+                subscribers, views, likes, comments, Live schedule, Live
+                frequency, etc.
+              </p>
+              <p>
+                Based on these statistics, API data is used for purposes such as
+                organizing and displaying channels and videos.
+              </p>
+            </div>
+
             <h3 className="text-l font-bold">2. Use of Information</h3>
             <div>
               2.1 We use the information we collect for the following purposes:
