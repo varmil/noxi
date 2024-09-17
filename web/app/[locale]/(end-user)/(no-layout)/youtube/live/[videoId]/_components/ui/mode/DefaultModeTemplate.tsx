@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
-import { getTranslations } from 'next-intl/server'
 import { Page } from 'components/page'
 import {
   MainContainer,

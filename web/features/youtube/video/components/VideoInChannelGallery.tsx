@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import {
   Card,
   CardContent,
@@ -7,6 +6,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 
 type Props = { channelId: string }

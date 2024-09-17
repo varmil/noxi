@@ -1,6 +1,6 @@
-import { VideoSchema } from 'apis/youtube/schema/videoSchema'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
+import { VideoSchema } from 'apis/youtube/schema/videoSchema'
 import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
 import { humanizeDuration } from 'lib/dayjs'
