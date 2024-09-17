@@ -1,8 +1,8 @@
-import { Transform } from 'class-transformer'
+import { Exclude, Transform } from 'class-transformer'
 import { Count, VideoId } from '@domain/youtube'
 
 export class ChatCount {
-  @Transform(({ value }: { value: VideoId }) => value.get())
+  @Exclude()
   public readonly videoId: VideoId
   @Transform(({ value }: { value: Count }) => value.get())
   public readonly all: Count
