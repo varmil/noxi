@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { ThumbsUp, MessageSquare, Users } from 'lucide-react'
+import { ThumbsUp, MessageSquare } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
@@ -24,6 +25,7 @@ export default async function StreamBasicInfo({
     group
   } = stream
   const { basicInfo, statistics } = await getChannel(channelId)
+  const t = await getTranslations('Features.stream')
 
   return (
     <section className="space-y-4">
@@ -59,11 +61,11 @@ export default async function StreamBasicInfo({
       {/* Stats */}
       <div className="flex space-x-4">
         <OnelineStats>
-          <Users className="h-4 w-4" />
           <span>
             {peakConcurrentViewers
               ? peakConcurrentViewers.toLocaleString()
-              : '--'}
+              : '--'}{' '}
+            {t('watching')}
           </span>
         </OnelineStats>
         <OnelineStats>
@@ -72,12 +74,12 @@ export default async function StreamBasicInfo({
             <IntlNumberFormat>{likes}</IntlNumberFormat>
           </span>
         </OnelineStats>
-        <OnelineStats>
+        {/* <OnelineStats>
           <MessageSquare className="h-4 w-4" />
           <span>
             <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
           </span>
-        </OnelineStats>
+        </OnelineStats> */}
       </div>
     </section>
   )

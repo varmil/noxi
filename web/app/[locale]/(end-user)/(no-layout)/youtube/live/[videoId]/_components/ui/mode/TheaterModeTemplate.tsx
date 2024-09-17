@@ -1,4 +1,5 @@
-import { MessageSquare, Users } from 'lucide-react'
+import { MessageSquare } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
 import {
   Theater,
@@ -22,6 +23,7 @@ type Props = {
 export default async function TheaterModeTemplate({ videoId }: Props) {
   const stream = await getStream(videoId)
   const {
+    snippet: { thumbnails },
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -30,6 +32,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
       likes
     }
   } = stream
+  const t = await getTranslations('Features.stream')
 
   return (
     <Theater direction="horizontal">
@@ -38,7 +41,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
         <section className="flex-1 w-full h-full bg-black">
           <EmbedStream
             videoId={videoId}
-            className="h-full w-full"
+            img={thumbnails.maxres?.url}
             // BottomBarの高さをマイナスする
             style={`max-height:calc(100vmin - ${BOTTOM_BAR_HEIGHT});`}
           />
@@ -47,17 +50,17 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
         {/* Bottom Bar */}
         <BottomBar>
           <div className="flex items-center gap-x-2">
-            <BottomBarIcon Icon={Users} />
             <span>
               {peakConcurrentViewers
                 ? peakConcurrentViewers.toLocaleString()
-                : '--'}
+                : '--'}{' '}
+              {t('watching')}
             </span>
           </div>
-          <div className="flex items-center gap-x-2">
+          {/* <div className="flex items-center gap-x-2">
             <BottomBarIcon Icon={MessageSquare} />
             <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
-          </div>
+          </div> */}
           <div className="flex-1" />
           <BottomBarIcon className="sm:hidden" Icon={Rotate180Button} />
           <BottomBarIcon Icon={MinimizeButton} />

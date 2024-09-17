@@ -7,7 +7,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
-import VideoCardWithChart from 'features/youtube/video/components/VideoCardWithChart'
+import VideoCard from 'features/youtube/video/components/VideoCard'
 
 type Props = { channelId: string }
 
@@ -31,7 +31,7 @@ export async function VideoInChannelGallery({
       <CardContent className={`grid gap-x-4 gap-y-4 ${gridClassName}`}>
         {videos.map(video => {
           const { id } = video
-          return <VideoCardWithChart key={id} {...video} />
+          return <VideoCard key={id} {...video} />
         })}
       </CardContent>
     </Card>

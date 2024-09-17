@@ -48,7 +48,8 @@ export default [
             'builtin',
             'external',
             'internal',
-            ['parent', 'sibling'],
+            'parent',
+            'sibling',
             'object',
             'type',
             'index'
