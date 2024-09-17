@@ -23,6 +23,7 @@ type Props = {
 export default async function TheaterModeTemplate({ videoId }: Props) {
   const stream = await getStream(videoId)
   const {
+    snippet: { thumbnails },
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -40,7 +41,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
         <section className="flex-1 w-full h-full bg-black">
           <EmbedStream
             videoId={videoId}
-            className="h-full w-full"
+            img={thumbnails.maxres?.url}
             // BottomBarの高さをマイナスする
             style={`max-height:calc(100vmin - ${BOTTOM_BAR_HEIGHT});`}
           />

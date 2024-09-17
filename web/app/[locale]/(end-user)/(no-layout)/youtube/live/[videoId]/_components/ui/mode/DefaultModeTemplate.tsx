@@ -27,7 +27,7 @@ export default async function DefaultModeTemplate({
   const t = await getTranslations('Breadcrumb')
   const stream = await getStream(videoId)
   const {
-    snippet: { channelId, title },
+    snippet: { channelId, title, thumbnails },
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -59,8 +59,12 @@ export default async function DefaultModeTemplate({
           fullWidth
         >
           {/* full width: Stream */}
-          <section className="aspect-video w-full bg-black">
-            <EmbedStream videoId={videoId} className="w-full h-full" />
+          <section className="w-full max-h-[calc(87vh-7rem)] bg-black">
+            <EmbedStream
+              videoId={videoId}
+              img={thumbnails.maxres?.url}
+              style="max-height: calc(87vh - 7rem);"
+            />
           </section>
 
           {/* XS only: Chat*/}
