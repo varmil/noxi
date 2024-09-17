@@ -1,34 +1,20 @@
 'use client'
 
+import { PropsWithChildren } from 'react'
 import { useGlobalOpenLiveChat } from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_hooks/youtubeLiveStates'
 import { PageXSMX } from 'components/page'
 
-type Props = {
-  className?: string
-  children: React.ReactNode
-}
-
-/** xs:contents, lg:block */
-function LgContainer({ className, children }: Props) {
+/** xs:メインコンテナ, lg:左コンテナ */
+export function MainContainer({ children }: PropsWithChildren) {
   return (
-    <section className={`contents lg:block ${className ?? ''}`}>
+    <section className={`@container contents lg:block lg:flex-1`}>
       {children}
     </section>
   )
 }
 
-/** xs:メインコンテナ, lg:左コンテナ */
-export function MainContainer(props: Props) {
-  return (
-    <LgContainer
-      {...props}
-      className={`@container lg:flex-1 ${props.className ?? ''}`}
-    />
-  )
-}
-
 /** xs:チャットコンテナ, lg:hidden */
-export function XSChatContainer({ children }: Omit<Props, 'className'>) {
+export function XSChatContainer({ children }: PropsWithChildren) {
   const { isOpenLiveChat } = useGlobalOpenLiveChat()
   if (isOpenLiveChat) {
     return (
@@ -45,7 +31,7 @@ export function XSChatContainer({ children }: Omit<Props, 'className'>) {
 }
 
 /** xs:hidden, lg:チャットコンテナ */
-export function LgChatContainer({ children }: Omit<Props, 'className'>) {
+export function LgChatContainer({ children }: PropsWithChildren) {
   const { isOpenLiveChat } = useGlobalOpenLiveChat()
   if (isOpenLiveChat) {
     return (

@@ -43,7 +43,7 @@ export default async function DefaultModeTemplate({
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
       <MainContainer>
         <Page
-          className="space-y-4 lg:grid lg:grid-cols-5"
+          className="space-y-4"
           breadcrumb={[
             {
               href: `/${group}`,
@@ -56,34 +56,38 @@ export default async function DefaultModeTemplate({
             { href: '#', name: title }
           ]}
           noPadding
+          fullWidth
         >
-          {/* Stream */}
-          <section className="aspect-video w-full bg-black lg:col-span-full">
+          {/* full width: Stream */}
+          <section className="aspect-video w-full bg-black">
             <EmbedStream videoId={videoId} className="w-full h-full" />
           </section>
 
-          {/* XS: Chat mt-0 */}
+          {/* XS only: Chat*/}
           <XSChatContainer>
             <EmbedLiveChat videoId={videoId} showCloseButton />
           </XSChatContainer>
 
-          {/* タイトル、投稿者情報 */}
-          <PadSection
-            left
-            className="space-y-4 @xs:col-span-full @4xl:col-span-3"
-          >
-            <MaximizeButton />
-            <StreamBasicInfo stream={stream} />
-          </PadSection>
+          {/* max-w-[1536px] */}
+          <section className="grid max-w-screen-2xl mx-auto gap-y-4 lg:grid-cols-5">
+            {/* タイトル、投稿者情報 */}
+            <PadSection
+              left
+              className="space-y-4 @xs:col-span-full @4xl:col-span-3"
+            >
+              <MaximizeButton />
+              <StreamBasicInfo stream={stream} />
+            </PadSection>
 
-          {/* Open Chat Button & Related Videos */}
-          <PadSection
-            right
-            className="space-y-4 @xs:col-span-full @4xl:col-span-2"
-          >
-            <OpenChatButton />
-            <RelatedVideos />
-          </PadSection>
+            {/* Open Chat Button & Related Videos */}
+            <PadSection
+              right
+              className="space-y-4 @xs:col-span-full @4xl:col-span-2"
+            >
+              <OpenChatButton />
+              <RelatedVideos />
+            </PadSection>
+          </section>
         </Page>
       </MainContainer>
 
