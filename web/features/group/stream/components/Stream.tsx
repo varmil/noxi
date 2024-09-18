@@ -2,6 +2,7 @@ import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
@@ -44,11 +45,14 @@ const ImgContainer = ({ children }: PropsWithChildren) => (
 type Props = {
   stream: StreamSchema
   channel: ChannelSchema
+  /** 基本Live中しか参照されない */
+  liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
 }
 
 export default async function Stream({
   stream,
-  channel
+  channel,
+  liveStreamingDetails
 }: PropsWithoutRef<Props>) {
   const {
     videoId,
@@ -63,6 +67,7 @@ export default async function Stream({
     },
     group
   } = stream
+  const { concurrentViewers } = liveStreamingDetails || {}
 
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
@@ -109,7 +114,13 @@ export default async function Stream({
               </Link>
               {isLive && (
                 <div>
-                  <IntlNumberFormat>{peakConcurrentViewers}</IntlNumberFormat>{' '}
+                  {concurrentViewers ? (
+                    <IntlNumberFormat>
+                      {Number(concurrentViewers)}
+                    </IntlNumberFormat>
+                  ) : (
+                    '--'
+                  )}{' '}
                   {t('watching')}
                 </div>
               )}

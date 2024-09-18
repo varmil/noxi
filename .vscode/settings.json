@@ -45,7 +45,10 @@
     "/backend/libs/domain/youtube/stream",
     "/backend/libs/domain/youtube/stream-stats",
     "/backend/libs/domain/group",
-    "/backend/libs/domain/hololive"
+    "/backend/libs/domain/hololive",
+    "/backend/libs/domain/youtube/stream-stats/viewer",
+    "/backend/libs/domain/youtube/stream-stats/chat",
+    "/backend/libs/domain/youtube/stream-stats/count"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",

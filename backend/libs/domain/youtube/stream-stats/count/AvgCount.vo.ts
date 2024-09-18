@@ -3,6 +3,7 @@ import { NumberValueObject } from '@domain/lib/NumberValueObject'
 
 /**
  * 整数値
+ * Stream Stats系のカウント（Avarage）
  */
 export class AvgCount extends NumberValueObject {
   @IsNotEmpty()

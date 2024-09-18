@@ -29,7 +29,7 @@ export class SubscribeService {
    * Rate Limitがあるので適当にsleepが必要
    */
   private async subscribe(channelIds: ChannelIds): Promise<void> {
-    for (const channelId of channelIds) {
+    for (const channelId of channelIds.get()) {
       await this.send({ channelId })
       await this.sleep(2000)
     }

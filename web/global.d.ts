@@ -19,6 +19,8 @@ declare global {
       /** http(s)://... */
       readonly BASE_URL: string
 
+      readonly YOUTUBE_DATA_API_KEY: string
+
       /**
        * A production domain name of the project.
        * We select the shortest production custom domain,

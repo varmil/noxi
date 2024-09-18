@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
+import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import GridCardContainer from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
@@ -16,10 +17,12 @@ export default async function StreamListContentOfLive({
   streams,
   compact
 }: Props) {
-  const t = await getTranslations('Features.stream')
-  const channels = await getChannels({
-    ids: streams.map(stream => stream.snippet.channelId)
-  })
+  const [t, channels, liveStreamingDetailsList] = await Promise.all([
+    getTranslations('Features.stream'),
+    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
+  ])
+
   const displayedStreams = compact ? streams.slice(0, 3) : streams
 
   return (
@@ -36,8 +39,19 @@ export default async function StreamListContentOfLive({
             )
             if (!channel) return null
 
+            const { liveStreamingDetails } =
+              liveStreamingDetailsList.find(
+                liveStreamingDetails =>
+                  liveStreamingDetails.id === stream.videoId
+              ) || {}
+
             return (
-              <Stream key={stream.videoId} stream={stream} channel={channel} />
+              <Stream
+                key={stream.videoId}
+                stream={stream}
+                channel={channel}
+                liveStreamingDetails={liveStreamingDetails}
+              />
             )
           })}
         </GridCardContainer>

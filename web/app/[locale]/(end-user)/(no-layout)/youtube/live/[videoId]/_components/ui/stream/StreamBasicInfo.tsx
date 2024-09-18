@@ -3,6 +3,7 @@ import { ThumbsUp, MessageSquare } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
+import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import IntlNumberFormat from 'components/styles/IntlNumberFormat'
 import { Link } from 'lib/navigation'
@@ -24,8 +25,16 @@ export default async function StreamBasicInfo({
     },
     group
   } = stream
-  const { basicInfo, statistics } = await getChannel(channelId)
-  const t = await getTranslations('Features.stream')
+
+  const [t, { basicInfo, statistics }, [{ liveStreamingDetails }]] =
+    await Promise.all([
+      getTranslations('Features.stream'),
+      getChannel(channelId),
+      getLiveStreamingDetails({ videoIds: [stream.videoId] })
+    ])
+
+  const { concurrentViewers } = liveStreamingDetails || {}
+  const isLive = stream.status === 'live'
 
   return (
     <section className="space-y-4">
@@ -60,14 +69,16 @@ export default async function StreamBasicInfo({
 
       {/* Stats */}
       <div className="flex space-x-4">
-        <OnelineStats>
-          <span>
-            {peakConcurrentViewers
-              ? peakConcurrentViewers.toLocaleString()
-              : '--'}{' '}
-            {t('watching')}
-          </span>
-        </OnelineStats>
+        {isLive && (
+          <OnelineStats>
+            <span>
+              {concurrentViewers
+                ? Number(concurrentViewers).toLocaleString()
+                : '--'}{' '}
+              {t('watching')}
+            </span>
+          </OnelineStats>
+        )}
         <OnelineStats>
           <ThumbsUp className="h-4 w-4" />
           <span>
