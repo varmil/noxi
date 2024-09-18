@@ -29,7 +29,7 @@ export async function getLiveStreamingDetails({
     const res = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?${searchParams.toString()}`,
       {
-        next: { revalidate: 10 }
+        next: { revalidate: 180 }
       }
     )
     if (!res.ok) {
