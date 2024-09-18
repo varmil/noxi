@@ -45,6 +45,7 @@ const schema = z.object({
 
   updatedAt: z.string().datetime().optional()
 })
+
 export const responseSchema = z.object({
   items: z.object({ list: z.array(schema) }),
   nextPageToken: z.string().optional(),
