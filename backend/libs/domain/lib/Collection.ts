@@ -10,16 +10,6 @@ export abstract class Collection<T> {
     return new ctor(items)
   }
 
-  [Symbol.iterator](): IterableIterator<T> {
-    return this.list[Symbol.iterator]()
-  }
-
-  *entries(): IterableIterator<[number, T]> {
-    for (let index = 0; index < this.list.length; index++) {
-      yield [index, this.list[index]]
-    }
-  }
-
   @Exclude()
   map = <U>(fn: (value: T, index: number) => U) => this.list.map(fn)
 

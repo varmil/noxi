@@ -11,5 +11,10 @@ export class ChannelIds extends Collection<ChannelId> {
   }
 
   @Exclude()
+  get() {
+    return this.list
+  }
+
+  @Exclude()
   join = (separator?: string) => this.list.map(e => e.get()).join(separator)
 }
