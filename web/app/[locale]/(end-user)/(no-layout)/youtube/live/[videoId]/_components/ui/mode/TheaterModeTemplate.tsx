@@ -1,5 +1,5 @@
-import { MessageSquare } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { getStream } from 'apis/youtube/getStream'
 import {
   Theater,
@@ -21,7 +21,12 @@ type Props = {
 }
 
 export default async function TheaterModeTemplate({ videoId }: Props) {
-  const stream = await getStream(videoId)
+  const [t, stream, [{ liveStreamingDetails }]] = await Promise.all([
+    getTranslations('Features.stream'),
+    getStream(videoId),
+    getLiveStreamingDetails({ videoIds: [videoId] })
+  ])
+
   const {
     snippet: { thumbnails },
     metrics: {
@@ -32,7 +37,8 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
       likes
     }
   } = stream
-  const t = await getTranslations('Features.stream')
+  const { concurrentViewers } = liveStreamingDetails || {}
+  const isLive = stream.status === 'live'
 
   return (
     <Theater direction="horizontal">
@@ -49,14 +55,16 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
 
         {/* Bottom Bar */}
         <BottomBar>
-          <div className="flex items-center gap-x-2">
-            <span>
-              {peakConcurrentViewers
-                ? peakConcurrentViewers.toLocaleString()
-                : '--'}{' '}
-              {t('watching')}
-            </span>
-          </div>
+          {isLive && (
+            <div className="">
+              <span>
+                {concurrentViewers
+                  ? Number(concurrentViewers).toLocaleString()
+                  : '--'}{' '}
+                {t('watching')}
+              </span>
+            </div>
+          )}
           {/* <div className="flex items-center gap-x-2">
             <BottomBarIcon Icon={MessageSquare} />
             <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
