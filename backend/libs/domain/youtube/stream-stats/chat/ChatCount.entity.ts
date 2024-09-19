@@ -1,5 +1,6 @@
 import { Exclude, Transform } from 'class-transformer'
-import { Count, VideoId } from '@domain/youtube'
+import { VideoId } from '@domain/youtube'
+import { Count } from '@domain/youtube/stream-stats'
 
 export class ChatCount {
   @Exclude()
