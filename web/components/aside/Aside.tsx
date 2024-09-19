@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl'
+import { Separator } from '@/components/ui/separator'
 import {
   TooltipProvider,
   Tooltip,
@@ -6,6 +7,7 @@ import {
   TooltipContent
 } from '@/components/ui/tooltip'
 import AsideIcon from 'components/aside/AsideIcon'
+import AsideStreamIcons from 'components/aside/AsideStreamIcons'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
@@ -16,7 +18,7 @@ export default function Aside() {
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-        <TooltipProvider>
+        <TooltipProvider delayDuration={0}>
           <Link
             href="/"
             className="group flex h-8 w-8 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary"
@@ -25,6 +27,11 @@ export default function Aside() {
             <Logo className="h-4 w-4 transition-all group-hover:scale-110" />
             <span className="sr-only">{t('title')}</span>
           </Link>
+
+          <AsideStreamIcons />
+
+          <Separator orientation="horizontal" />
+
           <AsideIcon
             name={`Hololive`}
             href="/hololive"
