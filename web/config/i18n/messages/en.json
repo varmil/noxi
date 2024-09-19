@@ -104,6 +104,12 @@
     "description": "Contact us here."
   },
 
+  "Components": {
+    "styles": {
+      "scheduledFor": "Scheduled for {datetime}"
+    }
+  },
+
   "Features": {
     "youtube": {
       "channel": {
@@ -153,7 +159,6 @@
       "noScheduled": "There are no scheduled live streams at the moment.",
       "likes": "Likes",
       "watching": "watching",
-      "scheduledFor": "Scheduled for {datetime}",
       "scheduledLabel": "UPCOMING"
     }
   }

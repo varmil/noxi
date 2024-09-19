@@ -103,6 +103,12 @@
     "description": "お問い合わせはこちら"
   },
 
+  "Components": {
+    "styles": {
+      "scheduledFor": "{datetime} に公開予定"
+    }
+  },
+
   "Features": {
     "youtube": {
       "channel": {
@@ -152,7 +158,6 @@
       "noScheduled": "配信予定のライブはありません。",
       "likes": "高評価",
       "watching": "人が視聴中",
-      "scheduledFor": "{datetime} に公開予定",
       "scheduledLabel": "配信予定"
     }
   }

@@ -5,7 +5,8 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
-import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import ScheduledFor from 'components/styles/date/ScheduledFor'
+import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import dayjs from 'lib/dayjs'
@@ -72,7 +73,6 @@ export default async function Stream({
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const t = useTranslations('Features.stream')
-  const format = useFormatter()
 
   return (
     <Container>
@@ -129,18 +129,7 @@ export default async function Stream({
                   <span>
                     <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
                     <Bullet />
-                    {t('scheduledFor', {
-                      datetime: format.dateTime(
-                        new Date(streamTimes.scheduledStartTime),
-                        {
-                          month: '2-digit',
-                          day: '2-digit',
-                          hour: 'numeric',
-                          minute: 'numeric',
-                          hour12: false
-                        }
-                      )
-                    })}
+                    <ScheduledFor date={streamTimes.scheduledStartTime} />
                   </span>
                 </>
               )}

@@ -5,7 +5,7 @@ import { ThumbsUpIcon } from 'lucide-react'
 import { useFormatter } from 'next-intl'
 import CommentIcon from 'components/icons/CommentIcon'
 import Image from 'components/styles/Image'
-import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import type { ViewsBarChartData } from 'features/youtube-stats/components/bar-chart/ViewsBarChart'
 
 type Props = {
