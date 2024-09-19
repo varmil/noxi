@@ -92,35 +92,7 @@ export default function Header() {
                 active
               />
 
-              {/* <HeaderLink
-              name="YouTube"
-              icon={
-                <Image
-                  src={'/yt_icon_rgb.png'}
-                  alt={`YouTube icon`}
-                  width={734 / 4}
-                  height={518 / 4}
-                  className="h-8 w-8 object-contain transition-all group-hover:scale-110"
-                />
-              }
-              href="#"
-              active
-            /> */}
-              {/* <HeaderLink
-              name="Twitch"
-              icon={<TwitchIcon className="h-6 w-6" />}
-              href="#"
-            />
-            <HeaderLink
-              name="TikTok"
-              icon={<TikTokIcon className="h-6 w-6" />}
-              href="#"
-            />
-            <HeaderLink
-              name="Instagram"
-              icon={<InstagramIcon className="h-6 w-6" />}
-              href="#"
-            />
+              {/* 
             <HeaderLink
               name="Settings"
               icon={<SettingsIcon className="h-6 w-6" />}
