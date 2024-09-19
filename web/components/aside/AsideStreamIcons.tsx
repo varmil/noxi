@@ -1,12 +1,11 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
 import { Separator } from '@/components/ui/separator'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { getStreams } from 'apis/youtube/getStreams'
 import AsideIcon from 'components/aside/AsideIcon'
 import LiveBadge from 'components/styles/LiveBadge'
-import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
+import Watching from 'components/styles/number/Watching'
 
 type Props = {}
 
@@ -62,8 +61,6 @@ function Content(params: {
   streamTitle: string
   viewers: number
 }) {
-  const t = useTranslations('Features.stream')
-
   return (
     <section className="flex flex-col gap-y-0.5">
       <div className="text-secondary-foreground text-xs">
@@ -74,12 +71,7 @@ function Content(params: {
         <LiveBadge />
         <Separator orientation="vertical" />
         <span className="text-muted-foreground">
-          {params.viewers ? (
-            <IntlNumberFormat>{params.viewers}</IntlNumberFormat>
-          ) : (
-            '--'
-          )}{' '}
-          {t('watching')}
+          <Watching count={params.viewers} compact />
         </span>
       </div>
     </section>

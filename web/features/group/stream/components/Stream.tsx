@@ -9,6 +9,7 @@ import Image from 'components/styles/Image'
 import LiveBadge from 'components/styles/LiveBadge'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
+import Watching from 'components/styles/number/Watching'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import dayjs from 'lib/dayjs'
@@ -111,14 +112,7 @@ export default async function Stream({
               </Link>
               {isLive && (
                 <div>
-                  {concurrentViewers ? (
-                    <IntlNumberFormat>
-                      {Number(concurrentViewers)}
-                    </IntlNumberFormat>
-                  ) : (
-                    '--'
-                  )}{' '}
-                  {t('watching')}
+                  <Watching count={concurrentViewers} compact />
                 </div>
               )}
               {isScheduled && (
