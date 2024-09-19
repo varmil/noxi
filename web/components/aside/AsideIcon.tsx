@@ -1,4 +1,4 @@
-import { PropsWithoutRef } from 'react'
+import React, { PropsWithoutRef } from 'react'
 import {
   Tooltip,
   TooltipTrigger,
@@ -11,6 +11,8 @@ type Props = {
   name: string
   href: string
   src: string
+  /** Tooltip content */
+  content?: React.ReactNode
   roundedFull?: boolean
 }
 
@@ -18,6 +20,7 @@ export default function AsideIcon({
   name,
   href,
   src,
+  content,
   roundedFull
 }: PropsWithoutRef<Props>) {
   return (
@@ -41,7 +44,7 @@ export default function AsideIcon({
           <span className="sr-only">{name}</span>
         </Link>
       </TooltipTrigger>
-      <TooltipContent side="right">{name}</TooltipContent>
+      <TooltipContent side="right">{content || name}</TooltipContent>
     </Tooltip>
   )
 }

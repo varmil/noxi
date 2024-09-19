@@ -1,13 +1,12 @@
 import { PropsWithChildren } from 'react'
 import { ThumbsUp, MessageSquare } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import Bullet from 'components/styles/Bullet'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
+import Watching from 'components/styles/number/Watching'
 import { Link } from 'lib/navigation'
 
 export default async function StreamBasicInfo({
@@ -29,9 +28,8 @@ export default async function StreamBasicInfo({
     group
   } = stream
 
-  const [t, { basicInfo, statistics }, [{ liveStreamingDetails }]] =
+  const [{ basicInfo, statistics }, [{ liveStreamingDetails }]] =
     await Promise.all([
-      getTranslations('Features.stream'),
       getChannel(channelId),
       getLiveStreamingDetails({ videoIds: [stream.videoId] })
     ])
@@ -81,10 +79,7 @@ export default async function StreamBasicInfo({
         {isLive && (
           <OnelineStats>
             <span>
-              {concurrentViewers
-                ? Number(concurrentViewers).toLocaleString()
-                : '--'}{' '}
-              {t('watching')}
+              <Watching count={concurrentViewers} />
             </span>
           </OnelineStats>
         )}

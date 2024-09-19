@@ -6,19 +6,14 @@ import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStr
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
+import LiveBadge from 'components/styles/LiveBadge'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
+import Watching from 'components/styles/number/Watching'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
-
-const LiveBadge = () => (
-  <div className="absolute bottom-2 left-2 bg-red-600 text-white text-xs font-bold px-1 py-0.5 rounded flex items-center gap-1">
-    <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-    LIVE
-  </div>
-)
 
 const SmallLiveBadge = () => (
   <div className="relative text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
@@ -86,7 +81,7 @@ export default async function Stream({
             width={348.8}
             height={196.2}
           />
-          {isLive && <LiveBadge />}
+          {isLive && <LiveBadge className="absolute bottom-2 left-2" />}
           {isScheduled && <UpcomingBadge />}
           {isLive && (
             <DurationBadge
@@ -117,14 +112,7 @@ export default async function Stream({
               </Link>
               {isLive && (
                 <div>
-                  {concurrentViewers ? (
-                    <IntlNumberFormat>
-                      {Number(concurrentViewers)}
-                    </IntlNumberFormat>
-                  ) : (
-                    '--'
-                  )}{' '}
-                  {t('watching')}
+                  <Watching count={concurrentViewers} compact />
                 </div>
               )}
               {isScheduled && (

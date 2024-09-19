@@ -1,6 +1,6 @@
-import { getTranslations } from 'next-intl/server'
 import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { getStream } from 'apis/youtube/getStream'
+import Watching from 'components/styles/number/Watching'
 import {
   Theater,
   TheaterContent,
@@ -21,8 +21,7 @@ type Props = {
 }
 
 export default async function TheaterModeTemplate({ videoId }: Props) {
-  const [t, stream, [{ liveStreamingDetails }]] = await Promise.all([
-    getTranslations('Features.stream'),
+  const [stream, [{ liveStreamingDetails }]] = await Promise.all([
     getStream(videoId),
     getLiveStreamingDetails({ videoIds: [videoId] })
   ])
@@ -58,10 +57,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
           {isLive && (
             <div className="">
               <span>
-                {concurrentViewers
-                  ? Number(concurrentViewers).toLocaleString()
-                  : '--'}{' '}
-                {t('watching')}
+                <Watching count={concurrentViewers} />
               </span>
             </div>
           )}

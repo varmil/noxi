@@ -106,7 +106,8 @@
 
   "Components": {
     "styles": {
-      "scheduledFor": "Scheduled for {datetime}"
+      "scheduledFor": "Scheduled for {datetime}",
+      "watching": "watching"
     }
   },
 
@@ -158,7 +159,6 @@
       "noLive": "There are no live streams at the moment.",
       "noScheduled": "There are no scheduled live streams at the moment.",
       "likes": "Likes",
-      "watching": "watching",
       "scheduledLabel": "UPCOMING"
     }
   }
