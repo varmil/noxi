@@ -1,3 +1,4 @@
+import { exit } from 'process'
 import { NestFactory } from '@nestjs/core'
 import { MainScenario } from 'apps/update-streams/src/scenario/main.scenario'
 import { MainModule } from './main.module'
@@ -8,4 +9,7 @@ async function bootstrap() {
   await mainScenario.execute()
 }
 
-bootstrap().catch(reason => console.error(reason))
+bootstrap().catch(reason => {
+  console.error(reason)
+  exit(1)
+})
