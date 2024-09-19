@@ -5,6 +5,7 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
+import Image from 'components/styles/Image'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
@@ -78,10 +79,12 @@ export default async function Stream({
     <Container>
       <ImgContainer>
         <Link href={`/youtube/live/${videoId}`} prefetch={true}>
-          <img
-            src={thumbnails['high']?.url}
+          <Image
+            src={thumbnails.standard?.url ?? ''}
             alt={title}
             className="object-cover w-full h-full"
+            width={348.8}
+            height={196.2}
           />
           {isLive && <LiveBadge />}
           {isScheduled && <UpcomingBadge />}
