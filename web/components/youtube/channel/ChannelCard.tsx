@@ -2,7 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import Image from 'components/styles/Image'
-import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import { Link } from 'lib/navigation'
 import { getGroup } from 'lib/server-only-context/cache'
 

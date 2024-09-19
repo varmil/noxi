@@ -5,7 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import Bullet from 'components/styles/Bullet'
+import ScheduledFor from 'components/styles/date/ScheduledFor'
+import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import { Link } from 'lib/navigation'
 
 export default async function StreamBasicInfo({
@@ -16,6 +18,7 @@ export default async function StreamBasicInfo({
   const {
     videoId,
     snippet: { title, channelId },
+    streamTimes,
     metrics: {
       peakConcurrentViewers,
       avgConcurrentViewers,
@@ -35,6 +38,7 @@ export default async function StreamBasicInfo({
 
   const { concurrentViewers } = liveStreamingDetails || {}
   const isLive = stream.status === 'live'
+  const isScheduled = stream.status === 'scheduled'
 
   return (
     <section className="space-y-4">
@@ -68,7 +72,12 @@ export default async function StreamBasicInfo({
       </div>
 
       {/* Stats */}
-      <div className="flex space-x-4">
+      <div className="flex space-x-2 sm:space-x-4">
+        {isScheduled && (
+          <OnelineStats>
+            <ScheduledFor date={streamTimes.scheduledStartTime} />
+          </OnelineStats>
+        )}
         {isLive && (
           <OnelineStats>
             <span>
@@ -98,7 +107,7 @@ export default async function StreamBasicInfo({
 
 function OnelineStats({ children }: PropsWithChildren) {
   return (
-    <div className="flex items-center text-sm text-muted-foreground space-x-2 px-4 py-2 border rounded">
+    <div className="flex items-center text-sm sm:text-base text-muted-foreground space-x-1.5 bg-muted px-4 py-2 rounded-xl">
       {children}
     </div>
   )

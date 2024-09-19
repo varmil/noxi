@@ -1,7 +1,7 @@
 import { PropsWithoutRef, SVGProps } from 'react'
 import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
-import IntlNumberFormat from 'components/styles/IntlNumberFormat'
+import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
