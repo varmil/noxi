@@ -16,7 +16,7 @@ import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 const SmallLiveBadge = () => (
-  <div className="relative text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1 z-10">
+  <div className="relative text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1">
     LIVE
   </div>
 )

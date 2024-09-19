@@ -14,7 +14,7 @@ export class MainScenario {
 
   async execute(): Promise<void> {
     const promises = this.groupsService.findAll().map(async group => {
-      console.log(`start ${group.get()} length`)
+      console.log(`start ${group.get()}`)
 
       const channels = await this.channelsInfraService.list({
         where: { channelIds: group.channelIds }
