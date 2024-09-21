@@ -26,7 +26,7 @@ main:
               taskCount: 1
             environment:
               variables:
-                ENV_NAME: production
+                - ENV_NAME: production
             logsPolicy:
               destination: CLOUD_LOGGING
     - delete_job:
