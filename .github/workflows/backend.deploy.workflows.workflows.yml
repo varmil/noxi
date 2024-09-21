@@ -67,7 +67,7 @@ jobs:
       - name: Deploy to Cloud Workflows
         run: |
           gcloud workflows deploy ${{ env.JOB_NAME }} \
-            --source backend/scripts/workflow-config.yaml \
+            --source backend/scripts/workflows/workflow-config.yaml \
             --service-account ${{ env.SERVICE_ACCOUNT_NAME }} \
             --project ${{ env.GCP_PROJECT_ID }} \
             --location ${{ env.GCP_REGION }}

@@ -23,6 +23,9 @@ main:
                   cpuMilli: 1000
                   memoryMib: 16
               taskCount: 1
+            environment:
+              variables:
+                ENV_NAME: production
             logsPolicy:
               destination: CLOUD_LOGGING
     - delete_job:
