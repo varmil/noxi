@@ -27,9 +27,9 @@ main:
                     ENV_NAME: production
               taskCount: 1
             allocationPolicy:
-              - instances:
-                  policy:
-                    machineType: e2-micro
+              instances:
+                policy:
+                  machineType: e2-micro
             logsPolicy:
               destination: CLOUD_LOGGING
     - delete_job:
