@@ -20,7 +20,7 @@ on:
         value: ${{ jobs.paths-filter.outputs.has-changes }}
 
 env:
-  IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/cloud-run-jobs/noxi/apps/${{ inputs.service_name }}
+  IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/noxi/apps/${{ inputs.service_name }}
 
 jobs:
   paths-filter:
