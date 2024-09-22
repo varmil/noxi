@@ -1,4 +1,4 @@
-name: 'backend.deploy.workflows'
+name: 'backend.deploy.batch-images'
 on:
   push:
     branches:
@@ -23,13 +23,13 @@ jobs:
         with:
           filters: |
             has-changes:
-              - .github/workflows/backend.deploy.workflows.workflows.yml
+              - .github/workflows/backend.deploy.batch-images.workflows.yml
               - backend/**
 
-  backend-jobs-build:
+  backend-deploy-batch-images:
     strategy:
       matrix:
-        service_name: [groups/update-channels, pubsubhubbub, update-streams]
+        service_name: [update-chats]
     env:
       IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
     runs-on: ubuntu-latest
@@ -56,18 +56,3 @@ jobs:
 
       - name: Push the docker image
         run: docker push ${{ env.IMAGE }}
-
-      - name: Get Job name
-        run: |
-          JOB_NAME=${{ matrix.service_name }}
-          echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
-
-      # TODO: use variable for source
-      - name: Deploy to Cloud Workflows
-        run: |
-          gcloud workflows deploy ${{ env.JOB_NAME }} \
-            --source backend/scripts/workflows/workflow-config.yml \
-            --service-account ${{ env.SERVICE_ACCOUNT_NAME }} \
-            --project ${{ env.GCP_PROJECT_ID }} \
-            --location ${{ env.GCP_REGION }} \
-            --set-env-vars JOB_NAME=${{ env.JOB_NAME }}
