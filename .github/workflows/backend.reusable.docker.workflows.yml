@@ -29,6 +29,8 @@ jobs:
               - backend/**
 
   docker-build-and-push:
+    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
+    needs: paths-filter
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

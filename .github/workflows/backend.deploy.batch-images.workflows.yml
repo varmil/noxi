@@ -10,26 +10,9 @@ permissions: write-all
 env:
   GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
   GCP_REGION: ${{ vars.GCP_REGION }}
-  SERVICE_ACCOUNT_NAME: ${{ vars.SERVICE_ACCOUNT_NAME }}
 
 jobs:
-  paths-filter:
-    runs-on: ubuntu-latest
-    outputs:
-      has-changes: ${{ steps.changes.outputs.has-changes }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            has-changes:
-              - .github/workflows/backend.deploy.batch-images.workflows.yml
-              - backend/**
-
   backend-deploy-batch-images:
-    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
-    needs: paths-filter
     strategy:
       matrix:
         service_name: [update-chats]
