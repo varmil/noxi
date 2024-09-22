@@ -28,18 +28,13 @@ jobs:
               - backend/**
 
   backend-deploy-batch-images:
+    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
+    needs: paths-filter
     strategy:
       matrix:
         service_name: [update-chats]
-    env:
-      IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
-    runs-on: ubuntu-latest
-    needs: paths-filter
-    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
-    steps:
-      - name: Call Docker Build and Push Workflow
-        uses: ./.github/workflows/backend.reusable.docker.workflows.yml
-        with:
-          service_name: ${{ matrix.service_name }}
-          image: ${{ env.IMAGE }}
-        secrets: inherit
+    uses: ./.github/workflows/backend.reusable.docker.workflows.yml
+    with:
+      service_name: ${{ matrix.service_name }}
+      image: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
+    secrets: inherit
