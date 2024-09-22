@@ -1,0 +1,93 @@
+name: 'backend.reusable.docker'
+
+on:
+  workflow_call:
+    inputs:
+      # Example: groups/update-channels or pubsubhubbub or update-streams
+      service_name:
+        type: string
+        required: true
+      # Set true if you use Cloud Run Jobs
+      should_deploy_to_cloud_run_jobs:
+        type: boolean
+        required: false
+    secrets:
+      GCP_JOBS_SA_KEY:
+        required: true
+    outputs:
+      has-changes:
+        description: 'image has been built and pushed'
+        value: ${{ jobs.paths-filter.outputs.has-changes }}
+
+env:
+  IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/noxi/apps/${{ inputs.service_name }}
+
+jobs:
+  paths-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changes: ${{ steps.changes.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            has-changes:
+              - .github/workflows/backend.*.yml
+              - backend/**
+
+  docker-build-and-push:
+    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
+    needs: paths-filter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_JOBS_SA_KEY }}'
+
+      - name: Configure docker to use the gcloud cli
+        run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build a docker image
+        run: |
+          docker build -t ${{ env.IMAGE }} \
+            --build-arg BUILD_CMD="npm run app -- ${{ inputs.service_name }} build" \
+            --build-arg START_CMD="npm run app -- ${{ inputs.service_name }} prod" \
+            -f backend/apps/Dockerfile.standalone.app \
+            backend
+
+      - name: Push the docker image
+        run: docker push ${{ env.IMAGE }}
+
+  # OPTIONAL: Batchの場合は不要
+  deploy-to-cloud-run-jobs:
+    if: ${{ inputs.should_deploy_to_cloud_run_jobs == true }}
+    needs: docker-build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_JOBS_SA_KEY }}'
+
+      - name: Replace slashes with hyphens
+        run: |
+          JOB_NAME=${{ inputs.service_name }}
+          echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
+
+      - name: Deploy to Cloud Run Jobs
+        run: |
+          gcloud run jobs deploy ${{ env.JOB_NAME }} \
+            --tasks 1 \
+            --parallelism 1 \
+            --max-retries 0 \
+            --task-timeout 60m \
+            --image ${{ env.IMAGE }} \
+            --project ${{ vars.GCP_PROJECT_ID }} \
+            --region ${{ vars.GCP_REGION }} \
+            --service-account ${{ vars.SERVICE_ACCOUNT_NAME }} \
+            --update-env-vars ENV_NAME=production

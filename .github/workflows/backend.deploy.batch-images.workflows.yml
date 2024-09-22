@@ -1,4 +1,4 @@
-name: 'backend.deploy.jobs'
+name: 'backend.deploy.batch-images'
 on:
   push:
     branches:
@@ -7,12 +7,12 @@ on:
 permissions: write-all
 
 jobs:
-  backend-deploy-jobs-images:
+  backend-deploy-batch-images:
     strategy:
       matrix:
-        service_name: [groups/update-channels, pubsubhubbub, update-streams]
+        # TODO: now testing: tobe update-chats
+        service_name: [pubsubhubbub]
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
-      should_deploy_to_cloud_run_jobs: true
     secrets: inherit
