@@ -2,6 +2,7 @@ name: 'backend.deploy.jobs'
 on:
   push:
     branches:
+      - develop # TODO: remove me
       - main
 
 permissions: write-all
@@ -12,51 +13,25 @@ env:
   SERVICE_ACCOUNT_NAME: ${{ vars.SERVICE_ACCOUNT_NAME }}
 
 jobs:
-  paths-filter:
-    runs-on: ubuntu-latest
-    outputs:
-      has-changes: ${{ steps.changes.outputs.has-changes }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            has-changes:
-              - .github/workflows/backend.deploy.jobs.workflows.yml
-              - backend/**
+  backend-deploy-jobs-images:
+    strategy:
+      matrix:
+        service_name: [groups/update-channels, pubsubhubbub, update-streams]
+    uses: ./.github/workflows/backend.reusable.docker.workflows.yml
+    with:
+      service_name: ${{ matrix.service_name }}
+    secrets: inherit
 
-  backend-jobs-build:
+  backend-deploy-to-cloud-run-jobs:
+    if: ${{ needs.backend-deploy-jobs-images.outputs.has-changes == 'true' }}
+    needs: backend-deploy-jobs-images
     strategy:
       matrix:
         service_name: [groups/update-channels, pubsubhubbub, update-streams]
     env:
       IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
     runs-on: ubuntu-latest
-    needs: paths-filter
-    if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
     steps:
-      - uses: actions/checkout@v4
-
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          credentials_json: '${{ secrets.GCP_JOBS_SA_KEY }}'
-
-      - name: Configure docker to use the gcloud cli
-        run: gcloud auth configure-docker ${{ env.GCP_REGION }}-docker.pkg.dev --quiet
-
-      - name: Build a docker image
-        run: |
-          docker build -t ${{ env.IMAGE }} \
-            --build-arg BUILD_CMD="npm run app -- ${{ matrix.service_name }} build" \
-            --build-arg START_CMD="npm run app -- ${{ matrix.service_name }} prod" \
-            -f backend/apps/Dockerfile.cloudrun.jobs \
-            backend
-
-      - name: Push the docker image
-        run: docker push ${{ env.IMAGE }}
-
       - name: Get Job name
         run: |
           JOB_NAME=${{ matrix.service_name }}
@@ -70,7 +45,7 @@ jobs:
             --max-retries 0 \
             --task-timeout 60m \
             --image ${{ env.IMAGE }} \
-            --project ${{ env.GCP_PROJECT_ID }} \
-            --region ${{ env.GCP_REGION }} \
-            --service-account ${{ env.SERVICE_ACCOUNT_NAME }} \
+            --project ${{ vars.GCP_PROJECT_ID }} \
+            --region ${{ vars.GCP_REGION }} \
+            --service-account ${{ vars.SERVICE_ACCOUNT_NAME }} \
             --update-env-vars ENV_NAME=production

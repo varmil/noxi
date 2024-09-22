@@ -2,7 +2,7 @@ name: 'backend.deploy.batch-images'
 on:
   push:
     branches:
-      - develop
+      - develop # TODO: remove me
       - main
 
 permissions: write-all

@@ -9,6 +9,10 @@ on:
     secrets:
       GCP_JOBS_SA_KEY:
         required: true
+    outputs:
+      has-changes:
+        description: 'ビルドが実行されたかどうか'
+        value: ${{ jobs.paths-filter.outputs.has-changes }}
 
 env:
   IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/cloud-run-jobs/noxi/apps/${{ inputs.service_name }}
@@ -25,7 +29,7 @@ jobs:
         with:
           filters: |
             has-changes:
-              - .github/workflows/backend.deploy.batch-images.workflows.yml
+              - .github/workflows/backend.*.yml
               - backend/**
 
   docker-build-and-push:
