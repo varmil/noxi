@@ -3,7 +3,7 @@ name: 'backend.reusable.docker'
 on:
   workflow_call:
     inputs:
-      # example: groups/update-channels or pubsubhubbub or update-streams
+      # Example: groups/update-channels or pubsubhubbub or update-streams
       service_name:
         type: string
         required: true
@@ -74,9 +74,14 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_JOBS_SA_KEY }}'
 
+      - name: Replace slashes with hyphens
+        run: |
+          JOB_NAME=${{ inputs.service_name }}
+          echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
+
       - name: Deploy to Cloud Run Jobs
         run: |
-          gcloud run jobs deploy ${{ inputs.service_name }} \
+          gcloud run jobs deploy ${{ env.JOB_NAME }} \
             --tasks 1 \
             --parallelism 1 \
             --max-retries 0 \
