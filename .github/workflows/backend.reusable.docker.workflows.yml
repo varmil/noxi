@@ -6,12 +6,12 @@ on:
       service_name:
         type: string
         required: true
-      image:
-        type: string
-        required: true
     secrets:
       GCP_JOBS_SA_KEY:
         required: true
+
+env:
+  IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/cloud-run-jobs/noxi/apps/${{ inputs.service_name }}
 
 jobs:
   paths-filter:
@@ -45,14 +45,14 @@ jobs:
 
       - name: Build a docker image
         run: |
-          docker build -t ${{ inputs.image }} \
+          docker build -t ${{ env.IMAGE }} \
             --build-arg BUILD_CMD="npm run app -- ${{ inputs.service_name }} build" \
             --build-arg START_CMD="npm run app -- ${{ inputs.service_name }} prod" \
             -f backend/apps/Dockerfile.cloudrun.jobs \
             backend
 
       - name: Push the docker image
-        run: docker push ${{ inputs.image }}
+        run: docker push ${{ env.IMAGE }}
 
       - name: Get Job name
         run: |
