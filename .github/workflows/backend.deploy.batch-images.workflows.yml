@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         # testing: tobe update-chats
-        service_name: [pubsubhubbub]
+        service_name: []
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
