@@ -20,5 +20,5 @@ jobs:
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
-      image: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
+      image: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
     secrets: inherit
