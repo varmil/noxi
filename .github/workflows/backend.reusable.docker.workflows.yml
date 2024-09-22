@@ -1,0 +1,58 @@
+name: 'backend.reusable.docker'
+
+on:
+  workflow_call:
+    inputs:
+      service_name:
+        type: string
+        required: true
+      image:
+        type: string
+        required: true
+    secrets:
+      GCP_JOBS_SA_KEY:
+        required: true
+
+jobs:
+  paths-filter:
+    runs-on: ubuntu-latest
+    outputs:
+      has-changes: ${{ steps.changes.outputs.has-changes }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changes
+        with:
+          filters: |
+            has-changes:
+              - .github/workflows/backend.deploy.batch-images.workflows.yml
+              - backend/**
+
+  docker-build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_JOBS_SA_KEY }}'
+
+      - name: Configure docker to use the gcloud cli
+        run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build a docker image
+        run: |
+          docker build -t ${{ inputs.image }} \
+            --build-arg BUILD_CMD="npm run app -- ${{ inputs.service_name }} build" \
+            --build-arg START_CMD="npm run app -- ${{ inputs.service_name }} prod" \
+            -f backend/apps/Dockerfile.cloudrun.jobs \
+            backend
+
+      - name: Push the docker image
+        run: docker push ${{ inputs.image }}
+
+      - name: Get Job name
+        run: |
+          JOB_NAME=${{ inputs.service_name }}
+          echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
