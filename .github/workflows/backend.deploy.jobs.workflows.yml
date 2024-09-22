@@ -20,32 +20,5 @@ jobs:
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
+      should_deploy_to_cloud_run_jobs: true
     secrets: inherit
-
-  backend-deploy-to-cloud-run-jobs:
-    if: ${{ needs.backend-deploy-jobs-images.outputs.has-changes == 'true' }}
-    needs: backend-deploy-jobs-images
-    strategy:
-      matrix:
-        service_name: [groups/update-channels, pubsubhubbub, update-streams]
-    env:
-      IMAGE: ${GCP_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/cloud-run-jobs/noxi/apps/${{ matrix.service_name }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Job name
-        run: |
-          JOB_NAME=${{ matrix.service_name }}
-          echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
-
-      - name: Deploy to Cloud Run Jobs
-        run: |
-          gcloud run jobs deploy ${{ env.JOB_NAME }} \
-            --tasks 1 \
-            --parallelism 1 \
-            --max-retries 0 \
-            --task-timeout 60m \
-            --image ${{ env.IMAGE }} \
-            --project ${{ vars.GCP_PROJECT_ID }} \
-            --region ${{ vars.GCP_REGION }} \
-            --service-account ${{ vars.SERVICE_ACCOUNT_NAME }} \
-            --update-env-vars ENV_NAME=production

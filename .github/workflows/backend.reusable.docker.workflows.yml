@@ -3,15 +3,20 @@ name: 'backend.reusable.docker'
 on:
   workflow_call:
     inputs:
+      # example: groups/update-channels or pubsubhubbub or update-streams
       service_name:
         type: string
         required: true
+      # Set true if you use Cloud Run Jobs
+      should_deploy_to_cloud_run_jobs:
+        type: boolean
+        required: false
     secrets:
       GCP_JOBS_SA_KEY:
         required: true
     outputs:
       has-changes:
-        description: 'ビルドが実行されたかどうか'
+        description: 'image has been built and pushed'
         value: ${{ jobs.paths-filter.outputs.has-changes }}
 
 env:
@@ -58,7 +63,27 @@ jobs:
       - name: Push the docker image
         run: docker push ${{ env.IMAGE }}
 
+  # OPTIONAL: Batchの場合は不要
+  deploy-to-cloud-run-jobs:
+    if: ${{ inputs.should_deploy_to_cloud_run_jobs == true }}
+    needs: docker-build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: 不要かも？
       - name: Get Job name
         run: |
           JOB_NAME=${{ inputs.service_name }}
           echo JOB_NAME=${JOB_NAME//\//-} >> $GITHUB_ENV
+
+      - name: Deploy to Cloud Run Jobs
+        run: |
+          gcloud run jobs deploy ${{ inputs.service_name }} \
+            --tasks 1 \
+            --parallelism 1 \
+            --max-retries 0 \
+            --task-timeout 60m \
+            --image ${{ env.IMAGE }} \
+            --project ${{ vars.GCP_PROJECT_ID }} \
+            --region ${{ vars.GCP_REGION }} \
+            --service-account ${{ vars.SERVICE_ACCOUNT_NAME }} \
+            --update-env-vars ENV_NAME=production
