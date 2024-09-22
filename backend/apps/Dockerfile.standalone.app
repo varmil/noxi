@@ -5,7 +5,7 @@
 # --build-arg BUILD_CMD="npm run app -- pubsubhubbub build" \
 # --build-arg START_CMD="npm run app -- pubsubhubbub prod" \
 # -t your-image-name \
-# -f ./Dockerfile.cloudrun.jobs \
+# -f ./Dockerfile.standalone.app \
 # backend
 #
 

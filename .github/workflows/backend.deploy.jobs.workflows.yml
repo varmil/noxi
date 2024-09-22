@@ -7,11 +7,6 @@ on:
 
 permissions: write-all
 
-env:
-  GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
-  GCP_REGION: ${{ vars.GCP_REGION }}
-  SERVICE_ACCOUNT_NAME: ${{ vars.SERVICE_ACCOUNT_NAME }}
-
 jobs:
   backend-deploy-jobs-images:
     strategy:
