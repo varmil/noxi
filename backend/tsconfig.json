@@ -1,30 +1,14 @@
 {
   "compilerOptions": {
     "paths": {
-      "@presentation": [
-        "apps/closed-api-server/src/presentation"
-      ],
-      "@presentation/*": [
-        "apps/closed-api-server/src/presentation/*"
-      ],
-      "@app": [
-        "libs/application"
-      ],
-      "@app/*": [
-        "libs/application/*"
-      ],
-      "@domain": [
-        "libs/domain"
-      ],
-      "@domain/*": [
-        "libs/domain/*"
-      ],
-      "@infra": [
-        "libs/infrastructure"
-      ],
-      "@infra/*": [
-        "libs/infrastructure/*"
-      ]
+      "@presentation": ["apps/closed-api-server/src/presentation"],
+      "@presentation/*": ["apps/closed-api-server/src/presentation/*"],
+      "@app": ["libs/application"],
+      "@app/*": ["libs/application/*"],
+      "@domain": ["libs/domain"],
+      "@domain/*": ["libs/domain/*"],
+      "@infra": ["libs/infrastructure"],
+      "@infra/*": ["libs/infrastructure/*"]
     },
     "module": "commonjs",
     "declaration": true,
