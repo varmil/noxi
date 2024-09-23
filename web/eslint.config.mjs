@@ -1,11 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { includeIgnoreFile, fixupPluginRules } from '@eslint/compat'
+import { includeIgnoreFile } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import tsParser from '@typescript-eslint/parser'
-import _import from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import-x'
 import { zones } from './no-restricted-pahts.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -29,19 +29,29 @@ export default [
   {
     plugins: {
       //   'unused-imports': unusedImports,
-      _import: fixupPluginRules(_import)
+      'import-x': importPlugin
     },
 
     languageOptions: {
       parser: tsParser // https://github.com/vercel/next.js/discussions/56195
     },
 
+    settings: {
+      'import-x/parsers': {
+        '@typescript-eslint/parser': ['.ts', '.tsx']
+      },
+      'import-x/resolver': {
+        typescript: true,
+        node: true
+      }
+    },
+
     rules: {
       '@next/next/no-img-element': 'off',
 
-      'import/no-restricted-paths': ['error', { zones }],
+      'import-x/no-restricted-paths': ['error', { zones }],
 
-      'import/order': [
+      'import-x/order': [
         'error',
         {
           groups: [
@@ -50,17 +60,12 @@ export default [
             'internal',
             'parent',
             'sibling',
+            'index',
             'object',
-            'type',
-            'index'
+            'type'
           ],
 
           pathGroupsExcludedImportTypes: ['builtin'],
-          'newlines-between': 'never',
-
-          alphabetize: {
-            order: 'asc'
-          },
 
           pathGroups: [
             {
@@ -73,7 +78,11 @@ export default [
               group: 'parent',
               position: 'before'
             }
-          ]
+          ],
+
+          alphabetize: {
+            order: 'asc'
+          }
         }
       ],
 
