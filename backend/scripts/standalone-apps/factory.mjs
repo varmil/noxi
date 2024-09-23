@@ -1,6 +1,5 @@
 #!/usr/bin/env zx
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-undef */
 import 'zx/globals'
 import { z } from 'zod'
@@ -24,6 +23,9 @@ const schema1 = z.union([
 
 const appName = schema0.parse(argv._[0])
 const cmd = schema1.parse(argv._[1])
+
+// DEBUG
+await $`date`
 
 const exec = list[`${appName}:${cmd}`]
 console.log('exec:', exec)
