@@ -62,6 +62,15 @@
       "type": "library",
       "root": "libs/infrastructure",
       "sourceRoot": "libs/infrastructure"
+    },
+    "update-chats": {
+      "type": "application",
+      "root": "apps/update-chats",
+      "entryFile": "main",
+      "sourceRoot": "apps/update-chats/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/update-chats/tsconfig.app.json"
+      }
     }
   }
 }
