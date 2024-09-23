@@ -2,11 +2,13 @@
   "priority": 99,
   "taskGroups": {
     "taskSpec": {
-      "runnables": {
-        "script": {
-          "text": "sleep 20; echo Hello World!"
+      "runnables": [
+        {
+          "container": {
+            "imageUri": "us-west1-docker.pkg.dev/noxi-production/noxi/apps/update-chats:latest"
+          }
         }
-      },
+      ],
       "maxRetryCount": 1,
       "lifecyclePolicies": [
         {
