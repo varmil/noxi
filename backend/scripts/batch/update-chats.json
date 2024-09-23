@@ -1,0 +1,42 @@
+{
+  "priority": 99,
+  "taskGroups": {
+    "taskSpec": {
+      "runnables": {
+        "script": {
+          "text": "sleep 20; echo Hello World!"
+        }
+      },
+      "maxRetryCount": 1,
+      "lifecyclePolicies": [
+        {
+          "action": "RETRY_TASK",
+          "actionCondition": {
+            "exitCodes": [50001]
+          }
+        }
+      ],
+      "computeResource": {
+        "cpuMilli": 2000,
+        "memoryMib": 1000
+      },
+      "environment": {
+        "variables": {
+          "ENV_NAME": "production"
+        }
+      }
+    },
+    "taskCount": 1
+  },
+  "allocationPolicy": {
+    "instances": {
+      "policy": {
+        "machineType": "e2-micro",
+        "provisioningModel": "SPOT"
+      }
+    }
+  },
+  "logsPolicy": {
+    "destination": "CLOUD_LOGGING"
+  }
+}
