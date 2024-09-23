@@ -6,7 +6,7 @@ import { z } from 'zod'
 import { $, argv } from 'zx'
 import list from './list.mjs'
 
-$.verbose = true
+// $.verbose = true
 
 const schema0 = z.union([
   z.literal('groups/update-channels'),
@@ -25,8 +25,12 @@ const appName = schema0.parse(argv._[0])
 const cmd = schema1.parse(argv._[1])
 
 // DEBUG
-await $`date`
+{
+  await $`date`.pipe(process.stdout).catch(err => {
+    process.stderr.write(err.stderr)
+  })
+}
 
 const exec = list[`${appName}:${cmd}`]
 console.log('exec:', exec)
-await $`eval ${exec}`
+await $`eval ${exec}`.verbose()
