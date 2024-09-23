@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
-import { MainService } from './main.service'
+import { ConfigModule } from '@nestjs/config'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { ConfigModule } from '@nestjs/config'
+import { MainService } from './main.service'
 
 @Module({
   imports: [
