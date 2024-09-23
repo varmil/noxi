@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
   const mainScenario = app.select(MainModule).get(MainScenario)
   await mainScenario.execute()
+  await app.close()
 }
 
 bootstrap().catch(reason => {

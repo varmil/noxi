@@ -1,24 +1,16 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { UpdateChatsModule } from './../src/update-chats.module';
+import { INestApplication } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
+import { MainModule } from '../src/main.module'
 
-describe('UpdateChatsController (e2e)', () => {
-  let app: INestApplication;
+describe('Update Chats (e2e)', () => {
+  let app: INestApplication
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [UpdateChatsModule],
-    }).compile();
+      imports: [MainModule]
+    }).compile()
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
-
-  it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
-  });
-});
+    app = moduleFixture.createNestApplication()
+    await app.init()
+  })
+})
