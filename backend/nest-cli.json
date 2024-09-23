@@ -39,6 +39,15 @@
         "tsConfigPath": "apps/pubsubhubbub/tsconfig.app.json"
       }
     },
+    "update-chats": {
+      "type": "application",
+      "root": "apps/update-chats",
+      "entryFile": "main",
+      "sourceRoot": "apps/update-chats/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/update-chats/tsconfig.app.json"
+      }
+    },
     "update-streams": {
       "type": "application",
       "root": "apps/update-streams",

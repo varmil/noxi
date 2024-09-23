@@ -10,8 +10,7 @@ jobs:
   backend-deploy-batch-images:
     strategy:
       matrix:
-        # TODO: now testing: tobe update-chats
-        service_name: [pubsubhubbub]
+        service_name: [update-chats]
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
