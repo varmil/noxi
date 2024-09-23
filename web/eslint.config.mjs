@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { includeIgnoreFile } from '@eslint/compat'
+import { includeIgnoreFile, fixupConfigRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import tsParser from '@typescript-eslint/parser'
@@ -24,7 +24,7 @@ const { ignores } = includeIgnoreFile(gitignorePath)
 export default [
   { ignores: [...ignores, '**/*.md', '**/*.json'] },
 
-  ...compat.extends('next/core-web-vitals'),
+  ...fixupConfigRules([...compat.extends('next/core-web-vitals')]),
 
   {
     plugins: {
