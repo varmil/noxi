@@ -24,7 +24,8 @@
       },
       "environment": {
         "variables": {
-          "ENV_NAME": "production"
+          "ENV_NAME": "production",
+          "NO_COLOR": "true"
         }
       }
     },
