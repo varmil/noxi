@@ -90,4 +90,4 @@ jobs:
             --project ${{ vars.GCP_PROJECT_ID }} \
             --region ${{ vars.GCP_REGION }} \
             --service-account ${{ vars.SERVICE_ACCOUNT_NAME }} \
-            --update-env-vars ENV_NAME=production,NO_COLORS=true
+            --update-env-vars ENV_NAME=production,NO_COLOR=true
