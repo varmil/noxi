@@ -13,6 +13,6 @@ async function bootstrap() {
 }
 
 bootstrap().catch(reason => {
-  console.error(reason)
+  // console.error(reason)
   exit(1)
 })

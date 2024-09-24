@@ -46,7 +46,5 @@ const cmd = schema1.parse(argv._[1])
   console.log('exec:', exec)
   const p = $`eval ${exec}`
   p.stdout.pipe(process.stdout)
-  // これを書くと二重に出力される
-  // p.stderr.pipe(process.stderr)
   await p
 }
