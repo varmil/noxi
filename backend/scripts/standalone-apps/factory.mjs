@@ -4,9 +4,9 @@
 import 'zx/globals'
 import { z } from 'zod'
 import { $, argv } from 'zx'
-import list from './list.mjs'
+// import list from './list.mjs'
 
-// $.verbose = true
+$.verbose = true
 
 const schema0 = z.union([
   z.literal('groups/update-channels'),
@@ -24,13 +24,23 @@ const schema1 = z.union([
 const appName = schema0.parse(argv._[0])
 const cmd = schema1.parse(argv._[1])
 
-// DEBUG
-{
-  await $`date`.pipe(process.stdout).catch(err => {
-    process.stderr.write(err.stderr)
-  })
+// workaround:eval回避
+// 本来listコマンド内に全部記載したいが、zxの制約上
+// エスケープされてしまうので、ここでコマンドを記載する
+switch (cmd) {
+  case 'dev':
+    await $`nest start --watch ${appName}`
+    break
+  case 'build':
+    await $`nest build --webpack ${appName}`
+    break
+  case 'prod':
+    await $`node dist/apps/${appName}/main`
+    break
+  default:
+    throw new Error(`Invalid command: ${cmd} ${appName}`)
 }
 
-const exec = list[`${appName}:${cmd}`]
-console.log('exec:', exec)
-await $`eval ${exec}`.verbose()
+// const exec = list[`${appName}:${cmd}`]
+// console.log('exec:', exec)
+// await $`eval ${exec}`
