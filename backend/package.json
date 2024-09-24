@@ -14,7 +14,7 @@
     "test:watch": "jest --watch --silent",
     "test:e2e": "jest --config ./apps/closed-api-server/test/jest-e2e.json --runInBand",
     "test:e2e:watch": "npm run test:e2e -- --watch",
-    "app": "zx --verbose ./scripts/standalone-apps/factory.mjs"
+    "app": "zx ./scripts/standalone-apps/factory.mjs"
   },
   "dependencies": {
     "@googleapis/youtube": "^20.0.0",
