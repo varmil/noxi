@@ -56,7 +56,7 @@ jobs:
         run: |
           docker build -t ${{ env.IMAGE }} \
             --build-arg BUILD_CMD="npm run app -- ${{ inputs.service_name }} build" \
-            --build-arg START_CMD="npm run app -- ${{ inputs.service_name }} prod" \
+            --build-arg START_CMD="npm run --silent app -- ${{ inputs.service_name }} prod" \
             -f backend/apps/Dockerfile.standalone.app \
             backend
 
