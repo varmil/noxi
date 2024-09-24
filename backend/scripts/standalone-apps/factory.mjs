@@ -43,7 +43,7 @@ const cmd = schema1.parse(argv._[1])
 
 {
   const exec = list[`${appName}:${cmd}`]
-  console.log('exec:', exec)
+  console.log('$ ', exec)
   const p = $`eval ${exec}`
   p.stdout.pipe(process.stdout)
   await p
