@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common'
 import { VideoId } from '@domain/youtube'
 import {
   AvgCount,
-  ChatCount,
   ChatCounts,
   Count,
   StreamStatsRepository,
@@ -10,6 +9,7 @@ import {
   ViewerCounts
 } from '@domain/youtube/stream-stats'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+import { ChatCountTranslator } from '@infra/youtube/stream-stats/ChatCountTranslator'
 
 @Injectable()
 export class StreamStatsRepositoryImpl implements StreamStatsRepository {
@@ -54,15 +54,7 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
       orderBy: { createdAt: 'asc' }
     })
     return new ChatCounts(
-      rows.map(
-        row =>
-          new ChatCount({
-            videoId: new VideoId(row.videoId),
-            all: new Count(row.all),
-            member: new Count(row.member),
-            createdAt: row.createdAt
-          })
-      )
+      rows.map(row => new ChatCountTranslator(row).translate())
     )
   }
 
@@ -74,13 +66,7 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
       orderBy: { createdAt: 'desc' }
     })
     if (!row) return null
-
-    return new ChatCount({
-      videoId: new VideoId(row.videoId),
-      all: new Count(row.all),
-      member: new Count(row.member),
-      createdAt: row.createdAt
-    })
+    return new ChatCountTranslator(row).translate()
   }
 
   async saveViewerCount({
@@ -109,15 +95,16 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
   }
 
   async saveChatCount({
-    where: { videoId },
-    data: { all, member }
+    data: { videoId, all, member, nextPageToken, latestPublishedAt, createdAt }
   }: Parameters<StreamStatsRepository['saveChatCount']>[0]) {
     await this.prismaInfraService.youtubeStreamChatCount.create({
       data: {
         videoId: videoId.get(),
         all: all.get(),
         member: member.get(),
-        createdAt: new Date()
+        nextPageToken: nextPageToken?.get(),
+        latestPublishedAt: latestPublishedAt.get(),
+        createdAt
       }
     })
   }

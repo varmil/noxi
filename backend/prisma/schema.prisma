@@ -80,11 +80,13 @@ model YoutubeStreamViewerCount {
 }
 
 model YoutubeStreamChatCount {
-  id        Int      @id @default(autoincrement())
-  videoId   String
-  all       Int      @default(0)
-  member    Int      @default(0)
-  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  id                Int      @id @default(autoincrement())
+  videoId           String
+  all               Int      @default(0)
+  member            Int      @default(0)
+  nextPageToken     String?
+  latestPublishedAt DateTime @db.Timestamptz(3)
+  createdAt         DateTime @default(now()) @db.Timestamptz(3)
 
   @@index([videoId, createdAt])
 }

@@ -36,10 +36,9 @@ export interface StreamStatsRepository {
   }) => Promise<void>
 
   saveChatCount: (args: {
-    where: { videoId: VideoId }
     /**
      * 差分更新（前回のレコードから今回までの増分）
      */
-    data: { all: Count; member: Count }
+    data: ChatCount
   }) => Promise<void>
 }

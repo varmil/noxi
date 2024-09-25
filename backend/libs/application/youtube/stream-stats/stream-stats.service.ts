@@ -44,8 +44,6 @@ export class StreamStatsService {
     await this.streamStatsRepository.saveViewerCount(args)
   }
 
-  // ここでInfraサービスから「総数」を取って、
-  // 「差分」に変換してもいいかもしれない
   async saveChatCount(
     args: Parameters<StreamStatsRepository['saveChatCount']>[0]
   ): Promise<void> {

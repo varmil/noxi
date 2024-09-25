@@ -1,12 +1,12 @@
 import { exit } from 'process'
 import { NestFactory } from '@nestjs/core'
 import { MainModule } from 'apps/update-chats/src/main.module'
-import { MainService } from 'apps/update-chats/src/main.service'
+import { MainScenario } from 'apps/update-chats/src/scenario/main.scenario'
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
-  const main = app.select(MainModule).get(MainService)
-  await main.getHello()
+  const main = app.select(MainModule).get(MainScenario)
+  await main.execute()
   await app.close()
 }
 

@@ -3,13 +3,15 @@ import {
   SearchChannelsInfraService,
   SearchVideosInfraService,
   ChannelsInfraService,
-  PlaylistItemsInfraService
+  PlaylistItemsInfraService,
+  LiveChatMessagesInfraService
 } from '@infra/service/youtube-data-api'
 import { VideosInfraService } from '@infra/service/youtube-data-api/videos/videos.infra.service'
 
 @Module({
   imports: [],
   providers: [
+    LiveChatMessagesInfraService,
     PlaylistItemsInfraService,
     SearchChannelsInfraService,
     SearchVideosInfraService,
@@ -17,6 +19,7 @@ import { VideosInfraService } from '@infra/service/youtube-data-api/videos/video
     VideosInfraService
   ],
   exports: [
+    LiveChatMessagesInfraService,
     PlaylistItemsInfraService,
     SearchChannelsInfraService,
     SearchVideosInfraService,

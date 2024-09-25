@@ -11,6 +11,7 @@ import {
   Video,
   VideoId
 } from '@domain/youtube'
+import { LiveChatId } from '@domain/youtube/live-chat-message'
 import { videoAPISchema } from './VideoAPISchema'
 
 export class VideoTranslator {
@@ -54,7 +55,10 @@ export class VideoTranslator {
             }),
             concurrentViewers: concurrentViewers
               ? Number(concurrentViewers)
-              : undefined
+              : undefined,
+            activeLiveChatId: new LiveChatId(
+              v.liveStreamingDetails.activeLiveChatId
+            )
           })
         : undefined
     })
