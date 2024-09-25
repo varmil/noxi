@@ -47,7 +47,8 @@
     "/backend/libs/domain/hololive",
     "/backend/libs/domain/youtube/stream-stats/viewer",
     "/backend/libs/domain/youtube/stream-stats/chat",
-    "/backend/libs/domain/youtube/stream-stats/count"
+    "/backend/libs/domain/youtube/stream-stats/count",
+    "/backend/libs/domain/youtube/api"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",
