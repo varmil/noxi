@@ -1,5 +1,3 @@
-import { NextPageToken } from '@domain/youtube/api'
-import { PublishedAt } from '@domain/youtube/datetime'
 import {
   AvgCount,
   ChatCount,

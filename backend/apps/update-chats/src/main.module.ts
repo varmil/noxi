@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { MainScenario } from 'apps/update-chats/src/scenario/main.scenario'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { MainService } from './main.service'
+import { MainService } from './service/main.service'
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { MainService } from './main.service'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [MainService]
+  providers: [MainScenario, MainService]
 })
 export class MainModule {}
