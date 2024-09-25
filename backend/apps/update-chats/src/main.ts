@@ -10,6 +10,7 @@ async function bootstrap() {
   await app.close()
 }
 
-bootstrap().catch(() => {
+bootstrap().catch(reason => {
+  console.error(reason)
   exit(1)
 })

@@ -1,12 +1,13 @@
 #!/usr/bin/env zx
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable no-undef */
+
 import 'zx/globals'
 import { z } from 'zod'
 import { $, argv } from 'zx'
 import list from './list.mjs'
 
-$.verbose = true
+// $.verbose = true
 
 const schema0 = z.union([
   z.literal('groups/update-channels'),
@@ -37,21 +38,20 @@ const cmd = schema1.parse(argv._[1])
 //   case 'prod':
 //     await $`node dist/apps/${appName}/main`
 //     break
-//   default:
-//     throw new Error(`Invalid command: ${cmd} ${appName}`)
+//   // default:
+//   //   throw new Error(`Invalid command: ${cmd} ${appName}`)
+// }
+
+// {
+//   const exec = list[`${appName}:${cmd}`]
+//   console.log('$ ', exec)
+//   await $`eval ${exec}`
 // }
 
 {
   const exec = list[`${appName}:${cmd}`]
   console.log('$ ', exec)
-  await $`eval ${exec}`
+  const p = $`eval ${exec}`
+  p.stdout.pipe(process.stdout)
+  await p
 }
-
-// {
-//   const exec = list[`${appName}:${cmd}`]
-//   console.log('$ ', exec)
-//   const p = $`eval ${exec}`
-//   p.stdout.pipe(process.stdout)
-//   p.stderr.pipe(process.stderr)
-//   await p
-// }
