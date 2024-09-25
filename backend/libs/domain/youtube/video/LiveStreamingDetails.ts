@@ -1,4 +1,6 @@
+import { Exclude } from 'class-transformer'
 import { StreamTimes } from '@domain/youtube'
+import { LiveChatId } from '@domain/youtube/live-chat-message'
 
 /**
  * liveStreamingDetails オブジェクトには、動画のライブ配信に関するメタデータが含まれます。
@@ -8,9 +10,16 @@ import { StreamTimes } from '@domain/youtube'
 export class LiveStreamingDetails {
   public readonly streamTimes: StreamTimes
   public readonly concurrentViewers?: number
+  @Exclude()
+  public readonly activeLiveChatId: LiveChatId
 
-  constructor(args: { streamTimes: StreamTimes; concurrentViewers?: number }) {
+  constructor(args: {
+    streamTimes: StreamTimes
+    concurrentViewers?: number
+    activeLiveChatId: LiveChatId
+  }) {
     this.streamTimes = args.streamTimes
     this.concurrentViewers = args.concurrentViewers
+    this.activeLiveChatId = args.activeLiveChatId
   }
 }

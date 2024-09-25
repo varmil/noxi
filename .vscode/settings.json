@@ -29,7 +29,6 @@
     "/backend/libs/infrastructure/service/youtube-data-api/search-videos",
     "/backend/libs/infrastructure/service/youtube-data-api/search-channels",
     "/backend/libs/infrastructure/service/youtube-data-api/channels",
-    "/backend/libs/domain/youtube",
     "/backend/libs/domain/youtube/channel",
     "/backend/libs/domain/youtube/video",
     "/backend/libs/domain/youtube/channel/branding-settings",
@@ -48,7 +47,8 @@
     "/backend/libs/domain/youtube/stream-stats/viewer",
     "/backend/libs/domain/youtube/stream-stats/chat",
     "/backend/libs/domain/youtube/stream-stats/count",
-    "/backend/libs/domain/youtube/api"
+    "/backend/libs/domain/youtube/api",
+    "/backend/libs/domain/youtube/live-chat-message"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",

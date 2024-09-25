@@ -1,4 +1,5 @@
 export * from './channels'
+export * from './live-chat-messages'
 export * from './playlist-items'
 export * from './search-channels'
 export * from './search-videos'
