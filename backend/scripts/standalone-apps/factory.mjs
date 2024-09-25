@@ -46,5 +46,6 @@ const cmd = schema1.parse(argv._[1])
   console.log('$ ', exec)
   const p = $`eval ${exec}`
   p.stdout.pipe(process.stdout)
+  p.stderr.pipe(process.stderr)
   await p
 }
