@@ -2,12 +2,13 @@ import { type youtube_v3 } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
 import axios from 'axios'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
+import { NextPageToken } from '@domain/youtube'
 import { LiveChatId, LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { LiveChatMessageTranslator } from '@infra/service/youtube-data-api/live-chat-messages/LiveChatMessageTranslator'
 
 export interface LiveChatMessagesParams {
   liveChatId: LiveChatId
-  pageToken?: string
+  pageToken?: NextPageToken
 }
 
 /**
@@ -26,12 +27,12 @@ export class LiveChatMessagesInfraService {
   private async getMessages(
     params: LiveChatMessagesParams
   ): Promise<PaginationResponse<LiveChatMessages>> {
+    const isProd = process.env.ENV_NAME === 'production'
+    const YOUTUBE_API_URL = isProd
+      ? 'https://www.googleapis.com/youtube/v3/liveChat/messages'
+      : 'https://yt.lemnoslife.com/noKey/liveChat/messages'
     const { liveChatId, pageToken } = params
-    let nextPageToken = pageToken ?? undefined
 
-    // const YOUTUBE_API_URL =
-    //   'https://www.googleapis.com/youtube/v3/liveChat/messages'
-    const YOUTUBE_API_URL = 'https://yt.lemnoslife.com/noKey/liveChat/messages'
     const response =
       await axios.get<youtube_v3.Schema$LiveChatMessageListResponse>(
         YOUTUBE_API_URL,
@@ -40,8 +41,8 @@ export class LiveChatMessagesInfraService {
             liveChatId: liveChatId.get(),
             part: 'id,snippet,authorDetails',
             maxResults: 2000,
-            pageToken: nextPageToken
-            // key: this.API_KEY
+            pageToken: pageToken?.get(),
+            key: isProd ? this.API_KEY : undefined
           }
         }
       )
@@ -51,8 +52,9 @@ export class LiveChatMessagesInfraService {
         ?.map(item => new LiveChatMessageTranslator(item).translate())
         .filter(e => e !== undefined) ?? []
 
-    nextPageToken = response.data.nextPageToken ?? undefined
-
-    return { nextPageToken, items: new LiveChatMessages(results) }
+    return {
+      nextPageToken: response.data.nextPageToken ?? undefined,
+      items: new LiveChatMessages(results)
+    }
   }
 }

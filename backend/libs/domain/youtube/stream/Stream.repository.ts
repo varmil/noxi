@@ -50,7 +50,11 @@ export interface StreamRepository {
 
   updateMetrics: (args: {
     where: { videoId: VideoId }
-    data: Partial<ConstructorParameters<typeof Metrics>[0]>
+    data: Partial<
+      Omit<ConstructorParameters<typeof Metrics>[0], 'chatMessages'> & {
+        chatMessages: { increment: number }
+      }
+    >
   }) => Promise<void>
 
   updateLikeCount: (args: {

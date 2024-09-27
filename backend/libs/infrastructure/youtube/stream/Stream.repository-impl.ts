@@ -101,10 +101,9 @@ export class StreamRepositoryImpl implements StreamRepository {
     })
   }
 
-  updateMetrics: (args: {
-    where: { videoId: VideoId }
-    data: Partial<ConstructorParameters<typeof Metrics>[0]>
-  }) => Promise<void> = async ({ where: { videoId }, data }) => {
+  updateMetrics: (
+    args: Parameters<StreamRepository['updateMetrics']>[0]
+  ) => Promise<void> = async ({ where: { videoId }, data }) => {
     const {
       peakConcurrentViewers,
       avgConcurrentViewers,
