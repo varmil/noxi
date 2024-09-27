@@ -84,7 +84,7 @@ export class MainScenario {
         `saveChatCounts/${video.snippet.title}`,
         JSON.stringify(
           {
-            first: newMessages.first(),
+            first: newMessages.first()?.publishedAt.get(),
             last: newMessages.latestPublishedAt?.get()
           },
           null,
