@@ -11,12 +11,12 @@ export class LiveStreamingDetails {
   public readonly streamTimes: StreamTimes
   public readonly concurrentViewers?: number
   @Exclude()
-  public readonly activeLiveChatId: LiveChatId
+  public readonly activeLiveChatId?: LiveChatId
 
   constructor(args: {
     streamTimes: StreamTimes
     concurrentViewers?: number
-    activeLiveChatId: LiveChatId
+    activeLiveChatId?: LiveChatId
   }) {
     this.streamTimes = args.streamTimes
     this.concurrentViewers = args.concurrentViewers

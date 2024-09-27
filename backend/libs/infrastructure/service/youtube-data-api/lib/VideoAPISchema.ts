@@ -40,7 +40,7 @@ export const videoAPISchema = z.object({
       actualStartTime: z.string().datetime().optional(),
       actualEndTime: z.string().datetime().optional(),
       concurrentViewers: z.string().optional(),
-      activeLiveChatId: z.string()
+      activeLiveChatId: z.string().optional()
     })
     .optional()
 })
