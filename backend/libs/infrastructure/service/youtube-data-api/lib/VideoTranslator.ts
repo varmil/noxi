@@ -23,8 +23,12 @@ export class VideoTranslator {
 
     const { publishedAt, categoryId, defaultLanguage, ...sRest } = v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
-    const { actualStartTime, actualEndTime, concurrentViewers } =
-      v.liveStreamingDetails ?? {}
+    const {
+      actualStartTime,
+      actualEndTime,
+      concurrentViewers,
+      activeLiveChatId
+    } = v.liveStreamingDetails ?? {}
 
     return new Video({
       id: new VideoId(v.id),
@@ -56,9 +60,9 @@ export class VideoTranslator {
             concurrentViewers: concurrentViewers
               ? Number(concurrentViewers)
               : undefined,
-            activeLiveChatId: new LiveChatId(
-              v.liveStreamingDetails.activeLiveChatId
-            )
+            activeLiveChatId: activeLiveChatId
+              ? new LiveChatId(activeLiveChatId)
+              : undefined
           })
         : undefined
     })

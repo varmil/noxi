@@ -17,7 +17,7 @@ export const liveChatMessagesAPISchema = z.object({
 
     superStickerDetails: z
       .object({
-        amountMicros: z.number(),
+        amountMicros: z.string(),
         currency: z.string(),
         amountDisplayString: z.string(),
         tier: z.number()

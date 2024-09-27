@@ -80,7 +80,7 @@ model YoutubeStreamViewerCount {
 }
 
 model YoutubeStreamChatCount {
-  id                Int      @id @default(autoincrement())
+  id                BigInt   @id @default(autoincrement())
   videoId           String
   all               Int      @default(0)
   member            Int      @default(0)
