@@ -1,12 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
-import {
-  Metrics,
-  StreamRepository,
-  Streams,
-  Thumbnails,
-  VideoId
-} from '@domain/youtube'
+import { StreamRepository, Streams, Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/youtube/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/youtube/stream/UpsertYoutubeStream'
