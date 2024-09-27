@@ -17,7 +17,9 @@ async function delay(ms: number) {
 /** 15秒間隔で4回実行 */
 async function executeMain(main: MainScenario) {
   for (let i = 0; i < 4; i++) {
+    console.time(`executeMain/count:${i + 1}`)
     await main.execute()
+    console.timeEnd(`executeMain/count:${i + 1}`)
     if (i < 3) {
       // 15秒待つ（最後の実行後は待たない）
       await delay(15000)
