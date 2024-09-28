@@ -31,7 +31,4 @@ export abstract class DateValueObject extends ValueObject<Date> {
   protected addBy = (value: number) => {
     return dayjs(this.val).add(value, 'd').toDate()
   }
-
-  formatToFullJapaneseDateTime = () =>
-    dayjs(this.val).tz('Asia/Tokyo').format('YYYY年M月D日 HH:mm:ss')
 }

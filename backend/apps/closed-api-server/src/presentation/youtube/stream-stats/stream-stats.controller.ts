@@ -5,9 +5,9 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { GetAllChatCountsDto } from '@presentation/youtube/stream-stats/dto/GetAllChatCounts.dto'
 import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/youtube/streams/streams.service'
+import { GetChatCountsDto } from './dto/GetChatCounts.dto'
 
 @Controller('youtube/stream-stats')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -18,7 +18,7 @@ export class StreamStatsController {
   ) {}
 
   @Get('chat-counts')
-  async GetAllChatCounts(@Query() dto: GetAllChatCountsDto) {
+  async GetChatCounts(@Query() dto: GetChatCountsDto) {
     return await this.streamStatsService.findAllChatCounts({
       where: {
         videoId: dto.toVideoId()

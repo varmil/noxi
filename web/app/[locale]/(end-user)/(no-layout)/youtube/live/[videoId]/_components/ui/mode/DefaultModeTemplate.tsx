@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
+import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import {
@@ -15,6 +16,7 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
+import ChatCounts from '../stream/stats/ChatCounts'
 
 type Props = {
   videoId: string
@@ -23,21 +25,21 @@ type Props = {
 export default async function DefaultModeTemplate({
   videoId
 }: PropsWithoutRef<Props>) {
-  const tg = await getTranslations('Global')
-  const t = await getTranslations('Breadcrumb')
   const stream = await getStream(videoId)
   const {
     snippet: { channelId, title, thumbnails },
-    metrics: {
-      peakConcurrentViewers,
-      avgConcurrentViewers,
-      chatMessages,
-      views,
-      likes
-    },
+    metrics: {},
     group
   } = stream
-  const { basicInfo } = await getChannel(channelId)
+
+  const [tg, t, { basicInfo }, chatCounts] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Breadcrumb'),
+    getChannel(channelId),
+    getChatCounts({ videoId })
+  ])
+
+  // const { basicInfo } = await getChannel(channelId)
 
   return (
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
@@ -81,6 +83,7 @@ export default async function DefaultModeTemplate({
             >
               <MaximizeButton />
               <StreamBasicInfo stream={stream} />
+              <ChatCounts chatCounts={chatCounts} />
             </PadSection>
 
             {/* Open Chat Button & Related Videos */}
