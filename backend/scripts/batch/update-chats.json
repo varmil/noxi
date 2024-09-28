@@ -5,7 +5,8 @@
       "runnables": [
         {
           "container": {
-            "imageUri": "us-west1-docker.pkg.dev/noxi-production/noxi/apps/update-chats:latest"
+            "imageUri": "us-west1-docker.pkg.dev/noxi-production/noxi/apps/update-chats:latest",
+            "enableImageStreaming": true
           }
         }
       ],
@@ -25,7 +26,9 @@
       "environment": {
         "variables": {
           "ENV_NAME": "production",
-          "NO_COLOR": "true"
+          "NO_COLOR": "true",
+          "YOUTUBE_DATA_API_KEY": "xxx",
+          "DATABASE_URL": "xxx"
         }
       }
     },
