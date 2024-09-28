@@ -7,7 +7,7 @@ import { z } from 'zod'
 import { $, argv } from 'zx'
 import list from './list.mjs'
 
-// $.verbose = true
+$.verbose = true
 
 const schema0 = z.union([
   z.literal('groups/update-channels'),
