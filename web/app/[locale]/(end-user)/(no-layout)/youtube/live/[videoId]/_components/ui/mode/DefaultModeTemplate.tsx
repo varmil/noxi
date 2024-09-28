@@ -39,8 +39,6 @@ export default async function DefaultModeTemplate({
     getChatCounts({ videoId })
   ])
 
-  // const { basicInfo } = await getChannel(channelId)
-
   return (
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
       <MainContainer>

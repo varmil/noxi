@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormatter } from 'next-intl'
-import { XAxis, Area, AreaChart, CartesianGrid } from 'recharts'
+import { XAxis, YAxis, Area, AreaChart, CartesianGrid } from 'recharts'
 import {
   Card,
   CardContent,
@@ -18,12 +18,12 @@ import {
 import { ChatCountsSchema } from 'apis/youtube/schema/chatCountSchema'
 
 const chartConfig = {
-  member: {
-    label: 'Member',
+  notMember: {
+    label: 'Not Member',
     color: 'hsl(var(--chart-1))'
   },
-  all: {
-    label: 'All',
+  member: {
+    label: 'Member',
     color: 'hsl(var(--chart-2))'
   }
 } satisfies ChartConfig
@@ -34,7 +34,7 @@ export default function ChatCounts({
   chatCounts: ChatCountsSchema
 }) {
   const data = useGroupByMinute(chatCounts)
-  console.log('reduced data', data)
+  // console.log('reduced data', data)
 
   const description = (
     <>
@@ -60,57 +60,90 @@ export default function ChatCounts({
   // }
 
   return (
-    <section className="">
-      <Card>
-        <CardHeader>
-          <CardTitle>Chat</CardTitle>
-          <CardDescription>{description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig}>
-            <AreaChart
-              accessibilityLayer
-              data={data}
-              margin={{
-                left: 12,
-                right: 12
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="time"
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                minTickGap={70}
-                // ticks={generateTicks()}
-                // tickFormatter={value => value.slice(0, 3)}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
-              />
-              <Area
-                dataKey="all"
-                type="natural"
-                fill="var(--color-all)"
-                fillOpacity={0.4}
-                stroke="var(--color-all)"
-                stackId="a"
-              />
-              <Area
-                dataKey="member"
-                type="natural"
-                fill="var(--color-member)"
-                fillOpacity={0.4}
-                stroke="var(--color-member)"
-                stackId="a"
-              />
-            </AreaChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
-    </section>
+    <Card>
+      <CardHeader>
+        <CardTitle>Chat</CardTitle>
+        <CardDescription>{description}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <AreaChart
+            accessibilityLayer
+            data={data}
+            margin={{ left: 0, right: 0 }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="time"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              minTickGap={70}
+              // ticks={generateTicks()}
+              // tickFormatter={value => value.slice(0, 3)}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              width={41}
+              tickMargin={8}
+              tickCount={4}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  // hideLabel
+                  className="w-[180px]"
+                  formatter={(value, name, item, index) => (
+                    <>
+                      <div
+                        className="h-2.5 w-2.5 shrink-0 rounded-[2px] bg-[--color-bg]"
+                        style={
+                          {
+                            '--color-bg': `var(--color-${name})`
+                          } as React.CSSProperties
+                        }
+                      />
+                      {chartConfig[name as keyof typeof chartConfig]?.label ||
+                        name}
+                      <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+                        {value}
+                      </div>
+                      {/* Add this after the last item */}
+                      {index === 1 && (
+                        <div className="mt-1.5 flex basis-full items-center border-t pt-1.5 text-xs font-medium text-foreground">
+                          Total
+                          <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+                            {item.payload.member + item.payload.notMember}
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                />
+              }
+            />
+            <Area
+              dataKey="member"
+              type="natural"
+              fill="var(--color-member)"
+              fillOpacity={0.7}
+              stroke="var(--color-member)"
+              stackId="a"
+            />
+            <Area
+              dataKey="notMember"
+              type="natural"
+              fill="var(--color-notMember)"
+              fillOpacity={0.2}
+              stroke="var(--color-notMember)"
+              stackId="a"
+            />
+          </AreaChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   )
 }
 
@@ -130,8 +163,8 @@ const useFormattedDatetime = (date?: Date) => {
 const useGroupByMinute = (
   data: ChatCountsSchema
 ): {
-  all: number
   member: number
+  notMember: number
   time: string
 }[] => {
   const format = useFormatter()
@@ -154,15 +187,15 @@ const useGroupByMinute = (
 
     if (!acc[dateKey]) {
       acc[dateKey] = {
-        all: 0,
+        notMember: 0,
         member: 0,
         time: dateKey
       }
     }
 
     // チャットデータを集計
-    acc[dateKey].all += chat.all
     acc[dateKey].member += chat.member
+    acc[dateKey].notMember += chat.all - chat.member
 
     return acc
   }, {} as Record<string, any>)

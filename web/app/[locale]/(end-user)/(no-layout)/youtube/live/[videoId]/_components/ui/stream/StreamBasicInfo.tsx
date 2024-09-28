@@ -84,12 +84,14 @@ export default async function StreamBasicInfo({
             <IntlNumberFormat>{likes}</IntlNumberFormat>
           </span>
         </OnelineStats>
-        <OnelineStats>
-          <CommentIcon className="h-4 w-4" />
-          <span>
-            <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
-          </span>
-        </OnelineStats>
+        {chatMessages > 0 && (
+          <OnelineStats>
+            <CommentIcon className="h-4 w-4" />
+            <span>
+              <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
+            </span>
+          </OnelineStats>
+        )}
       </div>
     </section>
   )
