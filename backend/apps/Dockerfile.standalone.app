@@ -42,4 +42,4 @@ COPY --from=builder /app/backend/scripts ./scripts
 COPY --from=builder /app/backend/dist ./dist
 COPY --from=builder /app/backend/node_modules ./node_modules
 COPY --from=builder /app/backend/package.json ./package.json
-ENTRYPOINT ["sh", "-c", "$ENV_START_CMD"]
+ENTRYPOINT ["sh", "-c", "cd /app/backend && $ENV_START_CMD"]
