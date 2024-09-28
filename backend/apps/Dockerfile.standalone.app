@@ -32,14 +32,17 @@ RUN $BUILD_CMD && npm prune --production
 
 
 # Production image, copy all the files and start
+# NOTE: Batch > Image Streamingを使う場合 cd /app/backend を入れないと
+# ENTRYPOINTに対するWORKDIRが無視されるのでエラーになる
 FROM node:20-slim AS runner
 ARG START_CMD
 ENV NODE_ENV production
 ENV ENV_START_CMD $START_CMD
 RUN apt-get update -y && apt-get install -y openssl
+RUN npm install -g npm@10.8.3
 WORKDIR /app/backend
 COPY --from=builder /app/backend/scripts ./scripts
 COPY --from=builder /app/backend/dist ./dist
 COPY --from=builder /app/backend/node_modules ./node_modules
 COPY --from=builder /app/backend/package.json ./package.json
-ENTRYPOINT ["sh", "-c", "$ENV_START_CMD"]
+ENTRYPOINT ["sh", "-c", "cd /app/backend && $ENV_START_CMD"]
