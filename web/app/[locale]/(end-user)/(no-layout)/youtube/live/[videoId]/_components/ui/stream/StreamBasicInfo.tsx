@@ -1,9 +1,10 @@
 import { PropsWithChildren } from 'react'
-import { ThumbsUp, MessageSquare } from 'lucide-react'
+import { ThumbsUp } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import CommentIcon from 'components/icons/CommentIcon'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
@@ -18,13 +19,7 @@ export default async function StreamBasicInfo({
     videoId,
     snippet: { title, channelId },
     streamTimes,
-    metrics: {
-      peakConcurrentViewers,
-      avgConcurrentViewers,
-      chatMessages,
-      views,
-      likes
-    },
+    metrics: { peakConcurrentViewers, chatMessages, views, likes },
     group
   } = stream
 
@@ -89,12 +84,14 @@ export default async function StreamBasicInfo({
             <IntlNumberFormat>{likes}</IntlNumberFormat>
           </span>
         </OnelineStats>
-        {/* <OnelineStats>
-          <MessageSquare className="h-4 w-4" />
-          <span>
-            <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
-          </span>
-        </OnelineStats> */}
+        {chatMessages > 0 && (
+          <OnelineStats>
+            <CommentIcon className="h-4 w-4" />
+            <span>
+              <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
+            </span>
+          </OnelineStats>
+        )}
       </div>
     </section>
   )

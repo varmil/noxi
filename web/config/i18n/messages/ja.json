@@ -68,6 +68,9 @@
         "metadata": {
           "title": "配信中のライブ | {group} | YouTube Live",
           "description": "現在配信中の{group}タレントのYouTube Live情報です。"
+        },
+        "stats": {
+          "srChatCountsChart": "{dateRange}におけるライブのチャット数推移を面グラフで示しています。現在のチャット総数は{total}件です。"
         }
       },
       "scheduled": {
