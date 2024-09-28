@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormatter } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { XAxis, YAxis, Area, AreaChart, CartesianGrid } from 'recharts'
 import {
   Card,
@@ -16,6 +16,7 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart'
 import { ChatCountsSchema } from 'apis/youtube/schema/chatCountSchema'
+import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 
 const chartConfig = {
   notMember: {
@@ -29,26 +30,27 @@ const chartConfig = {
 } satisfies ChartConfig
 
 export default function ChatCounts({
-  chatCounts
+  chatCounts,
+  stream
 }: {
   chatCounts: ChatCountsSchema
+  stream: StreamSchema
 }) {
+  const t = useTranslations('Page.group.live.stats')
   const data = useGroupByMinute(chatCounts)
   // console.log('reduced data', data)
+  const dateRange = [
+    useFormattedDatetime(
+      chatCounts[0] ? new Date(chatCounts[0].createdAt) : undefined
+    ),
+    '-',
+    useFormattedDatetime(
+      chatCounts[chatCounts.length - 1]
+        ? new Date(chatCounts[chatCounts.length - 1].createdAt)
+        : undefined
+    )
+  ]
 
-  const description = (
-    <>
-      {useFormattedDatetime(
-        chatCounts[0] ? new Date(chatCounts[0].createdAt) : undefined
-      )}{' '}
-      -{' '}
-      {useFormattedDatetime(
-        chatCounts[chatCounts.length - 1]
-          ? new Date(chatCounts[chatCounts.length - 1].createdAt)
-          : undefined
-      )}
-    </>
-  )
   if (chatCounts.length === 0) return null
 
   // 1時間おきのticksを生成
@@ -63,7 +65,7 @@ export default function ChatCounts({
     <Card>
       <CardHeader>
         <CardTitle>Chat</CardTitle>
-        <CardDescription>{description}</CardDescription>
+        <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -143,6 +145,12 @@ export default function ChatCounts({
           </AreaChart>
         </ChartContainer>
       </CardContent>
+      <div className="sr-only">
+        {t('srChatCountsChart', {
+          dateRange: dateRange.join(''),
+          total: stream.metrics.chatMessages
+        })}
+      </div>
     </Card>
   )
 }

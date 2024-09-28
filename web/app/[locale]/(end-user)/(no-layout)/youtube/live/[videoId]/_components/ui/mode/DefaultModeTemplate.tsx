@@ -81,7 +81,7 @@ export default async function DefaultModeTemplate({
             >
               <MaximizeButton />
               <StreamBasicInfo stream={stream} />
-              <ChatCounts chatCounts={chatCounts} />
+              <ChatCounts stream={stream} chatCounts={chatCounts} />
             </PadSection>
 
             {/* Open Chat Button & Related Videos */}

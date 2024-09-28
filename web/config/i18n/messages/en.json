@@ -69,6 +69,9 @@
         "metadata": {
           "title": "{group}'s Live now on air",
           "description": "Here is a list of {group} YouTube Live currently being streamed."
+        },
+        "stats": {
+          "srChatCountsChart": "The area graph shows the trend in the number of live chats during {dateRange}. The current total number of chats is {total}."
         }
       },
       "scheduled": {
