@@ -12,6 +12,15 @@
   "monorepo": true,
   "root": "apps/closed-api-server",
   "projects": {
+    "bundle-chats": {
+      "type": "application",
+      "root": "apps/bundle-chats",
+      "entryFile": "main",
+      "sourceRoot": "apps/bundle-chats/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/bundle-chats/tsconfig.app.json"
+      }
+    },
     "backend": {
       "type": "application",
       "root": "apps/closed-api-server",

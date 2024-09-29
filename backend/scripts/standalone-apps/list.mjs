@@ -1,4 +1,5 @@
 const AppNames = [
+  'bundle-chats',
   'groups/update-channels',
   'pubsubhubbub',
   'update-chats',

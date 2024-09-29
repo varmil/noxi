@@ -10,6 +10,7 @@ import list from './list.mjs'
 // $.verbose = true
 
 const schema0 = z.union([
+  z.literal('bundle-chats'),
   z.literal('groups/update-channels'),
   z.literal('pubsubhubbub'),
   z.literal('update-chats'),
@@ -40,12 +41,6 @@ const cmd = schema1.parse(argv._[1])
 //     break
 //   // default:
 //   //   throw new Error(`Invalid command: ${cmd} ${appName}`)
-// }
-
-// {
-//   const exec = list[`${appName}:${cmd}`]
-//   console.log('$ ', exec)
-//   await $`eval ${exec}`
 // }
 
 {

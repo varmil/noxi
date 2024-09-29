@@ -3,7 +3,7 @@ name: 'backend.reusable.docker'
 on:
   workflow_call:
     inputs:
-      # Example: groups/update-channels or pubsubhubbub or update-chats or update-streams
+      # Example: groups/update-channels | pubsubhubbub | update-chats
       service_name:
         type: string
         required: true
