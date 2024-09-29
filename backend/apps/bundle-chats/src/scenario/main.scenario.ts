@@ -1,46 +1,45 @@
 import { Injectable } from '@nestjs/common'
-import dayjs from 'dayjs'
+import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
-import { StreamStatuses, StreamStatus } from '@domain/stream'
-import { MainService } from '../main.service'
 
 @Injectable()
 export class MainScenario {
   constructor(
-    private readonly mainService: MainService,
+    private readonly chatBundleQueuesService: ChatBundleQueuesService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService
   ) {}
 
   async execute(): Promise<void> {
-    const lives = await this.fetchLives()
-    const promises = lives.map(async ({ videoId }) => {
-      const promises: Promise<void>[] = []
-      // chat-counts
-      {
-        // promises.push(this.saveChatCounts(videoId))
-      }
+    const tasks = await this.fetchTasks()
+    const promises = tasks.map(async ({ status, videoId }) => {
+      const chatCounts = await this.streamStatsService.findAllChatCounts({
+        where: { videoId }
+      })
+      console.log(
+        'chatCounts',
+        chatCounts.take(10).map(x => x)
+      )
 
-      await allSettled(promises)
+      const x = chatCounts.bundle()
+      console.log(
+        'bundle',
+        x.take(10).map(x => ({
+          all: x.all.get(),
+          member: x.member.get(),
+          createdAt: x.createdAt
+        }))
+      )
     })
 
     await allSettled(promises)
   }
 
-  /** とりあえず開始10分前から取得する */
-  private async fetchLives() {
-    return await this.streamsService.findAll({
-      where: {
-        status: new StreamStatuses([
-          new StreamStatus('scheduled'),
-          new StreamStatus('live')
-        ]),
-        scheduledBefore: dayjs().add(10, 'minutes').toDate()
-      },
-      orderBy: [{ scheduledStartTime: 'asc' }],
-      limit: 1000
+  private async fetchTasks() {
+    return await this.chatBundleQueuesService.findAll({
+      limit: 100
     })
   }
 }

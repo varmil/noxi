@@ -11,4 +11,11 @@ export class Count extends NumberValueObject {
     super(val)
     this.val = val
   }
+
+  addBy = (value: Count | number) => {
+    if (value instanceof Count) {
+      return new Count(this.val + value.val)
+    }
+    return new Count(this.val + value)
+  }
 }

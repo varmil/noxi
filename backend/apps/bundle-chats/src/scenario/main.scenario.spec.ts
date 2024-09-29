@@ -1,8 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/bundle-chats/src/main.module'
 import { MainScenario } from 'apps/bundle-chats/src/scenario/main.scenario'
-import { StreamsService } from '@app/streams/streams.service'
-import { Streams } from '@domain/stream'
+import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { ChatBundleQueue } from '@domain/chat-bundle-queue/ChatBundleQueue.entity'
+import { ChatBundleQueues } from '@domain/chat-bundle-queue/ChatBundleQueues.collection'
+import { QueueStatus } from '@domain/queue'
+import { ChatCountsFixture } from '@domain/stream-stats'
+import { VideoId } from '@domain/youtube'
 
 describe('MainScenario', () => {
   let scenario: MainScenario
@@ -22,12 +27,21 @@ describe('MainScenario', () => {
   describe('execute()', () => {
     it('should return void 0', async () => {
       jest
-        .spyOn(StreamsService.prototype, 'findAll')
-        .mockResolvedValueOnce(new Streams([]))
+        .spyOn(ChatBundleQueuesService.prototype, 'findAll')
+        .mockResolvedValueOnce(new ChatBundleQueues([queue]))
+
+      jest
+        .spyOn(StreamStatsService.prototype, 'findAllChatCounts')
+        .mockResolvedValueOnce(ChatCountsFixture)
 
       const result = await scenario.execute()
-
       expect(result).toEqual(void 0)
     })
   })
+})
+
+const queue = new ChatBundleQueue({
+  status: new QueueStatus('unprocessed'),
+  videoId: new VideoId('ky_EP0NHH0A'),
+  createdAt: new Date()
 })
