@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { MainModule } from 'apps/pubsubhubbub/src/main.module'
+import { MainModule } from '../src/main.module'
 
 describe('Pubsubhubbub (e2e)', () => {
   let app: INestApplication
@@ -12,5 +12,9 @@ describe('Pubsubhubbub (e2e)', () => {
 
     app = moduleFixture.createNestApplication()
     await app.init()
+  })
+
+  it('should be defined', () => {
+    expect(app).toBeDefined()
   })
 })

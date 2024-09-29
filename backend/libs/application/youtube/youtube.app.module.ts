@@ -17,6 +17,7 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     VideosService
   ],
   exports: [
+    YoutubeInfraModule,
     SearchesScenario,
     ChannelsScenario,
     VideosScenario,

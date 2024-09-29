@@ -5,6 +5,6 @@ import { ChatBundleQueueInfraModule } from '@infra/chat-bundle-queue/chat-bundle
 @Module({
   imports: [ChatBundleQueueInfraModule],
   providers: [ChatBundleQueuesService],
-  exports: [ChatBundleQueuesService]
+  exports: [ChatBundleQueueInfraModule, ChatBundleQueuesService]
 })
 export class ChatBundleQueuesModule {}

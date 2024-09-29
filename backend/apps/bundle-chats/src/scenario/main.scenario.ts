@@ -5,7 +5,6 @@ import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
-import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
 import { MainService } from '../main.service'
 
@@ -13,10 +12,8 @@ import { MainService } from '../main.service'
 export class MainScenario {
   constructor(
     private readonly mainService: MainService,
-    private readonly liveChatMessagesInfraService: LiveChatMessagesInfraService,
     private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService,
-    private readonly videosService: VideosService
+    private readonly streamStatsService: StreamStatsService
   ) {}
 
   async execute(): Promise<void> {

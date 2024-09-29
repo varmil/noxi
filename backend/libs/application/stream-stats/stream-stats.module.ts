@@ -5,6 +5,6 @@ import { StreamStatsInfraModule } from '@infra/stream-stats/stream-stats.infra.m
 @Module({
   imports: [StreamStatsInfraModule],
   providers: [StreamStatsService],
-  exports: [StreamStatsService]
+  exports: [StreamStatsInfraModule, StreamStatsService]
 })
 export class StreamStatsModule {}

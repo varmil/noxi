@@ -6,6 +6,6 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
   imports: [YoutubeInfraModule],
   controllers: [],
   providers: [CloudSchedulersYoutubeScenario],
-  exports: [CloudSchedulersYoutubeScenario]
+  exports: [YoutubeInfraModule, CloudSchedulersYoutubeScenario]
 })
 export class CloudSchedulersYoutubeAppModule {}
