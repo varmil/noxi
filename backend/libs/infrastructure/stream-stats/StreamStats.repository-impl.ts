@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { all } from 'axios'
 import {
   AvgCount,
   ChatCounts,
@@ -107,5 +108,30 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
         createdAt
       }
     })
+  }
+
+  async bundleChatCounts({
+    where: { videoId },
+    data
+  }: Parameters<StreamStatsRepository['bundleChatCounts']>[0]) {
+    const prisma = this.prismaInfraService
+    await prisma.$transaction([
+      // delete first
+      prisma.youtubeStreamChatCount.deleteMany({
+        where: { videoId: videoId.get() }
+      }),
+      // then insert bundled data
+      prisma.youtubeStreamChatCount.createMany({
+        data: data.map(
+          ({ videoId, all, member, latestPublishedAt, createdAt }) => ({
+            videoId: videoId.get(),
+            all: all.get(),
+            member: member.get(),
+            latestPublishedAt: latestPublishedAt.get(),
+            createdAt
+          })
+        )
+      })
+    ])
   }
 }

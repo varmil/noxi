@@ -6,6 +6,7 @@ import {
   ChatCount,
   AvgCount
 } from '@domain/stream-stats'
+import { VideoId } from '@domain/youtube'
 
 @Injectable()
 export class StreamStatsService {
@@ -48,5 +49,17 @@ export class StreamStatsService {
     args: Parameters<StreamStatsRepository['saveChatCount']>[0]
   ): Promise<void> {
     await this.streamStatsRepository.saveChatCount(args)
+  }
+
+  async bundleChatCounts(args: { where: { videoId: VideoId } }): Promise<void> {
+    const chatCounts = (
+      await this.streamStatsRepository.findAllChatCounts({
+        where: { videoId: args.where.videoId }
+      })
+    ).bundle()
+    await this.streamStatsRepository.bundleChatCounts({
+      where: { videoId: args.where.videoId },
+      data: chatCounts
+    })
   }
 }

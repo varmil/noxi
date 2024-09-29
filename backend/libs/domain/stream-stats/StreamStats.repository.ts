@@ -41,4 +41,13 @@ export interface StreamStatsRepository {
      */
     data: ChatCount
   }) => Promise<void>
+
+  /** 15秒間隔でINSERTされているレコードを1分単位にまとめる */
+  bundleChatCounts: (args: {
+    where: { videoId: VideoId }
+    /**
+     * BUNDLED DATA sorted by createdAt ASC
+     */
+    data: ChatCounts
+  }) => Promise<void>
 }
