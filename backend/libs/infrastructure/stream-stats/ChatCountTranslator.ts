@@ -1,5 +1,5 @@
-import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
 import { ChatCount, Count } from '@domain/stream-stats'
+import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
 import type { YoutubeStreamChatCount as PrismaChatCount } from '@prisma/client'
 
 export class ChatCountTranslator {
