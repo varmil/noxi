@@ -3,7 +3,7 @@ import { ConfigModule } from '@nestjs/config'
 import { GroupsAppModule } from '@app/groups/groups.app.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { MainScenario } from './main.scenario'
+import { MainScenario } from './scenario/main.scenario'
 
 @Module({
   imports: [

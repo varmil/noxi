@@ -2,10 +2,8 @@ import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { VideosService } from '@app/youtube/videos/videos.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
-import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
 import { MainService } from '../main.service'
 
 @Injectable()
@@ -25,11 +23,6 @@ export class MainScenario {
         // promises.push(this.saveChatCounts(videoId))
       }
 
-      // TODO: super-chats, super-stickers
-      // {}
-
-      // TODO: new-members
-      // {}
       await allSettled(promises)
     })
 
