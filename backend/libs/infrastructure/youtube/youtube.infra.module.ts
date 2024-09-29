@@ -4,8 +4,6 @@ import { YoutubeDataApiInfraModule } from '@infra/service/youtube-data-api/youtu
 import { ChannelRepositoryImpl } from '@infra/youtube/Channel.repository-impl'
 import { CountryRepositoryImpl } from '@infra/youtube/Country.repository-impl'
 import { VideoRepositoryImpl } from '@infra/youtube/Video.repository-impl'
-import { StreamRepositoryImpl } from '@infra/youtube/stream/Stream.repository-impl'
-import { StreamStatsRepositoryImpl } from '@infra/youtube/stream-stats/StreamStats.repository-impl'
 
 @Module({
   imports: [PrismaInfraModule, YoutubeDataApiInfraModule],
@@ -18,12 +16,6 @@ import { StreamStatsRepositoryImpl } from '@infra/youtube/stream-stats/StreamSta
 
     CountryRepositoryImpl,
     { provide: 'CountryRepository', useClass: CountryRepositoryImpl },
-
-    StreamRepositoryImpl,
-    { provide: 'StreamRepository', useClass: StreamRepositoryImpl },
-
-    StreamStatsRepositoryImpl,
-    { provide: 'StreamStatsRepository', useClass: StreamStatsRepositoryImpl },
 
     VideoRepositoryImpl,
     { provide: 'VideoRepository', useClass: VideoRepositoryImpl }
@@ -40,12 +32,6 @@ import { StreamStatsRepositoryImpl } from '@infra/youtube/stream-stats/StreamSta
 
     CountryRepositoryImpl,
     { provide: 'CountryRepository', useClass: CountryRepositoryImpl },
-
-    StreamRepositoryImpl,
-    { provide: 'StreamRepository', useClass: StreamRepositoryImpl },
-
-    StreamStatsRepositoryImpl,
-    { provide: 'StreamStatsRepository', useClass: StreamStatsRepositoryImpl },
 
     VideoRepositoryImpl,
     { provide: 'VideoRepository', useClass: VideoRepositoryImpl }

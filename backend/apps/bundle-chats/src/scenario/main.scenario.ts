@@ -25,7 +25,7 @@ export class MainScenario {
       const promises: Promise<void>[] = []
       // chat-counts
       {
-        promises.push(this.saveChatCounts(videoId))
+        // promises.push(this.saveChatCounts(videoId))
       }
 
       // TODO: super-chats, super-stickers

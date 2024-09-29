@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { StreamStatsController } from '@presentation/youtube/stream-stats/stream-stats.controller'
-import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
+import { StreamStatsModule } from '@app/stream-stats/stream-stats.module'
 
 @Module({
-  imports: [YoutubeAppModule],
+  imports: [StreamStatsModule],
   controllers: [StreamStatsController],
   providers: []
 })

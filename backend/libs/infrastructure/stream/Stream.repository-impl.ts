@@ -3,8 +3,8 @@ import { StreamStatus, StreamStatuses } from '@domain/stream'
 import { StreamRepository, Streams } from '@domain/stream'
 import { Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import { StreamTranslator } from '@infra/youtube/stream/StreamTranslator'
-import { UpsertYoutubeStream } from '@infra/youtube/stream/UpsertYoutubeStream'
+import { StreamTranslator } from '@infra/stream/StreamTranslator'
+import { UpsertYoutubeStream } from '@infra/stream/UpsertYoutubeStream'
 
 @Injectable()
 export class StreamRepositoryImpl implements StreamRepository {
