@@ -9,6 +9,6 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
   imports: [GroupInfraModule, YoutubeInfraModule],
   controllers: [],
   providers: [ChartsScenario, ChannelsService, GroupsService],
-  exports: [ChartsScenario, GroupsService]
+  exports: [GroupInfraModule, YoutubeInfraModule, ChartsScenario, GroupsService]
 })
 export class GroupsAppModule {}

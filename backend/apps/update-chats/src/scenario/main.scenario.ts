@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { MainService } from 'apps/update-chats/src/service/main.service'
-import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
-import { StreamsService } from '@app/youtube/streams/streams.service'
+import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
@@ -39,7 +39,7 @@ export class MainScenario {
     await allSettled(promises)
   }
 
-  /** とりあえず開始10分前から取得する */
+  /** とりあえず開始5分前から取得する */
   private async fetchLives() {
     return await this.streamsService.findAll({
       where: {
@@ -47,7 +47,7 @@ export class MainScenario {
           new StreamStatus('scheduled'),
           new StreamStatus('live')
         ]),
-        scheduledBefore: dayjs().add(10, 'minutes').toDate()
+        scheduledBefore: dayjs().add(5, 'minutes').toDate()
       },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000

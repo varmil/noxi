@@ -1,13 +1,13 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
 import { LanguageTag } from '@domain/country'
+import { StreamTimes } from '@domain/stream'
 import {
   Duration,
   LiveStreamingDetails,
   PublishedAt,
   Snippet,
   Statistics,
-  StreamTimes,
   Video,
   VideoId
 } from '@domain/youtube'

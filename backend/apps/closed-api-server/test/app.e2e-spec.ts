@@ -62,7 +62,7 @@ describe('AppController (e2e)', () => {
       // build query with scheduledBefore=2025-01-01T00:00:00.000Z
       const query = `status=scheduled&scheduledBefore=${new Date(
         '2025-01-01T00:00:00.000Z'
-      ).toISOString()}&orderBy[0][field]=scheduledStartTime&orderBy[0][order]=desc`
+      ).toISOString()}&orderBy[0][field]=scheduledStartTime&orderBy[0][order]=desc&limit=10`
       return request(app.getHttpServer())
         .get(`/api/youtube/streams?${query}`)
         .expect(200)

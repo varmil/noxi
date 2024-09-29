@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer'
-import { StreamTimes } from '@domain/youtube'
+import { StreamTimes } from '@domain/stream'
 import { LiveChatId } from '@domain/youtube/live-chat-message'
 
 /**

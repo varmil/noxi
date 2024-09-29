@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
-import { MainModule } from 'apps/groups/update-channels/src/main.module'
+import { MainModule } from '../src/main.module'
 
 describe('Groups > Update Channels (e2e)', () => {
   let app: INestApplication
@@ -12,5 +12,9 @@ describe('Groups > Update Channels (e2e)', () => {
 
     app = moduleFixture.createNestApplication()
     await app.init()
+  })
+
+  it('should be defined', () => {
+    expect(app).toBeDefined()
   })
 })

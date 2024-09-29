@@ -41,20 +41,20 @@
     "/backend/libs/domain/time-period",
     "/backend/libs/domain/stream",
     "/backend/libs/domain/youtube/datetime",
-    "/backend/libs/domain/youtube/stream",
     "/backend/libs/domain/group",
     "/backend/libs/domain/hololive",
-    "/backend/libs/domain/youtube/stream-stats/viewer",
-    "/backend/libs/domain/youtube/stream-stats/chat",
-    "/backend/libs/domain/youtube/stream-stats/count",
+    "/backend/libs/domain/stream-stats/viewer",
+    "/backend/libs/domain/stream-stats/chat",
+    "/backend/libs/domain/stream-stats/count",
     "/backend/libs/domain/youtube/api",
-    "/backend/libs/domain/youtube/live-chat-message"
+    "/backend/libs/domain/youtube/live-chat-message",
+    "/backend/libs/domain/chat-bundle"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",
     "/backend/libs/infrastructure/service/youtube-data-api/channels/ChannelTranslator.ts",
     "/backend/libs/infrastructure/service/youtube-data-api/playlist-items/PlaylistItemAPISchema.ts",
     "/backend/libs/infrastructure/service/youtube-data-api/channels/ChannelAPISchema.ts",
-    "/backend/libs/domain/youtube/stream-stats"
+    "/backend/libs/domain/stream-stats"
   ]
 }

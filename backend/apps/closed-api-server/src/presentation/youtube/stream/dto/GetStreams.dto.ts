@@ -11,8 +11,8 @@ import {
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
-import { StreamStatus } from '@domain/stream'
-import { ChannelId, StreamRepository } from '@domain/youtube'
+import { StreamStatus, StreamRepository } from '@domain/stream'
+import { ChannelId } from '@domain/youtube'
 
 export class GetStreamsDto {
   @IsIn(['scheduled', 'live', 'ended'])

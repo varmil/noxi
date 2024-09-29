@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
-import { StreamsService } from '@app/youtube/streams/streams.service'
+import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { StreamsService } from '@app/streams/streams.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
-import { Streams, StreamTimes, Videos } from '@domain/youtube'
-import { Count } from '@domain/youtube/stream-stats'
+import { Streams, StreamTimes } from '@domain/stream'
+import { Count } from '@domain/stream-stats'
+import { Videos } from '@domain/youtube'
 
 @Injectable()
 export class MainService {

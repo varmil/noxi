@@ -18,7 +18,7 @@ export class SubscribeService {
 
   async execute(): Promise<void> {
     const promises = this.groupsService.findAll().map(async group => {
-      console.log(`start ${group.get()} length`)
+      console.log(`start ${group.get()}`)
       await this.subscribe(group.channelIds)
       console.log(`end ${group.get()}`)
     })
@@ -71,7 +71,7 @@ export class SubscribeService {
    * 指定時間処理を停止する関数
    * @param {number} ms 待機するミリ秒数
    */
-  private async sleep(ms: number) {
+  async sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 }

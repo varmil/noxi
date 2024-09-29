@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
+import { StreamsService } from '@app/streams/streams.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { StreamsService } from '@app/youtube/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatusScheduled } from '@domain/stream'
 import { DeletedEntry, UpdatedEntry } from '@domain/youtube'
