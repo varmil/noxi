@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { VideoId } from '@domain/youtube'
 import {
   AvgCount,
   ChatCounts,
@@ -7,7 +6,8 @@ import {
   StreamStatsRepository,
   ViewerCount,
   ViewerCounts
-} from '@domain/youtube/stream-stats'
+} from '@domain/stream-stats'
+import { VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { ChatCountTranslator } from '@infra/youtube/stream-stats/ChatCountTranslator'
 

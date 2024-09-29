@@ -1,7 +1,7 @@
 import { Collection } from '@domain/lib/Collection'
 import { PublishedAt } from '@domain/youtube/datetime'
 import { LiveChatMessage } from '@domain/youtube/live-chat-message'
-import { Count } from '@domain/youtube/stream-stats'
+import { Count } from '@domain/stream-stats'
 
 export class LiveChatMessages extends Collection<LiveChatMessage> {
   constructor(protected readonly list: LiveChatMessage[]) {

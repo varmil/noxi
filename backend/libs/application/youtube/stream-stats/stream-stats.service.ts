@@ -5,7 +5,7 @@ import {
   ChatCounts,
   ChatCount,
   AvgCount
-} from '@domain/youtube/stream-stats'
+} from '@domain/stream-stats'
 
 @Injectable()
 export class StreamStatsService {

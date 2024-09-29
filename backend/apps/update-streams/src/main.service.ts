@@ -4,7 +4,7 @@ import { StreamsService } from '@app/youtube/streams/streams.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
 import { Streams, StreamTimes } from '@domain/stream'
 import { Videos } from '@domain/youtube'
-import { Count } from '@domain/youtube/stream-stats'
+import { Count } from '@domain/stream-stats'
 
 @Injectable()
 export class MainService {

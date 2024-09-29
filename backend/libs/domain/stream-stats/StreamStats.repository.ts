@@ -4,7 +4,7 @@ import {
   ChatCounts,
   Count,
   ViewerCounts
-} from '@domain/youtube/stream-stats'
+} from '@domain/stream-stats'
 import { VideoId } from '@domain/youtube/video'
 
 export interface StreamStatsRepository {
