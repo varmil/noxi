@@ -15,3 +15,10 @@ jest.mock('@prisma/client', () => ({
     }
   }
 }))
+
+jest.mock('axios')
+
+Object.assign(process.env, {
+  SERVER_HOSTNAME: 'xxx',
+  YOUTUBE_PUBSUB_SECRET: 'xxx'
+})
