@@ -1,13 +1,7 @@
 import { Expose, Transform } from 'class-transformer'
 import { Group } from '@domain/group'
-import { StreamStatus } from '@domain/stream'
-import {
-  VideoId,
-  Duration,
-  Snippet,
-  StreamTimes,
-  Metrics
-} from '@domain/youtube'
+import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
+import { VideoId, Duration, Snippet } from '@domain/youtube'
 
 export class Stream {
   @Transform(({ value }: { value: VideoId }) => value.get())

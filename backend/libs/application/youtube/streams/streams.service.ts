@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Stream, StreamRepository, Streams } from '@domain/youtube'
+import { Stream, StreamRepository, Streams } from '@domain/stream'
 
 @Injectable()
 export class StreamsService {

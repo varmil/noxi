@@ -41,7 +41,6 @@
     "/backend/libs/domain/time-period",
     "/backend/libs/domain/stream",
     "/backend/libs/domain/youtube/datetime",
-    "/backend/libs/domain/youtube/stream",
     "/backend/libs/domain/group",
     "/backend/libs/domain/hololive",
     "/backend/libs/domain/youtube/stream-stats/viewer",

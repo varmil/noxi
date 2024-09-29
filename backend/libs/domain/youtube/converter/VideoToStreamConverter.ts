@@ -1,6 +1,7 @@
 import { BadRequestException } from '@nestjs/common'
 import { Group } from '@domain/group'
-import { Video, Stream, Metrics } from '@domain/youtube'
+import { Stream, Metrics } from '@domain/stream'
+import { Video } from '@domain/youtube'
 
 /**
  * Stream Create時に用いる

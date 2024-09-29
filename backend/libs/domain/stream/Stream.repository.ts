@@ -1,15 +1,13 @@
 import { Group } from '@domain/group'
-import { StreamStatus, StreamStatuses } from '@domain/stream'
 import {
-  ChannelId,
-  Duration,
   Metrics,
   Stream,
   Streams,
   StreamTimes,
-  Thumbnails,
-  VideoId
-} from '@domain/youtube'
+  StreamStatus,
+  StreamStatuses
+} from '@domain/stream'
+import { ChannelId, Duration, Thumbnails, VideoId } from '@domain/youtube'
 
 export interface StreamRepository {
   findAll: (args: {

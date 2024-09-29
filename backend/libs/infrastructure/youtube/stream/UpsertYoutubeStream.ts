@@ -1,4 +1,4 @@
-import { Stream } from '@domain/youtube'
+import { Stream } from '@domain/stream'
 import type { Prisma } from '@prisma/client'
 
 export class UpsertYoutubeStream {

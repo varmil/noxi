@@ -1,14 +1,7 @@
 import { LanguageTag } from '@domain/country'
 import { Group } from '@domain/group'
-import {
-  Duration,
-  Metrics,
-  PublishedAt,
-  Snippet,
-  Stream,
-  StreamTimes,
-  VideoId
-} from '@domain/youtube'
+import { Metrics, Stream, StreamTimes } from '@domain/stream'
+import { Duration, PublishedAt, Snippet, VideoId } from '@domain/youtube'
 import type { YoutubeStream as PrismaYoutubeStream } from '@prisma/client'
 
 export class StreamTranslator {
