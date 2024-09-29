@@ -1,13 +1,16 @@
 import { Injectable } from '@nestjs/common'
+import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
+import { QueueStatusUnprocessed } from '@domain/queue'
 import { StreamTimes } from '@domain/stream'
 import { Videos, Video } from '@domain/youtube'
 
 @Injectable()
 export class EndScheduledLivesScenario {
   constructor(
+    private readonly chatBundleQueuesService: ChatBundleQueuesService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService
   ) {}
@@ -46,7 +49,12 @@ export class EndScheduledLivesScenario {
             })
           }),
           // update metrics
-          this.updateMetrics(video)
+          this.updateMetrics(video),
+          // Queue chat bundle
+          this.chatBundleQueuesService.save({
+            where: { videoId: video.id },
+            data: { status: QueueStatusUnprocessed }
+          })
         ])
       })
 
