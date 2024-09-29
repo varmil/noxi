@@ -94,6 +94,6 @@ model YoutubeStreamChatCount {
 model YoutubeStreamChatBundleQueue {
   id        Int      @id @default(autoincrement())
   status    String
-  videoId   String
+  videoId   String   @unique
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 }

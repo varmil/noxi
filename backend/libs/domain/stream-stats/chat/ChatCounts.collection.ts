@@ -5,4 +5,6 @@ export class ChatCounts extends Collection<ChatCount> {
   constructor(protected readonly list: ChatCount[]) {
     super(list)
   }
+
+  // TODO: bundle method
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
-import { StreamsService } from '@app/youtube/streams/streams.service'
+import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { StreamsService } from '@app/streams/streams.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamTimes } from '@domain/stream'
 import { Videos, Video } from '@domain/youtube'

@@ -1,6 +1,6 @@
 import { Exclude, Transform } from 'class-transformer'
-import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
 import { Count } from '@domain/stream-stats'
+import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
 
 export class ChatCount {
   @Exclude()

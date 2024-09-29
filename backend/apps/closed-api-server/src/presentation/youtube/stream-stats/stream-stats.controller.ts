@@ -5,8 +5,8 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
-import { StreamsService } from '@app/youtube/streams/streams.service'
+import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { StreamsService } from '@app/streams/streams.service'
 import { GetChatCountsDto } from './dto/GetChatCounts.dto'
 
 @Controller('youtube/stream-stats')

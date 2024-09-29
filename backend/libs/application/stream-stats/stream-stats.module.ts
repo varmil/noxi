@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { StreamStatsService } from '@app/youtube/stream-stats/stream-stats.service'
+import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 
 @Module({
   imports: [],

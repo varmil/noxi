@@ -7,7 +7,7 @@ import {
   UseInterceptors
 } from '@nestjs/common'
 import { GetStreamsDto } from '@presentation/youtube/stream/dto/GetStreams.dto'
-import { StreamsService } from '@app/youtube/streams/streams.service'
+import { StreamsService } from '@app/streams/streams.service'
 import { VideoId } from '@domain/youtube'
 
 @Controller('youtube/streams')
