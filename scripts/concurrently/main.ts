@@ -37,8 +37,13 @@ concurrently(
     prefixColors: [
       'bold.bgMagenta',
       'bold.bgCyan',
+      'bold.bgGreen',
       'bold.bgGreenBright',
+      'bold.bgBlue',
       'bold.bgBlueBright',
+      'bold.bgYellow',
+      'bold.bgYellowBright',
+      'bold.bgRed',
       'bold.bgWhite'
     ]
   }
