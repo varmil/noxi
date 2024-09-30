@@ -4,6 +4,7 @@ import { getChannel } from 'apis/youtube/getChannel'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
+import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import {
   MainContainer,
   LgChatContainer,
@@ -16,7 +17,6 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
-import ChatCounts from '../stream/stats/ChatCounts'
 
 type Props = {
   videoId: string

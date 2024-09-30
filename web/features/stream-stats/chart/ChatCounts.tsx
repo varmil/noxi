@@ -95,7 +95,6 @@ export default function ChatCounts({
               cursor={false}
               content={
                 <ChartTooltipContent
-                  // hideLabel
                   className="w-[180px]"
                   formatter={(value, name, item, index) => (
                     <>
