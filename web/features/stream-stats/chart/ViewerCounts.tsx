@@ -38,7 +38,7 @@ export default function ViewerCounts({
   viewerCounts: ViewerCountsSchema
   stream: StreamSchema
 }) {
-  const t = useTranslations('Page.group.live.stats')
+  const t = useTranslations('Features.streamStats')
   const data = useGroupByMinute(viewerCounts)
   const dateRange = useDateRange(
     viewerCounts[0]?.createdAt,
@@ -79,9 +79,9 @@ export default function ViewerCounts({
         </ChartContainer>
       </CardContent>
       <div className="sr-only">
-        {t('srChatCountsChart', {
+        {t('srViewerCountsChart', {
           dateRange: dateRange.join(''),
-          total: stream.metrics.chatMessages
+          peak: stream.metrics.peakConcurrentViewers
         })}
       </div>
     </Card>

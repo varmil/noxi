@@ -41,7 +41,7 @@ export default function ChatCounts({
   chatCounts: ChatCountsSchema
   stream: StreamSchema
 }) {
-  const t = useTranslations('Page.group.live.stats')
+  const t = useTranslations('Features.streamStats')
   const data = useGroupByMinute(chatCounts)
   const dateRange = useDateRange(
     chatCounts[0]?.createdAt,

@@ -68,9 +68,6 @@
         "metadata": {
           "title": "配信中のライブ | {group} | YouTube Live",
           "description": "現在配信中の{group}タレントのYouTube Live情報です。"
-        },
-        "stats": {
-          "srChatCountsChart": "{dateRange}におけるライブのチャット数推移を面グラフで示しています。現在のチャット総数は{total}件です。"
         }
       },
       "scheduled": {
@@ -162,6 +159,10 @@
       "noScheduled": "配信予定のライブはありません。",
       "likes": "高評価",
       "scheduledLabel": "配信予定"
+    },
+    "streamStats": {
+      "srChatCountsChart": "{dateRange}におけるライブのチャット数推移を面グラフで示しています。現在のチャット総数は{total}件です。",
+      "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
     }
   }
 }

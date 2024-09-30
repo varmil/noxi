@@ -69,9 +69,6 @@
         "metadata": {
           "title": "{group}'s Live now on air",
           "description": "Here is a list of {group} YouTube Live currently being streamed."
-        },
-        "stats": {
-          "srChatCountsChart": "The area graph shows the trend in the number of live chats during {dateRange}. The current total number of chats is {total}."
         }
       },
       "scheduled": {
@@ -163,6 +160,10 @@
       "noScheduled": "There are no scheduled live streams at the moment.",
       "likes": "Likes",
       "scheduledLabel": "UPCOMING"
+    },
+    "streamStats": {
+      "srChatCountsChart": "The area graph shows the trend in the number of live chats during {dateRange}. The current total number of chats is {total}.",
+      "srViewerCountsChart": "The area graph shows the number of concurrent viewers over the course of {dateRange}. The maximum number of concurrent viewers at the peak was {peak}."
     }
   }
 }
