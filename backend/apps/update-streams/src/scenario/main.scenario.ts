@@ -11,7 +11,7 @@ import { VideoIds } from '@domain/youtube'
 @Injectable()
 export class MainScenario {
   constructor(
-    private readonly endScheduledLivesScenario: EndLivesScenario,
+    private readonly endLivesScenario: EndLivesScenario,
     private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService
@@ -85,7 +85,7 @@ export class MainScenario {
       limit: 1000
     })
 
-    await this.endScheduledLivesScenario.execute(videos)
+    await this.endLivesScenario.execute(videos)
   }
 
   private async updateStats() {
