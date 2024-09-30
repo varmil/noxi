@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common'
+import dayjs from 'dayjs'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
 import { Streams, StreamTimes } from '@domain/stream'
 import { Count } from '@domain/stream-stats'
-import { Videos } from '@domain/youtube'
+import { Video, Videos } from '@domain/youtube'
 
 @Injectable()
 export class MainService {
@@ -83,8 +84,8 @@ export class MainService {
 
   /**
    * 'live'を抽出しDBを更新する
-   *   * Video.liveStreamingDetails.streamTimes.actualStartTime is truely
-   * に当てはまれば、DBを更新
+   *  Video.liveStreamingDetails.streamTimes.actualStartTime is truely
+   *  に当てはまれば、DBを更新
    */
   async startScheduledLives(videos: Videos) {
     const promises = videos
@@ -107,6 +108,39 @@ export class MainService {
           })
         })
       })
+
+    await allSettled(promises)
+  }
+
+  /**
+   * フリーチャットなど特殊なものを閉じる
+   * 具体的には、公開予定が大幅に過去の日付になっているもの
+   */
+  async endScheduledLives(videos: Videos) {
+    const isFreeChat = (video: Video) => {
+      return video.streamScheduledStartTime
+        ? dayjs(video.streamScheduledStartTime).isBefore(
+            dayjs().subtract(1, 'day')
+          )
+        : false
+    }
+    const promises = videos.filter(isFreeChat).map(async video => {
+      const { liveStreamingDetails } = video
+      if (!liveStreamingDetails) return
+      const { scheduledStartTime, actualStartTime } =
+        liveStreamingDetails.streamTimes
+
+      console.log('end scheduled stream:', video.snippet.title)
+
+      await this.streamsService.updateStreamTimes({
+        where: { videoId: video.id },
+        data: new StreamTimes({
+          scheduledStartTime,
+          actualStartTime,
+          actualEndTime: new Date() // 強引に閉じる
+        })
+      })
+    })
 
     await allSettled(promises)
   }

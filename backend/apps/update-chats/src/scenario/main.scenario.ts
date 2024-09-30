@@ -39,7 +39,7 @@ export class MainScenario {
     await allSettled(promises)
   }
 
-  /** とりあえず開始5分前から取得する */
+  /** とりあえず開始1分前から取得する */
   private async fetchLives() {
     return await this.streamsService.findAll({
       where: {
@@ -47,7 +47,7 @@ export class MainScenario {
           new StreamStatus('scheduled'),
           new StreamStatus('live')
         ]),
-        scheduledBefore: dayjs().add(5, 'minutes').toDate()
+        scheduledBefore: dayjs().add(1, 'minutes').toDate()
       },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000

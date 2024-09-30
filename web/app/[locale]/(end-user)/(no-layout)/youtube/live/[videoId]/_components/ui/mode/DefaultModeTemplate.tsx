@@ -3,8 +3,10 @@ import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getStream } from 'apis/youtube/getStream'
+import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { Page } from 'components/page'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
+import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import {
   MainContainer,
   LgChatContainer,
@@ -32,11 +34,12 @@ export default async function DefaultModeTemplate({
     group
   } = stream
 
-  const [tg, t, { basicInfo }, chatCounts] = await Promise.all([
+  const [tg, t, { basicInfo }, chatCounts, viewerCounts] = await Promise.all([
     getTranslations('Global'),
     getTranslations('Breadcrumb'),
     getChannel(channelId),
-    getChatCounts({ videoId })
+    getChatCounts({ videoId }),
+    getViewerCounts({ videoId })
   ])
 
   return (
@@ -84,6 +87,7 @@ export default async function DefaultModeTemplate({
               <div className="@xs:block @4xl:hidden">
                 <OpenChatButton />
               </div>
+              <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
               <ChatCounts stream={stream} chatCounts={chatCounts} />
             </PadSection>
 

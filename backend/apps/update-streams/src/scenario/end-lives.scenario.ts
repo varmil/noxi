@@ -8,7 +8,7 @@ import { StreamTimes } from '@domain/stream'
 import { Videos, Video } from '@domain/youtube'
 
 @Injectable()
-export class EndScheduledLivesScenario {
+export class EndLivesScenario {
   constructor(
     private readonly chatBundleQueuesService: ChatBundleQueuesService,
     private readonly streamsService: StreamsService,
