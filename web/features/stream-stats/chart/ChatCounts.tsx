@@ -22,6 +22,7 @@ import {
   StreamStatsYAxis
 } from 'features/stream-stats/chart/StreamStatsAreaChart'
 import { useDateRange } from 'features/stream-stats/hooks/useDateRange'
+import { FormatForTick } from 'features/stream-stats/hooks/useFormattedDatetime'
 
 const chartConfig = {
   notMember: {
@@ -63,7 +64,7 @@ export default function ChatCounts({
             data={data}
             margin={{ top: 10, left: 0, right: 0 }}
           >
-            {StreamStatsXAxis()}
+            {StreamStatsXAxis({ dataKey: 'time' })}
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
             <ChartTooltip
@@ -149,11 +150,7 @@ const useGroupByMinute = (
     date.setMilliseconds(0)
 
     // グループ化キーを 'HH:mm' 形式に変換
-    const dateKey = format.dateTime(date, {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: false
-    })
+    const dateKey = format.dateTime(date, FormatForTick)
 
     if (!acc[dateKey]) {
       acc[dateKey] = {

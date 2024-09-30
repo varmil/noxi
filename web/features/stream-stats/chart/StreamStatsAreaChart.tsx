@@ -1,6 +1,14 @@
+'use client'
+
 import { XAxis, YAxis } from 'recharts'
 
-export function StreamStatsXAxis() {
+export function StreamStatsXAxis({
+  dataKey,
+  tickFormatter
+}: {
+  dataKey: string
+  tickFormatter?: (value: string) => string
+}) {
   // 1時間おきのticksを生成
   // const generateTicks = () => {
   //   if (data.length === 0) return []
@@ -11,13 +19,13 @@ export function StreamStatsXAxis() {
 
   return (
     <XAxis
-      dataKey="time"
+      dataKey={dataKey}
       tickLine={false}
       axisLine={false}
       tickMargin={8}
       minTickGap={70}
       // ticks={generateTicks()}
-      // tickFormatter={value => value.slice(0, 3)}
+      tickFormatter={tickFormatter}
     />
   )
 }

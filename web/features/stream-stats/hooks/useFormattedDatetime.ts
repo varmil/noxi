@@ -1,4 +1,4 @@
-import { useFormatter } from 'next-intl'
+import { DateTimeFormatOptions, useFormatter } from 'next-intl'
 
 export const useFormattedDatetime = (date?: Date) => {
   const format = useFormatter()
@@ -10,4 +10,10 @@ export const useFormattedDatetime = (date?: Date) => {
     minute: 'numeric',
     hour12: false
   })
+}
+
+export const FormatForTick: DateTimeFormatOptions = {
+  hour: 'numeric',
+  minute: 'numeric',
+  hour12: false
 }

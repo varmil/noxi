@@ -23,6 +23,7 @@ import {
   StreamStatsYAxis
 } from 'features/stream-stats/chart/StreamStatsAreaChart'
 import { useDateRange } from 'features/stream-stats/hooks/useDateRange'
+import { FormatForTick } from 'features/stream-stats/hooks/useFormattedDatetime'
 
 const chartConfig = {
   count: {
@@ -38,8 +39,8 @@ export default function ViewerCounts({
   viewerCounts: ViewerCountsSchema
   stream: StreamSchema
 }) {
+  const format = useFormatter()
   const t = useTranslations('Features.streamStats')
-  const data = useGroupByMinute(viewerCounts)
   const dateRange = useDateRange(
     viewerCounts[0]?.createdAt,
     viewerCounts[viewerCounts.length - 1]?.createdAt
@@ -57,13 +58,26 @@ export default function ViewerCounts({
         <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer
-            data={data}
+            data={viewerCounts}
             margin={{ top: 10, left: 0, right: 0 }}
           >
-            {StreamStatsXAxis()}
+            {StreamStatsXAxis({
+              dataKey: 'createdAt',
+              tickFormatter: value =>
+                format.dateTime(new Date(value), FormatForTick)
+            })}
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  labelFormatter={value =>
+                    format.dateTime(new Date(value), FormatForTick)
+                  }
+                />
+              }
+            />
             {StreamStatsGradient({
               id: 'fillCounts',
               color: 'var(--color-count)'
@@ -86,46 +100,4 @@ export default function ViewerCounts({
       </div>
     </Card>
   )
-}
-
-/* 5分単位でレコードをグループ化 */
-const useGroupByMinute = (
-  data: ViewerCountsSchema
-): {
-  count: number
-  time: string
-}[] => {
-  const format = useFormatter()
-  const reduced = data.reduce((acc, cur) => {
-    const date = new Date(cur.createdAt)
-    const minutes = date.getMinutes()
-    const roundedMinutes = Math.floor(minutes / 5) * 5 // 5分単位に丸める
-
-    // 分を5分単位にセットし、秒とミリ秒を0にリセット
-    date.setMinutes(roundedMinutes)
-    date.setSeconds(0)
-    date.setMilliseconds(0)
-
-    // グループ化キーを 'HH:mm' 形式に変換
-    const dateKey = format.dateTime(date, {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: false
-    })
-
-    if (!acc[dateKey]) {
-      acc[dateKey] = {
-        count: 0,
-        time: dateKey
-      }
-    }
-
-    // チャットデータを集計
-    acc[dateKey].count += cur.count
-
-    return acc
-  }, {} as Record<string, any>)
-
-  // reduced の結果を配列として返す
-  return Object.values(reduced)
 }
