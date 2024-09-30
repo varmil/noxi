@@ -1,23 +1,23 @@
 import {
-  ChatCountsSchema,
+  ViewerCountsSchema,
   responseSchema
-} from 'apis/youtube/schema/chatCountSchema'
+} from 'apis/youtube/schema/viewerCountSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   videoId: string
 }
 
-export async function getChatCounts({
+export async function getViewerCounts({
   videoId
-}: Params): Promise<ChatCountsSchema> {
+}: Params): Promise<ViewerCountsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/stream-stats/chat-counts?videoId=${videoId}`,
+    `/api/youtube/stream-stats/viewer-counts?videoId=${videoId}`,
     { cache: 'no-store' }
   )
 
   if (!res.ok) {
-    throw new Error('Failed to fetch ChatCounts')
+    throw new Error('Failed to fetch ViewerCounts')
   }
 
   const data = responseSchema.parse(await res.json())

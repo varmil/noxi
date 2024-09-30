@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { MainService } from 'apps/update-streams/src/main.service'
-import { EndScheduledLivesScenario } from 'apps/update-streams/src/scenario/end-scheduled-lives.scenario'
+import { EndLivesScenario } from 'apps/update-streams/src/scenario/end-lives.scenario'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { allSettled } from '@domain/lib/promise/allSettled'
@@ -11,27 +11,22 @@ import { VideoIds } from '@domain/youtube'
 @Injectable()
 export class MainScenario {
   constructor(
-    private readonly endScheduledLivesScenario: EndScheduledLivesScenario,
+    private readonly endScheduledLivesScenario: EndLivesScenario,
     private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService
   ) {}
 
   async execute(): Promise<void> {
-    const promises: Promise<void>[] = []
-
     // Streamが始まった、終わったの更新処理
     {
-      promises.push(this.endLives())
-      promises.push(this.handleScheduled())
+      await allSettled([this.endLives(), this.handleScheduled()])
     }
 
     // Live中のStreamのStats更新
     {
-      promises.push(this.updateStats())
+      await this.updateStats()
     }
-
-    await allSettled(promises)
   }
 
   /**
@@ -62,7 +57,11 @@ export class MainScenario {
       /**
        * scheduled --> live のステートを見る
        */
-      this.mainService.startScheduledLives(videos)
+      this.mainService.startScheduledLives(videos),
+      /**
+       * scheduled --> ended のステートを見る
+       */
+      this.mainService.endScheduledLives(videos)
     ])
   }
 

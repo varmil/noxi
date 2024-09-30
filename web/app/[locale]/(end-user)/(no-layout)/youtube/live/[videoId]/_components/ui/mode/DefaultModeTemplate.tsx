@@ -3,7 +3,10 @@ import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getStream } from 'apis/youtube/getStream'
+import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { Page } from 'components/page'
+import ChatCounts from 'features/stream-stats/chart/ChatCounts'
+import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import {
   MainContainer,
   LgChatContainer,
@@ -16,7 +19,6 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
-import ChatCounts from '../stream/stats/ChatCounts'
 
 type Props = {
   videoId: string
@@ -32,11 +34,12 @@ export default async function DefaultModeTemplate({
     group
   } = stream
 
-  const [tg, t, { basicInfo }, chatCounts] = await Promise.all([
+  const [tg, t, { basicInfo }, chatCounts, viewerCounts] = await Promise.all([
     getTranslations('Global'),
     getTranslations('Breadcrumb'),
     getChannel(channelId),
-    getChatCounts({ videoId })
+    getChatCounts({ videoId }),
+    getViewerCounts({ videoId })
   ])
 
   return (
@@ -77,19 +80,25 @@ export default async function DefaultModeTemplate({
             {/* タイトル、投稿者情報 */}
             <PadSection
               left
-              className="space-y-4 @xs:col-span-full @4xl:col-span-3"
+              className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
               <MaximizeButton />
               <StreamBasicInfo stream={stream} />
+              <div className="@xs:block @4xl:hidden">
+                <OpenChatButton />
+              </div>
+              <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
               <ChatCounts stream={stream} chatCounts={chatCounts} />
             </PadSection>
 
             {/* Open Chat Button & Related Videos */}
             <PadSection
               right
-              className="space-y-4 @xs:col-span-full @4xl:col-span-2"
+              className="gap-y-4 @xs:col-span-full @4xl:col-span-2"
             >
-              <OpenChatButton />
+              <div className="hidden @4xl:block">
+                <OpenChatButton />
+              </div>
               <RelatedVideos />
             </PadSection>
           </section>

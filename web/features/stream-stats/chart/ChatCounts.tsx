@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormatter, useTranslations } from 'next-intl'
-import { XAxis, YAxis, Area, AreaChart, CartesianGrid } from 'recharts'
+import { YAxis, Area, AreaChart, CartesianGrid } from 'recharts'
 import {
   Card,
   CardContent,
@@ -17,6 +17,12 @@ import {
 } from '@/components/ui/chart'
 import { ChatCountsSchema } from 'apis/youtube/schema/chatCountSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import {
+  StreamStatsXAxis,
+  StreamStatsYAxis
+} from 'features/stream-stats/chart/StreamStatsAreaChart'
+import { useDateRange } from 'features/stream-stats/hooks/useDateRange'
+import { FormatForTick } from 'features/stream-stats/hooks/useFormattedDatetime'
 
 const chartConfig = {
   notMember: {
@@ -36,35 +42,19 @@ export default function ChatCounts({
   chatCounts: ChatCountsSchema
   stream: StreamSchema
 }) {
-  const t = useTranslations('Page.group.live.stats')
+  const t = useTranslations('Features.streamStats')
   const data = useGroupByMinute(chatCounts)
-  // console.log('reduced data', data)
-  const dateRange = [
-    useFormattedDatetime(
-      chatCounts[0] ? new Date(chatCounts[0].createdAt) : undefined
-    ),
-    '-',
-    useFormattedDatetime(
-      chatCounts[chatCounts.length - 1]
-        ? new Date(chatCounts[chatCounts.length - 1].createdAt)
-        : undefined
-    )
-  ]
+  const dateRange = useDateRange(
+    chatCounts[0]?.createdAt,
+    chatCounts[chatCounts.length - 1]?.createdAt
+  )
 
   if (chatCounts.length === 0) return null
-
-  // 1時間おきのticksを生成
-  // const generateTicks = () => {
-  //   if (data.length === 0) return []
-  //   const allHours = data.map(item => item.time.split(':')[0])
-  //   const uniqueHours = [...new Set(allHours)]
-  //   return uniqueHours.map(hour => `${hour}:00`)
-  // }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Chat</CardTitle>
+        <CardTitle>Chat messages</CardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -72,30 +62,15 @@ export default function ChatCounts({
           <AreaChart
             accessibilityLayer
             data={data}
-            margin={{ left: 0, right: 0 }}
+            margin={{ top: 10, left: 0, right: 0 }}
           >
+            {StreamStatsXAxis({ dataKey: 'time' })}
+            {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="time"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={70}
-              // ticks={generateTicks()}
-              // tickFormatter={value => value.slice(0, 3)}
-            />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              width={41}
-              tickMargin={8}
-              tickCount={4}
-            />
             <ChartTooltip
               cursor={false}
               content={
                 <ChartTooltipContent
-                  // hideLabel
                   className="w-[180px]"
                   formatter={(value, name, item, index) => (
                     <>
@@ -155,18 +130,6 @@ export default function ChatCounts({
   )
 }
 
-const useFormattedDatetime = (date?: Date) => {
-  const format = useFormatter()
-  if (!date) return undefined
-  return format.dateTime(date, {
-    month: '2-digit',
-    day: '2-digit',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: false
-  })
-}
-
 /* 5分単位でレコードをグループ化 */
 const useGroupByMinute = (
   data: ChatCountsSchema
@@ -187,11 +150,7 @@ const useGroupByMinute = (
     date.setMilliseconds(0)
 
     // グループ化キーを 'HH:mm' 形式に変換
-    const dateKey = format.dateTime(date, {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: false
-    })
+    const dateKey = format.dateTime(date, FormatForTick)
 
     if (!acc[dateKey]) {
       acc[dateKey] = {

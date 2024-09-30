@@ -18,7 +18,7 @@ export default function PadSection({
   const LG_RIGHT_PX = 'lg:pr-4 lg:pl-2'
   return (
     <section
-      className={`${PageXSPX} ${left ? LG_LEFT_PX : ''} ${
+      className={`flex flex-col ${PageXSPX} ${left ? LG_LEFT_PX : ''} ${
         right ? LG_RIGHT_PX : ''
       } ${className ?? ''}`}
     >
