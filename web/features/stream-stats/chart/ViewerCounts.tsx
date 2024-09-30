@@ -18,6 +18,7 @@ import {
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { ViewerCountsSchema } from 'apis/youtube/schema/viewerCountSchema'
 import {
+  StreamStatsGradient,
   StreamStatsXAxis,
   StreamStatsYAxis
 } from 'features/stream-stats/chart/StreamStatsAreaChart'
@@ -63,11 +64,15 @@ export default function ViewerCounts({
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            {StreamStatsGradient({
+              id: 'fillCounts',
+              color: 'var(--color-count)'
+            })}
             <Area
               dataKey="count"
               type="natural"
-              fill="var(--color-count)"
-              fillOpacity={0.7}
+              fill="url(#fillCounts)"
+              fillOpacity={0.4}
               stroke="var(--color-count)"
             />
           </AreaChart>
