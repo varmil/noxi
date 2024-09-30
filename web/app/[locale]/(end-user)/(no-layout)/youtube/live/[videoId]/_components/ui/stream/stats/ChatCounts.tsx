@@ -72,9 +72,8 @@ export default function ChatCounts({
           <AreaChart
             accessibilityLayer
             data={data}
-            margin={{ left: 0, right: 0 }}
+            margin={{ top: 10, left: 0, right: 0 }}
           >
-            <CartesianGrid vertical={false} />
             <XAxis
               dataKey="time"
               tickLine={false}
@@ -91,6 +90,7 @@ export default function ChatCounts({
               tickMargin={8}
               tickCount={4}
             />
+            <CartesianGrid vertical={false} />
             <ChartTooltip
               cursor={false}
               content={
