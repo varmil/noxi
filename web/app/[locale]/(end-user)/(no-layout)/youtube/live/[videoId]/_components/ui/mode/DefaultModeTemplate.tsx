@@ -77,19 +77,24 @@ export default async function DefaultModeTemplate({
             {/* タイトル、投稿者情報 */}
             <PadSection
               left
-              className="space-y-4 @xs:col-span-full @4xl:col-span-3"
+              className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
               <MaximizeButton />
               <StreamBasicInfo stream={stream} />
+              <div className="@xs:block @4xl:hidden">
+                <OpenChatButton />
+              </div>
               <ChatCounts stream={stream} chatCounts={chatCounts} />
             </PadSection>
 
             {/* Open Chat Button & Related Videos */}
             <PadSection
               right
-              className="space-y-4 @xs:col-span-full @4xl:col-span-2"
+              className="gap-y-4 @xs:col-span-full @4xl:col-span-2"
             >
-              <OpenChatButton />
+              <div className="hidden @4xl:block">
+                <OpenChatButton />
+              </div>
               <RelatedVideos />
             </PadSection>
           </section>
