@@ -10,7 +10,7 @@ jobs:
   backend-deploy-batch-images:
     strategy:
       matrix:
-        service_name: [update-chats]
+        service_name: [update-chats, update-streams]
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
