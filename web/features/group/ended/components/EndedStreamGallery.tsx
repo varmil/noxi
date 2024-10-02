@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { Radio } from 'lucide-react'
+import { History, Radio } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import StreamListContentOfLive from 'features/group/stream/components/stream-list/StreamListContentOfLive'
@@ -29,10 +29,10 @@ export default async function EndedStreamGallery({
   return (
     <Card>
       <StreamListHeader
-        titleIcon={<Radio className="w-6 h-6 text-red-400" />}
+        titleIcon={<History className="w-6 h-6 text-muted-foreground" />}
         title={title}
         description={description}
-        badgeText="Live"
+        badgeText="Archive"
       />
       <StreamListContentOfLive streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/live`} />}

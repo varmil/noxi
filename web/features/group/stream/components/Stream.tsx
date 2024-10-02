@@ -1,17 +1,13 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
 import LiveBadge from 'components/styles/LiveBadge'
-import ScheduledFor from 'components/styles/date/ScheduledFor'
-import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import Watching from 'components/styles/number/Watching'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
+import StreamFooter from 'features/group/stream/components/stream/StreamFooter'
 import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
@@ -55,20 +51,11 @@ export default async function Stream({
     videoId,
     snippet: { title, thumbnails, channelId },
     streamTimes,
-    metrics: {
-      peakConcurrentViewers,
-      avgConcurrentViewers,
-      chatMessages,
-      views,
-      likes
-    },
     group
   } = stream
-  const { concurrentViewers } = liveStreamingDetails || {}
 
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
-  const t = useTranslations('Features.stream')
 
   return (
     <Container>
@@ -101,32 +88,11 @@ export default async function Stream({
           </Link>
           {isLive && <SmallLiveBadge />}
         </div>
-        <div>
-          <h3 className="break-anywhere text-sm line-clamp-2 mb-1">{title}</h3>
-          <div className="col-start-2 flex items-center gap-1">
-            <div className="text-xs sm:text-sm text-muted-foreground">
-              <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
-                <div className="hover:text-accent-foreground">
-                  {channel.basicInfo.title}
-                </div>
-              </Link>
-              {isLive && (
-                <div>
-                  <Watching count={concurrentViewers} compact />
-                </div>
-              )}
-              {isScheduled && (
-                <>
-                  <span>
-                    <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
-                    <Bullet />
-                    <ScheduledFor date={streamTimes.scheduledStartTime} />
-                  </span>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+        <StreamFooter
+          stream={stream}
+          channel={channel}
+          liveStreamingDetails={liveStreamingDetails}
+        />
       </div>
     </Container>
   )
