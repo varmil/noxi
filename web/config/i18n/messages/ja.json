@@ -40,17 +40,21 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "配信中のタレント | 今日の配信予定",
-          "description": "{group}のライブ配信、今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+          "title": "YouTubeライブ配信中のタレント | 今日の配信予定 | 過去のライブ配信",
+          "description": "{group}のYouTubeライブ配信、配信予定、過去のライブ配信をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
         },
         "card": {
           "live": {
             "title": "配信中のライブ",
-            "description": "{group}の配信中のライブ一覧をまとめてチェック！"
+            "description": "{group}の配信中のYouTubeライブ一覧をまとめてチェック！"
           },
           "scheduled": {
             "title": "今日-明日の配信予定",
-            "description": "{group}の今日の配信予定をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+            "description": "{group}の今日のYouTube配信予定をまとめてチェック！"
+          },
+          "ended": {
+            "title": "過去のライブ配信",
+            "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
           }
         }
       },
@@ -106,7 +110,8 @@
   "Components": {
     "styles": {
       "scheduledFor": "{datetime} に公開予定",
-      "watching": "人が視聴中"
+      "watching": "人が視聴中",
+      "streamedLive": "{datetime}"
     }
   },
 

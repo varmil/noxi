@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
-import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/_components/IndexTemplate'
 import { Page } from 'components/page'
 import { GroupString, GroupStrings } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
+import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
   params: { locale: string; group: GroupString }

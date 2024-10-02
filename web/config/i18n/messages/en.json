@@ -41,17 +41,21 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "Today's Live & Streaming Schedule",
-          "description": "Check out {group}'s live now on air for today! We will introduce you to {group} Streaming Schedule! We'll also introduce the YouTube channels of the {group} talents."
+          "title": "Today's Live & Streaming Schedule & Past Live Streams",
+          "description": "Check out {group}'s live now on air, streaming schedule and past live streams! We'll also introduce the YouTube channels of the {group} talents."
         },
         "card": {
           "live": {
             "title": "Today's Live now on air",
-            "description": "Check out {group}'s live now on air for today!"
+            "description": "Check out {group}'s YouTube live now on air for today!"
           },
           "scheduled": {
             "title": "Live Streaming schedule",
-            "description": "Check out {group}'s streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
+            "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
+          },
+          "ended": {
+            "title": "Past Live Streams",
+            "description": "Check out all of {group}'s past YouTube live streams!"
           }
         }
       },
@@ -107,7 +111,8 @@
   "Components": {
     "styles": {
       "scheduledFor": "Scheduled for {datetime}",
-      "watching": "watching"
+      "watching": "watching",
+      "streamedLive": "Streamed {datetime}"
     }
   },
 
