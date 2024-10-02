@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { ChannelGallery } from 'features/group/chart/components/ChannelGallery'
+import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
 import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
 import { HighlightClipGallery } from 'features/youtube/highlight-clip/components/HighlightClipGallery'
@@ -26,6 +27,13 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           <ScheduledStreamGallery
             title={t('scheduled.title', { group })}
             description={t('scheduled.description', { group })}
+            compact
+          />
+        </section>
+        <section className="col-span-full">
+          <EndedStreamGallery
+            title={t('ended.title')}
+            description={t('ended.description', { group })}
             compact
           />
         </section>
