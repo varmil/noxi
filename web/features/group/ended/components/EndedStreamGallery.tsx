@@ -22,7 +22,7 @@ export default async function EndedStreamGallery({
     status: 'ended',
     group: getGroup(),
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: 12
+    limit: 100
   })
   const group = getGroup()
 
@@ -35,7 +35,8 @@ export default async function EndedStreamGallery({
         badgeText="Archive"
       />
       <StreamListContentOfLive streams={streams} compact={compact} />
-      {compact && <StreamListFooter href={`/${group}/live`} />}
+      {/* TODO: implement */}
+      {/* {compact && <StreamListFooter href={`/${group}/live`} />} */}
     </Card>
   )
 }
