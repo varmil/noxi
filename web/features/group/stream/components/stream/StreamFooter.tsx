@@ -1,10 +1,11 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
+import StreamedLive from 'components/styles/date/StreamedLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
 import { Link } from 'lib/navigation'
@@ -24,21 +25,18 @@ export default async function StreamFooter({
   const {
     videoId,
     snippet: { title, channelId },
-    streamTimes,
-    metrics: {
-      peakConcurrentViewers,
-      avgConcurrentViewers,
-      chatMessages,
-      views,
-      likes
-    },
+    streamTimes: { scheduledStartTime, actualEndTime },
+    metrics: { views, likes },
     group
   } = stream
   const { concurrentViewers } = liveStreamingDetails || {}
 
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
+  const isEnded = stream.status === 'ended'
+  const format = useFormatter()
   const t = useTranslations('Features.stream')
+  const tVideo = useTranslations('Features.youtube.video')
 
   return (
     <div>
@@ -60,7 +58,19 @@ export default async function StreamFooter({
               <span>
                 <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
                 <Bullet />
-                <ScheduledFor date={streamTimes.scheduledStartTime} />
+                <ScheduledFor date={scheduledStartTime} />
+              </span>
+            </>
+          )}
+          {/* TODO: use latest views from Videos Data API */}
+          {isEnded && actualEndTime && (
+            <>
+              <span>
+                {tVideo('views', {
+                  count: format.number(views, { notation: 'compact' })
+                })}
+                <Bullet />
+                <StreamedLive date={actualEndTime} />
               </span>
             </>
           )}

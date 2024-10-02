@@ -110,7 +110,8 @@
   "Components": {
     "styles": {
       "scheduledFor": "{datetime} に公開予定",
-      "watching": "人が視聴中"
+      "watching": "人が視聴中",
+      "streamedLive": "{datetime}"
     }
   },
 

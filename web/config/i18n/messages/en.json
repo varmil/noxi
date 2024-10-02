@@ -111,7 +111,8 @@
   "Components": {
     "styles": {
       "scheduledFor": "Scheduled for {datetime}",
-      "watching": "watching"
+      "watching": "watching",
+      "streamedLive": "Streamed {datetime}"
     }
   },
 
