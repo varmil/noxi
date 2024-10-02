@@ -1,0 +1,48 @@
+{
+  "priority": 90,
+  "taskGroups": {
+    "taskSpec": {
+      "runnables": [
+        {
+          "container": {
+            "imageUri": "us-west1-docker.pkg.dev/noxi-production/noxi/apps/update-streams:latest",
+            "enableImageStreaming": true
+          }
+        }
+      ],
+      "maxRetryCount": 1,
+      "lifecyclePolicies": [
+        {
+          "action": "RETRY_TASK",
+          "actionCondition": {
+            "exitCodes": [50001]
+          }
+        }
+      ],
+      "computeResource": {
+        "cpuMilli": 2000,
+        "memoryMib": 1000
+      },
+      "environment": {
+        "variables": {
+          "ENV_NAME": "production",
+          "NO_COLOR": "true",
+          "YOUTUBE_DATA_API_KEY": "xxx",
+          "DATABASE_URL": "xxx"
+        }
+      }
+    },
+    "taskCount": 1
+  },
+  "allocationPolicy": {
+    "instances": {
+      "policy": {
+        "machineType": "e2-micro",
+        "provisioningModel": "SPOT"
+      }
+    }
+  },
+  "logsPolicy": {
+    "destination": "CLOUD_LOGGING"
+  }
+}

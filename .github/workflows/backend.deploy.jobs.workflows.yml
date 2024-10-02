@@ -10,8 +10,7 @@ jobs:
   backend-deploy-jobs-images:
     strategy:
       matrix:
-        service_name:
-          [bundle-chats, groups/update-channels, pubsubhubbub, update-streams]
+        service_name: [bundle-chats, groups/update-channels, pubsubhubbub]
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml
     with:
       service_name: ${{ matrix.service_name }}
