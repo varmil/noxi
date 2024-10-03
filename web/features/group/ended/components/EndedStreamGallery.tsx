@@ -2,7 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { History } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
-import StreamListContentOfLive from 'features/group/stream/components/stream-list/StreamListContentOfLive'
+import StreamListContentOfEnded from 'features/group/stream/components/stream-list/StreamListContentOfEnded'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
 import { getGroup } from 'lib/server-only-context/cache'
@@ -34,7 +34,7 @@ export default async function EndedStreamGallery({
         description={description}
         badgeText="Archive"
       />
-      <StreamListContentOfLive streams={streams} compact={compact} />
+      <StreamListContentOfEnded streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/ended`} />}
     </Card>
   )

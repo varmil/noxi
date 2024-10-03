@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
+import { StatisticsSchema } from 'apis/youtube/schema/data-api/statisticsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import LiveBadge from 'components/styles/LiveBadge'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
@@ -12,7 +13,9 @@ import {
   StreamTextContainer
 } from 'features/group/stream/components/stream/StreamContainer'
 import StreamImg from 'features/group/stream/components/stream/StreamImg'
-import StreamText from 'features/group/stream/components/stream/StreamText'
+import StreamTextOfEnded from 'features/group/stream/components/stream/text/StreamTextOfEnded'
+import StreamTextOfLive from 'features/group/stream/components/stream/text/StreamTextOfLive'
+import StreamTextOfScheduled from 'features/group/stream/components/stream/text/StreamTextOfScheduled'
 import dayjs from 'lib/dayjs'
 
 const SmallLiveBadge = () => (
@@ -27,16 +30,20 @@ type Props = {
   channel: ChannelSchema
   /** Batch取得したもの。Live中しか参照されない */
   liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
+  /** Batch取得したもの。Live中しか参照されない */
+  statistics?: StatisticsSchema['statistics']
 }
 
 export default async function Stream({
   stream,
   channel,
-  liveStreamingDetails
+  liveStreamingDetails,
+  statistics
 }: PropsWithoutRef<Props>) {
   const { streamTimes } = stream
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
+  const isEnded = stream.status === 'ended'
 
   return (
     <StreamContainer>
@@ -56,11 +63,13 @@ export default async function Stream({
           {isLive && <SmallLiveBadge />}
         </StreamAvatarContainer>
         <StreamTextContainer stream={stream} channel={channel}>
-          <StreamText
-            stream={stream}
-            channel={channel}
-            liveStreamingDetails={liveStreamingDetails}
-          />
+          {isLive && (
+            <StreamTextOfLive liveStreamingDetails={liveStreamingDetails} />
+          )}
+          {isScheduled && <StreamTextOfScheduled stream={stream} />}
+          {isEnded && (
+            <StreamTextOfEnded stream={stream} statistics={statistics} />
+          )}
         </StreamTextContainer>
       </StreamContentContainer>
     </StreamContainer>

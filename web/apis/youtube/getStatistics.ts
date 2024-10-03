@@ -22,7 +22,7 @@ export async function getStatistics({
     const batchIds = videoIds.slice(i, i + MaxResultsPerRequest)
 
     const searchParams = new URLSearchParams({
-      part: 'liveStreamingDetails',
+      part: 'statistics',
       id: batchIds.join(','),
       maxResults: `${Math.min(videoIds.length, MaxResultsPerRequest)}`,
       key: process.env.YOUTUBE_DATA_API_KEY
