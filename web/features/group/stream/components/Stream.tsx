@@ -30,7 +30,7 @@ type Props = {
   channel: ChannelSchema
   /** Batch取得したもの。Live中しか参照されない */
   liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
-  /** Batch取得したもの。Live中しか参照されない */
+  /** Batch取得したもの */
   statistics?: StatisticsSchema['statistics']
 }
 
