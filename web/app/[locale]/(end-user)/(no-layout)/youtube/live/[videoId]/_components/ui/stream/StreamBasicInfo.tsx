@@ -6,8 +6,10 @@ import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
+import StreamedLive from 'components/styles/date/StreamedLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
+import Views from 'components/youtube/statistics/Views'
 import { Link } from 'lib/navigation'
 
 export default async function StreamBasicInfo({
@@ -18,7 +20,7 @@ export default async function StreamBasicInfo({
   const {
     videoId,
     snippet: { title, channelId },
-    streamTimes,
+    streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
     metrics: { peakConcurrentViewers, chatMessages, views, likes },
     group
   } = stream
@@ -32,6 +34,7 @@ export default async function StreamBasicInfo({
   const { concurrentViewers } = liveStreamingDetails || {}
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
+  const isEnded = stream.status === 'ended'
 
   return (
     <section className="space-y-4">
@@ -64,12 +67,23 @@ export default async function StreamBasicInfo({
         </div>
       </div>
 
+      {/* TODO: statusごとにコンポーネント分ける & ライブ中の数値、Videos APIの数値を区別 */}
       {/* Stats */}
-      <div className="flex space-x-2 sm:space-x-4">
+      <div className="flex flex-wrap gap-2 sm:gap-4">
         {isScheduled && (
           <OnelineStats>
-            <ScheduledFor date={streamTimes.scheduledStartTime} />
+            <ScheduledFor date={scheduledStartTime} />
           </OnelineStats>
+        )}
+        {isEnded && actualEndTime && (
+          <>
+            <OnelineStats>
+              <Views views={views} />
+            </OnelineStats>
+            <OnelineStats>
+              <StreamedLive date={actualEndTime} />
+            </OnelineStats>
+          </>
         )}
         {isLive && (
           <OnelineStats>

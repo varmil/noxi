@@ -1,8 +1,7 @@
 import { PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
+import { getStatistics } from 'apis/youtube/getStatistics'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import GridCardContainer from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
@@ -13,14 +12,13 @@ type Props = PropsWithoutRef<{
   compact?: boolean
 }>
 
-export default async function StreamListContentOfLive({
+export default async function StreamListContentOfEnded({
   streams,
   compact
 }: Props) {
-  const [t, channels, liveStreamingDetailsList] = await Promise.all([
-    getTranslations('Features.stream'),
+  const [channels, statisticsList] = await Promise.all([
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
-    getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
+    getStatistics({ videoIds: streams.map(stream => stream.videoId) })
   ])
 
   const displayedStreams = compact ? streams.slice(0, 3) : streams
@@ -28,10 +26,6 @@ export default async function StreamListContentOfLive({
   return (
     <CardContent>
       <StreamListContentContainer>
-        {streams.length === 0 && (
-          <p className="text-muted-foreground">{t('noLive')}</p>
-        )}
-
         <GridCardContainer>
           {displayedStreams.map(stream => {
             const channel = channels.find(
@@ -39,18 +33,17 @@ export default async function StreamListContentOfLive({
             )
             if (!channel) return null
 
-            const { liveStreamingDetails } =
-              liveStreamingDetailsList.find(
-                liveStreamingDetails =>
-                  liveStreamingDetails.id === stream.videoId
-              ) || {}
+            const video = statisticsList.find(
+              stats => stats.id === stream.videoId
+            )
+            if (!video) return null
 
             return (
               <Stream
                 key={stream.videoId}
                 stream={stream}
                 channel={channel}
-                liveStreamingDetails={liveStreamingDetails}
+                statistics={video.statistics}
               />
             )
           })}

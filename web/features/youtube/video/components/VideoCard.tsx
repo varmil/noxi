@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'apis/youtube/schema/videoSchema'
 import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
+import Views from 'components/youtube/statistics/Views'
 import { humanizeDuration } from 'lib/dayjs'
 
 export default function VideoCard(video: VideoSchema) {
@@ -50,9 +51,7 @@ export default function VideoCard(video: VideoSchema) {
         <div className="flex items-center gap-2 md:gap-4 text-xs sm:text-sm text-muted-foreground">
           <div className="flex items-center">
             <span>
-              {t('views', {
-                count: format.number(viewCount, { notation: 'compact' })
-              })}
+              <Views views={viewCount} />
             </span>
             <Bullet />
             <span>{format.relativeTime(new Date(publishedAt))}</span>

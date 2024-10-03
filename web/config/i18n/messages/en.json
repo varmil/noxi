@@ -14,7 +14,8 @@
     "group": "{group}",
     "channels": "Channels",
     "live": "Live now on air",
-    "scheduled": "Live schedule"
+    "scheduled": "Live schedule",
+    "ended": "Past live streams"
   },
 
   "Page": {
@@ -79,6 +80,12 @@
         "metadata": {
           "title": "{group}'s Streaming Schedule",
           "description": "Here is a list of {group} YouTube Live Streams scheduled for today - tommorrow."
+        }
+      },
+      "ended": {
+        "metadata": {
+          "title": "{group}'s Past Live Streams",
+          "description": "Here is a list of {group} YouTube Live Streams ended recently."
         }
       }
     },

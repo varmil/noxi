@@ -26,7 +26,7 @@ export default async function StreamListContentOfScheduled({
 
   return (
     <CardContent>
-      <StreamListContentContainer compact={compact}>
+      <StreamListContentContainer>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noScheduled')}</p>
         )}
