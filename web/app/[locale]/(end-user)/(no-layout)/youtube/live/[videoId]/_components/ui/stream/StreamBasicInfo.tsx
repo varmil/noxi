@@ -6,6 +6,7 @@ import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
+import StreamedLive from 'components/styles/date/StreamedLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
 import { Link } from 'lib/navigation'
@@ -18,7 +19,7 @@ export default async function StreamBasicInfo({
   const {
     videoId,
     snippet: { title, channelId },
-    streamTimes,
+    streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
     metrics: { peakConcurrentViewers, chatMessages, views, likes },
     group
   } = stream
@@ -32,6 +33,7 @@ export default async function StreamBasicInfo({
   const { concurrentViewers } = liveStreamingDetails || {}
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
+  const isEnded = stream.status === 'ended'
 
   return (
     <section className="space-y-4">
@@ -68,7 +70,12 @@ export default async function StreamBasicInfo({
       <div className="flex space-x-2 sm:space-x-4">
         {isScheduled && (
           <OnelineStats>
-            <ScheduledFor date={streamTimes.scheduledStartTime} />
+            <ScheduledFor date={scheduledStartTime} />
+          </OnelineStats>
+        )}
+        {isEnded && actualEndTime && (
+          <OnelineStats>
+            <StreamedLive date={actualEndTime} />
           </OnelineStats>
         )}
         {isLive && (
