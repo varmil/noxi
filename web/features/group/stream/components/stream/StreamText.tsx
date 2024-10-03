@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
@@ -8,6 +8,7 @@ import ScheduledFor from 'components/styles/date/ScheduledFor'
 import StreamedLive from 'components/styles/date/StreamedLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
+import Views from 'components/youtube/statistics/Views'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -17,26 +18,22 @@ type Props = {
   liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
 }
 
-export default async function StreamFooter({
+export default async function StreamText({
   stream,
   channel,
   liveStreamingDetails
 }: PropsWithoutRef<Props>) {
   const {
-    videoId,
     snippet: { title, channelId },
     streamTimes: { scheduledStartTime, actualEndTime },
     metrics: { views, likes },
     group
   } = stream
   const { concurrentViewers } = liveStreamingDetails || {}
-
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const isEnded = stream.status === 'ended'
-  const format = useFormatter()
   const t = useTranslations('Features.stream')
-  const tVideo = useTranslations('Features.youtube.video')
 
   return (
     <div>
@@ -66,9 +63,7 @@ export default async function StreamFooter({
           {isEnded && actualEndTime && (
             <>
               <span>
-                {tVideo('views', {
-                  count: format.number(views, { notation: 'compact' })
-                })}
+                <Views views={views} />
                 <Bullet />
                 <StreamedLive date={actualEndTime} />
               </span>

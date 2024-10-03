@@ -2,6 +2,7 @@ import { useFormatter, useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'apis/youtube/schema/videoSchema'
 import Image from 'components/styles/Image'
+import Views from 'components/youtube/statistics/Views'
 
 export default function ShortsCard(video: VideoSchema) {
   const format = useFormatter()
@@ -32,9 +33,7 @@ export default function ShortsCard(video: VideoSchema) {
             {title}
           </h3>
           <p className="text-sm text-muted-foreground">
-            {t('views', {
-              count: format.number(viewCount, { notation: 'compact' })
-            })}
+            <Views views={viewCount} />
           </p>
         </div>
       </Card>

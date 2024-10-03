@@ -27,7 +27,7 @@ export default async function StreamListContentOfLive({
 
   return (
     <CardContent>
-      <StreamListContentContainer compact={compact}>
+      <StreamListContentContainer>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noLive')}</p>
         )}
