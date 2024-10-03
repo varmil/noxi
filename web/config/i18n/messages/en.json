@@ -84,8 +84,8 @@
       },
       "ended": {
         "metadata": {
-          "title": "配信スケジュール | {group} | YouTube Live",
-          "description": "今日～明日の{group}タレントのYouTube Live配信予定です。"
+          "title": "{group}'s Past Live Streams",
+          "description": "Here is a list of {group} YouTube Live Streams ended recently."
         }
       }
     },

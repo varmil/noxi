@@ -71,20 +71,20 @@
       },
       "live": {
         "metadata": {
-          "title": "配信中のライブ | {group} | YouTube Live",
+          "title": "配信中のライブ | {group}",
           "description": "現在配信中の{group}タレントのYouTube Live情報です。"
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "配信スケジュール | {group} | YouTube Live",
+          "title": "配信スケジュール | {group}",
           "description": "今日～明日の{group}タレントのYouTube Live配信予定です。"
         }
       },
       "ended": {
         "metadata": {
-          "title": "配信スケジュール | {group} | YouTube Live",
-          "description": "今日～明日の{group}タレントのYouTube Live配信予定です。"
+          "title": "過去のライブ配信 | {group}",
+          "description": "最近終了したYouTube Live配信の一覧です。"
         }
       }
     },
