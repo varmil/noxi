@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { History, Radio } from 'lucide-react'
+import { History } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import StreamListContentOfLive from 'features/group/stream/components/stream-list/StreamListContentOfLive'
@@ -22,7 +22,7 @@ export default async function EndedStreamGallery({
     status: 'ended',
     group: getGroup(),
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: 100
+    limit: 99
   })
   const group = getGroup()
 
@@ -35,8 +35,7 @@ export default async function EndedStreamGallery({
         badgeText="Archive"
       />
       <StreamListContentOfLive streams={streams} compact={compact} />
-      {/* TODO: implement */}
-      {/* {compact && <StreamListFooter href={`/${group}/live`} />} */}
+      {compact && <StreamListFooter href={`/${group}/ended`} />}
     </Card>
   )
 }
