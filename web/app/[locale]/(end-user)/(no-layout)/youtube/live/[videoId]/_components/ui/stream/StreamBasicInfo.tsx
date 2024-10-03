@@ -9,6 +9,7 @@ import ScheduledFor from 'components/styles/date/ScheduledFor'
 import StreamedLive from 'components/styles/date/StreamedLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
+import Views from 'components/youtube/statistics/Views'
 import { Link } from 'lib/navigation'
 
 export default async function StreamBasicInfo({
@@ -66,17 +67,23 @@ export default async function StreamBasicInfo({
         </div>
       </div>
 
+      {/* TODO: statusごとにコンポーネント分ける & ライブ中の数値、Videos APIの数値を区別 */}
       {/* Stats */}
-      <div className="flex space-x-2 sm:space-x-4">
+      <div className="flex flex-wrap gap-2 sm:gap-4">
         {isScheduled && (
           <OnelineStats>
             <ScheduledFor date={scheduledStartTime} />
           </OnelineStats>
         )}
         {isEnded && actualEndTime && (
-          <OnelineStats>
-            <StreamedLive date={actualEndTime} />
-          </OnelineStats>
+          <>
+            <OnelineStats>
+              <Views views={views} />
+            </OnelineStats>
+            <OnelineStats>
+              <StreamedLive date={actualEndTime} />
+            </OnelineStats>
+          </>
         )}
         {isLive && (
           <OnelineStats>
