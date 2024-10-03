@@ -6,9 +6,10 @@ import LiveBadge from 'components/styles/LiveBadge'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import {
-  StreamAvatar,
+  StreamAvatarContainer,
   StreamContainer,
-  StreamContentContainer
+  StreamContentContainer,
+  StreamTextContainer
 } from 'features/group/stream/components/stream/StreamContainer'
 import StreamImg from 'features/group/stream/components/stream/StreamImg'
 import StreamText from 'features/group/stream/components/stream/StreamText'
@@ -22,8 +23,9 @@ const SmallLiveBadge = () => (
 
 type Props = {
   stream: StreamSchema
+  /** Batch取得したもの */
   channel: ChannelSchema
-  /** 基本Live中しか参照されない */
+  /** Batch取得したもの。Live中しか参照されない */
   liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
 }
 
@@ -32,7 +34,7 @@ export default async function Stream({
   channel,
   liveStreamingDetails
 }: PropsWithoutRef<Props>) {
-  const { streamTimes, group } = stream
+  const { streamTimes } = stream
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
 
@@ -50,14 +52,16 @@ export default async function Stream({
         )}
       </StreamImg>
       <StreamContentContainer>
-        <StreamAvatar group={group} channel={channel}>
+        <StreamAvatarContainer stream={stream} channel={channel}>
           {isLive && <SmallLiveBadge />}
-        </StreamAvatar>
-        <StreamText
-          stream={stream}
-          channel={channel}
-          liveStreamingDetails={liveStreamingDetails}
-        />
+        </StreamAvatarContainer>
+        <StreamTextContainer stream={stream} channel={channel}>
+          <StreamText
+            stream={stream}
+            channel={channel}
+            liveStreamingDetails={liveStreamingDetails}
+          />
+        </StreamTextContainer>
       </StreamContentContainer>
     </StreamContainer>
   )

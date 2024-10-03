@@ -9,7 +9,6 @@ import StreamedLive from 'components/styles/date/StreamedLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
 import Views from 'components/youtube/statistics/Views'
-import { Link } from 'lib/navigation'
 
 type Props = {
   stream: StreamSchema
@@ -24,10 +23,8 @@ export default async function StreamText({
   liveStreamingDetails
 }: PropsWithoutRef<Props>) {
   const {
-    snippet: { title, channelId },
     streamTimes: { scheduledStartTime, actualEndTime },
-    metrics: { views, likes },
-    group
+    metrics: { views, likes }
   } = stream
   const { concurrentViewers } = liveStreamingDetails || {}
   const isLive = stream.status === 'live'
@@ -36,41 +33,31 @@ export default async function StreamText({
   const t = useTranslations('Features.stream')
 
   return (
-    <div>
-      <h3 className="break-anywhere text-sm line-clamp-2 mb-1">{title}</h3>
-      <div className="col-start-2 flex items-center gap-1">
-        <div className="text-xs sm:text-sm text-muted-foreground">
-          <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
-            <div className="hover:text-accent-foreground">
-              {channel.basicInfo.title}
-            </div>
-          </Link>
-          {isLive && (
-            <div>
-              <Watching count={concurrentViewers} compact />
-            </div>
-          )}
-          {isScheduled && (
-            <>
-              <span>
-                <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
-                <Bullet />
-                <ScheduledFor date={scheduledStartTime} />
-              </span>
-            </>
-          )}
-          {/* TODO: use latest views from Videos Data API */}
-          {isEnded && actualEndTime && (
-            <>
-              <span>
-                <Views views={views} />
-                <Bullet />
-                <StreamedLive date={actualEndTime} />
-              </span>
-            </>
-          )}
+    <>
+      {isLive && (
+        <div>
+          <Watching count={concurrentViewers} compact />
         </div>
-      </div>
-    </div>
+      )}
+      {isScheduled && (
+        <>
+          <span>
+            <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
+            <Bullet />
+            <ScheduledFor date={scheduledStartTime} />
+          </span>
+        </>
+      )}
+      {/* TODO: use latest views from Videos Data API */}
+      {isEnded && actualEndTime && (
+        <>
+          <span>
+            <Views views={views} />
+            <Bullet />
+            <StreamedLive date={actualEndTime} />
+          </span>
+        </>
+      )}
+    </>
   )
 }
