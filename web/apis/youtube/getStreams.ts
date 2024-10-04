@@ -5,6 +5,7 @@ import { fetchAPI } from 'lib/fetchAPI'
 type Params = {
   status: 'scheduled' | 'live' | 'ended'
   group?: GroupString
+  channelId?: string
   scheduledBefore?: Date
   scheduledAfter?: Date
   orderBy: {
@@ -21,6 +22,7 @@ type Params = {
 export async function getStreams({
   status,
   group,
+  channelId,
   scheduledBefore,
   scheduledAfter,
   orderBy,
@@ -30,6 +32,7 @@ export async function getStreams({
     status,
     limit: String(limit),
     ...(group && { group }),
+    ...(channelId && { channelId }),
     ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
     ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() })
   })

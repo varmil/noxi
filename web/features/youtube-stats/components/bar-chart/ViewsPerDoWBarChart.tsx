@@ -11,12 +11,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent
-} from '@/components/ui/chart'
+import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import * as dayOfWeek from '../../utils/dayOfWeek'
 
@@ -46,7 +41,7 @@ export default function ViewsPerDoWBarChart({
         <CardTitle>Avarage Views by uploaded day</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="max-h-[200px] w-full">
           <BarChart
             accessibilityLayer
             data={data}
@@ -64,10 +59,6 @@ export default function ViewsPerDoWBarChart({
               tickFormatter={value => value.slice(0, 3)}
             />
             <XAxis dataKey="views" type="number" hide />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
             <Bar
               dataKey="views"
               layout="vertical"

@@ -69,7 +69,6 @@ export default function ViewerCounts({
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
             <ChartTooltip
-              cursor={false}
               content={
                 <ChartTooltipContent
                   labelFormatter={value =>

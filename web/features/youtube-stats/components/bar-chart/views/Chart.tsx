@@ -23,39 +23,47 @@ import {
   ChartContainer,
   ChartTooltip
 } from '@/components/ui/chart'
-import { VideosSchema } from 'apis/youtube/schema/videoSchema'
-import ThumbnailTooltip from 'features/youtube-stats/components/bar-chart/ThumbnailTooltip'
-
-const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'hsl(var(--chart-1))'
-  }
-} satisfies ChartConfig
+import { StatisticsListSchema } from 'apis/youtube/schema/data-api/statisticsSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
 
 type Props = {
-  videos: VideosSchema
+  chartConfig: ChartConfig
+  streams: StreamsSchema
+  statisticsList: StatisticsListSchema
 }
 
-export type ViewsBarChartData = {
+type ViewsBarChartData = {
+  title: string
   date: string
   views: number
   likes: number
   comments: number
-  thumnbnail: string | undefined
+  thumbnail: string | undefined
 }
 
-export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
+export default function Chart({
+  chartConfig,
+  streams,
+  statisticsList
+}: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
 
-  const data: ViewsBarChartData[] = videos
-    .map(video => ({
-      date: video.snippet.publishedAt,
-      views: video.statistics.viewCount,
-      likes: video.statistics.likeCount,
-      comments: video.statistics.commentCount,
-      thumnbnail: video.snippet.thumbnails['medium']?.url
+  const data: ViewsBarChartData[] = streams
+    .map(stream => {
+      const video = statisticsList.find(stats => stats.id === stream.videoId)
+      if (!video) return null
+      return { stream, video }
+    })
+    .filter(item => item !== null)
+    .map(({ stream, video }) => ({
+      title: stream.snippet.title,
+      date: stream.snippet.publishedAt,
+      views: video.statistics.viewCount || 0,
+      likes: video.statistics.likeCount || 0,
+      comments: video.statistics.commentCount || 0,
+      thumbnail: stream.snippet.thumbnails['medium']?.url
     }))
     .reverse()
 
@@ -78,7 +86,7 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -104,18 +112,21 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
                 format.number(value, { notation: 'compact' })
               }
             />
-            <ChartTooltip cursor={true} content={<ThumbnailTooltip />} />
+            <ChartTooltip
+              allowEscapeViewBox={{ x: false, y: true }}
+              content={<ThumbnailTooltip />}
+            />
             <Bar dataKey="views" fill="var(--color-desktop)" radius={2} />
 
             <ReferenceLine
-              y={averageViews(videos)}
+              y={averageViews(statisticsList)}
               stroke="hsl(var(--muted-foreground))"
               strokeDasharray="3 3"
               strokeWidth={1}
             >
               <Label
                 position="insideBottomLeft"
-                value="Average Views"
+                value="Avg. Views"
                 className="text-sm"
                 offset={10}
                 fill="hsl(var(--foreground))"
@@ -127,16 +138,18 @@ export default function ViewsBarChart({ videos }: PropsWithoutRef<Props>) {
       <div className="sr-only">
         {t('srViewsChart', {
           dateRange: dateRange.join(''),
-          views: averageViews(videos)
+          views: averageViews(statisticsList)
         })}
       </div>
     </Card>
   )
 }
 
-const averageViews = (videos: VideosSchema) => {
+const averageViews = (statisticsList: StatisticsListSchema) => {
   return Math.round(
-    videos.reduce((acc, cur) => acc + cur.statistics.viewCount, 0) /
-      videos.length
+    statisticsList.reduce(
+      (acc, cur) => acc + (cur.statistics.viewCount ?? 0),
+      0
+    ) / statisticsList.length
   )
 }

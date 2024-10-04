@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseIntPipe,
   Query,
   UseInterceptors
 } from '@nestjs/common'
@@ -37,10 +38,12 @@ export class ChannelsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get(':id/videos')
   async getVideosInChannel(
-    @Param('id') channelId: string
+    @Param('id') channelId: string,
+    @Query('limit', ParseIntPipe) limit?: number
   ): Promise<PaginationResponse<Videos>> {
     return await this.channelsScenario.getVideosInChannel({
-      where: { channelId: new ChannelId(channelId) }
+      where: { channelId: new ChannelId(channelId) },
+      limit
     })
   }
 }

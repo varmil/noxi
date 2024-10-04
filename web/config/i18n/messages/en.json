@@ -147,8 +147,10 @@
       "stats": {
         "annotation": "This is our service's unique indicator.",
         "chart": {
-          "viewsChart": "Views per video",
-          "srViewsChart": "The bar graph shows the number of views of uploaded videos in {dateRange}. The average number of views is {views}.",
+          "peakConcurrentViewersChart": "Peak Concurrent Viewers per live",
+          "viewsChart": "Views per live",
+          "srPeakConcurrentViewersChart": "The bar graph shows the peak concurrent viewers for a live stream on {dateRange}. The number of average concurrent viewers is {viewers}.",
+          "srViewsChart": "The bar graph shows the number of views of live streams during {dateRange}. The average number of views is {views}.",
           "srUploadsPerDoWChart": "The bar graph shows the number of videos uploaded on each day of the week. This allows you to analyze which days of the week the channel is most active.",
           "srUploadsPerDoWChartLoop": "{count} is the number of videos uploaded on {DoW}.",
           "srViewsPerDoWChart": "The bar graph shows the average number of views for videos uploaded on each day of the week. This allows you to analyze which days of the week tend to get more views.",

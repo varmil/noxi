@@ -68,7 +68,6 @@ export default function ChatCounts({
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
             <ChartTooltip
-              cursor={false}
               content={
                 <ChartTooltipContent
                   className="w-[180px]"
