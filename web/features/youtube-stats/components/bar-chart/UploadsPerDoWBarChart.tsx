@@ -45,7 +45,7 @@ export default function UploadsPerDayOfWeekBarChart({
         <CardTitle>Video Uploads per day</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="max-h-[200px] w-full">
           <BarChart
             accessibilityLayer
             data={data}
