@@ -1,55 +1,67 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { ThumbsUpIcon } from 'lucide-react'
 import { useFormatter } from 'next-intl'
-import CommentIcon from 'components/icons/CommentIcon'
+import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import type { ViewsBarChartData } from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
+
+type TooltipProps = {
+  title: string
+  date: string
+  thumbnail: string | undefined
+  /** Videosから取得できる視聴回数 */
+  views?: number
+  /** Streamから取得できる最大同時視聴者数 */
+  peakConcurrentViewers?: number
+}
 
 type Props = {
-  payload?: { payload: ViewsBarChartData }[]
+  payload?: { payload: TooltipProps }[]
 }
 
 export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
   const data = payload?.at(0)?.payload
   const format = useFormatter()
+  if (!data) return null
+  const { title, thumbnail, date, views, peakConcurrentViewers } = data
 
   return (
-    <section className="grid h-auto w-40 sm:w-72 grid-cols-3 p-1.5 sm:p-3 gap-1.5 sm:gap-4 bg-secondary rounded-sm border">
-      <div className="col-span-2">
+    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-1.5 gap-1 bg-secondary rounded-sm border text-xs text-muted-foreground">
+      <section className="col-span-full">
         <div className="aspect-video overflow-hidden rounded-sm">
           <Image
             width={160}
             height={90}
             alt={'tooltip image'}
-            src={data?.thumnbnail ?? ''}
+            src={thumbnail ?? ''}
             className="h-full w-full object-cover"
           />
         </div>
-        <div className="text-xs sm:text-sm text-muted-foreground">
-          <IntlNumberFormat>{data?.views ?? 0}</IntlNumberFormat> views
-        </div>
-      </div>
-      <div className="col-span-1 text-xs sm:text-sm text-muted-foreground">
-        <div className="mb-1 sm:mb-2">
-          {format.dateTime(new Date(data?.date ?? 0), {
-            month: 'long',
+      </section>
+
+      <section className="col-span-full line-clamp-2">{title}</section>
+
+      <section className="col-span-full flex">
+        {views && (
+          <div className="text-primary font-bold">
+            <IntlNumberFormat>{views ?? 0}</IntlNumberFormat> views
+          </div>
+        )}
+        {peakConcurrentViewers && (
+          <div className="text-primary font-bold">
+            Peak{' '}
+            <IntlNumberFormat>{peakConcurrentViewers ?? 0}</IntlNumberFormat>
+          </div>
+        )}
+        <Bullet />
+        <div>
+          {format.dateTime(new Date(date ?? 0), {
+            month: 'short',
             day: 'numeric'
           })}
         </div>
-        <div>
-          <div className="flex items-center gap-1">
-            <ThumbsUpIcon className="h-3 w-3" />
-            <IntlNumberFormat>{data?.likes ?? 0}</IntlNumberFormat>
-          </div>
-          <div className="flex items-center gap-1">
-            <CommentIcon className="h-3 w-3" />
-            <IntlNumberFormat>{data?.comments ?? 0}</IntlNumberFormat>
-          </div>
-        </div>
-      </div>
+      </section>
     </section>
   )
 }

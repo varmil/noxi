@@ -31,14 +31,6 @@ type Props = {
   chartConfig: ChartConfig
 }
 
-type ConcurrentViewersBarChart = {
-  date: string
-  peakConcurrentViewers: number
-  avgConcurrentViewers: number
-  chatMessages: number
-  thumnbnail: string | undefined
-}
-
 export default function Chart({
   streams,
   chartConfig
@@ -46,13 +38,14 @@ export default function Chart({
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
 
-  const data: ConcurrentViewersBarChart[] = streams
+  const data = streams
     .map(stream => ({
+      title: stream.snippet.title,
       date: stream.snippet.publishedAt,
       peakConcurrentViewers: stream.metrics.peakConcurrentViewers,
       avgConcurrentViewers: stream.metrics.avgConcurrentViewers,
       chatMessages: stream.metrics.chatMessages,
-      thumnbnail: stream.snippet.thumbnails['medium']?.url
+      thumbnail: stream.snippet.thumbnails['medium']?.url
     }))
     .reverse()
 
@@ -101,7 +94,11 @@ export default function Chart({
                 format.number(value, { notation: 'compact' })
               }
             />
-            <ChartTooltip cursor={true} content={<ThumbnailTooltip />} />
+            <ChartTooltip
+              cursor={false}
+              allowEscapeViewBox={{ x: false, y: true }}
+              content={<ThumbnailTooltip />}
+            />
             <Bar
               dataKey="peakConcurrentViewers"
               fill="var(--color-desktop)"

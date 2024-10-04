@@ -33,12 +33,13 @@ type Props = {
   statisticsList: StatisticsListSchema
 }
 
-export type ViewsBarChartData = {
+type ViewsBarChartData = {
+  title: string
   date: string
   views: number
   likes: number
   comments: number
-  thumnbnail: string | undefined
+  thumbnail: string | undefined
 }
 
 export default function Chart({
@@ -57,11 +58,12 @@ export default function Chart({
     })
     .filter(item => item !== null)
     .map(({ stream, video }) => ({
+      title: stream.snippet.title,
       date: stream.snippet.publishedAt,
       views: video.statistics.viewCount || 0,
       likes: video.statistics.likeCount || 0,
       comments: video.statistics.commentCount || 0,
-      thumnbnail: stream.snippet.thumbnails['medium']?.url
+      thumbnail: stream.snippet.thumbnails['medium']?.url
     }))
     .reverse()
 
@@ -110,7 +112,11 @@ export default function Chart({
                 format.number(value, { notation: 'compact' })
               }
             />
-            <ChartTooltip cursor={true} content={<ThumbnailTooltip />} />
+            <ChartTooltip
+              cursor={false}
+              allowEscapeViewBox={{ x: false, y: true }}
+              content={<ThumbnailTooltip />}
+            />
             <Bar dataKey="views" fill="var(--color-desktop)" radius={2} />
 
             <ReferenceLine
