@@ -71,7 +71,7 @@ export default function Chart({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('viewsChart')}</CardTitle>
+        <CardTitle>{t('peakConcurrentViewersChart')}</CardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -126,9 +126,9 @@ export default function Chart({
         </ChartContainer>
       </CardContent>
       <div className="sr-only">
-        {t('srViewsChart', {
+        {t('srPeakConcurrentViewersChart', {
           dateRange: dateRange.join(''),
-          views: average(streams)
+          viewers: average(streams)
         })}
       </div>
     </Card>
