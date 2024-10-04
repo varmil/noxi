@@ -64,10 +64,7 @@ export default function ViewsPerDoWBarChart({
               tickFormatter={value => value.slice(0, 3)}
             />
             <XAxis dataKey="views" type="number" hide />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
+            <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
             <Bar
               dataKey="views"
               layout="vertical"

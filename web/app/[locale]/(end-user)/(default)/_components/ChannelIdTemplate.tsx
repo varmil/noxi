@@ -14,6 +14,7 @@ import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsV
 
 type Props = { id: string }
 
+/** TODO:　Live Stream Trendsのheightを調整して空きスペースに配信時間帯のヒストグラムを表示できるようにする */
 export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
   const { basicInfo, statistics } = await getChannel(id)
   const videos = await getVideosInChannel({
@@ -26,7 +27,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
       <ChannelProfile basicInfo={basicInfo} />
       <div
         className={`grid gap-x-1 gap-y-7 grid-cols-1 \
-        lg:grid-cols-4 lg:gap-x-2 lg:gap-y-8`}
+        lg:grid-cols-3 lg:gap-x-2 lg:gap-y-8`}
       >
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
@@ -42,13 +43,11 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         </Section>
 
         <Section
-          className="lg:col-span-3 lg:order-1"
+          className="lg:col-span-2 lg:order-1"
           title="Live Stream Trends"
         >
-          <div className="grid col-span-full lg:grid-cols-2 gap-2">
-            <ConcurrentViewersBarChart channelId={basicInfo.id} />
-            <ViewsBarChart channelId={basicInfo.id} />
-          </div>
+          <ConcurrentViewersBarChart channelId={basicInfo.id} />
+          <ViewsBarChart channelId={basicInfo.id} />
         </Section>
 
         <Section

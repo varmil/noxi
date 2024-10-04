@@ -63,10 +63,7 @@ export default function UploadsPerDayOfWeekBarChart({
               tickFormatter={value => value.slice(0, 3)}
             />
             <XAxis dataKey="count" type="number" hide />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
+            <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
             <Bar
               dataKey="count"
               layout="vertical"

@@ -68,7 +68,7 @@ export default function Chart({
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -95,7 +95,6 @@ export default function Chart({
               }
             />
             <ChartTooltip
-              cursor={false}
               allowEscapeViewBox={{ x: false, y: true }}
               content={<ThumbnailTooltip />}
             />
