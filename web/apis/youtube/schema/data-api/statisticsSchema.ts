@@ -3,9 +3,9 @@ import { z } from 'zod'
 const schema = z.object({
   id: z.string(),
   statistics: z.object({
-    viewCount: z.string().optional(),
-    likeCount: z.string().optional(),
-    commentCount: z.string().optional()
+    viewCount: z.coerce.number().optional(),
+    likeCount: z.coerce.number().optional(),
+    commentCount: z.coerce.number().optional()
   })
 })
 

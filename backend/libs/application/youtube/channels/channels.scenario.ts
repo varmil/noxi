@@ -12,9 +12,11 @@ export class ChannelsScenario {
   ) {}
 
   async getVideosInChannel({
-    where: { channelId }
+    where: { channelId },
+    limit
   }: {
     where: { channelId: ChannelId }
+    limit?: number
   }): Promise<PaginationResponse<Videos>> {
     const channel = await this.channelsService.findById(channelId)
     if (!channel) return { items: new Videos([]) }
@@ -22,7 +24,7 @@ export class ChannelsScenario {
     return await this.videosService.findByChannel({
       hl: channel.basicInfo.defaultLanguage, // TODO: 本来はフロントエンドからhlを送る
       where: { channel },
-      limit: 36
+      limit: limit ?? 36
     })
   }
 }

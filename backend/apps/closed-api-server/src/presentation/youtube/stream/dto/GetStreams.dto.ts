@@ -33,7 +33,7 @@ export class GetStreamsDto {
 
   @IsOptional()
   @IsString()
-  channelId: string
+  channelId?: string
 
   @IsArray()
   @ValidateNested({ each: true })
