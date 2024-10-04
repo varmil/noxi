@@ -146,8 +146,8 @@
       "stats": {
         "annotation": "弊サービス独自指標です",
         "chart": {
-          "peakConcurrentViewersChart": "最大同時視聴者数",
-          "viewsChart": "視聴回数",
+          "peakConcurrentViewersChart": "最大同時視聴者数 - ライブ配信",
+          "viewsChart": "視聴回数 - ライブ配信",
           "srPeakConcurrentViewersChart": "{dateRange}におけるライブ配信の最大視聴者数を棒グラフで示しています。この期間の平均視聴者数は{viewers}人です。",
           "srViewsChart": "{dateRange}におけるライブ配信の視聴回数を棒グラフで示しています。この期間の平均視聴回数は{views}回です。",
           "srUploadsPerDoWChart": "1週間の各曜日における動画のアップロード数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
