@@ -21,32 +21,36 @@ export default async function StreamListContentOfEnded({
     getStatistics({ videoIds: streams.map(stream => stream.videoId) })
   ])
 
-  const displayedStreams = compact ? streams.slice(0, 3) : streams
-
   return (
     <CardContent>
       <StreamListContentContainer>
         <GridCardContainer>
-          {displayedStreams.map(stream => {
-            const channel = channels.find(
-              channel => channel.basicInfo.id === stream.snippet.channelId
-            )
-            if (!channel) return null
+          {streams
+            .map(stream => {
+              const channel = channels.find(
+                channel => channel.basicInfo.id === stream.snippet.channelId
+              )
+              if (!channel) return null
 
-            const video = statisticsList.find(
-              stats => stats.id === stream.videoId
-            )
-            if (!video) return null
+              const video = statisticsList.find(
+                stats => stats.id === stream.videoId
+              )
+              if (!video) return null
 
-            return (
-              <Stream
-                key={stream.videoId}
-                stream={stream}
-                channel={channel}
-                statistics={video.statistics}
-              />
-            )
-          })}
+              return { stream, channel, video }
+            })
+            .filter(item => item !== null)
+            .slice(0, compact ? 3 : undefined)
+            .map(({ stream, channel, video }) => {
+              return (
+                <Stream
+                  key={stream.videoId}
+                  stream={stream}
+                  channel={channel}
+                  statistics={video.statistics}
+                />
+              )
+            })}
         </GridCardContainer>
       </StreamListContentContainer>
     </CardContent>
