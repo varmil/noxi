@@ -14,14 +14,16 @@ export default function StreamStatsCards({ stream }: { stream: StreamSchema }) {
   return (
     <div className="flex gap-2">
       {peakConcurrentViewers ? (
-        <div className="flex-1">
-          <StatsPeakConcurrentCard count={peakConcurrentViewers} />
-        </div>
+        <StatsPeakConcurrentCard
+          className="flex-1 grow"
+          count={peakConcurrentViewers}
+        />
       ) : null}
       {stream.metrics.chatMessages ? (
-        <div className="flex-1">
-          <StatsChatRateCard count={calcChatRate(stream)} />
-        </div>
+        <StatsChatRateCard
+          className="flex-1 grow"
+          count={calcChatRate(stream)}
+        />
       ) : null}
     </div>
   )
