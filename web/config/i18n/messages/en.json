@@ -67,8 +67,16 @@
         "cardDescription": "Here is a list of YouTube channels for talents in {group}."
       },
       "channelsId": {
-        "title": "YouTube Stats, Analytics and Channel Overview",
-        "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+        "metadata": {
+          "title": "YouTube Stats, Analytics and Channel Overview",
+          "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+        },
+        "template": {
+          "liveTrends": "Live Stream Trends",
+          "data": "Data",
+          "doWAnalysis": "Days of the week analysis",
+          "pastLiveStreams": "Live Streams"
+        }
       },
       "live": {
         "metadata": {
@@ -88,11 +96,6 @@
           "description": "Here is a list of {group} YouTube Live Streams ended recently."
         }
       }
-    },
-
-    "channelsId": {
-      "title": "YouTube Stats, Analytics and Channel Overview",
-      "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
     },
 
     "youtube": {

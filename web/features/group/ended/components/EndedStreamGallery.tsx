@@ -11,16 +11,20 @@ type Props = {
   title: string
   description: string
   compact?: boolean
+  where?: { channelId?: string }
 }
 
 export default async function EndedStreamGallery({
   title,
   description,
-  compact
+  compact,
+  where
 }: PropsWithoutRef<Props>) {
+  const { channelId } = where || {}
   const streams = await getStreams({
     status: 'ended',
     group: getGroup(),
+    channelId,
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
     limit: 99
   })

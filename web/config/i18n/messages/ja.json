@@ -66,8 +66,16 @@
         "cardDescription": "{group}に所属するタレントのYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {
-        "title": "YouTubeチャンネルまとめ",
-        "description": "{channel}のYouTubeチャンネルのまとめです。 ➥ チャンネル登録者数、今後の配信予定、配信中のライブ、過去のライブ履歴、スパチャ収入など"
+        "metadata": {
+          "title": "{channel}のライブ配信分析・統計",
+          "description": "{channel}のYouTubeチャンネルのまとめです。 ➥ チャンネル登録者数、同時視聴者数推移、過去のライブ履歴、スパチャ収入など"
+        },
+        "template": {
+          "liveTrends": "ライブ配信トレンド",
+          "data": "チャンネルデータ",
+          "doWAnalysis": "曜日ごとの週間分析",
+          "pastLiveStreams": "過去のライブ配信"
+        }
       },
       "live": {
         "metadata": {
@@ -87,11 +95,6 @@
           "description": "最近終了したYouTube Live配信の一覧です。"
         }
       }
-    },
-
-    "channelsId": {
-      "title": "YouTubeチャンネルまとめ",
-      "description": "{channel}のYouTubeチャンネルのまとめです。 ➥ チャンネル登録者数、今後の配信予定、配信中のライブ、過去のライブ履歴、スパチャ収入など"
     },
 
     "youtube": {

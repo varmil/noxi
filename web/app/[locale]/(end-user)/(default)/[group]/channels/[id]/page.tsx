@@ -17,11 +17,11 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.group.channelsId'
+    namespace: 'Page.group.channelsId.metadata'
   })
 
   return {
-    title: `${basicInfo.title} - ${t('title')} | ${tg('title')}`,
+    title: `${t('title', { channel: basicInfo.title })} | ${tg('title')}`,
     description: `${t('description', { channel: basicInfo.title })}`
   }
 }
