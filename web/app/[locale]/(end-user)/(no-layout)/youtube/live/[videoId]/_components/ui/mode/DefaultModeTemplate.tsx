@@ -7,9 +7,6 @@ import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { Page } from 'components/page'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
-import { calcChatRate } from 'features/stream-stats/utils/calcChatRate'
-import StatsChatRateCard from 'features/youtube-stats/components/simple-card/StatsChatRateCard'
-import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/StatsPeakConcurrentCard'
 import {
   MainContainer,
   LgChatContainer,
@@ -22,6 +19,7 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
+import StreamStatsCards from '../stream/card/StreamStatsCards'
 
 type Props = {
   videoId: string
@@ -90,10 +88,7 @@ export default async function DefaultModeTemplate({
               <div className="@xs:block @4xl:hidden">
                 <OpenChatButton />
               </div>
-              <div className="grid grid-cols-2 gap-2">
-                <StatsPeakConcurrentCard count={peakConcurrentViewers} />
-                <StatsChatRateCard count={calcChatRate(stream)} />
-              </div>
+              <StreamStatsCards stream={stream} />
               <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
               <ChatCounts stream={stream} chatCounts={chatCounts} />
             </PadSection>
