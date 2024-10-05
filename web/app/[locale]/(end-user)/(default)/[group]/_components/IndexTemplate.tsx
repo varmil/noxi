@@ -31,7 +31,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           />
         </section>
         <section className="col-span-full">
-          <EndedStreamGallery compact />
+          <EndedStreamGallery where={{ group: getGroup() }} compact />
         </section>
 
         <section className="col-span-full">
