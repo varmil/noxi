@@ -161,8 +161,12 @@
           "srViewsPerDoWChart": "各曜日にアップロードされた動画の平均再生回数を棒グラフで示しています。これにより再生回数が増えやすい曜日を分析できます。",
           "srViewsPerDoWChartLoop": "{DoW}にアップロードされた動画は平均{views}回再生されています。"
         },
-        "totalViews": "動画,ショートの再生回数",
-        "totalSubscribers": "チャンネル登録者数",
+        "card": {
+          "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
+          "peakConcurrent": "最大同時視聴者数",
+          "totalViews": "動画,ショートの再生回数",
+          "totalSubscribers": "チャンネル登録者数"
+        },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日",
 

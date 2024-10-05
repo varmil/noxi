@@ -14,7 +14,7 @@ export default async function OnelineStatsOfLive({
 }) {
   const {
     streamTimes: { actualStartTime },
-    metrics: { chatMessages, likes }
+    metrics: { likes }
   } = stream
 
   const [[{ liveStreamingDetails }]] = await Promise.all([
@@ -40,14 +40,6 @@ export default async function OnelineStatsOfLive({
           <IntlNumberFormat>{likes}</IntlNumberFormat>
         </span>
       </OnelineStats>
-      {chatMessages > 0 && (
-        <OnelineStats>
-          <CommentIcon className="h-4 w-4" />
-          <span>
-            <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
-          </span>
-        </OnelineStats>
-      )}
     </>
   )
 }

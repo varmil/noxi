@@ -7,6 +7,9 @@ import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { Page } from 'components/page'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
+import { calcChatRate } from 'features/stream-stats/utils/calcChatRate'
+import StatsChatRateCard from 'features/youtube-stats/components/simple-card/StatsChatRateCard'
+import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/StatsPeakConcurrentCard'
 import {
   MainContainer,
   LgChatContainer,
@@ -30,7 +33,7 @@ export default async function DefaultModeTemplate({
   const stream = await getStream(videoId)
   const {
     snippet: { channelId, title, thumbnails },
-    metrics: {},
+    metrics: { peakConcurrentViewers },
     group
   } = stream
 
@@ -86,6 +89,10 @@ export default async function DefaultModeTemplate({
               <StreamBasicInfo stream={stream} />
               <div className="@xs:block @4xl:hidden">
                 <OpenChatButton />
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <StatsPeakConcurrentCard count={peakConcurrentViewers} />
+                <StatsChatRateCard count={calcChatRate(stream)} />
               </div>
               <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
               <ChatCounts stream={stream} chatCounts={chatCounts} />

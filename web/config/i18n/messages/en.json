@@ -162,8 +162,12 @@
           "srViewsPerDoWChart": "The bar graph shows the average number of views for videos uploaded on each day of the week. This allows you to analyze which days of the week tend to get more views.",
           "srViewsPerDoWChartLoop": "Videos uploaded to {DoW} are played an average of {views} times."
         },
-        "totalViews": "Total views",
-        "totalSubscribers": "Total subscribers",
+        "card": {
+          "chatRate": "Number of messages sent in live chat per minute.",
+          "peakConcurrent": "Highest number of viewers during a live stream",
+          "totalViews": "Total views",
+          "totalSubscribers": "Total subscribers"
+        },
         "totalVideos": "Total number of videos uploaded",
         "joinedDescription": "Date the channel was registered",
 
