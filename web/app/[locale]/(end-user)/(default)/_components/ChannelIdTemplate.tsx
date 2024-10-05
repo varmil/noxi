@@ -1,7 +1,9 @@
 import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import { ChannelProfile } from 'app/[locale]/(end-user)/(default)/_components/ChannelProfile'
+import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
@@ -11,11 +13,13 @@ import StatsJoinedCard from 'features/youtube-stats/components/simple-card/Stats
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string }
 
 /** TODO:　Live Stream Trendsのheightを調整して空きスペースに配信時間帯のヒストグラムを表示できるようにする */
 export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
+  const t = await getTranslations('Page.group.channelsId.template')
   const { basicInfo, statistics } = await getChannel(id)
   const videos = await getVideosInChannel({
     channelId: basicInfo.id,
@@ -32,7 +36,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         <Section
           gridClassName={'grid-cols-2 lg:grid-cols-1'}
           className="lg:col-span-1 lg:order-2"
-          title="Data"
+          title={t('data')}
         >
           <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
           <StatsViewsCard count={statistics?.viewCount ?? 0} />
@@ -42,17 +46,14 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           />
         </Section>
 
-        <Section
-          className="lg:col-span-2 lg:order-1"
-          title="Live Stream Trends"
-        >
+        <Section className="lg:col-span-2 lg:order-1" title={t('liveTrends')}>
           <ConcurrentViewersBarChart channelId={basicInfo.id} />
           <ViewsBarChart channelId={basicInfo.id} />
         </Section>
 
         <Section
           className="lg:col-span-full lg:order-3"
-          title="Days of the week analysis"
+          title={t('doWAnalysis')}
         >
           <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
             <UploadsPerDayOfWeekBarChart videos={videos} />
@@ -60,8 +61,17 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           </div>
         </Section>
 
+        <Section
+          className="lg:col-span-full lg:order-4"
+          title={t('liveStreams')}
+        >
+          <Suspense fallback={<p>Loading Live Streams...</p>}>
+            <EndedStreamGallery where={{ channelId: basicInfo.id }} />
+          </Suspense>
+        </Section>
+
         <Section className="lg:col-span-full lg:order-last" title="Videos">
-          <Suspense fallback={<p>Loading cards...</p>}>
+          <Suspense fallback={<p>Loading Videos...</p>}>
             <VideoInChannelGallery channelId={basicInfo.id} />
           </Suspense>
         </Section>

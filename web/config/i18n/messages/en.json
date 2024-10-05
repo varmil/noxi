@@ -53,10 +53,6 @@
           "scheduled": {
             "title": "Live Streaming schedule",
             "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
-          },
-          "ended": {
-            "title": "Past Live Streams",
-            "description": "Check out all of {group}'s past YouTube live streams!"
           }
         }
       },
@@ -67,8 +63,16 @@
         "cardDescription": "Here is a list of YouTube channels for talents in {group}."
       },
       "channelsId": {
-        "title": "YouTube Stats, Analytics and Channel Overview",
-        "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+        "metadata": {
+          "title": "YouTube Stats, Analytics and Channel Overview",
+          "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+        },
+        "template": {
+          "liveTrends": "Live Stream Trends",
+          "data": "Data",
+          "doWAnalysis": "Days of the week analysis",
+          "liveStreams": "Live Streams"
+        }
       },
       "live": {
         "metadata": {
@@ -88,11 +92,6 @@
           "description": "Here is a list of {group} YouTube Live Streams ended recently."
         }
       }
-    },
-
-    "channelsId": {
-      "title": "YouTube Stats, Analytics and Channel Overview",
-      "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
     },
 
     "youtube": {
@@ -124,6 +123,12 @@
   },
 
   "Features": {
+    "group": {
+      "ended": {
+        "title": "Past Live Streams",
+        "description": "Check out all of {group}'s past YouTube live streams!"
+      }
+    },
     "youtube": {
       "channel": {
         "channel": "channel",

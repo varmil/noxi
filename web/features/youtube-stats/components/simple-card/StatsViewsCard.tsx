@@ -19,7 +19,7 @@ export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {
       <StatsCardContent subText={t('totalViews')}>
         <IntlNumberFormat
           minimumSignificantDigits={1}
-          maximumSignificantDigits={4}
+          maximumSignificantDigits={3}
         >
           {count}
         </IntlNumberFormat>
