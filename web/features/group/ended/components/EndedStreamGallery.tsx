@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { History } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import StreamListContentOfEnded from 'features/group/stream/components/stream-list/StreamListContentOfEnded'
@@ -8,15 +9,11 @@ import StreamListHeader from 'features/group/stream/components/stream-list/Strea
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  title: string
-  description: string
   compact?: boolean
   where?: { channelId?: string }
 }
 
 export default async function EndedStreamGallery({
-  title,
-  description,
   compact,
   where
 }: PropsWithoutRef<Props>) {
@@ -28,14 +25,18 @@ export default async function EndedStreamGallery({
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
     limit: 99
   })
+
+  const t = await getTranslations('Features.group.ended')
   const group = getGroup()
 
   return (
     <Card>
       <StreamListHeader
         titleIcon={<History className="w-6 h-6 text-muted-foreground" />}
-        title={title}
-        description={description}
+        title={t('title')}
+        description={t('description', {
+          group: (await getTranslations('Global.group'))(`${getGroup()}`)
+        })}
         badgeText="Archive"
       />
       <StreamListContentOfEnded streams={streams} compact={compact} />

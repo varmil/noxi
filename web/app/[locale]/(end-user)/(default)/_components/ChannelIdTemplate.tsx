@@ -13,6 +13,7 @@ import StatsJoinedCard from 'features/youtube-stats/components/simple-card/Stats
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string }
 
@@ -62,14 +63,10 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
 
         <Section
           className="lg:col-span-full lg:order-4"
-          title={t('pastLiveStreams')}
+          title={t('liveStreams')}
         >
           <Suspense fallback={<p>Loading Live Streams...</p>}>
-            <EndedStreamGallery
-              title={'xxx'}
-              description={'yyy'}
-              where={{ channelId: basicInfo.id }}
-            />
+            <EndedStreamGallery where={{ channelId: basicInfo.id }} />
           </Suspense>
         </Section>
 

@@ -31,11 +31,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           />
         </section>
         <section className="col-span-full">
-          <EndedStreamGallery
-            title={t('ended.title')}
-            description={t('ended.description', { group })}
-            compact
-          />
+          <EndedStreamGallery compact />
         </section>
 
         <section className="col-span-full">

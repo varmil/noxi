@@ -53,10 +53,6 @@
           "scheduled": {
             "title": "Live Streaming schedule",
             "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
-          },
-          "ended": {
-            "title": "Past Live Streams",
-            "description": "Check out all of {group}'s past YouTube live streams!"
           }
         }
       },
@@ -75,7 +71,7 @@
           "liveTrends": "Live Stream Trends",
           "data": "Data",
           "doWAnalysis": "Days of the week analysis",
-          "pastLiveStreams": "Live Streams"
+          "liveStreams": "Live Streams"
         }
       },
       "live": {
@@ -127,6 +123,12 @@
   },
 
   "Features": {
+    "group": {
+      "ended": {
+        "title": "Past Live Streams",
+        "description": "Check out all of {group}'s past YouTube live streams!"
+      }
+    },
     "youtube": {
       "channel": {
         "channel": "channel",

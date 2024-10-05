@@ -52,10 +52,6 @@
           "scheduled": {
             "title": "今日-明日の配信予定",
             "description": "{group}の今日のYouTube配信予定をまとめてチェック！"
-          },
-          "ended": {
-            "title": "過去のライブ配信",
-            "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
           }
         }
       },
@@ -74,7 +70,7 @@
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
           "doWAnalysis": "曜日ごとの週間分析",
-          "pastLiveStreams": "過去のライブ配信"
+          "liveStreams": "ライブ配信"
         }
       },
       "live": {
@@ -126,6 +122,12 @@
   },
 
   "Features": {
+    "group": {
+      "ended": {
+        "title": "過去のライブ配信",
+        "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
+      }
+    },
     "youtube": {
       "channel": {
         "channel": "チャンネル",
