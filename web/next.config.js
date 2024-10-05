@@ -26,12 +26,11 @@ const nextConfig = {
   // async headers() {
   //   return CacheHeaders
   // },
-
-  logging: {
-    fetches: {
-      fullUrl: true
-    }
-  }
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true
+  //   }
+  // }
 }
 
 module.exports = withNextIntl(nextConfig)

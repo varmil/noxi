@@ -1,16 +1,12 @@
-import { PropsWithChildren } from 'react'
-import { ThumbsUp } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
-import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import CommentIcon from 'components/icons/CommentIcon'
-import ScheduledFor from 'components/styles/date/ScheduledFor'
-import StreamedLive from 'components/styles/date/StreamedLive'
+import OnelineStatsOfEnded from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/stream/OnelineStatsOfEnded'
+import OnelineStatsOfScheduled from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/stream/OnelineStatsOfScheduled'
+import OnelineStatsOfLive from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/stream/online-stats/OnelineStatsOfLive'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import Watching from 'components/styles/number/Watching'
-import Views from 'components/youtube/statistics/Views'
 import { Link } from 'lib/navigation'
+import { OnelineStatsContainer } from './online-stats/OnelineStats'
 
 export default async function StreamBasicInfo({
   stream
@@ -18,20 +14,10 @@ export default async function StreamBasicInfo({
   stream: StreamSchema
 }) {
   const {
-    videoId,
     snippet: { title, channelId },
-    streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
-    metrics: { peakConcurrentViewers, chatMessages, views, likes },
     group
   } = stream
-
-  const [{ basicInfo, statistics }, [{ liveStreamingDetails }]] =
-    await Promise.all([
-      getChannel(channelId),
-      getLiveStreamingDetails({ videoIds: [stream.videoId] })
-    ])
-
-  const { concurrentViewers } = liveStreamingDetails || {}
+  const [{ basicInfo, statistics }] = await Promise.all([getChannel(channelId)])
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const isEnded = stream.status === 'ended'
@@ -67,54 +53,12 @@ export default async function StreamBasicInfo({
         </div>
       </div>
 
-      {/* TODO: statusごとにコンポーネント分ける & ライブ中の数値、Videos APIの数値を区別 */}
       {/* Stats */}
-      <div className="flex flex-wrap gap-2 sm:gap-4">
-        {isScheduled && (
-          <OnelineStats>
-            <ScheduledFor date={scheduledStartTime} />
-          </OnelineStats>
-        )}
-        {isEnded && actualEndTime && (
-          <>
-            <OnelineStats>
-              <Views views={views} />
-            </OnelineStats>
-            <OnelineStats>
-              <StreamedLive date={actualEndTime} />
-            </OnelineStats>
-          </>
-        )}
-        {isLive && (
-          <OnelineStats>
-            <span>
-              <Watching count={concurrentViewers} />
-            </span>
-          </OnelineStats>
-        )}
-        <OnelineStats>
-          <ThumbsUp className="h-4 w-4" />
-          <span>
-            <IntlNumberFormat>{likes}</IntlNumberFormat>
-          </span>
-        </OnelineStats>
-        {chatMessages > 0 && (
-          <OnelineStats>
-            <CommentIcon className="h-4 w-4" />
-            <span>
-              <IntlNumberFormat>{chatMessages}</IntlNumberFormat>
-            </span>
-          </OnelineStats>
-        )}
-      </div>
+      <OnelineStatsContainer>
+        {isScheduled && <OnelineStatsOfScheduled stream={stream} />}
+        {isLive && <OnelineStatsOfLive stream={stream} />}
+        {isEnded && <OnelineStatsOfEnded stream={stream} />}
+      </OnelineStatsContainer>
     </section>
-  )
-}
-
-function OnelineStats({ children }: PropsWithChildren) {
-  return (
-    <div className="flex items-center text-sm sm:text-base text-muted-foreground space-x-1.5 bg-muted px-4 py-2 rounded-xl">
-      {children}
-    </div>
   )
 }
