@@ -70,7 +70,7 @@
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
           "doWAnalysis": "曜日ごとの週間分析",
-          "liveStreams": "ライブ配信"
+          "liveStreams": "過去の配信"
         }
       },
       "live": {
