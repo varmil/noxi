@@ -12,9 +12,17 @@ export default function StreamStatsCards({ stream }: { stream: StreamSchema }) {
   if (status === 'scheduled') return null
 
   return (
-    <div className="grid grid-cols-2 gap-2">
-      <StatsPeakConcurrentCard count={peakConcurrentViewers} />
-      <StatsChatRateCard count={calcChatRate(stream)} />
+    <div className="flex gap-2">
+      {peakConcurrentViewers ? (
+        <div className="flex-1">
+          <StatsPeakConcurrentCard count={peakConcurrentViewers} />
+        </div>
+      ) : null}
+      {stream.metrics.chatMessages ? (
+        <div className="flex-1">
+          <StatsChatRateCard count={calcChatRate(stream)} />
+        </div>
+      ) : null}
     </div>
   )
 }
