@@ -4,7 +4,7 @@ type Props = {
   date: string | Date
 }
 
-export default function ScheduledFor({ date }: Props) {
+export default function StartedStreaming({ date }: Props) {
   const format = useFormatter()
   const t = useTranslations('Components.styles')
 
@@ -14,14 +14,8 @@ export default function ScheduledFor({ date }: Props) {
 
   return (
     <>
-      {t('scheduledFor', {
-        datetime: format.dateTime(date, {
-          month: '2-digit',
-          day: '2-digit',
-          hour: 'numeric',
-          minute: 'numeric',
-          hourCycle: 'h23'
-        })
+      {t('startedStreaming', {
+        datetime: format.relativeTime(date)
       })}
     </>
   )

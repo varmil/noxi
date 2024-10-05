@@ -70,7 +70,7 @@
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
           "doWAnalysis": "曜日ごとの週間分析",
-          "liveStreams": "ライブ配信"
+          "liveStreams": "過去の配信"
         }
       },
       "live": {
@@ -116,6 +116,7 @@
   "Components": {
     "styles": {
       "scheduledFor": "{datetime} に公開予定",
+      "startedStreaming": "{datetime}にライブ配信開始",
       "watching": "人が視聴中",
       "streamedLive": "{datetime}"
     }
@@ -140,7 +141,8 @@
         "views": "{count}回視聴",
         "watchTime": "総再生時間",
         "likeRatio": "この動画の高評価数 / 再生回数（高評価率）は{rate}%です。この値は視聴者の満足度や反応を測るのに役立ちます。",
-        "commentRatio": "この動画のコメント数 / 再生回数（コメント率）は{rate}%です。この値は視聴者が動画にどれだけ積極的にコメントを残しているかの指標です。"
+        "commentRatio": "この動画のコメント数 / 再生回数（コメント率）は{rate}%です。この値は視聴者が動画にどれだけ積極的にコメントを残しているかの指標です。",
+        "noVideos": "直近、ライブ配信以外の動画投稿はありません。"
       },
       "highlight-clip": {
         "title": "最新の切り抜き動画まとめ",
@@ -160,8 +162,12 @@
           "srViewsPerDoWChart": "各曜日にアップロードされた動画の平均再生回数を棒グラフで示しています。これにより再生回数が増えやすい曜日を分析できます。",
           "srViewsPerDoWChartLoop": "{DoW}にアップロードされた動画は平均{views}回再生されています。"
         },
-        "totalViews": "動画,ショートの再生回数",
-        "totalSubscribers": "チャンネル登録者数",
+        "card": {
+          "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
+          "peakConcurrent": "最大同時視聴者数",
+          "totalViews": "動画,ショートの再生回数",
+          "totalSubscribers": "チャンネル登録者数"
+        },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日",
 

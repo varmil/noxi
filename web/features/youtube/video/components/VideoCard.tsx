@@ -10,16 +10,11 @@ export default function VideoCard(video: VideoSchema) {
   const format = useFormatter()
   const t = useTranslations('Features.youtube.video')
   const { id, snippet, duration, statistics } = video
-  const { title, description, thumbnails, publishedAt } = snippet
+  const { title, thumbnails, publishedAt } = snippet
   const { viewCount } = statistics
 
   return (
     <Card className="w-full border-none shadow-none">
-      {/* <Link
-        href="#"
-        className="group relative block aspect-video overflow-hidden rounded-lg"
-        prefetch={false}
-      > */}
       <a
         className="group relative block aspect-video overflow-hidden rounded-lg"
         href={`https://youtube.com/watch?v=${id}`}
@@ -35,15 +30,10 @@ export default function VideoCard(video: VideoSchema) {
           height={225}
           className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
         />
-        {/* TODO: When /videos/:id page is created, comment in here. */}
-        {/* <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-          <LineChart className="h-12 w-12 text-white" />
-        </div> */}
         <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
           <span>{humanizeDuration(duration)}</span>
         </div>
       </a>
-      {/* </Link> */}
       <CardContent className="p-2 space-y-1 px-1 pt-2">
         <div>
           <h3 className="font-normal line-clamp-2 text-sm">{title}</h3>

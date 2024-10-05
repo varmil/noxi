@@ -8,12 +8,12 @@ export const useFormattedDatetime = (date?: Date) => {
     day: '2-digit',
     hour: 'numeric',
     minute: 'numeric',
-    hour12: false
+    hourCycle: 'h23'
   })
 }
 
 export const FormatForTick: DateTimeFormatOptions = {
   hour: 'numeric',
   minute: 'numeric',
-  hour12: false
+  hourCycle: 'h23'
 }

@@ -11,7 +11,9 @@ export default function StatsCardContent({
 }: PropsWithChildren<Props>) {
   return (
     <CardContent>
-      <div className="text-2xl font-bold">{children}</div>
+      <div className="text-2xl sm:text-3xl font-bold tabular-nums mb-0.5">
+        {children}
+      </div>
       <p className="text-xs text-muted-foreground">{subText}</p>
     </CardContent>
   )

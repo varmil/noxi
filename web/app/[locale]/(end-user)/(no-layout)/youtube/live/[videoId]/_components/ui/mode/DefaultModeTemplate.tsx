@@ -19,6 +19,7 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
+import StreamStatsCards from '../stream/card/StreamStatsCards'
 
 type Props = {
   videoId: string
@@ -30,7 +31,7 @@ export default async function DefaultModeTemplate({
   const stream = await getStream(videoId)
   const {
     snippet: { channelId, title, thumbnails },
-    metrics: {},
+    metrics: { peakConcurrentViewers },
     group
   } = stream
 
@@ -87,6 +88,7 @@ export default async function DefaultModeTemplate({
               <div className="@xs:block @4xl:hidden">
                 <OpenChatButton />
               </div>
+              <StreamStatsCards stream={stream} />
               <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
               <ChatCounts stream={stream} chatCounts={chatCounts} />
             </PadSection>
