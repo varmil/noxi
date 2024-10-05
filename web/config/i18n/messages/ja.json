@@ -116,6 +116,7 @@
   "Components": {
     "styles": {
       "scheduledFor": "{datetime} に公開予定",
+      "startedStreaming": "{datetime}にライブ配信開始",
       "watching": "人が視聴中",
       "streamedLive": "{datetime}"
     }

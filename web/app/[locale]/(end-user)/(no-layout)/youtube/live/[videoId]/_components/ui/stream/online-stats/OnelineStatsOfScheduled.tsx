@@ -2,7 +2,7 @@ import { ThumbsUp } from 'lucide-react'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import OnelineStats from './online-stats/OnelineStats'
+import OnelineStats from './OnelineStats'
 
 export default async function OnelineStatsOfScheduled({
   stream
