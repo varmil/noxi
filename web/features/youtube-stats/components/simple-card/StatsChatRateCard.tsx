@@ -6,13 +6,17 @@ import StatsCardHeader from './StatsCardHeader'
 
 type Props = {
   count: number | string
+  className?: string
 }
 
-export default function StatsChatRateCard({ count }: PropsWithoutRef<Props>) {
+export default function StatsChatRateCard({
+  count,
+  className
+}: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.card')
   const c = typeof count === 'number' ? count.toFixed(1) : count
   return (
-    <Card>
+    <Card className={className}>
       <StatsCardHeader>Chat Rate</StatsCardHeader>
       <StatsCardContent subText={t('chatRate')}>{c}</StatsCardContent>
     </Card>
