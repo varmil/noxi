@@ -35,7 +35,7 @@ export class PubsubhubbubController {
     @Res() res: Response
   ) {
     if (mode && challenge) {
-      if (mode === 'subscribe') {
+      if (mode === 'subscribe' || mode === 'unsubscribe') {
         res.status(HttpStatus.OK).send(challenge)
       } else {
         console.log('challenge failed: Invalid mode: ', mode)
