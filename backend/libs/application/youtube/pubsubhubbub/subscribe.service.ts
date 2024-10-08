@@ -5,7 +5,7 @@ import { allSettled } from '@domain/lib/promise/allSettled'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
-const TOPIC_BASE_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id='
+const TOPIC_BASE_URL = 'https://www.youtube.com/xml/feeds/videos.xml?channel_id='
 
 interface SubscribeYouTubePubsubQuery {
   channelId: ChannelId
