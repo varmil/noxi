@@ -38,7 +38,11 @@
     "instances": {
       "policy": {
         "machineType": "e2-micro",
-        "provisioningModel": "SPOT"
+        "provisioningModel": "SPOT",
+        "bootDisk": {
+          "type": "pd-standard",
+          "sizeGb": 10
+        }
       }
     }
   },
