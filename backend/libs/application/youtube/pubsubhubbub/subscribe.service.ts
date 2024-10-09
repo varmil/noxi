@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
 import { GroupsService } from '@app/groups/groups.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
+import { PromiseService } from '@app/lib/promise-service'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
-const TOPIC_BASE_URL = 'https://www.youtube.com/xml/feeds/videos.xml?channel_id='
+const TOPIC_BASE_URL =
+  'https://www.youtube.com/xml/feeds/videos.xml?channel_id='
 
 interface SubscribeYouTubePubsubQuery {
   channelId: ChannelId
@@ -13,7 +14,10 @@ interface SubscribeYouTubePubsubQuery {
 
 @Injectable()
 export class SubscribeService {
-  constructor(private readonly groupsService: GroupsService) {}
+  constructor(
+    private readonly promiseService: PromiseService,
+    private readonly groupsService: GroupsService
+  ) {}
 
   async execute(): Promise<void> {
     const promises = this.groupsService.findAll().map(async group => {
@@ -21,7 +25,7 @@ export class SubscribeService {
       await this.subscribe(group.channelIds)
       console.log(`end ${group.get()}`)
     })
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
   /**

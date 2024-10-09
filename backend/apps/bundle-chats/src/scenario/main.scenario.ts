@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
 import { QueueStatusInProgress } from '@domain/queue'
 
 @Injectable()
 export class MainScenario {
   constructor(
+    private readonly promiseService: PromiseService,
     private readonly chatBundleQueuesService: ChatBundleQueuesService,
     private readonly streamStatsService: StreamStatsService
   ) {}
@@ -31,7 +32,7 @@ export class MainScenario {
       })
     })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
   private async fetchTasks() {

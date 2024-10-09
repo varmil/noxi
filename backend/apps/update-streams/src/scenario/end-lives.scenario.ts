@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
 import { QueueStatusUnprocessed } from '@domain/queue'
 import { StreamTimes } from '@domain/stream'
 import { Videos, Video } from '@domain/youtube'
@@ -10,6 +10,7 @@ import { Videos, Video } from '@domain/youtube'
 @Injectable()
 export class EndLivesScenario {
   constructor(
+    private readonly promiseService: PromiseService,
     private readonly chatBundleQueuesService: ChatBundleQueuesService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService
@@ -33,7 +34,7 @@ export class EndLivesScenario {
 
         console.log('end the stream:', video.snippet.title)
 
-        await allSettled([
+        await this.promiseService.allSettled([
           // save duration here because it is not available while live
           this.streamsService.updateDuration({
             where: { videoId: video.id },
@@ -58,7 +59,7 @@ export class EndLivesScenario {
         ])
       })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
   private async updateMetrics(video: Video) {

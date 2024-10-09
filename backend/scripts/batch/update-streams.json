@@ -41,7 +41,7 @@
         "provisioningModel": "SPOT",
         "bootDisk": {
           "type": "pd-standard",
-          "sizeGb": 10
+          "sizeGb": "30"
         }
       }
     }

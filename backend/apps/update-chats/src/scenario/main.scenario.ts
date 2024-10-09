@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { MainService } from 'apps/update-chats/src/service/main.service'
+import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
 import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
@@ -12,7 +11,7 @@ import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
 @Injectable()
 export class MainScenario {
   constructor(
-    private readonly mainService: MainService,
+    private readonly promiseService: PromiseService,
     private readonly liveChatMessagesInfraService: LiveChatMessagesInfraService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService,
@@ -33,13 +32,13 @@ export class MainScenario {
 
       // TODO: new-members
       // {}
-      await allSettled(promises)
+      await this.promiseService.allSettled(promises)
     })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
-  /** とりあえず開始1分前から取得する */
+  /** とりあえずスケジュール上の開始から取得する */
   private async fetchLives() {
     return await this.streamsService.findAll({
       where: {
@@ -47,7 +46,7 @@ export class MainScenario {
           new StreamStatus('scheduled'),
           new StreamStatus('live')
         ]),
-        scheduledBefore: dayjs().add(1, 'minutes').toDate()
+        scheduledBefore: dayjs().toDate()
       },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000

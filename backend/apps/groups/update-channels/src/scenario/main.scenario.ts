@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
+import { PromiseService } from '@app/lib/promise-service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class MainScenario {
   constructor(
+    private readonly promiseService: PromiseService,
     private readonly channelsService: ChannelsService,
     private readonly channelsInfraService: ChannelsInfraService,
     private readonly groupsService: GroupsService
@@ -26,6 +27,6 @@ export class MainScenario {
       console.log(`end ${group.get()}`)
     })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 }

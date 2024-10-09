@@ -2,15 +2,16 @@ import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { MainService } from 'apps/update-streams/src/main.service'
 import { EndLivesScenario } from 'apps/update-streams/src/scenario/end-lives.scenario'
+import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
 import { StreamStatus, StreamStatuses } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
 
 @Injectable()
 export class MainScenario {
   constructor(
+    private readonly promiseService: PromiseService,
     private readonly endLivesScenario: EndLivesScenario,
     private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
@@ -20,7 +21,10 @@ export class MainScenario {
   async execute(): Promise<void> {
     // Streamが始まった、終わったの更新処理
     {
-      await allSettled([this.endLives(), this.handleScheduled()])
+      await this.promiseService.allSettled([
+        this.endLives(),
+        this.handleScheduled()
+      ])
     }
 
     // Live中のStreamのStats更新
@@ -49,7 +53,7 @@ export class MainScenario {
       limit: 1000
     })
 
-    await allSettled([
+    await this.promiseService.allSettled([
       /**
        * scheduledStartTime などが変わりうるので、最新の値でDBを更新
        */
