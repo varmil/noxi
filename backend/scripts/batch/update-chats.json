@@ -40,7 +40,7 @@
         "machineType": "e2-micro",
         "bootDisk": {
           "type": "pd-standard",
-          "sizeGb": 10
+          "sizeGb": "30"
         }
       }
     }
