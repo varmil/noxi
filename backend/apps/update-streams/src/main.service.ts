@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
 import dayjs from 'dayjs'
+import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { allSettled } from '@domain/lib/promise/allSettled'
 import { Streams, StreamTimes } from '@domain/stream'
 import { Count } from '@domain/stream-stats'
 import { Video, Videos } from '@domain/youtube'
@@ -10,6 +10,7 @@ import { Video, Videos } from '@domain/youtube'
 @Injectable()
 export class MainService {
   constructor(
+    private readonly promiseService: PromiseService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService
   ) {}
@@ -79,7 +80,7 @@ export class MainService {
       })
     })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
   /**
@@ -109,7 +110,7 @@ export class MainService {
         })
       })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
   /**
@@ -142,7 +143,7 @@ export class MainService {
       })
     })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 
   /**
@@ -164,6 +165,6 @@ export class MainService {
       ])
     })
 
-    await allSettled(promises)
+    await this.promiseService.allSettled(promises)
   }
 }

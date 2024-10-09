@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { LibAppModule } from '@app/lib/lib.app.module'
 import { StreamsService } from '@app/streams/streams.service'
 import { PubsubhubbubModule } from '@app/youtube/pubsubhubbub/pubsubhubbub.module'
 import { SubscribeService } from '@app/youtube/pubsubhubbub/subscribe.service'
@@ -9,7 +10,7 @@ describe('SubscribeService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [PubsubhubbubModule]
+      imports: [LibAppModule, PubsubhubbubModule]
     }).compile()
 
     service = module.get<SubscribeService>(SubscribeService)
