@@ -39,15 +39,6 @@ const cmd = schema1.parse(argv._[1])
       command = $`node dist/apps/${appName}/main`
       break
   }
-  console.log('$ ', command)
   command.stdout.pipe(process.stdout)
   await command
 }
-
-// {
-//   const exec = list[`${appName}:${cmd}`]
-//   console.log('$ ', exec)
-//   const p = $`eval ${exec}`
-//   p.stdout.pipe(process.stdout)
-//   await p
-// }

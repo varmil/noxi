@@ -1,5 +1,6 @@
 /**
  * Logging Error
+ * @deprecated use `AllSettledService`
  * @param promises
  * @returns
  */

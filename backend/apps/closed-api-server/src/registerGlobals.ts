@@ -4,6 +4,7 @@ import {
   ValidationPipe
 } from '@nestjs/common'
 import { NestExpressApplication } from '@nestjs/platform-express'
+import { useLogger } from '@app/lib/function/useLogger'
 
 export function registerGlobals(app: NestExpressApplication) {
   app.useBodyParser('json', { limit: '10mb' })
@@ -12,6 +13,8 @@ export function registerGlobals(app: NestExpressApplication) {
   app.useBodyParser('text', { type: 'application/rss+xml' })
   app.useBodyParser('text', { type: 'application/xml' })
   app.useBodyParser('text', { type: 'text/xml' })
+
+  useLogger(app)
 
   app.enableCors()
 

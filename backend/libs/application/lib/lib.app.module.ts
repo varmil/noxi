@@ -1,10 +1,9 @@
-import { Module } from '@nestjs/common'
-import { FirebaseAdminSDKService } from './firebase-admin-sdk.service'
+import { Global, Module } from '@nestjs/common'
+import { PromiseService } from '@app/lib/promise-service'
 
-/** @deprecated  */
+@Global()
 @Module({
-  providers: [FirebaseAdminSDKService],
-  exports: [FirebaseAdminSDKService],
-  imports: []
+  providers: [PromiseService],
+  exports: [PromiseService]
 })
 export class LibAppModule {}
