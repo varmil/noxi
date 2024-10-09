@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { MainScenario } from 'apps/update-chats/src/scenario/main.scenario'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { StreamStatsModule } from '@app/stream-stats/stream-stats.module'
 import { StreamsModule } from '@app/streams/stream.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
+import { MainScenario } from './scenario/main.scenario'
 import { MainService } from './service/main.service'
 
 @Module({

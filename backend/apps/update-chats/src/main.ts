@@ -1,8 +1,8 @@
 import { exit } from 'process'
 import { NestFactory } from '@nestjs/core'
-import { MainModule } from 'apps/update-chats/src/main.module'
-import { MainScenario } from 'apps/update-chats/src/scenario/main.scenario'
 import { useLogger } from '@app/lib/function/useLogger'
+import { MainModule } from './main.module'
+import { MainScenario } from './scenario/main.scenario'
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
