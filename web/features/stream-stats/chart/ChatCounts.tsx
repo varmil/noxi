@@ -58,7 +58,7 @@ export default function ChatCounts({
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
           <AreaChart
             accessibilityLayer
             data={data}

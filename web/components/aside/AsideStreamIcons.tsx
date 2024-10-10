@@ -45,7 +45,7 @@ export default async function AsideStreamIcons({}: PropsWithoutRef<Props>) {
               <Content
                 channelTitle={channel.basicInfo.title}
                 streamTitle={stream.snippet.title}
-                viewers={Number(liveStreamingDetails?.concurrentViewers ?? 0)}
+                viewers={liveStreamingDetails?.concurrentViewers ?? 0}
               />
             }
             roundedFull

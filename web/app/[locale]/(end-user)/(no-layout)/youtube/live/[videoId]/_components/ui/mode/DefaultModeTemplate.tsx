@@ -15,9 +15,9 @@ import {
 import PadSection from '../../layouts/default/PadSection'
 import MaximizeButton from '../button/MaximizeButton'
 import OpenChatButton from '../button/OpenChatButton'
+import RelatedVideos from '../related-videos/RelatedVideos'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
-import RelatedVideos from '../stream/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
 
@@ -101,7 +101,7 @@ export default async function DefaultModeTemplate({
               <div className="hidden @4xl:block">
                 <OpenChatButton />
               </div>
-              <RelatedVideos />
+              <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>
         </Page>
