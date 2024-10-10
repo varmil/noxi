@@ -2,18 +2,20 @@ import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
+import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { getStatistics } from 'apis/youtube/getStatistics'
 import { getStreams } from 'apis/youtube/getStreams'
 import Image from 'components/styles/Image'
 import Watching from 'components/styles/number/Watching'
 import Views from 'components/youtube/statistics/Views'
+import { Link } from 'lib/navigation'
 import { getGroup } from 'lib/server-only-context/cache'
 import { useRelatedVideos } from '../../../_hooks/useRelatedVideos'
 
 export default async function RelatedVideos({
   channelId
 }: PropsWithoutRef<{ channelId: string }>) {
-  const [liveStreams, endedStreams] = await Promise.all([
+  const [live, ended] = await Promise.all([
     getStreams({
       status: 'live',
       group: getGroup(),
@@ -27,17 +29,20 @@ export default async function RelatedVideos({
       limit: 7
     })
   ])
-  const streams = liveStreams.concat(endedStreams)
-  const [t, channels, statisticsList] = await Promise.all([
-    getTranslations('Features.stream'),
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
-    getStatistics({ videoIds: endedStreams.map(stream => stream.videoId) })
-  ])
+  const streams = live.concat(ended)
+  const [t, channels, liveStreamingDetailsList, statisticsList] =
+    await Promise.all([
+      getTranslations('Features.stream'),
+      getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+      getLiveStreamingDetails({ videoIds: live.map(stream => stream.videoId) }),
+      getStatistics({ videoIds: ended.map(stream => stream.videoId) })
+    ])
 
   const relatedVideos = useRelatedVideos({
-    liveStreams,
-    endedStreams,
+    liveStreams: live,
+    endedStreams: ended,
     channels,
+    liveStreamingDetailsList,
     statisticsList
   })
 
@@ -48,7 +53,11 @@ export default async function RelatedVideos({
       </CardHeader>
       <CardContent className="space-y-4 lg:px-0">
         {relatedVideos.map(video => (
-          <div key={video.id} className="flex space-x-2">
+          <Link
+            className="flex space-x-2"
+            key={video.id}
+            href={`/youtube/live/${video.id}`}
+          >
             <Image
               src={video.thumbnail ?? ''}
               alt={video.title}
@@ -57,7 +66,7 @@ export default async function RelatedVideos({
               height={96}
             />
             <div>
-              <h3 className="break-anywhere text-sm line-clamp-2 mb-0.5">
+              <h3 className="break-anywhere text-sm line-clamp-2 mb-1">
                 {video.title}
               </h3>
               <WeakLine>{video.channel}</WeakLine>
@@ -70,7 +79,7 @@ export default async function RelatedVideos({
                 ) : null}
               </WeakLine>
             </div>
-          </div>
+          </Link>
         ))}
       </CardContent>
     </Card>

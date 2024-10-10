@@ -1,4 +1,5 @@
 import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
+import { LiveStreamingDetailsListSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
 import { StatisticsListSchema } from 'apis/youtube/schema/data-api/statisticsSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 
@@ -25,10 +26,18 @@ export const useRelatedVideos = (args: {
   liveStreams: StreamsSchema
   endedStreams: StreamsSchema
   channels: ChannelsSchema
+  /** For Live Streams */
+  liveStreamingDetailsList: LiveStreamingDetailsListSchema
   /** For Ended Streams */
   statisticsList: StatisticsListSchema
 }): RelatedVideo[] => {
-  const { liveStreams, endedStreams, channels, statisticsList } = args
+  const {
+    liveStreams,
+    endedStreams,
+    channels,
+    liveStreamingDetailsList,
+    statisticsList
+  } = args
   const liveRelatedVideos: LiveRelatedVideo[] = liveStreams
     .map(stream => {
       const channel = channels.find(
@@ -36,14 +45,19 @@ export const useRelatedVideos = (args: {
       )
       if (!channel) return null
 
+      const video = liveStreamingDetailsList.find(
+        details => details.id === stream.videoId
+      )
+      if (!video) return null
+
       return {
         id: stream.videoId,
         status: 'live' as const,
         title: stream.snippet.title,
         channel: channel.basicInfo.title,
         thumbnail: stream.snippet.thumbnails['medium']?.url,
-        // TODO: For Live Streams. 適当な値にする
-        concurrentViewers: stream.metrics.peakConcurrentViewers
+        // For Live Streams.
+        concurrentViewers: video.liveStreamingDetails?.concurrentViewers ?? 0
       }
     })
     .filter(e => e !== null)
