@@ -1,3 +1,4 @@
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function RelatedVideos() {
@@ -40,11 +41,13 @@ export default function RelatedVideos() {
   ]
 
   return (
-    <div className="bg-secondary rounded-lg p-4 space-y-4">
-      <h2 className="text-xl font-semibold">Related Videos</h2>
-      <ScrollArea className="h-[400px]">
+    <Card className="bg-secondary border-none lg:bg-transparent lg:shadow-none">
+      <CardHeader className="lg:hidden">
+        <CardTitle>Related Videos</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4 lg:px-0">
         {relatedVideos.map(video => (
-          <div key={video.id} className="flex space-x-2 mb-4">
+          <div key={video.id} className="flex space-x-2">
             <img
               src={video.thumbnail}
               alt={video.title}
@@ -57,7 +60,7 @@ export default function RelatedVideos() {
             </div>
           </div>
         ))}
-      </ScrollArea>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
