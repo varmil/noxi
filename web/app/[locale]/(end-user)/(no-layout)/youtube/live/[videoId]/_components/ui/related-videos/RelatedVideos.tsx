@@ -1,44 +1,45 @@
+import { PropsWithChildren, PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { getChannels } from 'apis/youtube/getChannels'
+import { getStatistics } from 'apis/youtube/getStatistics'
+import { getStreams } from 'apis/youtube/getStreams'
+import Image from 'components/styles/Image'
+import Watching from 'components/styles/number/Watching'
+import Views from 'components/youtube/statistics/Views'
+import { getGroup } from 'lib/server-only-context/cache'
+import { useRelatedVideos } from '../../../_hooks/useRelatedVideos'
 
-export default function RelatedVideos() {
-  const relatedVideos = [
-    {
-      id: 1,
-      title: 'Related Video 1',
-      channel: 'Channel A',
-      views: '1M views',
-      thumbnail: '/placeholder.svg?height=94&width=168'
-    },
-    {
-      id: 2,
-      title: 'Related Video 2',
-      channel: 'Channel B',
-      views: '500K views',
-      thumbnail: '/placeholder.svg?height=94&width=168'
-    },
-    {
-      id: 3,
-      title: 'Related Video 3',
-      channel: 'Channel C',
-      views: '750K views',
-      thumbnail: '/placeholder.svg?height=94&width=168'
-    },
-    {
-      id: 4,
-      title: 'Related Video 4',
-      channel: 'Channel D',
-      views: '2M views',
-      thumbnail: '/placeholder.svg?height=94&width=168'
-    },
-    {
-      id: 5,
-      title: 'Related Video 5',
-      channel: 'Channel E',
-      views: '1.5M views',
-      thumbnail: '/placeholder.svg?height=94&width=168'
-    }
-  ]
+export default async function RelatedVideos({
+  channelId
+}: PropsWithoutRef<{ channelId: string }>) {
+  const [liveStreams, endedStreams] = await Promise.all([
+    getStreams({
+      status: 'live',
+      group: getGroup(),
+      orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
+      limit: 8
+    }),
+    getStreams({
+      status: 'ended',
+      channelId,
+      orderBy: [{ field: 'actualEndTime', order: 'desc' }],
+      limit: 7
+    })
+  ])
+  const streams = liveStreams.concat(endedStreams)
+  const [t, channels, statisticsList] = await Promise.all([
+    getTranslations('Features.stream'),
+    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getStatistics({ videoIds: endedStreams.map(stream => stream.videoId) })
+  ])
+
+  const relatedVideos = useRelatedVideos({
+    liveStreams,
+    endedStreams,
+    channels,
+    statisticsList
+  })
 
   return (
     <Card className="bg-secondary border-none lg:bg-transparent lg:shadow-none">
@@ -48,15 +49,26 @@ export default function RelatedVideos() {
       <CardContent className="space-y-4 lg:px-0">
         {relatedVideos.map(video => (
           <div key={video.id} className="flex space-x-2">
-            <img
-              src={video.thumbnail}
+            <Image
+              src={video.thumbnail ?? ''}
               alt={video.title}
-              className="w-40 h-24 object-cover rounded"
+              className="w-40 h-24 object-cover rounded-md"
+              width={160}
+              height={96}
             />
             <div>
-              <h3 className="font-semibold">{video.title}</h3>
-              <p className="text-sm text-gray-500">{video.channel}</p>
-              <p className="text-sm text-gray-500">{video.views}</p>
+              <h3 className="break-anywhere text-sm line-clamp-2 mb-0.5">
+                {video.title}
+              </h3>
+              <WeakLine>{video.channel}</WeakLine>
+              <WeakLine>
+                {video.status === 'live' ? (
+                  <Watching count={video.concurrentViewers} />
+                ) : null}
+                {video.status === 'ended' ? (
+                  <Views views={video.views} />
+                ) : null}
+              </WeakLine>
             </div>
           </div>
         ))}
@@ -64,3 +76,9 @@ export default function RelatedVideos() {
     </Card>
   )
 }
+
+const WeakLine = ({ children }: PropsWithChildren) => (
+  <div className="text-xs sm:text-sm line-clamp-1 text-muted-foreground">
+    {children}
+  </div>
+)

@@ -101,7 +101,7 @@ export default async function DefaultModeTemplate({
               <div className="hidden @4xl:block">
                 <OpenChatButton />
               </div>
-              <RelatedVideos />
+              <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>
         </Page>
