@@ -8,12 +8,12 @@ import { VideoInChannelGallery } from 'features/youtube/video/components/VideoIn
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
+import StreamTimeHistogram from 'features/youtube-stats/components/bar-chart/stream-time-histogram/StreamTimeHistogram'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
 import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
-import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string }
 
@@ -53,16 +53,25 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
 
         <Section
           className="lg:col-span-full lg:order-3"
-          title={t('doWAnalysis')}
+          title={t('timeSlotAnalysis')}
         >
-          <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
-            <UploadsPerDayOfWeekBarChart videos={videos} />
-            <ViewsPerDoWBarChart videos={videos} />
-          </div>
+          <ChartGrid>
+            <StreamTimeHistogram channelId={basicInfo.id} />
+          </ChartGrid>
         </Section>
 
         <Section
           className="lg:col-span-full lg:order-4"
+          title={t('doWAnalysis')}
+        >
+          <ChartGrid>
+            <UploadsPerDayOfWeekBarChart videos={videos} />
+            <ViewsPerDoWBarChart videos={videos} />
+          </ChartGrid>
+        </Section>
+
+        <Section
+          className="lg:col-span-full lg:order-5"
           title={t('liveStreams')}
         >
           <Suspense fallback={<p>Loading Live Streams...</p>}>
@@ -97,5 +106,13 @@ function Section({
         {children}
       </div>
     </section>
+  )
+}
+
+function ChartGrid({ children }: PropsWithChildren) {
+  return (
+    <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
+      {children}
+    </div>
   )
 }

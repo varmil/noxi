@@ -70,6 +70,7 @@
         "template": {
           "liveTrends": "Live Stream Trends",
           "data": "Data",
+          "timeSlotAnalysis": "Time slot analysis",
           "doWAnalysis": "Days of the week analysis",
           "liveStreams": "Past Streams"
         }
@@ -156,6 +157,10 @@
         "chart": {
           "peakConcurrentViewersChart": "Peak Concurrent Viewers per live",
           "viewsChart": "Views per live",
+          "streamTimeHistogram": "Live Streaming Time",
+          "descStreamTimeHistogram": "Shows the frequency of YouTube Live streams in each time slot, counted throughout the entire stream time.",
+          "timeSlot": "Time Slot",
+          "streamFrequency": "Count",
           "srPeakConcurrentViewersChart": "The bar graph shows the peak concurrent viewers for a live stream on {dateRange}. The number of average concurrent viewers is {viewers}.",
           "srViewsChart": "The bar graph shows the number of views of live streams during {dateRange}. The average number of views is {views}.",
           "srUploadsPerDoWChart": "The bar graph shows the number of videos uploaded on each day of the week. This allows you to analyze which days of the week the channel is most active.",
