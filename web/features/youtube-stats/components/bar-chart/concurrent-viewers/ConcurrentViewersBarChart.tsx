@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
-import Chart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/Chart'
 import { getStreamsForStatsChart } from 'features/youtube-stats/utils/getStreamsForStatsChart'
+import Chart from './Chart'
 
 const chartConfig = {
   desktop: {

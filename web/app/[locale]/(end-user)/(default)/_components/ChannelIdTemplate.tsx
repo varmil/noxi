@@ -8,12 +8,12 @@ import { VideoInChannelGallery } from 'features/youtube/video/components/VideoIn
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
+import StreamTimeHistogram from 'features/youtube-stats/components/bar-chart/stream-time-histogram/StreamTimeHistogram'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
 import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
-import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string }
 
@@ -49,6 +49,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         <Section className="lg:col-span-2 lg:order-1" title={t('liveTrends')}>
           <ConcurrentViewersBarChart channelId={basicInfo.id} />
           <ViewsBarChart channelId={basicInfo.id} />
+          <StreamTimeHistogram channelId={basicInfo.id} />
         </Section>
 
         <Section
