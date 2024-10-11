@@ -71,7 +71,6 @@ export default async function DefaultModeTemplate({
             />
           </section>
 
-          {/* XS only: Chat*/}
           <XSChatContainer>
             <EmbedLiveChat videoId={videoId} showCloseButton />
           </XSChatContainer>
