@@ -14,8 +14,8 @@ export default function PadSection({
   /** 2カラム表示時：右カラム */
   right?: boolean
 }>) {
-  const LG_LEFT_PX = 'lg:pl-4 lg:pr-2'
-  const LG_RIGHT_PX = 'lg:pr-4 lg:pl-2'
+  const LG_LEFT_PX = '@4xl:pl-4 @4xl:pr-2'
+  const LG_RIGHT_PX = '@4xl:pr-4 @4xl:pl-2'
   return (
     <section
       className={`flex flex-col ${PageXSPX} ${left ? LG_LEFT_PX : ''} ${

@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormatter, useTranslations } from 'next-intl'
-import { YAxis, Area, AreaChart, CartesianGrid } from 'recharts'
+import { Area, AreaChart, CartesianGrid } from 'recharts'
 import {
   Card,
   CardContent,
@@ -138,10 +138,11 @@ const useGroupByMinute = (
   time: string
 }[] => {
   const format = useFormatter()
+  const interval = useXAxisInterval(data.length)
   const reduced = data.reduce((acc, chat) => {
     const date = new Date(chat.createdAt)
     const minutes = date.getMinutes()
-    const roundedMinutes = Math.floor(minutes / 5) * 5 // 5分単位に丸める
+    const roundedMinutes = Math.floor(minutes / interval) * interval // {interval}分単位に丸める
 
     // 分を5分単位にセットし、秒とミリ秒を0にリセット
     date.setMinutes(roundedMinutes)
@@ -168,4 +169,24 @@ const useGroupByMinute = (
 
   // reduced の結果を配列として返す
   return Object.values(reduced)
+}
+
+/**
+ *
+ * @param length the length of ChatCountsSchema
+ * @returns the minute(s) interval
+ */
+const useXAxisInterval = (length: number) => {
+  switch (true) {
+    case length < 120:
+      return 1
+    case length < 180:
+      return 2
+    case length < 240:
+      return 3
+    case length < 300:
+      return 4
+    default:
+      return 5
+  }
 }
