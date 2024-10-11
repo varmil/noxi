@@ -84,9 +84,7 @@ export default async function DefaultModeTemplate({
             >
               <MaximizeButton />
               <StreamBasicInfo stream={stream} />
-              <div className="@xs:block @4xl:hidden">
-                <OpenChatButton />
-              </div>
+              <OpenChatButton className="@xs:block @4xl:hidden" />
               <StreamStatsCards stream={stream} />
               <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
               <ChatCounts stream={stream} chatCounts={chatCounts} />
@@ -97,9 +95,7 @@ export default async function DefaultModeTemplate({
               right
               className="gap-y-4 @xs:col-span-full @4xl:col-span-2"
             >
-              <div className="hidden @4xl:block">
-                <OpenChatButton />
-              </div>
+              <OpenChatButton className="hidden @4xl:block" />
               <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>
