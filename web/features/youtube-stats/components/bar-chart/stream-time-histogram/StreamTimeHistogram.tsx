@@ -5,7 +5,7 @@ import Chart from './Chart'
 
 const chartConfig = {
   main: {
-    color: 'hsl(var(--chart-1))'
+    color: 'hsl(var(--chart-5))'
   }
 } satisfies ChartConfig
 

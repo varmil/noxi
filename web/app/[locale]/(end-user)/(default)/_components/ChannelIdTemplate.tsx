@@ -49,21 +49,29 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         <Section className="lg:col-span-2 lg:order-1" title={t('liveTrends')}>
           <ConcurrentViewersBarChart channelId={basicInfo.id} />
           <ViewsBarChart channelId={basicInfo.id} />
-          <StreamTimeHistogram channelId={basicInfo.id} />
         </Section>
 
         <Section
           className="lg:col-span-full lg:order-3"
-          title={t('doWAnalysis')}
+          title={t('timeSlotAnalysis')}
         >
-          <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
-            <UploadsPerDayOfWeekBarChart videos={videos} />
-            <ViewsPerDoWBarChart videos={videos} />
-          </div>
+          <ChartGrid>
+            <StreamTimeHistogram channelId={basicInfo.id} />
+          </ChartGrid>
         </Section>
 
         <Section
           className="lg:col-span-full lg:order-4"
+          title={t('doWAnalysis')}
+        >
+          <ChartGrid>
+            <UploadsPerDayOfWeekBarChart videos={videos} />
+            <ViewsPerDoWBarChart videos={videos} />
+          </ChartGrid>
+        </Section>
+
+        <Section
+          className="lg:col-span-full lg:order-5"
           title={t('liveStreams')}
         >
           <Suspense fallback={<p>Loading Live Streams...</p>}>
@@ -98,5 +106,13 @@ function Section({
         {children}
       </div>
     </section>
+  )
+}
+
+function ChartGrid({ children }: PropsWithChildren) {
+  return (
+    <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
+      {children}
+    </div>
   )
 }

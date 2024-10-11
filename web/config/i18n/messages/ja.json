@@ -69,6 +69,7 @@
         "template": {
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
+          "timeSlotAnalysis": "配信時間帯の分析",
           "doWAnalysis": "曜日ごとの週間分析",
           "liveStreams": "過去の配信"
         }
@@ -155,6 +156,10 @@
         "chart": {
           "peakConcurrentViewersChart": "最大同時視聴者数 - ライブ配信",
           "viewsChart": "視聴回数 - ライブ配信",
+          "streamTimeHistogram": "ライブ配信時間帯",
+          "descStreamTimeHistogram": "各時間帯におけるYouTubeライブ配信の頻度を表示しています。配信時間全体を通じてカウントされています。",
+          "timeSlot": "時間帯",
+          "streamFrequency": "配信回数",
           "srPeakConcurrentViewersChart": "{dateRange}におけるライブ配信の最大視聴者数を棒グラフで示しています。この期間の平均視聴者数は{viewers}人です。",
           "srViewsChart": "{dateRange}におけるライブ配信の視聴回数を棒グラフで示しています。この期間の平均視聴回数は{views}回です。",
           "srUploadsPerDoWChart": "1週間の各曜日における動画のアップロード数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",

@@ -1,6 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from 'recharts'
 import {
   Card,
@@ -11,6 +12,7 @@ import {
 } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import CustomTooltip from './CustomTooltip'
 
 type Props = {
   streams: StreamsSchema
@@ -21,31 +23,29 @@ export default function Chart({
   streams,
   chartConfig
 }: PropsWithoutRef<Props>) {
-  const histogramData = processData(streams)
+  const t = useTranslations('Features.youtube.stats.chart')
+  const histogram = useHistogram(streams)
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
-        <CardTitle>ライブ時間帯</CardTitle>
-        <CardDescription>
-          各時間帯におけるYouTubeライブ配信の頻度を表示しています。配信時間全体を通じてカウントされています。
-        </CardDescription>
+        <CardTitle>{t('streamTimeHistogram')}</CardTitle>
+        <CardDescription>{t('descStreamTimeHistogram')}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
-          <BarChart data={histogramData}>
+          <BarChart data={histogram}>
             <XAxis
-              dataKey="hour"
+              dataKey="text"
               tickLine={false}
               axisLine={false}
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
+              minTickGap={32}
             />
             <YAxis
               tickLine={false}
               axisLine={false}
               width={37}
               tickMargin={8}
-              tick={{ fill: 'hsl(var(--muted-foreground))' }}
             />
             <Tooltip content={<CustomTooltip />} />
             <Bar
@@ -60,36 +60,18 @@ export default function Chart({
   )
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="rounded-lg border bg-background p-2 shadow-sm">
-        <div className="grid grid-cols-2 gap-2">
-          <div className="flex flex-col">
-            <span className="text-[0.70rem] uppercase text-muted-foreground">
-              時間帯
-            </span>
-            <span className="font-bold text-muted-foreground">{label}</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[0.70rem] uppercase text-muted-foreground">
-              配信回数
-            </span>
-            <span className="font-bold">{payload[0].value}</span>
-          </div>
-        </div>
-      </div>
-    )
-  }
-  return null
-}
-
-const processData = (streams: StreamsSchema) => {
-  const hourCounts: { [key: string]: number } = {}
+const useHistogram = (streams: StreamsSchema) => {
+  const format = useFormatter()
+  const hourCounts: { [key: string]: { text: string; count: number } } = {}
 
   // 24時間すべてについてプロットしたいので。
   for (let i = 0; i < 24; i++) {
-    hourCounts[i] = 0
+    hourCounts[i] = {
+      text: format.dateTime(new Date().setHours(i, 0, 0, 0), {
+        hour: 'numeric'
+      }),
+      count: 0
+    }
   }
 
   streams.forEach(stream => {
@@ -106,15 +88,19 @@ const processData = (streams: StreamsSchema) => {
 
       while (currentHour <= endTime) {
         const hour = currentHour.getHours()
-        hourCounts[hour] = (hourCounts[hour] || 0) + 1
+        hourCounts[hour] = {
+          text: format.dateTime(currentHour, { hour: 'numeric' }),
+          count: (hourCounts[hour].count || 0) + 1
+        }
         currentHour.setHours(currentHour.getHours() + 1)
       }
     }
   })
 
   const data = Object.entries(hourCounts)
-    .map(([hour, count]) => ({
-      hour: `${hour}時`,
+    .map(([hour, { text, count }]) => ({
+      hour,
+      text,
       count
     }))
     // 6時から始まるようにソート
