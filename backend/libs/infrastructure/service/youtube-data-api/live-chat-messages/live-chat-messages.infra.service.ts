@@ -1,6 +1,5 @@
 import { type youtube_v3, youtube } from '@googleapis/youtube'
 import { Injectable } from '@nestjs/common'
-import axios from 'axios'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
 import { NextPageToken } from '@domain/youtube'
 import { LiveChatId, LiveChatMessages } from '@domain/youtube/live-chat-message'
