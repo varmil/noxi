@@ -139,7 +139,6 @@ const useGroupByMinute = (
 }[] => {
   const format = useFormatter()
   const interval = useXAxisInterval(data.length)
-  console.log('interval', interval)
   const reduced = data.reduce((acc, chat) => {
     const date = new Date(chat.createdAt)
     const minutes = date.getMinutes()
