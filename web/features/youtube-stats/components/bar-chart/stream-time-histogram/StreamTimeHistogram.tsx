@@ -17,5 +17,10 @@ export default async function StreamTimeHistogram({
   channelId
 }: PropsWithoutRef<Props>) {
   const streams = await getStreamsForStatsChart({ channelId })
+
+  if (streams.length === 0) {
+    return null
+  }
+
   return <Chart chartConfig={chartConfig} streams={streams} />
 }

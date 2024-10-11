@@ -26,7 +26,7 @@ export default function Chart({
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader>
-        <CardTitle>配信時間帯</CardTitle>
+        <CardTitle>ライブ時間帯</CardTitle>
         <CardDescription>
           各時間帯におけるYouTubeライブ配信の頻度を表示しています。配信時間全体を通じてカウントされています。
         </CardDescription>
@@ -87,6 +87,11 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 const processData = (streams: StreamsSchema) => {
   const hourCounts: { [key: string]: number } = {}
 
+  // 24時間すべてについてプロットしたいので。
+  for (let i = 0; i < 24; i++) {
+    hourCounts[i] = 0
+  }
+
   streams.forEach(stream => {
     const {
       streamTimes: { actualStartTime, actualEndTime }
@@ -112,7 +117,16 @@ const processData = (streams: StreamsSchema) => {
       hour: `${hour}時`,
       count
     }))
-    .sort((a, b) => parseInt(a.hour) - parseInt(b.hour))
+    // 6時から始まるようにソート
+    .sort((a, b) => {
+      const START = 6
+      const hourA = parseInt(a.hour)
+      const hourB = parseInt(b.hour)
+      return (
+        (hourA < START ? hourA + 24 : hourA) -
+        (hourB < START ? hourB + 24 : hourB)
+      )
+    })
 
   return data
 }

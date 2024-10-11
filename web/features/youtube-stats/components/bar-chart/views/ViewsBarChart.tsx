@@ -23,6 +23,10 @@ export default async function ViewsBarChart({
     videoIds: streams.map(stream => stream.videoId)
   })
 
+  if (streams.length === 0) {
+    return null
+  }
+
   return (
     <Chart
       chartConfig={chartConfig}
