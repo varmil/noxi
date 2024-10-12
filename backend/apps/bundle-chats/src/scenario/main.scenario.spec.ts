@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/bundle-chats/src/main.module'
 import { MainScenario } from 'apps/bundle-chats/src/scenario/main.scenario'
@@ -16,7 +17,7 @@ describe('MainScenario', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [MainModule]
     }).compile()
-
+    module.useLogger(false)
     scenario = module.get<MainScenario>(MainScenario)
   })
 
