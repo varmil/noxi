@@ -1,4 +1,3 @@
-import { Logger } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/bundle-chats/src/main.module'
 import { MainScenario } from 'apps/bundle-chats/src/scenario/main.scenario'
