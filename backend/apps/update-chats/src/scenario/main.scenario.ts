@@ -38,19 +38,24 @@ export class MainScenario {
     await this.promiseService.allSettled(promises)
   }
 
-  /** とりあえずスケジュール上の開始から取得する */
+  /**
+   * とりあえずスケジュール上の開始から取得する
+   * メンバー限定配信は省く
+   */
   private async fetchLives() {
-    return await this.streamsService.findAll({
-      where: {
-        status: new StreamStatuses([
-          new StreamStatus('scheduled'),
-          new StreamStatus('live')
-        ]),
-        scheduledBefore: dayjs().toDate()
-      },
-      orderBy: [{ scheduledStartTime: 'asc' }],
-      limit: 1000
-    })
+    return (
+      await this.streamsService.findAll({
+        where: {
+          status: new StreamStatuses([
+            new StreamStatus('scheduled'),
+            new StreamStatus('live')
+          ]),
+          scheduledBefore: dayjs().toDate()
+        },
+        orderBy: [{ scheduledStartTime: 'asc' }],
+        limit: 1000
+      })
+    ).filter(stream => !stream.membersOnly)
   }
 
   private async saveChatCounts(videoId: VideoId) {

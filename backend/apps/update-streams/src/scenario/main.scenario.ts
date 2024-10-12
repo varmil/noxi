@@ -93,14 +93,17 @@ export class MainScenario {
   }
 
   private async updateStats() {
-    const streams = await this.streamsService.findAll({
-      where: {
-        status: new StreamStatuses([new StreamStatus('live')])
-      },
-      orderBy: [{ scheduledStartTime: 'asc' }],
-      limit: 1000
-    })
-    console.log('updateStats/live/streams', streams.length)
+    const streams = (
+      await this.streamsService.findAll({
+        where: {
+          status: new StreamStatuses([new StreamStatus('live')])
+        },
+        orderBy: [{ scheduledStartTime: 'asc' }],
+        limit: 1000
+      })
+    ).filter(stream => !stream.membersOnly)
+
+    console.log('live/not-members-only/streams', streams.length)
     if (streams.length === 0) return
 
     const { items: videos } = await this.videosService.findAll({
