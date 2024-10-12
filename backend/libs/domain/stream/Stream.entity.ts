@@ -1,4 +1,4 @@
-import { Expose, Transform } from 'class-transformer'
+import { Exclude, Expose, Transform } from 'class-transformer'
 import { Group } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
 import { VideoId, Duration, Snippet } from '@domain/youtube'
@@ -38,5 +38,20 @@ export class Stream {
   @Transform(({ value }: { value: StreamStatus }) => value.get())
   get status() {
     return this.streamTimes.streamStatus
+  }
+
+  /** 簡易的にタイトルに特定の文字列があるかどうかで判定 */
+  @Exclude()
+  get membersOnly() {
+    const TITLES = [
+      'members only',
+      'member stream',
+      'membership',
+      'メンバー限定',
+      'メン限'
+    ]
+    return TITLES.some(title =>
+      this.snippet.title.toLowerCase().replaceAll('-', ' ').includes(title)
+    )
   }
 }

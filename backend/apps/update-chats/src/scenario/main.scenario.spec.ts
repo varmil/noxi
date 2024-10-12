@@ -11,12 +11,8 @@ describe('MainScenario', () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [MainModule]
     }).compile()
-
+    module.useLogger(false)
     scenario = module.get<MainScenario>(MainScenario)
-  })
-
-  it('should be defined', () => {
-    expect(scenario).toBeDefined()
   })
 
   describe('execute()', () => {
