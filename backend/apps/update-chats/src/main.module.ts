@@ -6,6 +6,8 @@ import { StreamsModule } from '@app/streams/stream.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { MainScenario } from './scenario/main.scenario'
 import { MainService } from './service/main.service'
+import { SuperChatsService } from './service/super-chats.service'
+import { SuperStickersService } from './service/super-stickers.service'
 
 @Module({
   imports: [
@@ -17,6 +19,11 @@ import { MainService } from './service/main.service'
     StreamStatsModule
   ],
   controllers: [],
-  providers: [MainScenario, MainService]
+  providers: [
+    MainScenario,
+    MainService,
+    SuperChatsService,
+    SuperStickersService
+  ]
 })
 export class MainModule {}

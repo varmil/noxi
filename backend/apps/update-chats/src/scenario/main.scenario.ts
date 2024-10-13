@@ -1,116 +1,66 @@
-import { Injectable } from '@nestjs/common'
-import dayjs from 'dayjs'
+import { Injectable, Logger } from '@nestjs/common'
+import { MainService } from 'apps/update-chats/src/service/main.service'
+import { SuperChatsService } from 'apps/update-chats/src/service/super-chats.service'
+import { SuperStickersService } from 'apps/update-chats/src/service/super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { VideosService } from '@app/youtube/videos/videos.service'
-import { StreamStatuses, StreamStatus } from '@domain/stream'
 import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
-import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
+import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 
 @Injectable()
 export class MainScenario {
+  private readonly logger = new Logger(MainScenario.name)
+
   constructor(
     private readonly promiseService: PromiseService,
-    private readonly liveChatMessagesInfraService: LiveChatMessagesInfraService,
+    private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService,
-    private readonly videosService: VideosService
+    private readonly superChatsService: SuperChatsService,
+    private readonly superStickersService: SuperStickersService
   ) {}
 
   async execute(): Promise<void> {
-    const lives = await this.fetchLives()
+    const lives = await this.mainService.fetchLives()
     const promises = lives.map(async ({ videoId }) => {
       const promises: Promise<void>[] = []
+
+      const res = await this.mainService.fetchNewMessages(videoId)
+      if (!res) return
+      const { newMessages, nextPageToken } = res
+
       // chat-counts
       {
-        promises.push(this.saveChatCounts(videoId))
+        promises.push(
+          this.saveChatCounts({ videoId, newMessages, nextPageToken })
+        )
       }
 
-      // TODO: super-chats, super-stickers
-      // {}
+      // super-chats, super-stickers
+      {
+        promises.push(this.superChatsService.save({ videoId, newMessages }))
+        promises.push(this.superStickersService.save({ videoId, newMessages }))
+      }
 
       // TODO: new-members
       // {}
+
       await this.promiseService.allSettled(promises)
     })
 
     await this.promiseService.allSettled(promises)
   }
 
-  /**
-   * とりあえずスケジュール上の開始から取得する
-   * メンバー限定配信は省く
-   */
-  private async fetchLives() {
-    return (
-      await this.streamsService.findAll({
-        where: {
-          status: new StreamStatuses([
-            new StreamStatus('scheduled'),
-            new StreamStatus('live')
-          ]),
-          scheduledBefore: dayjs().toDate()
-        },
-        orderBy: [{ scheduledStartTime: 'asc' }],
-        limit: 1000
-      })
-    ).filter(stream => !stream.membersOnly)
-  }
-
-  private async saveChatCounts(videoId: VideoId) {
-    // setup TODO: liveChatIdをStreamから取れるようにする
-    const video = await this.videosService.findById(videoId)
-    if (!video) return
-    const liveChatId = video.liveStreamingDetails?.activeLiveChatId
-    if (!liveChatId) return
-
-    // 前回の結果を取得
-    const latestChatCount = await this.streamStatsService.findLatestChatCount({
-      where: { videoId }
-    })
-
-    const { items, nextPageToken } =
-      await this.liveChatMessagesInfraService.list({
-        liveChatId,
-        pageToken: latestChatCount?.nextPageToken
-      })
-
-    const newMessages = items.selectNewerThan(
-      latestChatCount?.latestPublishedAt
-    )
-
-    if (
-      video.snippet.channelId === 'UC-hM6YJuNYVAmUWxeIr9FeA' ||
-      video.snippet.channelId === 'UC1DCedRgGHBdm81E1llLhOQ'
-    ) {
-      console.log(
-        `saveChatCounts/${video.snippet.title}`,
-        JSON.stringify(
-          {
-            first: newMessages.first()?.publishedAt.get(),
-            last: newMessages.latestPublishedAt?.get()
-          },
-          null,
-          2
-        )
-      )
-    }
-
-    console.log(
-      'saveChatCounts/newMessages',
-      JSON.stringify(
-        {
-          title: video.snippet.title,
-          videoId: videoId.get(),
-          all: newMessages.all.get(),
-          member: newMessages.member.get()
-        },
-        null,
-        2
-      )
-    )
-
+  private async saveChatCounts({
+    videoId,
+    newMessages,
+    nextPageToken
+  }: {
+    videoId: VideoId
+    newMessages: LiveChatMessages
+    nextPageToken?: string
+  }) {
     await this.streamStatsService.saveChatCount({
       data: {
         videoId,

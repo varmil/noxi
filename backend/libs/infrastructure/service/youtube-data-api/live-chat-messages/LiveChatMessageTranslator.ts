@@ -25,7 +25,8 @@ export class LiveChatMessageTranslator {
         amountMicros: Number(snippet.superChatDetails.amountMicros),
         currency: snippet.superChatDetails.currency,
         amountDisplayString: snippet.superChatDetails.amountDisplayString,
-        tier: snippet.superChatDetails.tier
+        tier: snippet.superChatDetails.tier,
+        userComment: snippet.superChatDetails.userComment
       })
     }
 
@@ -35,7 +36,8 @@ export class LiveChatMessageTranslator {
         amountMicros: Number(snippet.superStickerDetails.amountMicros),
         currency: snippet.superStickerDetails.currency,
         amountDisplayString: snippet.superStickerDetails.amountDisplayString,
-        tier: snippet.superStickerDetails.tier
+        tier: snippet.superStickerDetails.tier,
+        stickerId: snippet.superStickerDetails.stickerId
       })
     }
 
