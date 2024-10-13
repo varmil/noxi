@@ -32,9 +32,12 @@ export class SaveSuperChatsService {
         message.snippet.superChatDetails
 
       this.logger.log(
-        `VideoId  : ${videoId.get()},
-         Group   : ${group.get()},
-         SuperChat: ${amountMicros.get()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()}`
+        `VideoId     : ${videoId.get()},
+         Group       : ${group.get()},
+         SuperChat   : ${amountMicros.get()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
+         UserComment : ${userComment.get()}
+         Author      : ${JSON.stringify(message.authorDetails)}
+        `
       )
 
       await this.superChatsService.save({
@@ -45,7 +48,8 @@ export class SaveSuperChatsService {
           currency,
           amountDisplayString,
           tier,
-          userComment
+          userComment,
+          author: message.authorDetails
         }
       })
     })

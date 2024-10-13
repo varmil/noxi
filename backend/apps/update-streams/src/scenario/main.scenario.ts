@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { MainService } from 'apps/update-streams/src/main.service'
 import { EndLivesScenario } from 'apps/update-streams/src/scenario/end-lives.scenario'
@@ -10,6 +10,8 @@ import { VideoIds } from '@domain/youtube'
 
 @Injectable()
 export class MainScenario {
+  private readonly logger = new Logger(MainScenario.name)
+
   constructor(
     private readonly promiseService: PromiseService,
     private readonly endLivesScenario: EndLivesScenario,
@@ -45,7 +47,7 @@ export class MainScenario {
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
-    console.log('handleScheduled/streams', streams.length)
+    this.logger.log(`handleScheduled/streams: ${streams.length}`)
     if (streams.length === 0) return
 
     const { items: videos } = await this.videosService.findAll({
@@ -103,7 +105,7 @@ export class MainScenario {
       })
     ).filter(stream => !stream.membersOnly)
 
-    console.log('live/not-members-only/streams', streams.length)
+    this.logger.log(`live/not-members-only/streams: ${streams.length}`)
     if (streams.length === 0) return
 
     const { items: videos } = await this.videosService.findAll({

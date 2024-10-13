@@ -4,11 +4,19 @@ import {
   AmountDisplayString,
   AmountMicros,
   Currency,
+  StickerId,
   Tier,
   UserComment
 } from '@domain/super-xxx'
-import { PublishedAt } from '@domain/youtube'
 import {
+  ChannelURL,
+  DisplayName,
+  IsChatSponsor,
+  ProfileImageUrl
+} from '@domain/super-xxx/base/author'
+import { ChannelId, PublishedAt } from '@domain/youtube'
+import {
+  AuthorDetails,
   LiveChatMessage,
   Snippet,
   SuperChatDetails,
@@ -24,7 +32,16 @@ export class LiveChatMessageTranslator {
     const item = this.parse()
     if (!item) return undefined
 
-    const { snippet } = item
+    const {
+      snippet,
+      authorDetails: {
+        channelId,
+        channelUrl,
+        displayName,
+        profileImageUrl,
+        isChatSponsor
+      }
+    } = item
 
     let superChatDetails: SuperChatDetails | undefined
     if (snippet.superChatDetails) {
@@ -48,7 +65,7 @@ export class LiveChatMessageTranslator {
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
         tier: new Tier(tier),
-        stickerId: stickerId
+        stickerId: new StickerId(stickerId)
       })
     }
 
@@ -59,7 +76,14 @@ export class LiveChatMessageTranslator {
         superChatDetails,
         superStickerDetails
       }),
-      authorDetails: item.authorDetails
+      authorDetails: new AuthorDetails({
+        ...item.authorDetails,
+        channelId: new ChannelId(channelId),
+        channelUrl: new ChannelURL(channelUrl),
+        displayName: new DisplayName(displayName),
+        profileImageUrl: new ProfileImageUrl(profileImageUrl),
+        isChatSponsor: new IsChatSponsor(isChatSponsor)
+      })
     })
   }
 

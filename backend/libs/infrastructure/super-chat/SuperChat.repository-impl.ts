@@ -14,7 +14,8 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
       currency,
       amountDisplayString,
       tier,
-      userComment
+      userComment,
+      author
     }
   }: Parameters<SuperChatRepository['save']>[0]) {
     await this.prismaInfraService.youtubeStreamSuperChat.create({
@@ -26,6 +27,12 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
         amountDisplayString: amountDisplayString.get(),
         tier: tier.get(),
         userComment: userComment.get(),
+
+        authorChannelId: author.channelId.get(),
+        authorDisplayName: author.displayName.get(),
+        authorProfileImageUrl: author.profileImageUrl.get(),
+        authorIsChatSponsor: author.isChatSponsor.get(),
+
         createdAt: new Date()
       }
     })

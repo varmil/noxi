@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
@@ -14,6 +14,8 @@ interface SubscribeYouTubePubsubQuery {
 
 @Injectable()
 export class SubscribeService {
+  private readonly logger = new Logger(SubscribeService.name)
+
   constructor(
     private readonly promiseService: PromiseService,
     private readonly groupsService: GroupsService
@@ -21,9 +23,7 @@ export class SubscribeService {
 
   async execute(): Promise<void> {
     const promises = this.groupsService.findAll().map(async group => {
-      console.log(`start ${group.get()}`)
       await this.subscribe(group.channelIds)
-      console.log(`end ${group.get()}`)
     })
     await this.promiseService.allSettled(promises)
   }
@@ -61,10 +61,15 @@ export class SubscribeService {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }
       )
-      console.log('Subscription request sent:', query.channelId.get())
+      this.logger.log('Subscription request sent:', query.channelId.get())
     } catch (error) {
       if (error instanceof AxiosError) {
-        console.error('error status:', error.status, 'message:', error.message)
+        this.logger.error(
+          'error status:',
+          error.status,
+          'message:',
+          error.message
+        )
       }
       throw new Error('Failed to send subscription request')
     }

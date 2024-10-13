@@ -107,6 +107,12 @@ model YoutubeStreamSuperChat {
   userComment         String
   tier                Int
 
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+  authorIsChatSponsor   Boolean
+
   group     String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
@@ -125,6 +131,12 @@ model YoutubeStreamSuperSticker {
   amountDisplayString String
   stickerId           String
   tier                Int
+
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+  authorIsChatSponsor   Boolean
 
   group     String
   createdAt DateTime @default(now()) @db.Timestamptz(3)

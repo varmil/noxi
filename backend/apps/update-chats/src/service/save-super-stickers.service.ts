@@ -1,22 +1,18 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
-import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
-import { StreamsService } from '@app/streams/streams.service'
-import { VideosService } from '@app/youtube/videos/videos.service'
+import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
-import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class SaveSuperStickersService {
   private readonly logger = new Logger(SaveSuperStickersService.name)
 
   constructor(
+    private readonly groupsService: GroupsService,
     private readonly promiseService: PromiseService,
-    private readonly liveChatMessagesInfraService: LiveChatMessagesInfraService,
-    private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService,
-    private readonly videosService: VideosService
+    private readonly superStickersService: SuperStickersService
   ) {}
 
   async execute({
@@ -26,6 +22,39 @@ export class SaveSuperStickersService {
     videoId: VideoId
     newMessages: LiveChatMessages
   }) {
-    // TODO:
+    const group = await this.groupsService.findOne({ where: { videoId } })
+    if (!group) return
+
+    const promises = newMessages.map(async message => {
+      if (!message.isSuperSticker || !message.snippet.superStickerDetails)
+        return
+
+      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
+        message.snippet.superStickerDetails
+
+      this.logger.log(
+        `VideoId      : ${videoId.get()},
+         Group        : ${group.get()},
+         SuperSticker : ${amountMicros.get()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
+         StickerId    : ${stickerId.get()}
+         Author       : ${JSON.stringify(message.authorDetails)}
+        `
+      )
+
+      await this.superStickersService.save({
+        data: {
+          videoId,
+          group,
+          amountMicros,
+          currency,
+          amountDisplayString,
+          tier,
+          stickerId,
+          author: message.authorDetails
+        }
+      })
+    })
+
+    await this.promiseService.allSettled(promises)
   }
 }

@@ -14,7 +14,8 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
       currency,
       amountDisplayString,
       tier,
-      stickerId
+      stickerId,
+      author
     }
   }: Parameters<SuperStickerRepository['save']>[0]) {
     await this.prismaInfraService.youtubeStreamSuperSticker.create({
@@ -26,6 +27,12 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
         amountDisplayString: amountDisplayString.get(),
         tier: tier.get(),
         stickerId: stickerId.get(),
+
+        authorChannelId: author.channelId.get(),
+        authorDisplayName: author.displayName.get(),
+        authorProfileImageUrl: author.profileImageUrl.get(),
+        authorIsChatSponsor: author.isChatSponsor.get(),
+
         createdAt: new Date()
       }
     })

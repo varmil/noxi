@@ -1,11 +1,12 @@
+import { StickerId } from '@domain/super-xxx'
 import { SuperXXXDetails } from './SuperXXXDetails'
 
 export class SuperStickerDetails extends SuperXXXDetails {
-  public readonly stickerId: string
+  public readonly stickerId: StickerId
 
   constructor(
     args: ConstructorParameters<typeof SuperXXXDetails>[0] & {
-      stickerId: string
+      stickerId: StickerId
     }
   ) {
     super(args)
