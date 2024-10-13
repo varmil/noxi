@@ -99,8 +99,7 @@ model YoutubeStreamChatBundleQueue {
 }
 
 model YoutubeStreamSuperChat {
-  id                  BigInt @id @default(autoincrement())
-  videoId             String
+  id                  String @id
   amountMicros        BigInt
   currency            String
   amountDisplayString String
@@ -113,6 +112,7 @@ model YoutubeStreamSuperChat {
   authorProfileImageUrl String
   authorIsChatSponsor   Boolean
 
+  videoId   String
   group     String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
@@ -124,7 +124,7 @@ model YoutubeStreamSuperChat {
 }
 
 model YoutubeStreamSuperSticker {
-  id                  BigInt @id @default(autoincrement())
+  id                  String @id
   videoId             String
   amountMicros        BigInt
   currency            String

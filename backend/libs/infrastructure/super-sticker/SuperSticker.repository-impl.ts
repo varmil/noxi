@@ -8,20 +8,21 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
 
   async save({
     data: {
-      videoId,
-      group,
+      id,
       amountMicros,
       currency,
       amountDisplayString,
       tier,
       stickerId,
-      author
+      author,
+      videoId,
+      group
     }
   }: Parameters<SuperStickerRepository['save']>[0]) {
-    await this.prismaInfraService.youtubeStreamSuperSticker.create({
-      data: {
-        videoId: videoId.get(),
-        group: group.get(),
+    await this.prismaInfraService.youtubeStreamSuperSticker.upsert({
+      where: { id: id.get() },
+      create: {
+        id: id.get(),
         amountMicros: amountMicros.get(),
         currency: currency.get(),
         amountDisplayString: amountDisplayString.get(),
@@ -33,8 +34,11 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
         authorProfileImageUrl: author.profileImageUrl.get(),
         authorIsChatSponsor: author.isChatSponsor.get(),
 
+        videoId: videoId.get(),
+        group: group.get(),
         createdAt: new Date()
-      }
+      },
+      update: {}
     })
   }
 }

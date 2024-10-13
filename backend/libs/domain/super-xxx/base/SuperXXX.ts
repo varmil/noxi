@@ -1,5 +1,6 @@
 import { Group } from '@domain/group'
 import { VideoId } from '@domain/youtube'
+import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import { AmountDisplayString } from './AmountDisplayString.vo'
 import { AmountMicros } from './AmountMicros.vo'
 import { Currency } from './Currency.vo'
@@ -7,9 +8,7 @@ import { Tier } from './Tier.vo'
 import { Author } from './author/Author'
 
 export class SuperXXX {
-  public readonly videoId: VideoId
-  public readonly group: Group
-
+  public readonly id: LiveChatMessageId
   public readonly amountMicros: AmountMicros
   public readonly currency: Currency
   public readonly amountDisplayString: AmountDisplayString
@@ -17,9 +16,13 @@ export class SuperXXX {
 
   public readonly author: Author
 
+  public readonly videoId: VideoId
+  public readonly group: Group
+
   constructor(args: {
     videoId: VideoId
     group: Group
+    id: LiveChatMessageId
     amountMicros: AmountMicros
     currency: Currency
     amountDisplayString: AmountDisplayString
@@ -28,6 +31,7 @@ export class SuperXXX {
   }) {
     this.videoId = args.videoId
     this.group = args.group
+    this.id = args.id
     this.amountMicros = args.amountMicros
     this.currency = args.currency
     this.amountDisplayString = args.amountDisplayString

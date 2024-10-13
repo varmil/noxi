@@ -1,6 +1,8 @@
 import { z } from 'zod'
 
 export const liveChatMessagesAPISchema = z.object({
+  id: z.string(),
+
   snippet: z.object({
     type: z.string(),
 

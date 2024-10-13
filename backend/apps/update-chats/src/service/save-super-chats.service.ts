@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
+import { SuperChat } from '@domain/super-xxx'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 
@@ -32,7 +33,8 @@ export class SaveSuperChatsService {
         message.snippet.superChatDetails
 
       this.logger.log(
-        `VideoId     : ${videoId.get()},
+        `Id          : ${message.id.get()},
+         VideoId     : ${videoId.get()},
          Group       : ${group.get()},
          SuperChat   : ${amountMicros.get()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
          UserComment : ${userComment.get()}
@@ -41,7 +43,8 @@ export class SaveSuperChatsService {
       )
 
       await this.superChatsService.save({
-        data: {
+        data: new SuperChat({
+          id: message.id,
           videoId,
           group,
           amountMicros,
@@ -50,7 +53,7 @@ export class SaveSuperChatsService {
           tier,
           userComment,
           author: message.authorDetails
-        }
+        })
       })
     })
 

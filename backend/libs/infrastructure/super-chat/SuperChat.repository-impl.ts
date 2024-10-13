@@ -8,20 +8,21 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
 
   async save({
     data: {
-      videoId,
-      group,
+      id,
       amountMicros,
       currency,
       amountDisplayString,
       tier,
       userComment,
-      author
+      author,
+      videoId,
+      group
     }
   }: Parameters<SuperChatRepository['save']>[0]) {
-    await this.prismaInfraService.youtubeStreamSuperChat.create({
-      data: {
-        videoId: videoId.get(),
-        group: group.get(),
+    await this.prismaInfraService.youtubeStreamSuperChat.upsert({
+      where: { id: id.get() },
+      create: {
+        id: id.get(),
         amountMicros: amountMicros.get(),
         currency: currency.get(),
         amountDisplayString: amountDisplayString.get(),
@@ -33,8 +34,11 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
         authorProfileImageUrl: author.profileImageUrl.get(),
         authorIsChatSponsor: author.isChatSponsor.get(),
 
+        videoId: videoId.get(),
+        group: group.get(),
         createdAt: new Date()
-      }
+      },
+      update: {}
     })
   }
 }

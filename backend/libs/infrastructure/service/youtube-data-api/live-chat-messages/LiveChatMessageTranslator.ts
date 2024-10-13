@@ -18,6 +18,7 @@ import { ChannelId, PublishedAt } from '@domain/youtube'
 import {
   AuthorDetails,
   LiveChatMessage,
+  LiveChatMessageId,
   Snippet,
   SuperChatDetails,
   SuperStickerDetails,
@@ -33,6 +34,7 @@ export class LiveChatMessageTranslator {
     if (!item) return undefined
 
     const {
+      id,
       snippet,
       authorDetails: {
         channelId,
@@ -43,33 +45,11 @@ export class LiveChatMessageTranslator {
       }
     } = item
 
-    let superChatDetails: SuperChatDetails | undefined
-    if (snippet.superChatDetails) {
-      const { amountMicros, currency, amountDisplayString, tier, userComment } =
-        snippet.superChatDetails
-      superChatDetails = new SuperChatDetails({
-        amountMicros: new AmountMicros(Number(amountMicros)),
-        currency: new Currency(currency),
-        amountDisplayString: new AmountDisplayString(amountDisplayString),
-        tier: new Tier(tier),
-        userComment: new UserComment(userComment)
-      })
-    }
-
-    let superStickerDetails: SuperStickerDetails | undefined = undefined
-    if (snippet.superStickerDetails) {
-      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
-        snippet.superStickerDetails
-      superStickerDetails = new SuperStickerDetails({
-        amountMicros: new AmountMicros(Number(amountMicros)),
-        currency: new Currency(currency),
-        amountDisplayString: new AmountDisplayString(amountDisplayString),
-        tier: new Tier(tier),
-        stickerId: new StickerId(stickerId)
-      })
-    }
+    const superChatDetails = this.getSuperChatDetails(snippet)
+    const superStickerDetails = this.getSuperStickerDetails(snippet)
 
     return new LiveChatMessage({
+      id: new LiveChatMessageId(id),
       snippet: new Snippet({
         type: new Type(snippet.type),
         publishedAt: new PublishedAt(new Date(snippet.publishedAt)),
@@ -98,5 +78,41 @@ export class LiveChatMessageTranslator {
         throw err
       }
     }
+  }
+
+  private getSuperChatDetails(
+    snippet: z.infer<typeof liveChatMessagesAPISchema>['snippet']
+  ) {
+    let superChatDetails: SuperChatDetails | undefined
+    if (snippet.superChatDetails) {
+      const { amountMicros, currency, amountDisplayString, tier, userComment } =
+        snippet.superChatDetails
+      superChatDetails = new SuperChatDetails({
+        amountMicros: new AmountMicros(Number(amountMicros)),
+        currency: new Currency(currency),
+        amountDisplayString: new AmountDisplayString(amountDisplayString),
+        tier: new Tier(tier),
+        userComment: new UserComment(userComment)
+      })
+    }
+    return superChatDetails
+  }
+
+  private getSuperStickerDetails(
+    snippet: z.infer<typeof liveChatMessagesAPISchema>['snippet']
+  ) {
+    let superStickerDetails: SuperStickerDetails | undefined = undefined
+    if (snippet.superStickerDetails) {
+      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
+        snippet.superStickerDetails
+      superStickerDetails = new SuperStickerDetails({
+        amountMicros: new AmountMicros(Number(amountMicros)),
+        currency: new Currency(currency),
+        amountDisplayString: new AmountDisplayString(amountDisplayString),
+        tier: new Tier(tier),
+        stickerId: new StickerId(stickerId)
+      })
+    }
+    return superStickerDetails
   }
 }
