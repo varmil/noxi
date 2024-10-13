@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsString } from 'class-validator'
 import { StringValueObject } from '@domain/lib/StringValueObject'
 
+/** 空文字列の場合があるのでEmpty許容 */
 export class DisplayName extends StringValueObject {
-  @IsNotEmpty()
   @IsString()
   protected readonly val: string
 
