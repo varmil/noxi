@@ -1,11 +1,12 @@
+import { UserComment } from '@domain/super-xxx'
 import { SuperXXXDetails } from './SuperXXXDetails'
 
 export class SuperChatDetails extends SuperXXXDetails {
-  public readonly userComment: string
+  public readonly userComment: UserComment
 
   constructor(
     args: ConstructorParameters<typeof SuperXXXDetails>[0] & {
-      userComment: string
+      userComment: UserComment
     }
   ) {
     super(args)

@@ -1,7 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { MainService } from 'apps/update-chats/src/service/main.service'
-import { SuperChatsService } from 'apps/update-chats/src/service/super-chats.service'
-import { SuperStickersService } from 'apps/update-chats/src/service/super-stickers.service'
+import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-chats.service'
+import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
@@ -10,15 +10,13 @@ import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 
 @Injectable()
 export class MainScenario {
-  private readonly logger = new Logger(MainScenario.name)
-
   constructor(
     private readonly promiseService: PromiseService,
     private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService,
-    private readonly superChatsService: SuperChatsService,
-    private readonly superStickersService: SuperStickersService
+    private readonly saveSuperChatsService: SaveSuperChatsService,
+    private readonly saveSuperStickersService: SaveSuperStickersService
   ) {}
 
   async execute(): Promise<void> {
@@ -39,8 +37,12 @@ export class MainScenario {
 
       // super-chats, super-stickers
       {
-        promises.push(this.superChatsService.save({ videoId, newMessages }))
-        promises.push(this.superStickersService.save({ videoId, newMessages }))
+        promises.push(
+          this.saveSuperChatsService.execute({ videoId, newMessages })
+        )
+        promises.push(
+          this.saveSuperStickersService.execute({ videoId, newMessages })
+        )
       }
 
       // TODO: new-members
@@ -81,21 +83,5 @@ export class MainScenario {
         chatMessages: { increment: newMessages.all.get() }
       }
     })
-
-    // TODO:
-    // if (items.superChats.length > 0)
-    //   console.log(
-    //     'saveChatCounts/superChats',
-    //     items.superChats.map(
-    //       e => e.snippet.superChatDetails?.amountDisplayString
-    //     )
-    //   )
-
-    // TODO:
-    // if (items.superStickers.length > 0)
-    //   console.log(
-    //     'saveChatCounts/superStickers',
-    //     items.superStickers.map(e => e.snippet.type)
-    //   )
   }
 }

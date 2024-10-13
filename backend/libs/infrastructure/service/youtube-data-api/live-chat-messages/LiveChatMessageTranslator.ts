@@ -1,5 +1,12 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
+import {
+  AmountDisplayString,
+  AmountMicros,
+  Currency,
+  Tier,
+  UserComment
+} from '@domain/super-xxx'
 import { PublishedAt } from '@domain/youtube'
 import {
   LiveChatMessage,
@@ -21,23 +28,27 @@ export class LiveChatMessageTranslator {
 
     let superChatDetails: SuperChatDetails | undefined
     if (snippet.superChatDetails) {
+      const { amountMicros, currency, amountDisplayString, tier, userComment } =
+        snippet.superChatDetails
       superChatDetails = new SuperChatDetails({
-        amountMicros: Number(snippet.superChatDetails.amountMicros),
-        currency: snippet.superChatDetails.currency,
-        amountDisplayString: snippet.superChatDetails.amountDisplayString,
-        tier: snippet.superChatDetails.tier,
-        userComment: snippet.superChatDetails.userComment
+        amountMicros: new AmountMicros(Number(amountMicros)),
+        currency: new Currency(currency),
+        amountDisplayString: new AmountDisplayString(amountDisplayString),
+        tier: new Tier(tier),
+        userComment: new UserComment(userComment)
       })
     }
 
     let superStickerDetails: SuperStickerDetails | undefined = undefined
     if (snippet.superStickerDetails) {
+      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
+        snippet.superStickerDetails
       superStickerDetails = new SuperStickerDetails({
-        amountMicros: Number(snippet.superStickerDetails.amountMicros),
-        currency: snippet.superStickerDetails.currency,
-        amountDisplayString: snippet.superStickerDetails.amountDisplayString,
-        tier: snippet.superStickerDetails.tier,
-        stickerId: snippet.superStickerDetails.stickerId
+        amountMicros: new AmountMicros(Number(amountMicros)),
+        currency: new Currency(currency),
+        amountDisplayString: new AmountDisplayString(amountDisplayString),
+        tier: new Tier(tier),
+        stickerId: stickerId
       })
     }
 

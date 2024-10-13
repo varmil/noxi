@@ -8,8 +8,8 @@ import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
-export class SuperChatsService {
-  private readonly logger = new Logger(SuperChatsService.name)
+export class SaveSuperStickersService {
+  private readonly logger = new Logger(SaveSuperStickersService.name)
 
   constructor(
     private readonly promiseService: PromiseService,
@@ -19,7 +19,7 @@ export class SuperChatsService {
     private readonly videosService: VideosService
   ) {}
 
-  async save({
+  async execute({
     videoId,
     newMessages
   }: {
