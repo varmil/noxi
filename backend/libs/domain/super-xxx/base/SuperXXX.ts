@@ -20,22 +20,22 @@ export class SuperXXX {
   public readonly group: Group
 
   constructor(args: {
-    videoId: VideoId
-    group: Group
     id: LiveChatMessageId
     amountMicros: AmountMicros
     currency: Currency
     amountDisplayString: AmountDisplayString
     tier: Tier
     author: Author
+    videoId: VideoId
+    group: Group
   }) {
-    this.videoId = args.videoId
-    this.group = args.group
     this.id = args.id
     this.amountMicros = args.amountMicros
     this.currency = args.currency
     this.amountDisplayString = args.amountDisplayString
     this.tier = args.tier
     this.author = args.author
+    this.videoId = args.videoId
+    this.group = args.group
   }
 }

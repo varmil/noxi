@@ -125,7 +125,6 @@ model YoutubeStreamSuperChat {
 
 model YoutubeStreamSuperSticker {
   id                  String @id
-  videoId             String
   amountMicros        BigInt
   currency            String
   amountDisplayString String
@@ -138,6 +137,7 @@ model YoutubeStreamSuperSticker {
   authorProfileImageUrl String
   authorIsChatSponsor   Boolean
 
+  videoId   String
   group     String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
