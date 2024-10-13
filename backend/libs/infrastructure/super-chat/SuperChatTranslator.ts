@@ -5,8 +5,14 @@ import {
   Currency,
   Tier
 } from '@domain/super-xxx'
+import {
+  Author,
+  DisplayName,
+  ProfileImageUrl,
+  IsChatSponsor
+} from '@domain/super-xxx/base/author'
 import { SuperChat, UserComment } from '@domain/super-xxx/chat'
-import { VideoId } from '@domain/youtube'
+import { ChannelId, VideoId } from '@domain/youtube'
 import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'
 
 export class SuperChatTranslator {
@@ -22,7 +28,14 @@ export class SuperChatTranslator {
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
       tier: new Tier(row.tier),
-      userComment: new UserComment(row.userComment)
+      userComment: new UserComment(row.userComment),
+
+      author: new Author({
+        channelId: new ChannelId(row.authorChannelId),
+        displayName: new DisplayName(row.authorDisplayName),
+        profileImageUrl: new ProfileImageUrl(row.authorProfileImageUrl),
+        isChatSponsor: new IsChatSponsor(row.authorIsChatSponsor)
+      })
     })
   }
 }
