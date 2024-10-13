@@ -1,9 +1,11 @@
 import { Group } from '@domain/group'
 import {
+  SuperSticker,
   AmountDisplayString,
   AmountMicros,
   Currency,
-  Tier
+  Tier,
+  StickerId
 } from '@domain/super-xxx'
 import {
   Author,
@@ -11,8 +13,8 @@ import {
   IsChatSponsor,
   ProfileImageUrl
 } from '@domain/super-xxx/base/author'
-import { SuperSticker, StickerId } from '@domain/super-xxx/sticker'
 import { ChannelId, VideoId } from '@domain/youtube'
+import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/client'
 
 export class SuperStickerTranslator {
@@ -22,8 +24,7 @@ export class SuperStickerTranslator {
     const row = this.row
 
     return new SuperSticker({
-      videoId: new VideoId(row.videoId),
-      group: new Group(row.group),
+      id: new LiveChatMessageId(row.id),
       amountMicros: new AmountMicros(Number(row.amountMicros)),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
@@ -35,7 +36,10 @@ export class SuperStickerTranslator {
         displayName: new DisplayName(row.authorDisplayName),
         profileImageUrl: new ProfileImageUrl(row.authorProfileImageUrl),
         isChatSponsor: new IsChatSponsor(row.authorIsChatSponsor)
-      })
+      }),
+
+      videoId: new VideoId(row.videoId),
+      group: new Group(row.group)
     })
   }
 }

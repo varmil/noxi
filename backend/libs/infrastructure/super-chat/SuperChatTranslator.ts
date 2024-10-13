@@ -1,9 +1,11 @@
 import { Group } from '@domain/group'
 import {
+  SuperChat,
   AmountDisplayString,
   AmountMicros,
   Currency,
-  Tier
+  Tier,
+  UserComment
 } from '@domain/super-xxx'
 import {
   Author,
@@ -11,8 +13,8 @@ import {
   ProfileImageUrl,
   IsChatSponsor
 } from '@domain/super-xxx/base/author'
-import { SuperChat, UserComment } from '@domain/super-xxx/chat'
 import { ChannelId, VideoId } from '@domain/youtube'
+import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'
 
 export class SuperChatTranslator {
@@ -22,8 +24,7 @@ export class SuperChatTranslator {
     const row = this.row
 
     return new SuperChat({
-      videoId: new VideoId(row.videoId),
-      group: new Group(row.group),
+      id: new LiveChatMessageId(row.id),
       amountMicros: new AmountMicros(Number(row.amountMicros)),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
@@ -35,7 +36,10 @@ export class SuperChatTranslator {
         displayName: new DisplayName(row.authorDisplayName),
         profileImageUrl: new ProfileImageUrl(row.authorProfileImageUrl),
         isChatSponsor: new IsChatSponsor(row.authorIsChatSponsor)
-      })
+      }),
+
+      videoId: new VideoId(row.videoId),
+      group: new Group(row.group)
     })
   }
 }
