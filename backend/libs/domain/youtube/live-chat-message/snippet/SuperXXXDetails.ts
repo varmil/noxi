@@ -1,14 +1,21 @@
+import {
+  AmountMicros,
+  Currency,
+  AmountDisplayString,
+  Tier
+} from '@domain/super-xxx'
+
 export class SuperXXXDetails {
-  public readonly amountMicros: number
-  public readonly currency: string
-  public readonly amountDisplayString: string
-  public readonly tier: number
+  public readonly amountMicros: AmountMicros
+  public readonly currency: Currency
+  public readonly amountDisplayString: AmountDisplayString
+  public readonly tier: Tier
 
   constructor(args: {
-    amountMicros: number
-    currency: string
-    amountDisplayString: string
-    tier: number
+    amountMicros: AmountMicros
+    currency: Currency
+    amountDisplayString: AmountDisplayString
+    tier: Tier
   }) {
     this.amountMicros = args.amountMicros
     this.currency = args.currency

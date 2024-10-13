@@ -1,11 +1,22 @@
 import { Expose } from 'class-transformer'
-import { AuthorDetails, Snippet, Type } from '@domain/youtube/live-chat-message'
+import {
+  AuthorDetails,
+  LiveChatMessageId,
+  Snippet,
+  Type
+} from '@domain/youtube/live-chat-message'
 
 export class LiveChatMessage {
+  public readonly id: LiveChatMessageId
   public readonly snippet: Snippet
   public readonly authorDetails: AuthorDetails
 
-  constructor(args: { snippet: Snippet; authorDetails: AuthorDetails }) {
+  constructor(args: {
+    id: LiveChatMessageId
+    snippet: Snippet
+    authorDetails: AuthorDetails
+  }) {
+    this.id = args.id
     this.snippet = args.snippet
     this.authorDetails = args.authorDetails
   }

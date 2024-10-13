@@ -1,8 +1,24 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
-import { PublishedAt } from '@domain/youtube'
 import {
+  AmountDisplayString,
+  AmountMicros,
+  Currency,
+  StickerId,
+  Tier,
+  UserComment
+} from '@domain/super-xxx'
+import {
+  ChannelURL,
+  DisplayName,
+  IsChatSponsor,
+  ProfileImageUrl
+} from '@domain/super-xxx/base/author'
+import { ChannelId, PublishedAt } from '@domain/youtube'
+import {
+  AuthorDetails,
   LiveChatMessage,
+  LiveChatMessageId,
   Snippet,
   SuperChatDetails,
   SuperStickerDetails,
@@ -17,36 +33,37 @@ export class LiveChatMessageTranslator {
     const item = this.parse()
     if (!item) return undefined
 
-    const { snippet } = item
+    const {
+      id,
+      snippet,
+      authorDetails: {
+        channelId,
+        channelUrl,
+        displayName,
+        profileImageUrl,
+        isChatSponsor
+      }
+    } = item
 
-    let superChatDetails: SuperChatDetails | undefined
-    if (snippet.superChatDetails) {
-      superChatDetails = new SuperChatDetails({
-        amountMicros: Number(snippet.superChatDetails.amountMicros),
-        currency: snippet.superChatDetails.currency,
-        amountDisplayString: snippet.superChatDetails.amountDisplayString,
-        tier: snippet.superChatDetails.tier
-      })
-    }
-
-    let superStickerDetails: SuperStickerDetails | undefined = undefined
-    if (snippet.superStickerDetails) {
-      superStickerDetails = new SuperStickerDetails({
-        amountMicros: Number(snippet.superStickerDetails.amountMicros),
-        currency: snippet.superStickerDetails.currency,
-        amountDisplayString: snippet.superStickerDetails.amountDisplayString,
-        tier: snippet.superStickerDetails.tier
-      })
-    }
+    const superChatDetails = this.getSuperChatDetails(snippet)
+    const superStickerDetails = this.getSuperStickerDetails(snippet)
 
     return new LiveChatMessage({
+      id: new LiveChatMessageId(id),
       snippet: new Snippet({
         type: new Type(snippet.type),
         publishedAt: new PublishedAt(new Date(snippet.publishedAt)),
         superChatDetails,
         superStickerDetails
       }),
-      authorDetails: item.authorDetails
+      authorDetails: new AuthorDetails({
+        ...item.authorDetails,
+        channelId: new ChannelId(channelId),
+        channelUrl: new ChannelURL(channelUrl),
+        displayName: new DisplayName(displayName),
+        profileImageUrl: new ProfileImageUrl(profileImageUrl),
+        isChatSponsor: new IsChatSponsor(isChatSponsor)
+      })
     })
   }
 
@@ -61,5 +78,41 @@ export class LiveChatMessageTranslator {
         throw err
       }
     }
+  }
+
+  private getSuperChatDetails(
+    snippet: z.infer<typeof liveChatMessagesAPISchema>['snippet']
+  ) {
+    let superChatDetails: SuperChatDetails | undefined
+    if (snippet.superChatDetails) {
+      const { amountMicros, currency, amountDisplayString, tier, userComment } =
+        snippet.superChatDetails
+      superChatDetails = new SuperChatDetails({
+        amountMicros: new AmountMicros(Number(amountMicros)),
+        currency: new Currency(currency),
+        amountDisplayString: new AmountDisplayString(amountDisplayString),
+        tier: new Tier(tier),
+        userComment: new UserComment(userComment)
+      })
+    }
+    return superChatDetails
+  }
+
+  private getSuperStickerDetails(
+    snippet: z.infer<typeof liveChatMessagesAPISchema>['snippet']
+  ) {
+    let superStickerDetails: SuperStickerDetails | undefined = undefined
+    if (snippet.superStickerDetails) {
+      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
+        snippet.superStickerDetails
+      superStickerDetails = new SuperStickerDetails({
+        amountMicros: new AmountMicros(Number(amountMicros)),
+        currency: new Currency(currency),
+        amountDisplayString: new AmountDisplayString(amountDisplayString),
+        tier: new Tier(tier),
+        stickerId: new StickerId(stickerId)
+      })
+    }
+    return superStickerDetails
   }
 }

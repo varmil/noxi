@@ -97,3 +97,53 @@ model YoutubeStreamChatBundleQueue {
   videoId   String   @unique
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 }
+
+model YoutubeStreamSuperChat {
+  id                  String @id
+  amountMicros        BigInt
+  currency            String
+  amountDisplayString String
+  userComment         String
+  tier                Int
+
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+  authorIsChatSponsor   Boolean
+
+  videoId   String
+  group     String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+  @@index([videoId, amountMicros])
+  @@index([videoId, currency])
+  @@index([group, createdAt])
+  @@index([group, amountMicros, createdAt])
+}
+
+model YoutubeStreamSuperSticker {
+  id                  String @id
+  amountMicros        BigInt
+  currency            String
+  amountDisplayString String
+  stickerId           String
+  tier                Int
+
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+  authorIsChatSponsor   Boolean
+
+  videoId   String
+  group     String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+  @@index([videoId, amountMicros])
+  @@index([videoId, currency])
+  @@index([group, createdAt])
+  @@index([group, amountMicros, createdAt])
+}

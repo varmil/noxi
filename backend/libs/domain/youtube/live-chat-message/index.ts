@@ -1,5 +1,6 @@
 export * from './LiveChatId'
 export * from './LiveChatMessage.entity'
+export * from './LiveChatMessageId'
 export * from './LiveChatMessages.collection'
 export * from './author-details'
 export * from './snippet'

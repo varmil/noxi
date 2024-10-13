@@ -1,32 +1,39 @@
 import { Exclude } from 'class-transformer'
+import {
+  ChannelURL,
+  DisplayName,
+  IsChatSponsor,
+  ProfileImageUrl
+} from '@domain/super-xxx/base/author'
+import { ChannelId } from '@domain/youtube/channel'
 
 export class AuthorDetails {
   @Exclude()
-  public readonly channelId: string
+  public readonly channelId: ChannelId
   @Exclude()
-  public readonly channelUrl: string
+  public readonly channelUrl: ChannelURL
   @Exclude()
-  public readonly displayName: string
+  public readonly displayName: DisplayName
   @Exclude()
-  public readonly profileImageUrl: string
+  public readonly profileImageUrl: ProfileImageUrl
   @Exclude()
   public readonly isVerified: boolean
   @Exclude()
   public readonly isChatOwner: boolean
   /** チャンネルメンバーによるメッセージなら true */
   @Exclude()
-  public readonly isChatSponsor: boolean
+  public readonly isChatSponsor: IsChatSponsor
   @Exclude()
   public readonly isChatModerator: boolean
 
   constructor(args: {
-    channelId: string
-    channelUrl: string
-    displayName: string
-    profileImageUrl: string
+    channelId: ChannelId
+    channelUrl: ChannelURL
+    displayName: DisplayName
+    profileImageUrl: ProfileImageUrl
     isVerified: boolean
     isChatOwner: boolean
-    isChatSponsor: boolean
+    isChatSponsor: IsChatSponsor
     isChatModerator: boolean
   }) {
     this.channelId = args.channelId
