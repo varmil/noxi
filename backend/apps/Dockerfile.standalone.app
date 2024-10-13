@@ -39,7 +39,7 @@ ARG START_CMD
 ENV NODE_ENV production
 ENV ENV_START_CMD $START_CMD
 RUN apt-get update -y && apt-get install -y openssl
-RUN npm install -g npm@10.8.3
+RUN npm config set update-notifier false
 WORKDIR /app/backend
 COPY --from=builder /app/backend/scripts ./scripts
 COPY --from=builder /app/backend/dist ./dist
