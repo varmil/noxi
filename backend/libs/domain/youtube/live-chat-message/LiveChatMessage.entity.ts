@@ -37,7 +37,7 @@ export class LiveChatMessage {
   }
 
   @Expose()
-  get fromMember() {
-    return this.authorDetails.isChatSponsor
+  get fromMember(): boolean {
+    return this.authorDetails.isChatSponsor.get()
   }
 }
