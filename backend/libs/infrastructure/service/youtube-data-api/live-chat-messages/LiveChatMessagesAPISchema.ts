@@ -20,11 +20,13 @@ export const liveChatMessagesAPISchema = z.object({
 
     superStickerDetails: z
       .object({
+        superStickerMetadata: z.object({
+          stickerId: z.string()
+        }),
         amountMicros: z.string(),
         currency: z.string(),
         amountDisplayString: z.string(),
-        tier: z.number(),
-        stickerId: z.string()
+        tier: z.number()
       })
       .optional()
   }),

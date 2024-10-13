@@ -103,8 +103,14 @@ export class LiveChatMessageTranslator {
   ) {
     let superStickerDetails: SuperStickerDetails | undefined = undefined
     if (snippet.superStickerDetails) {
-      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
-        snippet.superStickerDetails
+      const {
+        amountMicros,
+        currency,
+        amountDisplayString,
+        tier,
+        superStickerMetadata: { stickerId }
+      } = snippet.superStickerDetails
+
       superStickerDetails = new SuperStickerDetails({
         amountMicros: new AmountMicros(Number(amountMicros)),
         currency: new Currency(currency),
