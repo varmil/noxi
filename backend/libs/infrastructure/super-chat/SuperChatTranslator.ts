@@ -6,13 +6,13 @@ import {
   Currency,
   Tier,
   UserComment
-} from '@domain/super-xxx'
+} from '@domain/supers'
 import {
   Author,
   DisplayName,
   ProfileImageUrl,
   IsChatSponsor
-} from '@domain/super-xxx/base/author'
+} from '@domain/supers/base/author'
 import { ChannelId, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'

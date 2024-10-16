@@ -6,13 +6,13 @@ import {
   Currency,
   Tier,
   StickerId
-} from '@domain/super-xxx'
+} from '@domain/supers'
 import {
   Author,
   DisplayName,
   IsChatSponsor,
   ProfileImageUrl
-} from '@domain/super-xxx/base/author'
+} from '@domain/supers/base/author'
 import { ChannelId, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/client'

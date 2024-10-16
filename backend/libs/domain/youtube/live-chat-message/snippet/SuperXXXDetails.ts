@@ -3,7 +3,7 @@ import {
   Currency,
   AmountDisplayString,
   Tier
-} from '@domain/super-xxx'
+} from '@domain/supers'
 
 export class SuperXXXDetails {
   public readonly amountMicros: AmountMicros

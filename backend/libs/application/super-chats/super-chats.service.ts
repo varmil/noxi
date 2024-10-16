@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { SuperChatRepository } from '@domain/super-xxx'
+import { SuperChatRepository } from '@domain/supers'
 
 @Injectable()
 export class SuperChatsService {

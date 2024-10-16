@@ -1,4 +1,4 @@
-import { SuperSticker } from '@domain/super-xxx/sticker/SuperSticker.entity'
+import { SuperSticker } from '@domain/supers/sticker/SuperSticker.entity'
 
 export interface SuperStickerRepository {
   save: (args: { data: SuperSticker }) => Promise<void>

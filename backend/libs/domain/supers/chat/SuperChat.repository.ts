@@ -1,4 +1,4 @@
-import { SuperChat } from '@domain/super-xxx/chat/SuperChat.entity'
+import { SuperChat } from '@domain/supers/chat/SuperChat.entity'
 
 export interface SuperChatRepository {
   save: (args: { data: SuperChat }) => Promise<void>

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { SuperStickerRepository } from '@domain/super-xxx/sticker'
+import { SuperStickerRepository } from '@domain/supers/sticker'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()

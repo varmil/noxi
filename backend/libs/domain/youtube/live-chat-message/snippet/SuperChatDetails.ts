@@ -1,4 +1,4 @@
-import { UserComment } from '@domain/super-xxx'
+import { UserComment } from '@domain/supers'
 import { SuperXXXDetails } from './SuperXXXDetails'
 
 export class SuperChatDetails extends SuperXXXDetails {

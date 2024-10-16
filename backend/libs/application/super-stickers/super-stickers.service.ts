@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { SuperStickerRepository } from '@domain/super-xxx'
+import { SuperStickerRepository } from '@domain/supers'
 
 @Injectable()
 export class SuperStickersService {

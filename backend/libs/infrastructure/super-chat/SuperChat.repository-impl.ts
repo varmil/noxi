@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { SuperChatRepository } from '@domain/super-xxx/chat'
+import { SuperChatRepository } from '@domain/supers/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()

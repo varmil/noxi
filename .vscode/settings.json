@@ -49,7 +49,7 @@
     "/backend/libs/domain/youtube/api",
     "/backend/libs/domain/youtube/live-chat-message",
     "/backend/libs/domain/chat-bundle",
-    "/backend/libs/domain/super-xxx"
+    "/backend/libs/domain/supers"
   ],
   "exportall.config.relExclusion": [
     "/backend/libs/infrastructure/service/youtube-data-api/lib/VideoTranslator.ts",
