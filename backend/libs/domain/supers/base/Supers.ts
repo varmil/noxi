@@ -7,7 +7,7 @@ import { Currency } from './Currency.vo'
 import { Tier } from './Tier.vo'
 import { Author } from './author/Author'
 
-export class SuperXXX {
+export class Supers {
   public readonly id: LiveChatMessageId
   public readonly amountMicros: AmountMicros
   public readonly currency: Currency

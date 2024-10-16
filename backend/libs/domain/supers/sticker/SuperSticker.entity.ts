@@ -1,11 +1,11 @@
-import { SuperXXX } from '../base/SuperXXX'
+import { Supers } from '../base/Supers'
 import { StickerId } from './StickerId.vo'
 
-export class SuperSticker extends SuperXXX {
+export class SuperSticker extends Supers {
   public readonly stickerId: StickerId
 
   constructor(
-    args: ConstructorParameters<typeof SuperXXX>[0] & {
+    args: ConstructorParameters<typeof Supers>[0] & {
       stickerId: StickerId
     }
   ) {

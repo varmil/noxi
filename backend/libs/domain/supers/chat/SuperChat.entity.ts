@@ -1,11 +1,11 @@
-import { SuperXXX } from '@domain/supers/base/SuperXXX'
+import { Supers } from '@domain/supers/base/Supers'
 import { UserComment } from './UserComment.vo'
 
-export class SuperChat extends SuperXXX {
+export class SuperChat extends Supers {
   public readonly userComment: UserComment
 
   constructor(
-    args: ConstructorParameters<typeof SuperXXX>[0] & {
+    args: ConstructorParameters<typeof Supers>[0] & {
       userComment: UserComment
     }
   ) {
