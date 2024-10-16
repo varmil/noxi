@@ -8,6 +8,12 @@ export class SuperStickersService {
     private readonly superStickerRepository: SuperStickerRepository
   ) {}
 
+  async findAll(
+    args: Parameters<SuperStickerRepository['findAll']>[0]
+  ): Promise<void> {
+    await this.superStickerRepository.findAll(args)
+  }
+
   async save(
     args: Parameters<SuperStickerRepository['save']>[0]
   ): Promise<void> {

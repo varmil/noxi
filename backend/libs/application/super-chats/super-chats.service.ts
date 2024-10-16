@@ -8,6 +8,12 @@ export class SuperChatsService {
     private readonly superChatRepository: SuperChatRepository
   ) {}
 
+  async findAll(
+    args: Parameters<SuperChatRepository['findAll']>[0]
+  ): Promise<void> {
+    await this.superChatRepository.findAll(args)
+  }
+
   async save(args: Parameters<SuperChatRepository['save']>[0]): Promise<void> {
     await this.superChatRepository.save(args)
   }
