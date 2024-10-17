@@ -6,14 +6,14 @@ import {
   Currency,
   Tier,
   UserComment
-} from '@domain/super-xxx'
+} from '@domain/supers'
 import {
   Author,
   DisplayName,
   ProfileImageUrl,
   IsChatSponsor
-} from '@domain/super-xxx/base/author'
-import { ChannelId, VideoId } from '@domain/youtube'
+} from '@domain/supers/base/author'
+import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'
 
@@ -39,7 +39,8 @@ export class SuperChatTranslator {
       }),
 
       videoId: new VideoId(row.videoId),
-      group: new Group(row.group)
+      group: new Group(row.group),
+      createdAt: new PublishedAt(row.createdAt)
     })
   }
 }

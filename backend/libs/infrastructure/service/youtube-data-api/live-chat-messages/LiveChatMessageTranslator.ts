@@ -7,13 +7,13 @@ import {
   StickerId,
   Tier,
   UserComment
-} from '@domain/super-xxx'
+} from '@domain/supers'
 import {
   ChannelURL,
   DisplayName,
   IsChatSponsor,
   ProfileImageUrl
-} from '@domain/super-xxx/base/author'
+} from '@domain/supers/base/author'
 import { ChannelId, PublishedAt } from '@domain/youtube'
 import {
   AuthorDetails,

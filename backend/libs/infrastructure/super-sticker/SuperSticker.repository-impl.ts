@@ -1,10 +1,31 @@
 import { Injectable } from '@nestjs/common'
-import { SuperStickerRepository } from '@domain/super-xxx/sticker'
+import { SuperStickerRepository, SuperStickers } from '@domain/supers/sticker'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+import { SuperStickerTranslator } from '@infra/super-sticker/SuperStickerTranslator'
 
 @Injectable()
 export class SuperStickerRepositoryImpl implements SuperStickerRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
+
+  // TODO: join Stream with channelId
+  async findAll({
+    where: { videoId, group },
+    orderBy,
+    limit
+  }: Parameters<SuperStickerRepository['findAll']>[0]) {
+    const rows =
+      await this.prismaInfraService.youtubeStreamSuperSticker.findMany({
+        where: {
+          videoId: videoId?.get(),
+          group: group?.get()
+        },
+        orderBy,
+        take: limit
+      })
+    return new SuperStickers(
+      rows.map(row => new SuperStickerTranslator(row).translate())
+    )
+  }
 
   async save({
     data: {
@@ -16,7 +37,8 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
       stickerId,
       author,
       videoId,
-      group
+      group,
+      createdAt
     }
   }: Parameters<SuperStickerRepository['save']>[0]) {
     await this.prismaInfraService.youtubeStreamSuperSticker.upsert({
@@ -36,7 +58,7 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
 
         videoId: videoId.get(),
         group: group.get(),
-        createdAt: new Date()
+        createdAt: createdAt.get()
       },
       update: {}
     })

@@ -26,7 +26,7 @@ export function ChannelProfileContent({
         </Avatar>
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-bold">{name}</h1>
-          <div className="max-w-xl break-all whitespace-normal">
+          <div className="max-w-xl break-anywhere whitespace-normal">
             <div
               className={`overflow-hidden transition-all duration-300 ${
                 isExpanded ? 'max-h-[10000px]' : 'max-h-[100px]'

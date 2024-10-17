@@ -1,4 +1,4 @@
-import { StickerId } from '@domain/super-xxx'
+import { StickerId } from '@domain/supers'
 import { SuperXXXDetails } from './SuperXXXDetails'
 
 export class SuperStickerDetails extends SuperXXXDetails {

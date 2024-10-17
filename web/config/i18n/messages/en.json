@@ -131,6 +131,13 @@
         "description": "Check out all of {group}'s past YouTube live streams!"
       }
     },
+
+    "supers": {
+      "amount": "Amount",
+      "chat": { "count": "{count} Super Chats" },
+      "sticker": { "count": "{count} Super Stickers" }
+    },
+
     "youtube": {
       "channel": {
         "channel": "channel",

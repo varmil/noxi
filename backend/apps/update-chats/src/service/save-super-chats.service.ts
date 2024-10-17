@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
-import { SuperChat } from '@domain/super-xxx'
+import { SuperChat } from '@domain/supers'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 
@@ -52,7 +52,8 @@ export class SaveSuperChatsService {
           amountDisplayString,
           tier,
           userComment,
-          author: message.authorDetails
+          author: message.authorDetails,
+          createdAt: message.snippet.publishedAt
         })
       })
     })

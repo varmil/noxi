@@ -4,7 +4,7 @@ import {
   DisplayName,
   IsChatSponsor,
   ProfileImageUrl
-} from '@domain/super-xxx/base/author'
+} from '@domain/supers/base/author'
 import { ChannelId } from '@domain/youtube/channel'
 
 export class AuthorDetails {

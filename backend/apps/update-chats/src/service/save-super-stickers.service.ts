@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
-import { SuperSticker } from '@domain/super-xxx'
+import { SuperSticker } from '@domain/supers'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 
@@ -53,7 +53,8 @@ export class SaveSuperStickersService {
           amountDisplayString,
           tier,
           stickerId,
-          author: message.authorDetails
+          author: message.authorDetails,
+          createdAt: message.snippet.publishedAt
         })
       })
     })

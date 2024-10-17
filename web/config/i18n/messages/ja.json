@@ -130,6 +130,13 @@
         "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
       }
     },
+
+    "supers": {
+      "amount": "金額",
+      "chat": { "count": "{count} 件のスーパーチャット" },
+      "sticker": { "count": "{count} 件のスーパーステッカー" }
+    },
+
     "youtube": {
       "channel": {
         "channel": "チャンネル",
