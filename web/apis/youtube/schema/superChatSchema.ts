@@ -13,7 +13,7 @@ export const schema = z.object({
     isChatSponsor: z.boolean()
   }),
 
-  createdAt: z.string().datetime()
+  createdAt: z.coerce.date()
 })
 export const responseSchema = z.object({
   list: z.array(schema)
