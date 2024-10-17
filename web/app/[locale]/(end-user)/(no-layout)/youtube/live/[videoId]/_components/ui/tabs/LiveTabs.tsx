@@ -1,4 +1,3 @@
-import { Users, ThumbsUp, Eye } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Card,
@@ -9,11 +8,11 @@ import {
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
-import { getSuperChats } from 'apis/youtube/getSuperChats'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
+import { SuperChatGallery } from 'features/supers/chat/components/SuperChatGallery'
 import OpenChatButton from '../button/OpenChatButton'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
@@ -44,19 +43,13 @@ export async function LiveTabsSuperChatContent({
   stream: StreamSchema
   className?: string
 }) {
-  const {
-    videoId,
-    snippet: { channelId }
-  } = stream
-  const [chats] = await Promise.all([
-    getSuperChats({
-      videoId,
-      orderBy: [{ field: 'tier', order: 'desc' }],
-      limit: 1000
-    })
-  ])
+  const { videoId } = stream
 
-  return <TabsContent value="superChat">{JSON.stringify(chats)}</TabsContent>
+  return (
+    <TabsContent value="superChat">
+      <SuperChatGallery videoId={videoId} />
+    </TabsContent>
+  )
 }
 
 /** タイトル、投稿者情報 */
