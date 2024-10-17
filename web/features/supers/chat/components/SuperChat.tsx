@@ -47,7 +47,7 @@ export default async function SuperChat({
             {amountDisplayString}
           </div>
         </div>
-        <p>{userComment}</p>
+        <p className="break-anywhere">{userComment}</p>
       </section>
     </div>
   )

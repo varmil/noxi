@@ -227,7 +227,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
               <a
                 href="https://security.google.com/settings/security/permissions"
                 target="_blank"
-                className="underline break-all"
+                className="underline break-anywhere"
               >
                 https://security.google.com/settings/security/permissions
               </a>
