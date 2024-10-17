@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
+import { getSuperChats } from 'apis/youtube/getSuperChats'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
@@ -36,14 +37,26 @@ export function LiveTabsList({}: {}) {
 }
 
 /** SuperChat */
-export function LiveTabsSuperChatContent({
+export async function LiveTabsSuperChatContent({
   stream,
   className
 }: {
   stream: StreamSchema
   className?: string
 }) {
-  return <TabsContent value="superChat">TODO</TabsContent>
+  const {
+    videoId,
+    snippet: { channelId }
+  } = stream
+  const [chats] = await Promise.all([
+    getSuperChats({
+      videoId,
+      orderBy: [{ field: 'tier', order: 'desc' }],
+      limit: 1000
+    })
+  ])
+
+  return <TabsContent value="superChat">{JSON.stringify(chats)}</TabsContent>
 }
 
 /** タイトル、投稿者情報 */

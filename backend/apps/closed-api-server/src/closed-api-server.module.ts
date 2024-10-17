@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { SupersPresentationModule } from '@presentation/supers/supers.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 
@@ -15,6 +16,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     LibAppModule,
     CloudSchedulersPresentationModule,
     GroupsPresentationModule,
+    SupersPresentationModule,
     YoutubePresentationModule
   ],
   controllers: [HealthController],

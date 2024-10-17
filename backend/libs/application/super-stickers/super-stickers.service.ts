@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { SuperStickerRepository } from '@domain/supers'
+import { SuperStickerRepository, SuperStickers } from '@domain/supers'
 
 @Injectable()
 export class SuperStickersService {
@@ -10,8 +10,8 @@ export class SuperStickersService {
 
   async findAll(
     args: Parameters<SuperStickerRepository['findAll']>[0]
-  ): Promise<void> {
-    await this.superStickerRepository.findAll(args)
+  ): Promise<SuperStickers> {
+    return await this.superStickerRepository.findAll(args)
   }
 
   async save(

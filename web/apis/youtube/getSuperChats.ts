@@ -36,7 +36,7 @@ export async function getSuperChats({
   })
 
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
 
   const data = responseSchema.parse(await res.json())
