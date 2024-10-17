@@ -37,7 +37,8 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
       stickerId,
       author,
       videoId,
-      group
+      group,
+      createdAt
     }
   }: Parameters<SuperStickerRepository['save']>[0]) {
     await this.prismaInfraService.youtubeStreamSuperSticker.upsert({
@@ -57,7 +58,7 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
 
         videoId: videoId.get(),
         group: group.get(),
-        createdAt: new Date()
+        createdAt: createdAt.get()
       },
       update: {}
     })

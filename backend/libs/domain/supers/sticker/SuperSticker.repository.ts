@@ -11,5 +11,5 @@ export interface SuperStickerRepository {
     limit?: number
   }) => Promise<SuperStickers>
 
-  save: (args: { data: Omit<SuperSticker, 'createdAt'> }) => Promise<void>
+  save: (args: { data: SuperSticker }) => Promise<void>
 }

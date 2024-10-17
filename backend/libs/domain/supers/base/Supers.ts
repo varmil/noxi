@@ -1,6 +1,6 @@
 import { Exclude, Transform } from 'class-transformer'
 import { Group } from '@domain/group'
-import { VideoId } from '@domain/youtube'
+import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import { AmountDisplayString } from './AmountDisplayString.vo'
 import { AmountMicros } from './AmountMicros.vo'
@@ -26,8 +26,8 @@ export class Supers {
   public readonly videoId: VideoId
   @Exclude()
   public readonly group: Group
-
-  public readonly createdAt: Date
+  @Transform(({ value }: { value: PublishedAt }) => value.get())
+  public readonly createdAt: PublishedAt
 
   constructor(args: {
     id: LiveChatMessageId
@@ -38,7 +38,7 @@ export class Supers {
     author: Author
     videoId: VideoId
     group: Group
-    createdAt: Date
+    createdAt: PublishedAt
   }) {
     this.id = args.id
     this.amountMicros = args.amountMicros

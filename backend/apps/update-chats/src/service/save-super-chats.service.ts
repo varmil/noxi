@@ -52,7 +52,8 @@ export class SaveSuperChatsService {
           amountDisplayString,
           tier,
           userComment,
-          author: message.authorDetails
+          author: message.authorDetails,
+          createdAt: message.snippet.publishedAt
         })
       })
     })

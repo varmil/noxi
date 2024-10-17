@@ -53,7 +53,8 @@ export class SaveSuperStickersService {
           amountDisplayString,
           tier,
           stickerId,
-          author: message.authorDetails
+          author: message.authorDetails,
+          createdAt: message.snippet.publishedAt
         })
       })
     })

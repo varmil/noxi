@@ -36,7 +36,8 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
       userComment,
       author,
       videoId,
-      group
+      group,
+      createdAt
     }
   }: Parameters<SuperChatRepository['save']>[0]) {
     await this.prismaInfraService.youtubeStreamSuperChat.upsert({
@@ -56,7 +57,7 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
 
         videoId: videoId.get(),
         group: group.get(),
-        createdAt: new Date()
+        createdAt: createdAt.get()
       },
       update: {}
     })
