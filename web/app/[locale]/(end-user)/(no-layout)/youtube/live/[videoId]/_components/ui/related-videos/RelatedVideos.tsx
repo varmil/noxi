@@ -13,8 +13,9 @@ import { getGroup } from 'lib/server-only-context/cache'
 import { useRelatedVideos } from '../../../_hooks/useRelatedVideos'
 
 export default async function RelatedVideos({
-  channelId
-}: PropsWithoutRef<{ channelId: string }>) {
+  channelId,
+  className
+}: PropsWithoutRef<{ channelId: string; className?: string }>) {
   const [live, ended] = await Promise.all([
     getStreams({
       status: 'live',
@@ -47,7 +48,11 @@ export default async function RelatedVideos({
   })
 
   return (
-    <Card className="bg-secondary border-none lg:bg-transparent lg:shadow-none">
+    <Card
+      className={`bg-secondary border-none lg:bg-transparent lg:shadow-none ${
+        className ?? ''
+      }`}
+    >
       <CardHeader className="lg:hidden">
         <CardTitle>Related Videos</CardTitle>
       </CardHeader>

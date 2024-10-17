@@ -20,6 +20,12 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
+import {
+  LiveTabs,
+  LiveTabsList,
+  LiveTabsOverviewContent,
+  LiveTabsSuperChatContent
+} from '../tabs/LiveTabs'
 
 type Props = {
   videoId: string
@@ -31,16 +37,13 @@ export default async function DefaultModeTemplate({
   const stream = await getStream(videoId)
   const {
     snippet: { channelId, title, thumbnails },
-    metrics: { peakConcurrentViewers },
     group
   } = stream
 
-  const [tg, t, { basicInfo }, chatCounts, viewerCounts] = await Promise.all([
+  const [tg, t, { basicInfo }] = await Promise.all([
     getTranslations('Global'),
     getTranslations('Breadcrumb'),
-    getChannel(channelId),
-    getChatCounts({ videoId }),
-    getViewerCounts({ videoId })
+    getChannel(channelId)
   ])
 
   return (
@@ -77,25 +80,27 @@ export default async function DefaultModeTemplate({
 
           {/* max-w-[1536px] */}
           <section className="grid max-w-screen-2xl mx-auto gap-y-4 lg:grid-cols-5">
-            {/* タイトル、投稿者情報 */}
             <PadSection
               left
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
-              <MaximizeButton />
-              <StreamBasicInfo stream={stream} />
-              <OpenChatButton className="@xs:block @4xl:hidden" />
-              <StreamStatsCards stream={stream} />
-              <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
-              <ChatCounts stream={stream} chatCounts={chatCounts} />
+              {/* <MaximizeButton /> */}
+              <LiveTabs>
+                <LiveTabsList />
+                <LiveTabsSuperChatContent stream={stream} />
+                <LiveTabsOverviewContent
+                  className="space-y-4"
+                  stream={stream}
+                />
+              </LiveTabs>
             </PadSection>
 
             {/* Open Chat Button & Related Videos */}
             <PadSection
               right
-              className="gap-y-4 @xs:col-span-full @4xl:col-span-2"
+              className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
-              <OpenChatButton className="hidden @4xl:block" />
+              <OpenChatButton />
               <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>
