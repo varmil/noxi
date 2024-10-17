@@ -13,7 +13,7 @@ import {
   IsChatSponsor,
   ProfileImageUrl
 } from '@domain/supers/base/author'
-import { ChannelId, VideoId } from '@domain/youtube'
+import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/client'
 
@@ -40,7 +40,7 @@ export class SuperStickerTranslator {
 
       videoId: new VideoId(row.videoId),
       group: new Group(row.group),
-      createdAt: new Date(row.createdAt)
+      createdAt: new PublishedAt(row.createdAt)
     })
   }
 }
