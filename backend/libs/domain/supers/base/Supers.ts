@@ -27,6 +27,8 @@ export class Supers {
   @Exclude()
   public readonly group: Group
 
+  public readonly createdAt: Date
+
   constructor(args: {
     id: LiveChatMessageId
     amountMicros: AmountMicros
@@ -36,6 +38,7 @@ export class Supers {
     author: Author
     videoId: VideoId
     group: Group
+    createdAt: Date
   }) {
     this.id = args.id
     this.amountMicros = args.amountMicros
@@ -45,5 +48,6 @@ export class Supers {
     this.author = args.author
     this.videoId = args.videoId
     this.group = args.group
+    this.createdAt = args.createdAt
   }
 }

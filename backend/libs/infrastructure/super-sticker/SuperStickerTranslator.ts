@@ -39,7 +39,8 @@ export class SuperStickerTranslator {
       }),
 
       videoId: new VideoId(row.videoId),
-      group: new Group(row.group)
+      group: new Group(row.group),
+      createdAt: new Date(row.createdAt)
     })
   }
 }

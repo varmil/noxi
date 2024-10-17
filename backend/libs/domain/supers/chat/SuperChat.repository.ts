@@ -11,5 +11,5 @@ export interface SuperChatRepository {
     limit?: number
   }) => Promise<SuperChats>
 
-  save: (args: { data: SuperChat }) => Promise<void>
+  save: (args: { data: Omit<SuperChat, 'createdAt'> }) => Promise<void>
 }
