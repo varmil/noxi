@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import {
   Card,
   CardContent,
@@ -24,11 +25,13 @@ export default async function SuperChatGallery({
     })
   ])
 
+  const t = await getTranslations('Features.supers.chat')
+
   return (
-    <section className="px-4">
+    <section className="px-2">
       <section className="mb-6">
         <h3 className="text-lg font-bold">
-          {chats.length.toLocaleString()} 件のスーパーチャット（金額の大きい順）
+          {t('count', { count: chats.length.toLocaleString() })}
         </h3>
       </section>
       <section>

@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { useFormatter } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SuperChatSchema } from 'apis/youtube/schema/superChatSchema'
 import SuperTierIcon from 'features/supers/components/SuperTierIcon'
@@ -18,6 +18,7 @@ export default async function SuperChat({
   } = chat
 
   const format = useFormatter()
+  const t = useTranslations('Features.supers')
 
   return (
     <div className={`flex gap-x-3`}>
@@ -42,11 +43,11 @@ export default async function SuperChat({
           </div>
           <div className="flex items-center gap-x-1 text-lg font-bold tabular-nums">
             <SuperTierIcon tier={tier} />
-            <span className="sr-only">金額</span>
+            <span className="sr-only">{t('amount')}</span>
             {amountDisplayString}
           </div>
         </div>
-        <p className="">{userComment}</p>
+        <p>{userComment}</p>
       </section>
     </div>
   )
