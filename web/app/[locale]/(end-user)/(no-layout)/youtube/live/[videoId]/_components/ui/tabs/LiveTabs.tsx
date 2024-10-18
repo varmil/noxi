@@ -17,24 +17,35 @@ import RelatedVideos from '../related-videos/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
 
-export function LiveTabs({ children }: { children: React.ReactNode }) {
+export function LiveTabs({
+  stream,
+  children
+}: {
+  stream: StreamSchema
+  children: React.ReactNode
+}) {
+  const isScheduled = stream.status === 'scheduled'
+  const defaultValue = isScheduled ? 'overview' : 'superChat'
   return (
-    <Tabs defaultValue="superChat" className="w-full">
+    <Tabs defaultValue={defaultValue} className="w-full">
       {children}
     </Tabs>
   )
 }
 
-export function LiveTabsList({}: {}) {
+export function LiveTabsList({ stream }: { stream: StreamSchema }) {
+  const isScheduled = stream.status === 'scheduled'
   return (
     <TabsList className="grid w-full grid-cols-2 mb-4">
-      <TabsTrigger value="superChat">Super Chat</TabsTrigger>
+      <TabsTrigger value="superChat" disabled={isScheduled}>
+        Super Chat
+      </TabsTrigger>
       <TabsTrigger value="overview">Overview</TabsTrigger>
     </TabsList>
   )
 }
 
-/** SuperChat */
+/** SuperChat: Hide when scheduled */
 export async function LiveTabsSuperChatContent({
   stream,
   className
@@ -42,7 +53,8 @@ export async function LiveTabsSuperChatContent({
   stream: StreamSchema
   className?: string
 }) {
-  const { videoId } = stream
+  const { videoId, status } = stream
+  if (status === 'scheduled') return null
 
   return (
     <TabsContent value="superChat">

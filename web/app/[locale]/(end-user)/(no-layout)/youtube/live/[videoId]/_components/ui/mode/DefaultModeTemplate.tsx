@@ -1,12 +1,8 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
-import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getStream } from 'apis/youtube/getStream'
-import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { Page } from 'components/page'
-import ChatCounts from 'features/stream-stats/chart/ChatCounts'
-import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import {
   MainContainer,
   LgChatContainer,
@@ -18,8 +14,6 @@ import OpenChatButton from '../button/OpenChatButton'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
-import StreamBasicInfo from '../stream/StreamBasicInfo'
-import StreamStatsCards from '../stream/card/StreamStatsCards'
 import {
   LiveTabs,
   LiveTabsList,
@@ -85,8 +79,8 @@ export default async function DefaultModeTemplate({
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
               {/* <MaximizeButton /> */}
-              <LiveTabs>
-                <LiveTabsList />
+              <LiveTabs stream={stream}>
+                <LiveTabsList stream={stream} />
                 <LiveTabsSuperChatContent stream={stream} />
                 <LiveTabsOverviewContent
                   className="space-y-4"
