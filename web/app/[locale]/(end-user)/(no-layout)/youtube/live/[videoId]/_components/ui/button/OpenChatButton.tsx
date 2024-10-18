@@ -15,7 +15,7 @@ export default function OpenChatButton({ className }: { className?: string }) {
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       className={`w-full ${className ?? ''}`}
       onClick={() => setOpenLiveChat(true)}
     >

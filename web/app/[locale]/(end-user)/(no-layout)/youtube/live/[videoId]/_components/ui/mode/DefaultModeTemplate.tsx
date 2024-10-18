@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
+import { Separator } from '@/components/ui/separator'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
@@ -60,12 +61,19 @@ export default async function DefaultModeTemplate({
           fullWidth
         >
           {/* full width: Stream */}
-          <section className="w-full max-h-[calc(87vh-7rem)] bg-black">
+          <section className="w-full max-h-[calc(87vh-7rem)]">
             <EmbedStream
               videoId={videoId}
               img={thumbnails.maxres?.url}
-              style="max-height: calc(87vh - 7rem);"
+              className="bg-black"
+              style="max-height: calc(87vh - 9.5rem);"
             />
+            {/* Theater Mode & Open Chat Button */}
+            <div className="h-10 flex gap-0">
+              <MaximizeButton />
+              <Separator orientation="vertical" />
+              <OpenChatButton />
+            </div>
           </section>
 
           <XSChatContainer>
@@ -73,12 +81,11 @@ export default async function DefaultModeTemplate({
           </XSChatContainer>
 
           {/* max-w-[1536px] */}
-          <section className="grid max-w-screen-2xl mx-auto gap-y-4 lg:grid-cols-5">
+          <section className="grid max-w-screen-2xl mx-auto gap-y-4 @4xl:grid-cols-5">
             <PadSection
               left
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
-              {/* <MaximizeButton /> */}
               <LiveTabs stream={stream}>
                 <LiveTabsList stream={stream} />
                 <LiveTabsSuperChatContent stream={stream} />
@@ -89,12 +96,11 @@ export default async function DefaultModeTemplate({
               </LiveTabs>
             </PadSection>
 
-            {/* Open Chat Button & Related Videos */}
+            {/* Related Videos */}
             <PadSection
               right
               className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
-              <OpenChatButton />
               <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>

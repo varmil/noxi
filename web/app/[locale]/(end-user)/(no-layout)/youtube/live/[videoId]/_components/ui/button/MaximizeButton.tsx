@@ -11,7 +11,7 @@ export default function MaximizeButton() {
 
   return (
     <Button
-      variant="outline"
+      variant="ghost"
       className="w-full"
       onClick={() => setTheaterMode(true)}
     >

@@ -101,7 +101,7 @@
           "description": "YouTubeライブのリアルタイム統計 ➥ ピーク視聴回数、平均視聴回数、平均視聴時間、チャット率など"
         },
         "button": {
-          "theaterMode": "シアターモードで大きく表示",
+          "theaterMode": "シアターモード",
           "openChat": "チャットを表示"
         }
       }

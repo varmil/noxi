@@ -12,7 +12,6 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import SuperChatGallery from 'features/supers/chat/components/SuperChatGallery'
-import OpenChatButton from '../button/OpenChatButton'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
@@ -83,7 +82,6 @@ export async function LiveTabsOverviewContent({
   return (
     <TabsContent value="overview" className={className ?? ''}>
       <StreamBasicInfo stream={stream} />
-      <OpenChatButton className="@xs:block @4xl:hidden" />
       <StreamStatsCards stream={stream} />
       <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
       <ChatCounts stream={stream} chatCounts={chatCounts} />
