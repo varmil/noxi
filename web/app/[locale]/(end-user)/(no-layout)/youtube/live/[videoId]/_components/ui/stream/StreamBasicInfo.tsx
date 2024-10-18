@@ -26,13 +26,13 @@ export default async function StreamBasicInfo({
   return (
     <section className="space-y-4">
       {/* Title */}
-      <div className="flex items-center gap-x-2">
-        <h1 className="text-lg sm:text-xl font-bold">{title}</h1>
+      <div className="flex w-full items-center justify-between gap-x-2">
+        <h1 className="text-lg sm:text-xl font-bold flex-1">{title}</h1>
         <LiveTitleDropdownMenu />
       </div>
 
       {/* Channel */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <Link href={`/${group}/channels/${basicInfo.id}`} prefetch={true}>
           <Avatar className="w-7 h-7 sm:w-11 sm:h-11 transition-all hover:scale-105">
             <AvatarImage
