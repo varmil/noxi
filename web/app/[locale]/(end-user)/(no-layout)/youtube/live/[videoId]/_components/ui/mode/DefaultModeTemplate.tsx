@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { Separator } from '@/components/ui/separator'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
@@ -10,8 +9,6 @@ import {
   XSChatContainer
 } from '../../layouts/default/Default'
 import PadSection from '../../layouts/default/PadSection'
-import MaximizeButton from '../button/MaximizeButton'
-import OpenChatButton from '../button/OpenChatButton'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
@@ -66,14 +63,8 @@ export default async function DefaultModeTemplate({
               videoId={videoId}
               img={thumbnails.maxres?.url}
               className="bg-black"
-              style="max-height: calc(87vh - 9.5rem);"
+              style="max-height: calc(87vh - 7rem);"
             />
-            {/* Theater Mode & Open Chat Button */}
-            <div className="h-10 flex gap-0">
-              <MaximizeButton />
-              <Separator orientation="vertical" />
-              <OpenChatButton />
-            </div>
           </section>
 
           <XSChatContainer>

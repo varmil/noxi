@@ -1,10 +1,3 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
