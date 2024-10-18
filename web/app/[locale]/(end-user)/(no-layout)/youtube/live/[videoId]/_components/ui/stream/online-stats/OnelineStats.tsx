@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 export default function OnelineStats({ children }: PropsWithChildren) {
   return (
@@ -9,5 +10,13 @@ export default function OnelineStats({ children }: PropsWithChildren) {
 }
 
 export function OnelineStatsContainer({ children }: PropsWithChildren) {
-  return <div className="flex flex-wrap gap-2 sm:gap-4">{children}</div>
+  // gridが大事
+  return (
+    <ScrollArea className="grid whitespace-nowrap">
+      <div className="overflow-hidden">
+        <div className="flex gap-2 sm:gap-4">{children}</div>
+      </div>
+      <ScrollBar orientation="horizontal" className="hidden" />
+    </ScrollArea>
+  )
 }

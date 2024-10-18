@@ -100,6 +100,10 @@
         "metadata": {
           "title": "{title}",
           "description": "YouTube Live realtime stats ➥ Peak Views, Avg. Views, Avg. Watch Time, Chat Rate and more"
+        },
+        "button": {
+          "theaterMode": "Theater Mode",
+          "openChat": "Open Live Chat panel"
         }
       }
     }

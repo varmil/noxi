@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getChannel } from 'apis/youtube/getChannel'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import { LiveTitleDropdownMenu } from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/dropdown-menu/LiveTitleDropdownMenu'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import { Link } from 'lib/navigation'
 import { OnelineStatsContainer } from './online-stats/OnelineStats'
@@ -24,10 +25,14 @@ export default async function StreamBasicInfo({
 
   return (
     <section className="space-y-4">
-      <h1 className="text-lg sm:text-xl font-bold">{title}</h1>
+      {/* Title */}
+      <div className="flex w-full items-center justify-between gap-x-2">
+        <h1 className="text-lg sm:text-xl font-bold flex-1">{title}</h1>
+        <LiveTitleDropdownMenu />
+      </div>
 
       {/* Channel */}
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <Link href={`/${group}/channels/${basicInfo.id}`} prefetch={true}>
           <Avatar className="w-7 h-7 sm:w-11 sm:h-11 transition-all hover:scale-105">
             <AvatarImage

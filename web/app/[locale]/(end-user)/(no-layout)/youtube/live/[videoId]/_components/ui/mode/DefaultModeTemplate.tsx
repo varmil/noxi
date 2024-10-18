@@ -1,25 +1,17 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
-import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getStream } from 'apis/youtube/getStream'
-import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { Page } from 'components/page'
-import ChatCounts from 'features/stream-stats/chart/ChatCounts'
-import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import {
   MainContainer,
   LgChatContainer,
   XSChatContainer
 } from '../../layouts/default/Default'
 import PadSection from '../../layouts/default/PadSection'
-import MaximizeButton from '../button/MaximizeButton'
-import OpenChatButton from '../button/OpenChatButton'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
-import StreamBasicInfo from '../stream/StreamBasicInfo'
-import StreamStatsCards from '../stream/card/StreamStatsCards'
 import {
   LiveTabs,
   LiveTabsList,
@@ -66,10 +58,11 @@ export default async function DefaultModeTemplate({
           fullWidth
         >
           {/* full width: Stream */}
-          <section className="w-full max-h-[calc(87vh-7rem)] bg-black">
+          <section className="w-full max-h-[calc(87vh-7rem)]">
             <EmbedStream
               videoId={videoId}
               img={thumbnails.maxres?.url}
+              className="bg-black"
               style="max-height: calc(87vh - 7rem);"
             />
           </section>
@@ -79,14 +72,13 @@ export default async function DefaultModeTemplate({
           </XSChatContainer>
 
           {/* max-w-[1536px] */}
-          <section className="grid max-w-screen-2xl mx-auto gap-y-4 lg:grid-cols-5">
+          <section className="grid max-w-screen-2xl mx-auto gap-y-4 @4xl:grid-cols-5">
             <PadSection
               left
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
-              {/* <MaximizeButton /> */}
-              <LiveTabs>
-                <LiveTabsList />
+              <LiveTabs stream={stream}>
+                <LiveTabsList stream={stream} />
                 <LiveTabsSuperChatContent stream={stream} />
                 <LiveTabsOverviewContent
                   className="space-y-4"
@@ -95,12 +87,11 @@ export default async function DefaultModeTemplate({
               </LiveTabs>
             </PadSection>
 
-            {/* Open Chat Button & Related Videos */}
+            {/* Related Videos */}
             <PadSection
               right
               className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
-              <OpenChatButton />
               <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>
