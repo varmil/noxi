@@ -21,7 +21,7 @@ export async function generateMetadata({
   })
 
   return {
-    title: `${t('title', { channel: basicInfo.title })} | ${tg('title')}`,
+    title: `${t('title', { channel: basicInfo.title })} - ${tg('title')}`,
     description: `${t('description', { channel: basicInfo.title })}`
   }
 }

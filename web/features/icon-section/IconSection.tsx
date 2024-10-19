@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
 import IconBlock from 'features/icon-section/IconBlock'
 
-export default function IconSectionForReview() {
+export default function IconSection() {
   const t = useTranslations('Page.index.section')
 
   return (

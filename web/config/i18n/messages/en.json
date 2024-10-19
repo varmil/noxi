@@ -1,6 +1,6 @@
 {
   "Global": {
-    "title": "PeakX - VTubers and YouTube Creators Analytics",
+    "title": "PeakX",
     "headerTitle": "PeakX",
 
     "group": {
@@ -20,6 +20,10 @@
 
   "Page": {
     "index": {
+      "metadata": {
+        "title": "Analytics Youtube",
+        "description": "{group}のYouTubeライブ配信、配信予定、過去のライブ配信をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+      },
       "title": "Welcome to PeakX",
       "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
       "section": {
@@ -42,7 +46,7 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "Today's Live & Streaming Schedule & Past Live Streams",
+          "title": "Live Streams - {group}",
           "description": "Check out {group}'s live now on air, streaming schedule and past live streams! We'll also introduce the YouTube channels of the {group} talents."
         },
         "card": {
@@ -57,14 +61,16 @@
         }
       },
       "charts": {
-        "title": "List of {group} channels",
-        "description": "We will introduce you to {group} YouTube channels.",
+        "metadata": {
+          "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
+          "description": "We will introduce you to {group} YouTube channels."
+        },
         "cardTitle": "{group} Talents",
         "cardDescription": "Here is a list of YouTube channels for talents in {group}."
       },
       "channelsId": {
         "metadata": {
-          "title": "YouTube Stats, Analytics and Channel Overview",
+          "title": "{channel} - YouTube Channel",
           "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
         },
         "template": {
@@ -77,13 +83,13 @@
       },
       "live": {
         "metadata": {
-          "title": "{group}'s Live now on air",
+          "title": "{group} Live Streams",
           "description": "Here is a list of {group} YouTube Live currently being streamed."
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "{group}'s Streaming Schedule",
+          "title": "{group} Schedule",
           "description": "Here is a list of {group} YouTube Live Streams scheduled for today - tommorrow."
         }
       },
@@ -98,7 +104,7 @@
     "youtube": {
       "live": {
         "metadata": {
-          "title": "{title}",
+          "title": "{title} {group} {channel}",
           "description": "YouTube Live realtime stats ➥ Peak Views, Avg. Views, Avg. Watch Time, Chat Rate and more"
         },
         "button": {

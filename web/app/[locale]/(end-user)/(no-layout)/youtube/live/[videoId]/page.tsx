@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
@@ -22,11 +23,18 @@ export async function generateMetadata({
     namespace: 'Page.youtube.live.metadata'
   })
   const {
-    snippet: { title }
+    snippet: { title, channelId },
+    group
   } = await getStream(videoId)
+  const { basicInfo } = await getChannel(channelId)
+  const groupName = tg(`group.${group}`)
 
   return {
-    title: `${t('title', { title })} | ${tg('title')}`,
+    title: `${t('title', {
+      title,
+      group: groupName,
+      channel: basicInfo.title
+    })} - ${tg('title')}`,
     description: `${t('description')}`
   }
 }
