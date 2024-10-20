@@ -15,7 +15,7 @@ import { StringValueObject } from '@domain/lib/StringValueObject'
  * userBannedEvent                  – ユーザーは管理メンバーによって参加禁止にされました。author フィールドには、モデレーターの詳細が表示されます。
  * membershipGiftingEvent           – ユーザーが他の視聴者のメンバーシップを購入しました。
  * giftMembershipReceivedEvent      – ユーザーがメンバーシップ ギフトを受け取りました。
- * pollDetails                      – ユーザーがライブ アンケートを作成しました。
+ * pollDetails, pollEvent           – ユーザーがライブ アンケートを作成しました。
  */
 export class Type extends StringValueObject {
   @IsIn([
@@ -32,7 +32,8 @@ export class Type extends StringValueObject {
     'userBannedEvent',
     'membershipGiftingEvent',
     'giftMembershipReceivedEvent',
-    'pollDetails'
+    'pollDetails',
+    'pollEvent'
   ])
   @IsNotEmpty()
   protected readonly val: string
