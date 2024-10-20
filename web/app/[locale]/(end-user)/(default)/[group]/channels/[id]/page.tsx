@@ -11,7 +11,7 @@ type Props = {
 }
 
 export async function generateMetadata({
-  params: { locale, id }
+  params: { locale, group, id }
 }: Props): Promise<Metadata> {
   const { basicInfo } = await getChannel(id)
   const tg = await getTranslations({ locale, namespace: 'Global' })
@@ -19,10 +19,14 @@ export async function generateMetadata({
     locale,
     namespace: 'Page.group.channelsId.metadata'
   })
+  const groupName = tg(`group.${group}`)
 
   return {
     title: `${t('title', { channel: basicInfo.title })} - ${tg('title')}`,
-    description: `${t('description', { channel: basicInfo.title })}`
+    description: `${t('description', {
+      channel: basicInfo.title,
+      group: groupName
+    })}`
   }
 }
 

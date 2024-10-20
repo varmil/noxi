@@ -16,7 +16,7 @@ export async function generateMetadata({
 
   return {
     title: `${t('metadata.title')} - ${tg('title')}`,
-    description: `${t('description')}`
+    description: `${t('metadata.description')}`
   }
 }
 

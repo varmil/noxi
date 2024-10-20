@@ -35,7 +35,9 @@ export async function generateMetadata({
       group: groupName,
       channel: basicInfo.title
     })} - ${tg('title')}`,
-    description: `${t('description')}`
+    description: `${t('description', {
+      channel: basicInfo.title
+    })}`
   }
 }
 
