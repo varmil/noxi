@@ -14,7 +14,7 @@ export const liveChatMessagesAPISchema = z.object({
         currency: z.string(),
         amountDisplayString: z.string(),
         tier: z.number(),
-        userComment: z.string()
+        userComment: z.string().optional()
       })
       .optional(),
 
