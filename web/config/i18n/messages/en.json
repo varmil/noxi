@@ -1,6 +1,6 @@
 {
   "Global": {
-    "title": "PeakX - VTubers and YouTube Creators Analytics",
+    "title": "PeakX",
     "headerTitle": "PeakX",
 
     "group": {
@@ -20,6 +20,10 @@
 
   "Page": {
     "index": {
+      "metadata": {
+        "title": "Analytics Youtube",
+        "description": "Explore PeakX for real-time YouTube streaming data. Stay updated on trends and find your favorite content effortlessly."
+      },
       "title": "Welcome to PeakX",
       "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
       "section": {
@@ -38,12 +42,11 @@
         }
       }
     },
-
     "group": {
       "index": {
         "metadata": {
-          "title": "Today's Live & Streaming Schedule & Past Live Streams",
-          "description": "Check out {group}'s live now on air, streaming schedule and past live streams! We'll also introduce the YouTube channels of the {group} talents."
+          "title": "Live Streams - {group}",
+          "description": "Discover the latest {group} streams, channel statistics, and upcoming events on PeakX. Stay connected with your favorite VTubers and never miss a moment of their live broadcasts!"
         },
         "card": {
           "live": {
@@ -57,15 +60,17 @@
         }
       },
       "charts": {
-        "title": "List of {group} channels",
-        "description": "We will introduce you to {group} YouTube channels.",
+        "metadata": {
+          "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
+          "description": "Explore comprehensive statistics on {group} channels with PeakX. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
+        },
         "cardTitle": "{group} Talents",
         "cardDescription": "Here is a list of YouTube channels for talents in {group}."
       },
       "channelsId": {
         "metadata": {
-          "title": "YouTube Stats, Analytics and Channel Overview",
-          "description": "Detailed YouTube statistics of {channel} ➥ Subscribers, viewers and videos stats, personal info and more"
+          "title": "{channel} - YouTube Channel",
+          "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
         },
         "template": {
           "liveTrends": "Live Stream Trends",
@@ -77,20 +82,20 @@
       },
       "live": {
         "metadata": {
-          "title": "{group}'s Live now on air",
-          "description": "Here is a list of {group} YouTube Live currently being streamed."
+          "title": "{group} Live Streams",
+          "description": "Discover live streams from {group} talents on PeakX! Stay updated with current broadcasts, interact with your favorite streamers, and find all past streams in one place. Join the {group} community today!"
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "{group}'s Streaming Schedule",
-          "description": "Here is a list of {group} YouTube Live Streams scheduled for today - tommorrow."
+          "title": "{group} Schedule",
+          "description": "Check the schedule for upcoming {group} live streams on PeakX! Never miss a broadcast from your favorite talents. Plan your viewing ahead and enjoy interactive content in real-time!"
         }
       },
       "ended": {
         "metadata": {
           "title": "{group}'s Past Live Streams",
-          "description": "Here is a list of {group} YouTube Live Streams ended recently."
+          "description": "Explore past {group} live streams on PeakX! Watch replays and highlights of your favorite streams, ensuring you never miss out on the fun and entertainment from beloved talents."
         }
       }
     },
@@ -98,8 +103,8 @@
     "youtube": {
       "live": {
         "metadata": {
-          "title": "{title}",
-          "description": "YouTube Live realtime stats ➥ Peak Views, Avg. Views, Avg. Watch Time, Chat Rate and more"
+          "title": "{title} {group} {channel}",
+          "description": "Watch the latest live stream of {channel} on PeakX! Enjoy real-time interaction, catch up on past broadcasts, and never miss exciting content again. Join the fun today!"
         },
         "button": {
           "theaterMode": "Theater Mode",

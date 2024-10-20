@@ -18,10 +18,11 @@ export async function generateMetadata({
     locale,
     namespace: 'Page.group.ended.metadata'
   })
+  const groupName = tg(`group.${group}`)
 
   return {
-    title: `${t('title', { group: tg(`group.${group}`) })} | ${tg('title')}`,
-    description: `${t('description', { group: tg(`group.${group}`) })}`
+    title: `${t('title', { group: groupName })} - ${tg('title')}`,
+    description: `${t('description', { group: groupName })}`
   }
 }
 

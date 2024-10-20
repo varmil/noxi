@@ -2,8 +2,7 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import IconSectionForReview from 'features/icon-section/IconSectionForReview'
-// import IconSectionSolidIconWithHoverEffect from 'features/icon-section/IconSectionSolidIconWithHoverEffect'
+import IconSection from 'features/icon-section/IconSection'
 
 type Props = {
   params: { locale: string }
@@ -16,8 +15,8 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'Page.index' })
 
   return {
-    title: `${tg('title')}`,
-    description: `${t('description')}`
+    title: `${t('metadata.title')} - ${tg('title')}`,
+    description: `${t('metadata.description')}`
   }
 }
 
@@ -41,7 +40,7 @@ export default function IndexPage({ params: { locale } }: Props) {
           </h2>
 
           <div className="">
-            <IconSectionForReview />
+            <IconSection />
           </div>
         </section>
       </div>

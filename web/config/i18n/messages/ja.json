@@ -1,6 +1,6 @@
 {
   "Global": {
-    "title": "PeakX - ホロライブのライブ配信と配信予定",
+    "title": "PeakX",
     "headerTitle": "PeakX | ピークX",
 
     "group": {
@@ -20,6 +20,10 @@
 
   "Page": {
     "index": {
+      "metadata": {
+        "title": "VTuberまとめ",
+        "description": "YouTubeのライブ配信ランキングを即座に確認できるPeakXで、人気ストリーマーの最新情報をチェックし、見逃しを防ぎましょう。"
+      },
       "title": "PeakXへようこそ",
       "description": "ホロライブをはじめとしたタレントVTuber、バーチャルアイドルのまとめをご提供します。今後の配信予定を見やすく整理したり、配信中のライブ、過去のライブ履歴の視聴者数、スーパーチャット額などをまとめています。",
       "section": {
@@ -41,8 +45,8 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "YouTubeライブ配信中のタレント | 今日の配信予定 | 過去のライブ配信",
-          "description": "{group}のYouTubeライブ配信、配信予定、過去のライブ配信をまとめてチェック！所属タレントのYouTubeチャンネルもまとめてご紹介します。"
+          "title": "{group} - VTuberライブ配信まとめ",
+          "description": "{group}の最新ライブ配信ランキングや人気VTuber情報をPeakXでチェック。推しの配信を見逃さずに楽しめるページです。"
         },
         "card": {
           "live": {
@@ -56,15 +60,17 @@
         }
       },
       "charts": {
-        "title": "{group}YouTubeチャンネル一覧",
-        "description": "{group}の所属タレント一覧をまとめてご紹介します。{group}のYouTubeチャンネル一覧をまとめてご紹介します。",
+        "metadata": {
+          "title": "{group}チャンネル人気ランキング - 登録者数・視聴者数を比較",
+          "description": "{group}のチャンネル人気ランキングをグラフで確認。視聴者数や登録者数を比較して、注目チャンネルを見逃さない。"
+        },
         "cardTitle": "{group} 所属タレント",
         "cardDescription": "{group}に所属するタレントのYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {
         "metadata": {
-          "title": "{channel}のライブ配信分析・統計",
-          "description": "{channel}のYouTubeチャンネルのまとめです。 ➥ チャンネル登録者数、同時視聴者数推移、過去のライブ履歴、スパチャ収入など"
+          "title": "{channel} - 動画分析",
+          "description": "{channel}の詳細な統計やランキング、最新配信情報をPeakXで確認。見逃さないための必見情報"
         },
         "template": {
           "liveTrends": "ライブ配信トレンド",
@@ -76,20 +82,20 @@
       },
       "live": {
         "metadata": {
-          "title": "配信中のライブ | {group}",
-          "description": "現在配信中の{group}タレントのYouTube Live情報です。"
+          "title": "{group} ライブ",
+          "description": "{group}の最新ライブ配信をリアルタイムでチェック。PeakXで人気VTuberのライブを見逃さずに楽しもう。"
         }
       },
       "scheduled": {
         "metadata": {
-          "title": "配信スケジュール | {group}",
-          "description": "今日～明日の{group}タレントのYouTube Live配信予定です。"
+          "title": "{group} スケジュール",
+          "description": "{group}の今後のライブ配信スケジュールを確認。お気に入りのVTuberの配信を事前にチェックして見逃さないようにしよう。"
         }
       },
       "ended": {
         "metadata": {
-          "title": "過去のライブ配信 | {group}",
-          "description": "最近終了したYouTube Live配信の一覧です。"
+          "title": "{group} 過去のライブ",
+          "description": "{group}の終了したライブ配信をまとめて確認。見逃した配信も簡単にチェックして、過去のアーカイブを楽しもう。"
         }
       }
     },
@@ -97,8 +103,8 @@
     "youtube": {
       "live": {
         "metadata": {
-          "title": "{title}",
-          "description": "YouTubeライブのリアルタイム統計 ➥ ピーク視聴回数、平均視聴回数、平均視聴時間、チャット率など"
+          "title": "{group} {channel} {title}",
+          "description": "YouTubeライブ配信を視聴！{channel}の現在のライブストリームをチェックし、見逃した瞬間を確認。リアルタイムで楽しみたい方に最適です。"
         },
         "button": {
           "theaterMode": "シアターモードで大きく表示",

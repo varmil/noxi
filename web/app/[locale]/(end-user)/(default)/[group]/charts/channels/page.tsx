@@ -16,10 +16,11 @@ export async function generateMetadata({
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Page.group.charts' })
+  const groupName = tg(`group.${group}`)
 
   return {
-    title: `${t('title', { group: tg(`group.${group}`) })} | ${tg('title')}`,
-    description: `${t('description', { group: tg(`group.${group}`) })}`
+    title: `${t('metadata.title', { group: groupName })} - ${tg('title')}`,
+    description: `${t('metadata.description', { group: groupName })}`
   }
 }
 

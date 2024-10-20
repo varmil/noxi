@@ -92,7 +92,7 @@ export class LiveChatMessageTranslator {
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
         tier: new Tier(tier),
-        userComment: new UserComment(userComment)
+        userComment: new UserComment(userComment ?? '')
       })
     }
     return superChatDetails
