@@ -10,6 +10,15 @@
           }
         }
       ],
+      "maxRetryCount": 1,
+      "lifecyclePolicies": [
+        {
+          "action": "RETRY_TASK",
+          "actionCondition": {
+            "exitCodes": [50001]
+          }
+        }
+      ],
       "computeResource": {
         "cpuMilli": 2000,
         "memoryMib": 1000
