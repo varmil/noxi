@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { YouTubeEmbed } from '@next/third-parties/google'
 
 type Props = {
@@ -8,7 +9,12 @@ type Props = {
   style?: string
 }
 
-export default function EmbedStream({ videoId, className, img, style }: Props) {
+export default memo(function EmbedStream({
+  videoId,
+  className,
+  img,
+  style
+}: Props) {
   const EMBED_QUERY = new URLSearchParams({
     modestbranding: '1',
     enablejsapi: '1'
@@ -25,4 +31,4 @@ export default function EmbedStream({ videoId, className, img, style }: Props) {
       />
     </div>
   )
-}
+})

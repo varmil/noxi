@@ -6,6 +6,7 @@ import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/liv
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
+import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
 import LayoutFactory from './_components/layouts/LayoutFactory'
 
@@ -50,18 +51,20 @@ export default async function YoutubeLivePage({
   setGroup(group)
 
   return (
-    <LayoutFactory
-      DefaultLayout={
-        <DefaultLayout>
-          <DefaultModePage params={{ locale, videoId }} />
-        </DefaultLayout>
-      }
-      TheaterLayout={
-        <TheaterLayout>
-          <TheaterModePage params={{ locale, videoId }} />
-        </TheaterLayout>
-      }
-    />
+    <AutoRouterRefresh intervalMs={30000}>
+      <LayoutFactory
+        DefaultLayout={
+          <DefaultLayout>
+            <DefaultModePage params={{ locale, videoId }} />
+          </DefaultLayout>
+        }
+        TheaterLayout={
+          <TheaterLayout>
+            <TheaterModePage params={{ locale, videoId }} />
+          </TheaterLayout>
+        }
+      />
+    </AutoRouterRefresh>
   )
 }
 
