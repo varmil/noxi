@@ -40,7 +40,7 @@
     "nextjs-toploader": "^3.7.15",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.53.0",
+    "react-hook-form": "^7.53.1",
     "react-resizable-panels": "^2.1.4",
     "react-use": "^17.5.1",
     "recharts": "^2.13.0",
