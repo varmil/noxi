@@ -3,6 +3,12 @@
 import { Maximize } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
 import { useGlobalTheaterMode } from '../../../_hooks/youtubeLiveStates'
 
 export default function MaximizeButton() {
@@ -10,13 +16,20 @@ export default function MaximizeButton() {
   const { setTheaterMode } = useGlobalTheaterMode()
 
   return (
-    <Button
-      variant="ghost"
-      className="w-full"
-      onClick={() => setTheaterMode(true)}
-    >
-      <Maximize className="mr-2 h-4 w-4" />
-      {t('theaterMode')}
-    </Button>
+    <TooltipProvider delayDuration={0}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            // className="w-full"
+            onClick={() => setTheaterMode(true)}
+          >
+            <Maximize className="h-4 w-4" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>{t('theaterMode')}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }

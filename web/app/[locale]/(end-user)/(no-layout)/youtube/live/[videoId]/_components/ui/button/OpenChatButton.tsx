@@ -9,15 +9,16 @@ export default function OpenChatButton({ className }: { className?: string }) {
   const t = useTranslations('Page.youtube.live.button')
   const { isOpenLiveChat, setOpenLiveChat } = useGlobalOpenLiveChat()
 
-  if (isOpenLiveChat) {
-    return null
-  }
+  // if (isOpenLiveChat) {
+  //   return null
+  // }
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       className={`w-full ${className ?? ''}`}
       onClick={() => setOpenLiveChat(true)}
+      disabled={isOpenLiveChat}
     >
       {t('openChat')}
     </Button>
