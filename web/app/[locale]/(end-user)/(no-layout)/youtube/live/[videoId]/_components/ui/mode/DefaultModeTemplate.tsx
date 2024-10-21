@@ -9,6 +9,8 @@ import {
   XSChatContainer
 } from '../../layouts/default/Default'
 import PadSection from '../../layouts/default/PadSection'
+import MaximizeButton from '../button/MaximizeButton'
+import OpenChatButton from '../button/OpenChatButton'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
@@ -92,6 +94,10 @@ export default async function DefaultModeTemplate({
               right
               className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
+              <div className="flex items-center gap-x-2">
+                <OpenChatButton />
+                <MaximizeButton />
+              </div>
               <RelatedVideos channelId={channelId} />
             </PadSection>
           </section>
