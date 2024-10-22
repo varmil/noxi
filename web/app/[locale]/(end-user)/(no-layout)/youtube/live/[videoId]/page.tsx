@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
@@ -46,7 +46,7 @@ export default async function YoutubeLivePage({
   params: { locale, videoId }
 }: Props) {
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   const { group } = await getStream(videoId)
   setGroup(group)
 

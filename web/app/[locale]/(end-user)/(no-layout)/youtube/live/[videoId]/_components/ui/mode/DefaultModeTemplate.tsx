@@ -60,11 +60,10 @@ export default async function DefaultModeTemplate({
           fullWidth
         >
           {/* full width: Stream */}
-          <section className="w-full max-h-[calc(87vh-7rem)]">
+          <section className="w-full max-h-[calc(87vh-7rem)] bg-black">
             <EmbedStream
               videoId={videoId}
               img={thumbnails.maxres?.url}
-              className="bg-black"
               style="max-height: calc(87vh - 7rem);"
             />
           </section>
