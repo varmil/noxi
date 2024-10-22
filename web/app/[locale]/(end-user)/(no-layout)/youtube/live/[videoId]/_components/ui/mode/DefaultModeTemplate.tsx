@@ -94,7 +94,7 @@ export default async function DefaultModeTemplate({
               className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
               <div className="flex items-center gap-x-2">
-                <OpenChatButton />
+                <OpenChatButton className="flex-1" />
                 <MaximizeButton />
               </div>
               <RelatedVideos channelId={channelId} />
