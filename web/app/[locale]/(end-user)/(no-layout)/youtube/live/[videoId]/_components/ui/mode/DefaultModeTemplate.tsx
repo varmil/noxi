@@ -60,11 +60,10 @@ export default async function DefaultModeTemplate({
           fullWidth
         >
           {/* full width: Stream */}
-          <section className="w-full max-h-[calc(87vh-7rem)]">
+          <section className="w-full max-h-[calc(87vh-7rem)] bg-black">
             <EmbedStream
               videoId={videoId}
               img={thumbnails.maxres?.url}
-              className="bg-black"
               style="max-height: calc(87vh - 7rem);"
             />
           </section>
@@ -95,7 +94,7 @@ export default async function DefaultModeTemplate({
               className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
               <div className="flex items-center gap-x-2">
-                <OpenChatButton />
+                <OpenChatButton className="flex-1" />
                 <MaximizeButton />
               </div>
               <RelatedVideos channelId={channelId} />
