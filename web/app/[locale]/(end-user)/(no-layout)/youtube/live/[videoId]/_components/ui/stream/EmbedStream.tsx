@@ -1,3 +1,7 @@
+/**
+ * use client && (prev, next) => prev.videoId === next.videoId
+ * が揃って初めてmemo化される
+ */
 'use client'
 
 import { memo } from 'react'

@@ -51,7 +51,7 @@ export default async function YoutubeLivePage({
   setGroup(group)
 
   return (
-    <AutoRouterRefresh intervalMs={30000}>
+    <AutoRouterRefresh intervalMs={60000}>
       <LayoutFactory
         DefaultLayout={
           <DefaultLayout>
