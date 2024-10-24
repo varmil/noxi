@@ -1,24 +1,32 @@
-import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
-import { notFound } from 'next/navigation'
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers'
 import { getRequestConfig } from 'next-intl/server'
-import { locales } from 'config/i18n/locale'
+import { locales, defaultLocale } from 'config/i18n/locale'
 
-export default getRequestConfig(async ({ locale }) => {
-  // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) notFound()
+export default getRequestConfig(async ({ requestLocale }) => {
+  let locale = await requestLocale
+
+  // Ensure that the incoming locale is valid
+  if (!locale || !locales.includes(locale as any)) {
+    locale = defaultLocale
+  }
 
   return {
+    locale,
     messages: (await import(`./messages/${locale}.json`)).default,
     /** set server timezone which is used in formatting */
-    timeZone: getTimezone()
+    timeZone: await getTimezone()
   }
 })
 
-function getTimezone() {
+async function getTimezone() {
   // In Local, use 'Asia/Tokyo'
   if (process.env.NODE_ENV === 'development') {
     return 'Asia/Tokyo'
   }
 
-  return (headers() as unknown as UnsafeUnwrappedHeaders).get('x-vercel-ip-timezone') ?? undefined;
+  return (
+    ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
+      'x-vercel-ip-timezone'
+    ) ?? undefined
+  )
 }
