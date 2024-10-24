@@ -4,12 +4,16 @@ import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 
 type Props = {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export async function generateMetadata({
-  params: { locale }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Contact' })
 
@@ -19,7 +23,13 @@ export async function generateMetadata({
   }
 }
 
-export default function About({ params: { locale } }: Props) {
+export default async function About(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   // Enable static rendering
   unstable_setRequestLocale(locale)
 

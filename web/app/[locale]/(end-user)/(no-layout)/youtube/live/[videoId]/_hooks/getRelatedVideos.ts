@@ -22,7 +22,7 @@ type EndedRelatedVideo = Base & {
 
 type RelatedVideo = LiveRelatedVideo | EndedRelatedVideo
 
-export const useRelatedVideos = (args: {
+export const getRelatedVideos = (args: {
   liveStreams: StreamsSchema
   endedStreams: StreamsSchema
   channels: ChannelsSchema

@@ -4,13 +4,20 @@ import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   children: ReactNode
-  params: { locale: string; group: GroupString }
+  params: Promise<{ locale: string; group: GroupString }>
 }
 
-export default async function GroupLayout({
-  children,
-  params: { group }
-}: Props) {
+export default async function GroupLayout(props: Props) {
+  const params = await props.params;
+
+  const {
+    group
+  } = params;
+
+  const {
+    children
+  } = props;
+
   setGroup(group)
   return children
 }

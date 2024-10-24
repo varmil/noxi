@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
@@ -16,7 +16,7 @@ export default async function StreamTextOfScheduled({
     streamTimes: { scheduledStartTime },
     metrics: { likes }
   } = stream
-  const t = useTranslations('Features.stream')
+  const t = await getTranslations('Features.stream')
   return (
     <span>
       <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
