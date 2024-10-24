@@ -1,4 +1,4 @@
-import { PropsWithChildren, PropsWithoutRef } from 'react'
+import { PropsWithChildren, PropsWithoutRef, type JSX } from 'react';
 import { Link } from 'lib/navigation'
 
 const IconWrapper = ({ children }: PropsWithChildren<{}>) => (

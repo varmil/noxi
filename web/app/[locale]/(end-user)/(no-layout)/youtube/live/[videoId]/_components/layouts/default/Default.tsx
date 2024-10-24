@@ -19,12 +19,12 @@ export function XSChatContainer({ children }: PropsWithChildren) {
   if (isOpenLiveChat) {
     return (
       // Override space-y-4 with mt-0 here
-      <section
+      (<section
         className={`relative lg:hidden min-h-80 h-[calc(100vh-26rem)] ${PageXSMX} !mt-0`}
       >
         {children}
-      </section>
-    )
+      </section>)
+    );
   } else {
     return null
   }

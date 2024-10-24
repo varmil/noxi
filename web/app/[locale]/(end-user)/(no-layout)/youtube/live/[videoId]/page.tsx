@@ -11,13 +11,18 @@ import { setGroup } from 'lib/server-only-context/cache'
 import LayoutFactory from './_components/layouts/LayoutFactory'
 
 type Props = {
-  params: { locale: string; videoId: string }
-  searchParams?: { theater?: '1' }
+  params: Promise<{ locale: string; videoId: string }>
+  searchParams?: Promise<{ theater?: '1' }>
 }
 
-export async function generateMetadata({
-  params: { locale, videoId }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+    videoId
+  } = params;
+
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
@@ -42,9 +47,14 @@ export async function generateMetadata({
   }
 }
 
-export default async function YoutubeLivePage({
-  params: { locale, videoId }
-}: Props) {
+export default async function YoutubeLivePage(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale,
+    videoId
+  } = params;
+
   // Enable static rendering
   setRequestLocale(locale)
   const { group } = await getStream(videoId)

@@ -1,4 +1,4 @@
-import { headers } from 'next/headers'
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -115,7 +115,11 @@ export function SuperAdminDashboard() {
                 <div className="grid grid-cols-[120px_1fr] items-start gap-4">
                   <Label>value</Label>
                   <pre className="bg-muted p-4 rounded-md overflow-auto">
-                    {JSON.stringify(headers(), null, 2)}
+                    {JSON.stringify(
+                      headers() as unknown as UnsafeUnwrappedHeaders,
+                      null,
+                      2
+                    )}
                   </pre>
                 </div>
               </div>

@@ -10,17 +10,24 @@ import { locales } from 'config/i18n/locale'
 
 type Props = {
   children: ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 export function generateStaticParams() {
   return locales.map(locale => ({ locale }))
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale }
-}: Props) {
+export default async function LocaleLayout(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   // Enable static rendering
   unstable_setRequestLocale(locale)
 
