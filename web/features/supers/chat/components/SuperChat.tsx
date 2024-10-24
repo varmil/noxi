@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
+import { getFormatter, getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SuperChatSchema } from 'apis/youtube/schema/superChatSchema'
 import SuperTierIcon from 'features/supers/components/SuperTierIcon'
@@ -17,8 +17,8 @@ export default async function SuperChat({
     createdAt
   } = chat
 
-  const format = useFormatter()
-  const t = useTranslations('Features.supers')
+  const format = await getFormatter()
+  const t = await getTranslations('Features.supers')
 
   return (
     <div className={`flex gap-x-3`}>

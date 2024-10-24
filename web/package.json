@@ -2,7 +2,7 @@
   "name": "web",
   "private": true,
   "scripts": {
-    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint --fix './*.{ts,tsx}' './**/*.{ts,tsx}'",
+    "lint": "eslint --fix './*.{ts,tsx}' './**/*.{ts,tsx}'",
     "type-check": "tsc --noEmit --pretty --project tsconfig.watch.json",
     "dev": "next",
     "build": "next build",
