@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { defaultLocale, locales } from 'config/i18n/locale'
+import { routing } from 'config/i18n/routing'
 
 const host = `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
 
@@ -10,6 +10,7 @@ export function getEntry({
   pathname: string
   lastModified: Date
 }): MetadataRoute.Sitemap[0] {
+  const { defaultLocale, locales } = routing
   return {
     url: getUrl(pathname, defaultLocale),
     lastModified,

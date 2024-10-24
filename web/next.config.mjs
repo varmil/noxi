@@ -1,6 +1,7 @@
 // @ts-check
-const createNextIntlPlugin = require('next-intl/plugin')
-const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 
 /**
  * exclude paths which may include query params
@@ -33,4 +34,4 @@ const nextConfig = {
   // }
 }
 
-module.exports = withNextIntl(nextConfig)
+export default withNextIntl(nextConfig)

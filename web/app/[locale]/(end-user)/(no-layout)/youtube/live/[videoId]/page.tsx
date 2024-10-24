@@ -16,12 +16,8 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
-
-  const {
-    locale,
-    videoId
-  } = params;
+  const params = await props.params
+  const { locale, videoId } = params
 
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
@@ -48,12 +44,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function YoutubeLivePage(props: Props) {
-  const params = await props.params;
+  const params = await props.params
 
-  const {
-    locale,
-    videoId
-  } = params;
+  const { locale, videoId } = params
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -65,12 +58,12 @@ export default async function YoutubeLivePage(props: Props) {
       <LayoutFactory
         DefaultLayout={
           <DefaultLayout>
-            <DefaultModePage params={{ locale, videoId }} />
+            <DefaultModePage videoId={videoId} />
           </DefaultLayout>
         }
         TheaterLayout={
           <TheaterLayout>
-            <TheaterModePage params={{ locale, videoId }} />
+            <TheaterModePage videoId={videoId} />
           </TheaterLayout>
         }
       />
@@ -78,10 +71,10 @@ export default async function YoutubeLivePage(props: Props) {
   )
 }
 
-async function DefaultModePage({ params: { videoId } }: Props) {
+async function DefaultModePage({ videoId }: { videoId: string }) {
   return <DefaultModeTemplate videoId={videoId} />
 }
 
-async function TheaterModePage({ params: { videoId } }: Props) {
+async function TheaterModePage({ videoId }: { videoId: string }) {
   return <TheaterModeTemplate videoId={videoId} />
 }
