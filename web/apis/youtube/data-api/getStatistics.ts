@@ -9,7 +9,7 @@ const MaxResultsPerRequest = 50
 /**
  * NOTE:
  * This request directly request the YouTube Data API
- * and returns live streaming details
+ * and returns Video statistics
  */
 export async function getStatistics({
   videoIds
