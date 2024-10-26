@@ -16,6 +16,7 @@ import EmbedLiveChat from '../stream/EmbedLiveChat'
 import EmbedStream from '../stream/EmbedStream'
 import {
   LiveTabs,
+  LiveTabsCommentsContent,
   LiveTabsList,
   LiveTabsOverviewContent,
   LiveTabsSuperChatContent
@@ -81,6 +82,7 @@ export default async function DefaultModeTemplate({
               <LiveTabs stream={stream}>
                 <LiveTabsList stream={stream} />
                 <LiveTabsSuperChatContent stream={stream} />
+                <LiveTabsCommentsContent stream={stream} />
                 <LiveTabsOverviewContent
                   className="space-y-4"
                   stream={stream}

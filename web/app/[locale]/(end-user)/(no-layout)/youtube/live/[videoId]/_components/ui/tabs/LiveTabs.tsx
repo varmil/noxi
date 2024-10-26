@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { getCommentThreads } from 'apis/youtube/data-api/getCommentThreads'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
@@ -26,13 +27,23 @@ export function LiveTabs({
 }
 
 export function LiveTabsList({ stream }: { stream: StreamSchema }) {
-  const isScheduled = stream.status === 'scheduled'
+  const isLive = stream.status === 'live'
+  const isEnded = stream.status === 'ended'
   return (
-    <TabsList className="grid w-full grid-cols-2 mb-4">
-      <TabsTrigger value="superChat" disabled={isScheduled}>
-        Super Chat
+    <TabsList className=" w-full mb-4">
+      {(isLive || isEnded) && (
+        <TabsTrigger className="flex-1" value="superChat">
+          Super Chat
+        </TabsTrigger>
+      )}
+      {isEnded && (
+        <TabsTrigger className="flex-1" value="comments">
+          Comments
+        </TabsTrigger>
+      )}
+      <TabsTrigger className="flex-1" value="overview">
+        Overview
       </TabsTrigger>
-      <TabsTrigger value="overview">Overview</TabsTrigger>
     </TabsList>
   )
 }
@@ -50,6 +61,33 @@ export async function LiveTabsSuperChatContent({
 
   return (
     <TabsContent value="superChat">
+      <SuperChatGallery videoId={videoId} />
+    </TabsContent>
+  )
+}
+
+/** Comments: Show only ended streams */
+export async function LiveTabsCommentsContent({
+  stream,
+  className
+}: {
+  stream: StreamSchema
+  className?: string
+}) {
+  const { videoId, status } = stream
+  if (status !== 'ended') return null
+
+  const [commentThreads] = await Promise.all([getCommentThreads({ videoId })])
+
+  console.log(
+    'commentThreads',
+    commentThreads.map(
+      thread => thread.snippet.topLevelComment.snippet.textDisplay
+    )
+  )
+
+  return (
+    <TabsContent value="comments">
       <SuperChatGallery videoId={videoId} />
     </TabsContent>
   )

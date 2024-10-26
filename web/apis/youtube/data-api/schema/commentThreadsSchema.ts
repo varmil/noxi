@@ -11,7 +11,7 @@ const comments = z.object({
     }),
     textDisplay: z.string(),
     textOriginal: z.string(),
-    parentId: z.string(),
+    parentId: z.string().optional(),
     canRate: z.boolean(),
     viewerRating: z.enum(['none', 'like', 'dislike']),
     likeCount: z.number().optional(),
@@ -32,9 +32,11 @@ const schema = z.object({
     isPublic: z.boolean()
   }),
 
-  replies: z.object({
-    comments: z.array(comments)
-  })
+  replies: z
+    .object({
+      comments: z.array(comments)
+    })
+    .optional()
 })
 
 export const responseSchema = z.array(schema)
