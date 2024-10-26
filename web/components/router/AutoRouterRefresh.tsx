@@ -12,9 +12,7 @@ export default function AutoRouterRefresh({
 
   const startInterval = useCallback(() => {
     if (!intervalRef.current) {
-      console.log('startInterval')
       intervalRef.current = setInterval(() => {
-        console.log('refresh')
         router.refresh()
       }, intervalMs)
     }
@@ -22,7 +20,6 @@ export default function AutoRouterRefresh({
 
   const stopInterval = useCallback(() => {
     if (intervalRef.current) {
-      console.log('clearInterval')
       clearInterval(intervalRef.current)
       intervalRef.current = null
     }

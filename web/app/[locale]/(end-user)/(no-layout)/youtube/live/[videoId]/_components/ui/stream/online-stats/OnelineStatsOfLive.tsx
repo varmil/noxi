@@ -34,12 +34,14 @@ export default async function OnelineStatsOfLive({
           <StartedStreaming date={actualStartTime} />
         </OnelineStats>
       )}
-      <OnelineStats>
-        <ThumbsUp className="h-4 w-4" />
-        <span>
-          <IntlNumberFormat>{likes}</IntlNumberFormat>
-        </span>
-      </OnelineStats>
+      {likes && (
+        <OnelineStats>
+          <ThumbsUp className="h-4 w-4" />
+          <span>
+            <IntlNumberFormat>{likes}</IntlNumberFormat>
+          </span>
+        </OnelineStats>
+      )}
     </>
   )
 }
