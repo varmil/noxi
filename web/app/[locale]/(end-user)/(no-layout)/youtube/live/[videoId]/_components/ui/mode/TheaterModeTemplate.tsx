@@ -1,4 +1,4 @@
-import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
+import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getStream } from 'apis/youtube/getStream'
 import Watching from 'components/styles/number/Watching'
 import {

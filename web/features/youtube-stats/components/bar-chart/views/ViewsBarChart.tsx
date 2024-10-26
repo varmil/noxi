@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
-import { getStatistics } from 'apis/youtube/getStatistics'
+import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getStreamsForStatsChart } from 'features/youtube-stats/utils/getStreamsForStatsChart'
 import Chart from './Chart'
 

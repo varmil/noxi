@@ -1,8 +1,8 @@
 import 'server-only'
 import {
-  StatisticsListSchema,
+  LiveStreamingDetailsListSchema,
   responseSchema
-} from 'apis/youtube/schema/data-api/statisticsSchema'
+} from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
 
 const MaxResultsPerRequest = 50
 
@@ -11,18 +11,18 @@ const MaxResultsPerRequest = 50
  * This request directly request the YouTube Data API
  * and returns live streaming details
  */
-export async function getStatistics({
+export async function getLiveStreamingDetails({
   videoIds
 }: {
   videoIds: string[]
-}): Promise<StatisticsListSchema> {
-  let results: StatisticsListSchema = []
+}): Promise<LiveStreamingDetailsListSchema> {
+  let results: LiveStreamingDetailsListSchema = []
 
   for (let i = 0; i < videoIds.length; i += MaxResultsPerRequest) {
     const batchIds = videoIds.slice(i, i + MaxResultsPerRequest)
 
     const searchParams = new URLSearchParams({
-      part: 'statistics',
+      part: 'liveStreamingDetails',
       id: batchIds.join(','),
       maxResults: `${Math.min(videoIds.length, MaxResultsPerRequest)}`,
       key: process.env.YOUTUBE_DATA_API_KEY

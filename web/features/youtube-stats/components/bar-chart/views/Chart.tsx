@@ -23,7 +23,7 @@ import {
   ChartContainer,
   ChartTooltip
 } from '@/components/ui/chart'
-import { StatisticsListSchema } from 'apis/youtube/schema/data-api/statisticsSchema'
+import { StatisticsListSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
 

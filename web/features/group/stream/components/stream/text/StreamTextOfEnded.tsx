@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { StatisticsSchema } from 'apis/youtube/schema/data-api/statisticsSchema'
+import { StatisticsSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Bullet from 'components/styles/Bullet'
 import StreamedLive from 'components/styles/date/StreamedLive'

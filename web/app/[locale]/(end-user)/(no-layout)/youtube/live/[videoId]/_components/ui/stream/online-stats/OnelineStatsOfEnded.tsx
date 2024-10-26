@@ -1,5 +1,5 @@
 import { ThumbsUp } from 'lucide-react'
-import { getStatistics } from 'apis/youtube/getStatistics'
+import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import StreamedLive from 'components/styles/date/StreamedLive'
