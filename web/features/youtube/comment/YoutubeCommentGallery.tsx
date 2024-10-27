@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getCommentThreads } from 'apis/youtube/data-api/getCommentThreads'
+import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { CommentGalleryContainer } from 'components/comment/gallery/CommentGalleryContainer'
 import {
   CommentGalleryContent,
@@ -13,15 +14,16 @@ import YoutubeComment from 'features/youtube/comment/YoutubeComment'
 const FIRST_VIEW_LIMIT = 30
 
 type Props = {
-  videoId?: string
+  videoId: string
 }
 
 export default async function YoutubeCommentGallery({
   videoId
 }: PropsWithoutRef<Props>) {
-  const [t, threads] = await Promise.all([
+  const [t, threads, [video]] = await Promise.all([
     getTranslations('Features.youtube.comment'),
-    getCommentThreads({ videoId })
+    getCommentThreads({ videoId }),
+    getStatistics({ videoIds: [videoId] })
   ])
 
   const isCollapsible = threads.length > FIRST_VIEW_LIMIT
@@ -31,7 +33,9 @@ export default async function YoutubeCommentGallery({
   return (
     <CommentGalleryContainer>
       <CommentGalleryHeader>
-        {t('count', { count: threads.length.toLocaleString() })}
+        {t('count', {
+          count: video.statistics.commentCount?.toLocaleString() ?? 0
+        })}
       </CommentGalleryHeader>
       <CommentGalleryContent>
         <CommentGalleryFirstView>
