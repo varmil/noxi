@@ -1,7 +1,17 @@
 import { PropsWithoutRef } from 'react'
 import { getFormatter, getTranslations } from 'next-intl/server'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { SuperChatSchema } from 'apis/youtube/schema/superChatSchema'
+import CommentAvatar from 'components/comment/comment/CommentAvatar'
+import {
+  CommentContainer,
+  CommentMain
+} from 'components/comment/comment/CommentContainer'
+import CommentContent from 'components/comment/comment/CommentContent'
+import {
+  CommentHeader,
+  CommentHeaderItem,
+  CommentHeaderWeakLine
+} from 'components/comment/comment/CommentHeader'
 import SuperTierIcon from 'features/supers/components/SuperTierIcon'
 
 export default async function SuperChat({
@@ -21,34 +31,32 @@ export default async function SuperChat({
   const t = await getTranslations('Features.supers')
 
   return (
-    <div className={`flex gap-x-3`}>
-      <Avatar className="w-5 h-5 lg:w-8 lg:h-8 mt-1">
-        <AvatarImage src={author.profileImageUrl} alt={author.displayName} />
-        <AvatarFallback>{author.displayName.slice(0, 2)}</AvatarFallback>
-      </Avatar>
-      <section className="flex-1">
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center">
-            <div className="text-xs lg:text-sm text-muted-foreground">
-              <p className="line-clamp-1">{author.displayName}</p>
-              <p>
-                {format.dateTime(createdAt, {
-                  month: '2-digit',
-                  day: '2-digit',
-                  hour: 'numeric',
-                  minute: 'numeric'
-                })}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-x-1 text-lg font-bold tabular-nums">
+    <CommentContainer>
+      <CommentAvatar
+        profileImageUrl={author.profileImageUrl}
+        displayName={author.displayName}
+      />
+      <CommentMain>
+        <CommentHeader>
+          <CommentHeaderItem>
+            <CommentHeaderWeakLine>{author.displayName}</CommentHeaderWeakLine>
+            <CommentHeaderWeakLine>
+              {format.dateTime(createdAt, {
+                month: '2-digit',
+                day: '2-digit',
+                hour: 'numeric',
+                minute: 'numeric'
+              })}
+            </CommentHeaderWeakLine>
+          </CommentHeaderItem>
+          <CommentHeaderItem className="flex items-center gap-x-1 text-lg font-bold tabular-nums">
             <SuperTierIcon tier={tier} />
             <span className="sr-only">{t('amount')}</span>
             {amountDisplayString}
-          </div>
-        </div>
-        <p className="break-anywhere">{userComment}</p>
-      </section>
-    </div>
+          </CommentHeaderItem>
+        </CommentHeader>
+        <CommentContent>{userComment}</CommentContent>
+      </CommentMain>
+    </CommentContainer>
   )
 }
