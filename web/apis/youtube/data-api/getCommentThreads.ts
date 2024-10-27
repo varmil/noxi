@@ -42,15 +42,18 @@ export async function getCommentThreads({
   })
   const res = await fetch(
     `https://www.googleapis.com/youtube/v3/commentThreads?${searchParams.toString()}`,
-    { next: { revalidate: 100 } }
+    { next: { revalidate: 600 } }
   )
   if (!res.ok) {
+    if (res.status === 403 || res.status === 404) {
+      return []
+    }
+
     console.error(await res.text())
     throw new Error('Failed to fetch data')
   }
 
   const response = await res.json()
-  results = results.concat(response.items ?? [])
-
+  results = response.items ?? []
   return responseSchema.parse(results)
 }

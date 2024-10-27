@@ -1,13 +1,9 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
+import CommentGalleryContainer from 'components/comment/gallery/CommentGalleryContainer'
+import CommentGalleryContent from 'components/comment/gallery/CommentGalleryContent'
+import CommentGalleryHeader from 'components/comment/gallery/CommentGalleryHeader'
 import SuperChat from 'features/supers/chat/components/SuperChat'
 
 type Props = {
@@ -28,19 +24,15 @@ export default async function SuperChatGallery({
   const t = await getTranslations('Features.supers.chat')
 
   return (
-    <section className="px-2">
-      <section className="mb-6">
-        <h3 className="text-lg font-bold">
-          {t('count', { count: chats.length.toLocaleString() })}
-        </h3>
-      </section>
-      <section>
-        <div className="grid grid-col-1 gap-y-8">
-          {chats.map((chat, i) => (
-            <SuperChat key={i} chat={chat} />
-          ))}
-        </div>
-      </section>
-    </section>
+    <CommentGalleryContainer>
+      <CommentGalleryHeader>
+        {t('count', { count: chats.length.toLocaleString() })}
+      </CommentGalleryHeader>
+      <CommentGalleryContent>
+        {chats.map((chat, i) => (
+          <SuperChat key={i} chat={chat} />
+        ))}
+      </CommentGalleryContent>
+    </CommentGalleryContainer>
   )
 }
