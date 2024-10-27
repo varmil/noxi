@@ -1,6 +1,6 @@
+import { LiveStreamingDetailsListSchema } from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
+import { StatisticsListSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
-import { LiveStreamingDetailsListSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
-import { StatisticsListSchema } from 'apis/youtube/schema/data-api/statisticsSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 
 type Base = {

@@ -1,5 +1,5 @@
 import { ThumbsUp } from 'lucide-react'
-import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
+import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import CommentIcon from 'components/icons/CommentIcon'
 import StartedStreaming from 'components/styles/date/StartedStreaming'
@@ -34,12 +34,14 @@ export default async function OnelineStatsOfLive({
           <StartedStreaming date={actualStartTime} />
         </OnelineStats>
       )}
-      <OnelineStats>
-        <ThumbsUp className="h-4 w-4" />
-        <span>
-          <IntlNumberFormat>{likes}</IntlNumberFormat>
-        </span>
-      </OnelineStats>
+      {likes && (
+        <OnelineStats>
+          <ThumbsUp className="h-4 w-4" />
+          <span>
+            <IntlNumberFormat>{likes}</IntlNumberFormat>
+          </span>
+        </OnelineStats>
+      )}
     </>
   )
 }

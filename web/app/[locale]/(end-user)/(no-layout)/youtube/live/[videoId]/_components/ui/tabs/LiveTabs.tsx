@@ -5,6 +5,7 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import SuperChatGallery from 'features/supers/chat/components/SuperChatGallery'
+import YoutubeCommentGallery from 'features/youtube/comment/YoutubeCommentGallery'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
@@ -26,13 +27,23 @@ export function LiveTabs({
 }
 
 export function LiveTabsList({ stream }: { stream: StreamSchema }) {
-  const isScheduled = stream.status === 'scheduled'
+  const isLive = stream.status === 'live'
+  const isEnded = stream.status === 'ended'
   return (
-    <TabsList className="grid w-full grid-cols-2 mb-4">
-      <TabsTrigger value="superChat" disabled={isScheduled}>
-        Super Chat
+    <TabsList className=" w-full mb-4">
+      {(isLive || isEnded) && (
+        <TabsTrigger className="flex-1" value="superChat">
+          Super Chat
+        </TabsTrigger>
+      )}
+      {isEnded && (
+        <TabsTrigger className="flex-1" value="comments">
+          Comments
+        </TabsTrigger>
+      )}
+      <TabsTrigger className="flex-1" value="overview">
+        Overview
       </TabsTrigger>
-      <TabsTrigger value="overview">Overview</TabsTrigger>
     </TabsList>
   )
 }
@@ -51,6 +62,24 @@ export async function LiveTabsSuperChatContent({
   return (
     <TabsContent value="superChat">
       <SuperChatGallery videoId={videoId} />
+    </TabsContent>
+  )
+}
+
+/** Comments: Show only ended streams */
+export async function LiveTabsCommentsContent({
+  stream,
+  className
+}: {
+  stream: StreamSchema
+  className?: string
+}) {
+  const { videoId, status } = stream
+  if (status !== 'ended') return null
+
+  return (
+    <TabsContent value="comments">
+      <YoutubeCommentGallery videoId={videoId} />
     </TabsContent>
   )
 }

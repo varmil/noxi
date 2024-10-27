@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { LiveStreamingDetailsSchema } from 'apis/youtube/schema/data-api/liveStreamingDetailsSchema'
+import { LiveStreamingDetailsSchema } from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
 import Watching from 'components/styles/number/Watching'
 
 type Props = {

@@ -1,14 +1,16 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
+import { CommentGalleryContainer } from 'components/comment/gallery/CommentGalleryContainer'
+import {
+  CommentGalleryContent,
+  CommentGalleryFirstView,
+  CommentGalleryMore
+} from 'components/comment/gallery/CommentGalleryContent'
+import CommentGalleryHeader from 'components/comment/gallery/CommentGalleryHeader'
 import SuperChat from 'features/supers/chat/components/SuperChat'
+
+const FIRST_VIEW_LIMIT = 30
 
 type Props = {
   videoId?: string
@@ -24,23 +26,31 @@ export default async function SuperChatGallery({
       limit: 1000
     })
   ])
-
   const t = await getTranslations('Features.supers.chat')
 
+  const isCollapsible = chats.length > FIRST_VIEW_LIMIT
+  const firstView = chats.slice(0, FIRST_VIEW_LIMIT)
+  const more = chats.slice(FIRST_VIEW_LIMIT)
+
   return (
-    <section className="px-2">
-      <section className="mb-6">
-        <h3 className="text-lg font-bold">
-          {t('count', { count: chats.length.toLocaleString() })}
-        </h3>
-      </section>
-      <section>
-        <div className="grid grid-col-1 gap-y-8">
-          {chats.map((chat, i) => (
-            <SuperChat key={i} chat={chat} />
+    <CommentGalleryContainer>
+      <CommentGalleryHeader>
+        {t('count', { count: chats.length.toLocaleString() })}
+      </CommentGalleryHeader>
+      <CommentGalleryContent>
+        <CommentGalleryFirstView>
+          {firstView.map(chat => (
+            <SuperChat key={chat.id} chat={chat} />
           ))}
-        </div>
-      </section>
-    </section>
+        </CommentGalleryFirstView>
+        {isCollapsible && (
+          <CommentGalleryMore>
+            {more.map(chat => (
+              <SuperChat key={chat.id} chat={chat} />
+            ))}
+          </CommentGalleryMore>
+        )}
+      </CommentGalleryContent>
+    </CommentGalleryContainer>
   )
 }

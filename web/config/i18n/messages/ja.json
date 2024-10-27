@@ -125,6 +125,9 @@
   },
 
   "Components": {
+    "comment": {
+      "more": "もっと見る"
+    },
     "styles": {
       "scheduledFor": "{datetime} に公開予定",
       "startedStreaming": "{datetime}にライブ配信開始",
@@ -154,6 +157,9 @@
         "totalViews": "動画の再生回数",
         "totalSubscribers": "チャンネル登録者",
         "joined": "{date}に開始"
+      },
+      "comment": {
+        "count": "{count} 件のコメント"
       },
       "video": {
         "views": "{count}回視聴",

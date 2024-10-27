@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { CardContent } from '@/components/ui/card'
+import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getStatistics } from 'apis/youtube/getStatistics'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import GridCardContainer from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'

@@ -125,6 +125,9 @@
   },
 
   "Components": {
+    "comment": {
+      "more": "Read More"
+    },
     "styles": {
       "scheduledFor": "Scheduled for {datetime}",
       "startedStreaming": "Started streaming {datetime}",
@@ -154,6 +157,9 @@
         "totalViews": "views",
         "totalSubscribers": "subscribers",
         "joined": "Joind {date}"
+      },
+      "comment": {
+        "count": "{count} Comments"
       },
       "video": {
         "views": "{count} views",

@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { Separator } from '@/components/ui/separator'
+import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getLiveStreamingDetails } from 'apis/youtube/getLiveStreamingDetails'
 import { getStreams } from 'apis/youtube/getStreams'
 import AsideIcon from 'components/aside/AsideIcon'
 import LiveBadge from 'components/styles/LiveBadge'
