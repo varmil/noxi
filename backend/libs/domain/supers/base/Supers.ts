@@ -9,7 +9,7 @@ import { Tier } from './Tier.vo'
 import { Author } from './author/Author'
 
 export class Supers {
-  @Exclude()
+  @Transform(({ value }: { value: LiveChatMessageId }) => value.get())
   public readonly id: LiveChatMessageId
   @Transform(({ value }: { value: AmountMicros }) => value.get())
   public readonly amountMicros: AmountMicros

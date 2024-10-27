@@ -1,10 +1,16 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
-import CommentGalleryContainer from 'components/comment/gallery/CommentGalleryContainer'
-import CommentGalleryContent from 'components/comment/gallery/CommentGalleryContent'
+import { CommentGalleryContainer } from 'components/comment/gallery/CommentGalleryContainer'
+import {
+  CommentGalleryContent,
+  CommentGalleryFirstView,
+  CommentGalleryMore
+} from 'components/comment/gallery/CommentGalleryContent'
 import CommentGalleryHeader from 'components/comment/gallery/CommentGalleryHeader'
 import SuperChat from 'features/supers/chat/components/SuperChat'
+
+const FIRST_VIEW_LIMIT = 30
 
 type Props = {
   videoId?: string
@@ -20,8 +26,11 @@ export default async function SuperChatGallery({
       limit: 1000
     })
   ])
-
   const t = await getTranslations('Features.supers.chat')
+
+  const isCollapsible = chats.length > FIRST_VIEW_LIMIT
+  const firstView = chats.slice(0, FIRST_VIEW_LIMIT)
+  const more = chats.slice(FIRST_VIEW_LIMIT)
 
   return (
     <CommentGalleryContainer>
@@ -29,9 +38,18 @@ export default async function SuperChatGallery({
         {t('count', { count: chats.length.toLocaleString() })}
       </CommentGalleryHeader>
       <CommentGalleryContent>
-        {chats.map((chat, i) => (
-          <SuperChat key={i} chat={chat} />
-        ))}
+        <CommentGalleryFirstView>
+          {firstView.map(chat => (
+            <SuperChat key={chat.id} chat={chat} />
+          ))}
+        </CommentGalleryFirstView>
+        {isCollapsible && (
+          <CommentGalleryMore>
+            {more.map(chat => (
+              <SuperChat key={chat.id} chat={chat} />
+            ))}
+          </CommentGalleryMore>
+        )}
       </CommentGalleryContent>
     </CommentGalleryContainer>
   )
