@@ -15,8 +15,8 @@ const comments = z.object({
     canRate: z.boolean(),
     viewerRating: z.enum(['none', 'like', 'dislike']),
     likeCount: z.number().optional(),
-    publishedAt: z.string().datetime(),
-    updatedAt: z.string().datetime()
+    publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date()
   })
 })
 

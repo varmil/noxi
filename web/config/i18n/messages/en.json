@@ -158,6 +158,9 @@
         "totalSubscribers": "subscribers",
         "joined": "Joind {date}"
       },
+      "comment": {
+        "count": "{count} Comments"
+      },
       "video": {
         "views": "{count} views",
         "watchTime": "watch time",

@@ -32,6 +32,7 @@ export async function getCommentThreads({
 
   const searchParams = new URLSearchParams({
     part: 'snippet,replies',
+    textFormat: 'plainText',
     maxResults: `${maxResults}`,
     ...(allThreadsRelatedToChannelId && { allThreadsRelatedToChannelId }),
     ...(videoId && { videoId }),

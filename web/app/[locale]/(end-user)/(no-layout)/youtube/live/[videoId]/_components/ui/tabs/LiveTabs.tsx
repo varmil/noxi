@@ -1,11 +1,11 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { getCommentThreads } from 'apis/youtube/data-api/getCommentThreads'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import SuperChatGallery from 'features/supers/chat/components/SuperChatGallery'
+import YoutubeCommentGallery from 'features/youtube/comment/YoutubeCommentGallery'
 import RelatedVideos from '../related-videos/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
@@ -77,18 +77,9 @@ export async function LiveTabsCommentsContent({
   const { videoId, status } = stream
   if (status !== 'ended') return null
 
-  const [commentThreads] = await Promise.all([getCommentThreads({ videoId })])
-
-  console.log(
-    'commentThreads',
-    commentThreads.map(
-      thread => thread.snippet.topLevelComment.snippet.textDisplay
-    )
-  )
-
   return (
     <TabsContent value="comments">
-      <SuperChatGallery videoId={videoId} />
+      <YoutubeCommentGallery videoId={videoId} />
     </TabsContent>
   )
 }

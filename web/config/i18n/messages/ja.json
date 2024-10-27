@@ -158,6 +158,9 @@
         "totalSubscribers": "チャンネル登録者",
         "joined": "{date}に開始"
       },
+      "comment": {
+        "count": "{count} 件のコメント"
+      },
       "video": {
         "views": "{count}回視聴",
         "watchTime": "総再生時間",
