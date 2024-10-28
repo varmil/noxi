@@ -26,10 +26,12 @@ export const schema = z.object({
   brandingSettings: z.object({
     keywords: z.array(z.string())
   }),
-  peakX: z.object({
-    country: z.string(),
-    defaultLanguage: z.string().optional()
-  }),
+  peakX: z
+    .object({
+      country: z.string(),
+      defaultLanguage: z.string().optional()
+    })
+    .optional(),
 
   updatedAt: z.string().datetime().optional()
 })

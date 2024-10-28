@@ -35,7 +35,7 @@ export default function IconBlock({
           <div className="flex w-full max-w-48 sm:max-w-60">{image}</div>
         )}
 
-        <span className="mt-2 flex flex-grow items-end gap-x-1.5 text-sm  decoration-2 group-hover:underline font-medium">
+        <span className="mt-2 flex flex-grow items-end gap-x-1.5 text-sm decoration-2 group-hover:underline font-medium">
           Search channels
           <ChevronRightIcon className="flex-shrink-0 w-4 h-4" />
         </span>
