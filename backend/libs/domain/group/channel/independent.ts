@@ -2,50 +2,39 @@ import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const List = [
   {
-    id: new ChannelId('UCOyYb1c43VlX9rc_lT6NKQw'),
-    group: 'hololive-indonesia',
-    title: 'Ayunda Risu Ch. hololive-ID'
+    id: new ChannelId('UCrV1Hf5r8P148idjoSfrGEQ'),
+    group: 'independent',
+    title: 'Sakuna Ch. 結城さくな'
   },
   {
-    id: new ChannelId('UCP0BspO_AMEe3aQqqpo89Dg'),
-    group: 'hololive-indonesia',
-    title: 'Moona Hoshinova hololive-ID'
+    id: new ChannelId('UCt30jJgChL8qeT9VPadidSw'),
+    group: 'independent',
+    title: 'しぐれうい'
   },
   {
-    id: new ChannelId('UCAoy6rzhSf4ydcYjJw3WoVg'),
-    group: 'hololive-indonesia',
-    title: `Airani Iofifteen Channel hololive-ID`
+    id: new ChannelId('UCkPIfBOLoO0hVPG-tI2YeGg'),
+    group: 'independent',
+    title: 'Tomari Mari channel / 兎鞠まりちゃんねる'
   },
   {
-    id: new ChannelId('UCYz_5n-uDuChHtLo7My1HnQ'),
-    group: 'hololive-indonesia',
-    title: 'Kureiji Ollie Ch. hololive-ID'
+    id: new ChannelId('UCqTGCMjeKOclEEfW8Vs7sXQ'),
+    group: 'independent',
+    title: 'ガッチマンV'
   },
   {
-    id: new ChannelId('UC727SQYUvx5pDDGQpTICNWg'),
-    group: 'hololive-indonesia',
-    title: 'Anya Melfissa Ch. hololive-ID'
+    id: new ChannelId('UC7-N7MvN5muVIHqyQx9LFbA'),
+    group: 'independent',
+    title: 'メイカちゃんねる'
   },
   {
-    id: new ChannelId('UChgTyjG-pdNvxxhdsXfHQ5Q'),
-    group: 'hololive-indonesia',
-    title: 'Pavolia Reine Ch. hololive-ID'
-  },
-
-  {
-    id: new ChannelId('UCTvHWSfBZgtxE4sILOaurIQ'),
-    group: 'hololive-indonesia',
-    title: 'Vestia Zeta Ch. hololive-ID'
+    id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
+    group: 'independent',
+    title: 'チョま'
   },
   {
-    id: new ChannelId('UCZLZ8Jjx_RN2CXloOmgTHVg'),
-    group: 'hololive-indonesia',
-    title: 'Kaela Kovalskia Ch. hololive-ID'
-  },
-  {
-    id: new ChannelId('UCjLEmnpCNeisMxy134KPwWw'),
-    group: 'hololive-indonesia',
-    title: 'Kobo Kanaeru Ch. hololive-ID'
+    id: new ChannelId('UCGV96w_TwvyCDusr_tmcu8A'),
+    group: 'independent',
+    title: 'Nito Ch. 新兎わい'
   }
 ]
 
