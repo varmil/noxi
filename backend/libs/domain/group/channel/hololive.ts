@@ -1,183 +1,194 @@
+import { CountryCode, LanguageTag } from '@domain/country'
+import {
+  GroupChannel,
+  GroupChannels
+} from '@domain/group/channel/group-channel'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
-const List = [
+const DefaultProps = {
+  group: 'hololive',
+  country: new CountryCode('JP'),
+  defaultLangage: new LanguageTag('ja')
+}
+
+const List: GroupChannel[] = [
   {
     id: new ChannelId('UCp6993wxpyDPHUpavwDFqgg'),
-    group: 'hololive',
-    title: 'SoraCh. ときのそらチャンネル'
+    title: 'SoraCh. ときのそらチャンネル',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCDqI2jOz0weumE8s7paEk6g'),
-    group: 'hololive',
-    title: 'Roboco Ch. - ロボ子'
+    title: 'Roboco Ch. - ロボ子',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCFTLzh12_nrtzqBPsTCqenA'),
-    group: 'hololive',
-    title: 'アキ・ローゼンタール'
+    title: 'アキ・ローゼンタール',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC1CfXB_kRs3C-zaeTG3oGyg'),
-    group: 'hololive',
-    title: 'HAACHAMA Ch 赤井はあと'
+    title: 'HAACHAMA Ch 赤井はあと',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UCdn5BQ06XqgXoAxIhbqw5Rg'),
-    group: 'hololive',
-    title: 'フブキCh。白上フブキ'
+    title: 'フブキCh。白上フブキ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCQ0UDLQCjY0rmuxCDE38FGg'),
-    group: 'hololive',
-    title: 'Matsuri Channel 夏色まつり'
+    title: 'Matsuri Channel 夏色まつり',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCXTpFs_3PqI41qX2d9tL2Rw'),
-    group: 'hololive',
-    title: 'Shion Ch. 紫咲シオン'
+    title: 'Shion Ch. 紫咲シオン',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UC7fk0CB07ly8oSl0aqKkqFg'),
-    group: 'hololive',
-    title: 'Nakiri Ayame Ch. 百鬼あやめ'
+    title: 'Nakiri Ayame Ch. 百鬼あやめ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC1suqwovbL1kzsoaZgFZLKg'),
-    group: 'hololive',
-    title: 'Choco Ch. 癒月ちょこ'
+    title: 'Choco Ch. 癒月ちょこ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCvzGlP9oQwU--Y0r9id_jnA'),
-    group: 'hololive',
-    title: 'Subaru Ch. 大空スバル'
+    title: 'Subaru Ch. 大空スバル',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC0TXe_LYZ4scaW2XMyi5_kw'),
-    group: 'hololive',
-    title: 'AZKi Channel'
+    title: 'AZKi Channel',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UCp-5t9SrOQwXMU7iIjQfARg'),
-    group: 'hololive',
-    title: 'Mio Channel 大神ミオ'
+    title: 'Mio Channel 大神ミオ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC-hM6YJuNYVAmUWxeIr9FeA'),
-    group: 'hololive',
-    title: 'Miko Ch. さくらみこ'
+    title: 'Miko Ch. さくらみこ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCvaTdHTWBGv3MKj3KVqJVCw'),
-    group: 'hololive',
-    title: 'Okayu Ch. 猫又おかゆ'
+    title: 'Okayu Ch. 猫又おかゆ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UChAnqc_AY5_I3Px5dig3X1Q'),
-    group: 'hololive',
-    title: 'Korone Ch. 戌神ころね'
+    title: 'Korone Ch. 戌神ころね',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UC5CwaMl1eIgY8h02uZw7u8A'),
-    group: 'hololive',
-    title: 'Suisei Channel'
+    title: 'Suisei Channel',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC1DCedRgGHBdm81E1llLhOQ'),
-    group: 'hololive',
-    title: 'Pekora Ch. 兎田ぺこら'
+    title: 'Pekora Ch. 兎田ぺこら',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCvInZx9h3jC2JzsIzoOebWg'),
-    group: 'hololive',
-    title: '不知火フレア'
+    title: '不知火フレア',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCdyqAaZDKHXg4Ahi7VENThQ'),
-    group: 'hololive',
-    title: 'Noel Ch. 白銀ノエル'
+    title: 'Noel Ch. 白銀ノエル',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UCCzUftO8KOVkV4wQG1vkUvg'),
-    group: 'hololive',
-    title: 'Marine Ch. 宝鐘マリン'
+    title: 'Marine Ch. 宝鐘マリン',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCZlDXzGoo7d44bwdNObFacg'),
-    group: 'hololive',
-    title: 'Kanata Ch. 天音かなた'
+    title: 'Kanata Ch. 天音かなた',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCqm3BQLlJfvkTsX_hvm0UmA'),
-    group: 'hololive',
-    title: 'Watame Ch. 角巻わため'
+    title: 'Watame Ch. 角巻わため',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC1uv2Oq6kNxgATlCiez59hw'),
-    group: 'hololive',
-    title: 'Towa Ch. 常闇トワ'
+    title: 'Towa Ch. 常闇トワ',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UCa9Y57gfeY0Zro_noHRVrnw'),
-    group: 'hololive',
-    title: 'Luna Ch. 姫森ルーナ'
+    title: 'Luna Ch. 姫森ルーナ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCFKOVgVbGmX65RxO3EtH3iw'),
-    group: 'hololive',
-    title: 'Lamy Ch. 雪花ラミィ'
+    title: 'Lamy Ch. 雪花ラミィ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCAWSyEs_Io8MtpY3m-zqILA'),
-    group: 'hololive',
-    title: 'Nene Ch. 桃鈴ねね'
+    title: 'Nene Ch. 桃鈴ねね',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCUKD-uaobj9jiqB-VXt71mA'),
-    group: 'hololive',
-    title: 'Botan Ch. 獅白ぼたん'
+    title: 'Botan Ch. 獅白ぼたん',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UCK9V2B22uJYu3N7eR_BT9QA'),
-    group: 'hololive',
-    title: 'Polka Ch. 尾丸ポルカ'
+    title: 'Polka Ch. 尾丸ポルカ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCENwRMx5Yh42zWpzURebzTw'),
-    group: 'hololive',
-    title: 'Laplus Ch. ラプラス・ダークネス'
+    title: 'Laplus Ch. ラプラス・ダークネス',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCs9_O1tRPMQTHQ-N_L6FU2g'),
-    group: 'hololive',
-    title: 'Lui Ch. 鷹嶺ルイ'
+    title: 'Lui Ch. 鷹嶺ルイ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC6eWCld0KwmyHFbAqK3V-Rw'),
-    group: 'hololive',
-    title: 'Koyori Ch. 博衣こより'
+    title: 'Koyori Ch. 博衣こより',
+    ...DefaultProps
   },
 
   {
     id: new ChannelId('UCIBY1ollUsauvVi4hW4cumw'),
-    group: 'hololive',
-    title: 'Chloe Ch. 沙花叉クロヱ'
+    title: 'Chloe Ch. 沙花叉クロヱ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC_vMYWcDjmfdpH6r4TTn1MQ'),
-    group: 'hololive',
-    title: 'Iroha Ch. 風真いろは'
+    title: 'Iroha Ch. 風真いろは',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCJFZiqLMntJufDCHc6bQixg'),
-    group: 'hololive',
-    title: 'ホロライブ公式'
+    title: 'ホロライブ公式',
+    ...DefaultProps
   },
 
   /**
@@ -185,33 +196,36 @@ const List = [
    */
   {
     id: new ChannelId('UCMGfV7TVTmHhEErVJg1oHBQ'),
-    group: 'hololive',
-    title: 'Ao Ch. 火威青 ‐ ReGLOSS'
+    title: 'Ao Ch. 火威青 ‐ ReGLOSS',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCWQtYtq9EOB4-I5P-3fh8lA'),
-    group: 'hololive',
-    title: 'Kanade Ch. 音乃瀬奏 ‐ ReGLOSS'
+    title: 'Kanade Ch. 音乃瀬奏 ‐ ReGLOSS',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCtyWhCj3AqKh2dXctLkDtng'),
-    group: 'hololive',
-    title: 'Ririka Ch. 一条莉々華 ‐ ReGLOSS'
+    title: 'Ririka Ch. 一条莉々華 ‐ ReGLOSS',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCdXAk5MpyLD8594lm_OvtGQ'),
-    group: 'hololive',
-    title: 'Raden Ch. 儒烏風亭らでん ‐ ReGLOSS'
+    title: 'Raden Ch. 儒烏風亭らでん ‐ ReGLOSS',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC1iA6_NT4mtAcIII6ygrvCw'),
-    group: 'hololive',
-    title: 'Hajime Ch. 轟はじめ ‐ ReGLOSS'
+    title: 'Hajime Ch. 轟はじめ ‐ ReGLOSS',
+    ...DefaultProps
   }
 ]
 
-export class Hololive {
-  static get channelIds(): ChannelIds {
+export class Hololive implements GroupChannels {
+  channelIds(): ChannelIds {
     return new ChannelIds(List.map(c => c.id))
+  }
+  findById(id: ChannelId) {
+    return List.find(c => c.id.equals(id))
   }
 }

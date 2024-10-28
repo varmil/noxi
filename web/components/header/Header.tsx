@@ -91,6 +91,20 @@ export default function Header() {
                 href="/hololive-indonesia"
                 active
               />
+              <HeaderLink
+                name={t('group.independent')}
+                icon={
+                  <Image
+                    src={'/vtuber/independent/pixai-001.png'}
+                    alt={t('group.independent')}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8 rounded-full"
+                  />
+                }
+                href="/independent"
+                active
+              />
 
               {/* 
             <HeaderLink

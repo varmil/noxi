@@ -21,7 +21,7 @@ export default function HeaderLink({
   return (
     <Link
       href={href}
-      className={`flex items-center gap-4 px-2.5 ${
+      className={`flex items-center gap-4 ${
         active ? 'text-foreground' : 'text-muted-foreground'
       } hover:text-foreground`}
       prefetch={false}

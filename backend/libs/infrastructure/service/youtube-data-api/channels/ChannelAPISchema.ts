@@ -31,7 +31,7 @@ export const channelAPISchema = z.object({
   brandingSettings: z.object({
     channel: z.object({
       keywords: z.string().optional(),
-      country: z.string()
+      country: z.string().optional()
     })
   })
 })

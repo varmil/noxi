@@ -33,20 +33,26 @@ export default function Aside() {
           <Separator orientation="horizontal" />
 
           <AsideIcon
-            name={`Hololive`}
+            name={t('group.hololive')}
             href="/hololive"
             src="/hololiveicon.png"
           />
           <AsideIcon
-            name={`Hololive English`}
+            name={t('group.hololive-english')}
             href="/hololive-english"
             src="/hololive/hololive_en_square.png"
             roundedFull
           />
           <AsideIcon
-            name={`Hololive Indonesia`}
+            name={t('group.hololive-indonesia')}
             href="/hololive-indonesia"
             src="/hololive/hololive_id_square.png"
+            roundedFull
+          />
+          <AsideIcon
+            name={t('group.independent')}
+            href="/independent"
+            src="/vtuber/independent/pixai-001.png"
             roundedFull
           />
         </TooltipProvider>

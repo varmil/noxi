@@ -1,6 +1,6 @@
-import { Expose, Transform } from 'class-transformer'
+import { Exclude, Expose, Transform } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
-import { ChannelIdsByGroup } from '@domain/group/list'
+import { ChannelIdsByGroup, ChannelsByGroup } from '@domain/group/list'
 import { StringValueObject } from '@domain/lib/StringValueObject'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
@@ -29,5 +29,10 @@ export class Group extends StringValueObject<GroupString> {
   )
   get channelIds(): ChannelIds {
     return ChannelIdsByGroup[this.val]
+  }
+
+  @Exclude()
+  findChannel(id: ChannelId) {
+    return ChannelsByGroup[this.val].findById(id)
   }
 }
