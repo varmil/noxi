@@ -70,7 +70,7 @@
           "description": "Explore comprehensive statistics on {group} channels with PeakX. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
         },
         "cardTitle": "{group}",
-        "cardDescription": "Here is a list of YouTube channels for talents in {group}."
+        "cardDescription": "Here is a list of YouTube channels for talents in {group} group."
       },
       "channelsId": {
         "metadata": {
