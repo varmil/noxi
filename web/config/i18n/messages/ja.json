@@ -6,7 +6,8 @@
     "group": {
       "hololive": "ホロライブ",
       "hololive-english": "ホロライブEnglish",
-      "hololive-indonesia": "ホロライブIndonesia"
+      "hololive-indonesia": "ホロライブIndonesia",
+      "independent": "個人勢VTuber"
     }
   },
 
@@ -39,6 +40,10 @@
         "hololive-indonesia": {
           "title": "ホロライブIndonesiaとは",
           "description": "ホロライブインドネシアは、カバー株式会社が運営するバーチャルYouTuber（VTuber）グループです。YouTubeなどのプラットフォームで動画投稿やライブ配信を中心に活動しており、精巧な2D・3Dキャラクターモデルを使用した実況・配信を得意としています。ライブ配信では応援やTwitterでの交流も可能で、次世代の二次元アイドルグループとして知られています。ホロライブインドネシアのメンバーには、2022年3月にデビューした3期生として「Vestia Zeta（ベスティア・ゼータ）」「Kaela Kovalskia（カエラ・コヴァルスキア）」「Kobo Kanaeru（こぼ・かなえる）」などがいます。"
+        },
+        "independent": {
+          "title": "個人勢VTuberとは",
+          "description": "個人勢VTuberとは、企業に所属せず、個人で活動しているVTuber（バーチャルYouTuber）を指します。﻿個人勢VTuberのメリットとしては、アバターや機材が準備できればすぐに活動を開始でき、自分のペースで好きなことを発信できることが挙げられます。一方、準備に時間とお金がかかったり、動画を制作する手間がかかったりする点はデメリットでしょう。"
         }
       }
     },
@@ -64,8 +69,8 @@
           "title": "{group}チャンネル人気ランキング - 登録者数・視聴者数を比較",
           "description": "{group}のチャンネル人気ランキングをグラフで確認。視聴者数や登録者数を比較して、注目チャンネルを見逃さない。"
         },
-        "cardTitle": "{group} 所属タレント",
-        "cardDescription": "{group}に所属するタレントのYouTubeチャンネル一覧をまとめています！"
+        "cardTitle": "{group} タレント",
+        "cardDescription": "{group}のYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {
         "metadata": {

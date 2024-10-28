@@ -1,16 +1,19 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { ChannelId } from '@domain/youtube'
-import { BrandingSettings } from '@domain/youtube/channel/BrandingSettings'
-import { Channel } from '@domain/youtube/channel/Channel.entity'
-import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
-import { ChannelStatistics } from '@domain/youtube/channel/ChannelStatistics'
-import { Channels } from '@domain/youtube/channel/Channels.collection'
-import { ChannelBasicInfo } from '@domain/youtube/channel/basic-info/ChannelBasicInfo.entity'
-import { Keyword } from '@domain/youtube/channel/branding-settings/Keyword'
-import { Keywords } from '@domain/youtube/channel/branding-settings/Keywords'
-import { ContentDetails } from '@domain/youtube/channel/content-details/ContentDetails'
+import {
+  ChannelId,
+  Channel,
+  Channels,
+  ChannelRepository,
+  ChannelStatistics,
+  BrandingSettings,
+  ChannelBasicInfo,
+  ContentDetails,
+  Keyword,
+  Keywords,
+  PeakXChannelProps
+} from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import type { Channel as PrismaChannel } from '@prisma/client'
 
@@ -63,18 +66,16 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   }: Parameters<ChannelRepository['bulkSave']>[0]) {
     const prismaData: Prisma.ChannelCreateInput[] = channels.map(channel => {
       const {
-        basicInfo: {
-          id,
-          title,
-          description,
-          thumbnails,
-          publishedAt,
-          defaultLanguage
-        },
+        basicInfo: { id, title, description, thumbnails, publishedAt },
         contentDetails,
         statistics: { viewCount, subscriberCount, videoCount },
-        brandingSettings: { keywords, country }
+        brandingSettings: { keywords }
       } = channel
+
+      const groupChannel = group.findChannel(id)
+      if (!groupChannel) {
+        throw new Error(`Channel not found in group: ${id.get()}`)
+      }
 
       return {
         id: id.get(),
@@ -82,14 +83,16 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         description,
         thumbnails,
         publishedAt,
-        defaultLanguage: defaultLanguage?.get(),
         playlistId: contentDetails.uploadsPlaylistId,
         viewCount,
         subscriberCount,
         videoCount,
         keywords: keywords.map(k => k.get()),
-        country: country.get(),
-        group: group.get()
+        group: group.get(),
+        // Use country code which PeakX defines
+        country: groupChannel.country.get(),
+        // Use defaultLanguage which PeakX defines
+        defaultLanguage: groupChannel.defaultLangage.get()
       }
     })
 
@@ -127,10 +130,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         title,
         description,
         thumbnails,
-        publishedAt: publishedAt,
-        defaultLanguage: defaultLanguage
-          ? new LanguageTag(defaultLanguage)
-          : undefined
+        publishedAt: publishedAt
       }),
       contentDetails: new ContentDetails({
         relatedPlaylists: { uploads: playlistId }
@@ -141,8 +141,13 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         videoCount
       }),
       brandingSettings: new BrandingSettings({
-        keywords: new Keywords(keywords.map(k => new Keyword(k))),
-        country: new CountryCode(country)
+        keywords: new Keywords(keywords.map(k => new Keyword(k)))
+      }),
+      peakX: new PeakXChannelProps({
+        country: new CountryCode(country),
+        defaultLanguage: defaultLanguage
+          ? new LanguageTag(defaultLanguage)
+          : undefined
       })
     })
   }

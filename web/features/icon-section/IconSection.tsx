@@ -3,6 +3,7 @@ import Image from 'components/styles/Image'
 import IconBlock from 'features/icon-section/IconBlock'
 
 export default function IconSection() {
+  const tg = useTranslations('Global')
   const t = useTranslations('Page.index.section')
 
   return (
@@ -48,6 +49,23 @@ export default function IconSection() {
             }
             title={t('hololive-indonesia.title')}
             description={t('hololive-indonesia.description')}
+          />
+          <IconBlock
+            href="/independent"
+            image={
+              <div className="flex items-center gap-x-2">
+                <Image
+                  src={'/vtuber/independent/pixai-001.png'}
+                  alt={`Independent VTubers`}
+                  width={442}
+                  height={442}
+                  className="rounded-lg w-14"
+                />
+                <p className="flex-1 font-bold">{tg('group.independent')}</p>
+              </div>
+            }
+            title={t('independent.title')}
+            description={t('independent.description')}
           />
         </div>
       </section>

@@ -6,7 +6,8 @@
     "group": {
       "hololive": "Hololive",
       "hololive-english": "Hololive English",
-      "hololive-indonesia": "Hololive Indonesia"
+      "hololive-indonesia": "Hololive Indonesia",
+      "independent": "Independent VTubers"
     }
   },
 
@@ -39,6 +40,10 @@
         "hololive-indonesia": {
           "title": "What is Hololive Indonesia?",
           "description": "Hololive Indonesia is a Virtual YouTuber (VTuber) group operated by Cover Corporation. They mainly post videos and live stream on platforms such as YouTube, and are good at live commentary and distribution using elaborate 2D and 3D character models. They are known as the next generation of two-dimensional idol groups, and you can cheer them on during live streams and interact with them on Twitter. Hololive Indonesia's members include \"Vestia Zeta\", \"Kaela Kovalskia\", and \"Kobo Kanaeru\", who are third-generation members who debuted in March 2022."
+        },
+        "independent": {
+          "title": "What is Independent VTubers?",
+          "description": "An independent VTuber is a VTuber (Virtual YouTuber) who is not affiliated with a company and is active on their own. The advantage of being an independent VTuber is that you can start your activities as soon as you have your avatar and equipment ready, and you can broadcast what you like at your own pace. On the other hand, the disadvantages are that it takes time and money to prepare, and it takes effort to create videos."
         }
       }
     },
@@ -64,8 +69,8 @@
           "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
           "description": "Explore comprehensive statistics on {group} channels with PeakX. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
         },
-        "cardTitle": "{group} Talents",
-        "cardDescription": "Here is a list of YouTube channels for talents in {group}."
+        "cardTitle": "{group}",
+        "cardDescription": "Here is a list of YouTube channels for talents in {group} group."
       },
       "channelsId": {
         "metadata": {

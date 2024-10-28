@@ -22,7 +22,7 @@ export class ChannelsScenario {
     if (!channel) return { items: new Videos([]) }
 
     return await this.videosService.findByChannel({
-      hl: channel.basicInfo.defaultLanguage, // TODO: 本来はフロントエンドからhlを送る
+      hl: channel.peakX?.defaultLanguage, // TODO: 本来はフロントエンドからhlを送る
       where: { channel },
       limit: limit ?? 36
     })
