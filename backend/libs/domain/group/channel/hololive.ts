@@ -33,11 +33,6 @@ const List = [
     title: 'Matsuri Channel 夏色まつり'
   },
   {
-    id: new ChannelId('UC1opHUrw8rvnsadT-iGp7Cg'),
-    group: 'hololive',
-    title: 'Aqua Ch. 湊あくあ'
-  },
-  {
     id: new ChannelId('UCXTpFs_3PqI41qX2d9tL2Rw'),
     group: 'hololive',
     title: 'Shion Ch. 紫咲シオン'

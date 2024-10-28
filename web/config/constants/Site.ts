@@ -1,7 +1,8 @@
 export const GroupStrings = [
   'hololive',
   'hololive-english',
-  'hololive-indonesia'
+  'hololive-indonesia',
+  'independent'
 ] as const
 
 export type GroupString = (typeof GroupStrings)[number]

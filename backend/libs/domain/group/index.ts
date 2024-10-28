@@ -1,4 +1,5 @@
 export * from './Group.entity'
 export * from './Group.repository'
 export * from './Groups.collection'
+export * from './channel'
 export * from './list'
