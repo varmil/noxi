@@ -22,8 +22,14 @@ export default function VideoCard(video: VideoSchema) {
       >
         <Image
           src={{
-            '1x': thumbnails['standard']?.url,
-            '2x': thumbnails['maxres']?.url
+            '1x':
+              thumbnails['standard']?.url ||
+              thumbnails['high']?.url ||
+              thumbnails['default']?.url,
+            '2x':
+              thumbnails['maxres']?.url ||
+              thumbnails['high']?.url ||
+              thumbnails['default']?.url
           }}
           alt={`Video Thumbnail: ${title}`}
           width={400}
