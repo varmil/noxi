@@ -13,8 +13,7 @@ export const schema = z.object({
         height: z.number().optional()
       })
     ),
-    publishedAt: z.string().datetime(),
-    defaultLanguage: z.string().optional()
+    publishedAt: z.string().datetime()
   }),
   contentDetails: z.object({
     relatedPlaylists: z.object({ uploads: z.string() })
@@ -25,8 +24,11 @@ export const schema = z.object({
     videoCount: z.number().min(0)
   }),
   brandingSettings: z.object({
-    keywords: z.array(z.string()),
-    country: z.string()
+    keywords: z.array(z.string())
+  }),
+  peakX: z.object({
+    country: z.string(),
+    defaultLanguage: z.string().optional()
   }),
 
   updatedAt: z.string().datetime().optional()
