@@ -2,7 +2,8 @@ import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
-import { ChannelProfile } from 'app/[locale]/(end-user)/(default)/_components/ChannelProfile'
+import { ChannelProfile } from 'app/[locale]/(end-user)/(default)/_components/ui/profile/ChannelProfile'
+import { ChannelCommentTabs } from 'app/[locale]/(end-user)/(default)/_components/ui/tabs/ChannelCommentTabs'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
@@ -46,13 +47,25 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           />
         </Section>
 
-        <Section className="lg:col-span-2 lg:order-1" title={t('liveTrends')}>
-          <ConcurrentViewersBarChart channelId={basicInfo.id} />
-          <ViewsBarChart channelId={basicInfo.id} />
+        <Section
+          className="lg:col-span-2 lg:order-1"
+          title={'Latest Super Chat & Comments'}
+        >
+          <ChannelCommentTabs channelId={basicInfo.id} />
         </Section>
 
         <Section
           className="lg:col-span-full lg:order-3"
+          title={t('liveTrends')}
+        >
+          <ChartGrid>
+            <ConcurrentViewersBarChart channelId={basicInfo.id} />
+            <ViewsBarChart channelId={basicInfo.id} />
+          </ChartGrid>
+        </Section>
+
+        <Section
+          className="lg:col-span-full lg:order-4"
           title={t('timeSlotAnalysis')}
         >
           <ChartGrid>
@@ -61,7 +74,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         </Section>
 
         <Section
-          className="lg:col-span-full lg:order-4"
+          className="lg:col-span-full lg:order-5"
           title={t('doWAnalysis')}
         >
           <ChartGrid>
@@ -71,7 +84,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
         </Section>
 
         <Section
-          className="lg:col-span-full lg:order-5"
+          className="lg:col-span-full lg:order-6"
           title={t('liveStreams')}
         >
           <Suspense fallback={<p>Loading Live Streams...</p>}>

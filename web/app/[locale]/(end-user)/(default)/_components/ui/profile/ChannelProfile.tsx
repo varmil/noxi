@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { ChannelProfileContent } from 'app/[locale]/(end-user)/(default)/_components/ChannelProfileContent'
+import { ChannelProfileContent } from 'app/[locale]/(end-user)/(default)/_components/ui/profile/ChannelProfileContent'
 import FAQGallery from 'features/faq/FAQGallery'
 import { FAQs } from 'features/faq/types/FAQs'
 

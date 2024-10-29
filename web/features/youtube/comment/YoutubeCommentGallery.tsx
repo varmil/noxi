@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { channel } from 'diagnostics_channel'
 import { getTranslations } from 'next-intl/server'
 import { getCommentThreads } from 'apis/youtube/data-api/getCommentThreads'
 import { getStatistics } from 'apis/youtube/data-api/getStatistics'
@@ -14,17 +15,30 @@ import YoutubeComment from 'features/youtube/comment/YoutubeComment'
 const FIRST_VIEW_LIMIT = 30
 
 type Props = {
-  videoId: string
+  channelId?: string
+  videoId?: string
 }
 
 export default async function YoutubeCommentGallery({
+  channelId,
   videoId
 }: PropsWithoutRef<Props>) {
-  const [t, threads, [video]] = await Promise.all([
+  if (!channelId && !videoId) {
+    throw new Error('Either channelId or videoId is required')
+  }
+
+  const [t, threads] = await Promise.all([
     getTranslations('Features.youtube.comment'),
-    getCommentThreads({ videoId }),
-    getStatistics({ videoIds: [videoId] })
+    getCommentThreads({ videoId, allThreadsRelatedToChannelId: channelId })
   ])
+
+  let count = '0'
+  if (videoId) {
+    const [video] = await getStatistics({ videoIds: [videoId] })
+    count = video.statistics.commentCount?.toLocaleString() ?? '0'
+  } else if (channelId) {
+    count = threads.length.toLocaleString() ?? '0'
+  }
 
   const isCollapsible = threads.length > FIRST_VIEW_LIMIT
   const firstView = threads.slice(0, FIRST_VIEW_LIMIT)
@@ -32,11 +46,7 @@ export default async function YoutubeCommentGallery({
 
   return (
     <CommentGalleryContainer>
-      <CommentGalleryHeader>
-        {t('count', {
-          count: video.statistics.commentCount?.toLocaleString() ?? 0
-        })}
-      </CommentGalleryHeader>
+      <CommentGalleryHeader>{t('count', { count })}</CommentGalleryHeader>
       <CommentGalleryContent>
         <CommentGalleryFirstView>
           {firstView.map(thread => (
