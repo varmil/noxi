@@ -32,15 +32,15 @@ export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
               <ChevronDown className="h-5 w-5" />
             )}
           </CollapsibleTrigger>
-          <CollapsibleContent className="p-4">
-            <div
-              itemScope
-              itemProp="acceptedAnswer"
-              itemType="https://schema.org/Answer"
-            >
+          <div
+            itemScope
+            itemProp="acceptedAnswer"
+            itemType="https://schema.org/Answer"
+          >
+            <CollapsibleContent className="p-4">
               <div itemProp="text">{answer}</div>
-            </div>
-          </CollapsibleContent>
+            </CollapsibleContent>
+          </div>
         </div>
       </Collapsible>
     </>
