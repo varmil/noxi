@@ -27,7 +27,7 @@ export const faqs: FAQs = [
     )
   },
   {
-    question: '結城さくなの前世を詳細解説します',
+    question: '結城さくなのもっと以前の前世は？',
     answer: (
       <>
         <p>
@@ -214,7 +214,7 @@ export const faqs: FAQs = [
     answer: (
       <>
         <p>
-          湊あくあさんは、2024年8月28日をもって、ホロライブから卒業、引退されました。下記は引退配信のXツイート画像です。
+          前世の湊あくあさんは、2024年8月28日をもって、ホロライブから卒業、引退されました。下記は引退配信のXツイート画像です。
           また当日の配信は
           <a
             href="https://www.youtube.com/watch?v=wor3Qt90Yls"
