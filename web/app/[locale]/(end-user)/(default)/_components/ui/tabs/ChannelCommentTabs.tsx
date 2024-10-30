@@ -22,6 +22,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
             channelId={channelId}
             createdAfter={new Date(new Date().getTime() - 72 * 60 * 60 * 1000)}
             limit={30}
+            showStreamLink
           />
         </TabsContent>
         <TabsContent value="comments">

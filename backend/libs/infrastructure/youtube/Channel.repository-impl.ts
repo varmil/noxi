@@ -46,13 +46,9 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   async prismaFindById(
     id: Parameters<ChannelRepository['prismaFindById']>[0]
   ): Promise<Channel | null> {
-    const label = Date.now() + 'channel.prismaFindById'
-    console.time(label)
     const channel = await this.prismaInfraService.channel.findUnique({
       where: { id: id.get() }
     })
-    console.timeEnd(label)
-
     if (!channel) return null
     return this.toDomain(channel)
   }

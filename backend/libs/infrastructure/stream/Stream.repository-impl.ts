@@ -11,20 +11,32 @@ export class StreamRepositoryImpl implements StreamRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
-    where: { status, group, channelId, scheduledBefore, scheduledAfter },
+    where: {
+      status,
+      videoIds,
+      group,
+      channelId,
+      scheduledBefore,
+      scheduledAfter
+    },
     orderBy,
     limit
   }: Parameters<StreamRepository['findAll']>[0]) {
-    let prismaStatus: string[]
-    if (status instanceof StreamStatus) {
-      prismaStatus = new StreamStatuses([status]).map(s => s.get())
-    } else {
-      prismaStatus = status.map(s => s.get())
+    let prismaStatus: { status: { in: string[] } } | undefined
+    if (status) {
+      if (status instanceof StreamStatus) {
+        prismaStatus = {
+          status: { in: new StreamStatuses([status]).map(s => s.get()) }
+        }
+      } else {
+        prismaStatus = { status: { in: status.map(s => s.get()) } }
+      }
     }
 
     const rows = await this.prismaInfraService.youtubeStream.findMany({
       where: {
-        status: { in: prismaStatus },
+        ...prismaStatus,
+        videoId: { in: videoIds?.map(e => e.get()) },
         group: group?.get(),
         channelId: channelId?.get(),
         scheduledStartTime: {

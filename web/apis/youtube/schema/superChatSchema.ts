@@ -14,6 +14,7 @@ export const schema = z.object({
     isChatSponsor: z.boolean()
   }),
 
+  videoId: z.string(),
   createdAt: z.coerce.date()
 })
 export const responseSchema = z.object({

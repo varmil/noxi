@@ -3,7 +3,8 @@ import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  status: 'scheduled' | 'live' | 'ended'
+  status?: 'scheduled' | 'live' | 'ended'
+  videoIds?: string[]
   group?: GroupString
   channelId?: string
   scheduledBefore?: Date
@@ -21,6 +22,7 @@ type Params = {
 
 export async function getStreams({
   status,
+  videoIds,
   group,
   channelId,
   scheduledBefore,
@@ -29,12 +31,13 @@ export async function getStreams({
   limit
 }: Params): Promise<StreamsSchema> {
   const searchParams = new URLSearchParams({
-    status,
-    limit: String(limit),
+    ...(status && { status }),
+    ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(group && { group }),
     ...(channelId && { channelId }),
     ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
-    ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() })
+    ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),
+    limit: String(limit)
   })
 
   orderBy.forEach((orderBy, index) => {
