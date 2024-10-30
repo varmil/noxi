@@ -17,11 +17,15 @@ const FIRST_VIEW_LIMIT = 30
 type Props = {
   channelId?: string
   videoId?: string
+  order?: 'time' | 'relevance'
+  limit?: number
 }
 
 export default async function YoutubeCommentGallery({
   channelId,
-  videoId
+  videoId,
+  order,
+  limit
 }: PropsWithoutRef<Props>) {
   if (!channelId && !videoId) {
     throw new Error('Either channelId or videoId is required')
@@ -29,7 +33,12 @@ export default async function YoutubeCommentGallery({
 
   const [t, threads] = await Promise.all([
     getTranslations('Features.youtube.comment'),
-    getCommentThreads({ videoId, allThreadsRelatedToChannelId: channelId })
+    getCommentThreads({
+      videoId,
+      allThreadsRelatedToChannelId: channelId,
+      order,
+      maxResults: limit
+    })
   ])
 
   let count = '0'

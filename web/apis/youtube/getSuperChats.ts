@@ -7,6 +7,8 @@ import { fetchAPI } from 'lib/fetchAPI'
 type Params = {
   videoId?: string
   channelId?: string
+  createdBefore?: Date
+  createdAfter?: Date
   orderBy: {
     field: 'tier' | 'amountMicros' | 'currency' | 'createdAt'
     order: 'asc' | 'desc'
@@ -17,13 +19,17 @@ type Params = {
 export async function getSuperChats({
   videoId,
   channelId,
+  createdBefore,
+  createdAfter,
   orderBy,
   limit
 }: Params): Promise<SuperChatsSchema> {
   const searchParams = new URLSearchParams({
     limit: String(limit),
     ...(videoId && { videoId }),
-    ...(channelId && { channelId })
+    ...(channelId && { channelId }),
+    ...(createdBefore && { createdBefore: createdBefore.toISOString() }),
+    ...(createdAfter && { createdAfter: createdAfter.toISOString() })
   })
 
   orderBy.forEach((orderBy, index) => {

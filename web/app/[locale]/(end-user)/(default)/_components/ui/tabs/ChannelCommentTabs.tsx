@@ -17,12 +17,19 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
 
       <ScrollArea className="h-[493px] rounded-md border p-4">
         <TabsContent value="superChat">
-          {/* TODO:: use ChannelId */}
-          <SuperChatGallery videoId={'TwSLSFw85yg'} />
+          {/* -72 hours from now */}
+          <SuperChatGallery
+            channelId={channelId}
+            createdAfter={new Date(new Date().getTime() - 72 * 60 * 60 * 1000)}
+            limit={30}
+          />
         </TabsContent>
         <TabsContent value="comments">
-          {/* TODO:: use ChannelId */}
-          <YoutubeCommentGallery videoId={'TwSLSFw85yg'} />
+          <YoutubeCommentGallery
+            channelId={channelId}
+            order="time"
+            limit={30}
+          />
         </TabsContent>
       </ScrollArea>
     </Tabs>

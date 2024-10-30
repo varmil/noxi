@@ -14,16 +14,27 @@ const FIRST_VIEW_LIMIT = 30
 
 type Props = {
   videoId?: string
+  channelId?: string
+  createdBefore?: Date
+  createdAfter?: Date
+  limit?: number
 }
 
 export default async function SuperChatGallery({
-  videoId
+  videoId,
+  channelId,
+  createdBefore,
+  createdAfter,
+  limit = 1000
 }: PropsWithoutRef<Props>) {
   const [chats] = await Promise.all([
     getSuperChats({
       videoId,
+      channelId,
+      createdBefore,
+      createdAfter,
       orderBy: [{ field: 'tier', order: 'desc' }],
-      limit: 1000
+      limit
     })
   ])
   const t = await getTranslations('Features.supers.chat')

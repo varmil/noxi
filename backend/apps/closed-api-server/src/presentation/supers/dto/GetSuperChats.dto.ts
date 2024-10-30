@@ -3,6 +3,7 @@ import {
   IsArray,
   IsInt,
   IsOptional,
+  IsRFC3339,
   IsString,
   ValidateNested
 } from 'class-validator'
@@ -19,6 +20,14 @@ export class GetSuperChats {
   @IsString()
   channelId?: string
 
+  @IsOptional()
+  @IsRFC3339()
+  createdBefore?: string
+
+  @IsOptional()
+  @IsRFC3339()
+  createdAfter?: string
+
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
@@ -33,6 +42,14 @@ export class GetSuperChats {
 
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined
+
+  toCreatedBefore = () => {
+    return this.createdBefore ? new Date(this.createdBefore) : undefined
+  }
+
+  toCreatedAfter = () => {
+    return this.createdAfter ? new Date(this.createdAfter) : undefined
+  }
 
   toOrderBy = () => {
     return this.orderBy.map(({ field, order }) => ({
