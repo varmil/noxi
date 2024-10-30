@@ -3,6 +3,7 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { ChannelProfileContent } from 'app/[locale]/(end-user)/(default)/_components/ChannelProfileContent'
 import FAQGallery from 'features/faq/FAQGallery'
 import { FAQs } from 'features/faq/types/FAQs'
+import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
@@ -10,11 +11,13 @@ type Props = {
 
 export async function ChannelProfile({ basicInfo }: PropsWithoutRef<Props>) {
   try {
+    const group = getGroup()
+
     const { faqs } = (await import(
-      `features/faq/assets/hololive/${basicInfo.id}`
+      `features/faq/assets/${group}/${basicInfo.id}`
     )) as { faqs: FAQs }
     return (
-      <ChannelProfileContent basicInfo={basicInfo}>
+      <ChannelProfileContent basicInfo={basicInfo} defaultOpen>
         <FAQGallery name={basicInfo.title} faqs={faqs} />
       </ChannelProfileContent>
     )
