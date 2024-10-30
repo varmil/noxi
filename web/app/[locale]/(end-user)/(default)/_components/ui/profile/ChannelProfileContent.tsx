@@ -7,14 +7,16 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
+  defaultOpen?: boolean
 }
 
 export function ChannelProfileContent({
   basicInfo,
+  defaultOpen = false,
   children
 }: PropsWithChildren<Props>) {
   const { title: name, thumbnails } = basicInfo
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(defaultOpen)
   const avatarIsHidden = isExpanded ? 'hidden sm:flex' : ''
 
   return (
@@ -25,7 +27,15 @@ export function ChannelProfileContent({
           <AvatarFallback>{name}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col gap-2">
-          <h1 className="text-xl font-bold">{name}</h1>
+          <div className="flex items-center gap-x-2">
+            {isExpanded && (
+              <Avatar className={`w-6 h-6 sm:hidden`}>
+                <AvatarImage src={thumbnails.medium?.url} />
+                <AvatarFallback>{name}</AvatarFallback>
+              </Avatar>
+            )}
+            <h1 className="text-xl font-bold">{name}</h1>
+          </div>
           <div className="max-w-xl break-anywhere whitespace-normal">
             <div
               className={`overflow-hidden transition-all duration-300 ${

@@ -32,7 +32,10 @@ export default function FAQ({ question, answer }: PropsWithoutRef<Props>) {
               <ChevronDown className="h-5 w-5" />
             )}
           </CollapsibleTrigger>
-          <CollapsibleContent className="p-4">
+          <CollapsibleContent
+            className={`p-4 ${isOpen ? '' : 'hidden'}`}
+            forceMount
+          >
             <div
               itemScope
               itemProp="acceptedAnswer"
