@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getFormatter, getTranslations } from 'next-intl/server'
+import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { SuperChatSchema } from 'apis/youtube/schema/superChatSchema'
 import CommentAvatar from 'components/comment/comment/CommentAvatar'
 import {
@@ -14,9 +15,12 @@ import {
 } from 'components/comment/comment/CommentHeader'
 import SuperTierIcon from 'features/supers/components/SuperTierIcon'
 
-export default async function SuperChat({
-  chat
-}: PropsWithoutRef<{ chat: SuperChatSchema }>) {
+type Props = PropsWithoutRef<{
+  chat: SuperChatSchema
+  stream?: StreamSchema
+}>
+
+export default async function SuperChat({ chat, stream }: Props) {
   const {
     amountMicros,
     currency,
@@ -26,6 +30,10 @@ export default async function SuperChat({
     author,
     createdAt
   } = chat
+
+  if (stream) {
+    // console.log('chat&stream', [chat.userComment, stream.snippet.title])
+  }
 
   const format = await getFormatter()
   const t = await getTranslations('Features.supers')

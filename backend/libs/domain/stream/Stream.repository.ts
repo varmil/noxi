@@ -7,12 +7,19 @@ import {
   StreamStatus,
   StreamStatuses
 } from '@domain/stream'
-import { ChannelId, Duration, Thumbnails, VideoId } from '@domain/youtube'
+import {
+  ChannelId,
+  Duration,
+  Thumbnails,
+  VideoId,
+  VideoIds
+} from '@domain/youtube'
 
 export interface StreamRepository {
   findAll: (args: {
     where: {
-      status: StreamStatus | StreamStatuses
+      status?: StreamStatus | StreamStatuses
+      videoIds?: VideoIds
       group?: Group
       channelId?: ChannelId
       scheduledBefore?: Date

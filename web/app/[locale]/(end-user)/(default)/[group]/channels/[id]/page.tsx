@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { ChannelIdTemplate } from 'app/[locale]/(end-user)/(default)/_components/ChannelIdTemplate'
 import { Page } from 'components/page'
@@ -34,7 +34,7 @@ export default async function GroupChannelsIdPage({
   params: { locale, group, id }
 }: Props) {
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   setGroup(group)
 
   const { basicInfo } = await getChannel(id)

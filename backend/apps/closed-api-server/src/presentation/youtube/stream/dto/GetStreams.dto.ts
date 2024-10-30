@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
   IsIn,
@@ -12,12 +12,21 @@ import {
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { StreamStatus, StreamRepository } from '@domain/stream'
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
 
 export class GetStreamsDto {
+  @IsOptional()
   @IsIn(['scheduled', 'live', 'ended'])
   @IsNotEmpty()
-  status: 'scheduled' | 'live' | 'ended'
+  status?: 'scheduled' | 'live' | 'ended'
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }: { value: string }) =>
+    value ? value.split(',') : undefined
+  )
+  videoIds?: string[]
 
   @IsIn(GroupStrings)
   @IsOptional()
@@ -50,7 +59,12 @@ export class GetStreamsDto {
   @Type(() => Number)
   limit: number
 
-  toStatus = () => new StreamStatus(this.status)
+  toStatus = () => (this.status ? new StreamStatus(this.status) : undefined)
+
+  toVideoIds = () =>
+    this.videoIds
+      ? new VideoIds(this.videoIds.map(id => new VideoId(id)))
+      : undefined
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 

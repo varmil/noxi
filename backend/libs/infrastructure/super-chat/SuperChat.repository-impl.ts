@@ -7,16 +7,22 @@ import { SuperChatTranslator } from '@infra/super-chat/SuperChatTranslator'
 export class SuperChatRepositoryImpl implements SuperChatRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  // TODO: join Stream with channelId
   async findAll({
-    where: { videoId, group },
+    where: { channelId, videoId, group, createdBefore, createdAfter },
     orderBy,
     limit
   }: Parameters<SuperChatRepository['findAll']>[0]) {
     const rows = await this.prismaInfraService.youtubeStreamSuperChat.findMany({
       where: {
         videoId: videoId?.get(),
-        group: group?.get()
+        group: group?.get(),
+        createdAt: {
+          gte: createdAfter,
+          lte: createdBefore
+        },
+        stream: {
+          channelId: channelId?.get()
+        }
       },
       orderBy,
       take: limit

@@ -66,6 +66,8 @@ model YoutubeStream {
   group     String
   updatedAt DateTime @default(now()) @db.Timestamptz(3)
 
+  superChats YoutubeStreamSuperChat[]
+
   @@index([channelId])
   @@index([status, group])
 }
@@ -115,6 +117,8 @@ model YoutubeStreamSuperChat {
   videoId   String
   group     String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  stream YoutubeStream @relation(fields: [videoId], references: [videoId], onDelete: Cascade)
 
   @@index([videoId, createdAt])
   @@index([videoId, amountMicros])

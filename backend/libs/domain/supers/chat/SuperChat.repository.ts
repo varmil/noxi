@@ -4,7 +4,13 @@ import { ChannelId, VideoId } from '@domain/youtube'
 
 export interface SuperChatRepository {
   findAll: (args: {
-    where: { videoId?: VideoId; channelId?: ChannelId; group?: Group }
+    where: {
+      videoId?: VideoId
+      channelId?: ChannelId
+      group?: Group
+      createdBefore?: Date
+      createdAfter?: Date
+    }
     orderBy: Partial<
       Record<'tier' | 'amountMicros' | 'currency' | 'createdAt', 'asc' | 'desc'>
     >[]

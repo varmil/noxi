@@ -23,7 +23,9 @@ export class SupersController {
     return await this.superChatsService.findAll({
       where: {
         videoId: dto.toVideoId(),
-        channelId: dto.toChannelId()
+        channelId: dto.toChannelId(),
+        createdBefore: dto.toCreatedBefore(),
+        createdAfter: dto.toCreatedAfter()
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit()

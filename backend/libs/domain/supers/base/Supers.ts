@@ -22,7 +22,7 @@ export class Supers {
 
   public readonly author: Author
 
-  @Exclude()
+  @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly videoId: VideoId
   @Exclude()
   public readonly group: Group
