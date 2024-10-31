@@ -30,6 +30,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
             channelId={channelId}
             order="time"
             limit={30}
+            showStreamLink
           />
         </TabsContent>
       </ScrollArea>

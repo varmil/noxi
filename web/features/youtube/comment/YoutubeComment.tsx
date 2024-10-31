@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
-import { getFormatter, getTranslations } from 'next-intl/server'
+import { getFormatter } from 'next-intl/server'
 import { CommentThreadsSchema } from 'apis/youtube/data-api/schema/commentThreadsSchema'
+import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import CommentAvatar from 'components/comment/comment/CommentAvatar'
 import {
   CommentContainer,
@@ -14,10 +15,14 @@ import {
   CommentHeaderWeakLine
 } from 'components/comment/comment/CommentHeader'
 import { CommentLikes } from 'components/comment/styles/CommentLikes'
+import { CommentStreamLink } from 'components/comment/styles/CommentStreamLink'
 
-export default async function YoutubeComment({
-  thread
-}: PropsWithoutRef<{ thread: CommentThreadsSchema }>) {
+type Props = PropsWithoutRef<{
+  thread: CommentThreadsSchema
+  stream?: StreamSchema
+}>
+
+export default async function YoutubeComment({ thread, stream }: Props) {
   const {
     snippet: {
       topLevelComment: {
@@ -33,7 +38,7 @@ export default async function YoutubeComment({
   } = thread
 
   const format = await getFormatter()
-  const t = await getTranslations('Features.youtube.comment')
+  const showLikes = likeCount && likeCount > 0
 
   return (
     <CommentContainer>
@@ -51,9 +56,10 @@ export default async function YoutubeComment({
           </CommentHeaderItem>
         </CommentHeader>
         <CommentContent>{userComment}</CommentContent>
-        {likeCount && likeCount > 0 ? (
+        {showLikes || stream ? (
           <CommentFooter>
-            <CommentLikes likes={likeCount} />
+            {showLikes ? <CommentLikes likes={likeCount} /> : null}
+            {stream ? <CommentStreamLink stream={stream} /> : null}
           </CommentFooter>
         ) : null}
       </CommentMain>
