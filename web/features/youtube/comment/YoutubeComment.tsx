@@ -13,6 +13,7 @@ import {
   CommentHeaderItem,
   CommentHeaderWeakLine
 } from 'components/comment/comment/CommentHeader'
+import { CommentLikes } from 'components/comment/styles/CommentLikes'
 
 export default async function YoutubeComment({
   thread
@@ -51,7 +52,9 @@ export default async function YoutubeComment({
         </CommentHeader>
         <CommentContent>{userComment}</CommentContent>
         {likeCount && likeCount > 0 ? (
-          <CommentFooter likes={likeCount} />
+          <CommentFooter>
+            <CommentLikes likes={likeCount} />
+          </CommentFooter>
         ) : null}
       </CommentMain>
     </CommentContainer>

@@ -37,7 +37,10 @@ export default async function SuperChatGallery({
       channelId,
       createdBefore,
       createdAfter,
-      orderBy: [{ field: 'tier', order: 'desc' }],
+      orderBy: [
+        { field: 'tier', order: 'desc' },
+        { field: 'createdAt', order: 'desc' }
+      ],
       limit
     }),
     getTranslations('Features.supers.chat')

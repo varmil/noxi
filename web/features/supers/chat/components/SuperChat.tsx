@@ -8,11 +8,13 @@ import {
   CommentMain
 } from 'components/comment/comment/CommentContainer'
 import CommentContent from 'components/comment/comment/CommentContent'
+import { CommentFooter } from 'components/comment/comment/CommentFooter'
 import {
   CommentHeader,
   CommentHeaderItem,
   CommentHeaderWeakLine
 } from 'components/comment/comment/CommentHeader'
+import { CommentStreamLink } from 'components/comment/styles/CommentStreamLink'
 import SuperTierIcon from 'features/supers/components/SuperTierIcon'
 
 type Props = PropsWithoutRef<{
@@ -30,10 +32,6 @@ export default async function SuperChat({ chat, stream }: Props) {
     author,
     createdAt
   } = chat
-
-  if (stream) {
-    // console.log('chat&stream', [chat.userComment, stream.snippet.title])
-  }
 
   const format = await getFormatter()
   const t = await getTranslations('Features.supers')
@@ -64,6 +62,11 @@ export default async function SuperChat({ chat, stream }: Props) {
           </CommentHeaderItem>
         </CommentHeader>
         <CommentContent>{userComment}</CommentContent>
+        {stream && (
+          <CommentFooter>
+            <CommentStreamLink stream={stream} />
+          </CommentFooter>
+        )}
       </CommentMain>
     </CommentContainer>
   )
