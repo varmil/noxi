@@ -17,10 +17,10 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
 
       <ScrollArea className="h-[493px] rounded-md border p-4">
         <TabsContent value="superChat">
-          {/* -72 hours from now */}
+          {/* 24 * 7 hours from now */}
           <SuperChatGallery
             channelId={channelId}
-            createdAfter={new Date(new Date().getTime() - 72 * 60 * 60 * 1000)}
+            createdAfter={new Date(new Date().getTime() - 168 * 60 * 60 * 1000)}
             limit={30}
             showStreamLink
           />
