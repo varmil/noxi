@@ -43,7 +43,7 @@
     "@nestjs/cli": "^10.4.4",
     "@nestjs/schematics": "^10.2.3",
     "@nestjs/testing": "^10.4.6",
-    "@swc/cli": "^0.3.14",
+    "@swc/cli": "^0.5.0",
     "@swc/core": "^1.7.40",
     "@swc/jest": "^0.2.37",
     "@types/eslint__js": "^8.42.3",
