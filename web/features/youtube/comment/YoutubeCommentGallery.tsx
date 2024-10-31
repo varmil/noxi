@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { channel } from 'diagnostics_channel'
 import { getTranslations } from 'next-intl/server'
 import { getCommentThreads } from 'apis/youtube/data-api/getCommentThreads'
 import { getStatistics } from 'apis/youtube/data-api/getStatistics'
@@ -10,7 +9,7 @@ import {
   CommentGalleryMore
 } from 'components/comment/gallery/CommentGalleryContent'
 import CommentGalleryHeader from 'components/comment/gallery/CommentGalleryHeader'
-import YoutubeComment from 'features/youtube/comment/YoutubeComment'
+import YoutubeComments from 'features/youtube/comment/YoutubeComments'
 
 const FIRST_VIEW_LIMIT = 30
 
@@ -19,13 +18,17 @@ type Props = {
   videoId?: string
   order?: 'time' | 'relevance'
   limit?: number
+
+  /** @default false */
+  showStreamLink?: boolean
 }
 
 export default async function YoutubeCommentGallery({
   channelId,
   videoId,
   order,
-  limit
+  limit,
+  showStreamLink = false
 }: PropsWithoutRef<Props>) {
   if (!channelId && !videoId) {
     throw new Error('Either channelId or videoId is required')
@@ -58,15 +61,14 @@ export default async function YoutubeCommentGallery({
       <CommentGalleryHeader>{t('count', { count })}</CommentGalleryHeader>
       <CommentGalleryContent>
         <CommentGalleryFirstView>
-          {firstView.map(thread => (
-            <YoutubeComment key={thread.id} thread={thread} />
-          ))}
+          <YoutubeComments
+            threads={firstView}
+            showStreamLink={showStreamLink}
+          />
         </CommentGalleryFirstView>
         {isCollapsible && (
           <CommentGalleryMore>
-            {more.map(thread => (
-              <YoutubeComment key={thread.id} thread={thread} />
-            ))}
+            <YoutubeComments threads={more} showStreamLink={showStreamLink} />
           </CommentGalleryMore>
         )}
       </CommentGalleryContent>

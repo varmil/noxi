@@ -1,8 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { getStreams } from 'apis/youtube/getStreams'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
-import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { CommentGalleryContainer } from 'components/comment/gallery/CommentGalleryContainer'
 import {
   CommentGalleryContent,
@@ -10,7 +8,7 @@ import {
   CommentGalleryMore
 } from 'components/comment/gallery/CommentGalleryContent'
 import CommentGalleryHeader from 'components/comment/gallery/CommentGalleryHeader'
-import SuperChat from 'features/supers/chat/components/SuperChat'
+import SuperChats from 'features/supers/chat/components/SuperChats'
 
 const FIRST_VIEW_LIMIT = 30
 
@@ -39,20 +37,14 @@ export default async function SuperChatGallery({
       channelId,
       createdBefore,
       createdAfter,
-      orderBy: [{ field: 'tier', order: 'desc' }],
+      orderBy: [
+        { field: 'tier', order: 'desc' },
+        { field: 'createdAt', order: 'desc' }
+      ],
       limit
     }),
     getTranslations('Features.supers.chat')
   ])
-
-  let streams: StreamsSchema | undefined
-  if (showStreamLink) {
-    streams = await getStreams({
-      videoIds: chats.map(chat => chat.videoId),
-      orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
-      limit
-    })
-  }
 
   const isCollapsible = chats.length > FIRST_VIEW_LIMIT
   const firstView = chats.slice(0, FIRST_VIEW_LIMIT)
@@ -65,23 +57,11 @@ export default async function SuperChatGallery({
       </CommentGalleryHeader>
       <CommentGalleryContent>
         <CommentGalleryFirstView>
-          {firstView.map(chat => (
-            <SuperChat
-              key={chat.id}
-              chat={chat}
-              stream={streams?.find(s => s.videoId === chat.videoId)}
-            />
-          ))}
+          <SuperChats chats={firstView} showStreamLink={showStreamLink} />
         </CommentGalleryFirstView>
         {isCollapsible && (
           <CommentGalleryMore>
-            {more.map(chat => (
-              <SuperChat
-                key={chat.id}
-                chat={chat}
-                stream={streams?.find(s => s.videoId === chat.videoId)}
-              />
-            ))}
+            <SuperChats chats={more} showStreamLink={showStreamLink} />
           </CommentGalleryMore>
         )}
       </CommentGalleryContent>

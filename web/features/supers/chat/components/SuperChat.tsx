@@ -8,11 +8,14 @@ import {
   CommentMain
 } from 'components/comment/comment/CommentContainer'
 import CommentContent from 'components/comment/comment/CommentContent'
+import { CommentFooter } from 'components/comment/comment/CommentFooter'
 import {
   CommentHeader,
   CommentHeaderItem,
   CommentHeaderWeakLine
 } from 'components/comment/comment/CommentHeader'
+import { CommentStreamLink } from 'components/comment/styles/CommentStreamLink'
+import Bullet from 'components/styles/Bullet'
 import SuperTierIcon from 'features/supers/components/SuperTierIcon'
 
 type Props = PropsWithoutRef<{
@@ -31,10 +34,6 @@ export default async function SuperChat({ chat, stream }: Props) {
     createdAt
   } = chat
 
-  if (stream) {
-    // console.log('chat&stream', [chat.userComment, stream.snippet.title])
-  }
-
   const format = await getFormatter()
   const t = await getTranslations('Features.supers')
 
@@ -47,7 +46,10 @@ export default async function SuperChat({ chat, stream }: Props) {
       <CommentMain>
         <CommentHeader>
           <CommentHeaderItem>
-            <CommentHeaderWeakLine>{author.displayName}</CommentHeaderWeakLine>
+            <CommentHeaderWeakLine ellipsis>
+              {author.displayName}
+            </CommentHeaderWeakLine>
+            <Bullet weak />
             <CommentHeaderWeakLine>
               {format.dateTime(createdAt, {
                 month: '2-digit',
@@ -57,13 +59,18 @@ export default async function SuperChat({ chat, stream }: Props) {
               })}
             </CommentHeaderWeakLine>
           </CommentHeaderItem>
-          <CommentHeaderItem className="flex items-center gap-x-1 text-lg font-bold tabular-nums">
+          <CommentHeaderItem className="gap-x-1 text-lg font-bold tabular-nums">
             <SuperTierIcon tier={tier} />
             <span className="sr-only">{t('amount')}</span>
             {amountDisplayString}
           </CommentHeaderItem>
         </CommentHeader>
         <CommentContent>{userComment}</CommentContent>
+        {stream && (
+          <CommentFooter>
+            <CommentStreamLink stream={stream} />
+          </CommentFooter>
+        )}
       </CommentMain>
     </CommentContainer>
   )
