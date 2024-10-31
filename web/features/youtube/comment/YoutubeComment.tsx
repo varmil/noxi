@@ -16,6 +16,7 @@ import {
 } from 'components/comment/comment/CommentHeader'
 import { CommentLikes } from 'components/comment/styles/CommentLikes'
 import { CommentStreamLink } from 'components/comment/styles/CommentStreamLink'
+import Bullet from 'components/styles/Bullet'
 
 type Props = PropsWithoutRef<{
   thread: CommentThreadsSchema
@@ -49,7 +50,10 @@ export default async function YoutubeComment({ thread, stream }: Props) {
       <CommentMain>
         <CommentHeader>
           <CommentHeaderItem>
-            <CommentHeaderWeakLine>{displayName}</CommentHeaderWeakLine>
+            <CommentHeaderWeakLine ellipsis>
+              {displayName}
+            </CommentHeaderWeakLine>
+            <Bullet weak />
             <CommentHeaderWeakLine>
               {format.relativeTime(updatedAt)}
             </CommentHeaderWeakLine>
