@@ -33,14 +33,14 @@ export function ChannelCommentTabsOnClient({ superChat, comments }: Props) {
         <TabsContent
           forceMount
           value="superChat"
-          hidden={tabValue !== 'superChat'}
+          className={'data-[state=inactive]:content-visibility-hidden'}
         >
           {superChat}
         </TabsContent>
         <TabsContent
           forceMount
           value="comments"
-          hidden={tabValue !== 'comments'}
+          className={'data-[state=inactive]:content-visibility-hidden'}
         >
           {comments}
         </TabsContent>
