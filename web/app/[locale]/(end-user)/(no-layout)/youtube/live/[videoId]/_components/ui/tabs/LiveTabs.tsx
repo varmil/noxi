@@ -60,7 +60,11 @@ export async function LiveTabsSuperChatContent({
   if (status === 'scheduled') return null
 
   return (
-    <TabsContent value="superChat">
+    <TabsContent
+      value="superChat"
+      forceMount
+      className={'data-[state=inactive]:content-visibility-hidden'}
+    >
       <SuperChatGallery videoId={videoId} />
     </TabsContent>
   )
@@ -78,7 +82,11 @@ export async function LiveTabsCommentsContent({
   if (status !== 'ended') return null
 
   return (
-    <TabsContent value="comments">
+    <TabsContent
+      value="comments"
+      forceMount
+      className={'data-[state=inactive]:content-visibility-hidden'}
+    >
       <YoutubeCommentGallery videoId={videoId} />
     </TabsContent>
   )
@@ -102,7 +110,13 @@ export async function LiveTabsOverviewContent({
   ])
 
   return (
-    <TabsContent value="overview" className={className ?? ''}>
+    <TabsContent
+      value="overview"
+      forceMount
+      className={`data-[state=inactive]:content-visibility-hidden ${
+        className ?? ''
+      }`}
+    >
       <StreamBasicInfo stream={stream} />
       <StreamStatsCards stream={stream} />
       <ViewerCounts stream={stream} viewerCounts={viewerCounts} />

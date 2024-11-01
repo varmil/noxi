@@ -70,6 +70,18 @@
   }
 }
 
+@layer utilities {
+  .content-visibility-auto {
+    content-visibility: auto;
+  }
+  .content-visibility-hidden {
+    content-visibility: hidden;
+  }
+  .content-visibility-visible {
+    content-visibility: visible;
+  }
+}
+
 @supports not (overflow-wrap: anywhere) {
   .break-anywhere {
     word-break: break-word;
