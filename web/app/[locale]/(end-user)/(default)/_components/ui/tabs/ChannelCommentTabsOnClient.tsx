@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
@@ -9,17 +8,9 @@ type Props = {
   comments: JSX.Element
 }
 
-type TabValue = 'superChat' | 'comments'
-
 export function ChannelCommentTabsOnClient({ superChat, comments }: Props) {
-  const [tabValue, setTabValue] = useState<TabValue>('superChat')
-
   return (
-    <Tabs
-      defaultValue={'superChat'}
-      className="w-full"
-      onValueChange={(value: string) => setTabValue(value as TabValue)}
-    >
+    <Tabs defaultValue={'superChat'} className="w-full">
       <TabsList className="w-full mb-4">
         <TabsTrigger className="flex-1" value="superChat">
           Super Chat
