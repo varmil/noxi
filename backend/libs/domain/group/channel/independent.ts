@@ -23,6 +23,11 @@ const List: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCeLzT-7b2PBcunJplmWtoDg'),
+    title: 'Patra Channel / 周防パトラ',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCkPIfBOLoO0hVPG-tI2YeGg'),
     title: 'Tomari Mari channel / 兎鞠まりちゃんねる',
     ...DefaultProps
