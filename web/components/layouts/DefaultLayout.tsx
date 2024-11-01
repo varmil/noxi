@@ -6,7 +6,9 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Aside />
-      <section className="sm:py-4 sm:pl-14 bg-muted/40">{children}</section>
+      <section className="sm:pt-2 sm:pb-4 sm:pl-14 bg-muted/40">
+        {children}
+      </section>
       <CookieAgreeBanner />
     </>
   )
