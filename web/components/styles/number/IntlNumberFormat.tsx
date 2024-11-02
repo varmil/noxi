@@ -5,7 +5,7 @@ type Props = {
   minimumSignificantDigits?: number
   maximumSignificantDigits?: number
   maximumFractionDigits?: number
-  children: number
+  children: number | bigint
 }
 
 export default function IntlNumberFormat({

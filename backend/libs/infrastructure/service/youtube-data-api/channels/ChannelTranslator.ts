@@ -36,7 +36,7 @@ export class ChannelTranslator {
         }
       }),
       statistics: new ChannelStatistics({
-        viewCount: Number(viewCount ?? 0),
+        viewCount: BigInt(viewCount ?? 0),
         subscriberCount: Number(subscriberCount ?? 0),
         videoCount: Number(videoCount ?? 0)
       }),

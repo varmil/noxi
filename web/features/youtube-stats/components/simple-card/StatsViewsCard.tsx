@@ -6,7 +6,7 @@ import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
 type Props = {
-  count: number
+  count: bigint
 }
 
 export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {

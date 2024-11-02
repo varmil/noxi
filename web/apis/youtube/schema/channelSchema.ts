@@ -19,7 +19,7 @@ export const schema = z.object({
     relatedPlaylists: z.object({ uploads: z.string() })
   }),
   statistics: z.object({
-    viewCount: z.number().min(0),
+    viewCount: z.coerce.bigint(),
     subscriberCount: z.number().min(0),
     videoCount: z.number().min(0)
   }),

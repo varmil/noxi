@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Channel" ALTER COLUMN "viewCount" SET DATA TYPE BIGINT;
