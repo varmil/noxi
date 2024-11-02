@@ -1,17 +1,19 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
-import HeroTable, {
-  HeroTableTitle
-} from 'app/[locale]/(end-user)/(default)/_components/ui/table/HeroTable'
-import IconSection from 'features/icon-section/IconSection'
+// import IconSection from 'features/icon-section/IconSection'
 import { Link } from 'lib/navigation'
+import { HeroH1 } from './styles/HeroTitles'
+import SocialProofSection from './ui/social-proof/SocialProofSection'
+import HeroTable, { HeroTableTitle } from './ui/table/HeroTable'
 
 type Props = {}
 
 const Container = (props: PropsWithChildren<{}>) => {
   return (
-    <div className="container px-0 py-8 md:px-4 md:py-24">{props.children}</div>
+    <div className="container px-2 py-8 space-y-16 md:px-4 md:py-24 md:space-y-36">
+      {props.children}
+    </div>
   )
 }
 
@@ -29,15 +31,12 @@ const TableContainer = (props: PropsWithChildren<{}>) => {
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   const t = await getTranslations('Page.index')
-
   return (
     <>
       <Container>
         <HeroSectionContainer>
           <div className="flex flex-col justify-center gap-y-8">
-            <h1 className="text-3xl font-bold tracking-tight sm:text-5xl xl:text-6xl/none">
-              {t('title')}
-            </h1>
+            <HeroH1>{t('title')}</HeroH1>
             <p className="max-w-[600px] text-muted-foreground md:text-xl">
               {t('description')}
             </p>
@@ -50,6 +49,8 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
             <HeroTable />
           </TableContainer>
         </HeroSectionContainer>
+
+        <SocialProofSection />
       </Container>
     </>
   )
