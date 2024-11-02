@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/_components/IndexTemplate'
 import { Page } from 'components/page'
+import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
   params: { locale: string }

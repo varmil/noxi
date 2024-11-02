@@ -25,10 +25,10 @@
         "title": "Analytics Youtube",
         "description": "Explore PeakX for real-time YouTube streaming data. Stay updated on trends and find your favorite content effortlessly."
       },
-      "title": "Welcome to PeakX",
-      "description": "We organize information on influencers from all over the world (starting with Japan!). Our mission is to continue optimizing and providing that information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
+      "title": "The Largest VTuber Database",
+      "description": "We organize information on influencers from all over the world. Our mission is to continue providing the information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
       "section": {
-        "keyword": { "title": "Search for channels" },
+        "live": { "ranking": "Most Watched YouTube Live Streams right now" },
         "hololive": {
           "title": "What is Hololive?",
           "description": "Hololive is a female VTuber group belonging to Hololive Production, a virtual YouTuber (VTuber) agency operated by Cover Corporation. Hololive members broadcast a variety of live streams, including gameplay commentary, singing, chatting, and collaborations. The group is made up of members with a wide variety of personalities, and there are many collaborations between Hololive members. They also use Cover Corporation's VR/AR technology to hold live performances at real venues. Hololive is popular both in Japan and overseas, with a total of over 80 million subscribers on YouTube. One of their strengths is their ability to reach Japanese games and content around the world. The age group of viewers is mainly young people, with about 45% being 18-24 years old and about 30% being 25-34 years old."
