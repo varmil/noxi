@@ -1,4 +1,5 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
+import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 // import IconSection from 'features/icon-section/IconSection'
@@ -41,7 +42,10 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               {t('description')}
             </p>
             <Button className="w-fit" asChild>
-              <Link href="#">View More Rankings</Link>
+              <Link href="#">
+                Most Watched right now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
             </Button>
           </div>
           <TableContainer>

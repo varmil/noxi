@@ -6,7 +6,7 @@ export default function SocialProofSection() {
   const t = useTranslations('Page.index.section.socialProof')
 
   return (
-    <section className="">
+    <section>
       <div className="flex flex-col items-center space-y-8 text-center">
         <HeroH3>{t('title')}</HeroH3>
         <p className="max-w-[800px] text-lg text-muted-foreground md:text-xl">
@@ -16,15 +16,21 @@ export default function SocialProofSection() {
         <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <Item>
             <NumberText>100+</NumberText>
-            <span className="text-lg text-muted-foreground">チャンネル</span>
+            <span className="text-lg text-muted-foreground">
+              {t('channels')}
+            </span>
           </Item>
           <Item>
             <NumberText>3K+</NumberText>
-            <span className="text-lg text-muted-foreground">ライブ配信</span>
+            <span className="text-lg text-muted-foreground">
+              {t('liveStreams')}
+            </span>
           </Item>
           <Item>
-            <NumberText>4M+</NumberText>
-            <span className="text-lg text-muted-foreground">組織</span>
+            <NumberText>3+</NumberText>
+            <span className="text-lg text-muted-foreground">
+              {t('countries')}
+            </span>
           </Item>
         </div>
       </div>

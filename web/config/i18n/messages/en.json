@@ -31,7 +31,10 @@
         "live": { "ranking": "Most Watched YouTube Live Streams right now" },
         "socialProof": {
           "title": "YouTube Live Complete Analysis",
-          "description": "Since the release of PeakX in August 2024, over 100 channels have already been added. Cover live streaming around the world."
+          "description": "Since the release of PeakX in August 2024, over 100 channels have already been added. Cover live streaming around the world.",
+          "channels": "Channels",
+          "liveStreams": "Live Streams",
+          "countries": "Countries"
         },
         "hololive": {
           "title": "What is Hololive?",
