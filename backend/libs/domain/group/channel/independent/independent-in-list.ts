@@ -55,5 +55,10 @@ export const INList: GroupChannel[] = [
     id: new ChannelId('UCppHT7SZKKvar4Oc9J4oljQ'),
     title: 'Zee Tv',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCwA3yPBSbZpwse6Q0aA2LPg'),
+    title: 'PAYAL GAMING',
+    ...DefaultProps
   }
 ]
