@@ -11,7 +11,7 @@ type Props = {
   name: string
   thumbnails: ChannelSchema['basicInfo']['thumbnails']
   description: string
-  totalViewCount: number
+  totalViewCount: number | bigint
   subscriberCount: number
   publishedAt: string
 }
