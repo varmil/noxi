@@ -1,8 +1,7 @@
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/_components/IndexTemplate'
 import { Page } from 'components/page'
-import IconSection from 'features/icon-section/IconSection'
 
 type Props = {
   params: { locale: string }
@@ -24,26 +23,9 @@ export default function IndexPage({ params: { locale } }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
 
-  const t = useTranslations('Page.index')
-
   return (
     <Page breadcrumb={[]}>
-      <div className="max-w-2xl mx-auto px-6 sm:px-0 py-16 lg:py-24">
-        <div className="grid gap-12 mb-20">
-          <h2 className="text-3xl font-bold lg:text-4xl">{t('title')}</h2>
-          <p className="mt-3 text-muted-foreground">{t('description')}</p>
-        </div>
-
-        <section className="grid gap-12 px-0">
-          <h2 className="text-3xl font-bold lg:text-4xl">
-            {t('section.keyword.title')}
-          </h2>
-
-          <div className="">
-            <IconSection />
-          </div>
-        </section>
-      </div>
+      <IndexTemplate />
     </Page>
   )
 }
