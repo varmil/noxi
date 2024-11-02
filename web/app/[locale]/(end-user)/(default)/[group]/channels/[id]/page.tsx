@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
-import { ChannelIdTemplate } from 'app/[locale]/(end-user)/(default)/_components/ChannelIdTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
+import { ChannelIdTemplate } from './_components/ChannelIdTemplate'
 
 type Props = {
   params: { locale: string; group: GroupString; id: string }

@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import IconSection from 'features/icon-section/IconSection'
 
@@ -22,7 +22,7 @@ export async function generateMetadata({
 
 export default function IndexPage({ params: { locale } }: Props) {
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
 
   const t = useTranslations('Page.index')
 
