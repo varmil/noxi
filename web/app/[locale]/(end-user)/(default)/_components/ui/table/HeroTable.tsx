@@ -1,7 +1,10 @@
 import { PropsWithChildren } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableHeader,
@@ -13,14 +16,40 @@ import {
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
+import Image from 'components/styles/Image'
+import { Link } from 'lib/navigation'
 
-export function HeroTableTitle({}: PropsWithChildren<{}>) {
+export function HeroTableTitle({
+  className
+}: PropsWithChildren<{ className?: string }>) {
   const t = useTranslations('Page.index')
-  return <h2 className="text-xl font-bold mb-4">{t('section.live.ranking')}</h2>
+  return (
+    <CardHeader className={`${className || ''}`}>
+      <div className={`flex flex-row gap-x-1 items-center`}>
+        <CardTitle className="flex gap-x-2 items-center text-lg sm:text-xl">
+          <Image
+            src={'/youtube/yt_icon_rgb.png'}
+            alt="YouTube"
+            width={100}
+            height={100}
+            className="relative w-8 h-[22.5px] top-[1px]"
+          />
+          {t('section.live.ranking')}
+        </CardTitle>
+        <Button asChild size="sm" className="ml-auto gap-1">
+          <Link href="#">
+            View All
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
+    </CardHeader>
+  )
 }
 
 export default async function HeroTable({}: PropsWithChildren<{}>) {
   const streams = await getStreams({
+    status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: 5
   })
@@ -36,7 +65,7 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
         <TableRow>
           <TableHead></TableHead>
           <TableHead>Channel</TableHead>
-          <TableHead>Viewers</TableHead>
+          <TableHead className="text-right">Viewers</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -62,14 +91,16 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
                 </Avatar>
               </TableCell>
 
-              <TableCell className="">
-                <div className="text-muted-foreground">
-                  {channel.basicInfo.title}
+              <TableCell className="space-y-1">
+                <div className="line-clamp-1">{channel.basicInfo.title}</div>
+                <div className="line-clamp-1 text-muted-foreground text-xs">
+                  {stream.snippet.title}
                 </div>
               </TableCell>
 
-              <TableCell className="">
-                <div className="text-muted-foreground">3.7K</div>
+              <TableCell className="text-lg text-right tabular-nums">
+                {liveStreamingDetails.concurrentViewers?.toLocaleString() ??
+                  '--'}
               </TableCell>
             </TableRow>
           )

@@ -28,7 +28,7 @@
       "title": "VTuber DB",
       "description": "ホロライブ、結城さくな、しぐれうい、すべてのVTuberを即座に確認。YouTubeライブの同時視聴者数、スーパーチャット、ユーザーコメントをリアルタイムで確認",
       "section": {
-        "live": { "ranking": "YouTube Live 同接ランキング" },
+        "live": { "ranking": "同接数ランキング" },
         "socialProof": {
           "title": "YouTubeライブを完全把握",
           "description": "2024年8月にPeakXをリリースし既に100以上のチャンネルが追加されました。25億人が利用するYouTube、ライブ配信の可能性を解き放ちます",

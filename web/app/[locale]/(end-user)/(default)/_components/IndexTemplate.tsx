@@ -3,6 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 // import IconSection from 'features/icon-section/IconSection'
+import { Card, CardContent } from '@/components/ui/card'
 import { Link } from 'lib/navigation'
 import { HeroH1 } from './styles/HeroTitles'
 import SocialProofSection from './ui/social-proof/SocialProofSection'
@@ -20,14 +21,14 @@ const Container = (props: PropsWithChildren<{}>) => {
 
 const HeroSectionContainer = (props: PropsWithChildren<{}>) => {
   return (
-    <div className="grid gap-6 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_700px]">
+    <div className="grid gap-8 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_700px]">
       {props.children}
     </div>
   )
 }
 
 const TableContainer = (props: PropsWithChildren<{}>) => {
-  return <div className="rounded-lg p-5 lg:p-6 border">{props.children}</div>
+  return <div className="rounded-lg p-4 lg:p-6 border">{props.children}</div>
 }
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
@@ -48,10 +49,12 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               </Link>
             </Button>
           </div>
-          <TableContainer>
-            <HeroTableTitle />
-            <HeroTable />
-          </TableContainer>
+          <Card>
+            <HeroTableTitle className="px-4 sm:px-6" />
+            <CardContent className="px-4 sm:px-6">
+              <HeroTable />
+            </CardContent>
+          </Card>
         </HeroSectionContainer>
 
         <SocialProofSection />
