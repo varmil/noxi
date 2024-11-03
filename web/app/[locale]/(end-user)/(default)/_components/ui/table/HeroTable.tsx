@@ -22,7 +22,7 @@ import { Link } from 'lib/navigation'
 export function HeroTableTitle({
   className
 }: PropsWithChildren<{ className?: string }>) {
-  const t = useTranslations('Page.index')
+  const t = useTranslations('Page.index.section.hero')
   return (
     <CardHeader className={`${className || ''}`}>
       <div className={`flex flex-row gap-x-1 items-center`}>
@@ -34,11 +34,11 @@ export function HeroTableTitle({
             height={100}
             className="relative w-8 h-[22.5px] top-[1px]"
           />
-          {t('section.hero.ranking')}
+          {t('ranking')}
         </CardTitle>
         <Button asChild size="sm" className="ml-auto gap-1">
           <Link href="#">
-            {t('section.hero.viewAll')}
+            {t('viewAll')}
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
@@ -81,21 +81,28 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
           if (!liveStreamingDetails) return null
           return (
             <TableRow key={stream.videoId}>
-              <TableCell width={40} className="font-medium">
-                <Avatar className="w-6 h-6 lg:w-8 lg:h-8 transition-all hover:scale-105">
-                  <AvatarImage
-                    src={channel.basicInfo.thumbnails.medium?.url}
-                    alt={channel.basicInfo.title}
-                  />
-                  <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
-                </Avatar>
+              <TableCell width={40}>
+                <Link href={`/youtube/live/${stream.videoId}`}>
+                  <Avatar className="w-6 h-6 lg:w-8 lg:h-8 transition-all hover:scale-105">
+                    <AvatarImage
+                      src={channel.basicInfo.thumbnails.medium?.url}
+                      alt={channel.basicInfo.title}
+                    />
+                    <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
+                  </Avatar>
+                </Link>
               </TableCell>
 
-              <TableCell className="space-y-1">
-                <div className="line-clamp-1">{channel.basicInfo.title}</div>
-                <div className="line-clamp-1 text-muted-foreground text-xs">
-                  {stream.snippet.title}
-                </div>
+              <TableCell>
+                <Link
+                  className="space-y-1"
+                  href={`/youtube/live/${stream.videoId}`}
+                >
+                  <div className="line-clamp-1">{channel.basicInfo.title}</div>
+                  <div className="line-clamp-1 text-muted-foreground text-xs">
+                    {stream.snippet.title}
+                  </div>
+                </Link>
               </TableCell>
 
               <TableCell className="text-lg text-right tabular-nums">
