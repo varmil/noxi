@@ -54,7 +54,7 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
     limit: 6
   })
   const [t, channels, liveStreamingDetailsList] = await Promise.all([
-    getTranslations('Page.index'),
+    getTranslations('Page.index.section.hero'),
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
@@ -64,8 +64,8 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
       <TableHeader>
         <TableRow>
           <TableHead></TableHead>
-          <TableHead>Channel</TableHead>
-          <TableHead className="text-right">Viewers</TableHead>
+          <TableHead>{t('channel')}</TableHead>
+          <TableHead className="text-right">{t('viewers')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

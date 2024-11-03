@@ -31,7 +31,9 @@
         "hero": {
           "ranking": "同接数ランキング",
           "more": "ランキングを確認",
-          "viewAll": "すべて見る"
+          "viewAll": "すべて見る",
+          "channel": "チャンネル",
+          "viewers": "同接数"
         },
         "socialProof": {
           "title": "YouTubeライブを完全把握",

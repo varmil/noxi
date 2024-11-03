@@ -31,7 +31,9 @@
         "hero": {
           "ranking": "Most Watched Channels right now",
           "more": "Most Watched right now",
-          "viewAll": "View All"
+          "viewAll": "View All",
+          "channel": "Channel",
+          "viewers": "Viewers"
         },
         "socialProof": {
           "title": "YouTube Live Complete Analysis",
