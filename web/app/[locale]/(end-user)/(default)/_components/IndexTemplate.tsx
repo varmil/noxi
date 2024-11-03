@@ -27,7 +27,7 @@ const HeroSectionContainer = (props: PropsWithChildren<{}>) => {
 }
 
 const TableContainer = (props: PropsWithChildren<{}>) => {
-  return <div className="rounded-lg p-6 border">{props.children}</div>
+  return <div className="rounded-lg p-5 lg:p-6 border">{props.children}</div>
 }
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
