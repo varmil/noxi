@@ -52,7 +52,7 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
           if (!liveStreamingDetails) return null
           return (
             <TableRow key={stream.videoId}>
-              <TableCell className="font-medium">
+              <TableCell width={40} className="font-medium">
                 <Avatar className="w-6 h-6 lg:w-8 lg:h-8 transition-all hover:scale-105">
                   <AvatarImage
                     src={channel.basicInfo.thumbnails.medium?.url}
