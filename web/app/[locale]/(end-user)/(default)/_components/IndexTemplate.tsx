@@ -27,10 +27,6 @@ const HeroSectionContainer = (props: PropsWithChildren<{}>) => {
   )
 }
 
-const TableContainer = (props: PropsWithChildren<{}>) => {
-  return <div className="rounded-lg p-4 lg:p-6 border">{props.children}</div>
-}
-
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   const t = await getTranslations('Page.index')
   return (
@@ -42,9 +38,9 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
             <p className="max-w-[600px] text-muted-foreground md:text-xl">
               {t('description')}
             </p>
-            <Button className="w-fit" asChild>
+            <Button className="hidden lg:inline-flex w-fit" asChild>
               <Link href="#">
-                Most Watched right now
+                {t('section.hero.more')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>

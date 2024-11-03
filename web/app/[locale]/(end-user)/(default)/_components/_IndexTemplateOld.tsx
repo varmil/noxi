@@ -19,7 +19,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
 
         <section className="grid gap-12 px-0">
           <h2 className="text-2xl font-bold lg:text-3xl">
-            {t('section.live.ranking')}
+            {t('section.hero.ranking')}
           </h2>
 
           <div className="">

@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableHeader,
@@ -26,7 +26,7 @@ export function HeroTableTitle({
   return (
     <CardHeader className={`${className || ''}`}>
       <div className={`flex flex-row gap-x-1 items-center`}>
-        <CardTitle className="flex gap-x-2 items-center text-lg sm:text-xl">
+        <CardTitle className="flex gap-x-2 items-center text-balance text-lg sm:text-xl">
           <Image
             src={'/youtube/yt_icon_rgb.png'}
             alt="YouTube"
@@ -34,11 +34,11 @@ export function HeroTableTitle({
             height={100}
             className="relative w-8 h-[22.5px] top-[1px]"
           />
-          {t('section.live.ranking')}
+          {t('section.hero.ranking')}
         </CardTitle>
         <Button asChild size="sm" className="ml-auto gap-1">
           <Link href="#">
-            View All
+            {t('section.hero.viewAll')}
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
@@ -51,7 +51,7 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
   const streams = await getStreams({
     status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: 5
+    limit: 6
   })
   const [t, channels, liveStreamingDetailsList] = await Promise.all([
     getTranslations('Page.index'),

@@ -25,10 +25,14 @@
         "title": "Analytics Youtube",
         "description": "Explore PeakX for real-time YouTube streaming data. Stay updated on trends and find your favorite content effortlessly."
       },
-      "title": "The Largest VTuber Database",
+      "title": "The VTuber DB",
       "description": "We organize information on influencers from all over the world. Our mission is to provide the information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
       "section": {
-        "live": { "ranking": "Most Watched YouTube Live Streams right now" },
+        "hero": {
+          "ranking": "Most Watched Channels right now",
+          "more": "Most Watched right now",
+          "viewAll": "View All"
+        },
         "socialProof": {
           "title": "YouTube Live Complete Analysis",
           "description": "Since the release of PeakX in August 2024, over 100 channels have already been added. Cover live streaming around the world.",
