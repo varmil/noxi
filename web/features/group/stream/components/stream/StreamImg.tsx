@@ -3,9 +3,6 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 
-/**
- * @note 関連動画を見せるUIとしてコメントアウト部分は使えそう
- */
 export default function StreamImg({
   stream,
   children
@@ -15,7 +12,6 @@ export default function StreamImg({
     snippet: { title, thumbnails }
   } = stream
   return (
-    // <div className="relative aspect-video w-full sm:w-[220px] rounded-lg overflow-hidden">
     <div className="relative aspect-video w-full rounded-lg overflow-hidden">
       <Link href={`/youtube/live/${videoId}`} prefetch={true}>
         <Image

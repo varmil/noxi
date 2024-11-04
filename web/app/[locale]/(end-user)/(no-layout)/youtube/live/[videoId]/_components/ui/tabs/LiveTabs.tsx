@@ -113,15 +113,18 @@ export async function LiveTabsOverviewContent({
     <TabsContent
       value="overview"
       forceMount
-      className={`data-[state=inactive]:content-visibility-hidden ${
-        className ?? ''
-      }`}
+      className={`data-[state=inactive]:content-visibility-hidden`}
     >
-      <StreamBasicInfo stream={stream} />
-      <StreamStatsCards stream={stream} />
-      <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
-      <ChatCounts stream={stream} chatCounts={chatCounts} />
-      <RelatedVideos className="@xs:block @4xl:hidden" channelId={channelId} />
+      <div className={`${className ?? ''}`}>
+        <StreamBasicInfo stream={stream} />
+        <StreamStatsCards stream={stream} />
+        <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
+        <ChatCounts stream={stream} chatCounts={chatCounts} />
+        <RelatedVideos
+          className="@xs:block @4xl:hidden"
+          channelId={channelId}
+        />
+      </div>
     </TabsContent>
   )
 }
