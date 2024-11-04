@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import IndexTemplate from './_components/IndexTemplate'
@@ -25,9 +26,17 @@ export async function generateMetadata({
 export default function YoutubeLivePage({ params: { locale } }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
+  const t = useTranslations('Breadcrumb')
 
   return (
-    <Page breadcrumb={[]}>
+    <Page
+      breadcrumb={[
+        {
+          href: `/youtube/live`,
+          name: t('streamRanking')
+        }
+      ]}
+    >
       <IndexTemplate />
     </Page>
   )

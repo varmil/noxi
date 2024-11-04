@@ -16,7 +16,8 @@
     "channels": "チャンネルまとめ",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
-    "ended": "過去のライブ配信"
+    "ended": "過去のライブ配信",
+    "streamRanking": "YouTubeライブ同接数ランキング"
   },
 
   "Page": {
@@ -122,7 +123,7 @@
       "live": {
         "index": {
           "metadata": {
-            "title": "ライブ同接数ランキング",
+            "title": "YouTubeライブ同接数ランキング",
             "description": ""
           }
         },
