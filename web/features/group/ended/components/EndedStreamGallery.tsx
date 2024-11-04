@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Site'
-import StreamListContentOfEnded from 'features/group/stream/components/stream-list/StreamListContentOfEnded'
+import EndedStreamGalleryContent from 'features/group/ended/components/EndedStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
 import { getGroup } from 'lib/server-only-context/cache'
@@ -26,7 +26,6 @@ export default async function EndedStreamGallery({
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
     limit: 99
   })
-
   const t = await getTranslations('Features.group.ended')
 
   return (
@@ -39,7 +38,9 @@ export default async function EndedStreamGallery({
         })}
         badgeText="Archive"
       />
-      <StreamListContentOfEnded streams={streams} compact={compact} />
+
+      <EndedStreamGalleryContent streams={streams} compact={compact} />
+
       {compact && group && <StreamListFooter href={`/${group}/ended`} />}
     </Card>
   )
