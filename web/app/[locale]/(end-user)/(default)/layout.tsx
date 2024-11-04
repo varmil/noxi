@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 
 type Props = {
@@ -11,6 +11,6 @@ export default async function LocaleLayout({
   children,
   params: { locale }
 }: Props) {
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   return <DefaultLayout>{children}</DefaultLayout>
 }

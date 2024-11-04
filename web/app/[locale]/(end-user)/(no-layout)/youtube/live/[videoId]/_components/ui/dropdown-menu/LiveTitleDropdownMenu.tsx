@@ -15,7 +15,7 @@ import {
 } from '../../../_hooks/youtubeLiveStates'
 
 export function LiveTitleDropdownMenu() {
-  const t = useTranslations('Page.youtube.live.button')
+  const t = useTranslations('Page.youtube.live.id.button')
   const { setTheaterMode } = useGlobalTheaterMode()
   const { isOpenLiveChat, setOpenLiveChat } = useGlobalOpenLiveChat()
 

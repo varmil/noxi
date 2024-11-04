@@ -2,8 +2,6 @@ import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
-import { ChannelProfile } from 'app/[locale]/(end-user)/(default)/_components/ui/profile/ChannelProfile'
-import { ChannelCommentTabs } from 'app/[locale]/(end-user)/(default)/_components/ui/tabs/ChannelCommentTabs'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
@@ -15,6 +13,8 @@ import StatsJoinedCard from 'features/youtube-stats/components/simple-card/Stats
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
 import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
 import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
+import { ChannelProfile } from './ui/profile/ChannelProfile'
+import { ChannelCommentTabs } from './ui/tabs/ChannelCommentTabs'
 
 type Props = { id: string }
 

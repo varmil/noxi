@@ -1,14 +1,13 @@
-import { useFormatter, useTranslations } from 'next-intl'
+import { useFormatter } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
 import { VideoSchema } from 'apis/youtube/schema/videoSchema'
 import Bullet from 'components/styles/Bullet'
-import Image from 'components/styles/Image'
 import Views from 'components/youtube/statistics/Views'
+import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { humanizeDuration } from 'lib/dayjs'
 
 export default function VideoCard(video: VideoSchema) {
   const format = useFormatter()
-  const t = useTranslations('Features.youtube.video')
   const { id, snippet, duration, statistics } = video
   const { title, thumbnails, publishedAt } = snippet
   const { viewCount } = statistics
@@ -20,22 +19,7 @@ export default function VideoCard(video: VideoSchema) {
         href={`https://youtube.com/watch?v=${id}`}
         target="_blank"
       >
-        <Image
-          src={{
-            '1x':
-              thumbnails['standard']?.url ||
-              thumbnails['high']?.url ||
-              thumbnails['default']?.url,
-            '2x':
-              thumbnails['maxres']?.url ||
-              thumbnails['high']?.url ||
-              thumbnails['default']?.url
-          }}
-          alt={`Video Thumbnail: ${title}`}
-          width={400}
-          height={225}
-          className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-        />
+        <VideoThumbnail size="standard" title={title} thumbnails={thumbnails} />
         <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
           <span>{humanizeDuration(duration)}</span>
         </div>
