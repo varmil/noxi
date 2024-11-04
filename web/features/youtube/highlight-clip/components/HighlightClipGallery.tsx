@@ -28,6 +28,10 @@ const qMap: Record<GroupString, Record<'ja' | 'en', string>> = {
     ja: 'hololive-indonesia clips',
     en: 'hololive-indonesia clips'
   },
+  vspo: {
+    ja: 'ぶいすぽっ 切り抜き',
+    en: 'vspo!en clips'
+  },
   independent: {
     ja: '個人勢vtuber 切り抜き',
     en: 'independent vtuber clips'

@@ -2,6 +2,7 @@ export const GroupStrings = [
   'hololive',
   'hololive-english',
   'hololive-indonesia',
+  'vspo',
   'independent',
   'independent-irl'
 ] as const
