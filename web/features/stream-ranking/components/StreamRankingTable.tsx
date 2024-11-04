@@ -19,7 +19,7 @@ import { getStreams } from 'apis/youtube/getStreams'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 
-export function HeroTableTitle({
+export function StreamRankingTableTitle({
   className
 }: PropsWithChildren<{ className?: string }>) {
   const t = useTranslations('Page.index.section.hero')
@@ -47,7 +47,7 @@ export function HeroTableTitle({
   )
 }
 
-export default async function HeroTable({}: PropsWithChildren<{}>) {
+export async function StreamRankingTable({}: PropsWithChildren<{}>) {
   const streams = await getStreams({
     status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
@@ -64,8 +64,10 @@ export default async function HeroTable({}: PropsWithChildren<{}>) {
       <TableHeader>
         <TableRow>
           <TableHead></TableHead>
-          <TableHead>{t('channel')}</TableHead>
-          <TableHead className="text-right">{t('viewers')}</TableHead>
+          <TableHead className="text-nowrap">{t('channel')}</TableHead>
+          <TableHead className="text-right text-nowrap">
+            {t('viewers')}
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>

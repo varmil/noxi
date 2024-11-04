@@ -21,7 +21,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.youtube.live.metadata'
+    namespace: 'Page.youtube.live.id.metadata'
   })
   const {
     snippet: { title, channelId },
@@ -42,7 +42,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function YoutubeLivePage({
+export default async function YoutubeLiveIdPage({
   params: { locale, videoId }
 }: Props) {
   // Enable static rendering

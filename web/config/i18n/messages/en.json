@@ -120,13 +120,21 @@
 
     "youtube": {
       "live": {
-        "metadata": {
-          "title": "{title} {group} {channel}",
-          "description": "Watch the latest live stream of {channel} on PeakX! Enjoy real-time interaction, catch up on past broadcasts, and never miss exciting content again. Join the fun today!"
+        "index": {
+          "metadata": {
+            "title": "Most Watched Channels right now",
+            "description": ""
+          }
         },
-        "button": {
-          "theaterMode": "Theater Mode",
-          "openChat": "Open Live Chat"
+        "id": {
+          "metadata": {
+            "title": "{title} {group} {channel}",
+            "description": "Watch the latest live stream of {channel} on PeakX! Enjoy real-time interaction, catch up on past broadcasts, and never miss exciting content again. Join the fun today!"
+          },
+          "button": {
+            "theaterMode": "Theater Mode",
+            "openChat": "Open Live Chat"
+          }
         }
       }
     }

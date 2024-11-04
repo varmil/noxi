@@ -120,13 +120,21 @@
 
     "youtube": {
       "live": {
-        "metadata": {
-          "title": "{group} {channel} {title}",
-          "description": "YouTubeライブ配信を視聴！{channel}の現在のライブストリームをチェックし、見逃した瞬間を確認。リアルタイムで楽しみたい方に最適です。"
+        "index": {
+          "metadata": {
+            "title": "ライブ同接数ランキング",
+            "description": ""
+          }
         },
-        "button": {
-          "theaterMode": "シアターモードで大きく表示",
-          "openChat": "チャットを表示"
+        "id": {
+          "metadata": {
+            "title": "{group} {channel} {title}",
+            "description": "YouTubeライブ配信を視聴！{channel}の現在のライブストリームをチェックし、見逃した瞬間を確認。リアルタイムで楽しみたい方に最適です。"
+          },
+          "button": {
+            "theaterMode": "シアターモードで大きく表示",
+            "openChat": "チャットを表示"
+          }
         }
       }
     }

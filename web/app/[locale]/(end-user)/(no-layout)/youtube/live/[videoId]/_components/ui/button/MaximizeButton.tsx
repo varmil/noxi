@@ -12,7 +12,7 @@ import {
 import { useGlobalTheaterMode } from '../../../_hooks/youtubeLiveStates'
 
 export default function MaximizeButton() {
-  const t = useTranslations('Page.youtube.live.button')
+  const t = useTranslations('Page.youtube.live.id.button')
   const { setTheaterMode } = useGlobalTheaterMode()
 
   return (
