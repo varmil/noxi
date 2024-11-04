@@ -46,7 +46,7 @@ export function GridCardGalleryFirstView({ className, children }: Props) {
  */
 export function GridCardGalleryMore({ className, children }: Props) {
   const [isOpen, setIsOpen] = useState(false)
-  const t = useTranslations('Components.comment')
+  const t = useTranslations('Components.styles')
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleContent className={getGridClasses(className)}>

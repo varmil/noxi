@@ -152,10 +152,9 @@
   },
 
   "Components": {
-    "comment": {
-      "more": "もっと見る"
-    },
+    "comment": {},
     "styles": {
+      "more": "もっと見る",
       "scheduledFor": "{datetime} に公開予定",
       "startedStreaming": "{datetime}にライブ配信開始",
       "watching": "人が視聴中",

@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
-import { VideoInChannelGallery } from 'features/youtube/video/components/VideoInChannelGallery'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
@@ -18,7 +17,6 @@ import { ChannelCommentTabs } from './ui/tabs/ChannelCommentTabs'
 
 type Props = { id: string }
 
-/** TODO:　Live Stream Trendsのheightを調整して空きスペースに配信時間帯のヒストグラムを表示できるようにする */
 export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
   const t = await getTranslations('Page.group.channelsId.template')
   const { basicInfo, statistics } = await getChannel(id)
@@ -92,11 +90,12 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           </Suspense>
         </Section>
 
-        <Section className="lg:col-span-full lg:order-last" title="Videos">
+        {/* 2024/11/04：要らないかもしれないので一旦コメントアウト */}
+        {/* <Section className="lg:col-span-full lg:order-last" title="Videos">
           <Suspense fallback={<p>Loading Videos...</p>}>
             <VideoInChannelGallery channelId={basicInfo.id} />
           </Suspense>
-        </Section>
+        </Section> */}
       </div>
     </section>
   )
