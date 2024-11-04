@@ -85,6 +85,7 @@ export default async function StreamRankingTable({ compact }: Props) {
 
               <TableCell className="hidden @lg:table-cell w-24">
                 <VideoThumbnail
+                  size="medium"
                   title={stream.snippet.title}
                   thumbnails={stream.snippet.thumbnails}
                   className="rounded"

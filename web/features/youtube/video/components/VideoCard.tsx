@@ -19,7 +19,7 @@ export default function VideoCard(video: VideoSchema) {
         href={`https://youtube.com/watch?v=${id}`}
         target="_blank"
       >
-        <VideoThumbnail title={title} thumbnails={thumbnails} />
+        <VideoThumbnail size="standard" title={title} thumbnails={thumbnails} />
         <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-1 rounded-md text-white text-xs">
           <span>{humanizeDuration(duration)}</span>
         </div>
