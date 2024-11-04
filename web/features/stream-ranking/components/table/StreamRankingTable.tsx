@@ -61,7 +61,7 @@ export default async function StreamRankingTable({ compact }: Props) {
             <TableRow key={stream.videoId}>
               <TableCell width={40}>
                 <Link href={`/youtube/live/${stream.videoId}`}>
-                  <Avatar className="w-6 h-6 lg:w-8 lg:h-8 transition-all hover:scale-105">
+                  <Avatar className="w-6 h-6 @md:w-8 @md:h-8 transition-all hover:scale-105">
                     <AvatarImage
                       src={channel.basicInfo.thumbnails.medium?.url}
                       alt={channel.basicInfo.title}
