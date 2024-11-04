@@ -1,3 +1,4 @@
+import { Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -53,6 +54,12 @@ export default function Aside() {
             name={t('group.independent')}
             href="/independent"
             src="/vtuber/independent/pixai-001.png"
+            roundedFull
+          />
+          <AsideIcon
+            name={t('group.independent-irl')}
+            href="/independent-irl"
+            icon={<Webcam className="h-6 w-6" />}
             roundedFull
           />
         </TooltipProvider>

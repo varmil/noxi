@@ -10,9 +10,15 @@ import { Link } from 'lib/navigation'
 type Props = {
   name: string
   href: string
-  src: string
+
+  /** @required when use Image */
+  src?: string
+  /** @required when use Icon */
+  icon?: JSX.Element
+
   /** Tooltip content */
   content?: React.ReactNode
+
   roundedFull?: boolean
 }
 
@@ -20,9 +26,11 @@ export default function AsideIcon({
   name,
   href,
   src,
+  icon,
   content,
   roundedFull
 }: PropsWithoutRef<Props>) {
+  if (!src && !icon) return null
   return (
     <Tooltip>
       <TooltipTrigger>
@@ -31,15 +39,19 @@ export default function AsideIcon({
           className="group flex h-7 w-7 items-center justify-center rounded-lg"
           prefetch={false}
         >
-          <Image
-            src={src}
-            alt={`${name} icon`}
-            width={100}
-            height={100}
-            className={`transition-all group-hover:scale-110  ${
-              roundedFull && 'rounded-full'
-            }`}
-          />
+          {src && (
+            <Image
+              src={src}
+              alt={`${name} icon`}
+              width={100}
+              height={100}
+              className={`transition-all group-hover:scale-110  ${
+                roundedFull && 'rounded-full'
+              }`}
+            />
+          )}
+
+          {icon}
 
           <span className="sr-only">{name}</span>
         </Link>

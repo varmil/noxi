@@ -1,3 +1,4 @@
+import { Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -103,6 +104,12 @@ export default function Header() {
                   />
                 }
                 href="/independent"
+                active
+              />
+              <HeaderLink
+                name={t('group.independent-irl')}
+                icon={<Webcam className="h-8 w-8 rounded-full" />}
+                href="/independent-irl"
                 active
               />
 
