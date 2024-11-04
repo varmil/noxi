@@ -48,5 +48,45 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCGV96w_TwvyCDusr_tmcu8A'),
     title: 'Nito Ch. 新兎わい',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCa6tqURg-QBi5QObeLl-8Mw'),
+    title: 'GAMEゆうな',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC2-hRIDWzqAnTjOxdLDmhCA'),
+    title: 'おやつ@ゲームチャンネル',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCFOsYGDAw16cr57cCqdJdVQ'),
+    title: 'MKRチャンネル',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCu5OhGQzagQkmJoOOnxnBIg'),
+    title: 'ロッコク【動画解説】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC0C6oq3TlGiSlDCei57hY6A'),
+    title: '幕末志士チャンネル',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCIdEIHpS0TdkqRkHL5OkLtA'),
+    title: 'さなちゃんねる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC-PYFlNwRzLcGfMzT4pSl5Q'),
+    title: 'コジマ店員のホラーは恐くない',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCH4yRBPH2pDUjPeqomx8CTQ'),
+    title: 'てるとくん',
+    ...DefaultProps
   }
 ]

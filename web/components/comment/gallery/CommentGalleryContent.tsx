@@ -25,7 +25,7 @@ export function CommentGalleryFirstView({ children }: PropsWithChildren) {
 
 export function CommentGalleryMore({ children }: PropsWithChildren) {
   const [isOpen, setIsOpen] = useState(false)
-  const t = useTranslations('Components.comment')
+  const t = useTranslations('Components.styles')
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleContent className={gridClass}>{children}</CollapsibleContent>

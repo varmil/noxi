@@ -1,3 +1,4 @@
+import { Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -92,6 +93,20 @@ export default function Header() {
                 active
               />
               <HeaderLink
+                name={t('group.vspo')}
+                icon={
+                  <Image
+                    src={'/vspo/logo.png'}
+                    alt={t('group.vspo')}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8 rounded-full"
+                  />
+                }
+                href="/vspo"
+                active
+              />
+              <HeaderLink
                 name={t('group.independent')}
                 icon={
                   <Image
@@ -103,6 +118,12 @@ export default function Header() {
                   />
                 }
                 href="/independent"
+                active
+              />
+              <HeaderLink
+                name={t('group.independent-irl')}
+                icon={<Webcam className="h-8 w-8 rounded-full" />}
+                href="/independent-irl"
                 active
               />
 

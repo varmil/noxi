@@ -7,7 +7,9 @@
       "hololive": "ホロライブ",
       "hololive-english": "ホロライブEnglish",
       "hololive-indonesia": "ホロライブIndonesia",
-      "independent": "個人勢VTuber"
+      "vspo": "ぶいすぽっ",
+      "independent": "個人勢VTuber",
+      "independent-irl": "個人勢顔出し配信"
     }
   },
 
@@ -152,10 +154,9 @@
   },
 
   "Components": {
-    "comment": {
-      "more": "もっと見る"
-    },
+    "comment": {},
     "styles": {
+      "more": "もっと見る",
       "scheduledFor": "{datetime} に公開予定",
       "startedStreaming": "{datetime}にライブ配信開始",
       "watching": "人が視聴中",

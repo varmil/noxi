@@ -7,7 +7,9 @@
       "hololive": "Hololive",
       "hololive-english": "Hololive English",
       "hololive-indonesia": "Hololive Indonesia",
-      "independent": "Independent VTubers"
+      "vspo": "Virtual eSports Project",
+      "independent": "Independent VTubers",
+      "independent-irl": "Independent Streamers (IRL)"
     }
   },
 
@@ -152,10 +154,9 @@
   },
 
   "Components": {
-    "comment": {
-      "more": "Read More"
-    },
+    "comment": {},
     "styles": {
+      "more": "Read More",
       "scheduledFor": "Scheduled for {datetime}",
       "startedStreaming": "Started streaming {datetime}",
       "watching": "watching",

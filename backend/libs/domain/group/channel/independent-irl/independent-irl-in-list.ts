@@ -3,7 +3,7 @@ import { GroupChannel } from '@domain/group/channel/group-channel'
 import { ChannelId } from '@domain/youtube'
 
 const DefaultProps = {
-  group: 'independent',
+  group: 'independent-irl',
   country: new CountryCode('IN'),
   defaultLangage: new LanguageTag('hi')
 }

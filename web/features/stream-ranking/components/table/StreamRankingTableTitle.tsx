@@ -23,9 +23,9 @@ export default function StreamRankingTableTitle({
           <Image
             src={'/youtube/yt_icon_rgb.png'}
             alt="YouTube"
-            width={100}
-            height={100}
-            className="relative w-8 h-[22.5px] top-[1px]"
+            width={32}
+            height={22.5}
+            className="relative w-8 h-[22.5px] top-[0.5px]"
           />
           {t('ranking')}
         </CardTitle>
