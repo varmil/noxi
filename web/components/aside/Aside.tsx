@@ -51,6 +51,12 @@ export default function Aside() {
             roundedFull
           />
           <AsideIcon
+            name={t('group.vspo')}
+            href="/vspo"
+            src="/vspo/logo.png"
+            roundedFull
+          />
+          <AsideIcon
             name={t('group.independent')}
             href="/independent"
             src="/vtuber/independent/pixai-001.png"

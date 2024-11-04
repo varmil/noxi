@@ -93,6 +93,20 @@ export default function Header() {
                 active
               />
               <HeaderLink
+                name={t('group.vspo')}
+                icon={
+                  <Image
+                    src={'/vspo/logo.png'}
+                    alt={t('group.vspo')}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8 rounded-full"
+                  />
+                }
+                href="/vspo"
+                active
+              />
+              <HeaderLink
                 name={t('group.independent')}
                 icon={
                   <Image
