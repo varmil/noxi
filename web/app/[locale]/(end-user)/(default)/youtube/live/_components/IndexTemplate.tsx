@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import StreamRankingGallery from 'features/stream-ranking/components/StreamRankingGallery'
+import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
 type Props = {}
 

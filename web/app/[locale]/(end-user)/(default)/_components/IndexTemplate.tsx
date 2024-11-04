@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 // import IconSection from 'features/icon-section/IconSection'
-import StreamRankingGallery from 'features/stream-ranking/components/StreamRankingGallery'
+import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { Link } from 'lib/navigation'
 import { HeroH1 } from './styles/HeroTitles'
 import SocialProofSection from './ui/social-proof/SocialProofSection'
@@ -44,7 +44,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               </Link>
             </Button>
           </div>
-          <StreamRankingGallery />
+          <StreamRankingGallery compact />
         </HeroSectionContainer>
 
         <SocialProofSection />

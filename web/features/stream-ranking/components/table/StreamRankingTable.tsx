@@ -1,10 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { CardHeader, CardTitle } from '@/components/ui/card'
 import {
   Table,
   TableHeader,
@@ -16,38 +12,9 @@ import {
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
-import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 
-export function StreamRankingTableTitle({
-  className
-}: PropsWithChildren<{ className?: string }>) {
-  const t = useTranslations('Page.index.section.hero')
-  return (
-    <CardHeader className={`${className || ''}`}>
-      <div className={`flex flex-row gap-x-1 items-center`}>
-        <CardTitle className="flex gap-x-2 items-center text-balance text-lg sm:text-xl">
-          <Image
-            src={'/youtube/yt_icon_rgb.png'}
-            alt="YouTube"
-            width={100}
-            height={100}
-            className="relative w-8 h-[22.5px] top-[1px]"
-          />
-          {t('ranking')}
-        </CardTitle>
-        <Button asChild size="sm" className="ml-auto gap-1">
-          <Link href="/youtube/live">
-            {t('viewAll')}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      </div>
-    </CardHeader>
-  )
-}
-
-export async function StreamRankingTable({}: PropsWithChildren<{}>) {
+export default async function StreamRankingTable({}: PropsWithChildren<{}>) {
   const streams = await getStreams({
     status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
