@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -12,19 +12,27 @@ import {
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
+import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
+import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
 import { Link } from 'lib/navigation'
 
-export default async function StreamRankingTable({}: PropsWithChildren<{}>) {
+type Props = PropsWithoutRef<{
+  compact?: boolean
+}>
+
+export default async function StreamRankingTable({ compact }: Props) {
   const streams = await getStreams({
     status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: 6
+    limit: compact ? 6 : 100
   })
   const [t, channels, liveStreamingDetailsList] = await Promise.all([
     getTranslations('Page.index.section.hero'),
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
+  /** 現在の視聴者数で並び替え */
+  const sortedStreams = getSortedStreams(streams, liveStreamingDetailsList)
 
   return (
     <Table>
@@ -32,13 +40,14 @@ export default async function StreamRankingTable({}: PropsWithChildren<{}>) {
         <TableRow>
           <TableHead></TableHead>
           <TableHead className="text-nowrap">{t('channel')}</TableHead>
+          <TableHead className="hidden @lg:table-cell"></TableHead>
           <TableHead className="text-right text-nowrap">
             {t('viewers')}
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {streams.map(stream => {
+        {sortedStreams.map(stream => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId
           )
@@ -72,6 +81,14 @@ export default async function StreamRankingTable({}: PropsWithChildren<{}>) {
                     {stream.snippet.title}
                   </div>
                 </Link>
+              </TableCell>
+
+              <TableCell className="hidden @lg:table-cell w-24">
+                <VideoThumbnail
+                  title={stream.snippet.title}
+                  thumbnails={stream.snippet.thumbnails}
+                  className="rounded"
+                />
               </TableCell>
 
               <TableCell className="text-lg text-right tabular-nums">

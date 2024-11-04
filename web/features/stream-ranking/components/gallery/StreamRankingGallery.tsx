@@ -9,10 +9,10 @@ export default function StreamRankingGallery({
   compact
 }: PropsWithoutRef<Props>) {
   return (
-    <Card>
+    <Card className="@container">
       <StreamRankingTableTitle className="px-4 sm:px-6" showViewAll={compact} />
       <CardContent className="px-4 sm:px-6">
-        <StreamRankingTable />
+        <StreamRankingTable compact={compact} />
       </CardContent>
     </Card>
   )
