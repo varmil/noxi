@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { ModeToggle } from 'components/ModeToggle'
+import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
 import PeakxText from 'components/peakx/svg/text'
 import { Link } from 'lib/navigation'
@@ -8,7 +9,7 @@ import Logo from '../Logo'
 export default function Header() {
   const t = useTranslations('Global')
   const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/80'
-  const sm = 'sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'
+  const sm = 'sm:border-0 sm:bg-transparent sm:px-6'
 
   return (
     <header
@@ -24,6 +25,10 @@ export default function Header() {
         <PeakxText className="w-[49.64px] h-[17px]" />
         <h2 className="sr-only">{t('headerTitle')}</h2>
       </Link>
+
+      <div className="hidden sm:block">
+        <HeaderNavigationMenu />
+      </div>
 
       {/* User Icon */}
       {/* <DropdownMenu>

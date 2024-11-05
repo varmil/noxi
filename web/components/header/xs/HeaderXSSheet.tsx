@@ -9,10 +9,8 @@ import {
   SheetDescription,
   SheetTitle
 } from '@/components/ui/sheet'
-import { ModeToggle } from 'components/ModeToggle'
 import HeaderLink from 'components/header/HeaderLink'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
-import PeakxText from 'components/peakx/svg/text'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 import Logo from '../../Logo'
