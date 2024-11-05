@@ -155,6 +155,10 @@
 
   "Components": {
     "comment": {},
+    "header": {
+      "listing": "{count}人のタレントを掲載中",
+      "listingAll": "{count}人全員を掲載中!"
+    },
     "styles": {
       "more": "もっと見る",
       "scheduledFor": "{datetime} に公開予定",

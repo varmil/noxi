@@ -1,4 +1,3 @@
-import { Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -10,11 +9,13 @@ import {
 import AsideIcon from 'components/aside/AsideIcon'
 import AsideStreamIcons from 'components/aside/AsideStreamIcons'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
+import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default function Aside() {
   const t = useTranslations('Global')
+  const groups = useGroups()
 
   return (
     <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
@@ -33,41 +34,25 @@ export default function Aside() {
 
           <Separator orientation="horizontal" />
 
-          <AsideIcon
-            name={t('group.hololive')}
-            href="/hololive"
-            src="/hololiveicon.png"
-          />
-          <AsideIcon
-            name={t('group.hololive-english')}
-            href="/hololive-english"
-            src="/hololive/hololive_en_square.png"
-            roundedFull
-          />
-          <AsideIcon
-            name={t('group.hololive-indonesia')}
-            href="/hololive-indonesia"
-            src="/hololive/hololive_id_square.png"
-            roundedFull
-          />
-          <AsideIcon
-            name={t('group.vspo')}
-            href="/vspo"
-            src="/vspo/logo.png"
-            roundedFull
-          />
-          <AsideIcon
-            name={t('group.independent')}
-            href="/independent"
-            src="/vtuber/independent/pixai-001.png"
-            roundedFull
-          />
-          <AsideIcon
-            name={t('group.independent-irl')}
-            href="/independent-irl"
-            icon={<Webcam className="h-6 w-6" />}
-            roundedFull
-          />
+          {groups.imgs.map(group => (
+            <AsideIcon
+              key={group.id}
+              name={group.name}
+              href={`/${group.id}`}
+              src={group.src}
+              roundedFull
+            />
+          ))}
+
+          {groups.icons.map(group => (
+            <AsideIcon
+              key={group.id}
+              name={group.name}
+              href={`/${group.id}`}
+              icon={<group.icon className="h-6 w-6" />}
+              roundedFull
+            />
+          ))}
         </TooltipProvider>
       </nav>
 

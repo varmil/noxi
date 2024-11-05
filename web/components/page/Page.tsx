@@ -36,7 +36,7 @@ export function Page({
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
 
       <main
-        className={`${containerClass} min-h-screen ${padding} ${
+        className={`relative z-0 ${containerClass} min-h-screen ${padding} ${
           className ?? ''
         }`}
       >
