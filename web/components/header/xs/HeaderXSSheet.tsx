@@ -1,4 +1,4 @@
-import { PanelLeftIcon, Webcam } from 'lucide-react'
+import { PanelLeftIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,11 +12,13 @@ import {
 import HeaderLink from 'components/header/HeaderLink'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import Image from 'components/styles/Image'
+import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 import Logo from '../../Logo'
 
 export default function HeaderXSSheet() {
   const t = useTranslations('Global')
+  const groups = useGroups()
 
   return (
     <Sheet>
@@ -42,82 +44,33 @@ export default function HeaderXSSheet() {
               <span className="sr-only">PeakX</span>
             </Link>
 
-            <HeaderLink
-              name={t('group.hololive')}
-              icon={
-                <Image
-                  src={'/hololiveicon.png'}
-                  alt={t('group.hololive')}
-                  width={100}
-                  height={100}
-                  className="h-8 w-8"
-                />
-              }
-              href="/hololive"
-              active
-            />
-            <HeaderLink
-              name={t('group.hololive-english')}
-              icon={
-                <Image
-                  src={'/hololive/hololive_en_square.png'}
-                  alt={t('group.hololive-english')}
-                  width={100}
-                  height={100}
-                  className="h-8 w-8 rounded-full"
-                />
-              }
-              href="/hololive-english"
-              active
-            />
-            <HeaderLink
-              name={t('group.hololive-indonesia')}
-              icon={
-                <Image
-                  src={'/hololive/hololive_id_square.png'}
-                  alt={t('group.hololive-indonesia')}
-                  width={100}
-                  height={100}
-                  className="h-8 w-8 rounded-full"
-                />
-              }
-              href="/hololive-indonesia"
-              active
-            />
-            <HeaderLink
-              name={t('group.vspo')}
-              icon={
-                <Image
-                  src={'/vspo/logo.png'}
-                  alt={t('group.vspo')}
-                  width={100}
-                  height={100}
-                  className="h-8 w-8 rounded-full"
-                />
-              }
-              href="/vspo"
-              active
-            />
-            <HeaderLink
-              name={t('group.independent')}
-              icon={
-                <Image
-                  src={'/vtuber/independent/pixai-001.png'}
-                  alt={t('group.independent')}
-                  width={100}
-                  height={100}
-                  className="h-8 w-8 rounded-full"
-                />
-              }
-              href="/independent"
-              active
-            />
-            <HeaderLink
-              name={t('group.independent-irl')}
-              icon={<Webcam className="h-8 w-8 rounded-full" />}
-              href="/independent-irl"
-              active
-            />
+            {groups.imgs.map(group => (
+              <HeaderLink
+                key={group.id}
+                name={group.name}
+                icon={
+                  <Image
+                    src={group.src}
+                    alt={group.name}
+                    width={100}
+                    height={100}
+                    className="h-8 w-8 rounded-full"
+                  />
+                }
+                href={`/${group.id}`}
+                active
+              />
+            ))}
+
+            {groups.icons.map(group => (
+              <HeaderLink
+                key={group.id}
+                name={group.name}
+                icon={<group.icon className="h-8 w-8 rounded-full" />}
+                href={`/${group.id}`}
+                active
+              />
+            ))}
 
             {/* 
             <HeaderLink
