@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,6 +17,7 @@ import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 
 export default function HeaderNavigationMenu() {
+  const t = useTranslations('Components.header')
   const groups = useGroups()
   return (
     <NavigationMenu>
@@ -46,7 +48,9 @@ export default function HeaderNavigationMenu() {
                     />
                   }
                 >
-                  The largest database of live streaming stats & analytics
+                  {t(group.count.isAll ? 'listingAll' : 'listing', {
+                    count: group.count.val
+                  })}
                 </ListItem>
               ))}
 
@@ -57,7 +61,9 @@ export default function HeaderNavigationMenu() {
                   href={`/${group.id}`}
                   icon={<group.icon />}
                 >
-                  The largest database of live streaming stats & analytics
+                  {t(group.count.isAll ? 'listingAll' : 'listing', {
+                    count: group.count.val
+                  })}
                 </ListItem>
               ))}
             </ul>

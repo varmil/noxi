@@ -155,6 +155,10 @@
 
   "Components": {
     "comment": {},
+    "header": {
+      "listing": "Listing {count} streamers.",
+      "listingAll": "All {count} streamers are listed."
+    },
     "styles": {
       "more": "Read More",
       "scheduledFor": "Scheduled for {datetime}",
