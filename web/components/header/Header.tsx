@@ -9,11 +9,11 @@ import Logo from '../Logo'
 export default function Header() {
   const t = useTranslations('Global')
   const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/80'
-  const sm = 'sm:border-0 sm:bg-transparent sm:px-6'
+  const sm = 'sm:bg-transparent sm:px-6'
 
   return (
     <header
-      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/40 bg-background px-1.5 ${bgFilter} ${sm}`}
+      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/60 bg-background px-1.5 ${bgFilter} ${sm}`}
     >
       <HeaderXSSheet />
 
