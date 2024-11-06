@@ -69,7 +69,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               </LinkCell>
 
               {/* Viewers */}
-              <TableCell width={80} className="text-lg tabular-nums">
+              <TableCell width={80} className="text-right text-lg tabular-nums">
                 {liveStreamingDetails.concurrentViewers?.toLocaleString() ??
                   '--'}
               </TableCell>
