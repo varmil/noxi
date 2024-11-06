@@ -32,11 +32,7 @@
       "description": "ホロライブ、結城さくな、しぐれうい、すべてのVTuberを即座に確認。YouTubeライブの同時視聴者数、スーパーチャット、ユーザーコメントをリアルタイムで確認",
       "section": {
         "hero": {
-          "ranking": "同接数ランキング",
-          "more": "ランキングを確認",
-          "viewAll": "すべて見る",
-          "channel": "チャンネル",
-          "viewers": "同接数"
+          "more": "ランキングを確認"
         },
         "socialProof": {
           "title": "YouTubeライブを完全把握",
@@ -174,6 +170,15 @@
         "title": "過去のライブ配信",
         "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
       }
+    },
+
+    "streamRanking": {
+      "ranking": "同接数ランキング",
+      "viewAll": "すべて見る",
+      "channel": "チャンネル",
+      "group": "Gr",
+      "streamTitle": "タイトル",
+      "viewers": "同接数"
     },
 
     "supers": {

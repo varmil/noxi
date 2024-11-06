@@ -32,11 +32,7 @@
       "description": "We organize information on influencers from all over the world. Our mission is to provide the information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
       "section": {
         "hero": {
-          "ranking": "Most Watched Channels right now",
-          "more": "Most Watched right now",
-          "viewAll": "View All",
-          "channel": "Channel",
-          "viewers": "Viewers"
+          "more": "Most Watched right now"
         },
         "socialProof": {
           "title": "YouTube Live Complete Analysis",
@@ -174,6 +170,15 @@
         "title": "Past Live Streams",
         "description": "Check out all of {group}'s past YouTube live streams!"
       }
+    },
+
+    "streamRanking": {
+      "ranking": "Most Watched Channels right now",
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Gr",
+      "streamTitle": "Title",
+      "viewers": "Viewers"
     },
 
     "supers": {

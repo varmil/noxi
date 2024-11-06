@@ -2,18 +2,18 @@ import { useTranslations } from 'next-intl'
 import { ModeToggle } from 'components/ModeToggle'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
-import PeakxText from 'components/peakx/svg/text'
+import PeakXText from 'components/peakx/svg/text'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default function Header() {
   const t = useTranslations('Global')
   const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/80'
-  const sm = 'sm:border-0 sm:bg-transparent sm:px-6'
+  const sm = 'sm:bg-transparent sm:px-6'
 
   return (
     <header
-      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/40 bg-background px-1.5 ${bgFilter} ${sm}`}
+      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/60 bg-background px-1.5 ${bgFilter} ${sm}`}
     >
       <HeaderXSSheet />
 
@@ -22,7 +22,7 @@ export default function Header() {
         className="flex items-center gap-2.5 transition-all hover:scale-105"
       >
         <Logo className="w-6 h-6" />
-        <PeakxText className="w-[49.64px] h-[17px]" />
+        <PeakXText className="w-[49.64px] h-[17px]" />
         <h2 className="sr-only">{t('headerTitle')}</h2>
       </Link>
 

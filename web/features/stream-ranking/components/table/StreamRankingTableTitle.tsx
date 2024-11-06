@@ -15,7 +15,7 @@ export default function StreamRankingTableTitle({
   className,
   showViewAll
 }: Props) {
-  const t = useTranslations('Page.index.section.hero')
+  const t = useTranslations('Features.streamRanking')
   return (
     <CardHeader className={`${className || ''}`}>
       <div className={`flex flex-row gap-x-1 items-center`}>

@@ -6,7 +6,7 @@ type Props = {
   className?: string
 }
 
-export default function PeakxText({ className }: PropsWithoutRef<Props>) {
+export default function PeakXText({ className }: PropsWithoutRef<Props>) {
   return (
     <svg
       version="1.0"

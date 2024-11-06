@@ -1,4 +1,5 @@
-import { Webcam } from 'lucide-react'
+import React from 'react'
+import { LucideProps, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { GroupStrings } from 'config/constants/Site'
 
@@ -12,29 +13,72 @@ const counts = {
   'independent-irl': { val: 10, isAll: false }
 }
 
+type Count = {
+  val: number
+  isAll: boolean
+}
+
+type Img = {
+  id: string
+  name: string
+  src: string
+  count: Count
+}
+
+type Icon = {
+  id: string
+  name: string
+  icon: React.ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+  >
+  count: Count
+}
+
+type Group = Img | Icon
+
 export default function useGroups() {
   const t = useTranslations('Global.group')
-  const imgs = GroupStrings.filter(group => group !== 'independent-irl').map(
-    group => {
-      return {
-        id: group,
-        name: t(`${group}`),
-        src: `/group/${group}/logo.png`,
-        count: counts[group]
-      }
+  const imgs = GroupStrings.filter(
+    group => group !== 'independent-irl'
+  ).map<Img>(group => {
+    return {
+      id: group,
+      name: t(`${group}`),
+      src: `/group/${group}/logo.png`,
+      count: counts[group]
     }
-  )
+  })
 
-  const icons = GroupStrings.filter(group => group === 'independent-irl').map(
-    group => {
-      return {
-        id: group,
-        name: t(`${group}`),
-        icon: Webcam,
-        count: counts[group]
-      }
+  const icons = GroupStrings.filter(
+    group => group === 'independent-irl'
+  ).map<Icon>(group => {
+    return {
+      id: group,
+      name: t(`${group}`),
+      icon: Webcam,
+      count: counts[group]
     }
-  )
+  })
 
-  return { imgs, icons }
+  const findGroup = (group: string) => {
+    let result: Group | undefined
+
+    result = imgs.find(e => e.id === group)
+    if (result) return result
+
+    result = icons.find(e => e.id === group)
+    if (result) return result
+
+    return undefined
+  }
+
+  function isImg(arg: any): arg is Img {
+    return arg.src !== undefined
+  }
+
+  function isIcon(arg: any): arg is Icon {
+    return arg.icon !== undefined
+  }
+
+  return { imgs, icons, findGroup, isImg, isIcon }
 }
