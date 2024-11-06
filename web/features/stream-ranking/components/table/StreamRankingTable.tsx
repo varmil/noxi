@@ -12,6 +12,7 @@ import {
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
+import CountryFlag from 'components/styles/CountryFlag'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
 import { Link } from 'lib/navigation'
@@ -44,6 +45,7 @@ export default async function StreamRankingTable({ compact }: Props) {
           <TableHead className="text-right text-nowrap">
             {t('viewers')}
           </TableHead>
+          <TableHead className="hidden @lg:table-cell w-14"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -95,6 +97,10 @@ export default async function StreamRankingTable({ compact }: Props) {
               <TableCell className="text-lg text-right tabular-nums">
                 {liveStreamingDetails.concurrentViewers?.toLocaleString() ??
                   '--'}
+              </TableCell>
+
+              <TableCell className="hidden @lg:table-cell w-14">
+                <CountryFlag countryCode={channel.peakX?.country} size={24} />
               </TableCell>
             </TableRow>
           )
