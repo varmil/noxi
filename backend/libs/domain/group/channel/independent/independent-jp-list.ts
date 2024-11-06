@@ -88,5 +88,35 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCH4yRBPH2pDUjPeqomx8CTQ'),
     title: 'てるとくん',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
+    title: 'イル_フローラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCL7VEatXa9yBCKeM-ww8TnA'),
+    title: 'NX☆くさあん',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCcxbWdwrs5B782K88ppAVMg'),
+    title: 'なるせ部',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCY7Qs1UGnO3LYpNVwitTXUA'),
+    title: '一翔剣ちゃんねる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC1oApu0S5i57d-jSKUFB_1w'),
+    title: 'りちゃむ【Richamu】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCdVnOfmhI0sNGdaH5yldztg'),
+    title: 'LiaqN【りあん】',
+    ...DefaultProps
   }
 ]
