@@ -1,4 +1,4 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -39,13 +39,18 @@ export default async function StreamRankingTable({ compact }: Props) {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead></TableHead>
+          {/* Flag */}
+          <TableHead />
+          {/* Ch. Thumbnail */}
+          <TableHead />
+          {/* Ch. Title */}
           <TableHead className="text-nowrap">{t('channel')}</TableHead>
+          {/* Viewers */}
+          <TableHead className="text-nowrap">{t('viewers')}</TableHead>
+          {/* Stream Thumbnail */}
           <TableHead className="hidden @lg:table-cell"></TableHead>
-          <TableHead className="text-right text-nowrap">
-            {t('viewers')}
-          </TableHead>
-          <TableHead className="hidden @lg:table-cell w-14"></TableHead>
+          {/* Stream Title */}
+          <TableHead className="text-nowrap">{t('streamTitle')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -59,53 +64,74 @@ export default async function StreamRankingTable({ compact }: Props) {
               liveStreamingDetails => liveStreamingDetails.id === stream.videoId
             ) || {}
           if (!liveStreamingDetails) return null
+
+          const { videoId } = stream
+
           return (
-            <TableRow key={stream.videoId}>
-              <TableCell width={40}>
-                <Link href={`/youtube/live/${stream.videoId}`}>
-                  <Avatar className="w-6 h-6 @md:w-8 @md:h-8 transition-all hover:scale-105">
-                    <AvatarImage
-                      src={channel.basicInfo.thumbnails.medium?.url}
-                      alt={channel.basicInfo.title}
-                    />
-                    <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
-                  </Avatar>
-                </Link>
+            <TableRow key={videoId}>
+              {/* Flag */}
+              <TableCell className="p-0 sm:p-2 justify-items-center w-8">
+                <CountryFlag countryCode={channel.peakX?.country} size={20} />
               </TableCell>
 
-              <TableCell>
-                <Link
-                  className="space-y-1"
-                  href={`/youtube/live/${stream.videoId}`}
-                >
-                  <div className="line-clamp-1">{channel.basicInfo.title}</div>
-                  <div className="line-clamp-1 text-muted-foreground text-xs">
-                    {stream.snippet.title}
-                  </div>
-                </Link>
+              {/* Ch. Thumbnail */}
+              <LinkCell videoId={videoId} width={40}>
+                <Avatar className="w-6 h-6 @md:w-7 @md:h-7 transition-all hover:scale-105">
+                  <AvatarImage
+                    src={channel.basicInfo.thumbnails.medium?.url}
+                    alt={channel.basicInfo.title}
+                  />
+                  <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
+                </Avatar>
+              </LinkCell>
+
+              {/* Ch. Title */}
+              <LinkCell videoId={videoId} width={150}>
+                <div className="line-clamp-1">{channel.basicInfo.title}</div>
+              </LinkCell>
+
+              {/* Viewers */}
+              <TableCell width={80} className="text-lg tabular-nums">
+                {liveStreamingDetails.concurrentViewers?.toLocaleString() ??
+                  '--'}
               </TableCell>
 
-              <TableCell className="hidden @lg:table-cell w-24">
+              <TableCell width={56} className="hidden @lg:table-cell w-14">
                 <VideoThumbnail
-                  size="medium"
+                  size="default"
                   title={stream.snippet.title}
                   thumbnails={stream.snippet.thumbnails}
                   className="rounded"
                 />
               </TableCell>
 
-              <TableCell className="text-lg text-right tabular-nums">
-                {liveStreamingDetails.concurrentViewers?.toLocaleString() ??
-                  '--'}
-              </TableCell>
-
-              <TableCell className="hidden @lg:table-cell w-14">
-                <CountryFlag countryCode={channel.peakX?.country} size={24} />
-              </TableCell>
+              {/* Stream Title */}
+              <LinkCell videoId={videoId}>
+                <div className="line-clamp-1 text-muted-foreground text-xs">
+                  {stream.snippet.title}
+                </div>
+              </LinkCell>
             </TableRow>
           )
         })}
       </TableBody>
     </Table>
+  )
+}
+
+const LinkCell = ({
+  videoId,
+  className,
+  width,
+  children
+}: PropsWithChildren<{
+  videoId: string
+  className?: string
+  width?: number
+}>) => {
+  return (
+    <TableCell width={width} className={className ?? ''}>
+      <Link href={`/youtube/live/${videoId}`}>{children}</Link>
+    </TableCell>
   )
 }

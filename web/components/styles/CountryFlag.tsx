@@ -18,7 +18,7 @@ const CountryFlag: React.FC<CountryFlagProps> = ({
       alt={`${countryCode} flag`}
       width={size}
       height={size}
-      className="object-cover rounded border"
+      className="object-contain rounded-[2px] border"
     />
   )
 }
