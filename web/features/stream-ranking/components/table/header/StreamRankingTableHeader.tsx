@@ -5,7 +5,7 @@ import { TableHeader, TableRow, TableHead } from '@/components/ui/table'
 type Props = PropsWithoutRef<{}>
 
 export default async function StreamRankingTableHeader({}: Props) {
-  const t = await getTranslations('Page.index.section.hero')
+  const t = await getTranslations('Features.streamRanking')
 
   return (
     <TableHeader>
@@ -22,6 +22,8 @@ export default async function StreamRankingTableHeader({}: Props) {
         <TableHead className="hidden @lg:table-cell"></TableHead>
         {/* Stream Title */}
         <TableHead className="text-nowrap">{t('streamTitle')}</TableHead>
+        {/* Group */}
+        <TableHead className="text-nowrap text-center">{t('group')}</TableHead>
       </TableRow>
     </TableHeader>
   )

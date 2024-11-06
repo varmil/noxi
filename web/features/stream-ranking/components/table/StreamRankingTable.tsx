@@ -6,7 +6,8 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import CountryFlag from 'components/styles/CountryFlag'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
-import LinkCell from 'features/stream-ranking/components/table/cell/LinkCell'
+import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
+import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
 
@@ -52,7 +53,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               </TableCell>
 
               {/* Ch. Thumbnail */}
-              <LinkCell videoId={videoId} width={40}>
+              <LinkCell width={40} videoId={videoId}>
                 <Avatar className="w-6 h-6 @md:w-7 @md:h-7 transition-all hover:scale-105">
                   <AvatarImage
                     src={channel.basicInfo.thumbnails.medium?.url}
@@ -63,7 +64,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               </LinkCell>
 
               {/* Ch. Title */}
-              <LinkCell videoId={videoId} width={150}>
+              <LinkCell width={150} videoId={videoId} className="min-w-28">
                 <div className="line-clamp-1">{channel.basicInfo.title}</div>
               </LinkCell>
 
@@ -88,6 +89,9 @@ export default async function StreamRankingTable({ compact }: Props) {
                   {stream.snippet.title}
                 </div>
               </LinkCell>
+
+              {/* Group */}
+              <TableGroupCell groupId={stream.group} />
             </TableRow>
           )
         })}

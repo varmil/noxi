@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl'
 import { ModeToggle } from 'components/ModeToggle'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
-import PeakxText from 'components/peakx/svg/text'
+import PeakXText from 'components/peakx/svg/text'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
@@ -22,7 +22,7 @@ export default function Header() {
         className="flex items-center gap-2.5 transition-all hover:scale-105"
       >
         <Logo className="w-6 h-6" />
-        <PeakxText className="w-[49.64px] h-[17px]" />
+        <PeakXText className="w-[49.64px] h-[17px]" />
         <h2 className="sr-only">{t('headerTitle')}</h2>
       </Link>
 
