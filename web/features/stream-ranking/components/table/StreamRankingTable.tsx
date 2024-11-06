@@ -1,21 +1,14 @@
-import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { PropsWithoutRef } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell
-} from '@/components/ui/table'
+import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import CountryFlag from 'components/styles/CountryFlag'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
+import LinkCell from 'features/stream-ranking/components/table/cell/LinkCell'
+import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
-import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
   compact?: boolean
@@ -27,8 +20,7 @@ export default async function StreamRankingTable({ compact }: Props) {
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: compact ? 6 : 100
   })
-  const [t, channels, liveStreamingDetailsList] = await Promise.all([
-    getTranslations('Page.index.section.hero'),
+  const [channels, liveStreamingDetailsList] = await Promise.all([
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
@@ -37,22 +29,7 @@ export default async function StreamRankingTable({ compact }: Props) {
 
   return (
     <Table>
-      <TableHeader>
-        <TableRow>
-          {/* Flag */}
-          <TableHead />
-          {/* Ch. Thumbnail */}
-          <TableHead />
-          {/* Ch. Title */}
-          <TableHead className="text-nowrap">{t('channel')}</TableHead>
-          {/* Viewers */}
-          <TableHead className="text-nowrap">{t('viewers')}</TableHead>
-          {/* Stream Thumbnail */}
-          <TableHead className="hidden @lg:table-cell"></TableHead>
-          {/* Stream Title */}
-          <TableHead className="text-nowrap">{t('streamTitle')}</TableHead>
-        </TableRow>
-      </TableHeader>
+      <StreamRankingTableHeader />
       <TableBody>
         {sortedStreams.map(stream => {
           const channel = channels.find(
@@ -116,22 +93,5 @@ export default async function StreamRankingTable({ compact }: Props) {
         })}
       </TableBody>
     </Table>
-  )
-}
-
-const LinkCell = ({
-  videoId,
-  className,
-  width,
-  children
-}: PropsWithChildren<{
-  videoId: string
-  className?: string
-  width?: number
-}>) => {
-  return (
-    <TableCell width={width} className={className ?? ''}>
-      <Link href={`/youtube/live/${videoId}`}>{children}</Link>
-    </TableCell>
   )
 }
