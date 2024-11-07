@@ -10,7 +10,6 @@ import {
 import { searchVideos } from 'apis/youtube/searchVideos'
 import GridCardContainer from 'components/styles/GridCardContainer'
 import Image from 'components/styles/Image'
-import { GroupString } from 'config/constants/Site'
 import { HighlightClipCarousel } from 'features/youtube/highlight-clip/components/HighlightClipCarousel'
 import VideoCard from 'features/youtube/video/components/VideoCard'
 import dayjs from 'lib/dayjs'
@@ -18,36 +17,13 @@ import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { channelId?: string }
 
-const qMap: Record<GroupString, Record<'ja' | 'en', string>> = {
-  hololive: { ja: 'ホロライブ 切り抜き', en: 'hololive clips' },
-  'hololive-english': {
-    ja: 'hololive-english clips',
-    en: 'hololive-english clips'
-  },
-  'hololive-indonesia': {
-    ja: 'hololive-indonesia clips',
-    en: 'hololive-indonesia clips'
-  },
-  vspo: {
-    ja: 'ぶいすぽっ 切り抜き',
-    en: 'vspo!en clips'
-  },
-  independent: {
-    ja: '個人勢vtuber 切り抜き',
-    en: 'independent vtuber clips'
-  },
-  'independent-irl': {
-    ja: '個人勢 顔出し配信 切り抜き clips',
-    en: 'irl streamer clips'
-  }
-}
-
+/** @deprecated */
 export async function HighlightClipGallery({}: PropsWithoutRef<Props>) {
   const groupStr = getGroup()
   const locale = await getLocale()
   const videos = (
     await searchVideos({
-      q: qMap[groupStr][locale],
+      q: '',
       limit: 50,
       order: 'relevance',
       publishedAfter: dayjs().subtract(7, 'days').startOf('day').toDate(),

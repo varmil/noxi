@@ -2,9 +2,7 @@ import * as React from 'react'
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
+  CarouselItem
 } from '@/components/ui/carousel'
 import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import ShortsCard from 'features/youtube/shorts/ShortsCard'
@@ -13,6 +11,7 @@ type Props = {
   videos: VideosSchema
 }
 
+/** @deprecated */
 export function HighlightClipCarousel({
   videos
 }: React.PropsWithoutRef<Props>) {
