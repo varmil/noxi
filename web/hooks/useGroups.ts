@@ -10,7 +10,7 @@ const counts = {
   'hololive-english': { val: 18, isAll: true },
   'hololive-indonesia': { val: 9, isAll: true },
   'idol-corp': { val: 14, isAll: true },
-  independent: { val: 16, isAll: false },
+  independent: { val: 25, isAll: false },
   'independent-irl': { val: 10, isAll: false }
 }
 
