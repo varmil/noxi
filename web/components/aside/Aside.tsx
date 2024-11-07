@@ -13,12 +13,16 @@ import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
-export default function Aside() {
+export default function Aside({ className }: { className?: string }) {
   const t = useTranslations('Global')
   const groups = useGroups()
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex">
+    <aside
+      className={`fixed inset-y-0 left-0 hidden w-14 flex-col border-r bg-background sm:flex ${
+        className ?? ''
+      }`}
+    >
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-3">
         <TooltipProvider delayDuration={0}>
           <Link

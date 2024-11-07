@@ -91,7 +91,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               </LinkCell>
 
               {/* Group */}
-              <TableGroupCell groupId={stream.group} />
+              <TableGroupCell width={40} groupId={stream.group} />
             </TableRow>
           )
         })}

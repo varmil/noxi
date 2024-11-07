@@ -31,7 +31,7 @@ export function Page({
 
   return (
     <section className="sm:space-y-4">
-      <Header />
+      <Header className="z-30" />
 
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
 

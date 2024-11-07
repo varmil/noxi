@@ -6,14 +6,16 @@ import PeakXText from 'components/peakx/svg/text'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
-export default function Header() {
+export default function Header({ className }: { className?: string }) {
   const t = useTranslations('Global')
   const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/80'
   const sm = 'sm:bg-transparent sm:px-6'
 
   return (
     <header
-      className={`sticky top-0 z-30 flex h-14 items-center gap-4 border-b border-border/60 bg-background px-1.5 ${bgFilter} ${sm}`}
+      className={`sticky top-0 flex h-14 items-center gap-4 border-b border-border/60 bg-background px-1.5 ${bgFilter} ${sm} ${
+        className ?? ''
+      }`}
     >
       <HeaderXSSheet />
 
