@@ -218,6 +218,35 @@ const List: GroupChannel[] = [
     id: new ChannelId('UC1iA6_NT4mtAcIII6ygrvCw'),
     title: 'Hajime Ch. 轟はじめ ‐ ReGLOSS',
     ...DefaultProps
+  },
+
+  /**
+   * FLOW GLOW
+   */
+  {
+    id: new ChannelId('UC9LSiN9hXI55svYEBrrK-tw'),
+    title: 'Riona Ch. 響咲リオナ - FLOW GLOW',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCuI_opAVX6qbxZY-a-AxFuQ'),
+    title: 'Niko Ch. 虎金妃笑虎 - FLOW GLOW',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCjk2nKmHzgH5Xy-C5qYRd5A'),
+    title: 'Su Ch. 水宮枢 - FLOW GLOW',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCKMWFR6lAstLa7Vbf5dH7ig'),
+    title: 'Chihaya Ch. 輪堂 千速 - FLOW GLOW',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCGzTVXqMQHa4AgJVJIVvtDQ'),
+    title: 'Vivi Ch. 綺々羅々ヴィヴィ - FLOW GLOW',
+    ...DefaultProps
   }
 ]
 
