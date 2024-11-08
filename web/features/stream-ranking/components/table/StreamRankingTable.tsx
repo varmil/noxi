@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Progress } from '@/components/ui/progress'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
@@ -27,6 +28,11 @@ export default async function StreamRankingTable({ compact }: Props) {
   ])
   /** 現在の視聴者数で並び替え */
   const sortedStreams = getSortedStreams(streams, liveStreamingDetailsList)
+  /** Progress.valueで使用する */
+  const topConcurrentViewers =
+    liveStreamingDetailsList.find(
+      video => video.id === sortedStreams[0].videoId
+    )?.liveStreamingDetails?.concurrentViewers ?? 0
 
   return (
     <Table>
@@ -44,6 +50,7 @@ export default async function StreamRankingTable({ compact }: Props) {
           if (!liveStreamingDetails) return null
 
           const { videoId } = stream
+          const { concurrentViewers } = liveStreamingDetails
 
           return (
             <TableRow key={videoId}>
@@ -69,9 +76,16 @@ export default async function StreamRankingTable({ compact }: Props) {
               </LinkCell>
 
               {/* Viewers */}
-              <TableCell width={80} className="text-right text-lg tabular-nums">
-                {liveStreamingDetails.concurrentViewers?.toLocaleString() ??
-                  '--'}
+              <TableCell width={80} className="text-right tabular-nums">
+                <span>{concurrentViewers?.toLocaleString() ?? '--'}</span>
+                <div>
+                  <Progress
+                    className="h-1 transform scale-x-[-1]"
+                    value={Math.round(
+                      ((concurrentViewers ?? 0) / topConcurrentViewers) * 100
+                    )}
+                  />
+                </div>
               </TableCell>
 
               <TableCell width={56} className="hidden @lg:table-cell w-14">
