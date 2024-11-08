@@ -23,7 +23,7 @@ export default function GlobalBreadcrumb({
   items = []
 }: PropsWithoutRef<Props>) {
   return (
-    <ScrollArea className="whitespace-nowrap pt-4 sm:pt-0 px-4 sm:px-6">
+    <ScrollArea className="whitespace-nowrap px-4 sm:px-6">
       <div className="w-max overflow-hidden">
         <Breadcrumb>
           <BreadcrumbList>

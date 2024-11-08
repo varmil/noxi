@@ -16,8 +16,6 @@ type Props = {
 export const PageXSPX = 'px-4'
 /** （注意）Page> XS > Xマージン値 | 基本はpaddingを使う */
 export const PageXSMX = 'mx-4'
-const PX = `${PageXSPX} sm:px-6`
-const PY = 'py-4'
 
 export function Page({
   breadcrumb,
@@ -26,11 +24,11 @@ export function Page({
   noPadding,
   fullWidth
 }: PropsWithChildren<Props>) {
-  const padding = noPadding ? 'px-0 py-4' : `${PX} ${PY}`
+  const padding = noPadding ? 'px-0' : `${PageXSPX} sm:px-6`
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <section className="sm:space-y-4">
+    <section className="space-y-4">
       <Header className="z-30" />
 
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
