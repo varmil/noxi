@@ -13,29 +13,55 @@ const DefaultProps = {
 
 const List: GroupChannel[] = [
   {
-    id: new ChannelId('UC5LyYg6cCA4yHEYvtUsir3g'),
-    title: '一ノ瀬うるは',
+    id: new ChannelId('UC-JSeFfovhNsEhftt1WHMvg'),
+    title: 'NIJISANJI EN Official',
+    ...DefaultProps,
+    country: new CountryCode('JP')
+  },
+  {
+    id: new ChannelId('UCckdfYDGrjojJM28n5SHYrA'),
+    title: 'Vox Akuma【NIJISANJI EN】',
+    ...DefaultProps,
+    country: new CountryCode('GB')
+  },
+  {
+    id: new ChannelId('UC7Gb7Uawe20QyFibhLl1lzA'),
+    title: 'Luca Kaneshiro【NIJISANJI EN】',
+    ...DefaultProps,
+    country: new CountryCode('AU')
+  },
+  {
+    id: new ChannelId('UC4yNIKGvy-YUrwYupVdLDXA'),
+    title: 'Ike Eveland【NIJISANJI EN】',
+    ...DefaultProps,
+    country: new CountryCode('SE')
+  },
+  {
+    id: new ChannelId('UCG0rzBZV_QMP4MtWg6IjhEA'),
+    title: 'Shu Yamino【NIJISANJI EN】',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCIcAj6WkJ8vZ7DeJVgmeqKw'),
-    title: '胡桃のあ',
+    id: new ChannelId('UCQ1zGxHrfEmmW4CPpBx9-qw'),
+    title: 'Alban Knox 【NIJISANJI EN】',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCvUc0m317LWTTPZoBQV479A'),
-    title: '橘ひなの / Hinano Tachibana',
+    id: new ChannelId('UCR6qhsLpn62WVxCBK1dkLow'),
+    title: 'Enna Alouette【NIJISANJI EN】',
+    ...DefaultProps,
+    country: new CountryCode('CA')
+  },
+  {
+    id: new ChannelId('UChJ5FTsHOu72_5OVx0rvsvQ'),
+    title: 'EUki Violeta 【NIJISANJI EN】',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UC8vKBjGY2HVfbW9GAmgikWw'),
-    title: '甘結もか / Amayui Moka',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCnvVG9RbOW3J6Ifqo-zKLiw'),
-    title: '兎咲ミミ / Tosaki Mimi',
-    ...DefaultProps
+    id: new ChannelId('UCIeSUTOTkF9Hs7q3SGcO-Ow'),
+    title: 'Elira Pendora 【NIJISANJI EN】',
+    ...DefaultProps,
+    country: new CountryCode('CA')
   }
 ]
 
