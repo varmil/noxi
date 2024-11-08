@@ -23,14 +23,14 @@ export function ChannelProfileContent({
     <div className="py-6 px-0">
       <div className="flex items-start max-w-5xl gap-2.5 sm:gap-4">
         <Avatar className={`w-20 h-20 sm:w-28 sm:h-28 mt-4 ${avatarIsHidden}`}>
-          <AvatarImage src={thumbnails.medium?.url} />
+          <AvatarImage alt={name} src={thumbnails.medium?.url} />
           <AvatarFallback>{name}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-x-2">
             {isExpanded && (
               <Avatar className={`w-6 h-6 sm:hidden`}>
-                <AvatarImage src={thumbnails.medium?.url} />
+                <AvatarImage alt={name} src={thumbnails.medium?.url} />
                 <AvatarFallback>{name}</AvatarFallback>
               </Avatar>
             )}

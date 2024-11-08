@@ -11,6 +11,7 @@ export default function StreamImg({
     videoId,
     snippet: { title, thumbnails }
   } = stream
+
   return (
     <div className="relative aspect-video w-full rounded-lg overflow-hidden">
       <Link href={`/youtube/live/${videoId}`} prefetch={true}>

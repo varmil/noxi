@@ -1,5 +1,5 @@
 import React from 'react'
-import { LucideProps, Webcam } from 'lucide-react'
+import { LucideProps, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { GroupStrings } from 'config/constants/Site'
 
@@ -38,10 +38,13 @@ type Icon = {
 
 type Group = Img | Icon
 
+const IconGroups = ['independent', 'independent-irl']
+
 export default function useGroups() {
   const t = useTranslations('Global.group')
+
   const imgs = GroupStrings.filter(
-    group => group !== 'independent-irl'
+    group => !IconGroups.includes(group)
   ).map<Img>(group => {
     return {
       id: group,
@@ -51,14 +54,26 @@ export default function useGroups() {
     }
   })
 
-  const icons = GroupStrings.filter(
-    group => group === 'independent-irl'
+  const icons = GroupStrings.filter(group =>
+    IconGroups.includes(group)
   ).map<Icon>(group => {
-    return {
-      id: group,
-      name: t(`${group}`),
-      icon: Webcam,
-      count: counts[group]
+    switch (group) {
+      case 'independent':
+        return {
+          id: group,
+          name: t(`${group}`),
+          icon: UserCircle,
+          count: counts[group]
+        }
+      case 'independent-irl':
+        return {
+          id: group,
+          name: t(`${group}`),
+          icon: Webcam,
+          count: counts[group]
+        }
+      default:
+        throw new Error('unknown group')
     }
   })
 

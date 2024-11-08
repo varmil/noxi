@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Progress } from '@/components/ui/progress'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
@@ -22,7 +23,8 @@ export default async function StreamRankingTable({ compact }: Props) {
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: compact ? 6 : 100
   })
-  const [channels, liveStreamingDetailsList] = await Promise.all([
+  const [t, channels, liveStreamingDetailsList] = await Promise.all([
+    getTranslations('Features.streamRanking'),
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
@@ -55,7 +57,7 @@ export default async function StreamRankingTable({ compact }: Props) {
           return (
             <TableRow key={videoId}>
               {/* Flag */}
-              <TableCell className="p-0 sm:p-2 justify-items-center min-w-7 w-8">
+              <TableCell className="p-0 sm:p-2 justify-items-center min-w-3 sm:min-w-8">
                 <CountryFlag countryCode={channel.peakX?.country} size={20} />
               </TableCell>
 
@@ -80,6 +82,7 @@ export default async function StreamRankingTable({ compact }: Props) {
                 <span>{concurrentViewers?.toLocaleString() ?? '--'}</span>
                 <div>
                   <Progress
+                    title={t('viewers')}
                     className="h-1 transform scale-x-[-1]"
                     value={Math.round(
                       ((concurrentViewers ?? 0) / topConcurrentViewers) * 100

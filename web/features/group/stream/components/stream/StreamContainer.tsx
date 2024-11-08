@@ -33,7 +33,10 @@ export const StreamAvatarContainer = ({
         prefetch={true}
       >
         <Avatar className="w-9 h-9 sm:w-11 sm:h-11 transition-all hover:scale-105">
-          <AvatarImage src={channel.basicInfo.thumbnails['medium']?.url} />
+          <AvatarImage
+            alt={channel.basicInfo.title}
+            src={channel.basicInfo.thumbnails['medium']?.url}
+          />
         </Avatar>
       </Link>
       {children}
