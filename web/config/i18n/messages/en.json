@@ -91,6 +91,7 @@
           "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
         },
         "template": {
+          "latestUserReactions": "Latest User Reactions",
           "liveTrends": "Live Stream Trends",
           "data": "Data",
           "timeSlotAnalysis": "Time slot analysis",

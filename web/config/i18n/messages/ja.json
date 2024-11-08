@@ -91,6 +91,7 @@
           "description": "{channel}の詳細な統計やランキング、最新配信情報をPeakXで確認。見逃さないための必見情報"
         },
         "template": {
+          "latestUserReactions": "最新のスーパーチャット、コメント",
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
           "timeSlotAnalysis": "配信時間帯の分析",

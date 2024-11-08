@@ -47,7 +47,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
 
         <Section
           className="lg:col-span-2 lg:order-1"
-          title={'Latest User Reactions'}
+          title={t('latestUserReactions')}
         >
           <ChannelCommentTabs channelId={basicInfo.id} />
         </Section>
