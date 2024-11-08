@@ -17,7 +17,7 @@ export async function ChannelProfile({ basicInfo }: PropsWithoutRef<Props>) {
       `features/faq/assets/${group}/${basicInfo.id}`
     )) as { faqs: FAQs }
     return (
-      <ChannelProfileContent basicInfo={basicInfo} defaultOpen>
+      <ChannelProfileContent basicInfo={basicInfo}>
         <FAQGallery name={basicInfo.title} faqs={faqs} />
       </ChannelProfileContent>
     )
