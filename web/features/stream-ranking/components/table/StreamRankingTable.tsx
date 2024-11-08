@@ -48,7 +48,7 @@ export default async function StreamRankingTable({ compact }: Props) {
           return (
             <TableRow key={videoId}>
               {/* Flag */}
-              <TableCell className="p-0 sm:p-2 justify-items-center w-8">
+              <TableCell className="p-0 sm:p-2 justify-items-center min-w-7 w-8">
                 <CountryFlag countryCode={channel.peakX?.country} size={20} />
               </TableCell>
 
