@@ -7,7 +7,8 @@ import {
   IndependentIRL,
   GroupChannels,
   VSPO,
-  IdolCorp
+  IdolCorp,
+  NijisanjiEN
 } from '@domain/group/channel'
 import { ChannelIds } from '@domain/youtube'
 
@@ -15,6 +16,7 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
   'hololive-english': new HololiveEnglish(),
   'hololive-indonesia': new HololiveIndonesia(),
   hololive: new Hololive(),
+  'nijisanji-en': new NijisanjiEN(),
   'idol-corp': new IdolCorp(),
   vspo: new VSPO(),
   independent: new Independent(),
@@ -25,6 +27,7 @@ export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
   'hololive-english': new HololiveEnglish().channelIds(),
   'hololive-indonesia': new HololiveIndonesia().channelIds(),
   hololive: new Hololive().channelIds(),
+  'nijisanji-en': new NijisanjiEN().channelIds(),
   'idol-corp': new IdolCorp().channelIds(),
   vspo: new VSPO().channelIds(),
   independent: new Independent().channelIds(),

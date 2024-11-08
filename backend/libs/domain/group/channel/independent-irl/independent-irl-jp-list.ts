@@ -13,5 +13,15 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCMi0f6r-fUqdzM7OOqC-yfA'),
     title: '真神ハティ / Hati Magami',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCuQ5bzjS-9qV4eBbGJ19qmw'),
+    title: 'あまくだり',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCz0aC9z3kXruRHULDqFRuVA'),
+    title: 'あっさりしょこ',
+    ...DefaultProps
   }
 ]
