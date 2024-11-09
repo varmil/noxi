@@ -9,8 +9,8 @@ import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-cha
 import StreamTimeHistogram from 'features/youtube-stats/components/bar-chart/stream-time-histogram/StreamTimeHistogram'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
 import ChannelData from './ui/channel-data/ChannelData'
+import { ChannelCommentTabs } from './ui/latest-user-reactions/ChannelCommentTabs'
 import { ChannelProfile } from './ui/profile/ChannelProfile'
-import { ChannelCommentTabs } from './ui/tabs/ChannelCommentTabs'
 
 type Props = { id: string }
 
