@@ -3,11 +3,6 @@
 import React from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
-} from '@/components/ui/collapsible'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
 import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
@@ -32,9 +27,9 @@ export default function ChannelData({ channel }: { channel: ChannelSchema }) {
         date={new Date(basicInfo?.publishedAt).toISOString() ?? 'N/A'}
       />
 
-      <div className="lg:hidden">
+      <div className="col-span-2 flex items-center justify-center lg:hidden">
         {isOpen ? null : (
-          <Button variant="outline" onClick={() => setIsOpen(true)}>
+          <Button variant="ghost" onClick={() => setIsOpen(true)}>
             <ChevronDown className="h-4 w-4" />
           </Button>
         )}
