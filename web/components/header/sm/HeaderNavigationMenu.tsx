@@ -25,7 +25,7 @@ export default function HeaderNavigationMenu() {
         <NavigationMenuItem>
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/youtube/live">Lives</Link>
+            <Link href="/youtube/live">Live</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
