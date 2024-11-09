@@ -28,7 +28,7 @@ export default async function SuperChatGallery({
   channelId,
   createdBefore,
   createdAfter,
-  limit = 1000,
+  limit = 2000,
   showStreamLink = false
 }: PropsWithoutRef<Props>) {
   const [chats, t] = await Promise.all([

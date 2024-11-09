@@ -4,15 +4,16 @@ import { Card } from '@/components/ui/card'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
-type Props = {
+type Props = PropsWithoutRef<{
   date: string
-}
+  className?: string
+}>
 
-export default function StatsJoinedCard({ date }: PropsWithoutRef<Props>) {
+export default function StatsJoinedCard({ date, className }: Props) {
   const format = useFormatter()
   const t = useTranslations('Features.youtube.stats')
   return (
-    <Card>
+    <Card className={className}>
       <StatsCardHeader>Joined</StatsCardHeader>
       <StatsCardContent subText={t('joinedDescription')}>
         {format.dateTime(new Date(date), {

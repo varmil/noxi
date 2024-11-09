@@ -4,14 +4,15 @@ import { Card } from '@/components/ui/card'
 import StatsCardContent from './StatsCardContent'
 import StatsCardHeader from './StatsCardHeader'
 
-type Props = {
+type Props = PropsWithoutRef<{
   count: number
-}
+  className?: string
+}>
 
-export default function StatsVideosCard({ count }: PropsWithoutRef<Props>) {
+export default function StatsVideosCard({ count, className }: Props) {
   const t = useTranslations('Features.youtube.stats')
   return (
-    <Card>
+    <Card className={className}>
       <StatsCardHeader>Videos</StatsCardHeader>
       <StatsCardContent subText={t('totalVideos')}>{count}</StatsCardContent>
     </Card>
