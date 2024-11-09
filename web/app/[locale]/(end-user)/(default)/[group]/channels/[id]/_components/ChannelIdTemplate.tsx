@@ -8,26 +8,22 @@ import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/Vie
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
 import StreamTimeHistogram from 'features/youtube-stats/components/bar-chart/stream-time-histogram/StreamTimeHistogram'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
-import StatsJoinedCard from 'features/youtube-stats/components/simple-card/StatsJoinedCard'
-import StatsSubscribersCard from 'features/youtube-stats/components/simple-card/StatsSubscribersCard'
-import StatsVideosCard from 'features/youtube-stats/components/simple-card/StatsVideosCard'
-import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
+import ChannelData from './ui/channel-data/ChannelData'
 import { ChannelProfile } from './ui/profile/ChannelProfile'
 import { ChannelCommentTabs } from './ui/tabs/ChannelCommentTabs'
 
 type Props = { id: string }
 
 export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.group.channelsId.template')
-  const { basicInfo, statistics } = await getChannel(id)
-  const videos = await getVideosInChannel({
-    channelId: basicInfo.id,
-    limit: 50
-  })
+  const [t, channel, videos] = await Promise.all([
+    getTranslations('Page.group.channelsId.template'),
+    getChannel(id),
+    getVideosInChannel({ channelId: id, limit: 50 })
+  ])
 
   return (
     <section className="flex flex-1 flex-col gap-4">
-      <ChannelProfile basicInfo={basicInfo} />
+      <ChannelProfile basicInfo={channel.basicInfo} />
       <div
         className={`grid gap-x-1 gap-y-7 grid-cols-1 \
         lg:grid-cols-3 lg:gap-x-2 lg:gap-y-8`}
@@ -37,19 +33,14 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           className="lg:col-span-1 lg:order-2"
           title={t('data')}
         >
-          <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
-          <StatsViewsCard count={statistics?.viewCount ?? 0} />
-          <StatsVideosCard count={statistics?.videoCount ?? 0} />
-          <StatsJoinedCard
-            date={new Date(basicInfo?.publishedAt).toDateString() ?? 'N/A'}
-          />
+          <ChannelData channel={channel} />
         </Section>
 
         <Section
           className="lg:col-span-2 lg:order-1"
           title={t('latestUserReactions')}
         >
-          <ChannelCommentTabs channelId={basicInfo.id} />
+          <ChannelCommentTabs channelId={id} />
         </Section>
 
         <Section
@@ -57,8 +48,8 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           title={t('liveTrends')}
         >
           <ChartGrid>
-            <ConcurrentViewersBarChart channelId={basicInfo.id} />
-            <ViewsBarChart channelId={basicInfo.id} />
+            <ConcurrentViewersBarChart channelId={id} />
+            <ViewsBarChart channelId={id} />
           </ChartGrid>
         </Section>
 
@@ -67,7 +58,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           title={t('timeSlotAnalysis')}
         >
           <ChartGrid>
-            <StreamTimeHistogram channelId={basicInfo.id} />
+            <StreamTimeHistogram channelId={id} />
           </ChartGrid>
         </Section>
 
@@ -86,7 +77,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
           title={t('liveStreams')}
         >
           <Suspense fallback={<p>Loading Live Streams...</p>}>
-            <EndedStreamGallery where={{ channelId: basicInfo.id }} />
+            <EndedStreamGallery where={{ channelId: id }} />
           </Suspense>
         </Section>
 
