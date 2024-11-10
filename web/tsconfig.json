@@ -27,7 +27,8 @@
       "features/*": ["./features/*"],
       "components/*": ["./components/*"],
       "hooks/*": ["./hooks/*"],
-      "lib/*": ["./lib/*"]
+      "lib/*": ["./lib/*"],
+      "utils/*": ["./utils/*"]
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],

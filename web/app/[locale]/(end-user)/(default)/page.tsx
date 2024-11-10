@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
+import { getOgUrl } from 'utils/og-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
@@ -15,7 +16,8 @@ export async function generateMetadata({
 
   return {
     title: `${t('metadata.title')} - ${tg('title')}`,
-    description: `${t('metadata.description')}`
+    description: `${t('metadata.description')}`,
+    openGraph: { images: [{ url: getOgUrl('/daily-ranking') }] }
   }
 }
 
