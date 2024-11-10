@@ -5,12 +5,10 @@ const API_KEY = 'a26bced4547fbb900dbebcac'
 
 // 外部APIから為替レートを取得する関数
 async function fetchExchangeRates() {
-  console.time('fetchExchangeRates')
   const res = await fetch(
     `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/JPY`,
     { next: { revalidate: 24 * 3600 } }
   )
-  console.timeEnd('fetchExchangeRates')
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

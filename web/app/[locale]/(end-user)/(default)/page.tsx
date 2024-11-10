@@ -15,7 +15,14 @@ export async function generateMetadata({
 
   return {
     title: `${t('metadata.title')} - ${tg('title')}`,
-    description: `${t('metadata.description')}`
+    description: `${t('metadata.description')}`,
+    openGraph: {
+      images: [
+        {
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}/og/daily-ranking`
+        }
+      ]
+    }
   }
 }
 
