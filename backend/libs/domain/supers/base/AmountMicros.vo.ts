@@ -1,12 +1,11 @@
-import { IsNotEmpty, IsNumber } from 'class-validator'
-import { NumberValueObject } from '@domain/lib/NumberValueObject'
+import { IsNotEmpty } from 'class-validator'
+import { BigIntValueObject } from '@domain/lib/BigIntValueObject'
 
-export class AmountMicros extends NumberValueObject {
+export class AmountMicros extends BigIntValueObject {
   @IsNotEmpty()
-  @IsNumber()
-  protected readonly val: number
+  protected readonly val: bigint
 
-  constructor(val: number) {
+  constructor(val: bigint) {
     super(val)
     this.val = val
   }
