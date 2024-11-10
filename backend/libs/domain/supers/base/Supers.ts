@@ -11,7 +11,7 @@ import { Author } from './author/Author'
 export class Supers {
   @Transform(({ value }: { value: LiveChatMessageId }) => value.get())
   public readonly id: LiveChatMessageId
-  @Transform(({ value }: { value: AmountMicros }) => value.get())
+  @Transform(({ value }: { value: AmountMicros }) => value.toString())
   public readonly amountMicros: AmountMicros
   @Transform(({ value }: { value: Currency }) => value.get())
   public readonly currency: Currency

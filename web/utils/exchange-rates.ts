@@ -1,4 +1,5 @@
 import 'server-only'
+import BigNumber from 'bignumber.js'
 import { SuperChatsSchema } from 'apis/youtube/schema/superChatSchema'
 
 const API_KEY = 'a26bced4547fbb900dbebcac'
@@ -19,10 +20,10 @@ async function fetchExchangeRates() {
 
 // 金額を日本円に変換する関数
 function convertToJPY(
-  amount: number,
+  amount: BigNumber,
   currency: string,
   rates: Record<string, number>
-): number {
+): BigNumber {
   if (currency === 'JPY') {
     return amount
   }
@@ -30,18 +31,20 @@ function convertToJPY(
   if (!rate) {
     throw new Error(`Unsupported currency: ${currency}`)
   }
-  return amount * rate
+  return amount.div(rate)
 }
 
 // 集計関数
 export async function calculateTotalInJPY(chats: SuperChatsSchema) {
   const rates = await fetchExchangeRates()
-  let totalInJPY = 0
+  let totalInJPY = new BigNumber(0)
 
   for (const chat of chats) {
-    const amountInBaseCurrency = chat.amountMicros / 1_000_000 // amountMicrosを正規化
+    const amountInBaseCurrency = new BigNumber(
+      chat.amountMicros.toString()
+    ).div(1_000_000) // amountMicrosを正規化
     const amountInJPY = convertToJPY(amountInBaseCurrency, chat.currency, rates)
-    totalInJPY += amountInJPY
+    totalInJPY = totalInJPY.plus(amountInJPY)
   }
 
   return totalInJPY

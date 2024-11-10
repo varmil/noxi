@@ -88,7 +88,7 @@ export class LiveChatMessageTranslator {
       const { amountMicros, currency, amountDisplayString, tier, userComment } =
         snippet.superChatDetails
       superChatDetails = new SuperChatDetails({
-        amountMicros: new AmountMicros(Number(amountMicros)),
+        amountMicros: new AmountMicros(BigInt(amountMicros)),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
         tier: new Tier(tier),
@@ -112,7 +112,7 @@ export class LiveChatMessageTranslator {
       } = snippet.superStickerDetails
 
       superStickerDetails = new SuperStickerDetails({
-        amountMicros: new AmountMicros(Number(amountMicros)),
+        amountMicros: new AmountMicros(BigInt(amountMicros)),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
         tier: new Tier(tier),

@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const schema = z.object({
   id: z.string(),
-  amountMicros: z.number().min(0),
+  amountMicros: z.coerce.bigint(),
   currency: z.string(),
   amountDisplayString: z.string(),
   tier: z.number().min(0),
