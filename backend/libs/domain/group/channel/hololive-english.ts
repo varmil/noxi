@@ -33,11 +33,6 @@ const List: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCyl1z3jo3XHR1riLFKG5UAg'),
-    title: 'Watson Amelia Ch. hololive-EN',
-    ...DefaultProps
-  },
-  {
     id: new ChannelId('UC8rcEBzJSleTkf_-agPM20g'),
     title: 'IRyS Ch. hololive-EN',
     ...DefaultProps

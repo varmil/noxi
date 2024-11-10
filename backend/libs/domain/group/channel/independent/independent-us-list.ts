@@ -10,6 +10,11 @@ const DefaultProps = {
 
 export const USList: GroupChannel[] = [
   {
+    id: new ChannelId('UCcHHkJ98eSfa5aj0mdTwwLQ'),
+    title: 'Maid Mint Ch. ミント・ファントーム',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UC3N8ceQAY0F_kJG0aJNttLg'),
     title: 'Kirsche',
     ...DefaultProps

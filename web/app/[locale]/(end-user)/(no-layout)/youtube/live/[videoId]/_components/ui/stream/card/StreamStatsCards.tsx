@@ -1,10 +1,10 @@
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import { calcChatRate } from 'features/stream-stats/utils/calcChatRate'
-import StatsChatRateCard from 'features/youtube-stats/components/simple-card/StatsChatRateCard'
 import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/StatsPeakConcurrentCard'
+import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/simple-card/StatsSuperChatTotalAmountCard'
 
 export default function StreamStatsCards({ stream }: { stream: StreamSchema }) {
   const {
+    videoId,
     metrics: { peakConcurrentViewers },
     status
   } = stream
@@ -19,10 +19,10 @@ export default function StreamStatsCards({ stream }: { stream: StreamSchema }) {
           count={peakConcurrentViewers}
         />
       ) : null}
-      {stream.metrics.chatMessages ? (
-        <StatsChatRateCard
+      {true ? (
+        <StatsSuperChatTotalAmountCard
+          videoId={videoId}
           className="flex-1 grow"
-          count={calcChatRate(stream)}
         />
       ) : null}
     </div>

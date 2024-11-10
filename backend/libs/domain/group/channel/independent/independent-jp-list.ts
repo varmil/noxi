@@ -118,5 +118,25 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCdVnOfmhI0sNGdaH5yldztg'),
     title: 'LiaqN【りあん】',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
+    title: 'くぅch. 沙倉くぅ / Sakura Qoo',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCNbpZM28AR6GXvrUcZ5v0zg'),
+    title: '恋白れん / RenKohaku Ch.',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCxm3RjoZHKNbvpiP5RW6Wlg'),
+    title: '猫元パト / Patoneko Ch.',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCWOKF8h6kFj2pRn3rCD6nyw'),
+    title: 'Pepero ch. / 猫田ぺぺろ',
+    ...DefaultProps
   }
 ]

@@ -53,15 +53,21 @@ const List: GroupChannel[] = [
     country: new CountryCode('CA')
   },
   {
-    id: new ChannelId('UChJ5FTsHOu72_5OVx0rvsvQ'),
-    title: 'EUki Violeta 【NIJISANJI EN】',
-    ...DefaultProps
-  },
-  {
     id: new ChannelId('UCIeSUTOTkF9Hs7q3SGcO-Ow'),
     title: 'Elira Pendora 【NIJISANJI EN】',
     ...DefaultProps,
     country: new CountryCode('CA')
+  },
+  {
+    id: new ChannelId('UChJ5FTsHOu72_5OVx0rvsvQ'),
+    title: 'Uki Violeta 【NIJISANJI EN】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UChTA8kHyInr2rKZ2aBv5ULw'),
+    title: 'Victoria Brightshield 【NIJISANJI EN】',
+    ...DefaultProps,
+    country: new CountryCode('JP')
   }
 ]
 

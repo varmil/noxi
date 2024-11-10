@@ -36,24 +36,6 @@ export class LiveChatMessagesInfraService {
   ): Promise<PaginationResponse<LiveChatMessages>> {
     const { liveChatId, pageToken } = params
 
-    // const isProd = process.env.ENV_NAME === 'production'
-    // const YOUTUBE_API_URL = isProd
-    //   ? 'https://www.googleapis.com/youtube/v3/liveChat/messages'
-    //   : 'https://yt.lemnoslife.com/noKey/liveChat/messages'
-    // const response =
-    //   await axios.get<youtube_v3.Schema$LiveChatMessageListResponse>(
-    //     YOUTUBE_API_URL,
-    //     {
-    //       params: {
-    //         liveChatId: liveChatId.get(),
-    //         part: 'id,snippet,authorDetails',
-    //         maxResults: 2000,
-    //         pageToken: pageToken?.get(),
-    //         key: isProd ? this.API_KEY : undefined
-    //       }
-    //     }
-    //   )
-
     const response = await this.client.liveChatMessages.list({
       liveChatId: liveChatId.get(),
       part: ['id', 'snippet', 'authorDetails'],

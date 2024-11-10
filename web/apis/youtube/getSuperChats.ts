@@ -38,7 +38,7 @@ export async function getSuperChats({
   })
 
   const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`, {
-    cache: 'no-store'
+    next: { revalidate: 120 }
   })
 
   if (!res.ok) {
