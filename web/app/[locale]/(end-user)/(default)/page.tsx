@@ -19,7 +19,7 @@ export async function generateMetadata({
     openGraph: {
       images: [
         {
-          url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}/og/daily-ranking`
+          url: `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}/api/og/daily-ranking`
         }
       ]
     }
