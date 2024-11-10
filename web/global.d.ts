@@ -22,6 +22,13 @@ declare global {
       readonly YOUTUBE_DATA_API_KEY: string
 
       /**
+       * The domain name of the generated Git branch URL.
+       * Example: *-git-*.vercel.app.
+       * The value does not include the protocol scheme https://.
+       */
+      readonly NEXT_PUBLIC_VERCEL_BRANCH_URL?: string
+
+      /**
        * A production domain name of the project.
        * We select the shortest production custom domain,
        * or vercel.app domain if no custom domain is available.
@@ -34,6 +41,8 @@ declare global {
       readonly NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?: string
 
       readonly NEXT_PUBLIC_GA_ID?: string
+
+      readonly NEXT_PUBLIC_VERCEL_ENV?: 'production' | 'preview' | 'development'
     }
   }
 }
