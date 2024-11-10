@@ -234,7 +234,8 @@
           "chatRate": "Number of messages sent in live chat per minute.",
           "peakConcurrent": "Highest number of viewers during a live stream",
           "totalViews": "Total views",
-          "totalSubscribers": "Total subscribers"
+          "totalSubscribers": "Total subscribers",
+          "totalSuperChats": "Total amount of Super Chat"
         },
         "totalVideos": "Total number of videos uploaded",
         "joinedDescription": "Date the channel was registered",

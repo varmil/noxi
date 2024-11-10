@@ -234,7 +234,8 @@
           "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
           "peakConcurrent": "最大同時視聴者数",
           "totalViews": "動画,ショートの再生回数",
-          "totalSubscribers": "チャンネル登録者数"
+          "totalSubscribers": "チャンネル登録者数",
+          "totalSuperChats": "スーパーチャット合計額"
         },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日",
