@@ -11,7 +11,7 @@ export default async function StreamRankingTableHeader({}: Props) {
     <TableHeader>
       <TableRow>
         {/* Flag */}
-        <TableHead className="p-0 sm:p-2" />
+        <TableHead className="hidden p-0 sm:p-2" />
         {/* Ch. Thumbnail */}
         <TableHead />
         {/* Ch. Title */}
