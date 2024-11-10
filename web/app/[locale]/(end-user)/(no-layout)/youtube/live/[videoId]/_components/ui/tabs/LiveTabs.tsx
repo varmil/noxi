@@ -17,8 +17,7 @@ export function LiveTabs({
   stream: StreamSchema
   children: React.ReactNode
 }) {
-  const isScheduled = stream.status === 'scheduled'
-  const defaultValue = isScheduled ? 'overview' : 'superChat'
+  const defaultValue = 'overview'
   return (
     <Tabs defaultValue={defaultValue} className="w-full">
       {children}
@@ -31,6 +30,9 @@ export function LiveTabsList({ stream }: { stream: StreamSchema }) {
   const isEnded = stream.status === 'ended'
   return (
     <TabsList className=" w-full mb-4">
+      <TabsTrigger className="flex-1" value="overview">
+        Overview
+      </TabsTrigger>
       {(isLive || isEnded) && (
         <TabsTrigger className="flex-1" value="superChat">
           Super Chat
@@ -41,9 +43,6 @@ export function LiveTabsList({ stream }: { stream: StreamSchema }) {
           Comments
         </TabsTrigger>
       )}
-      <TabsTrigger className="flex-1" value="overview">
-        Overview
-      </TabsTrigger>
     </TabsList>
   )
 }
