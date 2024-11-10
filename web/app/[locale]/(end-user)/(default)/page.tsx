@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getOgUrl } from 'utils/og-url'
 import { Page } from 'components/page'
+import { getOgUrl } from 'utils/og-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
