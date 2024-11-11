@@ -17,6 +17,9 @@ declare namespace NodeJS {
 
     /** Use in Pubsubhubbub challenge */
     readonly YOUTUBE_PUBSUB_SECRET: string
+
+    /** app.exchangerate-api.com key */
+    readonly EXCHANGE_RATE_API_KEY: string
   }
 }
 

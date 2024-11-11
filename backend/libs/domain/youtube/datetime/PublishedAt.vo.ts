@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator'
-import { DateValueObject } from '@domain/lib/DateValueObject'
+import { DateValueObject } from '@domain/lib/vo/DateValueObject'
 
 export class PublishedAt extends DateValueObject {
   @IsNotEmpty()

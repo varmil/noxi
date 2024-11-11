@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 /** Data API から取得したメッセージを一意に識別するために YouTube が割り当てる ID。 */
 export class LiveChatMessageId extends StringValueObject {

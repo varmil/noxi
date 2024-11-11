@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 /**
  * このプロパティの値は ISO 8601 の期間です。

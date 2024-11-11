@@ -1,9 +1,9 @@
 import { Group } from '@domain/group'
+import { Currency } from '@domain/lib/currency'
 import {
   SuperSticker,
   AmountDisplayString,
   AmountMicros,
-  Currency,
   Tier,
   StickerId
 } from '@domain/supers'

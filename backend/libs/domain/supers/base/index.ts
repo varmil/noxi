@@ -1,5 +1,4 @@
 export * from './AmountDisplayString.vo'
 export * from './AmountMicros.vo'
-export * from './Currency.vo'
 export * from './Supers'
 export * from './Tier.vo'

@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsUrl } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 export class ChannelURL extends StringValueObject {
   @IsNotEmpty()

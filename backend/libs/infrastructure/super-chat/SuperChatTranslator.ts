@@ -1,9 +1,9 @@
 import { Group } from '@domain/group'
+import { Currency } from '@domain/lib/currency'
 import {
   SuperChat,
   AmountDisplayString,
   AmountMicros,
-  Currency,
   Tier,
   UserComment
 } from '@domain/supers'

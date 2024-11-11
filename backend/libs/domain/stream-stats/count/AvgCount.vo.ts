@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber } from 'class-validator'
-import { NumberValueObject } from '@domain/lib/NumberValueObject'
+import { NumberValueObject } from '@domain/lib/vo/NumberValueObject'
 
 /**
  * 整数値

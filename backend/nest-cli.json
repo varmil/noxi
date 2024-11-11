@@ -57,6 +57,15 @@
         "tsConfigPath": "apps/update-chats/tsconfig.app.json"
       }
     },
+    "update-exchange-rates": {
+      "type": "application",
+      "root": "apps/update-exchange-rates",
+      "entryFile": "main",
+      "sourceRoot": "apps/update-exchange-rates/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/update-exchange-rates/tsconfig.app.json"
+      }
+    },
     "update-streams": {
       "type": "application",
       "root": "apps/update-streams",
