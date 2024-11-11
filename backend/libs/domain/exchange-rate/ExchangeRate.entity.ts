@@ -1,4 +1,4 @@
-import { Rate } from '@domain/exchange-rate/Rate.vo'
+import { Rate } from '@domain/exchange-rate'
 import { Currency } from '@domain/lib/currency'
 
 export class ExchangeRate {

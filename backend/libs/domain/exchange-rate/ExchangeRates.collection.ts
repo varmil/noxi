@@ -1,4 +1,4 @@
-import { ExchangeRate } from '@prisma/client'
+import { ExchangeRate } from '@domain/exchange-rate'
 import { Collection } from '@domain/lib/Collection'
 
 export class ExchangeRates extends Collection<ExchangeRate> {
