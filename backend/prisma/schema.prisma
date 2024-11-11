@@ -151,3 +151,9 @@ model YoutubeStreamSuperSticker {
   @@index([group, createdAt])
   @@index([group, amountMicros, createdAt])
 }
+
+model ExchangeRate {
+  currency  String   @id
+  rate      Float
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+}
