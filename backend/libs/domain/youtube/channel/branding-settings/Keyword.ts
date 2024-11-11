@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsString, MaxLength } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 const MAX_LENGTH = 40
 

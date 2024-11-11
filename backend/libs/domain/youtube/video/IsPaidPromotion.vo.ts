@@ -1,3 +1,3 @@
-import { BooleanValueObject } from '@domain/lib/BooleanValueObject'
+import { BooleanValueObject } from '@domain/lib/vo/BooleanValueObject'
 
 export class IsPaidPromotion extends BooleanValueObject {}

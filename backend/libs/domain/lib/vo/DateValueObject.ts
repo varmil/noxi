@@ -2,7 +2,7 @@ import dayjs, { extend } from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
-import { ValueObject } from '@domain/lib/ValueObject'
+import { ValueObject } from '@domain/lib/vo/ValueObject'
 
 extend(isToday)
 extend(utc)

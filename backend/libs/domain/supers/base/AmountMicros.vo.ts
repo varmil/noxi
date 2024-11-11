@@ -1,5 +1,5 @@
 import { IsNotEmpty } from 'class-validator'
-import { BigIntValueObject } from '@domain/lib/BigIntValueObject'
+import { BigIntValueObject } from '@domain/lib/vo/BigIntValueObject'
 
 export class AmountMicros extends BigIntValueObject {
   @IsNotEmpty()

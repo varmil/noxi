@@ -1,5 +1,5 @@
 import { IsISO31661Alpha2, IsNotEmpty, IsString } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 /**
  * 日本: JP

@@ -1,4 +1,4 @@
-import { ValueObject } from '@domain/lib/ValueObject'
+import { ValueObject } from '@domain/lib/vo/ValueObject'
 
 export abstract class BigIntValueObject extends ValueObject<bigint> {
   toString() {

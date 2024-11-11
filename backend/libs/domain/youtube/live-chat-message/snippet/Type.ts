@@ -1,5 +1,5 @@
 import { IsIn, IsNotEmpty } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 /**
  * chatEndedEvent                   – チャットが終了しました。このメッセージの後にメッセージを挿入することはできません。これは、ブロードキャストが終了してから少し後に自然に発生します。このタイプのメッセージは、チャンネルのデフォルトの配信におけるチャットで送信されません。

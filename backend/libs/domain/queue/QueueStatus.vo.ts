@@ -1,5 +1,5 @@
 import { IsIn, IsNotEmpty } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 export class QueueStatus extends StringValueObject {
   @IsNotEmpty()

@@ -1,5 +1,5 @@
 import { IsString } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 /** 空文字列の場合があるのでEmpty許容 */
 export class DisplayName extends StringValueObject {

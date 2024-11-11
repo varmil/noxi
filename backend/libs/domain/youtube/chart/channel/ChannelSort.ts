@@ -1,5 +1,5 @@
 import { IsOptional, IsString } from 'class-validator'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 /**
  * Default: subscribers

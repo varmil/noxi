@@ -1,7 +1,7 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
 import { ChannelIdsByGroup, ChannelsByGroup } from '@domain/group/list'
-import { StringValueObject } from '@domain/lib/StringValueObject'
+import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export const GroupStrings = [

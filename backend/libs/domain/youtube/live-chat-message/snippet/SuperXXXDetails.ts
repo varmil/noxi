@@ -1,9 +1,5 @@
-import {
-  AmountMicros,
-  Currency,
-  AmountDisplayString,
-  Tier
-} from '@domain/supers'
+import { Currency } from '@domain/lib/currency'
+import { AmountMicros, AmountDisplayString, Tier } from '@domain/supers'
 
 export class SuperXXXDetails {
   public readonly amountMicros: AmountMicros

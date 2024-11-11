@@ -1,9 +1,9 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
+import { Currency } from '@domain/lib/currency'
 import {
   AmountDisplayString,
   AmountMicros,
-  Currency,
   StickerId,
   Tier,
   UserComment
