@@ -23,14 +23,17 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // async headers() {
-  //   return CacheHeaders
-  // },
-  // logging: {
-  //   fetches: {
-  //     fullUrl: true
-  //   }
-  // }
+  async redirects() {
+    return [
+      // 2024/11/11：LiaqN【りあん】 を independent-irl に移動
+      {
+        source: '/:locale/independent/channels/UCdVnOfmhI0sNGdaH5yldztg',
+        destination:
+          '/:locale/independent-irl/channels/UCdVnOfmhI0sNGdaH5yldztg',
+        permanent: true
+      }
+    ]
+  }
 }
 
 module.exports = withNextIntl(nextConfig)

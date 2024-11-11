@@ -23,5 +23,10 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCz0aC9z3kXruRHULDqFRuVA'),
     title: 'あっさりしょこ',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCdVnOfmhI0sNGdaH5yldztg'),
+    title: 'LiaqN【りあん】',
+    ...DefaultProps
   }
 ]
