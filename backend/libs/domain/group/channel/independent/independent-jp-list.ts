@@ -115,11 +115,6 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCdVnOfmhI0sNGdaH5yldztg'),
-    title: 'LiaqN【りあん】',
-    ...DefaultProps
-  },
-  {
     id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
     title: 'くぅch. 沙倉くぅ / Sakura Qoo',
     ...DefaultProps
