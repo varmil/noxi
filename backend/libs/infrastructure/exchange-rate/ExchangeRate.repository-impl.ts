@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import axios from 'axios'
 import {
   ExchangeRate,
   ExchangeRateRepository,
@@ -23,5 +24,26 @@ export class ExchangeRateRepositoryImpl implements ExchangeRateRepository {
           })
       )
     )
+  }
+
+  async update() {
+    const exchangeRates = await this.fetchExchangeRates()
+    const promises = Object.keys(exchangeRates).map(async currency => {
+      await this.prismaInfraService.exchangeRate.upsert({
+        where: { currency },
+        update: { rate: exchangeRates[currency] },
+        create: { currency, rate: exchangeRates[currency] }
+      })
+    })
+    await Promise.all(promises)
+  }
+
+  private fetchExchangeRates = async () => {
+    const response = await axios.get<{
+      conversion_rates: Record<string, number>
+    }>(
+      `https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/JPY`
+    )
+    return response.data.conversion_rates
   }
 }

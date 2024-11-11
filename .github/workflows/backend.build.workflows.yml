@@ -49,6 +49,7 @@ jobs:
             groups/update-channels,
             pubsubhubbub,
             update-chats,
+            update-exchange-rates,
             update-streams
           ]
     runs-on: ubuntu-latest

@@ -8,6 +8,7 @@ const AppNames = [
   'groups/update-channels',
   'pubsubhubbub',
   'update-chats',
+  'update-exchange-rates',
   'update-streams'
 ]
 

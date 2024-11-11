@@ -11,4 +11,8 @@ export class ExchangeRatesService {
   async findAll() {
     return this.exchangeRateRepository.findAll()
   }
+
+  async update() {
+    await this.exchangeRateRepository.update()
+  }
 }
