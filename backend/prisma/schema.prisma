@@ -100,6 +100,13 @@ model YoutubeStreamChatBundleQueue {
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 }
 
+model YoutubeStreamSupersBundleQueue {
+  id        Int      @id @default(autoincrement())
+  status    String
+  videoId   String   @unique
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+
 model YoutubeStreamSuperChat {
   id                  String @id
   amountMicros        BigInt
@@ -150,6 +157,25 @@ model YoutubeStreamSuperSticker {
   @@index([videoId, currency])
   @@index([group, createdAt])
   @@index([group, amountMicros, createdAt])
+}
+
+model YoutubeStreamSupersBundle {
+  videoId         String   @id
+  channelId       String
+  /// JPY
+  amountMicros    BigInt
+  count           Int
+  actualStartTime DateTime @db.Timestamptz(3)
+  actualEndTime   DateTime @db.Timestamptz(3)
+  group           String
+  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([actualStartTime, amountMicros])
+  @@index([actualEndTime, amountMicros])
+  @@index([channelId, actualStartTime, amountMicros])
+  @@index([channelId, actualEndTime, amountMicros])
+  @@index([group, actualStartTime, amountMicros])
+  @@index([group, actualEndTime, amountMicros])
 }
 
 model ExchangeRate {

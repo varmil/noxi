@@ -12,6 +12,15 @@
   "monorepo": true,
   "root": "apps/closed-api-server",
   "projects": {
+    "backend": {
+      "type": "application",
+      "root": "apps/closed-api-server",
+      "entryFile": "main",
+      "sourceRoot": "apps/closed-api-server/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
+      }
+    },
     "bundle-chats": {
       "type": "application",
       "root": "apps/bundle-chats",
@@ -21,13 +30,13 @@
         "tsConfigPath": "apps/bundle-chats/tsconfig.app.json"
       }
     },
-    "backend": {
+    "bundle-supers": {
       "type": "application",
-      "root": "apps/closed-api-server",
+      "root": "apps/bundle-supers",
       "entryFile": "main",
-      "sourceRoot": "apps/closed-api-server/src",
+      "sourceRoot": "apps/bundle-supers/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/closed-api-server/tsconfig.app.json"
+        "tsConfigPath": "apps/bundle-supers/tsconfig.app.json"
       }
     },
     "groups/update-channels": {

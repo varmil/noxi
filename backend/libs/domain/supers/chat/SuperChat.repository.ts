@@ -11,7 +11,7 @@ export interface SuperChatRepository {
       createdBefore?: Date
       createdAfter?: Date
     }
-    orderBy: Partial<
+    orderBy?: Partial<
       Record<'tier' | 'amountMicros' | 'currency' | 'createdAt', 'asc' | 'desc'>
     >[]
     limit?: number

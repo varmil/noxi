@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import { Group } from '@domain/group'
 import { Currency } from '@domain/lib/currency'
 import {
@@ -25,7 +26,7 @@ export class SuperChatTranslator {
 
     return new SuperChat({
       id: new LiveChatMessageId(row.id),
-      amountMicros: new AmountMicros(BigInt(row.amountMicros)),
+      amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
       tier: new Tier(row.tier),

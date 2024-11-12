@@ -5,7 +5,6 @@ import { LibAppModule } from '@app/lib/lib.app.module'
 import { StreamStatsModule } from '@app/stream-stats/stream-stats.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { MainService } from './main.service'
 import { MainScenario } from './scenario/main.scenario'
 
 @Module({
@@ -19,6 +18,6 @@ import { MainScenario } from './scenario/main.scenario'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [MainScenario, MainService]
+  providers: [MainScenario]
 })
 export class MainModule {}

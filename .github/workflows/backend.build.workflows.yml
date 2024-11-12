@@ -46,6 +46,7 @@ jobs:
         service_name:
           [
             bundle-chats,
+            bundle-supers,
             groups/update-channels,
             pubsubhubbub,
             update-chats,
