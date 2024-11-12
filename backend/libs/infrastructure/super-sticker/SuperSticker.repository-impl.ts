@@ -45,7 +45,7 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
       where: { id: id.get() },
       create: {
         id: id.get(),
-        amountMicros: amountMicros.get(),
+        amountMicros: amountMicros.toBigInt(),
         currency: currency.get(),
         amountDisplayString: amountDisplayString.get(),
         tier: tier.get(),

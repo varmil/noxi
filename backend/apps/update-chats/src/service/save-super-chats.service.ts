@@ -36,7 +36,7 @@ export class SaveSuperChatsService {
         `Id          : ${message.id.get()},
          VideoId     : ${videoId.get()},
          Group       : ${group.get()},
-         SuperChat   : ${amountMicros.get()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
+         SuperChat   : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
          UserComment : ${userComment.get()}
          Author      : ${JSON.stringify(message.authorDetails)}
         `

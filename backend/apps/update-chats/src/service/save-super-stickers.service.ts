@@ -37,7 +37,7 @@ export class SaveSuperStickersService {
         `Id           : ${message.id.get()},
          VideoId      : ${videoId.get()},
          Group        : ${group.get()},
-         SuperSticker : ${amountMicros.get()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
+         SuperSticker : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
          StickerId    : ${stickerId.get()}
          Author       : ${JSON.stringify(message.authorDetails)}
         `

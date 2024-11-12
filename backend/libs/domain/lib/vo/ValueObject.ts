@@ -1,6 +1,13 @@
 import { validateSync } from 'class-validator'
 
 export abstract class ValueObject<T> {
+  protected newInstance(item: T): this {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const ctor = Object.getPrototypeOf(this).constructor
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
+    return new ctor(item)
+  }
+
   constructor(protected readonly val: T) {
     const errors = validateSync(this)
     if (errors.length) {
