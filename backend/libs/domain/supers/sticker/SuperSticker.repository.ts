@@ -5,7 +5,7 @@ import { ChannelId, VideoId } from '@domain/youtube'
 export interface SuperStickerRepository {
   findAll: (args: {
     where: { videoId?: VideoId; channelId?: ChannelId; group?: Group }
-    orderBy: Partial<
+    orderBy?: Partial<
       Record<'tier' | 'amountMicros' | 'currency' | 'createdAt', 'asc' | 'desc'>
     >[]
     limit?: number

@@ -7,6 +7,7 @@ import { ChatBundleQueuesModule } from '@app/chat-bundle-queues/chat-bundle-queu
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { StreamStatsModule } from '@app/stream-stats/stream-stats.module'
 import { StreamsModule } from '@app/streams/streams.module'
+import { SupersBundleQueuesModule } from '@app/supers-bundle-queues/supers-bundle-queues.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
@@ -19,6 +20,7 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     YoutubeAppModule,
     StreamsModule,
     StreamStatsModule,
+    SupersBundleQueuesModule,
     YoutubeInfraModule
   ],
   controllers: [],

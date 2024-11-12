@@ -6,6 +6,6 @@ import { SuperChatInfraModule } from '@infra/super-chat/super-chat.infra.module'
 @Module({
   imports: [ExchangeRateInfraModule, SuperChatInfraModule],
   providers: [SuperChatsService],
-  exports: [SuperChatInfraModule, SuperChatsService]
+  exports: [ExchangeRateInfraModule, SuperChatInfraModule, SuperChatsService]
 })
 export class SuperChatsModule {}

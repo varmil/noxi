@@ -10,6 +10,7 @@ export class SuperChats extends Collection<SuperChat> {
     super(list)
   }
 
+  /** @returns Rounded Micro JPY */
   calculateTotalInJPY(rates: ExchangeRates): AmountMicros {
     let totalInJPY = new AmountMicros(BigNumber(0))
 
@@ -22,12 +23,6 @@ export class SuperChats extends Collection<SuperChat> {
       totalInJPY = totalInJPY.plus(amountInJPY)
     }
 
-    console.log(
-      'totalInJPY',
-      totalInJPY.round().toString(),
-      'JPY',
-      totalInJPY.toAmount().round().toFixed()
-    )
     return totalInJPY.round()
   }
 
@@ -36,9 +31,7 @@ export class SuperChats extends Collection<SuperChat> {
     currency: Currency,
     er: ExchangeRates
   ): AmountMicros {
-    if (currency.equals(Currency.JPY)) {
-      return amount
-    }
+    if (currency.equals(Currency.JPY)) return amount
     const rate = er.getRate(currency)
     return amount.div(rate.get())
   }

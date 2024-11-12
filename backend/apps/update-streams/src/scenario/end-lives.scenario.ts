@@ -3,6 +3,7 @@ import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-que
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
+import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
 import { QueueStatusUnprocessed } from '@domain/queue'
 import { StreamTimes } from '@domain/stream'
 import { Videos, Video } from '@domain/youtube'
@@ -13,7 +14,8 @@ export class EndLivesScenario {
     private readonly promiseService: PromiseService,
     private readonly chatBundleQueuesService: ChatBundleQueuesService,
     private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService
+    private readonly streamStatsService: StreamStatsService,
+    private readonly supersBundleQueuesService: SupersBundleQueuesService
   ) {}
 
   /**
@@ -53,6 +55,11 @@ export class EndLivesScenario {
           this.updateMetrics(video),
           // Queue chat bundle
           this.chatBundleQueuesService.save({
+            where: { videoId: video.id },
+            data: { status: QueueStatusUnprocessed }
+          }),
+          // Queue supers bundle
+          this.supersBundleQueuesService.save({
             where: { videoId: video.id },
             data: { status: QueueStatusUnprocessed }
           })
