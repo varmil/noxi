@@ -1,12 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
-import { Video, VideoId } from '@domain/youtube'
-import { LiveChatMessages } from '@domain/youtube/live-chat-message'
+import { VideoId } from '@domain/youtube'
 import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
@@ -14,7 +12,6 @@ export class MainService {
   private readonly logger = new Logger(MainService.name)
 
   constructor(
-    private readonly promiseService: PromiseService,
     private readonly liveChatMessagesInfraService: LiveChatMessagesInfraService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService,
@@ -70,48 +67,9 @@ export class MainService {
       latestChatCount?.latestPublishedAt
     )
 
-    this.log({ newMessages, video })
-
     return {
       newMessages,
       nextPageToken
     }
-  }
-
-  private log = ({
-    newMessages,
-    video
-  }: {
-    newMessages: LiveChatMessages
-    video: Video
-  }) => {
-    if (
-      video.snippet.channelId === 'UC-hM6YJuNYVAmUWxeIr9FeA' ||
-      video.snippet.channelId === 'UC1DCedRgGHBdm81E1llLhOQ'
-    ) {
-      this.logger.log(
-        JSON.stringify(
-          {
-            first: newMessages.first()?.publishedAt.get(),
-            last: newMessages.latestPublishedAt?.get()
-          },
-          null,
-          2
-        )
-      )
-    }
-
-    this.logger.log(
-      JSON.stringify(
-        {
-          title: video.snippet.title,
-          videoId: video.id.get(),
-          all: newMessages.all.get(),
-          member: newMessages.member.get()
-        },
-        null,
-        2
-      )
-    )
   }
 }
