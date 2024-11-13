@@ -26,7 +26,21 @@ export class SupersBundle {
   @Transform(({ value }: { value: Group }) => value.get())
   public readonly group: Group
 
-  constructor(args: { videoId: VideoId }) {
+  constructor(args: {
+    videoId: VideoId
+    channelId: ChannelId
+    amountMicros: AmountMicros
+    count: SupersCount
+    actualStartTime: ActualStartTime
+    actualEndTime: ActualEndTime
+    group: Group
+  }) {
     this.videoId = args.videoId
+    this.channelId = args.channelId
+    this.amountMicros = args.amountMicros
+    this.count = args.count
+    this.actualStartTime = args.actualStartTime
+    this.actualEndTime = args.actualEndTime
+    this.group = args.group
   }
 }
