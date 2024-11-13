@@ -33,7 +33,7 @@ export class UpsertYoutubeStream {
     return {
       videoId: videoId.get(),
       publishedAt: publishedAt.get(),
-      channelId,
+      channelId: channelId.get(),
       title,
       description,
       thumbnails,
@@ -44,8 +44,8 @@ export class UpsertYoutubeStream {
       duration: duration?.get() ?? null,
 
       scheduledStartTime,
-      actualStartTime: actualStartTime ?? null,
-      actualEndTime: actualEndTime ?? null,
+      actualStartTime: actualStartTime?.get() ?? null,
+      actualEndTime: actualEndTime?.get() ?? null,
 
       maxViewerCount,
       averageConcurrentViewers: avgConcurrentViewers,

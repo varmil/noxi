@@ -25,7 +25,7 @@ export interface StreamRepository {
       scheduledBefore?: Date
       scheduledAfter?: Date
     }
-    orderBy: Partial<
+    orderBy?: Partial<
       Record<
         | 'scheduledStartTime'
         | 'actualStartTime'

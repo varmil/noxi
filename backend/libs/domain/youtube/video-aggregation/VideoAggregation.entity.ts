@@ -91,7 +91,7 @@ export class VideoAggregation {
     )
     const short = recentVideos.filter(video => video.isShort)
     const live = recentVideos.filter(
-      video => (video.streamActualStartTime ?? 0) > oneMonthAgo
+      video => !!video.streamActualStartTime?.isWithin30Days()
     )
 
     return {

@@ -1,7 +1,15 @@
 import { LanguageTag } from '@domain/country'
 import { Group } from '@domain/group'
 import { Metrics, Stream, StreamTimes } from '@domain/stream'
-import { Duration, PublishedAt, Snippet, VideoId } from '@domain/youtube'
+import {
+  ActualEndTime,
+  ActualStartTime,
+  ChannelId,
+  Duration,
+  PublishedAt,
+  Snippet,
+  VideoId
+} from '@domain/youtube'
 import type { YoutubeStream as PrismaYoutubeStream } from '@prisma/client'
 
 export class StreamTranslator {
@@ -18,7 +26,7 @@ export class StreamTranslator {
       videoId: new VideoId(row.videoId),
       snippet: new Snippet({
         publishedAt: new PublishedAt(row.publishedAt),
-        channelId: row.channelId,
+        channelId: new ChannelId(row.channelId),
         title: row.title,
         description: row.description ?? '',
         thumbnails: row.thumbnails,
@@ -33,8 +41,12 @@ export class StreamTranslator {
 
       streamTimes: new StreamTimes({
         scheduledStartTime: row.scheduledStartTime,
-        actualStartTime: row.actualStartTime ?? undefined,
-        actualEndTime: row.actualEndTime ?? undefined
+        actualStartTime: row.actualStartTime
+          ? new ActualStartTime(row.actualStartTime)
+          : undefined,
+        actualEndTime: row.actualEndTime
+          ? new ActualEndTime(row.actualEndTime)
+          : undefined
       }),
 
       metrics: new Metrics({
