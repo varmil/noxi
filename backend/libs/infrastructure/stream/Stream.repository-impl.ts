@@ -100,8 +100,8 @@ export class StreamRepositoryImpl implements StreamRepository {
       where: { videoId: videoId.get() },
       data: {
         scheduledStartTime: data.scheduledStartTime,
-        actualStartTime: data.actualStartTime,
-        actualEndTime: data.actualEndTime,
+        actualStartTime: data.actualStartTime?.get(),
+        actualEndTime: data.actualEndTime?.get(),
         status: data.streamStatus.get(),
         updatedAt: new Date()
       }

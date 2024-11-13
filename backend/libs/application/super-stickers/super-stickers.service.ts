@@ -33,7 +33,9 @@ export class SuperStickersService {
       where: { videoId }
     })
     const rates = await this.exchangeRateRepository.findAll()
-
-    return chats.calculateTotalInJPY(rates)
+    return {
+      amountMicros: chats.calculateTotalInJPY(rates),
+      count: chats.length
+    }
   }
 }

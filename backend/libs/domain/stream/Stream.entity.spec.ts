@@ -1,14 +1,21 @@
 import { Group } from '@domain/group'
 import { Metrics } from '@domain/stream/Metrics'
 import { StreamTimes } from '@domain/stream/StreamTimes'
-import { Duration, PublishedAt, VideoId } from '@domain/youtube'
+import {
+  ActualEndTime,
+  ActualStartTime,
+  ChannelId,
+  Duration,
+  PublishedAt,
+  VideoId
+} from '@domain/youtube'
 import { Stream } from './Stream.entity'
 
 const stream = new Stream({
   videoId: new VideoId('1'),
   snippet: {
     publishedAt: new PublishedAt(new Date()),
-    channelId: '1',
+    channelId: new ChannelId('1'),
     title: 'test',
     description: 'test',
     thumbnails: {
@@ -21,8 +28,8 @@ const stream = new Stream({
   },
   streamTimes: new StreamTimes({
     scheduledStartTime: new Date(),
-    actualStartTime: new Date(),
-    actualEndTime: new Date()
+    actualStartTime: new ActualStartTime(new Date()),
+    actualEndTime: new ActualEndTime(new Date())
   }),
   metrics: new Metrics({
     peakConcurrentViewers: 0,

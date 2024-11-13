@@ -3,6 +3,9 @@ import { z } from 'zod'
 import { LanguageTag } from '@domain/country'
 import { StreamTimes } from '@domain/stream'
 import {
+  ActualEndTime,
+  ActualStartTime,
+  ChannelId,
   Duration,
   LiveStreamingDetails,
   PublishedAt,
@@ -21,7 +24,8 @@ export class VideoTranslator {
     const v = this.parse()
     if (!v) return undefined
 
-    const { publishedAt, categoryId, defaultLanguage, ...sRest } = v.snippet
+    const { channelId, publishedAt, categoryId, defaultLanguage, ...sRest } =
+      v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
     const {
       actualStartTime,
@@ -34,6 +38,7 @@ export class VideoTranslator {
       id: new VideoId(v.id),
       snippet: new Snippet({
         ...sRest,
+        channelId: new ChannelId(channelId),
         publishedAt: new PublishedAt(new Date(publishedAt)),
         categoryId: Number(categoryId),
         defaultLanguage: defaultLanguage
@@ -53,9 +58,11 @@ export class VideoTranslator {
                 v.liveStreamingDetails.scheduledStartTime
               ),
               actualStartTime: actualStartTime
-                ? new Date(actualStartTime)
+                ? new ActualStartTime(new Date(actualStartTime))
                 : undefined,
-              actualEndTime: actualEndTime ? new Date(actualEndTime) : undefined
+              actualEndTime: actualEndTime
+                ? new ActualEndTime(new Date(actualEndTime))
+                : undefined
             }),
             concurrentViewers: concurrentViewers
               ? Number(concurrentViewers)

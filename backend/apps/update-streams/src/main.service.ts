@@ -5,7 +5,7 @@ import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { Streams, StreamTimes } from '@domain/stream'
 import { Count } from '@domain/stream-stats'
-import { Video, Videos } from '@domain/youtube'
+import { ActualEndTime, Video, Videos } from '@domain/youtube'
 
 @Injectable()
 export class MainService {
@@ -138,7 +138,7 @@ export class MainService {
         data: new StreamTimes({
           scheduledStartTime,
           actualStartTime,
-          actualEndTime: new Date() // 強引に閉じる
+          actualEndTime: new ActualEndTime(new Date()) // 強引に閉じる
         })
       })
     })

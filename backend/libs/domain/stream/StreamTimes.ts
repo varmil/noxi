@@ -1,19 +1,22 @@
-import { Exclude } from 'class-transformer'
+import { Exclude, Transform } from 'class-transformer'
 import {
   StreamStatusEnded,
   StreamStatusLive,
   StreamStatusScheduled
 } from '@domain/stream'
+import { ActualEndTime, ActualStartTime } from '@domain/youtube'
 
 export class StreamTimes {
   public readonly scheduledStartTime: Date
-  public readonly actualStartTime?: Date
-  public readonly actualEndTime?: Date
+  @Transform(({ value }: { value?: ActualStartTime }) => value?.get())
+  public readonly actualStartTime?: ActualStartTime
+  @Transform(({ value }: { value?: ActualEndTime }) => value?.get())
+  public readonly actualEndTime?: ActualEndTime
 
   constructor(args: {
     scheduledStartTime: Date
-    actualStartTime?: Date
-    actualEndTime?: Date
+    actualStartTime?: ActualStartTime
+    actualEndTime?: ActualEndTime
   }) {
     this.scheduledStartTime = args.scheduledStartTime
     this.actualStartTime = args.actualStartTime
@@ -39,7 +42,7 @@ export class StreamTimes {
     return new StreamTimes({
       scheduledStartTime: this.scheduledStartTime,
       actualStartTime: this.actualStartTime,
-      actualEndTime: new Date()
+      actualEndTime: new ActualEndTime(new Date())
     })
   }
 }
