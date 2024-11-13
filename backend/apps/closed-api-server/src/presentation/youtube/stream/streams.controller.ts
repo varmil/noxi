@@ -2,6 +2,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  NotFoundException,
   Param,
   Query,
   UseInterceptors
@@ -33,8 +34,12 @@ export class StreamsController {
 
   @Get(':id')
   async getStream(@Param('id') id: string) {
-    return await this.streamsService.findOne({
+    const stream = await this.streamsService.findOne({
       where: { videoId: new VideoId(id) }
     })
+    if (!stream) {
+      throw new NotFoundException(`stream not found for ${id}`)
+    }
+    return stream
   }
 }
