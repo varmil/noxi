@@ -21,6 +21,8 @@ declare global {
 
       readonly YOUTUBE_DATA_API_KEY: string
 
+      readonly EXCHANGE_RATE_API_KEY: string
+
       /**
        * The domain name of the generated Git branch URL.
        * Example: *-git-*.vercel.app.
