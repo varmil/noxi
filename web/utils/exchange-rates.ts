@@ -2,12 +2,10 @@ import 'server-only'
 import BigNumber from 'bignumber.js'
 import { SuperChatsSchema } from 'apis/youtube/schema/superChatSchema'
 
-const API_KEY = 'a26bced4547fbb900dbebcac'
-
 // 外部APIから為替レートを取得する関数
 async function fetchExchangeRates() {
   const res = await fetch(
-    `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/JPY`,
+    `https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/JPY`,
     { next: { revalidate: 24 * 3600 } }
   )
 
