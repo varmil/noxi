@@ -4,6 +4,7 @@ import {
   ValidationPipe
 } from '@nestjs/common'
 import { NestExpressApplication } from '@nestjs/platform-express'
+import compression from 'compression'
 import { useLogger } from '@app/lib/function/useLogger'
 
 export function registerGlobals(app: NestExpressApplication) {
@@ -17,6 +18,7 @@ export function registerGlobals(app: NestExpressApplication) {
   useLogger(app)
 
   app.enableCors()
+  app.use(compression())
 
   app.useGlobalPipes(
     new ValidationPipe({
