@@ -9,7 +9,7 @@ type Params = {
   channelId?: string
   scheduledBefore?: Date
   scheduledAfter?: Date
-  orderBy: {
+  orderBy?: {
     field:
       | 'scheduledStartTime'
       | 'actualStartTime'
@@ -17,7 +17,7 @@ type Params = {
       | 'maxViewerCount'
     order: 'asc' | 'desc'
   }[]
-  limit: number
+  limit?: number
 }
 
 export async function getStreams({
@@ -37,17 +37,19 @@ export async function getStreams({
     ...(channelId && { channelId }),
     ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
     ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),
-    limit: String(limit)
+    ...(limit && { limit: String(limit) })
   })
 
-  orderBy.forEach((orderBy, index) => {
+  orderBy?.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    { cache: 'no-store' }
+    {
+      next: { revalidate: 30 }
+    }
   )
 
   if (!res.ok) {

@@ -44,20 +44,21 @@ export class GetStreamsDto {
   @IsString()
   channelId?: string
 
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
-  orderBy: OrderByDto<
+  orderBy?: OrderByDto<
     | 'scheduledStartTime'
     | 'actualStartTime'
     | 'actualEndTime'
     | 'maxViewerCount'
   >[]
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsInt()
   @Type(() => Number)
-  limit: number
+  limit?: number
 
   toStatus = () => (this.status ? new StreamStatus(this.status) : undefined)
 
@@ -80,9 +81,11 @@ export class GetStreamsDto {
     this.channelId ? new ChannelId(this.channelId) : undefined
 
   toOrderBy = () => {
-    return this.orderBy.map(({ field, order }) => ({
-      [field]: order
-    })) as Parameters<StreamRepository['findAll']>[0]['orderBy']
+    return (
+      (this.orderBy?.map(({ field, order }) => ({
+        [field]: order
+      })) as Parameters<StreamRepository['findAll']>[0]['orderBy']) ?? undefined
+    )
   }
 
   toLimit = () => this.limit
