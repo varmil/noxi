@@ -4,8 +4,13 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import dayjs from 'lib//dayjs'
+import { getWebUrl } from 'utils/web-url'
 // App router includes @vercel/og.
 // No need to install it.
+
+const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
+  res => res.arrayBuffer()
+)
 
 export async function GET() {
   const supersBudles = await getSupersBundles({
@@ -103,7 +108,14 @@ export async function GET() {
     ),
     {
       width: 1200,
-      height: 630
+      height: 630,
+      fonts: [
+        {
+          name: 'NotoSansJP',
+          data: await font,
+          style: 'normal'
+        }
+      ]
     }
   )
 }
