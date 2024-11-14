@@ -8,12 +8,16 @@ export interface SupersBundleRepository {
       videoId?: VideoId
       channelId?: ChannelId
       group?: Group
-      actualEndTime?: { gte: Date }
+      actualEndTime?: { gte?: Date; lte?: Date }
     }
     orderBy?: Partial<Record<'amountMicros', 'asc' | 'desc'>>[]
     limit?: number
     offset?: number
   }) => Promise<SupersBundles>
+
+  findOne: (args: {
+    where: { videoId: VideoId }
+  }) => Promise<SupersBundle | null>
 
   save: (args: { data: SupersBundle }) => Promise<void>
 }

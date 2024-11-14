@@ -12,6 +12,10 @@ export class SupersBundlesService {
     return await this.supersBundleRepository.findAll(args)
   }
 
+  async findOne(args: Parameters<SupersBundleRepository['findOne']>[0]) {
+    return await this.supersBundleRepository.findOne(args)
+  }
+
   async save(args: Parameters<SupersBundleRepository['save']>[0]) {
     await this.supersBundleRepository.save(args)
   }
