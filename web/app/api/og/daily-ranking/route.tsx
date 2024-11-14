@@ -12,9 +12,15 @@ const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
   res => res.arrayBuffer()
 )
 
-export async function GET() {
+/** ?date=<Date> */
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const actualEndTimeGTE = dayjs(searchParams.get('date') ?? undefined)
+    .subtract(1, 'day')
+    .toDate()
+
   const supersBudles = await getSupersBundles({
-    actualEndTimeGTE: dayjs().subtract(1, 'day').toDate(),
+    actualEndTimeGTE,
     orderBy: [{ field: 'amountMicros', order: 'desc' }],
     limit: 5
   })
@@ -54,8 +60,6 @@ export async function GET() {
     })
     .filter(e => !!e)
 
-  // console.log(ranking)
-
   return new ImageResponse(
     (
       <div
@@ -74,11 +78,16 @@ export async function GET() {
       >
         <section tw="flex flex-col items-center w-[330px] h-full text-4xl font-bold">
           <div style={{ fontSize: 40 }} tw="mb-32">
-            {formatter.format(new Date())}
+            {formatter.format(
+              dayjs(searchParams.get('date') ?? undefined).toDate()
+            )}
           </div>
           <div style={{ fontSize: 100 }}>日間</div>
           <div>スーパーチャット額</div>
           <div>ランキング</div>
+          <div style={{ fontSize: 10 }} tw="mt-auto">
+            ※PeakX登録タレント集計。スーパーステッカー含む
+          </div>
         </section>
         <section style={{ gap: 20 }} tw="flex-1 flex flex-col">
           {ranking.map((e, i) => (
