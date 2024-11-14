@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 import { defaultLocale, locales } from 'config/i18n/locale'
 
-const host = `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
+const host = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
 
 export function getEntry({
   pathname,
