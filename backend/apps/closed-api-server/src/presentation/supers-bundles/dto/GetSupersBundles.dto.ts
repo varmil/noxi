@@ -34,10 +34,11 @@ export class GetSupersBundles {
   @IsRFC3339()
   actualEndTimeLTE?: string
 
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
-  orderBy: OrderByDto<'amountMicros'>[]
+  orderBy?: OrderByDto<'amountMicros'>[]
 
   @IsOptional()
   @IsInt()
@@ -57,9 +58,12 @@ export class GetSupersBundles {
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 
   toOrderBy = () => {
-    return this.orderBy.map(({ field, order }) => ({
-      [field]: order
-    })) as Parameters<SupersBundleRepository['findAll']>[0]['orderBy']
+    return (
+      (this.orderBy?.map(({ field, order }) => ({
+        [field]: order
+      })) as Parameters<SupersBundleRepository['findAll']>[0]['orderBy']) ??
+      undefined
+    )
   }
 
   toActualEndTime = () => {

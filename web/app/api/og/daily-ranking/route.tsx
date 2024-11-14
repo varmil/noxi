@@ -1,8 +1,17 @@
 import { ImageResponse } from 'next/og'
+import { getSupersBundles } from 'apis/youtube/getSupersBundles'
+import dayjs from 'lib//dayjs'
 // App router includes @vercel/og.
 // No need to install it.
 
 export async function GET() {
+  const supersBudles = await getSupersBundles({
+    actualEndTimeGTE: dayjs().subtract(1, 'day').toDate(),
+    orderBy: [{ field: 'amountMicros', order: 'desc' }],
+    limit: 5
+  })
+  console.log(supersBudles)
+
   return new ImageResponse(
     (
       <div
