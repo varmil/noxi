@@ -5,6 +5,7 @@ import { CloudSchedulersPresentationModule } from '@presentation/cloud-scheduler
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
 import { SupersPresentationModule } from '@presentation/supers/supers.presentation.module'
+import { SupersBundlesPresentationModule } from '@presentation/supers-bundles/supers-bundles.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 
@@ -17,6 +18,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     CloudSchedulersPresentationModule,
     GroupsPresentationModule,
     SupersPresentationModule,
+    SupersBundlesPresentationModule,
     YoutubePresentationModule
   ],
   controllers: [HealthController],

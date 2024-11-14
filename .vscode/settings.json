@@ -14,7 +14,8 @@
     // const bClass   = `text-zinc-300`
     // const cClassName =   "text-red-400"
     "Class\\s*=\\s*['\"`]([^'\"`]*)['\"`]",
-    "ClassName\\s*=\\s*['\"`]([^'\"`]*)['\"`]"
+    "ClassName\\s*=\\s*['\"`]([^'\"`]*)['\"`]",
+    "tw\\s*=\\s*['\"`]([^'\"`]*)['\"`]"
   ],
 
   "typescript.preferences.importModuleSpecifier": "non-relative",

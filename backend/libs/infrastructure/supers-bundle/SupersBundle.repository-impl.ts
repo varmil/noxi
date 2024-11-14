@@ -14,6 +14,7 @@ import {
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+import type { YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle } from '@prisma/client'
 
 @Injectable()
 export class SupersBundleRepositoryImpl implements SupersBundleRepository {
@@ -31,7 +32,8 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
           channelId: where.channelId?.get(),
           group: where.group?.get(),
           actualEndTime: {
-            gte: where.actualEndTime?.gte
+            gte: where.actualEndTime?.gte,
+            lte: where.actualEndTime?.lte
           }
         }
       : undefined
@@ -44,22 +46,18 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         skip: offset
       })
 
-    return new SupersBundles(
-      rows.map(
-        row =>
-          new SupersBundle({
-            videoId: new VideoId(row.videoId),
-            channelId: new ChannelId(row.channelId),
-            amountMicros: new AmountMicros(
-              BigNumber(row.amountMicros.toString())
-            ),
-            count: new SupersCount(row.count),
-            actualStartTime: new ActualStartTime(row.actualStartTime),
-            actualEndTime: new ActualEndTime(row.actualEndTime),
-            group: new Group(row.group)
-          })
-      )
-    )
+    return new SupersBundles(rows.map(row => this.toDomain(row)))
+  }
+
+  findOne: (args: {
+    where: { videoId: VideoId }
+  }) => Promise<SupersBundle | null> = async ({ where: { videoId } }) => {
+    const row =
+      await this.prismaInfraService.youtubeStreamSupersBundle.findUnique({
+        where: { videoId: videoId.get() }
+      })
+    if (!row) return null
+    return this.toDomain(row)
   }
 
   async save({ data }: Parameters<SupersBundleRepository['save']>[0]) {
@@ -86,6 +84,18 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       where: { videoId: videoId.get() },
       update,
       create: { videoId: videoId.get(), ...update }
+    })
+  }
+
+  private toDomain(row: PrismaYoutubeStreamSupersBundle) {
+    return new SupersBundle({
+      videoId: new VideoId(row.videoId),
+      channelId: new ChannelId(row.channelId),
+      amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
+      count: new SupersCount(row.count),
+      actualStartTime: new ActualStartTime(row.actualStartTime),
+      actualEndTime: new ActualEndTime(row.actualEndTime),
+      group: new Group(row.group)
     })
   }
 }

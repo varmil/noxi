@@ -16,12 +16,9 @@ export async function getVideosInChannel({
       next: { revalidate: 10 }
     }
   )
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error('Failed to fetch data')
+    throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
 
   const data = responseSchema.parse(await res.json())

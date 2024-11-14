@@ -34,7 +34,7 @@ export interface StreamRepository {
         'asc' | 'desc'
       >
     >[]
-    limit: number
+    limit?: number
   }) => Promise<Streams>
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>
