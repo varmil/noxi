@@ -40,7 +40,7 @@ declare global {
        *
        * ローカルでのみundefined
        */
-      readonly NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL?: string
+      readonly VERCEL_PROJECT_PRODUCTION_URL?: string
 
       readonly NEXT_PUBLIC_GA_ID?: string
 

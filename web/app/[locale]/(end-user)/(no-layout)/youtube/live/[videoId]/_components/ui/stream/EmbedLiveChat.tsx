@@ -6,8 +6,7 @@ type Props = {
   showCloseButton?: boolean
 }
 
-const embed_domain =
-  process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || 'localhost'
+const embed_domain = process.env.VERCEL_PROJECT_PRODUCTION_URL || 'localhost'
 
 export default function EmbedLiveChat({
   videoId,
