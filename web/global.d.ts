@@ -28,7 +28,7 @@ declare global {
        * Example: *-git-*.vercel.app.
        * The value does not include the protocol scheme https://.
        */
-      readonly NEXT_PUBLIC_VERCEL_BRANCH_URL?: string
+      readonly VERCEL_BRANCH_URL?: string
 
       /**
        * A production domain name of the project.
@@ -44,7 +44,7 @@ declare global {
 
       readonly NEXT_PUBLIC_GA_ID?: string
 
-      readonly NEXT_PUBLIC_VERCEL_ENV?: 'production' | 'preview' | 'development'
+      readonly VERCEL_ENV?: 'production' | 'preview' | 'development'
     }
   }
 }
