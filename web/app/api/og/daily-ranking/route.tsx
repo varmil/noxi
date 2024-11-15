@@ -1,9 +1,6 @@
-import BigNumber from 'bignumber.js'
 import { ImageResponse } from 'next/og'
-import { getChannels } from 'apis/youtube/getChannels'
-import { getStreams } from 'apis/youtube/getStreams'
-import { getSupersBundles } from 'apis/youtube/getSupersBundles'
-import dayjs from 'lib//dayjs'
+import { getDailySupersRanking } from 'features/supers-ranking/utils/getSupersRanking'
+import dayjs from 'lib/dayjs'
 import { getWebUrl } from 'utils/web-url'
 // App router includes @vercel/og.
 // No need to install it.
@@ -15,50 +12,18 @@ const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
 /** ?date=<Date> */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const actualEndTimeGTE = dayjs(searchParams.get('date') ?? undefined)
-    .subtract(1, 'day')
-    .toDate()
 
-  const supersBudles = await getSupersBundles({
-    actualEndTimeGTE,
-    orderBy: [{ field: 'amountMicros', order: 'desc' }],
+  const ranking = await getDailySupersRanking({
+    date: searchParams.get('date') ?? undefined,
     limit: 5
   })
-  const [channels, streams] = await Promise.all([
-    getChannels({ ids: supersBudles.map(e => e.channelId) }),
-    getStreams({ videoIds: supersBudles.map(e => e.videoId) })
-  ])
+
   const formatter = Intl.DateTimeFormat('ja-JP', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     weekday: 'short'
   })
-
-  const ranking = supersBudles
-    .map((bundle, i) => {
-      const channel = channels.find(e => e.basicInfo.id === bundle.channelId)
-      const stream = streams.find(e => e.videoId === bundle.videoId)
-      if (!channel || !stream) return null
-
-      const {
-        basicInfo: { title, thumbnails }
-      } = channel
-      const {
-        snippet: { title: streamTitle, thumbnails: streamThumbnails }
-      } = stream
-
-      return {
-        rank: i + 1,
-        channelTitle: title,
-        channelThumbnails: thumbnails['medium']?.url,
-        streamTitle: streamTitle,
-        amount: Math.round(
-          BigNumber(bundle.amountMicros.toString()).div(1_000_000).toNumber()
-        ).toLocaleString()
-      }
-    })
-    .filter(e => !!e)
 
   return new ImageResponse(
     (
@@ -77,16 +42,19 @@ export async function GET(request: Request) {
         }}
       >
         <section tw="flex flex-col items-center w-[330px] h-full text-4xl font-bold">
-          <div style={{ fontSize: 40 }} tw="mb-32">
-            {formatter.format(
-              dayjs(searchParams.get('date') ?? undefined).toDate()
-            )}
+          <div tw="flex items-center mb-28" style={{ gap: 20 }}>
+            <div style={{ fontSize: 50 }}>日刊</div>
+            <div style={{ fontSize: 30 }} tw="self-end">
+              {formatter.format(
+                dayjs(searchParams.get('date') ?? undefined).toDate()
+              )}
+            </div>
           </div>
-          <div style={{ fontSize: 100 }}>日間</div>
-          <div>スーパーチャット額</div>
-          <div>ランキング</div>
-          <div style={{ fontSize: 10 }} tw="mt-auto">
-            ※PeakX登録タレント集計。スーパーステッカー含む
+
+          <div style={{ fontSize: 80 }}>スパチャ</div>
+          <div style={{ fontSize: 60 }}>ランキング</div>
+          <div style={{ fontSize: 12 }} tw="mt-auto">
+            ※PeakX登録タレント集計。ステッカー含む
           </div>
         </section>
         <section style={{ gap: 20 }} tw="flex-1 flex flex-col">
@@ -105,8 +73,12 @@ export async function GET(request: Request) {
                   }}
                 />
               </div>
-              <div tw="flex flex-col font-bold">
-                <div tw="flex text-2xl">{e.channelTitle}</div>
+              <div tw="flex flex-1 flex-col font-bold">
+                <div tw="flex text-2xl">
+                  {e.channelTitle.length > 33
+                    ? `${e.channelTitle.slice(0, 33)}...`
+                    : e.channelTitle}
+                </div>
                 <div tw="flex text-lg">{e.amount} 円 / 日</div>
               </div>
             </div>
