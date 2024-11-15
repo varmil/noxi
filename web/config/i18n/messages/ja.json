@@ -21,7 +21,8 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "streamRanking": "YouTubeライブ同接数ランキング"
+    "streamRanking": "YouTubeライブ同接数ランキング",
+    "superChatRanking": "VTuberスパチャランキング"
   },
 
   "Page": {
@@ -136,6 +137,16 @@
           "button": {
             "theaterMode": "シアターモードで大きく表示",
             "openChat": "チャットを表示"
+          }
+        }
+      },
+      "superChat": {
+        "ranking": {
+          "index": {
+            "metadata": {
+              "title": "VTuberスパチャランキング - Daily",
+              "description": ""
+            }
           }
         }
       }
