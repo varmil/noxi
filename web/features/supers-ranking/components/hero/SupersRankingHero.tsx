@@ -9,7 +9,7 @@ type Props = {
 }
 
 export default async function SupersRankingHero({ date }: Props) {
-  const ranking = await getDailySupersRanking(date)
+  const ranking = await getDailySupersRanking({ date, limit: 10 })
 
   return (
     <Container>
@@ -30,7 +30,7 @@ export default async function SupersRankingHero({ date }: Props) {
       <RankingContainer>
         {ranking.map((e, i) => (
           <div key={i} className="flex flex-row items-center gap-3 md:gap-5">
-            <div className="md:text-xl font-extrabold tabular-nums">
+            <div className="w-7 md:w-9 md:text-xl font-extrabold tabular-nums">
               {e.rank}
               <Weak>位</Weak>
             </div>
@@ -72,7 +72,7 @@ const Container = (props: PropsWithChildren) => {
 
 const HeadlineContainer = (props: PropsWithChildren) => {
   return (
-    <section className="flex flex-col items-center justify-between md:w-[330px] gap-4 font-bold">
+    <section className="flex flex-col items-center justify-between md:w-[330px] md:max-h-[600px] gap-4 font-bold">
       {props.children}
     </section>
   )

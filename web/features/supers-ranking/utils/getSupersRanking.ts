@@ -5,18 +5,22 @@ import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { SupersRanking } from 'features/supers-ranking/types/SupersRanking.type'
 import dayjs from 'lib/dayjs'
 
-/** @param date used for daily ranking */
-export async function getDailySupersRanking(
+/**
+ * @param date used for daily ranking
+ * @param limit daily ranking limit
+ **/
+export async function getDailySupersRanking({
+  date,
+  limit
+}: {
   date?: dayjs.ConfigType
-): Promise<SupersRanking[]> {
-  const actualEndTimeGTE = dayjs(date).subtract(1, 'day').toDate()
-  const actualEndTimeLTE = dayjs(date).toDate()
-
+  limit?: number
+}): Promise<SupersRanking[]> {
   const supersBudles = await getSupersBundles({
-    actualEndTimeGTE,
-    actualEndTimeLTE,
+    actualEndTimeGTE: getActualEndTimeGTE(date),
+    actualEndTimeLTE: getActualEndTimeLTE(date),
     orderBy: [{ field: 'amountMicros', order: 'desc' }],
-    limit: 5
+    limit
   })
   const [channels, streams] = await Promise.all([
     getChannels({ ids: supersBudles.map(e => e.channelId) }),
@@ -52,3 +56,9 @@ export async function getDailySupersRanking(
 
   return ranking
 }
+
+export const getActualEndTimeGTE = (date: dayjs.ConfigType) =>
+  dayjs(date).subtract(1, 'day').toDate()
+
+export const getActualEndTimeLTE = (date: dayjs.ConfigType) =>
+  dayjs(date).toDate()

@@ -13,9 +13,10 @@ const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
 
-  const ranking = await getDailySupersRanking(
-    searchParams.get('date') ?? undefined
-  )
+  const ranking = await getDailySupersRanking({
+    date: searchParams.get('date') ?? undefined,
+    limit: 5
+  })
 
   const formatter = Intl.DateTimeFormat('ja-JP', {
     year: 'numeric',
