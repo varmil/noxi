@@ -35,7 +35,7 @@ export default function YoutubeSuperChatRankingPage({
       breadcrumb={[
         {
           href: `/youtube/super-chat/ranking`,
-          name: t('superChatRanking')
+          name: t('supersRanking')
         }
       ]}
     >
