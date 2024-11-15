@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import DailyHoverCard from 'features/supers-ranking/components/styles/DailyHoverCard'
 import { getDailySupersRanking } from 'features/supers-ranking/utils/getSupersRanking'
-import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -11,20 +11,13 @@ type Props = {
 export default async function SupersRankingHero({ date }: Props) {
   const ranking = await getDailySupersRanking(date)
 
-  const formatter = Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    weekday: 'short'
-  })
-
   return (
     <Container>
       <HeadlineContainer>
         <div className="flex items-center gap-5">
           <div className="text-3xl md:text-5xl">日刊</div>
           <div className="text-xl md:text-3xl self-end">
-            {formatter.format(dayjs(date).toDate())}
+            <DailyHoverCard date={date} />
           </div>
         </div>
 
