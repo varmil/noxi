@@ -64,7 +64,7 @@ export default async function SupersRankingHero({ date }: Props) {
 
 const Container = (props: PropsWithChildren) => {
   return (
-    <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full h-full p-5 md:p-10 bg-accent rounded-lg">
+    <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 w-full h-full p-5 md:p-10 bg-accent rounded-lg">
       {props.children}
     </div>
   )
@@ -72,7 +72,7 @@ const Container = (props: PropsWithChildren) => {
 
 const HeadlineContainer = (props: PropsWithChildren) => {
   return (
-    <section className="flex flex-col items-center justify-between md:w-[330px] md:max-h-[600px] gap-4 font-bold">
+    <section className="flex flex-col items-center justify-between lg:w-[330px] lg:max-h-[600px] gap-4 font-bold">
       {props.children}
     </section>
   )
