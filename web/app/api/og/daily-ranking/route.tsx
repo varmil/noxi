@@ -72,8 +72,12 @@ export async function GET(request: Request) {
                   }}
                 />
               </div>
-              <div tw="flex flex-col font-bold">
-                <div tw="flex text-2xl">{e.channelTitle}</div>
+              <div tw="flex flex-1 flex-col font-bold">
+                <div tw="flex text-2xl">
+                  {e.channelTitle.length > 33
+                    ? `${e.channelTitle.slice(0, 33)}...`
+                    : e.channelTitle}
+                </div>
                 <div tw="flex text-lg">{e.amount} 円 / 日</div>
               </div>
             </div>

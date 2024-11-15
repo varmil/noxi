@@ -45,12 +45,13 @@ export default async function SupersRankingHero({ date }: Props) {
               </Avatar>
             </Link>
 
-            <div className="flex flex-col font-bold">
-              <div className="flex text-2xl">
-                <Link href={`/${e.group}/channels/${e.channelId}`}>
-                  {e.channelTitle}
-                </Link>
-              </div>
+            <div className="flex flex-1 flex-col font-bold">
+              <Link
+                href={`/${e.group}/channels/${e.channelId}`}
+                className="text-2xl line-clamp-1"
+              >
+                {e.channelTitle}
+              </Link>
               <div className="flex text-lg">{e.amount} 円 / 日</div>
             </div>
           </div>
