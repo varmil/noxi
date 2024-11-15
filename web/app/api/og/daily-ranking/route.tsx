@@ -77,16 +77,19 @@ export async function GET(request: Request) {
         }}
       >
         <section tw="flex flex-col items-center w-[330px] h-full text-4xl font-bold">
-          <div style={{ fontSize: 40 }} tw="mb-32">
-            {formatter.format(
-              dayjs(searchParams.get('date') ?? undefined).toDate()
-            )}
+          <div tw="flex items-center mb-28" style={{ gap: 20 }}>
+            <div style={{ fontSize: 50 }}>日刊</div>
+            <div style={{ fontSize: 30 }} tw="self-end">
+              {formatter.format(
+                dayjs(searchParams.get('date') ?? undefined).toDate()
+              )}
+            </div>
           </div>
-          <div style={{ fontSize: 100 }}>日間</div>
-          <div>スーパーチャット額</div>
-          <div>ランキング</div>
-          <div style={{ fontSize: 10 }} tw="mt-auto">
-            ※PeakX登録タレント集計。スーパーステッカー含む
+
+          <div style={{ fontSize: 80 }}>スパチャ</div>
+          <div style={{ fontSize: 60 }}>ランキング</div>
+          <div style={{ fontSize: 12 }} tw="mt-auto">
+            ※PeakX登録タレント集計。ステッカー含む
           </div>
         </section>
         <section style={{ gap: 20 }} tw="flex-1 flex flex-col">
