@@ -10,7 +10,8 @@ export default function IndexTemplate({ date }: PropsWithoutRef<Props>) {
   return (
     <section className="flex flex-col gap-y-10 max-w-6xl mx-auto">
       <SupersRankingHero date={date} />
-      <StreamRankingGallery />
+      {/* TODO: Add ranking gallery */}
+      {/* <StreamRankingGallery /> */}
     </section>
   )
 }
