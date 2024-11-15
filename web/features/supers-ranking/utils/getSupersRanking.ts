@@ -2,10 +2,13 @@ import BigNumber from 'bignumber.js'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
+import { SupersRanking } from 'features/supers-ranking/types/SupersRanking.type'
 import dayjs from 'lib/dayjs'
 
 /** @param date used for daily ranking */
-export async function getDailySupersRanking(date?: dayjs.ConfigType) {
+export async function getDailySupersRanking(
+  date?: dayjs.ConfigType
+): Promise<SupersRanking[]> {
   const actualEndTimeGTE = dayjs(date).subtract(1, 'day').toDate()
 
   const supersBudles = await getSupersBundles({
@@ -33,12 +36,14 @@ export async function getDailySupersRanking(date?: dayjs.ConfigType) {
 
       return {
         rank: i + 1,
+        channelId: bundle.channelId,
         channelTitle: title,
         channelThumbnails: thumbnails['medium']?.url,
         streamTitle: streamTitle,
         amount: Math.round(
           BigNumber(bundle.amountMicros.toString()).div(1_000_000).toNumber()
-        ).toLocaleString()
+        ).toLocaleString(),
+        group: bundle.group
       }
     })
     .filter((e): e is NonNullable<typeof e> => !!e)
