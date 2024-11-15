@@ -10,9 +10,11 @@ export async function getDailySupersRanking(
   date?: dayjs.ConfigType
 ): Promise<SupersRanking[]> {
   const actualEndTimeGTE = dayjs(date).subtract(1, 'day').toDate()
+  const actualEndTimeLTE = dayjs(date).toDate()
 
   const supersBudles = await getSupersBundles({
     actualEndTimeGTE,
+    actualEndTimeLTE,
     orderBy: [{ field: 'amountMicros', order: 'desc' }],
     limit: 5
   })
