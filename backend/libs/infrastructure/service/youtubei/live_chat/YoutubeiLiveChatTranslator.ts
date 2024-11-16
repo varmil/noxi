@@ -48,7 +48,7 @@ export class YoutubeiLiveChatTranslator {
       authorBadges
     } = renderer
 
-    // TODO:
+    // TODO: Add super sticker
     const type = liveChatPaidMessageRenderer
       ? new Type('superChatEvent')
       : new Type('textMessageEvent')
@@ -59,7 +59,7 @@ export class YoutubeiLiveChatTranslator {
         type: type,
         publishedAt: new PublishedAt(new Date(Number(timestampUsec) / 1000)),
         superChatDetails,
-        superStickerDetails: undefined // TODO:
+        superStickerDetails: undefined // TODO: Impl
       }),
       authorDetails: new AuthorDetails({
         channelId: new ChannelId(authorExternalChannelId),

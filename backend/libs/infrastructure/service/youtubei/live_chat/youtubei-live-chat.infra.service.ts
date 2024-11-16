@@ -63,9 +63,9 @@ export class YoutubeiLiveChatInfraService {
     // }
 
     const response = await axios.post(
-      `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${API_KEY}&prettyPrint=false`,
+      `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat`,
       createPayload(continuation),
-      { headers: this.headers }
+      { headers: this.headers, params: { key: API_KEY, prettyPrint: 'false' } }
     )
 
     const data = this.parse(response.data)
@@ -95,8 +95,7 @@ export class YoutubeiLiveChatInfraService {
       return youtubeiLiveChatAPISchema.parse(data)
     } catch (err) {
       if (err instanceof z.ZodError) {
-        console.log(err.issues)
-        throw err
+        throw new TypeError(err.issues.toString())
       } else {
         throw err
       }

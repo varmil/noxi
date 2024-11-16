@@ -4,8 +4,7 @@ import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
-import { NextPageToken, VideoId } from '@domain/youtube'
-import { LiveChatMessagesInfraService } from '@infra/service/youtube-data-api'
+import { VideoId } from '@domain/youtube'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
 
@@ -46,17 +45,15 @@ export class MainService {
    * @returns
    */
   async fetchNewMessages(videoId: VideoId) {
-    // setup
-    const video = await this.videosService.findById(videoId)
-    if (!video) return
-    // const liveChatId = video.liveStreamingDetails?.activeLiveChatId
-    // if (!liveChatId) return
+    const stream = await this.streamsService.findOne({ where: { videoId } })
+    if (!stream) return
 
     // 前回の結果を取得
     const latestChatCount = await this.streamStatsService.findLatestChatCount({
       where: { videoId }
     })
 
+    // TODO: キレイにする
     let continuation: string
     if (!latestChatCount) {
       const res = await new FirstContinuationFetcher().fetch(videoId.get())
@@ -65,7 +62,7 @@ export class MainService {
     } else if (latestChatCount?.nextPageToken?.get()) {
       continuation = latestChatCount?.nextPageToken?.get()
     } else {
-      this.logger.warn('no continuation, skip', video.snippet.title)
+      this.logger.warn('no continuation, skip', stream.snippet.title)
       return
     }
 
@@ -81,20 +78,17 @@ export class MainService {
     if (newMessages.superChats.length > 0) {
       this.logger.log(
         'SUPER CHAT',
-        video.snippet.title,
+        stream.snippet.title,
         newMessages.superChats.length,
         JSON.stringify(newMessages.superChats)
       )
     }
 
-    if (video.id.get() === '5sdw7bnOi50') {
-      this.logger.log(
-        'CHAT',
-        video.snippet.title,
-        newMessages.all.get(),
-        newMessages.member.get()
-      )
-    }
+    this.logger.log(
+      stream.videoId.get(),
+      newMessages.all.get(),
+      newMessages.member.get()
+    )
 
     return {
       newMessages,
