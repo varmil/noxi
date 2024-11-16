@@ -10,7 +10,6 @@ import {
   UserComment
 } from '@domain/supers'
 import {
-  ChannelURL,
   DisplayName,
   IsChatSponsor,
   ProfileImageUrl
@@ -37,13 +36,7 @@ export class LiveChatMessageTranslator {
     const {
       id,
       snippet,
-      authorDetails: {
-        channelId,
-        channelUrl,
-        displayName,
-        profileImageUrl,
-        isChatSponsor
-      }
+      authorDetails: { channelId, displayName, profileImageUrl, isChatSponsor }
     } = item
 
     const superChatDetails = this.getSuperChatDetails(snippet)
@@ -58,9 +51,7 @@ export class LiveChatMessageTranslator {
         superStickerDetails
       }),
       authorDetails: new AuthorDetails({
-        ...item.authorDetails,
         channelId: new ChannelId(channelId),
-        channelUrl: new ChannelURL(channelUrl),
         displayName: new DisplayName(displayName),
         profileImageUrl: new ProfileImageUrl(profileImageUrl),
         isChatSponsor: new IsChatSponsor(isChatSponsor)

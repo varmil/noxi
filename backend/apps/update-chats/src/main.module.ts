@@ -7,6 +7,7 @@ import { StreamsModule } from '@app/streams/streams.module'
 import { SuperChatsModule } from '@app/super-chats/super-chats.module'
 import { SuperStickersModule } from '@app/super-stickers/super-stickers.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
+import { YoutubeiInfraModule } from '@infra/service/youtubei'
 import { MainScenario } from './scenario/main.scenario'
 import { MainService } from './service/main.service'
 import { SaveSuperChatsService } from './service/save-super-chats.service'
@@ -22,7 +23,8 @@ import { SaveSuperStickersService } from './service/save-super-stickers.service'
     StreamsModule,
     StreamStatsModule,
     SuperChatsModule,
-    SuperStickersModule
+    SuperStickersModule,
+    YoutubeiInfraModule
   ],
   controllers: [],
   providers: [
