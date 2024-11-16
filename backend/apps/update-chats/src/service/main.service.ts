@@ -2,7 +2,6 @@ import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatuses, StreamStatus } from '@domain/stream'
 import { VideoId } from '@domain/youtube'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
@@ -13,11 +12,9 @@ export class MainService {
   private readonly logger = new Logger(MainService.name)
 
   constructor(
-    // private readonly liveChatMessagesInfraService: LiveChatMessagesInfraService,
     private readonly youtubeiLiveChatInfraService: YoutubeiLiveChatInfraService,
     private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService,
-    private readonly videosService: VideosService
+    private readonly streamStatsService: StreamStatsService
   ) {}
 
   /**

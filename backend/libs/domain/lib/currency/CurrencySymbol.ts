@@ -1,5 +1,4 @@
 import { IsNotEmpty } from 'class-validator'
-import { symbol } from 'zod'
 import { Currency } from '@domain/lib/currency/Currency.vo'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 

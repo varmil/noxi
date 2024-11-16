@@ -70,11 +70,6 @@ export class YoutubeiLiveChatInfraService {
 
     const data = this.parse(response.data)
 
-    // 次の continuation を取得
-    const nextContinuation =
-      data?.continuationContents?.liveChatContinuation?.continuations?.[0]
-        ?.invalidationContinuationData?.continuation
-
     const results =
       data.continuationContents?.liveChatContinuation.actions
         ?.map(action =>
@@ -85,7 +80,7 @@ export class YoutubeiLiveChatInfraService {
         .filter(e => e !== undefined) ?? []
 
     return {
-      nextContinuation,
+      nextContinuation: this.nextContinuation(data),
       items: new LiveChatMessages(results)
     }
   }
@@ -100,5 +95,10 @@ export class YoutubeiLiveChatInfraService {
         throw err
       }
     }
+  }
+
+  private nextContinuation(data: z.infer<typeof youtubeiLiveChatAPISchema>) {
+    return data?.continuationContents?.liveChatContinuation?.continuations?.[0]
+      ?.invalidationContinuationData?.continuation
   }
 }

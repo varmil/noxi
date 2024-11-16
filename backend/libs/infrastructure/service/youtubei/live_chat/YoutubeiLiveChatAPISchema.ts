@@ -1,12 +1,5 @@
 import { z } from 'zod'
 
-const continuationData = z
-  .object({
-    continuation: z.string(),
-    timeoutMs: z.number()
-  })
-  .optional()
-
 export const authorBadgesSchema = z
   .array(
     z.object({
@@ -43,6 +36,13 @@ export const addChatItemActionItemSchema = z.object({
   liveChatTextMessageRenderer: textRenderer.optional(),
   liveChatPaidMessageRenderer: paidRenderer.optional()
 })
+
+const continuationData = z
+  .object({
+    continuation: z.string(),
+    timeoutMs: z.number()
+  })
+  .optional()
 
 export const youtubeiLiveChatAPISchema = z.object({
   responseContext: z.object({

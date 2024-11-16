@@ -15,7 +15,7 @@ export class FirstContinuationFetcher {
   }
 
   /**
-   * 配信からContinuous Keyを抜く ついでにAPI Keyも抜く
+   * continuation, INNERTUBE_API_KEYを取得
    * @param videoId
    */
   async fetch(videoId: string): Promise<Options | undefined> {
@@ -42,9 +42,7 @@ export class FirstContinuationFetcher {
             }
           : undefined
 
-      if (!ret) {
-        throw new Error()
-      }
+      if (!ret) throw new Error()
       return ret
     } catch (error) {
       console.warn(
