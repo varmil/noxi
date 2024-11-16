@@ -17,7 +17,7 @@ export const authorBadgesSchema = z
 
 const textRenderer = z.object({
   id: z.string(),
-  authorName: z.object({ simpleText: z.string() }),
+  authorName: z.object({ simpleText: z.string() }).optional(),
   authorPhoto: z.object({
     thumbnails: z.array(z.object({ url: z.string() }))
   }),

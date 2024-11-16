@@ -63,7 +63,7 @@ export class YoutubeiLiveChatTranslator {
       }),
       authorDetails: new AuthorDetails({
         channelId: new ChannelId(authorExternalChannelId),
-        displayName: new DisplayName(authorName.simpleText),
+        displayName: new DisplayName(authorName?.simpleText ?? ''),
         profileImageUrl: new ProfileImageUrl(authorPhoto.thumbnails[0].url),
         isChatSponsor: new IsChatSponsor(this.isChatSponsor(authorBadges))
       })
