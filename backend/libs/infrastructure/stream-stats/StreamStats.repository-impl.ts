@@ -109,7 +109,8 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
         videoId: videoId.get(),
         all: all.get(),
         member: member.get(),
-        nextContinuation: nextContinuation?.get(),
+        // 終了を考えて、nullを入れる
+        nextContinuation: nextContinuation?.get() ?? null,
         latestPublishedAt: latestPublishedAt.get(),
         createdAt
       }
