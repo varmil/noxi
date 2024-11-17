@@ -60,12 +60,12 @@ export class MainService {
       latestChatCount?.latestPublishedAt
     )
 
-    this.logger.log(
-      stream.videoId.get(),
-      newMessages.all.get() || '0',
-      newMessages.member.get() || '0',
-      nextContinuation?.get().slice(0, 10)
-    )
+    this.logger.log({
+      videoId: stream.videoId.get(),
+      all: newMessages.all.get() || '0',
+      member: newMessages.member.get() || '0',
+      nextContinuation: nextContinuation?.get().slice(0, 10)
+    })
 
     return {
       newMessages,
@@ -86,7 +86,7 @@ export class MainService {
     if (latestChatCount) {
       // Skip 判定
       if (!latestChatCount.nextContinuation) {
-        this.logger.warn('skip', title.slice(0, 40))
+        this.logger.warn(`skip: ${title.slice(0, 40)}`)
         return
       } else {
         continuation = latestChatCount.nextContinuation
