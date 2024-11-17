@@ -10,7 +10,7 @@ type Params = {
   createdBefore?: Date
   createdAfter?: Date
   orderBy: {
-    field: 'tier' | 'amountMicros' | 'currency' | 'createdAt'
+    field: 'commentLength' | 'amountMicros' | 'currency' | 'createdAt'
     order: 'asc' | 'desc'
   }[]
   limit: number

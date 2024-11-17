@@ -104,7 +104,6 @@ export class YoutubeiLiveChatTranslator {
   //       amountMicros,
   //       currency,
   //       amountDisplayString,
-  //       tier,
   //       superStickerMetadata: { stickerId }
   //     } = snippet.superStickerDetails
 
@@ -112,7 +111,6 @@ export class YoutubeiLiveChatTranslator {
   //       amountMicros: new AmountMicros(BigNumber(amountMicros)),
   //       currency: new Currency(currency),
   //       amountDisplayString: new AmountDisplayString(amountDisplayString),
-  //       tier: new Tier(tier),
   //       stickerId: new StickerId(stickerId)
   //     })
   //   }

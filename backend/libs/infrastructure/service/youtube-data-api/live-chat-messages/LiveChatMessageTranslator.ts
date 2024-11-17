@@ -76,7 +76,7 @@ export class LiveChatMessageTranslator {
   ) {
     let superChatDetails: SuperChatDetails | undefined
     if (snippet.superChatDetails) {
-      const { amountMicros, currency, amountDisplayString, tier, userComment } =
+      const { amountMicros, currency, amountDisplayString, userComment } =
         snippet.superChatDetails
       superChatDetails = new SuperChatDetails({
         amountMicros: new AmountMicros(BigNumber(amountMicros)),
