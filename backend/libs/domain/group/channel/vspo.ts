@@ -36,6 +36,11 @@ const List: GroupChannel[] = [
     id: new ChannelId('UCnvVG9RbOW3J6Ifqo-zKLiw'),
     title: '兎咲ミミ / Tosaki Mimi',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCPkKpOHxEDcwmUAnRpIu-Ng'),
+    title: '藍沢エマ / Aizawa Ema',
+    ...DefaultProps
   }
 ]
 
