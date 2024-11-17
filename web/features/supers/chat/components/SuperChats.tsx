@@ -11,7 +11,7 @@ type Props = PropsWithoutRef<{
 
 export default async function SuperChats({ chats, showStreamLink }: Props) {
   let streams: StreamsSchema | undefined
-  if (showStreamLink) {
+  if (showStreamLink && chats.length > 0) {
     streams = await getStreams({
       videoIds: chats.map(chat => chat.videoId),
       orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],

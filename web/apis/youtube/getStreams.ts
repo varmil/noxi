@@ -37,7 +37,7 @@ export async function getStreams({
     ...(channelId && { channelId }),
     ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
     ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),
-    ...(limit && { limit: String(limit) })
+    ...(limit !== undefined && { limit: String(limit) })
   })
 
   orderBy?.forEach((orderBy, index) => {
