@@ -19,14 +19,14 @@ export default async function OnelineStatsOfScheduled({
       <OnelineStats>
         <ScheduledFor date={scheduledStartTime} />
       </OnelineStats>
-      {likes && (
+      {likes ? (
         <OnelineStats>
           <ThumbsUp className="h-4 w-4" />
           <span>
             <IntlNumberFormat>{likes}</IntlNumberFormat>
           </span>
         </OnelineStats>
-      )}
+      ) : null}
     </>
   )
 }
