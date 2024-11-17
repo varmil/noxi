@@ -32,15 +32,18 @@ export class SaveSuperChatsService {
       const { amountMicros, currency, amountDisplayString, userComment } =
         message.snippet.superChatDetails
 
-      this.logger.log(
-        `Id          : ${message.id.get()},
-         VideoId     : ${videoId.get()},
-         Group       : ${group.get()},
-         SuperChat   : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()},
-         UserComment : ${userComment.get()}
-         Author      : ${JSON.stringify(message.authorDetails)}
-        `
-      )
+      this.logger.log({
+        id: message.id.get(),
+        videoId: videoId.get(),
+        group: group.get(),
+        superChat: {
+          amount: amountMicros.toString(),
+          currency: currency.get(),
+          displayString: amountDisplayString.get()
+        },
+        comment: userComment.get(),
+        author: message.authorDetails.displayName.get()
+      })
 
       await this.superChatsService.save({
         data: new SuperChat({

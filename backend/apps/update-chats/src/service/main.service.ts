@@ -56,6 +56,23 @@ export class MainService {
         continuation
       })
 
+    if (nextContinuation === undefined) {
+      this.logger.log({
+        message: 'nextContinuation is undefined',
+        videoId: stream.videoId.get(),
+        title: stream.snippet.title,
+        items: items.length
+      })
+    }
+
+    if (items.length === 0) {
+      this.logger.log({
+        message: 'items is empty, so save skipped',
+        videoId: stream.videoId.get()
+      })
+      return
+    }
+
     const newMessages = items.selectNewerThan(
       latestChatCount?.latestPublishedAt
     )
@@ -83,8 +100,9 @@ export class MainService {
     } = stream
     let continuation: Continuation
 
-    if (latestChatCount) {
-      // Skip 判定
+    // TODO:  if (latestChatCount) { がおそらく正しい
+    if (latestChatCount?.nextContinuation) {
+      // Skip (stream probably ended)
       if (!latestChatCount.nextContinuation) {
         this.logger.warn(`skip: ${title.slice(0, 40)}`)
         return
@@ -92,6 +110,7 @@ export class MainService {
         continuation = latestChatCount.nextContinuation
       }
     } else {
+      this.logger.log({ message: `FirstContinuationFetcher`, videoId, title })
       const { continuation: c } = await new FirstContinuationFetcher().fetch(
         videoId
       )
@@ -100,39 +119,4 @@ export class MainService {
 
     return continuation
   }
-
-  // /**
-  //  *
-  //  * TODO: DELETE
-  //  *
-  //  * @param videoId
-  //  * @returns
-  //  */
-  // async fetchNewMessages(videoId: VideoId) {
-  //   // setup
-  //   const video = await this.videosService.findById(videoId)
-  //   if (!video) return
-  //   const liveChatId = video.liveStreamingDetails?.activeLiveChatId
-  //   if (!liveChatId) return
-
-  //   // 前回の結果を取得
-  //   const latestChatCount = await this.streamStatsService.findLatestChatCount({
-  //     where: { videoId }
-  //   })
-
-  //   const { items, nextPageToken } =
-  //     await this.liveChatMessagesInfraService.list({
-  //       liveChatId,
-  //       pageToken: latestChatCount?.nextPageToken
-  //     })
-
-  //   const newMessages = items.selectNewerThan(
-  //     latestChatCount?.latestPublishedAt
-  //   )
-
-  //   return {
-  //     newMessages,
-  //     nextPageToken
-  //   }
-  // }
 }
