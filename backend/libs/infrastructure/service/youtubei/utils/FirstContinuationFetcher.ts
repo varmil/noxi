@@ -9,6 +9,9 @@ interface Options {
   clientVersion: string
 }
 
+/**
+ * ref: https://drroot.page/wp/?p=227
+ */
 export class FirstContinuationFetcher {
   private chatUri = 'https://www.youtube.com/live_chat'
   private headers = {
