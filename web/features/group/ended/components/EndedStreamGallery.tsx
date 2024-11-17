@@ -24,7 +24,7 @@ export default async function EndedStreamGallery({
     group,
     channelId,
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: 99
+    limit: 50
   })
   const t = await getTranslations('Features.group.ended')
 

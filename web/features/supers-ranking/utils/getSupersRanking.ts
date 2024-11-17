@@ -24,7 +24,7 @@ export async function getDailySupersRanking({
   })
   const [channels, streams] = await Promise.all([
     getChannels({ ids: supersBudles.map(e => e.channelId) }),
-    getStreams({ videoIds: supersBudles.map(e => e.videoId) })
+    getStreams({ videoIds: supersBudles.map(e => e.videoId), limit })
   ])
 
   const ranking = supersBudles

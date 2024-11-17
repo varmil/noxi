@@ -14,7 +14,7 @@ export default async function YoutubeComments({
   showStreamLink
 }: Props) {
   let streams: StreamsSchema | undefined
-  if (showStreamLink) {
+  if (showStreamLink && threads.length > 0) {
     streams = await getStreams({
       videoIds: threads.map(thread => thread.snippet.videoId),
       orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
