@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { AmountDisplayString, Tier, UserComment } from '@domain/supers'
+import { AmountDisplayString, UserComment } from '@domain/supers'
 import {
   DisplayName,
   IsChatSponsor,
@@ -88,7 +88,6 @@ export class YoutubeiLiveChatTranslator {
       amountDisplayString: new AmountDisplayString(
         purchaseAmountText.simpleText
       ),
-      tier: new Tier(0), // TODO:
       userComment: new UserComment(
         message?.runs.map(run => run.text).join('') ?? ''
       )

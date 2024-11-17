@@ -29,14 +29,14 @@ export class SaveSuperChatsService {
     const promises = newMessages.map(async message => {
       if (!message.isSuperChat || !message.snippet.superChatDetails) return
 
-      const { amountMicros, currency, amountDisplayString, tier, userComment } =
+      const { amountMicros, currency, amountDisplayString, userComment } =
         message.snippet.superChatDetails
 
       this.logger.log(
         `Id          : ${message.id.get()},
          VideoId     : ${videoId.get()},
          Group       : ${group.get()},
-         SuperChat   : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
+         SuperChat   : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()},
          UserComment : ${userComment.get()}
          Author      : ${JSON.stringify(message.authorDetails)}
         `
@@ -50,7 +50,6 @@ export class SaveSuperChatsService {
           amountMicros,
           currency,
           amountDisplayString,
-          tier,
           userComment,
           author: message.authorDetails,
           createdAt: message.snippet.publishedAt

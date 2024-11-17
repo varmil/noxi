@@ -5,7 +5,6 @@ import {
   SuperSticker,
   AmountDisplayString,
   AmountMicros,
-  Tier,
   StickerId
 } from '@domain/supers'
 import {
@@ -29,7 +28,6 @@ export class SuperStickerTranslator {
       amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
-      tier: new Tier(row.tier),
       stickerId: new StickerId(row.stickerId),
 
       author: new Author({

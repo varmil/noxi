@@ -6,7 +6,10 @@ export interface SuperStickerRepository {
   findAll: (args: {
     where: { videoId?: VideoId; channelId?: ChannelId; group?: Group }
     orderBy?: Partial<
-      Record<'tier' | 'amountMicros' | 'currency' | 'createdAt', 'asc' | 'desc'>
+      Record<
+        'commentLength' | 'amountMicros' | 'currency' | 'createdAt',
+        'asc' | 'desc'
+      >
     >[]
     limit?: number
   }) => Promise<SuperStickers>

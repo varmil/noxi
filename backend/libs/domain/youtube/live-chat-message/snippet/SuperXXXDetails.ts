@@ -1,21 +1,18 @@
 import { Currency } from '@domain/lib/currency'
-import { AmountMicros, AmountDisplayString, Tier } from '@domain/supers'
+import { AmountMicros, AmountDisplayString } from '@domain/supers'
 
 export class SuperXXXDetails {
   public readonly amountMicros: AmountMicros
   public readonly currency: Currency
   public readonly amountDisplayString: AmountDisplayString
-  public readonly tier: Tier
 
   constructor(args: {
     amountMicros: AmountMicros
     currency: Currency
     amountDisplayString: AmountDisplayString
-    tier: Tier
   }) {
     this.amountMicros = args.amountMicros
     this.currency = args.currency
     this.amountDisplayString = args.amountDisplayString
-    this.tier = args.tier
   }
 }

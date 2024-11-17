@@ -114,7 +114,6 @@ model YoutubeStreamSuperChat {
   currency            String
   amountDisplayString String
   userComment         String
-  tier                Int
 
   // author
   authorChannelId       String
@@ -141,7 +140,6 @@ model YoutubeStreamSuperSticker {
   currency            String
   amountDisplayString String
   stickerId           String
-  tier                Int
 
   // author
   authorChannelId       String

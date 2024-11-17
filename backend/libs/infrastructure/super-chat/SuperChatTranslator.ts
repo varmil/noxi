@@ -5,7 +5,6 @@ import {
   SuperChat,
   AmountDisplayString,
   AmountMicros,
-  Tier,
   UserComment
 } from '@domain/supers'
 import {
@@ -29,7 +28,6 @@ export class SuperChatTranslator {
       amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
-      tier: new Tier(row.tier),
       userComment: new UserComment(row.userComment),
 
       author: new Author({

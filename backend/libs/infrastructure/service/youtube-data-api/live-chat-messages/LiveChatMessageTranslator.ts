@@ -6,7 +6,6 @@ import {
   AmountDisplayString,
   AmountMicros,
   StickerId,
-  Tier,
   UserComment
 } from '@domain/supers'
 import {
@@ -83,7 +82,6 @@ export class LiveChatMessageTranslator {
         amountMicros: new AmountMicros(BigNumber(amountMicros)),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
-        tier: new Tier(tier),
         userComment: new UserComment(userComment ?? '')
       })
     }
@@ -99,7 +97,6 @@ export class LiveChatMessageTranslator {
         amountMicros,
         currency,
         amountDisplayString,
-        tier,
         superStickerMetadata: { stickerId }
       } = snippet.superStickerDetails
 
@@ -107,7 +104,6 @@ export class LiveChatMessageTranslator {
         amountMicros: new AmountMicros(BigNumber(amountMicros)),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
-        tier: new Tier(tier),
         stickerId: new StickerId(stickerId)
       })
     }

@@ -6,7 +6,6 @@ import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import { Currency } from '../../lib/currency/Currency.vo'
 import { AmountDisplayString } from './AmountDisplayString.vo'
 import { AmountMicros } from './AmountMicros.vo'
-import { Tier } from './Tier.vo'
 import { Author } from './author/Author'
 
 export class Supers {
@@ -18,8 +17,6 @@ export class Supers {
   public readonly currency: Currency
   @Transform(({ value }: { value: AmountDisplayString }) => value.get())
   public readonly amountDisplayString: AmountDisplayString
-  @Transform(({ value }: { value: Tier }) => value.get())
-  public readonly tier: Tier
 
   public readonly author: Author
 
@@ -35,7 +32,6 @@ export class Supers {
     amountMicros: AmountMicros
     currency: Currency
     amountDisplayString: AmountDisplayString
-    tier: Tier
     author: Author
     videoId: VideoId
     group: Group
@@ -45,7 +41,6 @@ export class Supers {
     this.amountMicros = args.amountMicros
     this.currency = args.currency
     this.amountDisplayString = args.amountDisplayString
-    this.tier = args.tier
     this.author = args.author
     this.videoId = args.videoId
     this.group = args.group

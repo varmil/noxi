@@ -30,14 +30,14 @@ export class SaveSuperStickersService {
       if (!message.isSuperSticker || !message.snippet.superStickerDetails)
         return
 
-      const { amountMicros, currency, amountDisplayString, tier, stickerId } =
+      const { amountMicros, currency, amountDisplayString, stickerId } =
         message.snippet.superStickerDetails
 
       this.logger.log(
         `Id           : ${message.id.get()},
          VideoId      : ${videoId.get()},
          Group        : ${group.get()},
-         SuperSticker : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()}, ${tier.get()},
+         SuperSticker : ${amountMicros.toString()}, ${currency.get()}, ${amountDisplayString.get()}
          StickerId    : ${stickerId.get()}
          Author       : ${JSON.stringify(message.authorDetails)}
         `
@@ -51,7 +51,6 @@ export class SaveSuperStickersService {
           amountMicros,
           currency,
           amountDisplayString,
-          tier,
           stickerId,
           author: message.authorDetails,
           createdAt: message.snippet.publishedAt

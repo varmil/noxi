@@ -38,7 +38,6 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
       amountMicros,
       currency,
       amountDisplayString,
-      tier,
       userComment,
       author,
       videoId,
@@ -53,7 +52,6 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
         amountMicros: amountMicros.toBigInt(),
         currency: currency.get(),
         amountDisplayString: amountDisplayString.get(),
-        tier: tier.get(),
         userComment: userComment.get(),
 
         authorChannelId: author.channelId.get(),
