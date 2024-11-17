@@ -29,19 +29,19 @@ export default async function OnelineStatsOfLive({
           <Watching count={concurrentViewers} />
         </span>
       </OnelineStats>
-      {actualStartTime && (
+      {actualStartTime ? (
         <OnelineStats>
           <StartedStreaming date={actualStartTime} />
         </OnelineStats>
-      )}
-      {likes && (
+      ) : null}
+      {likes ? (
         <OnelineStats>
           <ThumbsUp className="h-4 w-4" />
           <span>
             <IntlNumberFormat>{likes}</IntlNumberFormat>
           </span>
         </OnelineStats>
-      )}
+      ) : null}
     </>
   )
 }

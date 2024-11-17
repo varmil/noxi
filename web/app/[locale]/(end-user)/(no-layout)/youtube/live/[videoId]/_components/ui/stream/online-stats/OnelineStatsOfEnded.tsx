@@ -22,32 +22,32 @@ export default async function OnelineStatsOfEnded({
 
   return (
     <>
-      {statistics.viewCount && (
+      {statistics.viewCount ? (
         <OnelineStats>
           <Views views={statistics.viewCount} />
         </OnelineStats>
-      )}
-      {actualEndTime && (
+      ) : null}
+      {actualEndTime ? (
         <OnelineStats>
           <StreamedLive date={actualEndTime} />
         </OnelineStats>
-      )}
-      {statistics.likeCount && (
+      ) : null}
+      {statistics.likeCount ? (
         <OnelineStats>
           <ThumbsUp className="h-4 w-4" />
           <span>
             <IntlNumberFormat>{statistics.likeCount}</IntlNumberFormat>
           </span>
         </OnelineStats>
-      )}
-      {statistics.commentCount && (
+      ) : null}
+      {statistics.commentCount ? (
         <OnelineStats>
           <CommentIcon className="h-4 w-4" />
           <span>
             <IntlNumberFormat>{statistics.commentCount}</IntlNumberFormat>
           </span>
         </OnelineStats>
-      )}
+      ) : null}
     </>
   )
 }
