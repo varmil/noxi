@@ -30,7 +30,7 @@ export default async function SupersRankingHero({ date }: Props) {
       <RankingContainer>
         {ranking.map((e, i) => (
           <div key={i} className="flex flex-row items-center gap-3 md:gap-5">
-            <div className="w-7 md:w-9 md:text-xl font-extrabold tabular-nums">
+            <div className="w-9 md:w-9 md:text-xl font-extrabold tabular-nums">
               {e.rank}
               <Weak>位</Weak>
             </div>
