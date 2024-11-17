@@ -18,7 +18,8 @@ import {
 import { PurchaseAmountText } from '@domain/youtubei/live-chat/PurchaseAmountText.vo'
 import {
   addChatItemActionItemSchema,
-  authorBadgesSchema
+  authorBadgesSchema,
+  textMessageSchema
 } from '@infra/service/youtubei/live_chat'
 
 export class YoutubeiLiveChatTranslator {
@@ -99,9 +100,7 @@ export class YoutubeiLiveChatTranslator {
       amountDisplayString: new AmountDisplayString(
         purchaseAmountText.simpleText
       ),
-      userComment: new UserComment(
-        message?.runs.map(run => run.text).join('') ?? ''
-      )
+      userComment: new UserComment(this.concatMessage(message))
     })
     return superChatDetails
   }
@@ -135,5 +134,24 @@ export class YoutubeiLiveChatTranslator {
         badge.liveChatAuthorBadgeRenderer.tooltip.includes('Member') ||
         badge.liveChatAuthorBadgeRenderer.tooltip.includes('member')
     )
+  }
+
+  private concatMessage(message: z.infer<typeof textMessageSchema>): string {
+    if (!message) return ''
+
+    return message.runs.reduce((acc, run) => {
+      if (run.text) {
+        return acc + run.text
+      } else if (run.emoji) {
+        if (run.emoji.isCustomEmoji) {
+          return (
+            acc + (run.emoji.shortcuts?.[run.emoji.shortcuts.length - 1] ?? '')
+          )
+        } else {
+          return acc + run.emoji.emojiId
+        }
+      }
+      return acc
+    }, '')
   }
 }

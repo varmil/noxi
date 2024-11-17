@@ -8,6 +8,23 @@ export const authorBadgesSchema = z
   )
   .optional()
 
+export const textMessageSchema = z
+  .object({
+    runs: z.array(
+      z.object({
+        text: z.string().optional(),
+        emoji: z
+          .object({
+            emojiId: z.string().optional(),
+            isCustomEmoji: z.boolean().optional(),
+            shortcuts: z.array(z.string()).optional()
+          })
+          .optional()
+      })
+    )
+  })
+  .optional()
+
 const textRenderer = z.object({
   id: z.string(),
   authorName: z.object({ simpleText: z.string() }).optional(),
@@ -15,11 +32,7 @@ const textRenderer = z.object({
     thumbnails: z.array(z.object({ url: z.string() }))
   }),
   authorExternalChannelId: z.string(),
-  message: z
-    .object({
-      runs: z.array(z.object({ text: z.string().optional() }))
-    })
-    .optional(),
+  message: textMessageSchema,
   timestampUsec: z.string(),
   authorBadges: authorBadgesSchema
 })

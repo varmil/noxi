@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { z } from 'zod'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { Continuation } from '@domain/youtubei/live-chat'
 import { YoutubeiLiveChatTranslator } from '@infra/service/youtubei/live_chat'
@@ -80,14 +79,6 @@ export class YoutubeiLiveChatInfraService {
   }
 
   private parse(data: unknown) {
-    try {
-      return youtubeiLiveChatAPISchema.parse(data)
-    } catch (err) {
-      if (err instanceof z.ZodError) {
-        throw new TypeError(err.issues.toString())
-      } else {
-        throw err
-      }
-    }
+    return youtubeiLiveChatAPISchema.parse(data)
   }
 }
