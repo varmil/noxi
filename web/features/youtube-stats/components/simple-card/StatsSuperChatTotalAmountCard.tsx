@@ -20,7 +20,7 @@ export default async function StatsSuperChatTotalAmountCard({
   const [chats, t, formatter] = await Promise.all([
     getSuperChats({
       videoId,
-      orderBy: [{ field: 'tier', order: 'desc' }],
+      orderBy: [{ field: 'amountMicros', order: 'desc' }],
       limit: 2000
     }),
     getTranslations('Features.youtube.stats.card'),

@@ -38,7 +38,7 @@ export default async function SuperChatGallery({
       createdBefore,
       createdAfter,
       orderBy: [
-        { field: 'tier', order: 'desc' },
+        { field: 'amountMicros', order: 'desc' },
         { field: 'createdAt', order: 'desc' }
       ],
       limit

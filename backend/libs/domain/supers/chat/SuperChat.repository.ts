@@ -12,7 +12,10 @@ export interface SuperChatRepository {
       createdAfter?: Date
     }
     orderBy?: Partial<
-      Record<'tier' | 'amountMicros' | 'currency' | 'createdAt', 'asc' | 'desc'>
+      Record<
+        'commentLength' | 'amountMicros' | 'currency' | 'createdAt',
+        'asc' | 'desc'
+      >
     >[]
     limit?: number
   }) => Promise<SuperChats>

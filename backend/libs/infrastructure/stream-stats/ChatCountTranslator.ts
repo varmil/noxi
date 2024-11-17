@@ -1,5 +1,6 @@
 import { ChatCount, Count } from '@domain/stream-stats'
-import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
+import { PublishedAt, VideoId } from '@domain/youtube'
+import { Continuation } from '@domain/youtubei/live-chat'
 import type { YoutubeStreamChatCount as PrismaChatCount } from '@prisma/client'
 
 export class ChatCountTranslator {
@@ -16,8 +17,8 @@ export class ChatCountTranslator {
       videoId: new VideoId(row.videoId),
       all: new Count(row.all),
       member: new Count(row.member),
-      nextPageToken: row.nextPageToken
-        ? new NextPageToken(row.nextPageToken)
+      nextContinuation: row.nextContinuation
+        ? new Continuation(row.nextContinuation)
         : undefined,
       latestPublishedAt: new PublishedAt(row.latestPublishedAt),
       createdAt: row.createdAt

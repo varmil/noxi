@@ -16,7 +16,6 @@ import {
 } from 'components/comment/comment/CommentHeader'
 import { CommentStreamLink } from 'components/comment/styles/CommentStreamLink'
 import Bullet from 'components/styles/Bullet'
-import SuperTierIcon from 'features/supers/components/SuperTierIcon'
 
 type Props = PropsWithoutRef<{
   chat: SuperChatSchema
@@ -28,7 +27,6 @@ export default async function SuperChat({ chat, stream }: Props) {
     amountMicros,
     currency,
     amountDisplayString,
-    tier,
     userComment,
     author,
     createdAt
@@ -60,7 +58,8 @@ export default async function SuperChat({ chat, stream }: Props) {
             </CommentHeaderWeakLine>
           </CommentHeaderItem>
           <CommentHeaderItem className="gap-x-1 text-lg font-bold tabular-nums">
-            <SuperTierIcon tier={tier} />
+            {/* TODO: 色実装するまでコメントアウト（DBに色コードを直接保存） */}
+            {/* <SuperTierIcon tier={tier} /> */}
             <span className="sr-only">{t('amount')}</span>
             {amountDisplayString}
           </CommentHeaderItem>

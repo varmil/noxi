@@ -1,11 +1,11 @@
 import { Exclude, Transform } from 'class-transformer'
+import { ExchangeRates } from '@domain/exchange-rate'
 import { Group } from '@domain/group'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import { Currency } from '../../lib/currency/Currency.vo'
 import { AmountDisplayString } from './AmountDisplayString.vo'
 import { AmountMicros } from './AmountMicros.vo'
-import { Tier } from './Tier.vo'
 import { Author } from './author/Author'
 
 export class Supers {
@@ -17,8 +17,6 @@ export class Supers {
   public readonly currency: Currency
   @Transform(({ value }: { value: AmountDisplayString }) => value.get())
   public readonly amountDisplayString: AmountDisplayString
-  @Transform(({ value }: { value: Tier }) => value.get())
-  public readonly tier: Tier
 
   public readonly author: Author
 
@@ -34,7 +32,6 @@ export class Supers {
     amountMicros: AmountMicros
     currency: Currency
     amountDisplayString: AmountDisplayString
-    tier: Tier
     author: Author
     videoId: VideoId
     group: Group
@@ -44,10 +41,15 @@ export class Supers {
     this.amountMicros = args.amountMicros
     this.currency = args.currency
     this.amountDisplayString = args.amountDisplayString
-    this.tier = args.tier
     this.author = args.author
     this.videoId = args.videoId
     this.group = args.group
     this.createdAt = args.createdAt
+  }
+
+  convertToJPY(er: ExchangeRates): AmountMicros {
+    if (this.currency.equals(Currency.JPY)) return this.amountMicros
+    const rate = er.getRate(this.currency)
+    return this.amountMicros.div(rate.get())
   }
 }

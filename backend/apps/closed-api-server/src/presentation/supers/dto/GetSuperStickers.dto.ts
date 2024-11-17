@@ -22,7 +22,9 @@ export class GetSuperStickers {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
-  orderBy: OrderByDto<'tier' | 'amountMicros' | 'currency' | 'createdAt'>[]
+  orderBy: OrderByDto<
+    'commentLength' | 'amountMicros' | 'currency' | 'createdAt'
+  >[]
 
   @IsOptional()
   @IsInt()

@@ -5,7 +5,6 @@ export const schema = z.object({
   amountMicros: z.coerce.bigint(),
   currency: z.string(),
   amountDisplayString: z.string(),
-  tier: z.number().min(0),
   userComment: z.string(),
 
   author: z.object({

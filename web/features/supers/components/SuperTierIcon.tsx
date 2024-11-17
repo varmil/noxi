@@ -8,6 +8,7 @@ function getBackgroundColor(tier: number): string {
   return 'bg-[#1564bf]'
 }
 
+/** @deprecated DBに色コードを直接保存して使う */
 export default function SuperTierIcon({
   tier,
   className

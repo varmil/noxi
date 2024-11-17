@@ -5,8 +5,9 @@ import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-sup
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
+import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
+import { Continuation } from '@domain/youtubei/live-chat'
 
 @Injectable()
 export class MainScenario {
@@ -21,17 +22,22 @@ export class MainScenario {
 
   async execute(): Promise<void> {
     const lives = await this.mainService.fetchLives()
-    const promises = lives.map(async ({ videoId }) => {
+    const promises = lives.map(async stream => {
+      const videoId = stream.videoId
       const promises: Promise<void>[] = []
 
-      const res = await this.mainService.fetchNewMessages(videoId)
+      const res = await this.mainService.fetchNewMessages(stream)
       if (!res) return
-      const { newMessages, nextPageToken } = res
+      const { newMessages, nextContinuation } = res
 
       // chat-counts
       {
         promises.push(
-          this.saveChatCounts({ videoId, newMessages, nextPageToken })
+          this.saveChatCounts({
+            videoId,
+            newMessages,
+            nextContinuation
+          })
         )
       }
 
@@ -57,20 +63,18 @@ export class MainScenario {
   private async saveChatCounts({
     videoId,
     newMessages,
-    nextPageToken
+    nextContinuation
   }: {
     videoId: VideoId
     newMessages: LiveChatMessages
-    nextPageToken?: string
+    nextContinuation?: Continuation
   }) {
     await this.streamStatsService.saveChatCount({
       data: {
         videoId,
         all: newMessages.all,
         member: newMessages.member,
-        nextPageToken: nextPageToken
-          ? new NextPageToken(nextPageToken)
-          : undefined,
+        nextContinuation,
         latestPublishedAt:
           newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
         createdAt: new Date()

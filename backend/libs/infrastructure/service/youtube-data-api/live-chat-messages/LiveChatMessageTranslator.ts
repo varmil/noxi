@@ -2,15 +2,8 @@ import { type youtube_v3 } from '@googleapis/youtube'
 import BigNumber from 'bignumber.js'
 import { z } from 'zod'
 import { Currency } from '@domain/lib/currency'
+import { AmountDisplayString, AmountMicros, UserComment } from '@domain/supers'
 import {
-  AmountDisplayString,
-  AmountMicros,
-  StickerId,
-  Tier,
-  UserComment
-} from '@domain/supers'
-import {
-  ChannelURL,
   DisplayName,
   IsChatSponsor,
   ProfileImageUrl
@@ -37,13 +30,7 @@ export class LiveChatMessageTranslator {
     const {
       id,
       snippet,
-      authorDetails: {
-        channelId,
-        channelUrl,
-        displayName,
-        profileImageUrl,
-        isChatSponsor
-      }
+      authorDetails: { channelId, displayName, profileImageUrl, isChatSponsor }
     } = item
 
     const superChatDetails = this.getSuperChatDetails(snippet)
@@ -58,9 +45,7 @@ export class LiveChatMessageTranslator {
         superStickerDetails
       }),
       authorDetails: new AuthorDetails({
-        ...item.authorDetails,
         channelId: new ChannelId(channelId),
-        channelUrl: new ChannelURL(channelUrl),
         displayName: new DisplayName(displayName),
         profileImageUrl: new ProfileImageUrl(profileImageUrl),
         isChatSponsor: new IsChatSponsor(isChatSponsor)
@@ -86,13 +71,12 @@ export class LiveChatMessageTranslator {
   ) {
     let superChatDetails: SuperChatDetails | undefined
     if (snippet.superChatDetails) {
-      const { amountMicros, currency, amountDisplayString, tier, userComment } =
+      const { amountMicros, currency, amountDisplayString, userComment } =
         snippet.superChatDetails
       superChatDetails = new SuperChatDetails({
         amountMicros: new AmountMicros(BigNumber(amountMicros)),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
-        tier: new Tier(tier),
         userComment: new UserComment(userComment ?? '')
       })
     }
@@ -104,20 +88,13 @@ export class LiveChatMessageTranslator {
   ) {
     let superStickerDetails: SuperStickerDetails | undefined = undefined
     if (snippet.superStickerDetails) {
-      const {
-        amountMicros,
-        currency,
-        amountDisplayString,
-        tier,
-        superStickerMetadata: { stickerId }
-      } = snippet.superStickerDetails
+      const { amountMicros, currency, amountDisplayString } =
+        snippet.superStickerDetails
 
       superStickerDetails = new SuperStickerDetails({
         amountMicros: new AmountMicros(BigNumber(amountMicros)),
         currency: new Currency(currency),
-        amountDisplayString: new AmountDisplayString(amountDisplayString),
-        tier: new Tier(tier),
-        stickerId: new StickerId(stickerId)
+        amountDisplayString: new AmountDisplayString(amountDisplayString)
       })
     }
     return superStickerDetails

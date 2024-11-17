@@ -87,6 +87,7 @@ model YoutubeStreamChatCount {
   all               Int      @default(0)
   member            Int      @default(0)
   nextPageToken     String?
+  nextContinuation  String?
   latestPublishedAt DateTime @db.Timestamptz(3)
   createdAt         DateTime @default(now()) @db.Timestamptz(3)
 
@@ -113,7 +114,6 @@ model YoutubeStreamSuperChat {
   currency            String
   amountDisplayString String
   userComment         String
-  tier                Int
 
   // author
   authorChannelId       String
@@ -139,8 +139,6 @@ model YoutubeStreamSuperSticker {
   amountMicros        BigInt
   currency            String
   amountDisplayString String
-  stickerId           String
-  tier                Int
 
   // author
   authorChannelId       String
