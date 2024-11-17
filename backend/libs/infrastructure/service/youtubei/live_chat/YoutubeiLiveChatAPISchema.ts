@@ -64,7 +64,9 @@ export const youtubeiLiveChatAPISchema = z.object({
         continuations: z.array(
           z.object({
             timedContinuationData: continuationData,
-            invalidationContinuationData: continuationData
+            invalidationContinuationData: continuationData,
+            reload_continuation_data: continuationData,
+            live_chat_replay_continuation_data: continuationData
           })
         ),
         actions: z

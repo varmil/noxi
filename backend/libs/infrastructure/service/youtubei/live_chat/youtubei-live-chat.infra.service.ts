@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { z } from 'zod'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { Continuation } from '@domain/youtubei/live-chat'
 import { YoutubeiLiveChatTranslator } from '@infra/service/youtubei/live_chat'
 import { youtubeiLiveChatAPISchema } from '@infra/service/youtubei/live_chat/YoutubeiLiveChatAPISchema'
+import { getNextContinuation } from '@infra/service/youtubei/utils/getNextContinuation'
 
 export interface LiveChatMessagesParams {
   continuation: Continuation
@@ -32,6 +33,8 @@ function createPayload(continuation: Continuation) {
  */
 @Injectable()
 export class YoutubeiLiveChatInfraService {
+  private readonly logger = new Logger(YoutubeiLiveChatInfraService.name)
+
   private readonly headers = {
     'user-agent':
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' +
@@ -58,17 +61,12 @@ export class YoutubeiLiveChatInfraService {
     )
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch data: ${response.statusText} ${await response.text()}`
+        `Failed to fetch data: ${response.statusText} \n 
+        ${await response.text()} \n 
+        ${await response.json()}`
       )
     }
     const data = this.parse(await response.json())
-
-    // const response = await axios.post(
-    //   `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat`,
-    //   createPayload(continuation),
-    //   { headers: this.headers, params: { key: API_KEY, prettyPrint: 'false' } }
-    // )
-    // const data = this.parse(response.data)
 
     const results =
       data.continuationContents?.liveChatContinuation.actions
@@ -80,7 +78,7 @@ export class YoutubeiLiveChatInfraService {
         .filter(e => e !== undefined) ?? []
 
     return {
-      nextContinuation: this.nextContinuation(data),
+      nextContinuation: getNextContinuation(data),
       items: new LiveChatMessages(results)
     }
   }
@@ -95,12 +93,5 @@ export class YoutubeiLiveChatInfraService {
         throw err
       }
     }
-  }
-
-  private nextContinuation(data: z.infer<typeof youtubeiLiveChatAPISchema>) {
-    const c =
-      data?.continuationContents?.liveChatContinuation?.continuations?.[0]
-        ?.invalidationContinuationData?.continuation
-    return c ? new Continuation(c) : undefined
   }
 }

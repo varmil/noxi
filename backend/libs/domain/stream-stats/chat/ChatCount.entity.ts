@@ -1,6 +1,6 @@
 import { Exclude, Transform } from 'class-transformer'
 import { Count } from '@domain/stream-stats'
-import { NextPageToken, PublishedAt, VideoId } from '@domain/youtube'
+import { PublishedAt, VideoId } from '@domain/youtube'
 import { Continuation } from '@domain/youtubei/live-chat/Continuation.vo'
 
 export class ChatCount {
@@ -10,8 +10,7 @@ export class ChatCount {
   public readonly all: Count
   @Transform(({ value }: { value: Count }) => value.get())
   public readonly member: Count
-  @Exclude()
-  public readonly nextPageToken?: NextPageToken
+
   @Exclude()
   public readonly nextContinuation?: Continuation
   @Exclude()
@@ -23,7 +22,6 @@ export class ChatCount {
     videoId: VideoId
     all: Count
     member: Count
-    nextPageToken?: NextPageToken
     nextContinuation?: Continuation
     latestPublishedAt: PublishedAt
     createdAt: Date
@@ -31,7 +29,6 @@ export class ChatCount {
     this.videoId = args.videoId
     this.all = args.all
     this.member = args.member
-    this.nextPageToken = args.nextPageToken
     this.nextContinuation = args.nextContinuation
     this.latestPublishedAt = args.latestPublishedAt
     this.createdAt = args.createdAt

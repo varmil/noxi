@@ -71,8 +71,9 @@ export class MainService {
 
     this.logger.log(
       stream.videoId.get(),
-      newMessages.all.get(),
-      newMessages.member.get()
+      newMessages.all.get() || '0',
+      newMessages.member.get() || '0',
+      nextContinuation?.get().slice(0, 10)
     )
 
     return {
@@ -91,7 +92,8 @@ export class MainService {
     } = stream
     let continuation: Continuation
 
-    if (latestChatCount) {
+    // TODO: latestChatCount?.nextContinuation --> latestChatCount
+    if (latestChatCount?.nextContinuation) {
       // Skip 判定
       if (!latestChatCount.nextContinuation) {
         this.logger.warn('skip', title.slice(0, 40))
@@ -100,7 +102,6 @@ export class MainService {
         continuation = latestChatCount.nextContinuation
       }
     } else {
-      this.logger.log('first continuation', title.slice(0, 40))
       const { continuation: c } = await new FirstContinuationFetcher().fetch(
         videoId
       )
@@ -112,7 +113,7 @@ export class MainService {
 
   // /**
   //  *
-  //  * TODO: liveChatIdをStreamから取れるようにする
+  //  * TODO: DELETE
   //  *
   //  * @param videoId
   //  * @returns

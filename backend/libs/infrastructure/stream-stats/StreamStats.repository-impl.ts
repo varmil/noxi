@@ -99,7 +99,6 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
       videoId,
       all,
       member,
-      nextPageToken,
       nextContinuation,
       latestPublishedAt,
       createdAt
@@ -110,7 +109,6 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
         videoId: videoId.get(),
         all: all.get(),
         member: member.get(),
-        nextPageToken: nextPageToken?.get(),
         nextContinuation: nextContinuation?.get(),
         latestPublishedAt: latestPublishedAt.get(),
         createdAt
