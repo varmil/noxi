@@ -110,7 +110,11 @@ export class MainService {
         continuation = latestChatCount.nextContinuation
       }
     } else {
-      this.logger.log({ message: `FirstContinuationFetcher`, videoId, title })
+      this.logger.log({
+        message: `FirstContinuationFetcher`,
+        videoId: videoId.get(),
+        title
+      })
       const { continuation: c } = await new FirstContinuationFetcher().fetch(
         videoId
       )
