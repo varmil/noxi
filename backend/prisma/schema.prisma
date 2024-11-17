@@ -139,7 +139,6 @@ model YoutubeStreamSuperSticker {
   amountMicros        BigInt
   currency            String
   amountDisplayString String
-  stickerId           String
 
   // author
   authorChannelId       String

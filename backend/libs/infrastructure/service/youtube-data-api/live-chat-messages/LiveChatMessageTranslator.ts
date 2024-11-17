@@ -2,12 +2,7 @@ import { type youtube_v3 } from '@googleapis/youtube'
 import BigNumber from 'bignumber.js'
 import { z } from 'zod'
 import { Currency } from '@domain/lib/currency'
-import {
-  AmountDisplayString,
-  AmountMicros,
-  StickerId,
-  UserComment
-} from '@domain/supers'
+import { AmountDisplayString, AmountMicros, UserComment } from '@domain/supers'
 import {
   DisplayName,
   IsChatSponsor,
@@ -93,18 +88,13 @@ export class LiveChatMessageTranslator {
   ) {
     let superStickerDetails: SuperStickerDetails | undefined = undefined
     if (snippet.superStickerDetails) {
-      const {
-        amountMicros,
-        currency,
-        amountDisplayString,
-        superStickerMetadata: { stickerId }
-      } = snippet.superStickerDetails
+      const { amountMicros, currency, amountDisplayString } =
+        snippet.superStickerDetails
 
       superStickerDetails = new SuperStickerDetails({
         amountMicros: new AmountMicros(BigNumber(amountMicros)),
         currency: new Currency(currency),
-        amountDisplayString: new AmountDisplayString(amountDisplayString),
-        stickerId: new StickerId(stickerId)
+        amountDisplayString: new AmountDisplayString(amountDisplayString)
       })
     }
     return superStickerDetails

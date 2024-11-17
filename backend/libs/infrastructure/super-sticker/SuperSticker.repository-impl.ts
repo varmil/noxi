@@ -33,7 +33,6 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
       amountMicros,
       currency,
       amountDisplayString,
-      stickerId,
       author,
       videoId,
       group,
@@ -47,7 +46,6 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
         amountMicros: amountMicros.toBigInt(),
         currency: currency.get(),
         amountDisplayString: amountDisplayString.get(),
-        stickerId: stickerId.get(),
 
         authorChannelId: author.channelId.get(),
         authorDisplayName: author.displayName.get(),

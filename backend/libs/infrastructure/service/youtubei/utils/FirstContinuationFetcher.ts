@@ -47,7 +47,7 @@ export class FirstContinuationFetcher {
 
     if (!ret)
       throw new Error(
-        `Failed to fetch FirstContinuation: Maybe the Live Stream is already ended.`
+        `Failed to fetch FirstContinuation: Maybe the Live Stream is already ended. videoId: ${videoId.get()}`
       )
     return ret
   }

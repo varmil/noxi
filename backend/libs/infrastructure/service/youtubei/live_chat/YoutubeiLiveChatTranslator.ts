@@ -12,6 +12,7 @@ import {
   LiveChatMessageId,
   Snippet,
   SuperChatDetails,
+  SuperStickerDetails,
   Type
 } from '@domain/youtube/live-chat-message'
 import { PurchaseAmountText } from '@domain/youtubei/live-chat/PurchaseAmountText.vo'
@@ -29,14 +30,23 @@ export class YoutubeiLiveChatTranslator {
     const item = this.item
     if (!item) return undefined
 
-    const { liveChatTextMessageRenderer, liveChatPaidMessageRenderer } = item
+    const {
+      liveChatTextMessageRenderer,
+      liveChatPaidMessageRenderer,
+      liveChatPaidStickerRenderer
+    } = item
 
     const superChatDetails = this.getSuperChatDetails(
       liveChatPaidMessageRenderer
     )
-    // const superStickerDetails = this.getSuperStickerDetails(snippet)
+    const superStickerDetails = this.getSuperStickerDetails(
+      liveChatPaidStickerRenderer
+    )
 
-    const renderer = liveChatPaidMessageRenderer ?? liveChatTextMessageRenderer
+    const renderer =
+      liveChatPaidMessageRenderer ??
+      liveChatPaidStickerRenderer ??
+      liveChatTextMessageRenderer
     if (!renderer) return undefined
 
     const {
@@ -48,10 +58,11 @@ export class YoutubeiLiveChatTranslator {
       authorBadges
     } = renderer
 
-    // TODO: Add super sticker
     const type = liveChatPaidMessageRenderer
       ? new Type('superChatEvent')
-      : new Type('textMessageEvent')
+      : liveChatPaidStickerRenderer
+        ? new Type('superStickerEvent')
+        : new Type('textMessageEvent')
 
     return new LiveChatMessage({
       id: new LiveChatMessageId(id),
@@ -59,7 +70,7 @@ export class YoutubeiLiveChatTranslator {
         type: type,
         publishedAt: new PublishedAt(new Date(Number(timestampUsec) / 1000)),
         superChatDetails,
-        superStickerDetails: undefined // TODO: Impl
+        superStickerDetails
       }),
       authorDetails: new AuthorDetails({
         channelId: new ChannelId(authorExternalChannelId),
@@ -95,27 +106,28 @@ export class YoutubeiLiveChatTranslator {
     return superChatDetails
   }
 
-  // private getSuperStickerDetails(
-  //   snippet: z.infer<typeof liveChatMessagesAPISchema>['snippet']
-  // ) {
-  //   let superStickerDetails: SuperStickerDetails | undefined = undefined
-  //   if (snippet.superStickerDetails) {
-  //     const {
-  //       amountMicros,
-  //       currency,
-  //       amountDisplayString,
-  //       superStickerMetadata: { stickerId }
-  //     } = snippet.superStickerDetails
+  private getSuperStickerDetails(
+    liveChatPaidStickerRenderer: z.infer<
+      typeof addChatItemActionItemSchema
+    >['liveChatPaidStickerRenderer']
+  ) {
+    if (!liveChatPaidStickerRenderer) return undefined
+    const { purchaseAmountText } = liveChatPaidStickerRenderer
 
-  //     superStickerDetails = new SuperStickerDetails({
-  //       amountMicros: new AmountMicros(BigNumber(amountMicros)),
-  //       currency: new Currency(currency),
-  //       amountDisplayString: new AmountDisplayString(amountDisplayString),
-  //       stickerId: new StickerId(stickerId)
-  //     })
-  //   }
-  //   return superStickerDetails
-  // }
+    const { symbol, amountMicros } = new PurchaseAmountText(
+      purchaseAmountText.simpleText
+    ).parse()
+
+    const superStickerDetails = new SuperStickerDetails({
+      amountMicros,
+      currency: symbol.ToCurrency(),
+      amountDisplayString: new AmountDisplayString(
+        purchaseAmountText.simpleText
+      )
+    })
+
+    return superStickerDetails
+  }
 
   private isChatSponsor(badges: z.infer<typeof authorBadgesSchema>) {
     return !!badges?.some(

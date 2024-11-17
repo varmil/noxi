@@ -33,8 +33,12 @@ const paidRenderer = textRenderer.merge(
 )
 
 export const addChatItemActionItemSchema = z.object({
+  // 通常のメッセージ
   liveChatTextMessageRenderer: textRenderer.optional(),
-  liveChatPaidMessageRenderer: paidRenderer.optional()
+  // スーパーチャット
+  liveChatPaidMessageRenderer: paidRenderer.optional(),
+  // スーパーステッカー
+  liveChatPaidStickerRenderer: paidRenderer.optional()
 })
 
 const continuationData = z

@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString } from 'class-validator'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
+/** @deprecated delete me */
 export class StickerId extends StringValueObject {
   @IsNotEmpty()
   @IsString()

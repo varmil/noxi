@@ -1,12 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { Group } from '@domain/group'
 import { Currency } from '@domain/lib/currency'
-import {
-  SuperSticker,
-  AmountDisplayString,
-  AmountMicros,
-  StickerId
-} from '@domain/supers'
+import { SuperSticker, AmountDisplayString, AmountMicros } from '@domain/supers'
 import {
   Author,
   DisplayName,
@@ -28,7 +23,6 @@ export class SuperStickerTranslator {
       amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
-      stickerId: new StickerId(row.stickerId),
 
       author: new Author({
         channelId: new ChannelId(row.authorChannelId),
