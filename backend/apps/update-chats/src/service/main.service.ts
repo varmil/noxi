@@ -2,8 +2,9 @@ import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { StreamStatuses, StreamStatus } from '@domain/stream'
-import { VideoId } from '@domain/youtube'
+import { StreamStatuses, StreamStatus, Stream } from '@domain/stream'
+import { ChatCount } from '@domain/stream-stats'
+import { Continuation } from '@domain/youtubei/live-chat'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
 
@@ -18,8 +19,8 @@ export class MainService {
   ) {}
 
   /**
-   * とりあえずスケジュール上の開始から取得する
-   * メンバー限定配信は省く
+   * * とりあえずスケジュール上の開始から取得する
+   * * メンバー限定配信は省く
    */
   async fetchLives() {
     return (
@@ -31,37 +32,24 @@ export class MainService {
           ]),
           scheduledBefore: dayjs().toDate()
         },
-        orderBy: [{ scheduledStartTime: 'asc' }],
         limit: 1000
       })
     ).filter(stream => !stream.membersOnly)
   }
 
   /**
-   * @param videoId
-   * @returns
+   * Youtubei から新しいメッセージを取得
    */
-  async fetchNewMessages(videoId: VideoId) {
-    const stream = await this.streamsService.findOne({ where: { videoId } })
-    if (!stream) return
+  async fetchNewMessages(stream: Stream) {
+    const videoId = stream.videoId
 
     // 前回の結果を取得
     const latestChatCount = await this.streamStatsService.findLatestChatCount({
       where: { videoId }
     })
 
-    // TODO: キレイにする
-    let continuation: string
-    if (!latestChatCount) {
-      const res = await new FirstContinuationFetcher().fetch(videoId.get())
-      if (!res) return
-      continuation = res.continuation
-    } else if (latestChatCount?.nextPageToken?.get()) {
-      continuation = latestChatCount?.nextPageToken?.get()
-    } else {
-      this.logger.warn('no continuation, skip', stream.snippet.title)
-      return
-    }
+    const continuation = await this.getContinuation(stream, latestChatCount)
+    if (!continuation) return
 
     const { items, nextContinuation } =
       await this.youtubeiLiveChatInfraService.list({
@@ -89,9 +77,37 @@ export class MainService {
 
     return {
       newMessages,
-      // TODO: DBにnextContinuation保存（nextPageToken消す）
-      nextPageToken: nextContinuation ?? undefined
+      nextContinuation
     }
+  }
+
+  private async getContinuation(
+    stream: Stream,
+    latestChatCount: ChatCount | null
+  ) {
+    const {
+      videoId,
+      snippet: { title }
+    } = stream
+    let continuation: Continuation
+
+    if (latestChatCount) {
+      // Skip 判定
+      if (!latestChatCount.nextContinuation) {
+        this.logger.warn('skip', title.slice(0, 40))
+        return
+      } else {
+        continuation = latestChatCount.nextContinuation
+      }
+    } else {
+      this.logger.log('first continuation', title.slice(0, 40))
+      const { continuation: c } = await new FirstContinuationFetcher().fetch(
+        videoId
+      )
+      continuation = c
+    }
+
+    return continuation
   }
 
   // /**

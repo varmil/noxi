@@ -87,6 +87,7 @@ model YoutubeStreamChatCount {
   all               Int      @default(0)
   member            Int      @default(0)
   nextPageToken     String?
+  nextContinuation  String?
   latestPublishedAt DateTime @db.Timestamptz(3)
   createdAt         DateTime @default(now()) @db.Timestamptz(3)
 

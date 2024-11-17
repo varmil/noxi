@@ -95,7 +95,15 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
   }
 
   async saveChatCount({
-    data: { videoId, all, member, nextPageToken, latestPublishedAt, createdAt }
+    data: {
+      videoId,
+      all,
+      member,
+      nextPageToken,
+      nextContinuation,
+      latestPublishedAt,
+      createdAt
+    }
   }: Parameters<StreamStatsRepository['saveChatCount']>[0]) {
     await this.prismaInfraService.youtubeStreamChatCount.create({
       data: {
@@ -103,6 +111,7 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
         all: all.get(),
         member: member.get(),
         nextPageToken: nextPageToken?.get(),
+        nextContinuation: nextContinuation?.get(),
         latestPublishedAt: latestPublishedAt.get(),
         createdAt
       }

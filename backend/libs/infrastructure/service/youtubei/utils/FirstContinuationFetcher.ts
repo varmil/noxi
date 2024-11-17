@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { VideoId } from '@domain/youtube'
+import { Continuation } from '@domain/youtubei/live-chat'
 
 interface Options {
   key: string
-  continuation: string
+  continuation: Continuation
   visitorData: string
   clientVersion: string
 }
@@ -16,42 +18,35 @@ export class FirstContinuationFetcher {
 
   /**
    * continuation, INNERTUBE_API_KEYを取得
-   * @param videoId
    */
-  async fetch(videoId: string): Promise<Options | undefined> {
-    try {
-      const res = await axios.get(this.chatUri, {
-        headers: this.headers,
-        params: { v: videoId }
-      })
+  async fetch(videoId: VideoId): Promise<Options> {
+    const res = await axios.get(this.chatUri, {
+      headers: this.headers,
+      params: { v: videoId.get() }
+    })
 
-      const html: string = res.data as string
+    const html: string = res.data as string
 
-      const matchedKey = this.extractMatch(html, /"INNERTUBE_API_KEY":"(.+?)"/)
-      const matchedCtn = this.extractMatch(html, /"continuation":"(.+?)"/)
-      const matchedVisitor = this.extractMatch(html, /"visitorData":"(.+?)"/)
-      const matchedClient = this.extractMatch(html, /"clientVersion":"(.+?)"/)
+    const matchedKey = this.extractMatch(html, /"INNERTUBE_API_KEY":"(.+?)"/)
+    const matchedCtn = this.extractMatch(html, /"continuation":"(.+?)"/)
+    const matchedVisitor = this.extractMatch(html, /"visitorData":"(.+?)"/)
+    const matchedClient = this.extractMatch(html, /"clientVersion":"(.+?)"/)
 
-      const ret: Options | undefined =
-        matchedKey && matchedCtn && matchedVisitor && matchedClient
-          ? {
-              key: matchedKey,
-              continuation: matchedCtn,
-              visitorData: matchedVisitor,
-              clientVersion: matchedClient
-            }
-          : undefined
+    const ret: Options | undefined =
+      matchedKey && matchedCtn && matchedVisitor && matchedClient
+        ? {
+            key: matchedKey,
+            continuation: new Continuation(matchedCtn),
+            visitorData: matchedVisitor,
+            clientVersion: matchedClient
+          }
+        : undefined
 
-      if (!ret) throw new Error()
-      return ret
-    } catch (error) {
-      console.warn(
-        `Failed to fetch FirstContinuation: 
-        ${JSON.stringify(error)}. 
-        Maybe the Live Stream is already ended.`
+    if (!ret)
+      throw new Error(
+        `Failed to fetch FirstContinuation: Maybe the Live Stream is already ended.`
       )
-      return undefined
-    }
+    return ret
   }
 
   /**

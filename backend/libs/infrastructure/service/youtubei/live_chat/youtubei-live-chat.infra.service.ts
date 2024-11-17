@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common'
-import axios from 'axios'
 import { z } from 'zod'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
+import { Continuation } from '@domain/youtubei/live-chat'
 import { YoutubeiLiveChatTranslator } from '@infra/service/youtubei/live_chat'
 import { youtubeiLiveChatAPISchema } from '@infra/service/youtubei/live_chat/YoutubeiLiveChatAPISchema'
 
 export interface LiveChatMessagesParams {
-  continuation: string
+  continuation: Continuation
 }
 
 // INNERTUBE_API_KEY をここに設定
 const API_KEY = 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8'
 
 // YouTube API リクエスト用のペイロードを作成
-function createPayload(continuation: string) {
+function createPayload(continuation: Continuation) {
   return {
     context: {
       gl: 'US',
@@ -23,7 +23,7 @@ function createPayload(continuation: string) {
         clientVersion: '2.20241113.07.00' // 適宜変更
       }
     },
-    continuation
+    continuation: continuation.get()
   }
 }
 
@@ -43,32 +43,32 @@ export class YoutubeiLiveChatInfraService {
 
   async list(
     params: LiveChatMessagesParams
-  ): Promise<{ nextContinuation?: string; items: LiveChatMessages }> {
+  ): Promise<{ nextContinuation?: Continuation; items: LiveChatMessages }> {
     return await this.getLiveChat(params.continuation)
   }
 
-  private async getLiveChat(continuation: string) {
-    // const response = await fetch(
-    //   `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${API_KEY}`,
-    //   {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(createPayload(continuation))
-    //   }
-    // )
-    // if (!response.ok) {
-    //   throw new Error(
-    //     `Failed to fetch data: ${response.statusText} ${await response.text()}`
-    //   )
-    // }
-
-    const response = await axios.post(
-      `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat`,
-      createPayload(continuation),
-      { headers: this.headers, params: { key: API_KEY, prettyPrint: 'false' } }
+  private async getLiveChat(continuation: Continuation) {
+    const response = await fetch(
+      `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${API_KEY}`,
+      {
+        method: 'POST',
+        headers: { ...this.headers, 'Content-Type': 'application/json' },
+        body: JSON.stringify(createPayload(continuation))
+      }
     )
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch data: ${response.statusText} ${await response.text()}`
+      )
+    }
+    const data = this.parse(await response.json())
 
-    const data = this.parse(response.data)
+    // const response = await axios.post(
+    //   `https://www.youtube.com/youtubei/v1/live_chat/get_live_chat`,
+    //   createPayload(continuation),
+    //   { headers: this.headers, params: { key: API_KEY, prettyPrint: 'false' } }
+    // )
+    // const data = this.parse(response.data)
 
     const results =
       data.continuationContents?.liveChatContinuation.actions
@@ -98,7 +98,9 @@ export class YoutubeiLiveChatInfraService {
   }
 
   private nextContinuation(data: z.infer<typeof youtubeiLiveChatAPISchema>) {
-    return data?.continuationContents?.liveChatContinuation?.continuations?.[0]
-      ?.invalidationContinuationData?.continuation
+    const c =
+      data?.continuationContents?.liveChatContinuation?.continuations?.[0]
+        ?.invalidationContinuationData?.continuation
+    return c ? new Continuation(c) : undefined
   }
 }
