@@ -78,27 +78,22 @@ export class YoutubeiLiveChatTranslator {
     if (!liveChatPaidMessageRenderer) return undefined
     const { message, purchaseAmountText } = liveChatPaidMessageRenderer
 
-    try {
-      const { symbol, amountMicros } = new PurchaseAmountText(
-        purchaseAmountText.simpleText
-      ).parse()
+    const { symbol, amountMicros } = new PurchaseAmountText(
+      purchaseAmountText.simpleText
+    ).parse()
 
-      const superChatDetails = new SuperChatDetails({
-        amountMicros,
-        currency: symbol.ToCurrency(),
-        amountDisplayString: new AmountDisplayString(
-          purchaseAmountText.simpleText
-        ),
-        tier: new Tier(0), // TODO:
-        userComment: new UserComment(
-          message?.runs.map(run => run.text).join('') ?? ''
-        )
-      })
-      return superChatDetails
-    } catch (error) {
-      console.error(error)
-      return undefined
-    }
+    const superChatDetails = new SuperChatDetails({
+      amountMicros,
+      currency: symbol.ToCurrency(),
+      amountDisplayString: new AmountDisplayString(
+        purchaseAmountText.simpleText
+      ),
+      tier: new Tier(0), // TODO:
+      userComment: new UserComment(
+        message?.runs.map(run => run.text).join('') ?? ''
+      )
+    })
+    return superChatDetails
   }
 
   // private getSuperStickerDetails(

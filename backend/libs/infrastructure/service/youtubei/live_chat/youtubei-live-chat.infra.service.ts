@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { z } from 'zod'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { Continuation } from '@domain/youtubei/live-chat'
@@ -29,12 +29,10 @@ function createPayload(continuation: Continuation) {
 }
 
 /**
- * https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key=${API_KEY}
+ * https://www.youtube.com/youtubei/v1/live_chat/get_live_chat
  */
 @Injectable()
 export class YoutubeiLiveChatInfraService {
-  private readonly logger = new Logger(YoutubeiLiveChatInfraService.name)
-
   private readonly headers = {
     'user-agent':
       'Mozilla/5.0 (Windows NT 10.0; Win64; x64) ' +
@@ -61,9 +59,7 @@ export class YoutubeiLiveChatInfraService {
     )
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch data: ${response.statusText} \n 
-        ${await response.text()} \n 
-        ${await response.json()}`
+        `Failed to fetch data: ${response.statusText} ${await response.text()}`
       )
     }
     const data = this.parse(await response.json())

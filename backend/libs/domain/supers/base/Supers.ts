@@ -1,4 +1,5 @@
 import { Exclude, Transform } from 'class-transformer'
+import { ExchangeRates } from '@domain/exchange-rate'
 import { Group } from '@domain/group'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
@@ -49,5 +50,11 @@ export class Supers {
     this.videoId = args.videoId
     this.group = args.group
     this.createdAt = args.createdAt
+  }
+
+  convertToJPY(er: ExchangeRates): AmountMicros {
+    if (this.currency.equals(Currency.JPY)) return this.amountMicros
+    const rate = er.getRate(this.currency)
+    return this.amountMicros.div(rate.get())
   }
 }

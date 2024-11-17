@@ -60,15 +60,6 @@ export class MainService {
       latestChatCount?.latestPublishedAt
     )
 
-    if (newMessages.superChats.length > 0) {
-      this.logger.log(
-        'SUPER CHAT',
-        stream.snippet.title,
-        newMessages.superChats.length,
-        JSON.stringify(newMessages.superChats)
-      )
-    }
-
     this.logger.log(
       stream.videoId.get(),
       newMessages.all.get() || '0',
