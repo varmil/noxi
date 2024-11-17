@@ -83,8 +83,7 @@ export class MainService {
     } = stream
     let continuation: Continuation
 
-    // TODO: latestChatCount?.nextContinuation --> latestChatCount
-    if (latestChatCount?.nextContinuation) {
+    if (latestChatCount) {
       // Skip 判定
       if (!latestChatCount.nextContinuation) {
         this.logger.warn('skip', title.slice(0, 40))
