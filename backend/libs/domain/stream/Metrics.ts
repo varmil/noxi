@@ -5,8 +5,11 @@ export class Metrics {
   public readonly avgConcurrentViewers: number
   /** チャットメッセージ数: ライブ配信中に視聴者が送信したチャットメッセージの件数 */
   public readonly chatMessages: number
-  /** 視聴回数: ライブ配信が配信中に視聴された合計回数です。 */
-  public readonly views: number
+  /**
+   * 視聴回数: ライブ配信が配信中に視聴された合計回数です。
+   * @important メンバー限定配信ではundefined
+   * */
+  public readonly views?: number
   /** 高評価数: The total number of users that have liked the stream. Likes transfer to the VOD archive of the live stream. */
   public readonly likes: number
 
@@ -14,7 +17,7 @@ export class Metrics {
     peakConcurrentViewers: number
     avgConcurrentViewers: number
     chatMessages: number
-    views: number
+    views?: number
     likes: number
   }) {
     this.peakConcurrentViewers = args.peakConcurrentViewers
@@ -24,8 +27,12 @@ export class Metrics {
     this.likes = args.likes
   }
 
+  isMemberOnly() {
+    return this.views === undefined
+  }
+
   get likeRate() {
-    if (this.views === 0) return 0
+    if (!this.views) return 0
     return Math.min(100, (this.likes / this.views) * 100)
   }
 }

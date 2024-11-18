@@ -31,6 +31,11 @@ export class Video {
     this.liveStreamingDetails = args.liveStreamingDetails
   }
 
+  @Exclude()
+  isMemberOnly(): boolean {
+    return this.statistics.isMemberOnly()
+  }
+
   @Expose()
   get isShort(): boolean {
     return this.duration.isShort()

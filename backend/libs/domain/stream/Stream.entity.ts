@@ -34,6 +34,11 @@ export class Stream {
     this.group = args.group
   }
 
+  @Exclude()
+  isMemberOnly(): boolean {
+    return this.metrics.isMemberOnly()
+  }
+
   @Expose()
   @Transform(({ value }: { value: StreamStatus }) => value.get())
   get status() {

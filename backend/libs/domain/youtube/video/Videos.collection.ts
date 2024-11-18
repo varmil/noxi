@@ -8,8 +8,14 @@ export class Videos extends Collection<Video> {
   }
 
   @Exclude()
+  selectNotMemberOnly = () =>
+    new Videos(this.list.filter(video => !video.isMemberOnly()))
+
+  @Exclude()
   averageViews = () => {
-    const views = this.list.map(video => video.statistics.viewCount)
+    const views = this.selectNotMemberOnly().map(
+      video => video.statistics.viewCount || 0
+    )
     let averageViews = views.reduce((acc, curr) => acc + curr, 0) / views.length
     if (isNaN(averageViews)) averageViews = 0
     return averageViews
@@ -17,7 +23,9 @@ export class Videos extends Collection<Video> {
 
   @Exclude()
   averageEngagementCount = () => {
-    const engagementCounts = this.list.map(video => video.engagementCount || 0)
+    const engagementCounts = this.selectNotMemberOnly().map(
+      video => video.engagementCount || 0
+    )
     let averageEngagementCount =
       engagementCounts.reduce((acc, curr) => acc + curr, 0) /
       engagementCounts.length
@@ -27,7 +35,9 @@ export class Videos extends Collection<Video> {
 
   @Exclude()
   averageEngagementRate = () => {
-    const engagementRates = this.list.map(video => video.engagementRate || 0)
+    const engagementRates = this.selectNotMemberOnly().map(
+      video => video.engagementRate || 0
+    )
     let averageEngagementRate =
       engagementRates.reduce((acc, curr) => acc + curr, 0) /
       engagementRates.length
