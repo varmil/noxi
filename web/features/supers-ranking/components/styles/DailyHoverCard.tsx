@@ -1,4 +1,4 @@
-import { useFormatter } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import {
   HoverCard,
   HoverCardContent,
@@ -15,6 +15,7 @@ type Props = {
 }
 
 export default function DailyHoverCard({ date }: Props) {
+  const t = useTranslations('Features.supersRanking.hoverCard')
   const formatter = useFormatter()
   const gte = getActualEndTimeGTE(date)
   const lte = getActualEndTimeLTE(date)
@@ -33,20 +34,20 @@ export default function DailyHoverCard({ date }: Props) {
       </HoverCardTrigger>
       <HoverCardContent className="font-normal">
         <div className="space-y-4">
-          <h4 className="text-sm">ランキング詳細</h4>
+          <h4 className="text-sm">{t('title')}</h4>
 
           <div className="space-y-4">
             <div className="space-y-2">
-              <h5 className="text-sm font-semibold">集計期間</h5>
+              <h5 className="text-sm font-semibold">{t('period')}</h5>
               <div className="grid grid-cols-[4rem_1fr] gap-2 text-sm">
-                <div className="text-muted-foreground">開始</div>
+                <div className="text-muted-foreground">{t('start')}</div>
                 <div>
                   {formatter.dateTime(gte, {
                     dateStyle: 'medium',
                     timeStyle: 'short'
                   })}
                 </div>
-                <div className="text-muted-foreground">終了</div>
+                <div className="text-muted-foreground">{t('end')}</div>
                 <div>
                   {formatter.dateTime(lte, {
                     dateStyle: 'medium',
@@ -57,9 +58,9 @@ export default function DailyHoverCard({ date }: Props) {
             </div>
 
             <div className="space-y-2">
-              <h5 className="text-sm font-semibold">集計条件</h5>
+              <h5 className="text-sm font-semibold">{t('criteria')}</h5>
               <div className="rounded-md bg-muted px-3 py-2 text-xs text-center">
-                対象期間に配信を「完了した」
+                {t('criteriaDescription')}
               </div>
             </div>
           </div>
