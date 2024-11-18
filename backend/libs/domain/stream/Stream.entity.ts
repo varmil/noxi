@@ -34,20 +34,20 @@ export class Stream {
     this.group = args.group
   }
 
-  @Exclude()
-  isMemberOnly(): boolean {
-    return this.metrics.isMemberOnly()
-  }
-
   @Expose()
   @Transform(({ value }: { value: StreamStatus }) => value.get())
   get status() {
     return this.streamTimes.streamStatus
   }
 
-  /** 簡易的にタイトルに特定の文字列があるかどうかで判定 */
+  /** 簡易的に
+   * * viewsがundefined = メンバー限定
+   * * タイトルに特定の文字列がある = メンバー限定
+   */
   @Exclude()
   get membersOnly() {
+    if (this.metrics.membersOnly()) return true
+
     const TITLES = [
       'members only',
       'member stream',

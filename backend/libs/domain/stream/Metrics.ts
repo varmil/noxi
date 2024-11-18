@@ -27,12 +27,7 @@ export class Metrics {
     this.likes = args.likes
   }
 
-  isMemberOnly() {
+  membersOnly() {
     return this.views === undefined
-  }
-
-  get likeRate() {
-    if (!this.views) return 0
-    return Math.min(100, (this.likes / this.views) * 100)
   }
 }

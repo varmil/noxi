@@ -9,7 +9,7 @@ export class Videos extends Collection<Video> {
 
   @Exclude()
   selectNotMemberOnly = () =>
-    new Videos(this.list.filter(video => !video.isMemberOnly()))
+    new Videos(this.list.filter(video => !video.membersOnly))
 
   @Exclude()
   averageViews = () => {

@@ -13,7 +13,7 @@ export async function getVideosInChannel({
       limit: String(limit)
     }).toString()}`,
     {
-      next: { revalidate: 10 }
+      next: { revalidate: 3600 }
     }
   )
 

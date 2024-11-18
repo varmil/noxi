@@ -1,5 +1,6 @@
 import { VideosSchema } from 'apis/youtube/schema/videoSchema'
 import dayjs from 'lib/dayjs'
+import { excludeMembersOnly } from 'utils/video/excludeMembersOnly'
 
 const DAYS_ORDER = [
   'Monday',
@@ -24,10 +25,10 @@ type ReducedData = ChartData & {
 
 export function useGroupByDay(videos: VideosSchema) {
   const data = Object.values(
-    videos
+    excludeMembersOnly(videos)
       .map<ChartData>(video => ({
         dayOfWeek: dayjs.utc(video.snippet.publishedAt).format('dddd'),
-        views: video.statistics.viewCount,
+        views: video.statistics.viewCount || 0,
         likes: video.statistics.likeCount,
         comments: video.statistics.commentCount
       }))

@@ -14,13 +14,8 @@ export class Statistics {
     this.commentCount = args.commentCount
   }
 
-  isMemberOnly() {
+  membersOnly() {
     return this.viewCount === undefined
-  }
-
-  get commentRate() {
-    if (!this.viewCount) return 0
-    return Math.min(100, (this.commentCount / this.viewCount) * 100)
   }
 
   get engagementCount() {
@@ -30,10 +25,5 @@ export class Statistics {
   get engagementRate() {
     if (!this.viewCount) return 0
     return Math.min(100, (this.engagementCount / this.viewCount) * 100)
-  }
-
-  get likeRate() {
-    if (!this.viewCount) return 0
-    return Math.min(100, (this.likeCount / this.viewCount) * 100)
   }
 }

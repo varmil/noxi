@@ -27,14 +27,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   ])
 
   const {
-    snippet: { thumbnails },
-    metrics: {
-      peakConcurrentViewers,
-      avgConcurrentViewers,
-      chatMessages,
-      views,
-      likes
-    }
+    snippet: { thumbnails }
   } = stream
   const { concurrentViewers } = liveStreamingDetails || {}
   const isLive = stream.status === 'live'

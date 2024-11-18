@@ -31,9 +31,9 @@ export class Video {
     this.liveStreamingDetails = args.liveStreamingDetails
   }
 
-  @Exclude()
-  isMemberOnly(): boolean {
-    return this.statistics.isMemberOnly()
+  @Expose()
+  get membersOnly(): boolean {
+    return this.statistics.membersOnly()
   }
 
   @Expose()
@@ -71,24 +71,14 @@ export class Video {
     return this.liveStreamingDetails?.streamTimes.streamStatus
   }
 
-  @Expose()
-  get commentRate() {
-    return this.statistics.commentRate
-  }
-
-  @Expose()
+  @Exclude()
   get engagementCount() {
     return this.statistics.engagementCount
   }
 
-  @Expose()
+  @Exclude()
   get engagementRate() {
     return this.statistics.engagementRate
-  }
-
-  @Expose()
-  get likeRate() {
-    return this.statistics.likeRate
   }
 
   /**

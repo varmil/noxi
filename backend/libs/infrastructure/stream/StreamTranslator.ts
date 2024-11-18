@@ -53,7 +53,7 @@ export class StreamTranslator {
         peakConcurrentViewers: row.maxViewerCount,
         avgConcurrentViewers: row.averageConcurrentViewers,
         chatMessages: row.chatMessages,
-        views: row.views,
+        views: row.views ?? undefined,
         likes: row.likeCount
       }),
 
