@@ -208,7 +208,15 @@
       "ranking": "live earnings",
       "note1": "* PeakX registered talent",
       "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}",
-      "yen": "Yen"
+      "yen": "Yen",
+      "hoverCard": {
+        "title": "Ranking details",
+        "period": "Collection period",
+        "start": "Start",
+        "end": "End",
+        "criteria": "Criteria",
+        "criteriaDescription": "Ended the stream during the target period"
+      }
     },
 
     "youtube": {
