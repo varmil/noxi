@@ -56,11 +56,11 @@ model YoutubeStream {
   actualStartTime    DateTime? @db.Timestamptz(3)
   actualEndTime      DateTime? @db.Timestamptz(3)
 
-  maxViewerCount           Int @default(0)
-  averageConcurrentViewers Int @default(0)
-  chatMessages             Int @default(0)
-  views                    Int @default(0)
-  likeCount                Int @default(0)
+  maxViewerCount           Int  @default(0)
+  averageConcurrentViewers Int  @default(0)
+  chatMessages             Int  @default(0)
+  views                    Int?
+  likeCount                Int  @default(0)
 
   status    String
   group     String

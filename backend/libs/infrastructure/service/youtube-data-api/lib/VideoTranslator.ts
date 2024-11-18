@@ -47,7 +47,7 @@ export class VideoTranslator {
       }),
       duration: new Duration(v.contentDetails.duration),
       statistics: new Statistics({
-        viewCount: Number(viewCount ?? 0),
+        viewCount: viewCount !== undefined ? Number(viewCount ?? 0) : undefined,
         likeCount: Number(likeCount ?? 0),
         commentCount: Number(commentCount ?? 0)
       }),

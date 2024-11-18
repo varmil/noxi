@@ -21,13 +21,11 @@ export function getNextContinuation(
       if (c.invalidationContinuationData) {
         return new Continuation(c.invalidationContinuationData.continuation)
       }
-      if (c.reload_continuation_data) {
-        return new Continuation(c.reload_continuation_data.continuation)
+      if (c.reloadContinuationData) {
+        return new Continuation(c.reloadContinuationData.continuation)
       }
-      if (c.live_chat_replay_continuation_data) {
-        return new Continuation(
-          c.live_chat_replay_continuation_data.continuation
-        )
+      if (c.liveChatReplayContinuationData) {
+        return new Continuation(c.liveChatReplayContinuationData.continuation)
       }
     })
     .find(c => c !== undefined)

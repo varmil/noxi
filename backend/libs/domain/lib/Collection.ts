@@ -19,6 +19,9 @@ export abstract class Collection<T> {
   }
 
   @Exclude()
+  isEmpty = () => this.list.length === 0
+
+  @Exclude()
   slice = (start?: number, end?: number): this =>
     this.newInstance(this.list.slice(start, end))
 

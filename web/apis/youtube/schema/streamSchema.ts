@@ -33,7 +33,7 @@ export const schema = z.object({
     peakConcurrentViewers: z.number().min(0),
     avgConcurrentViewers: z.number().min(0),
     chatMessages: z.number().min(0),
-    views: z.number().min(0),
+    views: z.number().min(0).optional(),
     likes: z.number().min(0)
   }),
 

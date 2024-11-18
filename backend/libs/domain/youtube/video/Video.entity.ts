@@ -32,6 +32,11 @@ export class Video {
   }
 
   @Expose()
+  get membersOnly(): boolean {
+    return this.statistics.membersOnly()
+  }
+
+  @Expose()
   get isShort(): boolean {
     return this.duration.isShort()
   }
@@ -66,24 +71,14 @@ export class Video {
     return this.liveStreamingDetails?.streamTimes.streamStatus
   }
 
-  @Expose()
-  get commentRate() {
-    return this.statistics.commentRate
-  }
-
-  @Expose()
+  @Exclude()
   get engagementCount() {
     return this.statistics.engagementCount
   }
 
-  @Expose()
+  @Exclude()
   get engagementRate() {
     return this.statistics.engagementRate
-  }
-
-  @Expose()
-  get likeRate() {
-    return this.statistics.likeRate
   }
 
   /**

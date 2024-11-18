@@ -1,10 +1,11 @@
 export class Statistics {
-  public readonly viewCount: number
+  /** メンバー限定配信ではundefined (viewCountを取得できない) */
+  public readonly viewCount?: number
   public readonly likeCount: number
   public readonly commentCount: number
 
   constructor(args: {
-    viewCount: number
+    viewCount?: number
     likeCount: number
     commentCount: number
   }) {
@@ -13,9 +14,8 @@ export class Statistics {
     this.commentCount = args.commentCount
   }
 
-  get commentRate() {
-    if (this.viewCount === 0) return 0
-    return Math.min(100, (this.commentCount / this.viewCount) * 100)
+  membersOnly() {
+    return this.viewCount === undefined
   }
 
   get engagementCount() {
@@ -23,12 +23,7 @@ export class Statistics {
   }
 
   get engagementRate() {
-    if (this.viewCount === 0) return 0
+    if (!this.viewCount) return 0
     return Math.min(100, (this.engagementCount / this.viewCount) * 100)
-  }
-
-  get likeRate() {
-    if (this.viewCount === 0) return 0
-    return Math.min(100, (this.likeCount / this.viewCount) * 100)
   }
 }

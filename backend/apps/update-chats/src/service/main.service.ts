@@ -77,12 +77,14 @@ export class MainService {
       latestChatCount?.latestPublishedAt
     )
 
-    this.logger.log({
-      videoId: stream.videoId.get(),
-      all: newMessages.all.get() || '0',
-      member: newMessages.member.get() || '0',
-      nextContinuation: nextContinuation?.get().slice(0, 10)
-    })
+    // 問題がありそうなら消す
+    if (newMessages.isEmpty()) {
+      this.logger.log({
+        message: 'newMessages is empty, so save skipped',
+        videoId: stream.videoId.get()
+      })
+      return
+    }
 
     return {
       newMessages,
@@ -100,8 +102,7 @@ export class MainService {
     } = stream
     let continuation: Continuation
 
-    // TODO:  if (latestChatCount) { がおそらく正しい
-    if (latestChatCount?.nextContinuation) {
+    if (latestChatCount) {
       // Skip (stream probably ended)
       if (!latestChatCount.nextContinuation) {
         this.logger.warn(`skip: ${title.slice(0, 40)}`)

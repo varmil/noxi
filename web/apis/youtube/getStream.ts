@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation'
 import { schema, StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 

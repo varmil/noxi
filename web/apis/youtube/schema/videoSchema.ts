@@ -21,7 +21,7 @@ const schema = z.object({
   }),
   duration: z.string().duration(),
   statistics: z.object({
-    viewCount: z.number().min(0),
+    viewCount: z.number().min(0).optional(),
     likeCount: z.number().min(0),
     commentCount: z.number().min(0)
   }),
@@ -36,11 +36,8 @@ const schema = z.object({
     })
     .optional(),
 
+  membersOnly: z.boolean(),
   isShort: z.boolean(),
-  commentRate: z.number().min(0).max(100),
-  engagementCount: z.number().min(0),
-  engagementRate: z.number().min(0).max(100),
-  likeRate: z.number().min(0).max(100),
   isPaidPromotion: z.boolean().optional(),
 
   updatedAt: z.string().datetime().optional()

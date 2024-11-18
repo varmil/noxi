@@ -56,8 +56,7 @@ export const addChatItemActionItemSchema = z.object({
 
 const continuationData = z
   .object({
-    continuation: z.string(),
-    timeoutMs: z.number()
+    continuation: z.string()
   })
   .optional()
 
@@ -82,8 +81,8 @@ export const youtubeiLiveChatAPISchema = z.object({
           z.object({
             timedContinuationData: continuationData,
             invalidationContinuationData: continuationData,
-            reload_continuation_data: continuationData,
-            live_chat_replay_continuation_data: continuationData
+            reloadContinuationData: continuationData,
+            liveChatReplayContinuationData: continuationData
           })
         ),
         actions: z

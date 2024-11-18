@@ -40,9 +40,14 @@ export class Stream {
     return this.streamTimes.streamStatus
   }
 
-  /** 簡易的にタイトルに特定の文字列があるかどうかで判定 */
+  /** 簡易的に
+   * * viewsがundefined = メンバー限定
+   * * タイトルに特定の文字列がある = メンバー限定
+   */
   @Exclude()
   get membersOnly() {
+    if (this.metrics.membersOnly()) return true
+
     const TITLES = [
       'members only',
       'member stream',
