@@ -15,22 +15,22 @@ export default async function SupersRankingHero({ date }: Props) {
     <Container>
       <HeadlineContainer>
         <div className="flex items-center gap-5">
-          <div className="text-3xl md:text-5xl">日刊</div>
+          <div className="text-3xl md:text-4xl">日刊</div>
           <div className="text-xl md:text-3xl self-end">
             <DailyHoverCard date={date} />
           </div>
         </div>
 
         <div className="text-center">
-          <div className="text-5xl md:text-8xl">スパチャ</div>
-          <div className="text-4xl md:text-6xl">ランキング</div>
+          <div className="text-5xl md:text-7xl">スパチャ</div>
+          <div className="text-4xl md:text-5xl">ランキング</div>
         </div>
         <div className="text-xs text-muted-foreground">※PeakX登録タレント</div>
       </HeadlineContainer>
       <RankingContainer>
         {ranking.map((e, i) => (
           <div key={i} className="flex flex-row items-center gap-3 md:gap-5">
-            <div className="w-9 md:w-9 md:text-xl font-extrabold tabular-nums">
+            <div className="w-7 md:w-9 md:text-xl text-nowrap font-extrabold tabular-nums">
               {e.rank}
               <Weak>位</Weak>
             </div>
