@@ -202,6 +202,15 @@
       "sticker": { "count": "{count} Super Stickers" }
     },
 
+    "supersRanking": {
+      "daily": "Daily",
+      "superChat": "Superchat",
+      "ranking": "live earnings",
+      "note1": "* PeakX registered talent",
+      "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}",
+      "yen": "Yen"
+    },
+
     "youtube": {
       "channel": {
         "channel": "channel",
