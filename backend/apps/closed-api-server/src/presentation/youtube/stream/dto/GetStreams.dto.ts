@@ -41,6 +41,14 @@ export class GetStreamsDto {
   scheduledAfter?: string
 
   @IsOptional()
+  @IsRFC3339()
+  endedBefore?: string
+
+  @IsOptional()
+  @IsRFC3339()
+  endedAfter?: string
+
+  @IsOptional()
   @IsString()
   channelId?: string
 
@@ -75,6 +83,14 @@ export class GetStreamsDto {
 
   toScheduledAfter = () => {
     return this.scheduledAfter ? new Date(this.scheduledAfter) : undefined
+  }
+
+  toEndedBefore = () => {
+    return this.endedBefore ? new Date(this.endedBefore) : undefined
+  }
+
+  toEndedAfter = () => {
+    return this.endedAfter ? new Date(this.endedAfter) : undefined
   }
 
   toChannelId = () =>

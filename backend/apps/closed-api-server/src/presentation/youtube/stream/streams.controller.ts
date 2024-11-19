@@ -25,7 +25,9 @@ export class StreamsController {
         group: dto.toGroup(),
         channelId: dto.toChannelId(),
         scheduledBefore: dto.toScheduledBefore(),
-        scheduledAfter: dto.toScheduledAfter()
+        scheduledAfter: dto.toScheduledAfter(),
+        endedBefore: dto.toEndedBefore(),
+        endedAfter: dto.toEndedAfter()
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit()

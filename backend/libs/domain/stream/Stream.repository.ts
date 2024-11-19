@@ -24,6 +24,8 @@ export interface StreamRepository {
       channelId?: ChannelId
       scheduledBefore?: Date
       scheduledAfter?: Date
+      endedBefore?: Date
+      endedAfter?: Date
     }
     orderBy?: Partial<
       Record<

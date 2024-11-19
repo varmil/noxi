@@ -9,6 +9,8 @@ type Params = {
   channelId?: string
   scheduledBefore?: Date
   scheduledAfter?: Date
+  endedBefore?: Date
+  endedAfter?: Date
   orderBy?: {
     field:
       | 'scheduledStartTime'
@@ -27,6 +29,8 @@ export async function getStreams({
   channelId,
   scheduledBefore,
   scheduledAfter,
+  endedBefore,
+  endedAfter,
   orderBy,
   limit
 }: Params): Promise<StreamsSchema> {
@@ -37,6 +41,8 @@ export async function getStreams({
     ...(channelId && { channelId }),
     ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
     ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),
+    ...(endedBefore && { endedBefore: endedBefore.toISOString() }),
+    ...(endedAfter && { endedAfter: endedAfter.toISOString() }),
     ...(limit !== undefined && { limit: String(limit) })
   })
 
