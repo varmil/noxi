@@ -67,5 +67,15 @@ describe('AppController (e2e)', () => {
         .get(`/api/youtube/streams?${query}`)
         .expect(200)
     })
+
+    it('should be 200 with endedAfter', () => {
+      // build query with endedAfter=2025-01-01T00:00:00.000Z
+      const query = `status=ended&endedAfter=${new Date(
+        '2024-11-01T00:00:00.000Z'
+      ).toISOString()}&limit=10`
+      return request(app.getHttpServer())
+        .get(`/api/youtube/streams?${query}`)
+        .expect(200)
+    })
   })
 })

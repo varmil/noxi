@@ -19,7 +19,8 @@ export class MainService {
   ) {}
 
   /**
-   * * とりあえずスケジュール上の開始から取得する
+   * * スケジュールの場合、スケジュール上の開始から取得する
+   * * 終了済みの場合、終了後3分間取得
    * * メンバー限定配信は省く
    */
   async fetchLives() {
@@ -28,9 +29,11 @@ export class MainService {
         where: {
           status: new StreamStatuses([
             new StreamStatus('scheduled'),
-            new StreamStatus('live')
+            new StreamStatus('live'),
+            new StreamStatus('ended')
           ]),
-          scheduledBefore: dayjs().toDate()
+          scheduledBefore: dayjs().toDate(),
+          endedAfter: dayjs().subtract(3, 'minute').toDate()
         },
         limit: 1000
       })

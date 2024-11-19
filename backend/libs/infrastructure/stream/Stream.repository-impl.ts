@@ -1,47 +1,76 @@
 import { Injectable } from '@nestjs/common'
-import { StreamStatus, StreamStatuses } from '@domain/stream'
+import {
+  StreamStatus,
+  StreamStatusEnded,
+  StreamStatusLive,
+  StreamStatusScheduled
+} from '@domain/stream'
 import { StreamRepository, Streams } from '@domain/stream'
 import { Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/stream/UpsertYoutubeStream'
+import type { Prisma } from '@prisma/client'
+
+const getFindAllWhereOR = (
+  where: Parameters<StreamRepository['findAll']>[0]['where']
+): Prisma.YoutubeStreamWhereInput['OR'] => {
+  const { status, scheduledBefore, scheduledAfter, endedBefore, endedAfter } =
+    where
+
+  if (!status) {
+    return undefined
+  }
+
+  const generateORItem = (status: StreamStatus) => {
+    switch (true) {
+      case status.equals(StreamStatusScheduled):
+        return {
+          status: status.get(),
+          scheduledStartTime: {
+            gte: scheduledAfter,
+            lte: scheduledBefore
+          }
+        }
+      case status.equals(StreamStatusLive):
+        return { status: status.get() }
+      case status.equals(StreamStatusEnded):
+        return {
+          status: status.get(),
+          actualEndTime: { lte: endedBefore, gte: endedAfter }
+        }
+      default:
+        throw new Error('Invalid status')
+    }
+  }
+
+  if (status) {
+    if (status instanceof StreamStatus) {
+      return [generateORItem(status)]
+    } else {
+      return status.map(s => generateORItem(s))
+    }
+  }
+}
 
 @Injectable()
 export class StreamRepositoryImpl implements StreamRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
-    where: {
-      status,
-      videoIds,
-      group,
-      channelId,
-      scheduledBefore,
-      scheduledAfter
-    },
+    where,
     orderBy,
     limit
   }: Parameters<StreamRepository['findAll']>[0]) {
-    let prismaStatus: { status: { in: string[] } } | undefined
-    if (status) {
-      if (status instanceof StreamStatus) {
-        prismaStatus = {
-          status: { in: new StreamStatuses([status]).map(s => s.get()) }
-        }
-      } else {
-        prismaStatus = { status: { in: status.map(s => s.get()) } }
-      }
-    }
+    const { videoIds, group, channelId } = where
 
     const rows = await this.prismaInfraService.youtubeStream.findMany({
       where: {
-        ...prismaStatus,
-        videoId: { in: videoIds?.map(e => e.get()) },
-        group: group?.get(),
-        channelId: channelId?.get(),
-        scheduledStartTime: {
-          gte: scheduledAfter,
-          lte: scheduledBefore
+        AND: {
+          videoId: { in: videoIds?.map(e => e.get()) },
+          group: group?.get(),
+          channelId: channelId?.get(),
+          OR: getFindAllWhereOR(where)
         }
       },
       orderBy,
