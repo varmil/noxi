@@ -88,7 +88,7 @@ export default async function StreamRankingTable({ compact }: Props) {
                 <div className="flex flex-col gap-2 @lg:gap-4">
                   <div className="line-clamp-2">{stream.snippet.title}</div>
 
-                  <Dimensiton
+                  <Dimension
                     className="@lg:hidden"
                     concurrentViewers={concurrentViewers}
                     topConcurrentViewers={topConcurrentViewers}
@@ -100,7 +100,7 @@ export default async function StreamRankingTable({ compact }: Props) {
 
               {/* lg-: Viewers */}
               <TableCell width={240} className="hidden @lg:table-cell">
-                <Dimensiton
+                <Dimension
                   concurrentViewers={concurrentViewers}
                   topConcurrentViewers={topConcurrentViewers}
                 />
@@ -125,7 +125,7 @@ export default async function StreamRankingTable({ compact }: Props) {
   )
 }
 
-const Dimensiton = ({
+const Dimension = ({
   className,
   concurrentViewers,
   topConcurrentViewers
