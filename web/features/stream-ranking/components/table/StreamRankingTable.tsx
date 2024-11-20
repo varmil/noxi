@@ -10,10 +10,12 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
+import { GroupString } from 'config/constants/Site'
 import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
+import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
   compact?: boolean
@@ -106,7 +108,7 @@ export default async function StreamRankingTable({ compact }: Props) {
 
               {/* lg-: Channel */}
               <TableCell width={120} className="hidden @lg:table-cell">
-                <LargeChannel channel={channel} />
+                <LargeChannel group={stream.group} channel={channel} />
               </TableCell>
 
               {/* lg-: Group */}
@@ -173,14 +175,17 @@ const SmallChannel = ({
 }
 
 const LargeChannel = ({
-  className,
+  group,
   channel
 }: {
-  className?: string
+  group: GroupString
   channel: ChannelSchema
 }) => {
   return (
-    <div className="flex flex-col items-center gap-1">
+    <Link
+      className="flex flex-col items-center gap-1"
+      href={`/${group}/channels/${channel.basicInfo.id}`}
+    >
       <Avatar className="w-12 h-12 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
@@ -191,6 +196,6 @@ const LargeChannel = ({
       <div className="line-clamp-1 break-anywhere">
         {channel.basicInfo.title}
       </div>
-    </div>
+    </Link>
   )
 }

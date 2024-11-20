@@ -17,8 +17,11 @@ export default async function StreamRankingTableHeader({}: Props) {
         <TableHead className="" />
 
         {/* Stream Title & Ch. Thumbnail & Ch. Title */}
-        <TableHead className="text-nowrap">
+        <TableHead className="@lg:hidden text-nowrap">
           {t('streamTitle')} / {t('viewers')} / {t('channel')}
+        </TableHead>
+        <TableHead className="hidden @lg:table-cell text-nowrap">
+          {t('streamTitle')}
         </TableHead>
 
         {/* lg-: Viewers */}
@@ -31,7 +34,7 @@ export default async function StreamRankingTableHeader({}: Props) {
           {t('channel')}
         </TableHead>
 
-        {/* Group */}
+        {/* lg-: Group */}
         <TableHead className="hidden @lg:table-cell text-nowrap text-center">
           {t('group')}
         </TableHead>
