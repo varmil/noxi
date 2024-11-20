@@ -84,7 +84,10 @@ export default async function StreamRankingTable({ compact }: Props) {
               </LinkCell>
 
               {/* Stream Title & Ch. Thumbnail & Ch. Title */}
-              <LinkCell videoId={videoId} className="max-w-[400px]">
+              <LinkCell
+                videoId={videoId}
+                className="@lg:min-w-[230px] @lg:max-w-[460px]"
+              >
                 <div className="flex flex-col gap-2 @lg:gap-4">
                   <div className="line-clamp-2">{stream.snippet.title}</div>
 
@@ -99,7 +102,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               </LinkCell>
 
               {/* lg-: Viewers */}
-              <TableCell width={240} className="hidden @lg:table-cell">
+              <TableCell width={220} className="hidden @lg:table-cell">
                 <Dimension
                   concurrentViewers={concurrentViewers}
                   topConcurrentViewers={topConcurrentViewers}
@@ -107,7 +110,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               </TableCell>
 
               {/* lg-: Channel */}
-              <TableCell width={120} className="hidden @lg:table-cell">
+              <TableCell width={130} className="hidden @lg:table-cell">
                 <LargeChannel group={stream.group} channel={channel} />
               </TableCell>
 
