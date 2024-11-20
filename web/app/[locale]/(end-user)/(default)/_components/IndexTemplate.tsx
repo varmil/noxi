@@ -12,7 +12,7 @@ type Props = {}
 
 const Container = (props: PropsWithChildren<{}>) => {
   return (
-    <div className="container px-2 py-8 space-y-16 md:px-4 md:py-24 lg:space-y-36">
+    <div className="container px-0 py-8 space-y-16 md:px-4 md:py-24 lg:space-y-36">
       {props.children}
     </div>
   )
