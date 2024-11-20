@@ -13,6 +13,10 @@
       "vspo": "ぶいすぽっ",
       "independent": "個人勢VTuber",
       "independent-irl": "個人勢顔出し配信"
+    },
+
+    "ranking": {
+      "place": "{rank}<weak>位</weak>"
     }
   },
 
@@ -188,10 +192,10 @@
     },
 
     "streamRanking": {
-      "ranking": "同接数ランキング",
+      "ranking": "リアルタイム同接数ランキング",
       "viewAll": "すべて見る",
       "channel": "チャンネル",
-      "group": "Gr",
+      "group": "グループ",
       "streamTitle": "タイトル",
       "viewers": "同接数"
     },
@@ -207,7 +211,6 @@
       "superChat": "スパチャ",
       "ranking": "ランキング",
       "note1": "※PeakX登録タレント",
-      "place": "{rank}<weak>位</weak>",
       "yen": "円 / 日",
       "hoverCard": {
         "title": "ランキング詳細",

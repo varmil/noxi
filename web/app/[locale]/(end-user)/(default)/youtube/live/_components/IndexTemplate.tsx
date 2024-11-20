@@ -5,7 +5,7 @@ type Props = {}
 
 export default function IndexTemplate({}: PropsWithoutRef<Props>) {
   return (
-    <section className="max-w-6xl mx-auto">
+    <section className="max-w-6xl mx-auto mt-8">
       <StreamRankingGallery />
     </section>
   )

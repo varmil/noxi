@@ -13,6 +13,10 @@
       "vspo": "Virtual eSports Project",
       "independent": "Independent VTubers",
       "independent-irl": "Independent Streamers (IRL)"
+    },
+
+    "ranking": {
+      "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
     }
   },
 
@@ -191,7 +195,7 @@
       "ranking": "Most Watched Channels right now",
       "viewAll": "View All",
       "channel": "Channel",
-      "group": "Gr",
+      "group": "Group",
       "streamTitle": "Title",
       "viewers": "Viewers"
     },
@@ -207,7 +211,6 @@
       "superChat": "Superchat",
       "ranking": "live earnings",
       "note1": "* PeakX registered talent",
-      "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}",
       "yen": "Yen",
       "hoverCard": {
         "title": "Ranking details",
