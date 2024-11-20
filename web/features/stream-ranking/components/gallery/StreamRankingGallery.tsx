@@ -1,5 +1,4 @@
 import { PropsWithoutRef } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
 
@@ -9,11 +8,9 @@ export default function StreamRankingGallery({
   compact
 }: PropsWithoutRef<Props>) {
   return (
-    <Card className="@container">
-      <StreamRankingTableTitle className="px-4 sm:px-6" showViewAll={compact} />
-      <CardContent className="px-4 sm:px-6">
-        <StreamRankingTable compact={compact} />
-      </CardContent>
-    </Card>
+    <section className="@container space-y-4">
+      <StreamRankingTableTitle showViewAll={compact} />
+      <StreamRankingTable compact={compact} />
+    </section>
   )
 }

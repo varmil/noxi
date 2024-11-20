@@ -10,6 +10,7 @@ type Props = {
 }
 
 export default async function SupersRankingHero({ date }: Props) {
+  const tg = await getTranslations('Global.ranking')
   const t = await getTranslations('Features.supersRanking')
   const ranking = await getDailySupersRanking({ date, limit: 10 })
 
@@ -33,7 +34,7 @@ export default async function SupersRankingHero({ date }: Props) {
         {ranking.map((e, i) => (
           <div key={i} className="flex flex-row items-center gap-3 md:gap-5">
             <div className="w-7 md:w-9 md:text-xl text-nowrap font-extrabold tabular-nums">
-              {t.rich('place', {
+              {tg.rich('place', {
                 rank: e.rank,
                 weak: chunks => <Weak>{chunks}</Weak>
               })}

@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Progress } from '@/components/ui/progress'
@@ -6,12 +7,15 @@ import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
-import CountryFlag from 'components/styles/CountryFlag'
+import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
+import { GroupString } from 'config/constants/Site'
 import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
+import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
   compact?: boolean
@@ -23,7 +27,8 @@ export default async function StreamRankingTable({ compact }: Props) {
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
     limit: compact ? 6 : 100
   })
-  const [t, channels, liveStreamingDetailsList] = await Promise.all([
+  const [tg, t, channels, liveStreamingDetailsList] = await Promise.all([
+    getTranslations('Global.ranking'),
     getTranslations('Features.streamRanking'),
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
@@ -40,7 +45,7 @@ export default async function StreamRankingTable({ compact }: Props) {
     <Table>
       <StreamRankingTableHeader />
       <TableBody>
-        {sortedStreams.map(stream => {
+        {sortedStreams.map((stream, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId
           )
@@ -56,63 +61,144 @@ export default async function StreamRankingTable({ compact }: Props) {
 
           return (
             <TableRow key={videoId}>
-              {/* Flag: 2024/11/10 一旦非表示 */}
-              <TableCell className="hidden p-0 sm:p-2 justify-items-center min-w-3 sm:min-w-8">
-                <CountryFlag countryCode={channel.peakX?.country} size={20} />
+              {/* Rank */}
+              <TableCell className="align-top">
+                <div className="text-lg font-bold w-3 text-nowrap">{i + 1}</div>
               </TableCell>
 
-              {/* Ch. Thumbnail */}
-              <LinkCell width={40} videoId={videoId}>
-                <Avatar className="w-6 h-6 @md:w-7 @md:h-7 transition-all hover:scale-105">
-                  <AvatarImage
-                    src={channel.basicInfo.thumbnails.medium?.url}
-                    alt={channel.basicInfo.title}
-                  />
-                  <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
-                </Avatar>
-              </LinkCell>
-
-              {/* Ch. Title */}
-              <LinkCell width={150} videoId={videoId} className="min-w-28">
-                <div className="line-clamp-1">{channel.basicInfo.title}</div>
-              </LinkCell>
-
-              {/* Viewers */}
-              <TableCell width={80} className="text-right tabular-nums">
-                <span>{concurrentViewers?.toLocaleString() ?? '--'}</span>
-                <div>
-                  <Progress
-                    title={t('viewers')}
-                    className="h-1 transform scale-x-[-1]"
-                    value={Math.round(
-                      ((concurrentViewers ?? 0) / topConcurrentViewers) * 100
-                    )}
-                  />
-                </div>
-              </TableCell>
-
-              <TableCell width={56} className="hidden @lg:table-cell w-14">
+              {/* Stream Thumbnail */}
+              <LinkCell
+                videoId={videoId}
+                className="min-w-[150px] max-w-[170px] relative"
+              >
                 <VideoThumbnail
-                  size="default"
+                  size="high"
                   title={stream.snippet.title}
                   thumbnails={stream.snippet.thumbnails}
-                  className="rounded"
+                  className="min-w-[150px] max-w-[170px] rounded-sm"
+                />
+                <GroupImageOrIcon
+                  className="@lg:hidden absolute bottom-0.5 right-0 bg-background p-1.5 w-7 h-7"
+                  groupId={stream.group}
+                />
+              </LinkCell>
+
+              {/* Stream Title & Ch. Thumbnail & Ch. Title */}
+              <LinkCell
+                videoId={videoId}
+                className="@lg:min-w-[230px] @lg:max-w-[460px]"
+              >
+                <div className="flex flex-col gap-2 @lg:gap-4">
+                  <div className="line-clamp-2">{stream.snippet.title}</div>
+
+                  <Dimension
+                    className="@lg:hidden"
+                    concurrentViewers={concurrentViewers}
+                    topConcurrentViewers={topConcurrentViewers}
+                  />
+
+                  <SmallChannel className="@lg:hidden" channel={channel} />
+                </div>
+              </LinkCell>
+
+              {/* lg-: Viewers */}
+              <TableCell width={220} className="hidden @lg:table-cell">
+                <Dimension
+                  concurrentViewers={concurrentViewers}
+                  topConcurrentViewers={topConcurrentViewers}
                 />
               </TableCell>
 
-              {/* Stream Title */}
-              <LinkCell videoId={videoId}>
-                <div className="line-clamp-1 text-muted-foreground text-xs">
-                  {stream.snippet.title}
-                </div>
-              </LinkCell>
+              {/* lg-: Channel */}
+              <TableCell width={130} className="hidden @lg:table-cell">
+                <LargeChannel group={stream.group} channel={channel} />
+              </TableCell>
 
-              {/* Group */}
-              <TableGroupCell width={40} groupId={stream.group} />
+              {/* lg-: Group */}
+              <TableGroupCell
+                className="hidden @lg:table-cell"
+                width={50}
+                groupId={stream.group}
+              />
             </TableRow>
           )
         })}
       </TableBody>
     </Table>
+  )
+}
+
+const Dimension = ({
+  className,
+  concurrentViewers,
+  topConcurrentViewers
+}: {
+  className?: string
+  concurrentViewers?: number
+  topConcurrentViewers: number
+}) => {
+  const t = useTranslations('Features.streamRanking')
+  return (
+    <div className={`max-w-60 tabular-nums ${className || ''}`}>
+      <span className="font-bold">
+        {concurrentViewers?.toLocaleString() ?? '--'}
+      </span>
+      <div>
+        <Progress
+          title={t('viewers')}
+          className="h-1"
+          value={Math.round(
+            ((concurrentViewers ?? 0) / topConcurrentViewers) * 100
+          )}
+        />
+      </div>
+    </div>
+  )
+}
+
+const SmallChannel = ({
+  className,
+  channel
+}: {
+  className?: string
+  channel: ChannelSchema
+}) => {
+  return (
+    <div className={`flex items-center gap-2 ${className || ''}`}>
+      <Avatar className="w-4 h-4 @md:w-5 @md:h-5 transition-all hover:scale-105">
+        <AvatarImage
+          src={channel.basicInfo.thumbnails.medium?.url}
+          alt={channel.basicInfo.title}
+        />
+        <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
+      </Avatar>
+      <div className="line-clamp-1">{channel.basicInfo.title}</div>
+    </div>
+  )
+}
+
+const LargeChannel = ({
+  group,
+  channel
+}: {
+  group: GroupString
+  channel: ChannelSchema
+}) => {
+  return (
+    <Link
+      className="flex flex-col items-center gap-1"
+      href={`/${group}/channels/${channel.basicInfo.id}`}
+    >
+      <Avatar className="w-12 h-12 transition-all hover:scale-105">
+        <AvatarImage
+          src={channel.basicInfo.thumbnails.medium?.url}
+          alt={channel.basicInfo.title}
+        />
+        <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
+      </Avatar>
+      <div className="line-clamp-1 break-anywhere">
+        {channel.basicInfo.title}
+      </div>
+    </Link>
   )
 }

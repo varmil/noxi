@@ -17,9 +17,9 @@ export default function StreamRankingTableTitle({
 }: Props) {
   const t = useTranslations('Features.streamRanking')
   return (
-    <CardHeader className={`${className || ''}`}>
+    <section className={`${className || ''}`}>
       <div className={`flex flex-row gap-x-1 items-center`}>
-        <CardTitle className="flex gap-x-2 items-center text-balance text-lg sm:text-xl">
+        <div className="flex gap-x-2 items-center text-balance text-lg sm:text-xl">
           <Image
             src={'/youtube/yt_icon_rgb.png'}
             alt="YouTube"
@@ -28,7 +28,7 @@ export default function StreamRankingTableTitle({
             className="relative w-8 h-[22.5px] top-[0.5px]"
           />
           {t('ranking')}
-        </CardTitle>
+        </div>
         {showViewAll && (
           <Button asChild size="sm" className="ml-auto gap-1">
             <Link href="/youtube/live">
@@ -38,6 +38,6 @@ export default function StreamRankingTableTitle({
           </Button>
         )}
       </div>
-    </CardHeader>
+    </section>
   )
 }

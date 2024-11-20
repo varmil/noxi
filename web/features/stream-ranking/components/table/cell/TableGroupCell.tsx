@@ -1,42 +1,22 @@
 import { ComponentProps } from 'react'
 import { TableCell } from '@/components/ui/table'
-import Image from 'components/styles/Image'
+import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import { GroupString } from 'config/constants/Site'
-import useGroups from 'hooks/useGroups'
 
 export default function TableGroupCell({
   groupId,
-  width
+  width,
+  className
 }: {
   groupId: GroupString
   width?: number
+  className?: string
 }) {
-  const { findGroup, isImg, isIcon } = useGroups()
-  const group = findGroup(groupId)
-
-  if (isImg(group)) {
-    return (
-      <Cell width={width}>
-        <Image
-          src={group.src}
-          alt={`${group.name} icon`}
-          width={20}
-          height={20}
-          className={`w-5 h-5 rounded-full`}
-        />
-      </Cell>
-    )
-  }
-
-  if (isIcon(group)) {
-    return (
-      <Cell width={width}>
-        <group.icon className="w-5 h-5 rounded-full" />
-      </Cell>
-    )
-  }
-
-  return null
+  return (
+    <Cell width={width} className={className}>
+      <GroupImageOrIcon className="w-5 h-5" groupId={groupId} />
+    </Cell>
+  )
 }
 
 function Cell({

@@ -10,20 +10,34 @@ export default async function StreamRankingTableHeader({}: Props) {
   return (
     <TableHeader>
       <TableRow>
-        {/* Flag */}
-        <TableHead className="hidden p-0 sm:p-2" />
-        {/* Ch. Thumbnail */}
-        <TableHead />
-        {/* Ch. Title */}
-        <TableHead className="text-nowrap">{t('channel')}</TableHead>
-        {/* Viewers */}
-        <TableHead className="text-nowrap">{t('viewers')}</TableHead>
+        {/* Rank */}
+        <TableHead className="w-0 text-nowrap"></TableHead>
+
         {/* Stream Thumbnail */}
-        <TableHead className="hidden @lg:table-cell"></TableHead>
-        {/* Stream Title */}
-        <TableHead className="text-nowrap">{t('streamTitle')}</TableHead>
-        {/* Group */}
-        <TableHead className="text-nowrap text-center">{t('group')}</TableHead>
+        <TableHead className="" />
+
+        {/* Stream Title & Ch. Thumbnail & Ch. Title */}
+        <TableHead className="@lg:hidden text-nowrap">
+          {t('streamTitle')} / {t('viewers')} / {t('channel')}
+        </TableHead>
+        <TableHead className="hidden @lg:table-cell text-nowrap">
+          {t('streamTitle')}
+        </TableHead>
+
+        {/* lg-: Viewers */}
+        <TableHead className="hidden @lg:table-cell text-nowrap">
+          {t('viewers')}
+        </TableHead>
+
+        {/* lg-: Channel */}
+        <TableHead className="hidden @lg:table-cell text-nowrap text-center">
+          {t('channel')}
+        </TableHead>
+
+        {/* lg-: Group */}
+        <TableHead className="hidden @lg:table-cell text-nowrap text-center">
+          {t('group')}
+        </TableHead>
       </TableRow>
     </TableHeader>
   )
