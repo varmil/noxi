@@ -16,12 +16,7 @@ export default function GroupColumn() {
     <Column>
       <ColumnHeader>グループ</ColumnHeader>
       <ColumnContent>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="all"
-          activeVariant="secondary"
-          defaultActive
-        >
+        <SelectButton qsKey={QS_KEY} qsValue={null} activeVariant="secondary">
           すべて
         </SelectButton>
 

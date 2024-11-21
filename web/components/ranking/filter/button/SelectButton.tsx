@@ -9,20 +9,20 @@ export default function SelectButton({
   qsKey,
   qsValue,
   activeVariant,
-  defaultActive,
 
   children,
   className,
   ...rest
 }: ComponentProps<typeof Button> & {
   activeVariant?: 'default' | 'secondary'
-  defaultActive?: boolean
   qsKey: string
-  qsValue: string
+  qsValue: string | null
 }) {
   const pathname = usePathname()
   const { has, createQueryString } = useQueryString()
-  const active = has(qsKey, qsValue) || defaultActive
+  const active =
+    (qsValue !== null && has(qsKey, qsValue)) ||
+    (qsValue === null && !has(qsKey))
 
   return (
     <Button

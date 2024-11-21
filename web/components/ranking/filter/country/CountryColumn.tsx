@@ -17,12 +17,7 @@ export default function CountryColumn({ className }: Props) {
     <Column>
       <ColumnHeader>国</ColumnHeader>
       <ColumnContent>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="worldwide"
-          activeVariant="secondary"
-          defaultActive
-        >
+        <SelectButton qsKey={QS_KEY} qsValue={null} activeVariant="secondary">
           🌐 全世界
         </SelectButton>
         <SelectButton qsKey={QS_KEY} qsValue="jp" activeVariant="secondary">
