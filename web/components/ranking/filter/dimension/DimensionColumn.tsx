@@ -1,5 +1,3 @@
-'use client'
-
 import { PropsWithoutRef } from 'react'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
@@ -22,9 +20,9 @@ export default function DimensionColumn({ className }: Props) {
         <SelectButton qsKey={QS_KEY} qsValue="concurrent-viewer">
           同時視聴者数
         </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="super-chat" disabled>
+        {/* <SelectButton qsKey={QS_KEY} qsValue="super-chat">
           スーパーチャット額（実装中）
-        </SelectButton>
+        </SelectButton> */}
       </ColumnContent>
     </Column>
   )

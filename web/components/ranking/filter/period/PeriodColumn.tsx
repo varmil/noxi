@@ -1,5 +1,3 @@
-'use client'
-
 import { PropsWithoutRef } from 'react'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {

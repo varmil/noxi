@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
