@@ -14,7 +14,7 @@ export default function StreamRankingGallery({
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.streamRanking')
   return (
-    <section className="@container space-y-4">
+    <section className="@container space-y-4 sm:space-y-6">
       <StreamRankingTableTitle
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />

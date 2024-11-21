@@ -37,6 +37,7 @@ export default function YoutubeLivePage({ params: { locale } }: Props) {
         }
       ]}
       noPadding
+      fullWidth
     >
       <IndexTemplate />
     </Page>

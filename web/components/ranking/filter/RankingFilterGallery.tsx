@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { PropsWithoutRef, useState } from 'react'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
@@ -10,13 +10,19 @@ import {
 } from 'components/ranking/filter/column/Column'
 import GroupColumn from 'components/ranking/filter/group/GroupColumn'
 
-export default function RankingFilterGallery() {
+type Props = PropsWithoutRef<{
+  className?: string
+}>
+
+export default function RankingFilterGallery({ className }: Props) {
   const [dimension, setDimension] = useState('most-super-chatted')
   const [country, setCountry] = useState('worldwide')
   const [period, setPeriod] = useState('daily')
 
   return (
-    <div className="w-full text-xs sm:text-sm bg-background">
+    <div
+      className={`w-full text-xs sm:text-sm bg-background ${className || ''}`}
+    >
       <ScrollArea className="w-full whitespace-nowrap border">
         <div className="flex divide-x">
           {/* 期間 */}

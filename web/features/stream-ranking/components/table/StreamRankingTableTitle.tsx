@@ -11,7 +11,7 @@ export default function StreamRankingTableTitle({ className }: Props) {
   return (
     <section className={`${className || ''}`}>
       <div className={`flex flex-row gap-x-1 items-center`}>
-        <div className="flex gap-x-2 items-center text-balance text-lg sm:text-xl">
+        <div className="flex gap-x-2 items-center text-balance">
           <Image
             src={'/youtube/yt_icon_rgb.png'}
             alt="YouTube"

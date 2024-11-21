@@ -7,11 +7,14 @@ type Props = {}
 
 export default function IndexTemplate({}: PropsWithoutRef<Props>) {
   return (
-    <section className={`max-w-6xl ${PageSMPX} mx-auto mt-4 space-y-4`}>
-      <section className="">
-        <RankingFilterGallery />
+    <section className={`mt-4 space-y-4`}>
+      <section className="py-4 sm:p-5 bg-muted">
+        <RankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
-      <StreamRankingGallery />
+
+      <section className={`max-w-6xl mx-auto ${PageSMPX}`}>
+        <StreamRankingGallery />
+      </section>
     </section>
   )
 }
