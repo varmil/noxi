@@ -37,7 +37,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               {t('description')}
             </p>
             <Button className="hidden lg:inline-flex w-fit" asChild>
-              <Link href="/youtube/live">
+              <Link href="/youtube/ranking/live">
                 {t('section.hero.more')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

@@ -54,7 +54,7 @@ export default function YoutubeRankingLivePage({
     <Page
       breadcrumb={[
         {
-          href: `/youtube/live`,
+          href: `/youtube/ranking/live`,
           name: t('streamRanking', {
             period: tg(`period.${searchParams.period}`)
           })
