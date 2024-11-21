@@ -10,7 +10,7 @@ export function HeroH1({ children }: PropsWithChildren<{}>) {
 
 export function HeroH3({ children }: PropsWithChildren<{}>) {
   return (
-    <h3 className="font-bold tracking-tight text-3xl sm:text-5xl xl:text-6xl/none">
+    <h3 className="font-bold tracking-tight text-balance text-3xl sm:text-5xl xl:text-6xl/none">
       {children}
     </h3>
   )

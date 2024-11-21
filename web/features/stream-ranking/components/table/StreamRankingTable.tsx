@@ -25,7 +25,7 @@ export default async function StreamRankingTable({ compact }: Props) {
   const streams = await getStreams({
     status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: compact ? 6 : 100
+    limit: compact ? 5 : 100
   })
   const [tg, t, channels, liveStreamingDetailsList] = await Promise.all([
     getTranslations('Global.ranking'),
@@ -69,13 +69,13 @@ export default async function StreamRankingTable({ compact }: Props) {
               {/* Stream Thumbnail */}
               <LinkCell
                 videoId={videoId}
-                className="min-w-[150px] max-w-[170px] relative"
+                className="min-w-[150px] max-w-[205px] relative"
               >
                 <VideoThumbnail
                   size="high"
                   title={stream.snippet.title}
                   thumbnails={stream.snippet.thumbnails}
-                  className="min-w-[150px] max-w-[170px] rounded-sm"
+                  className="min-w-[150px] max-w-[205px] rounded-sm"
                 />
                 <GroupImageOrIcon
                   className="@lg:hidden absolute bottom-0.5 right-0 bg-background p-1.5 w-7 h-7"
@@ -86,10 +86,12 @@ export default async function StreamRankingTable({ compact }: Props) {
               {/* Stream Title & Ch. Thumbnail & Ch. Title */}
               <LinkCell
                 videoId={videoId}
-                className="@lg:min-w-[230px] @lg:max-w-[460px]"
+                className="@lg:min-w-[230px] @lg:max-w-[400px]"
               >
                 <div className="flex flex-col gap-2 @lg:gap-4">
-                  <div className="line-clamp-2">{stream.snippet.title}</div>
+                  <div className="font-light line-clamp-2">
+                    {stream.snippet.title}
+                  </div>
 
                   <Dimension
                     className="@lg:hidden"
@@ -110,14 +112,14 @@ export default async function StreamRankingTable({ compact }: Props) {
               </TableCell>
 
               {/* lg-: Channel */}
-              <TableCell width={130} className="hidden @lg:table-cell">
+              <TableCell width={150} className="hidden @lg:table-cell">
                 <LargeChannel group={stream.group} channel={channel} />
               </TableCell>
 
               {/* lg-: Group */}
               <TableGroupCell
                 className="hidden @lg:table-cell"
-                width={50}
+                width={100}
                 groupId={stream.group}
               />
             </TableRow>
@@ -164,7 +166,7 @@ const SmallChannel = ({
   channel: ChannelSchema
 }) => {
   return (
-    <div className={`flex items-center gap-2 ${className || ''}`}>
+    <div className={`flex items-center gap-2 font-light ${className || ''}`}>
       <Avatar className="w-4 h-4 @md:w-5 @md:h-5 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
@@ -189,14 +191,14 @@ const LargeChannel = ({
       className="flex flex-col items-center gap-1"
       href={`/${group}/channels/${channel.basicInfo.id}`}
     >
-      <Avatar className="w-12 h-12 transition-all hover:scale-105">
+      <Avatar className="w-9 h-9 @3xl:w-12 @3xl:h-12 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
           alt={channel.basicInfo.title}
         />
         <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
       </Avatar>
-      <div className="line-clamp-1 break-anywhere">
+      <div className="text-sm line-clamp-1 break-all">
         {channel.basicInfo.title}
       </div>
     </Link>
