@@ -6,9 +6,7 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Aside className="z-10" />
-      <section className="relative z-0 pb-4 sm:pl-14 bg-muted/40">
-        {children}
-      </section>
+      <section className="relative z-0 pb-4 sm:pl-14">{children}</section>
       <CookieAgreeBanner className="z-20" />
     </>
   )

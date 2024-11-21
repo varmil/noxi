@@ -1,66 +1,52 @@
 'use client'
 
-import { PropsWithChildren, useState } from 'react'
-import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
+  Column,
+  ColumnHeader,
+  ColumnContent
+} from 'components/ranking/filter/column/Column'
+import GroupColumn from 'components/ranking/filter/group/GroupColumn'
 
 export default function RankingFilterGallery() {
-  const [category, setCategory] = useState('all')
   const [dimension, setDimension] = useState('most-super-chatted')
   const [country, setCountry] = useState('worldwide')
   const [period, setPeriod] = useState('daily')
 
   return (
-    <div className="w-full text-sm bg-background">
+    <div className="w-full text-xs sm:text-sm bg-background">
       <ScrollArea className="w-full whitespace-nowrap border">
         <div className="flex divide-x">
-          {/* カテゴリー */}
+          {/* 期間 */}
           <Column>
-            <ColumnHeader>カテゴリー</ColumnHeader>
+            <ColumnHeader>期間</ColumnHeader>
             <ColumnContent>
-              <Button
-                variant={category === 'all' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
-                onClick={() => setCategory('all')}
+              <SelectButton
+                variant={period === 'daily' ? 'default' : 'ghost'}
+                onClick={() => setPeriod('daily')}
               >
-                すべて
-              </Button>
-              <Button
-                variant={category === 'pets' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
-                onClick={() => setCategory('pets')}
+                デイリー
+              </SelectButton>
+              <SelectButton
+                variant={period === 'weekly' ? 'default' : 'ghost'}
+                onClick={() => setPeriod('weekly')}
               >
-                ペット・動物
-              </Button>
-              <Button
-                variant={category === 'music' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
-                onClick={() => setCategory('music')}
+                ウィークリー
+              </SelectButton>
+              <SelectButton
+                variant={period === 'monthly' ? 'default' : 'ghost'}
+                onClick={() => setPeriod('monthly')}
               >
-                音楽
-              </Button>
-              <Button
-                variant={category === 'gaming' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
-                onClick={() => setCategory('gaming')}
+                マンスリー
+              </SelectButton>
+              <SelectButton
+                variant={period === 'yearly' ? 'default' : 'ghost'}
+                onClick={() => setPeriod('yearly')}
               >
-                ゲーム
-              </Button>
-              <Button
-                variant={category === 'news' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
-                onClick={() => setCategory('news')}
-              >
-                ニュース・政治
-              </Button>
+                年間
+              </SelectButton>
             </ColumnContent>
           </Column>
 
@@ -68,103 +54,62 @@ export default function RankingFilterGallery() {
           <Column>
             <ColumnHeader>ディメンション</ColumnHeader>
             <ColumnContent>
-              <Button
+              <SelectButton
                 variant={
                   dimension === 'most-super-chatted' ? 'default' : 'ghost'
                 }
-                className="w-full justify-start py-2"
                 onClick={() => setDimension('most-super-chatted')}
               >
-                スーパーチャット数
-              </Button>
-              <Button
+                スーパーチャット額
+              </SelectButton>
+              <SelectButton
                 variant={
                   dimension === 'most-watched-live' ? 'default' : 'ghost'
                 }
-                className="w-full justify-start py-2"
                 onClick={() => setDimension('most-watched-live')}
               >
-                ライブ視聴数
-              </Button>
+                同時視聴者数
+              </SelectButton>
             </ColumnContent>
           </Column>
+
+          <GroupColumn />
 
           {/* 国 */}
           <Column>
             <ColumnHeader>国</ColumnHeader>
             <ColumnContent>
-              <Button
+              <SelectButton
                 variant={country === 'worldwide' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
                 onClick={() => setCountry('worldwide')}
               >
                 🌐 全世界
-              </Button>
-              <Button
+              </SelectButton>
+              <SelectButton
                 variant={country === 'japan' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
                 onClick={() => setCountry('japan')}
               >
                 🇯🇵 日本
-              </Button>
-              <Button
+              </SelectButton>
+              <SelectButton
                 variant={country === 'korea' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
                 onClick={() => setCountry('korea')}
               >
                 🇰🇷 韓国
-              </Button>
-              <Button
+              </SelectButton>
+              <SelectButton
                 variant={country === 'taiwan' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
                 onClick={() => setCountry('taiwan')}
               >
                 🇹🇼 台湾
-              </Button>
-              <Button
+              </SelectButton>
+              <SelectButton
                 variant={country === 'us' ? 'default' : 'ghost'}
-                className="w-full justify-start py-2"
                 onClick={() => setCountry('us')}
               >
                 🇺🇸 アメリカ
-              </Button>
+              </SelectButton>
             </ColumnContent>
-          </Column>
-
-          {/* 期間 */}
-          <Column>
-            <div className="flex flex-col space-y-4">
-              <div>
-                <ColumnHeader>期間</ColumnHeader>
-                <Select value={period} onValueChange={setPeriod}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="期間を選択" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="daily">デイリー</SelectItem>
-                    <SelectItem value="weekly">ウィークリー</SelectItem>
-                    <SelectItem value="monthly">マンスリー</SelectItem>
-                    <SelectItem value="year-end">年末</SelectItem>
-                    <SelectItem value="yearly">年間</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <ColumnHeader>日付</ColumnHeader>
-                <Select defaultValue="2024-11-18">
-                  <SelectTrigger>
-                    <SelectValue placeholder="日付を選択" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="2024-11-18">2024/11/18(月)</SelectItem>
-                    <SelectItem value="2024-11-17">2024/11/17(日)</SelectItem>
-                    <SelectItem value="2024-11-16">2024/11/16(土)</SelectItem>
-                    <SelectItem value="2024-11-15">2024/11/15(金)</SelectItem>
-                    <SelectItem value="2024-11-14">2024/11/14(木)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
           </Column>
         </div>
         <ScrollBar orientation="horizontal" />
@@ -172,20 +117,3 @@ export default function RankingFilterGallery() {
     </div>
   )
 }
-
-const Column = ({ children }: PropsWithChildren) => (
-  <div className="flex-1 p-4 min-w-[150px]">{children}</div>
-)
-
-const ColumnHeader = ({ children }: PropsWithChildren) => (
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="font-medium">{children}</h3>
-    <Search className="h-4 w-4 text-muted-foreground" />
-  </div>
-)
-
-const ColumnContent = ({ children }: PropsWithChildren) => (
-  <ScrollArea className="h-[160px] sm:h-[175px]">
-    <div className="flex flex-col gap-y-0.5 ">{children}</div>
-  </ScrollArea>
-)
