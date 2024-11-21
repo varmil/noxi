@@ -43,7 +43,11 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               </Link>
             </Button>
           </div>
-          <StreamRankingGallery compact />
+          <StreamRankingGallery
+            period="daily"
+            dimension="concurrent-viewer"
+            compact
+          />
         </HeroSectionContainer>
 
         <SocialProofSection />
