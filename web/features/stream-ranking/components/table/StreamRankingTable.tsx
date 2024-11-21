@@ -89,7 +89,9 @@ export default async function StreamRankingTable({ compact }: Props) {
                 className="@lg:min-w-[230px] @lg:max-w-[460px]"
               >
                 <div className="flex flex-col gap-2 @lg:gap-4">
-                  <div className="line-clamp-2">{stream.snippet.title}</div>
+                  <div className="font-light line-clamp-2">
+                    {stream.snippet.title}
+                  </div>
 
                   <Dimension
                     className="@lg:hidden"
@@ -164,7 +166,7 @@ const SmallChannel = ({
   channel: ChannelSchema
 }) => {
   return (
-    <div className={`flex items-center gap-2 ${className || ''}`}>
+    <div className={`flex items-center gap-2 font-light ${className || ''}`}>
       <Avatar className="w-4 h-4 @md:w-5 @md:h-5 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
@@ -196,9 +198,7 @@ const LargeChannel = ({
         />
         <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
       </Avatar>
-      <div className="line-clamp-1 break-anywhere">
-        {channel.basicInfo.title}
-      </div>
+      <div className="line-clamp-1 break-all">{channel.basicInfo.title}</div>
     </Link>
   )
 }
