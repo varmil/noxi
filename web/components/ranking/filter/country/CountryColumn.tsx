@@ -20,7 +20,7 @@ export default function CountryColumn({ className }: Props) {
         <SelectButton qsKey={QS_KEY} qsValue={null} activeVariant="secondary">
           🌐 全世界
         </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="jp" activeVariant="secondary">
+        {/* <SelectButton qsKey={QS_KEY} qsValue="jp" activeVariant="secondary">
           🇯🇵 日本
         </SelectButton>
         <SelectButton qsKey={QS_KEY} qsValue="kr" activeVariant="secondary">
@@ -31,7 +31,7 @@ export default function CountryColumn({ className }: Props) {
         </SelectButton>
         <SelectButton qsKey={QS_KEY} qsValue="us" activeVariant="secondary">
           🇺🇸 アメリカ
-        </SelectButton>
+        </SelectButton> */}
       </ColumnContent>
     </Column>
   )
