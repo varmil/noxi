@@ -1,20 +1,12 @@
 import { PropsWithChildren } from 'react'
-import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
-import { CardHeader, CardTitle } from '@/components/ui/card'
 import Image from 'components/styles/Image'
-import { Link } from 'lib/navigation'
 
 type Props = PropsWithChildren<{
   className?: string
-  showViewAll?: boolean
 }>
 
-export default function StreamRankingTableTitle({
-  className,
-  showViewAll
-}: Props) {
+export default function StreamRankingTableTitle({ className }: Props) {
   const t = useTranslations('Features.streamRanking')
   return (
     <section className={`${className || ''}`}>
@@ -29,14 +21,6 @@ export default function StreamRankingTableTitle({
           />
           {t('ranking')}
         </div>
-        {showViewAll && (
-          <Button asChild size="sm" className="ml-auto gap-1">
-            <Link href="/youtube/live">
-              {t('viewAll')}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        )}
       </div>
     </section>
   )
