@@ -19,7 +19,7 @@ export default function GroupColumn() {
       <ColumnHeader>グループ</ColumnHeader>
       <ColumnContent>
         <SelectButton
-          variant={selectedGroup === 'all' ? 'default' : 'ghost'}
+          variant={selectedGroup === 'all' ? 'secondary' : 'ghost'}
           onClick={() => setGroup('all')}
         >
           すべて
@@ -29,7 +29,7 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            variant={selectedGroup === group.id ? 'default' : 'ghost'}
+            variant={selectedGroup === group.id ? 'secondary' : 'ghost'}
             onClick={() => setGroup(group.id)}
           >
             <Image
@@ -47,7 +47,7 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            variant={selectedGroup === group.id ? 'default' : 'ghost'}
+            variant={selectedGroup === group.id ? 'secondary' : 'ghost'}
             onClick={() => setGroup(group.id)}
           >
             <group.icon className="h-4 w-4 rounded-full" />

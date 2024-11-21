@@ -9,52 +9,22 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import GroupColumn from 'components/ranking/filter/group/GroupColumn'
+import PeriodColumn from 'components/ranking/filter/period/PeriodColumn'
 
 type Props = PropsWithoutRef<{
   className?: string
 }>
 
 export default function RankingFilterGallery({ className }: Props) {
-  const [dimension, setDimension] = useState('most-super-chatted')
+  const [dimension, setDimension] = useState('concurrent-viewer')
   const [country, setCountry] = useState('worldwide')
-  const [period, setPeriod] = useState('daily')
 
   return (
-    <div
-      className={`w-full text-xs sm:text-sm bg-background ${className || ''}`}
-    >
+    <div className={`text-xs sm:text-sm bg-background ${className || ''}`}>
       <ScrollArea className="w-full whitespace-nowrap border">
         <div className="flex divide-x">
           {/* 期間 */}
-          <Column>
-            <ColumnHeader>期間</ColumnHeader>
-            <ColumnContent>
-              <SelectButton
-                variant={period === 'daily' ? 'default' : 'ghost'}
-                onClick={() => setPeriod('daily')}
-              >
-                デイリー
-              </SelectButton>
-              <SelectButton
-                variant={period === 'weekly' ? 'default' : 'ghost'}
-                onClick={() => setPeriod('weekly')}
-              >
-                ウィークリー
-              </SelectButton>
-              <SelectButton
-                variant={period === 'monthly' ? 'default' : 'ghost'}
-                onClick={() => setPeriod('monthly')}
-              >
-                マンスリー
-              </SelectButton>
-              <SelectButton
-                variant={period === 'yearly' ? 'default' : 'ghost'}
-                onClick={() => setPeriod('yearly')}
-              >
-                年間
-              </SelectButton>
-            </ColumnContent>
-          </Column>
+          <PeriodColumn />
 
           {/* ディメンション */}
           <Column>
@@ -62,19 +32,21 @@ export default function RankingFilterGallery({ className }: Props) {
             <ColumnContent>
               <SelectButton
                 variant={
-                  dimension === 'most-super-chatted' ? 'default' : 'ghost'
+                  dimension === 'concurrent-viewer' ? 'default' : 'ghost'
                 }
-                onClick={() => setDimension('most-super-chatted')}
-              >
-                スーパーチャット額
-              </SelectButton>
-              <SelectButton
-                variant={
-                  dimension === 'most-watched-live' ? 'default' : 'ghost'
-                }
-                onClick={() => setDimension('most-watched-live')}
+                onClick={() => setDimension('concurrent-viewer')}
               >
                 同時視聴者数
+              </SelectButton>
+              <SelectButton
+                variant={'ghost'}
+                disabled
+                // variant={
+                //   dimension === 'most-super-chatted' ? 'default' : 'ghost'
+                // }
+                // onClick={() => setDimension('most-super-chatted')}
+              >
+                スーパーチャット額（実装中）
               </SelectButton>
             </ColumnContent>
           </Column>
@@ -86,31 +58,31 @@ export default function RankingFilterGallery({ className }: Props) {
             <ColumnHeader>国</ColumnHeader>
             <ColumnContent>
               <SelectButton
-                variant={country === 'worldwide' ? 'default' : 'ghost'}
+                variant={country === 'worldwide' ? 'secondary' : 'ghost'}
                 onClick={() => setCountry('worldwide')}
               >
                 🌐 全世界
               </SelectButton>
               <SelectButton
-                variant={country === 'japan' ? 'default' : 'ghost'}
+                variant={country === 'japan' ? 'secondary' : 'ghost'}
                 onClick={() => setCountry('japan')}
               >
                 🇯🇵 日本
               </SelectButton>
               <SelectButton
-                variant={country === 'korea' ? 'default' : 'ghost'}
+                variant={country === 'korea' ? 'secondary' : 'ghost'}
                 onClick={() => setCountry('korea')}
               >
                 🇰🇷 韓国
               </SelectButton>
               <SelectButton
-                variant={country === 'taiwan' ? 'default' : 'ghost'}
+                variant={country === 'taiwan' ? 'secondary' : 'ghost'}
                 onClick={() => setCountry('taiwan')}
               >
                 🇹🇼 台湾
               </SelectButton>
               <SelectButton
-                variant={country === 'us' ? 'default' : 'ghost'}
+                variant={country === 'us' ? 'secondary' : 'ghost'}
                 onClick={() => setCountry('us')}
               >
                 🇺🇸 アメリカ
