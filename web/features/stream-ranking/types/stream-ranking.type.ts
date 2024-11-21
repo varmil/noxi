@@ -1,7 +1,7 @@
 import { GroupString } from 'config/constants/Site'
 
 export type StreamRankingPeriod =
-  | 'real-time'
+  | 'realtime'
   | 'daily'
   | 'weekly'
   | 'monthly'

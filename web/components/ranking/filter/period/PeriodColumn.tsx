@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -13,49 +14,26 @@ type Props = PropsWithoutRef<{
 }>
 
 export default function PeriodColumn({ className }: Props) {
+  const tg = useTranslations('Global.ranking.period')
+
   return (
     <Column>
       <ColumnHeader>期間</ColumnHeader>
       <ColumnContent>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="real-time"
-          // variant={period === 'real-time' ? 'default' : 'ghost'}
-          // onClick={() => setPeriod('real-time')}
-        >
-          リアルタイム
+        <SelectButton qsKey={QS_KEY} qsValue="realtime">
+          {tg('realtime')}
         </SelectButton>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="daily"
-          // variant={period === 'daily' ? 'default' : 'ghost'}
-          // onClick={() => setPeriod('daily')}
-        >
-          今日
+        <SelectButton qsKey={QS_KEY} qsValue="daily">
+          {tg('daily')}
         </SelectButton>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="weekly"
-          // variant={period === 'weekly' ? 'default' : 'ghost'}
-          // onClick={() => setPeriod('weekly')}
-        >
-          過去７日間
+        <SelectButton qsKey={QS_KEY} qsValue="weekly">
+          {tg('weekly')}
         </SelectButton>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="monthly"
-          // variant={period === 'monthly' ? 'default' : 'ghost'}
-          // onClick={() => setPeriod('monthly')}
-        >
-          過去３０日間
+        <SelectButton qsKey={QS_KEY} qsValue="monthly">
+          {tg('monthly')}
         </SelectButton>
-        <SelectButton
-          qsKey={QS_KEY}
-          qsValue="yearly"
-          // variant={period === 'yearly' ? 'default' : 'ghost'}
-          // onClick={() => setPeriod('yearly')}
-        >
-          今年
+        <SelectButton qsKey={QS_KEY} qsValue="yearly">
+          {tg('yearly')}
         </SelectButton>
       </ColumnContent>
     </Column>

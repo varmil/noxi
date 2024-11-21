@@ -26,13 +26,15 @@ type Props = {
 export default async function StreamRankingGallery(
   props: PropsWithoutRef<Props>
 ) {
-  const { compact } = props
+  const { period, dimension, compact } = props
   const t = await getTranslations('Features.streamRanking')
   const streams = await getStreams(createGetStreamsParams(props))
 
   return (
     <section className="@container space-y-4 sm:space-y-6">
       <StreamRankingTableTitle
+        period={period}
+        dimension={dimension}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
 
@@ -59,7 +61,7 @@ function createGetStreamsParams({
 }: Props): Parameters<typeof getStreams>[0] {
   let result = {}
 
-  if (period === 'real-time') {
+  if (period === 'realtime') {
     result = { ...result, status: 'live' }
   }
   // TODO: 本当はliveもふくめたい
@@ -99,7 +101,7 @@ function createGetStreamsParams({
     result = { ...result, country }
   }
 
-  result = { ...result, limit: compact ? 5 : period === 'real-time' ? 100 : 30 }
+  result = { ...result, limit: compact ? 5 : period === 'realtime' ? 100 : 30 }
 
   return result
 }

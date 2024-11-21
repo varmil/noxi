@@ -16,6 +16,13 @@
     },
 
     "ranking": {
+      "period": {
+        "realtime": "リアルタイム",
+        "daily": "２４時間以内",
+        "weekly": "過去７日間",
+        "monthly": "過去３０日間",
+        "yearly": "過去１年間"
+      },
       "place": "{rank}<weak>位</weak>"
     }
   },
@@ -194,7 +201,7 @@
     },
 
     "streamRanking": {
-      "ranking": "最大同接数ランキング",
+      "ranking": "最大同接数ランキング - {period}",
       "viewAll": "すべて見る",
       "channel": "チャンネル",
       "group": "グループ",
