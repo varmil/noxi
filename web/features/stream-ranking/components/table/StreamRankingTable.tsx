@@ -69,13 +69,13 @@ export default async function StreamRankingTable({ compact }: Props) {
               {/* Stream Thumbnail */}
               <LinkCell
                 videoId={videoId}
-                className="min-w-[150px] max-w-[170px] relative"
+                className="min-w-[150px] max-w-[205px] relative"
               >
                 <VideoThumbnail
                   size="high"
                   title={stream.snippet.title}
                   thumbnails={stream.snippet.thumbnails}
-                  className="min-w-[150px] max-w-[170px] rounded-sm"
+                  className="min-w-[150px] max-w-[205px] rounded-sm"
                 />
                 <GroupImageOrIcon
                   className="@lg:hidden absolute bottom-0.5 right-0 bg-background p-1.5 w-7 h-7"
