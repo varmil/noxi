@@ -33,7 +33,7 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "streamRanking": "Most watched channels right now",
+    "streamRanking": "Most watched channels - {period}",
     "supersRanking": "Most Super Chatted VTuber channels"
   },
 
@@ -137,7 +137,7 @@
       "ranking": {
         "live": {
           "metadata": {
-            "title": "Most Watched Channels right now",
+            "title": "Most Watched Channels - {period}",
             "description": ""
           }
         }

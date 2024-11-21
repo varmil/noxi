@@ -33,7 +33,7 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "streamRanking": "YouTubeライブ最大同接数ランキング",
+    "streamRanking": "YouTubeライブ最大同接数ランキング - {period}",
     "supersRanking": "VTuberスパチャランキング"
   },
 
@@ -137,7 +137,7 @@
       "ranking": {
         "live": {
           "metadata": {
-            "title": "YouTubeライブ最大同接数ランキング",
+            "title": "YouTubeライブ最大同接数ランキング - {period}",
             "description": ""
           }
         }

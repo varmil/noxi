@@ -2,7 +2,6 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import { GroupString } from 'config/constants/Site'
 import {
   StreamRankingCountry,
   StreamRankingDimension,
@@ -35,7 +34,9 @@ export async function generateMetadata({
   })
 
   return {
-    title: `${t('metadata.title')} - ${tg('title')}`,
+    title: `${t('metadata.title', {
+      period: tg(`ranking.period.${searchParams.period}`)
+    })} - ${tg('title')}`,
     description: `${t('metadata.description')}`
   }
 }
@@ -46,6 +47,7 @@ export default function YoutubeRankingLivePage({
 }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
+  const tg = useTranslations('Global.ranking')
   const t = useTranslations('Breadcrumb')
 
   return (
@@ -53,7 +55,9 @@ export default function YoutubeRankingLivePage({
       breadcrumb={[
         {
           href: `/youtube/live`,
-          name: t('streamRanking')
+          name: t('streamRanking', {
+            period: tg(`period.${searchParams.period}`)
+          })
         }
       ]}
       noPadding
