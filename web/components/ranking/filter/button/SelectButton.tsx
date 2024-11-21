@@ -1,19 +1,44 @@
+'use client'
+
 import { ComponentProps } from 'react'
 import { Button } from '@/components/ui/button'
+import useQueryString from 'hooks/useQueryString'
+import { Link, usePathname } from 'lib/navigation'
 
 export default function SelectButton({
+  qsKey,
+  qsValue,
+  activeVariant,
+  defaultActive,
+
   children,
   className,
   ...rest
-}: ComponentProps<typeof Button>) {
+}: ComponentProps<typeof Button> & {
+  activeVariant?: 'default' | 'secondary'
+  defaultActive?: boolean
+  qsKey: string
+  qsValue: string
+}) {
+  const pathname = usePathname()
+  const { has, createQueryString } = useQueryString()
+  const active = has(qsKey, qsValue) || defaultActive
+
   return (
     <Button
       className={`w-full text-xs sm:text-sm h-8 sm:h-10 font-normal justify-start ${
         className || ''
       }`}
       {...rest}
+      asChild
+      variant={active ? activeVariant ?? 'default' : 'ghost'}
     >
-      {children}
+      <Link
+        href={`${pathname}?${createQueryString(qsKey, qsValue)}`}
+        prefetch={true}
+      >
+        {children}
+      </Link>
     </Button>
   )
 }

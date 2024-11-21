@@ -127,13 +127,15 @@
     },
 
     "youtube": {
-      "live": {
-        "index": {
+      "ranking": {
+        "live": {
           "metadata": {
             "title": "Most Watched Channels right now",
             "description": ""
           }
-        },
+        }
+      },
+      "live": {
         "id": {
           "metadata": {
             "title": "{title} {group} {channel}",

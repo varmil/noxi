@@ -10,17 +10,20 @@ import {
 import Image from 'components/styles/Image'
 import useGroups from 'hooks/useGroups'
 
+const QS_KEY = 'group'
+
 export default function GroupColumn() {
   const groups = useGroups()
-  const [selectedGroup, setGroup] = useState('all')
 
   return (
     <Column>
       <ColumnHeader>グループ</ColumnHeader>
       <ColumnContent>
         <SelectButton
-          variant={selectedGroup === 'all' ? 'secondary' : 'ghost'}
-          onClick={() => setGroup('all')}
+          qsKey={QS_KEY}
+          qsValue="all"
+          activeVariant="secondary"
+          defaultActive
         >
           すべて
         </SelectButton>
@@ -29,8 +32,9 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            variant={selectedGroup === group.id ? 'secondary' : 'ghost'}
-            onClick={() => setGroup(group.id)}
+            qsKey={QS_KEY}
+            qsValue={group.id}
+            activeVariant="secondary"
           >
             <Image
               src={group.src}
@@ -47,8 +51,9 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            variant={selectedGroup === group.id ? 'secondary' : 'ghost'}
-            onClick={() => setGroup(group.id)}
+            qsKey={QS_KEY}
+            qsValue={group.id}
+            activeVariant="secondary"
           >
             <group.icon className="h-4 w-4 rounded-full" />
             <span className="">{group.name}</span>

@@ -14,7 +14,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.youtube.live.index'
+    namespace: 'Page.youtube.ranking.live'
   })
 
   return {
@@ -23,7 +23,7 @@ export async function generateMetadata({
   }
 }
 
-export default function YoutubeLivePage({ params: { locale } }: Props) {
+export default function YoutubeRankingLivePage({ params: { locale } }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
   const t = useTranslations('Breadcrumb')

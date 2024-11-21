@@ -127,13 +127,15 @@
     },
 
     "youtube": {
-      "live": {
-        "index": {
+      "ranking": {
+        "live": {
           "metadata": {
             "title": "YouTubeライブ同接数ランキング",
             "description": ""
           }
-        },
+        }
+      },
+      "live": {
         "id": {
           "metadata": {
             "title": "{group} {channel} {title}",
