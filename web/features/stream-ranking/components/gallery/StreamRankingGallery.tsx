@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { PageXSPX } from 'components/page'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
 
@@ -9,7 +10,10 @@ export default function StreamRankingGallery({
 }: PropsWithoutRef<Props>) {
   return (
     <section className="@container space-y-4">
-      <StreamRankingTableTitle showViewAll={compact} />
+      <StreamRankingTableTitle
+        className={`${PageXSPX} sm:px-0`}
+        showViewAll={compact}
+      />
       <StreamRankingTable compact={compact} />
     </section>
   )

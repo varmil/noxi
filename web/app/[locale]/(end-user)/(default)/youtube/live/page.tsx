@@ -36,6 +36,7 @@ export default function YoutubeLivePage({ params: { locale } }: Props) {
           name: t('streamRanking')
         }
       ]}
+      noPadding
     >
       <IndexTemplate />
     </Page>
