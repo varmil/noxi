@@ -1,8 +1,8 @@
 import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
 import { withIntl } from 'lib/middleware/withIntl'
-import { withQSOfCountry } from 'lib/middleware/withQSOfCountry'
+import { withRankingFilterQueryStrings } from 'lib/middleware/withRankingFilterQueryStrings'
 
-const middlewares = [withQSOfCountry, withIntl]
+const middlewares = [withRankingFilterQueryStrings, withIntl]
 
 export default stackMiddlewares(middlewares)
 

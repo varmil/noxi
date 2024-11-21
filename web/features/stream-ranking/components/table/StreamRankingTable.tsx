@@ -4,60 +4,44 @@ import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Progress } from '@/components/ui/progress'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
-import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getStreams } from 'apis/youtube/getStreams'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { GroupString } from 'config/constants/Site'
 import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
-import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams'
 import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
-  compact?: boolean
+  streams: StreamsSchema
 }>
 
-export default async function StreamRankingTable({ compact }: Props) {
-  const streams = await getStreams({
-    status: 'live',
-    orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: compact ? 5 : 100
-  })
-  const [tg, t, channels, liveStreamingDetailsList] = await Promise.all([
+export default async function StreamRankingTable({ streams }: Props) {
+  const [tg, t, channels] = await Promise.all([
     getTranslations('Global.ranking'),
     getTranslations('Features.streamRanking'),
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
-    getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
+    getChannels({ ids: streams.map(stream => stream.snippet.channelId) })
   ])
-  /** 現在の視聴者数で並び替え */
-  const sortedStreams = getSortedStreams(streams, liveStreamingDetailsList)
   /** Progress.valueで使用する */
-  const topConcurrentViewers =
-    liveStreamingDetailsList.find(
-      video => video.id === sortedStreams[0].videoId
-    )?.liveStreamingDetails?.concurrentViewers ?? 0
+  const topConcurrentViewers = streams[0].metrics.peakConcurrentViewers ?? 0
 
   return (
     <Table>
       <StreamRankingTableHeader />
       <TableBody>
-        {sortedStreams.map((stream, i) => {
+        {streams.map((stream, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId
           )
           if (!channel) return null
-          const { liveStreamingDetails } =
-            liveStreamingDetailsList.find(
-              liveStreamingDetails => liveStreamingDetails.id === stream.videoId
-            ) || {}
-          if (!liveStreamingDetails) return null
 
-          const { videoId } = stream
-          const { concurrentViewers } = liveStreamingDetails
+          const {
+            videoId,
+            metrics: { peakConcurrentViewers }
+          } = stream
 
           return (
             <TableRow key={videoId}>
@@ -95,7 +79,7 @@ export default async function StreamRankingTable({ compact }: Props) {
 
                   <Dimension
                     className="@lg:hidden"
-                    concurrentViewers={concurrentViewers}
+                    concurrentViewers={peakConcurrentViewers}
                     topConcurrentViewers={topConcurrentViewers}
                   />
 
@@ -106,7 +90,7 @@ export default async function StreamRankingTable({ compact }: Props) {
               {/* lg-: Viewers */}
               <TableCell width={220} className="hidden @lg:table-cell">
                 <Dimension
-                  concurrentViewers={concurrentViewers}
+                  concurrentViewers={peakConcurrentViewers}
                   topConcurrentViewers={topConcurrentViewers}
                 />
               </TableCell>

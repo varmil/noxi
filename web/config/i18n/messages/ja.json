@@ -16,6 +16,13 @@
     },
 
     "ranking": {
+      "period": {
+        "realtime": "リアルタイム",
+        "daily": "２４時間以内",
+        "weekly": "過去７日間",
+        "monthly": "過去３０日間",
+        "yearly": "過去１年間"
+      },
       "place": "{rank}<weak>位</weak>"
     }
   },
@@ -26,7 +33,7 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "streamRanking": "YouTubeライブ同接数ランキング",
+    "streamRanking": "YouTubeライブ最大同接数ランキング - {period}",
     "supersRanking": "VTuberスパチャランキング"
   },
 
@@ -36,8 +43,8 @@
         "title": "VTuberまとめ",
         "description": "YouTubeのライブ配信ランキングを即座に確認できるPeakXで、人気ストリーマーの最新情報をチェックし、見逃しを防ぎましょう。"
       },
-      "title": "VTuber DB",
-      "description": "ホロライブ、結城さくな、しぐれうい、すべてのVTuberを即座に確認。YouTubeライブの同時視聴者数、スーパーチャット、ユーザーコメントをリアルタイムで確認",
+      "title": "VTuberランキング",
+      "description": "ホロライブ、結城さくな、しぐれうい、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
       "section": {
         "hero": {
           "more": "ランキングを確認"
@@ -127,13 +134,15 @@
     },
 
     "youtube": {
-      "live": {
-        "index": {
+      "ranking": {
+        "live": {
           "metadata": {
-            "title": "YouTubeライブ同接数ランキング",
+            "title": "YouTubeライブ最大同接数ランキング - {period}",
             "description": ""
           }
-        },
+        }
+      },
+      "live": {
         "id": {
           "metadata": {
             "title": "{group} {channel} {title}",
@@ -192,7 +201,7 @@
     },
 
     "streamRanking": {
-      "ranking": "リアルタイム同接数ランキング",
+      "ranking": "最大同接数ランキング - {period}",
       "viewAll": "すべて見る",
       "channel": "チャンネル",
       "group": "グループ",

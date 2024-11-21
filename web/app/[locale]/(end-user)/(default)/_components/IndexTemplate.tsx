@@ -2,7 +2,6 @@ import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
-// import IconSection from 'features/icon-section/IconSection'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { Link } from 'lib/navigation'
 import { HeroH1 } from './styles/HeroTitles'
@@ -38,13 +37,17 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               {t('description')}
             </p>
             <Button className="hidden lg:inline-flex w-fit" asChild>
-              <Link href="/youtube/live">
+              <Link href="/youtube/ranking/live">
                 {t('section.hero.more')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
-          <StreamRankingGallery compact />
+          <StreamRankingGallery
+            period="daily"
+            dimension="concurrent-viewer"
+            compact
+          />
         </HeroSectionContainer>
 
         <SocialProofSection />
