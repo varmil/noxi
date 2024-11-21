@@ -37,7 +37,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={notoSansJP.className}
+      className={`${notoSansJP.className}`}
       suppressHydrationWarning
     >
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />

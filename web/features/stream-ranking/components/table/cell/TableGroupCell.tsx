@@ -14,7 +14,10 @@ export default function TableGroupCell({
 }) {
   return (
     <Cell width={width} className={className}>
-      <GroupImageOrIcon className="w-5 h-5" groupId={groupId} />
+      <GroupImageOrIcon
+        className="w-6 h-6 @3xl:w-8 @3xl:h-8"
+        groupId={groupId}
+      />
     </Cell>
   )
 }
