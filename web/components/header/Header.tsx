@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl'
 import { ModeToggle } from 'components/ModeToggle'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
+import { PageSMPX } from 'components/page'
 import PeakXText from 'components/peakx/svg/text'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
@@ -9,7 +10,7 @@ import Logo from '../Logo'
 export default function Header({ className }: { className?: string }) {
   const t = useTranslations('Global')
   const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/80'
-  const sm = 'sm:bg-transparent sm:px-6'
+  const sm = `sm:bg-transparent ${PageSMPX}`
 
   return (
     <header

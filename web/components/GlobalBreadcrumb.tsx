@@ -8,6 +8,7 @@ import {
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { PageSMPX, PageXSPX } from 'components/page'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -23,7 +24,7 @@ export default function GlobalBreadcrumb({
   items = []
 }: PropsWithoutRef<Props>) {
   return (
-    <ScrollArea className="whitespace-nowrap px-4 sm:px-6">
+    <ScrollArea className={`whitespace-nowrap ${PageXSPX} ${PageSMPX}`}>
       <div className="w-max overflow-hidden">
         <Breadcrumb>
           <BreadcrumbList>
