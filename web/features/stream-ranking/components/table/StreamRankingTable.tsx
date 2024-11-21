@@ -8,6 +8,7 @@ import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingD
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { GroupString } from 'config/constants/Site'
@@ -18,15 +19,10 @@ import { getSortedStreams } from 'features/stream-ranking/utils/getSortedStreams
 import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
-  compact?: boolean
+  streams: StreamsSchema
 }>
 
-export default async function StreamRankingTable({ compact }: Props) {
-  const streams = await getStreams({
-    status: 'live',
-    orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: compact ? 5 : 100
-  })
+export default async function StreamRankingTable({ streams }: Props) {
   const [tg, t, channels, liveStreamingDetailsList] = await Promise.all([
     getTranslations('Global.ranking'),
     getTranslations('Features.streamRanking'),
