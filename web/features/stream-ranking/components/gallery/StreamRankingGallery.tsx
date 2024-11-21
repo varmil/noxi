@@ -12,6 +12,7 @@ import {
   StreamRankingGroup,
   StreamRankingPeriod
 } from 'features/stream-ranking/types/stream-ranking.type'
+import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -22,16 +23,12 @@ type Props = {
   compact?: boolean
 }
 
-export default async function StreamRankingGallery({
-  compact
-}: PropsWithoutRef<Props>) {
+export default async function StreamRankingGallery(
+  props: PropsWithoutRef<Props>
+) {
+  const { compact } = props
   const t = await getTranslations('Features.streamRanking')
-
-  const streams = await getStreams({
-    status: 'live',
-    orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: compact ? 5 : 100
-  })
+  const streams = await getStreams(createGetStreamsParams(props))
 
   return (
     <section className="@container space-y-4 sm:space-y-6">
@@ -51,4 +48,58 @@ export default async function StreamRankingGallery({
       )}
     </section>
   )
+}
+
+function createGetStreamsParams({
+  period,
+  dimension,
+  group,
+  country,
+  compact
+}: Props): Parameters<typeof getStreams>[0] {
+  let result = {}
+
+  if (period === 'real-time') {
+    result = { ...result, status: 'live' }
+  }
+  // TODO: 本当はliveもふくめたい
+  else {
+    let endedAfter: Date
+    switch (period) {
+      case 'daily':
+        endedAfter = dayjs().subtract(1, 'day').toDate()
+        break
+      case 'weekly':
+        endedAfter = dayjs().subtract(7, 'day').toDate()
+        break
+      case 'monthly':
+        endedAfter = dayjs().subtract(1, 'month').toDate()
+        break
+      case 'yearly':
+        endedAfter = dayjs().subtract(1, 'year').toDate()
+        break
+    }
+    result = { ...result, status: 'ended', endedAfter }
+  }
+
+  if (dimension === 'concurrent-viewer') {
+    result = {
+      ...result,
+      orderBy: [{ field: 'maxViewerCount', order: 'desc' }]
+    }
+  } else {
+    // TODO: super chat
+  }
+
+  if (group) {
+    result = { ...result, group }
+  }
+
+  if (country) {
+    result = { ...result, country }
+  }
+
+  result = { ...result, limit: compact ? 5 : period === 'real-time' ? 100 : 30 }
+
+  return result
 }
