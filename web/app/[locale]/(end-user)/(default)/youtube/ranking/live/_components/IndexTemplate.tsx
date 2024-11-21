@@ -11,12 +11,12 @@ export default function IndexTemplate({
 }: PropsWithoutRef<Props>) {
   return (
     <section className={`mt-4 space-y-4`}>
-      <section className="py-4 sm:p-5 bg-muted">
+      <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
         <RankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
 
-      <section className={`max-w-6xl mx-auto ${PageSMPX}`}>
-        <StreamRankingGallery {...searchParams} />
+      <section className={`${PageSMPX}`}>
+        <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
       </section>
     </section>
   )

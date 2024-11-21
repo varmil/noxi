@@ -21,17 +21,18 @@ type Props = {
   group?: StreamRankingGroup
   country?: StreamRankingCountry
   compact?: boolean
+  className?: string
 }
 
 export default async function StreamRankingGallery(
   props: PropsWithoutRef<Props>
 ) {
-  const { period, dimension, compact } = props
+  const { period, dimension, compact, className } = props
   const t = await getTranslations('Features.streamRanking')
   const streams = await getStreams(createGetStreamsParams(props))
 
   return (
-    <section className="@container space-y-4 sm:space-y-6">
+    <section className={`@container space-y-4 sm:space-y-6 ${className || ''}`}>
       <StreamRankingTableTitle
         period={period}
         dimension={dimension}
