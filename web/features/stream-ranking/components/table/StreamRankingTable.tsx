@@ -25,7 +25,7 @@ export default async function StreamRankingTable({ compact }: Props) {
   const streams = await getStreams({
     status: 'live',
     orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-    limit: compact ? 6 : 100
+    limit: compact ? 5 : 100
   })
   const [tg, t, channels, liveStreamingDetailsList] = await Promise.all([
     getTranslations('Global.ranking'),
