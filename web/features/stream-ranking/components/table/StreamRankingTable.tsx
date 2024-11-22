@@ -13,13 +13,18 @@ import { GroupString } from 'config/constants/Site'
 import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
+import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
+  dimension: StreamRankingDimension
 }>
 
-export default async function StreamRankingTable({ streams }: Props) {
+export default async function StreamRankingTable({
+  streams,
+  dimension
+}: Props) {
   const [tg, t, channels] = await Promise.all([
     getTranslations('Global.ranking'),
     getTranslations('Features.streamRanking'),
@@ -30,7 +35,7 @@ export default async function StreamRankingTable({ streams }: Props) {
 
   return (
     <Table>
-      <StreamRankingTableHeader />
+      <StreamRankingTableHeader dimension={dimension} />
       <TableBody>
         {streams.map((stream, i) => {
           const channel = channels.find(

@@ -66,7 +66,7 @@ export default async function StreamRankingGallery(
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
 
-      <StreamRankingTable streams={streams} />
+      <StreamRankingTable dimension={dimension} streams={streams} />
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">
