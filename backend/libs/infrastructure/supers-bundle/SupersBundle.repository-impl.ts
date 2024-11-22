@@ -31,10 +31,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
           videoId: where.videoId?.get(),
           channelId: where.channelId?.get(),
           group: where.group?.get(),
-          actualEndTime: {
-            gte: where.actualEndTime?.gte,
-            lte: where.actualEndTime?.lte
-          }
+          actualEndTime: where.actualEndTime
         }
       : undefined
 

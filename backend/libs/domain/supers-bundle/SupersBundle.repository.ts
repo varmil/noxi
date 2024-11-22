@@ -8,7 +8,7 @@ export interface SupersBundleRepository {
       videoId?: VideoId
       channelId?: ChannelId
       group?: Group
-      actualEndTime?: { gte?: Date; lte?: Date }
+      actualEndTime?: { gte?: Date; lte?: Date } | null
     }
     orderBy?: Partial<Record<'amountMicros', 'asc' | 'desc'>>[]
     limit?: number

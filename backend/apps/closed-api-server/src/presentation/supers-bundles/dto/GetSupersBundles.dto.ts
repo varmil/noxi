@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
   IsIn,
@@ -6,6 +6,7 @@ import {
   IsOptional,
   IsRFC3339,
   IsString,
+  ValidateIf,
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
@@ -26,13 +27,19 @@ export class GetSupersBundles {
   @IsOptional()
   group?: GroupString
 
+  /** "null" means "realtime live" */
   @IsOptional()
   @IsRFC3339()
-  actualEndTimeGTE?: string
+  @ValidateIf((object, value) => value !== 'null')
+  @Transform(({ value }) => (value === 'null' ? null : value))
+  actualEndTimeGTE?: string | null
 
+  /** "null" means "realtime live" */
   @IsOptional()
   @IsRFC3339()
-  actualEndTimeLTE?: string
+  @ValidateIf((object, value) => value !== 'null')
+  @Transform(({ value }) => (value === 'null' ? null : value))
+  actualEndTimeLTE?: string | null
 
   @IsOptional()
   @IsArray()
@@ -66,13 +73,20 @@ export class GetSupersBundles {
     )
   }
 
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
   toActualEndTime = () => {
-    const actualEndTimeGTE = this.actualEndTimeGTE
-      ? new Date(this.actualEndTimeGTE)
-      : undefined
-    const actualEndTimeLTE = this.actualEndTimeLTE
-      ? new Date(this.actualEndTimeLTE)
-      : undefined
+    if (this.actualEndTimeGTE === null || this.actualEndTimeLTE === null) {
+      return null
+    }
+
+    const actualEndTimeGTE =
+      this.actualEndTimeGTE !== undefined
+        ? new Date(this.actualEndTimeGTE)
+        : undefined
+    const actualEndTimeLTE =
+      this.actualEndTimeLTE !== undefined
+        ? new Date(this.actualEndTimeLTE)
+        : undefined
 
     return {
       ...(actualEndTimeGTE && { gte: actualEndTimeGTE }),

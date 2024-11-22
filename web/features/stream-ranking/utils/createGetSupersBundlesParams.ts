@@ -12,7 +12,7 @@ export default function createGetStreamsParams({
   let result = {}
 
   if (period === 'realtime') {
-    // TODO: どうにかする
+    result = { ...result, actualEndTimeGTE: null, actualEndTimeLTE: null }
   } else {
     let actualEndTimeGTE: Date
     switch (period) {

@@ -4,13 +4,14 @@ import {
 } from 'apis/youtube/schema/supersBundleSchema'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
+import middleware from '../../middleware'
 
 type Params = {
   videoId?: string
   channelId?: string
   group?: GroupString
-  actualEndTimeGTE?: Date
-  actualEndTimeLTE?: Date
+  actualEndTimeGTE?: Date | null
+  actualEndTimeLTE?: Date | null
   orderBy?: {
     field: 'amountMicros'
     order: 'asc' | 'desc'
@@ -33,11 +34,11 @@ export async function getSupersBundles({
     ...(videoId && { videoId }),
     ...(channelId && { channelId }),
     ...(group && { group }),
-    ...(actualEndTimeGTE && {
-      actualEndTimeGTE: actualEndTimeGTE.toISOString()
+    ...(actualEndTimeGTE !== undefined && {
+      actualEndTimeGTE: actualEndTimeGTE?.toISOString() ?? 'null'
     }),
-    ...(actualEndTimeLTE && {
-      actualEndTimeLTE: actualEndTimeLTE.toISOString()
+    ...(actualEndTimeLTE !== undefined && {
+      actualEndTimeLTE: actualEndTimeLTE?.toISOString() ?? 'null'
     }),
     ...(limit && { limit: String(limit) }),
     ...(offset && { offset: String(offset) })
