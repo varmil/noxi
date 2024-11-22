@@ -39,13 +39,13 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
           {t('supers')}
         </TableHead>
 
-        {/* lg-: Group */}
-        <TableHead className="hidden @lg:table-cell text-nowrap text-center">
+        {/* 3xl-: Group */}
+        <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
           {t('group')}
         </TableHead>
 
-        {/* lg-: Group */}
-        <TableHead className="hidden @lg:table-cell text-nowrap text-center">
+        {/* 3xl-: Country */}
+        <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
           {t('country')}
         </TableHead>
       </TableRow>

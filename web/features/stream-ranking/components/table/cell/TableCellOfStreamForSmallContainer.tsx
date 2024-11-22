@@ -1,20 +1,30 @@
 import { PropsWithoutRef } from 'react'
+import { JapaneseYen } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import { SupersBundleSchema } from 'apis/youtube/schema/supersBundleSchema'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import Dimension from 'features/stream-ranking/components/table/styles/Dimension'
+import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
+import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
-  stream: StreamSchema
+  bundle?: SupersBundleSchema
   channel: ChannelSchema
+  stream: StreamSchema
+  dimension: StreamRankingDimension
   topConcurrentViewers: number
+  topAmountMicros: bigint
 }>
 
 export default function TableCellOfStreamForSmallContainer({
-  stream,
+  bundle,
   channel,
-  topConcurrentViewers
+  stream,
+  dimension,
+  topConcurrentViewers,
+  topAmountMicros
 }: Props) {
   const {
     videoId,
@@ -24,16 +34,27 @@ export default function TableCellOfStreamForSmallContainer({
 
   return (
     <LinkCell videoId={videoId} className="@lg:hidden">
-      <div className="flex flex-col gap-2 @lg:gap-4">
+      <div className="flex flex-col gap-2">
         <div className="font-light line-clamp-2">{title}</div>
 
-        <Dimension
-          className="@lg:hidden"
-          dividend={peakConcurrentViewers}
-          divisor={topConcurrentViewers}
-        />
+        {dimension === 'concurrent-viewer' ? (
+          <Dimension
+            active={true}
+            dividend={peakConcurrentViewers}
+            divisor={topConcurrentViewers}
+          />
+        ) : null}
 
-        <SmallChannel className="@lg:hidden" channel={channel} />
+        {dimension === 'super-chat' ? (
+          <Dimension
+            active={true}
+            dividend={convertMicrosToAmount(bundle?.amountMicros ?? BigInt(0))}
+            divisor={convertMicrosToAmount(topAmountMicros)}
+            icon={<JapaneseYen className="w-3 h-3" />}
+          />
+        ) : null}
+
+        <SmallChannel channel={channel} />
       </div>
     </LinkCell>
   )

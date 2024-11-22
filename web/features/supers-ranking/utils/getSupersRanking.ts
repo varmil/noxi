@@ -4,6 +4,10 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { SupersRanking } from 'features/supers-ranking/types/SupersRanking.type'
 import dayjs from 'lib/dayjs'
+import {
+  convertMicrosToAmount,
+  formatMicrosAsRoundedAmount
+} from 'utils/amount'
 
 /**
  * @param date used for daily ranking
@@ -46,9 +50,7 @@ export async function getDailySupersRanking({
         channelTitle: title,
         channelThumbnails: thumbnails['medium']?.url,
         streamTitle: streamTitle,
-        amount: Math.round(
-          BigNumber(bundle.amountMicros.toString()).div(1_000_000).toNumber()
-        ).toLocaleString(),
+        amount: formatMicrosAsRoundedAmount(bundle.amountMicros),
         group: bundle.group
       }
     })

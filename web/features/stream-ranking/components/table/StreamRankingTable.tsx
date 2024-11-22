@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import BigNumber from 'bignumber.js'
+import { JapaneseYen } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
@@ -16,6 +17,7 @@ import StreamRankingTableHeader from 'features/stream-ranking/components/table/h
 import Dimension from 'features/stream-ranking/components/table/styles/Dimension'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Link } from 'lib/navigation'
+import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
   dimension: StreamRankingDimension
@@ -69,9 +71,12 @@ export default async function StreamRankingTable({
 
               {/* xs-md: Stream Title & Dimension & Ch. Thumbnail & Ch. Title */}
               <TableCellOfStreamForSmallContainer
-                stream={stream}
+                bundle={bundle}
                 channel={channel}
+                stream={stream}
+                dimension={dimension}
                 topConcurrentViewers={topConcurrentViewers}
+                topAmountMicros={topAmountMicros}
               />
 
               {/* lg-: Channel + Title */}
@@ -92,7 +97,7 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* lg-: Viewers */}
-              <TableCell width={150} className="hidden @lg:table-cell">
+              <TableCell width={150} className="hidden @lg:table-cell min-w-24">
                 <Dimension
                   active={dimension === 'concurrent-viewer'}
                   dividend={peakConcurrentViewers}
@@ -101,25 +106,24 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* lg-: Supers */}
-              <TableCell width={150} className="hidden @lg:table-cell">
+              <TableCell width={150} className="hidden @lg:table-cell min-w-24">
                 <Dimension
                   active={dimension === 'super-chat'}
-                  dividend={Math.round(
-                    BigNumber(bundle?.amountMicros.toString() ?? 0)
-                      .div(1_000_000)
-                      .toNumber()
+                  dividend={convertMicrosToAmount(
+                    bundle?.amountMicros ?? BigInt(0)
                   )}
-                  divisor={Number(topAmountMicros / BigInt(1_000_000))}
+                  divisor={convertMicrosToAmount(topAmountMicros)}
+                  icon={<JapaneseYen className="w-4 h-4" />}
                 />
               </TableCell>
 
-              {/* lg-: Group */}
+              {/* 3xl-: Group */}
               <TableCellOfGroup groupId={stream.group} />
 
-              {/* lg-: Country */}
+              {/* 3xl-: Country */}
               <TableCell
                 width={50}
-                className="hidden @lg:table-cell justify-items-center"
+                className="hidden @3xl:table-cell justify-items-center"
               >
                 <CountryFlag countryCode={channel.peakX?.country} size={24} />
               </TableCell>

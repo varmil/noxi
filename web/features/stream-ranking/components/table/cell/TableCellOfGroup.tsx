@@ -9,11 +9,8 @@ export default function TableCellOfGroup({
   groupId: GroupString
 }) {
   return (
-    <Cell className="hidden @lg:table-cell" width={100}>
-      <GroupImageOrIcon
-        className="w-6 h-6 @3xl:w-8 @3xl:h-8"
-        groupId={groupId}
-      />
+    <Cell className="hidden @3xl:table-cell" width={100}>
+      <GroupImageOrIcon className="w-8 h-8" groupId={groupId} />
     </Cell>
   )
 }

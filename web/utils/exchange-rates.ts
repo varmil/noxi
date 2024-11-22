@@ -1,6 +1,7 @@
 import 'server-only'
 import BigNumber from 'bignumber.js'
 import { SuperChatsSchema } from 'apis/youtube/schema/superChatSchema'
+import { convertMicrosToAmount } from 'utils/amount'
 
 // 外部APIから為替レートを取得する関数
 async function fetchExchangeRates() {
@@ -38,9 +39,7 @@ export async function calculateTotalInJPY(chats: SuperChatsSchema) {
   let totalInJPY = new BigNumber(0)
 
   for (const chat of chats) {
-    const amountInBaseCurrency = new BigNumber(
-      chat.amountMicros.toString()
-    ).div(1_000_000) // amountMicrosを正規化
+    const amountInBaseCurrency = convertMicrosToAmount(chat.amountMicros)
     const amountInJPY = convertToJPY(amountInBaseCurrency, chat.currency, rates)
     totalInJPY = totalInJPY.plus(amountInJPY)
   }
