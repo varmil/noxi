@@ -4,7 +4,6 @@ import {
 } from 'apis/youtube/schema/supersBundleSchema'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
-import middleware from '../../middleware'
 
 type Params = {
   videoId?: string
