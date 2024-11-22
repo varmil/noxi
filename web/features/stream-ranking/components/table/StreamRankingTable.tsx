@@ -92,7 +92,7 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* lg-: Viewers */}
-              <TableCell width={170} className="hidden @lg:table-cell">
+              <TableCell width={150} className="hidden @lg:table-cell">
                 <Dimension
                   active={dimension === 'concurrent-viewer'}
                   dividend={peakConcurrentViewers}
@@ -101,7 +101,7 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* lg-: Supers */}
-              <TableCell width={170} className="hidden @lg:table-cell">
+              <TableCell width={150} className="hidden @lg:table-cell">
                 <Dimension
                   active={dimension === 'super-chat'}
                   dividend={Math.round(
