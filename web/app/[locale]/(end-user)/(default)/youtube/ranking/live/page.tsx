@@ -28,16 +28,20 @@ export async function generateMetadata({
   searchParams
 }: Props): Promise<Metadata> {
   const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({
+  const tp = await getTranslations({
     locale,
     namespace: 'Page.youtube.ranking.live'
   })
+  const tf = await getTranslations({
+    locale,
+    namespace: 'Features.streamRanking.ranking.dimension'
+  })
 
   return {
-    title: `${t('metadata.title', {
+    title: `${tf(searchParams.dimension, {
       period: tg(`ranking.period.${searchParams.period}`)
     })} - ${tg('title')}`,
-    description: `${t('metadata.description')}`
+    description: `${tp('metadata.description')}`
   }
 }
 
@@ -48,14 +52,14 @@ export default function YoutubeRankingLivePage({
   // Enable static rendering
   setRequestLocale(locale)
   const tg = useTranslations('Global.ranking')
-  const t = useTranslations('Breadcrumb')
+  const t = useTranslations('Features.streamRanking.ranking.dimension')
 
   return (
     <Page
       breadcrumb={[
         {
           href: `/youtube/ranking/live`,
-          name: t('streamRanking', {
+          name: t(searchParams.dimension, {
             period: tg(`period.${searchParams.period}`)
           })
         }

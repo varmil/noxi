@@ -12,7 +12,11 @@ type Props = PropsWithChildren<{
   className?: string
 }>
 
-export default function StreamRankingTableTitle({ period, className }: Props) {
+export default function StreamRankingTableTitle({
+  period,
+  dimension,
+  className
+}: Props) {
   const tg = useTranslations('Global.ranking')
   const t = useTranslations('Features.streamRanking')
   return (
@@ -26,7 +30,7 @@ export default function StreamRankingTableTitle({ period, className }: Props) {
             height={22.5}
             className="relative w-8 h-[22.5px] top-[0.5px]"
           />
-          {t('ranking', {
+          {t(`ranking.dimension.${dimension}`, {
             period: tg(`period.${period}`)
           })}
         </div>

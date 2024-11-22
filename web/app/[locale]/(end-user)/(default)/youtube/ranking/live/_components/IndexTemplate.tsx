@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
-import { YoutubeRankingLiveSearchParams } from 'app/[locale]/(end-user)/(default)/youtube/ranking/live/page'
 import { PageSMPX } from 'components/page'
-import RankingFilterGallery from 'components/ranking/filter/RankingFilterGallery'
+import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
+import { YoutubeRankingLiveSearchParams } from '../page'
 
 type Props = {} & YoutubeRankingLiveSearchParams
 
@@ -12,7 +12,7 @@ export default function IndexTemplate({
   return (
     <section className={`mt-4 space-y-4`}>
       <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
-        <RankingFilterGallery className="max-w-6xl mx-auto" />
+        <StreamRankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
 
       <section className={`${PageSMPX}`}>

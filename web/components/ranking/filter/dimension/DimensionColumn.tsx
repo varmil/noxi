@@ -20,9 +20,9 @@ export default function DimensionColumn({ className }: Props) {
         <SelectButton qsKey={QS_KEY} qsValue="concurrent-viewer">
           同時視聴者数
         </SelectButton>
-        {/* <SelectButton qsKey={QS_KEY} qsValue="super-chat">
-          スーパーチャット額（実装中）
-        </SelectButton> */}
+        <SelectButton qsKey={QS_KEY} qsValue="super-chat">
+          スパチャ金額
+        </SelectButton>
       </ColumnContent>
     </Column>
   )

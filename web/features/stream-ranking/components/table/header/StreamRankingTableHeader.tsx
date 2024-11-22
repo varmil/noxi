@@ -1,10 +1,13 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { TableHeader, TableRow, TableHead } from '@/components/ui/table'
+import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 
-type Props = PropsWithoutRef<{}>
+type Props = PropsWithoutRef<{
+  dimension: StreamRankingDimension
+}>
 
-export default async function StreamRankingTableHeader({}: Props) {
+export default async function StreamRankingTableHeader({ dimension }: Props) {
   const t = await getTranslations('Features.streamRanking')
 
   return (

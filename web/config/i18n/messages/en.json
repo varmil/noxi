@@ -137,8 +137,7 @@
       "ranking": {
         "live": {
           "metadata": {
-            "title": "Most Watched Channels - {period}",
-            "description": ""
+            "description": "Check the VTuber Super Chat rankings and concurrent viewers rankings. Filter by group, country, and gender."
           }
         }
       },
@@ -201,7 +200,12 @@
     },
 
     "streamRanking": {
-      "ranking": "Most Watched Channels - {period}",
+      "ranking": {
+        "dimension": {
+          "concurrent-viewer": "Most Watched Live Streams - {period}",
+          "super-chat": "Most Super Chatted Live Streams - {period}"
+        }
+      },
       "viewAll": "View All",
       "channel": "Channel",
       "group": "Group",

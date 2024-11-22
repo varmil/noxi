@@ -33,7 +33,6 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "streamRanking": "YouTubeライブ最大同接数ランキング - {period}",
     "supersRanking": "VTuberスパチャランキング"
   },
 
@@ -137,8 +136,7 @@
       "ranking": {
         "live": {
           "metadata": {
-            "title": "YouTubeライブ最大同接数ランキング - {period}",
-            "description": ""
+            "description": "VTuberのスパチャランキング、同接数ランキングをチェック。所属グループや国、性別でフィルタリングしよう。"
           }
         }
       },
@@ -201,7 +199,12 @@
     },
 
     "streamRanking": {
-      "ranking": "最大同接数ランキング - {period}",
+      "ranking": {
+        "dimension": {
+          "concurrent-viewer": "最大同接数ランキング - {period}",
+          "super-chat": "スパチャランキング - {period}"
+        }
+      },
       "viewAll": "すべて見る",
       "channel": "チャンネル",
       "group": "グループ",
