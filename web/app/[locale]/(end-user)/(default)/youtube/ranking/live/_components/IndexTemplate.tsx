@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
-import { YoutubeRankingLiveSearchParams } from 'app/[locale]/(end-user)/(default)/youtube/ranking/live/page'
 import { PageSMPX } from 'components/page'
-import StreamRankingFilterGallery from 'components/ranking/filter/gallery/StreamRankingFilterGallery'
+import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
+import { YoutubeRankingLiveSearchParams } from '../page'
 
 type Props = {} & YoutubeRankingLiveSearchParams
 

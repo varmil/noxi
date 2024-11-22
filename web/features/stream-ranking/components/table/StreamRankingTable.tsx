@@ -26,7 +26,7 @@ export default async function StreamRankingTable({ streams }: Props) {
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) })
   ])
   /** Progress.valueで使用する */
-  const topConcurrentViewers = streams[0].metrics.peakConcurrentViewers ?? 0
+  const topConcurrentViewers = streams[0]?.metrics.peakConcurrentViewers ?? 0
 
   return (
     <Table>
