@@ -7,7 +7,7 @@ export const schema = z.object({
   amountMicros: z.coerce.bigint(),
   count: z.number().min(0),
   actualStartTime: z.coerce.date(),
-  actualEndTime: z.coerce.date(),
+  actualEndTime: z.coerce.date().optional(),
   group: z.enum(GroupStrings)
 })
 export const responseSchema = z.object({

@@ -76,7 +76,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       amountMicros: amountMicros.toBigInt(),
       count: count.get(),
       actualStartTime: actualStartTime.get(),
-      actualEndTime: actualEndTime.get(),
+      actualEndTime: actualEndTime?.get() ?? null,
       group: group.get()
     }
 
@@ -94,7 +94,9 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
       count: new SupersCount(row.count),
       actualStartTime: new ActualStartTime(row.actualStartTime),
-      actualEndTime: new ActualEndTime(row.actualEndTime),
+      actualEndTime: row.actualEndTime
+        ? new ActualEndTime(row.actualEndTime)
+        : undefined,
       group: new Group(row.group)
     })
   }

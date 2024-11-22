@@ -19,9 +19,52 @@ export class MainScenario {
   ) {}
 
   async execute(): Promise<void> {
-    const tasks = await this.fetchTasks()
+    await this.executeLives()
+    await this.executeQueues()
+  }
+
+  private async executeLives() {
+    const streams = await this.mainService.fetchLives()
     console.log(
-      'start',
+      'executeLives()',
+      streams.map(task => task.videoId.get())
+    )
+
+    const promises = streams.map(async stream => {
+      const {
+        videoId,
+        streamTimes: { actualStartTime, actualEndTime },
+        snippet: { channelId },
+        group
+      } = stream
+
+      if (!actualStartTime) {
+        throw new Error(`actualStartTime not found for ${videoId.get()}`)
+      }
+
+      const { amountMicros, count } =
+        await this.mainService.calculateTotalInJPY(videoId)
+
+      await this.supersBundlesService.save({
+        data: new SupersBundle({
+          videoId,
+          channelId,
+          amountMicros,
+          count,
+          actualStartTime,
+          actualEndTime,
+          group
+        })
+      })
+    })
+
+    await this.promiseService.allSettled(promises)
+  }
+
+  private async executeQueues() {
+    const tasks = await this.mainService.fetchQueues()
+    console.log(
+      'executeQueues()',
       tasks.map(task => task.videoId.get())
     )
 
@@ -64,11 +107,5 @@ export class MainScenario {
     })
 
     await this.promiseService.allSettled(promises)
-  }
-
-  private async fetchTasks() {
-    return await this.supersBundleQueuesService.findAll({
-      limit: 100
-    })
   }
 }
