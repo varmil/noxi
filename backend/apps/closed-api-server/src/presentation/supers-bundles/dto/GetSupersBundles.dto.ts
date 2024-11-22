@@ -31,14 +31,18 @@ export class GetSupersBundles {
   @IsOptional()
   @IsRFC3339()
   @ValidateIf((_, value) => value !== 'null')
-  @Transform(({ value }) => (value === 'null' ? null : value))
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   actualEndTimeGTE?: string | null
 
   /** "null" means "realtime live" */
   @IsOptional()
   @IsRFC3339()
   @ValidateIf((_, value) => value !== 'null')
-  @Transform(({ value }) => (value === 'null' ? null : value))
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   actualEndTimeLTE?: string | null
 
   @IsOptional()
