@@ -33,9 +33,9 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
         </TableHead>
 
         {/* lg-: Supers */}
-        {/* <TableHead className="hidden @lg:table-cell text-nowrap">
+        <TableHead className="hidden @lg:table-cell text-nowrap">
           {t('supers')}
-        </TableHead> */}
+        </TableHead>
 
         {/* lg-: Channel */}
         <TableHead className="hidden @lg:table-cell text-nowrap text-center">

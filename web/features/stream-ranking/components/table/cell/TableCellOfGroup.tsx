@@ -3,17 +3,13 @@ import { TableCell } from '@/components/ui/table'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import { GroupString } from 'config/constants/Site'
 
-export default function TableGroupCell({
-  groupId,
-  width,
-  className
+export default function TableCellOfGroup({
+  groupId
 }: {
   groupId: GroupString
-  width?: number
-  className?: string
 }) {
   return (
-    <Cell width={width} className={className}>
+    <Cell className="hidden @lg:table-cell" width={100}>
       <GroupImageOrIcon
         className="w-6 h-6 @3xl:w-8 @3xl:h-8"
         groupId={groupId}

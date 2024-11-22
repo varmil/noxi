@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import BigNumber from 'bignumber.js'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
@@ -6,11 +7,9 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import { SupersBundlesSchema } from 'apis/youtube/schema/supersBundleSchema'
-import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
-import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { GroupString } from 'config/constants/Site'
-import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
+import TableCellOfGroup from 'features/stream-ranking/components/table/cell/TableCellOfGroup'
+import TableCellOfStreamThumbnail from 'features/stream-ranking/components/table/cell/TableCellOfStreamThumbnail'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import Dimension from 'features/stream-ranking/components/table/styles/Dimension'
@@ -26,15 +25,18 @@ export default async function StreamRankingTable({
   dimension,
   streams
 }: Props) {
-  const [tg, t, channels] = await Promise.all([
+  const [tg, t, channels, bundles] = await Promise.all([
     getTranslations('Global.ranking'),
     getTranslations('Features.streamRanking'),
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) })
-    // TODO: bundlesをここでフェッチしてスパチャ金額を計算する
-    // getSupersBundles({ videoIds: streams.map(stream => stream.snippet.channelId) })
+    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getSupersBundles({
+      videoIds: streams.map(stream => stream.videoId),
+      orderBy: [{ field: 'amountMicros', order: 'desc' }]
+    })
   ])
   /** Progress.valueで使用する */
   const topConcurrentViewers = streams[0]?.metrics.peakConcurrentViewers ?? 0
+  const topAmountMicros = bundles[0]?.amountMicros ?? 0
 
   return (
     <Table>
@@ -50,6 +52,9 @@ export default async function StreamRankingTable({
             videoId,
             metrics: { peakConcurrentViewers }
           } = stream
+          const bundle = bundles.find(
+            bundle => bundle.videoId === stream.videoId
+          )
 
           return (
             <TableRow key={videoId}>
@@ -59,21 +64,7 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* Stream Thumbnail */}
-              <LinkCell
-                videoId={videoId}
-                className="min-w-[150px] max-w-[200px] relative"
-              >
-                <VideoThumbnail
-                  size="high"
-                  title={stream.snippet.title}
-                  thumbnails={stream.snippet.thumbnails}
-                  className="min-w-[150px] max-w-[200px] rounded-sm"
-                />
-                <GroupImageOrIcon
-                  className="@lg:hidden absolute bottom-0.5 right-0 bg-background p-1.5 w-7 h-7"
-                  groupId={stream.group}
-                />
-              </LinkCell>
+              <TableCellOfStreamThumbnail stream={stream} />
 
               {/* Stream Title & Ch. Thumbnail & Ch. Title */}
               <LinkCell
@@ -98,8 +89,22 @@ export default async function StreamRankingTable({
               {/* lg-: Viewers */}
               <TableCell width={170} className="hidden @lg:table-cell">
                 <Dimension
+                  active={dimension === 'concurrent-viewer'}
                   dividend={peakConcurrentViewers}
                   divisor={topConcurrentViewers}
+                />
+              </TableCell>
+
+              {/* lg-: Supers */}
+              <TableCell width={170} className="hidden @lg:table-cell">
+                <Dimension
+                  active={dimension === 'super-chat'}
+                  dividend={Math.round(
+                    BigNumber(bundle?.amountMicros.toString() ?? 0)
+                      .div(1_000_000)
+                      .toNumber()
+                  )}
+                  divisor={Number(topAmountMicros / BigInt(1_000_000))}
                 />
               </TableCell>
 
@@ -109,11 +114,7 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* lg-: Group */}
-              <TableGroupCell
-                className="hidden @lg:table-cell"
-                width={100}
-                groupId={stream.group}
-              />
+              <TableCellOfGroup groupId={stream.group} />
             </TableRow>
           )
         })}
