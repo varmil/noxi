@@ -12,12 +12,16 @@ import {
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { SupersBundleRepository } from '@domain/supers-bundle'
-import { ChannelId, VideoId } from '@domain/youtube'
+import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
 
 export class GetSupersBundles {
   @IsOptional()
-  @IsString()
-  videoId?: string
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }: { value: string }) =>
+    value ? value.split(',') : undefined
+  )
+  videoIds?: string[]
 
   @IsOptional()
   @IsString()
@@ -61,7 +65,10 @@ export class GetSupersBundles {
   @Type(() => Number)
   offset?: number
 
-  toVideoId = () => (this.videoId ? new VideoId(this.videoId) : undefined)
+  toVideoIds = () =>
+    this.videoIds
+      ? new VideoIds(this.videoIds.map(id => new VideoId(id)))
+      : undefined
 
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined

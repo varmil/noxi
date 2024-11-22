@@ -6,7 +6,7 @@ import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  videoId?: string
+  videoIds?: string[]
   channelId?: string
   group?: GroupString
   actualEndTimeGTE?: Date | null
@@ -20,7 +20,7 @@ type Params = {
 }
 
 export async function getSupersBundles({
-  videoId,
+  videoIds,
   channelId,
   group,
   actualEndTimeGTE,
@@ -30,7 +30,7 @@ export async function getSupersBundles({
   offset
 }: Params): Promise<SupersBundlesSchema> {
   const searchParams = new URLSearchParams({
-    ...(videoId && { videoId }),
+    ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(channelId && { channelId }),
     ...(group && { group }),
     ...(actualEndTimeGTE !== undefined && {

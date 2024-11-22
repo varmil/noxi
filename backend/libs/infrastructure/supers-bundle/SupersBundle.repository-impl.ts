@@ -28,7 +28,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   }: Parameters<SupersBundleRepository['findAll']>[0]) {
     const whereQuery = where
       ? {
-          videoId: where.videoId?.get(),
+          videoId: { in: where.videoIds?.map(e => e.get()) },
           channelId: where.channelId?.get(),
           group: where.group?.get(),
           actualEndTime: where.actualEndTime
