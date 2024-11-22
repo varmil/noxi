@@ -21,8 +21,9 @@ export class SupersBundle {
   public readonly count: SupersCount
   @Transform(({ value }: { value: ActualStartTime }) => value.get())
   public readonly actualStartTime: ActualStartTime
-  @Transform(({ value }: { value: ActualEndTime }) => value.get())
-  public readonly actualEndTime: ActualEndTime
+  /** ライブ中の場合はundefined, ライブ終了後の場合は終了時刻 */
+  @Transform(({ value }: { value?: ActualEndTime }) => value?.get())
+  public readonly actualEndTime?: ActualEndTime
   @Transform(({ value }: { value: Group }) => value.get())
   public readonly group: Group
 
@@ -32,7 +33,7 @@ export class SupersBundle {
     amountMicros: AmountMicros
     count: SupersCount
     actualStartTime: ActualStartTime
-    actualEndTime: ActualEndTime
+    actualEndTime?: ActualEndTime
     group: Group
   }) {
     this.videoId = args.videoId

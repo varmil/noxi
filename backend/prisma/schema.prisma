@@ -157,15 +157,15 @@ model YoutubeStreamSuperSticker {
 }
 
 model YoutubeStreamSupersBundle {
-  videoId         String   @id
+  videoId         String    @id
   channelId       String
   /// JPY
   amountMicros    BigInt
   count           Int
-  actualStartTime DateTime @db.Timestamptz(3)
-  actualEndTime   DateTime @db.Timestamptz(3)
+  actualStartTime DateTime  @db.Timestamptz(3)
+  actualEndTime   DateTime? @db.Timestamptz(3)
   group           String
-  createdAt       DateTime @default(now()) @db.Timestamptz(3)
+  createdAt       DateTime  @default(now()) @db.Timestamptz(3)
 
   @@index([actualStartTime, amountMicros])
   @@index([actualEndTime, amountMicros])
