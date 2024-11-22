@@ -1,34 +1,37 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Progress } from '@/components/ui/progress'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
+import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import { SupersBundlesSchema } from 'apis/youtube/schema/supersBundleSchema'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { GroupString } from 'config/constants/Site'
 import TableGroupCell from 'features/stream-ranking/components/table/cell/TableGroupCell'
 import LinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
+import Dimension from 'features/stream-ranking/components/table/styles/Dimension'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Link } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
-  streams: StreamsSchema
   dimension: StreamRankingDimension
+  streams: StreamsSchema
 }>
 
 export default async function StreamRankingTable({
-  streams,
-  dimension
+  dimension,
+  streams
 }: Props) {
   const [tg, t, channels] = await Promise.all([
     getTranslations('Global.ranking'),
     getTranslations('Features.streamRanking'),
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) })
+    // TODO: bundlesをここでフェッチしてスパチャ金額を計算する
+    // getSupersBundles({ videoIds: streams.map(stream => stream.snippet.channelId) })
   ])
   /** Progress.valueで使用する */
   const topConcurrentViewers = streams[0]?.metrics.peakConcurrentViewers ?? 0
@@ -84,8 +87,8 @@ export default async function StreamRankingTable({
 
                   <Dimension
                     className="@lg:hidden"
-                    concurrentViewers={peakConcurrentViewers}
-                    topConcurrentViewers={topConcurrentViewers}
+                    dividend={peakConcurrentViewers}
+                    divisor={topConcurrentViewers}
                   />
 
                   <SmallChannel className="@lg:hidden" channel={channel} />
@@ -93,10 +96,10 @@ export default async function StreamRankingTable({
               </LinkCell>
 
               {/* lg-: Viewers */}
-              <TableCell width={220} className="hidden @lg:table-cell">
+              <TableCell width={170} className="hidden @lg:table-cell">
                 <Dimension
-                  concurrentViewers={peakConcurrentViewers}
-                  topConcurrentViewers={topConcurrentViewers}
+                  dividend={peakConcurrentViewers}
+                  divisor={topConcurrentViewers}
                 />
               </TableCell>
 
@@ -116,34 +119,6 @@ export default async function StreamRankingTable({
         })}
       </TableBody>
     </Table>
-  )
-}
-
-const Dimension = ({
-  className,
-  concurrentViewers,
-  topConcurrentViewers
-}: {
-  className?: string
-  concurrentViewers?: number
-  topConcurrentViewers: number
-}) => {
-  const t = useTranslations('Features.streamRanking')
-  return (
-    <div className={`max-w-60 tabular-nums ${className || ''}`}>
-      <span className="font-bold">
-        {concurrentViewers?.toLocaleString() ?? '--'}
-      </span>
-      <div>
-        <Progress
-          title={t('viewers')}
-          className="h-1"
-          value={Math.round(
-            ((concurrentViewers ?? 0) / topConcurrentViewers) * 100
-          )}
-        />
-      </div>
-    </div>
   )
 }
 

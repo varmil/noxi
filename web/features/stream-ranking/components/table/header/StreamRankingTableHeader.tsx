@@ -32,6 +32,11 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
           {t('viewers')}
         </TableHead>
 
+        {/* lg-: Supers */}
+        {/* <TableHead className="hidden @lg:table-cell text-nowrap">
+          {t('supers')}
+        </TableHead> */}
+
         {/* lg-: Channel */}
         <TableHead className="hidden @lg:table-cell text-nowrap text-center">
           {t('channel')}
