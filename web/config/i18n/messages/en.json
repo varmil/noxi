@@ -210,8 +210,9 @@
       "channel": "Channel",
       "group": "Group",
       "streamTitle": "Title",
-      "supers": "Super Chat Amount",
-      "viewers": "Viewers"
+      "supers": "Supers",
+      "viewers": "Viewers",
+      "country": "Country"
     },
 
     "supers": {

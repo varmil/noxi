@@ -210,7 +210,8 @@
       "group": "グループ",
       "streamTitle": "タイトル",
       "supers": "スパチャ金額",
-      "viewers": "同接数"
+      "viewers": "同接数",
+      "country": "国"
     },
 
     "supers": {

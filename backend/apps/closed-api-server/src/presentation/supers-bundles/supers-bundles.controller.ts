@@ -20,7 +20,7 @@ export class SupersBundlesController {
   async getSupersBundles(@Query() dto: GetSupersBundles) {
     return await this.supersBundlesService.findAll({
       where: {
-        videoId: dto.toVideoId(),
+        videoIds: dto.toVideoIds(),
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
         actualEndTime: dto.toActualEndTime()

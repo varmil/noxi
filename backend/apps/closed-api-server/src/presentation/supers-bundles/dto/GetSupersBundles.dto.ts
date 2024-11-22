@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
   IsIn,
@@ -6,17 +6,22 @@ import {
   IsOptional,
   IsRFC3339,
   IsString,
+  ValidateIf,
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { SupersBundleRepository } from '@domain/supers-bundle'
-import { ChannelId, VideoId } from '@domain/youtube'
+import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
 
 export class GetSupersBundles {
   @IsOptional()
-  @IsString()
-  videoId?: string
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }: { value: string }) =>
+    value ? value.split(',') : undefined
+  )
+  videoIds?: string[]
 
   @IsOptional()
   @IsString()
@@ -26,13 +31,23 @@ export class GetSupersBundles {
   @IsOptional()
   group?: GroupString
 
+  /** "null" means "realtime live" */
   @IsOptional()
   @IsRFC3339()
-  actualEndTimeGTE?: string
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  actualEndTimeGTE?: string | null
 
+  /** "null" means "realtime live" */
   @IsOptional()
   @IsRFC3339()
-  actualEndTimeLTE?: string
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  actualEndTimeLTE?: string | null
 
   @IsOptional()
   @IsArray()
@@ -50,7 +65,10 @@ export class GetSupersBundles {
   @Type(() => Number)
   offset?: number
 
-  toVideoId = () => (this.videoId ? new VideoId(this.videoId) : undefined)
+  toVideoIds = () =>
+    this.videoIds
+      ? new VideoIds(this.videoIds.map(id => new VideoId(id)))
+      : undefined
 
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined
@@ -66,13 +84,20 @@ export class GetSupersBundles {
     )
   }
 
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
   toActualEndTime = () => {
-    const actualEndTimeGTE = this.actualEndTimeGTE
-      ? new Date(this.actualEndTimeGTE)
-      : undefined
-    const actualEndTimeLTE = this.actualEndTimeLTE
-      ? new Date(this.actualEndTimeLTE)
-      : undefined
+    if (this.actualEndTimeGTE === null || this.actualEndTimeLTE === null) {
+      return null
+    }
+
+    const actualEndTimeGTE =
+      this.actualEndTimeGTE !== undefined
+        ? new Date(this.actualEndTimeGTE)
+        : undefined
+    const actualEndTimeLTE =
+      this.actualEndTimeLTE !== undefined
+        ? new Date(this.actualEndTimeLTE)
+        : undefined
 
     return {
       ...(actualEndTimeGTE && { gte: actualEndTimeGTE }),
