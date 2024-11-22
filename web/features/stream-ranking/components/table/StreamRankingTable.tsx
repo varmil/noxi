@@ -7,6 +7,7 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import CountryFlag from 'components/styles/CountryFlag'
 import { GroupString } from 'config/constants/Site'
 import TableCellOfGroup from 'features/stream-ranking/components/table/cell/TableCellOfGroup'
 import TableCellOfStreamForSmallContainer from 'features/stream-ranking/components/table/cell/TableCellOfStreamForSmallContainer'
@@ -114,6 +115,14 @@ export default async function StreamRankingTable({
 
               {/* lg-: Group */}
               <TableCellOfGroup groupId={stream.group} />
+
+              {/* lg-: Country */}
+              <TableCell
+                width={50}
+                className="hidden @lg:table-cell justify-items-center"
+              >
+                <CountryFlag countryCode={channel.peakX?.country} size={24} />
+              </TableCell>
             </TableRow>
           )
         })}
