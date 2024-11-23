@@ -29,9 +29,9 @@ type Props = {
   /** Batch取得したもの */
   channel: ChannelSchema
   /** Batch取得したもの。Live中しか参照されない */
-  liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
+  liveStreamingDetails?: LiveStreamingDetailsSchema
   /** Batch取得したもの */
-  statistics?: StatisticsSchema['statistics']
+  statistics?: StatisticsSchema
 }
 
 export default async function Stream({

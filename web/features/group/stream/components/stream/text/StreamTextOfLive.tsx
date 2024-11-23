@@ -3,7 +3,7 @@ import { LiveStreamingDetailsSchema } from 'apis/youtube/data-api/schema/liveStr
 import Watching from 'components/styles/number/Watching'
 
 type Props = {
-  liveStreamingDetails?: LiveStreamingDetailsSchema['liveStreamingDetails']
+  liveStreamingDetails?: LiveStreamingDetailsSchema
 }
 
 export default async function StreamTextOfLive({

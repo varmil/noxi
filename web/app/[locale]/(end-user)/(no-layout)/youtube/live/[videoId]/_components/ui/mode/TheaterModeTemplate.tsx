@@ -21,7 +21,7 @@ type Props = {
 }
 
 export default async function TheaterModeTemplate({ videoId }: Props) {
-  const [stream, [{ liveStreamingDetails }]] = await Promise.all([
+  const [stream, [{ liveStreamingDetails } = {}]] = await Promise.all([
     getStream(videoId),
     getLiveStreamingDetails({ videoIds: [videoId] })
   ])

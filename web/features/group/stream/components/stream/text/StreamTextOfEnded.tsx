@@ -7,7 +7,7 @@ import Views from 'components/youtube/statistics/Views'
 
 type Props = {
   stream: StreamSchema
-  statistics?: StatisticsSchema['statistics']
+  statistics?: StatisticsSchema
 }
 
 export default async function StreamTextOfEnded({
