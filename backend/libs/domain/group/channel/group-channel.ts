@@ -1,4 +1,5 @@
 import { CountryCode, LanguageTag } from '@domain/country'
+import { Gender } from '@domain/lib/gender/Gender.vo'
 import { ChannelId, ChannelIds } from '@domain/youtube/channel'
 
 export interface GroupChannels {
@@ -12,4 +13,5 @@ export interface GroupChannel {
   title: string
   country: CountryCode
   defaultLangage: LanguageTag
+  gender?: Gender
 }
