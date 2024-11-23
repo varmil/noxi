@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getChatCounts } from 'apis/youtube/getChatCounts'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
@@ -10,13 +11,7 @@ import RelatedVideos from '../related-videos/RelatedVideos'
 import StreamBasicInfo from '../stream/StreamBasicInfo'
 import StreamStatsCards from '../stream/card/StreamStatsCards'
 
-export function LiveTabs({
-  stream,
-  children
-}: {
-  stream: StreamSchema
-  children: React.ReactNode
-}) {
+export function LiveTabs({ children }: { children: React.ReactNode }) {
   const defaultValue = 'overview'
   return (
     <Tabs defaultValue={defaultValue} className="w-full">
@@ -25,11 +20,14 @@ export function LiveTabs({
   )
 }
 
-export function LiveTabsList({ stream }: { stream: StreamSchema }) {
+export async function LiveTabsList({ stream }: { stream: StreamSchema }) {
+  const [{ statistics } = {}] = await getStatistics({
+    videoIds: [stream.videoId]
+  })
   const isLive = stream.status === 'live'
   const isEnded = stream.status === 'ended'
   return (
-    <TabsList className=" w-full mb-4">
+    <TabsList className="w-full mb-4">
       <TabsTrigger className="flex-1" value="overview">
         Overview
       </TabsTrigger>
@@ -38,7 +36,7 @@ export function LiveTabsList({ stream }: { stream: StreamSchema }) {
           Super Chat
         </TabsTrigger>
       )}
-      {isEnded && (
+      {isEnded && statistics?.commentCount && (
         <TabsTrigger className="flex-1" value="comments">
           Comments
         </TabsTrigger>
@@ -69,16 +67,18 @@ export async function LiveTabsSuperChatContent({
   )
 }
 
-/** Comments: Show only ended streams */
+/** Comments: Show only ended streams && commentCount exists */
 export async function LiveTabsCommentsContent({
-  stream,
-  className
+  stream
 }: {
   stream: StreamSchema
-  className?: string
 }) {
+  const [{ statistics } = {}] = await getStatistics({
+    videoIds: [stream.videoId]
+  })
+
   const { videoId, status } = stream
-  if (status !== 'ended') return null
+  if (status !== 'ended' || !statistics?.commentCount) return null
 
   return (
     <TabsContent

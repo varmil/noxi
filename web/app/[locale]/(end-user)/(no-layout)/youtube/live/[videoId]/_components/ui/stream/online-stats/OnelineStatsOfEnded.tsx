@@ -16,9 +16,13 @@ export default async function OnelineStatsOfEnded({
     videoId,
     streamTimes: { actualEndTime }
   } = stream
-  const [{ statistics }] = await getStatistics({
+  const [{ statistics } = {}] = await getStatistics({
     videoIds: [videoId]
   })
+
+  if (!statistics) {
+    return null
+  }
 
   return (
     <>

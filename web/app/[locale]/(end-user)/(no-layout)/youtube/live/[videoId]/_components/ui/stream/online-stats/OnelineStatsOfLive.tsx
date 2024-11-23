@@ -1,7 +1,6 @@
 import { ThumbsUp } from 'lucide-react'
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import CommentIcon from 'components/icons/CommentIcon'
 import StartedStreaming from 'components/styles/date/StartedStreaming'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 import Watching from 'components/styles/number/Watching'
@@ -17,7 +16,7 @@ export default async function OnelineStatsOfLive({
     metrics: { likes }
   } = stream
 
-  const [[{ liveStreamingDetails }]] = await Promise.all([
+  const [[{ liveStreamingDetails } = {}]] = await Promise.all([
     getLiveStreamingDetails({ videoIds: [stream.videoId] })
   ])
   const { concurrentViewers } = liveStreamingDetails || {}

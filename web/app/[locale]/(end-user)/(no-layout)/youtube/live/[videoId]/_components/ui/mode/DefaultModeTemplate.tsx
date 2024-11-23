@@ -79,7 +79,7 @@ export default async function DefaultModeTemplate({
               left
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
-              <LiveTabs stream={stream}>
+              <LiveTabs>
                 <LiveTabsList stream={stream} />
                 <LiveTabsSuperChatContent stream={stream} />
                 <LiveTabsCommentsContent stream={stream} />

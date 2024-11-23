@@ -46,8 +46,8 @@ export default async function YoutubeCommentGallery({
 
   let count = '0'
   if (videoId) {
-    const [video] = await getStatistics({ videoIds: [videoId] })
-    count = video.statistics.commentCount?.toLocaleString() ?? '0'
+    const [{ statistics } = {}] = await getStatistics({ videoIds: [videoId] })
+    count = statistics?.commentCount?.toLocaleString() || '0'
   } else if (channelId) {
     count = threads.length.toLocaleString() ?? '0'
   }
