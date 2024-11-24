@@ -75,23 +75,23 @@ export class MainService {
       })
     }
 
-    if (items.length === 0) {
-      this.logger.log({
-        message: `${stream.videoId.get()} items is empty, so save skipped`
-      })
-      return
-    }
+    // if (items.length === 0) {
+    //   this.logger.log({
+    //     message: `${stream.videoId.get()} items is empty, so save skipped`
+    //   })
+    //   return
+    // }
 
     const newMessages = items.selectNewerThan(
       latestChatCount?.latestPublishedAt
     )
 
-    if (newMessages.isEmpty()) {
-      this.logger.log({
-        message: `${stream.videoId.get()} newMessages is empty, so save skipped`
-      })
-      return
-    }
+    // if (newMessages.isEmpty()) {
+    //   this.logger.log({
+    //     message: `${stream.videoId.get()} newMessages is empty, so save skipped`
+    //   })
+    //   return
+    // }
 
     return {
       newMessages,
