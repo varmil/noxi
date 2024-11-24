@@ -190,7 +190,8 @@ const List: GroupChannel[] = [
   {
     id: new ChannelId('UCJFZiqLMntJufDCHc6bQixg'),
     title: 'ホロライブ公式',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: undefined
   },
 
   /**
