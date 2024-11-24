@@ -29,7 +29,8 @@ export const schema = z.object({
   peakX: z
     .object({
       country: z.string(),
-      defaultLanguage: z.string().optional()
+      defaultLanguage: z.string().optional(),
+      gender: z.enum(['male', 'female']).optional()
     })
     .optional(),
 
