@@ -48,7 +48,7 @@ export class UpsertYoutubeStream {
       maxViewerCount,
       averageConcurrentViewers: avgConcurrentViewers,
       chatMessages,
-      views: views ?? null,
+      views: views,
       likeCount,
 
       group: group.get(),

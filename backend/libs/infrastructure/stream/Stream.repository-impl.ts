@@ -153,7 +153,7 @@ export class StreamRepositoryImpl implements StreamRepository {
         maxViewerCount: peakConcurrentViewers,
         averageConcurrentViewers: avgConcurrentViewers,
         chatMessages,
-        views: views ?? null,
+        views: views,
         likeCount: likes,
         updatedAt: new Date()
       }
