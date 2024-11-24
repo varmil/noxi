@@ -166,6 +166,73 @@ const List: GroupChannel[] = [
     title: 'ニュイ・ソシエール //[Nui Sociere]',
     ...DefaultProps
   },
+  {
+    id: new ChannelId('UCIG9rDtgR45VCZmYnd-4DUw'),
+    title: 'ラトナ・プティ -Ratna Petit -にじさんじ所属',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCkngxfPbmGyGl_RIq4FA3MQ'),
+    title: '西園チグサ / Nishizono Chigusa',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCjlmCrq4TP1I4xguOtJ-31w'),
+    title: 'でびでび・でびる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC8C1LLhBhf_E2IBPLSDJXlQ'),
+    title: '健屋花那【にじさんじ】KanaSukoya',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCPvGypSgfDkVe7JG2KygK7A'),
+    title: '竜胆 尊 / Rindou Mikoto',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCL_O_HXgLJx3Auteer0n0pA'),
+    title: '周央 サンゴ / Suo Sango【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC1zFJrfEKvCixhsjNSb1toQ'),
+    title: 'シスター・クレア -SisterClaire-',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCL34fAoFim9oHLbVzMKFavQ'),
+    title: '夜見れな/yorumi rena【にじさんじ所属】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCfipDDn7wY-C-SoUChgxCQQ'),
+    title: '葉山舞鈴 / Ohayama Ch.',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UChUJbHiTVeGrSkTdBzVfNCQ'),
+    title: 'ジョー・力一 Joe Rikiichi',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCzNXpqpdvlibmNc1JpM1o4g'),
+    title: 'ルンルン / Lunlun【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCsFn_ueskBkMCEyzCEqAOvg'),
+    title: '花畑チャイカ',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC9EjSJ8pvxtvPdxLOElv73w'),
+    title: '魔界ノりりむ',
+    ...DefaultProps
+  },
 
   {
     id: new ChannelId('UCJubINhCcFXlsBwnHp0wl_g'),

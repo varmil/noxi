@@ -44,7 +44,8 @@ export default async function StreamRankingGallery(
     const bundles = await getSupersBundles(createGetSupersBundlesParams(props))
     streams = (
       await getStreams({
-        videoIds: bundles.map(bundle => bundle.videoId)
+        videoIds: bundles.map(bundle => bundle.videoId),
+        limit: bundles.length
       })
     ).sort((a, b) => {
       const aIndex = bundles.findIndex(bundle => bundle.videoId === a.videoId)

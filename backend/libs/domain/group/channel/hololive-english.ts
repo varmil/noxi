@@ -3,12 +3,14 @@ import {
   GroupChannel,
   GroupChannels
 } from '@domain/group/channel/group-channel'
+import { Gender } from '@domain/lib'
 import { ChannelId, ChannelIds } from '@domain/youtube/channel'
 
 const DefaultProps = {
   group: 'hololive-english',
   country: new CountryCode('JP'),
-  defaultLangage: new LanguageTag('en')
+  defaultLangage: new LanguageTag('en'),
+  gender: Gender.Female
 }
 
 const List: GroupChannel[] = [

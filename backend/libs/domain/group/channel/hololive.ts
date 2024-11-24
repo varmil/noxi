@@ -3,12 +3,14 @@ import {
   GroupChannel,
   GroupChannels
 } from '@domain/group/channel/group-channel'
+import { Gender } from '@domain/lib'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const DefaultProps = {
   group: 'hololive',
   country: new CountryCode('JP'),
-  defaultLangage: new LanguageTag('ja')
+  defaultLangage: new LanguageTag('ja'),
+  gender: Gender.Female
 }
 
 const List: GroupChannel[] = [
@@ -188,7 +190,8 @@ const List: GroupChannel[] = [
   {
     id: new ChannelId('UCJFZiqLMntJufDCHc6bQixg'),
     title: 'ホロライブ公式',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: undefined
   },
 
   /**

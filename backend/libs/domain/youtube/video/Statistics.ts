@@ -1,5 +1,8 @@
 export class Statistics {
-  /** メンバー限定配信ではundefined (viewCountを取得できない) */
+  /**
+   * メンバー限定配信ではundefined (viewCountを取得できない)
+   * ただしケースバイケースで、viewCount: 0 の配信もあり。
+   * */
   public readonly viewCount?: number
   public readonly likeCount: number
   public readonly commentCount: number

@@ -1,11 +1,13 @@
 import { CountryCode, LanguageTag } from '@domain/country'
 import { GroupChannel } from '@domain/group/channel/group-channel'
+import { Gender } from '@domain/lib'
 import { ChannelId } from '@domain/youtube'
 
 const DefaultProps = {
   group: 'independent',
   country: new CountryCode('US'),
-  defaultLangage: new LanguageTag('en')
+  defaultLangage: new LanguageTag('en'),
+  gender: Gender.Female
 }
 
 export const USList: GroupChannel[] = [

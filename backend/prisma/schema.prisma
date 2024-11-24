@@ -22,19 +22,16 @@ model Channel {
   /// [Thumbnails]
   thumbnails      Json
   publishedAt     DateTime
-  defaultLanguage String?
-
-  playlistId String
-
+  playlistId      String
   viewCount       BigInt
   subscriberCount Int
   videoCount      Int
-
   /// [Keywords]
-  keywords Json
-  country  String
+  keywords        Json
 
-  group String
+  group           String
+  country         String
+  defaultLanguage String?
 
   @@index([group])
 }

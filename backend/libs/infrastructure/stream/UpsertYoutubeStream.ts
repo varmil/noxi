@@ -40,9 +40,7 @@ export class UpsertYoutubeStream {
       tags,
       categoryId,
       defaultLanguage: defaultLanguage?.get() ?? null,
-
       duration: duration?.get() ?? null,
-
       scheduledStartTime,
       actualStartTime: actualStartTime?.get() ?? null,
       actualEndTime: actualEndTime?.get() ?? null,
@@ -50,7 +48,7 @@ export class UpsertYoutubeStream {
       maxViewerCount,
       averageConcurrentViewers: avgConcurrentViewers,
       chatMessages,
-      views,
+      views: views ?? null,
       likeCount,
 
       group: group.get(),
