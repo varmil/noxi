@@ -3,6 +3,7 @@ import {
   GroupChannel,
   GroupChannels
 } from '@domain/group/channel/group-channel'
+import { Gender } from '@domain/lib'
 import { ChannelId, ChannelIds } from '@domain/youtube/channel'
 
 // 13 talents + 1 official
@@ -10,13 +11,15 @@ import { ChannelId, ChannelIds } from '@domain/youtube/channel'
 const ENDefaultProps = {
   group: 'idol-corp',
   country: new CountryCode('US'),
-  defaultLangage: new LanguageTag('en')
+  defaultLangage: new LanguageTag('en'),
+  gender: Gender.Female
 }
 
 const ESDefaultProps = {
   group: 'idol-corp',
   country: new CountryCode('ES'),
-  defaultLangage: new LanguageTag('es')
+  defaultLangage: new LanguageTag('es'),
+  gender: Gender.Female
 }
 
 const ENList: GroupChannel[] = [

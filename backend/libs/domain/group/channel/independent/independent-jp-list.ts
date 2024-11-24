@@ -1,11 +1,13 @@
 import { CountryCode, LanguageTag } from '@domain/country'
 import { GroupChannel } from '@domain/group/channel/group-channel'
+import { Gender } from '@domain/lib'
 import { ChannelId } from '@domain/youtube'
 
 const DefaultProps = {
   group: 'independent',
   country: new CountryCode('JP'),
-  defaultLangage: new LanguageTag('ja')
+  defaultLangage: new LanguageTag('ja'),
+  gender: Gender.Female
 }
 
 export const JPList: GroupChannel[] = [
@@ -32,12 +34,14 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCqTGCMjeKOclEEfW8Vs7sXQ'),
     title: 'ガッチマンV',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UC7-N7MvN5muVIHqyQx9LFbA'),
     title: 'メイカちゃんねる',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
@@ -57,22 +61,26 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UC2-hRIDWzqAnTjOxdLDmhCA'),
     title: 'おやつ@ゲームチャンネル',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCFOsYGDAw16cr57cCqdJdVQ'),
     title: 'MKRチャンネル',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCu5OhGQzagQkmJoOOnxnBIg'),
     title: 'ロッコク【動画解説】',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UC0C6oq3TlGiSlDCei57hY6A'),
     title: '幕末志士チャンネル',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCIdEIHpS0TdkqRkHL5OkLtA'),
@@ -82,12 +90,14 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UC-PYFlNwRzLcGfMzT4pSl5Q'),
     title: 'コジマ店員のホラーは恐くない',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCH4yRBPH2pDUjPeqomx8CTQ'),
     title: 'てるとくん',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
@@ -97,7 +107,8 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCL7VEatXa9yBCKeM-ww8TnA'),
     title: 'NX☆くさあん',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCcxbWdwrs5B782K88ppAVMg'),
@@ -107,7 +118,8 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCY7Qs1UGnO3LYpNVwitTXUA'),
     title: '一翔剣ちゃんねる',
-    ...DefaultProps
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UC1oApu0S5i57d-jSKUFB_1w'),
