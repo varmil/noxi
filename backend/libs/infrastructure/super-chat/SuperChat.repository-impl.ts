@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { SuperChatRepository, SuperChats } from '@domain/supers/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { SuperChatTranslator } from '@infra/super-chat/SuperChatTranslator'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 
 @Injectable()
 export class SuperChatRepositoryImpl implements SuperChatRepository {
@@ -45,25 +46,35 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
       createdAt
     }
   }: Parameters<SuperChatRepository['save']>[0]) {
-    await this.prismaInfraService.youtubeStreamSuperChat.upsert({
-      where: { id: id.get() },
-      create: {
-        id: id.get(),
-        amountMicros: amountMicros.toBigInt(),
-        currency: currency.get(),
-        amountDisplayString: amountDisplayString.get(),
-        userComment: userComment.get(),
+    try {
+      await this.prismaInfraService.youtubeStreamSuperChat.upsert({
+        where: { id: id.get() },
+        create: {
+          id: id.get(),
+          amountMicros: amountMicros.toBigInt(),
+          currency: currency.get(),
+          amountDisplayString: amountDisplayString.get(),
+          userComment: userComment.get(),
 
-        authorChannelId: author.channelId.get(),
-        authorDisplayName: author.displayName.get(),
-        authorProfileImageUrl: author.profileImageUrl.get(),
-        authorIsChatSponsor: author.isChatSponsor.get(),
+          authorChannelId: author.channelId.get(),
+          authorDisplayName: author.displayName.get(),
+          authorProfileImageUrl: author.profileImageUrl.get(),
+          authorIsChatSponsor: author.isChatSponsor.get(),
 
-        videoId: videoId.get(),
-        group: group.get(),
-        createdAt: createdAt.get()
-      },
-      update: {}
-    })
+          videoId: videoId.get(),
+          group: group.get(),
+          createdAt: createdAt.get()
+        },
+        update: {}
+      })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          // UNIQUE制約違反が普通に出るので握りつぶす
+          return
+        }
+      }
+      throw error
+    }
   }
 }
