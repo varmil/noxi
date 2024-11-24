@@ -43,12 +43,12 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
       <section className="col-span-full line-clamp-2">{title}</section>
 
       <section className="col-span-full flex">
-        {views && (
+        {!!views && (
           <div className="text-primary font-bold">
             <IntlNumberFormat>{views ?? 0}</IntlNumberFormat> views
           </div>
         )}
-        {peakConcurrentViewers && (
+        {!!peakConcurrentViewers && (
           <div className="text-primary font-bold">
             Peak{' '}
             <IntlNumberFormat>{peakConcurrentViewers ?? 0}</IntlNumberFormat>
