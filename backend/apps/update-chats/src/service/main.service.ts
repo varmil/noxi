@@ -19,7 +19,7 @@ export class MainService {
 
   /**
    * * スケジュールの場合、スケジュール上の開始から取得する
-   * * 終了済みの場合、終了後3分間取得
+   * * 終了済みの場合、終了後2分間取得
    * * メンバー限定配信は省く
    */
   async fetchLives() {
@@ -32,7 +32,7 @@ export class MainService {
             new StreamStatus('ended')
           ]),
           scheduledBefore: dayjs().toDate(),
-          endedAfter: dayjs().subtract(3, 'minute').toDate()
+          endedAfter: dayjs().subtract(2, 'minute').toDate()
         },
         limit: 1000
       })
@@ -41,6 +41,7 @@ export class MainService {
 
   /**
    * Youtubei から新しいメッセージを取得
+   * continuationがFreshなものが必要なのでメッセージがゼロ件でもINSERTする
    */
   async fetchNewMessages(stream: Stream) {
     const videoId = stream.videoId
@@ -75,23 +76,9 @@ export class MainService {
       })
     }
 
-    // if (items.length === 0) {
-    //   this.logger.log({
-    //     message: `${stream.videoId.get()} items is empty, so save skipped`
-    //   })
-    //   return
-    // }
-
     const newMessages = items.selectNewerThan(
       latestChatCount?.latestPublishedAt
     )
-
-    // if (newMessages.isEmpty()) {
-    //   this.logger.log({
-    //     message: `${stream.videoId.get()} newMessages is empty, so save skipped`
-    //   })
-    //   return
-    // }
 
     return {
       newMessages,
@@ -102,6 +89,7 @@ export class MainService {
   /**
    * continuationが保存されていても、1分以内に更新されていない場合は更新する
    * 古すぎるとどうやらエラーも出ず、単にレスポンスが０件になってしまい気づきにくいバグになる
+   * messages がゼロ件でもINSERTするので↑のケースは無いはずだが．．．
    */
   private async getContinuation(
     stream: Stream,
