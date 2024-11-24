@@ -26,7 +26,7 @@ export default async function StreamTextOfEnded({
       {actualEndTime && (
         <>
           <span>
-            {viewCount && viewCount > 0 && (
+            {!!viewCount && (
               <>
                 <Views views={viewCount} />
                 <Bullet />

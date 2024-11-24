@@ -36,7 +36,7 @@ export async function LiveTabsList({ stream }: { stream: StreamSchema }) {
           Super Chat
         </TabsTrigger>
       )}
-      {isEnded && statistics?.commentCount && (
+      {isEnded && !!statistics?.commentCount && (
         <TabsTrigger className="flex-1" value="comments">
           Comments
         </TabsTrigger>
