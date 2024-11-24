@@ -41,6 +41,7 @@ export interface StreamRepository {
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>
 
+  /** 渡したデータで全上書き */
   save: (args: { data: Stream }) => Promise<void>
 
   delete: (args: { where: { videoId: VideoId } }) => Promise<void>
@@ -55,6 +56,7 @@ export interface StreamRepository {
     data: StreamTimes
   }) => Promise<void>
 
+  /** undefinedの場合、何もしない */
   updateMetrics: (args: {
     where: { videoId: VideoId }
     data: Partial<
