@@ -22,7 +22,7 @@ export class FirstContinuationFetcher {
   /**
    * continuation, INNERTUBE_API_KEYを取得
    */
-  async fetch(videoId: VideoId): Promise<Options> {
+  async fetch(videoId: VideoId): Promise<Options | undefined> {
     const res = await axios.get(this.chatUri, {
       headers: this.headers,
       params: { v: videoId.get() }
@@ -45,13 +45,6 @@ export class FirstContinuationFetcher {
           }
         : undefined
 
-    if (!ret)
-      throw new Error(
-        `Failed to fetch FirstContinuation: 
-          * Maybe the Live Stream is already ended. 
-          * Maybe the stream is member only.
-          * videoId: ${videoId.get()}`
-      )
     return ret
   }
 

@@ -4,7 +4,6 @@ import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { StreamStatuses, StreamStatus, Stream } from '@domain/stream'
 import { ChatCount } from '@domain/stream-stats'
-import { Continuation } from '@domain/youtubei/live-chat'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
 
@@ -52,7 +51,16 @@ export class MainService {
     })
 
     const continuation = await this.getContinuation(stream, latestChatCount)
-    if (!continuation) return
+    if (!continuation) {
+      this.logger.warn({
+        message: `${videoId.get()} continuation is undefined`,
+        title: stream.snippet.title,
+        cause: `
+        * Maybe the Live Stream is already ended.
+        * Maybe the stream is member only.`
+      })
+      return
+    }
 
     const { items, nextContinuation } =
       await this.youtubeiLiveChatInfraService.list({
@@ -61,8 +69,7 @@ export class MainService {
 
     if (nextContinuation === undefined) {
       this.logger.log({
-        message: 'nextContinuation is undefined',
-        videoId: stream.videoId.get(),
+        message: `${stream.videoId.get()} nextContinuation is undefined`,
         title: stream.snippet.title,
         items: items.length
       })
@@ -70,8 +77,7 @@ export class MainService {
 
     if (items.length === 0) {
       this.logger.log({
-        message: 'items is empty, so save skipped',
-        videoId: stream.videoId.get()
+        message: `${stream.videoId.get()} items is empty, so save skipped`
       })
       return
     }
@@ -80,11 +86,9 @@ export class MainService {
       latestChatCount?.latestPublishedAt
     )
 
-    // 問題がありそうなら消す
     if (newMessages.isEmpty()) {
       this.logger.log({
-        message: 'newMessages is empty, so save skipped',
-        videoId: stream.videoId.get()
+        message: `${stream.videoId.get()} newMessages is empty, so save skipped`
       })
       return
     }
@@ -95,6 +99,10 @@ export class MainService {
     }
   }
 
+  /**
+   * continuationが保存されていても、1分以内に更新されていない場合は更新する
+   * 古すぎるとどうやらエラーも出ず、単にレスポンスが０件になってしまい気づきにくいバグになる
+   */
   private async getContinuation(
     stream: Stream,
     latestChatCount: ChatCount | null
@@ -103,28 +111,20 @@ export class MainService {
       videoId,
       snippet: { title }
     } = stream
-    let continuation: Continuation
 
-    if (latestChatCount) {
-      // Skip (stream probably ended)
-      if (!latestChatCount.nextContinuation) {
-        this.logger.warn(`skip: ${title.slice(0, 40)}`)
-        return
-      } else {
-        continuation = latestChatCount.nextContinuation
-      }
+    const isContinuationFresh =
+      latestChatCount?.createdAt &&
+      dayjs().diff(latestChatCount?.createdAt, 'minute') < 1
+
+    if (isContinuationFresh) {
+      return latestChatCount.nextContinuation
     } else {
       this.logger.log({
-        message: `FirstContinuationFetcher`,
-        videoId: videoId.get(),
+        message: `${videoId.get()} Refresh continuation`,
         title
       })
-      const { continuation: c } = await new FirstContinuationFetcher().fetch(
-        videoId
-      )
-      continuation = c
+      const options = await new FirstContinuationFetcher().fetch(videoId)
+      return options?.continuation
     }
-
-    return continuation
   }
 }
