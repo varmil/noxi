@@ -29,7 +29,6 @@
 
   "Breadcrumb": {
     "group": "{group}",
-    "groups": "グループ一覧",
     "channels": "チャンネルまとめ",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
@@ -43,12 +42,10 @@
         "title": "VTuberまとめ",
         "description": "YouTubeのライブ配信ランキングを即座に確認できるPeakXで、人気ストリーマーの最新情報をチェックし、見逃しを防ぎましょう。"
       },
-      "title": "VTuberランキング",
+      "title": "VTuberまとめ",
       "description": "ホロライブ、結城さくな、しぐれうい、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
       "section": {
-        "hero": {
-          "more": "ランキングを確認"
-        },
+        "hero": { "more": "ランキングを確認" },
         "socialProof": {
           "title": "VTuberのライブ、すぐに見つかる",
           "description": "2024年8月にPeakXをリリースし既に150以上のチャンネルが追加されました。25億人が利用するYouTube、ライブ配信の可能性を解き放ちます",

@@ -1,7 +1,8 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Home, Radio, Settings, User, Users } from 'lucide-react'
+import { Home, Radio, Users } from 'lucide-react'
+import { useParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
@@ -12,6 +13,7 @@ type Props = PropsWithoutRef<{
 
 export default function BottomNavigation({ className }: Props) {
   const pathname = usePathname()
+  const params = useParams()
 
   const navigation = [
     {
@@ -28,9 +30,14 @@ export default function BottomNavigation({ className }: Props) {
     {
       href: '/groups',
       label: 'タレント',
-      icon: Users
+      icon: Users,
+      isActive: !!params['group']
     }
   ]
+
+  const isActive = (href: string) => {
+    return pathname === href
+  }
 
   return (
     <div
@@ -46,9 +53,10 @@ export default function BottomNavigation({ className }: Props) {
               key={item.href}
               variant="ghost"
               asChild
+              // OR 判定でアクティブかどうか
               className={cn(
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
-                pathname === item.href &&
+                (item.isActive || isActive(item.href)) &&
                   'bg-muted text-primary hover:bg-muted hover:text-primary'
               )}
             >
