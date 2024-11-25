@@ -3,6 +3,7 @@
 import { PropsWithoutRef } from 'react'
 import { Home, Radio, Users } from 'lucide-react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
@@ -12,24 +13,25 @@ type Props = PropsWithoutRef<{
 }>
 
 export default function BottomNavigation({ className }: Props) {
+  const t = useTranslations('Components.bottomNavigation')
   const pathname = usePathname()
   const params = useParams()
 
   const navigation = [
     {
       href: '/',
-      label: 'ホーム',
+      label: t('home'),
       icon: Home
     },
     {
       href: '/youtube/ranking/live',
       query: '?period=realtime&dimension=concurrent-viewer',
-      label: 'ライブ',
+      label: t('live'),
       icon: Radio
     },
     {
       href: '/groups',
-      label: 'タレント',
+      label: t('groups'),
       icon: Users,
       isActive: !!params['group']
     }
@@ -57,7 +59,7 @@ export default function BottomNavigation({ className }: Props) {
               className={cn(
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
                 (item.isActive || isActive(item.href)) &&
-                  'bg-muted text-primary hover:bg-muted hover:text-primary'
+                  'bg-muted text-primary font-bold hover:bg-muted hover:text-primary'
               )}
             >
               <Link href={item.href + (item.query || '')} prefetch={true}>

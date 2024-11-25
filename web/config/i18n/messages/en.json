@@ -183,6 +183,11 @@
   },
 
   "Components": {
+    "bottomNavigation": {
+      "home": "Home",
+      "live": "Live",
+      "groups": "Groups"
+    },
     "comment": {},
     "group": {
       "listing": "Listing {count} talents.",

@@ -182,6 +182,11 @@
   },
 
   "Components": {
+    "bottomNavigation": {
+      "home": "ホーム",
+      "live": "ライブ",
+      "groups": "グループ"
+    },
     "comment": {},
     "group": {
       "listing": "{count}人のタレントを掲載中",
