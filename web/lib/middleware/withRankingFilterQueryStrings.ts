@@ -45,7 +45,6 @@ export const withRankingFilterQueryStrings: MiddlewareFactory = next => {
         if (!searchParams.has(key)) {
           const value = resolveQueryValue(key, request)
           if (value) {
-            console.log(`Adding query string: ${key}=${value}`)
             searchParams.set(key, value)
             isDirty = true
           }

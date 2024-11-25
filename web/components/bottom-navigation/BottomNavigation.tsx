@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Home, Image, Settings, User } from 'lucide-react'
+import { Home, Radio, Settings, User, Users } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
@@ -20,29 +20,25 @@ export default function BottomNavigation({ className }: Props) {
       icon: Home
     },
     {
-      href: '/gallery',
-      label: 'ギャラリー',
-      icon: Image
+      href: '/youtube/ranking/live',
+      query: '?period=realtime&dimension=concurrent-viewer',
+      label: 'ライブ',
+      icon: Radio
     },
     {
       href: '/settings',
-      label: '設定',
-      icon: Settings
-    },
-    {
-      href: '/profile',
-      label: 'プロフィール',
-      icon: User
+      label: 'タレント',
+      icon: Users
     }
   ]
 
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full h-16 bg-background border-t md:hidden ${
+      className={`fixed bottom-0 left-0 w-full h-14 bg-background border-t md:hidden ${
         className ?? ''
       }`}
     >
-      <div className="grid h-full grid-cols-4 mx-auto">
+      <div className="grid h-full grid-cols-3 mx-auto">
         {navigation.map(item => {
           const Icon = item.icon
           return (
@@ -56,7 +52,7 @@ export default function BottomNavigation({ className }: Props) {
                   'bg-muted text-primary hover:bg-muted hover:text-primary'
               )}
             >
-              <Link href={item.href}>
+              <Link href={item.href + item.query} prefetch={true}>
                 <Icon className="w-5 h-5" />
                 <span className="text-xs">{item.label}</span>
               </Link>
