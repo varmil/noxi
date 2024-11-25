@@ -1,5 +1,8 @@
+import { group } from 'console'
 import { Metadata } from 'next'
+import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 
 type Props = {
@@ -20,11 +23,11 @@ export async function generateMetadata({
 export default function GroupsPage({ params: { locale } }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
+  const t = useTranslations('Page.groups.metadata')
 
   return (
-    <Page>
-      <h1>This is the Groups page</h1>
-      <div className="text-3xl font-bold underline">Hello world!!</div>
+    <Page breadcrumb={[{ href: `/groups`, name: t('title') }]}>
+      <GroupGallery className="pl-8" />
     </Page>
   )
 }

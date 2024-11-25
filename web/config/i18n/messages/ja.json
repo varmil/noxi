@@ -29,6 +29,7 @@
 
   "Breadcrumb": {
     "group": "{group}",
+    "groups": "グループ一覧",
     "channels": "チャンネルまとめ",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
@@ -185,7 +186,7 @@
 
   "Components": {
     "comment": {},
-    "header": {
+    "group": {
       "listing": "{count}人のタレントを掲載中",
       "listingAll": "{count}人全員を掲載中!"
     },

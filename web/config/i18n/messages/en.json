@@ -186,7 +186,7 @@
 
   "Components": {
     "comment": {},
-    "header": {
+    "group": {
       "listing": "Listing {count} talents.",
       "listingAll": "All {count} talents are listed."
     },

@@ -52,7 +52,7 @@ export default function BottomNavigation({ className }: Props) {
                   'bg-muted text-primary hover:bg-muted hover:text-primary'
               )}
             >
-              <Link href={item.href + item.query} prefetch={true}>
+              <Link href={item.href + (item.query || '')} prefetch={true}>
                 <Icon className="w-5 h-5" />
                 <span className="text-xs">{item.label}</span>
               </Link>
