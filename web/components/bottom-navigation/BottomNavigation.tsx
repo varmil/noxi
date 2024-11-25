@@ -1,11 +1,10 @@
 'use client'
 
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Home, Image, Settings, User } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
 import { PropsWithoutRef } from 'react'
+import { Home, Image, Settings, User } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import { Link, usePathname } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
   className?: string
