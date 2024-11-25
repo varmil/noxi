@@ -26,7 +26,7 @@ export default function BottomNavigation({ className }: Props) {
       icon: Radio
     },
     {
-      href: '/settings',
+      href: '/groups',
       label: 'タレント',
       icon: Users
     }

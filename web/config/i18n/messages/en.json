@@ -74,6 +74,14 @@
         }
       }
     },
+
+    "groups": {
+      "metadata": {
+        "title": "Groups",
+        "description": "Search for VTubers in an instant. Find your favorite VTubers from groups such as affiliated companies or individual groups."
+      }
+    },
+
     "group": {
       "index": {
         "metadata": {
