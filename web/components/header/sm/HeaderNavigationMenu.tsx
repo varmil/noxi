@@ -28,7 +28,7 @@ export default function HeaderNavigationMenu() {
           <NavigationMenuTrigger>Talents</NavigationMenuTrigger>
           <NavigationMenuContent>
             <GroupGallery
-              className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]"
+              className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] text-sm"
               useNavigationMenuLink
             />
           </NavigationMenuContent>

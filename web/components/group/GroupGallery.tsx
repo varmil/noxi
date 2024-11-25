@@ -86,9 +86,9 @@ const ListItem = React.forwardRef<
         >
           <div className="flex items-center gap-x-4">
             <div className="w-6 h-6">{icon}</div>
-            <div className="text-sm font-medium leading-none">{title}</div>
+            <div className="font-medium leading-none">{title}</div>
           </div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <p className="line-clamp-2 leading-snug text-muted-foreground">
             {children}
           </p>
         </Link>

@@ -27,7 +27,7 @@ export default function GroupsPage({ params: { locale } }: Props) {
 
   return (
     <Page breadcrumb={[{ href: `/groups`, name: t('title') }]}>
-      <GroupGallery className="grid gap-1.5 px-4 md:gap-3 md:w-[600px] md:grid-cols-2 lg:w-[700px]" />
+      <GroupGallery className="grid w-full px-4 gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-3 text-sm lg:text-base" />
     </Page>
   )
 }
