@@ -29,7 +29,7 @@
 
   "Breadcrumb": {
     "group": "{group}",
-    "channels": "チャンネルまとめ",
+    "channels": "チャンネル一覧",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",

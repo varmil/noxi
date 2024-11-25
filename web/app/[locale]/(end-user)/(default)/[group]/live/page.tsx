@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/live/_components/IndexTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
@@ -28,7 +28,7 @@ export async function generateMetadata({
 
 export default function GroupLivePage({ params: { locale, group } }: Props) {
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   setGroup(group)
 
   const tg = useTranslations('Global')
@@ -37,6 +37,10 @@ export default function GroupLivePage({ params: { locale, group } }: Props) {
   return (
     <Page
       breadcrumb={[
+        {
+          href: `/groups`,
+          name: useTranslations('Page.groups.metadata')('title')
+        },
         {
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
