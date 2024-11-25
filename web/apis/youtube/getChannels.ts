@@ -18,7 +18,7 @@ export async function getChannels({ ids }: Params): Promise<ChannelsSchema> {
       ids: [...new Set(ids)].join(',')
     }).toString()}`,
     {
-      next: { revalidate: 1000 }
+      next: { revalidate: 3600 * 12 }
     }
   )
   // The return value is *not* serialized
