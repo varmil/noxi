@@ -49,7 +49,7 @@ export async function getSupersBundles({
   })
 
   const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`, {
-    next: { revalidate: 300 }
+    cache: 'no-cache'
   })
 
   if (!res.ok) {

@@ -23,7 +23,7 @@ export async function getChartOfChannels({
       limit: String(limit)
     }).toString()}`,
     {
-      next: { revalidate: 600 }
+      next: { revalidate: 3600 * 24 }
     }
   )
   // The return value is *not* serialized

@@ -53,7 +53,6 @@ export async function getStreams({
 
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    // { next: { revalidate: 30 } }
     { cache: 'no-store' }
   )
 

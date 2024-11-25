@@ -43,7 +43,7 @@ export async function getCommentThreads({
   })
   const res = await fetch(
     `https://www.googleapis.com/youtube/v3/commentThreads?${searchParams.toString()}`,
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 3600 * 12 } }
   )
   if (!res.ok) {
     if (res.status === 403 || res.status === 404) {
