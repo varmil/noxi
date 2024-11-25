@@ -20,7 +20,9 @@ export default function HeaderNavigationMenu() {
         <NavigationMenuItem>
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/youtube/ranking/live?period=realtime">Live</Link>
+            <Link href="/youtube/ranking/live?period=realtime" prefetch={true}>
+              Live
+            </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
