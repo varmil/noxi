@@ -50,7 +50,8 @@ export class SubscribeService {
       'hub.callback': `https://${SERVER_HOSTNAME}${CALLBACK_PATHNAME}`,
       'hub.topic': `${TOPIC_BASE_URL}${query.channelId.get()}`,
       'hub.mode': 'subscribe',
-      'hub.secret': YOUTUBE_PUBSUB_SECRET
+      'hub.secret': YOUTUBE_PUBSUB_SECRET,
+      'hub.lease_seconds': '828000' // https://stackoverflow.com/questions/64754986/maximum-value-for-hub-lease-seconds-in-pubsubhubbub
     })
 
     try {
