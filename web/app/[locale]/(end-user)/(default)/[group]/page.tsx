@@ -1,9 +1,9 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import LocalNavigationForGroupPages from 'app/[locale]/(end-user)/(default)/[group]/_components/LocalNavigationForGroupPages'
 import { Page } from 'components/page'
 import { GroupString, GroupStrings } from 'config/constants/Site'
+import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
 import { IndexTemplate } from './_components/IndexTemplate'
 

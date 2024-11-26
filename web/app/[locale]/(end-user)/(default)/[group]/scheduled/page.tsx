@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/scheduled/_components/IndexTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
+import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -50,6 +51,7 @@ export default function HololiveScheduledPage({
         { href: `/${group}/scheduled`, name: t('scheduled') }
       ]}
     >
+      <LocalNavigationForGroupPages group={group} />
       <IndexTemplate />
     </Page>
   )

@@ -192,19 +192,26 @@
 
   "Features": {
     "group": {
+      "overview": {
+        "nav": "Overview"
+      },
       "talents": {
+        "nav": "Talent",
         "title": "Talents",
         "description": "Here is a list of YouTube channels for talents in {group} group."
       },
       "live": {
-        "title": "Today's Live now on air",
+        "nav": "Live",
+        "title": "Live now on air",
         "description": "Check out {group}'s YouTube live now on air for today!"
       },
       "scheduled": {
-        "title": "Live Streaming schedule",
+        "nav": "Schedule",
+        "title": "Live Streaming Schedule",
         "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
       },
       "ended": {
+        "nav": "Past Live",
         "title": "Past Live Streams",
         "description": "Check out all of {group}'s past YouTube live streams!"
       }

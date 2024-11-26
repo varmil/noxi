@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { ChartTemplate } from 'app/[locale]/(end-user)/(default)/[group]/charts/channels/_components/ChartTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Site'
+import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -46,6 +47,7 @@ export default function GroupChartsPage({ params: { locale, group } }: Props) {
         { href: `/${group}/charts/channels`, name: t('channels') }
       ]}
     >
+      <LocalNavigationForGroupPages group={group} />
       <ChartTemplate />
     </Page>
   )

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
 
 type Props = {
-  items: { name: string; href: string }[]
+  items: { name: string; href: string; prefetch?: boolean }[]
   className?: string
 }
 
@@ -26,6 +26,7 @@ export default function LocalNavigation({ items, className }: Props) {
                   ? 'border-foreground text-foreground'
                   : 'border-transparent text-muted-foreground'
               )}
+              prefetch={item.prefetch}
             >
               {item.name}
             </Link>

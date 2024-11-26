@@ -21,7 +21,7 @@ export default function StreamListHeader({
         <span className="flex items-center gap-2">
           {titleIcon}
           <span className="inline">{title}</span>
-          <span className="hidden">{description}</span>
+          <span className="sr-only">{description}</span>
         </span>
         <Badge variant="secondary" className="flex items-center gap-1">
           {badgeText}

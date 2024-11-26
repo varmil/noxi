@@ -191,21 +191,28 @@
 
   "Features": {
     "group": {
+      "overview": {
+        "nav": "概要"
+      },
       "talents": {
+        "nav": "タレント",
         "title": "タレント一覧",
         "description": "{group}のYouTubeチャンネル一覧です"
       },
       "live": {
-        "title": "配信中のライブ",
-        "description": "{group}の配信中のYouTubeライブ一覧をまとめてチェック！"
+        "nav": "ライブ",
+        "title": "ライブ配信中",
+        "description": "{group}の今配信中のYouTubeライブ一覧です"
       },
       "scheduled": {
-        "title": "今日-明日の配信予定",
-        "description": "{group}の今日のYouTube配信予定をまとめてチェック！"
+        "nav": "スケジュール",
+        "title": "配信スケジュール",
+        "description": "{group}の今日-明日のライブ配信予定スケジュール一覧です"
       },
       "ended": {
+        "nav": "過去のライブ",
         "title": "過去のライブ配信",
-        "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
+        "description": "{group}の過去のYouTubeライブ配信一覧です"
       }
     },
 
