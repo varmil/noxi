@@ -29,7 +29,7 @@
 
   "Breadcrumb": {
     "group": "{group}",
-    "channels": "チャンネル一覧",
+    "channels": "タレント一覧",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
@@ -201,7 +201,7 @@
       },
       "live": {
         "nav": "ライブ",
-        "title": "ライブ配信中",
+        "title": "配信中のライブ",
         "description": "{group}の今配信中のYouTubeライブ一覧です"
       },
       "scheduled": {

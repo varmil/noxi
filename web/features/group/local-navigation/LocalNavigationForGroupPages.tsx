@@ -23,7 +23,7 @@ export default function LocalNavigationForGroupPages({
         { name: t('scheduled.nav'), href: `${basePath}/scheduled` },
         { name: t('ended.nav'), href: `${basePath}/ended` }
       ]}
-      className="mb-4"
+      className="mb-6"
     />
   )
 }

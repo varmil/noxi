@@ -29,11 +29,10 @@
 
   "Breadcrumb": {
     "group": "{group}",
-    "channels": "Channels",
+    "channels": "Talents",
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "streamRanking": "Most watched channels - {period}",
     "supersRanking": "Most Super Chatted VTuber channels"
   },
 
