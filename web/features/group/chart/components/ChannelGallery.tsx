@@ -25,7 +25,7 @@ export async function ChannelGallery({
   footer
 }: PropsWithoutRef<Props>) {
   const group = (await getTranslations('Global.group'))(`${getGroup()}`)
-  const t = await getTranslations('Page.group.charts')
+  const t = await getTranslations('Features.group.talents')
   const channels = await getChartOfChannels({
     group: getGroup(),
     limit
@@ -35,9 +35,9 @@ export async function ChannelGallery({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          {t('cardTitle', { group })}
+          {t('title', { group })}
         </CardTitle>
-        <CardDescription>{t('cardDescription', { group })}</CardDescription>
+        <CardDescription>{t('description', { group })}</CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<p>Loading cards...</p>}>

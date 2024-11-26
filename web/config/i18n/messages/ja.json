@@ -29,7 +29,7 @@
 
   "Breadcrumb": {
     "group": "{group}",
-    "channels": "チャンネル一覧",
+    "channels": "タレント一覧",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
@@ -43,7 +43,7 @@
         "description": "YouTubeのライブ配信ランキングを即座に確認できるPeakXで、人気ストリーマーの最新情報をチェックし、見逃しを防ぎましょう。"
       },
       "title": "VTuberまとめ",
-      "description": "ホロライブ、結城さくな、しぐれうい、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
+      "description": "ホロライブ、にじさんじ、結城さくな、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
       "section": {
         "hero": { "more": "ランキングを確認" },
         "socialProof": {
@@ -82,31 +82,19 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "{group} - VTuberライブ配信まとめ",
+          "title": "{group}概要 - タレントとライブ配信",
           "description": "{group}の最新ライブ配信ランキングや人気VTuber情報をPeakXでチェック。推しの配信を見逃さずに楽しめるページです。"
-        },
-        "card": {
-          "live": {
-            "title": "配信中のライブ",
-            "description": "{group}の配信中のYouTubeライブ一覧をまとめてチェック！"
-          },
-          "scheduled": {
-            "title": "今日-明日の配信予定",
-            "description": "{group}の今日のYouTube配信予定をまとめてチェック！"
-          }
         }
       },
       "charts": {
         "metadata": {
           "title": "{group}チャンネル人気ランキング - 登録者数・視聴者数を比較",
           "description": "{group}のチャンネル人気ランキングをグラフで確認。視聴者数や登録者数を比較して、注目チャンネルを見逃さない。"
-        },
-        "cardTitle": "{group} タレント",
-        "cardDescription": "{group}のYouTubeチャンネル一覧をまとめています！"
+        }
       },
       "channelsId": {
         "metadata": {
-          "title": "{channel} - 動画分析",
+          "title": "{channel} - ライブ配信分析",
           "description": "{channel}の詳細な統計やランキング、最新配信情報をPeakXで確認。見逃さないための必見情報"
         },
         "template": {
@@ -203,9 +191,28 @@
 
   "Features": {
     "group": {
+      "overview": {
+        "nav": "概要"
+      },
+      "talents": {
+        "nav": "タレント",
+        "title": "タレント一覧",
+        "description": "{group}のYouTubeチャンネル一覧です"
+      },
+      "live": {
+        "nav": "ライブ",
+        "title": "配信中のライブ",
+        "description": "{group}の今配信中のYouTubeライブ一覧です"
+      },
+      "scheduled": {
+        "nav": "スケジュール",
+        "title": "配信スケジュール",
+        "description": "{group}の今日-明日のライブ配信予定スケジュール一覧です"
+      },
       "ended": {
+        "nav": "過去のライブ",
         "title": "過去のライブ配信",
-        "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"
+        "description": "{group}の過去のYouTubeライブ配信一覧です"
       }
     },
 

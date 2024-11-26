@@ -30,7 +30,7 @@ export default function Error({
       <div className="min-h-[85svh] flex items-center justify-center bg-background p-4">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-primary-foreground">
+            <CardTitle className="flex items-center gap-2">
               <Frown className="h-6 w-6" />
               ページが読み込めませんでした
             </CardTitle>

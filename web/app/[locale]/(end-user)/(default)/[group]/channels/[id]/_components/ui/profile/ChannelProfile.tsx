@@ -25,9 +25,7 @@ export async function ChannelProfile({ basicInfo }: PropsWithoutRef<Props>) {
     const { description } = basicInfo
     return (
       <ChannelProfileContent basicInfo={basicInfo}>
-        <div className="text-sm sm:text-base text-muted-foreground">
-          {description}
-        </div>
+        <div className="text-sm text-muted-foreground">{description}</div>
       </ChannelProfileContent>
     )
   }

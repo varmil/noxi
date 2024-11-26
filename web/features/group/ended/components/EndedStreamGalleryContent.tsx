@@ -1,13 +1,12 @@
 import { PropsWithoutRef } from 'react'
 import { CardContent } from '@/components/ui/card'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import GridCardContainer, {
+import {
   GridCardGalleryContent,
   GridCardGalleryFirstView,
   GridCardGalleryMore
 } from 'components/styles/GridCardContainer'
 import EndedStreams from 'features/group/ended/components/EndedStreams'
-import StreamListContentContainer from 'features/group/stream/components/stream-list/StreamListContentContainer'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema

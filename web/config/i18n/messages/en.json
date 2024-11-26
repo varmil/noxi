@@ -29,22 +29,21 @@
 
   "Breadcrumb": {
     "group": "{group}",
-    "channels": "Channels",
+    "channels": "Talents",
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "streamRanking": "Most watched channels - {period}",
     "supersRanking": "Most Super Chatted VTuber channels"
   },
 
   "Page": {
     "index": {
       "metadata": {
-        "title": "Analytics Youtube",
-        "description": "Explore PeakX for realtime YouTube streaming data. Stay updated on trends and find your favorite content effortlessly."
+        "title": "The VTuber DB",
+        "description": "Explore PeakX for realtime VTuber Live Streams on YouTube. Stay updated on trends and find your favorite VTuber contents effortlessly."
       },
       "title": "The VTuber DB",
-      "description": "We organize information on influencers from all over the world. Our mission is to provide the information in a way that matches the interests of our users. We will introduce influencers from VTubers like Hololive, Hololive English and Hololive Indonesia.",
+      "description": "We organize VTubers from all over the world. We will introduce all VTubers like Hololive, Nijisanji, and more.",
       "section": {
         "hero": { "more": "Most Watched right now" },
         "socialProof": {
@@ -83,27 +82,15 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "Live Streams - {group}",
+          "title": "{group} Overview - Talents and Live Streams",
           "description": "Discover the latest {group} streams, channel statistics, and upcoming events on PeakX. Stay connected with your favorite VTubers and never miss a moment of their live broadcasts!"
-        },
-        "card": {
-          "live": {
-            "title": "Today's Live now on air",
-            "description": "Check out {group}'s YouTube live now on air for today!"
-          },
-          "scheduled": {
-            "title": "Live Streaming schedule",
-            "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
-          }
         }
       },
       "charts": {
         "metadata": {
           "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
           "description": "Explore comprehensive statistics on {group} channels with PeakX. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
-        },
-        "cardTitle": "{group}",
-        "cardDescription": "Here is a list of YouTube channels for talents in {group} group."
+        }
       },
       "channelsId": {
         "metadata": {
@@ -204,7 +191,26 @@
 
   "Features": {
     "group": {
+      "overview": {
+        "nav": "Overview"
+      },
+      "talents": {
+        "nav": "Talent",
+        "title": "Talents",
+        "description": "Here is a list of YouTube channels for talents in {group} group."
+      },
+      "live": {
+        "nav": "Live",
+        "title": "Live now on air",
+        "description": "Check out {group}'s YouTube live now on air for today!"
+      },
+      "scheduled": {
+        "nav": "Schedule",
+        "title": "Live Streaming Schedule",
+        "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
+      },
       "ended": {
+        "nav": "Past Live",
         "title": "Past Live Streams",
         "description": "Check out all of {group}'s past YouTube live streams!"
       }
