@@ -84,16 +84,6 @@
         "metadata": {
           "title": "{group} タレントとライブ配信",
           "description": "{group}の最新ライブ配信ランキングや人気VTuber情報をPeakXでチェック。推しの配信を見逃さずに楽しめるページです。"
-        },
-        "card": {
-          "live": {
-            "title": "配信中のライブ",
-            "description": "{group}の配信中のYouTubeライブ一覧をまとめてチェック！"
-          },
-          "scheduled": {
-            "title": "今日-明日の配信予定",
-            "description": "{group}の今日のYouTube配信予定をまとめてチェック！"
-          }
         }
       },
       "charts": {
@@ -101,7 +91,7 @@
           "title": "{group}チャンネル人気ランキング - 登録者数・視聴者数を比較",
           "description": "{group}のチャンネル人気ランキングをグラフで確認。視聴者数や登録者数を比較して、注目チャンネルを見逃さない。"
         },
-        "cardTitle": "{group} タレント",
+        "cardTitle": "タレント一覧",
         "cardDescription": "{group}のYouTubeチャンネル一覧をまとめています！"
       },
       "channelsId": {
@@ -203,6 +193,14 @@
 
   "Features": {
     "group": {
+      "live": {
+        "title": "配信中のライブ",
+        "description": "{group}の配信中のYouTubeライブ一覧をまとめてチェック！"
+      },
+      "scheduled": {
+        "title": "今日-明日の配信予定",
+        "description": "{group}の今日のYouTube配信予定をまとめてチェック！"
+      },
       "ended": {
         "title": "過去のライブ配信",
         "description": "{group}の過去のYouTubeライブ配信をまとめてチェック！"

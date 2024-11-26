@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import LocalNavigationForGroupPages from 'app/[locale]/(end-user)/(default)/[group]/_components/LocalNavigationForGroupPages'
 import { Page } from 'components/page'
 import { GroupString, GroupStrings } from 'config/constants/Site'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -52,6 +53,7 @@ export default function HololivePage({ params: { locale, group } }: Props) {
         { href: `/${group}`, name: t('group', { group: tg(`group.${group}`) }) }
       ]}
     >
+      <LocalNavigationForGroupPages group={group} />
       <IndexTemplate />
     </Page>
   )

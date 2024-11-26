@@ -85,16 +85,6 @@
         "metadata": {
           "title": "{group} Talents and Live Streams",
           "description": "Discover the latest {group} streams, channel statistics, and upcoming events on PeakX. Stay connected with your favorite VTubers and never miss a moment of their live broadcasts!"
-        },
-        "card": {
-          "live": {
-            "title": "Today's Live now on air",
-            "description": "Check out {group}'s YouTube live now on air for today!"
-          },
-          "scheduled": {
-            "title": "Live Streaming schedule",
-            "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
-          }
         }
       },
       "charts": {
@@ -204,6 +194,14 @@
 
   "Features": {
     "group": {
+      "live": {
+        "title": "Today's Live now on air",
+        "description": "Check out {group}'s YouTube live now on air for today!"
+      },
+      "scheduled": {
+        "title": "Live Streaming schedule",
+        "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
+      },
       "ended": {
         "title": "Past Live Streams",
         "description": "Check out all of {group}'s past YouTube live streams!"
