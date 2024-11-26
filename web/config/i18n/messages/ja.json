@@ -82,7 +82,7 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "{group} タレントとライブ配信",
+          "title": "{group}概要 - タレントとライブ配信",
           "description": "{group}の最新ライブ配信ランキングや人気VTuber情報をPeakXでチェック。推しの配信を見逃さずに楽しめるページです。"
         }
       },
