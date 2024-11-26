@@ -91,9 +91,7 @@
         "metadata": {
           "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
           "description": "Explore comprehensive statistics on {group} channels with PeakX. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
-        },
-        "cardTitle": "{group}",
-        "cardDescription": "Here is a list of YouTube channels for talents in {group} group."
+        }
       },
       "channelsId": {
         "metadata": {
@@ -194,6 +192,10 @@
 
   "Features": {
     "group": {
+      "talents": {
+        "title": "Talents",
+        "description": "Here is a list of YouTube channels for talents in {group} group."
+      },
       "live": {
         "title": "Today's Live now on air",
         "description": "Check out {group}'s YouTube live now on air for today!"

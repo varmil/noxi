@@ -90,9 +90,7 @@
         "metadata": {
           "title": "{group}チャンネル人気ランキング - 登録者数・視聴者数を比較",
           "description": "{group}のチャンネル人気ランキングをグラフで確認。視聴者数や登録者数を比較して、注目チャンネルを見逃さない。"
-        },
-        "cardTitle": "タレント一覧",
-        "cardDescription": "{group}のYouTubeチャンネル一覧をまとめています！"
+        }
       },
       "channelsId": {
         "metadata": {
@@ -193,6 +191,10 @@
 
   "Features": {
     "group": {
+      "talents": {
+        "title": "タレント一覧",
+        "description": "{group}のYouTubeチャンネル一覧です"
+      },
       "live": {
         "title": "配信中のライブ",
         "description": "{group}の配信中のYouTubeライブ一覧をまとめてチェック！"
