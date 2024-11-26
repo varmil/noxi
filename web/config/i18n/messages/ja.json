@@ -43,7 +43,7 @@
         "description": "YouTubeのライブ配信ランキングを即座に確認できるPeakXで、人気ストリーマーの最新情報をチェックし、見逃しを防ぎましょう。"
       },
       "title": "VTuberまとめ",
-      "description": "ホロライブ、結城さくな、しぐれうい、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
+      "description": "ホロライブ、にじさんじ、結城さくな、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
       "section": {
         "hero": { "more": "ランキングを確認" },
         "socialProof": {
@@ -82,7 +82,7 @@
     "group": {
       "index": {
         "metadata": {
-          "title": "{group} - VTuberライブ配信まとめ",
+          "title": "{group} タレントとライブ配信",
           "description": "{group}の最新ライブ配信ランキングや人気VTuber情報をPeakXでチェック。推しの配信を見逃さずに楽しめるページです。"
         },
         "card": {
@@ -106,7 +106,7 @@
       },
       "channelsId": {
         "metadata": {
-          "title": "{channel} - 動画分析",
+          "title": "{channel} - ライブ配信分析",
           "description": "{channel}の詳細な統計やランキング、最新配信情報をPeakXで確認。見逃さないための必見情報"
         },
         "template": {
