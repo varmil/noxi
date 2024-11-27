@@ -30,6 +30,7 @@ export class MainScenario {
     while (true) {
       try {
         const channels = await this.channelsService.findAll({
+          orderBy: [{ subscriberCount: 'desc' }],
           limit: this.CHUNK_SIZE,
           offset
         })

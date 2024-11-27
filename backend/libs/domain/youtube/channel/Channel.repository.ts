@@ -1,18 +1,12 @@
 import { CountryCode } from '@domain/country'
 import { Group } from '@domain/group'
-import {
-  Channel,
-  Channels,
-  ChannelId,
-  ChannelSort,
-  ChannelIds
-} from '@domain/youtube/'
+import { Channel, Channels, ChannelId, ChannelIds } from '@domain/youtube/'
 
 export interface ChannelRepository {
   findAll: (args: {
     where?: { id?: ChannelIds; group?: Group; country?: CountryCode }
-    sort?: ChannelSort
-    limit: number
+    orderBy?: Partial<Record<'subscriberCount' | 'viewCount', 'asc' | 'desc'>>[]
+    limit?: number
     offset?: number
   }) => Promise<Channels>
 

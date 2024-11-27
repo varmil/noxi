@@ -2,7 +2,7 @@ import { Exclude, Transform } from 'class-transformer'
 import { LanguageTag } from '@domain/country'
 import { ChannelId, PublishedAt, Thumbnails } from '@domain/youtube'
 
-export class Snippet {
+export class VideoSnippet {
   @Transform(({ value }: { value: PublishedAt }) => value.get())
   public readonly publishedAt: PublishedAt
   @Transform(({ value }: { value: ChannelId }) => value.get())

@@ -2,30 +2,47 @@ import {
   ChannelsSchema,
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
+import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
-  ids: string[]
+  ids?: string[]
+  group?: GroupString
+  orderBy?: {
+    field: 'subscriberCount' | 'viewCount'
+    order: 'asc' | 'desc'
+  }[]
+  limit?: number
+  offset?: number
 }
 
-export async function getChannels({ ids }: Params): Promise<ChannelsSchema> {
-  if (ids.length === 0) {
-    return []
-  }
+export async function getChannels({
+  ids,
+  group,
+  orderBy,
+  limit,
+  offset
+}: Params): Promise<ChannelsSchema> {
+  const searchParams = new URLSearchParams({
+    ...(ids && { ids: [...new Set(ids)].join(',') }),
+    ...(group && { group }),
+    ...(limit !== undefined && { limit: String(limit) }),
+    ...(offset !== undefined && { offset: String(offset) })
+  })
+
+  orderBy?.forEach((orderBy, index) => {
+    searchParams.append(`orderBy[${index}][field]`, orderBy.field)
+    searchParams.append(`orderBy[${index}][order]`, orderBy.order)
+  })
 
   const res = await fetchAPI(
-    `/api/youtube/channels?${new URLSearchParams({
-      ids: [...new Set(ids)].join(',')
-    }).toString()}`,
+    `/api/youtube/channels?${searchParams.toString()}`,
     {
       next: { revalidate: 3600 * 12 }
     }
   )
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
 
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data')
   }
 

@@ -37,12 +37,6 @@ describe('AppController (e2e)', () => {
     return request(app.getHttpServer()).get('/api/health').expect(200)
   })
 
-  it('/api/groups/hololive/charts/channels (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/api/groups/hololive/charts/channels')
-      .expect(200)
-  })
-
   it('/api/youtube/channels (GET)', () => {
     return request(app.getHttpServer())
       .get('/api/youtube/channels/UCdn5BQ06XqgXoAxIhbqw5Rg')

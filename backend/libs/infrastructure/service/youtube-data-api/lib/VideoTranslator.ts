@@ -9,7 +9,7 @@ import {
   Duration,
   LiveStreamingDetails,
   PublishedAt,
-  Snippet,
+  VideoSnippet,
   Statistics,
   Video,
   VideoId
@@ -36,7 +36,7 @@ export class VideoTranslator {
 
     return new Video({
       id: new VideoId(v.id),
-      snippet: new Snippet({
+      snippet: new VideoSnippet({
         ...sRest,
         channelId: new ChannelId(channelId),
         publishedAt: new PublishedAt(new Date(publishedAt)),

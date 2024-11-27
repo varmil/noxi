@@ -23,12 +23,11 @@ export class ChannelRepositoryImpl implements ChannelRepository {
 
   async findAll({
     where,
-    sort,
+    orderBy,
     limit,
     offset
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
     const { id, group, country } = where || {}
-    const orderBy = sort ? { [sort.toOrderBy()]: 'desc' } : undefined
     const channels = await this.prismaInfraService.channel.findMany({
       where: {
         id: { in: id?.map(e => e.get()) },

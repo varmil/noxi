@@ -1,12 +1,12 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
 import { Group } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
-import { VideoId, Duration, Snippet } from '@domain/youtube'
+import { VideoId, Duration, VideoSnippet } from '@domain/youtube'
 
 export class Stream {
   @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly videoId: VideoId
-  public readonly snippet: Snippet
+  public readonly snippet: VideoSnippet
   /**
    * Live中はP0D（０）固定
    */
@@ -20,7 +20,7 @@ export class Stream {
 
   constructor(args: {
     videoId: VideoId
-    snippet: Snippet
+    snippet: VideoSnippet
     duration?: Duration
     streamTimes: StreamTimes
     metrics: Metrics

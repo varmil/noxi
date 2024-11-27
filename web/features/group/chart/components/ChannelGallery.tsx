@@ -10,8 +10,8 @@ import {
   CardContent,
   CardFooter
 } from '@/components/ui/card'
+import { getChannels } from 'apis/youtube/getChannels'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
-import { getChartOfChannels } from 'features/group/chart/api/getChartOfChannels'
 import { Link } from 'lib/navigation'
 import { getGroup } from 'lib/server-only-context/cache'
 
@@ -26,8 +26,9 @@ export async function ChannelGallery({
 }: PropsWithoutRef<Props>) {
   const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Features.group.talents')
-  const channels = await getChartOfChannels({
+  const channels = await getChannels({
     group: getGroup(),
+    orderBy: [{ field: 'subscriberCount', order: 'desc' }],
     limit
   })
 
