@@ -1,0 +1,15 @@
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s?$": ["@swc/jest"]
+  },
+  "moduleNameMapper": {
+    "^@presentation(|/.*)$": "<rootDir>/../../../../apps/closed-api-server/src/presentation/$1",
+    "^@app(|/.*)$": "<rootDir>/../../../../libs/application/$1",
+    "^@domain(|/.*)$": "<rootDir>/../../../../libs/domain/$1",
+    "^@infra(|/.*)$": "<rootDir>/../../../../libs/infrastructure/$1"
+  }
+}

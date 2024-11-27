@@ -39,6 +39,15 @@
         "tsConfigPath": "apps/bundle-supers/tsconfig.app.json"
       }
     },
+    "groups/summarize-channels": {
+      "type": "application",
+      "root": "apps/groups/summarize-channels",
+      "entryFile": "main",
+      "sourceRoot": "apps/groups/summarize-channels/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/groups/summarize-channels/tsconfig.app.json"
+      }
+    },
     "groups/update-channels": {
       "type": "application",
       "root": "apps/groups/update-channels",
