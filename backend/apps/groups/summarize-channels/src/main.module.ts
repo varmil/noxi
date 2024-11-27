@@ -4,7 +4,7 @@ import { GroupsAppModule } from '@app/groups/groups.app.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
-import { MainScenario } from '../../update-channels/src/scenario/main.scenario'
+import { MainScenario } from './scenario/main.scenario'
 
 @Module({
   imports: [

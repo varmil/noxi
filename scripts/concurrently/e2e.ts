@@ -6,6 +6,7 @@ const AppNames = [
   'closed-api-server',
   'bundle-chats',
   'bundle-supers',
+  'groups/summarize-channels',
   'groups/update-channels',
   'pubsubhubbub',
   'update-chats',
