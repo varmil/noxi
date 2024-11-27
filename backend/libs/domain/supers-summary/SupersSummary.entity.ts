@@ -1,5 +1,4 @@
 import { Transform } from 'class-transformer'
-import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/supers/base'
 import { ChannelId } from '@domain/youtube'
 
@@ -22,9 +21,6 @@ export class SupersSummary {
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
   public readonly thisYear: AmountMicros
 
-  @Transform(({ value }: { value: Group }) => value.get())
-  public readonly group: Group
-
   public readonly createdAt: Date
 
   constructor(args: {
@@ -38,7 +34,6 @@ export class SupersSummary {
     thisMonth: AmountMicros
     thisYear: AmountMicros
 
-    group: Group
     createdAt: Date
   }) {
     this.channelId = args.channelId
@@ -51,7 +46,6 @@ export class SupersSummary {
     this.thisMonth = args.thisMonth
     this.thisYear = args.thisYear
 
-    this.group = args.group
     this.createdAt = args.createdAt
   }
 }
