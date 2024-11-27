@@ -30,7 +30,7 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
         FROM "YoutubeStreamSupersSummary" AS s
         INNER JOIN "Channel" AS c ON s."channelId" = c."id"
         WHERE 
-          (${channelId} IS NULL OR "channelId" = ${channelId})
+          (${channelId} IS NULL OR s."channelId" = ${channelId})
           AND (${group} IS NULL OR c."group" = ${group})
         ORDER BY 
           s."channelId",
