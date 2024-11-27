@@ -10,10 +10,10 @@ export class ChannelsService {
     private readonly channelRepository: ChannelRepository
   ) {}
 
-  async prismaFindAll(
-    args: Parameters<ChannelRepository['prismaFindAll']>[0]
+  async findAll(
+    args: Parameters<ChannelRepository['findAll']>[0]
   ): Promise<Channels> {
-    return await this.channelRepository.prismaFindAll(args)
+    return await this.channelRepository.findAll(args)
   }
 
   async findById(

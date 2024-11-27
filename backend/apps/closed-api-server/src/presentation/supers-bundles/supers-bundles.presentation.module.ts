@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
 import { SupersBundlesController } from '@presentation/supers-bundles/supers-bundles.controller'
-import { SupersBundlesModule } from '@app/supers-bundles/supers-bundles.module'
+import { SupersBundlesAppModule } from '@app/supers-bundles/supers-bundles.module'
 
 @Module({
-  imports: [SupersBundlesModule],
+  imports: [SupersBundlesAppModule],
   controllers: [SupersBundlesController],
   providers: []
 })

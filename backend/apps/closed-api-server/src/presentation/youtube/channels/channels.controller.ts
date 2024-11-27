@@ -23,7 +23,7 @@ export class ChannelsController {
   @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async getChannels(@Query() dto: GetChannelsDto) {
-    return await this.channelsService.prismaFindAll({
+    return await this.channelsService.findAll({
       where: { id: dto.toIds() },
       limit: 1000
     })

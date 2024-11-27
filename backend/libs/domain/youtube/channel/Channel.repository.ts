@@ -9,10 +9,11 @@ import {
 } from '@domain/youtube/'
 
 export interface ChannelRepository {
-  prismaFindAll: (args: {
-    where: { id?: ChannelIds; group?: Group; country?: CountryCode }
+  findAll: (args: {
+    where?: { id?: ChannelIds; group?: Group; country?: CountryCode }
     sort?: ChannelSort
     limit: number
+    offset?: number
   }) => Promise<Channels>
 
   prismaFindById: (id: ChannelId) => Promise<Channel | null>

@@ -14,13 +14,13 @@ export class PrismaInfraService
   }
 
   async onModuleInit() {
-    this.$on('query', event => {
-      this.logger.log(
-        `Query: ${event.query}`,
-        `Params: ${event.params}`,
-        `Duration: ${event.duration} ms`
-      )
-    })
+    // this.$on('query', event => {
+    //   this.logger.log(
+    //     `Query: ${event.query}`,
+    //     `Params: ${event.params}`,
+    //     `Duration: ${event.duration} ms`
+    //   )
+    // })
     // this.$on('info', event => {
     //   this.logger.log(`message: ${event.message}`)
     // })

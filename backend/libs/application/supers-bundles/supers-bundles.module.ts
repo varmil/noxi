@@ -7,4 +7,4 @@ import { SupersBundleInfraModule } from '@infra/supers-bundle/supers-bundle.infr
   providers: [SupersBundlesService],
   exports: [SupersBundleInfraModule, SupersBundlesService]
 })
-export class SupersBundlesModule {}
+export class SupersBundlesAppModule {}

@@ -19,4 +19,8 @@ export class SupersBundlesService {
   async save(args: Parameters<SupersBundleRepository['save']>[0]) {
     await this.supersBundleRepository.save(args)
   }
+
+  async sum(args: Parameters<SupersBundleRepository['sum']>[0]) {
+    return await this.supersBundleRepository.sum(args)
+  }
 }

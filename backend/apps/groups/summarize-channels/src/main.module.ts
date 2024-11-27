@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { GroupsAppModule } from '@app/groups/groups.app.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
+import { SupersBundlesAppModule } from '@app/supers-bundles/supers-bundles.module'
 import { SupersSummariesAppModule } from '@app/supers-summaries/supers-summaries.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
-import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 import { MainScenario } from './scenario/main.scenario'
 
 @Module({
@@ -13,9 +13,9 @@ import { MainScenario } from './scenario/main.scenario'
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
     LibAppModule,
     GroupsAppModule,
+    SupersBundlesAppModule,
     SupersSummariesAppModule,
-    YoutubeAppModule,
-    YoutubeInfraModule
+    YoutubeAppModule
   ],
   controllers: [],
   providers: [MainScenario]

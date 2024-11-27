@@ -1,5 +1,7 @@
+import { Exclude } from 'class-transformer'
 import dayjs, { extend } from 'dayjs'
 import isToday from 'dayjs/plugin/isToday'
+import isoWeek from 'dayjs/plugin/isoWeek'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import { ValueObject } from '@domain/lib/vo/ValueObject'
@@ -7,28 +9,21 @@ import { ValueObject } from '@domain/lib/vo/ValueObject'
 extend(isToday)
 extend(utc)
 extend(timezone)
+extend(isoWeek)
 
 export abstract class DateValueObject extends ValueObject<Date> {
-  format = (template?: string) => {
-    return dayjs(this.val).format(template)
-  }
+  @Exclude()
+  startOfWeek = () => dayjs(this.val).startOf('isoWeek').toDate()
 
-  isToday = () => {
-    return dayjs(this.val).isToday()
-  }
-  isNotToday = () => !this.isToday()
+  @Exclude()
+  startOfMonth = () => dayjs(this.val).startOf('month').toDate()
 
-  isWithin30Days = () => {
-    const now = new Date()
-    const oneMonthAgo = new Date()
-    oneMonthAgo.setMonth(now.getMonth() - 1)
-    return this.val > oneMonthAgo
-  }
+  @Exclude()
+  startOfyear = () => dayjs(this.val).startOf('year').toDate()
 
-  protected subtractBy = (value: number) => {
-    return dayjs(this.val).subtract(value, 'd').toDate()
-  }
-  protected addBy = (value: number) => {
-    return dayjs(this.val).add(value, 'd').toDate()
-  }
+  @Exclude()
+  xDaysAgo = (x: number) => dayjs(this.val).subtract(x, 'd').toDate()
+
+  @Exclude()
+  xYearsAgo = (x: number) => dayjs(this.val).subtract(x, 'y').toDate()
 }

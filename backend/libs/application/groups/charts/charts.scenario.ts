@@ -9,9 +9,7 @@ export class ChartsScenario {
   /**
    * Channels チャート
    */
-  async getChartOfChannels(
-    args: Parameters<ChannelRepository['prismaFindAll']>[0]
-  ) {
-    return await this.channelsService.prismaFindAll(args)
+  async getChartOfChannels(args: Parameters<ChannelRepository['findAll']>[0]) {
+    return await this.channelsService.findAll(args)
   }
 }
