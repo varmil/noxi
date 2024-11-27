@@ -7,4 +7,4 @@ import { SupersSummaryInfraModule } from '@infra/supers-summary/supers-summary.i
   providers: [SupersSummariesService],
   exports: [SupersSummaryInfraModule, SupersSummariesService]
 })
-export class SupersSummariesModule {}
+export class SupersSummariesAppModule {}

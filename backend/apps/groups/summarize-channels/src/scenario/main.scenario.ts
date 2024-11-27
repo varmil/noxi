@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
+import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
@@ -12,7 +13,8 @@ export class MainScenario {
     private readonly promiseService: PromiseService,
     private readonly channelsService: ChannelsService,
     private readonly channelsInfraService: ChannelsInfraService,
-    private readonly groupsService: GroupsService
+    private readonly groupsService: GroupsService,
+    private readonly supersSummariesService: SupersSummariesService
   ) {}
 
   async execute(): Promise<void> {

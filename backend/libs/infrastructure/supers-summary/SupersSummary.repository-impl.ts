@@ -17,8 +17,8 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   async findAll({
     where,
     orderBy,
-    limit,
-    offset
+    limit = 30,
+    offset = 0
   }: Parameters<SupersSummaryRepository['findAll']>[0]) {
     const channelId = where?.channelId?.get() || null
     const group = where?.group?.get() || null
@@ -30,8 +30,8 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
         FROM "YoutubeStreamSupersSummary" AS s
         INNER JOIN "Channel" AS c ON s."channelId" = c."id"
         WHERE 
-          (${channelId} IS NULL OR s."channelId" = ${channelId})
-          AND (${group} IS NULL OR c."group" = ${group})
+          s."channelId" IS NOT DISTINCT FROM ${channelId} AND
+          c."group" IS NOT DISTINCT FROM ${group}
         ORDER BY 
           s."channelId",
           s."createdAt" DESC,
