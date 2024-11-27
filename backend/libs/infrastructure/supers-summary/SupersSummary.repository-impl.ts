@@ -14,6 +14,7 @@ import type { YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary } f
 export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
+  // FIXME:
   async findAll({
     where,
     orderBy,

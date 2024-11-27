@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { StreamsService } from '@app/streams/streams.service'
-import { Streams } from '@domain/stream'
+import { CreateSupersSummariesService } from 'apps/groups/summarize-channels/src/service/create-supers-summaries.service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
-import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 import { MainModule } from '../main.module'
 import { MainScenario } from './main.scenario'
 
@@ -20,10 +19,10 @@ describe('MainScenario', () => {
   describe('execute()', () => {
     it('should return void 0', async () => {
       jest
-        .spyOn(StreamsService.prototype, 'findAll')
-        .mockResolvedValue(new Streams([]))
+        .spyOn(CreateSupersSummariesService.prototype, 'execute')
+        .mockResolvedValue(void 0)
       jest
-        .spyOn(ChannelsInfraService.prototype, 'list')
+        .spyOn(ChannelsService.prototype, 'findAll')
         .mockResolvedValue(new Channels([]))
 
       const result = await scenario.execute()
