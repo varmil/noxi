@@ -10,30 +10,33 @@ export abstract class Collection<T> {
     return new ctor(items)
   }
 
-  @Exclude()
+  [Symbol.iterator](): IterableIterator<T> {
+    return this.list[Symbol.iterator]()
+  }
+
+  *entries(): IterableIterator<[number, T]> {
+    for (let index = 0; index < this.list.length; index++) {
+      yield [index, this.list[index]]
+    }
+  }
+
   map = <U>(fn: (value: T, index: number) => U) => this.list.map(fn)
 
-  @Exclude()
   filter(callback: (item: T, index?: number) => boolean): this {
     return this.newInstance(this.list.filter(callback))
   }
 
-  @Exclude()
   isEmpty = () => this.list.length === 0
 
-  @Exclude()
   slice = (start?: number, end?: number): this =>
     this.newInstance(this.list.slice(start, end))
 
-  @Exclude()
   first = (): T | undefined => this.list[0]
 
-  @Exclude()
   find = (
     predicate: (value: T, index: number, obj: T[]) => boolean
   ): T | undefined => this.list.find(predicate)
 
-  @Exclude()
   take = (n: number) =>
     this.newInstance(this.list.slice(0, Math.min(n, this.list.length)))
 

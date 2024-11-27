@@ -8,11 +8,8 @@ async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
   useLogger(app)
 
-  // チャンネル基本情報のUPSERT
-  {
-    const updateChannelsScenario = app.select(MainModule).get(MainScenario)
-    await updateChannelsScenario.execute()
-  }
+  const scenario = app.select(MainModule).get(MainScenario)
+  await scenario.execute()
 
   await app.close()
 }

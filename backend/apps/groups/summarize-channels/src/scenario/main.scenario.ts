@@ -16,19 +16,24 @@ export class MainScenario {
   ) {}
 
   async execute(): Promise<void> {
-    const promises = this.groupsService.findAll().map(async group => {
-      this.logger.debug(`start ${group.get()}`)
+    await this.processGroups()
+  }
 
-      const channels = await this.channelsInfraService.list({
-        where: { channelIds: group.channelIds }
-      })
-
-      await this.channelsService.bulkSave({
-        data: { channels, group }
-      })
-      this.logger.debug(`end ${group.get()}`)
-    })
-
-    await this.promiseService.allSettled(promises)
+  private async processGroups() {
+    for (const group of this.groupsService.findAll()) {
+      try {
+        await Promise.resolve()
+        // this.logger.debug(`start ${group.get()}`)
+        // const channels = await this.channelsInfraService.list({
+        //   where: { channelIds: group.channelIds }
+        // })
+        // await this.channelsService.bulkSave({
+        //   data: { channels, group }
+        // })
+        // this.logger.debug(`end ${group.get()}`)
+      } catch (error) {
+        this.logger.error(`Error processing group ${group.get()}:`, error)
+      }
+    }
   }
 }
