@@ -7,13 +7,13 @@ export class SupersSummary {
   public readonly channelId: ChannelId
 
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
-  public readonly last7days: AmountMicros
+  public readonly last7Days: AmountMicros
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
-  public readonly last30days: AmountMicros
+  public readonly last30Days: AmountMicros
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
-  public readonly last90days: AmountMicros
+  public readonly last90Days: AmountMicros
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
-  public readonly last1year: AmountMicros
+  public readonly last1Year: AmountMicros
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
   public readonly thisWeek: AmountMicros
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
@@ -26,10 +26,10 @@ export class SupersSummary {
   constructor(args: {
     channelId: ChannelId
 
-    last7days: AmountMicros
-    last30days: AmountMicros
-    last90days: AmountMicros
-    last1year: AmountMicros
+    last7Days: AmountMicros
+    last30Days: AmountMicros
+    last90Days: AmountMicros
+    last1Year: AmountMicros
     thisWeek: AmountMicros
     thisMonth: AmountMicros
     thisYear: AmountMicros
@@ -38,10 +38,10 @@ export class SupersSummary {
   }) {
     this.channelId = args.channelId
 
-    this.last7days = args.last7days
-    this.last30days = args.last30days
-    this.last90days = args.last90days
-    this.last1year = args.last1year
+    this.last7Days = args.last7Days
+    this.last30Days = args.last30Days
+    this.last90Days = args.last90Days
+    this.last1Year = args.last1Year
     this.thisWeek = args.thisWeek
     this.thisMonth = args.thisMonth
     this.thisYear = args.thisYear

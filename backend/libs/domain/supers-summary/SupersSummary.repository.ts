@@ -9,10 +9,10 @@ export interface SupersSummaryRepository {
       group?: Group
     }
     orderBy:
-      | 'last7days'
-      | 'last30days'
-      | 'last90days'
-      | 'last1year'
+      | 'last7Days'
+      | 'last30Days'
+      | 'last90Days'
+      | 'last1Year'
       | 'thisWeek'
       | 'thisMonth'
       | 'thisYear'

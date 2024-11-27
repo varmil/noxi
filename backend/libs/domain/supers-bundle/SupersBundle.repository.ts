@@ -3,6 +3,11 @@ import { AmountMicros } from '@domain/supers'
 import { SupersBundle, SupersBundles } from '@domain/supers-bundle'
 import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
 
+export interface AmountMicrosSum {
+  channelId: ChannelId
+  amountMicros: AmountMicros
+}
+
 export interface SupersBundleRepository {
   findAll: (args: {
     where?: {
@@ -28,10 +33,5 @@ export interface SupersBundleRepository {
       channelIds: ChannelIds
       actualEndTime: { gte: Date }
     }
-  }) => Promise<
-    {
-      channelId: ChannelId
-      amountMicros: AmountMicros
-    }[]
-  >
+  }) => Promise<AmountMicrosSum[]>
 }

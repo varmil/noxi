@@ -36,10 +36,10 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
           s."channelId",
           s."createdAt" DESC,
           CASE 
-            WHEN ${orderBy} = 'last7days' THEN "last7days"
-            WHEN ${orderBy} = 'last30days' THEN "last30days"
-            WHEN ${orderBy} = 'last90days' THEN "last90days"
-            WHEN ${orderBy} = 'last1year' THEN "last1year"
+            WHEN ${orderBy} = 'last7Days' THEN "last7Days"
+            WHEN ${orderBy} = 'last30Days' THEN "last30Days"
+            WHEN ${orderBy} = 'last90Days' THEN "last90Days"
+            WHEN ${orderBy} = 'last1Year' THEN "last1Year"
             WHEN ${orderBy} = 'thisWeek' THEN "thisWeek"
             WHEN ${orderBy} = 'thisMonth' THEN "thisMonth"
             WHEN ${orderBy} = 'thisYear' THEN "thisYear"
@@ -66,10 +66,10 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   async create({ data }: Parameters<SupersSummaryRepository['create']>[0]) {
     const {
       channelId,
-      last7days,
-      last30days,
-      last90days,
-      last1year,
+      last7Days,
+      last30Days,
+      last90Days,
+      last1Year,
       thisWeek,
       thisMonth,
       thisYear,
@@ -79,10 +79,10 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
     await this.prismaInfraService.youtubeStreamSupersSummary.create({
       data: {
         channelId: channelId.get(),
-        last7days: last7days.toBigInt(),
-        last30days: last30days.toBigInt(),
-        last90days: last90days.toBigInt(),
-        last1year: last1year.toBigInt(),
+        last7Days: last7Days.toBigInt(),
+        last30Days: last30Days.toBigInt(),
+        last90Days: last90Days.toBigInt(),
+        last1Year: last1Year.toBigInt(),
         thisWeek: thisWeek.toBigInt(),
         thisMonth: thisMonth.toBigInt(),
         thisYear: thisYear.toBigInt(),
@@ -94,10 +94,10 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   private toDomain(row: PrismaYoutubeStreamSupersSummary) {
     return new SupersSummary({
       channelId: new ChannelId(row.channelId),
-      last7days: new AmountMicros(BigNumber(row.last7days.toString())),
-      last30days: new AmountMicros(BigNumber(row.last30days.toString())),
-      last90days: new AmountMicros(BigNumber(row.last90days.toString())),
-      last1year: new AmountMicros(BigNumber(row.last1year.toString())),
+      last7Days: new AmountMicros(BigNumber(row.last7Days.toString())),
+      last30Days: new AmountMicros(BigNumber(row.last30Days.toString())),
+      last90Days: new AmountMicros(BigNumber(row.last90Days.toString())),
+      last1Year: new AmountMicros(BigNumber(row.last1Year.toString())),
       thisWeek: new AmountMicros(BigNumber(row.thisWeek.toString())),
       thisMonth: new AmountMicros(BigNumber(row.thisMonth.toString())),
       thisYear: new AmountMicros(BigNumber(row.thisYear.toString())),

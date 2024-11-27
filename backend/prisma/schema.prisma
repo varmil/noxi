@@ -180,10 +180,10 @@ model YoutubeStreamSupersSummary {
   id        Int    @id @default(autoincrement())
   channelId String
 
-  last7days  BigInt
-  last30days BigInt
-  last90days BigInt
-  last1year  BigInt
+  last7Days  BigInt
+  last30Days BigInt
+  last90Days BigInt
+  last1Year  BigInt
   thisWeek   BigInt
   thisMonth  BigInt
   thisYear   BigInt
@@ -191,10 +191,10 @@ model YoutubeStreamSupersSummary {
   createdAt DateTime @default(now()) @db.Timestamptz(3)
   channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-  @@index([channelId, createdAt, last7days])
-  @@index([channelId, createdAt, last30days])
-  @@index([channelId, createdAt, last90days])
-  @@index([channelId, createdAt, last1year])
+  @@index([channelId, createdAt, last7Days])
+  @@index([channelId, createdAt, last30Days])
+  @@index([channelId, createdAt, last90Days])
+  @@index([channelId, createdAt, last1Year])
   @@index([channelId, createdAt, thisWeek])
   @@index([channelId, createdAt, thisMonth])
   @@index([channelId, createdAt, thisYear])
