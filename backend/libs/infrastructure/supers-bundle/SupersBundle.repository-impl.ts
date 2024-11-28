@@ -5,7 +5,8 @@ import {
   SupersBundleRepository,
   SupersBundles,
   SupersBundle,
-  SupersCount
+  SupersCount,
+  AmountMicrosSum
 } from '@domain/supers-bundle'
 import {
   ActualEndTime,
@@ -85,29 +86,26 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     })
   }
 
-  sum: (args: {
-    where: { channelIds: ChannelIds; actualEndTime: { gte: Date } }
-  }) => Promise<{ channelId: ChannelId; amountMicros: AmountMicros }[]> =
-    async ({ where }) => {
-      const rows =
-        await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
-          by: ['channelId'],
-          where: {
-            channelId: { in: where.channelIds.map(e => e.get()) },
-            actualEndTime: { gte: where.actualEndTime.gte }
-          },
-          _sum: { amountMicros: true }
-        })
+  sum: SupersBundleRepository['sum'] = async ({ where }) => {
+    const rows =
+      await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
+        by: ['channelId'],
+        where: {
+          channelId: { in: where.channelIds.map(e => e.get()) },
+          actualEndTime: { gte: where.actualEndTime.gte }
+        },
+        _sum: { amountMicros: true }
+      })
 
-      return rows.map(row => ({
-        channelId: new ChannelId(row.channelId),
-        amountMicros: new AmountMicros(
-          row._sum.amountMicros
-            ? BigNumber(row._sum.amountMicros.toString())
-            : new BigNumber(0)
-        )
-      }))
-    }
+    return rows.map(row => ({
+      channelId: new ChannelId(row.channelId),
+      amountMicros: new AmountMicros(
+        row._sum.amountMicros
+          ? BigNumber(row._sum.amountMicros.toString())
+          : new BigNumber(0)
+      )
+    }))
+  }
 
   private toDomain(row: PrismaYoutubeStreamSupersBundle) {
     return new SupersBundle({
