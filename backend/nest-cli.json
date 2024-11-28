@@ -57,6 +57,15 @@
         "tsConfigPath": "apps/pubsubhubbub/tsconfig.app.json"
       }
     },
+    "summarize-channels": {
+      "type": "application",
+      "root": "apps/summarize-channels",
+      "entryFile": "main",
+      "sourceRoot": "apps/summarize-channels/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/summarize-channels/tsconfig.app.json"
+      }
+    },
     "update-chats": {
       "type": "application",
       "root": "apps/update-chats",

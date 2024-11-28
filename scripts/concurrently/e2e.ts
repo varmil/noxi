@@ -8,6 +8,7 @@ const AppNames = [
   'bundle-supers',
   'groups/update-channels',
   'pubsubhubbub',
+  'summarize-channels',
   'update-chats',
   'update-exchange-rates',
   'update-streams'

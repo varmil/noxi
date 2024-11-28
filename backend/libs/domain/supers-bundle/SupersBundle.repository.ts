@@ -1,6 +1,12 @@
 import { Group } from '@domain/group'
+import { AmountMicros } from '@domain/supers'
 import { SupersBundle, SupersBundles } from '@domain/supers-bundle'
-import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
+import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
+
+export interface AmountMicrosSum {
+  channelId: ChannelId
+  amountMicros: AmountMicros
+}
 
 export interface SupersBundleRepository {
   findAll: (args: {
@@ -20,4 +26,12 @@ export interface SupersBundleRepository {
   }) => Promise<SupersBundle | null>
 
   save: (args: { data: SupersBundle }) => Promise<void>
+
+  /** Sum amountMicros within a period grouped by channelId */
+  sum: (args: {
+    where: {
+      channelIds: ChannelIds
+      actualEndTime: { gte: Date }
+    }
+  }) => Promise<AmountMicrosSum[]>
 }

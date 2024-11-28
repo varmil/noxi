@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer'
 export abstract class Collection<T> {
   constructor(protected readonly list: T[]) {}
 
+  @Exclude()
   protected newInstance(items: T[]): this {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const ctor = Object.getPrototypeOf(this).constructor
@@ -11,7 +12,19 @@ export abstract class Collection<T> {
   }
 
   @Exclude()
-  map = <U>(fn: (value: T, index: number) => U) => this.list.map(fn)
+  [Symbol.iterator](): IterableIterator<T> {
+    return this.list[Symbol.iterator]()
+  }
+
+  @Exclude()
+  *entries(): IterableIterator<[number, T]> {
+    for (let index = 0; index < this.list.length; index++) {
+      yield [index, this.list[index]]
+    }
+  }
+
+  @Exclude()
+  map = <U>(fn: (value: T, index: number) => U) => this.list?.map(fn)
 
   @Exclude()
   filter(callback: (item: T, index?: number) => boolean): this {

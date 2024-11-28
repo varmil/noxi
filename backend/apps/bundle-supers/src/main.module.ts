@@ -7,7 +7,7 @@ import { StreamsModule } from '@app/streams/streams.module'
 import { SuperChatsModule } from '@app/super-chats/super-chats.module'
 import { SuperStickersModule } from '@app/super-stickers/super-stickers.module'
 import { SupersBundleQueuesModule } from '@app/supers-bundle-queues/supers-bundle-queues.module'
-import { SupersBundlesModule } from '@app/supers-bundles/supers-bundles.module'
+import { SupersBundlesAppModule } from '@app/supers-bundles/supers-bundles.module'
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { SupersBundlesModule } from '@app/supers-bundles/supers-bundles.module'
     LibAppModule,
     StreamsModule,
     SupersBundleQueuesModule,
-    SupersBundlesModule,
+    SupersBundlesAppModule,
     SuperChatsModule,
     SuperStickersModule
   ],

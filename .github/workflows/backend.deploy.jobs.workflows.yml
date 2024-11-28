@@ -16,6 +16,7 @@ jobs:
             bundle-supers,
             groups/update-channels,
             pubsubhubbub,
+            summarize-channels,
             update-exchange-rates
           ]
     uses: ./.github/workflows/backend.reusable.docker.workflows.yml

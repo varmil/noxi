@@ -13,6 +13,7 @@ const schema0 = z.union([
   z.literal('bundle-supers'),
   z.literal('groups/update-channels'),
   z.literal('pubsubhubbub'),
+  z.literal('summarize-channels'),
   z.literal('update-chats'),
   z.literal('update-exchange-rates'),
   z.literal('update-streams')

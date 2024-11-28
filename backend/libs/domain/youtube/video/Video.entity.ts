@@ -3,7 +3,7 @@ import {
   Duration,
   LiveStreamingDetails,
   IsPaidPromotion,
-  Snippet,
+  VideoSnippet,
   Statistics,
   VideoId
 } from '@domain/youtube/video'
@@ -11,7 +11,7 @@ import {
 export class Video {
   @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly id: VideoId
-  public readonly snippet: Snippet
+  public readonly snippet: VideoSnippet
   @Transform(({ value }: { value: Duration }) => value.get())
   public readonly duration: Duration
   public readonly statistics: Statistics
@@ -19,7 +19,7 @@ export class Video {
 
   constructor(args: {
     id: VideoId
-    snippet: Snippet
+    snippet: VideoSnippet
     duration: Duration
     statistics: Statistics
     liveStreamingDetails?: LiveStreamingDetails
