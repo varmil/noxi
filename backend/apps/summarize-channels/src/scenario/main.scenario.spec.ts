@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { CreateSupersSummariesService } from 'apps/groups/summarize-channels/src/service/create-supers-summaries.service'
+import { CreateSupersSummariesService } from 'apps/summarize-channels/src/service/create-supers-summaries.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
 import { MainModule } from '../main.module'
