@@ -38,7 +38,8 @@ export async function getChannels({
   const res = await fetchAPI(
     `/api/youtube/channels?${searchParams.toString()}`,
     {
-      next: { revalidate: 3600 * 12 }
+      // next: { revalidate: 3600 * 12 },
+      cache: 'no-cache'
     }
   )
 
