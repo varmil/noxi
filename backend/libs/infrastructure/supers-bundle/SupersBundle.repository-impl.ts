@@ -5,14 +5,12 @@ import {
   SupersBundleRepository,
   SupersBundles,
   SupersBundle,
-  SupersCount,
-  AmountMicrosSum
+  SupersCount
 } from '@domain/supers-bundle'
 import {
   ActualEndTime,
   ActualStartTime,
   ChannelId,
-  ChannelIds,
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
