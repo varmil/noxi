@@ -1,35 +1,37 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common'
-import { Prisma, PrismaClient } from '@prisma/client'
+import { Injectable } from '@nestjs/common'
+import { PrismaClient } from '@prisma/client'
 
 @Injectable()
-// export class PrismaInfraService extends PrismaClient {}
-export class PrismaInfraService
-  extends PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel>
-  implements OnModuleInit
-{
-  private readonly logger = new Logger(PrismaInfraService.name)
+export class PrismaInfraService extends PrismaClient {}
 
-  constructor() {
-    super({ log: [{ emit: 'event', level: 'query' }] })
-  }
+// @Injectable()
+// export class PrismaInfraService
+//   extends PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel>
+//   implements OnModuleInit
+// {
+//   private readonly logger = new Logger(PrismaInfraService.name)
 
-  async onModuleInit() {
-    // this.$on('query', event => {
-    //   this.logger.log(
-    //     `Query: ${event.query}`,
-    //     `Params: ${event.params}`,
-    //     `Duration: ${event.duration} ms`
-    //   )
-    // })
-    // this.$on('info', event => {
-    //   this.logger.log(`message: ${event.message}`)
-    // })
-    // this.$on('error', event => {
-    //   this.logger.log(`error: ${event.message}`)
-    // })
-    // this.$on('warn', event => {
-    //   this.logger.log(`warn: ${event.message}`)
-    // })
-    await this.$connect()
-  }
-}
+//   constructor() {
+//     super({ log: [{ emit: 'event', level: 'query' }] })
+//   }
+
+//   async onModuleInit() {
+//     this.$on('query', event => {
+//       this.logger.log(
+//         `Query: ${event.query}`,
+//         `Params: ${event.params}`,
+//         `Duration: ${event.duration} ms`
+//       )
+//     })
+//     this.$on('info', event => {
+//       this.logger.log(`message: ${event.message}`)
+//     })
+//     this.$on('error', event => {
+//       this.logger.log(`error: ${event.message}`)
+//     })
+//     this.$on('warn', event => {
+//       this.logger.log(`warn: ${event.message}`)
+//     })
+//     await this.$connect()
+//   }
+// }
