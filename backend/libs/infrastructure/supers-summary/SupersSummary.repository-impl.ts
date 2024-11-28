@@ -14,51 +14,31 @@ import type { YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary } f
 export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  // FIXME:
   async findAll({
     where,
     orderBy,
     limit = 30,
     offset = 0
   }: Parameters<SupersSummaryRepository['findAll']>[0]) {
-    const channelId = where?.channelId?.get() || null
-    const group = where?.group?.get() || null
+    const channelId = where?.channelId?.get()
+    const group = where?.group?.get()
 
-    const rows = await this.prismaInfraService.$queryRaw<
-      PrismaYoutubeStreamSupersSummary[]
-    >`
-        SELECT DISTINCT ON (s."channelId") s.*
-        FROM "YoutubeStreamSupersSummary" AS s
-        INNER JOIN "Channel" AS c ON s."channelId" = c."id"
-        WHERE 
-          s."channelId" IS NOT DISTINCT FROM ${channelId} AND
-          c."group" IS NOT DISTINCT FROM ${group}
-        ORDER BY 
-          s."channelId",
-          s."createdAt" DESC,
-          CASE 
-            WHEN ${orderBy} = 'last7Days' THEN "last7Days"
-            WHEN ${orderBy} = 'last30Days' THEN "last30Days"
-            WHEN ${orderBy} = 'last90Days' THEN "last90Days"
-            WHEN ${orderBy} = 'last1Year' THEN "last1Year"
-            WHEN ${orderBy} = 'thisWeek' THEN "thisWeek"
-            WHEN ${orderBy} = 'thisMonth' THEN "thisMonth"
-            WHEN ${orderBy} = 'thisYear' THEN "thisYear"
-          END DESC
-        LIMIT ${limit}
-        OFFSET ${offset};
-      `
-
+    const rows =
+      await this.prismaInfraService.youtubeStreamSupersSummaryLatest.findMany({
+        where: { channelId, channel: { group } },
+        orderBy,
+        take: limit,
+        skip: offset
+      })
     return new SupersSummaries(rows.map(row => this.toDomain(row)))
   }
 
-  findLatest: (args: {
+  findOne: (args: {
     where: { channelId: ChannelId }
   }) => Promise<SupersSummary | null> = async ({ where: { channelId } }) => {
     const row =
-      await this.prismaInfraService.youtubeStreamSupersSummary.findFirst({
-        where: { channelId: channelId.get() },
-        orderBy: { createdAt: 'desc' }
+      await this.prismaInfraService.youtubeStreamSupersSummaryLatest.findFirst({
+        where: { channelId: channelId.get() }
       })
     if (!row) return null
     return this.toDomain(row)
@@ -103,7 +83,7 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
     ])
   }
 
-  private toDomain(row: PrismaYoutubeStreamSupersSummary) {
+  private toDomain(row: Omit<PrismaYoutubeStreamSupersSummary, 'id'>) {
     return new SupersSummary({
       channelId: new ChannelId(row.channelId),
       last7Days: new AmountMicros(BigNumber(row.last7Days.toString())),

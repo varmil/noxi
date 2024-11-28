@@ -12,8 +12,8 @@ export class SupersSummariesService {
     return await this.supersSummaryRepository.findAll(args)
   }
 
-  async findLatest(args: Parameters<SupersSummaryRepository['findLatest']>[0]) {
-    return await this.supersSummaryRepository.findLatest(args)
+  async findOne(args: Parameters<SupersSummaryRepository['findOne']>[0]) {
+    return await this.supersSummaryRepository.findOne(args)
   }
 
   async create(args: Parameters<SupersSummaryRepository['create']>[0]) {

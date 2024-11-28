@@ -8,19 +8,23 @@ export interface SupersSummaryRepository {
       channelId?: ChannelId
       group?: Group
     }
-    orderBy:
-      | 'last7Days'
-      | 'last30Days'
-      | 'last90Days'
-      | 'last1Year'
-      | 'thisWeek'
-      | 'thisMonth'
-      | 'thisYear'
+    orderBy?: Partial<
+      Record<
+        | 'last7Days'
+        | 'last30Days'
+        | 'last90Days'
+        | 'last1Year'
+        | 'thisWeek'
+        | 'thisMonth'
+        | 'thisYear',
+        'asc' | 'desc'
+      >
+    >[]
     limit?: number
     offset?: number
   }) => Promise<SupersSummaries>
 
-  findLatest: (args: {
+  findOne: (args: {
     where: { channelId: ChannelId }
   }) => Promise<SupersSummary | null>
 
