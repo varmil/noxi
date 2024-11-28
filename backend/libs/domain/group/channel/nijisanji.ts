@@ -233,7 +233,45 @@ const List: GroupChannel[] = [
     title: '魔界ノりりむ',
     ...DefaultProps
   },
-
+  {
+    id: new ChannelId('UCV5ZZlLjk5MKGg3L0n0vbzw'),
+    title: '鷹宮リオン / Rion Takamiya',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC4l9gz3q65lTBFfFtW5LLeA'),
+    title: '渡会雲雀 / Watarai Hibari',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCS-XXTgVkotkbkDnGEprXpg'),
+    title: 'ましろ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC1QgXt46-GEvtNjEC1paHnw'),
+    title: 'グウェル・オス・ガール / Gwelu Os Gar 【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCbc8fwhdUNlqi-J99ISYu4A'),
+    title: 'ベルモンド・バンデラス',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC-o-E6I3IC2q8sAoAuM6Umg'),
+    title: '奈羅花 - Naraka -',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC-6rZgmxZSIbq786j3RD5ow'),
+    title: 'レオス・ヴィンセント / Leos.Vincent【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
   {
     id: new ChannelId('UCJubINhCcFXlsBwnHp0wl_g'),
     title: '舞元啓介',
@@ -241,11 +279,28 @@ const List: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCGYAYLDE7TZiiC8U6teciDQ'),
+    title: '葉加瀬 冬雪 / Hakase Fuyuki',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCuvk5PilcvDECU7dDZhQiEw'),
+    title: '白雪 巴/Shirayuki Tomoe',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCXW4MqCQn-jCaxlX-nn-BYg'),
     title: '長尾 景 / Nagao Kei【にじさんじ】',
     ...DefaultProps,
     gender: Gender.Male
   },
+  {
+    id: new ChannelId('UCIytNcoz4pWzXfLda0DoULQ'),
+    title: 'エクス・アルビオ -Ex Albio-',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+
   {
     id: new ChannelId('UC7_MFM9b8hp5kuTSpa8WyOQ'),
     title: '栞葉るり / Shioriha Ruri【にじさんじ】',

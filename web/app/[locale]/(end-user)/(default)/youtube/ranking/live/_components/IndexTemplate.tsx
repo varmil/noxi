@@ -10,7 +10,7 @@ export default function IndexTemplate({
   searchParams
 }: PropsWithoutRef<Props>) {
   return (
-    <section className={`mt-4 space-y-4`}>
+    <section className={`space-y-4`}>
       <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
         <StreamRankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
