@@ -65,6 +65,7 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   }
 
   async create({ data }: Parameters<SupersSummaryRepository['create']>[0]) {
+    const prisma = this.prismaInfraService
     const {
       channelId,
       last7Days,
@@ -77,19 +78,29 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
       createdAt
     } = data
 
-    await this.prismaInfraService.youtubeStreamSupersSummary.create({
-      data: {
-        channelId: channelId.get(),
-        last7Days: last7Days.toBigInt(),
-        last30Days: last30Days.toBigInt(),
-        last90Days: last90Days.toBigInt(),
-        last1Year: last1Year.toBigInt(),
-        thisWeek: thisWeek.toBigInt(),
-        thisMonth: thisMonth.toBigInt(),
-        thisYear: thisYear.toBigInt(),
-        createdAt
-      }
-    })
+    const prismaData = {
+      last7Days: last7Days.toBigInt(),
+      last30Days: last30Days.toBigInt(),
+      last90Days: last90Days.toBigInt(),
+      last1Year: last1Year.toBigInt(),
+      thisWeek: thisWeek.toBigInt(),
+      thisMonth: thisMonth.toBigInt(),
+      thisYear: thisYear.toBigInt(),
+      createdAt
+    }
+
+    await prisma.$transaction([
+      // 最新の情報に更新する
+      prisma.youtubeStreamSupersSummaryLatest.upsert({
+        where: { channelId: channelId.get() },
+        update: prismaData,
+        create: { channelId: channelId.get(), ...prismaData }
+      }),
+      // ログ的に残す（移動平均や分散を計算するため）
+      prisma.youtubeStreamSupersSummary.create({
+        data: { channelId: channelId.get(), ...prismaData }
+      })
+    ])
   }
 
   private toDomain(row: PrismaYoutubeStreamSupersSummary) {
