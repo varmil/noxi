@@ -72,6 +72,9 @@
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.16.0"
   },
+  "overrides": {
+    "prisma": "^6.0.0"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
