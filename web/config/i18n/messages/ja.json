@@ -40,7 +40,7 @@
     "index": {
       "metadata": {
         "title": "VTuberまとめ",
-        "description": "YouTubeのライブ配信ランキングを即座に確認できるPeakXで、人気ストリーマーの最新情報をチェックし、見逃しを防ぎましょう。"
+        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるPeakXでは、人気VTuberの最新情報、スーパーチャット額の統計を網羅。同接数ランキング、スパチャランキングを用いてお気に入りのVTuberを瞬時に見つけよう。今、注目の配信を見逃さない。過去の人気ライブも一瞬で見つかる。PeakXは便利な情報をお届けします。"
       },
       "title": "VTuberまとめ",
       "description": "ホロライブ、にじさんじ、結城さくな、VTuberを即座に確認。リアルタイムYouTubeライブのスパチャランキング、同接数ランキングをチェック",
@@ -83,7 +83,7 @@
       "index": {
         "metadata": {
           "title": "{group}概要 - タレントとライブ配信",
-          "description": "{group}の最新ライブ配信ランキングや人気VTuber情報をPeakXでチェック。推しの配信を見逃さずに楽しめるページです。"
+          "description": "{group}まとめです。{group}VTuberの最新人気ランキング、ライブ配信スケジュール、配信ごとのスーパーチャット額などをPeakXで確認！推しVTuberの過去1年間の人気動向や同時視聴者数、配信時間帯、注目の配信を見逃さないための完全ガイドです。"
         }
       },
       "charts": {
@@ -95,7 +95,7 @@
       "channelsId": {
         "metadata": {
           "title": "{channel} - ライブ配信分析",
-          "description": "{channel}の詳細な統計やランキング、最新配信情報をPeakXで確認。見逃さないための必見情報"
+          "description": "{channel}のスパチャ、スパチャコメント、統計データ、ランキング、最新の配信情報を網羅的にチェック。同接数が多かったライブ配信、スパチャが多かったライブ配信を瞬時に見つけよう。人気の瞬間や収益データも把握し、VTuber・配信者ファン必見の情報を見逃さない。"
         },
         "template": {
           "latestUserReactions": "最新のスーパーチャット、コメント",
@@ -138,7 +138,7 @@
         "id": {
           "metadata": {
             "title": "{group} {channel} {title}",
-            "description": "YouTubeライブ配信を視聴！{channel}の現在のライブストリームをチェックし、見逃した瞬間を確認。リアルタイムで楽しみたい方に最適です。"
+            "description": "YouTubeライブ配信を視聴！{channel}の現在のライブ配信をリアルタイムでチェックし、スーパーチャット額合計や同接数を用いて人気の瞬間を見逃さず確認。PeakXではなんとスパチャコメントも一覧できる！VTuberファン必見の情報をお届けします。"
           },
           "button": {
             "theaterMode": "シアターモードで大きく表示",
