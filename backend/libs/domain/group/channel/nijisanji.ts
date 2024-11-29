@@ -300,6 +300,114 @@ const List: GroupChannel[] = [
     ...DefaultProps,
     gender: Gender.Male
   },
+  {
+    id: new ChannelId('UCBiqkFJljoxAj10SoP2w2Cg'),
+    title: '文野環【にじさんじの野良猫】ふみのたまき',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCRm6lqtdxs_Qo6HeL-SRQ-w'),
+    title: 'レイン・パターソン／Lain Paterson【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCHBhnG2G-qN0JrrWmMO2FTA'),
+    title: 'シェリン・バーガンディ -Shellin Burgundy- 【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC3lNFeJiTq6L3UWoz4g1e-A'),
+    title: '卯月コウ',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCcDDxnoQcezyTUzHg5uHaKg'),
+    title: '四季凪アキラ / Shikinagi Akira',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC6oDys1BGgBsIC3WhG1BovQ'),
+    title: 'Shizuka Rin Official',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCtnO2N4kPTXmyvedjGWdx3Q'),
+    title: 'レヴィ・エリファ-Levi Elipha-',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCGw7lrT-rVZCWHfdG9Frcgg'),
+    title: '弦月 藤士郎 / Genzuki Tojiro【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCTIE7LM5X15NVugV7Krp9Hw'),
+    title: '夢追翔のJUKE BOX',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCCVwhI5trmaSxfcze_Ovzfw'),
+    title: '夢月ロア🌖Yuzuki Roa',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC48jH1ul-6HOrcSSfoR02fQ'),
+    title: 'Yuhi Riri Official',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC53UDnhAAYwvNO7j_2Ju1cQ'),
+    title: 'ドーラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCXU7YYxy_iQd3ulXyO-zC2w'),
+    title: '伏見ガク【にじさんじ所属】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCqjTqdVlvIipZXIKeCkHKUA'),
+    title: 'オリバー・エバンス / Oliver Evans 【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCtpB6Bvhs1Um93ziEDACQ8g'),
+    title: 'Kazaki Ch. ‐ 森中花咲 ‐',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCCHH0nWYXFZmtDS_4tvMxHQ'),
+    title: 'ヤン・ナリ / Yang Nari 【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCryOPk2GZ1meIDt53tL30Tw'),
+    title: '鈴木勝 / Suzuki Masaru【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCerkculBD7YLc_vOGrF7tKg'),
+    title: '魔使マオ -matsukai mao-',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCRqBKoKuX30ruKAq05pCeRQ'),
+    title: '北小路ヒスイ / Kitakoji Hisui 【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCivwPlOp0ojnMPZj5pNOPPA'),
+    title: 'ソフィア・ヴァレンタイン / Sophia Valentine【にじさんじ】',
+    ...DefaultProps
+  },
 
   {
     id: new ChannelId('UC7_MFM9b8hp5kuTSpa8WyOQ'),
