@@ -1,8 +1,8 @@
 export const GroupStrings = [
   'hololive',
+  'nijisanji',
   'hololive-english',
   'hololive-indonesia',
-  'nijisanji',
   'nijisanji-en',
   'idol-corp',
   'vspo',
