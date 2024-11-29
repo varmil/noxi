@@ -23,7 +23,9 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
         >
           <SuperChatGallery
             channelId={channelId}
-            createdAfter={new Date(new Date().getTime() - 168 * 60 * 60 * 1000)}
+            createdAfter={
+              new Date(new Date().getTime() - 24 * 30 * 60 * 60 * 1000)
+            }
             limit={30}
             showStreamLink
           />
