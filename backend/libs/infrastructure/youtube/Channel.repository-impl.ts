@@ -16,6 +16,7 @@ import {
 } from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import type { Channel as PrismaChannel } from '@prisma/client'
+import { Group } from '@domain'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
@@ -145,7 +146,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         country: new CountryCode(country),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
-          : undefined
+          : undefined,
+        group: new Group(row.group)
       })
     })
   }

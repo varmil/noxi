@@ -22,7 +22,7 @@ export class SupersSummariesController {
   @Get()
   async getSupersSummaries(@Query() dto: GetSupersSummaries) {
     return await this.supersSummariesService.findAll({
-      where: { group: dto.toGroup() },
+      where: { channelIds: dto.toChannelIds(), group: dto.toGroup() },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
       offset: dto.toOffset()

@@ -4,120 +4,97 @@ import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getSupersBundles } from 'apis/youtube/getSupersBundles'
+import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import CountryFlag from 'components/styles/CountryFlag'
 import { GroupString } from 'config/constants/Site'
 import TableCellOfGroup from 'features/channels-ranking/components/table/cell/TableCellOfGroup'
-import TableCellOfStreamForSmallContainer from 'features/channels-ranking/components/table/cell/TableCellOfStreamForSmallContainer'
-import TableCellOfStreamThumbnail from 'features/channels-ranking/components/table/cell/TableCellOfStreamThumbnail'
+import LinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
 import Dimension from 'features/channels-ranking/components/table/styles/Dimension'
-import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import {
+  ChannelsRankingDimension,
+  ChannelsRankingPeriod
+} from 'features/channels-ranking/types/channels-ranking.type'
 import { Link } from 'lib/navigation'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
+  period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  streams: StreamsSchema
+  channelIds: string[]
 }>
 
 export default async function ChannelsRankingTable({
+  period,
   dimension,
-  streams
+  channelIds
 }: Props) {
-  const [tg, t, channels, bundles] = await Promise.all([
+  const [tg, t, channels, supersSummaries] = await Promise.all([
     getTranslations('Global.ranking'),
-    getTranslations('Features.streamRanking'),
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
-    getSupersBundles({
-      videoIds: streams.map(stream => stream.videoId),
-      orderBy: [{ field: 'amountMicros', order: 'desc' }]
-    })
+    getTranslations('Features.channelsRanking'),
+    getChannels({ ids: channelIds, limit: channelIds.length }),
+    getSupersSummaries({ channelIds, limit: channelIds.length })
   ])
   /** Progress.valueで使用する */
-  const topConcurrentViewers = streams[0]?.metrics.peakConcurrentViewers ?? 0
-  const topAmountMicros = bundles[0]?.amountMicros ?? 0
+  const topSubscribers =
+    channels.find(channel => channel.basicInfo.id === channelIds[0])?.statistics
+      .subscriberCount ?? 0
+  const topAmountMicros =
+    supersSummaries.find(summary => summary.channelId === channelIds[0])?.[
+      period
+    ] ?? 0
 
   return (
     <Table>
       <ChannelsRankingTableHeader dimension={dimension} />
       <TableBody>
-        {streams.map((stream, i) => {
+        {channelIds.map((channelId, i) => {
           const channel = channels.find(
-            channel => channel.basicInfo.id === stream.snippet.channelId
+            channel => channel.basicInfo.id === channelId
           )
           if (!channel) return null
 
-          const {
-            videoId,
-            metrics: { peakConcurrentViewers }
-          } = stream
-          const bundle = bundles.find(
-            bundle => bundle.videoId === stream.videoId
-          )
+          const summary = supersSummaries.find(
+            summary => summary.channelId === channelId
+          )?.[period]
+          console.log('summary', summary)
 
           return (
-            <TableRow key={videoId}>
+            <TableRow key={channelId}>
               {/* Rank */}
               <TableCell className="align-top">
                 <div className="text-lg font-bold w-3 text-nowrap">{i + 1}</div>
               </TableCell>
 
-              {/* Stream Thumbnail */}
-              <TableCellOfStreamThumbnail stream={stream} />
-
-              {/* xs-md: Stream Title & Dimension & Ch. Thumbnail & Ch. Title */}
-              <TableCellOfStreamForSmallContainer
-                bundle={bundle}
-                channel={channel}
-                stream={stream}
-                dimension={dimension}
-                topConcurrentViewers={topConcurrentViewers}
-                topAmountMicros={topAmountMicros}
-              />
-
-              {/* lg-: Channel + Title */}
-              <TableCell className="hidden @lg:table-cell @lg:min-w-[230px] @lg:max-w-[400px]">
-                <div className="flex flex-col gap-4">
-                  <SmallChannel
-                    className=""
-                    channel={channel}
-                    group={stream.group}
-                  />
-                  <Link
-                    className="font-light line-clamp-2"
-                    href={`/youtube/live/${videoId}`}
-                  >
-                    {stream.snippet.title}
-                  </Link>
-                </div>
-              </TableCell>
-
-              {/* lg-: Viewers */}
-              <TableCell width={150} className="hidden @lg:table-cell min-w-24">
-                <Dimension
-                  active={dimension === 'concurrent-viewer'}
-                  dividend={peakConcurrentViewers}
-                  divisor={topConcurrentViewers}
+              {/* Channel Thumbnail */}
+              <TableCell className="">
+                <ChannelThumbnail
+                  className=""
+                  channel={channel}
+                  group={channel.peakX?.group}
                 />
               </TableCell>
 
-              {/* lg-: Supers */}
-              <TableCell width={150} className="hidden @lg:table-cell min-w-24">
+              {/* Channel Title */}
+              <LinkCell channelId={channelId} group={channel.peakX.group}>
+                <div className="flex items-center font-light line-clamp-1">
+                  {channel.basicInfo.title}
+                </div>
+              </LinkCell>
+
+              {/* Supers */}
+              <TableCell width={150} className="min-w-24">
                 <Dimension
                   active={dimension === 'super-chat'}
-                  dividend={convertMicrosToAmount(
-                    bundle?.amountMicros ?? BigInt(0)
-                  )}
+                  dividend={convertMicrosToAmount(summary ?? BigInt(0))}
                   divisor={convertMicrosToAmount(topAmountMicros)}
                   icon={<JapaneseYen className="w-4 h-4" />}
                 />
               </TableCell>
 
               {/* 3xl-: Group */}
-              <TableCellOfGroup groupId={stream.group} />
+              <TableCellOfGroup groupId={channel.peakX.group} />
 
               {/* 3xl-: Country */}
               <TableCell
@@ -134,28 +111,27 @@ export default async function ChannelsRankingTable({
   )
 }
 
-const SmallChannel = ({
+const ChannelThumbnail = ({
   className,
   channel,
   group
 }: {
   className?: string
   channel: ChannelSchema
-  group: GroupString
+  group?: GroupString
 }) => {
   return (
     <Link
       className={`flex items-center gap-2 ${className || ''}`}
       href={`/${group}/channels/${channel.basicInfo.id}`}
     >
-      <Avatar className="w-5 h-5 transition-all hover:scale-105">
+      <Avatar className="w-7 h-7 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
           alt={channel.basicInfo.title}
         />
         <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
       </Avatar>
-      <div className="line-clamp-1">{channel.basicInfo.title}</div>
     </Link>
   )
 }

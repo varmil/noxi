@@ -6,6 +6,7 @@ import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
+  channelIds?: string[]
   group?: GroupString
   orderBy?: {
     field:
@@ -23,12 +24,14 @@ type Params = {
 }
 
 export async function getSupersSummaries({
+  channelIds,
   group,
   orderBy,
   limit,
   offset
 }: Params): Promise<SupersSummariesSchema> {
   const searchParams = new URLSearchParams({
+    ...(channelIds && { channelIds: [...new Set(channelIds)].join(',') }),
     ...(group && { group }),
     ...(limit && { limit: String(limit) }),
     ...(offset && { offset: String(offset) })

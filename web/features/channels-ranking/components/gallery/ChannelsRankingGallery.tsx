@@ -2,10 +2,9 @@ import { PropsWithoutRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
-import { getStreams } from 'apis/youtube/getStreams'
+import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
-import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
@@ -28,49 +27,46 @@ export type ChannelsRankingGalleryProps = {
   className?: string
 }
 
+/**
+ * 役割
+ * Gallery：Orderを決める（ランキングの順番を決める）
+ * Table  ：各列で表示する内容を決める（各列をfetchする）
+ *
+ * 両者で似たようなFetchになるのは許容する
+ **/
 export default async function ChannelsRankingGallery(
   props: PropsWithoutRef<ChannelsRankingGalleryProps>
 ) {
-  const t = await getTranslations('Features.streamRanking')
-
-  let streams: StreamsSchema = []
+  let channelIds: string[] = []
+  const t = await getTranslations('Features.channelsRanking')
   const { period, dimension, compact, className } = props
 
   if (dimension === 'super-chat') {
+    // TODO: fetch from Supers Bundles (ondemand SUM)
     if (period === 'last24Hours') {
-      // TODO: fetch from Supers Bundles (ondemand SUM)
-
-      /**
-       * bundle --> stream を取得する
-       * sortが崩れる（bundleの方の順番を使う必要がある）ので
-       * streamsを取得後に手動で並び替えする
-       */
       const bundles = await getSupersBundles(
         createGetSupersBundlesParams(props)
       )
-      streams = (
-        await getStreams({
-          videoIds: bundles.map(bundle => bundle.videoId),
-          limit: bundles.length
-        })
-      ).sort((a, b) => {
-        const aIndex = bundles.findIndex(bundle => bundle.videoId === a.videoId)
-        const bIndex = bundles.findIndex(bundle => bundle.videoId === b.videoId)
-        return aIndex - bIndex
-      })
-    } else {
-      // TODO: fetch from Supers Summaries
+      channelIds = bundles.map(bundle => bundle.channelId)
+    }
+    // TODO: fetch from Supers Summaries
+    else {
       const supersSummaries = await getSupersSummaries(
         createGetSupersSummariesParams(props)
       )
-      console.log(supersSummaries)
+      channelIds = supersSummaries.map(summary => summary.channelId)
     }
-  } else {
-    /**
-     * TODO: impl Dimensionがsubscriberの場合、Periodは「全期間」のみ表示したい
-     * 直接 stream を取得する
-     */
-    // streams = await getStreams(createGetStreamsParams(props))
+  }
+
+  /**
+   * TODO: impl Dimensionがsubscriberの場合、Periodは「全期間」のみ表示したい
+   */
+  if (dimension === 'subscriber') {
+    const channels = await getChannels({
+      orderBy: [{ field: 'subscriberCount', order: 'desc' }],
+      limit: 30
+    })
+    channelIds = channels.map(channel => channel.basicInfo.id)
   }
 
   return (
@@ -81,7 +77,11 @@ export default async function ChannelsRankingGallery(
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
 
-      <ChannelsRankingTable dimension={dimension} streams={streams} />
+      <ChannelsRankingTable
+        period={period}
+        dimension={dimension}
+        channelIds={channelIds}
+      />
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">

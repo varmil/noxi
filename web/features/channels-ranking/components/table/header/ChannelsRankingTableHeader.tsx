@@ -8,7 +8,7 @@ type Props = PropsWithoutRef<{
 }>
 
 export default async function ChannelsRankingTableHeader({ dimension }: Props) {
-  const t = await getTranslations('Features.streamRanking')
+  const t = await getTranslations('Features.channelsRanking')
 
   return (
     <TableHeader>
@@ -16,28 +16,14 @@ export default async function ChannelsRankingTableHeader({ dimension }: Props) {
         {/* Rank */}
         <TableHead className="w-0 text-nowrap"></TableHead>
 
-        {/* Stream Thumbnail */}
+        {/* Channel Thumbnail */}
         <TableHead className="" />
 
-        {/* xs-md: Stream Title & Ch. Thumbnail & Ch. Title */}
-        <TableHead className="@lg:hidden text-nowrap">
-          {t('streamTitle')} / {t('viewers')} / {t('channel')}
-        </TableHead>
+        {/* Channel Title */}
+        <TableHead className="">{t('channel')} </TableHead>
 
-        {/* lg-: Channel + Stream Title */}
-        <TableHead className="hidden @lg:table-cell text-nowrap">
-          {t('channel')} / {t('streamTitle')}
-        </TableHead>
-
-        {/* lg-: Viewers */}
-        <TableHead className="hidden @lg:table-cell text-nowrap">
-          {t('viewers')}
-        </TableHead>
-
-        {/* lg-: Supers */}
-        <TableHead className="hidden @lg:table-cell text-nowrap">
-          {t('supers')}
-        </TableHead>
+        {/* Supers */}
+        <TableHead className="text-nowrap">{t('supers')}</TableHead>
 
         {/* 3xl-: Group */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">

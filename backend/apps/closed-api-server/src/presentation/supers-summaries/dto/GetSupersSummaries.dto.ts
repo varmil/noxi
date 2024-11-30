@@ -1,16 +1,26 @@
-import { Type } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
   IsIn,
   IsInt,
   IsOptional,
+  IsString,
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { SupersSummaryRepository } from '@domain/supers-summary'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export class GetSupersSummaries {
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }: { value: string }) =>
+    value ? value.split(',') : undefined
+  )
+  channelIds?: string[]
+
   @IsIn(GroupStrings)
   @IsOptional()
   group?: GroupString
@@ -38,6 +48,11 @@ export class GetSupersSummaries {
   @IsInt()
   @Type(() => Number)
   offset?: number
+
+  toChannelIds = () =>
+    this.channelIds
+      ? new ChannelIds(this.channelIds.map(id => new ChannelId(id)))
+      : undefined
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 

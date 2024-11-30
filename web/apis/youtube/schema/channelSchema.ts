@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { GroupStrings } from 'config/constants/Site'
 
 export const schema = z.object({
   basicInfo: z.object({
@@ -26,13 +27,12 @@ export const schema = z.object({
   brandingSettings: z.object({
     keywords: z.array(z.string())
   }),
-  peakX: z
-    .object({
-      country: z.string(),
-      defaultLanguage: z.string().optional(),
-      gender: z.enum(['male', 'female']).optional()
-    })
-    .optional(),
+  peakX: z.object({
+    country: z.string(),
+    defaultLanguage: z.string().optional(),
+    gender: z.enum(['male', 'female']).optional(),
+    group: z.enum(GroupStrings)
+  }),
 
   updatedAt: z.string().datetime().optional()
 })

@@ -1,5 +1,5 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
-import { Group } from '@domain/group'
+import type { Group } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
 import { VideoId, Duration, VideoSnippet } from '@domain/youtube'
 
