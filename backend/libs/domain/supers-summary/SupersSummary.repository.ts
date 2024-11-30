@@ -4,10 +4,7 @@ import { ChannelId } from '@domain/youtube'
 
 export interface SupersSummaryRepository {
   findAll: (args: {
-    where?: {
-      channelId?: ChannelId
-      group?: Group
-    }
+    where?: { group?: Group }
     orderBy?: Partial<
       Record<
         | 'last7Days'
