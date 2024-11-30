@@ -30,6 +30,7 @@ export class GetSupersSummaries {
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
   orderBy?: OrderByDto<
+    | 'last24Hours'
     | 'last7Days'
     | 'last30Days'
     | 'last90Days'

@@ -3,7 +3,6 @@ import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { PageXSPX } from 'components/page'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
@@ -15,7 +14,6 @@ import {
   ChannelsRankingCountry
 } from 'features/channels-ranking/types/channels-ranking.type'
 import { Link } from 'lib/navigation'
-import createGetSupersBundlesParams from '../../utils/createGetSupersBundlesParams'
 import createGetSupersSummariesParams from '../../utils/createGetSupersSummariesParams'
 
 export type ChannelsRankingGalleryProps = {
@@ -42,20 +40,10 @@ export default async function ChannelsRankingGallery(
   const { period, dimension, compact, className } = props
 
   if (dimension === 'super-chat') {
-    // TODO: fetch from Supers Bundles (ondemand SUM)
-    if (period === 'last24Hours') {
-      const bundles = await getSupersBundles(
-        createGetSupersBundlesParams(props)
-      )
-      channelIds = bundles.map(bundle => bundle.channelId)
-    }
-    // TODO: fetch from Supers Summaries
-    else {
-      const supersSummaries = await getSupersSummaries(
-        createGetSupersSummariesParams(props)
-      )
-      channelIds = supersSummaries.map(summary => summary.channelId)
-    }
+    const supersSummaries = await getSupersSummaries(
+      createGetSupersSummariesParams(props)
+    )
+    channelIds = supersSummaries.map(summary => summary.channelId)
   }
 
   /**
@@ -85,7 +73,7 @@ export default async function ChannelsRankingGallery(
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href="/youtube/live/ranking">
+          <Link href="/youtube/channels/ranking">
             {t('viewAll')}
             <ArrowUpRight className="h-4 w-4" />
           </Link>

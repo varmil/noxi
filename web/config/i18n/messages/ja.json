@@ -24,7 +24,7 @@
       },
       "period": {
         "realtime": "リアルタイム",
-        "last24Hours": "２４時間以内",
+        "last24Hours": "過去２４時間",
         "last7Days": "過去７日間",
         "last30Days": "過去３０日間",
         "last90Days": "過去９０日間",

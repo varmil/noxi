@@ -84,15 +84,18 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     })
   }
 
-  sum: SupersBundleRepository['sum'] = async ({ where }) => {
+  sum: SupersBundleRepository['sum'] = async ({ where, orderBy, limit }) => {
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
         by: ['channelId'],
         where: {
-          channelId: { in: where.channelIds.map(e => e.get()) },
+          channelId: { in: where.channelIds?.map(e => e.get()) },
+          group: where.group?.get(),
           actualEndTime: { gte: where.actualEndTime.gte }
         },
-        _sum: { amountMicros: true }
+        _sum: { amountMicros: true },
+        orderBy,
+        take: limit
       })
 
     return rows.map(row => ({

@@ -10,6 +10,7 @@ type Params = {
   group?: GroupString
   orderBy?: {
     field:
+      | 'last24Hours'
       | 'last7Days'
       | 'last30Days'
       | 'last90Days'

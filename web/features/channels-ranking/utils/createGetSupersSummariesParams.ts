@@ -15,6 +15,7 @@ export default function createGetSupersSummariesParams({
   switch (period) {
     default:
       throw new Error(`Period ${period} is not supported`)
+    case 'last24Hours':
     case 'last7Days':
     case 'last30Days':
     case 'last90Days':

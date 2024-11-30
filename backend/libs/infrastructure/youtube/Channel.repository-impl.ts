@@ -1,5 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
+import { Group } from '@domain'
 import { CountryCode, LanguageTag } from '@domain/country'
 import {
   ChannelId,
@@ -16,7 +17,6 @@ import {
 } from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import type { Channel as PrismaChannel } from '@prisma/client'
-import { Group } from '@domain'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {

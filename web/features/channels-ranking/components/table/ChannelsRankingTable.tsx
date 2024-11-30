@@ -36,10 +36,11 @@ export default async function ChannelsRankingTable({
     getChannels({ ids: channelIds, limit: channelIds.length }),
     getSupersSummaries({ channelIds, limit: channelIds.length })
   ])
+
+  console.log('supersSummaries', supersSummaries)
+
   /** Progress.valueで使用する */
-  const topSubscribers =
-    channels.find(channel => channel.basicInfo.id === channelIds[0])?.statistics
-      .subscriberCount ?? 0
+  // TODO: period型をomitとかしてanyにならないようにしたい
   const topAmountMicros =
     supersSummaries.find(summary => summary.channelId === channelIds[0])?.[
       period
@@ -64,7 +65,9 @@ export default async function ChannelsRankingTable({
             <TableRow key={channelId}>
               {/* Rank */}
               <TableCell className="align-top">
-                <div className="text-lg font-bold w-3 text-nowrap">{i + 1}</div>
+                <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
+                  {i + 1}
+                </div>
               </TableCell>
 
               {/* Channel Thumbnail */}
@@ -84,7 +87,7 @@ export default async function ChannelsRankingTable({
               </LinkCell>
 
               {/* Supers */}
-              <TableCell width={150} className="min-w-24">
+              <TableCell width={160} className="min-w-24">
                 <Dimension
                   active={dimension === 'super-chat'}
                   dividend={convertMicrosToAmount(summary ?? BigInt(0))}
@@ -122,10 +125,10 @@ const ChannelThumbnail = ({
 }) => {
   return (
     <Link
-      className={`flex items-center gap-2 ${className || ''}`}
+      className={`flex items-center justify-center gap-2 ${className || ''}`}
       href={`/${group}/channels/${channel.basicInfo.id}`}
     >
-      <Avatar className="w-7 h-7 transition-all hover:scale-105">
+      <Avatar className="w-7 h-7 @lg:w-12 @lg:h-12 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
           alt={channel.basicInfo.title}

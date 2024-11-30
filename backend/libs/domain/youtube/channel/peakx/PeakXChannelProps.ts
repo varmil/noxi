@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { Gender } from '@domain/lib'
 import type { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 
 export class PeakXChannelProps {
   @Transform(({ value }: { value: CountryCode }) => value.get())

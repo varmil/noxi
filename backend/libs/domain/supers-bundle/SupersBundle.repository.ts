@@ -30,8 +30,11 @@ export interface SupersBundleRepository {
   /** Sum amountMicros within a period grouped by channelId */
   sum: (args: {
     where: {
-      channelIds: ChannelIds
+      channelIds?: ChannelIds
+      group?: Group
       actualEndTime: { gte: Date }
     }
+    orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
+    limit?: number
   }) => Promise<AmountMicrosSum[]>
 }
