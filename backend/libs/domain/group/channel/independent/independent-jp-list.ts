@@ -145,5 +145,26 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCWOKF8h6kFj2pRn3rCD6nyw'),
     title: 'Pepero ch. / 猫田ぺぺろ',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
+    title: '四宮 伊織 / SHINOMIYA Iori',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCn6Ufc6C9ZdGlCYTXOVFGLA'),
+    title: '羽咲みく -Miku Hanesaki-',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
+    title: '白樺るるは',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCGKNbtDv8OTa8559buDu-Gw'),
+    title: '音魂ヒビクHibiku Otodama',
+    ...DefaultProps
   }
 ]
