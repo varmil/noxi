@@ -18,10 +18,14 @@
     "ranking": {
       "period": {
         "realtime": "Realtime",
-        "daily": "Daily",
-        "weekly": "Weekly",
-        "monthly": "Monthly",
-        "yearly": "Yearly"
+        "last24Hours": "Last 24 hours",
+        "last7Days": "Last 7 days",
+        "last30Days": "Last 30 days",
+        "last90Days": "Last 3 months",
+        "last1Year": "Last 1 year",
+        "thisWeek": "This week",
+        "thisMonth": "This month",
+        "thisYear": "This year"
       },
       "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
     }
@@ -215,6 +219,31 @@
       }
     },
 
+    "channelsRanking": {
+      "ranking": {
+        "dimension": {
+          "super-chat": "Most Super Chatted Channels - {period}",
+          "subscriber": "Most Subscribed Channels"
+        }
+      },
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Group",
+      "streamTitle": "Title",
+      "supers": "Supers",
+      "viewers": "Viewers",
+      "country": "Country",
+
+      "hoverCard": {
+        "title": "Ranking details",
+        "period": "Collection period",
+        "start": "Start",
+        "end": "End",
+        "criteria": "Criteria",
+        "criteriaDescription": "Ended the stream during the target period"
+      }
+    },
+
     "streamRanking": {
       "ranking": {
         "dimension": {
@@ -235,22 +264,6 @@
       "amount": "Amount",
       "chat": { "count": "{count} Super Chats" },
       "sticker": { "count": "{count} Super Stickers" }
-    },
-
-    "channelsRanking": {
-      "daily": "Daily",
-      "superChat": "SuperChat",
-      "ranking": "live earnings",
-      "note1": "* PeakX registered talent",
-      "yen": "Yen",
-      "hoverCard": {
-        "title": "Ranking details",
-        "period": "Collection period",
-        "start": "Start",
-        "end": "End",
-        "criteria": "Criteria",
-        "criteriaDescription": "Ended the stream during the target period"
-      }
     },
 
     "youtube": {

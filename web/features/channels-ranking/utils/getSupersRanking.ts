@@ -6,8 +6,8 @@ import dayjs from 'lib/dayjs'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 /**
- * @param date used for daily ranking
- * @param limit daily ranking limit
+ * @param date used for last24Hours ranking
+ * @param limit last24Hours ranking limit
  **/
 export async function getDailySupersRanking({
   date,

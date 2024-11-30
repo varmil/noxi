@@ -2,7 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { YoutubeChannelsRankingSearchParams } from 'app/[locale]/(end-user)/(default)/youtube/channels/ranking/page'
 import { PageSMPX } from 'components/page'
 import ChannelsRankingFilterGallery from 'features/channels-ranking/components/filter/ChannelsRankingFilterGallery'
-import SupersRankingHero from 'features/channels-ranking/components/hero/SupersRankingHero'
+import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 
 type Props = {} & YoutubeChannelsRankingSearchParams
 
@@ -15,8 +15,11 @@ export default function IndexTemplate({
         <ChannelsRankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
 
-      <section className="flex flex-col gap-y-10 max-w-6xl mx-auto">
-        <SupersRankingHero {...searchParams} />
+      <section className={`${PageSMPX}`}>
+        <ChannelsRankingGallery
+          className="max-w-6xl mx-auto"
+          {...searchParams}
+        />
       </section>
     </section>
   )

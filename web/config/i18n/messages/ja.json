@@ -18,10 +18,14 @@
     "ranking": {
       "period": {
         "realtime": "リアルタイム",
-        "daily": "２４時間以内",
-        "weekly": "過去７日間",
-        "monthly": "過去３０日間",
-        "yearly": "過去１年間"
+        "last24Hours": "２４時間以内",
+        "last7Days": "過去７日間",
+        "last30Days": "過去３０日間",
+        "last90Days": "過去９０日間",
+        "last1Year": "過去１年間",
+        "thisWeek": "今週",
+        "thisMonth": "今月",
+        "thisYear": "今年"
       },
       "place": "{rank}<weak>位</weak>"
     }
@@ -215,6 +219,31 @@
       }
     },
 
+    "channelsRanking": {
+      "ranking": {
+        "dimension": {
+          "super-chat": "スパチャランキング - {period}",
+          "subscriber": "チャンネル登録者数ランキング"
+        }
+      },
+      "viewAll": "すべて見る",
+      "channel": "チャンネル",
+      "group": "グループ",
+      "streamTitle": "タイトル",
+      "supers": "スパチャ金額",
+      "viewers": "同接数",
+      "country": "国",
+
+      "hoverCard": {
+        "title": "ランキング詳細",
+        "period": "集計期間",
+        "start": "開始",
+        "end": "終了",
+        "criteria": "集計条件",
+        "criteriaDescription": "対象期間に配信を「完了した」"
+      }
+    },
+
     "streamRanking": {
       "ranking": {
         "dimension": {
@@ -235,22 +264,6 @@
       "amount": "金額",
       "chat": { "count": "{count} 件のスーパーチャット" },
       "sticker": { "count": "{count} 件のスーパーステッカー" }
-    },
-
-    "channelsRanking": {
-      "daily": "日刊",
-      "superChat": "スパチャ",
-      "ranking": "ランキング",
-      "note1": "※PeakX登録タレント",
-      "yen": "円 / 日",
-      "hoverCard": {
-        "title": "ランキング詳細",
-        "period": "集計期間",
-        "start": "開始",
-        "end": "終了",
-        "criteria": "集計条件",
-        "criteriaDescription": "対象期間に配信を「完了した」"
-      }
     },
 
     "youtube": {

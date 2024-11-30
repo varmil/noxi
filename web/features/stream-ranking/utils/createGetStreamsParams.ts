@@ -18,16 +18,16 @@ export default function createGetStreamsParams({
   else {
     let endedAfter: Date
     switch (period) {
-      case 'daily':
+      case 'last24Hours':
         endedAfter = dayjs().subtract(1, 'day').toDate()
         break
-      case 'weekly':
+      case 'last7Days':
         endedAfter = dayjs().subtract(7, 'day').toDate()
         break
-      case 'monthly':
+      case 'last30Days':
         endedAfter = dayjs().subtract(1, 'month').toDate()
         break
-      case 'yearly':
+      case 'last1Year':
         endedAfter = dayjs().subtract(1, 'year').toDate()
         break
     }

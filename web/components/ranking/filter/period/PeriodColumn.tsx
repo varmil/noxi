@@ -23,17 +23,17 @@ export default function PeriodColumn({ className }: Props) {
         <SelectButton qsKey={QS_KEY} qsValue="realtime">
           {tg('realtime')}
         </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="daily">
-          {tg('daily')}
+        <SelectButton qsKey={QS_KEY} qsValue="last24Hours">
+          {tg('last24Hours')}
         </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="weekly">
-          {tg('weekly')}
+        <SelectButton qsKey={QS_KEY} qsValue="last7Days">
+          {tg('last7Days')}
         </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="monthly">
-          {tg('monthly')}
+        <SelectButton qsKey={QS_KEY} qsValue="last30Days">
+          {tg('last30Days')}
         </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="yearly">
-          {tg('yearly')}
+        <SelectButton qsKey={QS_KEY} qsValue="last1Year">
+          {tg('last1Year')}
         </SelectButton>
       </ColumnContent>
     </Column>

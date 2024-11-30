@@ -19,7 +19,7 @@ export default async function SupersRankingHero({ date }: Props) {
     <Container>
       <HeadlineContainer>
         <div className="flex items-center gap-5">
-          <div className="text-3xl md:text-4xl">{t('daily')}</div>
+          <div className="text-3xl md:text-4xl">{t('last24Hours')}</div>
           <div className="text-xl md:text-3xl self-end">
             <DailyHoverCard date={date} />
           </div>

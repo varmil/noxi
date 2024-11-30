@@ -46,11 +46,7 @@ export async function generateMetadata({
     title: `${t('metadata.title')} - ${tg('title')}`,
     description: `${t('metadata.description')}`,
     openGraph: {
-      images: [
-        {
-          url: getOgUrl(`/daily-ranking?${searchParams.toString()}`)
-        }
-      ]
+      images: [{ url: getOgUrl(`/daily-ranking?${searchParams.toString()}`) }]
     }
   }
 }

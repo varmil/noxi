@@ -24,7 +24,7 @@ function getCountryCode(req: NextRequest): string {
 function resolveQueryValue(key: string, req: NextRequest): string | undefined {
   if (key === 'country') return getCountryCode(req)
   if (key === 'dimension') return 'concurrent-viewer'
-  if (key === 'period') return 'daily'
+  if (key === 'period') return 'last24Hours'
   return undefined
 }
 
