@@ -9,32 +9,33 @@ import {
 
 const QS_KEY = 'period'
 
+type Keys =
+  | 'realtime'
+  | 'last24Hours'
+  | 'last7Days'
+  | 'last30Days'
+  | 'last1Year'
+  | 'thisWeek'
+  | 'thisMonth'
+  | 'thisYear'
+
 type Props = PropsWithoutRef<{
+  keys: Keys[]
   className?: string
 }>
 
-export default function PeriodColumn({ className }: Props) {
-  const tg = useTranslations('Global.ranking.period')
+export default function PeriodColumn({ keys, className }: Props) {
+  const tg = useTranslations('Global.ranking')
 
   return (
     <Column>
-      <ColumnHeader>期間</ColumnHeader>
+      <ColumnHeader>{tg('filter.period')}</ColumnHeader>
       <ColumnContent>
-        <SelectButton qsKey={QS_KEY} qsValue="realtime">
-          {tg('realtime')}
-        </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="last24Hours">
-          {tg('last24Hours')}
-        </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="last7Days">
-          {tg('last7Days')}
-        </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="last30Days">
-          {tg('last30Days')}
-        </SelectButton>
-        <SelectButton qsKey={QS_KEY} qsValue="last1Year">
-          {tg('last1Year')}
-        </SelectButton>
+        {keys.map(key => (
+          <SelectButton key={key} qsKey={QS_KEY} qsValue={key}>
+            {tg(`period.${key}`)}
+          </SelectButton>
+        ))}
       </ColumnContent>
     </Column>
   )

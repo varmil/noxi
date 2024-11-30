@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -10,14 +11,15 @@ import useGroups from 'hooks/useGroups'
 const QS_KEY = 'group'
 
 export default function GroupColumn() {
+  const tg = useTranslations('Global.ranking')
   const groups = useGroups()
 
   return (
     <Column>
-      <ColumnHeader>グループ</ColumnHeader>
+      <ColumnHeader>{tg('filter.group')}</ColumnHeader>
       <ColumnContent>
         <SelectButton qsKey={QS_KEY} qsValue={null} activeVariant="secondary">
-          すべて
+          {tg('group.all')}
         </SelectButton>
 
         {groups.imgs.map(group => (

@@ -15,8 +15,18 @@ export default function ChannelsRankingFilterGallery({ className }: Props) {
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border">
         <div className="flex divide-x">
-          <PeriodColumn />
-          <DimensionColumn />
+          <PeriodColumn
+            keys={[
+              'last24Hours',
+              'last7Days',
+              'last30Days',
+              'last1Year',
+              'thisWeek',
+              'thisMonth',
+              'thisYear'
+            ]}
+          />
+          <DimensionColumn keys={['super-chat', 'subscriber']} />
           <GroupColumn />
           <CountryColumn />
         </div>

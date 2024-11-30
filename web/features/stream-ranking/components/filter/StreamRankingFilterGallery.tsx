@@ -15,8 +15,16 @@ export default function StreamRankingFilterGallery({ className }: Props) {
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border">
         <div className="flex divide-x">
-          <PeriodColumn />
-          <DimensionColumn />
+          <PeriodColumn
+            keys={[
+              'realtime',
+              'last24Hours',
+              'last7Days',
+              'last30Days',
+              'last1Year'
+            ]}
+          />
+          <DimensionColumn keys={['concurrent-viewer', 'super-chat']} />
           <GroupColumn />
           <CountryColumn />
         </div>

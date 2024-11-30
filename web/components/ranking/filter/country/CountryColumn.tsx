@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -13,12 +14,13 @@ type Props = PropsWithoutRef<{
 }>
 
 export default function CountryColumn({ className }: Props) {
+  const tg = useTranslations('Global.ranking')
   return (
     <Column>
-      <ColumnHeader>国</ColumnHeader>
+      <ColumnHeader>{tg('filter.country')}</ColumnHeader>
       <ColumnContent>
         <SelectButton qsKey={QS_KEY} qsValue={null} activeVariant="secondary">
-          🌐 全世界
+          🌐 {tg('country.all')}
         </SelectButton>
         {/* <SelectButton qsKey={QS_KEY} qsValue="jp" activeVariant="secondary">
           🇯🇵 日本

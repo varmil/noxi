@@ -16,6 +16,12 @@
     },
 
     "ranking": {
+      "filter": {
+        "period": "Time Period",
+        "dimension": "Dimension",
+        "group": "Group",
+        "country": "Country"
+      },
       "period": {
         "realtime": "Realtime",
         "last24Hours": "Last 24 hours",
@@ -26,6 +32,17 @@
         "thisWeek": "This week",
         "thisMonth": "This month",
         "thisYear": "This year"
+      },
+      "dimension": {
+        "concurrent-viewer": "Most Live Viewers",
+        "super-chat": "Most Super Chatted",
+        "subscriber": "Most Subscribed"
+      },
+      "group": {
+        "all": "All"
+      },
+      "country": {
+        "all": "Worldwide"
       },
       "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
     }
