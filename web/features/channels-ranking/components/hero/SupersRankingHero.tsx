@@ -1,8 +1,8 @@
 import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import DailyHoverCard from 'features/supers-ranking/components/styles/DailyHoverCard'
-import { getDailySupersRanking } from 'features/supers-ranking/utils/getSupersRanking'
+import DailyHoverCard from 'features/channels-ranking/components/styles/DailyHoverCard'
+import { getDailySupersRanking } from 'features/channels-ranking/utils/getSupersRanking'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 
 export default async function SupersRankingHero({ date }: Props) {
   const tg = await getTranslations('Global.ranking')
-  const t = await getTranslations('Features.supersRanking')
+  const t = await getTranslations('Features.channelsRanking')
   const ranking = await getDailySupersRanking({ date, limit: 10 })
 
   return (

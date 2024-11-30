@@ -33,7 +33,7 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "supersRanking": "Most Super Chatted VTuber channels"
+    "channelsRanking": "Most Super Chatted VTuber channels"
   },
 
   "Page": {
@@ -144,7 +144,7 @@
           }
         }
       },
-      "superChat": {
+      "channels": {
         "ranking": {
           "index": {
             "metadata": {
@@ -171,6 +171,7 @@
     "bottomNavigation": {
       "home": "Home",
       "live": "Live",
+      "channels": "Channels",
       "groups": "Groups"
     },
     "comment": {},
@@ -236,7 +237,7 @@
       "sticker": { "count": "{count} Super Stickers" }
     },
 
-    "supersRanking": {
+    "channelsRanking": {
       "daily": "Daily",
       "superChat": "SuperChat",
       "ranking": "live earnings",

@@ -1,13 +1,9 @@
-import BigNumber from 'bignumber.js'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
-import { SupersRanking } from 'features/supers-ranking/types/SupersRanking.type'
+import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
-import {
-  convertMicrosToAmount,
-  formatMicrosAsRoundedAmount
-} from 'utils/amount'
+import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 /**
  * @param date used for daily ranking
@@ -19,7 +15,7 @@ export async function getDailySupersRanking({
 }: {
   date?: dayjs.ConfigType
   limit?: number
-}): Promise<SupersRanking[]> {
+}): Promise<ChannelsRanking[]> {
   const supersBudles = await getSupersBundles({
     actualEndTimeGTE: getActualEndTimeGTE(date),
     actualEndTimeLTE: getActualEndTimeLTE(date),

@@ -33,7 +33,7 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "supersRanking": "VTuberスパチャランキング"
+    "channelsRanking": "VTuberスパチャランキング"
   },
 
   "Page": {
@@ -144,7 +144,7 @@
           }
         }
       },
-      "superChat": {
+      "channels": {
         "ranking": {
           "index": {
             "metadata": {
@@ -171,6 +171,7 @@
     "bottomNavigation": {
       "home": "ホーム",
       "live": "ライブ",
+      "channels": "チャンネル",
       "groups": "グループ"
     },
     "comment": {},
@@ -236,7 +237,7 @@
       "sticker": { "count": "{count} 件のスーパーステッカー" }
     },
 
-    "supersRanking": {
+    "channelsRanking": {
       "daily": "日刊",
       "superChat": "スパチャ",
       "ranking": "ランキング",

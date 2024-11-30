@@ -18,7 +18,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
-    namespace: 'Page.youtube.superChat.ranking.index'
+    namespace: 'Page.youtube.channels.ranking.index'
   })
 
   const searchParams = new URLSearchParams({
@@ -50,8 +50,8 @@ export default function YoutubeSuperChatRankingPage({
     <Page
       breadcrumb={[
         {
-          href: `/youtube/super-chat/ranking`,
-          name: t('supersRanking')
+          href: `/youtube/channels/ranking`,
+          name: t('channelsRanking')
         }
       ]}
     >

@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import SupersRankingHero from 'features/supers-ranking/components/hero/SupersRankingHero'
+import SupersRankingHero from 'features/channels-ranking/components/hero/SupersRankingHero'
 
 type Props = {
   date?: string
