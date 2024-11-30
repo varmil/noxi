@@ -24,7 +24,7 @@ export default function BottomNavigation({ className }: Props) {
       icon: Home
     },
     {
-      href: '/youtube/ranking/live',
+      href: '/youtube/live/ranking',
       query: '?period=realtime&dimension=concurrent-viewer',
       label: t('live'),
       icon: Radio

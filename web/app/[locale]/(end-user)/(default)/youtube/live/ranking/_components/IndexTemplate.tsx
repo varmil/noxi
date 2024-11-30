@@ -2,9 +2,9 @@ import { PropsWithoutRef } from 'react'
 import { PageSMPX } from 'components/page'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
-import { YoutubeRankingLiveSearchParams } from '../page'
+import { YoutubeLiveRankingSearchParams } from '../page'
 
-type Props = {} & YoutubeRankingLiveSearchParams
+type Props = {} & YoutubeLiveRankingSearchParams
 
 export default function IndexTemplate({
   searchParams

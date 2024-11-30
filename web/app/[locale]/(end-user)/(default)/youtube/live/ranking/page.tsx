@@ -12,9 +12,9 @@ import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: { locale: string }
-} & YoutubeRankingLiveSearchParams
+} & YoutubeLiveRankingSearchParams
 
-export type YoutubeRankingLiveSearchParams = {
+export type YoutubeLiveRankingSearchParams = {
   searchParams: {
     period: StreamRankingPeriod
     dimension: StreamRankingDimension
@@ -30,7 +30,7 @@ export async function generateMetadata({
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const tp = await getTranslations({
     locale,
-    namespace: 'Page.youtube.ranking.live'
+    namespace: 'Page.youtube.live.ranking'
   })
   const tf = await getTranslations({
     locale,
@@ -45,7 +45,7 @@ export async function generateMetadata({
   }
 }
 
-export default function YoutubeRankingLivePage({
+export default function YoutubeLiveRankingPage({
   params: { locale },
   searchParams
 }: Props) {
@@ -58,7 +58,7 @@ export default function YoutubeRankingLivePage({
     <Page
       breadcrumb={[
         {
-          href: `/youtube/ranking/live`,
+          href: `/youtube/live/ranking`,
           name: t(searchParams.dimension, {
             period: tg(`period.${searchParams.period}`)
           })

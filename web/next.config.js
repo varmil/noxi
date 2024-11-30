@@ -25,6 +25,12 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
 const nextConfig = {
   async redirects() {
     return [
+      // 2024/11/30：Youtube Live ランキングを移動
+      {
+        source: '/:locale/youtube/ranking/live',
+        destination: '/:locale/youtube/live/ranking',
+        permanent: true
+      },
       // 2024/11/21：Youtube Live ランキングを移動
       {
         source: '/:locale/youtube/live',
