@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getStreams } from 'apis/youtube/getStreams'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
+import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
@@ -14,9 +15,9 @@ import {
   ChannelsRankingGroup,
   ChannelsRankingCountry
 } from 'features/channels-ranking/types/channels-ranking.type'
-import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
-import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
 import { Link } from 'lib/navigation'
+import createGetSupersBundlesParams from '../../utils/createGetSupersBundlesParams'
+import createGetSupersSummariesParams from '../../utils/createGetSupersSummariesParams'
 
 export type ChannelsRankingGalleryProps = {
   period: ChannelsRankingPeriod
@@ -36,27 +37,40 @@ export default async function ChannelsRankingGallery(
   const { period, dimension, compact, className } = props
 
   if (dimension === 'super-chat') {
-    /**
-     * bundle --> stream を取得する
-     * sortが崩れる（bundleの方の順番を使う必要がある）ので
-     * streamsを取得後に手動で並び替えする
-     */
-    const bundles = await getSupersBundles(createGetSupersBundlesParams(props))
-    streams = (
-      await getStreams({
-        videoIds: bundles.map(bundle => bundle.videoId),
-        limit: bundles.length
+    if (period === 'last24Hours') {
+      // TODO: fetch from Supers Bundles (ondemand SUM)
+
+      /**
+       * bundle --> stream を取得する
+       * sortが崩れる（bundleの方の順番を使う必要がある）ので
+       * streamsを取得後に手動で並び替えする
+       */
+      const bundles = await getSupersBundles(
+        createGetSupersBundlesParams(props)
+      )
+      streams = (
+        await getStreams({
+          videoIds: bundles.map(bundle => bundle.videoId),
+          limit: bundles.length
+        })
+      ).sort((a, b) => {
+        const aIndex = bundles.findIndex(bundle => bundle.videoId === a.videoId)
+        const bIndex = bundles.findIndex(bundle => bundle.videoId === b.videoId)
+        return aIndex - bIndex
       })
-    ).sort((a, b) => {
-      const aIndex = bundles.findIndex(bundle => bundle.videoId === a.videoId)
-      const bIndex = bundles.findIndex(bundle => bundle.videoId === b.videoId)
-      return aIndex - bIndex
-    })
+    } else {
+      // TODO: fetch from Supers Summaries
+      const supersSummaries = await getSupersSummaries(
+        createGetSupersSummariesParams(props)
+      )
+      console.log(supersSummaries)
+    }
   } else {
     /**
+     * TODO: impl Dimensionがsubscriberの場合、Periodは「全期間」のみ表示したい
      * 直接 stream を取得する
      */
-    streams = await getStreams(createGetStreamsParams(props))
+    // streams = await getStreams(createGetStreamsParams(props))
   }
 
   return (
