@@ -7,9 +7,9 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { ChannelId } from '@domain/youtube'
-import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { GetSupersSummaries } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
+import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
+import { ChannelId } from '@domain/youtube'
 
 @Controller('supers-summaries')
 @UseInterceptors(ClassSerializerInterceptor)
