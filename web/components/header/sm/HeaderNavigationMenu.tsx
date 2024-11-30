@@ -21,7 +21,16 @@ export default function HeaderNavigationMenu() {
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/youtube/live/ranking?period=realtime" prefetch={true}>
-              Live
+              Live Ranking
+            </Link>
+          </NavigationMenuLink>
+
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link
+              href="/youtube/channels/ranking?period=last24Hours"
+              prefetch={true}
+            >
+              Channels Ranking
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>

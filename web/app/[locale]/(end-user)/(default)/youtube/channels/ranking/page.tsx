@@ -2,13 +2,30 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
+import {
+  ChannelsRankingPeriod,
+  ChannelsRankingDimension,
+  ChannelsRankingGroup,
+  ChannelsRankingCountry
+} from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
 import { getOgUrl } from 'utils/og-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: { locale: string }
-  searchParams: { date?: string }
+} & YoutubeChannelsRankingSearchParams
+
+export type YoutubeChannelsRankingSearchParams = {
+  searchParams: {
+    period: ChannelsRankingPeriod
+    dimension: ChannelsRankingDimension
+    group?: ChannelsRankingGroup
+    country?: ChannelsRankingCountry
+
+    /** For OG */
+    date?: string
+  }
 }
 
 export async function generateMetadata({
@@ -38,9 +55,9 @@ export async function generateMetadata({
   }
 }
 
-export default function YoutubeSuperChatRankingPage({
+export default function YoutubeChannelsRankingPage({
   params: { locale },
-  searchParams: { date }
+  searchParams
 }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
@@ -54,8 +71,10 @@ export default function YoutubeSuperChatRankingPage({
           name: t('channelsRanking')
         }
       ]}
+      noPadding
+      fullWidth
     >
-      <IndexTemplate date={date} />
+      <IndexTemplate searchParams={searchParams} />
     </Page>
   )
 }

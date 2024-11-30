@@ -9,6 +9,7 @@ type Props = {
   date?: string
 }
 
+/** @deprecated */
 export default async function SupersRankingHero({ date }: Props) {
   const tg = await getTranslations('Global.ranking')
   const t = await getTranslations('Features.channelsRanking')

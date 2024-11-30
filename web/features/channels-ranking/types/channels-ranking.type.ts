@@ -1,7 +1,7 @@
 import { GroupString } from 'config/constants/Site'
 
 export type ChannelsRankingPeriod =
-  | 'last24hours'
+  | 'last24Hours'
   | 'last7Days'
   | 'last30Days'
   | 'last90Days'
