@@ -71,7 +71,7 @@ export default async function StreamRankingGallery(
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href="/youtube/ranking/live">
+          <Link href="/youtube/live/ranking">
             {t('viewAll')}
             <ArrowUpRight className="h-4 w-4" />
           </Link>

@@ -7,8 +7,8 @@ import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
  */
 const QUERY_STRING_RULES: Record<string, RegExp[]> = {
   country: [],
-  dimension: [/\/youtube\/ranking\/live$/],
-  period: [/\/youtube\/ranking\/live$/]
+  dimension: [/\/youtube\/live\/ranking$/],
+  period: [/\/youtube\/live\/ranking$/]
 }
 
 /**

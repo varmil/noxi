@@ -127,13 +127,6 @@
     },
 
     "youtube": {
-      "ranking": {
-        "live": {
-          "metadata": {
-            "description": "VTuberのスパチャランキング、同接数ランキングをチェック。所属グループや国、性別でフィルタリングしよう。"
-          }
-        }
-      },
       "live": {
         "id": {
           "metadata": {
@@ -143,6 +136,11 @@
           "button": {
             "theaterMode": "シアターモードで大きく表示",
             "openChat": "チャットを表示"
+          }
+        },
+        "ranking": {
+          "metadata": {
+            "description": "VTuberのスパチャランキング、同接数ランキングをチェック。所属グループや国、性別でフィルタリングしよう。"
           }
         }
       },
