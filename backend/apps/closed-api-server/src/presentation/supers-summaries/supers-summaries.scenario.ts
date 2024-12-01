@@ -28,7 +28,8 @@ export class SupersSummariesScenario {
       const sums = await this.supersBundlesService.sum({
         where: { actualEndTime: { gte: new Now().xDaysAgo(1) } },
         orderBy: { _sum: { amountMicros: 'desc' } },
-        limit
+        limit,
+        offset
       })
       return {
         list: sums.map(s => ({

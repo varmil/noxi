@@ -36,5 +36,6 @@ export interface SupersBundleRepository {
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number
+    offset?: number
   }) => Promise<AmountMicrosSum[]>
 }
