@@ -245,7 +245,7 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "最大同接数ランキング - {period}",
+          "concurrent-viewer": "同接数ランキング - {period}",
           "super-chat": "スパチャランキング - {period}"
         }
       },

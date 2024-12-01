@@ -245,7 +245,7 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "Most Peak Concurrent Viewers - {period}",
+          "concurrent-viewer": "Most Live Viewers - {period}",
           "super-chat": "Most Super Chatted - {period}"
         }
       },
