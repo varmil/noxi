@@ -1,9 +1,9 @@
 import { useFormatter, useTranslations } from 'next-intl'
 import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger
-} from '@/components/ui/hover-card'
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
 import {
   getActualEndTimeGTE,
   getActualEndTimeLTE
@@ -11,7 +11,7 @@ import {
 import dayjs from 'lib/dayjs'
 
 type Props = {
-  date?: string
+  date?: string | Date
 }
 
 export default function DailyHoverCard({ date }: Props) {
@@ -21,8 +21,8 @@ export default function DailyHoverCard({ date }: Props) {
   const lte = getActualEndTimeLTE(date)
 
   return (
-    <HoverCard openDelay={100} closeDelay={220}>
-      <HoverCardTrigger tabIndex={0}>
+    <Popover>
+      <PopoverTrigger tabIndex={0}>
         <div className="underline decoration-1 underline-offset-4 decoration-dashed decoration-slate-400 decoration">
           {formatter.dateTime(dayjs(date).toDate(), {
             year: 'numeric',
@@ -31,8 +31,8 @@ export default function DailyHoverCard({ date }: Props) {
             weekday: 'short'
           })}
         </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="font-normal">
+      </PopoverTrigger>
+      <PopoverContent className="font-normal">
         <div className="space-y-4">
           <h4 className="text-sm">{t('title')}</h4>
 
@@ -65,7 +65,7 @@ export default function DailyHoverCard({ date }: Props) {
             </div>
           </div>
         </div>
-      </HoverCardContent>
-    </HoverCard>
+      </PopoverContent>
+    </Popover>
   )
 }
