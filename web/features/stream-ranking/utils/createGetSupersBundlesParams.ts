@@ -16,16 +16,16 @@ export default function createGetStreamsParams({
   } else {
     let actualEndTimeGTE: Date
     switch (period) {
-      case 'daily':
+      case 'last24Hours':
         actualEndTimeGTE = dayjs().subtract(1, 'day').toDate()
         break
-      case 'weekly':
+      case 'last7Days':
         actualEndTimeGTE = dayjs().subtract(7, 'day').toDate()
         break
-      case 'monthly':
+      case 'last30Days':
         actualEndTimeGTE = dayjs().subtract(1, 'month').toDate()
         break
-      case 'yearly':
+      case 'last1Year':
         actualEndTimeGTE = dayjs().subtract(1, 'year').toDate()
         break
     }

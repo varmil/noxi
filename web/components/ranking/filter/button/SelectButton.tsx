@@ -6,8 +6,7 @@ import useQueryString from 'hooks/useQueryString'
 import { Link, usePathname } from 'lib/navigation'
 
 export default function SelectButton({
-  qsKey,
-  qsValue,
+  qs,
   activeVariant,
 
   children,
@@ -15,14 +14,13 @@ export default function SelectButton({
   ...rest
 }: ComponentProps<typeof Button> & {
   activeVariant?: 'default' | 'secondary'
-  qsKey: string
-  qsValue: string | null
+  qs: Record<string, string | null>
 }) {
   const pathname = usePathname()
-  const { has, createQueryString } = useQueryString()
-  const active =
-    (qsValue !== null && has(qsKey, qsValue)) ||
-    (qsValue === null && !has(qsKey))
+  const { has, createQueryStrings } = useQueryString()
+  const active = Object.entries(qs).some(([key, val]) => {
+    return (val !== null && has(key, val)) || (val === null && !has(key))
+  })
 
   return (
     <Button
@@ -33,10 +31,7 @@ export default function SelectButton({
       asChild
       variant={active ? activeVariant ?? 'default' : 'ghost'}
     >
-      <Link
-        href={`${pathname}?${createQueryString(qsKey, qsValue)}`}
-        prefetch={true}
-      >
+      <Link href={`${pathname}?${createQueryStrings(qs)}`} prefetch={true}>
         {children}
       </Link>
     </Button>

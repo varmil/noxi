@@ -1,4 +1,5 @@
 import { PropsWithChildren } from 'react'
+import { ChevronRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
 import {
@@ -17,24 +18,31 @@ export default function StreamRankingTableTitle({
   dimension,
   className
 }: Props) {
-  const tg = useTranslations('Global.ranking')
-  const t = useTranslations('Features.streamRanking')
+  const breadcrumb = useTranslations('Breadcrumb')
+  const global = useTranslations('Global.ranking')
+  const feat = useTranslations('Features.streamRanking')
   return (
     <section className={`${className || ''}`}>
-      <div className={`flex flex-row gap-x-1 items-center`}>
-        <div className="flex gap-x-2 items-center text-balance">
-          <Image
-            src={'/youtube/yt_icon_rgb.png'}
-            alt="YouTube"
-            width={32}
-            height={22.5}
-            className="relative w-8 h-[22.5px] top-[0.5px]"
-          />
-          {t(`ranking.dimension.${dimension}`, {
-            period: tg(`period.${period}`)
-          })}
+      <h1 className="flex text-sm sm:text-base">
+        <Image
+          src={'/youtube/yt_icon_rgb.png'}
+          alt="YouTube"
+          width={32}
+          height={22.5}
+          className="relative w-8 h-[22.5px] top-[0.5px] mr-3"
+        />
+        <div className="flex gap-x-1 sm:gap-x-2 items-center line-clamp-1">
+          <span className="flex-1 min-w-20 break-anywhere line-clamp-1">
+            {breadcrumb('streamsRanking')}
+          </span>
+          <ChevronRight className="relative w-3 h-3 top-[1px]" />
+          <span className="line-clamp-1">
+            {feat(`ranking.dimension.${dimension}`, {
+              period: global(`period.${period}`)
+            })}
+          </span>
         </div>
-      </div>
+      </h1>
     </section>
   )
 }

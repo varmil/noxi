@@ -1,34 +1,35 @@
 import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
-import DailyHoverCard from 'features/supers-ranking/components/styles/DailyHoverCard'
-import { getDailySupersRanking } from 'features/supers-ranking/utils/getSupersRanking'
+import DailyHoverCard from 'features/channels-ranking/components/styles/DailyHoverCard'
+import { getDailySupersRanking } from 'features/channels-ranking/utils/getSupersRanking'
 import { Link } from 'lib/navigation'
 
 type Props = {
   date?: string
 }
 
+/** @deprecated */
 export default async function SupersRankingHero({ date }: Props) {
   const tg = await getTranslations('Global.ranking')
-  const t = await getTranslations('Features.supersRanking')
+  const t = await getTranslations('Features.channelsRanking')
   const ranking = await getDailySupersRanking({ date, limit: 10 })
 
   return (
     <Container>
       <HeadlineContainer>
         <div className="flex items-center gap-5">
-          <div className="text-3xl md:text-4xl">{t('daily')}</div>
+          {/* <div className="text-3xl md:text-4xl">{t('last24Hours')}</div> */}
           <div className="text-xl md:text-3xl self-end">
             <DailyHoverCard date={date} />
           </div>
         </div>
 
         <div className="text-center">
-          <div className="text-5xl md:text-7xl">{t('superChat')}</div>
-          <div className="text-4xl md:text-5xl">{t('ranking')}</div>
+          {/* <div className="text-5xl md:text-7xl">{t('superChat')}</div>
+          <div className="text-4xl md:text-5xl">{t('ranking')}</div> */}
         </div>
-        <div className="text-xs text-muted-foreground">{t('note1')}</div>
+        {/* <div className="text-xs text-muted-foreground">{t('note1')}</div> */}
       </HeadlineContainer>
       <RankingContainer>
         {ranking.map((e, i) => (
@@ -57,7 +58,7 @@ export default async function SupersRankingHero({ date }: Props) {
                 <span className="text-primary font-bold tabular-nums">
                   {e.amount}
                 </span>{' '}
-                <Weak>{t('yen')}</Weak>
+                {/* <Weak>{t('yen')}</Weak> */}
               </div>
             </div>
           </div>

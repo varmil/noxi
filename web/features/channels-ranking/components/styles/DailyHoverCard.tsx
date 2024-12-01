@@ -7,7 +7,7 @@ import {
 import {
   getActualEndTimeGTE,
   getActualEndTimeLTE
-} from 'features/supers-ranking/utils/getSupersRanking'
+} from 'features/channels-ranking/utils/getSupersRanking'
 import dayjs from 'lib/dayjs'
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function DailyHoverCard({ date }: Props) {
-  const t = useTranslations('Features.supersRanking.hoverCard')
+  const t = useTranslations('Features.channelsRanking.hoverCard')
   const formatter = useFormatter()
   const gte = getActualEndTimeGTE(date)
   const lte = getActualEndTimeLTE(date)

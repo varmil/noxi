@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Home, Radio, Users } from 'lucide-react'
+import { Home, Radio, TvMinimalPlayIcon, Users } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -30,6 +30,12 @@ export default function BottomNavigation({ className }: Props) {
       icon: Radio
     },
     {
+      href: '/youtube/channels/ranking',
+      query: '?period=last24Hours&dimension=super-chat',
+      label: t('channels'),
+      icon: TvMinimalPlayIcon
+    },
+    {
       href: '/groups',
       label: t('groups'),
       icon: Users,
@@ -47,7 +53,7 @@ export default function BottomNavigation({ className }: Props) {
         className ?? ''
       }`}
     >
-      <div className="grid h-full grid-cols-3 mx-auto">
+      <div className="grid h-full grid-cols-4 mx-auto">
         {navigation.map(item => {
           const Icon = item.icon
           return (

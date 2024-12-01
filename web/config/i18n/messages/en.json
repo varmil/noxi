@@ -16,13 +16,31 @@
     },
 
     "ranking": {
+      "filter": {
+        "period": "Time Period",
+        "dimension": "Dimension",
+        "group": "Group",
+        "country": "Country"
+      },
       "period": {
         "realtime": "Realtime",
-        "daily": "Daily",
-        "weekly": "Weekly",
-        "monthly": "Monthly",
-        "yearly": "Yearly"
+        "last24Hours": "Last 24 hours",
+        "last7Days": "Last 7 days",
+        "last30Days": "Last 30 days",
+        "last90Days": "Last 3 months",
+        "last1Year": "Last 1 year",
+        "thisWeek": "This week",
+        "thisMonth": "This month",
+        "thisYear": "This year",
+        "all": "All-time"
       },
+      "dimension": {
+        "concurrent-viewer": "Most Live Viewers",
+        "super-chat": "Most Super Chatted",
+        "subscriber": "Most Subscribed"
+      },
+      "group": { "all": "All" },
+      "country": { "all": "Worldwide" },
       "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
     }
   },
@@ -33,7 +51,8 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "supersRanking": "Most Super Chatted VTuber channels"
+    "streamsRanking": "YouTube Live",
+    "channelsRanking": "VTuber Channels"
   },
 
   "Page": {
@@ -52,22 +71,6 @@
           "channels": "Channels",
           "liveStreams": "Live Streams",
           "countries": "Countries"
-        },
-        "hololive": {
-          "title": "What is Hololive?",
-          "description": "Hololive is a female VTuber group belonging to Hololive Production, a virtual YouTuber (VTuber) agency operated by Cover Corporation. Hololive members broadcast a variety of live streams, including gameplay commentary, singing, chatting, and collaborations. The group is made up of members with a wide variety of personalities, and there are many collaborations between Hololive members. They also use Cover Corporation's VR/AR technology to hold live performances at real venues. Hololive is popular both in Japan and overseas, with a total of over 80 million subscribers on YouTube. One of their strengths is their ability to reach Japanese games and content around the world. The age group of viewers is mainly young people, with about 45% being 18-24 years old and about 30% being 25-34 years old."
-        },
-        "hololive-english": {
-          "title": "What is Hololive English?",
-          "description": "Hololive English is a female VTuber group for English-speaking countries under Hololive Production, operated by Cover Corporation. They mainly post videos and live stream on platforms such as YouTube, and are good at live commentary and distribution using elaborate 2D and 3D character models. They are active as the next generation of two-dimensional idol groups, such as cheering on live streams and interacting on Twitter. On July 30, 2023, a new unit \"hololive English -Advent-\" was established, and on June 22, 2024, a new unit \"hololive English -Justice-\" was established, and the members debuted. The members of \"hololive English -Justice-\" are Elizabeth Rose Bloodflame, Gigi Murin, Cecilia Immergreen, and Raora Panthera. \"hololive English -Justice-\" is based in a special area for \"Justice\" in a corner of the organization's headquarters, and is set to have a deep connection with the escapees."
-        },
-        "hololive-indonesia": {
-          "title": "What is Hololive Indonesia?",
-          "description": "Hololive Indonesia is a Virtual YouTuber (VTuber) group operated by Cover Corporation. They mainly post videos and live stream on platforms such as YouTube, and are good at live commentary and distribution using elaborate 2D and 3D character models. They are known as the next generation of two-dimensional idol groups, and you can cheer them on during live streams and interact with them on Twitter. Hololive Indonesia's members include \"Vestia Zeta\", \"Kaela Kovalskia\", and \"Kobo Kanaeru\", who are third-generation members who debuted in March 2022."
-        },
-        "independent": {
-          "title": "What is Independent VTubers?",
-          "description": "An independent VTuber is a VTuber (Virtual YouTuber) who is not affiliated with a company and is active on their own. The advantage of being an independent VTuber is that you can start your activities as soon as you have your avatar and equipment ready, and you can broadcast what you like at your own pace. On the other hand, the disadvantages are that it takes time and money to prepare, and it takes effort to create videos."
         }
       }
     },
@@ -140,17 +143,16 @@
         },
         "ranking": {
           "metadata": {
-            "description": "Check the VTuber Super Chat rankings and concurrent viewers rankings. Filter by group, country, and gender."
+            "title": "YouTube Live - ",
+            "description": "YouTube Live Ranking now available! Sort live streams by concurrent viewers and super chat amounts, and don't miss out on the most popular moments. Find your favorite VTuber by group, country, or gender."
           }
         }
       },
-      "superChat": {
+      "channels": {
         "ranking": {
-          "index": {
-            "metadata": {
-              "title": "Most Super Chatted VTuber channels in Worldwide - Daily",
-              "description": ""
-            }
+          "metadata": {
+            "title": "VTuber Channels - ",
+            "description": ""
           }
         }
       }
@@ -171,6 +173,7 @@
     "bottomNavigation": {
       "home": "Home",
       "live": "Live",
+      "channels": "Channels",
       "groups": "Groups"
     },
     "comment": {},
@@ -214,11 +217,36 @@
       }
     },
 
+    "channelsRanking": {
+      "ranking": {
+        "dimension": {
+          "super-chat": "Most Super Chatted - {period}",
+          "subscriber": "Most Subscribed"
+        }
+      },
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Group",
+      "supers": "Supers",
+      "subscribers": "Subscribers",
+      "viewers": "Viewers",
+      "country": "Country",
+
+      "hoverCard": {
+        "title": "Ranking details",
+        "period": "Collection period",
+        "start": "Start",
+        "end": "End",
+        "criteria": "Criteria",
+        "criteriaDescription": "Ended the stream during the target period"
+      }
+    },
+
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "Most Watched Live Streams - {period}",
-          "super-chat": "Most Super Chatted Live Streams - {period}"
+          "concurrent-viewer": "Most Live Viewers - {period}",
+          "super-chat": "Most Super Chatted - {period}"
         }
       },
       "viewAll": "View All",
@@ -234,22 +262,6 @@
       "amount": "Amount",
       "chat": { "count": "{count} Super Chats" },
       "sticker": { "count": "{count} Super Stickers" }
-    },
-
-    "supersRanking": {
-      "daily": "Daily",
-      "superChat": "SuperChat",
-      "ranking": "live earnings",
-      "note1": "* PeakX registered talent",
-      "yen": "Yen",
-      "hoverCard": {
-        "title": "Ranking details",
-        "period": "Collection period",
-        "start": "Start",
-        "end": "End",
-        "criteria": "Criteria",
-        "criteriaDescription": "Ended the stream during the target period"
-      }
     },
 
     "youtube": {

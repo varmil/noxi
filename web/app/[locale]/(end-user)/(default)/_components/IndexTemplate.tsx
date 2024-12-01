@@ -44,7 +44,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
             </Button>
           </div>
           <StreamRankingGallery
-            period="daily"
+            period="last24Hours"
             dimension="concurrent-viewer"
             compact
           />

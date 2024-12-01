@@ -1,5 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
+import { Group } from '@domain'
 import { CountryCode, LanguageTag } from '@domain/country'
 import {
   ChannelId,
@@ -145,7 +146,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         country: new CountryCode(country),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
-          : undefined
+          : undefined,
+        group: new Group(row.group)
       })
     })
   }

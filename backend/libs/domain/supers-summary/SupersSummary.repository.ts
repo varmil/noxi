@@ -1,13 +1,10 @@
 import { Group } from '@domain/group'
 import { SupersSummary, SupersSummaries } from '@domain/supers-summary'
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface SupersSummaryRepository {
   findAll: (args: {
-    where?: {
-      channelId?: ChannelId
-      group?: Group
-    }
+    where?: { channelIds?: ChannelIds; group?: Group }
     orderBy?: Partial<
       Record<
         | 'last7Days'

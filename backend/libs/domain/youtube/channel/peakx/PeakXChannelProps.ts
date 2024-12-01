@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer'
 import { CountryCode, LanguageTag } from '@domain/country'
+import type { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
 
 export class PeakXChannelProps {
@@ -10,14 +11,18 @@ export class PeakXChannelProps {
   public readonly defaultLanguage?: LanguageTag
   @Transform(({ value }: { value: Gender }) => value?.get())
   public readonly gender?: Gender
+  @Transform(({ value }: { value: Group }) => value.get())
+  public readonly group: Group
 
   constructor(args: {
     country: CountryCode
     defaultLanguage?: LanguageTag
     gender?: Gender
+    group: Group
   }) {
     this.country = args.country
     this.defaultLanguage = args.defaultLanguage
     this.gender = args.gender
+    this.group = args.group
   }
 }

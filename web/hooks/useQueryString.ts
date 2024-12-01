@@ -24,6 +24,21 @@ export default function useQueryString() {
     [searchParams]
   )
 
+  const createQueryStrings = useCallback(
+    (record: Record<string, string | null>) => {
+      const params = new URLSearchParams(searchParams.toString())
+      Object.entries(record).forEach(([name, value]) => {
+        if (value === null) {
+          params.delete(name)
+        } else {
+          params.set(name, value)
+        }
+      })
+      return params.toString()
+    },
+    [searchParams]
+  )
+
   return {
     has,
 
@@ -31,6 +46,12 @@ export default function useQueryString() {
      * Get a new searchParams string by merging the current
      * searchParams with a provided key/value pair
      */
-    createQueryString
+    createQueryString,
+
+    /**
+     * Get a new searchParams string by merging the current
+     * searchParams with multiple key/value pairs
+     */
+    createQueryStrings
   }
 }
