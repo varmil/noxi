@@ -46,9 +46,6 @@ export default async function ChannelsRankingGallery(
     channelIds = supersSummaries.map(summary => summary.channelId)
   }
 
-  /**
-   * TODO: impl Dimensionがsubscriberの場合、Periodは「全期間」のみ表示したい
-   */
   if (dimension === 'subscriber') {
     const channels = await getChannels({
       orderBy: [{ field: 'subscriberCount', order: 'desc' }],

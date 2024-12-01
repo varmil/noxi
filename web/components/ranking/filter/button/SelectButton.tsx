@@ -9,6 +9,7 @@ export default function SelectButton({
   qsKey,
   qsValue,
   activeVariant,
+  deleteKey,
 
   children,
   className,
@@ -17,6 +18,7 @@ export default function SelectButton({
   activeVariant?: 'default' | 'secondary'
   qsKey: string
   qsValue: string | null
+  deleteKey?: string
 }) {
   const pathname = usePathname()
   const { has, createQueryString } = useQueryString()

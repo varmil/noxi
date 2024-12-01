@@ -18,6 +18,7 @@ type Keys =
   | 'thisWeek'
   | 'thisMonth'
   | 'thisYear'
+  | 'all'
 
 type Props = PropsWithoutRef<{
   keys: Keys[]

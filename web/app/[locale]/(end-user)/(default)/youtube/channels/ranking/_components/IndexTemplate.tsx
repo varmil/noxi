@@ -12,7 +12,10 @@ export default function IndexTemplate({
   return (
     <section className={`space-y-4`}>
       <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
-        <ChannelsRankingFilterGallery className="max-w-6xl mx-auto" />
+        <ChannelsRankingFilterGallery
+          className="max-w-6xl mx-auto"
+          dimension={searchParams.dimension}
+        />
       </section>
 
       <section className={`${PageSMPX}`}>

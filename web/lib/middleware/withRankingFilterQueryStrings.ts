@@ -3,12 +3,38 @@ import { defaultCountry } from 'config/i18n/country'
 import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
 
 /**
- * Query string rules mapped to specific path groups
+ * Default query parameters for each page and dimension
  */
-const QUERY_STRING_RULES: Record<string, RegExp[]> = {
-  country: [],
-  dimension: [/\/youtube\/live\/ranking$/],
-  period: [/\/youtube\/live\/ranking$/]
+const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
+  '/youtube/live/ranking': {
+    dimension: 'concurrent-viewer',
+    period: 'last24Hours'
+  },
+  '/youtube/channels/ranking': {
+    dimension: 'super-chat',
+    period: 'last24Hours'
+  }
+}
+
+/**
+ * Mapping of `dimension` to specific `period` values
+ */
+const PERIOD_BY_DIMENSION: Record<string, string> = {
+  'concurrent-viewer': 'last24Hours',
+  'super-chat': 'last24Hours',
+  subscriber: 'all'
+}
+
+/**
+ * Extract the locale and normalize the pathname
+ */
+function normalizePathname(pathname: string): string {
+  const parts = pathname.split('/')
+  if (parts.length > 1 && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(parts[1])) {
+    // Remove the locale part if it exists (e.g., /ja or /en-US)
+    parts.splice(1, 1)
+  }
+  return parts.join('/')
 }
 
 /**
@@ -19,12 +45,31 @@ function getCountryCode(req: NextRequest): string {
 }
 
 /**
- * Resolve dynamic values for query parameters based on the rule key
+ * Resolve dynamic query values based on the key, pathname, and other parameters
  */
-function resolveQueryValue(key: string, req: NextRequest): string | undefined {
+function resolveQueryValue(
+  key: string,
+  req: NextRequest,
+  normalizedPathname: string,
+  searchParams: URLSearchParams
+): string | undefined {
   if (key === 'country') return getCountryCode(req)
-  if (key === 'dimension') return 'concurrent-viewer'
-  if (key === 'period') return 'last24Hours'
+
+  if (key === 'dimension') {
+    const defaultDimension = QUERY_STRING_RULES[normalizedPathname]?.dimension
+    return searchParams.get('dimension') || defaultDimension
+  }
+
+  if (key === 'period') {
+    const dimension =
+      searchParams.get('dimension') ||
+      QUERY_STRING_RULES[normalizedPathname]?.dimension
+    return (
+      PERIOD_BY_DIMENSION[dimension] ||
+      QUERY_STRING_RULES[normalizedPathname]?.period
+    )
+  }
+
   return undefined
 }
 
@@ -36,14 +81,18 @@ export const withRankingFilterQueryStrings: MiddlewareFactory = next => {
     let isDirty = false
 
     const searchParams = request.nextUrl.searchParams
-    const pathname = request.nextUrl.pathname
+    const normalizedPathname = normalizePathname(request.nextUrl.pathname)
 
-    // Iterate over query string rules
-    for (const [key, patterns] of Object.entries(QUERY_STRING_RULES)) {
-      if (patterns.some(pattern => pattern.test(pathname))) {
-        // Add query string if it doesn't already exist
+    if (normalizedPathname in QUERY_STRING_RULES) {
+      // Iterate over query string keys for the matched normalized pathname
+      for (const key of Object.keys(QUERY_STRING_RULES[normalizedPathname])) {
         if (!searchParams.has(key)) {
-          const value = resolveQueryValue(key, request)
+          const value = resolveQueryValue(
+            key,
+            request,
+            normalizedPathname,
+            searchParams
+          )
           if (value) {
             searchParams.set(key, value)
             isDirty = true
@@ -53,7 +102,10 @@ export const withRankingFilterQueryStrings: MiddlewareFactory = next => {
     }
 
     if (isDirty) {
-      const url = new URL(`${pathname}?${searchParams.toString()}`, request.url)
+      const url = new URL(
+        `${request.nextUrl.pathname}?${searchParams.toString()}`,
+        request.url
+      )
       return NextResponse.redirect(url)
     }
 

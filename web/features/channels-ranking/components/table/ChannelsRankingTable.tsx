@@ -34,14 +34,14 @@ export default async function ChannelsRankingTable({
     getTranslations('Global.ranking'),
     getTranslations('Features.channelsRanking'),
     getChannels({ ids: channelIds, limit: channelIds.length }),
-    getSupersSummaries({
-      channelIds,
-      limit: channelIds.length,
-      orderBy: [{ field: period, order: 'desc' }] // 24Hours or それ以外で型が違うのでこのパラメタは必須
-    })
+    dimension === 'super-chat'
+      ? getSupersSummaries({
+          channelIds,
+          limit: channelIds.length,
+          orderBy: [{ field: period, order: 'desc' }] // 24Hours or それ以外で型が違うのでこのパラメタは必須
+        })
+      : Promise.resolve([])
   ])
-
-  console.log('supersSummaries', supersSummaries)
 
   /** Progress.valueで使用する */
   const topAmountMicros = (supersSummaries[0]?.[period] as bigint) ?? BigInt(0)

@@ -31,7 +31,8 @@
         "last1Year": "Last 1 year",
         "thisWeek": "This week",
         "thisMonth": "This month",
-        "thisYear": "This year"
+        "thisYear": "This year",
+        "all": "All-time"
       },
       "dimension": {
         "concurrent-viewer": "Most Live Viewers",
