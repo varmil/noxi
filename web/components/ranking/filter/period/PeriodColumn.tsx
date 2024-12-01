@@ -33,7 +33,7 @@ export default function PeriodColumn({ keys, className }: Props) {
       <ColumnHeader>{tg('filter.period')}</ColumnHeader>
       <ColumnContent>
         {keys.map(key => (
-          <SelectButton key={key} qsKey={QS_KEY} qsValue={key}>
+          <SelectButton key={key} qs={{ [QS_KEY]: key }}>
             {tg(`period.${key}`)}
           </SelectButton>
         ))}

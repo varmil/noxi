@@ -18,7 +18,7 @@ export default function GroupColumn() {
     <Column>
       <ColumnHeader>{tg('filter.group')}</ColumnHeader>
       <ColumnContent>
-        <SelectButton qsKey={QS_KEY} qsValue={null} activeVariant="secondary">
+        <SelectButton qs={{ [QS_KEY]: null }} activeVariant="secondary">
           {tg('group.all')}
         </SelectButton>
 
@@ -26,8 +26,7 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            qsKey={QS_KEY}
-            qsValue={group.id}
+            qs={{ [QS_KEY]: group.id }}
             activeVariant="secondary"
           >
             <Image
@@ -45,8 +44,7 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            qsKey={QS_KEY}
-            qsValue={group.id}
+            qs={{ [QS_KEY]: group.id }}
             activeVariant="secondary"
           >
             <group.icon className="h-4 w-4 rounded-full" />

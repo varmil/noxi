@@ -23,7 +23,7 @@ export default function DimensionColumn({ keys, className }: Props) {
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
         {keys.map(key => (
-          <SelectButton key={key} qsKey={QS_KEY} qsValue={key}>
+          <SelectButton key={key} qs={{ [QS_KEY]: key, period: null }}>
             {tg(`dimension.${key}`)}
           </SelectButton>
         ))}
