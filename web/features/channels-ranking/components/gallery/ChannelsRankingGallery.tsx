@@ -21,6 +21,9 @@ export type ChannelsRankingGalleryProps = {
   dimension: ChannelsRankingDimension
   group?: ChannelsRankingGroup
   country?: ChannelsRankingCountry
+  /** For OG */
+  date?: string
+
   compact?: boolean
   className?: string
 }
@@ -37,7 +40,7 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
   const t = await getTranslations('Features.channelsRanking')
-  const { period, dimension, compact, className } = props
+  const { period, dimension, date, compact, className } = props
 
   if (dimension === 'super-chat') {
     const supersSummaries = await getSupersSummaries(
@@ -65,6 +68,7 @@ export default async function ChannelsRankingGallery(
       <ChannelsRankingTable
         period={period}
         dimension={dimension}
+        date={date ? new Date(date) : undefined}
         channelIds={channelIds}
       />
 

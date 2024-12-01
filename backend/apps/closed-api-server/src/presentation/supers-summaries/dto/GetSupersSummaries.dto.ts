@@ -1,6 +1,7 @@
 import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
+  IsDate,
   IsIn,
   IsInt,
   IsOptional,
@@ -49,6 +50,13 @@ export class GetSupersSummaries {
   @IsInt()
   @Type(() => Number)
   offset?: number
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new Date(value) : undefined
+  )
+  @IsDate()
+  date: Date
 
   toChannelIds = () =>
     this.channelIds

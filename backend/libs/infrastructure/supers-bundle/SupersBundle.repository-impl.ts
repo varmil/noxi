@@ -96,7 +96,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         where: {
           channelId: { in: where.channelIds?.map(e => e.get()) },
           group: where.group?.get(),
-          actualEndTime: { gte: where.actualEndTime.gte }
+          actualEndTime: where.actualEndTime
         },
         _sum: { amountMicros: true },
         orderBy,

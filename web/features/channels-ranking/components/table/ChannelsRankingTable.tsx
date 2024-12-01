@@ -22,12 +22,14 @@ import { convertMicrosToAmount } from 'utils/amount'
 type Props = PropsWithoutRef<{
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  date?: Date
   channelIds: string[]
 }>
 
 export default async function ChannelsRankingTable({
   period,
   dimension,
+  date,
   channelIds
 }: Props) {
   const [tg, t, channels, supersSummaries] = await Promise.all([
@@ -38,7 +40,8 @@ export default async function ChannelsRankingTable({
       ? getSupersSummaries({
           channelIds,
           limit: channelIds.length,
-          orderBy: [{ field: period, order: 'desc' }] // 24Hours or それ以外で型が違うのでこのパラメタは必須
+          orderBy: [{ field: period, order: 'desc' }], // 24Hours or それ以外で型が違うのでこのパラメタは必須
+          date
         })
       : Promise.resolve([])
   ])

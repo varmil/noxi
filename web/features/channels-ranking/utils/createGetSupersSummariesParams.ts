@@ -7,7 +7,7 @@ export default function createGetSupersSummariesParams({
   period,
   group,
   country,
-  compact
+  date
 }: ChannelsRankingGalleryProps): GetSupersSummaries {
   let result = {}
   let orderBy: GetSupersSummaries['orderBy']
@@ -34,6 +34,11 @@ export default function createGetSupersSummariesParams({
 
   if (country) {
     // TODO: ChannelとJOINする必要あり
+  }
+
+  // 現状OG専用パラメタ
+  if (date) {
+    result = { ...result, date: new Date(date) }
   }
 
   result = { ...result, limit: 30 }

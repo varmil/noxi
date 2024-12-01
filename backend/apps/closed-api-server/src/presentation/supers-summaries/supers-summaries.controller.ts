@@ -27,7 +27,8 @@ export class SupersSummariesController {
       where: { channelIds: dto.toChannelIds(), group: dto.toGroup() },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
-      offset: dto.toOffset()
+      offset: dto.toOffset(),
+      date: dto.date
     })
   }
 

@@ -32,7 +32,7 @@ export interface SupersBundleRepository {
     where: {
       channelIds?: ChannelIds
       group?: Group
-      actualEndTime: { gte: Date }
+      actualEndTime: { gte: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number

@@ -22,6 +22,7 @@ type Params = {
   }[]
   limit?: number
   offset?: number
+  date?: Date
 }
 
 export async function getSupersSummaries({
@@ -29,13 +30,15 @@ export async function getSupersSummaries({
   group,
   orderBy,
   limit,
-  offset
+  offset,
+  date
 }: Params): Promise<SupersSummariesSchema> {
   const searchParams = new URLSearchParams({
     ...(channelIds && { channelIds: [...new Set(channelIds)].join(',') }),
     ...(group && { group }),
     ...(limit && { limit: String(limit) }),
-    ...(offset && { offset: String(offset) })
+    ...(offset && { offset: String(offset) }),
+    ...(date && { date: date.toISOString() })
   })
 
   orderBy?.forEach((orderBy, index) => {
