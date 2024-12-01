@@ -22,7 +22,7 @@ export default function StreamRankingTableTitle({
   return (
     <section className={`${className || ''}`}>
       <div className={`flex flex-row gap-x-1 items-center`}>
-        <div className="flex gap-x-2 items-center text-balance">
+        <h1 className="flex gap-x-2 items-center text-balance">
           <Image
             src={'/youtube/yt_icon_rgb.png'}
             alt="YouTube"
@@ -33,7 +33,7 @@ export default function StreamRankingTableTitle({
           {t(`ranking.dimension.${dimension}`, {
             period: tg(`period.${period}`)
           })}
-        </div>
+        </h1>
       </div>
     </section>
   )
