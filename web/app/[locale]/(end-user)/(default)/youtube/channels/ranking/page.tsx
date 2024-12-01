@@ -30,23 +30,35 @@ export type YoutubeChannelsRankingSearchParams = {
 
 export async function generateMetadata({
   params: { locale },
-  searchParams: { date }
+  searchParams: { date, ...searchParams }
 }: Props): Promise<Metadata> {
-  const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({
+  const global = await getTranslations({ locale, namespace: 'Global' })
+  const page = await getTranslations({
     locale,
-    namespace: 'Page.youtube.channels.ranking.index'
+    namespace: 'Page.youtube.channels.ranking'
   })
-
-  const searchParams = new URLSearchParams({
-    ...(date && { date: dayjs(date).toISOString() })
+  const feat = await getTranslations({
+    locale,
+    namespace: 'Features.channelsRanking.ranking.dimension'
   })
 
   return {
-    title: `${t('metadata.title')} - ${tg('title')}`,
-    description: `${t('metadata.description')}`,
+    title: `${page('metadata.title')} ${feat(searchParams.dimension, {
+      period: global(`ranking.period.${searchParams.period}`)
+    })} - ${global('title')}`,
+
+    description: `${page('metadata.description')}`,
+
     openGraph: {
-      images: [{ url: getOgUrl(`/daily-ranking?${searchParams.toString()}`) }]
+      images: [
+        {
+          url: getOgUrl(
+            `/daily-ranking?${new URLSearchParams({
+              ...(date && { date: dayjs(date).toISOString() })
+            }).toString()}`
+          )
+        }
+      ]
     }
   }
 }
@@ -57,14 +69,22 @@ export default function YoutubeChannelsRankingPage({
 }: Props) {
   // Enable static rendering
   setRequestLocale(locale)
-  const t = useTranslations('Breadcrumb')
+  const breadcrumb = useTranslations('Breadcrumb')
+  const tg = useTranslations('Global.ranking')
+  const t = useTranslations('Features.channelsRanking.ranking.dimension')
 
   return (
     <Page
       breadcrumb={[
         {
           href: `/youtube/channels/ranking`,
-          name: t('channelsRanking')
+          name: breadcrumb('channelsRanking')
+        },
+        {
+          href: `#`,
+          name: t(searchParams.dimension, {
+            period: tg(`period.${searchParams.period}`)
+          })
         }
       ]}
       noPadding

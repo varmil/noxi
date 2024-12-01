@@ -24,10 +24,10 @@
       },
       "period": {
         "realtime": "リアルタイム",
-        "last24Hours": "過去２４時間",
+        "last24Hours": "過去24時間",
         "last7Days": "過去７日間",
-        "last30Days": "過去３０日間",
-        "last90Days": "過去９０日間",
+        "last30Days": "過去30日間",
+        "last90Days": "過去90日間",
         "last1Year": "過去１年間",
         "thisWeek": "今週",
         "thisMonth": "今月",
@@ -55,7 +55,8 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "channelsRanking": "VTuberチャンネルランキング"
+    "streamsRanking": "YouTube Live",
+    "channelsRanking": "VTuber"
   },
 
   "Page": {
@@ -162,17 +163,16 @@
         },
         "ranking": {
           "metadata": {
-            "description": "VTuberのスパチャランキング、同接数ランキングをチェック。所属グループや国、性別でフィルタリングしよう。"
+            "title": "YouTube Live",
+            "description": "YouTube Liveランキング（リアルタイム集計）を掲載中！同接数、スパチャ額でライブ配信をソートし、人気の瞬間を見逃さずチェック。所属グループや国、性別でお気に入りのVTuberを探そう。"
           }
         }
       },
       "channels": {
         "ranking": {
-          "index": {
-            "metadata": {
-              "title": "VTuberスパチャランキング - Daily",
-              "description": ""
-            }
+          "metadata": {
+            "title": "VTuber",
+            "description": ""
           }
         }
       }

@@ -55,7 +55,8 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "channelsRanking": "Top YouTube Channels"
+    "streamsRanking": "YouTube Live",
+    "channelsRanking": "VTuber Channels"
   },
 
   "Page": {
@@ -162,17 +163,16 @@
         },
         "ranking": {
           "metadata": {
-            "description": "Check the VTuber Super Chat rankings and concurrent viewers rankings. Filter by group, country, and gender."
+            "title": "YouTube Live - ",
+            "description": "YouTube Live Ranking now available! Sort live streams by concurrent viewers and super chat amounts, and don't miss out on the most popular moments. Find your favorite VTuber by group, country, or gender."
           }
         }
       },
       "channels": {
         "ranking": {
-          "index": {
-            "metadata": {
-              "title": "Most Super Chatted VTuber channels in Worldwide - Daily",
-              "description": ""
-            }
+          "metadata": {
+            "title": "VTuber Channels - ",
+            "description": ""
           }
         }
       }

@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { ActualEndTime } from '@domain'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { Now } from '@domain/lib'
-import { ActualEndTime } from '@domain'
 
 @Injectable()
 export class SupersSummariesScenario {
