@@ -89,25 +89,29 @@ export default async function ChannelsRankingTable({
               </LinkCell>
 
               {/* Supers */}
-              <TableCell width={160} className="min-w-24">
-                <Dimension
-                  active={dimension === 'super-chat'}
-                  dividend={convertMicrosToAmount(summary ?? BigInt(0))}
-                  divisor={convertMicrosToAmount(topAmountMicros)}
-                  icon={<JapaneseYen className="w-4 h-4" />}
-                  rtl
-                />
-              </TableCell>
+              {dimension === 'super-chat' && (
+                <TableCell width={160} className="min-w-24">
+                  <Dimension
+                    active={true}
+                    dividend={convertMicrosToAmount(summary ?? BigInt(0))}
+                    divisor={convertMicrosToAmount(topAmountMicros)}
+                    icon={<JapaneseYen className="w-4 h-4" />}
+                    rtl
+                  />
+                </TableCell>
+              )}
 
               {/* Subscribers */}
-              <TableCell width={160} className="hidden @lg:table-cell min-w-24">
-                <Dimension
-                  active={dimension === 'subscriber'}
-                  dividend={channel.statistics.subscriberCount}
-                  divisor={topSubscribers}
-                  rtl
-                />
-              </TableCell>
+              {dimension === 'subscriber' && (
+                <TableCell width={160} className="min-w-24">
+                  <Dimension
+                    active={dimension === 'subscriber'}
+                    dividend={channel.statistics.subscriberCount}
+                    divisor={topSubscribers}
+                    rtl
+                  />
+                </TableCell>
+              )}
 
               {/* 3xl-: Group */}
               <TableCellOfGroup groupId={channel.peakX.group} />

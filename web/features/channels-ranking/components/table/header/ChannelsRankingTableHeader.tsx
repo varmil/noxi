@@ -23,12 +23,18 @@ export default async function ChannelsRankingTableHeader({ dimension }: Props) {
         <TableHead className="">{t('channel')} </TableHead>
 
         {/* Supers */}
-        <TableHead className="text-nowrap text-right">{t('supers')}</TableHead>
+        {dimension === 'super-chat' && (
+          <TableHead className="text-nowrap text-right">
+            {t('supers')}
+          </TableHead>
+        )}
 
-        {/* lg: Subscribers */}
-        <TableHead className="hidden @lg:table-cell text-nowrap text-right">
-          {t('subscribers')}
-        </TableHead>
+        {/* Subscribers */}
+        {dimension === 'subscriber' && (
+          <TableHead className="text-nowrap text-right">
+            {t('subscribers')}
+          </TableHead>
+        )}
 
         {/* 3xl-: Group */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
