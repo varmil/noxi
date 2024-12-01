@@ -54,7 +54,7 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "channelsRanking": "VTuberスパチャランキング"
+    "channelsRanking": "VTuberチャンネルランキング"
   },
 
   "Page": {
@@ -246,8 +246,8 @@
       "viewAll": "すべて見る",
       "channel": "チャンネル",
       "group": "グループ",
-      "streamTitle": "タイトル",
       "supers": "スパチャ金額",
+      "subscribers": "チャンネル登録者数",
       "viewers": "同接数",
       "country": "国",
 

@@ -7,12 +7,14 @@ export default function Dimension({
   active,
   dividend,
   divisor,
-  icon
+  icon,
+  rtl
 }: {
   active?: boolean
   dividend: number | BigNumber
   divisor: number | BigNumber
   icon?: JSX.Element
+  rtl?: boolean
 }) {
   const t = useTranslations('Features.streamRanking')
   const textClasses = active ? 'font-bold' : 'text-muted-foreground'
@@ -27,7 +29,11 @@ export default function Dimension({
 
   return (
     <div className={`max-w-60 tabular-nums`}>
-      <span className={`flex gap-1 items-center ${textClasses}`}>
+      <span
+        className={`flex gap-1 items-center ${textClasses} ${
+          rtl ? 'justify-end' : ''
+        }`}
+      >
         {dividend ? (
           <>
             <>{icon ?? null}</>
@@ -41,7 +47,7 @@ export default function Dimension({
         <div>
           <Progress
             title={t('viewers')}
-            className={`h-1 ${barColor}`}
+            className={`h-1 ${barColor} ${rtl ? 'rotate-180' : ''}`}
             value={(dividend / divisor) * 100}
           />
         </div>

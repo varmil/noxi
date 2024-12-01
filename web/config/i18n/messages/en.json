@@ -54,7 +54,7 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "channelsRanking": "Most Super Chatted VTuber channels"
+    "channelsRanking": "Top YouTube Channels"
   },
 
   "Page": {
@@ -246,8 +246,8 @@
       "viewAll": "View All",
       "channel": "Channel",
       "group": "Group",
-      "streamTitle": "Title",
       "supers": "Supers",
+      "subscribers": "Subscribers",
       "viewers": "Viewers",
       "country": "Country",
 

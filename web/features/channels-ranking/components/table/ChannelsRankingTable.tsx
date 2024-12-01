@@ -6,12 +6,12 @@ import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
+import Dimension from 'components/ranking/table/styles/Dimension'
 import CountryFlag from 'components/styles/CountryFlag'
 import { GroupString } from 'config/constants/Site'
-import TableCellOfGroup from 'features/channels-ranking/components/table/cell/TableCellOfGroup'
 import LinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
-import Dimension from 'features/channels-ranking/components/table/styles/Dimension'
 import {
   ChannelsRankingDimension,
   ChannelsRankingPeriod
@@ -45,6 +45,9 @@ export default async function ChannelsRankingTable({
 
   /** Progress.valueで使用する */
   const topAmountMicros = (supersSummaries[0]?.[period] as bigint) ?? BigInt(0)
+  const topSubscribers =
+    channels.find(channel => channel.basicInfo.id === channelIds[0])?.statistics
+      .subscriberCount ?? 0
 
   return (
     <Table>
@@ -92,6 +95,17 @@ export default async function ChannelsRankingTable({
                   dividend={convertMicrosToAmount(summary ?? BigInt(0))}
                   divisor={convertMicrosToAmount(topAmountMicros)}
                   icon={<JapaneseYen className="w-4 h-4" />}
+                  rtl
+                />
+              </TableCell>
+
+              {/* Subscribers */}
+              <TableCell width={160} className="hidden @lg:table-cell min-w-24">
+                <Dimension
+                  active={dimension === 'subscriber'}
+                  dividend={channel.statistics.subscriberCount}
+                  divisor={topSubscribers}
+                  rtl
                 />
               </TableCell>
 
