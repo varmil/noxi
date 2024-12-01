@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { ChevronRight, TvMinimalPlayIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import DailyHoverCard from 'features/channels-ranking/components/styles/DailyHoverCard'
 import {
   ChannelsRankingPeriod,
   ChannelsRankingDimension
@@ -9,12 +10,14 @@ import {
 type Props = PropsWithChildren<{
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  date?: Date
   className?: string
 }>
 
 export default function ChannelsRankingTableTitle({
   period,
   dimension,
+  date,
   className
 }: Props) {
   const breadcrumb = useTranslations('Breadcrumb')
@@ -36,6 +39,11 @@ export default function ChannelsRankingTableTitle({
           </span>
         </div>
       </h1>
+      {date && (
+        <div className="relative">
+          <DailyHoverCard date={date} />
+        </div>
+      )}
     </section>
   )
 }

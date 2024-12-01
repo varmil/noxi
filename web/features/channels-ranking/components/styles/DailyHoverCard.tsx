@@ -11,7 +11,7 @@ import {
 import dayjs from 'lib/dayjs'
 
 type Props = {
-  date?: string
+  date?: string | Date
 }
 
 export default function DailyHoverCard({ date }: Props) {

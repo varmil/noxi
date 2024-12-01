@@ -63,6 +63,7 @@ export default async function ChannelsRankingGallery(
       <ChannelsRankingTableTitle
         period={period}
         dimension={dimension}
+        date={date ? new Date(date) : undefined}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
 
