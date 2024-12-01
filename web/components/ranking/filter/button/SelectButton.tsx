@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button'
 import useQueryString from 'hooks/useQueryString'
 import { Link, usePathname } from 'lib/navigation'
 
+/**
+ * qsの１番目の要素をActive判定に用いる
+ */
 export default function SelectButton({
   qs,
   activeVariant,
@@ -18,9 +21,8 @@ export default function SelectButton({
 }) {
   const pathname = usePathname()
   const { has, createQueryStrings } = useQueryString()
-  const active = Object.entries(qs).some(([key, val]) => {
-    return (val !== null && has(key, val)) || (val === null && !has(key))
-  })
+  const [key, val] = Object.entries(qs)[0]
+  const active = (val !== null && has(key, val)) || (val === null && !has(key))
 
   return (
     <Button
