@@ -34,17 +34,17 @@ export default async function ChannelsRankingTable({
     getTranslations('Global.ranking'),
     getTranslations('Features.channelsRanking'),
     getChannels({ ids: channelIds, limit: channelIds.length }),
-    getSupersSummaries({ channelIds, limit: channelIds.length })
+    getSupersSummaries({
+      channelIds,
+      limit: channelIds.length,
+      orderBy: [{ field: period, order: 'desc' }] // 24Hours or それ以外で型が違うのでこのパラメタは必須
+    })
   ])
 
   console.log('supersSummaries', supersSummaries)
 
   /** Progress.valueで使用する */
-  // TODO: period型をomitとかしてanyにならないようにしたい
-  const topAmountMicros =
-    supersSummaries.find(summary => summary.channelId === channelIds[0])?.[
-      period
-    ] ?? 0
+  const topAmountMicros = (supersSummaries[0]?.[period] as bigint) ?? BigInt(0)
 
   return (
     <Table>
@@ -58,8 +58,7 @@ export default async function ChannelsRankingTable({
 
           const summary = supersSummaries.find(
             summary => summary.channelId === channelId
-          )?.[period]
-          console.log('summary', summary)
+          )?.[period] as bigint | undefined
 
           return (
             <TableRow key={channelId}>

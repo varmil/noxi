@@ -1,27 +1,28 @@
 import { z } from 'zod'
 
+const bigIntSchema = z.string().pipe(z.coerce.bigint())
+
 const schema1 = z.object({
   channelId: z.string(),
-  last24Hours: z.coerce.bigint()
+  last24Hours: bigIntSchema
 })
 
 const schema2 = z.object({
   channelId: z.string(),
-  last7Days: z.coerce.bigint(),
-  last30Days: z.coerce.bigint(),
-  last90Days: z.coerce.bigint(),
-  last1Year: z.coerce.bigint(),
-  thisWeek: z.coerce.bigint(),
-  thisMonth: z.coerce.bigint(),
-  thisYear: z.coerce.bigint(),
+  last7Days: bigIntSchema,
+  last30Days: bigIntSchema,
+  last90Days: bigIntSchema,
+  last1Year: bigIntSchema,
+  thisWeek: bigIntSchema,
+  thisMonth: bigIntSchema,
+  thisYear: bigIntSchema,
   createdAt: z.coerce.date()
 })
 
 const schema = z.union([schema1, schema2])
 
 export const responseSchema = z.object({
-  list: z.array(schema)
-  // list: z.union([z.array(schema1), z.array(schema2)])
+  list: z.union([z.array(schema1), z.array(schema2)])
 })
 
 export type SupersSummarySchema = z.infer<typeof schema>
