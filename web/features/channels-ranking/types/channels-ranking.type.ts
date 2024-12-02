@@ -18,7 +18,6 @@ export type ChannelsRanking = {
   channelId: string
   channelTitle: string
   channelThumbnails: string | undefined
-  streamTitle: string
   amount: string
   group: GroupString
 }
