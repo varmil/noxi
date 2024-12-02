@@ -643,6 +643,94 @@ const List: GroupChannel[] = [
     id: new ChannelId('UCRWOdwLRsenx2jLaiCAIU4A'),
     title: '雨森小夜',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCUzJ90o1EjqUbk2pBAy0_aw'),
+    title: 'Gilzaren III Season 2',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC1vawzfbCnRpHT9SJ5pHlHw'),
+    title: '赤城ウェン / Akagi Wen【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCeK9HFcRZoTrvqcUCtccMoQ'),
+    title: '渋谷ハジメのはじめ支部',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCebT4Aq-3XWb5je1S1FvR_A'),
+    title: '東堂コハク/ Todo Kohaku [にじさんじ]',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCcx3crxPFi006DUhb_YU-tw'),
+    title: '北見遊征 / Kitami Yusei【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCRV9d6YCYIMUszK-83TwxVA'),
+    title: '轟京子/kyoko todoroki【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCvmppcdYf4HOv-tFQhHHJMA'),
+    title: '《にじさんじ所属の女神》モイラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCAQDFeCTVdx90GtwohwjHzQ'),
+    title: '天ヶ瀬 むゆ / Amagase Muyu 【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCFtyinR2ZdvKK_Xgy07qXUg'),
+    title: 'ミラン・ケストレル / Milan Kestrel 【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCvzVB-EYuHFXHZrObB8a_Og'),
+    title: '矢車りね / Rine Yaguruma【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCiSRx1a2k-0tOg-fs6gAolQ'),
+    title: '飛鳥ひな【にじさんじ所属】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCkhViRjLUKgIcVpar9JiNrw'),
+    title: '珠乃井ナナ / Tamanoi Nana【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCrhhJPNsOqzNIkUfTABoSpg'),
+    title: 'ハユン / HaYun 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR'),
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCClwIqTUn5LDpFucHyaAhHg'),
+    title: 'イ・ロハ / LeeRoha【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCnbJ8LTbHrsRgqkxwJXCU8w'),
+    title: '立伝都々 / Tachitsute Toto【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCpjypWF_wNRs9_TrjjWngpQ'),
+    title: '渚トラウト / Nagisa Trout【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
   }
 ]
 

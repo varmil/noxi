@@ -9,7 +9,7 @@ const counts = {
   vspo: { val: 6, isAll: false },
   'hololive-english': { val: 18, isAll: true },
   'hololive-indonesia': { val: 9, isAll: true },
-  nijisanji: { val: 117, isAll: false },
+  nijisanji: { val: 133, isAll: false },
   'nijisanji-en': { val: 11, isAll: false },
   'idol-corp': { val: 13, isAll: true },
   independent: { val: 34, isAll: false },
