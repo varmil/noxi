@@ -799,6 +799,54 @@ const List: GroupChannel[] = [
     title: 'Etna Crimson【NIJISANJI / にじさんじ】',
     ...DefaultProps,
     defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UC7hffDQLKIEG-_zoAQkMIvg'),
+    title: '明楽 レイ /아키라 레이 / Ray Akira 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR')
+  },
+  {
+    id: new ChannelId('UCnzZmBOSrQf2wDBbnsDajVw'),
+    title: 'ジユ / Jiyu 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR')
+  },
+  {
+    id: new ChannelId('UCw-kTlPnZYSHhlGMFJ17Znw'),
+    title: '雲母たまこ / Kirara Tamako【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCpRXCTyNNa-MnjhK6gisnRw'),
+    title: '가온 ガオン GAON 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR'),
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC8Snw5i4eOJXEQqURAK17hQ'),
+    title: 'Rai Galilei【NIJISANJI / にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en'),
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCMzVa7B8UEdrvUGsPmSgyjA'),
+    title: 'デレム・カド 【にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UClS6k3w1sPwlVFqK3-yID5A'),
+    title: 'ハリ / Ryu Hari 【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCijNnZ-6m8g85UGaRAWuw7g'),
+    title: 'Nagisa Arcinia【NIJISANJI・にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('id')
   }
 ]
 
