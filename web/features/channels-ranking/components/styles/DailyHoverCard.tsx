@@ -4,11 +4,12 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover'
-import {
-  getActualEndTimeGTE,
-  getActualEndTimeLTE
-} from 'features/channels-ranking/utils/getSupersRanking'
 import dayjs from 'lib/dayjs'
+
+const getActualEndTimeGTE = (date: dayjs.ConfigType) =>
+  dayjs(date).subtract(1, 'day').toDate()
+
+const getActualEndTimeLTE = (date: dayjs.ConfigType) => dayjs(date).toDate()
 
 type Props = {
   date?: string | Date
