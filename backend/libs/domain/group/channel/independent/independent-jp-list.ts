@@ -166,5 +166,10 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCGKNbtDv8OTa8559buDu-Gw'),
     title: '音魂ヒビクHibiku Otodama',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
+    title: 'Rica Ch. / 花宮莉歌',
+    ...DefaultProps
   }
 ]

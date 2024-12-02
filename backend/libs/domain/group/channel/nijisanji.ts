@@ -637,12 +637,216 @@ const List: GroupChannel[] = [
     title: '민수하 /Suhaスハ【NIJISANJI】',
     ...DefaultProps,
     country: new CountryCode('KR'),
+    defaultLangage: new LanguageTag('ko'),
     gender: Gender.Male
   },
   {
     id: new ChannelId('UCRWOdwLRsenx2jLaiCAIU4A'),
     title: '雨森小夜',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCUzJ90o1EjqUbk2pBAy0_aw'),
+    title: 'Gilzaren III Season 2',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC1vawzfbCnRpHT9SJ5pHlHw'),
+    title: '赤城ウェン / Akagi Wen【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCeK9HFcRZoTrvqcUCtccMoQ'),
+    title: '渋谷ハジメのはじめ支部',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCebT4Aq-3XWb5je1S1FvR_A'),
+    title: '東堂コハク/ Todo Kohaku [にじさんじ]',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCcx3crxPFi006DUhb_YU-tw'),
+    title: '北見遊征 / Kitami Yusei【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCRV9d6YCYIMUszK-83TwxVA'),
+    title: '轟京子/kyoko todoroki【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCvmppcdYf4HOv-tFQhHHJMA'),
+    title: '《にじさんじ所属の女神》モイラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCAQDFeCTVdx90GtwohwjHzQ'),
+    title: '天ヶ瀬 むゆ / Amagase Muyu 【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCFtyinR2ZdvKK_Xgy07qXUg'),
+    title: 'ミラン・ケストレル / Milan Kestrel 【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCvzVB-EYuHFXHZrObB8a_Og'),
+    title: '矢車りね / Rine Yaguruma【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCiSRx1a2k-0tOg-fs6gAolQ'),
+    title: '飛鳥ひな【にじさんじ所属】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCkhViRjLUKgIcVpar9JiNrw'),
+    title: '珠乃井ナナ / Tamanoi Nana【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCrhhJPNsOqzNIkUfTABoSpg'),
+    title: 'ハユン / HaYun 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR'),
+    defaultLangage: new LanguageTag('ko'),
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCClwIqTUn5LDpFucHyaAhHg'),
+    title: 'イ・ロハ / LeeRoha【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCnbJ8LTbHrsRgqkxwJXCU8w'),
+    title: '立伝都々 / Tachitsute Toto【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCpjypWF_wNRs9_TrjjWngpQ'),
+    title: '渚トラウト / Nagisa Trout【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCtC3B1n4XMiJmrDtu1Ni5qw'),
+    title: '七瀬 すず菜 / Nanase Suzuna【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCufQu4q65z63IgE4cfKs1BQ'),
+    title: '語部紡',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC5ek2GWKvUKFgnKSHuuCFrw'),
+    title: 'ナギ /  Nagi 【にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('ko')
+  },
+  {
+    id: new ChannelId('UCiJ_Um3KbfF19NzkDYLzZVQ'),
+    title: '綺沙良 / Kisara【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCkQ8i_cz0prqdo9jj__L93Q'),
+    title: '酒寄颯馬 / Sakayori Soma【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCyRkQSuhJILuGOuXk10voPg'),
+    title: 'Layla Alstroemeria【NIJISANJI / にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('ID'),
+    defaultLangage: new LanguageTag('id')
+  },
+  {
+    id: new ChannelId('UCzsCWYuvPUky3-DKzphYbEw'),
+    title: '司賀りこ / Shiga Riko【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCLjx3lqIkYkPCBJop8czJ2A'),
+    title: 'Ban Hada | NIJISANJI',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('ko')
+  },
+  {
+    id: new ChannelId('UCyJOgJhgfoVRpFjsBCUmuvg'),
+    title: '梢桃音 / Kozue Mone【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCX88Pe54pxbJDSGIyGrzNdg'),
+    title: 'ナ セラ / Na Sera【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC0xry7czPasj1wPxR8L0MZg'),
+    title: '早乙女 ベリー / Saotome Berry【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCjFu-9GHnabzSFRAYm1B9Dw'),
+    title: 'Etna Crimson【NIJISANJI / にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UC7hffDQLKIEG-_zoAQkMIvg'),
+    title: '明楽 レイ /아키라 레이 / Ray Akira 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR')
+  },
+  {
+    id: new ChannelId('UCnzZmBOSrQf2wDBbnsDajVw'),
+    title: 'ジユ / Jiyu 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR')
+  },
+  {
+    id: new ChannelId('UCw-kTlPnZYSHhlGMFJ17Znw'),
+    title: '雲母たまこ / Kirara Tamako【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCpRXCTyNNa-MnjhK6gisnRw'),
+    title: '가온 ガオン GAON 【にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('KR'),
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC8Snw5i4eOJXEQqURAK17hQ'),
+    title: 'Rai Galilei【NIJISANJI / にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en'),
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCMzVa7B8UEdrvUGsPmSgyjA'),
+    title: 'デレム・カド 【にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UClS6k3w1sPwlVFqK3-yID5A'),
+    title: 'ハリ / Ryu Hari 【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCijNnZ-6m8g85UGaRAWuw7g'),
+    title: 'Nagisa Arcinia【NIJISANJI・にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('id')
   }
 ]
 
