@@ -637,6 +637,7 @@ const List: GroupChannel[] = [
     title: '민수하 /Suhaスハ【NIJISANJI】',
     ...DefaultProps,
     country: new CountryCode('KR'),
+    defaultLangage: new LanguageTag('ko'),
     gender: Gender.Male
   },
   {
@@ -714,6 +715,7 @@ const List: GroupChannel[] = [
     title: 'ハユン / HaYun 【にじさんじ】',
     ...DefaultProps,
     country: new CountryCode('KR'),
+    defaultLangage: new LanguageTag('ko'),
     gender: Gender.Male
   },
   {
@@ -731,6 +733,72 @@ const List: GroupChannel[] = [
     title: '渚トラウト / Nagisa Trout【にじさんじ】',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCtC3B1n4XMiJmrDtu1Ni5qw'),
+    title: '七瀬 すず菜 / Nanase Suzuna【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCufQu4q65z63IgE4cfKs1BQ'),
+    title: '語部紡',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC5ek2GWKvUKFgnKSHuuCFrw'),
+    title: 'ナギ /  Nagi 【にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('ko')
+  },
+  {
+    id: new ChannelId('UCiJ_Um3KbfF19NzkDYLzZVQ'),
+    title: '綺沙良 / Kisara【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCkQ8i_cz0prqdo9jj__L93Q'),
+    title: '酒寄颯馬 / Sakayori Soma【にじさんじ】',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCyRkQSuhJILuGOuXk10voPg'),
+    title: 'Layla Alstroemeria【NIJISANJI / にじさんじ】',
+    ...DefaultProps,
+    country: new CountryCode('ID'),
+    defaultLangage: new LanguageTag('id')
+  },
+  {
+    id: new ChannelId('UCzsCWYuvPUky3-DKzphYbEw'),
+    title: '司賀りこ / Shiga Riko【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCLjx3lqIkYkPCBJop8czJ2A'),
+    title: 'Ban Hada | NIJISANJI',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('ko')
+  },
+  {
+    id: new ChannelId('UCyJOgJhgfoVRpFjsBCUmuvg'),
+    title: '梢桃音 / Kozue Mone【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCX88Pe54pxbJDSGIyGrzNdg'),
+    title: 'ナ セラ / Na Sera【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC0xry7czPasj1wPxR8L0MZg'),
+    title: '早乙女 ベリー / Saotome Berry【にじさんじ】',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCjFu-9GHnabzSFRAYm1B9Dw'),
+    title: 'Etna Crimson【NIJISANJI / にじさんじ】',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
   }
 ]
 
