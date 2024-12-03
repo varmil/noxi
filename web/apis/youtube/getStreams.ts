@@ -20,6 +20,7 @@ type Params = {
     order: 'asc' | 'desc'
   }[]
   limit?: number
+  offset?: number
 }
 
 export async function getStreams({
@@ -32,7 +33,8 @@ export async function getStreams({
   endedBefore,
   endedAfter,
   orderBy,
-  limit
+  limit,
+  offset
 }: Params): Promise<StreamsSchema> {
   const searchParams = new URLSearchParams({
     ...(status && { status }),
@@ -43,7 +45,8 @@ export async function getStreams({
     ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),
     ...(endedBefore && { endedBefore: endedBefore.toISOString() }),
     ...(endedAfter && { endedAfter: endedAfter.toISOString() }),
-    ...(limit !== undefined && { limit: String(limit) })
+    ...(limit !== undefined && { limit: String(limit) }),
+    ...(offset !== undefined && { offset: String(offset) })
   })
 
   orderBy?.forEach((orderBy, index) => {

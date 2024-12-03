@@ -8,7 +8,7 @@ export function getEntry({
   lastModified
 }: {
   pathname: string
-  lastModified: Date
+  lastModified?: Date
 }): MetadataRoute.Sitemap[0] {
   return {
     url: getUrl(pathname, defaultLocale),

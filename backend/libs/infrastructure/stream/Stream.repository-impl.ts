@@ -60,7 +60,8 @@ export class StreamRepositoryImpl implements StreamRepository {
   async findAll({
     where,
     orderBy,
-    limit
+    limit,
+    offset
   }: Parameters<StreamRepository['findAll']>[0]) {
     const { videoIds, group, channelId } = where
 
@@ -74,7 +75,8 @@ export class StreamRepositoryImpl implements StreamRepository {
         }
       },
       orderBy,
-      take: limit
+      take: limit,
+      skip: offset
     })
 
     return new Streams(rows.map(row => new StreamTranslator(row).translate()))

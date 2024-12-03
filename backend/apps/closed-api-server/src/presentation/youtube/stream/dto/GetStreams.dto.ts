@@ -68,6 +68,11 @@ export class GetStreamsDto {
   @Type(() => Number)
   limit?: number
 
+  @IsOptional()
+  @IsInt()
+  @Type(() => Number)
+  offset?: number
+
   toStatus = () => (this.status ? new StreamStatus(this.status) : undefined)
 
   toVideoIds = () =>
@@ -105,4 +110,6 @@ export class GetStreamsDto {
   }
 
   toLimit = () => this.limit
+
+  toOffset = () => this.offset
 }
