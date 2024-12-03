@@ -116,10 +116,7 @@ export class StreamRepositoryImpl implements StreamRepository {
   }: Parameters<StreamRepository['updateDuration']>[0]): Promise<void> {
     await this.prismaInfraService.youtubeStream.update({
       where: { videoId: videoId.get() },
-      data: {
-        duration: data.get(),
-        updatedAt: new Date()
-      }
+      data: { duration: data.get() }
     })
   }
 
@@ -133,8 +130,7 @@ export class StreamRepositoryImpl implements StreamRepository {
         scheduledStartTime: data.scheduledStartTime,
         actualStartTime: data.actualStartTime?.get(),
         actualEndTime: data.actualEndTime?.get(),
-        status: data.streamStatus.get(),
-        updatedAt: new Date()
+        status: data.streamStatus.get()
       }
     })
   }
@@ -158,8 +154,7 @@ export class StreamRepositoryImpl implements StreamRepository {
         // NOTE: 本当はnull, undefinedを区別してnull値に更新できるようにしたい
         // ただしそれが「メンバー限定」判定のため、というのがそもそもイケてない。
         views,
-        likeCount: likes,
-        updatedAt: new Date()
+        likeCount: likes
       }
     })
   }
@@ -170,10 +165,7 @@ export class StreamRepositoryImpl implements StreamRepository {
   }: Parameters<StreamRepository['updateLikeCount']>[0]): Promise<void> {
     await this.prismaInfraService.youtubeStream.update({
       where: { videoId: videoId.get() },
-      data: {
-        likeCount: data,
-        updatedAt: new Date()
-      }
+      data: { likeCount: data }
     })
   }
 

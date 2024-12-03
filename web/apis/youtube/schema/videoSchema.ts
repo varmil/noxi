@@ -16,7 +16,6 @@ const schema = z.object({
         height: z.number().optional()
       })
     ),
-    tags: z.array(z.string()),
     categoryId: z.number()
   }),
   duration: z.string().duration(),

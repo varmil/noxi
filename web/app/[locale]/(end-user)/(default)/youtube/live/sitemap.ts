@@ -1,9 +1,8 @@
 import { getStreams } from 'apis/youtube/getStreams'
 import { getEntry } from 'config/sitemap/getEntry'
-import dayjs from 'lib/dayjs'
 import type { MetadataRoute } from 'next'
 
-const LIMIT = 50000
+const LIMIT = 100
 
 export async function generateSitemaps() {
   // Fetch the total number of products and calculate the number of sitemaps needed
@@ -17,13 +16,14 @@ export default async function sitemap({
 }): Promise<MetadataRoute.Sitemap> {
   // Google's limit is 50,000 URLs per sitemap
   const streams = await getStreams({
+    orderBy: [{ field: 'videoId', order: 'asc' }],
     limit: LIMIT,
-    offset: id * 50000
+    offset: id * LIMIT
   })
   return streams.map(stream =>
     getEntry({
       pathname: `/youtube/live/${stream.videoId}`,
-      lastModified: undefined // TODO:
+      lastModified: stream.updatedAt
     })
   )
 }

@@ -17,7 +17,6 @@ export const schema = z.object({
         height: z.number().optional()
       })
     ),
-    tags: z.array(z.string()),
     categoryId: z.number()
   }),
 
@@ -38,6 +37,7 @@ export const schema = z.object({
   }),
 
   group: z.enum(GroupStrings),
+  updatedAt: z.coerce.date(),
 
   // using union() because it can be one of "scheduled", "live" or "ended"
   status: z.union([

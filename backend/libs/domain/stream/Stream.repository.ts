@@ -29,6 +29,7 @@ export interface StreamRepository {
     }
     orderBy?: Partial<
       Record<
+        | 'videoId'
         | 'scheduledStartTime'
         | 'actualStartTime'
         | 'actualEndTime'

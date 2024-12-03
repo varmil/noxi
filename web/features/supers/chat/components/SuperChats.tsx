@@ -14,7 +14,6 @@ export default async function SuperChats({ chats, showStreamLink }: Props) {
   if (showStreamLink && chats.length > 0) {
     streams = await getStreams({
       videoIds: chats.map(chat => chat.videoId),
-      orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
       limit: chats.length
     })
   }

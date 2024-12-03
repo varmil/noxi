@@ -13,6 +13,7 @@ type Params = {
   endedAfter?: Date
   orderBy?: {
     field:
+      | 'videoId'
       | 'scheduledStartTime'
       | 'actualStartTime'
       | 'actualEndTime'

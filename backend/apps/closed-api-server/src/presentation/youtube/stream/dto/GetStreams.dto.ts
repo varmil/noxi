@@ -57,6 +57,7 @@ export class GetStreamsDto {
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
   orderBy?: OrderByDto<
+    | 'videoId'
     | 'scheduledStartTime'
     | 'actualStartTime'
     | 'actualEndTime'

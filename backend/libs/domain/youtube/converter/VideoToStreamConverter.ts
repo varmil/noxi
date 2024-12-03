@@ -1,7 +1,7 @@
 import { BadRequestException } from '@nestjs/common'
 import { Group } from '@domain/group'
 import { Stream, Metrics } from '@domain/stream'
-import { Video } from '@domain/youtube'
+import { UpdatedAt, Video } from '@domain/youtube'
 
 /**
  * Stream Create時に用いる
@@ -29,7 +29,8 @@ export class VideoToStreamConverter {
         views: video.statistics.viewCount,
         likes: video.statistics.likeCount
       }),
-      group
+      group,
+      updatedAt: new UpdatedAt(new Date())
     })
   }
 }
