@@ -1,4 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { Injectable, Logger, PreconditionFailedException } from '@nestjs/common'
+import { TwitterApi } from 'twitter-api-v2'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Now } from '@domain/lib'
@@ -12,11 +13,17 @@ export class XScenario {
     day: '2-digit',
     weekday: 'short'
   })
+  private readonly xClient: TwitterApi
 
   constructor(
     private readonly supersBundlesService: SupersBundlesService,
     private readonly channelsService: ChannelsService
-  ) {}
+  ) {
+    if (!process.env.X_BEARER_TOKEN) {
+      throw new PreconditionFailedException('X_BEARER_TOKEN is not set')
+    }
+    this.xClient = new TwitterApi(process.env.X_BEARER_TOKEN)
+  }
 
   /**
    * 過去24時間のスパチャランキングをXへ投稿する
@@ -42,7 +49,13 @@ export class XScenario {
       .join('\n')
     const message3 = `※βテスト中。タップでTop30まで表示`
     const message4 = `https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last24Hours&date=${new Date().toISOString()}`
+    const content = `${message1}\n${message2}\n\n${message3}\n${message4}`
 
-    this.logger.log(`${message1}\n${message2}\n\n${message3}\n${message4}`)
+    const tweet = await this.xClient.v2.tweet(content)
+    if (!tweet.errors) {
+      this.logger.log('tweeted', tweet.data)
+    } else {
+      this.logger.error('tweet failed', tweet.errors)
+    }
   }
 }
