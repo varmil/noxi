@@ -2,7 +2,7 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { getEntry } from 'config/sitemap/getEntry'
 import type { MetadataRoute } from 'next'
 
-const LIMIT = 100
+const LIMIT = 10000
 
 export async function generateSitemaps() {
   // Fetch the total number of products and calculate the number of sitemaps needed
