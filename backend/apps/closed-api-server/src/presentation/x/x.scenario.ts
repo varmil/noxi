@@ -19,10 +19,14 @@ export class XScenario {
     private readonly supersBundlesService: SupersBundlesService,
     private readonly channelsService: ChannelsService
   ) {
-    if (!process.env.X_BEARER_TOKEN) {
-      throw new PreconditionFailedException('X_BEARER_TOKEN is not set')
-    }
-    this.xClient = new TwitterApi(process.env.X_BEARER_TOKEN)
+    const { X_APP_KEY, X_APP_SECRET, X_ACCESS_TOKEN, X_ACCESS_SECRET } =
+      process.env
+    this.xClient = new TwitterApi({
+      appKey: X_APP_KEY ?? '',
+      appSecret: X_APP_SECRET ?? '',
+      accessToken: X_ACCESS_TOKEN ?? '',
+      accessSecret: X_ACCESS_SECRET ?? ''
+    })
   }
 
   /**

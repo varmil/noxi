@@ -21,8 +21,11 @@ declare namespace NodeJS {
     /** app.exchangerate-api.com key */
     readonly EXCHANGE_RATE_API_KEY: string
 
-    /** XのBearer Token */
-    readonly X_BEARER_TOKEN: string
+    /** XのToken */
+    readonly X_APP_KEY: string
+    readonly X_APP_SECRET: string
+    readonly X_ACCESS_TOKEN: string
+    readonly X_ACCESS_SECRET: string
 
     /** XへPOSTする際に用いる勘合符 */
     readonly X_POST_KEY: string
