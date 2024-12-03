@@ -74,7 +74,10 @@ export async function GET(request: Request) {
                 />
               </div>
               <div tw="flex flex-1 flex-col font-bold">
-                <div tw="flex text-2xl">
+                <div
+                  tw="text-left text-2xl overflow-hidden whitespace-nowrap"
+                  style={{ height: '1.7em' }}
+                >
                   {e.channelTitle.length > 33
                     ? `${e.channelTitle.slice(0, 33)}...`
                     : e.channelTitle}
