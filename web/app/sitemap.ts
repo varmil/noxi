@@ -8,6 +8,7 @@ const groupEntries = GroupStrings.flatMap(group => {
     getEntry({ pathname: `/${group}`, lastModified: new Date() }),
     getEntry({ pathname: `/${group}/live`, lastModified: new Date() }),
     getEntry({ pathname: `/${group}/scheduled`, lastModified: new Date() }),
+    getEntry({ pathname: `/${group}/ended`, lastModified: new Date() }),
     getEntry({
       pathname: `/${group}/charts/channels`,
       lastModified: dayjs().subtract(1, 'day').toDate()
