@@ -15,7 +15,7 @@ export async function GET(request: Request) {
 
   const ranking = await getDailySupersRanking({
     date: searchParams.get('date') ?? undefined,
-    limit: 5
+    limit: 4
   })
 
   const formatter = Intl.DateTimeFormat('ja-JP', {
@@ -60,29 +60,29 @@ export async function GET(request: Request) {
         <section style={{ gap: 20 }} tw="flex-1 flex flex-col">
           {ranking.map((e, i) => (
             <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
-              <div tw="flex text-xl font-extrabold">{e.rank}位</div>
+              <div tw="flex text-2xl font-extrabold">{e.rank}位</div>
 
-              <div tw="flex w-[100px] h-[100px] justify-center items-center rounded-full overflow-hidden">
+              <div tw="flex w-[125px] h-[125px] justify-center items-center rounded-full overflow-hidden">
                 <img
                   src={e.channelThumbnails}
                   alt={e.channelTitle}
                   style={{
-                    width: 100,
-                    height: 100,
+                    width: 125,
+                    height: 125,
                     objectFit: 'cover'
                   }}
                 />
               </div>
               <div tw="flex flex-1 flex-col font-bold">
                 <div
-                  tw="text-left text-2xl overflow-hidden whitespace-nowrap"
+                  tw="text-left text-3xl overflow-hidden whitespace-nowrap"
                   style={{ height: '1.7em' }}
                 >
                   {e.channelTitle.length > 33
                     ? `${e.channelTitle.slice(0, 33)}...`
                     : e.channelTitle}
                 </div>
-                <div tw="flex text-lg">{e.amount} 円 / 日</div>
+                <div tw="flex text-xl">{e.amount} 円 / 日</div>
               </div>
             </div>
           ))}
