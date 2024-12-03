@@ -7,6 +7,7 @@ import { HealthController } from '@presentation/health/health.controller'
 import { SupersPresentationModule } from '@presentation/supers/supers.presentation.module'
 import { SupersBundlesPresentationModule } from '@presentation/supers-bundles/supers-bundles.presentation.module'
 import { SupersSummariesPresentationModule } from '@presentation/supers-summaries/supers-summaries.presentation.module'
+import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 
@@ -21,7 +22,8 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     SupersPresentationModule,
     SupersBundlesPresentationModule,
     SupersSummariesPresentationModule,
-    YoutubePresentationModule
+    YoutubePresentationModule,
+    XPresentationModule
   ],
   controllers: [HealthController],
   providers: []
