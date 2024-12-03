@@ -52,8 +52,7 @@ export class UpsertYoutubeStream {
       likeCount,
 
       group: group.get(),
-      status: status.get(),
-      updatedAt: new Date()
+      status: status.get()
     }
   }
 
@@ -64,8 +63,7 @@ export class UpsertYoutubeStream {
 
     return {
       title,
-      description,
-      updatedAt: new Date()
+      description
     }
   }
 }

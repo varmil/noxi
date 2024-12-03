@@ -7,6 +7,7 @@ import {
   ChannelId,
   Duration,
   PublishedAt,
+  UpdatedAt,
   VideoId
 } from '@domain/youtube'
 import { Stream } from './Stream.entity'
@@ -26,6 +27,7 @@ const stream = new Stream({
     tags: [],
     categoryId: 1
   },
+  duration: new Duration('PT15M33S'),
   streamTimes: new StreamTimes({
     scheduledStartTime: new Date(),
     actualStartTime: new ActualStartTime(new Date()),
@@ -39,7 +41,7 @@ const stream = new Stream({
     likes: 0
   }),
   group: new Group('hololive'),
-  duration: new Duration('PT15M33S')
+  updatedAt: new UpdatedAt(new Date())
 })
 
 const NotMembersOnlyStreams = [

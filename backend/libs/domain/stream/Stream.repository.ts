@@ -29,6 +29,7 @@ export interface StreamRepository {
     }
     orderBy?: Partial<
       Record<
+        | 'videoId'
         | 'scheduledStartTime'
         | 'actualStartTime'
         | 'actualEndTime'
@@ -37,6 +38,7 @@ export interface StreamRepository {
       >
     >[]
     limit?: number
+    offset?: number
   }) => Promise<Streams>
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>

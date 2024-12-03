@@ -17,7 +17,6 @@ export default async function YoutubeComments({
   if (showStreamLink && threads.length > 0) {
     streams = await getStreams({
       videoIds: threads.map(thread => thread.snippet.videoId),
-      orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
       limit: threads.length
     })
   }

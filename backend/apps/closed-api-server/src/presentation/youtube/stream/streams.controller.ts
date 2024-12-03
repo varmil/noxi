@@ -30,7 +30,8 @@ export class StreamsController {
         endedAfter: dto.toEndedAfter()
       },
       orderBy: dto.toOrderBy(),
-      limit: dto.toLimit()
+      limit: dto.toLimit(),
+      offset: dto.toOffset()
     })
   }
 

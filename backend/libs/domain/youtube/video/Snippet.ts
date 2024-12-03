@@ -10,6 +10,7 @@ export class VideoSnippet {
   public readonly title: string
   public readonly description: string
   public readonly thumbnails: Thumbnails
+  @Exclude()
   public readonly tags: string[]
   public readonly categoryId: number
   @Exclude()

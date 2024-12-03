@@ -57,6 +57,7 @@ export class GetStreamsDto {
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
   orderBy?: OrderByDto<
+    | 'videoId'
     | 'scheduledStartTime'
     | 'actualStartTime'
     | 'actualEndTime'
@@ -67,6 +68,11 @@ export class GetStreamsDto {
   @IsInt()
   @Type(() => Number)
   limit?: number
+
+  @IsOptional()
+  @IsInt()
+  @Type(() => Number)
+  offset?: number
 
   toStatus = () => (this.status ? new StreamStatus(this.status) : undefined)
 
@@ -105,4 +111,6 @@ export class GetStreamsDto {
   }
 
   toLimit = () => this.limit
+
+  toOffset = () => this.offset
 }

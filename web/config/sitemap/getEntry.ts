@@ -1,15 +1,28 @@
 import { MetadataRoute } from 'next'
 import { defaultLocale, locales } from 'config/i18n/locale'
 
+/**
+ * @note Next15からは MetadataRoute.Sitemap が使える
+ * @docs https://developers.google.com/search/docs/crawling-indexing/sitemaps/video-sitemaps?hl=ja
+ **/
+type Video = {
+  title: string
+  description: string //'this is the description'
+  content_loc: string
+  thumbnail_loc: string // 'https://example.com/image.jpg'
+}
+
 const host = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
 
 export function getEntry({
   pathname,
-  lastModified
+  lastModified,
+  videos
 }: {
   pathname: string
-  lastModified: Date
-}): MetadataRoute.Sitemap[0] {
+  lastModified?: Date
+  videos?: Video[]
+}): MetadataRoute.Sitemap[0] & { videos?: Video[] } {
   return {
     url: getUrl(pathname, defaultLocale),
     lastModified,
@@ -17,7 +30,8 @@ export function getEntry({
       languages: Object.fromEntries(
         locales.map(locale => [locale, getUrl(pathname, locale)])
       )
-    }
+    },
+    videos
   }
 }
 

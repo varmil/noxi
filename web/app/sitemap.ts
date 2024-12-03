@@ -20,11 +20,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     getEntry({
       pathname: '/',
-      lastModified: dayjs().subtract(7, 'day').toDate()
+      lastModified: dayjs().subtract(1, 'day').toDate()
     }),
-    getEntry({
-      pathname: '/terms-of-use-and-privacy-policy',
-      lastModified: dayjs().subtract(14, 'day').toDate()
-    })
+    getEntry({ pathname: '/terms-of-use-and-privacy-policy' })
   ].concat(groupEntries)
 }

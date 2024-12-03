@@ -8,7 +8,8 @@ import {
   Duration,
   PublishedAt,
   VideoSnippet,
-  VideoId
+  VideoId,
+  UpdatedAt
 } from '@domain/youtube'
 import type { YoutubeStream as PrismaYoutubeStream } from '@prisma/client'
 
@@ -57,7 +58,8 @@ export class StreamTranslator {
         likes: row.likeCount
       }),
 
-      group: new Group(row.group)
+      group: new Group(row.group),
+      updatedAt: new UpdatedAt(row.updatedAt)
     })
   }
 }
