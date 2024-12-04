@@ -6,13 +6,13 @@ import { GroupStrings } from 'config/constants/Site'
 // 通信で取るかも
 const counts = {
   hololive: { val: 43, isAll: true },
-  vspo: { val: 6, isAll: false },
+  vspo: { val: 15, isAll: false },
   'hololive-english': { val: 18, isAll: true },
   'hololive-indonesia': { val: 9, isAll: true },
   nijisanji: { val: 153, isAll: true },
   'nijisanji-en': { val: 11, isAll: false },
   'idol-corp': { val: 13, isAll: true },
-  independent: { val: 35, isAll: false },
+  independent: { val: 40, isAll: false },
   'independent-irl': { val: 14, isAll: false }
 }
 
