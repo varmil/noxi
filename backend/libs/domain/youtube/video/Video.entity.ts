@@ -49,7 +49,7 @@ export class Video {
   /**
    * 配信の開始が予定されている時刻。値は ISO 8601 形式で指定します。
    */
-  @Expose()
+  @Exclude()
   get streamScheduledStartTime() {
     return this.liveStreamingDetails?.streamTimes.scheduledStartTime
   }
@@ -66,7 +66,7 @@ export class Video {
   /**
    * @return undefined if this video is not stream
    */
-  @Expose()
+  @Exclude()
   get streamStatus() {
     return this.liveStreamingDetails?.streamTimes.streamStatus
   }

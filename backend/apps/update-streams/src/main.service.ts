@@ -38,9 +38,8 @@ export class MainService {
 
       // update StreamTimes if the latest scheduledStartTime is different
       if (
-        streamScheduledStartTime &&
-        streamScheduledStartTime.getTime() !==
-          stream.streamTimes.scheduledStartTime.getTime()
+        streamScheduledStartTime?.getTime() !==
+        stream.streamTimes.scheduledStartTime?.getTime()
       ) {
         console.log(
           'update the ScheduledStartTime:',
@@ -96,17 +95,13 @@ export class MainService {
       .map(async video => {
         const { liveStreamingDetails } = video
         if (!liveStreamingDetails) return
-        const { scheduledStartTime, actualStartTime } =
-          liveStreamingDetails.streamTimes
+        const { actualStartTime } = liveStreamingDetails.streamTimes
 
         console.log('start the stream:', video.snippet.title)
 
         await this.streamsService.updateStreamTimes({
           where: { videoId: video.id },
-          data: new StreamTimes({
-            scheduledStartTime,
-            actualStartTime
-          })
+          data: new StreamTimes({ actualStartTime })
         })
       })
 
