@@ -18,9 +18,9 @@ export default async function sitemap({
   const streams = await getStreams({
     orderBy: [{ field: 'videoId', order: 'asc' }],
     limit: LIMIT,
-    offset: id * LIMIT
+    offset: id * LIMIT,
+    cache: 'default'
   })
-  console.log('streams', streams.length)
   return streams.map(stream =>
     getEntry({
       pathname: `/youtube/live/${stream.videoId}`
