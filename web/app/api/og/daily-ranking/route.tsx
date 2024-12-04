@@ -75,7 +75,7 @@ export async function GET(request: Request) {
               </div>
               <div tw="flex flex-1 flex-col font-bold">
                 <div
-                  tw="text-left text-3xl overflow-hidden whitespace-nowrap"
+                  tw="text-left text-3xl overflow-hidden"
                   style={{ height: '1.7em' }}
                 >
                   {e.channelTitle.length > 33
