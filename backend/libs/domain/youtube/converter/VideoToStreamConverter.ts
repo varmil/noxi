@@ -13,7 +13,9 @@ export class VideoToStreamConverter {
    */
   static convert({ group, video }: { group: Group; video: Video }): Stream {
     if (!video.liveStreamingDetails) {
-      throw new BadRequestException('video.liveStreamingDetails is undefined')
+      throw new BadRequestException(
+        `${video.id.get()} liveStreamingDetails is undefined`
+      )
     }
 
     return new Stream({

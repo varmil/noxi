@@ -193,5 +193,11 @@ export const JPList: GroupChannel[] = [
     title: 'リモーネ先生',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCE4fTYIygLvWzn-0IDM6lzw'),
+    title: 'エぺ文句　タケゾー',
+    ...DefaultProps,
+    gender: Gender.Male
   }
 ]

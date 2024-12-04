@@ -15,13 +15,13 @@ export default function SocialProofSection() {
 
         <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <Item>
-            <NumberText>200+</NumberText>
+            <NumberText>300+</NumberText>
             <span className="text-lg text-muted-foreground">
               {t('channels')}
             </span>
           </Item>
           <Item>
-            <NumberText>4K+</NumberText>
+            <NumberText>9K+</NumberText>
             <span className="text-lg text-muted-foreground">
               {t('liveStreams')}
             </span>

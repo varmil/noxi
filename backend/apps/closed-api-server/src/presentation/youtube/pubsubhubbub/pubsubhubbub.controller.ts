@@ -3,6 +3,7 @@ import {
   Get,
   HttpException,
   HttpStatus,
+  Logger,
   Post,
   Query,
   Req,
@@ -19,6 +20,8 @@ import { UpdatedEntry } from '@domain/youtube/xml/UpdatedEntry.vo'
  */
 @Controller('youtube/pubsubhubbub')
 export class PubsubhubbubController {
+  private readonly logger = new Logger(PubsubhubbubController.name)
+
   constructor(
     private readonly pubsubhubbubScenario: PubsubhubbubScenario,
     private readonly cryptoService: CryptoService
@@ -73,9 +76,9 @@ export class PubsubhubbubController {
       }
     } catch (error) {
       if (error instanceof HttpException) {
-        console.info('callback not done:', error.message)
+        this.logger.log('callback not done:', error.message)
       } else {
-        console.info('callback not done:', error)
+        this.logger.log('callback not done:', error)
       }
     }
 
