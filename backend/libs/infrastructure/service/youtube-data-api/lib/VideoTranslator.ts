@@ -28,6 +28,7 @@ export class VideoTranslator {
       v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
     const {
+      scheduledStartTime,
       actualStartTime,
       actualEndTime,
       concurrentViewers,
@@ -54,9 +55,9 @@ export class VideoTranslator {
       liveStreamingDetails: v.liveStreamingDetails
         ? new LiveStreamingDetails({
             streamTimes: new StreamTimes({
-              scheduledStartTime: new Date(
-                v.liveStreamingDetails.scheduledStartTime
-              ),
+              scheduledStartTime: scheduledStartTime
+                ? new Date(scheduledStartTime)
+                : undefined,
               actualStartTime: actualStartTime
                 ? new ActualStartTime(new Date(actualStartTime))
                 : undefined,

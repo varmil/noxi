@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { QueueStatusUnprocessed } from '@domain'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
 import { GroupsService } from '@app/groups/groups.service'
@@ -16,6 +16,8 @@ import { VideoToStreamConverter } from '@domain/youtube/converter/VideoToStreamC
  */
 @Injectable()
 export class PubsubhubbubScenario {
+  private readonly logger = new Logger(PubsubhubbubScenario.name)
+
   constructor(
     private readonly promiseService: PromiseService,
     private readonly channelsService: ChannelsService,
@@ -27,11 +29,11 @@ export class PubsubhubbubScenario {
   ) {}
 
   async handleUpdatedCallback({ entry }: { entry: UpdatedEntry }) {
-    console.log('hUC', entry.channelId, entry.videoId)
+    this.logger.log('hUC', entry.channelId, entry.videoId)
 
     const channel = await this.channelsService.findById(entry.channelId)
     if (!channel) {
-      console.warn('hUC channel not found:', entry)
+      this.logger.warn('hUC channel not found:', entry)
       return
     }
 
@@ -39,13 +41,13 @@ export class PubsubhubbubScenario {
       where: { channelId: channel.basicInfo.id }
     })
     if (!group) {
-      console.warn('hUC group not found:', entry)
+      this.logger.warn('hUC group not found:', entry)
       return
     }
 
     const video = await this.videosService.findById(entry.videoId)
     if (!video) {
-      console.warn('hUC video not found:', entry)
+      this.logger.warn('hUC video not found:', entry)
       return
     }
 
@@ -59,22 +61,22 @@ export class PubsubhubbubScenario {
    * ので注意。シンプルに「削除」でも良いかもしれない．．．
    * */
   async handleDeletedCallback({ entry }: { entry: DeletedEntry }) {
-    console.log('handleDeletedCallback', entry.channelId, entry.videoId)
+    this.logger.log('handleDeletedCallback', entry.channelId, entry.videoId)
 
     const stream = await this.streamsService.findOne({
       where: { videoId: entry.videoId }
     })
     if (!stream) {
-      console.warn('handleDeletedCallback stream not found:', entry)
+      this.logger.warn('handleDeletedCallback stream not found:', entry)
       return
     }
 
     if (stream.status === StreamStatusScheduled) {
-      console.info(`delete scheduled stream ${stream.videoId.get()}`)
+      this.logger.log(`delete scheduled stream ${stream.videoId.get()}`)
       await this.streamsService.delete({ where: { videoId: stream.videoId } })
     } else {
       // コメント参照
-      console.info(`end stream ${stream.videoId.get()}`)
+      this.logger.log(`end stream ${stream.videoId.get()}`)
 
       await this.promiseService.allSettled([
         this.streamsService.updateStreamTimes({

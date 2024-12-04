@@ -31,7 +31,7 @@ export class EndLivesScenario {
       .map(async video => {
         const { liveStreamingDetails } = video
         if (!liveStreamingDetails) return
-        const { scheduledStartTime, actualStartTime, actualEndTime } =
+        const { actualStartTime, actualEndTime } =
           liveStreamingDetails.streamTimes
 
         console.log('end the stream:', video.snippet.title)
@@ -46,7 +46,6 @@ export class EndLivesScenario {
           this.streamsService.updateStreamTimes({
             where: { videoId: video.id },
             data: new StreamTimes({
-              scheduledStartTime,
               actualStartTime,
               actualEndTime
             })

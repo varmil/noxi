@@ -41,7 +41,7 @@ export class StreamTranslator {
       duration: row.duration ? new Duration(row.duration) : undefined,
 
       streamTimes: new StreamTimes({
-        scheduledStartTime: row.scheduledStartTime,
+        scheduledStartTime: row.scheduledStartTime ?? undefined,
         actualStartTime: row.actualStartTime
           ? new ActualStartTime(row.actualStartTime)
           : undefined,

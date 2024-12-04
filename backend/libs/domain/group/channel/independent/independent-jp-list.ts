@@ -171,5 +171,27 @@ export const JPList: GroupChannel[] = [
     id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
     title: 'Rica Ch. / 花宮莉歌',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCWjVy9lv8oRAOaKlfoCXQJQ'),
+    title: '金美館通りの藤村さん',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCDhOdoqPxv96djR3tSq9NoA'),
+    title: 'ショコラ大佐の秘密基地',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCQYy35PowPpc6ImRH1TQgcw'),
+    title: 'Nora Ch. 従井ノラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCwoOrWNuDq3s98cWw-xz3Dg'),
+    title: 'リモーネ先生',
+    ...DefaultProps,
+    gender: Gender.Male
   }
 ]

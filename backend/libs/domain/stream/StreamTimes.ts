@@ -7,14 +7,14 @@ import {
 import { ActualEndTime, ActualStartTime } from '@domain/youtube'
 
 export class StreamTimes {
-  public readonly scheduledStartTime: Date
+  public readonly scheduledStartTime?: Date
   @Transform(({ value }: { value?: ActualStartTime }) => value?.get())
   public readonly actualStartTime?: ActualStartTime
   @Transform(({ value }: { value?: ActualEndTime }) => value?.get())
   public readonly actualEndTime?: ActualEndTime
 
   constructor(args: {
-    scheduledStartTime: Date
+    scheduledStartTime?: Date
     actualStartTime?: ActualStartTime
     actualEndTime?: ActualEndTime
   }) {
