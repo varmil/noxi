@@ -92,6 +92,7 @@ model YoutubeStreamChatCount {
   createdAt         DateTime @default(now()) @db.Timestamptz(3)
 
   @@index([videoId, createdAt])
+  @@index([videoId, all, createdAt])
 }
 
 model YoutubeStreamChatBundleQueue {
