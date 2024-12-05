@@ -91,14 +91,14 @@ async function getGroupedStreams({
   let groupedStreams: Record<string, StreamsSchema> = {}
 
   streams.forEach(stream => {
+    const scheduledStartTime = stream.streamTimes.scheduledStartTime
+    if (!scheduledStartTime) return
+
     // 日付 (例: 9/1, 9/15)
-    const dateKey = format.dateTime(
-      new Date(stream.streamTimes.scheduledStartTime),
-      {
-        month: 'numeric',
-        day: 'numeric'
-      }
-    )
+    const dateKey = format.dateTime(new Date(scheduledStartTime), {
+      month: 'numeric',
+      day: 'numeric'
+    })
 
     if (!groupedStreams[dateKey]) {
       groupedStreams[dateKey] = []

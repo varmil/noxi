@@ -1,12 +1,14 @@
 import { useFormatter, useTranslations } from 'next-intl'
 
 type Props = {
-  date: string | Date
+  date?: string | Date
 }
 
 export default function ScheduledFor({ date }: Props) {
   const format = useFormatter()
   const t = useTranslations('Components.styles')
+
+  if (!date) return null
 
   if (typeof date === 'string') {
     date = new Date(date)
