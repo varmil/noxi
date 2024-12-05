@@ -27,7 +27,7 @@ const schema = z.object({
   liveStreamingDetails: z
     .object({
       streamTimes: z.object({
-        scheduledStartTime: z.string().datetime(),
+        scheduledStartTime: z.string().datetime().optional(),
         actualStartTime: z.string().datetime().optional(),
         actualEndTime: z.string().datetime().optional()
       }),

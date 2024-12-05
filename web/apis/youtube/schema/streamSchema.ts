@@ -23,7 +23,7 @@ export const schema = z.object({
   duration: z.string().duration(),
 
   streamTimes: z.object({
-    scheduledStartTime: z.string().datetime(),
+    scheduledStartTime: z.string().datetime().optional(),
     actualStartTime: z.string().datetime().optional(),
     actualEndTime: z.string().datetime().optional()
   }),

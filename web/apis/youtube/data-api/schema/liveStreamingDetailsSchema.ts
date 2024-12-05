@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const liveStreamingDetailsSchema = z.object({
-  scheduledStartTime: z.string().datetime(),
+  scheduledStartTime: z.string().datetime().optional(),
   actualStartTime: z.string().datetime().optional(),
   actualEndTime: z.string().datetime().optional(),
   concurrentViewers: z.coerce.number().optional()
