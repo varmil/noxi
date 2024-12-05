@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormatter, useTranslations } from 'next-intl'
-import { Area, AreaChart, CartesianGrid } from 'recharts'
+import { Area, AreaChart, Bar, BarChart, CartesianGrid } from 'recharts'
 import {
   Card,
   CardContent,
@@ -43,7 +43,13 @@ export default function ChatCounts({
   stream: StreamSchema
 }) {
   const t = useTranslations('Features.streamStats')
-  const data = useGroupByMinute(chatCounts)
+  // const data = useGroupByMinute(chatCounts)
+  const format = useFormatter()
+  const data = chatCounts.map(chat => ({
+    time: format.dateTime(chat.createdAt, FormatForTick),
+    notMember: chat.all - chat.member,
+    member: chat.member
+  }))
   const dateRange = useDateRange(
     chatCounts[0]?.createdAt,
     chatCounts[chatCounts.length - 1]?.createdAt
@@ -59,7 +65,7 @@ export default function ChatCounts({
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
-          <AreaChart
+          <BarChart
             accessibilityLayer
             data={data}
             margin={{ top: 10, left: 0, right: 0 }}
@@ -100,23 +106,23 @@ export default function ChatCounts({
                 />
               }
             />
-            <Area
+            <Bar
               dataKey="member"
               type="natural"
               fill="var(--color-member)"
-              fillOpacity={0.7}
+              fillOpacity={0.6}
               stroke="var(--color-member)"
               stackId="a"
             />
-            <Area
+            <Bar
               dataKey="notMember"
               type="natural"
               fill="var(--color-notMember)"
-              fillOpacity={0.2}
+              fillOpacity={0.4}
               stroke="var(--color-notMember)"
               stackId="a"
             />
-          </AreaChart>
+          </BarChart>
         </ChartContainer>
       </CardContent>
       <div className="sr-only">
@@ -127,66 +133,4 @@ export default function ChatCounts({
       </div>
     </Card>
   )
-}
-
-/* 5分単位でレコードをグループ化 */
-const useGroupByMinute = (
-  data: ChatCountsSchema
-): {
-  member: number
-  notMember: number
-  time: string
-}[] => {
-  const format = useFormatter()
-  const interval = useXAxisInterval(data.length)
-  const reduced = data.reduce((acc, chat) => {
-    const date = new Date(chat.createdAt)
-    const minutes = date.getMinutes()
-    const roundedMinutes = Math.floor(minutes / interval) * interval // {interval}分単位に丸める
-
-    // 分を5分単位にセットし、秒とミリ秒を0にリセット
-    date.setMinutes(roundedMinutes)
-    date.setSeconds(0)
-    date.setMilliseconds(0)
-
-    // グループ化キーを 'HH:mm' 形式に変換
-    const dateKey = format.dateTime(date, FormatForTick)
-
-    if (!acc[dateKey]) {
-      acc[dateKey] = {
-        notMember: 0,
-        member: 0,
-        time: dateKey
-      }
-    }
-
-    // チャットデータを集計
-    acc[dateKey].member += chat.member
-    acc[dateKey].notMember += chat.all - chat.member
-
-    return acc
-  }, {} as Record<string, any>)
-
-  // reduced の結果を配列として返す
-  return Object.values(reduced)
-}
-
-/**
- *
- * @param length the length of ChatCountsSchema
- * @returns the minute(s) interval
- */
-const useXAxisInterval = (length: number) => {
-  switch (true) {
-    case length < 120:
-      return 1
-    case length < 180:
-      return 2
-    case length < 240:
-      return 3
-    case length < 300:
-      return 4
-    default:
-      return 5
-  }
 }

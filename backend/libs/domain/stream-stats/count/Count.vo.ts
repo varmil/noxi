@@ -7,7 +7,10 @@ export class Count extends NumberValueObject {
   @IsNumber()
   protected readonly val: number
 
-  constructor(val: number) {
+  constructor(val: number | bigint) {
+    if (typeof val === 'bigint') {
+      val = Number(val)
+    }
     super(val)
     this.val = val
   }

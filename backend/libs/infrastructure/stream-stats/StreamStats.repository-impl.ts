@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import {
+  Prisma,
+  type YoutubeStreamChatCount as PrismaChatCount
+} from '@prisma/client'
+import {
   AvgCount,
   ChatCounts,
   Count,
@@ -49,10 +53,53 @@ export class StreamStatsRepositoryImpl implements StreamStatsRepository {
   async findAllChatCounts({
     where: { videoId }
   }: Parameters<StreamStatsRepository['findAllChatCounts']>[0]) {
-    const rows = await this.prismaInfraService.youtubeStreamChatCount.findMany({
-      where: { videoId: videoId.get() },
-      orderBy: { createdAt: 'asc' }
-    })
+    const WHERE = Prisma.sql`WHERE 
+      "videoId" = ${videoId.get()} AND
+      "all" > 0
+    `
+    const GROUP_BY = Prisma.sql`GROUP BY 
+      DATE_TRUNC('minute', "createdAt")
+    `
+    let skipInterval: Prisma.Sql = Prisma.empty
+
+    // max 50 でinterval select
+    {
+      type RawCount = [{ count: bigint }]
+      const [{ count }] = await this.prismaInfraService.$queryRaw<RawCount>`
+        SELECT COUNT(*) as count
+        FROM (
+          SELECT sum("all") as all 
+          FROM "YoutubeStreamChatCount"
+          ${WHERE}
+          ${GROUP_BY}
+        )
+      `
+      const quotient = Math.floor(Number(count) / 50)
+      if (quotient > 1) {
+        console.log(`c=${count}, q=${quotient}, videoId=${videoId.get()}`)
+        skipInterval = Prisma.sql`WHERE "id" % ${quotient} = 0`
+      }
+    }
+
+    const rows = await this.prismaInfraService.$queryRaw<PrismaChatCount[]>`
+      SELECT t.*
+      FROM (
+        SELECT row_number() OVER(ORDER BY "createdAt" ASC) AS "id", t2.*
+        FROM (
+          SELECT 
+            max("videoId") as "videoId", -- 適当
+            sum("all") as all, 
+            sum("member") as member,
+            max("latestPublishedAt") as "latestPublishedAt", -- 適当
+            DATE_TRUNC('minute', max("createdAt")) as "createdAt"
+          FROM "YoutubeStreamChatCount"
+          ${WHERE}
+          ${GROUP_BY}
+          ORDER BY "createdAt" ASC
+        ) t2
+      ) t
+      ${skipInterval}
+    `
     return new ChatCounts(
       rows.map(row => new ChatCountTranslator(row).translate())
     )
