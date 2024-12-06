@@ -6,9 +6,9 @@ import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import CountryFlag from 'components/styles/CountryFlag'
 import { GroupString } from 'config/constants/Site'
 import LinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
@@ -120,12 +120,7 @@ export default async function ChannelsRankingTable({
               <TableCellOfGroup groupId={channel.peakX.group} />
 
               {/* 3xl-: Country */}
-              <TableCell
-                width={50}
-                className="hidden @3xl:table-cell justify-items-center"
-              >
-                <CountryFlag countryCode={channel.peakX?.country} size={24} />
-              </TableCell>
+              <TableCellOfCountry countryCode={channel.peakX.country} />
             </TableRow>
           )
         })}
