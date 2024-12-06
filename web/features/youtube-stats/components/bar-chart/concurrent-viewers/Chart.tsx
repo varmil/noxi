@@ -68,7 +68,7 @@ export default function Chart({
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
+        <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
