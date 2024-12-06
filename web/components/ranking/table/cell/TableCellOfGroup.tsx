@@ -10,7 +10,7 @@ export default function TableCellOfGroup({
 }) {
   return (
     <Cell className="hidden @3xl:table-cell" width={100}>
-      <GroupImageOrIcon className="w-8 h-8" groupId={groupId} />
+      <GroupImageOrIcon className="w-8 h-8 m-auto" groupId={groupId} />
     </Cell>
   )
 }
@@ -21,10 +21,7 @@ function Cell({
   ...props
 }: ComponentProps<typeof TableCell>) {
   return (
-    <TableCell
-      {...props}
-      className={`p-0 sm:p-2 justify-items-center ${className ?? ''}`}
-    >
+    <TableCell {...props} className={`p-0 sm:p-2 ${className ?? ''}`}>
       {children}
     </TableCell>
   )

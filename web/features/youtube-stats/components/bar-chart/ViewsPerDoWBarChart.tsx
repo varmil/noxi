@@ -41,7 +41,7 @@ export default function ViewsPerDoWBarChart({
         <CardTitle>Avarage Views by uploaded day</CardTitle>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[200px] w-full">
+        <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
             data={data}

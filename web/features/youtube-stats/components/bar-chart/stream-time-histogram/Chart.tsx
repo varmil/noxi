@@ -33,7 +33,7 @@ export default function Chart({
         <CardDescription>{t('descStreamTimeHistogram')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="max-h-[250px] w-full">
+        <ChartContainer config={chartConfig}>
           <BarChart data={histogram}>
             <XAxis
               dataKey="text"
