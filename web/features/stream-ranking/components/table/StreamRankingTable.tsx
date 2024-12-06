@@ -7,9 +7,9 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import CountryFlag from 'components/styles/CountryFlag'
 import { GroupString } from 'config/constants/Site'
 import TableCellOfStreamForSmallContainer from 'features/stream-ranking/components/table/cell/TableCellOfStreamForSmallContainer'
 import TableCellOfStreamThumbnail from 'features/stream-ranking/components/table/cell/TableCellOfStreamThumbnail'
@@ -120,12 +120,7 @@ export default async function StreamRankingTable({
               <TableCellOfGroup groupId={stream.group} />
 
               {/* 3xl-: Country */}
-              <TableCell
-                width={50}
-                className="hidden @3xl:table-cell justify-items-center"
-              >
-                <CountryFlag countryCode={channel.peakX?.country} size={24} />
-              </TableCell>
+              <TableCellOfCountry countryCode={channel.peakX.country} />
             </TableRow>
           )
         })}

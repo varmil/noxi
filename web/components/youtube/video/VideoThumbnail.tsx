@@ -20,7 +20,8 @@ export default function VideoThumbnail({
       alt={`Video Thumbnail: ${title}`}
       width={16}
       height={9}
-      className={`aspect-video h-full w-full object-cover transition-transform duration-100 group-hover:scale-105 ${
+      // NOTE: safariではh-fullがあるとレイアウト崩れるため、h-fullを削除
+      className={`aspect-video w-full object-cover transition-transform duration-100 group-hover:scale-105 ${
         className || ''
       }`}
     />
