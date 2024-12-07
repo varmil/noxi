@@ -2,12 +2,13 @@ import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Noto_Sans_JP } from 'next/font/google'
+import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/toaster'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
-import { locales } from 'config/i18n/locale'
+import { routing } from 'config/i18n/routing'
 
 type Props = {
   children: ReactNode
@@ -20,19 +21,17 @@ const notoSansJP = Noto_Sans_JP({
 })
 
 export function generateStaticParams() {
-  return locales.map(locale => ({ locale }))
+  return routing.locales.map(locale => ({ locale }))
 }
 
 export default async function LocaleLayout(props: Props) {
-  const params = await props.params;
+  const { locale } = await props.params
+  const { children } = props
 
-  const {
-    locale
-  } = params;
-
-  const {
-    children
-  } = props;
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound()
+  }
 
   // Enable static rendering
   setRequestLocale(locale)

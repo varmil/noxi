@@ -1,6 +1,6 @@
-// @ts-check
-const createNextIntlPlugin = require('next-intl/plugin')
-const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
+import { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
+const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 
 /**
  * exclude paths which may include query params
@@ -21,8 +21,7 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/i18n.ts')
 //   ]
 // }))
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig: NextConfig = {
   async redirects() {
     return [
       // 2024/11/30 Super Chat ランキングを移動
@@ -54,4 +53,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withNextIntl(nextConfig)
+export default withNextIntl(nextConfig)
