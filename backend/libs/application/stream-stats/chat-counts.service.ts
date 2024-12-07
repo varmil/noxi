@@ -43,6 +43,7 @@ export class ChatCountsService {
    * 配信時間が長いと大量にレコードがあるので分割しながら処理する
    */
   async bundle(args: { where: { videoId: VideoId } }): Promise<void> {
+    const videoId = args.where.videoId
     const oldest = await this.chatCountRepository.findOne({
       where: args.where,
       orderBy: [{ createdAt: 'asc' }]
@@ -51,7 +52,6 @@ export class ChatCountsService {
       where: args.where,
       orderBy: [{ createdAt: 'desc' }]
     })
-
     if (!oldest || !latest) return
 
     // 開始日時と終了日時を dayjs に変換し、秒を 0 に固定
@@ -62,13 +62,13 @@ export class ChatCountsService {
       const next = current.add(1, 'hour')
 
       this.logger.log(
-        `Querying range: ${current.toISOString()} - ${next.toISOString()}`
+        `${videoId.get()} Querying range: ${current.toISOString()} - ${next.toISOString()}`
       )
 
       const rows = (
         await this.chatCountRepository.findAllRaw({
           where: {
-            videoId: args.where.videoId,
+            videoId,
             createdAt: {
               gte: current.toDate(),
               lt: next.toDate()
@@ -81,7 +81,7 @@ export class ChatCountsService {
       // バンドルデータを保存
       await this.chatCountRepository.bundle({
         where: {
-          videoId: args.where.videoId,
+          videoId,
           createdAt: {
             gte: current.toDate(),
             lt: next.toDate()
@@ -91,7 +91,7 @@ export class ChatCountsService {
       })
 
       this.logger.log(
-        `Rows from ${current.format('HH:mm')} to ${next.format('HH:mm')}:`,
+        `${videoId.get()} Rows from ${current.format('HH:mm')} to ${next.format('HH:mm')}:`,
         rows
       )
 
@@ -99,6 +99,6 @@ export class ChatCountsService {
       current = next
     }
 
-    this.logger.log(`${args.where.videoId.get()} All queries completed.`)
+    this.logger.log(`${videoId.get()} All queries completed.`)
   }
 }
