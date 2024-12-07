@@ -1,12 +1,8 @@
-import { createLocalizedPathnamesNavigation } from 'next-intl/navigation'
-import { locales, pathnames, localePrefix } from 'config/i18n/locale'
+import { createNavigation } from 'next-intl/navigation'
+import { routing } from 'config/i18n/routing'
 
 export const { Link, getPathname, redirect, usePathname, useRouter } =
-  createLocalizedPathnamesNavigation({
-    locales,
-    pathnames,
-    localePrefix
-  })
+  createNavigation(routing)
 
 /**
  * https://stackoverflow.com/questions/64158705/ignore-certain-console-errors-warnings-in-react

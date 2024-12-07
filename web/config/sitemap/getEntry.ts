@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { defaultLocale, locales } from 'config/i18n/locale'
+import { routing } from 'config/i18n/routing'
 
 /**
  * @note Next15からは MetadataRoute.Sitemap が使える
@@ -23,6 +23,7 @@ export function getEntry({
   lastModified?: Date
   videos?: Video[]
 }): MetadataRoute.Sitemap[0] & { videos?: Video[] } {
+  const { defaultLocale, locales } = routing
   return {
     url: getUrl(pathname, defaultLocale),
     lastModified,
