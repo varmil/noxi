@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { StreamStatuses, StreamStatus, Stream } from '@domain/stream'
 import { ChatCount } from '@domain/stream-stats'
@@ -13,8 +13,8 @@ export class MainService {
 
   constructor(
     private readonly youtubeiLiveChatInfraService: YoutubeiLiveChatInfraService,
-    private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService
+    private readonly chatCountsService: ChatCountsService,
+    private readonly streamsService: StreamsService
   ) {}
 
   /**
@@ -47,7 +47,7 @@ export class MainService {
     const videoId = stream.videoId
 
     // 前回の結果を取得
-    const latestChatCount = await this.streamStatsService.findLatestChatCount({
+    const latestChatCount = await this.chatCountsService.findLatest({
       where: { videoId }
     })
 

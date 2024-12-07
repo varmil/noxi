@@ -5,6 +5,7 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
+import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { GetChatCountsDto } from './dto/GetChatCounts.dto'
 import { GetViewerCounts } from './dto/GetViewerCounts.dto'
@@ -12,11 +13,14 @@ import { GetViewerCounts } from './dto/GetViewerCounts.dto'
 @Controller('youtube/stream-stats')
 @UseInterceptors(ClassSerializerInterceptor)
 export class StreamStatsController {
-  constructor(private readonly streamStatsService: StreamStatsService) {}
+  constructor(
+    private readonly chatCountsService: ChatCountsService,
+    private readonly streamStatsService: StreamStatsService
+  ) {}
 
   @Get('chat-counts')
   async GetChatCounts(@Query() dto: GetChatCountsDto) {
-    return await this.streamStatsService.findAllChatCounts({
+    return await this.chatCountsService.findAll({
       where: {
         videoId: dto.toVideoId()
       }

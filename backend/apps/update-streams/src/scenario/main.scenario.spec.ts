@@ -4,7 +4,7 @@ import { MainScenario } from 'apps/update-streams/src/scenario/main.scenario'
 import { StreamsService } from '@app/streams/streams.service'
 import { Streams } from '@domain/stream'
 
-describe('MainScenario', () => {
+describe('Update Streams > MainScenario', () => {
   let scenario: MainScenario
 
   beforeEach(async () => {

@@ -2,14 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/bundle-chats/src/main.module'
 import { MainScenario } from 'apps/bundle-chats/src/scenario/main.scenario'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
-import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { ChatBundleQueue } from '@domain/chat-bundle-queue/ChatBundleQueue.entity'
 import { ChatBundleQueues } from '@domain/chat-bundle-queue/ChatBundleQueues.collection'
 import { QueueStatus } from '@domain/queue'
 import { ChatCountsFixture } from '@domain/stream-stats'
 import { VideoId } from '@domain/youtube'
 
-describe('MainScenario', () => {
+describe('Bundle Chats > MainScenario', () => {
   let scenario: MainScenario
 
   beforeEach(async () => {
@@ -31,7 +31,7 @@ describe('MainScenario', () => {
         .mockResolvedValueOnce(new ChatBundleQueues([queue]))
 
       jest
-        .spyOn(StreamStatsService.prototype, 'findAllChatCounts')
+        .spyOn(ChatCountsService.prototype, 'findAll')
         .mockResolvedValueOnce(ChatCountsFixture)
 
       const result = await scenario.execute()

@@ -68,15 +68,7 @@ export default function ViewerCounts({
             })}
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  labelFormatter={value =>
-                    format.dateTime(new Date(value), FormatForTick)
-                  }
-                />
-              }
-            />
+            <ChartTooltip content={<ChartTooltipContent />} />
             {StreamStatsGradient({
               id: 'fillCounts',
               color: 'var(--color-count)'
