@@ -10,7 +10,7 @@ import Watching from 'components/styles/number/Watching'
 import Views from 'components/youtube/statistics/Views'
 import { Link } from 'lib/navigation'
 import { getGroup } from 'lib/server-only-context/cache'
-import { useRelatedVideos } from '../../../_hooks/useRelatedVideos'
+import { getRelatedVideos } from '../../../utils/getRelatedVideos'
 
 export default async function RelatedVideos({
   channelId,
@@ -39,7 +39,7 @@ export default async function RelatedVideos({
       getStatistics({ videoIds: ended.map(stream => stream.videoId) })
     ])
 
-  const relatedVideos = useRelatedVideos({
+  const relatedVideos = getRelatedVideos({
     liveStreams: live,
     endedStreams: ended,
     channels,

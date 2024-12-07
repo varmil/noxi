@@ -1,3 +1,4 @@
+import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -13,25 +14,23 @@ import { getOgUrl } from 'utils/og-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
-  params: { locale: string }
-} & YoutubeChannelsRankingSearchParams
-
-export type YoutubeChannelsRankingSearchParams = {
-  searchParams: {
-    period: ChannelsRankingPeriod
-    dimension: ChannelsRankingDimension
-    group?: ChannelsRankingGroup
-    country?: ChannelsRankingCountry
-
-    /** For OG */
-    date?: string
-  }
+  params: Promise<{ locale: string }>
+  searchParams: Promise<YoutubeChannelsRankingSearchParams>
 }
 
-export async function generateMetadata({
-  params: { locale },
-  searchParams: { date, ...searchParams }
-}: Props): Promise<Metadata> {
+export type YoutubeChannelsRankingSearchParams = {
+  period: ChannelsRankingPeriod
+  dimension: ChannelsRankingDimension
+  group?: ChannelsRankingGroup
+  country?: ChannelsRankingCountry
+
+  /** For OG */
+  date?: string
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale } = await props.params
+  const { dimension, period, date } = await props.searchParams
   const global = await getTranslations({ locale, namespace: 'Global' })
   const page = await getTranslations({
     locale,
@@ -43,8 +42,8 @@ export async function generateMetadata({
   })
 
   return {
-    title: `${page('metadata.title')} ${feat(searchParams.dimension, {
-      period: global(`ranking.period.${searchParams.period}`)
+    title: `${page('metadata.title')} ${feat(dimension, {
+      period: global(`ranking.period.${period}`)
     })} - ${global('title')}`,
 
     description: `${page('metadata.description')}`,
@@ -63,10 +62,10 @@ export async function generateMetadata({
   }
 }
 
-export default function YoutubeChannelsRankingPage({
-  params: { locale },
-  searchParams
-}: Props) {
+export default function YoutubeChannelsRankingPage(props: Props) {
+  const { locale } = use(props.params)
+  const searchParams = use(props.searchParams)
+
   // Enable static rendering
   setRequestLocale(locale)
   const breadcrumb = useTranslations('Breadcrumb')

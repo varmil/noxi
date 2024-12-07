@@ -1,3 +1,4 @@
+import type { JSX } from 'react'
 import BigNumber from 'bignumber.js'
 import { useTranslations } from 'next-intl'
 import { Progress } from '@/components/ui/progress'

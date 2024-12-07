@@ -11,7 +11,7 @@ import { locales } from 'config/i18n/locale'
 
 type Props = {
   children: ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
 const notoSansJP = Noto_Sans_JP({
@@ -23,10 +23,17 @@ export function generateStaticParams() {
   return locales.map(locale => ({ locale }))
 }
 
-export default async function LocaleLayout({
-  children,
-  params: { locale }
-}: Props) {
+export default async function LocaleLayout(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   // Enable static rendering
   setRequestLocale(locale)
 

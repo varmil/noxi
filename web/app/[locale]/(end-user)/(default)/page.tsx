@@ -1,3 +1,4 @@
+import { use } from 'react'
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
@@ -6,14 +7,13 @@ import { getOgUrl } from 'utils/og-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
-  params: { locale: string }
-  searchParams: { date?: string }
+  params: Promise<{ locale: string }>
+  searchParams: Promise<{ date?: string }>
 }
 
-export async function generateMetadata({
-  params: { locale },
-  searchParams: { date }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale } = await props.params
+  const { date } = await props.searchParams
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Page.index' })
 
@@ -34,7 +34,9 @@ export async function generateMetadata({
   }
 }
 
-export default function IndexPage({ params: { locale } }: Props) {
+export default function IndexPage(props: Props) {
+  const { locale } = use(props.params)
+
   // Enable static rendering
   setRequestLocale(locale)
 

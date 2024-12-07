@@ -1,4 +1,4 @@
-import { headers } from 'next/headers'
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 import { notFound } from 'next/navigation'
 import { getRequestConfig } from 'next-intl/server'
 import { locales } from 'config/i18n/locale'
@@ -20,5 +20,5 @@ function getTimezone() {
     return 'Asia/Tokyo'
   }
 
-  return headers().get('x-vercel-ip-timezone') ?? undefined
+  return (headers() as unknown as UnsafeUnwrappedHeaders).get('x-vercel-ip-timezone') ?? undefined;
 }

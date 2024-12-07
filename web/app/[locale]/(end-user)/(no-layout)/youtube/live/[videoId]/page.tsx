@@ -11,13 +11,12 @@ import { setGroup } from 'lib/server-only-context/cache'
 import LayoutFactory from './_components/layouts/LayoutFactory'
 
 type Props = {
-  params: { locale: string; videoId: string }
-  searchParams?: { theater?: '1' }
+  params: Promise<{ locale: string; videoId: string }>
+  searchParams?: Promise<{ theater?: '1' }>
 }
 
-export async function generateMetadata({
-  params: { locale, videoId }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale, videoId } = await props.params
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
@@ -42,12 +41,12 @@ export async function generateMetadata({
   }
 }
 
-export default async function YoutubeLiveIdPage({
-  params: { locale, videoId }
-}: Props) {
+export default async function YoutubeLiveIdPage(props: Props) {
+  const { locale, videoId } = await props.params
+  const { group } = await getStream(videoId)
+
   // Enable static rendering
   setRequestLocale(locale)
-  const { group } = await getStream(videoId)
   setGroup(group)
 
   return (
@@ -55,12 +54,12 @@ export default async function YoutubeLiveIdPage({
       <LayoutFactory
         DefaultLayout={
           <DefaultLayout>
-            <DefaultModePage params={{ locale, videoId }} />
+            <DefaultModePage videoId={videoId} />
           </DefaultLayout>
         }
         TheaterLayout={
           <TheaterLayout>
-            <TheaterModePage params={{ locale, videoId }} />
+            <TheaterModePage videoId={videoId} />
           </TheaterLayout>
         }
       />
@@ -68,10 +67,10 @@ export default async function YoutubeLiveIdPage({
   )
 }
 
-async function DefaultModePage({ params: { videoId } }: Props) {
+async function DefaultModePage({ videoId }: { videoId: string }) {
   return <DefaultModeTemplate videoId={videoId} />
 }
 
-async function TheaterModePage({ params: { videoId } }: Props) {
+async function TheaterModePage({ videoId }: { videoId: string }) {
   return <TheaterModeTemplate videoId={videoId} />
 }

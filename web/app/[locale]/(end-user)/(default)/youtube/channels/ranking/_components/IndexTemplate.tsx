@@ -4,7 +4,9 @@ import { PageSMPX } from 'components/page'
 import ChannelsRankingFilterGallery from 'features/channels-ranking/components/filter/ChannelsRankingFilterGallery'
 import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 
-type Props = {} & YoutubeChannelsRankingSearchParams
+type Props = {
+  searchParams: YoutubeChannelsRankingSearchParams
+}
 
 export default function IndexTemplate({
   searchParams

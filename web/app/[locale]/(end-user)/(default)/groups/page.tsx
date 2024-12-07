@@ -1,3 +1,4 @@
+import { use } from "react";
 import { group } from 'console'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
@@ -6,12 +7,16 @@ import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 
 type Props = {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }
 
-export async function generateMetadata({
-  params: { locale }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Page.groups.metadata' })
   return {
@@ -20,7 +25,13 @@ export async function generateMetadata({
   }
 }
 
-export default function GroupsPage({ params: { locale } }: Props) {
+export default function GroupsPage(props: Props) {
+  const params = use(props.params);
+
+  const {
+    locale
+  } = params;
+
   // Enable static rendering
   setRequestLocale(locale)
   const t = useTranslations('Page.groups.metadata')

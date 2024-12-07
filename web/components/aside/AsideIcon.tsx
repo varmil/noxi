@@ -1,4 +1,4 @@
-import React, { PropsWithoutRef } from 'react'
+import React, { PropsWithoutRef, type JSX } from 'react';
 import {
   Tooltip,
   TooltipTrigger,
