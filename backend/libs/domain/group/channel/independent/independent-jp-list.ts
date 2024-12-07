@@ -213,7 +213,7 @@ export const JPList: GroupChannel[] = [
   },
   {
     id: new ChannelId('UCKa-bMYjrXEhXpaprT3KaFg'),
-    title: 'いしばっちゃんねる',
+    title: '沢城懐',
     ...DefaultProps
   },
   {
@@ -231,6 +231,11 @@ export const JPList: GroupChannel[] = [
     title: '四宮 伊織 / SHINOMIYA Iori',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCi1pVIrFVtrRTnyaUtKcgOQ'),
+    title: 'Reimu Ch. 甘兎れいむ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCn6Ufc6C9ZdGlCYTXOVFGLA'),
