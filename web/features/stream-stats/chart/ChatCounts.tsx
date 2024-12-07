@@ -110,7 +110,7 @@ export default function ChatCounts({
               dataKey="member"
               type="natural"
               fill="var(--color-member)"
-              fillOpacity={0.6}
+              fillOpacity={0.9}
               stroke="var(--color-member)"
               stackId="a"
             />
@@ -118,7 +118,7 @@ export default function ChatCounts({
               dataKey="notMember"
               type="natural"
               fill="var(--color-notMember)"
-              fillOpacity={0.4}
+              fillOpacity={0.6}
               stroke="var(--color-notMember)"
               stackId="a"
             />
