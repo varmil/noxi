@@ -4,11 +4,9 @@ import { VideoId } from '@domain/youtube/video'
 export interface ChatCountRepository {
   findAll: (args: { where: { videoId: VideoId } }) => Promise<ChatCounts>
 
-  /**
-   * Find 最も新しいチャット数
-   */
-  findLatest: (args: {
+  findOne: (args: {
     where: { videoId: VideoId }
+    orderBy?: Partial<Record<'createdAt', 'asc' | 'desc'>>[]
   }) => Promise<ChatCount | null>
 
   save: (args: {

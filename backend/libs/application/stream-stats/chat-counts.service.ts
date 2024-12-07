@@ -19,10 +19,17 @@ export class ChatCountsService {
     return await this.chatCountRepository.findAll(args)
   }
 
+  async findOne(args: Parameters<ChatCountRepository['findOne']>[0]) {
+    return await this.chatCountRepository.findOne(args)
+  }
+
   async findLatest(
-    args: Parameters<ChatCountRepository['findLatest']>[0]
+    args: Parameters<ChatCountRepository['findOne']>[0]
   ): Promise<ChatCount | null> {
-    return await this.chatCountRepository.findLatest(args)
+    return await this.chatCountRepository.findOne({
+      where: args.where,
+      orderBy: [{ createdAt: 'desc' }]
+    })
   }
 
   async save(args: Parameters<ChatCountRepository['save']>[0]): Promise<void> {

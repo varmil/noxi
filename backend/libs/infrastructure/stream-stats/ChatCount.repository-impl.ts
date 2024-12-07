@@ -66,12 +66,13 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
     )
   }
 
-  async findLatest({
-    where: { videoId }
-  }: Parameters<ChatCountRepository['findLatest']>[0]) {
+  findOne: ChatCountRepository['findOne'] = async ({
+    where: { videoId },
+    orderBy
+  }) => {
     const row = await this.prismaInfraService.youtubeStreamChatCount.findFirst({
       where: { videoId: videoId.get() },
-      orderBy: { createdAt: 'desc' }
+      orderBy
     })
     if (!row) return null
     return new ChatCountTranslator(row).translate()
