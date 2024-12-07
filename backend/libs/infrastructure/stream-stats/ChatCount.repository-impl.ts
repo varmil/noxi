@@ -3,7 +3,6 @@ import {
   Prisma,
   type YoutubeStreamChatCount as PrismaChatCount
 } from '@prisma/client'
-import { VideoId } from '@domain'
 import { ChatCountRepository, ChatCounts } from '@domain/stream-stats/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { ChatCountTranslator } from '@infra/stream-stats/ChatCountTranslator'
