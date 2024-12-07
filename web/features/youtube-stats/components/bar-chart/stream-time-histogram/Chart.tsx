@@ -24,7 +24,8 @@ export default function Chart({
   chartConfig
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
-  const histogram = useHistogram(streams)
+  const format = useFormatter()
+  const histogram = useHistogram(streams, format)
 
   return (
     <Card className="w-full max-w-3xl mx-auto">
@@ -60,8 +61,10 @@ export default function Chart({
   )
 }
 
-const useHistogram = (streams: StreamsSchema) => {
-  const format = useFormatter()
+const useHistogram = (
+  streams: StreamsSchema,
+  format: ReturnType<typeof useFormatter>
+) => {
   const hourCounts: { [key: string]: { text: string; count: number } } = {}
 
   // 24時間すべてについてプロットしたいので。
