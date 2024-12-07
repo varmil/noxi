@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -10,7 +10,7 @@ import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{ locale: string; group: GroupString }>
-  searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
+  searchParams?: Promise<ConstructorParameters<typeof URLSearchParams>[0]>
 }
 
 /**
@@ -21,13 +21,7 @@ export function generateStaticParams(): { group: string }[] {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
-
-  const {
-    locale,
-    group
-  } = params;
-
+  const { locale, group } = await props.params
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
@@ -42,12 +36,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default function HololivePage(props: Props) {
-  const params = use(props.params);
-
-  const {
-    locale,
-    group
-  } = params;
+  const { locale, group } = use(props.params)
 
   // Enable static rendering
   setRequestLocale(locale)

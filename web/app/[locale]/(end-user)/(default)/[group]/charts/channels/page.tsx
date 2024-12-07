@@ -10,7 +10,7 @@ import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   params: Promise<{ locale: string; group: GroupString }>
-  searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
+  searchParams?: Promise<ConstructorParameters<typeof URLSearchParams>[0]>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
