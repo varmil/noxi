@@ -1,11 +1,12 @@
 export const GroupStrings = [
   'hololive',
   'nijisanji',
+  'vspo',
+  'mixstgirls',
   'hololive-english',
   'hololive-indonesia',
   'nijisanji-en',
   'idol-corp',
-  'vspo',
   'independent',
   'independent-irl'
 ] as const
