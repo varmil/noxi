@@ -47,7 +47,7 @@ export class MainService {
     const videoId = stream.videoId
 
     // 前回の結果を取得
-    const latestChatCount = await this.chatCountsService.findLatestChatCount({
+    const latestChatCount = await this.chatCountsService.findLatest({
       where: { videoId }
     })
 

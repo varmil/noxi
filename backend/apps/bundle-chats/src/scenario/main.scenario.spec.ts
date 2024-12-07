@@ -31,7 +31,7 @@ describe('Bundle Chats > MainScenario', () => {
         .mockResolvedValueOnce(new ChatBundleQueues([queue]))
 
       jest
-        .spyOn(ChatCountsService.prototype, 'findAllChatCounts')
+        .spyOn(ChatCountsService.prototype, 'findAll')
         .mockResolvedValueOnce(ChatCountsFixture)
 
       const result = await scenario.execute()

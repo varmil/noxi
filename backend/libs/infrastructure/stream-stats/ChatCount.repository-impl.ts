@@ -11,9 +11,9 @@ import { ChatCountTranslator } from '@infra/stream-stats/ChatCountTranslator'
 export class ChatCountRepositoryImpl implements ChatCountRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  async findAllChatCounts({
+  async findAll({
     where: { videoId }
-  }: Parameters<ChatCountRepository['findAllChatCounts']>[0]) {
+  }: Parameters<ChatCountRepository['findAll']>[0]) {
     const WHERE = Prisma.sql`WHERE 
       "videoId" = ${videoId.get()} AND
       "all" > 0
@@ -66,9 +66,9 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
     )
   }
 
-  async findLatestChatCount({
+  async findLatest({
     where: { videoId }
-  }: Parameters<ChatCountRepository['findLatestChatCount']>[0]) {
+  }: Parameters<ChatCountRepository['findLatest']>[0]) {
     const row = await this.prismaInfraService.youtubeStreamChatCount.findFirst({
       where: { videoId: videoId.get() },
       orderBy: { createdAt: 'desc' }
@@ -77,7 +77,7 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
     return new ChatCountTranslator(row).translate()
   }
 
-  async saveChatCount({
+  async save({
     data: {
       videoId,
       all,
@@ -86,7 +86,7 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
       latestPublishedAt,
       createdAt
     }
-  }: Parameters<ChatCountRepository['saveChatCount']>[0]) {
+  }: Parameters<ChatCountRepository['save']>[0]) {
     await this.prismaInfraService.youtubeStreamChatCount.create({
       data: {
         videoId: videoId.get(),
@@ -100,10 +100,10 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
     })
   }
 
-  async bundleChatCounts({
+  async bundle({
     where: { videoId },
     data
-  }: Parameters<ChatCountRepository['bundleChatCounts']>[0]) {
+  }: Parameters<ChatCountRepository['bundle']>[0]) {
     const prisma = this.prismaInfraService
     await prisma.$transaction([
       // delete first

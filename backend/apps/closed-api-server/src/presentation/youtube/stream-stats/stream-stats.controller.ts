@@ -20,7 +20,7 @@ export class StreamStatsController {
 
   @Get('chat-counts')
   async GetChatCounts(@Query() dto: GetChatCountsDto) {
-    return await this.chatCountsService.findAllChatCounts({
+    return await this.chatCountsService.findAll({
       where: {
         videoId: dto.toVideoId()
       }

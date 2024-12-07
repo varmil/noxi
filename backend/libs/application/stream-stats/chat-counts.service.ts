@@ -13,31 +13,29 @@ export class ChatCountsService {
     private readonly chatCountRepository: ChatCountRepository
   ) {}
 
-  async findAllChatCounts(
-    args: Parameters<ChatCountRepository['findAllChatCounts']>[0]
+  async findAll(
+    args: Parameters<ChatCountRepository['findAll']>[0]
   ): Promise<ChatCounts> {
-    return await this.chatCountRepository.findAllChatCounts(args)
+    return await this.chatCountRepository.findAll(args)
   }
 
-  async findLatestChatCount(
-    args: Parameters<ChatCountRepository['findLatestChatCount']>[0]
+  async findLatest(
+    args: Parameters<ChatCountRepository['findLatest']>[0]
   ): Promise<ChatCount | null> {
-    return await this.chatCountRepository.findLatestChatCount(args)
+    return await this.chatCountRepository.findLatest(args)
   }
 
-  async saveChatCount(
-    args: Parameters<ChatCountRepository['saveChatCount']>[0]
-  ): Promise<void> {
-    await this.chatCountRepository.saveChatCount(args)
+  async save(args: Parameters<ChatCountRepository['save']>[0]): Promise<void> {
+    await this.chatCountRepository.save(args)
   }
 
-  async bundleChatCounts(args: { where: { videoId: VideoId } }): Promise<void> {
+  async bundle(args: { where: { videoId: VideoId } }): Promise<void> {
     const chatCounts = (
-      await this.chatCountRepository.findAllChatCounts({
+      await this.chatCountRepository.findAll({
         where: { videoId: args.where.videoId }
       })
     ).bundle()
-    await this.chatCountRepository.bundleChatCounts({
+    await this.chatCountRepository.bundle({
       where: { videoId: args.where.videoId },
       data: chatCounts
     })

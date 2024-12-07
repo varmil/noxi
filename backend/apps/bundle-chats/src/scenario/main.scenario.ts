@@ -8,7 +8,7 @@ import { QueueStatusInProgress } from '@domain/queue'
 export class MainScenario {
   constructor(
     private readonly promiseService: PromiseService,
-    private readonly bundleChatCountsService: ChatCountsService,
+    private readonly chatCountsService: ChatCountsService,
     private readonly chatBundleQueuesService: ChatBundleQueuesService
   ) {}
 
@@ -22,7 +22,7 @@ export class MainScenario {
       })
 
       // bundle
-      await this.bundleChatCountsService.bundleChatCounts({
+      await this.chatCountsService.bundle({
         where: { videoId }
       })
 

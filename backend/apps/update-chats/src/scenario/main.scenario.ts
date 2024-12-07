@@ -69,7 +69,7 @@ export class MainScenario {
     newMessages: LiveChatMessages
     nextContinuation?: Continuation
   }) {
-    await this.chatCountsService.saveChatCount({
+    await this.chatCountsService.save({
       data: {
         videoId,
         all: newMessages.all,
