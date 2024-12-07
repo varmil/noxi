@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
-import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { QueueStatusInProgress } from '@domain/queue'
 
 @Injectable()
 export class MainScenario {
   constructor(
     private readonly promiseService: PromiseService,
-    private readonly chatBundleQueuesService: ChatBundleQueuesService,
-    private readonly streamStatsService: StreamStatsService
+    private readonly bundleChatCountsService: ChatCountsService,
+    private readonly chatBundleQueuesService: ChatBundleQueuesService
   ) {}
 
   async execute(): Promise<void> {
@@ -22,7 +22,7 @@ export class MainScenario {
       })
 
       // bundle
-      await this.streamStatsService.bundleChatCounts({
+      await this.bundleChatCountsService.bundleChatCounts({
         where: { videoId }
       })
 

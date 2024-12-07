@@ -3,7 +3,7 @@ import { MainService } from 'apps/update-chats/src/service/main.service'
 import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-chats.service'
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
-import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
+import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
@@ -14,8 +14,8 @@ export class MainScenario {
   constructor(
     private readonly promiseService: PromiseService,
     private readonly mainService: MainService,
+    private readonly chatCountsService: ChatCountsService,
     private readonly streamsService: StreamsService,
-    private readonly streamStatsService: StreamStatsService,
     private readonly saveSuperChatsService: SaveSuperChatsService,
     private readonly saveSuperStickersService: SaveSuperStickersService
   ) {}
@@ -69,7 +69,7 @@ export class MainScenario {
     newMessages: LiveChatMessages
     nextContinuation?: Continuation
   }) {
-    await this.streamStatsService.saveChatCount({
+    await this.chatCountsService.saveChatCount({
       data: {
         videoId,
         all: newMessages.all,
