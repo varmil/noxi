@@ -3,6 +3,7 @@ import {
   Prisma,
   type YoutubeStreamChatCount as PrismaChatCount
 } from '@prisma/client'
+import { VideoId } from '@domain'
 import { ChatCountRepository, ChatCounts } from '@domain/stream-stats/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { ChatCountTranslator } from '@infra/stream-stats/ChatCountTranslator'
@@ -66,6 +67,22 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
     )
   }
 
+  findAllRaw: ChatCountRepository['findAllRaw'] = async ({
+    where: { videoId, createdAt },
+    orderBy
+  }) => {
+    const rows = await this.prismaInfraService.youtubeStreamChatCount.findMany({
+      where: {
+        videoId: videoId.get(),
+        createdAt: { gte: createdAt.gte, lt: createdAt.lt }
+      },
+      orderBy
+    })
+    return new ChatCounts(
+      rows.map(row => new ChatCountTranslator(row).translate())
+    )
+  }
+
   findOne: ChatCountRepository['findOne'] = async ({
     where: { videoId },
     orderBy
@@ -102,14 +119,17 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
   }
 
   async bundle({
-    where: { videoId },
+    where: { videoId, createdAt },
     data
   }: Parameters<ChatCountRepository['bundle']>[0]) {
     const prisma = this.prismaInfraService
     await prisma.$transaction([
       // delete first
       prisma.youtubeStreamChatCount.deleteMany({
-        where: { videoId: videoId.get() }
+        where: {
+          videoId: videoId.get(),
+          createdAt: { gte: createdAt.gte, lt: createdAt.lt }
+        }
       }),
       // then insert bundled data
       prisma.youtubeStreamChatCount.createMany({
