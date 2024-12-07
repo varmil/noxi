@@ -12,13 +12,29 @@ const DefaultProps = {
 
 export const JPList: GroupChannel[] = [
   {
-    id: new ChannelId('UCrV1Hf5r8P148idjoSfrGEQ'),
-    title: 'Sakuna Ch. 結城さくな',
+    id: new ChannelId('UCt30jJgChL8qeT9VPadidSw'),
+    title: 'しぐれうい',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCt30jJgChL8qeT9VPadidSw'),
-    title: 'しぐれうい',
+    id: new ChannelId('UC9ruVYPv7yJmV0Rh0NKA-Lw'),
+    title: 'kson ONAIR',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCH4yRBPH2pDUjPeqomx8CTQ'),
+    title: 'てるとくん',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCGV96w_TwvyCDusr_tmcu8A'),
+    title: 'Nito Ch. 新兎わい',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCrV1Hf5r8P148idjoSfrGEQ'),
+    title: 'Sakuna Ch. 結城さくな',
     ...DefaultProps
   },
   {
@@ -27,8 +43,8 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCkPIfBOLoO0hVPG-tI2YeGg'),
-    title: 'Tomari Mari channel / 兎鞠まりちゃんねる',
+    id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
+    title: 'Rica Ch. / 花宮莉歌',
     ...DefaultProps
   },
   {
@@ -38,19 +54,30 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCkPIfBOLoO0hVPG-tI2YeGg'),
+    title: 'Tomari Mari channel / 兎鞠まりちゃんねる',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UC7-N7MvN5muVIHqyQx9LFbA'),
     title: 'メイカちゃんねる',
     ...DefaultProps,
     gender: Gender.Male
   },
   {
-    id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
-    title: 'チョま',
+    id: new ChannelId('UCcxbWdwrs5B782K88ppAVMg'),
+    title: 'なるせ部',
+    ...DefaultProps
+  },
+
+  {
+    id: new ChannelId('UCTMgd9qnUD9qKBX5oTtD6ug'),
+    title: 'バーチャルおばあちゃんねる',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCGV96w_TwvyCDusr_tmcu8A'),
-    title: 'Nito Ch. 新兎わい',
+    id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
+    title: 'チョま',
     ...DefaultProps
   },
   {
@@ -63,6 +90,11 @@ export const JPList: GroupChannel[] = [
     title: 'おやつ@ゲームチャンネル',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCC0i9nECi4Gz7TU63xZwodg'),
+    title: '白雪みしろShirayuki Mishiro',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCFOsYGDAw16cr57cCqdJdVQ'),
@@ -94,12 +126,6 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
-    id: new ChannelId('UCH4yRBPH2pDUjPeqomx8CTQ'),
-    title: 'てるとくん',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
     id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
     title: 'イル_フローラ',
     ...DefaultProps
@@ -109,11 +135,6 @@ export const JPList: GroupChannel[] = [
     title: 'NX☆くさあん',
     ...DefaultProps,
     gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCcxbWdwrs5B782K88ppAVMg'),
-    title: 'なるせ部',
-    ...DefaultProps
   },
   {
     id: new ChannelId('UCY7Qs1UGnO3LYpNVwitTXUA'),
@@ -146,17 +167,7 @@ export const JPList: GroupChannel[] = [
     title: 'Pepero ch. / 猫田ぺぺろ',
     ...DefaultProps
   },
-  {
-    id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
-    title: '四宮 伊織 / SHINOMIYA Iori',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCn6Ufc6C9ZdGlCYTXOVFGLA'),
-    title: '羽咲みく -Miku Hanesaki-',
-    ...DefaultProps
-  },
+
   {
     id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
     title: '白樺るるは',
@@ -165,11 +176,6 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCGKNbtDv8OTa8559buDu-Gw'),
     title: '音魂ヒビクHibiku Otodama',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
-    title: 'Rica Ch. / 花宮莉歌',
     ...DefaultProps
   },
   {
@@ -195,9 +201,40 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCr9p1ZjLKgfaoqNorY7PiWQ'),
+    title: 'ayamy あやみちゃんねる',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCE4fTYIygLvWzn-0IDM6lzw'),
     title: 'エぺ文句　タケゾー',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCKa-bMYjrXEhXpaprT3KaFg'),
+    title: 'いしばっちゃんねる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCUZ5AlC3rTlM-rA2cj5RP6w'),
+    title: '神楽すず',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCwUNuXd6rN08SQFzlIH4Ozg'),
+    title: 'なつめえりちゃんねる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
+    title: '四宮 伊織 / SHINOMIYA Iori',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCn6Ufc6C9ZdGlCYTXOVFGLA'),
+    title: '羽咲みく -Miku Hanesaki-',
+    ...DefaultProps
   }
 ]
