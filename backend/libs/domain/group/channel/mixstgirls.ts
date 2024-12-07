@@ -15,80 +15,43 @@ const DefaultProps = {
 
 const List: GroupChannel[] = [
   {
-    id: new ChannelId('UCyLGcqYs7RsBb3L0SJfzGYA'),
-    title: '花芽すみれ',
+    id: new ChannelId('UCi9O6GC9DvnrXqQfgXrNaYg'),
+    title: '空奏イト',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCiMG6VdScBabPhJ1ZtaVmbw'),
-    title: '花芽なずな',
+    id: new ChannelId('UCjN-1QSJtD6RdRGXTf9L1Sw'),
+    title: '雪白キャル',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCgTzsBI0DIRopMylJEDqnog'),
-    title: '小雀とと',
+    id: new ChannelId('UCAoKkBp0Qj0xW0NEOp7G4hw'),
+    title: '渚沢シチ',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UC5LyYg6cCA4yHEYvtUsir3g'),
-    title: '一ノ瀬うるは',
+    id: new ChannelId('UCc_r_D9M7BGFpwXZnFaxEww'),
+    title: '成海ミャオ',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCIcAj6WkJ8vZ7DeJVgmeqKw'),
-    title: '胡桃のあ',
+    id: new ChannelId('UCoqYYjzSW9HZSaJHzSLmApA'),
+    title: '天吹サン',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCnvVG9RbOW3J6Ifqo-zKLiw'),
-    title: '兎咲ミミ / Tosaki Mimi',
+    id: new ChannelId('UCVAyRbZsu5lrv2_xvgliB2Q'),
+    title: '小鈴りあん',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCF_U2GCKHvDz52jWdizppIA'),
-    title: '空澄セナ',
-    ...DefaultProps
-  },
-
-  {
-    id: new ChannelId('UCvUc0m317LWTTPZoBQV479A'),
-    title: '橘ひなの / Hinano Tachibana',
+    id: new ChannelId('UC6BCNzMKS01UZT90lrwA1bw'),
+    title: '星乃りむ',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCurEA8YoqFwimJcAuSHU0MQ'),
-    title: '英リサ.Hanabusa Lisa',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCGWa1dMU_sDCaRQjdabsVgg'),
-    title: '如月れん',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCMp55EbT_ZlqiMS3lCj01BQ'),
-    title: '神成きゅぴ',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCjXBuHmWkieBApgBhDuJMMQ'),
-    title: '八雲べに',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCPkKpOHxEDcwmUAnRpIu-Ng'),
-    title: '藍沢エマ / Aizawa Ema',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCD5W21JqNMv_tV9nfjvF9sw'),
-    title: '紫宮るな',
-    ...DefaultProps
-  },
-
-  {
-    id: new ChannelId('UC8vKBjGY2HVfbW9GAmgikWw'),
-    title: '甘結もか / Amayui Moka',
+    id: new ChannelId('UC1AqiQjSbkS_b--haYNkLrw'),
+    title: '琴宮いおり',
     ...DefaultProps
   }
 ]
