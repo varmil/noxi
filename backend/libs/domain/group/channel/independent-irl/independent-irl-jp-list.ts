@@ -37,5 +37,10 @@ export const JPList: GroupChannel[] = [
     title: 'パチンカスさちお',
     ...DefaultProps,
     gender: Gender.Female
+  },
+  {
+    id: new ChannelId('UCKa-bMYjrXEhXpaprT3KaFg'),
+    title: 'いしばっちゃんねる',
+    ...DefaultProps
   }
 ]

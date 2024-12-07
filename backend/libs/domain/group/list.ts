@@ -7,6 +7,7 @@ import {
   IndependentIRL,
   GroupChannels,
   VSPO,
+  Mixstgirls,
   IdolCorp,
   Nijisanji,
   NijisanjiEN
@@ -19,8 +20,9 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
   hololive: new Hololive(),
   nijisanji: new Nijisanji(),
   'nijisanji-en': new NijisanjiEN(),
-  'idol-corp': new IdolCorp(),
   vspo: new VSPO(),
+  mixstgirls: new Mixstgirls(),
+  'idol-corp': new IdolCorp(),
   independent: new Independent(),
   'independent-irl': new IndependentIRL()
 }
@@ -31,8 +33,9 @@ export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
   hololive: new Hololive().channelIds(),
   nijisanji: new Nijisanji().channelIds(),
   'nijisanji-en': new NijisanjiEN().channelIds(),
-  'idol-corp': new IdolCorp().channelIds(),
   vspo: new VSPO().channelIds(),
+  mixstgirls: new Mixstgirls().channelIds(),
+  'idol-corp': new IdolCorp().channelIds(),
   independent: new Independent().channelIds(),
   'independent-irl': new IndependentIRL().channelIds()
 }
