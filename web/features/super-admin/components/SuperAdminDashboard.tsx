@@ -1,4 +1,4 @@
-import { headers } from 'next/headers'
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -21,7 +21,7 @@ import { SuperAdminRequestForm } from 'features/super-admin/components/SuperAdmi
 
 export function SuperAdminDashboard() {
   return (
-    <div className="flex min-h-screen w-full">
+    (<div className="flex min-h-screen w-full">
       <SuperAdminAside />
       <div className="flex flex-col flex-1">
         <header className="bg-background border-b border-border p-4 flex items-center justify-between">
@@ -115,7 +115,7 @@ export function SuperAdminDashboard() {
                 <div className="grid grid-cols-[120px_1fr] items-start gap-4">
                   <Label>value</Label>
                   <pre className="bg-muted p-4 rounded-md overflow-auto">
-                    {JSON.stringify(headers(), null, 2)}
+                    {JSON.stringify((headers() as unknown as UnsafeUnwrappedHeaders), null, 2)}
                   </pre>
                 </div>
               </div>
@@ -123,6 +123,6 @@ export function SuperAdminDashboard() {
           </Card>
         </main>
       </div>
-    </div>
-  )
+    </div>)
+  );
 }

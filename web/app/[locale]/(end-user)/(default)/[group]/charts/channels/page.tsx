@@ -1,3 +1,4 @@
+import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -8,13 +9,12 @@ import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalN
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  params: { locale: string; group: GroupString }
+  params: Promise<{ locale: string; group: GroupString }>
   searchParams?: ConstructorParameters<typeof URLSearchParams>[0]
 }
 
-export async function generateMetadata({
-  params: { locale, group }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale, group } = await props.params
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Page.group.charts' })
   const groupName = tg(`group.${group}`)
@@ -25,7 +25,9 @@ export async function generateMetadata({
   }
 }
 
-export default function GroupChartsPage({ params: { locale, group } }: Props) {
+export default function GroupChartsPage(props: Props) {
+  const { locale, group } = use(props.params)
+
   // Enable static rendering
   setRequestLocale(locale)
   setGroup(group)

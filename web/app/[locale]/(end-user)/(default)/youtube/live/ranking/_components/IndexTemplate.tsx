@@ -4,7 +4,9 @@ import StreamRankingFilterGallery from 'features/stream-ranking/components/filte
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { YoutubeLiveRankingSearchParams } from '../page'
 
-type Props = {} & YoutubeLiveRankingSearchParams
+type Props = {
+  searchParams: YoutubeLiveRankingSearchParams
+}
 
 export default function IndexTemplate({
   searchParams

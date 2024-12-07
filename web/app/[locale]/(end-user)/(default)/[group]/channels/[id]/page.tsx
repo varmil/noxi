@@ -7,12 +7,18 @@ import { setGroup } from 'lib/server-only-context/cache'
 import { ChannelIdTemplate } from './_components/ChannelIdTemplate'
 
 type Props = {
-  params: { locale: string; group: GroupString; id: string }
+  params: Promise<{ locale: string; group: GroupString; id: string }>
 }
 
-export async function generateMetadata({
-  params: { locale, group, id }
-}: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    locale,
+    group,
+    id
+  } = params;
+
   const { basicInfo } = await getChannel(id)
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
@@ -30,9 +36,15 @@ export async function generateMetadata({
   }
 }
 
-export default async function GroupChannelsIdPage({
-  params: { locale, group, id }
-}: Props) {
+export default async function GroupChannelsIdPage(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale,
+    group,
+    id
+  } = params;
+
   // Enable static rendering
   setRequestLocale(locale)
   setGroup(group)
