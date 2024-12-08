@@ -1,3 +1,9 @@
+import { z } from 'zod'
+import dayjs from 'lib/dayjs'
+
+// ISO 8601 = datetime
+const schema = z.string().datetime()
+
 export const CACHE_1M = 60
 export const CACHE_10M = 600
 export const CACHE_1H = 3600
@@ -8,6 +14,8 @@ export const fetchAPI = async (
   input: string | URL | Request,
   init?: RequestInit
 ): Promise<Response> => {
+  const url = roundDate(input)
+
   // In local, no-store
   // if (process.env.NODE_ENV === 'development') {
   //   if (!init.next) init.next = {}
@@ -20,5 +28,34 @@ export const fetchAPI = async (
   if (!init.next) init.next = {}
   init.next.revalidate = CACHE_1M
 
-  return await fetch(process.env.BASE_URL + input, init)
+  return await fetch(url.toString(), init)
+}
+
+/**
+ * Cache HIT率を高めるために秒とミリ秒を丸める
+ */
+function roundDate(input: string | URL | Request) {
+  // input が string または URL の場合に URL オブジェクトを作成
+  const url =
+    typeof input === 'string'
+      ? new URL(input, process.env.BASE_URL)
+      : input instanceof URL
+      ? input
+      : new URL(input.url)
+
+  url.searchParams.forEach((value, key) => {
+    if (!value) return
+
+    // 値が有効な Date の場合に秒とミリ秒を丸める
+    if (schema.safeParse(value).success) {
+      const parsedDate = new Date(value)
+      const roundedDate = dayjs(parsedDate)
+        .millisecond(0)
+        .second(0)
+        .toISOString()
+      url.searchParams.set(key, roundedDate)
+    }
+  })
+
+  return url
 }
