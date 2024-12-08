@@ -182,6 +182,16 @@
       "listing": "{count}人のタレントを掲載中",
       "listingAll": "{count}人全員を掲載中!"
     },
+    "ranking": {
+      "hoverCard": {
+        "title": "ランキング詳細",
+        "period": "集計期間",
+        "start": "開始",
+        "end": "終了",
+        "criteria": "集計条件",
+        "criteriaDescription": "対象期間に配信を「完了した」"
+      }
+    },
     "styles": {
       "more": "もっと見る",
       "scheduledFor": "{datetime} に公開予定",
@@ -231,16 +241,7 @@
       "supers": "スパチャ金額",
       "subscribers": "チャンネル登録者数",
       "viewers": "同接数",
-      "country": "国",
-
-      "hoverCard": {
-        "title": "ランキング詳細",
-        "period": "集計期間",
-        "start": "開始",
-        "end": "終了",
-        "criteria": "集計条件",
-        "criteriaDescription": "対象期間に配信を「完了した」"
-      }
+      "country": "国"
     },
 
     "streamRanking": {

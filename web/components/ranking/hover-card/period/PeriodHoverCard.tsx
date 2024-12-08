@@ -22,7 +22,7 @@ type Props = {
 }
 
 export default function PeriodHoverCard({ start, end }: Props) {
-  const t = useTranslations('Features.channelsRanking.hoverCard')
+  const t = useTranslations('Components.ranking.hoverCard')
 
   return (
     <Popover>
@@ -31,8 +31,9 @@ export default function PeriodHoverCard({ start, end }: Props) {
         {isWithin24Hours(start, end) ? (
           <PopoverDate date={end} />
         ) : (
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             <PopoverDate date={start} />
+            <span>-</span>
             <PopoverDate date={end} />
           </div>
         )}
@@ -49,6 +50,11 @@ export default function PeriodHoverCard({ start, end }: Props) {
               <div className="text-muted-foreground">{t('end')}</div>
               <Datetime date={dayjs(end).toDate()} />
             </DatetimeContainer>
+          </Item>
+
+          <Item>
+            <ItemTitle>{t('criteria')}</ItemTitle>
+            <ItemDescription>{t('criteriaDescription')}</ItemDescription>
           </Item>
 
           <Item>

@@ -32,9 +32,7 @@ export default async function ChannelsRankingTable({
   date,
   channelIds
 }: Props) {
-  const [tg, t, channels, supersSummaries] = await Promise.all([
-    getTranslations('Global.ranking'),
-    getTranslations('Features.channelsRanking'),
+  const [channels, supersSummaries] = await Promise.all([
     getChannels({ ids: channelIds, limit: channelIds.length }),
     dimension === 'super-chat'
       ? getSupersSummaries({
