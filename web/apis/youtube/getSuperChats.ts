@@ -2,7 +2,7 @@ import {
   responseSchema,
   SuperChatsSchema
 } from 'apis/youtube/schema/superChatSchema'
-import { CACHE_1M, fetchAPI } from 'lib/fetchAPI'
+import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   videoId?: string

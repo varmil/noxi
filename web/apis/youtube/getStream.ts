@@ -1,5 +1,5 @@
 import { schema, StreamSchema } from 'apis/youtube/schema/streamSchema'
-import { CACHE_1M, fetchAPI } from 'lib/fetchAPI'
+import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getStream(id: string): Promise<StreamSchema> {
   const res = await fetchAPI(`/api/youtube/streams/${id}`)

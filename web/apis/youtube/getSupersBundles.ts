@@ -3,7 +3,7 @@ import {
   responseSchema
 } from 'apis/youtube/schema/supersBundleSchema'
 import { GroupString } from 'config/constants/Site'
-import { CACHE_1M, fetchAPI } from 'lib/fetchAPI'
+import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   videoIds?: string[]
