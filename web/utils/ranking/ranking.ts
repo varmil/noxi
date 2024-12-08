@@ -1,7 +1,9 @@
 import dayjs from 'lib/dayjs'
 import { RankingPeriod } from 'types/ranking'
 
-/** 指定した期間の開始時点を返す */
+/**
+ * 指定期間の開始時点を返す
+ **/
 export const getStartOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
   const day = dayjs(date)
   let start: dayjs.Dayjs
@@ -39,8 +41,7 @@ export const getStartOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
 }
 
 /**
- * 集計バッチがUTC09時（日本時間18時）に動くので基本その時点を終了時刻としている
- * 「過去24時間」だけは例外でリアルタイム集計なので現在時刻を返す
+ * 指定期間の終了時点を返す
  */
 export const getEndOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
   const day = dayjs(date)
@@ -48,14 +49,11 @@ export const getEndOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
 
   switch (period) {
     case 'last24Hours':
-      end = day
-      break
-
     case 'last7Days':
     case 'last30Days':
     case 'last90Days':
     case 'last1Year':
-      end = getLast09UTC(date)
+      end = day
       break
 
     case 'thisWeek':
@@ -75,6 +73,44 @@ export const getEndOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
   return end
 }
 
+/**
+ * 指定期間の「最新データ更新日時」を返す
+ *
+ * 集計バッチがUTC09時（日本時間18時）に動くので基本その時点
+ * 「過去24時間」だけは例外でリアルタイム集計なので現在時刻
+ */
+export const getUpdatedAt = (
+  period: RankingPeriod,
+  date?: dayjs.ConfigType
+) => {
+  const day = dayjs(date)
+  let updatedAt: dayjs.Dayjs
+
+  switch (period) {
+    case 'last24Hours':
+      updatedAt = day
+      break
+
+    case 'last7Days':
+    case 'last30Days':
+    case 'last90Days':
+    case 'last1Year':
+    case 'thisWeek':
+    case 'thisMonth':
+    case 'thisYear':
+      updatedAt = getLast09UTC(date)
+      break
+
+    default:
+      throw new Error(`Period ${period} is not supported`)
+  }
+
+  return updatedAt
+}
+
+/**
+ * 指定日付（未指定の場合は現在）を基準に最も近い過去の09:00 UTCを返す
+ **/
 function getLast09UTC(date?: dayjs.ConfigType) {
   const now = dayjs.utc(date) // 指定された日付または現在のUTC時刻を取得
   const today09UTC = now.startOf('day').add(9, 'hour') // その日の09:00 UTC

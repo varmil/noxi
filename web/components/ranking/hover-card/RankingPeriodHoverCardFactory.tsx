@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import PeriodHoverCard from 'components/ranking/hover-card/period/PeriodHoverCard'
 import { RankingPeriod } from 'types/ranking'
-import { getEndOf, getStartOf } from 'utils/ranking/ranking'
+import { getEndOf, getStartOf, getUpdatedAt } from 'utils/ranking/ranking'
 
 type Props = PropsWithChildren<{
   period: RankingPeriod
@@ -20,6 +20,7 @@ export default function PeriodHoverCardFactory({
     <PeriodHoverCard
       start={getStartOf(period, date)}
       end={getEndOf(period, date)}
+      updatedAt={getUpdatedAt(period, date)}
     />
   )
 }

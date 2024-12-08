@@ -33,7 +33,7 @@ export const ItemTitle = ({ children }: PropsWithChildren) => (
 )
 
 export const ItemDescription = ({ children }: PropsWithChildren) => (
-  <div className="rounded-md bg-muted px-3 py-2 text-xs text-center">
+  <div className="rounded-md bg-muted px-3 py-2 text-sm text-center">
     {children}
   </div>
 )

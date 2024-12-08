@@ -184,12 +184,13 @@
     },
     "ranking": {
       "hoverCard": {
-        "title": "Ranking details",
+        "title": "Period details",
         "period": "Collection period",
         "start": "Start",
         "end": "End",
         "criteria": "Criteria",
-        "criteriaDescription": "Ended the stream during the target period"
+        "criteriaDescription": "Live ended during the period",
+        "updatedAt": "Updated At"
       }
     },
     "styles": {

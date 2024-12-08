@@ -19,9 +19,10 @@ import dayjs from 'lib/dayjs'
 type Props = {
   start: dayjs.ConfigType
   end: dayjs.ConfigType
+  updatedAt: dayjs.ConfigType
 }
 
-export default function PeriodHoverCard({ start, end }: Props) {
+export default function PeriodHoverCard({ start, end, updatedAt }: Props) {
   const t = useTranslations('Components.ranking.hoverCard')
 
   return (
@@ -53,8 +54,10 @@ export default function PeriodHoverCard({ start, end }: Props) {
           </Item>
 
           <Item>
-            <ItemTitle>{t('criteria')}</ItemTitle>
-            <ItemDescription>{t('criteriaDescription')}</ItemDescription>
+            <ItemTitle>{t('updatedAt')}</ItemTitle>
+            <ItemDescription>
+              <Datetime date={dayjs(updatedAt).toDate()} />
+            </ItemDescription>
           </Item>
 
           <Item>
