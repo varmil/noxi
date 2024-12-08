@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl'
-import { RankingPeriod } from 'types/ranking'
 import {
   Popover,
   PopoverContent,
@@ -20,17 +19,23 @@ import dayjs from 'lib/dayjs'
 type Props = {
   start: dayjs.ConfigType
   end: dayjs.ConfigType
-  date?: string | Date
 }
 
-export default function PeriodHoverCard({ start, end, date }: Props) {
+export default function PeriodHoverCard({ start, end }: Props) {
   const t = useTranslations('Features.channelsRanking.hoverCard')
 
   return (
     <Popover>
       <PopoverTrigger tabIndex={0}>
-        <PopoverDate date={start} />
-        <PopoverDate date={end} />
+        {/* 24時間以内の場合はendのみ表示する */}
+        {isWithin24Hours(start, end) ? (
+          <PopoverDate date={end} />
+        ) : (
+          <div className="flex gap-2">
+            <PopoverDate date={start} />
+            <PopoverDate date={end} />
+          </div>
+        )}
       </PopoverTrigger>
       <PopoverContent className="space-y-4 font-normal">
         <Title>{t('title')}</Title>
@@ -54,4 +59,14 @@ export default function PeriodHoverCard({ start, end, date }: Props) {
       </PopoverContent>
     </Popover>
   )
+}
+
+// 差分が24時間以内かを判定
+function isWithin24Hours(
+  start: dayjs.ConfigType,
+  end: dayjs.ConfigType
+): boolean {
+  const startDate = dayjs(start)
+  const endDate = dayjs(end)
+  return Math.abs(endDate.diff(startDate, 'hour')) <= 24
 }

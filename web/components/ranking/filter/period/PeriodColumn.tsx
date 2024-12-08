@@ -1,12 +1,12 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { RankingPeriod } from 'types/ranking'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
   ColumnHeader,
   ColumnContent
 } from 'components/ranking/filter/column/Column'
+import { RankingPeriod } from 'types/ranking'
 
 const QS_KEY = 'period'
 

@@ -1,8 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { RankingPeriod } from 'types/ranking'
-import Last24HoursHoverCard from 'components/ranking/hover-card/period/Last24HoursHoverCard'
 import PeriodHoverCard from 'components/ranking/hover-card/period/PeriodHoverCard'
-import dayjs from 'lib/dayjs'
+import { RankingPeriod } from 'types/ranking'
 import { getEndOf, getStartOf } from 'utils/ranking/ranking'
 
 type Props = PropsWithChildren<{
@@ -18,12 +16,10 @@ export default function PeriodHoverCardFactory({
 }: Props) {
   if (period === 'all') return null
 
-  // 時間「幅」があるかどうかでコンポーネントを出し分ける
-  if (period === 'last24Hours') {
-    return <Last24HoursHoverCard date={date} />
-  } else {
-    const start = getStartOf(period)
-    const end = getEndOf(period)
-    return <PeriodHoverCard start={start} end={end} date={date} />
-  }
+  return (
+    <PeriodHoverCard
+      start={getStartOf(period, date)}
+      end={getEndOf(period, date)}
+    />
+  )
 }
