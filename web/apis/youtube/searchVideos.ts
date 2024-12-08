@@ -1,5 +1,5 @@
 import { VideosSchema, responseSchema } from 'apis/youtube/schema/videoSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   q: string
@@ -39,7 +39,7 @@ export async function searchVideos({
   const res = await fetchAPI(
     `/api/youtube/searches/videos?${searchParams.toString()}`,
     {
-      next: { revalidate: 3600 * 24 }
+      next: { revalidate: CACHE_1D }
     }
   )
 

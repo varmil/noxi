@@ -3,7 +3,7 @@ import {
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
 import { GroupString } from 'config/constants/Site'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   ids?: string[]
@@ -38,7 +38,7 @@ export async function getChannels({
   const res = await fetchAPI(
     `/api/youtube/channels?${searchParams.toString()}`,
     {
-      next: { revalidate: 3600 * 12 }
+      next: { revalidate: CACHE_12H }
     }
   )
 

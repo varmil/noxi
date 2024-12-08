@@ -22,7 +22,7 @@ type Params = {
   }[]
   limit?: number
   offset?: number
-  cache?: RequestCache
+  revalidate?: number
 }
 
 export async function getStreams({
@@ -37,7 +37,7 @@ export async function getStreams({
   orderBy,
   limit,
   offset,
-  cache
+  revalidate
 }: Params): Promise<StreamsSchema> {
   const searchParams = new URLSearchParams({
     ...(status && { status }),
@@ -59,7 +59,7 @@ export async function getStreams({
 
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    { cache: cache ?? 'no-store' }
+    { ...(revalidate && { next: { revalidate } }) }
   )
 
   if (!res.ok) {

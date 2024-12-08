@@ -1,9 +1,9 @@
 import { GroupsSchema, responseSchema } from 'apis/youtube/schema/groupSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 export async function getGroups(): Promise<GroupsSchema> {
   const res = await fetchAPI(`/api/groups`, {
-    next: { revalidate: 3600 * 24 }
+    next: { revalidate: CACHE_1D }
   })
 
   if (!res.ok) {

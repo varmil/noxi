@@ -3,7 +3,7 @@ import {
   responseSchema
 } from 'apis/youtube/schema/supersBundleSchema'
 import { GroupString } from 'config/constants/Site'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1M, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   videoIds?: string[]
@@ -48,9 +48,7 @@ export async function getSupersBundles({
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
-  const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`, {
-    cache: 'no-cache'
-  })
+  const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`)
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
