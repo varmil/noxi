@@ -20,7 +20,8 @@ export default function createGetStreamsParams({
     result = {
       ...result,
       status: 'ended',
-      endedAfter: getStartOf(period).toDate()
+      endedAfter: getStartOf(period).toDate(),
+      revalidate: 600
     }
   }
 

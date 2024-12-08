@@ -1,5 +1,5 @@
 import { VideosSchema, responseSchema } from 'apis/youtube/schema/videoSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
 
 export async function getVideosInChannel({
   channelId,
@@ -13,7 +13,7 @@ export async function getVideosInChannel({
       limit: String(limit)
     }).toString()}`,
     {
-      next: { revalidate: 3600 * 12 }
+      next: { revalidate: CACHE_12H }
     }
   )
 

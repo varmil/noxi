@@ -22,6 +22,11 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 // }))
 
 const nextConfig: NextConfig = {
+  logging: {
+    fetches: {
+      fullUrl: true
+    }
+  },
   async redirects() {
     return [
       // 2024/11/30 Super Chat ランキングを移動

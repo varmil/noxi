@@ -48,9 +48,7 @@ export async function getSupersBundles({
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
-  const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`, {
-    cache: 'no-cache'
-  })
+  const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`)
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

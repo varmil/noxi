@@ -3,6 +3,7 @@ import {
   LiveStreamingDetailsListSchema,
   responseSchema
 } from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
+import { CACHE_1M } from 'lib/fetchAPI'
 
 const MaxResultsPerRequest = 50
 
@@ -29,7 +30,7 @@ export async function getLiveStreamingDetails({
     })
     const res = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?${searchParams.toString()}`,
-      { cache: 'no-store' }
+      { next: { revalidate: CACHE_1M } }
     )
     if (!res.ok) {
       console.error(await res.text())

@@ -16,6 +16,7 @@ import {
 } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
+import { CACHE_10M } from 'lib/fetchAPI'
 import { Link } from 'lib/navigation'
 
 export type StreamRankingGalleryProps = {
@@ -45,7 +46,8 @@ export default async function StreamRankingGallery(
     streams = (
       await getStreams({
         videoIds: bundles.map(bundle => bundle.videoId),
-        limit: bundles.length
+        limit: bundles.length,
+        revalidate: CACHE_10M
       })
     ).sort((a, b) => {
       const aIndex = bundles.findIndex(bundle => bundle.videoId === a.videoId)

@@ -1,5 +1,6 @@
 import { getStreams } from 'apis/youtube/getStreams'
 import { getEntry } from 'config/sitemap/getEntry'
+import { CACHE_1D } from 'lib/fetchAPI'
 import type { MetadataRoute } from 'next'
 
 const LIMIT = 2000
@@ -19,7 +20,7 @@ export default async function sitemap({
     orderBy: [{ field: 'videoId', order: 'asc' }],
     limit: LIMIT,
     offset: id * LIMIT,
-    cache: 'default'
+    revalidate: CACHE_1D
   })
   return streams.map(stream =>
     getEntry({

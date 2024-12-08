@@ -46,12 +46,7 @@ export async function getSupersSummaries({
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
-  const res = await fetchAPI(
-    `/api/supers-summaries?${searchParams.toString()}`,
-    {
-      cache: 'no-cache'
-    }
-  )
+  const res = await fetchAPI(`/api/supers-summaries?${searchParams.toString()}`)
 
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
