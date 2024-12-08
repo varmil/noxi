@@ -6,19 +6,11 @@ import {
   ColumnHeader,
   ColumnContent
 } from 'components/ranking/filter/column/Column'
+import { RankingPeriod } from 'types/ranking'
 
 const QS_KEY = 'period'
 
-type Keys =
-  | 'realtime'
-  | 'last24Hours'
-  | 'last7Days'
-  | 'last30Days'
-  | 'last1Year'
-  | 'thisWeek'
-  | 'thisMonth'
-  | 'thisYear'
-  | 'all'
+type Keys = RankingPeriod
 
 type Props = PropsWithoutRef<{
   keys: Keys[]

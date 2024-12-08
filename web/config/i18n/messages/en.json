@@ -182,6 +182,17 @@
       "listing": "Listing {count} talents.",
       "listingAll": "All {count} talents are listed."
     },
+    "ranking": {
+      "hoverCard": {
+        "title": "Period details",
+        "period": "Collection period",
+        "start": "Start",
+        "end": "End",
+        "criteria": "Criteria",
+        "criteriaDescription": "Live ended during the period",
+        "updatedAt": "Updated At"
+      }
+    },
     "styles": {
       "more": "Read More",
       "scheduledFor": "Scheduled for {datetime}",
@@ -231,16 +242,7 @@
       "supers": "Supers",
       "subscribers": "Subscribers",
       "viewers": "Viewers",
-      "country": "Country",
-
-      "hoverCard": {
-        "title": "Ranking details",
-        "period": "Collection period",
-        "start": "Start",
-        "end": "End",
-        "criteria": "Criteria",
-        "criteriaDescription": "Ended the stream during the target period"
-      }
+      "country": "Country"
     },
 
     "streamRanking": {

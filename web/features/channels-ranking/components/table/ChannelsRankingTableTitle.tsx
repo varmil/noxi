@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { ChevronRight, TvMinimalPlayIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import DailyHoverCard from 'features/channels-ranking/components/styles/DailyHoverCard'
+import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   ChannelsRankingPeriod,
   ChannelsRankingDimension
@@ -28,7 +28,7 @@ export default function ChannelsRankingTableTitle({
       <TvMinimalPlayIcon className="w-6 h-6 mr-3" />
 
       <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">
-        <h1 className="flex items-center">
+        <h1 className="flex items-center font-bold">
           <div className="flex gap-x-1 sm:gap-x-2 items-center line-clamp-1">
             <span className="flex-1 break-anywhere line-clamp-1">
               {breadcrumb('channelsRanking')}
@@ -42,11 +42,9 @@ export default function ChannelsRankingTableTitle({
           </div>
         </h1>
 
-        {date && (
-          <div>
-            <DailyHoverCard date={date} />
-          </div>
-        )}
+        <div>
+          <PeriodHoverCardFactory period={period} date={date} />
+        </div>
       </div>
     </section>
   )
