@@ -35,7 +35,7 @@ export default function TableCellOfStreamForSmallContainer({
   return (
     <LinkCell videoId={videoId} className="@lg:hidden">
       <div className="flex flex-col gap-2">
-        <div className="font-light line-clamp-2">{title}</div>
+        <div className="font-light line-clamp-2 break-anywhere">{title}</div>
 
         {dimension === 'concurrent-viewer' ? (
           <Dimension

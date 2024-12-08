@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { JapaneseYen } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
@@ -27,9 +26,7 @@ export default async function StreamRankingTable({
   dimension,
   streams
 }: Props) {
-  const [tg, t, channels, bundles] = await Promise.all([
-    getTranslations('Global.ranking'),
-    getTranslations('Features.streamRanking'),
+  const [channels, bundles] = await Promise.all([
     getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
     getSupersBundles({
       videoIds: streams.map(stream => stream.videoId),
@@ -87,7 +84,7 @@ export default async function StreamRankingTable({
                     group={stream.group}
                   />
                   <Link
-                    className="font-light line-clamp-2"
+                    className="text-sm font-light line-clamp-2 break-anywhere"
                     href={`/youtube/live/${videoId}`}
                   >
                     {stream.snippet.title}
