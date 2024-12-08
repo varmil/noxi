@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { ChevronRight, TvMinimalPlayIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import DailyHoverCard from 'features/channels-ranking/components/styles/DailyHoverCard'
+import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   ChannelsRankingPeriod,
   ChannelsRankingDimension
@@ -42,11 +42,9 @@ export default function ChannelsRankingTableTitle({
           </div>
         </h1>
 
-        {date && (
-          <div>
-            <DailyHoverCard date={date} />
-          </div>
-        )}
+        <div>
+          <PeriodHoverCardFactory period={period} date={date} />
+        </div>
       </div>
     </section>
   )

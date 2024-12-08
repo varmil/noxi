@@ -1,0 +1,11 @@
+export type RankingPeriod =
+  | 'realtime'
+  | 'last24Hours'
+  | 'last7Days'
+  | 'last30Days'
+  | 'last90Days'
+  | 'last1Year'
+  | 'thisWeek'
+  | 'thisMonth'
+  | 'thisYear'
+  | 'all'

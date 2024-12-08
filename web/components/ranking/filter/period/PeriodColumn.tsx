@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
+import { RankingPeriod } from 'types/ranking'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -9,16 +10,7 @@ import {
 
 const QS_KEY = 'period'
 
-type Keys =
-  | 'realtime'
-  | 'last24Hours'
-  | 'last7Days'
-  | 'last30Days'
-  | 'last1Year'
-  | 'thisWeek'
-  | 'thisMonth'
-  | 'thisYear'
-  | 'all'
+type Keys = RankingPeriod
 
 type Props = PropsWithoutRef<{
   keys: Keys[]

@@ -1,4 +1,5 @@
 import dayjs from 'lib/dayjs'
+import { getStartOf } from 'utils/ranking/ranking'
 import type { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
@@ -14,22 +15,7 @@ export default function createGetStreamsParams({
   if (period === 'realtime') {
     result = { ...result, actualEndTimeGTE: null, actualEndTimeLTE: null }
   } else {
-    let actualEndTimeGTE: Date
-    switch (period) {
-      case 'last24Hours':
-        actualEndTimeGTE = dayjs().subtract(1, 'day').toDate()
-        break
-      case 'last7Days':
-        actualEndTimeGTE = dayjs().subtract(7, 'day').toDate()
-        break
-      case 'last30Days':
-        actualEndTimeGTE = dayjs().subtract(1, 'month').toDate()
-        break
-      case 'last1Year':
-        actualEndTimeGTE = dayjs().subtract(1, 'year').toDate()
-        break
-    }
-    result = { ...result, actualEndTimeGTE }
+    result = { ...result, actualEndTimeGTE: getStartOf(period).toDate() }
   }
 
   if (dimension === 'super-chat') {

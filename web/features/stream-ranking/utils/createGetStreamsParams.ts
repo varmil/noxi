@@ -1,4 +1,5 @@
 import dayjs from 'lib/dayjs'
+import { getStartOf } from 'utils/ranking/ranking'
 import type { getStreams } from 'apis/youtube/getStreams'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
@@ -16,22 +17,11 @@ export default function createGetStreamsParams({
   }
   // TODO: 本当はliveもふくめたい
   else {
-    let endedAfter: Date
-    switch (period) {
-      case 'last24Hours':
-        endedAfter = dayjs().subtract(1, 'day').toDate()
-        break
-      case 'last7Days':
-        endedAfter = dayjs().subtract(7, 'day').toDate()
-        break
-      case 'last30Days':
-        endedAfter = dayjs().subtract(1, 'month').toDate()
-        break
-      case 'last1Year':
-        endedAfter = dayjs().subtract(1, 'year').toDate()
-        break
+    result = {
+      ...result,
+      status: 'ended',
+      endedAfter: getStartOf(period).toDate()
     }
-    result = { ...result, status: 'ended', endedAfter }
   }
 
   if (dimension === 'concurrent-viewer') {
