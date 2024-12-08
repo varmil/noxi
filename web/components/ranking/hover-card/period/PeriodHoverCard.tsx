@@ -34,7 +34,7 @@ export default function PeriodHoverCard({ start, end, updatedAt }: Props) {
         ) : (
           <div className="flex items-center gap-2">
             <PopoverDate date={start} />
-            <span>-</span>
+            <span className="font-light">-</span>
             <PopoverDate date={end} />
           </div>
         )}

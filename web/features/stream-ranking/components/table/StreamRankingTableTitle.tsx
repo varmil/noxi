@@ -22,8 +22,8 @@ export default function StreamRankingTableTitle({
   const global = useTranslations('Global.ranking')
   const feat = useTranslations('Features.streamRanking')
   return (
-    <section className={`${className || ''}`}>
-      <h1 className="flex text-sm sm:text-base">
+    <section className={`text-sm sm:text-base ${className || ''}`}>
+      <h1 className="flex font-bold">
         <Image
           src={'/youtube/yt_icon_rgb.png'}
           alt="YouTube"

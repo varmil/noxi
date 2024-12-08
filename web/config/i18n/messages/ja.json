@@ -190,7 +190,7 @@
         "end": "終了",
         "criteria": "集計条件",
         "criteriaDescription": "対象期間に配信を「完了した」",
-        "updatedAt": "最新更新日時"
+        "updatedAt": "更新日時"
       }
     },
     "styles": {

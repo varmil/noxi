@@ -28,7 +28,7 @@ export default function ChannelsRankingTableTitle({
       <TvMinimalPlayIcon className="w-6 h-6 mr-3" />
 
       <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">
-        <h1 className="flex items-center">
+        <h1 className="flex items-center font-bold">
           <div className="flex gap-x-1 sm:gap-x-2 items-center line-clamp-1">
             <span className="flex-1 break-anywhere line-clamp-1">
               {breadcrumb('channelsRanking')}

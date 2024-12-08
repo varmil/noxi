@@ -5,7 +5,7 @@ import dayjs from 'lib/dayjs'
 export const PopoverDate = ({ date }: { date: dayjs.ConfigType }) => {
   const formatter = useFormatter()
   return (
-    <div className="underline decoration-1 underline-offset-4 decoration-dashed decoration-slate-400 decoration">
+    <div className="font-light underline decoration-1 underline-offset-4 decoration-dashed decoration-slate-400 decoration">
       {formatter.dateTime(dayjs(date).toDate(), {
         year: 'numeric',
         month: '2-digit',
