@@ -12,8 +12,7 @@ export async function getViewerCounts({
   videoId
 }: Params): Promise<ViewerCountsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/stream-stats/viewer-counts?videoId=${videoId}`,
-    { cache: 'no-store' }
+    `/api/youtube/stream-stats/viewer-counts?videoId=${videoId}`
   )
 
   if (!res.ok) {
