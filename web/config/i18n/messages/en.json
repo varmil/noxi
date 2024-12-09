@@ -134,7 +134,7 @@
       "live": {
         "id": {
           "metadata": {
-            "title": "{title} {group} {channel}",
+            "title": "{channel} {title} - Live Stats",
             "description": "Watch the latest live stream of {channel} on PeakX! Enjoy realtime interaction, catch up on past broadcasts, and never miss exciting content again. Join the fun today!"
           },
           "button": {
