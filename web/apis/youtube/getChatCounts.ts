@@ -12,8 +12,7 @@ export async function getChatCounts({
   videoId
 }: Params): Promise<ChatCountsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/stream-stats/chat-counts?videoId=${videoId}`,
-    { cache: 'no-store' }
+    `/api/youtube/stream-stats/chat-counts?videoId=${videoId}`
   )
 
   if (!res.ok) {

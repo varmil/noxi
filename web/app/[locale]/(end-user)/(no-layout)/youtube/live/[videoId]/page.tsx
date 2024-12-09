@@ -10,6 +10,8 @@ import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
 import LayoutFactory from './_components/layouts/LayoutFactory'
 
+const TITLE_MAX_LENGTH = 20
+
 type Props = {
   params: Promise<{ locale: string; videoId: string }>
   searchParams?: Promise<{ theater?: '1' }>
@@ -17,24 +19,23 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, videoId } = await props.params
-  const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
     namespace: 'Page.youtube.live.id.metadata'
   })
   const {
-    snippet: { title, channelId },
-    group
+    snippet: { title, channelId }
   } = await getStream(videoId)
   const { basicInfo } = await getChannel(channelId)
-  const groupName = tg(`group.${group}`)
 
   return {
     title: `${t('title', {
-      title,
-      group: groupName,
+      title:
+        title.length > TITLE_MAX_LENGTH
+          ? title.slice(0, TITLE_MAX_LENGTH - 3) + '...'
+          : title,
       channel: basicInfo.title
-    })} - ${tg('title')}`,
+    })}`,
     description: `${t('description', {
       channel: basicInfo.title
     })}`

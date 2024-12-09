@@ -134,8 +134,8 @@
       "live": {
         "id": {
           "metadata": {
-            "title": "{group} {channel} {title}",
-            "description": "YouTubeライブ配信を視聴！{channel}の現在のライブ配信をリアルタイムでチェックし、スパチャ額や同接数を用いて人気の瞬間を見逃さず確認。PeakXではなんとスパチャコメントも一覧できる！VTuberファン必見の情報をお届けします。"
+            "title": "{channel} {title}のスパチャ金額、同接数",
+            "description": "YouTubeライブを視聴！{channel}のスパチャ金額や同接数をチェックし人気の瞬間を見逃さず確認しよう。PeakXではなんとスパチャコメントもすべて掲載！VTuberファン必見の情報をお届けします。"
           },
           "button": {
             "theaterMode": "シアターモードで大きく表示",
