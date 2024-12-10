@@ -1,4 +1,5 @@
 import { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 import {
   Metrics,
   Stream,
@@ -21,6 +22,7 @@ export interface StreamRepository {
       status?: StreamStatus | StreamStatuses
       videoIds?: VideoIds
       group?: Group
+      gender?: Gender
       channelId?: ChannelId
       scheduledBefore?: Date
       scheduledAfter?: Date

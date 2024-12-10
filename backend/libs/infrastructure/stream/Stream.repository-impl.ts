@@ -18,9 +18,7 @@ const getFindAllWhereOR = (
   const { status, scheduledBefore, scheduledAfter, endedBefore, endedAfter } =
     where
 
-  if (!status) {
-    return undefined
-  }
+  if (!status) return undefined
 
   const generateORItem = (status: StreamStatus) => {
     switch (true) {
@@ -71,6 +69,7 @@ export class StreamRepositoryImpl implements StreamRepository {
           videoId: { in: videoIds?.map(e => e.get()) },
           group: group?.get(),
           channelId: channelId?.get(),
+          channel: { gender: where.gender?.get() },
           OR: getFindAllWhereOR(where)
         }
       },

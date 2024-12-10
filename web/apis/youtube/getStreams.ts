@@ -1,4 +1,5 @@
 import { StreamsSchema, responseSchema } from 'apis/youtube/schema/streamSchema'
+import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
@@ -6,6 +7,7 @@ type Params = {
   status?: 'scheduled' | 'live' | 'ended'
   videoIds?: string[]
   group?: GroupString
+  gender?: Gender
   channelId?: string
   scheduledBefore?: Date
   scheduledAfter?: Date
@@ -29,6 +31,7 @@ export async function getStreams({
   status,
   videoIds,
   group,
+  gender,
   channelId,
   scheduledBefore,
   scheduledAfter,
@@ -43,6 +46,7 @@ export async function getStreams({
     ...(status && { status }),
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(channelId && { channelId }),
     ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
     ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),

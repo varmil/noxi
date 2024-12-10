@@ -2,6 +2,7 @@ import {
   SupersBundlesSchema,
   responseSchema
 } from 'apis/youtube/schema/supersBundleSchema'
+import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
@@ -9,6 +10,7 @@ type Params = {
   videoIds?: string[]
   channelId?: string
   group?: GroupString
+  gender?: Gender
   actualEndTimeGTE?: Date | null
   actualEndTimeLTE?: Date | null
   orderBy?: {
@@ -23,6 +25,7 @@ export async function getSupersBundles({
   videoIds,
   channelId,
   group,
+  gender,
   actualEndTimeGTE,
   actualEndTimeLTE,
   orderBy,
@@ -33,6 +36,7 @@ export async function getSupersBundles({
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(channelId && { channelId }),
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(actualEndTimeGTE !== undefined && {
       actualEndTimeGTE: actualEndTimeGTE?.toISOString() ?? 'null'
     }),

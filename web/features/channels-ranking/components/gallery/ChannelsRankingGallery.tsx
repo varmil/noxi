@@ -40,6 +40,7 @@ export default async function ChannelsRankingGallery(
   if (dimension === 'subscriber') {
     const channels = await getChannels({
       group: props.group,
+      gender: props.gender,
       orderBy: [{ field: 'subscriberCount', order: 'desc' }],
       limit: 30
     })

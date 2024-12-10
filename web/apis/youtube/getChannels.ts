@@ -2,12 +2,14 @@ import {
   ChannelsSchema,
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
+import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   ids?: string[]
   group?: GroupString
+  gender?: Gender
   orderBy?: {
     field: 'subscriberCount' | 'viewCount'
     order: 'asc' | 'desc'
@@ -19,6 +21,7 @@ type Params = {
 export async function getChannels({
   ids,
   group,
+  gender,
   orderBy,
   limit,
   offset
@@ -26,6 +29,7 @@ export async function getChannels({
   const searchParams = new URLSearchParams({
     ...(ids && { ids: [...new Set(ids)].join(',') }),
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
