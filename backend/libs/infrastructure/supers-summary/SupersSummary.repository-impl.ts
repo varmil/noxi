@@ -22,10 +22,11 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   }: Parameters<SupersSummaryRepository['findAll']>[0]) {
     const channelIds = where?.channelIds?.map(e => e.get())
     const group = where?.group?.get()
+    const gender = where?.gender?.get()
 
     const rows =
       await this.prismaInfraService.youtubeStreamSupersSummaryLatest.findMany({
-        where: { channelId: { in: channelIds }, channel: { group } },
+        where: { channelId: { in: channelIds }, channel: { group, gender } },
         orderBy,
         take: limit,
         skip: offset

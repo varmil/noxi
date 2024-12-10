@@ -1,3 +1,4 @@
+import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 
 export type ChannelsRankingPeriod =
@@ -10,8 +11,16 @@ export type ChannelsRankingPeriod =
   | 'thisMonth'
   | 'thisYear'
 export type ChannelsRankingDimension = 'super-chat' | 'subscriber'
-export type ChannelsRankingGroup = GroupString
-export type ChannelsRankingCountry = string
+
+export type ChannelsRankingSearchParams = {
+  period: ChannelsRankingPeriod
+  dimension: ChannelsRankingDimension
+  group?: GroupString
+  gender?: Gender
+  country?: string
+  /** For OG */
+  date?: string
+}
 
 export type ChannelsRanking = {
   rank: number

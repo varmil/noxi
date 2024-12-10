@@ -14,7 +14,10 @@ import {
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type { YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle } from '@prisma/client'
+import type {
+  Prisma,
+  YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
+} from '@prisma/client'
 
 @Injectable()
 export class SupersBundleRepositoryImpl implements SupersBundleRepository {
@@ -26,14 +29,16 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }: Parameters<SupersBundleRepository['findAll']>[0]) {
-    const whereQuery = where
-      ? {
-          videoId: { in: where.videoIds?.map(e => e.get()) },
-          channelId: where.channelId?.get(),
-          group: where.group?.get(),
-          actualEndTime: where.actualEndTime
-        }
-      : undefined
+    const whereQuery: Prisma.YoutubeStreamSupersBundleWhereInput | undefined =
+      where
+        ? {
+            videoId: { in: where.videoIds?.map(e => e.get()) },
+            channelId: where.channelId?.get(),
+            group: where.group?.get(),
+            actualEndTime: where.actualEndTime,
+            channel: { gender: where.gender?.get() }
+          }
+        : undefined
 
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.findMany({
@@ -96,7 +101,8 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         where: {
           channelId: { in: where.channelIds?.map(e => e.get()) },
           group: where.group?.get(),
-          actualEndTime: where.actualEndTime
+          actualEndTime: where.actualEndTime,
+          channel: { gender: where.gender?.get() }
         },
         _sum: { amountMicros: true },
         orderBy,

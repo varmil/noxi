@@ -1,10 +1,16 @@
 import { CountryCode } from '@domain/country'
 import { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 import { Channel, Channels, ChannelId, ChannelIds } from '@domain/youtube/'
 
 export interface ChannelRepository {
   findAll: (args: {
-    where?: { id?: ChannelIds; group?: Group; country?: CountryCode }
+    where?: {
+      id?: ChannelIds
+      group?: Group
+      gender?: Gender
+      country?: CountryCode
+    }
     orderBy?: Partial<Record<'subscriberCount' | 'viewCount', 'asc' | 'desc'>>[]
     limit?: number
     offset?: number

@@ -7,23 +7,11 @@ import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { PageXSPX } from 'components/page'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
-import {
-  ChannelsRankingPeriod,
-  ChannelsRankingDimension,
-  ChannelsRankingGroup,
-  ChannelsRankingCountry
-} from 'features/channels-ranking/types/channels-ranking.type'
+import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import { Link } from 'lib/navigation'
 import createGetSupersSummariesParams from '../../utils/createGetSupersSummariesParams'
 
-export type ChannelsRankingGalleryProps = {
-  period: ChannelsRankingPeriod
-  dimension: ChannelsRankingDimension
-  group?: ChannelsRankingGroup
-  country?: ChannelsRankingCountry
-  /** For OG */
-  date?: string
-
+export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
   compact?: boolean
   className?: string
 }
@@ -52,6 +40,7 @@ export default async function ChannelsRankingGallery(
   if (dimension === 'subscriber') {
     const channels = await getChannels({
       group: props.group,
+      gender: props.gender,
       orderBy: [{ field: 'subscriberCount', order: 'desc' }],
       limit: 30
     })

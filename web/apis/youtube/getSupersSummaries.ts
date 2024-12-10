@@ -2,12 +2,14 @@ import {
   SupersSummariesSchema,
   responseSchema
 } from 'apis/youtube/schema/supersSummarySchema'
+import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelIds?: string[]
   group?: GroupString
+  gender?: Gender
   orderBy?: {
     field:
       | 'last24Hours'
@@ -28,6 +30,7 @@ type Params = {
 export async function getSupersSummaries({
   channelIds,
   group,
+  gender,
   orderBy,
   limit,
   offset,
@@ -36,6 +39,7 @@ export async function getSupersSummaries({
   const searchParams = new URLSearchParams({
     ...(channelIds && { channelIds: [...new Set(channelIds)].join(',') }),
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(limit && { limit: String(limit) }),
     ...(offset && { offset: String(offset) }),
     ...(date && { date: date.toISOString() })

@@ -1,11 +1,11 @@
 import { PropsWithoutRef } from 'react'
-import { YoutubeChannelsRankingSearchParams } from 'app/[locale]/(end-user)/(default)/youtube/channels/ranking/page'
 import { PageSMPX } from 'components/page'
 import ChannelsRankingFilterGallery from 'features/channels-ranking/components/filter/ChannelsRankingFilterGallery'
 import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
+import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 
 type Props = {
-  searchParams: YoutubeChannelsRankingSearchParams
+  searchParams: ChannelsRankingSearchParams
 }
 
 export default function IndexTemplate({

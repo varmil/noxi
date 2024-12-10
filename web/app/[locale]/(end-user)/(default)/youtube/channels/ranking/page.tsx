@@ -3,29 +3,14 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import {
-  ChannelsRankingPeriod,
-  ChannelsRankingDimension,
-  ChannelsRankingGroup,
-  ChannelsRankingCountry
-} from 'features/channels-ranking/types/channels-ranking.type'
+import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
 import { getOgUrl } from 'utils/og-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{ locale: string }>
-  searchParams: Promise<YoutubeChannelsRankingSearchParams>
-}
-
-export type YoutubeChannelsRankingSearchParams = {
-  period: ChannelsRankingPeriod
-  dimension: ChannelsRankingDimension
-  group?: ChannelsRankingGroup
-  country?: ChannelsRankingCountry
-
-  /** For OG */
-  date?: string
+  searchParams: Promise<ChannelsRankingSearchParams>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

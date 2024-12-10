@@ -1,4 +1,5 @@
 import { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 import { AmountMicros } from '@domain/supers'
 import { SupersBundle, SupersBundles } from '@domain/supers-bundle'
 import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
@@ -14,6 +15,7 @@ export interface SupersBundleRepository {
       videoIds?: VideoIds
       channelId?: ChannelId
       group?: Group
+      gender?: Gender
       actualEndTime?: { gte?: Date; lte?: Date } | null
     }
     orderBy?: Partial<Record<'amountMicros', 'asc' | 'desc'>>[]
@@ -32,6 +34,7 @@ export interface SupersBundleRepository {
     where: {
       channelIds?: ChannelIds
       group?: Group
+      gender?: Gender
       actualEndTime: { gte: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }

@@ -6,6 +6,7 @@ type GetSupersSummaries = Parameters<typeof getSupersSummaries>[0]
 export default function createGetSupersSummariesParams({
   period,
   group,
+  gender,
   country,
   date
 }: ChannelsRankingGalleryProps): GetSupersSummaries {
@@ -30,6 +31,10 @@ export default function createGetSupersSummariesParams({
 
   if (group) {
     result = { ...result, group }
+  }
+
+  if (gender) {
+    result = { ...result, gender }
   }
 
   if (country) {

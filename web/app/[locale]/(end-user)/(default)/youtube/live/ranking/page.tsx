@@ -3,24 +3,12 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import {
-  StreamRankingCountry,
-  StreamRankingDimension,
-  StreamRankingGroup,
-  StreamRankingPeriod
-} from 'features/stream-ranking/types/stream-ranking.type'
+import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{ locale: string }>
-  searchParams: Promise<YoutubeLiveRankingSearchParams>
-}
-
-export type YoutubeLiveRankingSearchParams = {
-  period: StreamRankingPeriod
-  dimension: StreamRankingDimension
-  group?: StreamRankingGroup
-  country?: StreamRankingCountry
+  searchParams: Promise<StreamRankingSearchParams>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

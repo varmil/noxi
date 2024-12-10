@@ -7,6 +7,7 @@ export default function createGetStreamsParams({
   period,
   dimension,
   group,
+  gender,
   country,
   compact
 }: StreamRankingGalleryProps): Parameters<typeof getSupersBundles>[0] {
@@ -27,6 +28,10 @@ export default function createGetStreamsParams({
 
   if (group) {
     result = { ...result, group }
+  }
+
+  if (gender) {
+    result = { ...result, gender }
   }
 
   if (country) {
