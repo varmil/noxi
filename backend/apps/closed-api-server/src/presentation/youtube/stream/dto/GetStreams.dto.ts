@@ -13,6 +13,7 @@ import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { StreamStatus, StreamRepository } from '@domain/stream'
 import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
+import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 
 export class GetStreamsDto {
   @IsOptional()
@@ -31,6 +32,10 @@ export class GetStreamsDto {
   @IsIn(GroupStrings)
   @IsOptional()
   group?: GroupString
+
+  @IsIn(GenderStrings)
+  @IsOptional()
+  gender?: GenderString
 
   @IsOptional()
   @IsRFC3339()
@@ -82,6 +87,8 @@ export class GetStreamsDto {
       : undefined
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
+
+  toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
   toScheduledBefore = () => {
     return this.scheduledBefore ? new Date(this.scheduledBefore) : undefined

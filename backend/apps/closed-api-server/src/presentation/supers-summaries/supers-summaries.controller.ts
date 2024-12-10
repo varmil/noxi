@@ -24,7 +24,11 @@ export class SupersSummariesController {
   @Get()
   async getSupersSummaries(@Query() dto: GetSupersSummaries) {
     return await this.supersSummariesScenario.getSupersSummaries({
-      where: { channelIds: dto.toChannelIds(), group: dto.toGroup() },
+      where: {
+        channelIds: dto.toChannelIds(),
+        group: dto.toGroup(),
+        gender: dto.toGender()
+      },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
       offset: dto.toOffset(),

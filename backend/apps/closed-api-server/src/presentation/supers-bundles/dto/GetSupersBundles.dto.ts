@@ -13,6 +13,7 @@ import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { SupersBundleRepository } from '@domain/supers-bundle'
 import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
+import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 
 export class GetSupersBundles {
   @IsOptional()
@@ -30,6 +31,10 @@ export class GetSupersBundles {
   @IsIn(GroupStrings)
   @IsOptional()
   group?: GroupString
+
+  @IsIn(GenderStrings)
+  @IsOptional()
+  gender?: GenderString
 
   /** "null" means "realtime live" */
   @IsOptional()
@@ -74,6 +79,8 @@ export class GetSupersBundles {
     this.channelId ? new ChannelId(this.channelId) : undefined
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
+
+  toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
   toOrderBy = () => {
     return (

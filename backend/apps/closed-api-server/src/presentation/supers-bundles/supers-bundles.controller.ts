@@ -23,6 +23,7 @@ export class SupersBundlesController {
         videoIds: dto.toVideoIds(),
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
+        gender: dto.toGender(),
         actualEndTime: dto.toActualEndTime()
       },
       orderBy: dto.toOrderBy(),

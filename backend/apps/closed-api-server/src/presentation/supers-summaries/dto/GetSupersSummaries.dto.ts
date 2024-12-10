@@ -12,6 +12,7 @@ import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { SupersSummaryRepository } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
+import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 
 export class GetSupersSummaries {
   @IsOptional()
@@ -25,6 +26,10 @@ export class GetSupersSummaries {
   @IsIn(GroupStrings)
   @IsOptional()
   group?: GroupString
+
+  @IsIn(GenderStrings)
+  @IsOptional()
+  gender?: GenderString
 
   @IsOptional()
   @IsArray()
@@ -64,6 +69,8 @@ export class GetSupersSummaries {
       : undefined
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
+
+  toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
   toOrderBy = () => {
     return (

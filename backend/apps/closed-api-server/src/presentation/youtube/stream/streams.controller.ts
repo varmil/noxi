@@ -23,6 +23,7 @@ export class StreamsController {
         status: dto.toStatus(),
         videoIds: dto.toVideoIds(),
         group: dto.toGroup(),
+        gender: dto.toGender(),
         channelId: dto.toChannelId(),
         scheduledBefore: dto.toScheduledBefore(),
         scheduledAfter: dto.toScheduledAfter(),
