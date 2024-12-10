@@ -8,22 +8,13 @@ import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
-import {
-  StreamRankingCountry,
-  StreamRankingDimension,
-  StreamRankingGroup,
-  StreamRankingPeriod
-} from 'features/stream-ranking/types/stream-ranking.type'
+import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
 import { CACHE_10M } from 'lib/fetchAPI'
 import { Link } from 'lib/navigation'
 
-export type StreamRankingGalleryProps = {
-  period: StreamRankingPeriod
-  dimension: StreamRankingDimension
-  group?: StreamRankingGroup
-  country?: StreamRankingCountry
+export type StreamRankingGalleryProps = StreamRankingSearchParams & {
   compact?: boolean
   className?: string
 }
