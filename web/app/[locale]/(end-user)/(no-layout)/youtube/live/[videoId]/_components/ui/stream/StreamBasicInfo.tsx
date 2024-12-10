@@ -33,7 +33,7 @@ export default async function StreamBasicInfo({
 
       {/* Channel */}
       <div className="flex items-center gap-x-2">
-        <Link href={`/${group}/channels/${basicInfo.id}`} prefetch={true}>
+        <Link href={`/${group}/channels/${basicInfo.id}`}>
           <Avatar className="w-7 h-7 sm:w-11 sm:h-11 transition-all hover:scale-105">
             <AvatarImage
               src={basicInfo.thumbnails.medium?.url}
@@ -46,7 +46,6 @@ export default async function StreamBasicInfo({
           <p className="flex gap-x-1 items-center">
             <Link
               href={`/${group}/channels/${basicInfo.id}`}
-              prefetch={true}
               className="flex-1 font-semibold hover:text-accent-foreground"
             >
               {basicInfo.title}

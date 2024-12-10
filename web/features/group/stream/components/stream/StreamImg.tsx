@@ -14,7 +14,7 @@ export default function StreamImg({
 
   return (
     <div className="relative aspect-video w-full rounded-lg overflow-hidden">
-      <Link href={`/youtube/live/${videoId}`} prefetch={true}>
+      <Link href={`/youtube/live/${videoId}`}>
         <VideoThumbnail size="standard" title={title} thumbnails={thumbnails} />
         {children}
       </Link>

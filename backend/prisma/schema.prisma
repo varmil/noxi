@@ -32,7 +32,7 @@ model Channel {
   group           String
   country         String
   defaultLanguage String?
-  gender          String  @default("female")
+  gender          String
 
   supersBundles       YoutubeStreamSupersBundle[]
   supersSummaries     YoutubeStreamSupersSummary[]

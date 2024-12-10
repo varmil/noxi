@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer'
 import {
   BrandingSettings,
   ChannelStatistics,
@@ -11,8 +12,10 @@ import {
  */
 export class Channel {
   public readonly basicInfo: ChannelBasicInfo
+  @Exclude()
   public readonly contentDetails: ContentDetails
   public readonly statistics: ChannelStatistics
+  @Exclude()
   public readonly brandingSettings: BrandingSettings
   /**
    *  * undefined when fetch from Data API

@@ -16,23 +16,16 @@ export const schema = z.object({
     ),
     publishedAt: z.string().datetime()
   }),
-  contentDetails: z.object({
-    relatedPlaylists: z.object({ uploads: z.string() })
-  }),
   statistics: z.object({
     viewCount: z.coerce.bigint(),
     subscriberCount: z.number().min(0),
     videoCount: z.number().min(0)
   }),
-  brandingSettings: z.object({
-    keywords: z.array(z.string())
-  }),
   peakX: z.object({
     group: z.enum(GroupStrings),
     country: z.string(),
     defaultLanguage: z.string().optional(),
-    // TODO: remove optional
-    gender: z.enum(['male', 'female', 'nonbinary']).optional()
+    gender: z.enum(['male', 'female', 'nonbinary'])
   }),
 
   updatedAt: z.string().datetime().optional()

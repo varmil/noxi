@@ -20,7 +20,11 @@ export default function LocalNavigationForGroupPages({
           prefetch: true
         },
         { name: t('live.nav'), href: `${basePath}/live`, prefetch: true },
-        { name: t('scheduled.nav'), href: `${basePath}/scheduled` },
+        {
+          name: t('scheduled.nav'),
+          href: `${basePath}/scheduled`,
+          prefetch: true
+        },
         { name: t('ended.nav'), href: `${basePath}/ended` }
       ]}
       className="mb-6"
