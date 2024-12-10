@@ -13,5 +13,5 @@ export interface GroupChannel {
   title: string
   country: CountryCode
   defaultLangage: LanguageTag
-  gender?: Gender
+  gender: Gender
 }

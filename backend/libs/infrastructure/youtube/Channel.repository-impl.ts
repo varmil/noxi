@@ -1,6 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { Group } from '@domain'
+import { Gender, Group } from '@domain'
 import { CountryCode, LanguageTag } from '@domain/country'
 import {
   ChannelId,
@@ -46,8 +46,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     )
   }
 
-  async prismaFindById(
-    id: Parameters<ChannelRepository['prismaFindById']>[0]
+  async findById(
+    id: Parameters<ChannelRepository['findById']>[0]
   ): Promise<Channel | null> {
     const channel = await this.prismaInfraService.channel.findUnique({
       where: { id: id.get() }
@@ -88,18 +88,19 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         videoCount,
         keywords: keywords.map(k => k.get()),
         group: group.get(),
-        // Use country code which PeakX defines
+        // PeakX defines
+        // * country code
+        // * defaultLanguage
+        // * gender
         country: groupChannel.country.get(),
-        // Use defaultLanguage which PeakX defines
-        defaultLanguage: groupChannel.defaultLangage.get()
+        defaultLanguage: groupChannel.defaultLangage.get(),
+        gender: groupChannel.gender.get()
       }
     })
 
     const query = prismaData.map(channel =>
       this.prismaInfraService.channel.upsert({
-        where: {
-          id: channel.id
-        },
+        where: { id: channel.id },
         update: channel,
         create: channel
       })
@@ -121,7 +122,8 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       subscriberCount,
       videoCount,
       keywords,
-      country
+      country,
+      gender
     } = row
     return new Channel({
       basicInfo: new ChannelBasicInfo({
@@ -143,11 +145,12 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         keywords: new Keywords(keywords.map(k => new Keyword(k)))
       }),
       peakX: new PeakXChannelProps({
+        group: new Group(row.group),
         country: new CountryCode(country),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)
           : undefined,
-        group: new Group(row.group)
+        gender: new Gender(gender)
       })
     })
   }
