@@ -58,7 +58,7 @@ export const StreamTextContainer = ({
       <h3 className="break-anywhere text-sm line-clamp-2 mb-1">{title}</h3>
       <div className="col-start-2 flex items-center gap-1">
         <div className="text-xs sm:text-sm text-muted-foreground">
-          <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
+          <Link href={`/${group}/channels/${channelId}`}>
             <div className="hover:text-accent-foreground">
               {channel.basicInfo.title}
             </div>
