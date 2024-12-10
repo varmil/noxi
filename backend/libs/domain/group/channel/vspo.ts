@@ -87,6 +87,47 @@ const List: GroupChannel[] = [
   },
 
   {
+    id: new ChannelId('UCuDY3ibSP2MFRgf7eo3cojg'),
+    title: '千燈ゆうひ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC-WX1CXssCtCtc2TNIRnJzg'),
+    title: '紡木こかげ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCX4WL24YEOUYd7qDsFSLDOw'),
+    title: '夜乃くろむ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCS5l_Y0oMVTjEos2LuyeSZQ'),
+    title: '夢野あかり',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCzUNASdzI4PV5SlqtYwAkKQ'),
+    title: '小森めと',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC61OwuYOVuKkpKnid-43Twg'),
+    title: '白波らむね',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCIjdfjcSaEgdjwbgjxC3ZWg'),
+    title: '猫汰つな',
+    ...DefaultProps
+  },
+
+  {
+    id: new ChannelId('UCL9hJsdk9eQa0IlWbFB2oRg'),
+    title: '蝶屋はなび',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UC8vKBjGY2HVfbW9GAmgikWw'),
     title: '甘結もか / Amayui Moka',
     ...DefaultProps

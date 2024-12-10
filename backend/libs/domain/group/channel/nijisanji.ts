@@ -18,7 +18,7 @@ const List: GroupChannel[] = [
     id: new ChannelId('UCX7YkU9nEeaoZbkVLVajcMg'),
     title: 'にじさんじ',
     ...DefaultProps,
-    gender: undefined
+    gender: Gender.Nonbinary
   },
   {
     id: new ChannelId('UCSFCh5NL4qXrAy9u-u2lX3g'),

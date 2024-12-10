@@ -28,10 +28,11 @@ export const schema = z.object({
     keywords: z.array(z.string())
   }),
   peakX: z.object({
+    group: z.enum(GroupStrings),
     country: z.string(),
     defaultLanguage: z.string().optional(),
-    gender: z.enum(['male', 'female']).optional(),
-    group: z.enum(GroupStrings)
+    // TODO: remove optional
+    gender: z.enum(['male', 'female', 'nonbinary']).optional()
   }),
 
   updatedAt: z.string().datetime().optional()

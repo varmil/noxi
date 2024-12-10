@@ -10,7 +10,7 @@ export interface ChannelRepository {
     offset?: number
   }) => Promise<Channels>
 
-  prismaFindById: (id: ChannelId) => Promise<Channel | null>
+  findById: (id: ChannelId) => Promise<Channel | null>
 
   save: (args: Channel) => Promise<void>
 

@@ -17,9 +17,9 @@ export class ChannelsService {
   }
 
   async findById(
-    args: Parameters<ChannelRepository['prismaFindById']>[0]
+    args: Parameters<ChannelRepository['findById']>[0]
   ): Promise<Channel | null> {
-    return await this.channelRepository.prismaFindById(args)
+    return await this.channelRepository.findById(args)
   }
 
   async save(args: Parameters<ChannelRepository['save']>[0]): Promise<void> {

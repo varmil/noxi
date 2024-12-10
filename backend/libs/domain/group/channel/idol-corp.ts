@@ -27,7 +27,7 @@ const ENList: GroupChannel[] = [
     id: new ChannelId('UCRMs0dRR4MEnCftyk6l1tvQ'),
     title: 'idol',
     ...ENDefaultProps,
-    gender: undefined
+    gender: Gender.Nonbinary
   },
   {
     id: new ChannelId('UCdureux7B_V-xhM7tYImASQ'),
