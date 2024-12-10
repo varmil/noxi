@@ -34,6 +34,7 @@ model Channel {
   defaultLanguage String?
   gender          String
 
+  streams             YoutubeStream[]
   supersBundles       YoutubeStreamSupersBundle[]
   supersSummaries     YoutubeStreamSupersSummary[]
   supersSummaryLatest YoutubeStreamSupersSummaryLatest?
@@ -42,32 +43,31 @@ model Channel {
 }
 
 model YoutubeStream {
-  videoId         String   @id
-  publishedAt     DateTime @db.Timestamptz(3)
-  channelId       String
-  title           String
-  description     String?
+  videoId                  String    @id
+  publishedAt              DateTime  @db.Timestamptz(3)
+  channelId                String
+  title                    String
+  description              String?
   /// [Thumbnails]
-  thumbnails      Json
-  tags            String[]
-  categoryId      Int      @db.SmallInt
-  defaultLanguage String?
-
-  duration           String?
-  scheduledStartTime DateTime? @db.Timestamptz(3)
-  actualStartTime    DateTime? @db.Timestamptz(3)
-  actualEndTime      DateTime? @db.Timestamptz(3)
-
-  maxViewerCount           Int  @default(0)
-  averageConcurrentViewers Int  @default(0)
-  chatMessages             Int  @default(0)
+  thumbnails               Json
+  tags                     String[]
+  categoryId               Int       @db.SmallInt
+  defaultLanguage          String?
+  duration                 String?
+  scheduledStartTime       DateTime? @db.Timestamptz(3)
+  actualStartTime          DateTime? @db.Timestamptz(3)
+  actualEndTime            DateTime? @db.Timestamptz(3)
+  maxViewerCount           Int       @default(0)
+  averageConcurrentViewers Int       @default(0)
+  chatMessages             Int       @default(0)
   views                    Int?
-  likeCount                Int  @default(0)
+  likeCount                Int       @default(0)
 
   status    String
   group     String
   updatedAt DateTime @updatedAt @db.Timestamptz(3)
 
+  channel    Channel                  @relation(fields: [channelId], references: [id], onDelete: Cascade)
   superChats YoutubeStreamSuperChat[]
 
   @@index([channelId])
