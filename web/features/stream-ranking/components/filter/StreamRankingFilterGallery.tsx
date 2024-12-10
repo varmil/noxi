@@ -3,6 +3,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import CountryColumn from 'components/ranking/filter/country/CountryColumn'
 import DimensionColumn from 'components/ranking/filter/dimension/DimensionColumn'
 import GalleryContainer from 'components/ranking/filter/gallery/GalleryContainer'
+import GenderColumn from 'components/ranking/filter/gender/GenderColumn'
 import GroupColumn from 'components/ranking/filter/group/GroupColumn'
 import PeriodColumn from 'components/ranking/filter/period/PeriodColumn'
 
@@ -26,6 +27,7 @@ export default function StreamRankingFilterGallery({ className }: Props) {
           />
           <DimensionColumn keys={['concurrent-viewer', 'super-chat']} />
           <GroupColumn />
+          <GenderColumn />
           <CountryColumn />
         </div>
         <ScrollBar orientation="horizontal" />

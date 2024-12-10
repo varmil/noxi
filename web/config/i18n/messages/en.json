@@ -21,6 +21,7 @@
         "period": "Time Period",
         "dimension": "Dimension",
         "group": "Group",
+        "gender": "Gender",
         "country": "Country"
       },
       "period": {
@@ -41,6 +42,12 @@
         "subscriber": "Most Subscribed"
       },
       "group": { "all": "All" },
+      "gender": {
+        "all": "All",
+        "male": "Male",
+        "female": "Female",
+        "nonbinary": "Nonbinary"
+      },
       "country": { "all": "Worldwide" },
       "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
     }

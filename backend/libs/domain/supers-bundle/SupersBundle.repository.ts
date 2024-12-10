@@ -34,6 +34,7 @@ export interface SupersBundleRepository {
     where: {
       channelIds?: ChannelIds
       group?: Group
+      gender?: Gender
       actualEndTime: { gte: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }

@@ -11,9 +11,9 @@ import {
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
+import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { StreamStatus, StreamRepository } from '@domain/stream'
 import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
-import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 
 export class GetStreamsDto {
   @IsOptional()

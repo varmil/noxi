@@ -21,6 +21,7 @@
         "period": "集計期間",
         "dimension": "ディメンション",
         "group": "グループ",
+        "gender": "性別",
         "country": "国"
       },
       "period": {
@@ -41,6 +42,12 @@
         "subscriber": "チャンネル登録者数"
       },
       "group": { "all": "すべて" },
+      "gender": {
+        "all": "すべて",
+        "male": "男性",
+        "female": "女性",
+        "nonbinary": "ノンバイナリー"
+      },
       "country": { "all": "全世界" },
       "place": "{rank}<weak>位</weak>"
     }

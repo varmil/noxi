@@ -9,8 +9,8 @@ import {
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { GroupStrings, GroupString, Group } from '@domain/group'
-import { ChannelId, ChannelIds, ChannelRepository } from '@domain/youtube'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
+import { ChannelId, ChannelIds, ChannelRepository } from '@domain/youtube'
 
 export class GetChannelsDto {
   @IsOptional()
