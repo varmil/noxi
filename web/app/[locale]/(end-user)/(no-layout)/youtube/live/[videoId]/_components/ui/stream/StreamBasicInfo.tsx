@@ -46,7 +46,6 @@ export default async function StreamBasicInfo({
           <p className="flex gap-x-1 items-center">
             <Link
               href={`/${group}/channels/${basicInfo.id}`}
-              prefetch={true}
               className="flex-1 font-semibold hover:text-accent-foreground"
             >
               {basicInfo.title}

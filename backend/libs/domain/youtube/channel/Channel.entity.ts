@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer'
 import {
   BrandingSettings,
   ChannelStatistics,
@@ -5,7 +6,6 @@ import {
   ContentDetails,
   PeakXChannelProps
 } from '@domain/youtube/channel'
-import { Exclude } from 'class-transformer'
 
 /**
  * Youtube > Channel

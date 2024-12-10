@@ -28,10 +28,7 @@ export const StreamAvatarContainer = ({
 }>) => {
   return (
     <div className="items-center text-center">
-      <Link
-        href={`/${stream.group}/channels/${channel.basicInfo.id}`}
-        prefetch={true}
-      >
+      <Link href={`/${stream.group}/channels/${channel.basicInfo.id}`}>
         <Avatar className="w-9 h-9 sm:w-11 sm:h-11 transition-all hover:scale-105">
           <AvatarImage
             alt={channel.basicInfo.title}

@@ -1,4 +1,4 @@
-import { PropsWithChildren, PropsWithoutRef, type JSX } from 'react';
+import { PropsWithChildren, PropsWithoutRef, type JSX } from 'react'
 import { Link } from 'lib/navigation'
 
 const IconWrapper = ({ children }: PropsWithChildren<{}>) => (
@@ -24,7 +24,6 @@ export default function HeaderLink({
       className={`flex items-center gap-4 ${
         active ? 'text-foreground' : 'text-muted-foreground'
       } hover:text-foreground`}
-      prefetch={false}
     >
       <IconWrapper>{icon}</IconWrapper>
       <span className="flex-1">{name}</span>

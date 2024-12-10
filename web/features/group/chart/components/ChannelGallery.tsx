@@ -48,7 +48,7 @@ export async function ChannelGallery({
       {footer && (
         <CardFooter>
           <Button asChild variant="outline" className="w-full">
-            <Link href={`${getGroup()}/charts/channels`} prefetch={true}>
+            <Link href={`${getGroup()}/charts/channels`}>
               <List className="mr-2 h-4 w-4" /> Go to full list
             </Link>
           </Button>

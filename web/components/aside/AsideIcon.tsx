@@ -1,4 +1,4 @@
-import React, { PropsWithoutRef, type JSX } from 'react';
+import React, { PropsWithoutRef, type JSX } from 'react'
 import {
   Tooltip,
   TooltipTrigger,
@@ -37,7 +37,6 @@ export default function AsideIcon({
         <Link
           href={href}
           className="group flex h-7 w-7 items-center justify-center rounded-lg"
-          prefetch={false}
         >
           {src && (
             <Image

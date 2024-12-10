@@ -31,7 +31,6 @@ export default function Aside({ className }: { className?: string }) {
               <Link
                 href="/"
                 className="group flex h-8 w-8 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary mb-2.5"
-                prefetch={true}
               >
                 <Logo className="h-4 w-4 transition-all group-hover:scale-110" />
                 <span className="sr-only">{t('title')}</span>
