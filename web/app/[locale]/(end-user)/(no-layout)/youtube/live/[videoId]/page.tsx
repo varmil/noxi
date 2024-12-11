@@ -10,7 +10,7 @@ import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
 import LayoutFactory from './_components/layouts/LayoutFactory'
 
-const TITLE_MAX_LENGTH = 20
+const TITLE_MAX_LENGTH = 22
 
 type Props = {
   params: Promise<{ locale: string; videoId: string }>
@@ -32,13 +32,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: `${t('title', {
       title:
         title.length > TITLE_MAX_LENGTH
-          ? title.slice(0, TITLE_MAX_LENGTH - 3) + '...'
+          ? title.slice(0, TITLE_MAX_LENGTH - 1) + '…'
           : title,
       channel: basicInfo.title
     })}`,
-    description: `${t('description', {
-      channel: basicInfo.title
-    })}`
+    description: `${t('description', { channel: basicInfo.title })}`
   }
 }
 
