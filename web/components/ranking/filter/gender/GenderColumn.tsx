@@ -28,9 +28,9 @@ export default function GenderColumn({ className }: Props) {
         <SelectButton qs={{ [QS_KEY]: 'female' }} activeVariant="secondary">
           {tg('gender.female')}
         </SelectButton>
-        <SelectButton qs={{ [QS_KEY]: 'nonbinary' }} activeVariant="secondary">
+        {/* <SelectButton qs={{ [QS_KEY]: 'nonbinary' }} activeVariant="secondary">
           {tg('gender.nonbinary')}
-        </SelectButton>
+        </SelectButton> */}
       </ColumnContent>
     </Column>
   )
