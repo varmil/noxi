@@ -8,9 +8,9 @@ import LocalNavigationForChannelsIdPages from 'features/channel/components/local
 import { setGroup } from 'lib/server-only-context/cache'
 import { ChannelProfile } from '../ui/profile/ChannelProfile'
 
-export type ChannelsIdBasePageProps = PropsWithChildren<{
+export type ChannelsIdBasePageProps = {
   params: Promise<{ locale: string; group: GroupString; id: string }>
-}>
+}
 type Props = ChannelsIdBasePageProps
 
 export async function generateBaseMetadata(
@@ -33,7 +33,9 @@ export async function generateBaseMetadata(
   }
 }
 
-export default async function ChannelsIdBasePage(props: Props) {
+export default async function ChannelsIdBasePage(
+  props: PropsWithChildren<Props>
+) {
   const { locale, group, id } = await props.params
 
   // Enable static rendering
