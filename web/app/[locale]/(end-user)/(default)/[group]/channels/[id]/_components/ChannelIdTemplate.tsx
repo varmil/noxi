@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
+import PeriodTabs from 'features/period-tab/components/PeriodTabs'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
 import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
@@ -24,6 +25,7 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
   return (
     <section className="flex flex-1 flex-col gap-4">
       <ChannelProfile basicInfo={channel.basicInfo} />
+      <PeriodTabs />
       <div
         className={`grid gap-x-1 gap-y-7 grid-cols-1 \
         lg:grid-cols-3 lg:gap-x-2 lg:gap-y-8`}
