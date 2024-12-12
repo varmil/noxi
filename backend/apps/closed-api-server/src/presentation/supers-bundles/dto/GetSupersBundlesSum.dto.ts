@@ -1,6 +1,6 @@
 import { IsIn, IsString } from 'class-validator'
-import { ChannelId } from '@domain/youtube'
 import { Now } from '@domain'
+import { ChannelId } from '@domain/youtube'
 
 export class GetSupersBundlesSum {
   @IsString()
