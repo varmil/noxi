@@ -5,7 +5,9 @@ import {
   SupersBundleRepository,
   SupersBundles,
   SupersBundle,
-  SupersCount
+  SupersCount,
+  SupersBundleSums,
+  SupersBundleSum
 } from '@domain/supers-bundle'
 import {
   ActualEndTime,
@@ -110,14 +112,19 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         skip: offset
       })
 
-    return rows.map(row => ({
-      channelId: new ChannelId(row.channelId),
-      amountMicros: new AmountMicros(
-        row._sum.amountMicros
-          ? BigNumber(row._sum.amountMicros.toString())
-          : new BigNumber(0)
+    return new SupersBundleSums(
+      rows.map(
+        row =>
+          new SupersBundleSum({
+            channelId: new ChannelId(row.channelId),
+            amountMicros: new AmountMicros(
+              row._sum.amountMicros
+                ? BigNumber(row._sum.amountMicros.toString())
+                : new BigNumber(0)
+            )
+          })
       )
-    }))
+    )
   }
 
   private toDomain(row: PrismaYoutubeStreamSupersBundle) {

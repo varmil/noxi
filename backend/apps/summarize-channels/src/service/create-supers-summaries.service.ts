@@ -5,7 +5,7 @@ import { PromiseService } from '@app/lib/promise-service'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { Now } from '@domain/lib'
-import { AmountMicrosSum } from '@domain/supers-bundle'
+import { AmountMicrosSum, SupersBundleSums } from '@domain/supers-bundle'
 import { SupersSummary } from '@domain/supers-summary'
 import { ChannelId, Channels } from '@domain/youtube/channel'
 
@@ -44,7 +44,7 @@ export class CreateSupersSummariesService {
       where: where(now.startOfyear())
     })
 
-    const getAmountMicros = (data: AmountMicrosSum[], channelId: ChannelId) => {
+    const getAmountMicros = (data: SupersBundleSums, channelId: ChannelId) => {
       return (
         data.find(c => c.channelId.equals(channelId))?.amountMicros ??
         new AmountMicros(BigNumber(0))

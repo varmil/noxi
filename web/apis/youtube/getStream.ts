@@ -1,4 +1,4 @@
-import { schema, StreamSchema } from 'apis/youtube/schema/streamSchema'
+import { responseSchema, StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 
 export async function getStream(id: string): Promise<StreamSchema> {
@@ -8,6 +8,6 @@ export async function getStream(id: string): Promise<StreamSchema> {
     throw new Error('Failed to fetch data')
   }
 
-  const data = schema.parse(await res.json())
+  const data = responseSchema.parse(await res.json())
   return data
 }
