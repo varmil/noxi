@@ -104,9 +104,23 @@
         }
       },
       "channelsId": {
-        "metadata": {
-          "title": "{channel} - YouTube Channel",
-          "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+        "index": {
+          "metadata": {
+            "title": "{channel} Overview - YouTube Channel",
+            "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+          }
+        },
+        "superChat": {
+          "metadata": {
+            "title": "Super Chat Summary of {channel} - Total Earnings Over the Last X Days",
+            "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
+          }
+        },
+        "streamTimes": {
+          "metadata": {
+            "title": "{channel} Stream Times - YouTube Channel",
+            "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
+          }
         },
         "template": {
           "latestUserReactions": "Latest User Reactions",

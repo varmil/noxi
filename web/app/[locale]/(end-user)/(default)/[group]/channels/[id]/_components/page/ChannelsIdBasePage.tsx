@@ -15,7 +15,10 @@ type Props = ChannelsIdBasePageProps
 
 export async function generateBaseMetadata(
   props: Props & {
-    namespace: 'Page.group.channelsId.metadata'
+    namespace:
+      | 'Page.group.channelsId.index.metadata'
+      | 'Page.group.channelsId.superChat.metadata'
+      | 'Page.group.channelsId.streamTimes.metadata'
   }
 ): Promise<Metadata> {
   const { locale, group, id } = await props.params

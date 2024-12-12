@@ -10,7 +10,7 @@ type Props = ChannelsIdBasePageProps
 export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateBaseMetadata({
     ...props,
-    namespace: 'Page.group.channelsId.metadata'
+    namespace: 'Page.group.channelsId.index.metadata'
   })
 }
 
