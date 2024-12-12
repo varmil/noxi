@@ -5,7 +5,6 @@ import {
   Sections
 } from 'features/channel/components/container/ChannelContainer'
 import ChannelSuperChatCards from 'features/channel/components/super-chat/ChannelSuperChatCards'
-import PeriodTabs from 'features/period-tab/components/PeriodTabs'
 
 type Props = { id: string }
 
@@ -25,7 +24,7 @@ export async function ChannelsIdSuperChatTemplate({
       </Sections>
 
       {/* TODO: タブごとにチャート表示したい */}
-      <PeriodTabs />
+      {/* <PeriodTabs /> */}
     </section>
   )
 }

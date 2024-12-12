@@ -18,11 +18,11 @@ type Props = PropsWithoutRef<{
 }>
 
 export default function PeriodColumn({ keys, className }: Props) {
-  const tg = useTranslations('Global.ranking')
+  const tg = useTranslations('Global')
 
   return (
     <Column>
-      <ColumnHeader>{tg('filter.period')}</ColumnHeader>
+      <ColumnHeader>{tg('ranking.filter.period')}</ColumnHeader>
       <ColumnContent>
         {keys.map(key => (
           <SelectButton

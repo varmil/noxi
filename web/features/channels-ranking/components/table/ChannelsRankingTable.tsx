@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { JapaneseYen } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'

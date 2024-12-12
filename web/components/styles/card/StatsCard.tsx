@@ -17,14 +17,19 @@ export function StatsCardHeader({ children }: PropsWithChildren) {
   )
 }
 
-type Props = { subText?: string }
+type Props = { subText?: string; className?: string }
 export function StatsCardContent({
   subText,
-  children
+  children,
+  className
 }: PropsWithChildren<Props>) {
   return (
     <CardContent>
-      <div className="text-2xl sm:text-3xl font-bold tabular-nums mb-0.5">
+      <div
+        className={`text-2xl sm:text-3xl font-bold tabular-nums mb-0.5 ${
+          className ?? ''
+        }`}
+      >
         {children}
       </div>
       <p className="text-xs text-muted-foreground">{subText}</p>
