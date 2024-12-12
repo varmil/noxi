@@ -21,7 +21,7 @@ export default function ChannelsRankingTableTitle({
   className
 }: Props) {
   const breadcrumb = useTranslations('Breadcrumb')
-  const global = useTranslations('Global.ranking')
+  const global = useTranslations('Global')
   const feat = useTranslations('Features.channelsRanking')
   return (
     <section className={`flex text-sm sm:text-base ${className || ''}`}>

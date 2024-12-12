@@ -16,6 +16,19 @@
       "independent-irl": "Independent Streamers (IRL)"
     },
 
+    "period": {
+      "realtime": "Realtime",
+      "last24Hours": "Last 24 hours",
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days",
+      "last90Days": "Last 3 months",
+      "last1Year": "Last 1 year",
+      "thisWeek": "This week",
+      "thisMonth": "This month",
+      "thisYear": "This year",
+      "all": "All-time"
+    },
+
     "ranking": {
       "filter": {
         "period": "Time Period",
@@ -23,18 +36,6 @@
         "group": "Group",
         "gender": "Gender",
         "country": "Country"
-      },
-      "period": {
-        "realtime": "Realtime",
-        "last24Hours": "Last 24 hours",
-        "last7Days": "Last 7 days",
-        "last30Days": "Last 30 days",
-        "last90Days": "Last 3 months",
-        "last1Year": "Last 1 year",
-        "thisWeek": "This week",
-        "thisMonth": "This month",
-        "thisYear": "This year",
-        "all": "All-time"
       },
       "dimension": {
         "concurrent-viewer": "Most Live Viewers",
@@ -104,9 +105,26 @@
         }
       },
       "channelsId": {
-        "metadata": {
-          "title": "{channel} - YouTube Channel",
-          "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+        "index": {
+          "metadata": {
+            "title": "{channel} Overview - YouTube Channel",
+            "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+          }
+        },
+        "superChat": {
+          "metadata": {
+            "title": "Super Chat Summary of {channel} - Total Earnings Over the Last X Days",
+            "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
+          },
+          "section": {
+            "title": "Super Chat Summary"
+          }
+        },
+        "streamTimes": {
+          "metadata": {
+            "title": "{channel} Stream Times - YouTube Channel",
+            "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
+          }
         },
         "template": {
           "latestUserReactions": "Latest User Reactions",
@@ -210,6 +228,21 @@
   },
 
   "Features": {
+    "channel": {
+      "overview": {
+        "nav": "Overview"
+      },
+      "superChat": {
+        "nav": "Super Chat",
+        "title": "Super Chat Summary of {channel}: Total Earnings Over the Last X Days",
+        "description": ""
+      },
+      "streamTimes": {
+        "nav": "Stream Times",
+        "title": "Stream Times of {channel}",
+        "description": ""
+      }
+    },
     "group": {
       "overview": {
         "nav": "Overview"

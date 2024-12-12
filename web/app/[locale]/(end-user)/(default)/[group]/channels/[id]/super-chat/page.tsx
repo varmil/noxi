@@ -1,24 +1,24 @@
 import { Metadata } from 'next'
-import { ChannelsIdTemplate } from './_components/ChannelsIdTemplate'
 import ChannelsIdBasePage, {
   ChannelsIdBasePageProps,
   generateBaseMetadata
-} from './_components/page/ChannelsIdBasePage'
+} from '../_components/page/ChannelsIdBasePage'
+import { ChannelsIdSuperChatTemplate } from './_components/ChannelsIdSuperChatTemplate'
 
 type Props = ChannelsIdBasePageProps
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateBaseMetadata({
     ...props,
-    namespace: 'Page.group.channelsId.index.metadata'
+    namespace: 'Page.group.channelsId.superChat.metadata'
   })
 }
 
-export default async function GroupChannelsIdPage(props: Props) {
+export default async function GroupChannelsIdSuperChatPage(props: Props) {
   const { id } = await props.params
   return (
     <ChannelsIdBasePage {...props}>
-      <ChannelsIdTemplate id={id} />
+      <ChannelsIdSuperChatTemplate id={id} />
     </ChannelsIdBasePage>
   )
 }

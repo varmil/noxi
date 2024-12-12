@@ -28,7 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: `${page('metadata.title')} ${feat(dimension, {
-      period: global(`ranking.period.${period}`)
+      period: global(`period.${period}`)
     })} - ${global('title')}`,
 
     description: `${page('metadata.description')}`,
@@ -54,7 +54,7 @@ export default function YoutubeChannelsRankingPage(props: Props) {
   // Enable static rendering
   setRequestLocale(locale)
   const breadcrumb = useTranslations('Breadcrumb')
-  const tg = useTranslations('Global.ranking')
+  const tg = useTranslations('Global')
   const t = useTranslations('Features.channelsRanking.ranking.dimension')
 
   return (

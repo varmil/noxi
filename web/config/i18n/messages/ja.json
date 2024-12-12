@@ -16,6 +16,19 @@
       "independent-irl": "個人勢顔出し配信"
     },
 
+    "period": {
+      "realtime": "リアルタイム",
+      "last24Hours": "過去24時間",
+      "last7Days": "過去７日間",
+      "last30Days": "過去30日間",
+      "last90Days": "過去90日間",
+      "last1Year": "過去１年間",
+      "thisWeek": "今週",
+      "thisMonth": "今月",
+      "thisYear": "今年",
+      "all": "全期間"
+    },
+
     "ranking": {
       "filter": {
         "period": "集計期間",
@@ -23,18 +36,6 @@
         "group": "グループ",
         "gender": "性別",
         "country": "国"
-      },
-      "period": {
-        "realtime": "リアルタイム",
-        "last24Hours": "過去24時間",
-        "last7Days": "過去７日間",
-        "last30Days": "過去30日間",
-        "last90Days": "過去90日間",
-        "last1Year": "過去１年間",
-        "thisWeek": "今週",
-        "thisMonth": "今月",
-        "thisYear": "今年",
-        "all": "全期間"
       },
       "dimension": {
         "concurrent-viewer": "同時視聴者数",
@@ -104,9 +105,26 @@
         }
       },
       "channelsId": {
-        "metadata": {
-          "title": "{channel} - ライブ配信分析",
-          "description": "{channel}のスパチャランキング、統計データ、最新の配信情報を網羅的にチェック。同接数が多かったライブ配信、スパチャが多かったライブ配信を瞬時に見つけよう。人気の瞬間や収益データも把握し、VTuber・配信者ファン必見の情報を見逃さない。"
+        "index": {
+          "metadata": {
+            "title": "{channel} 概要",
+            "description": "{channel}のスパチャランキング、統計データ、最新の配信情報を網羅的にチェック。同接数が多かったライブ配信、スパチャが多かったライブ配信を瞬時に見つけよう。人気の瞬間や収益データも把握し、VTuber・配信者ファン必見の情報を見逃さない。"
+          }
+        },
+        "superChat": {
+          "metadata": {
+            "title": "{channel} スパチャ収入・スパチャ収益 - 過去X日間の合計金額",
+            "description": "「{channel}」のスーパーチャット収入を徹底分析！過去X日間のスパチャ収益合計やランキング情報を詳しく掲載。推しの支援状況を簡単に確認できます。"
+          },
+          "section": {
+            "title": "スパチャ収入"
+          }
+        },
+        "streamTimes": {
+          "metadata": {
+            "title": "{channel} 配信時間・配信曜日・配信時間帯",
+            "description": "「{channel}」の配信時間、配信曜日、配信時間帯を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
+          }
         },
         "template": {
           "latestUserReactions": "最新のスーパーチャット、コメント",
@@ -210,6 +228,21 @@
   },
 
   "Features": {
+    "channel": {
+      "overview": {
+        "nav": "概要"
+      },
+      "superChat": {
+        "nav": "スパチャ",
+        "title": "{channel}のスパチャ: 過去X日間の合計収入をチェック！",
+        "description": ""
+      },
+      "streamTimes": {
+        "nav": "配信時間",
+        "title": "{channel}の配信時間をチェック！",
+        "description": ""
+      }
+    },
     "group": {
       "overview": {
         "nav": "概要"

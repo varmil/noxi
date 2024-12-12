@@ -1,6 +1,6 @@
 import {
   SupersSummariesSchema,
-  responseSchema
+  responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
 import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
@@ -56,6 +56,6 @@ export async function getSupersSummaries({
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
 
-  const data = responseSchema.parse(await res.json())
+  const data = responseListSchema.parse(await res.json())
   return data.list
 }

@@ -19,11 +19,13 @@ const schema2 = z.object({
   createdAt: z.coerce.date()
 })
 
-const schema = z.union([schema1, schema2])
+/** Find Oneの場合は`schema2 */
+export const responseSchema = schema2
+/** Find Allの場合は`schema1` `schema2` の「UNION」 */
+const unionSchema = z.union([schema1, schema2])
 
-export const responseSchema = z.object({
+export const responseListSchema = z.object({
   list: z.union([z.array(schema1), z.array(schema2)])
 })
-
-export type SupersSummarySchema = z.infer<typeof schema>
-export type SupersSummariesSchema = SupersSummarySchema[]
+export type SupersSummarySchema = z.infer<typeof responseSchema>
+export type SupersSummariesSchema = z.infer<typeof unionSchema>[]

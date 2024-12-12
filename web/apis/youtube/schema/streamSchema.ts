@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { GroupStrings } from 'config/constants/Site'
 
-export const schema = z.object({
+export const responseSchema = z.object({
   videoId: z.string(),
 
   snippet: z.object({
@@ -46,9 +46,9 @@ export const schema = z.object({
     z.literal('ended')
   ])
 })
-export const responseSchema = z.object({
-  list: z.array(schema)
+export const responseListSchema = z.object({
+  list: z.array(responseSchema)
 })
 
-export type StreamSchema = z.infer<typeof schema>
+export type StreamSchema = z.infer<typeof responseSchema>
 export type StreamsSchema = StreamSchema[]

@@ -19,7 +19,7 @@ export default function StreamRankingTableTitle({
   className
 }: Props) {
   const breadcrumb = useTranslations('Breadcrumb')
-  const global = useTranslations('Global.ranking')
+  const global = useTranslations('Global')
   const feat = useTranslations('Features.streamRanking')
   return (
     <section className={`text-sm sm:text-base ${className || ''}`}>

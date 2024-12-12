@@ -1,4 +1,7 @@
-import { StreamsSchema, responseSchema } from 'apis/youtube/schema/streamSchema'
+import {
+  StreamsSchema,
+  responseListSchema
+} from 'apis/youtube/schema/streamSchema'
 import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
@@ -70,6 +73,6 @@ export async function getStreams({
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
 
-  const data = responseSchema.parse(await res.json())
+  const data = responseListSchema.parse(await res.json())
   return data.list
 }

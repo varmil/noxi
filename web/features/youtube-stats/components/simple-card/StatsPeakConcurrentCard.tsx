@@ -1,8 +1,10 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { Card } from '@/components/ui/card'
-import StatsCardContent from './StatsCardContent'
-import StatsCardHeader from './StatsCardHeader'
+import {
+  StatsCardHeader,
+  StatsCardContent,
+  StatsCard
+} from 'components/styles/card/StatsCard'
 
 type Props = {
   count: number
@@ -15,11 +17,11 @@ export default function StatsPeakConcurrentCard({
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.card')
   return (
-    <Card className={className}>
+    <StatsCard className={className}>
       <StatsCardHeader>Peak Concurrent</StatsCardHeader>
       <StatsCardContent subText={t('peakConcurrent')}>
         {count.toLocaleString()}
       </StatsCardContent>
-    </Card>
+    </StatsCard>
   )
 }

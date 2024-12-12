@@ -1,7 +1,11 @@
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { AmountMicros } from '@domain/supers'
-import { SupersBundle, SupersBundles } from '@domain/supers-bundle'
+import {
+  SupersBundle,
+  SupersBundles,
+  SupersBundleSums
+} from '@domain/supers-bundle'
 import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
 
 export interface AmountMicrosSum {
@@ -40,5 +44,5 @@ export interface SupersBundleRepository {
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number
     offset?: number
-  }) => Promise<AmountMicrosSum[]>
+  }) => Promise<SupersBundleSums>
 }
