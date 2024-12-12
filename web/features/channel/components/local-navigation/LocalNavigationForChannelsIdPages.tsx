@@ -26,7 +26,7 @@ export default function LocalNavigationForChannelsIdPages({
           prefetch: true
         }
       ]}
-      className="border-b mb-6"
+      className="border-b mb-8"
       linkClassName="min-w-20"
     />
   )

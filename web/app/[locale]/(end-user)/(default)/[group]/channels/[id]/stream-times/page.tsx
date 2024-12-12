@@ -14,7 +14,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 }
 
-export default async function GroupChannelsIdPage(props: Props) {
+export default async function GroupChannelsIdStreamTimesPage(props: Props) {
   const { id } = await props.params
   return (
     <ChannelsIdBasePage {...props}>
