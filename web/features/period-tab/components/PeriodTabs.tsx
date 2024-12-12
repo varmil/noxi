@@ -1,14 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, PropsWithChildren } from 'react'
 import { CalendarIcon } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import dayjs from 'lib/dayjs'
 
 type DateRange = '7days' | '30days' | '1year'
 
-export default function PeriodTabs() {
+export default function PeriodTabs({
+  className,
+  children
+}: PropsWithChildren<{
+  className?: string
+}>) {
   const [selectedRange, setSelectedRange] = useState<DateRange>('30days')
   const [startDate, setStartDate] = useState(
     dayjs().subtract(30, 'day').toDate()
@@ -40,35 +44,26 @@ export default function PeriodTabs() {
   }
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardContent className="p-6">
-        <Tabs
-          defaultValue="30days"
-          onValueChange={value => setSelectedRange(value as DateRange)}
-        >
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-            <TabsList className="mb-4 sm:mb-0">
-              <TabsTrigger value="7days">過去7日間</TabsTrigger>
-              <TabsTrigger value="30days">過去30日間</TabsTrigger>
-              <TabsTrigger value="1year">過去1年間</TabsTrigger>
-            </TabsList>
-            <div className="flex items-center text-sm text-muted-foreground">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {formatDateRange(startDate, endDate)}
-            </div>
-          </div>
-          <TabsContent value="7days">
-            <DateRangeContent start={startDate} end={endDate} />
-          </TabsContent>
-          <TabsContent value="30days">
-            <DateRangeContent start={startDate} end={endDate} />
-          </TabsContent>
-          <TabsContent value="1year">
-            <DateRangeContent start={startDate} end={endDate} />
-          </TabsContent>
-        </Tabs>
-      </CardContent>
-    </Card>
+    <Tabs
+      className={className}
+      defaultValue="30days"
+      onValueChange={value => setSelectedRange(value as DateRange)}
+    >
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+        <TabsList className="mb-4 sm:mb-0">
+          <TabsTrigger value="7days">過去7日間</TabsTrigger>
+          <TabsTrigger value="30days">過去30日間</TabsTrigger>
+          <TabsTrigger value="1year">過去1年間</TabsTrigger>
+        </TabsList>
+        <div className="flex items-center text-sm text-muted-foreground">
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {formatDateRange(startDate, endDate)}
+        </div>
+      </div>
+      <TabsContent value="7days">{children}</TabsContent>
+      <TabsContent value="30days">{children}</TabsContent>
+      <TabsContent value="1year">{children}</TabsContent>
+    </Tabs>
   )
 }
 
