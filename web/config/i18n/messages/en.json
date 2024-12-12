@@ -210,6 +210,21 @@
   },
 
   "Features": {
+    "channel": {
+      "overview": {
+        "nav": "Overview"
+      },
+      "superChat": {
+        "nav": "Super Chat",
+        "title": "Super Chat Summary of {channel}: Total Earnings Over the Last X Days",
+        "description": ""
+      },
+      "streamTimes": {
+        "nav": "Stream Times",
+        "title": "Stream Times of {channel}",
+        "description": ""
+      }
+    },
     "group": {
       "overview": {
         "nav": "Overview"

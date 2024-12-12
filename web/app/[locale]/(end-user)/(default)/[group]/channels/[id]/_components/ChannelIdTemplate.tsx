@@ -2,6 +2,7 @@ import { PropsWithChildren, PropsWithoutRef, Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
+import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import PeriodTabs from 'features/period-tab/components/PeriodTabs'
 import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
@@ -23,73 +24,80 @@ export async function ChannelIdTemplate({ id }: PropsWithoutRef<Props>) {
   ])
 
   return (
-    <section className="flex flex-1 flex-col gap-4">
+    <section className="flex flex-col">
       <ChannelProfile basicInfo={channel.basicInfo} />
-      <PeriodTabs />
-      <div
-        className={`grid gap-x-1 gap-y-7 grid-cols-1 \
+
+      <section className="">
+        <LocalNavigationForChannelsIdPages channelId={id} />
+      </section>
+
+      <section className="flex flex-1 flex-col gap-4">
+        <PeriodTabs />
+        <div
+          className={`grid gap-x-1 gap-y-7 grid-cols-1 \
         lg:grid-cols-3 lg:gap-x-2 lg:gap-y-8`}
-      >
-        <Section
-          gridClassName={'grid-cols-2 lg:grid-cols-1'}
-          className="lg:col-span-1 lg:order-2"
-          title={t('data')}
         >
-          <ChannelData channel={channel} />
-        </Section>
+          <Section
+            gridClassName={'grid-cols-2 lg:grid-cols-1'}
+            className="lg:col-span-1 lg:order-2"
+            title={t('data')}
+          >
+            <ChannelData channel={channel} />
+          </Section>
 
-        <Section
-          className="lg:col-span-2 lg:order-1"
-          title={t('latestUserReactions')}
-        >
-          <ChannelCommentTabs channelId={id} />
-        </Section>
+          <Section
+            className="lg:col-span-2 lg:order-1"
+            title={t('latestUserReactions')}
+          >
+            <ChannelCommentTabs channelId={id} />
+          </Section>
 
-        <Section
-          className="lg:col-span-full lg:order-3"
-          title={t('liveTrends')}
-        >
-          <ChartGrid>
-            <ConcurrentViewersBarChart channelId={id} />
-            <ViewsBarChart channelId={id} />
-          </ChartGrid>
-        </Section>
+          <Section
+            className="lg:col-span-full lg:order-3"
+            title={t('liveTrends')}
+          >
+            <ChartGrid>
+              <ConcurrentViewersBarChart channelId={id} />
+              <ViewsBarChart channelId={id} />
+            </ChartGrid>
+          </Section>
 
-        <Section
-          className="lg:col-span-full lg:order-4"
-          title={t('timeSlotAnalysis')}
-        >
-          <ChartGrid>
-            <StreamTimeHistogram channelId={id} />
-          </ChartGrid>
-        </Section>
+          <Section
+            className="lg:col-span-full lg:order-4"
+            title={t('timeSlotAnalysis')}
+          >
+            <ChartGrid>
+              <StreamTimeHistogram channelId={id} />
+            </ChartGrid>
+          </Section>
 
-        <Section
-          className="lg:col-span-full lg:order-5"
-          title={t('doWAnalysis')}
-        >
-          <ChartGrid>
-            <UploadsPerDayOfWeekBarChart videos={videos} />
-            <ViewsPerDoWBarChart videos={videos} />
-          </ChartGrid>
-        </Section>
+          <Section
+            className="lg:col-span-full lg:order-5"
+            title={t('doWAnalysis')}
+          >
+            <ChartGrid>
+              <UploadsPerDayOfWeekBarChart videos={videos} />
+              <ViewsPerDoWBarChart videos={videos} />
+            </ChartGrid>
+          </Section>
 
-        <Section
-          className="lg:col-span-full lg:order-6"
-          title={t('liveStreams')}
-        >
-          <Suspense fallback={<p>Loading Live Streams...</p>}>
-            <EndedStreamGallery where={{ channelId: id }} />
-          </Suspense>
-        </Section>
+          <Section
+            className="lg:col-span-full lg:order-6"
+            title={t('liveStreams')}
+          >
+            <Suspense fallback={<p>Loading Live Streams...</p>}>
+              <EndedStreamGallery where={{ channelId: id }} />
+            </Suspense>
+          </Section>
 
-        {/* 2024/11/04：要らないかもしれないので一旦コメントアウト */}
-        {/* <Section className="lg:col-span-full lg:order-last" title="Videos">
+          {/* 2024/11/04：要らないかもしれないので一旦コメントアウト */}
+          {/* <Section className="lg:col-span-full lg:order-last" title="Videos">
           <Suspense fallback={<p>Loading Videos...</p>}>
             <VideoInChannelGallery channelId={basicInfo.id} />
           </Suspense>
         </Section> */}
-      </div>
+        </div>
+      </section>
     </section>
   )
 }

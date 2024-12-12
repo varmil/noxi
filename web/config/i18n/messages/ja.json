@@ -210,6 +210,21 @@
   },
 
   "Features": {
+    "channel": {
+      "overview": {
+        "nav": "概要"
+      },
+      "superChat": {
+        "nav": "スパチャ",
+        "title": "{channel}のスパチャ: 過去X日間の合計収入をチェック！",
+        "description": ""
+      },
+      "streamTimes": {
+        "nav": "配信時間",
+        "title": "{channel}の配信時間をチェック！",
+        "description": ""
+      }
+    },
     "group": {
       "overview": {
         "nav": "概要"
