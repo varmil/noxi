@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { ChannelIdTemplate } from './_components/ChannelIdTemplate'
+import { ChannelsIdTemplate } from './_components/ChannelsIdTemplate'
 import ChannelsIdBasePage, {
   ChannelsIdBasePageProps,
   generateBaseMetadata
@@ -18,7 +18,7 @@ export default async function GroupChannelsIdPage(props: Props) {
   const { id } = await props.params
   return (
     <ChannelsIdBasePage {...props}>
-      <ChannelIdTemplate id={id} />
+      <ChannelsIdTemplate id={id} />
     </ChannelsIdBasePage>
   )
 }
