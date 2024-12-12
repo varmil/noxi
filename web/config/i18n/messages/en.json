@@ -114,6 +114,9 @@
           "metadata": {
             "title": "Super Chat Summary of {channel} - Total Earnings Over the Last X Days",
             "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
+          },
+          "section": {
+            "title": "Super Chat Summary"
           }
         },
         "streamTimes": {

@@ -1,9 +1,11 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { Card } from '@/components/ui/card'
+import {
+  StatsCardHeader,
+  StatsCardContent,
+  StatsCard
+} from 'components/styles/card/StatsCard'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import StatsCardContent from './StatsCardContent'
-import StatsCardHeader from './StatsCardHeader'
 
 type Props = {
   count: number
@@ -14,7 +16,7 @@ export default function StatsSubscribersCard({
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.card')
   return (
-    <Card>
+    <StatsCard>
       <StatsCardHeader>Subscribers</StatsCardHeader>
       <StatsCardContent subText={t('totalSubscribers')}>
         <IntlNumberFormat
@@ -24,6 +26,6 @@ export default function StatsSubscribersCard({
           {count}
         </IntlNumberFormat>
       </StatsCardContent>
-    </Card>
+    </StatsCard>
   )
 }

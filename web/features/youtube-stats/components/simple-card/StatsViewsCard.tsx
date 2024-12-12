@@ -1,9 +1,11 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { Card } from '@/components/ui/card'
+import {
+  StatsCardHeader,
+  StatsCardContent,
+  StatsCard
+} from 'components/styles/card/StatsCard'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import StatsCardContent from './StatsCardContent'
-import StatsCardHeader from './StatsCardHeader'
 
 type Props = {
   count: bigint
@@ -12,7 +14,7 @@ type Props = {
 export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.card')
   return (
-    <Card>
+    <StatsCard>
       <StatsCardHeader>Views</StatsCardHeader>
       <StatsCardContent subText={t('totalViews')}>
         <IntlNumberFormat
@@ -22,6 +24,6 @@ export default function StatsViewsCard({ count }: PropsWithoutRef<Props>) {
           {count}
         </IntlNumberFormat>
       </StatsCardContent>
-    </Card>
+    </StatsCard>
   )
 }

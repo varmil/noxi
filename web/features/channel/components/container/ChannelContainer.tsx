@@ -22,11 +22,11 @@ export function Section({
   children
 }: PropsWithChildren<{
   gridClassName?: string
-  className: string
+  className?: string
   title: string
 }>) {
   return (
-    <section className={`${className}`}>
+    <section className={`${className ?? ''}`}>
       <h2 className="text-xl font-bold lg:text-2xl pb-4">{title}</h2>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}

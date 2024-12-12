@@ -1,11 +1,13 @@
 import { PropsWithoutRef } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
-import { Card } from '@/components/ui/card'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
+import {
+  StatsCardHeader,
+  StatsCardContent,
+  StatsCard
+} from 'components/styles/card/StatsCard'
 import { calculateTotalInJPY } from '../../../../utils/exchange-rates'
-import StatsCardContent from './StatsCardContent'
-import StatsCardHeader from './StatsCardHeader'
 
 type Props = {
   videoId: string
@@ -39,7 +41,7 @@ export default async function StatsSuperChatTotalAmountCard({
   }
 
   return (
-    <Card className={className}>
+    <StatsCard className={className}>
       <StatsCardHeader>Super Chat</StatsCardHeader>
       <StatsCardContent subText={t('totalSuperChats')}>
         <div className="flex items-center space-x-0.5">
@@ -47,6 +49,6 @@ export default async function StatsSuperChatTotalAmountCard({
           <span>{total}</span>
         </div>
       </StatsCardContent>
-    </Card>
+    </StatsCard>
   )
 }
