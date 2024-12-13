@@ -235,7 +235,10 @@
       "superChat": {
         "nav": "スパチャ",
         "title": "{channel}のスパチャ: 過去X日間の合計収入をチェック！",
-        "description": ""
+        "description": "",
+        "realtime": "リアルタイム更新",
+        "realtimeDescription": "金額は30分間隔で更新されます",
+        "createdAt": "{date} に更新されました"
       },
       "streamTimes": {
         "nav": "配信時間",

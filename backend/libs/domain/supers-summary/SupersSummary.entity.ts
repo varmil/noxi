@@ -1,7 +1,7 @@
+import BigNumber from 'bignumber.js'
 import { Transform } from 'class-transformer'
 import { AmountMicros } from '@domain/supers/base'
 import { ChannelId } from '@domain/youtube'
-import BigNumber from 'bignumber.js'
 
 export class SupersSummary {
   @Transform(({ value }: { value: ChannelId }) => value.get())

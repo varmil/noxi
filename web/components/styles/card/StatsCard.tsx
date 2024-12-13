@@ -10,8 +10,10 @@ export function StatsCard({
 
 export function StatsCardHeader({ children }: PropsWithChildren) {
   return (
-    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-      <CardTitle className="flex text-sm font-medium h-5">{children}</CardTitle>
+    <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+      <CardTitle className="flex justify-between w-full text-sm font-medium h-5">
+        {children}
+      </CardTitle>
       {/* <Icon className="h-4 w-4 text-muted-foreground" /> */}
     </CardHeader>
   )
@@ -26,13 +28,15 @@ export function StatsCardContent({
   return (
     <CardContent>
       <div
-        className={`text-2xl sm:text-3xl font-bold tabular-nums mb-0.5 ${
+        className={`text-2xl sm:text-3xl font-bold tabular-nums ${
           className ?? ''
         }`}
       >
         {children}
       </div>
-      <p className="text-xs text-muted-foreground">{subText}</p>
+      {subText && (
+        <p className="mt-1.5 text-xs text-muted-foreground">{subText}</p>
+      )}
     </CardContent>
   )
 }

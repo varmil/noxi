@@ -9,8 +9,8 @@ import {
 import { GetSupersSummaries } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
 import { SupersSummariesScenario } from '@presentation/supers-summaries/supers-summaries.scenario'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
-import { ChannelId } from '@domain/youtube'
 import { SupersSummary } from '@domain/supers-summary'
+import { ChannelId } from '@domain/youtube'
 
 @Controller('supers-summaries')
 @UseInterceptors(ClassSerializerInterceptor)

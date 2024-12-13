@@ -235,7 +235,10 @@
       "superChat": {
         "nav": "Super Chat",
         "title": "Super Chat Summary of {channel}: Total Earnings Over the Last X Days",
-        "description": ""
+        "description": "",
+        "realtime": "Realtime",
+        "realtimeDescription": "The amount is updated every 30 minutes.",
+        "createdAt": "Updated {date}."
       },
       "streamTimes": {
         "nav": "Stream Times",
