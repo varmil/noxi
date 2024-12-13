@@ -353,7 +353,7 @@
         "card": {
           "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
           "peakConcurrent": "最大同時視聴者数",
-          "totalViews": "動画,ショートの再生回数",
+          "totalViews": "動画の再生回数",
           "totalSubscribers": "チャンネル登録者数",
           "totalSuperChats": "スーパーチャット合計額"
         },

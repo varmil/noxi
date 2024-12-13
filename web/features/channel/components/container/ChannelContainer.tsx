@@ -27,7 +27,7 @@ export function Section({
 }>) {
   return (
     <section className={`${className ?? ''}`}>
-      <h2 className="text-xl font-bold lg:text-2xl pb-4">{title}</h2>
+      <h2 className="text-base md:text-lg font-bold pb-6">{title}</h2>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}
       </div>

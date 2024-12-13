@@ -33,7 +33,7 @@ export default function HeaderXSSheet() {
           <SheetTitle hidden>PeakX</SheetTitle>
           <SheetDescription hidden></SheetDescription>
         </SheetHeader>
-        <nav className="h-full flex flex-col text-lg font-medium">
+        <nav className="h-full flex flex-col font-medium">
           <section className="grid gap-6">
             <Link
               href="/"

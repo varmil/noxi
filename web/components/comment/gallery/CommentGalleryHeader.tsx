@@ -5,7 +5,7 @@ export default async function CommentGalleryHeader({
 }: PropsWithChildren) {
   return (
     <section className="mb-6">
-      <h3 className="text-lg font-bold">{children}</h3>
+      <h3 className="lg:text-lg font-bold">{children}</h3>
     </section>
   )
 }
