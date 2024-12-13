@@ -57,7 +57,7 @@ export default async function SuperChat({ chat, stream }: Props) {
               })}
             </CommentHeaderWeakLine>
           </CommentHeaderItem>
-          <CommentHeaderItem className="gap-x-1 text-lg font-bold tabular-nums">
+          <CommentHeaderItem className="gap-x-1 font-bold tabular-nums">
             {/* TODO: 色実装するまでコメントアウト（DBに色コードを直接保存） */}
             {/* <SuperTierIcon tier={tier} /> */}
             <span className="sr-only">{t('amount')}</span>

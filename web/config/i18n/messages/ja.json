@@ -178,7 +178,7 @@
         "ranking": {
           "metadata": {
             "title": "VTuber",
-            "description": ""
+            "description": "過去24時間、過去X日間でスーパーチャット金額が多いVTuberランキングを公開！推しの活躍を確認し、人気VTuberの注目度をチェック。VTuber情報を見逃さずに！"
           }
         }
       }
@@ -235,7 +235,10 @@
       "superChat": {
         "nav": "スパチャ",
         "title": "{channel}のスパチャ: 過去X日間の合計収入をチェック！",
-        "description": ""
+        "description": "",
+        "realtime": "リアルタイム更新",
+        "realtimeDescription": "金額は30分間隔で更新されます",
+        "createdAt": "{date} に更新されました"
       },
       "streamTimes": {
         "nav": "配信時間",
@@ -350,7 +353,7 @@
         "card": {
           "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
           "peakConcurrent": "最大同時視聴者数",
-          "totalViews": "動画,ショートの再生回数",
+          "totalViews": "動画の再生回数",
           "totalSubscribers": "チャンネル登録者数",
           "totalSuperChats": "スーパーチャット合計額"
         },

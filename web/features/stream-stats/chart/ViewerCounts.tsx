@@ -16,7 +16,10 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import { ViewerCountsSchema } from 'apis/youtube/schema/viewerCountSchema'
+import {
+  ViewerCountSchema,
+  ViewerCountsSchema
+} from 'apis/youtube/schema/viewerCountSchema'
 import {
   StreamStatsGradient,
   StreamStatsXAxis,
@@ -68,7 +71,15 @@ export default function ViewerCounts({
             })}
             {StreamStatsYAxis()}
             <CartesianGrid vertical={false} />
-            <ChartTooltip content={<ChartTooltipContent />} />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  labelFormatter={(_label, [{ payload }]) =>
+                    format.dateTime(new Date(payload.createdAt), FormatForTick)
+                  }
+                />
+              }
+            />
             {StreamStatsGradient({
               id: 'fillCounts',
               color: 'var(--color-count)'

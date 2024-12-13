@@ -2,7 +2,6 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  NotFoundException,
   Param,
   Query,
   UseInterceptors
@@ -10,6 +9,7 @@ import {
 import { GetSupersSummaries } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
 import { SupersSummariesScenario } from '@presentation/supers-summaries/supers-summaries.scenario'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
+import { SupersSummary } from '@domain/supers-summary'
 import { ChannelId } from '@domain/youtube'
 
 @Controller('supers-summaries')
@@ -42,8 +42,10 @@ export class SupersSummariesController {
     const summary = await this.supersSummariesService.findOne({
       where: { channelId: new ChannelId(id) }
     })
+    // データがない＝今日追加されたChannel
+    // なので、404ではなくゼロを意味するEntityを返却する
     if (!summary) {
-      throw new NotFoundException(`summary not found for ${id}`)
+      return SupersSummary.zero(new ChannelId(id))
     }
     return summary
   }
