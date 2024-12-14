@@ -13,9 +13,11 @@ const MaxResultsPerRequest = 50
  * and returns live streaming details
  */
 export async function getLiveStreamingDetails({
-  videoIds
+  videoIds,
+  revalidate
 }: {
   videoIds: string[]
+  revalidate?: number
 }): Promise<LiveStreamingDetailsListSchema> {
   let results: LiveStreamingDetailsListSchema = []
 
@@ -30,7 +32,7 @@ export async function getLiveStreamingDetails({
     })
     const res = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?${searchParams.toString()}`,
-      { next: { revalidate: CACHE_1M } }
+      { next: { revalidate: revalidate ?? CACHE_1M } }
     )
     if (!res.ok) {
       console.error(await res.text())
