@@ -15,7 +15,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
         </TabsTrigger>
       </TabsList>
 
-      <ScrollArea className="h-[493px] rounded-md border p-4">
+      <ScrollArea className="h-[490px] lg:h-[509px] rounded-md border p-4">
         <TabsContent
           forceMount
           value="superChat"
