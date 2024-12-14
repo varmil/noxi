@@ -17,14 +17,7 @@ const gridGapYClasses = 'gap-y-6 sm:gap-y-8'
 
 const getGridClasses = (className?: string) => {
   return `grid gap-x-2 sm:gap-x-4 ${gridGapYClasses} \
-         ${className ?? 'grid-cols-1 sm:grid-cols-3 md:grid-cols-3'}`
-}
-
-/**
- * @deprecated
- */
-export default function GridCardContainer({ className, children }: Props) {
-  return <div className={getGridClasses(className)}>{children}</div>
+         ${className ?? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}`
 }
 
 /**

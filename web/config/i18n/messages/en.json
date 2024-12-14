@@ -120,9 +120,18 @@
             "title": "Super Chat Summary (includes Sticker)"
           }
         },
+        "live": {
+          "metadata": {
+            "title": "{channel} Live Streams",
+            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and revisit past broadcasts. Never miss your favorite VTuber's streams!"
+          },
+          "section": {
+            "title": "Live Streams"
+          }
+        },
         "streamTimes": {
           "metadata": {
-            "title": "{channel} Stream Times - YouTube Channel",
+            "title": "{channel} Stream Times",
             "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
           }
         },
@@ -131,8 +140,7 @@
           "liveTrends": "Live Stream Trends",
           "data": "Data",
           "timeSlotAnalysis": "Time slot analysis",
-          "doWAnalysis": "Days of the week analysis",
-          "liveStreams": "Past Streams"
+          "doWAnalysis": "Days of the week analysis"
         }
       },
       "live": {
@@ -223,7 +231,7 @@
       "scheduledFor": "Scheduled for {datetime}",
       "startedStreaming": "Started streaming {datetime}",
       "watching": "watching",
-      "streamedLive": "Streamed {datetime}"
+      "streamedLive": "{datetime}"
     }
   },
 
@@ -234,16 +242,15 @@
       },
       "superChat": {
         "nav": "Super Chat",
-        "title": "Super Chat Summary of {channel}: Total Earnings Over the Last X Days",
-        "description": "",
         "realtime": "Realtime",
         "realtimeDescription": "The amount is updated every 30 minutes.",
         "createdAt": "Updated {date}."
       },
+      "live": {
+        "nav": "Live"
+      },
       "streamTimes": {
-        "nav": "Stream Times",
-        "title": "Stream Times of {channel}",
-        "description": ""
+        "nav": "Stream Times"
       }
     },
     "group": {

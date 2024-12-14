@@ -29,7 +29,7 @@ export const StreamAvatarContainer = ({
   return (
     <div className="items-center text-center">
       <Link href={`/${stream.group}/channels/${channel.basicInfo.id}`}>
-        <Avatar className="w-9 h-9 sm:w-11 sm:h-11 transition-all hover:scale-105">
+        <Avatar className="w-9 h-9 transition-all hover:scale-105">
           <AvatarImage
             alt={channel.basicInfo.title}
             src={channel.basicInfo.thumbnails['medium']?.url}
@@ -57,11 +57,12 @@ export const StreamTextContainer = ({
     <div>
       <h3 className="break-anywhere text-sm line-clamp-2 mb-1">{title}</h3>
       <div className="col-start-2 flex items-center gap-1">
-        <div className="text-xs sm:text-sm text-muted-foreground">
-          <Link href={`/${group}/channels/${channelId}`}>
-            <div className="hover:text-accent-foreground">
-              {channel.basicInfo.title}
-            </div>
+        <div className="text-xs text-muted-foreground">
+          <Link
+            href={`/${group}/channels/${channelId}`}
+            className="line-clamp-1 hover:text-accent-foreground"
+          >
+            {channel.basicInfo.title}
           </Link>
           {children}
         </div>

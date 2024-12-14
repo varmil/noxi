@@ -4,16 +4,19 @@ import { CardContent } from '@/components/ui/card'
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import GridCardContainer from 'components/styles/GridCardContainer'
+import {
+  GridCardGalleryContent,
+  GridCardGalleryFirstView
+} from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
-import StreamListContentContainer from 'features/group/stream/components/stream-list/StreamListContentContainer'
+import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
   compact?: boolean
 }>
 
-export default async function StreamListContentOfLive({
+export default async function LiveStreamGalleryContent({
   streams,
   compact
 }: Props) {
@@ -23,16 +26,18 @@ export default async function StreamListContentOfLive({
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
 
-  const displayedStreams = compact ? streams.slice(0, 3) : streams
+  const displayedStreams = compact
+    ? streams.slice(0, STREAM_GALLERY_COMPACT_LIMIT)
+    : streams
 
   return (
     <CardContent>
-      <StreamListContentContainer>
+      <GridCardGalleryContent>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noLive')}</p>
         )}
 
-        <GridCardContainer>
+        <GridCardGalleryFirstView>
           {displayedStreams.map(stream => {
             const channel = channels.find(
               channel => channel.basicInfo.id === stream.snippet.channelId
@@ -54,8 +59,8 @@ export default async function StreamListContentOfLive({
               />
             )
           })}
-        </GridCardContainer>
-      </StreamListContentContainer>
+        </GridCardGalleryFirstView>
+      </GridCardGalleryContent>
     </CardContent>
   )
 }

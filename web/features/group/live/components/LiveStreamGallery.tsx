@@ -3,9 +3,10 @@ import { Radio } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
-import StreamListContentOfLive from 'features/group/stream/components/stream-list/StreamListContentOfLive'
+import LiveStreamGalleryContent from 'features/group/live/components/LiveStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
+import { STREAM_GALLERY_LIMIT } from 'features/group/types/stream-gallery'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -22,7 +23,7 @@ export default async function LiveStreamGallery({
       status: 'live',
       group,
       orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-      limit: 100
+      limit: STREAM_GALLERY_LIMIT
     })
   ])
 
@@ -36,7 +37,7 @@ export default async function LiveStreamGallery({
         })}
         badgeText="Live"
       />
-      <StreamListContentOfLive streams={streams} compact={compact} />
+      <LiveStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/live`} />}
     </Card>
   )
