@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import BigNumber from 'bignumber.js'
 import { AmountMicros, Group } from '@domain'
 import {
@@ -97,6 +97,9 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }) => {
+    if (!where.actualEndTime && !where.OR) {
+      throw new BadRequestException('actualEndTime or OR must be specified')
+    }
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
         by: ['channelId'],
@@ -104,6 +107,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
           channelId: { in: where.channelIds?.map(e => e.get()) },
           group: where.group?.get(),
           actualEndTime: where.actualEndTime,
+          OR: where.OR,
           channel: { gender: where.gender?.get() }
         },
         _sum: { amountMicros: true },

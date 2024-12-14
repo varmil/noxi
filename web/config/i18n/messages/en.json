@@ -117,7 +117,7 @@
             "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
           },
           "section": {
-            "title": "Super Chat Summary"
+            "title": "Super Chat Summary (includes Sticker)"
           }
         },
         "streamTimes": {
