@@ -21,13 +21,6 @@ const getGridClasses = (className?: string) => {
 }
 
 /**
- * @deprecated
- */
-export default function GridCardContainer({ className, children }: Props) {
-  return <div className={getGridClasses(className)}>{children}</div>
-}
-
-/**
  * 親コンテナ
  */
 export function GridCardGalleryContent({ children }: PropsWithChildren) {

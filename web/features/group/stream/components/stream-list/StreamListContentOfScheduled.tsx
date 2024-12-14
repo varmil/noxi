@@ -3,9 +3,11 @@ import { getFormatter, getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import GridCardContainer from 'components/styles/GridCardContainer'
+import {
+  GridCardGalleryContent,
+  GridCardGalleryFirstView
+} from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
-import StreamListContentContainer from 'features/group/stream/components/stream-list/StreamListContentContainer'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -26,7 +28,7 @@ export default async function StreamListContentOfScheduled({
 
   return (
     <CardContent>
-      <StreamListContentContainer>
+      <GridCardGalleryContent>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noScheduled')}</p>
         )}
@@ -34,7 +36,7 @@ export default async function StreamListContentOfScheduled({
           {/* Loop by date */}
           {Object.entries(groupedStreams).map(([date, events]) => {
             return (
-              <GridCardContainer key={date}>
+              <GridCardGalleryFirstView key={date}>
                 {events.map(stream => {
                   const channel = channels.find(
                     channel => channel.basicInfo.id === stream.snippet.channelId
@@ -48,11 +50,11 @@ export default async function StreamListContentOfScheduled({
                     />
                   )
                 })}
-              </GridCardContainer>
+              </GridCardGalleryFirstView>
             )
           })}
         </section>
-      </StreamListContentContainer>
+      </GridCardGalleryContent>
     </CardContent>
   )
 }
