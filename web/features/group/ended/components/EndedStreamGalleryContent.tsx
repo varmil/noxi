@@ -17,9 +17,9 @@ export default async function EndedStreamGalleryContent({
   streams,
   compact
 }: Props) {
-  /** compact表示のときはそもそも全部出す */
-  const FIRST_VIEW_LIMIT = compact ? streams.length : 6
-  const isCollapsible = streams.length > FIRST_VIEW_LIMIT
+  /** compact表示のときはFooterにリンクが出るので、ここでの「もっと見る」は出さない */
+  const FIRST_VIEW_LIMIT = 28
+  const isCollapsible = !compact && streams.length > FIRST_VIEW_LIMIT
   const firstView = streams.slice(0, FIRST_VIEW_LIMIT)
   const more = streams.slice(FIRST_VIEW_LIMIT)
 

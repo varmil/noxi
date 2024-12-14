@@ -6,6 +6,7 @@ import { getStreams } from 'apis/youtube/getStreams'
 import ScheduledStreamGalleryContent from 'features/group/scheduled/components/ScheduledStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
+import { STREAM_GALLERY_LIMIT } from 'features/group/types/stream-gallery'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -24,7 +25,7 @@ export default async function ScheduledStreamGallery({
       // +48 hours from now
       scheduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
       orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
-      limit: 100
+      limit: STREAM_GALLERY_LIMIT
     })
   ])
 

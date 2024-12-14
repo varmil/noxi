@@ -18,6 +18,7 @@ export async function generateBaseMetadata(
     namespace:
       | 'Page.group.channelsId.index.metadata'
       | 'Page.group.channelsId.superChat.metadata'
+      | 'Page.group.channelsId.live.metadata'
       | 'Page.group.channelsId.streamTimes.metadata'
   }
 ): Promise<Metadata> {

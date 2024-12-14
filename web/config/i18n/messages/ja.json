@@ -120,6 +120,15 @@
             "title": "スパチャ収入（ステッカー含む）"
           }
         },
+        "live": {
+          "metadata": {
+            "title": "{channel} ライブ",
+            "description": "{channel}のライブ配信一覧をチェック！最新のライブストリームや過去の配信情報をまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "ライブ配信"
+          }
+        },
         "streamTimes": {
           "metadata": {
             "title": "{channel} 配信時間・配信曜日・配信時間帯",
@@ -131,8 +140,7 @@
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
           "timeSlotAnalysis": "配信時間帯の分析",
-          "doWAnalysis": "曜日ごとの週間分析",
-          "liveStreams": "過去の配信"
+          "doWAnalysis": "曜日ごとの週間分析"
         }
       },
       "live": {
@@ -234,16 +242,15 @@
       },
       "superChat": {
         "nav": "スパチャ",
-        "title": "{channel}のスパチャ: 過去X日間の合計収入をチェック！",
-        "description": "",
         "realtime": "リアルタイム更新",
         "realtimeDescription": "金額は30分間隔で更新されます",
         "createdAt": "{date} に更新されました"
       },
+      "live": {
+        "nav": "ライブ"
+      },
       "streamTimes": {
-        "nav": "配信時間",
-        "title": "{channel}の配信時間をチェック！",
-        "description": ""
+        "nav": "配信時間"
       }
     },
     "group": {

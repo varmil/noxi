@@ -10,8 +10,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const path = `/${group.val}/channels/${channelId}`
       return [
         getEntry({ pathname: path }),
-        getEntry({ pathname: `${path}/stream-times` }),
-        getEntry({ pathname: `${path}/super-chat` })
+        getEntry({ pathname: `${path}/super-chat` }),
+        getEntry({ pathname: `${path}/live` }),
+        getEntry({ pathname: `${path}/stream-times` })
       ]
     })
   })

@@ -1,13 +1,11 @@
-import { PropsWithoutRef, Suspense } from 'react'
+import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
-import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import {
   ChartGrid,
   Section,
   Sections
 } from 'features/channel/components/container/ChannelContainer'
-import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
 import ChannelData from './ui/channel-data/ChannelData'
@@ -43,12 +41,6 @@ export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
           <ConcurrentViewersBarChart channelId={id} />
           <ViewsBarChart channelId={id} />
         </ChartGrid>
-      </Section>
-
-      <Section className="lg:col-span-full lg:order-6" title={t('liveStreams')}>
-        <Suspense fallback={<p>Loading Live Streams...</p>}>
-          <EndedStreamGallery where={{ channelId: id }} />
-        </Suspense>
       </Section>
     </Sections>
   )

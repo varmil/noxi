@@ -7,6 +7,7 @@ import { GroupString } from 'config/constants/Site'
 import EndedStreamGalleryContent from 'features/group/ended/components/EndedStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
+import { STREAM_GALLERY_LIMIT } from 'features/group/types/stream-gallery'
 import { CACHE_1H } from 'lib/fetchAPI'
 import { getGroup } from 'lib/server-only-context/cache'
 
@@ -25,7 +26,7 @@ export default async function EndedStreamGallery({
     group,
     channelId,
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: 50,
+    limit: STREAM_GALLERY_LIMIT,
     revalidate: CACHE_1H
   })
   const t = await getTranslations('Features.group.ended')
