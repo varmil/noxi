@@ -82,8 +82,9 @@ export class MainScenario {
         data: { status: QueueStatusInProgress }
       })
 
-      const { actualStartTime, actualEndTime, channelId, group } =
-        this.mainService.findStream({ streams, videoId })
+      const stream = this.mainService.findStream({ streams, videoId })
+      if (!stream) return
+      const { actualStartTime, actualEndTime, channelId, group } = stream
 
       const { amountMicros, count } =
         await this.mainService.calculateTotalInJPY(videoId)

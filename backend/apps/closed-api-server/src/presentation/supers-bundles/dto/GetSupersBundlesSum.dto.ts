@@ -14,4 +14,7 @@ export class GetSupersBundlesSum {
 
   // 現状24時間固定しかないのでベタ書き
   toActualEndTime = () => ({ gte: new Now().xDaysAgo(1) })
+
+  // 現状24時間固定しかないのでベタ書き
+  toCreatedAt = () => ({ gte: new Now().xDaysAgo(1) })
 }

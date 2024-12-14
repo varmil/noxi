@@ -45,7 +45,10 @@ export class SupersBundlesController {
       await this.supersBundlesService.sum({
         where: {
           channelIds: new ChannelIds([dto.toChannelId()]),
-          actualEndTime: dto.toActualEndTime()
+          OR: [
+            { actualEndTime: dto.toActualEndTime() },
+            { createdAt: dto.toCreatedAt() }
+          ]
         }
       })
     ).first()

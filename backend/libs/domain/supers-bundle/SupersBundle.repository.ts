@@ -33,13 +33,17 @@ export interface SupersBundleRepository {
 
   save: (args: { data: SupersBundle }) => Promise<void>
 
-  /** Sum amountMicros within a period grouped by channelId */
+  /**
+   * Sum amountMicros within a period grouped by channelId
+   * OR: last24Hours && Realtime（ライブ中）の金額計算をする場合に指定する
+   **/
   sum: (args: {
     where: {
       channelIds?: ChannelIds
       group?: Group
       gender?: Gender
-      actualEndTime: { gte: Date; lte?: Date }
+      actualEndTime?: { gte: Date; lte?: Date }
+      OR?: [{ actualEndTime: { gte: Date } }, { createdAt: { gte: Date } }]
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number

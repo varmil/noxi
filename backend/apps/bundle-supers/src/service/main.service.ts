@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { StreamsService } from '@app/streams/streams.service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
@@ -9,6 +9,8 @@ import { VideoId } from '@domain/youtube'
 
 @Injectable()
 export class MainService {
+  private readonly logger = new Logger(MainService.name)
+
   constructor(
     private readonly streamsService: StreamsService,
     private readonly supersBundleQueuesService: SupersBundleQueuesService,
@@ -72,8 +74,11 @@ export class MainService {
       snippet: { channelId },
       group
     } = stream
+    // スケジュールされたまま配信せずendedになるとここに入ってくるが、
+    // 配信してないのでスパチャも存在しないとみなし、レコード作らない
     if (!actualStartTime) {
-      throw new Error(`actualStartTime not found for ${videoId.get()}`)
+      this.logger.log(`actualStartTime not found for ${videoId.get()}, skip`)
+      return undefined
     }
     return {
       actualStartTime,
