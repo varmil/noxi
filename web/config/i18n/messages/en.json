@@ -223,7 +223,7 @@
       "scheduledFor": "Scheduled for {datetime}",
       "startedStreaming": "Started streaming {datetime}",
       "watching": "watching",
-      "streamedLive": "Streamed {datetime}"
+      "streamedLive": "{datetime}"
     }
   },
 

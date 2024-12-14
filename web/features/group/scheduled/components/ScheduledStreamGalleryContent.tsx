@@ -8,6 +8,7 @@ import {
   GridCardGalleryFirstView
 } from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
+import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -75,7 +76,7 @@ async function getCompactGroupedStreams({
         if (a.metrics.likes < b.metrics.likes) return 1
         return 0
       })
-      .slice(0, 3)
+      .slice(0, STREAM_GALLERY_COMPACT_LIMIT)
   }
 }
 

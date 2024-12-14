@@ -9,6 +9,7 @@ import {
   GridCardGalleryFirstView
 } from 'components/styles/GridCardContainer'
 import Stream from 'features/group/stream/components/Stream'
+import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -25,7 +26,9 @@ export default async function LiveStreamGalleryContent({
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
 
-  const displayedStreams = compact ? streams.slice(0, 3) : streams
+  const displayedStreams = compact
+    ? streams.slice(0, STREAM_GALLERY_COMPACT_LIMIT)
+    : streams
 
   return (
     <CardContent>

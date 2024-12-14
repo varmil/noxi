@@ -2,6 +2,7 @@ import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import Stream from 'features/group/stream/components/Stream'
+import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = {
   streams: StreamsSchema
@@ -31,7 +32,7 @@ export default async function EndedStreams({ streams, compact }: Props) {
           return { stream, channel, video }
         })
         .filter(item => item !== null)
-        .slice(0, compact ? 3 : undefined)
+        .slice(0, compact ? STREAM_GALLERY_COMPACT_LIMIT : undefined)
         .map(({ stream, channel, video }) => {
           return (
             <Stream
