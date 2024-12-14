@@ -14,7 +14,7 @@ type Props = PropsWithoutRef<{
   compact?: boolean
 }>
 
-export default async function StreamListContentOfScheduled({
+export default async function ScheduledStreamGalleryContent({
   streams,
   compact
 }: Props) {

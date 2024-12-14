@@ -3,7 +3,7 @@ import { CalendarCheck } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
-import StreamListContentOfScheduled from 'features/group/stream/components/stream-list/StreamListContentOfScheduled'
+import ScheduledStreamGalleryContent from 'features/group/scheduled/components/ScheduledStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
 import { getGroup } from 'lib/server-only-context/cache'
@@ -40,7 +40,7 @@ export default async function ScheduledStreamGallery({
         })}
         badgeText="Scheduled"
       />
-      <StreamListContentOfScheduled streams={streams} compact={compact} />
+      <ScheduledStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/scheduled`} />}
     </Card>
   )

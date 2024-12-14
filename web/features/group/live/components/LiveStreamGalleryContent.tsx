@@ -15,7 +15,7 @@ type Props = PropsWithoutRef<{
   compact?: boolean
 }>
 
-export default async function StreamListContentOfLive({
+export default async function LiveStreamGalleryContent({
   streams,
   compact
 }: Props) {
