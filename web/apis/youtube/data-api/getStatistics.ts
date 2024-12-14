@@ -3,7 +3,7 @@ import {
   StatisticsListSchema,
   responseSchema
 } from 'apis/youtube/data-api/schema/statisticsSchema'
-import { CACHE_1M } from 'lib/fetchAPI'
+import { CACHE_1H } from 'lib/fetchAPI'
 
 const MaxResultsPerRequest = 50
 
@@ -11,11 +11,16 @@ const MaxResultsPerRequest = 50
  * NOTE:
  * This request directly request the YouTube Data API
  * and returns Video statistics
+ *
+ * 現状リアルタイム性が求められないコメントや再生回数表示にのみ
+ * 用いているので長めにキャッシュしてみる
  */
 export async function getStatistics({
-  videoIds
+  videoIds,
+  revalidate
 }: {
   videoIds: string[]
+  revalidate?: number
 }): Promise<StatisticsListSchema> {
   let results: StatisticsListSchema = []
 
@@ -30,7 +35,7 @@ export async function getStatistics({
     })
     const res = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?${searchParams.toString()}`,
-      { next: { revalidate: CACHE_1M } }
+      { next: { revalidate: revalidate ?? CACHE_1H } }
     )
     if (!res.ok) {
       console.error(await res.text())

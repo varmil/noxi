@@ -1,7 +1,15 @@
-import { LiveStreamingDetailsListSchema } from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
-import { StatisticsListSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
-import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
-import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import 'server-only'
+import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
+import { getStatistics } from 'apis/youtube/data-api/getStatistics'
+import { getChannels } from 'apis/youtube/getChannels'
+import { getStreams } from 'apis/youtube/getStreams'
+import { CACHE_10M, CACHE_1D } from 'lib/fetchAPI'
+import { getGroup } from 'lib/server-only-context/cache'
+
+/** そこまで注目されない部分なので強気にキャッシュする */
+const LIVE_CACHE_TTL = CACHE_10M
+/** 終了したStreamなので強気にキャッシュする */
+const ENDED_CACHE_TTL = CACHE_1D
 
 type Base = {
   id: string
@@ -22,23 +30,41 @@ type EndedRelatedVideo = Base & {
 
 type RelatedVideo = LiveRelatedVideo | EndedRelatedVideo
 
-export const getRelatedVideos = (args: {
-  liveStreams: StreamsSchema
-  endedStreams: StreamsSchema
-  channels: ChannelsSchema
-  /** For Live Streams */
-  liveStreamingDetailsList: LiveStreamingDetailsListSchema
-  /** For Ended Streams */
-  statisticsList: StatisticsListSchema
-}): RelatedVideo[] => {
-  const {
-    liveStreams,
-    endedStreams,
-    channels,
-    liveStreamingDetailsList,
-    statisticsList
-  } = args
-  const liveRelatedVideos: LiveRelatedVideo[] = liveStreams
+export const getRelatedVideos = async (args: {
+  channelId: string
+}): Promise<RelatedVideo[]> => {
+  const [live, ended] = await Promise.all([
+    getStreams({
+      status: 'live',
+      group: getGroup(),
+      orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
+      limit: 8,
+      revalidate: LIVE_CACHE_TTL
+    }),
+    getStreams({
+      status: 'ended',
+      channelId: args.channelId,
+      orderBy: [{ field: 'actualEndTime', order: 'desc' }],
+      limit: 7,
+      revalidate: ENDED_CACHE_TTL
+    })
+  ])
+
+  const streams = live.concat(ended)
+  const [channels, liveStreamingDetailsList, statisticsList] =
+    await Promise.all([
+      getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+      getLiveStreamingDetails({
+        videoIds: live.map(stream => stream.videoId),
+        revalidate: LIVE_CACHE_TTL
+      }),
+      getStatistics({
+        videoIds: ended.map(stream => stream.videoId),
+        revalidate: ENDED_CACHE_TTL
+      })
+    ])
+
+  const liveRelatedVideos: LiveRelatedVideo[] = live
     .map(stream => {
       const channel = channels.find(
         channel => channel.basicInfo.id === stream.snippet.channelId
@@ -62,7 +88,7 @@ export const getRelatedVideos = (args: {
     })
     .filter(e => e !== null)
 
-  const endedRelatedVideos: EndedRelatedVideo[] = endedStreams
+  const endedRelatedVideos: EndedRelatedVideo[] = ended
     .map(stream => {
       const channel = channels.find(
         channel => channel.basicInfo.id === stream.snippet.channelId

@@ -1,7 +1,9 @@
+import { PropsWithChildren } from 'react'
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
+import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import DefaultModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/DefaultModeTemplate'
 import TheaterModeTemplate from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/mode/TheaterModeTemplate'
 import DefaultLayout from 'components/layouts/DefaultLayout'
@@ -42,14 +44,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function YoutubeLiveIdPage(props: Props) {
   const { locale, videoId } = await props.params
-  const { group } = await getStream(videoId)
+  const { group, status } = await getStream(videoId)
 
   // Enable static rendering
   setRequestLocale(locale)
   setGroup(group)
 
   return (
-    <AutoRouterRefresh intervalMs={2 * 60000}>
+    <Container status={status}>
       <LayoutFactory
         DefaultLayout={
           <DefaultLayout>
@@ -62,8 +64,26 @@ export default async function YoutubeLiveIdPage(props: Props) {
           </TheaterLayout>
         }
       />
-    </AutoRouterRefresh>
+    </Container>
   )
+}
+
+/**
+ * live onlyにするのが最も効率が良いが
+ * schedule中に閲覧を始めた場合リフレッシュされないので
+ * live or scheduled としている
+ */
+async function Container({
+  children,
+  status
+}: PropsWithChildren<{ status: StreamSchema['status'] }>) {
+  if (status === 'live' || status === 'scheduled') {
+    return (
+      <AutoRouterRefresh intervalMs={2 * 60000}>{children}</AutoRouterRefresh>
+    )
+  } else {
+    return children
+  }
 }
 
 async function DefaultModePage({ videoId }: { videoId: string }) {

@@ -1,50 +1,17 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
-import { getStatistics } from 'apis/youtube/data-api/getStatistics'
-import { getChannels } from 'apis/youtube/getChannels'
-import { getStreams } from 'apis/youtube/getStreams'
 import Image from 'components/styles/Image'
 import Watching from 'components/styles/number/Watching'
 import Views from 'components/youtube/statistics/Views'
 import { Link } from 'lib/navigation'
-import { getGroup } from 'lib/server-only-context/cache'
 import { getRelatedVideos } from '../../../utils/getRelatedVideos'
 
 export default async function RelatedVideos({
   channelId,
   className
 }: PropsWithoutRef<{ channelId: string; className?: string }>) {
-  const [live, ended] = await Promise.all([
-    getStreams({
-      status: 'live',
-      group: getGroup(),
-      orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
-      limit: 8
-    }),
-    getStreams({
-      status: 'ended',
-      channelId,
-      orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-      limit: 7
-    })
-  ])
-  const streams = live.concat(ended)
-  const [t, channels, liveStreamingDetailsList, statisticsList] =
-    await Promise.all([
-      getTranslations('Features.stream'),
-      getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
-      getLiveStreamingDetails({ videoIds: live.map(stream => stream.videoId) }),
-      getStatistics({ videoIds: ended.map(stream => stream.videoId) })
-    ])
-
-  const relatedVideos = getRelatedVideos({
-    liveStreams: live,
-    endedStreams: ended,
-    channels,
-    liveStreamingDetailsList,
-    statisticsList
+  const relatedVideos = await getRelatedVideos({
+    channelId: channelId
   })
 
   return (
