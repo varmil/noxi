@@ -9,14 +9,12 @@ import { ChannelId, ChannelIds } from '@domain/youtube/channel'
 // 13 talents + 1 official
 
 const ENDefaultProps = {
-  group: 'idol-corp',
   country: new CountryCode('US'),
   defaultLangage: new LanguageTag('en'),
   gender: Gender.Female
 }
 
 const ESDefaultProps = {
-  group: 'idol-corp',
   country: new CountryCode('ES'),
   defaultLangage: new LanguageTag('es'),
   gender: Gender.Female

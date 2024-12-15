@@ -4,7 +4,6 @@ import { Gender } from '@domain/lib'
 import { ChannelId } from '@domain/youtube'
 
 const DefaultProps = {
-  group: 'independent-irl',
   country: new CountryCode('JP'),
   defaultLangage: new LanguageTag('ja'),
   gender: Gender.Male

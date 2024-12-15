@@ -7,7 +7,6 @@ import { Gender } from '@domain/lib'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const DefaultProps = {
-  group: 'hololive-indonesia',
   country: new CountryCode('JP'),
   defaultLangage: new LanguageTag('id'),
   gender: Gender.Female
