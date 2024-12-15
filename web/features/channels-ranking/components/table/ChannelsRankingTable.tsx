@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { JapaneseYen } from 'lucide-react'
+import { ChevronRight, JapaneseYen } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
@@ -63,6 +63,8 @@ export default async function ChannelsRankingTable({
             summary => summary.channelId === channelId
           )?.[period] as bigint | undefined
 
+          const { group, country } = channel.peakX
+
           return (
             <TableRow key={channelId}>
               {/* Rank */}
@@ -77,25 +79,25 @@ export default async function ChannelsRankingTable({
                 <ChannelThumbnail
                   className=""
                   channel={channel}
-                  group={channel.peakX?.group}
+                  group={group}
                 />
               </TableCell>
 
               {/* Channel Title */}
-              <LinkCell channelId={channelId} group={channel.peakX.group}>
-                <div className="flex items-center font-light line-clamp-1">
+              <LinkCell channelId={channelId} group={group}>
+                <div className="flex items-center line-clamp-1 hover:underline">
                   {channel.basicInfo.title}
                 </div>
               </LinkCell>
 
               {/* Supers */}
               {dimension === 'super-chat' && (
-                <TableCell width={160} className="min-w-24">
+                <TableCell className="min-w-[100px] max-w-[180px]">
                   <Dimension
                     active={true}
                     dividend={convertMicrosToAmount(summary ?? BigInt(0))}
                     divisor={convertMicrosToAmount(topAmountMicros)}
-                    icon={<JapaneseYen className="w-4 h-4" />}
+                    icon={<JapaneseYen className="w-3 h-3 @xl:w-4 @xl:h-4" />}
                     rtl
                   />
                 </TableCell>
@@ -103,7 +105,7 @@ export default async function ChannelsRankingTable({
 
               {/* Subscribers */}
               {dimension === 'subscriber' && (
-                <TableCell width={160} className="min-w-24">
+                <TableCell className="min-w-[100px] max-w-[180px]">
                   <Dimension
                     active={dimension === 'subscriber'}
                     dividend={channel.statistics.subscriberCount}
@@ -114,10 +116,19 @@ export default async function ChannelsRankingTable({
               )}
 
               {/* 3xl-: Group */}
-              <TableCellOfGroup groupId={channel.peakX.group} />
+              <TableCellOfGroup groupId={group} />
 
               {/* 3xl-: Country */}
-              <TableCellOfCountry countryCode={channel.peakX.country} />
+              <TableCellOfCountry countryCode={country} />
+
+              {/* xs - 2xl: Link Icon */}
+              <LinkCell
+                className="@3xl:hidden"
+                channelId={channelId}
+                group={group}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </LinkCell>
             </TableRow>
           )
         })}
