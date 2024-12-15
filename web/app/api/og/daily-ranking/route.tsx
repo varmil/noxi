@@ -34,7 +34,7 @@ export async function GET(request: Request) {
           display: 'flex',
           width: '100%',
           height: '100%',
-          padding: '30px 70px',
+          padding: '34px 70px',
           textAlign: 'center',
           justifyContent: 'center',
           alignItems: 'center',
@@ -42,7 +42,7 @@ export async function GET(request: Request) {
         }}
       >
         <section tw="flex flex-col items-center w-[330px] h-full text-4xl font-bold">
-          <div tw="flex items-center mb-28" style={{ gap: 20 }}>
+          <div tw="flex items-center mt-4 mb-32" style={{ gap: 20 }}>
             <div style={{ fontSize: 50 }}>日刊</div>
             <div style={{ fontSize: 30 }} tw="self-end">
               {formatter.format(
@@ -51,7 +51,9 @@ export async function GET(request: Request) {
             </div>
           </div>
 
-          <div style={{ fontSize: 80 }}>スパチャ</div>
+          <div tw="mb-4" style={{ fontSize: 80 }}>
+            スパチャ
+          </div>
           <div style={{ fontSize: 60 }}>ランキング</div>
           <div style={{ fontSize: 12 }} tw="mt-auto">
             ※PeakX登録タレント集計。ステッカー含む
