@@ -9,7 +9,6 @@ export interface GroupChannels {
 
 export interface GroupChannel {
   id: ChannelId
-  group: string
   title: string
   country: CountryCode
   defaultLangage: LanguageTag

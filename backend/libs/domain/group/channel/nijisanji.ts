@@ -7,7 +7,6 @@ import { Gender } from '@domain/lib/gender/Gender.vo'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const DefaultProps = {
-  group: 'nijisanji',
   country: new CountryCode('JP'),
   defaultLangage: new LanguageTag('ja'),
   gender: Gender.Female
