@@ -1,5 +1,5 @@
-import { PropsWithoutRef } from 'react'
-import { JapaneseYen } from 'lucide-react'
+import { ComponentProps, PropsWithChildren, PropsWithoutRef } from 'react'
+import { ChevronRight, JapaneseYen } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
@@ -8,14 +8,12 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import { GroupString } from 'config/constants/Site'
-import LinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
+import BaseLinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
 import {
   ChannelsRankingDimension,
   ChannelsRankingPeriod
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { Link } from 'lib/navigation'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
@@ -63,6 +61,13 @@ export default async function ChannelsRankingTable({
             summary => summary.channelId === channelId
           )?.[period] as bigint | undefined
 
+          const { group, country } = channel.peakX
+
+          const LinkCell = (
+            props: PropsWithChildren &
+              Omit<ComponentProps<typeof BaseLinkCell>, 'channelId' | 'group'>
+          ) => <BaseLinkCell channelId={channelId} group={group} {...props} />
+
           return (
             <TableRow key={channelId}>
               {/* Rank */}
@@ -73,51 +78,52 @@ export default async function ChannelsRankingTable({
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <TableCell className="">
-                <ChannelThumbnail
-                  className=""
-                  channel={channel}
-                  group={channel.peakX?.group}
-                />
-              </TableCell>
+              <LinkCell>
+                <ChannelThumbnail channel={channel} />
+              </LinkCell>
 
               {/* Channel Title */}
-              <LinkCell channelId={channelId} group={channel.peakX.group}>
-                <div className="flex items-center font-light line-clamp-1">
+              <LinkCell>
+                <div className="flex items-center line-clamp-1 hover:underline">
                   {channel.basicInfo.title}
                 </div>
               </LinkCell>
 
               {/* Supers */}
               {dimension === 'super-chat' && (
-                <TableCell width={160} className="min-w-24">
+                <LinkCell className="min-w-[102px] max-w-[180px]">
                   <Dimension
                     active={true}
                     dividend={convertMicrosToAmount(summary ?? BigInt(0))}
                     divisor={convertMicrosToAmount(topAmountMicros)}
-                    icon={<JapaneseYen className="w-4 h-4" />}
+                    icon={<JapaneseYen className="w-3 h-3 @lg:w-4 @lg:h-4" />}
                     rtl
                   />
-                </TableCell>
+                </LinkCell>
               )}
 
               {/* Subscribers */}
               {dimension === 'subscriber' && (
-                <TableCell width={160} className="min-w-24">
+                <LinkCell className="min-w-[102px] max-w-[180px]">
                   <Dimension
                     active={dimension === 'subscriber'}
                     dividend={channel.statistics.subscriberCount}
                     divisor={topSubscribers}
                     rtl
                   />
-                </TableCell>
+                </LinkCell>
               )}
 
               {/* 3xl-: Group */}
-              <TableCellOfGroup groupId={channel.peakX.group} />
+              <TableCellOfGroup groupId={group} />
 
               {/* 3xl-: Country */}
-              <TableCellOfCountry countryCode={channel.peakX.country} />
+              <TableCellOfCountry countryCode={country} />
+
+              {/* xs - 2xl: Link Icon */}
+              <LinkCell className="@3xl:hidden">
+                <ChevronRight className="w-4 h-4" />
+              </LinkCell>
             </TableRow>
           )
         })}
@@ -128,25 +134,22 @@ export default async function ChannelsRankingTable({
 
 const ChannelThumbnail = ({
   className,
-  channel,
-  group
+  channel
 }: {
   className?: string
   channel: ChannelSchema
-  group?: GroupString
 }) => {
   return (
-    <Link
-      className={`flex items-center justify-center gap-2 ${className || ''}`}
-      href={`/${group}/channels/${channel.basicInfo.id}`}
+    <Avatar
+      className={`w-7 h-7 @lg:w-12 @lg:h-12 transition-all hover:scale-105 ${
+        className || ''
+      }`}
     >
-      <Avatar className="w-7 h-7 @lg:w-12 @lg:h-12 transition-all hover:scale-105">
-        <AvatarImage
-          src={channel.basicInfo.thumbnails.medium?.url}
-          alt={channel.basicInfo.title}
-        />
-        <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
-      </Avatar>
-    </Link>
+      <AvatarImage
+        src={channel.basicInfo.thumbnails.medium?.url}
+        alt={channel.basicInfo.title}
+      />
+      <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
+    </Avatar>
   )
 }

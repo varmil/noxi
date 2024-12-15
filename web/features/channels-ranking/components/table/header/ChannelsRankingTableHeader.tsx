@@ -45,6 +45,9 @@ export default async function ChannelsRankingTableHeader({ dimension }: Props) {
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
           {t('country')}
         </TableHead>
+
+        {/* Link Icon */}
+        <TableHead className="@3xl:hidden" />
       </TableRow>
     </TableHeader>
   )
