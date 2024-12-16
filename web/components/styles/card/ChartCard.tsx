@@ -19,7 +19,9 @@ export function ChartCardHeader({
   children,
   className
 }: PropsWithChildren<{ className?: string }>) {
-  return <CardHeader className={`px-1.5 ${className}`}>{children}</CardHeader>
+  return (
+    <CardHeader className={`pt-0 px-1.5 ${className}`}>{children}</CardHeader>
+  )
 }
 
 /**
@@ -30,5 +32,7 @@ export function ChartCardContent({
   children,
   className
 }: PropsWithChildren<{ className?: string }>) {
-  return <CardContent className={`px-0 ${className}`}>{children}</CardContent>
+  return (
+    <CardContent className={`pb-0 px-0 ${className}`}>{children}</CardContent>
+  )
 }
