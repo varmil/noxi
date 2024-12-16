@@ -118,7 +118,8 @@
             "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
           },
           "section": {
-            "title": "Super Chat Summary (includes Sticker)"
+            "card": { "title": "Super Chat Summary (includes Sticker)" },
+            "chart": {}
           }
         },
         "live": {
@@ -245,7 +246,14 @@
         "nav": "Super Chat",
         "realtime": "Realtime",
         "realtimeDescription": "The amount is updated every 30 minutes.",
-        "createdAt": "Updated {date}."
+        "createdAt": "Updated {date}.",
+        "chart": {
+          "thisMonth": {
+            "title": "Super Chat amount - This Month",
+            "description": "Check the monthly cumulative amount (line chart) and daily Super Chat (bar chart)!"
+          },
+          "overTime": { "title": "Super Chat trends over the last 30 days" }
+        }
       },
       "live": {
         "nav": "Live"

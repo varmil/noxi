@@ -118,7 +118,8 @@
             "description": "「{channel}」のスーパーチャット収入を徹底分析！過去X日間のスパチャ収益合計やランキング情報を詳しく掲載。推しの支援状況を簡単に確認できます。"
           },
           "section": {
-            "title": "スパチャ収入（ステッカー含む）"
+            "card": { "title": "スパチャ収入（ステッカー含む）" },
+            "chart": {}
           }
         },
         "live": {
@@ -245,7 +246,14 @@
         "nav": "スパチャ",
         "realtime": "リアルタイム更新",
         "realtimeDescription": "金額は30分間隔で更新されます",
-        "createdAt": "{date} に更新されました"
+        "createdAt": "{date} に更新されました",
+        "chart": {
+          "thisMonth": {
+            "title": "今月のスパチャ",
+            "description": "月間累計金額の推移（折れ線グラフ）と日間スパチャ（棒グラフ）を確認できます"
+          },
+          "overTime": { "title": "過去30日間のスパチャ推移" }
+        }
       },
       "live": {
         "nav": "ライブ"
@@ -363,7 +371,7 @@
           "peakConcurrent": "最大同時視聴者数",
           "totalViews": "動画の再生回数",
           "totalSubscribers": "チャンネル登録者数",
-          "totalSuperChats": "スーパーチャット合計額"
+          "totalSuperChats": "スパチャ合計金額"
         },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日",

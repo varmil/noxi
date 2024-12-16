@@ -1,0 +1,34 @@
+import { PropsWithChildren } from 'react'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+
+/**
+ * No border for a Chart
+ */
+export function ChartCard({
+  children,
+  className
+}: PropsWithChildren<{ className?: string }>) {
+  return <Card className={`border-0 ${className}`}>{children}</Card>
+}
+
+/**
+ * Add px-1.5
+ * グラフのAxisラベルと極力揃えたい
+ */
+export function ChartCardHeader({
+  children,
+  className
+}: PropsWithChildren<{ className?: string }>) {
+  return <CardHeader className={`px-1.5 ${className}`}>{children}</CardHeader>
+}
+
+/**
+ * Add px-0
+ * iPhone SE (375px) でも見栄え良くなるギリギリまで描画したい
+ */
+export function ChartCardContent({
+  children,
+  className
+}: PropsWithChildren<{ className?: string }>) {
+  return <CardContent className={`px-0 ${className}`}>{children}</CardContent>
+}

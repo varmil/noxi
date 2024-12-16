@@ -14,7 +14,7 @@ import { formatMicrosAsRoundedAmount } from 'utils/amount'
 /**
  * SupersSummaryをまとめて表示するコンポーネント
  */
-export default async function ChannelSuperChatCards({
+export default async function ChannelSupersCards({
   channelId,
   className
 }: PropsWithChildren<{ channelId: string; className?: string }>) {
