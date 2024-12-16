@@ -1,19 +1,13 @@
 'use client'
 
 import { NumberFormatOptions, useFormatter, useTranslations } from 'next-intl'
-import {
-  Bar,
-  Line,
-  ComposedChart,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Legend
-} from 'recharts'
+import { Bar, Line, ComposedChart, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { CardDescription, CardTitle } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
@@ -116,7 +110,7 @@ export default function ThisMonthsCumulativeSupersChart({
                 />
               }
             />
-            <Legend />
+            <ChartLegend content={<ChartLegendContent />} />
             <Bar
               yAxisId="right"
               dataKey="daily"
