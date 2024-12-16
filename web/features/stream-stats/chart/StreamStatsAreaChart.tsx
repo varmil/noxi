@@ -1,5 +1,6 @@
 'use client'
 
+import { useFormatter } from 'next-intl'
 import { XAxis, YAxis } from 'recharts'
 
 export function StreamStatsXAxis({
@@ -31,6 +32,7 @@ export function StreamStatsXAxis({
 }
 
 export function StreamStatsYAxis() {
+  const format = useFormatter()
   return (
     <YAxis
       tickLine={false}
@@ -38,7 +40,9 @@ export function StreamStatsYAxis() {
       width={50}
       tickMargin={8}
       tickCount={4}
-      tickFormatter={tick => (tick != 0 ? Number(tick).toLocaleString() : '')}
+      tickFormatter={(tick: number) =>
+        tick != 0 ? format.number(tick, { notation: 'compact' }) : ''
+      }
     />
   )
 }

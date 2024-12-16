@@ -119,7 +119,7 @@
           },
           "section": {
             "card": { "title": "スパチャ収入（ステッカー含む）" },
-            "chart": { "title": "スパチャトレンド" }
+            "chart": {}
           }
         },
         "live": {
@@ -250,7 +250,7 @@
         "chart": {
           "thisMonth": {
             "title": "今月のスパチャ",
-            "description": "日間スパチャと月間累計金額の推移"
+            "description": "月間累計金額の推移（折れ線グラフ）と日間スパチャ（棒グラフ）を確認できます"
           },
           "overTime": { "title": "過去30日間のスパチャ推移" }
         }
@@ -371,7 +371,7 @@
           "peakConcurrent": "最大同時視聴者数",
           "totalViews": "動画の再生回数",
           "totalSubscribers": "チャンネル登録者数",
-          "totalSuperChats": "スーパーチャット合計額"
+          "totalSuperChats": "スパチャ合計金額"
         },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日",

@@ -2,13 +2,7 @@
 
 import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid } from 'recharts'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { CardDescription, CardTitle } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -20,6 +14,11 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChartTooltipFormatter, {
   ChartTooltipTotal
 } from 'components/chart/ChartTooltipFormatter'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader
+} from 'components/styles/card/ChartCard'
 import {
   StreamStatsXAxis,
   StreamStatsYAxis
@@ -61,12 +60,12 @@ export default function ChatCounts({
   if (chatCounts.length === 0) return null
 
   return (
-    <Card>
-      <CardHeader>
+    <ChartCard>
+      <ChartCardHeader>
         <CardTitle>Chat messages</CardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
-      </CardHeader>
-      <CardContent>
+      </ChartCardHeader>
+      <ChartCardContent>
         <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
@@ -116,13 +115,13 @@ export default function ChatCounts({
             />
           </BarChart>
         </ChartContainer>
-      </CardContent>
+      </ChartCardContent>
       <div className="sr-only">
         {t('srChatCountsChart', {
           dateRange: dateRange.join(''),
           total: stream.metrics.chatMessages
         })}
       </div>
-    </Card>
+    </ChartCard>
   )
 }

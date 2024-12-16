@@ -2,13 +2,7 @@
 
 import { useFormatter, useTranslations } from 'next-intl'
 import { Area, AreaChart, CartesianGrid } from 'recharts'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { CardDescription, CardTitle } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -16,10 +10,12 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import { ViewerCountsSchema } from 'apis/youtube/schema/viewerCountSchema'
 import {
-  ViewerCountSchema,
-  ViewerCountsSchema
-} from 'apis/youtube/schema/viewerCountSchema'
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader
+} from 'components/styles/card/ChartCard'
 import {
   StreamStatsGradient,
   StreamStatsXAxis,
@@ -52,12 +48,12 @@ export default function ViewerCounts({
   if (viewerCounts.length === 0) return null
 
   return (
-    <Card>
-      <CardHeader>
+    <ChartCard>
+      <ChartCardHeader>
         <CardTitle>Concurrent viewers</CardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
-      </CardHeader>
-      <CardContent>
+      </ChartCardHeader>
+      <ChartCardContent>
         <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer
@@ -93,13 +89,13 @@ export default function ViewerCounts({
             />
           </AreaChart>
         </ChartContainer>
-      </CardContent>
+      </ChartCardContent>
       <div className="sr-only">
         {t('srViewerCountsChart', {
           dateRange: dateRange.join(''),
           peak: stream.metrics.peakConcurrentViewers
         })}
       </div>
-    </Card>
+    </ChartCard>
   )
 }

@@ -46,8 +46,8 @@ const ChartContainer = React.forwardRef<
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
   // NOTE: 2024/12/06 Safariだとmax-heightが効かないため、heightを指定する
-  // Height大きくしすぎるとGalaxy Z Fold (344px) で横はみ出るので注意
-  const heightWidthClasses = 'h-[180px] sm:h-[230px] w-full'
+  // Height大きくしすぎるとiPhone SE (375px) で横はみ出るので注意
+  const heightWidthClasses = 'h-[176px] sm:h-[230px] w-full'
 
   return (
     <ChartContext.Provider value={{ config }}>

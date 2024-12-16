@@ -23,11 +23,13 @@ export function Section({
 }: PropsWithChildren<{
   gridClassName?: string
   className?: string
-  title: string
+  title?: string
 }>) {
   return (
     <section className={`${className ?? ''}`}>
-      <h2 className="text-base md:text-lg font-bold pb-6">{title}</h2>
+      {title && (
+        <h2 className="text-base md:text-lg font-bold pb-6">{title}</h2>
+      )}
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}
       </div>

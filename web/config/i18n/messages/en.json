@@ -119,7 +119,7 @@
           },
           "section": {
             "card": { "title": "Super Chat Summary (includes Sticker)" },
-            "chart": { "title": "Super Chat Trends" }
+            "chart": {}
           }
         },
         "live": {
@@ -250,7 +250,7 @@
         "chart": {
           "thisMonth": {
             "title": "Super Chat amount - This Month",
-            "description": "Daily Super Chat and monthly cumulative amount trends"
+            "description": "Check the monthly cumulative amount (line chart) and daily Super Chat (bar chart)!"
           },
           "overTime": { "title": "Super Chat trends over the last 30 days" }
         }

@@ -10,13 +10,7 @@ import {
   CartesianGrid,
   Legend
 } from 'recharts'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { CardDescription, CardTitle } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -25,6 +19,11 @@ import {
 } from '@/components/ui/chart'
 import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummarySchema'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader
+} from 'components/styles/card/ChartCard'
 import { useCumulativeData } from 'features/channel/utils/useCumulativeData'
 
 // const data = [
@@ -75,13 +74,12 @@ export default function ThisMonthsCumulativeSupersChart({
   const data = useCumulativeData(supersSummaryHistories)
 
   return (
-    <Card>
-      <CardHeader>
+    <ChartCard>
+      <ChartCardHeader>
         <CardTitle>{t('thisMonth.title')}</CardTitle>
         <CardDescription>{t('thisMonth.description')}</CardDescription>
-      </CardHeader>
-      {/* Galaxy Z Fold (344px) でも見栄え良くなるギリギリまで描画したい */}
-      <CardContent className="px-0">
+      </ChartCardHeader>
+      <ChartCardContent>
         <ChartContainer config={chartConfig}>
           <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -123,19 +121,20 @@ export default function ThisMonthsCumulativeSupersChart({
               yAxisId="right"
               dataKey="daily"
               fill="var(--color-daily)"
+              fillOpacity={0.3}
               radius={[2, 2, 0, 0]}
             />
             <Line
               yAxisId="left"
-              type="monotone"
+              type="linear"
               dataKey="monthly"
               stroke="var(--color-monthly)"
-              strokeWidth={4}
+              strokeWidth={3.5}
               dot={false}
             />
           </ComposedChart>
         </ChartContainer>
-      </CardContent>
-    </Card>
+      </ChartCardContent>
+    </ChartCard>
   )
 }
