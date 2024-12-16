@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormatter } from 'next-intl'
+import { NumberFormatOptions, useFormatter } from 'next-intl'
 import {
   Bar,
   Line,
@@ -8,7 +8,6 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
   Legend
 } from 'recharts'
 import {
@@ -25,6 +24,7 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart'
 import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummarySchema'
+import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import { useCumulativeData } from 'features/channel/utils/useCumulativeData'
 
 // const data = [
@@ -46,13 +46,19 @@ import { useCumulativeData } from 'features/channel/utils/useCumulativeData'
 //   { date: '11-09', daily: 700000, monthly: 400000 }
 // ]
 
+const NUMBER_FORMAT: NumberFormatOptions = {
+  style: 'currency',
+  notation: 'compact',
+  currency: 'JPY'
+}
+
 const chartConfig = {
   daily: {
-    label: '日間',
+    label: 'daily',
     color: 'hsl(var(--muted-foreground))'
   },
   monthly: {
-    label: '月間',
+    label: 'this month',
     color: 'hsl(var(--primary))'
   }
 } satisfies ChartConfig
@@ -86,34 +92,27 @@ export default function ThisMonthsCumulativeSupersChart({
               yAxisId="left"
               orientation="left"
               tickFormatter={(value: number) => {
-                return `${format.number(value, {
-                  style: 'currency',
-                  notation: 'compact',
-                  currency: 'JPY'
-                })}`
+                return `${format.number(value, NUMBER_FORMAT)}`
               }}
             />
             <YAxis
               yAxisId="right"
               orientation="right"
               tickFormatter={(value: number) =>
-                `${format.number(value, {
-                  style: 'currency',
-                  notation: 'compact',
-                  currency: 'JPY'
-                })}`
+                `${format.number(value, NUMBER_FORMAT)}`
               }
             />
             <ChartTooltip
               content={
                 <ChartTooltipContent
-                // formatter={value => {
-                //   return `${format.number(value as number, {
-                //     style: 'currency',
-                //     notation: 'compact',
-                //     currency: 'JPY'
-                //   })}`
-                // }}
+                  className="w-[165px] sm:w-[180px]"
+                  formatter={(value, name) => (
+                    <ChartTooltipFormatter
+                      indicatorColor={name}
+                      name={chartConfig[name]?.label || name}
+                      value={format.number(value as number, NUMBER_FORMAT)}
+                    />
+                  )}
                 />
               }
             />

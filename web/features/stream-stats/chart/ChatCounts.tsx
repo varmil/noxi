@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormatter, useTranslations } from 'next-intl'
-import { Area, AreaChart, Bar, BarChart, CartesianGrid } from 'recharts'
+import { Bar, BarChart, CartesianGrid } from 'recharts'
 import {
   Card,
   CardContent,
@@ -17,6 +17,9 @@ import {
 } from '@/components/ui/chart'
 import { ChatCountsSchema } from 'apis/youtube/schema/chatCountSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import ChartTooltipFormatter, {
+  ChartTooltipTotal
+} from 'components/chart/ChartTooltipFormatter'
 import {
   StreamStatsXAxis,
   StreamStatsYAxis
@@ -79,27 +82,16 @@ export default function ChatCounts({
                   className="w-[180px]"
                   formatter={(value, name, item, index) => (
                     <>
-                      <div
-                        className="h-2.5 w-2.5 shrink-0 rounded-[2px] bg-[--color-bg]"
-                        style={
-                          {
-                            '--color-bg': `var(--color-${name})`
-                          } as React.CSSProperties
-                        }
+                      <ChartTooltipFormatter
+                        indicatorColor={name}
+                        name={chartConfig[name]?.label || name}
+                        value={value}
                       />
-                      {chartConfig[name as keyof typeof chartConfig]?.label ||
-                        name}
-                      <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
-                        {value}
-                      </div>
                       {/* Add this after the last item */}
                       {index === 1 && (
-                        <div className="mt-1.5 flex basis-full items-center border-t pt-1.5 text-xs font-medium text-foreground">
-                          Total
-                          <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
-                            {item.payload.member + item.payload.notMember}
-                          </div>
-                        </div>
+                        <ChartTooltipTotal
+                          value={item.payload.member + item.payload.notMember}
+                        />
                       )}
                     </>
                   )}
@@ -110,7 +102,7 @@ export default function ChatCounts({
               dataKey="member"
               type="natural"
               fill="var(--color-member)"
-              fillOpacity={0.9}
+              fillOpacity={1}
               stroke="var(--color-member)"
               stackId="a"
             />
@@ -118,7 +110,7 @@ export default function ChatCounts({
               dataKey="notMember"
               type="natural"
               fill="var(--color-notMember)"
-              fillOpacity={0.6}
+              fillOpacity={1}
               stroke="var(--color-notMember)"
               stackId="a"
             />

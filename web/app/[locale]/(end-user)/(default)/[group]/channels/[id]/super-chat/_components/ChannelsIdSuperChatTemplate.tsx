@@ -22,11 +22,6 @@ export async function ChannelsIdSuperChatTemplate({
       createdAfter: dayjs().startOf('month').toDate(),
       createdBefore: new Date()
     })
-    // getSupersBundles({
-    //   channelId: id,
-    //   actualEndTimeGTE: dayjs().startOf('month').toDate(),
-    //   actualEndTimeLTE: new Date()
-    // })
   ])
 
   return (
