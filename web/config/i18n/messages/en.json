@@ -119,12 +119,7 @@
           },
           "section": {
             "card": { "title": "Super Chat Summary (includes Sticker)" },
-            "monthlyChart": {
-              "title": "This month's cumulative Super Chat amount"
-            },
-            "overTimeChart": {
-              "title": "Super Chat trends over the last 30 days"
-            }
+            "chart": { "title": "Super Chat Trends" }
           }
         },
         "live": {
@@ -251,7 +246,14 @@
         "nav": "Super Chat",
         "realtime": "Realtime",
         "realtimeDescription": "The amount is updated every 30 minutes.",
-        "createdAt": "Updated {date}."
+        "createdAt": "Updated {date}.",
+        "chart": {
+          "thisMonth": {
+            "title": "Super Chat amount - This Month",
+            "description": "Daily Super Chat and monthly cumulative amount trends"
+          },
+          "overTime": { "title": "Super Chat trends over the last 30 days" }
+        }
       },
       "live": {
         "nav": "Live"

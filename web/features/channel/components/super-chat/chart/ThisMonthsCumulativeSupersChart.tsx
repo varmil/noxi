@@ -1,6 +1,6 @@
 'use client'
 
-import { NumberFormatOptions, useFormatter } from 'next-intl'
+import { NumberFormatOptions, useFormatter, useTranslations } from 'next-intl'
 import {
   Bar,
   Line,
@@ -70,17 +70,19 @@ type Props = {
 export default function ThisMonthsCumulativeSupersChart({
   supersSummaryHistories
 }: Props) {
+  const t = useTranslations('Features.channel.superChat.chart')
   const format = useFormatter()
   const data = useCumulativeData(supersSummaryHistories)
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>推移グラフ</CardTitle>
-        <CardDescription>日間売上と月間累計の推移</CardDescription>
+        <CardTitle>{t('thisMonth.title')}</CardTitle>
+        <CardDescription>{t('thisMonth.description')}</CardDescription>
       </CardHeader>
+      {/* Galaxy Z Fold (344px) でも見栄え良くなるギリギリまで描画したい */}
       <CardContent className="px-0">
-        <ChartContainer className="h-[200px] sm:h-[300px]" config={chartConfig}>
+        <ChartContainer config={chartConfig}>
           <ComposedChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -91,9 +93,9 @@ export default function ThisMonthsCumulativeSupersChart({
             <YAxis
               yAxisId="left"
               orientation="left"
-              tickFormatter={(value: number) => {
-                return `${format.number(value, NUMBER_FORMAT)}`
-              }}
+              tickFormatter={(value: number) =>
+                `${format.number(value, NUMBER_FORMAT)}`
+              }
             />
             <YAxis
               yAxisId="right"
@@ -121,7 +123,7 @@ export default function ThisMonthsCumulativeSupersChart({
               yAxisId="right"
               dataKey="daily"
               fill="var(--color-daily)"
-              radius={[4, 4, 0, 0]}
+              radius={[2, 2, 0, 0]}
             />
             <Line
               yAxisId="left"

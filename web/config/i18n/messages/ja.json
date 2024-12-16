@@ -119,8 +119,7 @@
           },
           "section": {
             "card": { "title": "スパチャ収入（ステッカー含む）" },
-            "monthlyChart": { "title": "今月のスパチャ累積金額" },
-            "overTimeChart": { "title": "過去30日間のスパチャ推移" }
+            "chart": { "title": "スパチャトレンド" }
           }
         },
         "live": {
@@ -247,7 +246,14 @@
         "nav": "スパチャ",
         "realtime": "リアルタイム更新",
         "realtimeDescription": "金額は30分間隔で更新されます",
-        "createdAt": "{date} に更新されました"
+        "createdAt": "{date} に更新されました",
+        "chart": {
+          "thisMonth": {
+            "title": "今月のスパチャ",
+            "description": "日間スパチャと月間累計金額の推移"
+          },
+          "overTime": { "title": "過去30日間のスパチャ推移" }
+        }
       },
       "live": {
         "nav": "ライブ"

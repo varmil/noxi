@@ -30,7 +30,7 @@ export async function ChannelsIdSuperChatTemplate({
         <ChannelSupersCards channelId={id} />
       </Section>
 
-      <Section title={t('section.monthlyChart.title')}>
+      <Section title={t('section.chart.title')}>
         <ThisMonthsCumulativeSupersChart
           supersSummaryHistories={supersSummaryHistories}
         />
