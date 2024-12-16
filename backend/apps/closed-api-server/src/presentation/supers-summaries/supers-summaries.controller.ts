@@ -11,6 +11,7 @@ import { SupersSummariesScenario } from '@presentation/supers-summaries/supers-s
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { SupersSummary } from '@domain/supers-summary'
 import { ChannelId } from '@domain/youtube'
+import { GetSupersSummaryHistories } from '@presentation/supers-summaries/dto/GetSupersSummaryHistories.dto'
 
 @Controller('supers-summaries')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -48,5 +49,20 @@ export class SupersSummariesController {
       return SupersSummary.zero(new ChannelId(id))
     }
     return summary
+  }
+
+  /** Retuen histories of a channel */
+  @Get(':id/histories')
+  async getSupersSummaryHistories(
+    @Param('id') id: string,
+    @Query() dto: GetSupersSummaryHistories
+  ) {
+    const summaries = await this.supersSummariesService.findHistories({
+      where: {
+        channelId: new ChannelId(id),
+        createdAt: { gte: dto.toCreatedAfter(), lte: dto.toCreatedBefore() }
+      }
+    })
+    return summaries
   }
 }
