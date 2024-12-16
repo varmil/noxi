@@ -84,7 +84,7 @@ export default async function DefaultModeTemplate({
                 <LiveTabsSuperChatContent stream={stream} />
                 <LiveTabsCommentsContent stream={stream} />
                 <LiveTabsOverviewContent
-                  className="space-y-4"
+                  className="space-y-6"
                   stream={stream}
                 />
               </LiveTabs>
