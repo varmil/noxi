@@ -4,6 +4,7 @@ import { SupersSummary, SupersSummaries } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface SupersSummaryRepository {
+  /** 最新の状態を取得 */
   findAll: (args: {
     where?: { channelIds?: ChannelIds; group?: Group; gender?: Gender }
     orderBy?: Partial<
@@ -22,9 +23,15 @@ export interface SupersSummaryRepository {
     offset?: number
   }) => Promise<SupersSummaries>
 
+  /** 特定のチャンネルの最新の状態を取得 */
   findOne: (args: {
     where: { channelId: ChannelId }
   }) => Promise<SupersSummary | null>
+
+  /** 特定のチャンネルの履歴を取得 */
+  findHistories: (args: {
+    where: { channelId: ChannelId; createdAt: { gte: Date; lte?: Date } }
+  }) => Promise<SupersSummaries>
 
   create: (args: { data: SupersSummary }) => Promise<void>
 }

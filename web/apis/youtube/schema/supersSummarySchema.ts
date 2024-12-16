@@ -29,3 +29,13 @@ export const responseListSchema = z.object({
 })
 export type SupersSummarySchema = z.infer<typeof responseSchema>
 export type SupersSummariesSchema = z.infer<typeof unionSchema>[]
+
+// =======================================
+// =======================================
+
+/** GET /api/super-summaries/:id/histories */
+export const responseHistoriesSchema = z.object({
+  list: z.array(schema2)
+})
+export type SupersSummaryHistorySchema = z.infer<typeof schema2>
+export type SupersSummaryHistoriesSchema = SupersSummaryHistorySchema[]
