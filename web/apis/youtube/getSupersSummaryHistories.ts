@@ -21,7 +21,7 @@ export async function getSupersSummaryHistories({
   })
 
   const res = await fetchAPI(
-    `/api/supers-summaries/${channelId}?${searchParams.toString()}`
+    `/api/supers-summaries/${channelId}/histories?${searchParams.toString()}`
   )
 
   if (!res.ok) {
