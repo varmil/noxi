@@ -8,7 +8,7 @@ export function ChartCard({
   children,
   className
 }: PropsWithChildren<{ className?: string }>) {
-  return <Card className={`border-0 ${className}`}>{children}</Card>
+  return <Card className={`border-0 shadow-none ${className}`}>{children}</Card>
 }
 
 /**
