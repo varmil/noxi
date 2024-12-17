@@ -6,7 +6,8 @@ import {
   Sections
 } from 'features/channel/components/container/ChannelContainer'
 import ChannelSupersCards from 'features/channel/components/super-chat/ChannelSupersCards'
-import ThisMonthsCumulativeSupersChart from 'features/channel/components/super-chat/chart/ThisMonthsCumulativeSupersChart'
+import SupersCumulativeChart from 'features/channel/components/super-chat/chart/SupersCumulativeChart'
+import SupersTrendsChart from 'features/channel/components/super-chat/chart/SupersTrendsChart'
 import dayjs from 'lib/dayjs'
 
 type Props = { id: string }
@@ -31,9 +32,13 @@ export async function ChannelsIdSuperChatTemplate({
       </Section>
 
       <Section>
-        <ThisMonthsCumulativeSupersChart
+        <SupersCumulativeChart
           supersSummaryHistories={supersSummaryHistories}
         />
+      </Section>
+
+      <Section>
+        <SupersTrendsChart supersSummaryHistories={supersSummaryHistories} />
       </Section>
     </Sections>
   )

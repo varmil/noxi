@@ -1,49 +1,23 @@
 'use client'
 
-import { NumberFormatOptions, useFormatter, useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, Line, ComposedChart, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { CardDescription, CardTitle } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent
+  ChartLegendContent
 } from '@/components/ui/chart'
 import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummarySchema'
-import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,
   ChartCardContent,
   ChartCardHeader
 } from 'components/styles/card/ChartCard'
-import { useCumulativeData } from 'features/channel/utils/useCumulativeData'
-
-// const data = [
-//   { date: '10-09', daily: 500000, monthly: 30000 },
-//   { date: '10-11', daily: 1700000, monthly: 45000 },
-//   { date: '10-13', daily: 1000000, monthly: 50000 },
-//   { date: '10-15', daily: 300000, monthly: 65000 },
-//   { date: '10-17', daily: 200000, monthly: 70000 },
-//   { date: '10-19', daily: 1600000, monthly: 150000 },
-//   { date: '10-21', daily: 2500000, monthly: 200000 },
-//   { date: '10-23', daily: 1000000, monthly: 250000 },
-//   { date: '10-25', daily: 700000, monthly: 280000 },
-//   { date: '10-27', daily: 850000, monthly: 300000 },
-//   { date: '10-29', daily: 1200000, monthly: 320000 },
-//   { date: '10-31', daily: 600000, monthly: 350000 },
-//   { date: '11-02', daily: 1400000, monthly: 370000 },
-//   { date: '11-04', daily: 1200000, monthly: 380000 },
-//   { date: '11-06', daily: 500000, monthly: 390000 },
-//   { date: '11-09', daily: 700000, monthly: 400000 }
-// ]
-
-const NUMBER_FORMAT: NumberFormatOptions = {
-  style: 'currency',
-  notation: 'compact',
-  currency: 'JPY'
-}
+import SupersChartTooltip from 'features/channel/components/super-chat/chart/SupersChartTooltip'
+import { useSupersCumulativeData } from 'features/channel/hooks/useSupersCumulativeData'
+import { NUMBER_FORMAT } from 'features/channel/utils/SupersChartNumberFormat'
 
 const chartConfig = {
   daily: {
@@ -60,12 +34,12 @@ type Props = {
   supersSummaryHistories: SupersSummaryHistoriesSchema
 }
 
-export default function ThisMonthsCumulativeSupersChart({
+export default function SupersCumulativeChart({
   supersSummaryHistories
 }: Props) {
   const t = useTranslations('Features.channel.superChat.chart')
   const format = useFormatter()
-  const data = useCumulativeData(supersSummaryHistories)
+  const data = useSupersCumulativeData(supersSummaryHistories)
 
   return (
     <ChartCard>
@@ -75,7 +49,7 @@ export default function ThisMonthsCumulativeSupersChart({
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <ComposedChart data={data}>
+          <ComposedChart data={data} margin={{ top: 10 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="date"
@@ -96,20 +70,7 @@ export default function ThisMonthsCumulativeSupersChart({
                 `${format.number(value, NUMBER_FORMAT)}`
               }
             />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className="w-[165px] sm:w-[180px]"
-                  formatter={(value, name) => (
-                    <ChartTooltipFormatter
-                      indicatorColor={name}
-                      name={chartConfig[name]?.label || name}
-                      value={format.number(value as number, NUMBER_FORMAT)}
-                    />
-                  )}
-                />
-              }
-            />
+            {SupersChartTooltip({ config: chartConfig })}
             <ChartLegend content={<ChartLegendContent />} />
             <Bar
               yAxisId="right"
