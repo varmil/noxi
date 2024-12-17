@@ -2,6 +2,8 @@ import { PropsWithChildren } from 'react'
 import { ChevronRight, TvMinimalPlayIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
+import { Gender } from 'config/constants/Gender'
+import { GroupString } from 'config/constants/Site'
 import {
   ChannelsRankingPeriod,
   ChannelsRankingDimension
@@ -10,6 +12,8 @@ import {
 type Props = PropsWithChildren<{
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  group?: GroupString
+  gender?: Gender
   date?: Date
   className?: string
 }>
@@ -17,6 +21,8 @@ type Props = PropsWithChildren<{
 export default function ChannelsRankingTableTitle({
   period,
   dimension,
+  group,
+  gender,
   date,
   className
 }: Props) {
@@ -36,8 +42,12 @@ export default function ChannelsRankingTableTitle({
             <ChevronRight className="relative w-3 h-3 top-[1px]" />
             <span className="line-clamp-1">
               {feat(`ranking.dimension.${dimension}`, {
-                period: global(`period.${period}`)
-              })}
+                period: global(`period.${period}`),
+                group: group ? global(`group.${group}`) : '',
+                gender: gender ? global(`gender.${gender}`) : ''
+              })
+                .replace(/\s+/g, ' ')
+                .trim()}
             </span>
           </div>
         </h1>
