@@ -3,6 +3,13 @@
     "title": "PeakX",
     "headerTitle": "PeakX",
 
+    "gender": {
+      "all": "All",
+      "male": "Male",
+      "female": "Female",
+      "nonbinary": "Nonbinary"
+    },
+
     "group": {
       "hololive": "Hololive",
       "hololive-english": "Hololive English",
@@ -44,12 +51,6 @@
         "subscriber": "Most Subscribed"
       },
       "group": { "all": "All" },
-      "gender": {
-        "all": "All",
-        "male": "Male",
-        "female": "Female",
-        "nonbinary": "Nonbinary"
-      },
       "country": { "all": "Worldwide" },
       "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
     }
@@ -62,7 +63,7 @@
     "scheduled": "Live schedule",
     "ended": "Past live streams",
     "streamsRanking": "YouTube Live",
-    "channelsRanking": "VTuber Channels"
+    "channelsRanking": "VTuber"
   },
 
   "Page": {
@@ -187,7 +188,7 @@
       "channels": {
         "ranking": {
           "metadata": {
-            "title": "VTuber Channels - ",
+            "title": "VTuber",
             "description": "Explore the top VTuber rankings based on Super Chat earnings over the past 24 hours or X days! Check your favorite creators' performance and discover trending VTubers. Stay updated with the latest insights!"
           }
         }
@@ -291,8 +292,8 @@
     "channelsRanking": {
       "ranking": {
         "dimension": {
-          "super-chat": "Most Super Chatted - {period}",
-          "subscriber": "Most Subscribed"
+          "super-chat": "{group} {gender} Most Super Chatted - {period}",
+          "subscriber": "{group} {gender} Most Subscribed"
         }
       },
       "viewAll": "View All",

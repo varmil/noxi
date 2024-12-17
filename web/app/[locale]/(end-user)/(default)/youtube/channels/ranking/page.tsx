@@ -15,7 +15,7 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const { dimension, period, date } = await props.searchParams
+  const { period, dimension, group, gender, date } = await props.searchParams
   const global = await getTranslations({ locale, namespace: 'Global' })
   const page = await getTranslations({
     locale,
@@ -26,10 +26,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     namespace: 'Features.channelsRanking.ranking.dimension'
   })
 
+  // 「ホロライブ」や「にじさんじ」 などグループ名が指定されている場合は、「VTuber」
+  //  を省略してシンプルなタイトルにする方がSEOとユーザー体験の観点から最適
+  const titlePrefix = group ? '' : page('metadata.title')
+
   return {
-    title: `${page('metadata.title')} ${feat(dimension, {
-      period: global(`period.${period}`)
-    })} - ${global('title')}`,
+    title: `${titlePrefix} ${feat(dimension, {
+      period: global(`period.${period}`),
+      group: group ? global(`group.${group}`) : '',
+      gender: gender ? global(`gender.${gender}`) : ''
+    })
+      .replace(/\s+/g, ' ')
+      .trim()} - ${global('title')}`,
 
     description: `${page('metadata.description')}`,
 
@@ -50,12 +58,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default function YoutubeChannelsRankingPage(props: Props) {
   const { locale } = use(props.params)
   const searchParams = use(props.searchParams)
+  const { period, dimension, group, gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale)
   const breadcrumb = useTranslations('Breadcrumb')
-  const tg = useTranslations('Global')
-  const t = useTranslations('Features.channelsRanking.ranking.dimension')
+  const global = useTranslations('Global')
+  const feat = useTranslations('Features.channelsRanking.ranking.dimension')
 
   return (
     <Page
@@ -66,9 +75,13 @@ export default function YoutubeChannelsRankingPage(props: Props) {
         },
         {
           href: `#`,
-          name: t(searchParams.dimension, {
-            period: tg(`period.${searchParams.period}`)
+          name: feat(dimension, {
+            period: global(`period.${period}`),
+            group: group ? global(`group.${group}`) : '',
+            gender: gender ? global(`gender.${gender}`) : ''
           })
+            .replace(/\s+/g, ' ')
+            .trim()
         }
       ]}
       noPadding

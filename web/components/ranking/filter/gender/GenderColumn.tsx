@@ -14,10 +14,10 @@ type Props = PropsWithoutRef<{
 }>
 
 export default function GenderColumn({ className }: Props) {
-  const tg = useTranslations('Global.ranking')
+  const tg = useTranslations('Global')
   return (
     <Column>
-      <ColumnHeader>{tg('filter.gender')}</ColumnHeader>
+      <ColumnHeader>{tg('ranking.filter.gender')}</ColumnHeader>
       <ColumnContent>
         <SelectButton qs={{ [QS_KEY]: null }} activeVariant="secondary">
           {tg('gender.all')}
