@@ -61,7 +61,9 @@ export class SupersSummariesController {
       where: {
         channelId: new ChannelId(id),
         createdAt: { gte: dto.toCreatedAfter(), lte: dto.toCreatedBefore() }
-      }
+      },
+      limit: dto.toLimit(),
+      offset: dto.toOffset()
     })
     return summaries
   }

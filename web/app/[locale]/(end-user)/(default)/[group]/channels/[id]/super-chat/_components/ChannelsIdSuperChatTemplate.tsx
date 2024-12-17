@@ -15,12 +15,18 @@ type Props = { id: string }
 export async function ChannelsIdSuperChatTemplate({
   id
 }: PropsWithoutRef<Props>) {
-  const [t, supersSummaryHistories] = await Promise.all([
+  const [t, historiesThisMonth, historiesLast90Days] = await Promise.all([
     getTranslations('Page.group.channelsId.superChat'),
-    // For this months cumulative chart
+    // For Cumulative chart
     getSupersSummaryHistories({
       channelId: id,
       createdAfter: dayjs().startOf('month').toDate(),
+      createdBefore: new Date()
+    }),
+    // For Trends chart
+    getSupersSummaryHistories({
+      channelId: id,
+      createdAfter: dayjs().subtract(90, 'days').toDate(),
       createdBefore: new Date()
     })
   ])
@@ -32,13 +38,11 @@ export async function ChannelsIdSuperChatTemplate({
       </Section>
 
       <Section>
-        <SupersCumulativeChart
-          supersSummaryHistories={supersSummaryHistories}
-        />
+        <SupersCumulativeChart supersSummaryHistories={historiesThisMonth} />
       </Section>
 
       <Section>
-        <SupersTrendsChart supersSummaryHistories={supersSummaryHistories} />
+        <SupersTrendsChart supersSummaryHistories={historiesLast90Days} />
       </Section>
     </Sections>
   )

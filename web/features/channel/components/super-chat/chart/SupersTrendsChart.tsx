@@ -59,6 +59,7 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
               dataKey="date"
               stroke="hsl(var(--foreground))"
               tickMargin={10}
+              minTickGap={20}
               tickLine={false}
               axisLine={false}
             />
@@ -88,7 +89,7 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
               dot={false}
               stroke="var(--color-last30Days)"
             />
-            <Line
+             <Line
               type="monotone"
               dataKey="last7Days"
               strokeWidth={2}
