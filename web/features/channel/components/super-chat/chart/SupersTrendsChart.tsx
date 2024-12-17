@@ -45,9 +45,9 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>スパチャトレンド</CardTitle>
+        <CardTitle>スパチャトレンドβ</CardTitle>
         <CardDescription>
-          90日、30日、7日のスパチャ推移を確認できます
+          90日間のスパチャ推移を確認できます（PeakXリリースから日が浅いためβ版となります）
         </CardDescription>
       </ChartCardHeader>
       <ChartCardContent>
@@ -58,14 +58,14 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
             <XAxis
               dataKey="date"
               stroke="hsl(var(--foreground))"
-              fontSize={12}
               tickMargin={10}
               tickLine={false}
               axisLine={false}
             />
             <YAxis
               stroke="hsl(var(--foreground))"
-              fontSize={12}
+              domain={['dataMin', 'auto']}
+              tickCount={4}
               tickMargin={5}
               tickLine={false}
               axisLine={false}
@@ -81,7 +81,7 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
               dot={false}
               stroke="var(--color-last90Days)"
             />
-            <Line
+            {/* <Line
               type="monotone"
               dataKey="last30Days"
               strokeWidth={2}
@@ -94,7 +94,7 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
               strokeWidth={2}
               dot={false}
               stroke="var(--color-last7Days)"
-            />
+            /> */}
             <ChartLegend content={<ChartLegendContent />} />
           </LineChart>
         </ChartContainer>
