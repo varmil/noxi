@@ -12,10 +12,10 @@ type Params = {
   group?: GroupString
   gender?: Gender
   channelId?: string
-  scheduledBefore?: Date
-  scheduledAfter?: Date
-  endedBefore?: Date
-  endedAfter?: Date
+  scheduledBefore?: Date | null
+  scheduledAfter?: Date | null
+  endedBefore?: Date | null
+  endedAfter?: Date | null
   orderBy?: {
     field:
       | 'videoId'
@@ -51,10 +51,18 @@ export async function getStreams({
     ...(group && { group }),
     ...(gender && { gender }),
     ...(channelId && { channelId }),
-    ...(scheduledBefore && { scheduledBefore: scheduledBefore.toISOString() }),
-    ...(scheduledAfter && { scheduledAfter: scheduledAfter.toISOString() }),
-    ...(endedBefore && { endedBefore: endedBefore.toISOString() }),
-    ...(endedAfter && { endedAfter: endedAfter.toISOString() }),
+    ...(scheduledBefore !== undefined && {
+      scheduledBefore: scheduledBefore?.toISOString() ?? 'null'
+    }),
+    ...(scheduledAfter !== undefined && {
+      scheduledAfter: scheduledAfter?.toISOString() ?? 'null'
+    }),
+    ...(endedBefore !== undefined && {
+      endedBefore: endedBefore?.toISOString() ?? 'null'
+    }),
+    ...(endedAfter !== undefined && {
+      endedAfter: endedAfter?.toISOString() ?? 'null'
+    }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
