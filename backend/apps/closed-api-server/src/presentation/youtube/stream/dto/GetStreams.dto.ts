@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsRFC3339,
   IsString,
+  ValidateIf,
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
@@ -39,18 +40,34 @@ export class GetStreamsDto {
 
   @IsOptional()
   @IsRFC3339()
-  scheduledBefore?: string
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  scheduledBefore?: string | null
 
   @IsOptional()
   @IsRFC3339()
-  scheduledAfter?: string
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  scheduledAfter?: string | null
 
   @IsOptional()
   @IsRFC3339()
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   endedBefore?: string
 
   @IsOptional()
   @IsRFC3339()
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   endedAfter?: string
 
   @IsOptional()
@@ -90,20 +107,42 @@ export class GetStreamsDto {
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
-  toScheduledBefore = () => {
-    return this.scheduledBefore ? new Date(this.scheduledBefore) : undefined
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
+  toScheduledStartTime = () => {
+    if (this.scheduledBefore === null || this.scheduledAfter === null) {
+      return null
+    }
+
+    const scheduledAfter =
+      this.scheduledAfter !== undefined
+        ? new Date(this.scheduledAfter)
+        : undefined
+    const scheduledBefore =
+      this.scheduledBefore !== undefined
+        ? new Date(this.scheduledBefore)
+        : undefined
+
+    return {
+      ...(scheduledAfter && { gte: scheduledAfter }),
+      ...(scheduledBefore && { lte: scheduledBefore })
+    }
   }
 
-  toScheduledAfter = () => {
-    return this.scheduledAfter ? new Date(this.scheduledAfter) : undefined
-  }
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
+  toActualEndTime = () => {
+    if (this.endedBefore === null || this.endedAfter === null) {
+      return null
+    }
 
-  toEndedBefore = () => {
-    return this.endedBefore ? new Date(this.endedBefore) : undefined
-  }
+    const endedAfter =
+      this.endedAfter !== undefined ? new Date(this.endedAfter) : undefined
+    const endedBefore =
+      this.endedBefore !== undefined ? new Date(this.endedBefore) : undefined
 
-  toEndedAfter = () => {
-    return this.endedAfter ? new Date(this.endedAfter) : undefined
+    return {
+      ...(endedAfter && { gte: endedAfter }),
+      ...(endedBefore && { lte: endedBefore })
+    }
   }
 
   toChannelId = () =>

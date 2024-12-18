@@ -81,7 +81,7 @@ export class VideoTranslator {
       return videoAPISchema.parse(this.v)
     } catch (err) {
       if (err instanceof z.ZodError) {
-        console.log('VideoTranslator', err.issues)
+        console.log(`VideoTranslator: ${this.v.id}`, err.issues)
         return undefined
       } else {
         throw err

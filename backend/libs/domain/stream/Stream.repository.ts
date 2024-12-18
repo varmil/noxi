@@ -5,8 +5,7 @@ import {
   Stream,
   Streams,
   StreamTimes,
-  StreamStatus,
-  StreamStatuses
+  StreamStatus
 } from '@domain/stream'
 import {
   ChannelId,
@@ -15,19 +14,21 @@ import {
   VideoId,
   VideoIds
 } from '@domain/youtube'
+import type { Prisma } from '@prisma/client'
 
 export interface StreamRepository {
   findAll: (args: {
     where: {
-      status?: StreamStatus | StreamStatuses
+      status?: StreamStatus
       videoIds?: VideoIds
       group?: Group
       gender?: Gender
       channelId?: ChannelId
-      scheduledBefore?: Date
-      scheduledAfter?: Date
-      endedBefore?: Date
-      endedAfter?: Date
+      scheduledStartTime?: { gte?: Date; lte?: Date } | null
+      actualEndTime?: { gte?: Date; lte?: Date } | null
+      OR?: (Omit<Prisma.YoutubeStreamWhereInput, 'status'> & {
+        status: StreamStatus
+      })[]
     }
     orderBy?: Partial<
       Record<
