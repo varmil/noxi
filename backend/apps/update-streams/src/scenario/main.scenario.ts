@@ -69,20 +69,15 @@ export class MainScenario {
 
   /**
    * live --> ended のステートを見る
-   * 今から30日後までの予定に絞る
    */
   private async endLives(): Promise<void> {
     const streams = await this.streamsService.findAll({
-      where: {
-        status: new StreamStatus('live'),
-        scheduledStartTime: { lte: dayjs().add(30, 'day').toDate() }
-      },
+      where: { status: new StreamStatus('live') },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
 
     if (streams.length === 0) return
-
     await this.endLivesScenario.execute({ streams })
   }
 
