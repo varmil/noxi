@@ -30,7 +30,9 @@ export interface SupersSummaryRepository {
 
   /** 特定のチャンネルの履歴を取得 */
   findHistories: (args: {
-    where: { channelId: ChannelId; createdAt: { gte: Date; lte?: Date } }
+    where: { channelId: ChannelId; createdAt: { gte?: Date; lte?: Date } }
+    limit?: number
+    offset?: number
   }) => Promise<SupersSummaries>
 
   create: (args: { data: SupersSummary }) => Promise<void>

@@ -3,7 +3,9 @@ import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummaryS
 import { convertMicrosToAmount } from 'utils/amount'
 
 // histories: 日付昇順でソート済み
-export function useCumulativeData(histories: SupersSummaryHistoriesSchema) {
+export function useSupersCumulativeData(
+  histories: SupersSummaryHistoriesSchema
+) {
   const format = useFormatter()
 
   const data = histories.map((history, index) => {

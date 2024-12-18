@@ -249,11 +249,16 @@
         "realtimeDescription": "金額は30分間隔で更新されます",
         "createdAt": "{date} に更新されました",
         "chart": {
-          "thisMonth": {
+          "cumulative": {
             "title": "今月のスパチャ",
-            "description": "月間累計金額の推移（折れ線グラフ）と日間スパチャ（棒グラフ）を確認できます"
+            "description": "月間累計金額の推移（折れ線グラフ）と日間スパチャ（棒グラフ）を確認できます",
+            "daily": "日間",
+            "monthly": "今月の累積"
           },
-          "overTime": { "title": "過去30日間のスパチャ推移" }
+          "trends": {
+            "title": "スパチャトレンドβ",
+            "description": "90日間のスパチャ推移を確認できます（PeakXリリースから日が浅いためβ版となります）"
+          }
         }
       },
       "live": {

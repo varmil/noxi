@@ -21,8 +21,9 @@ export default function ChartTooltipFormatter({
           } as React.CSSProperties
         }
       />
-      {name}
-      <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+
+      <span className="text-muted-foreground">{name}</span>
+      <div className="ml-auto flex items-baseline gap-0.5 font-medium tabular-nums text-foreground">
         {value}
       </div>
     </>
@@ -33,7 +34,7 @@ export function ChartTooltipTotal({ value }: { value: Value }) {
   return (
     <div className="mt-1.5 flex basis-full items-center border-t pt-1.5 text-xs font-medium text-foreground">
       Total
-      <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+      <div className="ml-auto flex items-baseline gap-0.5 font-medium tabular-nums text-foreground">
         {value}
       </div>
     </div>

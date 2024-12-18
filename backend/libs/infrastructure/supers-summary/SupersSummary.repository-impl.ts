@@ -46,7 +46,9 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   }
 
   findHistories: SupersSummaryRepository['findHistories'] = async ({
-    where: { channelId, createdAt }
+    where: { channelId, createdAt },
+    limit,
+    offset
   }) => {
     const rows =
       await this.prismaInfraService.youtubeStreamSupersSummary.findMany({
@@ -54,7 +56,9 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
           channelId: channelId.get(),
           createdAt: { gte: createdAt.gte, lte: createdAt.lte }
         },
-        orderBy: { createdAt: 'asc' }
+        orderBy: { createdAt: 'asc' },
+        take: limit,
+        skip: offset
       })
     return new SupersSummaries(rows.map(row => this.toDomain(row)))
   }
