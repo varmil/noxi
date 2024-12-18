@@ -29,7 +29,7 @@
       "last24Hours": "Last 24 hours",
       "last7Days": "Last 7 days",
       "last30Days": "Last 30 days",
-      "last90Days": "Last 3 months",
+      "last90Days": "Last 90 days",
       "last1Year": "Last 1 year",
       "thisWeek": "This week",
       "thisMonth": "This month",
@@ -249,11 +249,16 @@
         "realtimeDescription": "The amount is updated every 30 minutes.",
         "createdAt": "Updated {date}.",
         "chart": {
-          "thisMonth": {
+          "cumulative": {
             "title": "Super Chat amount - This Month",
-            "description": "Check the monthly cumulative amount (line chart) and daily Super Chat (bar chart)!"
+            "description": "Check the monthly cumulative amount (line chart) and daily Super Chat (bar chart).",
+            "daily": "Daily",
+            "monthly": "This Month"
           },
-          "overTime": { "title": "Super Chat trends over the last 30 days" }
+          "trends": {
+            "title": "Super Chat Trends β",
+            "description": "Check the trends of Super Chat for 90 days (This is a beta version because PeakX has only recently been released)."
+          }
         }
       },
       "live": {

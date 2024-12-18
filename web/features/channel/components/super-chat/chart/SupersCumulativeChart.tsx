@@ -19,36 +19,27 @@ import SupersChartTooltip from 'features/channel/components/super-chat/chart/Sup
 import { useSupersCumulativeData } from 'features/channel/hooks/useSupersCumulativeData'
 import { NUMBER_FORMAT } from 'features/channel/utils/SupersChartNumberFormat'
 
-const chartConfig = {
-  daily: {
-    label: 'daily',
-    color: 'hsl(var(--muted-foreground))'
-  },
-  monthly: {
-    label: 'this month',
-    color: 'hsl(var(--primary))'
-  }
-} satisfies ChartConfig
-
 type Props = {
   supersSummaryHistories: SupersSummaryHistoriesSchema
+  config: ChartConfig
 }
 
 export default function SupersCumulativeChart({
-  supersSummaryHistories
+  supersSummaryHistories,
+  config
 }: Props) {
-  const t = useTranslations('Features.channel.superChat.chart')
+  const feat = useTranslations('Features.channel.superChat.chart')
   const format = useFormatter()
   const data = useSupersCumulativeData(supersSummaryHistories)
 
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>{t('thisMonth.title')}</CardTitle>
-        <CardDescription>{t('thisMonth.description')}</CardDescription>
+        <CardTitle>{feat('cumulative.title')}</CardTitle>
+        <CardDescription>{feat('cumulative.description')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={config}>
           <ComposedChart data={data} margin={{ top: 10 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
@@ -70,7 +61,7 @@ export default function SupersCumulativeChart({
                 `${format.number(value, NUMBER_FORMAT)}`
               }
             />
-            {SupersChartTooltip({ config: chartConfig })}
+            {SupersChartTooltip({ config })}
             <ChartLegend content={<ChartLegendContent />} />
             <Bar
               yAxisId="right"

@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormatter } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { CardDescription, CardTitle } from '@/components/ui/card'
 import {
@@ -19,39 +19,27 @@ import SupersChartTooltip from 'features/channel/components/super-chat/chart/Sup
 import { useSupersTrendsData } from 'features/channel/hooks/useSupersTrendsData'
 import { NUMBER_FORMAT } from 'features/channel/utils/SupersChartNumberFormat'
 
-const chartConfig = {
-  last90Days: {
-    label: '過去90日間',
-    color: 'hsl(var(--chart-1))'
-  },
-  last30Days: {
-    label: '過去30日間',
-    color: 'hsl(var(--chart-2))'
-  },
-  last7Days: {
-    label: '過去7日間',
-    color: 'hsl(var(--chart-3))'
-  }
-} satisfies ChartConfig
-
 type Props = {
   supersSummaryHistories: SupersSummaryHistoriesSchema
+  config: ChartConfig
 }
 
-export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
+export default function SupersTrendsChart({
+  supersSummaryHistories,
+  config
+}: Props) {
   const format = useFormatter()
+  const feat = useTranslations('Features.channel.superChat.chart')
   const data = useSupersTrendsData(supersSummaryHistories)
 
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>スパチャトレンドβ</CardTitle>
-        <CardDescription>
-          90日間のスパチャ推移を確認できます（PeakXリリースから日が浅いためβ版となります）
-        </CardDescription>
+        <CardTitle>{feat('trends.title')}</CardTitle>
+        <CardDescription>{feat('trends.description')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={config}>
           <LineChart data={data} margin={{ top: 10, right: 10 }}>
             <CartesianGrid strokeDasharray="3 3" />
 
@@ -74,7 +62,7 @@ export default function SupersTrendsChart({ supersSummaryHistories }: Props) {
                 `${format.number(value, NUMBER_FORMAT)}`
               }
             />
-            {SupersChartTooltip({ config: chartConfig })}
+            {SupersChartTooltip({ config })}
             <Line
               type="monotone"
               dataKey="last90Days"
