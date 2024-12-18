@@ -30,7 +30,6 @@ export interface StreamRepository {
       OR?: (Omit<Prisma.YoutubeStreamWhereInput, 'status'> & {
         status: StreamStatus
       })[]
-      // OR?: [{ scheduledStartTime: { lte: Date } }, { scheduledStartTime: null }]
     }
     orderBy?: Partial<
       Record<

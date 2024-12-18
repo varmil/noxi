@@ -4,47 +4,6 @@ import { Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/stream/UpsertYoutubeStream'
-import type { Prisma } from '@prisma/client'
-
-const getFindAllWhereOR = (
-  where: Parameters<StreamRepository['findAll']>[0]['where']
-): Prisma.YoutubeStreamWhereInput['OR'] => {
-  const or = where.OR?.map(e => ({
-    ...e,
-    status: e.status.get()
-  }))
-
-  console.log('or', or)
-
-  return or
-
-  // const generateORItem = (status: StreamStatus) => {
-  //   switch (true) {
-  //     case status.equals(StreamStatusScheduled):
-  //       return {
-  //         status: status.get(),
-  //         scheduledStartTime
-  //       }
-  //     case status.equals(StreamStatusLive):
-  //       return { status: status.get() }
-  //     case status.equals(StreamStatusEnded):
-  //       return {
-  //         status: status.get(),
-  //         actualEndTime: { lte: endedBefore, gte: endedAfter }
-  //       }
-  //     default:
-  //       throw new Error('Invalid status')
-  //   }
-  // }
-
-  // if (status) {
-  //   if (status instanceof StreamStatus) {
-  //     return [generateORItem(status)]
-  //   } else {
-  //     return status.map(s => generateORItem(s))
-  //   }
-  // }
-}
 
 @Injectable()
 export class StreamRepositoryImpl implements StreamRepository {
@@ -56,7 +15,7 @@ export class StreamRepositoryImpl implements StreamRepository {
     limit,
     offset
   }: Parameters<StreamRepository['findAll']>[0]) {
-    const { status, videoIds, group, channelId } = where
+    const { status, videoIds, group, channelId, OR } = where
 
     const rows = await this.prismaInfraService.youtubeStream.findMany({
       where: {
@@ -66,7 +25,7 @@ export class StreamRepositoryImpl implements StreamRepository {
           group: group?.get(),
           channelId: channelId?.get(),
           channel: { gender: where.gender?.get() },
-          OR: getFindAllWhereOR(where)
+          OR: OR?.map(e => ({ ...e, status: e.status.get() }))
         }
       },
       orderBy,
