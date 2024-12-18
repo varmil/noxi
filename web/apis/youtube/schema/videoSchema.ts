@@ -18,7 +18,6 @@ const schema = z.object({
     ),
     categoryId: z.number()
   }),
-  duration: z.string().duration(),
   statistics: z.object({
     viewCount: z.number().min(0).optional(),
     likeCount: z.number().min(0),

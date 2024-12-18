@@ -12,7 +12,7 @@ export class Video {
   @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly id: VideoId
   public readonly snippet: VideoSnippet
-  @Transform(({ value }: { value: Duration }) => value.get())
+  @Exclude()
   public readonly duration: Duration
   public readonly statistics: Statistics
   public readonly liveStreamingDetails?: LiveStreamingDetails
