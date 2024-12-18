@@ -136,7 +136,7 @@ export class ScheduledService {
       .map(async video => {
         const { liveStreamingDetails } = video
         if (!liveStreamingDetails) return
-        const { scheduledStartTime, actualStartTime } =
+        const { scheduledStartTime, actualStartTime, actualEndTime } =
           liveStreamingDetails.streamTimes
 
         console.log('end scheduled stream:', video.snippet.title)
@@ -146,7 +146,7 @@ export class ScheduledService {
           data: new StreamTimes({
             scheduledStartTime,
             actualStartTime,
-            actualEndTime: new ActualEndTime(new Date()) // 強引に閉じる
+            actualEndTime: actualEndTime || new ActualEndTime(new Date()) // 強引に閉じる
           })
         })
       })
