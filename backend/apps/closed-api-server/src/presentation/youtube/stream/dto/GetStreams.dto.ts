@@ -56,10 +56,18 @@ export class GetStreamsDto {
 
   @IsOptional()
   @IsRFC3339()
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   endedBefore?: string
 
   @IsOptional()
   @IsRFC3339()
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   endedAfter?: string
 
   @IsOptional()
@@ -120,12 +128,21 @@ export class GetStreamsDto {
     }
   }
 
-  toEndedBefore = () => {
-    return this.endedBefore ? new Date(this.endedBefore) : undefined
-  }
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
+  toActualEndTime = () => {
+    if (this.endedBefore === null || this.endedAfter === null) {
+      return null
+    }
 
-  toEndedAfter = () => {
-    return this.endedAfter ? new Date(this.endedAfter) : undefined
+    const endedAfter =
+      this.endedAfter !== undefined ? new Date(this.endedAfter) : undefined
+    const endedBefore =
+      this.endedBefore !== undefined ? new Date(this.endedBefore) : undefined
+
+    return {
+      ...(endedAfter && { gte: endedAfter }),
+      ...(endedBefore && { lte: endedBefore })
+    }
   }
 
   toChannelId = () =>

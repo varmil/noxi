@@ -26,8 +26,7 @@ export class StreamsController {
         gender: dto.toGender(),
         channelId: dto.toChannelId(),
         scheduledStartTime: dto.toScheduledStartTime(),
-        endedBefore: dto.toEndedBefore(),
-        endedAfter: dto.toEndedAfter()
+        actualEndTime: dto.toActualEndTime()
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),

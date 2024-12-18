@@ -15,7 +15,15 @@ export class StreamRepositoryImpl implements StreamRepository {
     limit,
     offset
   }: Parameters<StreamRepository['findAll']>[0]) {
-    const { status, videoIds, group, channelId, OR } = where
+    const {
+      status,
+      videoIds,
+      group,
+      channelId,
+      scheduledStartTime,
+      actualEndTime,
+      OR
+    } = where
 
     const rows = await this.prismaInfraService.youtubeStream.findMany({
       where: {
@@ -25,6 +33,8 @@ export class StreamRepositoryImpl implements StreamRepository {
           group: group?.get(),
           channelId: channelId?.get(),
           channel: { gender: where.gender?.get() },
+          scheduledStartTime,
+          actualEndTime,
           OR: OR?.map(e => ({ ...e, status: e.status.get() }))
         }
       },

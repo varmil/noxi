@@ -25,8 +25,7 @@ export interface StreamRepository {
       gender?: Gender
       channelId?: ChannelId
       scheduledStartTime?: { gte?: Date; lte?: Date } | null
-      endedBefore?: Date
-      endedAfter?: Date
+      actualEndTime?: { gte?: Date; lte?: Date } | null
       OR?: (Omit<Prisma.YoutubeStreamWhereInput, 'status'> & {
         status: StreamStatus
       })[]
