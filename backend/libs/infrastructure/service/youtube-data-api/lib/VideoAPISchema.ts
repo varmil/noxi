@@ -25,7 +25,7 @@ export const videoAPISchema = z.object({
   }),
 
   contentDetails: z.object({
-    duration: z.string().duration()
+    duration: z.string().duration().optional()
   }),
 
   statistics: z.object({

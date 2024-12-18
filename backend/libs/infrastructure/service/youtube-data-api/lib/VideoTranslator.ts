@@ -46,7 +46,7 @@ export class VideoTranslator {
           ? new LanguageTag(defaultLanguage)
           : undefined
       }),
-      duration: new Duration(v.contentDetails.duration),
+      duration: new Duration(v.contentDetails.duration ?? 'P0D'),
       statistics: new Statistics({
         viewCount: viewCount !== undefined ? Number(viewCount ?? 0) : undefined,
         likeCount: Number(likeCount ?? 0),
