@@ -3,7 +3,7 @@ import { StreamsService } from '@app/streams/streams.service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
 import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
-import { Streams, StreamStatus, StreamStatuses } from '@domain/stream'
+import { Streams, StreamStatus } from '@domain/stream'
 import { SupersCount } from '@domain/supers-bundle'
 import { VideoId } from '@domain/youtube'
 
@@ -21,9 +21,7 @@ export class MainService {
   /** live中（リアルタイム） */
   async fetchLives() {
     return await this.streamsService.findAll({
-      where: {
-        status: new StreamStatuses([new StreamStatus('live')])
-      },
+      where: { status: new StreamStatus('live') },
       limit: 1000
     })
   }

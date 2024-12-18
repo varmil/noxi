@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { StreamStatuses, StreamStatus, Stream } from '@domain/stream'
+import { StreamStatus, Stream } from '@domain/stream'
 import { ChatCount } from '@domain/stream-stats'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
@@ -26,13 +26,19 @@ export class MainService {
     return (
       await this.streamsService.findAll({
         where: {
-          status: new StreamStatuses([
-            new StreamStatus('scheduled'),
-            new StreamStatus('live'),
-            new StreamStatus('ended')
-          ]),
-          scheduledBefore: dayjs().toDate(),
-          endedAfter: dayjs().subtract(2, 'minute').toDate()
+          OR: [
+            {
+              status: new StreamStatus('scheduled'),
+              scheduledStartTime: { lte: dayjs().toDate() }
+            },
+            {
+              status: new StreamStatus('live')
+            },
+            {
+              status: new StreamStatus('ended'),
+              actualEndTime: { gte: dayjs().subtract(2, 'minute').toDate() }
+            }
+          ]
         },
         limit: 1000
       })

@@ -25,8 +25,7 @@ export class StreamsController {
         group: dto.toGroup(),
         gender: dto.toGender(),
         channelId: dto.toChannelId(),
-        scheduledBefore: dto.toScheduledBefore(),
-        scheduledAfter: dto.toScheduledAfter(),
+        scheduledStartTime: dto.toScheduledStartTime(),
         endedBefore: dto.toEndedBefore(),
         endedAfter: dto.toEndedAfter()
       },

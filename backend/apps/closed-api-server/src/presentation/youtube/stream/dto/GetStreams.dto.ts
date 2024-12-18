@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsRFC3339,
   IsString,
+  ValidateIf,
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
@@ -39,11 +40,19 @@ export class GetStreamsDto {
 
   @IsOptional()
   @IsRFC3339()
-  scheduledBefore?: string
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  scheduledBefore?: string | null
 
   @IsOptional()
   @IsRFC3339()
-  scheduledAfter?: string
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  scheduledAfter?: string | null
 
   @IsOptional()
   @IsRFC3339()
@@ -90,12 +99,25 @@ export class GetStreamsDto {
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
-  toScheduledBefore = () => {
-    return this.scheduledBefore ? new Date(this.scheduledBefore) : undefined
-  }
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
+  toScheduledStartTime = () => {
+    if (this.scheduledBefore === null || this.scheduledAfter === null) {
+      return null
+    }
 
-  toScheduledAfter = () => {
-    return this.scheduledAfter ? new Date(this.scheduledAfter) : undefined
+    const scheduledAfter =
+      this.scheduledAfter !== undefined
+        ? new Date(this.scheduledAfter)
+        : undefined
+    const scheduledBefore =
+      this.scheduledBefore !== undefined
+        ? new Date(this.scheduledBefore)
+        : undefined
+
+    return {
+      ...(scheduledAfter && { gte: scheduledAfter }),
+      ...(scheduledBefore && { lte: scheduledBefore })
+    }
   }
 
   toEndedBefore = () => {

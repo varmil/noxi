@@ -5,8 +5,9 @@ import { EndLivesScenario } from 'apps/update-streams/src/scenario/end-lives.sce
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
-import { StreamStatus, StreamStatuses } from '@domain/stream'
+import { StreamStatus } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
+import { HandleScheduledScenario } from 'apps/update-streams/src/scenario/handle-scheduled.scenario'
 
 @Injectable()
 export class MainScenario {
@@ -14,6 +15,7 @@ export class MainScenario {
 
   constructor(
     private readonly promiseService: PromiseService,
+    private readonly handleScheduledScenario: HandleScheduledScenario,
     private readonly endLivesScenario: EndLivesScenario,
     private readonly mainService: MainService,
     private readonly streamsService: StreamsService,
@@ -37,38 +39,35 @@ export class MainScenario {
 
   /**
    * 今から1ヶ月後までの予定に絞る
+   *
+   * scheduledStartTimeがNULLのまま開始されるライブがあるので
+   * scheduledBeforeを「OR NULL」とする（でないと取得できない）
    */
   private async handleScheduled() {
     const streams = await this.streamsService.findAll({
       where: {
-        status: new StreamStatuses([new StreamStatus('scheduled')]),
-        scheduledBefore: dayjs().add(30, 'day').toDate()
+        OR: [
+          {
+            status: new StreamStatus('scheduled'),
+            scheduledStartTime: { lte: dayjs().add(30, 'day').toDate() }
+          },
+          {
+            status: new StreamStatus('scheduled'),
+            scheduledStartTime: null
+          }
+        ]
       },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
-    this.logger.log(`handleScheduled/streams: ${streams.length}`)
+
     if (streams.length === 0) return
+    this.logger.log(`handleScheduled/streams: ${streams.length}`)
+    this.logger.log(
+      `ZSg9TwTmzY4: ${streams.find(s => s.videoId.get() === 'ZSg9TwTmzY4')}`
+    )
 
-    const { items: videos } = await this.videosService.findAll({
-      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
-    })
-
-    await this.promiseService.allSettled([
-      /**
-       * scheduledStartTime などが変わりうるので、最新の値でDBを更新
-       */
-      this.mainService.saveLatestScheduledData({ streams, videos }),
-      /**
-       * scheduled --> live のステートを見る
-       */
-      this.mainService.startScheduledLives(videos),
-      /**
-       * scheduled --> ended のステートを見る
-       */
-      this.mainService.endScheduledLives(videos)
-    ])
+    await this.handleScheduledScenario.execute({ streams })
   }
 
   /**
@@ -78,28 +77,22 @@ export class MainScenario {
   private async endLives(): Promise<void> {
     const streams = await this.streamsService.findAll({
       where: {
-        status: new StreamStatuses([new StreamStatus('live')]),
-        scheduledBefore: dayjs().add(30, 'day').toDate()
+        status: new StreamStatus('live'),
+        scheduledStartTime: { lte: dayjs().add(30, 'day').toDate() }
       },
       orderBy: [{ scheduledStartTime: 'asc' }],
       limit: 1000
     })
+
     if (streams.length === 0) return
 
-    const { items: videos } = await this.videosService.findAll({
-      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
-    })
-
-    await this.endLivesScenario.execute(videos)
+    await this.endLivesScenario.execute({ streams })
   }
 
   private async updateStats() {
     const streams = (
       await this.streamsService.findAll({
-        where: {
-          status: new StreamStatuses([new StreamStatus('live')])
-        },
+        where: { status: new StreamStatus('live') },
         orderBy: [{ scheduledStartTime: 'asc' }],
         limit: 1000
       })

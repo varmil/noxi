@@ -10,6 +10,8 @@ import { StreamsModule } from '@app/streams/streams.module'
 import { SupersBundleQueuesModule } from '@app/supers-bundle-queues/supers-bundle-queues.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
+import { HandleScheduledScenario } from 'apps/update-streams/src/scenario/handle-scheduled.scenario'
+import { ScheduledService } from 'apps/update-streams/src/service/scheduled.service'
 
 @Module({
   imports: [
@@ -24,6 +26,12 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     YoutubeInfraModule
   ],
   controllers: [],
-  providers: [MainScenario, EndLivesScenario, MainService]
+  providers: [
+    MainScenario,
+    EndLivesScenario,
+    HandleScheduledScenario,
+    MainService,
+    ScheduledService
+  ]
 })
 export class MainModule {}
