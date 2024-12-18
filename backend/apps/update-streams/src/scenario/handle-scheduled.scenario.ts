@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
+import { ScheduledService } from 'apps/update-streams/src/service/scheduled.service'
 import { PromiseService } from '@app/lib/promise-service'
+import { VideosService } from '@app/youtube/videos/videos.service'
 import { Streams } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
-import { VideosService } from '@app/youtube/videos/videos.service'
-import { ScheduledService } from 'apps/update-streams/src/service/scheduled.service'
 
 @Injectable()
 export class HandleScheduledScenario {

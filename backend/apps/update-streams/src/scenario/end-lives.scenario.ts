@@ -4,10 +4,10 @@ import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
+import { VideosService } from '@app/youtube/videos/videos.service'
 import { QueueStatusUnprocessed } from '@domain/queue'
 import { Streams, StreamTimes } from '@domain/stream'
 import { Video, VideoIds } from '@domain/youtube'
-import { VideosService } from '@app/youtube/videos/videos.service'
 
 @Injectable()
 export class EndLivesScenario {

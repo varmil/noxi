@@ -2,12 +2,12 @@ import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
 import { MainService } from 'apps/update-streams/src/main.service'
 import { EndLivesScenario } from 'apps/update-streams/src/scenario/end-lives.scenario'
+import { HandleScheduledScenario } from 'apps/update-streams/src/scenario/handle-scheduled.scenario'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatus } from '@domain/stream'
 import { VideoIds } from '@domain/youtube'
-import { HandleScheduledScenario } from 'apps/update-streams/src/scenario/handle-scheduled.scenario'
 
 @Injectable()
 export class MainScenario {
@@ -63,9 +63,6 @@ export class MainScenario {
 
     if (streams.length === 0) return
     this.logger.log(`handleScheduled/streams: ${streams.length}`)
-    this.logger.log(
-      `ZSg9TwTmzY4: ${streams.find(s => s.videoId.get() === 'ZSg9TwTmzY4')}`
-    )
 
     await this.handleScheduledScenario.execute({ streams })
   }

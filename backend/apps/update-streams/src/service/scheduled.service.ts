@@ -112,8 +112,8 @@ export class ScheduledService {
    * フリーチャット、オフラインライブなど特殊なものを閉じる
    *
    * 具体的には、
-   * フリーチャット：公開予定が大幅に過去の日付
-   * オフライン　　：streamScheduledStartTime = NULL && publishedAtが大幅に過去の日付
+   * フリーチャット ：公開予定が大幅に過去の日付
+   * オフライン     ：streamScheduledStartTime = NULL && publishedAtが大幅に過去の日付
    */
   async endLives(videos: Videos) {
     const isFreeChat = (video: Video) => {
