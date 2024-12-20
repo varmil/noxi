@@ -3,15 +3,14 @@
 import { PropsWithoutRef } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from 'recharts'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription
-} from '@/components/ui/card'
+import { CardTitle, CardDescription } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader
+} from 'components/styles/card/ChartCard'
 import CustomTooltip from './CustomTooltip'
 
 type Props = {
@@ -28,19 +27,20 @@ export default function Chart({
   const histogram = useHistogram(streams, format)
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
+    <ChartCard className="w-full max-w-3xl mx-auto">
+      <ChartCardHeader>
         <CardTitle>{t('streamTimeHistogram')}</CardTitle>
         <CardDescription>{t('descStreamTimeHistogram')}</CardDescription>
-      </CardHeader>
-      <CardContent>
+      </ChartCardHeader>
+      <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart data={histogram}>
+          <BarChart data={histogram} margin={{ top: 10 }}>
             <XAxis
               dataKey="text"
               tickLine={false}
               axisLine={false}
-              minTickGap={32}
+              tickMargin={5}
+              minTickGap={36}
             />
             <YAxis
               tickLine={false}
@@ -56,8 +56,8 @@ export default function Chart({
             />
           </BarChart>
         </ChartContainer>
-      </CardContent>
-    </Card>
+      </ChartCardContent>
+    </ChartCard>
   )
 }
 

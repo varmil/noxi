@@ -1,0 +1,79 @@
+'use client'
+
+import { PropsWithoutRef } from 'react'
+import { useTranslations } from 'next-intl'
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { CardDescription, CardTitle } from '@/components/ui/card'
+import { ChartConfig, ChartContainer } from '@/components/ui/chart'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardFooter,
+  ChartCardHeader
+} from 'components/styles/card/ChartCard'
+import * as dayOfWeek from '../utils/dayOfWeek'
+
+const chartConfig = {
+  desktop: {
+    color: 'hsl(var(--chart-2))'
+  },
+  label: {
+    color: 'hsl(var(--background))'
+  }
+} satisfies ChartConfig
+
+type Props = {
+  streams: StreamsSchema
+}
+
+export default function StreamTimesDoWChart({
+  streams
+}: PropsWithoutRef<Props>) {
+  const t = useTranslations('Features.channel.streamTimes.chart.countsByDoW')
+  const data = dayOfWeek.useGroupByDay(streams)
+
+  return (
+    <ChartCard>
+      <ChartCardHeader>
+        <CardTitle>{t('title')}</CardTitle>
+        <CardDescription>{t('description')}</CardDescription>
+      </ChartCardHeader>
+      <ChartCardContent>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={data} margin={{ top: 10 }}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="dayOfWeek"
+              type="category"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={5}
+              tickFormatter={value => value.slice(0, 3)}
+            />
+            <YAxis width={30} tickLine={false} axisLine={false} />
+
+            <Bar dataKey="count" fill="var(--color-desktop)" radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </ChartCardContent>
+      <ChartCardFooter className="flex-col items-start gap-1">
+        <CardDescription>
+          The most videos are uploaded on{' '}
+          <span className="font-medium text-foreground">
+            {dayOfWeek.useMaxVideosDay(streams).dayOfWeek}
+          </span>
+        </CardDescription>
+      </ChartCardFooter>
+      <div className="sr-only">
+        {t('srOnly')}
+        {data.map(dayData =>
+          t('srOnlyLoop', {
+            count: dayData.count,
+            DoW: dayData.dayOfWeek
+          })
+        )}
+      </div>
+    </ChartCard>
+  )
+}

@@ -5,7 +5,7 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelContainer'
-import UploadsPerDayOfWeekBarChart from 'features/channel/components/stream-times/chart/UploadsPerDoWBarChart'
+import StreamTimesDoWChart from 'features/channel/components/stream-times/chart/StreamTimesDoWChart'
 import ViewsPerDoWBarChart from 'features/channel/components/stream-times/chart/ViewsPerDoWBarChart'
 import StreamTimesHistogram from 'features/channel/components/stream-times/histogram/StreamTimesHistogram'
 import { getRecentEndedStreams } from 'utils/stream/getRecentEndedStreams'
@@ -25,12 +25,12 @@ export async function ChannelsIdStreamTimesTemplate({
       <Section className="" title={t('timeSlotAnalysis')}>
         <ChartGrid>
           <StreamTimesHistogram channelId={id} />
+          <StreamTimesDoWChart streams={streams} />
         </ChartGrid>
       </Section>
 
       <Section className="" title={t('doWAnalysis')}>
         <ChartGrid>
-          <UploadsPerDayOfWeekBarChart streams={streams} />
           <ViewsPerDoWBarChart streams={streams} />
         </ChartGrid>
       </Section>

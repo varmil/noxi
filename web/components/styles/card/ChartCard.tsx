@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 
 /**
  * No border for a Chart
@@ -34,5 +34,19 @@ export function ChartCardContent({
 }: PropsWithChildren<{ className?: string }>) {
   return (
     <CardContent className={`pb-0 px-0 ${className}`}>{children}</CardContent>
+  )
+}
+
+/**
+ * Add px-1.5
+ */
+export function ChartCardFooter({
+  children,
+  className
+}: PropsWithChildren<{ className?: string }>) {
+  return (
+    <CardFooter className={`pt-6 pb-0 px-1.5 ${className}`}>
+      {children}
+    </CardFooter>
   )
 }

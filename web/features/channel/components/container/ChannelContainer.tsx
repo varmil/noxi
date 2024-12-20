@@ -39,7 +39,7 @@ export function Section({
 
 export function ChartGrid({ children }: PropsWithChildren) {
   return (
-    <div className="grid gap-1 grid-cols-1 lg:gap-2 lg:grid-cols-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-x-6 gap-y-8">
       {children}
     </div>
   )
