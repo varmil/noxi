@@ -3,13 +3,14 @@
 import { PropsWithoutRef } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from 'recharts'
-import { CardTitle, CardDescription } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
   ChartCard,
   ChartCardContent,
-  ChartCardHeader
+  ChartCardHeader,
+  ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import CustomTooltip from './CustomTooltip'
 
@@ -29,7 +30,7 @@ export default function Chart({
   return (
     <ChartCard className="w-full max-w-3xl mx-auto">
       <ChartCardHeader>
-        <CardTitle>{t('streamTimeHistogram')}</CardTitle>
+        <ChartCardTitle>{t('streamTimeHistogram')}</ChartCardTitle>
         <CardDescription>{t('descStreamTimeHistogram')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>

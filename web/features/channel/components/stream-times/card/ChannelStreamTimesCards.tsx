@@ -13,9 +13,9 @@ import {
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 /**
- * SupersSummaryをまとめて表示するコンポーネント
+ * 配信回数や合計配信時間をまとめて表示するコンポーネント
  */
-export default async function ChannelSupersCards({
+export default async function ChannelStreamTimesCards({
   channelId,
   className
 }: PropsWithChildren<{ channelId: string; className?: string }>) {

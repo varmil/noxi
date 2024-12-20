@@ -136,13 +136,18 @@
           "metadata": {
             "title": "{channel} Stream Times",
             "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
+          },
+          "section": {
+            "card": {
+              "title": "Live Frequency/Duration - Last 30 Days"
+            },
+            "chart": { "title": "Live streaming time slot" }
           }
         },
         "template": {
           "latestUserReactions": "Latest User Reactions",
           "liveTrends": "Live Stream Trends",
-          "data": "Data",
-          "timeSlotAnalysis": "Live streaming time slot"
+          "data": "Data"
         }
       },
       "live": {

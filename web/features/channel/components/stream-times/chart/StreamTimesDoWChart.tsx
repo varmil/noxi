@@ -3,14 +3,15 @@
 import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
   ChartCard,
   ChartCardContent,
   ChartCardFooter,
-  ChartCardHeader
+  ChartCardHeader,
+  ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import * as dayOfWeek from '../utils/dayOfWeek'
 
@@ -36,7 +37,7 @@ export default function StreamTimesDoWChart({
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>{t('title')}</CardTitle>
+        <ChartCardTitle>{t('title')}</ChartCardTitle>
         <CardDescription>{t('description')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>

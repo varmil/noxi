@@ -1,6 +1,14 @@
 import { PropsWithChildren } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
+export function StatsCards({ children }: PropsWithChildren<{}>) {
+  return (
+    <section className={'grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4'}>
+      {children}
+    </section>
+  )
+}
+
 export function StatsCard({
   children,
   className

@@ -2,7 +2,7 @@
 
 import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid } from 'recharts'
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -17,7 +17,8 @@ import ChartTooltipFormatter, {
 import {
   ChartCard,
   ChartCardContent,
-  ChartCardHeader
+  ChartCardHeader,
+  ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import {
   StreamStatsXAxis,
@@ -62,7 +63,7 @@ export default function ChatCounts({
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>Chat messages</CardTitle>
+        <ChartCardTitle>Chat messages</ChartCardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>

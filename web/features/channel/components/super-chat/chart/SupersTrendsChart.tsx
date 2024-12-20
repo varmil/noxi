@@ -2,7 +2,7 @@
 
 import { useFormatter, useTranslations } from 'next-intl'
 import { Line, LineChart, XAxis, YAxis, CartesianGrid } from 'recharts'
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -13,7 +13,8 @@ import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummaryS
 import {
   ChartCard,
   ChartCardContent,
-  ChartCardHeader
+  ChartCardHeader,
+  ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import SupersChartTooltip from 'features/channel/components/super-chat/chart/SupersChartTooltip'
 import { useSupersTrendsData } from 'features/channel/hooks/useSupersTrendsData'
@@ -35,7 +36,7 @@ export default function SupersTrendsChart({
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>{feat('trends.title')}</CardTitle>
+        <ChartCardTitle>{feat('trends.title')}</ChartCardTitle>
         <CardDescription>{feat('trends.description')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>

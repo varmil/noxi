@@ -2,7 +2,7 @@
 
 import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, Line, ComposedChart, XAxis, YAxis, CartesianGrid } from 'recharts'
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -13,7 +13,8 @@ import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummaryS
 import {
   ChartCard,
   ChartCardContent,
-  ChartCardHeader
+  ChartCardHeader,
+  ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import SupersChartTooltip from 'features/channel/components/super-chat/chart/SupersChartTooltip'
 import { useSupersCumulativeData } from 'features/channel/hooks/useSupersCumulativeData'
@@ -35,7 +36,7 @@ export default function SupersCumulativeChart({
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>{feat('cumulative.title')}</CardTitle>
+        <ChartCardTitle>{feat('cumulative.title')}</ChartCardTitle>
         <CardDescription>{feat('cumulative.description')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>
