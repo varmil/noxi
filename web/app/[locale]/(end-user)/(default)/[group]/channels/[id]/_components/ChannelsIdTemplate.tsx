@@ -5,7 +5,7 @@ import {
   ChartGrid,
   Section,
   Sections
-} from 'features/channel/components/container/ChannelContainer'
+} from 'features/channel/components/container/ChannelSection'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
 import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
 import ChannelData from './ui/channel-data/ChannelData'

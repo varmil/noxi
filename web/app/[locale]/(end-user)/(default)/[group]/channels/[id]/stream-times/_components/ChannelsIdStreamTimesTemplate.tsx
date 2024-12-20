@@ -4,7 +4,7 @@ import {
   ChartGrid,
   Section,
   Sections
-} from 'features/channel/components/container/ChannelContainer'
+} from 'features/channel/components/container/ChannelSection'
 import ChannelStreamTimesCards from 'features/channel/components/stream-times/card/ChannelStreamTimesCards'
 import StreamTimesDoWChart from 'features/channel/components/stream-times/chart/StreamTimesDoWChart'
 import StreamTimesHistogram from 'features/channel/components/stream-times/histogram/StreamTimesHistogram'
