@@ -379,7 +379,8 @@
       "stats": {
         "annotation": "This is our service's unique indicator.",
         "chart": {
-          "peakConcurrentViewersChart": "Peak Concurrent Viewers per live",
+          "peakConcurrentViewers": "Peak Concurrent Viewers",
+          "avgConcurrentViewers": "Avg. Concurrent Viewers",
           "viewsChart": "Views per live",
           "streamTimeHistogram": "Live Streaming Time",
           "descStreamTimeHistogram": "Shows the frequency of YouTube Live streams in each time slot, counted throughout the entire stream time.",
@@ -398,14 +399,7 @@
           "totalSuperChats": "Total amount of Super Chat"
         },
         "totalVideos": "Total number of videos uploaded",
-        "joinedDescription": "Date the channel was registered",
-
-        "progress": {
-          "popularityScore": "Popularity Score",
-          "popularityDescription": "The influencer's overall popularity based on their past activities",
-          "fanAcquisitionScore": "Fan Acquisition Score",
-          "fanAcquisitionDescription": "The ability to turn viewers who watch their contents into fans"
-        }
+        "joinedDescription": "Date the channel was registered"
       }
     },
     "stream": {

@@ -2,12 +2,10 @@ import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import {
-  ChartGrid,
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
-import ViewsBarChart from 'features/youtube-stats/components/bar-chart/views/ViewsBarChart'
 import ChannelData from './ui/channel-data/ChannelData'
 import { ChannelCommentTabs } from './ui/latest-user-reactions/ChannelCommentTabs'
 
@@ -37,10 +35,7 @@ export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
       </Section>
 
       <Section className="lg:col-span-full lg:order-3" title={t('liveTrends')}>
-        <ChartGrid>
-          <ConcurrentViewersBarChart channelId={id} />
-          <ViewsBarChart channelId={id} />
-        </ChartGrid>
+        <ConcurrentViewersBarChart channelId={id} />
       </Section>
     </Sections>
   )

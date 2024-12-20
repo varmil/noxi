@@ -15,6 +15,7 @@ type Props = {
   channelId: string
 }
 
+/** @deprecated 目的が不明瞭なので一旦非推奨 */
 export default async function ViewsBarChart({
   channelId
 }: PropsWithoutRef<Props>) {
