@@ -142,8 +142,7 @@
           "latestUserReactions": "Latest User Reactions",
           "liveTrends": "Live Stream Trends",
           "data": "Data",
-          "timeSlotAnalysis": "Time slot analysis",
-          "doWAnalysis": "Days of the week analysis"
+          "timeSlotAnalysis": "Live streaming time slot"
         }
       },
       "live": {

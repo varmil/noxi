@@ -59,7 +59,7 @@ export default function StreamTimesDoWChart({
       </ChartCardContent>
       <ChartCardFooter className="flex-col items-start gap-1">
         <CardDescription>
-          The most videos are uploaded on{' '}
+          The most live streams are held on{' '}
           <span className="font-medium text-foreground">
             {dayOfWeek.useMaxVideosDay(streams).dayOfWeek}
           </span>

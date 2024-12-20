@@ -45,7 +45,7 @@ export function ChartCardFooter({
   className
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <CardFooter className={`pt-6 pb-0 px-1.5 ${className}`}>
+    <CardFooter className={`pt-4 pb-0 px-1.5 ${className}`}>
       {children}
     </CardFooter>
   )

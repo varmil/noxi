@@ -28,6 +28,10 @@ type Props = {
   streams: StreamsSchema
 }
 
+/**
+ * @deprecated やや目的が不明瞭なので一旦非推奨
+ * 曜日ごとの平均視聴者数を表示するグラフ
+ */
 export default function ViewsPerDoWBarChart({
   streams
 }: PropsWithoutRef<Props>) {

@@ -134,16 +134,15 @@
         },
         "streamTimes": {
           "metadata": {
-            "title": "{channel} 配信時間・配信曜日・配信時間帯",
-            "description": "「{channel}」の配信時間、配信曜日、配信時間帯を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
+            "title": "{channel} 配信時間・配信時間帯・配信曜日",
+            "description": "「{channel}」の配信時間帯、配信時間、配信曜日を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
           }
         },
         "template": {
           "latestUserReactions": "最新のスーパーチャット、コメント",
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ",
-          "timeSlotAnalysis": "配信時間帯の分析",
-          "doWAnalysis": "曜日ごとの週間分析"
+          "timeSlotAnalysis": "配信時間・配信時間帯"
         }
       },
       "live": {
