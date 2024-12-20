@@ -43,9 +43,12 @@ export default async function sitemap({
         basicInfo: { title: cName }
       } = channel
 
+      const thumbnail_loc = thumbnails.standard?.url ?? thumbnails.default?.url
+      if (!thumbnail_loc) return null
+
       const DEFAULT = {
         content_loc: `https://www.youtube.com/watch?v=${videoId}`,
-        thumbnail_loc: thumbnails?.standard?.url ?? ''
+        thumbnail_loc
       }
 
       return getEntry({
