@@ -7,9 +7,9 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelContainer'
-import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
-import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
-import StreamTimeHistogram from 'features/youtube-stats/components/bar-chart/stream-time-histogram/StreamTimeHistogram'
+import UploadsPerDayOfWeekBarChart from 'features/channel/components/stream-times/chart/UploadsPerDoWBarChart'
+import ViewsPerDoWBarChart from 'features/channel/components/stream-times/chart/ViewsPerDoWBarChart'
+import StreamTimesHistogram from 'features/channel/components/stream-times/histogram/StreamTimesHistogram'
 
 type Props = { id: string }
 
@@ -26,7 +26,7 @@ export async function ChannelsIdStreamTimesTemplate({
     <Sections>
       <Section className="" title={t('timeSlotAnalysis')}>
         <ChartGrid>
-          <StreamTimeHistogram channelId={id} />
+          <StreamTimesHistogram channelId={id} />
         </ChartGrid>
       </Section>
 
