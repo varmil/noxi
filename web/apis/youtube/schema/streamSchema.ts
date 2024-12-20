@@ -20,6 +20,8 @@ export const responseSchema = z.object({
     categoryId: z.number()
   }),
 
+  duration: z.string().duration().optional(),
+
   streamTimes: z.object({
     scheduledStartTime: z.string().datetime().optional(),
     actualStartTime: z.string().datetime().optional(),
@@ -42,7 +44,9 @@ export const responseSchema = z.object({
     z.literal('scheduled'),
     z.literal('live'),
     z.literal('ended')
-  ])
+  ]),
+
+  membersOnly: z.boolean()
 })
 export const responseListSchema = z.object({
   list: z.array(responseSchema)

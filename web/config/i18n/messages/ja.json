@@ -134,16 +134,18 @@
         },
         "streamTimes": {
           "metadata": {
-            "title": "{channel} 配信時間・配信曜日・配信時間帯",
-            "description": "「{channel}」の配信時間、配信曜日、配信時間帯を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
+            "title": "{channel} 配信時間・配信時間帯・配信曜日",
+            "description": "「{channel}」の配信時間帯、配信時間、配信曜日を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
+          },
+          "section": {
+            "card": { "title": "ライブ頻度・時間 - 過去30日間" },
+            "chart": { "title": "配信時間帯・曜日" }
           }
         },
         "template": {
           "latestUserReactions": "最新のスーパーチャット、コメント",
           "liveTrends": "ライブ配信トレンド",
-          "data": "チャンネルデータ",
-          "timeSlotAnalysis": "配信時間帯の分析",
-          "doWAnalysis": "曜日ごとの週間分析"
+          "data": "チャンネルデータ"
         }
       },
       "live": {
@@ -265,7 +267,23 @@
         "nav": "ライブ"
       },
       "streamTimes": {
-        "nav": "配信時間"
+        "nav": "配信時間",
+        "card": {
+          "count": "ライブ回数",
+          "totalDuration": "合計ライブ時間",
+          "averageDuration": "平均ライブ時間"
+        },
+        "chart": {
+          "countsByDoW": {
+            "title": "曜日ごとの配信頻度",
+            "description": "各曜日におけるライブ配信回数を表示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
+            "srOnly": "1週間の各曜日におけるライブ配信回数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
+            "srOnlyLoop": "{DoW}に{count}本のライブ配信が行われました。"
+          },
+          "viewersByDoW": {
+            "title": "曜日別同接数"
+          }
+        }
       }
     },
     "group": {
@@ -359,7 +377,8 @@
       "stats": {
         "annotation": "弊サービス独自指標です",
         "chart": {
-          "peakConcurrentViewersChart": "最大同時視聴者数 - ライブ配信",
+          "peakConcurrentViewers": "最大同時視聴者数 - ライブ配信",
+          "avgConcurrentViewers": "平均同接数",
           "viewsChart": "視聴回数 - ライブ配信",
           "streamTimeHistogram": "ライブ配信時間帯",
           "descStreamTimeHistogram": "各時間帯におけるYouTubeライブ配信の頻度を表示しています。配信時間全体を通じてカウントされています。",
@@ -367,8 +386,6 @@
           "streamFrequency": "配信回数",
           "srPeakConcurrentViewersChart": "{dateRange}におけるライブ配信の最大視聴者数を棒グラフで示しています。この期間の平均視聴者数は{viewers}人です。",
           "srViewsChart": "{dateRange}におけるライブ配信の視聴回数を棒グラフで示しています。この期間の平均視聴回数は{views}回です。",
-          "srUploadsPerDoWChart": "1週間の各曜日における動画のアップロード数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
-          "srUploadsPerDoWChartLoop": "{DoW}に{count}本の動画がアップロードされました。",
           "srViewsPerDoWChart": "各曜日にアップロードされた動画の平均再生回数を棒グラフで示しています。これにより再生回数が増えやすい曜日を分析できます。",
           "srViewsPerDoWChartLoop": "{DoW}にアップロードされた動画は平均{views}回再生されています。"
         },
@@ -380,14 +397,7 @@
           "totalSuperChats": "スパチャ合計金額"
         },
         "totalVideos": "動画のアップロード数",
-        "joinedDescription": "Youtubeを始めた日",
-
-        "progress": {
-          "popularityScore": "人気スコア",
-          "popularityDescription": "これまでの全活動を考慮したこのチャンネルの総合的な人気度です",
-          "fanAcquisitionScore": "ファン獲得スコア",
-          "fanAcquisitionDescription": "動画を見てくれた視聴者をファンに変えていく能力の高さです"
-        }
+        "joinedDescription": "Youtubeを始めた日"
       }
     },
     "stream": {

@@ -1,4 +1,4 @@
-import { Exclude, Expose, Transform } from 'class-transformer'
+import { Expose, Transform } from 'class-transformer'
 import type { Group } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
 import { VideoId, Duration, VideoSnippet, UpdatedAt } from '@domain/youtube'
@@ -10,7 +10,7 @@ export class Stream {
   /**
    * Live中はP0D（０）固定
    */
-  @Transform(({ value }: { value: Duration }) => value.get())
+  @Transform(({ value }: { value?: Duration }) => value?.get())
   public readonly duration?: Duration
   public readonly streamTimes: StreamTimes
   public readonly metrics: Metrics
@@ -47,7 +47,7 @@ export class Stream {
    * * viewsがundefined = メンバー限定
    * * タイトルに特定の文字列がある = メンバー限定
    */
-  @Exclude()
+  @Expose()
   get membersOnly() {
     if (this.metrics.membersOnly()) return true
 

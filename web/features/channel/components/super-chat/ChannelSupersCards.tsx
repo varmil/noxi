@@ -7,7 +7,8 @@ import { getSupersSummary } from 'apis/youtube/getSupersSummary'
 import {
   StatsCard,
   StatsCardContent,
-  StatsCardHeader
+  StatsCardHeader,
+  StatsCards
 } from 'components/styles/card/StatsCard'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
@@ -35,7 +36,7 @@ export default async function ChannelSupersCards({
   })}`
 
   return (
-    <section className={'grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4'}>
+    <StatsCards>
       <StatsCard>
         <StatsCardHeader>
           <span>{tg('period.last24Hours')}</span>
@@ -73,6 +74,6 @@ export default async function ChannelSupersCards({
           {formatMicrosAsRoundedAmount(summary.last30Days)}
         </StatsCardContent>
       </StatsCard>
-    </section>
+    </StatsCards>
   )
 }

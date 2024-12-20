@@ -1,39 +1,35 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { getChannel } from 'apis/youtube/getChannel'
-import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import {
   ChartGrid,
   Section,
   Sections
-} from 'features/channel/components/container/ChannelContainer'
-import UploadsPerDayOfWeekBarChart from 'features/youtube-stats/components/bar-chart/UploadsPerDoWBarChart'
-import ViewsPerDoWBarChart from 'features/youtube-stats/components/bar-chart/ViewsPerDoWBarChart'
-import StreamTimeHistogram from 'features/youtube-stats/components/bar-chart/stream-time-histogram/StreamTimeHistogram'
+} from 'features/channel/components/container/ChannelSection'
+import ChannelStreamTimesCards from 'features/channel/components/stream-times/card/ChannelStreamTimesCards'
+import StreamTimesDoWChart from 'features/channel/components/stream-times/chart/StreamTimesDoWChart'
+import StreamTimesHistogram from 'features/channel/components/stream-times/histogram/StreamTimesHistogram'
+import { getRecentEndedStreams } from 'utils/stream/getRecentEndedStreams'
 
 type Props = { id: string }
 
 export async function ChannelsIdStreamTimesTemplate({
   id
 }: PropsWithoutRef<Props>) {
-  const [t, channel, videos] = await Promise.all([
-    getTranslations('Page.group.channelsId.template'),
-    getChannel(id),
-    getVideosInChannel({ channelId: id, limit: 50 })
+  const [page, streams] = await Promise.all([
+    getTranslations('Page.group.channelsId.streamTimes'),
+    getRecentEndedStreams({ channelId: id })
   ])
 
   return (
     <Sections>
-      <Section className="" title={t('timeSlotAnalysis')}>
-        <ChartGrid>
-          <StreamTimeHistogram channelId={id} />
-        </ChartGrid>
+      <Section title={page('section.card.title')}>
+        <ChannelStreamTimesCards streams={streams} />
       </Section>
 
-      <Section className="" title={t('doWAnalysis')}>
+      <Section>
         <ChartGrid>
-          <UploadsPerDayOfWeekBarChart videos={videos} />
-          <ViewsPerDoWBarChart videos={videos} />
+          <StreamTimesHistogram streams={streams} />
+          <StreamTimesDoWChart streams={streams} />
         </ChartGrid>
       </Section>
     </Sections>

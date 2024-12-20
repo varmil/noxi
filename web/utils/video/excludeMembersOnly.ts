@@ -1,6 +1,6 @@
-import { VideosSchema } from 'apis/youtube/schema/videoSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 
-/** viewCountがundefinedの動画を除外します */
-export function excludeMembersOnly(videos: VideosSchema): VideosSchema {
-  return videos.filter(video => !video.membersOnly)
+/** メンバー限定の動画を除外します */
+export function excludeMembersOnly(streams: StreamsSchema): StreamsSchema {
+  return streams.filter(stream => !stream.membersOnly)
 }

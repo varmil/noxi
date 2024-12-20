@@ -4,7 +4,7 @@ import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistorie
 import {
   Section,
   Sections
-} from 'features/channel/components/container/ChannelContainer'
+} from 'features/channel/components/container/ChannelSection'
 import ChannelSupersCards from 'features/channel/components/super-chat/ChannelSupersCards'
 import SupersCumulativeChart from 'features/channel/components/super-chat/chart/SupersCumulativeChart'
 import SupersTrendsChart from 'features/channel/components/super-chat/chart/SupersTrendsChart'

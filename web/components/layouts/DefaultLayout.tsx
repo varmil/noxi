@@ -7,7 +7,9 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
   return (
     <>
       <Aside className="z-10" />
-      <section className="z-0 relative pb-14 md:pb-4 sm:pl-14">
+
+      {/* bottom navigation = h-14 なので 20 は pb-6 相当 */}
+      <section className="z-0 relative pb-20 md:pb-6 sm:pl-14">
         {children}
       </section>
       <CookieAgreeBanner className="z-30" />

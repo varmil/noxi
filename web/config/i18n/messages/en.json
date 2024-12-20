@@ -136,14 +136,18 @@
           "metadata": {
             "title": "{channel} Stream Times",
             "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
+          },
+          "section": {
+            "card": {
+              "title": "Live Frequency/Duration - Last 30 Days"
+            },
+            "chart": { "title": "Live streaming time slot" }
           }
         },
         "template": {
           "latestUserReactions": "Latest User Reactions",
           "liveTrends": "Live Stream Trends",
-          "data": "Data",
-          "timeSlotAnalysis": "Time slot analysis",
-          "doWAnalysis": "Days of the week analysis"
+          "data": "Data"
         }
       },
       "live": {
@@ -265,7 +269,23 @@
         "nav": "Live"
       },
       "streamTimes": {
-        "nav": "Stream Times"
+        "nav": "Stream Times",
+        "card": {
+          "count": "Live Stream Count",
+          "totalDuration": "Total Live Duration",
+          "averageDuration": "Average Live Duration"
+        },
+        "chart": {
+          "countsByDoW": {
+            "title": "Live Stream Counts By Day of the Week",
+            "description": "Shows the count of live streams on each day of the week. This allows you to analyze which days of the week the channel is most active.",
+            "srOnly": "The bar chart shows the count of live streams on each day of the week. This allows you to analyze which days of the week the channel is most active.",
+            "srOnlyLoop": "{count} is the count of live streams on {DoW}."
+          },
+          "viewersByDoW": {
+            "title": "Viewers By Day of the Week"
+          }
+        }
       }
     },
     "group": {
@@ -359,7 +379,8 @@
       "stats": {
         "annotation": "This is our service's unique indicator.",
         "chart": {
-          "peakConcurrentViewersChart": "Peak Concurrent Viewers per live",
+          "peakConcurrentViewers": "Peak Concurrent Viewers",
+          "avgConcurrentViewers": "Avg. Concurrent Viewers",
           "viewsChart": "Views per live",
           "streamTimeHistogram": "Live Streaming Time",
           "descStreamTimeHistogram": "Shows the frequency of YouTube Live streams in each time slot, counted throughout the entire stream time.",
@@ -367,8 +388,6 @@
           "streamFrequency": "Count",
           "srPeakConcurrentViewersChart": "The bar graph shows the peak concurrent viewers for a live stream on {dateRange}. The number of average concurrent viewers is {viewers}.",
           "srViewsChart": "The bar graph shows the number of views of live streams during {dateRange}. The average number of views is {views}.",
-          "srUploadsPerDoWChart": "The bar graph shows the number of videos uploaded on each day of the week. This allows you to analyze which days of the week the channel is most active.",
-          "srUploadsPerDoWChartLoop": "{count} is the number of videos uploaded on {DoW}.",
           "srViewsPerDoWChart": "The bar graph shows the average number of views for videos uploaded on each day of the week. This allows you to analyze which days of the week tend to get more views.",
           "srViewsPerDoWChartLoop": "Videos uploaded to {DoW} are played an average of {views} times."
         },
@@ -380,14 +399,7 @@
           "totalSuperChats": "Total amount of Super Chat"
         },
         "totalVideos": "Total number of videos uploaded",
-        "joinedDescription": "Date the channel was registered",
-
-        "progress": {
-          "popularityScore": "Popularity Score",
-          "popularityDescription": "The influencer's overall popularity based on their past activities",
-          "fanAcquisitionScore": "Fan Acquisition Score",
-          "fanAcquisitionDescription": "The ability to turn viewers who watch their contents into fans"
-        }
+        "joinedDescription": "Date the channel was registered"
       }
     },
     "stream": {

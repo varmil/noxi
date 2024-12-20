@@ -12,8 +12,8 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
-import { VideosSchema } from 'apis/youtube/schema/videoSchema'
-import * as dayOfWeek from '../../utils/dayOfWeek'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import * as dayOfWeek from '../utils/dayOfWeek'
 
 const chartConfig = {
   desktop: {
@@ -25,31 +25,35 @@ const chartConfig = {
 } satisfies ChartConfig
 
 type Props = {
-  videos: VideosSchema
+  streams: StreamsSchema
 }
 
+/**
+ * @deprecated やや目的が不明瞭なので一旦非推奨
+ * 曜日ごとの平均視聴者数を表示するグラフ
+ */
 export default function ViewsPerDoWBarChart({
-  videos
+  streams
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
-  const data = dayOfWeek.useAvarage(videos)
+  const data = dayOfWeek.useAvarage(streams)
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Avarage Views by uploaded day</CardTitle>
+        <CardTitle>Avg. Peak Concurrent Viewers by day of week</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
           <BarChart
             accessibilityLayer
             data={data}
-            layout="vertical"
-            margin={{ right: 16 }}
+            // layout="vertical"
+            margin={{ top: 10 }}
           >
-            <CartesianGrid horizontal={false} />
-            <YAxis
+            <CartesianGrid />
+            <XAxis
               dataKey="dayOfWeek"
               type="category"
               width={47}
@@ -58,22 +62,24 @@ export default function ViewsPerDoWBarChart({
               axisLine={false}
               tickFormatter={value => value.slice(0, 3)}
             />
-            <XAxis dataKey="views" type="number" hide />
+            <YAxis
+              dataKey="views"
+              type="number"
+              tickFormatter={v => format.number(v, { notation: 'compact' })}
+            />
             <Bar
               dataKey="views"
-              layout="vertical"
+              // layout="vertical"
               fill="var(--color-desktop)"
               radius={4}
             >
               <LabelList
                 dataKey="views"
-                position="right"
-                offset={8}
+                // position="right"
+                // offset={8}
                 className="fill-foreground"
                 fontSize={12}
-                formatter={(v: number) =>
-                  format.number(v, { notation: 'compact' })
-                }
+                formatter={v => format.number(v, { notation: 'compact' })}
               />
             </Bar>
           </BarChart>
@@ -83,7 +89,7 @@ export default function ViewsPerDoWBarChart({
         <CardDescription>
           Uploaded on{' '}
           <span className="font-medium text-foreground">
-            {dayOfWeek.useMaxViewsDay(videos).dayOfWeek}
+            {dayOfWeek.useMaxViewsDay(streams).dayOfWeek}
           </span>{' '}
           are the most viewed
         </CardDescription>
@@ -92,7 +98,7 @@ export default function ViewsPerDoWBarChart({
         {t('srViewsPerDoWChart')}
         {data.map(dayData =>
           t('srViewsPerDoWChartLoop', {
-            views: dayData.views,
+            views: dayData.peak,
             DoW: dayData.dayOfWeek
           })
         )}

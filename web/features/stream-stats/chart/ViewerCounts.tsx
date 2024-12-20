@@ -2,7 +2,7 @@
 
 import { useFormatter, useTranslations } from 'next-intl'
 import { Area, AreaChart, CartesianGrid } from 'recharts'
-import { CardDescription, CardTitle } from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
@@ -14,7 +14,8 @@ import { ViewerCountsSchema } from 'apis/youtube/schema/viewerCountSchema'
 import {
   ChartCard,
   ChartCardContent,
-  ChartCardHeader
+  ChartCardHeader,
+  ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import {
   StreamStatsGradient,
@@ -50,7 +51,7 @@ export default function ViewerCounts({
   return (
     <ChartCard>
       <ChartCardHeader>
-        <CardTitle>Concurrent viewers</CardTitle>
+        <ChartCardTitle>Concurrent viewers</ChartCardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>

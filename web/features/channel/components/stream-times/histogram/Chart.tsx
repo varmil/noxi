@@ -3,15 +3,15 @@
 import { PropsWithoutRef } from 'react'
 import { useFormatter, useTranslations } from 'next-intl'
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from 'recharts'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardDescription
-} from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader,
+  ChartCardTitle
+} from 'components/styles/card/ChartCard'
 import CustomTooltip from './CustomTooltip'
 
 type Props = {
@@ -28,23 +28,25 @@ export default function Chart({
   const histogram = useHistogram(streams, format)
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
-        <CardTitle>{t('streamTimeHistogram')}</CardTitle>
+    <ChartCard className="w-full max-w-3xl mx-auto">
+      <ChartCardHeader>
+        <ChartCardTitle>{t('streamTimeHistogram')}</ChartCardTitle>
         <CardDescription>{t('descStreamTimeHistogram')}</CardDescription>
-      </CardHeader>
-      <CardContent>
+      </ChartCardHeader>
+      <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart data={histogram}>
+          <BarChart data={histogram} margin={{ top: 10 }}>
             <XAxis
               dataKey="text"
               tickLine={false}
               axisLine={false}
-              minTickGap={32}
+              tickMargin={5}
+              minTickGap={36}
             />
             <YAxis
               tickLine={false}
               axisLine={false}
+              allowDecimals={false}
               width={37}
               tickMargin={8}
             />
@@ -56,8 +58,8 @@ export default function Chart({
             />
           </BarChart>
         </ChartContainer>
-      </CardContent>
-    </Card>
+      </ChartCardContent>
+    </ChartCard>
   )
 }
 
@@ -85,6 +87,15 @@ const useHistogram = (
     if (actualStartTime && actualEndTime) {
       const startTime = new Date(actualStartTime)
       const endTime = new Date(actualEndTime)
+
+      const isValid = validateDuration(startTime, endTime)
+      if (!isValid) {
+        // console.log(
+        //   'Stream exceeds 24 hours and is excluded from aggregation:',
+        //   stream
+        // )
+        return
+      }
 
       let currentHour = new Date(startTime)
       currentHour.setMinutes(0, 0, 0)
@@ -118,4 +129,16 @@ const useHistogram = (
     })
 
   return data
+}
+
+// 開始時間と終了時間の差が24時間以上ならスキップ
+const validateDuration = (start: Date, end: Date) => {
+  const timeDifference = end.getTime() - start.getTime()
+  const hoursDifference = timeDifference / (1000 * 60 * 60) // ミリ秒を時間に変換
+
+  if (hoursDifference > 24) {
+    return false
+  }
+
+  return true
 }

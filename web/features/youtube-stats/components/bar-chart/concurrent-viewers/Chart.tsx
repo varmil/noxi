@@ -11,19 +11,19 @@ import {
   XAxis,
   YAxis
 } from 'recharts'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip
 } from '@/components/ui/chart'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader,
+  ChartCardTitle
+} from 'components/styles/card/ChartCard'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
 
 type Props = {
@@ -44,7 +44,6 @@ export default function Chart({
       date: stream.snippet.publishedAt,
       peakConcurrentViewers: stream.metrics.peakConcurrentViewers,
       avgConcurrentViewers: stream.metrics.avgConcurrentViewers,
-      chatMessages: stream.metrics.chatMessages,
       thumbnail: stream.snippet.thumbnails['medium']?.url
     }))
     .reverse()
@@ -62,15 +61,15 @@ export default function Chart({
   ]
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{t('peakConcurrentViewersChart')}</CardTitle>
+    <ChartCard>
+      <ChartCardHeader>
+        <ChartCardTitle>{t('peakConcurrentViewers')}</ChartCardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
-      </CardHeader>
-      <CardContent>
+      </ChartCardHeader>
+      <ChartCardContent>
         <ChartContainer config={chartConfig}>
           <BarChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
+            <CartesianGrid strokeDasharray={'3 3'} />
             <XAxis
               dataKey="date"
               tickLine={true}
@@ -90,9 +89,7 @@ export default function Chart({
               tickMargin={8}
               tickSize={0}
               axisLine={false}
-              tickFormatter={value =>
-                format.number(value, { notation: 'compact' })
-              }
+              tickFormatter={v => format.number(v, { notation: 'compact' })}
             />
             <ChartTooltip
               allowEscapeViewBox={{ x: false, y: true }}
@@ -112,22 +109,22 @@ export default function Chart({
             >
               <Label
                 position="insideBottomLeft"
-                value="Avg. Concurrent Viewers"
-                className="text-sm"
+                value={t('avgConcurrentViewers')}
+                className="text-xs"
                 offset={10}
                 fill="hsl(var(--foreground))"
               />
             </ReferenceLine>
           </BarChart>
         </ChartContainer>
-      </CardContent>
+      </ChartCardContent>
       <div className="sr-only">
         {t('srPeakConcurrentViewersChart', {
           dateRange: dateRange.join(''),
           viewers: average(streams)
         })}
       </div>
-    </Card>
+    </ChartCard>
   )
 }
 

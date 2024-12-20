@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import {
   Section,
   Sections
-} from 'features/channel/components/container/ChannelContainer'
+} from 'features/channel/components/container/ChannelSection'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 
 type Props = { id: string }
