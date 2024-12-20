@@ -14,7 +14,7 @@ const DAYS_ORDER = [
 
 type ChartData = {
   dayOfWeek: string
-  views: number
+  peak: number
 }
 
 type ReducedData = ChartData & {
@@ -25,22 +25,21 @@ export function useGroupByDay(streams: StreamsSchema) {
   const data = Object.values(
     excludeMembersOnly(streams)
       .map<ChartData>(stream => ({
-        dayOfWeek: dayjs.utc(stream.snippet.publishedAt).format('dddd'),
-        // TODO: views は stream.metrics.peakConcurrentViewers に置き換える
-        views: stream.metrics.peakConcurrentViewers || 0
+        dayOfWeek: dayjs.utc(stream.streamTimes.actualStartTime).format('dddd'),
+        peak: stream.metrics.peakConcurrentViewers || 0
       }))
       .reduce<{ [dow: string]: ReducedData }>((acc, curr) => {
-        const { dayOfWeek, views } = curr
+        const { dayOfWeek, peak } = curr
 
         if (!acc[dayOfWeek]) {
           acc[dayOfWeek] = {
             dayOfWeek,
-            views: 0,
+            peak: 0,
             count: 0
           }
         }
 
-        acc[dayOfWeek].views += views
+        acc[dayOfWeek].peak += peak
         acc[dayOfWeek].count += 1
 
         return acc
@@ -55,7 +54,7 @@ export function useGroupByDay(streams: StreamsSchema) {
 export function useAvarage(streams: StreamsSchema): ChartData[] {
   return useGroupByDay(streams).map(dayData => ({
     dayOfWeek: dayData.dayOfWeek,
-    views: Math.round(dayData.views / dayData.count)
+    peak: Math.round(dayData.peak / dayData.count)
   }))
 }
 
@@ -65,14 +64,14 @@ export function useAvarage(streams: StreamsSchema): ChartData[] {
 export function useMaxViewsDay(streams: StreamsSchema) {
   const grouped = useAvarage(streams)
   return grouped.reduce((maxDay, currentDay) => {
-    return currentDay.views > maxDay.views ? currentDay : maxDay
+    return currentDay.peak > maxDay.peak ? currentDay : maxDay
   }, grouped[0])
 }
 
 /**
- * video uploadsが最も多い曜日がオブジェクト形式で抽出されます。
+ * Live Stream countsが最も多い曜日がオブジェクト形式で抽出されます。
  */
-export function useMaxVideosDay(streams: StreamsSchema) {
+export function useMaxLiveCountsDay(streams: StreamsSchema) {
   const grouped = useGroupByDay(streams)
   return grouped.reduce((maxDay, currentDay) => {
     return currentDay.count > maxDay.count ? currentDay : maxDay

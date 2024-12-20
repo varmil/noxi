@@ -98,7 +98,7 @@ export default function ViewsPerDoWBarChart({
         {t('srViewsPerDoWChart')}
         {data.map(dayData =>
           t('srViewsPerDoWChartLoop', {
-            views: dayData.views,
+            views: dayData.peak,
             DoW: dayData.dayOfWeek
           })
         )}
