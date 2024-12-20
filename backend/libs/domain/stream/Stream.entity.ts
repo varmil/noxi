@@ -47,7 +47,7 @@ export class Stream {
    * * viewsがundefined = メンバー限定
    * * タイトルに特定の文字列がある = メンバー限定
    */
-  @Exclude()
+  @Expose()
   get membersOnly() {
     if (this.metrics.membersOnly()) return true
 

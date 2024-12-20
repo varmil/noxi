@@ -12,7 +12,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
-import { VideosSchema } from 'apis/youtube/schema/videoSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import * as dayOfWeek from '../utils/dayOfWeek'
 
 const chartConfig = {
@@ -25,14 +25,14 @@ const chartConfig = {
 } satisfies ChartConfig
 
 type Props = {
-  videos: VideosSchema
+  streams: StreamsSchema
 }
 
 export default function UploadsPerDayOfWeekBarChart({
-  videos
+  streams
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
-  const data = dayOfWeek.useGroupByDay(videos)
+  const data = dayOfWeek.useGroupByDay(streams)
 
   return (
     <Card>
@@ -79,7 +79,7 @@ export default function UploadsPerDayOfWeekBarChart({
         <CardDescription>
           The most videos are uploaded on{' '}
           <span className="font-medium text-foreground">
-            {dayOfWeek.useMaxVideosDay(videos).dayOfWeek}
+            {dayOfWeek.useMaxVideosDay(streams).dayOfWeek}
           </span>
         </CardDescription>
       </CardFooter>

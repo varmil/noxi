@@ -10,16 +10,17 @@ import {
 import UploadsPerDayOfWeekBarChart from 'features/channel/components/stream-times/chart/UploadsPerDoWBarChart'
 import ViewsPerDoWBarChart from 'features/channel/components/stream-times/chart/ViewsPerDoWBarChart'
 import StreamTimesHistogram from 'features/channel/components/stream-times/histogram/StreamTimesHistogram'
+import { getRecentEndedStreams } from 'utils/stream/getRecentEndedStreams'
 
 type Props = { id: string }
 
 export async function ChannelsIdStreamTimesTemplate({
   id
 }: PropsWithoutRef<Props>) {
-  const [t, channel, videos] = await Promise.all([
+  const [t, videos, streams] = await Promise.all([
     getTranslations('Page.group.channelsId.template'),
-    getChannel(id),
-    getVideosInChannel({ channelId: id, limit: 50 })
+    getVideosInChannel({ channelId: id, limit: 50 }),
+    getRecentEndedStreams({ channelId: id })
   ])
 
   return (
@@ -32,8 +33,8 @@ export async function ChannelsIdStreamTimesTemplate({
 
       <Section className="" title={t('doWAnalysis')}>
         <ChartGrid>
-          <UploadsPerDayOfWeekBarChart videos={videos} />
-          <ViewsPerDoWBarChart videos={videos} />
+          <UploadsPerDayOfWeekBarChart streams={streams} />
+          <ViewsPerDoWBarChart streams={streams} />
         </ChartGrid>
       </Section>
     </Sections>

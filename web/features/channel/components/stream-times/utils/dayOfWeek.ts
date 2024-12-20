@@ -1,4 +1,4 @@
-import { VideosSchema } from 'apis/youtube/schema/videoSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import dayjs from 'lib/dayjs'
 import { excludeMembersOnly } from 'utils/video/excludeMembersOnly'
 
@@ -15,39 +15,32 @@ const DAYS_ORDER = [
 type ChartData = {
   dayOfWeek: string
   views: number
-  likes: number
-  comments: number
 }
 
 type ReducedData = ChartData & {
   count: number
 }
 
-export function useGroupByDay(videos: VideosSchema) {
+export function useGroupByDay(streams: StreamsSchema) {
   const data = Object.values(
-    excludeMembersOnly(videos)
-      .map<ChartData>(video => ({
-        dayOfWeek: dayjs.utc(video.snippet.publishedAt).format('dddd'),
-        views: video.statistics.viewCount || 0,
-        likes: video.statistics.likeCount,
-        comments: video.statistics.commentCount
+    excludeMembersOnly(streams)
+      .map<ChartData>(stream => ({
+        dayOfWeek: dayjs.utc(stream.snippet.publishedAt).format('dddd'),
+        // TODO: views は stream.metrics.peakConcurrentViewers に置き換える
+        views: stream.metrics.peakConcurrentViewers || 0
       }))
       .reduce<{ [dow: string]: ReducedData }>((acc, curr) => {
-        const { dayOfWeek, views, likes, comments } = curr
+        const { dayOfWeek, views } = curr
 
         if (!acc[dayOfWeek]) {
           acc[dayOfWeek] = {
             dayOfWeek,
             views: 0,
-            likes: 0,
-            comments: 0,
             count: 0
           }
         }
 
         acc[dayOfWeek].views += views
-        acc[dayOfWeek].likes += likes
-        acc[dayOfWeek].comments += comments
         acc[dayOfWeek].count += 1
 
         return acc
@@ -59,20 +52,18 @@ export function useGroupByDay(videos: VideosSchema) {
   return data
 }
 
-export function useAvarage(videos: VideosSchema): ChartData[] {
-  return useGroupByDay(videos).map(dayData => ({
+export function useAvarage(streams: StreamsSchema): ChartData[] {
+  return useGroupByDay(streams).map(dayData => ({
     dayOfWeek: dayData.dayOfWeek,
-    views: Math.round(dayData.views / dayData.count),
-    likes: Math.round(dayData.likes / dayData.count),
-    comments: Math.round(dayData.comments / dayData.count)
+    views: Math.round(dayData.views / dayData.count)
   }))
 }
 
 /**
  * avarage viewsが最も多い曜日がオブジェクト形式で抽出されます。
  */
-export function useMaxViewsDay(videos: VideosSchema) {
-  const grouped = useAvarage(videos)
+export function useMaxViewsDay(streams: StreamsSchema) {
+  const grouped = useAvarage(streams)
   return grouped.reduce((maxDay, currentDay) => {
     return currentDay.views > maxDay.views ? currentDay : maxDay
   }, grouped[0])
@@ -81,8 +72,8 @@ export function useMaxViewsDay(videos: VideosSchema) {
 /**
  * video uploadsが最も多い曜日がオブジェクト形式で抽出されます。
  */
-export function useMaxVideosDay(videos: VideosSchema) {
-  const grouped = useGroupByDay(videos)
+export function useMaxVideosDay(streams: StreamsSchema) {
+  const grouped = useGroupByDay(streams)
   return grouped.reduce((maxDay, currentDay) => {
     return currentDay.count > maxDay.count ? currentDay : maxDay
   }, grouped[0])

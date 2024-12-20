@@ -20,7 +20,7 @@ export default async function StreamTimesHistogram({
     status: 'ended',
     channelId,
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: 100
+    limit: 50
   })
 
   if (streams.length === 0) {

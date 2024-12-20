@@ -12,7 +12,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { ChartConfig, ChartContainer } from '@/components/ui/chart'
-import { VideosSchema } from 'apis/youtube/schema/videoSchema'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import * as dayOfWeek from '../utils/dayOfWeek'
 
 const chartConfig = {
@@ -25,15 +25,15 @@ const chartConfig = {
 } satisfies ChartConfig
 
 type Props = {
-  videos: VideosSchema
+  streams: StreamsSchema
 }
 
 export default function ViewsPerDoWBarChart({
-  videos
+  streams
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
-  const data = dayOfWeek.useAvarage(videos)
+  const data = dayOfWeek.useAvarage(streams)
 
   return (
     <Card>
@@ -83,7 +83,7 @@ export default function ViewsPerDoWBarChart({
         <CardDescription>
           Uploaded on{' '}
           <span className="font-medium text-foreground">
-            {dayOfWeek.useMaxViewsDay(videos).dayOfWeek}
+            {dayOfWeek.useMaxViewsDay(streams).dayOfWeek}
           </span>{' '}
           are the most viewed
         </CardDescription>

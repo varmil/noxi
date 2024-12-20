@@ -42,7 +42,9 @@ export const responseSchema = z.object({
     z.literal('scheduled'),
     z.literal('live'),
     z.literal('ended')
-  ])
+  ]),
+
+  membersOnly: z.boolean()
 })
 export const responseListSchema = z.object({
   list: z.array(responseSchema)
