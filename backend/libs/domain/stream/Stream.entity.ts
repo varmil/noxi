@@ -10,7 +10,7 @@ export class Stream {
   /**
    * Live中はP0D（０）固定
    */
-  @Transform(({ value }: { value: Duration }) => value.get())
+  @Transform(({ value }: { value?: Duration }) => value?.get())
   public readonly duration?: Duration
   public readonly streamTimes: StreamTimes
   public readonly metrics: Metrics

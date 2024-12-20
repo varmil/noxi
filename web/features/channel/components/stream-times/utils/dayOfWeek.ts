@@ -44,11 +44,22 @@ export function useGroupByDay(streams: StreamsSchema) {
 
         return acc
       }, {})
-  ).sort((a, b) => {
-    return DAYS_ORDER.indexOf(a.dayOfWeek) - DAYS_ORDER.indexOf(b.dayOfWeek)
+  )
+
+  // 曜日データを補完する処理
+  DAYS_ORDER.forEach(day => {
+    if (!data.some(item => item.dayOfWeek === day)) {
+      data.push({
+        dayOfWeek: day,
+        peak: 0,
+        count: 0
+      })
+    }
   })
 
-  return data
+  return data.sort((a, b) => {
+    return DAYS_ORDER.indexOf(a.dayOfWeek) - DAYS_ORDER.indexOf(b.dayOfWeek)
+  })
 }
 
 export function useAvarage(streams: StreamsSchema): ChartData[] {

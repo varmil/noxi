@@ -23,12 +23,12 @@ export async function ChannelsIdStreamTimesTemplate({
   return (
     <Sections>
       <Section title={page('section.card.title')}>
-        <ChannelStreamTimesCards channelId={id} />
+        <ChannelStreamTimesCards streams={streams} />
       </Section>
 
-      <Section title={page('section.chart.title')}>
+      <Section>
         <ChartGrid>
-          <StreamTimesHistogram channelId={id} />
+          <StreamTimesHistogram streams={streams} />
           <StreamTimesDoWChart streams={streams} />
         </ChartGrid>
       </Section>

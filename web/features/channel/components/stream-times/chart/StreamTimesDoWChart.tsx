@@ -52,7 +52,12 @@ export default function StreamTimesDoWChart({
               tickMargin={5}
               tickFormatter={value => value.slice(0, 3)}
             />
-            <YAxis width={30} tickLine={false} axisLine={false} />
+            <YAxis
+              width={30}
+              allowDecimals={false}
+              tickLine={false}
+              axisLine={false}
+            />
 
             <Bar dataKey="count" fill="var(--color-desktop)" radius={4} />
           </BarChart>

@@ -268,6 +268,11 @@
       },
       "streamTimes": {
         "nav": "配信時間",
+        "card": {
+          "count": "ライブ回数",
+          "totalDuration": "合計ライブ時間",
+          "averageDuration": "平均ライブ時間"
+        },
         "chart": {
           "countsByDoW": {
             "title": "曜日ごとの配信頻度",

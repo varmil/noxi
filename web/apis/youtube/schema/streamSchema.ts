@@ -20,6 +20,8 @@ export const responseSchema = z.object({
     categoryId: z.number()
   }),
 
+  duration: z.string().duration().optional(),
+
   streamTimes: z.object({
     scheduledStartTime: z.string().datetime().optional(),
     actualStartTime: z.string().datetime().optional(),

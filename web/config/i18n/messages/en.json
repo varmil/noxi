@@ -270,6 +270,11 @@
       },
       "streamTimes": {
         "nav": "Stream Times",
+        "card": {
+          "count": "Live Stream Count",
+          "totalDuration": "Total Live Duration",
+          "averageDuration": "Average Live Duration"
+        },
         "chart": {
           "countsByDoW": {
             "title": "Live Stream Counts By Day of the Week",

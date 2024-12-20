@@ -46,6 +46,7 @@ export default function Chart({
             <YAxis
               tickLine={false}
               axisLine={false}
+              allowDecimals={false}
               width={37}
               tickMargin={8}
             />
@@ -87,6 +88,15 @@ const useHistogram = (
       const startTime = new Date(actualStartTime)
       const endTime = new Date(actualEndTime)
 
+      const isValid = validateDuration(startTime, endTime)
+      if (!isValid) {
+        // console.log(
+        //   'Stream exceeds 24 hours and is excluded from aggregation:',
+        //   stream
+        // )
+        return
+      }
+
       let currentHour = new Date(startTime)
       currentHour.setMinutes(0, 0, 0)
 
@@ -119,4 +129,16 @@ const useHistogram = (
     })
 
   return data
+}
+
+// 開始時間と終了時間の差が24時間以上ならスキップ
+const validateDuration = (start: Date, end: Date) => {
+  const timeDifference = end.getTime() - start.getTime()
+  const hoursDifference = timeDifference / (1000 * 60 * 60) // ミリ秒を時間に変換
+
+  if (hoursDifference > 24) {
+    return false
+  }
+
+  return true
 }

@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
-import { getStreams } from 'apis/youtube/getStreams'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import Chart from './Chart'
 
 const chartConfig = {
@@ -10,19 +10,12 @@ const chartConfig = {
 } satisfies ChartConfig
 
 type Props = {
-  channelId: string
+  streams: StreamsSchema
 }
 
 export default async function StreamTimesHistogram({
-  channelId
+  streams
 }: PropsWithoutRef<Props>) {
-  const streams = await getStreams({
-    status: 'ended',
-    channelId,
-    orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: 50
-  })
-
   if (streams.length === 0) {
     return null
   }
