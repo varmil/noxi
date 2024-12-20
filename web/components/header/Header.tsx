@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl'
 import { ModeToggle } from 'components/ModeToggle'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
+import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
 import { PageSMPX } from 'components/page'
 import PeakXText from 'components/peakx/svg/text'
 import { Link } from 'lib/navigation'
@@ -29,12 +30,23 @@ export default function Header({ className }: { className?: string }) {
         <h2 className="sr-only">{t('headerTitle')}</h2>
       </Link>
 
-      <div className="hidden sm:block">
+      <div className="hidden md:block">
         <HeaderNavigationMenu />
       </div>
 
-      {/* User Icon */}
-      {/* <DropdownMenu>
+      <div className="flex gap-x-4 relative ml-auto">
+        <LanguageSwitcher />
+        <ModeToggle />
+      </div>
+    </header>
+  )
+}
+
+{
+  /* User Icon */
+}
+{
+  /* <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
             variant="outline"
@@ -58,11 +70,5 @@ export default function Header({ className }: { className?: string }) {
           <DropdownMenuSeparator />
           <DropdownMenuItem>Logout</DropdownMenuItem>
         </DropdownMenuContent>
-      </DropdownMenu> */}
-
-      <div className="relative ml-auto">
-        <ModeToggle />
-      </div>
-    </header>
-  )
+      </DropdownMenu> */
 }
