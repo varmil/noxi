@@ -1,4 +1,4 @@
-import { Exclude, Expose, Transform } from 'class-transformer'
+import { Expose, Transform } from 'class-transformer'
 import type { Group } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
 import { VideoId, Duration, VideoSnippet, UpdatedAt } from '@domain/youtube'

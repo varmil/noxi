@@ -1,11 +1,11 @@
-import { VideoSchema } from 'apis/youtube/schema/videoSchema'
+import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Image from 'components/styles/Image'
 
 type Props = {
   title: string
-  thumbnails: VideoSchema['snippet']['thumbnails']
+  thumbnails: StreamSchema['snippet']['thumbnails']
   className?: string
-  size: keyof VideoSchema['snippet']['thumbnails']
+  size: keyof StreamSchema['snippet']['thumbnails']
 }
 
 export default function VideoThumbnail({
@@ -29,7 +29,7 @@ export default function VideoThumbnail({
 }
 function getSrcSet(
   size: string,
-  thumbnails: VideoSchema['snippet']['thumbnails']
+  thumbnails: StreamSchema['snippet']['thumbnails']
 ) {
   let srcSet = {}
 

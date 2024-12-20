@@ -1,7 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { getChannel } from 'apis/youtube/getChannel'
-import { getVideosInChannel } from 'apis/youtube/getVideosInChannel'
 import {
   ChartGrid,
   Section,
@@ -17,9 +15,8 @@ type Props = { id: string }
 export async function ChannelsIdStreamTimesTemplate({
   id
 }: PropsWithoutRef<Props>) {
-  const [t, videos, streams] = await Promise.all([
+  const [t, streams] = await Promise.all([
     getTranslations('Page.group.channelsId.template'),
-    getVideosInChannel({ channelId: id, limit: 50 }),
     getRecentEndedStreams({ channelId: id })
   ])
 
