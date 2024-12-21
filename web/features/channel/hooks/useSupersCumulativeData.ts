@@ -20,7 +20,9 @@ export function useSupersCumulativeData(
         day: '2-digit'
       }),
       monthly: convertMicrosToAmount(history.thisMonth).toNumber(),
-      daily: daily.toNumber()
+      // 集計ミスかもだがマイナスになることがあるので見た目上はゼロが最小値になるようにする
+      // 例：/nijisanji/channels/UCy8P3o5XlMpJGQY4WugzdNA/super-chat
+      daily: Math.max(0, daily.toNumber())
     }
   })
 
