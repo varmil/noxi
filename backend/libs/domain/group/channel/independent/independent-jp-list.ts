@@ -11,6 +11,11 @@ const DefaultProps = {
 
 export const JPList: GroupChannel[] = [
   {
+    id: new ChannelId('UCLqCmbd6bgcLaBVz3aA-68A'),
+    title: 'P丸様。',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCt30jJgChL8qeT9VPadidSw'),
     title: 'しぐれうい',
     ...DefaultProps
@@ -42,11 +47,6 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
-    title: 'Rica Ch. / 花宮莉歌',
-    ...DefaultProps
-  },
-  {
     id: new ChannelId('UCqTGCMjeKOclEEfW8Vs7sXQ'),
     title: 'ガッチマンV',
     ...DefaultProps,
@@ -68,7 +68,6 @@ export const JPList: GroupChannel[] = [
     title: 'なるせ部',
     ...DefaultProps
   },
-
   {
     id: new ChannelId('UCTMgd9qnUD9qKBX5oTtD6ug'),
     title: 'バーチャルおばあちゃんねる',
@@ -136,19 +135,8 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
-    id: new ChannelId('UCY7Qs1UGnO3LYpNVwitTXUA'),
-    title: '一翔剣ちゃんねる',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
     id: new ChannelId('UC1oApu0S5i57d-jSKUFB_1w'),
     title: 'りちゃむ【Richamu】',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
-    title: 'くぅch. 沙倉くぅ / Sakura Qoo',
     ...DefaultProps
   },
   {
@@ -166,7 +154,6 @@ export const JPList: GroupChannel[] = [
     title: 'Pepero ch. / 猫田ぺぺろ',
     ...DefaultProps
   },
-
   {
     id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
     title: '白樺るるは',
@@ -189,8 +176,19 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCY5M1FeR1BQNsnumsJA1epA'),
+    title: 'れぷちん',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCQYy35PowPpc6ImRH1TQgcw'),
     title: 'Nora Ch. 従井ノラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
+    title: 'くぅch. 沙倉くぅ / Sakura Qoo',
     ...DefaultProps
   },
   {
@@ -226,10 +224,32 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCYLp2FLXcqLUZhvrCxQmNIA'),
+    title: '胡桃沢りりか',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCKBt1UvTHNmpVUDIrNZKWeQ'),
+    title: '切嘛 / Kiruma',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
     title: '四宮 伊織 / SHINOMIYA Iori',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCY7Qs1UGnO3LYpNVwitTXUA'),
+    title: '一翔剣ちゃんねる',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
+    title: 'Rica Ch. / 花宮莉歌',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCi1pVIrFVtrRTnyaUtKcgOQ'),
