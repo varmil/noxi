@@ -78,7 +78,7 @@ export default async function ChannelsRankingTable({
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <LinkCell>
+              <LinkCell align="center">
                 <ChannelThumbnail channel={channel} />
               </LinkCell>
 
@@ -104,7 +104,7 @@ export default async function ChannelsRankingTable({
 
               {/* Subscribers */}
               {dimension === 'subscriber' && (
-                <LinkCell className="min-w-[102px] max-w-[180px]">
+                <LinkCell className="min-w-[102px] max-w-[180px]" align="right">
                   <Dimension
                     active={dimension === 'subscriber'}
                     dividend={channel.statistics.subscriberCount}

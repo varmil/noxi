@@ -29,11 +29,13 @@ import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
 type Props = {
   streams: StreamsSchema
   chartConfig: ChartConfig
+  className?: string
 }
 
 export default function Chart({
   streams,
-  chartConfig
+  chartConfig,
+  className
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
@@ -61,14 +63,14 @@ export default function Chart({
   ]
 
   return (
-    <ChartCard>
+    <ChartCard className={className}>
       <ChartCardHeader>
         <ChartCardTitle>{t('peakConcurrentViewers')}</ChartCardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={data}>
+          <BarChart accessibilityLayer data={data} margin={{ top: 10 }}>
             <CartesianGrid strokeDasharray={'3 3'} />
             <XAxis
               dataKey="date"

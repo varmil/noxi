@@ -78,7 +78,7 @@
         "hero": { "more": "ランキングを確認" },
         "socialProof": {
           "title": "VTuberのライブ、すぐに見つかる",
-          "description": "2024年8月にPeakXをリリースし既に300以上のチャンネルが追加されました。25億人が利用するYouTube、ライブ配信の可能性を解き放ちます",
+          "description": "2024年8月にPeakXをリリースし既に350以上のチャンネルが追加されました。25億人が利用するYouTube、ライブ配信の可能性を解き放ちます",
           "channels": "チャンネル",
           "liveStreams": "ライブ配信",
           "countries": "国・地域"
@@ -341,7 +341,8 @@
       "streamTitle": "タイトル",
       "supers": "スパチャ金額",
       "viewers": "同接数",
-      "country": "国"
+      "country": "国",
+      "date": "日付"
     },
 
     "supers": {
@@ -377,7 +378,7 @@
       "stats": {
         "annotation": "弊サービス独自指標です",
         "chart": {
-          "peakConcurrentViewers": "最大同時視聴者数 - ライブ配信",
+          "peakConcurrentViewers": "同接数・人気の配信 - 最新50件",
           "avgConcurrentViewers": "平均同接数",
           "viewsChart": "視聴回数 - ライブ配信",
           "streamTimeHistogram": "ライブ配信時間帯",

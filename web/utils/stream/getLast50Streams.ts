@@ -1,14 +1,15 @@
 import { getStreams } from 'apis/youtube/getStreams'
+import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 
 /**
- * チャートに利用
+ * 直近50件 (終了したStream) && avgConcurrentViewers > 0
  * 古いデータは結構avgConcurrentViewersが抜けてるので、filterしておく
  */
-export const getStreamsForStatsChart = async ({
+export const getLast50Streams = async ({
   channelId
 }: {
   channelId: string
-}) => {
+}): Promise<StreamsSchema> => {
   const streams = (
     await getStreams({
       status: 'ended',

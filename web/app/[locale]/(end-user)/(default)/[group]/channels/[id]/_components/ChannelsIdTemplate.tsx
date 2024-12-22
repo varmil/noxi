@@ -5,6 +5,7 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
+import StreamTrendsTable from 'features/channel/components/stream-trends/StreamTrendsTable'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
 import ChannelData from './ui/channel-data/ChannelData'
 import { ChannelCommentTabs } from './ui/latest-user-reactions/ChannelCommentTabs'
@@ -34,8 +35,12 @@ export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
         <ChannelCommentTabs channelId={id} />
       </Section>
 
-      <Section className="lg:col-span-full lg:order-3" title={t('liveTrends')}>
-        <ConcurrentViewersBarChart channelId={id} />
+      <Section
+        className="@container lg:col-span-full lg:order-3"
+        title={t('liveTrends')}
+      >
+        <ConcurrentViewersBarChart channelId={id} className="z-10" />
+        <StreamTrendsTable channel={channel} />
       </Section>
     </Sections>
   )

@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
-import { getStreamsForStatsChart } from 'features/youtube-stats/utils/getStreamsForStatsChart'
+import { getLast50Streams } from 'utils/stream/getLast50Streams'
 import Chart from './Chart'
 
 const chartConfig = {
@@ -12,16 +12,20 @@ const chartConfig = {
 
 type Props = {
   channelId: string
+  className?: string
 }
 
 export default async function ConcurrentViewersBarChart({
-  channelId
+  channelId,
+  className
 }: PropsWithoutRef<Props>) {
-  const streams = await getStreamsForStatsChart({ channelId })
+  const streams = await getLast50Streams({ channelId })
 
   if (streams.length === 0) {
     return null
   }
 
-  return <Chart chartConfig={chartConfig} streams={streams} />
+  return (
+    <Chart className={className} chartConfig={chartConfig} streams={streams} />
+  )
 }

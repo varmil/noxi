@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
 import { getStatistics } from 'apis/youtube/data-api/getStatistics'
-import { getStreamsForStatsChart } from 'features/youtube-stats/utils/getStreamsForStatsChart'
+import { getLast50Streams } from 'utils/stream/getLast50Streams'
 import Chart from './Chart'
 
 const chartConfig = {
@@ -19,7 +19,7 @@ type Props = {
 export default async function ViewsBarChart({
   channelId
 }: PropsWithoutRef<Props>) {
-  const streams = await getStreamsForStatsChart({ channelId })
+  const streams = await getLast50Streams({ channelId })
   const videos = await getStatistics({
     videoIds: streams.map(stream => stream.videoId)
   })
