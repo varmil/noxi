@@ -58,12 +58,19 @@ export class UpsertYoutubeStream {
 
   translateToUpdate(): Prisma.YoutubeStreamUpsertArgs['update'] {
     const {
-      snippet: { title, description }
+      snippet: { title, description },
+      metrics: {
+        // 2024/12/22 非メン限でもNULLになっている場合がある
+        // hUCで初回メン限で作成し、その後は非メン限に変更されたという仮説
+        // 従って、hUC経由のUPDATEでも毎回viewsを更新する
+        views
+      }
     } = this.stream
 
     return {
       title,
-      description
+      description,
+      views: views ?? null
     }
   }
 }

@@ -115,8 +115,7 @@ export class StreamRepositoryImpl implements StreamRepository {
         maxViewerCount: peakConcurrentViewers,
         averageConcurrentViewers: avgConcurrentViewers,
         chatMessages,
-        // NOTE: 本当はnull, undefinedを区別してnull値に更新できるようにしたい
-        // ただしそれが「メンバー限定」判定のため、というのがそもそもイケてない。
+        // NOTE: null =「メンバー限定」判定（やや不正確だが）
         views,
         likeCount: likes
       }

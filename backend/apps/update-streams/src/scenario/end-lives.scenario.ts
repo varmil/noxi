@@ -81,25 +81,19 @@ export class EndLivesScenario {
       statistics: { viewCount, likeCount }
     } = video
 
-    const avgConcurrentViewers =
+    const avgConcurrentViewers = (
       await this.streamStatsService.findAvgViewerCount({
         where: { videoId: id }
       })
-
-    console.log(
-      'avgConcurrentViewers',
-      avgConcurrentViewers,
-      'views',
-      viewCount
-    )
+    ).get()
 
     await this.streamsService.updateMetrics({
       where: { videoId: id },
       data: {
         peakConcurrentViewers: undefined,
-        avgConcurrentViewers: avgConcurrentViewers.get(),
+        avgConcurrentViewers,
         chatMessages: undefined,
-        views: viewCount, // 終了時点での視聴回数
+        views: viewCount ?? null, // 終了時点での視聴回数
         likes: likeCount // 終了時点での高評価数
       }
     })
