@@ -14,7 +14,7 @@ const counts = {
   'neo-porte': { val: 21, isAll: true },
   mixstgirls: { val: 8, isAll: true },
   'idol-corp': { val: 13, isAll: true },
-  independent: { val: 40, isAll: false },
+  independent: { val: 44, isAll: false },
   'independent-irl': { val: 14, isAll: false }
 }
 

@@ -17,7 +17,7 @@ export default async function ChannelsRankingTableHeader({ dimension }: Props) {
         <TableHead className="w-0 text-nowrap"></TableHead>
 
         {/* Channel Thumbnail */}
-        <TableHead className="" />
+        <TableHead className="text-center" />
 
         {/* Channel Title */}
         <TableHead className="">{t('channel')} </TableHead>
