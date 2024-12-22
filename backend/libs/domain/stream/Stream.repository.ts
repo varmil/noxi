@@ -65,8 +65,12 @@ export interface StreamRepository {
   updateMetrics: (args: {
     where: { videoId: VideoId }
     data: Partial<
-      Omit<ConstructorParameters<typeof Metrics>[0], 'chatMessages'> & {
+      Omit<
+        ConstructorParameters<typeof Metrics>[0],
+        'chatMessages' | 'views'
+      > & {
         chatMessages: { increment: number }
+        views?: number | null
       }
     >
   }) => Promise<void>

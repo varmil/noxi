@@ -18,16 +18,24 @@ export class MainService {
    */
   async updateStats(videos: Videos) {
     const promises = videos.map(async video => {
+      const {
+        id,
+        statistics: { viewCount, likeCount },
+        liveStreamingDetails: { concurrentViewers } = {}
+      } = video
       await Promise.all([
         // saveViewerCount
         this.streamStatsService.saveViewerCount({
-          where: { videoId: video.id },
-          data: new Count(video.liveStreamingDetails?.concurrentViewers ?? 0)
+          where: { videoId: id },
+          data: new Count(concurrentViewers ?? 0)
         }),
-        // updateLikeCount
-        this.streamsService.updateLikeCount({
-          where: { videoId: video.id },
-          data: video.statistics.likeCount
+        // updateMetrics
+        this.streamsService.updateMetrics({
+          where: { videoId: id },
+          data: {
+            views: viewCount ?? null,
+            likes: likeCount
+          }
         })
       ])
     })
