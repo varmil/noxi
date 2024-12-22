@@ -343,7 +343,8 @@
       "streamTitle": "Title",
       "supers": "Supers",
       "viewers": "Viewers",
-      "country": "Country"
+      "country": "Country",
+      "date": "Date"
     },
 
     "supers": {
