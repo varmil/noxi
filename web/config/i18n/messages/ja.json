@@ -63,7 +63,7 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "streamsRanking": "YouTube Live",
+    "streamsRanking": "VTuberライブ",
     "channelsRanking": "VTuber"
   },
 
@@ -183,8 +183,8 @@
         },
         "ranking": {
           "metadata": {
-            "title": "YouTube Live",
-            "description": "YouTube Liveランキング（リアルタイム集計）を掲載中！同接数、スパチャ額でライブ配信をソートし、人気の瞬間を見逃さずチェック。所属グループや国、性別でお気に入りのVTuberを探そう。"
+            "title": "VTuberライブ",
+            "description": "VTuberライブランキング（リアルタイム集計）を確認！同接数、スパチャ額でライブ配信をソートし、人気の瞬間を見逃さずチェック。所属グループや国、性別でお気に入りのVTuberを探そう。"
           }
         }
       },

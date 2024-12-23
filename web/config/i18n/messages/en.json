@@ -63,7 +63,7 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "streamsRanking": "YouTube Live",
+    "streamsRanking": "VTuber Live",
     "channelsRanking": "VTuber"
   },
 
@@ -139,9 +139,7 @@
             "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
           },
           "section": {
-            "card": {
-              "title": "Live Frequency/Duration - Last 30 Days"
-            },
+            "card": { "title": "Live Frequency/Duration - Last 30 Days" },
             "chart": { "title": "Live streaming time slot" }
           }
         },
@@ -185,8 +183,8 @@
         },
         "ranking": {
           "metadata": {
-            "title": "YouTube Live - ",
-            "description": "YouTube Live Ranking now available! Sort live streams by concurrent viewers and super chat amounts, and don't miss out on the most popular moments. Find your favorite VTuber by group, country, or gender."
+            "title": "VTuber Live - ",
+            "description": "VTuber Live Ranking now available! Sort live streams by concurrent viewers and super chat amounts, and don't miss out on the most popular moments. Find your favorite VTuber by group, country, or gender."
           }
         }
       },
