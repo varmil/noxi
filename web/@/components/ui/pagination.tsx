@@ -45,6 +45,7 @@ const PaginationLink = ({
   className,
   isActive,
   disabled,
+  href,
   size = 'icon',
   ...props
 }: PaginationLinkProps) => (
@@ -56,8 +57,9 @@ const PaginationLink = ({
         size
       }),
       className,
-      disabled
+      disabled && 'pointer-events-none opacity-50'
     )}
+    href={disabled ? '#' : href}
     {...props}
   />
 )
@@ -73,7 +75,7 @@ const PaginationPrevious = ({
     className={cn('gap-1 pl-2.5', className)}
     {...props}
   >
-    <ChevronLeft className="h-4 w-4" />
+    <ChevronLeft className="relative h-4 w-4 top-[1px]" />
     <span>{useTranslations('Components.pagination')('previous')}</span>
   </PaginationLink>
 )
@@ -90,7 +92,7 @@ const PaginationNext = ({
     {...props}
   >
     <span>{useTranslations('Components.pagination')('next')}</span>
-    <ChevronRight className="h-4 w-4" />
+    <ChevronRight className="relative h-4 w-4 top-[1px]" />
   </PaginationLink>
 )
 PaginationNext.displayName = 'PaginationNext'
@@ -123,6 +125,38 @@ const PaginationInfo = ({
 )
 PaginationInfo.displayName = 'PaginationInfo'
 
+const PaginationFirst = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="最初のページへ"
+    size="default"
+    className={cn('gap-1', className)}
+    {...props}
+  >
+    <ChevronLeft className="relative h-4 w-4 top-[1px]" />
+    <ChevronLeft className="relative h-4 w-4 top-[1px] -ml-2.5" />
+  </PaginationLink>
+)
+PaginationFirst.displayName = 'PaginationFirst'
+
+const PaginationLast = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => (
+  <PaginationLink
+    aria-label="最後のページへ"
+    size="default"
+    className={cn('gap-1', className)}
+    {...props}
+  >
+    <ChevronRight className="relative h-4 w-4 top-[1px]" />
+    <ChevronRight className="relative h-4 w-4 top-[1px] -ml-2.5" />
+  </PaginationLink>
+)
+PaginationLast.displayName = 'PaginationLast'
+
 export {
   Pagination,
   PaginationContent,
@@ -131,5 +165,7 @@ export {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationInfo
+  PaginationInfo,
+  PaginationFirst,
+  PaginationLast
 }

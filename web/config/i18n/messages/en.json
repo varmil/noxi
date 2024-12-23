@@ -222,7 +222,7 @@
       "listingAll": "All {count} talents are listed."
     },
     "pagination": {
-      "previous": "Previous",
+      "previous": "Back",
       "next": "Next",
       "more": "More pages",
       "page": "Page"
