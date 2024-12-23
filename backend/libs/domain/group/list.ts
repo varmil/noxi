@@ -11,7 +11,8 @@ import {
   Mixstgirls,
   IdolCorp,
   Nijisanji,
-  NijisanjiEN
+  NijisanjiEN,
+  Specialite
 } from '@domain/group/channel'
 import { ChannelIds } from '@domain/youtube'
 
@@ -23,6 +24,7 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
   'nijisanji-en': new NijisanjiEN(),
   vspo: new VSPO(),
   'neo-porte': new NeoPorte(),
+  specialite: new Specialite(),
   mixstgirls: new Mixstgirls(),
   'idol-corp': new IdolCorp(),
   independent: new Independent(),
@@ -37,6 +39,7 @@ export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
   'nijisanji-en': new NijisanjiEN().channelIds(),
   vspo: new VSPO().channelIds(),
   'neo-porte': new NeoPorte().channelIds(),
+  specialite: new Specialite().channelIds(),
   mixstgirls: new Mixstgirls().channelIds(),
   'idol-corp': new IdolCorp().channelIds(),
   independent: new Independent().channelIds(),
