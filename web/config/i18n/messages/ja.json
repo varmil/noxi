@@ -221,6 +221,12 @@
       "listing": "{count}人のタレントを掲載中",
       "listingAll": "{count}人全員を掲載中!"
     },
+    "pagination": {
+      "previous": "前へ",
+      "next": "次へ",
+      "more": "さらにページがあります",
+      "page": "ページ"
+    },
     "ranking": {
       "hoverCard": {
         "title": "期間の詳細",

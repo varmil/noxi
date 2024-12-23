@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { PageSMPX } from 'components/page'
+import TwoButtonsPagination from 'components/pagination/TwoButtonsPagination'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
@@ -19,6 +20,10 @@ export default function IndexTemplate({
 
       <section className={`${PageSMPX}`}>
         <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
+      </section>
+
+      <section className={`${PageSMPX}`}>
+        <TwoButtonsPagination />
       </section>
     </section>
   )
