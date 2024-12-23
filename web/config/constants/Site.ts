@@ -3,6 +3,7 @@ export const GroupStrings = [
   'nijisanji',
   'vspo',
   'neo-porte',
+  'specialite',
   'mixstgirls',
   'hololive-english',
   'hololive-indonesia',
