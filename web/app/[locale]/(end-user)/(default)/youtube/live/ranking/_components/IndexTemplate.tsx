@@ -22,9 +22,12 @@ export default function IndexTemplate({
         <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
       </section>
 
-      <section className={`${PageSMPX}`}>
-        <ResponsivePagination />
-      </section>
+      {/* とりあえずViewerのときのみ表示 */}
+      {searchParams.dimension === 'concurrent-viewer' && (
+        <section className={`${PageSMPX}`}>
+          <ResponsivePagination />
+        </section>
+      )}
     </section>
   )
 }
