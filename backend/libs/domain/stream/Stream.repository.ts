@@ -16,7 +16,7 @@ import {
 } from '@domain/youtube'
 import type { Prisma } from '@prisma/client'
 
-export type StreamFindAllWhere = {
+export interface StreamFindAllWhere {
   status?: StreamStatus
   videoIds?: VideoIds
   group?: Group

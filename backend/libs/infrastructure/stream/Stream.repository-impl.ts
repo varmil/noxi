@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
+import { Prisma } from '@prisma/client'
 import { StreamFindAllWhere, StreamRepository, Streams } from '@domain/stream'
 import { Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/stream/UpsertYoutubeStream'
-import { Prisma } from '@prisma/client'
 
 const toPrismaWhere = (
   where: StreamFindAllWhere

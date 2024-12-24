@@ -62,7 +62,7 @@ export default async function StreamRankingTable({
             <TableRow key={videoId}>
               {/* Rank */}
               <TableCell className="align-top">
-                <div className="text-lg font-bold w-5 text-nowrap tracking-tight">
+                <div className="text-lg font-bold w-4 @lg:w-5 text-nowrap tracking-tight">
                   {i + 1 + (page - 1) * STREAM_RANKING_PAGE_SIZE}
                 </div>
               </TableCell>

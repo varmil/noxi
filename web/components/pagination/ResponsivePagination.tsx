@@ -5,10 +5,8 @@ import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
-  PaginationFirst,
   PaginationInfo,
   PaginationItem,
-  PaginationLast,
   PaginationLink,
   PaginationNext,
   PaginationPrevious
@@ -18,36 +16,29 @@ import { usePathname } from 'lib/navigation'
 
 const QS_KEY = 'page'
 
-const data = Array.from({ length: 100 }, (_, i) => ({
-  id: i + 1,
-  name: `ユーザー ${i + 1}`,
-  email: `user${i + 1}@example.com`
-}))
-const itemsPerPage = 10
-
 type Props = {
+  /** 1..N */
+  totalPages: number
   className?: string
 }
 
 /**
  * Use ?page=1, ?page=2, ...
  */
-export default function ResponsivePagination({ className }: Props) {
+export default function ResponsivePagination({ totalPages, className }: Props) {
   const pathname = usePathname()
   const { get, createQueryString } = useQueryString()
   const current = Number(get(QS_KEY) || 1)
-  // TODO:
-  const totalPages = Math.ceil(data.length / itemsPerPage)
 
   return (
-    <Pagination>
+    <Pagination className={className}>
       <PaginationContent>
-        <PaginationItem className="hidden">
+        {/* <PaginationItem className="hidden">
           <PaginationFirst
             href={`#`} // href="?page=1"
             disabled={current === 1}
           />
-        </PaginationItem>
+        </PaginationItem> */}
         <PaginationItem>
           <PaginationPrevious
             href={`${pathname}?${createQueryString(
@@ -70,12 +61,12 @@ export default function ResponsivePagination({ className }: Props) {
             disabled={current === totalPages}
           />
         </PaginationItem>
-        <PaginationItem className="hidden">
+        {/* <PaginationItem className="hidden">
           <PaginationLast
             href={`#`} // href={`?page=${totalPages}`}
             disabled={current === totalPages}
           />
-        </PaginationItem>
+        </PaginationItem> */}
       </PaginationContent>
     </Pagination>
   )
@@ -108,7 +99,7 @@ const NotSP = ({
   totalPages: number
 }) => {
   const pathname = usePathname()
-  const { has, createQueryString } = useQueryString()
+  const { createQueryString } = useQueryString()
 
   return (
     <div className="hidden sm:contents">

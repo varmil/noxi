@@ -6,6 +6,7 @@ import StreamRankingFilterGallery from 'features/stream-ranking/components/filte
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
+import { STREAM_RANKING_PAGE_SIZE } from 'features/stream-ranking/utils/stream-ranking-pagination'
 
 type Props = {
   searchParams: StreamRankingSearchParams
@@ -14,10 +15,11 @@ type Props = {
 export default async function IndexTemplate({
   searchParams
 }: PropsWithoutRef<Props>) {
-  const count = await getStreamsCount(createGetStreamsParams(searchParams))
-  console.log({
-    count
-  })
+  const { dimension } = searchParams
+  const count =
+    dimension === 'concurrent-viewer'
+      ? await getStreamsCount(createGetStreamsParams(searchParams))
+      : 0
 
   return (
     <section className={`space-y-4`}>
@@ -32,7 +34,9 @@ export default async function IndexTemplate({
       {/* とりあえずViewerのときのみ表示 */}
       {searchParams.dimension === 'concurrent-viewer' && (
         <section className={`${PageSMPX}`}>
-          <ResponsivePagination />
+          <ResponsivePagination
+            totalPages={Math.ceil(count / STREAM_RANKING_PAGE_SIZE)}
+          />
         </section>
       )}
     </section>
