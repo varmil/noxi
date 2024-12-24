@@ -62,7 +62,7 @@ export default async function StreamRankingTable({
             <TableRow key={videoId}>
               {/* Rank */}
               <TableCell className="align-top">
-                <div className="text-lg font-bold w-5 text-nowrap">
+                <div className="text-lg font-bold w-5 text-nowrap tracking-tight">
                   {i + 1 + (page - 1) * STREAM_RANKING_PAGE_SIZE}
                 </div>
               </TableCell>
@@ -83,11 +83,7 @@ export default async function StreamRankingTable({
               {/* lg-: Channel + Title */}
               <TableCell className="hidden @lg:table-cell @lg:min-w-[230px] @lg:max-w-[400px]">
                 <div className="flex flex-col gap-4">
-                  <SmallChannel
-                    className=""
-                    channel={channel}
-                    group={stream.group}
-                  />
+                  <SmallChannel channel={channel} group={stream.group} />
                   <Link
                     className="text-sm font-light line-clamp-2 break-anywhere"
                     href={`/youtube/live/${videoId}`}
