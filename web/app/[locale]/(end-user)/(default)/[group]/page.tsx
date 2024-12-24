@@ -42,8 +42,10 @@ export default function HololivePage(props: Props) {
   setRequestLocale(locale)
   setGroup(group)
 
-  const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
+  const groupName = t('group', {
+    group: useTranslations('Global')(`group.${group}`)
+  })
 
   return (
     <Page
@@ -52,8 +54,9 @@ export default function HololivePage(props: Props) {
           href: `/groups`,
           name: useTranslations('Page.groups.metadata')('title')
         },
-        { href: `/${group}`, name: t('group', { group: tg(`group.${group}`) }) }
+        { href: `/${group}`, name: groupName }
       ]}
+      h1={`${groupName} ${useTranslations('Features.group')('overview.nav')}`}
     >
       <LocalNavigationForGroupPages group={group} />
       <IndexTemplate />

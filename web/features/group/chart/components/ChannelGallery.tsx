@@ -6,7 +6,6 @@ import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
   CardFooter
 } from '@/components/ui/card'
@@ -38,7 +37,6 @@ export async function ChannelGallery({
         <CardTitle className="flex items-center gap-2">
           {t('title', { group })}
         </CardTitle>
-        <CardDescription>{t('description', { group })}</CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<p>Loading cards...</p>}>

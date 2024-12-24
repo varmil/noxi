@@ -32,8 +32,10 @@ export default function GroupChartsPage(props: Props) {
   setRequestLocale(locale)
   setGroup(group)
 
-  const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
+  const groupName = t('group', {
+    group: useTranslations('Global')(`group.${group}`)
+  })
 
   return (
     <Page
@@ -42,12 +44,10 @@ export default function GroupChartsPage(props: Props) {
           href: `/groups`,
           name: useTranslations('Page.groups.metadata')('title')
         },
-        {
-          href: `/${group}`,
-          name: t('group', { group: tg(`group.${group}`) })
-        },
+        { href: `/${group}`, name: groupName },
         { href: `/${group}/charts/channels`, name: t('channels') }
       ]}
+      h1={`${groupName} ${t('channels')}`}
     >
       <LocalNavigationForGroupPages group={group} />
       <ChartTemplate />
