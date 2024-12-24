@@ -27,16 +27,14 @@ export class StreamRepositoryImpl implements StreamRepository {
 
     const rows = await this.prismaInfraService.youtubeStream.findMany({
       where: {
-        AND: {
-          status: status?.get(),
-          videoId: { in: videoIds?.map(e => e.get()) },
-          group: group?.get(),
-          channelId: channelId?.get(),
-          channel: { gender: where.gender?.get() },
-          scheduledStartTime,
-          actualEndTime,
-          OR: OR?.map(e => ({ ...e, status: e.status.get() }))
-        }
+        status: status?.get(),
+        videoId: { in: videoIds?.map(e => e.get()) },
+        group: group?.get(),
+        channelId: channelId?.get(),
+        channel: { gender: where.gender?.get() },
+        scheduledStartTime,
+        actualEndTime,
+        OR: OR?.map(e => ({ ...e, status: e.status.get() }))
       },
       orderBy,
       take: limit,
