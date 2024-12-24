@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -13,13 +13,7 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
-
-  const {
-    locale,
-    group
-  } = params;
-
+  const { locale, group } = await props.params
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({
     locale,
@@ -34,12 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default function GroupEndedPage(props: Props) {
-  const params = use(props.params);
-
-  const {
-    locale,
-    group
-  } = params;
+  const { locale, group } = use(props.params)
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -47,6 +36,9 @@ export default function GroupEndedPage(props: Props) {
 
   const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
+  const groupName = t('group', {
+    group: useTranslations('Global')(`group.${group}`)
+  })
 
   return (
     <Page
@@ -55,12 +47,10 @@ export default function GroupEndedPage(props: Props) {
           href: `/groups`,
           name: useTranslations('Page.groups.metadata')('title')
         },
-        {
-          href: `/${group}`,
-          name: t('group', { group: tg(`group.${group}`) })
-        },
+        { href: `/${group}`, name: groupName },
         { href: `/${group}/ended`, name: t('ended') }
       ]}
+      h1={`${groupName} ${t('ended')}`}
     >
       <LocalNavigationForGroupPages group={group} />
       <IndexTemplate />

@@ -1,12 +1,11 @@
 import { PropsWithoutRef, Suspense } from 'react'
-import { List } from 'lucide-react'
+import { List, Users } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import {
   Card,
   CardHeader,
   CardTitle,
-  CardDescription,
   CardContent,
   CardFooter
 } from '@/components/ui/card'
@@ -36,9 +35,9 @@ export async function ChannelGallery({
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
+          <Users className="w-6 h-6 text-muted-foreground" />
           {t('title', { group })}
         </CardTitle>
-        <CardDescription>{t('description', { group })}</CardDescription>
       </CardHeader>
       <CardContent>
         <Suspense fallback={<p>Loading cards...</p>}>

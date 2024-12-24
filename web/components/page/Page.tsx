@@ -4,6 +4,8 @@ import Header from 'components/header/Header'
 
 type Props = {
   breadcrumb?: ComponentProps<typeof GlobalBreadcrumb>['items']
+  /** The H1 text that will be displayed in the header */
+  h1?: string
   /** Class that will be applied to the main tag */
   className?: string
   /** Remove X padding, Y padding is still applied */
@@ -22,6 +24,7 @@ export const PageXSMX = 'mx-4'
 
 export function Page({
   breadcrumb,
+  h1,
   className,
   children,
   noPadding,
@@ -35,6 +38,12 @@ export function Page({
       <Header className="z-30" />
 
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
+
+      {h1 && (
+        <div className={`z-0 bg-muted py-6 ${padding}`}>
+          <h1 className="font-bold">{h1}</h1>
+        </div>
+      )}
 
       <main
         className={`relative z-0 ${containerClass} min-h-screen ${padding} ${
