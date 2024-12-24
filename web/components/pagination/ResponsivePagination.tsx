@@ -52,7 +52,9 @@ export default function ResponsivePagination({ className }: Props) {
           <PaginationPrevious
             href={`${pathname}?${createQueryString(
               QS_KEY,
-              Math.max(1, current - 1).toString()
+              Math.max(1, current - 1) === 1
+                ? null
+                : Math.max(1, current - 1).toString()
             )}`}
             disabled={current === 1}
           />
@@ -122,7 +124,7 @@ const NotSP = ({
               <PaginationLink
                 href={`${pathname}?${createQueryString(
                   QS_KEY,
-                  pageNumber.toString()
+                  pageNumber === 1 ? null : pageNumber.toString()
                 )}`}
                 isActive={pageNumber === current}
               >

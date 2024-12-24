@@ -9,6 +9,10 @@ import {
 
 const QS_KEY = 'country'
 
+const RESET_KEYS = {
+  page: null
+}
+
 type Props = PropsWithoutRef<{
   className?: string
 }>
@@ -19,7 +23,10 @@ export default function CountryColumn({ className }: Props) {
     <Column>
       <ColumnHeader>{tg('filter.country')}</ColumnHeader>
       <ColumnContent>
-        <SelectButton qs={{ [QS_KEY]: null }} activeVariant="secondary">
+        <SelectButton
+          qs={{ [QS_KEY]: null, ...RESET_KEYS }}
+          activeVariant="secondary"
+        >
           🌐 {tg('country.all')}
         </SelectButton>
         {/* <SelectButton qs={{ [QS_KEY]: 'jp' }} activeVariant="secondary">

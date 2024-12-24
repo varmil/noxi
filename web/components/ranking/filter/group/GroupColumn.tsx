@@ -10,6 +10,10 @@ import useGroups from 'hooks/useGroups'
 
 const QS_KEY = 'group'
 
+const RESET_KEYS = {
+  page: null
+}
+
 export default function GroupColumn() {
   const tg = useTranslations('Global.ranking')
   const groups = useGroups()
@@ -18,7 +22,10 @@ export default function GroupColumn() {
     <Column>
       <ColumnHeader>{tg('filter.group')}</ColumnHeader>
       <ColumnContent>
-        <SelectButton qs={{ [QS_KEY]: null }} activeVariant="secondary">
+        <SelectButton
+          qs={{ [QS_KEY]: null, ...RESET_KEYS }}
+          activeVariant="secondary"
+        >
           {tg('group.all')}
         </SelectButton>
 
@@ -26,7 +33,7 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            qs={{ [QS_KEY]: group.id }}
+            qs={{ [QS_KEY]: group.id, ...RESET_KEYS }}
             activeVariant="secondary"
           >
             <Image
@@ -44,7 +51,7 @@ export default function GroupColumn() {
           <SelectButton
             key={group.id}
             className="gap-x-2"
-            qs={{ [QS_KEY]: group.id }}
+            qs={{ [QS_KEY]: group.id, ...RESET_KEYS }}
             activeVariant="secondary"
           >
             <group.icon className="h-4 w-4 rounded-full" />
