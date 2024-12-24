@@ -23,7 +23,7 @@ export default function IndexTemplate({
       </section>
 
       <section className={`${PageSMPX}`}>
-        <ResponsivePagination current={Number(searchParams.page || 1)} />
+        <ResponsivePagination />
       </section>
     </section>
   )

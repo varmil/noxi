@@ -23,23 +23,21 @@ const data = Array.from({ length: 100 }, (_, i) => ({
   name: `ユーザー ${i + 1}`,
   email: `user${i + 1}@example.com`
 }))
-
 const itemsPerPage = 10
 
 type Props = {
-  /** current page number (1-indexed) */
-  current: number
   className?: string
 }
 
-export default function ResponsivePagination({ current, className }: Props) {
-  const indexOfLastItem = current * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem)
-  const totalPages = Math.ceil(data.length / itemsPerPage)
-
+/**
+ * Use ?page=1, ?page=2, ...
+ */
+export default function ResponsivePagination({ className }: Props) {
   const pathname = usePathname()
-  const { has, createQueryString } = useQueryString()
+  const { get, createQueryString } = useQueryString()
+  const current = Number(get(QS_KEY) || 1)
+  // TODO:
+  const totalPages = Math.ceil(data.length / itemsPerPage)
 
   return (
     <Pagination>

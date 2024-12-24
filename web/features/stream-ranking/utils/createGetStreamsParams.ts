@@ -9,6 +9,7 @@ export default function createGetStreamsParams({
   group,
   gender,
   country,
+  page,
   compact
 }: StreamRankingGalleryProps): Parameters<typeof getStreams>[0] {
   let result = {}
@@ -47,7 +48,13 @@ export default function createGetStreamsParams({
     result = { ...result, country }
   }
 
-  result = { ...result, limit: compact ? 5 : period === 'realtime' ? 100 : 30 }
+  // limit, offset
+  {
+    const PER_PAGE = 20
+    const limit = compact ? 5 : PER_PAGE
+    const offset = (Number(page || 1) - 1) * PER_PAGE
+    result = { ...result, limit, offset }
+  }
 
   return result
 }
