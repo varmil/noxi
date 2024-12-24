@@ -3,7 +3,7 @@ import { getStartOf } from 'utils/ranking/ranking'
 import type { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
-export default function createGetStreamsParams({
+export default function createGetSupersBundlesParams({
   period,
   dimension,
   group,

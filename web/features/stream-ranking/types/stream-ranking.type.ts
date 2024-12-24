@@ -15,4 +15,5 @@ export type StreamRankingSearchParams = {
   group?: GroupString
   gender?: Gender
   country?: string
+  page?: string
 }

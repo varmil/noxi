@@ -1,9 +1,34 @@
 import { Injectable } from '@nestjs/common'
-import { StreamRepository, Streams } from '@domain/stream'
+import { Prisma } from '@prisma/client'
+import { StreamFindAllWhere, StreamRepository, Streams } from '@domain/stream'
 import { Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/stream/UpsertYoutubeStream'
+
+const toPrismaWhere = (
+  where: StreamFindAllWhere
+): Prisma.YoutubeStreamWhereInput => {
+  const {
+    status,
+    videoIds,
+    group,
+    channelId,
+    scheduledStartTime,
+    actualEndTime,
+    OR
+  } = where
+  return {
+    status: status?.get(),
+    videoId: { in: videoIds?.map(e => e.get()) },
+    group: group?.get(),
+    channelId: channelId?.get(),
+    channel: { gender: where.gender?.get() },
+    scheduledStartTime,
+    actualEndTime,
+    OR: OR?.map(e => ({ ...e, status: e.status.get() }))
+  }
+}
 
 @Injectable()
 export class StreamRepositoryImpl implements StreamRepository {
@@ -15,35 +40,20 @@ export class StreamRepositoryImpl implements StreamRepository {
     limit,
     offset
   }: Parameters<StreamRepository['findAll']>[0]) {
-    const {
-      status,
-      videoIds,
-      group,
-      channelId,
-      scheduledStartTime,
-      actualEndTime,
-      OR
-    } = where
-
     const rows = await this.prismaInfraService.youtubeStream.findMany({
-      where: {
-        AND: {
-          status: status?.get(),
-          videoId: { in: videoIds?.map(e => e.get()) },
-          group: group?.get(),
-          channelId: channelId?.get(),
-          channel: { gender: where.gender?.get() },
-          scheduledStartTime,
-          actualEndTime,
-          OR: OR?.map(e => ({ ...e, status: e.status.get() }))
-        }
-      },
+      where: toPrismaWhere(where),
       orderBy,
       take: limit,
       skip: offset
     })
 
     return new Streams(rows.map(row => new StreamTranslator(row).translate()))
+  }
+
+  count: StreamRepository['count'] = async ({ where }) => {
+    return await this.prismaInfraService.youtubeStream.count({
+      where: toPrismaWhere(where)
+    })
   }
 
   async findOne({

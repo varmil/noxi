@@ -27,10 +27,11 @@ type Params = {
   }[]
   limit?: number
   offset?: number
+  /** cache */
   revalidate?: number
 }
 
-export async function getStreams({
+const createSearchParams = ({
   status,
   videoIds,
   group,
@@ -42,9 +43,8 @@ export async function getStreams({
   endedAfter,
   orderBy,
   limit,
-  offset,
-  revalidate
-}: Params): Promise<StreamsSchema> {
+  offset
+}: Params) => {
   const searchParams = new URLSearchParams({
     ...(status && { status }),
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
@@ -72,15 +72,36 @@ export async function getStreams({
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
+  return searchParams
+}
+
+export async function getStreams({
+  revalidate,
+  ...params
+}: Params): Promise<StreamsSchema> {
+  const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
     { ...(revalidate && { next: { revalidate } }) }
   )
-
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
-
   const data = responseListSchema.parse(await res.json())
   return data.list
+}
+
+export async function getStreamsCount({
+  revalidate,
+  ...params
+}: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
+  const searchParams = createSearchParams(params)
+  const res = await fetchAPI(
+    `/api/youtube/streams/count?${searchParams.toString()}`,
+    { ...(revalidate && { next: { revalidate } }) }
+  )
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${await res.text()}`)
+  }
+  return await res.json()
 }

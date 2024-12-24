@@ -1,16 +1,26 @@
 import { PropsWithoutRef } from 'react'
+import { getStreamsCount } from 'apis/youtube/getStreams'
 import { PageSMPX } from 'components/page'
+import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
+import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
+import { STREAM_RANKING_PAGE_SIZE } from 'features/stream-ranking/utils/stream-ranking-pagination'
 
 type Props = {
   searchParams: StreamRankingSearchParams
 }
 
-export default function IndexTemplate({
+export default async function IndexTemplate({
   searchParams
 }: PropsWithoutRef<Props>) {
+  const { dimension } = searchParams
+  const count =
+    dimension === 'concurrent-viewer'
+      ? await getStreamsCount(createGetStreamsParams(searchParams))
+      : 0
+
   return (
     <section className={`space-y-4`}>
       <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
@@ -20,6 +30,15 @@ export default function IndexTemplate({
       <section className={`${PageSMPX}`}>
         <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
       </section>
+
+      {/* とりあえずViewerのときのみ表示 */}
+      {searchParams.dimension === 'concurrent-viewer' && (
+        <section className={`${PageSMPX}`}>
+          <ResponsivePagination
+            totalPages={Math.ceil(count / STREAM_RANKING_PAGE_SIZE)}
+          />
+        </section>
+      )}
     </section>
   )
 }

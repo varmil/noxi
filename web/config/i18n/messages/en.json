@@ -221,6 +221,12 @@
       "listing": "Listing {count} talents.",
       "listingAll": "All {count} talents are listed."
     },
+    "pagination": {
+      "previous": "Back",
+      "next": "Next",
+      "more": "More pages",
+      "page": "Page"
+    },
     "ranking": {
       "hoverCard": {
         "title": "Period details",

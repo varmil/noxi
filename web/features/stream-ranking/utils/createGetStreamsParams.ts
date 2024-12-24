@@ -1,4 +1,4 @@
-import dayjs from 'lib/dayjs'
+import { STREAM_RANKING_PAGE_SIZE } from 'features/stream-ranking/utils/stream-ranking-pagination'
 import { getStartOf } from 'utils/ranking/ranking'
 import type { getStreams } from 'apis/youtube/getStreams'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
@@ -9,6 +9,7 @@ export default function createGetStreamsParams({
   group,
   gender,
   country,
+  page,
   compact
 }: StreamRankingGalleryProps): Parameters<typeof getStreams>[0] {
   let result = {}
@@ -47,7 +48,12 @@ export default function createGetStreamsParams({
     result = { ...result, country }
   }
 
-  result = { ...result, limit: compact ? 5 : period === 'realtime' ? 100 : 30 }
+  // limit, offset
+  {
+    const limit = compact ? 5 : STREAM_RANKING_PAGE_SIZE
+    const offset = (Number(page || 1) - 1) * STREAM_RANKING_PAGE_SIZE
+    result = { ...result, limit, offset }
+  }
 
   return result
 }

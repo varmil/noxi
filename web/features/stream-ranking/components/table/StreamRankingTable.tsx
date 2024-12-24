@@ -14,16 +14,19 @@ import TableCellOfStreamForSmallContainer from 'features/stream-ranking/componen
 import TableCellOfStreamThumbnail from 'features/stream-ranking/components/table/cell/TableCellOfStreamThumbnail'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
+import { STREAM_RANKING_PAGE_SIZE } from 'features/stream-ranking/utils/stream-ranking-pagination'
 import { Link } from 'lib/navigation'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
   dimension: StreamRankingDimension
+  page: number
   streams: StreamsSchema
 }>
 
 export default async function StreamRankingTable({
   dimension,
+  page,
   streams
 }: Props) {
   const [channels, bundles] = await Promise.all([
@@ -59,7 +62,9 @@ export default async function StreamRankingTable({
             <TableRow key={videoId}>
               {/* Rank */}
               <TableCell className="align-top">
-                <div className="text-lg font-bold w-3 text-nowrap">{i + 1}</div>
+                <div className="text-lg font-bold w-4 @lg:w-5 text-nowrap tracking-tight">
+                  {i + 1 + (page - 1) * STREAM_RANKING_PAGE_SIZE}
+                </div>
               </TableCell>
 
               {/* Stream Thumbnail */}
@@ -78,11 +83,7 @@ export default async function StreamRankingTable({
               {/* lg-: Channel + Title */}
               <TableCell className="hidden @lg:table-cell @lg:min-w-[230px] @lg:max-w-[400px]">
                 <div className="flex flex-col gap-4">
-                  <SmallChannel
-                    className=""
-                    channel={channel}
-                    group={stream.group}
-                  />
+                  <SmallChannel channel={channel} group={stream.group} />
                   <Link
                     className="text-sm font-light line-clamp-2 break-anywhere"
                     href={`/youtube/live/${videoId}`}

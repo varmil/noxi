@@ -25,7 +25,7 @@ export default async function StreamRankingGallery(
   const t = await getTranslations('Features.streamRanking')
 
   let streams: StreamsSchema = []
-  const { period, dimension, compact, className } = props
+  const { period, dimension, page, compact, className } = props
 
   if (dimension === 'super-chat') {
     /**
@@ -60,7 +60,11 @@ export default async function StreamRankingGallery(
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
 
-      <StreamRankingTable dimension={dimension} streams={streams} />
+      <StreamRankingTable
+        dimension={dimension}
+        page={Number(page || 1)}
+        streams={streams}
+      />
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">

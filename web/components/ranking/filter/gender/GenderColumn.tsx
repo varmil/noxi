@@ -9,6 +9,10 @@ import {
 
 const QS_KEY = 'gender'
 
+const RESET_KEYS = {
+  page: null
+}
+
 type Props = PropsWithoutRef<{
   className?: string
 }>
@@ -19,18 +23,24 @@ export default function GenderColumn({ className }: Props) {
     <Column>
       <ColumnHeader>{tg('ranking.filter.gender')}</ColumnHeader>
       <ColumnContent>
-        <SelectButton qs={{ [QS_KEY]: null }} activeVariant="secondary">
+        <SelectButton
+          qs={{ [QS_KEY]: null, ...RESET_KEYS }}
+          activeVariant="secondary"
+        >
           {tg('gender.all')}
         </SelectButton>
-        <SelectButton qs={{ [QS_KEY]: 'male' }} activeVariant="secondary">
+        <SelectButton
+          qs={{ [QS_KEY]: 'male', ...RESET_KEYS }}
+          activeVariant="secondary"
+        >
           {tg('gender.male')}
         </SelectButton>
-        <SelectButton qs={{ [QS_KEY]: 'female' }} activeVariant="secondary">
+        <SelectButton
+          qs={{ [QS_KEY]: 'female', ...RESET_KEYS }}
+          activeVariant="secondary"
+        >
           {tg('gender.female')}
         </SelectButton>
-        {/* <SelectButton qs={{ [QS_KEY]: 'nonbinary' }} activeVariant="secondary">
-          {tg('gender.nonbinary')}
-        </SelectButton> */}
       </ColumnContent>
     </Column>
   )

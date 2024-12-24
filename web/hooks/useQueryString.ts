@@ -9,6 +9,8 @@ export default function useQueryString() {
 
   const has = (key: string, value?: string) => searchParams.has(key, value)
 
+  const get = (key: string) => searchParams.get(key)
+
   const createQueryString = useCallback(
     (name: string, value: string | null) => {
       const params = new URLSearchParams(searchParams.toString())
@@ -41,6 +43,8 @@ export default function useQueryString() {
 
   return {
     has,
+
+    get,
 
     /**
      * Get a new searchParams string by merging the current

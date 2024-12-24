@@ -9,6 +9,13 @@ import {
 
 const QS_KEY = 'dimension'
 
+// Dimensionを変えたらPeriodも追加でリセット
+const RESET_KEYS = {
+  period: null,
+  date: null,
+  page: null
+}
+
 type Keys = 'concurrent-viewer' | 'super-chat' | 'subscriber'
 
 type Props = PropsWithoutRef<{
@@ -23,16 +30,7 @@ export default function DimensionColumn({ keys, className }: Props) {
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
         {keys.map(key => (
-          <SelectButton
-            key={key}
-            qs={{
-              [QS_KEY]: key,
-              // Dimensionを変えたらPeriodをリセット
-              period: null,
-              // Dimensionを変えたらdateをリセット
-              date: null
-            }}
-          >
+          <SelectButton key={key} qs={{ [QS_KEY]: key, ...RESET_KEYS }}>
             {tg(`dimension.${key}`)}
           </SelectButton>
         ))}
