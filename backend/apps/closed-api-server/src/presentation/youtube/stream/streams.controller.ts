@@ -34,6 +34,21 @@ export class StreamsController {
     })
   }
 
+  @Get('/count')
+  async getStreamsCount(@Query() dto: GetStreamsDto) {
+    return await this.streamsService.count({
+      where: {
+        status: dto.toStatus(),
+        videoIds: dto.toVideoIds(),
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        channelId: dto.toChannelId(),
+        scheduledStartTime: dto.toScheduledStartTime(),
+        actualEndTime: dto.toActualEndTime()
+      }
+    })
+  }
+
   @Get(':id')
   async getStream(@Param('id') id: string) {
     const stream = await this.streamsService.findOne({

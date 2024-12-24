@@ -14,6 +14,10 @@ export class StreamsService {
     return await this.streamRepository.findAll(args)
   }
 
+  async count(args: Parameters<StreamRepository['count']>[0]): Promise<number> {
+    return await this.streamRepository.count(args)
+  }
+
   async findOne(
     args: Parameters<StreamRepository['findOne']>[0]
   ): Promise<Stream | null> {

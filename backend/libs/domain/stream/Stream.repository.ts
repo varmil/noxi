@@ -16,20 +16,22 @@ import {
 } from '@domain/youtube'
 import type { Prisma } from '@prisma/client'
 
+export type StreamFindAllWhere = {
+  status?: StreamStatus
+  videoIds?: VideoIds
+  group?: Group
+  gender?: Gender
+  channelId?: ChannelId
+  scheduledStartTime?: { gte?: Date; lte?: Date } | null
+  actualEndTime?: { gte?: Date; lte?: Date } | null
+  OR?: (Omit<Prisma.YoutubeStreamWhereInput, 'status'> & {
+    status: StreamStatus
+  })[]
+}
+
 export interface StreamRepository {
   findAll: (args: {
-    where: {
-      status?: StreamStatus
-      videoIds?: VideoIds
-      group?: Group
-      gender?: Gender
-      channelId?: ChannelId
-      scheduledStartTime?: { gte?: Date; lte?: Date } | null
-      actualEndTime?: { gte?: Date; lte?: Date } | null
-      OR?: (Omit<Prisma.YoutubeStreamWhereInput, 'status'> & {
-        status: StreamStatus
-      })[]
-    }
+    where: StreamFindAllWhere
     orderBy?: Partial<
       Record<
         | 'videoId'
@@ -43,6 +45,8 @@ export interface StreamRepository {
     limit?: number
     offset?: number
   }) => Promise<Streams>
+
+  count: (args: { where: StreamFindAllWhere }) => Promise<number>
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>
 
