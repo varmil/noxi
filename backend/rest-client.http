@@ -1,3 +1,36 @@
 ### POST /x/channels/ranking/last-24-hours
 POST http://localhost:15000/api/x/channels/ranking/last-24-hours
 x-api-key: {{$dotenv X_POST_KEY}}
+
+
+
+### POST IndexNow
+POST https://www.bing.com/IndexNow
+content-type: application/json; charset=utf-8
+
+{
+  "host": "www.peakx.net",
+  "key": "ade1909491814510863e9169043a1160",
+  "keyLocation": "https://www.peakx.net/ade1909491814510863e9169043a1160.txt",
+  "urlList": [
+    "https://www.peakx.net",
+    "https://www.peakx.net/ja",
+    "https://www.peakx.net/en",
+    "https://www.peakx.net/ja/hololive",
+    "https://www.peakx.net/en/hololive",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last24Hours",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last7Days",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last30Days",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last1Year",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=thisWeek",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=thisMonth",
+    "https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=thisYear",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=last24Hours",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=last7Days",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=last30Days",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=last1Year",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=thisWeek",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=thisMonth",
+    "https://www.peakx.net/en/youtube/channels/ranking?dimension=super-chat&period=thisYear"
+  ]
+}

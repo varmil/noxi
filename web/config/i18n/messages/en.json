@@ -143,6 +143,16 @@
             "chart": { "title": "Live streaming time slot" }
           }
         },
+        "faq": {
+          "metadata": {
+            "title": "{channel} FAQ - Frequently Asked Questions",
+            "description": "The FAQ page for {channel}. Find answers to questions about the person behind the channel, their content and activities. Explore more on PeakX."
+          },
+          "section": {
+            "title": "FAQ - Frequently Asked Questions",
+            "noData": "No Data"
+          }
+        },
         "template": {
           "latestUserReactions": "Latest User Reactions",
           "liveTrends": "Live Stream Trends",
@@ -291,6 +301,9 @@
             "title": "Viewers By Day of the Week"
           }
         }
+      },
+      "faq": {
+        "nav": "FAQ"
       }
     },
     "group": {

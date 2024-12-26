@@ -20,6 +20,7 @@ export async function generateBaseMetadata(
       | 'Page.group.channelsId.superChat.metadata'
       | 'Page.group.channelsId.live.metadata'
       | 'Page.group.channelsId.streamTimes.metadata'
+      | 'Page.group.channelsId.faq.metadata'
   }
 ): Promise<Metadata> {
   const { locale, group, id } = await props.params
@@ -46,9 +47,11 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale)
   setGroup(group)
 
-  const { basicInfo } = await getChannel(id)
-  const tg = await getTranslations('Global')
-  const t = await getTranslations('Breadcrumb')
+  const [{ basicInfo }, tg, t] = await Promise.all([
+    getChannel(id),
+    getTranslations('Global'),
+    getTranslations('Breadcrumb')
+  ])
 
   return (
     <Page
@@ -67,7 +70,7 @@ export default async function ChannelsIdBasePage(
     >
       <section className="flex flex-col">
         <ChannelProfile basicInfo={basicInfo} />
-        <section className="">
+        <section>
           <LocalNavigationForChannelsIdPages channelId={id} />
         </section>
 
