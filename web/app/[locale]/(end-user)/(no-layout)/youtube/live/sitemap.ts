@@ -8,7 +8,7 @@ const LIMIT = 2000
 
 // Streamsの総数 / LIMIT = 総ページ数
 export async function generateSitemaps() {
-  return [...Array(10)].map((_, i) => ({ id: i }))
+  return [...Array(50)].map((_, i) => ({ id: i }))
 }
 
 // Google's limit is 50,000 URLs per sitemap
