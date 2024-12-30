@@ -11,7 +11,7 @@
   },
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.1"
   },
   "devDependencies": {
     "@types/node": "^20.17.10"
