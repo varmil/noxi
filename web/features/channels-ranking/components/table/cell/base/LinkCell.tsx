@@ -19,7 +19,9 @@ export default function LinkCell({
 }>) {
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
-      <Link href={`/${group}/channels/${channelId}`}>{children}</Link>
+      <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
+        {children}
+      </Link>
     </TableCell>
   )
 }
