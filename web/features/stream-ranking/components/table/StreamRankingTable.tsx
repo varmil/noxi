@@ -87,6 +87,7 @@ export default async function StreamRankingTable({
                   <Link
                     className="text-sm font-light line-clamp-2 break-anywhere"
                     href={`/youtube/live/${videoId}`}
+                    prefetch={true}
                   >
                     {stream.snippet.title}
                   </Link>
