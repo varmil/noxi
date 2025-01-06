@@ -1,4 +1,3 @@
-import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import { getEntry } from 'config/sitemap/getEntry'
 import { CACHE_1D } from 'lib/fetchAPI'
@@ -23,51 +22,48 @@ export default async function sitemap({
     offset: id * LIMIT,
     revalidate: CACHE_1D
   })
-  const channels = await getChannels({
-    ids: streams.map(stream => stream.snippet.channelId),
-    limit: streams.length
-  })
+  // const channels = await getChannels({
+  //   ids: streams.map(stream => stream.snippet.channelId),
+  //   limit: streams.length
+  // })
 
   return streams
     .map(stream => {
-      const {
-        videoId,
-        snippet: { title, thumbnails }
-      } = stream
+      const { videoId } = stream
 
-      const channel = channels.find(
-        channel => channel.basicInfo.id === stream.snippet.channelId
-      )
-      if (!channel) return null
-      const {
-        basicInfo: { title: cName }
-      } = channel
+      // const channel = channels.find(
+      //   channel => channel.basicInfo.id === stream.snippet.channelId
+      // )
+      // if (!channel) return null
+      // const {
+      //   basicInfo: { title: cName }
+      // } = channel
 
-      const thumbnail_loc = thumbnails.standard?.url ?? thumbnails.default?.url
-      if (!thumbnail_loc) return null
+      // const thumbnail_loc = thumbnails.standard?.url ?? thumbnails.default?.url
+      // if (!thumbnail_loc) return null
 
-      const DEFAULT = {
-        content_loc: `https://www.youtube.com/watch?v=${videoId}`,
-        thumbnail_loc
-      }
+      // const DEFAULT = {
+      //   content_loc: `https://www.youtube.com/watch?v=${videoId}`,
+      //   thumbnail_loc
+      // }
 
       return getEntry({
-        pathname: `/youtube/live/${videoId}`,
+        pathname: `/youtube/live/${videoId}`
         // lastModified: updatedAt,
-        videos: [
-          // JP
-          {
-            title: getTitle({ locale: 'ja', channel: cName, title }),
-            description: getDesc({ locale: 'ja', channel: cName }),
-            ...DEFAULT
-          },
-          // EN
-          {
-            title: getTitle({ locale: 'en', channel: cName, title }),
-            description: getDesc({ locale: 'en', channel: cName }),
-            ...DEFAULT
-          }
-        ]
+        // videos: [
+        //   // JP
+        //   {
+        //     title: getTitle({ locale: 'ja', channel: cName, title }),
+        //     description: getDesc({ locale: 'ja', channel: cName }),
+        //     ...DEFAULT
+        //   },
+        //   // EN
+        //   {
+        //     title: getTitle({ locale: 'en', channel: cName, title }),
+        //     description: getDesc({ locale: 'en', channel: cName }),
+        //     ...DEFAULT
+        //   }
+        // ]
       })
     })
     .filter(e => !!e)
@@ -76,47 +72,47 @@ export default async function sitemap({
 /**
  * 翻訳ファイル175行目あたりをコピペしただけ
  */
-const getTitle = ({
-  locale,
-  channel,
-  title
-}: {
-  locale: 'en' | 'ja'
-  channel: string
-  title: string
-}) => {
-  if (locale === 'ja') {
-    return `${channel} ${escape(ellipsis(title))}のスパチャ金額、同接数 - PeakX`
-  }
-  if (locale === 'en') {
-    return `${channel} ${escape(ellipsis(title))} - Live Stats - PeakX`
-  }
-  return ``
-}
+// const getTitle = ({
+//   locale,
+//   channel,
+//   title
+// }: {
+//   locale: 'en' | 'ja'
+//   channel: string
+//   title: string
+// }) => {
+//   if (locale === 'ja') {
+//     return `${channel} ${escape(ellipsis(title))}のスパチャ金額、同接数 - PeakX`
+//   }
+//   if (locale === 'en') {
+//     return `${channel} ${escape(ellipsis(title))} - Live Stats - PeakX`
+//   }
+//   return ``
+// }
 
 /**
  * 翻訳ファイル175行目あたりをコピペしただけ
  */
-const getDesc = ({
-  locale,
-  channel
-}: {
-  locale: 'en' | 'ja'
-  channel: string
-}) => {
-  if (locale === 'ja') {
-    return `YouTubeライブを視聴！${escape(
-      channel
-    )}のスパチャ金額や同接数をチェックし人気の瞬間を見逃さず確認しよう。PeakXではなんとスパチャコメントもすべて掲載！VTuberファン必見の情報をお届けします。`
-  }
-  if (locale === 'en') {
-    return `Watch YouTube Live! Check ${escape(
-      channel
-    )}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this.`
-  }
-  return ``
-}
+// const getDesc = ({
+//   locale,
+//   channel
+// }: {
+//   locale: 'en' | 'ja'
+//   channel: string
+// }) => {
+//   if (locale === 'ja') {
+//     return `YouTubeライブを視聴！${escape(
+//       channel
+//     )}のスパチャ金額や同接数をチェックし人気の瞬間を見逃さず確認しよう。PeakXではなんとスパチャコメントもすべて掲載！VTuberファン必見の情報をお届けします。`
+//   }
+//   if (locale === 'en') {
+//     return `Watch YouTube Live! Check ${escape(
+//       channel
+//     )}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this.`
+//   }
+//   return ``
+// }
 
-const ellipsis = (str: string) =>
-  str.length > 22 ? str.slice(0, 22 - 1) + '…' : str
-const escape = (str: string) => str.replaceAll('&', 'and')
+// const ellipsis = (str: string) =>
+//   str.length > 22 ? str.slice(0, 22 - 1) + '…' : str
+// const escape = (str: string) => str.replaceAll('&', 'and')
