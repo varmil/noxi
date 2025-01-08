@@ -15,7 +15,7 @@ export default function SocialProofSection() {
 
         <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <Item>
-            <NumberText>350+</NumberText>
+            <NumberText>400+</NumberText>
             <span className="text-lg text-muted-foreground">
               {t('channels')}
             </span>

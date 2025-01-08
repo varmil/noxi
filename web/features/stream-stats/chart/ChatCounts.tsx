@@ -30,11 +30,11 @@ import { FormatForTick } from 'features/stream-stats/hooks/useFormattedDatetime'
 const chartConfig = {
   notMember: {
     label: 'Not Member',
-    color: 'hsl(var(--chart-3))'
+    color: 'hsl(var(--chart-2))'
   },
   member: {
     label: 'Member',
-    color: 'hsl(var(--chart-2))'
+    color: 'hsl(var(--chart-3))'
   }
 } satisfies ChartConfig
 
