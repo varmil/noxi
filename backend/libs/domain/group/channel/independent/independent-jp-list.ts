@@ -53,6 +53,12 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCxCDE6QpDCy8ZB3cVetRILw'),
+    title: 'ざき《役満Vtuber》',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCiR6oBbZBlAuOLInDTMzYuw'),
     title: 'ねるめろ / Nerumero',
     ...DefaultProps,
@@ -125,9 +131,27 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCCebCRguPlkvWemz2dKxWIA'),
+    title: 'キルシュトルテ',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCxm3RjoZHKNbvpiP5RW6Wlg'),
     title: '猫元パト / Patoneko Ch.',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCHXgFLFyqR-XqtxfTH3qiYA'),
+    title: 'ディープブリザード',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCrKD8cwv_Wrpx22SO-VeWAQ'),
+    title: 'きつねさん / Kitune-san',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCa6tqURg-QBi5QObeLl-8Mw'),
@@ -152,6 +176,12 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCHkgbFkEddyLE5uQMCem_aw'),
+    title: 'でいすいのゲームちゃんねる',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
     title: 'チョま',
     ...DefaultProps
@@ -159,6 +189,18 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UC2-hRIDWzqAnTjOxdLDmhCA'),
     title: 'おやつ@ゲームチャンネル',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCYv61z0vcKgwuDPkiCaCc2g'),
+    title: 'キルハ',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCsABPC_SPKUaf7BkZGs4wbQ'),
+    title: '犯罪学教室のかなえ先生',
     ...DefaultProps,
     gender: Gender.Male
   },
@@ -180,8 +222,19 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCfmASINcISIoVxhZPSxvOpA'),
+    title: 'けんぼー',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
     title: 'イル_フローラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCr9p1ZjLKgfaoqNorY7PiWQ'),
+    title: 'ayamy あやみちゃんねる',
     ...DefaultProps
   },
   {
@@ -196,13 +249,14 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCWOKF8h6kFj2pRn3rCD6nyw'),
-    title: 'Pepero ch. / 猫田ぺぺろ',
-    ...DefaultProps
+    id: new ChannelId('UCeAfiVvEuyICYJW-f3GnQjQ'),
+    title: 'ケリン',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
-    id: new ChannelId('UCr9p1ZjLKgfaoqNorY7PiWQ'),
-    title: 'ayamy あやみちゃんねる',
+    id: new ChannelId('UCWOKF8h6kFj2pRn3rCD6nyw'),
+    title: 'Pepero ch. / 猫田ぺぺろ',
     ...DefaultProps
   },
   {
@@ -212,9 +266,21 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCXzTXNuT08FZ6CNe1gTv3Rw'),
+    title: '天狼 -Tenro-',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCKa-bMYjrXEhXpaprT3KaFg'),
     title: '沢城懐',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCkNnf7-5rapGB9BjGuWmkVg'),
+    title: 'さぁーもんch',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCUZ5AlC3rTlM-rA2cj5RP6w'),
@@ -222,8 +288,26 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCnMDJ28oUjcr22UQomtYfHg'),
+    title: 'じゃぽ / Japo',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCmjI6RSnoH4fp2UX_w5sPAw'),
     title: '志士雄shishio',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCNhiCwqhYJhgspDYuxC1zDw'),
+    title: '未知カケルch',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCJvCDGShDAxcqe-MdwUcJjA'),
+    title: '粛正罰丸',
     ...DefaultProps,
     gender: Gender.Male
   },
