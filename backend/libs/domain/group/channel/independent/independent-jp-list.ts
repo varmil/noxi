@@ -53,6 +53,12 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCiR6oBbZBlAuOLInDTMzYuw'),
+    title: 'ねるめろ / Nerumero',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCkPIfBOLoO0hVPG-tI2YeGg'),
     title: 'Tomari Mari channel / 兎鞠まりちゃんねる',
     ...DefaultProps
@@ -69,27 +75,6 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCTMgd9qnUD9qKBX5oTtD6ug'),
-    title: 'バーチャルおばあちゃんねる',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
-    title: 'チョま',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UCa6tqURg-QBi5QObeLl-8Mw'),
-    title: 'GAMEゆうな',
-    ...DefaultProps
-  },
-  {
-    id: new ChannelId('UC2-hRIDWzqAnTjOxdLDmhCA'),
-    title: 'おやつ@ゲームチャンネル',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
     id: new ChannelId('UCC0i9nECi4Gz7TU63xZwodg'),
     title: '白雪みしろShirayuki Mishiro',
     ...DefaultProps
@@ -101,8 +86,8 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
-    id: new ChannelId('UCu5OhGQzagQkmJoOOnxnBIg'),
-    title: 'ロッコク【動画解説】',
+    id: new ChannelId('UCgYCMluaLpERsyNXlPOvBtA'),
+    title: 'かみと-KamitoChannel-',
     ...DefaultProps,
     gender: Gender.Male
   },
@@ -122,11 +107,6 @@ export const JPList: GroupChannel[] = [
     title: 'コジマ店員のホラーは恐くない',
     ...DefaultProps,
     gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
-    title: 'イル_フローラ',
-    ...DefaultProps
   },
   {
     id: new ChannelId('UCL7VEatXa9yBCKeM-ww8TnA'),
@@ -150,28 +130,41 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCWOKF8h6kFj2pRn3rCD6nyw'),
-    title: 'Pepero ch. / 猫田ぺぺろ',
+    id: new ChannelId('UCa6tqURg-QBi5QObeLl-8Mw'),
+    title: 'GAMEゆうな',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
-    title: '白樺るるは',
+    id: new ChannelId('UCZYyhgoV314CM14zBD6vd4A'),
+    title: 'バーチャル債務者youtuber天開司',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCTMgd9qnUD9qKBX5oTtD6ug'),
+    title: 'バーチャルおばあちゃんねる',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCGKNbtDv8OTa8559buDu-Gw'),
-    title: '音魂ヒビクHibiku Otodama',
+    id: new ChannelId('UCwoOrWNuDq3s98cWw-xz3Dg'),
+    title: 'リモーネ先生',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCotQnZvYn2T-JiJTs8LrAlw'),
+    title: 'チョま',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCWjVy9lv8oRAOaKlfoCXQJQ'),
-    title: '金美館通りの藤村さん',
-    ...DefaultProps
+    id: new ChannelId('UC2-hRIDWzqAnTjOxdLDmhCA'),
+    title: 'おやつ@ゲームチャンネル',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
-    id: new ChannelId('UCDhOdoqPxv96djR3tSq9NoA'),
-    title: 'ショコラ大佐の秘密基地',
+    id: new ChannelId('UCu5OhGQzagQkmJoOOnxnBIg'),
+    title: 'ロッコク【動画解説】',
     ...DefaultProps,
     gender: Gender.Male
   },
@@ -187,15 +180,25 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
-    title: 'くぅch. 沙倉くぅ / Sakura Qoo',
+    id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
+    title: 'イル_フローラ',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCwoOrWNuDq3s98cWw-xz3Dg'),
-    title: 'リモーネ先生',
+    id: new ChannelId('UCDhOdoqPxv96djR3tSq9NoA'),
+    title: 'ショコラ大佐の秘密基地',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCWjVy9lv8oRAOaKlfoCXQJQ'),
+    title: '金美館通りの藤村さん',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCWOKF8h6kFj2pRn3rCD6nyw'),
+    title: 'Pepero ch. / 猫田ぺぺろ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCr9p1ZjLKgfaoqNorY7PiWQ'),
@@ -219,6 +222,18 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCmjI6RSnoH4fp2UX_w5sPAw'),
+    title: '志士雄shishio',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCG60LkIPyPD6_GWeH6GSirg'),
+    title: 'ボビー',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCwUNuXd6rN08SQFzlIH4Ozg'),
     title: 'なつめえりちゃんねる',
     ...DefaultProps
@@ -235,10 +250,26 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
+    title: 'くぅch. 沙倉くぅ / Sakura Qoo',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC4DYzBmjxBN1srxV-_2pcrw'),
+    title: 'ナポ・レボリューション',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
     title: '四宮 伊織 / SHINOMIYA Iori',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
+    title: '白樺るるは',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCY7Qs1UGnO3LYpNVwitTXUA'),
@@ -252,9 +283,25 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCGKNbtDv8OTa8559buDu-Gw'),
+    title: '音魂ヒビクHibiku Otodama',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCi1pVIrFVtrRTnyaUtKcgOQ'),
     title: 'Reimu Ch. 甘兎れいむ',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCXF2g2N8d6xDgzcsoy8pgDA'),
+    title: 'ハウラ・ヘルベル',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCsAoyzNVhYYWoQpWjtDAGpw'),
+    title: '東和正 / AzumaKazumasa',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCn6Ufc6C9ZdGlCYTXOVFGLA'),
