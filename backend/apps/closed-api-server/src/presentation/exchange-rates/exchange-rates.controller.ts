@@ -1,10 +1,10 @@
-import { ExchangeRatesService } from '@app/exchange-rates/exchange-rates.service'
 import {
   ClassSerializerInterceptor,
   Controller,
   Get,
   UseInterceptors
 } from '@nestjs/common'
+import { ExchangeRatesService } from '@app/exchange-rates/exchange-rates.service'
 
 @Controller('exchange-rates')
 @UseInterceptors(ClassSerializerInterceptor)
