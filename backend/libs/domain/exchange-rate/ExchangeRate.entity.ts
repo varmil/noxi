@@ -1,6 +1,6 @@
+import { Transform } from 'class-transformer'
 import { Rate } from '@domain/exchange-rate'
 import { Currency } from '@domain/lib/currency'
-import { Transform } from 'class-transformer'
 
 export class ExchangeRate {
   @Transform(({ value }: { value: Currency }) => value.get())
