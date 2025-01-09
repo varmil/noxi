@@ -19,7 +19,7 @@ export class HandleScheduledScenario {
   async execute({ streams }: { streams: Streams }): Promise<void> {
     const { items: videos } = await this.videosService.findAll({
       where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
+      limit: streams.length
     })
 
     await this.promiseService.allSettled([

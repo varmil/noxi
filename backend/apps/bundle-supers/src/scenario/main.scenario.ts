@@ -72,7 +72,7 @@ export class MainScenario {
       where: {
         videoIds: new VideoIds(tasks.map(task => task.videoId))
       },
-      limit: 100
+      limit: tasks.length
     })
 
     const promises = tasks.map(async ({ videoId }) => {

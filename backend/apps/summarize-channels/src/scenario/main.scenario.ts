@@ -25,9 +25,8 @@ export class MainScenario {
         if (channels.length === 0) break
         offset += this.CHUNK_SIZE
 
-        console.time(`processChunk: ${index(offset)}`)
+        this.logger.log(`processChunk: ${index(offset)}`)
         await this.createSupersSummariesService.execute(channels)
-        console.timeEnd(`processChunk: ${index(offset)}`)
       } catch (error) {
         this.logger.error(`Error in chunk: ${index(offset)}:`, error)
       }

@@ -11,6 +11,7 @@ import { VideoIds } from '@domain/youtube'
 
 @Injectable()
 export class MainScenario {
+  private readonly CHUNK_SIZE = 100
   private readonly logger = new Logger(MainScenario.name)
 
   constructor(
@@ -37,8 +38,6 @@ export class MainScenario {
     }
   }
 
-  // TODO: chunk streams
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /**
    * 今から1ヶ月後までの予定に絞る
    *
@@ -46,64 +45,93 @@ export class MainScenario {
    * scheduledBeforeを「OR NULL」とする（でないと取得できない）
    */
   private async handleScheduled() {
-    const streams = await this.streamsService.findAll({
-      where: {
-        OR: [
-          {
-            status: new StreamStatus('scheduled'),
-            scheduledStartTime: { lte: dayjs().add(30, 'day').toDate() }
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
+
+    while (true) {
+      try {
+        const streams = await this.streamsService.findAll({
+          where: {
+            OR: [
+              {
+                status: new StreamStatus('scheduled'),
+                scheduledStartTime: { lte: dayjs().add(30, 'day').toDate() }
+              },
+              {
+                status: new StreamStatus('scheduled'),
+                scheduledStartTime: null
+              }
+            ]
           },
-          {
-            status: new StreamStatus('scheduled'),
-            scheduledStartTime: null
-          }
-        ]
-      },
-      orderBy: [{ scheduledStartTime: 'asc' }],
-      limit: 1000
-    })
+          orderBy: [{ scheduledStartTime: 'asc' }],
+          limit: this.CHUNK_SIZE,
+          offset
+        })
+        if (streams.length === 0) break
+        offset += this.CHUNK_SIZE
 
-    if (streams.length === 0) return
-    this.logger.log(`handleScheduled/streams: ${streams.length}`)
-
-    await this.handleScheduledScenario.execute({ streams })
+        this.logger.log(`handleScheduled/chunk: ${index(offset)}`)
+        await this.handleScheduledScenario.execute({ streams })
+      } catch (e) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, e)
+      }
+    }
   }
 
-  // TODO: chunk streams
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /**
    * live --> ended のステートを見る
    */
   private async endLives(): Promise<void> {
-    const streams = await this.streamsService.findAll({
-      where: { status: new StreamStatus('live') },
-      orderBy: [{ scheduledStartTime: 'asc' }],
-      limit: 1000
-    })
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
 
-    if (streams.length === 0) return
-    await this.endLivesScenario.execute({ streams })
+    while (true) {
+      try {
+        const streams = await this.streamsService.findAll({
+          where: { status: new StreamStatus('live') },
+          orderBy: [{ scheduledStartTime: 'asc' }],
+          limit: this.CHUNK_SIZE,
+          offset
+        })
+        if (streams.length === 0) break
+        offset += this.CHUNK_SIZE
+
+        this.logger.log(`endLives/chunk: ${index(offset)}`)
+        await this.endLivesScenario.execute({ streams })
+      } catch (e) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, e)
+      }
+    }
   }
 
-  // TODO: chunk streams
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   private async updateStats() {
-    const streams = (
-      await this.streamsService.findAll({
-        where: { status: new StreamStatus('live') },
-        orderBy: [{ scheduledStartTime: 'asc' }],
-        limit: 1000
-      })
-    ).filter(stream => !stream.membersOnly)
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
 
-    this.logger.log(`live/not-members-only/streams: ${streams.length}`)
-    if (streams.length === 0) return
+    while (true) {
+      try {
+        const streams = await this.streamsService.findAll({
+          where: { status: new StreamStatus('live') },
+          orderBy: [{ scheduledStartTime: 'asc' }],
+          limit: this.CHUNK_SIZE,
+          offset
+        })
+        if (streams.length === 0) break
+        offset += this.CHUNK_SIZE
 
-    const { items: videos } = await this.videosService.findAll({
-      where: { ids: new VideoIds(streams.map(stream => stream.videoId)) },
-      limit: 1000
-    })
+        const publicStreams = streams.filter(stream => !stream.membersOnly)
+        const { items: videos } = await this.videosService.findAll({
+          where: {
+            ids: new VideoIds(publicStreams.map(stream => stream.videoId))
+          },
+          limit: publicStreams.length
+        })
 
-    await this.mainService.updateStats(videos)
+        this.logger.log(`updateStats/chunk: ${index(offset)}`)
+        await this.mainService.updateStats(videos)
+      } catch (e) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, e)
+      }
+    }
   }
 }
