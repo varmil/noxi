@@ -21,6 +21,8 @@ export class SubscribeService {
     private readonly groupsService: GroupsService
   ) {}
 
+  // TODO: chunk channels
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   async execute(): Promise<void> {
     const promises = this.groupsService.findAll().map(async group => {
       await this.subscribe(group.channelIds)

@@ -37,6 +37,8 @@ export class MainScenario {
     }
   }
 
+  // TODO: chunk streams
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /**
    * 今から1ヶ月後までの予定に絞る
    *
@@ -67,6 +69,8 @@ export class MainScenario {
     await this.handleScheduledScenario.execute({ streams })
   }
 
+  // TODO: chunk streams
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /**
    * live --> ended のステートを見る
    */
@@ -81,6 +85,8 @@ export class MainScenario {
     await this.endLivesScenario.execute({ streams })
   }
 
+  // TODO: chunk streams
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   private async updateStats() {
     const streams = (
       await this.streamsService.findAll({

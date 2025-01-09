@@ -15,6 +15,8 @@ export class MainScenario {
     private readonly groupsService: GroupsService
   ) {}
 
+  // TODO: chunk channels
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   async execute(): Promise<void> {
     const promises = this.groupsService.findAll().map(async group => {
       this.logger.debug(`start ${group.get()}`)
