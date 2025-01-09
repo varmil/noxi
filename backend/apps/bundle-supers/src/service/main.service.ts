@@ -18,6 +18,8 @@ export class MainService {
     private readonly superStickersService: SuperStickersService
   ) {}
 
+  // TODO: chunk streams
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /** live中（リアルタイム） */
   async fetchLives() {
     return await this.streamsService.findAll({

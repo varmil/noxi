@@ -17,6 +17,8 @@ export class MainService {
     private readonly streamsService: StreamsService
   ) {}
 
+  // TODO: chunk streams
+  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /**
    * * スケジュールの場合、スケジュール上の開始から取得する
    * * 終了済みの場合、終了後2分間取得

@@ -10,6 +10,7 @@ import { SupersSummariesPresentationModule } from '@presentation/supers-summarie
 import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
+import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     CacheModule.register({ isGlobal: true }),
     LibAppModule,
     CloudSchedulersPresentationModule,
+    ExchangeRatesPresentationModule,
     GroupsPresentationModule,
     SupersPresentationModule,
     SupersBundlesPresentationModule,
