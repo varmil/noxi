@@ -11,7 +11,9 @@ export interface ChannelRepository {
       gender?: Gender
       country?: CountryCode
     }
-    orderBy?: Partial<Record<'subscriberCount' | 'viewCount', 'asc' | 'desc'>>[]
+    orderBy?: Partial<
+      Record<'publishedAt' | 'subscriberCount' | 'viewCount', 'asc' | 'desc'>
+    >[]
     limit?: number
     offset?: number
   }) => Promise<Channels>
