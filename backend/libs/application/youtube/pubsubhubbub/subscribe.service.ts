@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import axios, { AxiosError } from 'axios'
-import { GroupsService } from '@app/groups/groups.service'
-import { PromiseService } from '@app/lib/promise-service'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 const CALLBACK_PATHNAME = `/api/youtube/pubsubhubbub/callback`
@@ -14,20 +13,31 @@ interface SubscribeYouTubePubsubQuery {
 
 @Injectable()
 export class SubscribeService {
+  private readonly CHUNK_SIZE = 100
   private readonly logger = new Logger(SubscribeService.name)
 
-  constructor(
-    private readonly promiseService: PromiseService,
-    private readonly groupsService: GroupsService
-  ) {}
+  constructor(private readonly channelsService: ChannelsService) {}
 
-  // TODO: chunk channels
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   async execute(): Promise<void> {
-    const promises = this.groupsService.findAll().map(async group => {
-      await this.subscribe(group.channelIds)
-    })
-    await this.promiseService.allSettled(promises)
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
+
+    while (true) {
+      try {
+        const channels = await this.channelsService.findAll({
+          orderBy: [{ publishedAt: 'desc' }],
+          limit: this.CHUNK_SIZE,
+          offset
+        })
+        if (channels.length === 0) break
+        offset += this.CHUNK_SIZE
+
+        await this.subscribe(channels.ids())
+        this.logger.log(`processChunk: ${index(offset)}`)
+      } catch (e) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, e)
+      }
+    }
   }
 
   /**

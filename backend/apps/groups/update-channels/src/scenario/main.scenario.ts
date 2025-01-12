@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
-import { PromiseService } from '@app/lib/promise-service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
@@ -9,16 +8,14 @@ export class MainScenario {
   private readonly logger = new Logger(MainScenario.name)
 
   constructor(
-    private readonly promiseService: PromiseService,
     private readonly channelsService: ChannelsService,
     private readonly channelsInfraService: ChannelsInfraService,
     private readonly groupsService: GroupsService
   ) {}
 
-  // TODO: chunk channels
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   async execute(): Promise<void> {
-    const promises = this.groupsService.findAll().map(async group => {
+    const groups = this.groupsService.findAll()
+    for (const group of groups.get()) {
       this.logger.debug(`start ${group.get()}`)
 
       const channels = await this.channelsInfraService.list({
@@ -29,8 +26,6 @@ export class MainScenario {
         data: { channels, group }
       })
       this.logger.debug(`end ${group.get()}`)
-    })
-
-    await this.promiseService.allSettled(promises)
+    }
   }
 }

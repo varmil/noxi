@@ -39,7 +39,8 @@ model Channel {
   supersSummaries     YoutubeStreamSupersSummary[]
   supersSummaryLatest YoutubeStreamSupersSummaryLatest?
 
-  @@index([group])
+  @@index([group, subscriberCount])
+  @@index([publishedAt])
 }
 
 model YoutubeStream {
@@ -72,6 +73,8 @@ model YoutubeStream {
 
   @@index([channelId])
   @@index([status, group])
+  @@index([status, scheduledStartTime])
+  @@index([status, actualStartTime])
 }
 
 model YoutubeStreamViewerCount {

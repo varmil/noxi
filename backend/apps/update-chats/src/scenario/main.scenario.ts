@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { MainService } from 'apps/update-chats/src/service/main.service'
 import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-chats.service'
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
@@ -11,6 +11,9 @@ import { Continuation } from '@domain/youtubei/live-chat'
 
 @Injectable()
 export class MainScenario {
+  private readonly CHUNK_SIZE = 100
+  private readonly logger = new Logger(MainScenario.name)
+
   constructor(
     private readonly promiseService: PromiseService,
     private readonly mainService: MainService,
@@ -21,43 +24,59 @@ export class MainScenario {
   ) {}
 
   async execute(): Promise<void> {
-    const lives = await this.mainService.fetchLives()
-    const promises = lives.map(async stream => {
-      const videoId = stream.videoId
-      const promises: Promise<void>[] = []
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
 
-      const res = await this.mainService.fetchNewMessages(stream)
-      if (!res) return
-      const { newMessages, nextContinuation } = res
+    while (true) {
+      try {
+        const streams = await this.mainService.fetchLives({
+          limit: this.CHUNK_SIZE,
+          offset
+        })
+        if (streams.length === 0) break
+        offset += this.CHUNK_SIZE
 
-      // chat-counts
-      {
-        promises.push(
-          this.saveChatCounts({
-            videoId,
-            newMessages,
-            nextContinuation
-          })
-        )
+        const promises = streams.map(async stream => {
+          const videoId = stream.videoId
+          const promises: Promise<void>[] = []
+
+          const res = await this.mainService.fetchNewMessages(stream)
+          if (!res) return
+          const { newMessages, nextContinuation } = res
+
+          // chat-counts
+          {
+            promises.push(
+              this.saveChatCounts({
+                videoId,
+                newMessages,
+                nextContinuation
+              })
+            )
+          }
+
+          // super-chats, super-stickers
+          {
+            promises.push(
+              this.saveSuperChatsService.execute({ videoId, newMessages })
+            )
+            promises.push(
+              this.saveSuperStickersService.execute({ videoId, newMessages })
+            )
+          }
+
+          // TODO: new-members
+          // {}
+
+          await this.promiseService.allSettled(promises)
+        })
+
+        await this.promiseService.allSettled(promises)
+        this.logger.log(`execute/chunk: ${index(offset)}`)
+      } catch (e) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, e)
       }
-
-      // super-chats, super-stickers
-      {
-        promises.push(
-          this.saveSuperChatsService.execute({ videoId, newMessages })
-        )
-        promises.push(
-          this.saveSuperStickersService.execute({ videoId, newMessages })
-        )
-      }
-
-      // TODO: new-members
-      // {}
-
-      await this.promiseService.allSettled(promises)
-    })
-
-    await this.promiseService.allSettled(promises)
+    }
   }
 
   private async saveChatCounts({

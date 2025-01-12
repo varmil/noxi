@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common'
-import { GroupsAppModule } from '@app/groups/groups.app.module'
+import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { SubscribeService } from './subscribe.service'
 
 @Module({
-  imports: [GroupsAppModule],
+  imports: [YoutubeAppModule],
   providers: [SubscribeService],
   exports: [SubscribeService]
 })
