@@ -21,4 +21,8 @@ export class DeletedEntry {
       this.data.feed['at:deleted-entry'].ref.replace('yt:video:', '')
     )
   }
+
+  toJSON() {
+    return this.data
+  }
 }

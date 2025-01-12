@@ -41,11 +41,6 @@ export class Video {
     return this.duration.isShort()
   }
 
-  @Exclude()
-  get isStream(): boolean {
-    return this.liveStreamingDetails !== undefined
-  }
-
   /**
    * 配信の開始が予定されている時刻。値は ISO 8601 形式で指定します。
    */

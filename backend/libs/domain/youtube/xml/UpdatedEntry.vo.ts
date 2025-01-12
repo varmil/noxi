@@ -14,4 +14,8 @@ export class UpdatedEntry {
   get videoId() {
     return new VideoId(this.data.feed.entry['yt:videoId'])
   }
+
+  toJSON() {
+    return this.data
+  }
 }
