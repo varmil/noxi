@@ -1,25 +1,27 @@
 import { GroupString } from '@domain/group'
 import {
+  Hololive,
   HololiveEnglish,
   HololiveIndonesia,
-  Hololive,
-  Independent,
-  IndependentIRL,
-  GroupChannels,
-  VSPO,
-  NeoPorte,
-  Mixstgirls,
-  IdolCorp,
+  Holostars,
   Nijisanji,
   NijisanjiEN,
-  Specialite
+  VSPO,
+  NeoPorte,
+  GroupChannels,
+  Mixstgirls,
+  IdolCorp,
+  Specialite,
+  Independent,
+  IndependentIRL
 } from '@domain/group/channel'
 import { ChannelIds } from '@domain/youtube'
 
 export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
+  hololive: new Hololive(),
   'hololive-english': new HololiveEnglish(),
   'hololive-indonesia': new HololiveIndonesia(),
-  hololive: new Hololive(),
+  holostars: new Holostars(),
   nijisanji: new Nijisanji(),
   'nijisanji-en': new NijisanjiEN(),
   vspo: new VSPO(),
@@ -32,9 +34,10 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
 }
 
 export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
+  hololive: new Hololive().channelIds(),
   'hololive-english': new HololiveEnglish().channelIds(),
   'hololive-indonesia': new HololiveIndonesia().channelIds(),
-  hololive: new Hololive().channelIds(),
+  holostars: new Holostars().channelIds(),
   nijisanji: new Nijisanji().channelIds(),
   'nijisanji-en': new NijisanjiEN().channelIds(),
   vspo: new VSPO().channelIds(),

@@ -8,6 +8,7 @@ const counts = {
   hololive: { val: 43, isAll: true },
   'hololive-english': { val: 18, isAll: true },
   'hololive-indonesia': { val: 9, isAll: true },
+  holostars: { val: 22, isAll: true },
   nijisanji: { val: 153, isAll: true },
   'nijisanji-en': { val: 11, isAll: false },
   vspo: { val: 23, isAll: true },
