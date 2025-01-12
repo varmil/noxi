@@ -77,7 +77,7 @@ const List: GroupChannel[] = [
   },
 
   {
-    id: new ChannelId('UCKeAhJvy8zgXWbh9duVjIaQ'),
+    id: new ChannelId('UCyxtGMdWlURZ30WSnEjDOQw'),
     title: 'Regis Altare',
     ...DefaultProps,
     defaultLangage: new LanguageTag('en')
