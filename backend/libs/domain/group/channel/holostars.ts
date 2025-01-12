@@ -9,126 +9,135 @@ import { ChannelId, ChannelIds } from '@domain/youtube'
 const DefaultProps = {
   country: new CountryCode('JP'),
   defaultLangage: new LanguageTag('ja'),
-  gender: Gender.Female
+  gender: Gender.Male
 }
 
 const List: GroupChannel[] = [
   {
-    id: new ChannelId('UChLfthKoUV502J7gU9STArg'),
-    title: '渋谷ハル',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCIu-aUArYq_H84dBpCAokMA'),
-    title: '白雪レイド',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCbBLqA4HRowpj2JuLrkig5w'),
-    title: '或世イヌ',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCuk7vapXKckSw6yCGGDspDg'),
-    title: '緋月ゆい',
+    id: new ChannelId('UC6t3-_N8A6ME1JShZHHqOMw'),
+    title: '花咲みやび',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCZmUoMwjyuQ59sk5_7Tx07A'),
-    title: '夜絆ニウ',
+    id: new ChannelId('UCZgOv3YDEs-ZnZWDYVwJdmA'),
+    title: '奏手イヅル',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCEy9cYULQrC2cRlVqJPCcSw'),
-    title: '水無瀬',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UC8hwewh9svh92E1gXvgVazg'),
-    title: '天帝フォルテ',
+    id: new ChannelId('UCKeAhJvy8zgXWbh9duVjIaQ'),
+    title: 'アルランディス',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCEtUOMEAuAMz8dor89rt2RA'),
-    title: '心白てと',
+    id: new ChannelId('UC9mf_ZVpouoILRY9NUIaK-w'),
+    title: '律可',
+    ...DefaultProps
+  },
+
+  {
+    id: new ChannelId('UCNVEsYbiZjH5QLmGeSgTSzg'),
+    title: 'アステル',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCmpEFsiD67ZOjn2CCJoo1mw'),
-    title: '久我レオ',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCZrYHIPsKhYAXqOls2kQQNQ'),
-    title: '絲依とい',
+    id: new ChannelId('UCGNI4MENvnsymYjKiZwv9eg'),
+    title: '岸堂天真',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCNGMMdEgYIUR6rC44v9aZ8w'),
-    title: '瀬尾カザリ',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCEk1_ZVGRiVV-gxHT9wdNMg'),
-    title: '幽乃うつろ',
+    id: new ChannelId('UCANDOlYTJT7N5jlRC3zfzVA'),
+    title: '夕刻ロベル',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCo6mwsozDGMW0UNGowBJGhg'),
-    title: '昏昏アリア',
+    id: new ChannelId('UChSvpZYRPh0FvG4SJGSga3g'),
+    title: '影山シエン',
+    ...DefaultProps
+  },
+
+  {
+    id: new ChannelId('UCwL7dgTxKo8Y4RFIKWaf8gA'),
+    title: '荒咬オウガ',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UC4Xuz67FNRr69ILv2b7ZRBA'),
-    title: '青桐エイト',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCWnQDjlXTLDyYowc3LaHyJQ'),
-    title: '柊ツルギ',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCKuwxopq9c3cldzSOo4ceSA'),
-    title: '八神ツクモ',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UCAHQGIKolfBfoeXXMY79SBA'),
-    title: '白那しずく',
+    id: new ChannelId('UCc88OV45ICgHbn3ZqLLb52w'),
+    title: '夜十神封魔',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCTxoJgb4DzMd7tiM8cvf4PA'),
-    title: '麻倉シノ',
-    ...DefaultProps,
-    gender: Gender.Male
-  },
-  {
-    id: new ChannelId('UC6FprWVXuULaY9mZOcqTe4A'),
-    title: '甘音あむ',
+    id: new ChannelId('UCgRqGV1gBf2Esxh0Tz1vxzw'),
+    title: '羽継烏有',
     ...DefaultProps
   },
   {
-    id: new ChannelId('UCElYE3bfzjjmJ9xwjvro9Yw'),
-    title: '日裏クロ',
+    id: new ChannelId('UCdfMHxjcCc2HSd9qFvfJgjg'),
+    title: '水無世燐央',
+    ...DefaultProps
+  },
+
+  {
+    id: new ChannelId('UCKeAhJvy8zgXWbh9duVjIaQ'),
+    title: 'Regis Altare',
     ...DefaultProps,
-    gender: Gender.Male
+    defaultLangage: new LanguageTag('en')
   },
   {
-    id: new ChannelId('UCv3EicDtxObcZZmnFcHvNnw'),
-    title: '鬼ヶ谷 テン',
+    id: new ChannelId('UC2hx0xVkMoHGWijwr_lA01w'),
+    title: 'Axel Syrios',
     ...DefaultProps,
-    gender: Gender.Male
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UCHP4f7G2dWD4qib7BMatGAw'),
+    title: 'Gavis Bettel',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UC060r4zABV18vcahAWR1n7w'),
+    title: 'Machina X Flayon',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+
+  {
+    id: new ChannelId('UC7gxU6NXjKF1LrgOddPzgTw'),
+    title: 'Banzoin Hakka',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UCMqGG8BRAiI1lJfKOpETM_w'),
+    title: 'Josuiji Shinri',
+    ...DefaultProps,
+    country: new CountryCode('US'),
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UCTVSOgYuSWmNAt-lnJPkEEw'),
+    title: 'Jurard T Rexford',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UCJv02SHZgav7Mv3V0kBOR8Q'),
+    title: 'Goldbullet',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+
+  {
+    id: new ChannelId('UCLk1hcmxg8rJ3Nm1_GvxTRA'),
+    title: 'Octavio',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
+  },
+  {
+    id: new ChannelId('UCajbFh6e_R8QZdHAMbbi4rQ'),
+    title: 'Crimzon Ruze',
+    ...DefaultProps,
+    defaultLangage: new LanguageTag('en')
   }
 ]
 
