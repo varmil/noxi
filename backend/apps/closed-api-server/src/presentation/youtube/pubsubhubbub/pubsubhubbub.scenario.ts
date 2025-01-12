@@ -29,11 +29,11 @@ export class PubsubhubbubScenario {
   ) {}
 
   async handleUpdatedCallback({ entry }: { entry: UpdatedEntry }) {
-    this.logger.log('hUC', entry.channelId, entry.videoId)
+    this.logger.log(`hUC: ${entry.videoId.get()}`, entry.toJSON())
 
     const channel = await this.channelsService.findById(entry.channelId)
     if (!channel) {
-      this.logger.warn('hUC channel not found:', entry)
+      this.logger.warn('hUC channel not found:', entry.toJSON())
       return
     }
 
@@ -41,13 +41,13 @@ export class PubsubhubbubScenario {
       where: { channelId: channel.basicInfo.id }
     })
     if (!group) {
-      this.logger.warn('hUC group not found:', entry)
+      this.logger.warn('hUC group not found:', entry.toJSON())
       return
     }
 
     const video = await this.videosService.findById(entry.videoId)
     if (!video) {
-      this.logger.warn('hUC video not found:', entry)
+      this.logger.warn('hUC video not found:', entry.toJSON())
       return
     }
 
@@ -61,34 +61,33 @@ export class PubsubhubbubScenario {
    * ので注意。シンプルに「削除」でも良いかもしれない．．．
    * */
   async handleDeletedCallback({ entry }: { entry: DeletedEntry }) {
-    this.logger.log('handleDeletedCallback', entry.channelId, entry.videoId)
+    this.logger.log('hDC', entry.toJSON())
 
-    const stream = await this.streamsService.findOne({
-      where: { videoId: entry.videoId }
-    })
-    if (!stream) {
-      this.logger.warn('handleDeletedCallback stream not found:', entry)
+    const video = await this.videosService.findById(entry.videoId)
+    if (!video || !video.liveStreamingDetails) {
+      this.logger.warn('hDC video not found:', entry.toJSON())
       return
     }
+    const { id: videoId, liveStreamingDetails } = video
 
-    if (stream.status === StreamStatusScheduled) {
-      this.logger.log(`delete scheduled stream ${stream.videoId.get()}`)
-      await this.streamsService.delete({ where: { videoId: stream.videoId } })
+    if (video.streamStatus?.equals(StreamStatusScheduled)) {
+      this.logger.log(`delete scheduled stream ${videoId.get()}`)
+      await this.streamsService.delete({ where: { videoId } })
     } else {
       // コメント参照
-      this.logger.log(`end stream ${stream.videoId.get()}`)
+      this.logger.log(`end stream ${videoId.get()}`)
 
       await this.promiseService.allSettled([
         this.streamsService.updateStreamTimes({
-          where: { videoId: stream.videoId },
-          data: stream.streamTimes.end()
+          where: { videoId },
+          data: liveStreamingDetails?.streamTimes.end()
         }),
         this.chatBundleQueuesService.save({
-          where: { videoId: stream.videoId },
+          where: { videoId },
           data: { status: QueueStatusUnprocessed }
         }),
         this.supersBundleQueuesService.save({
-          where: { videoId: stream.videoId },
+          where: { videoId },
           data: { status: QueueStatusUnprocessed }
         })
       ])

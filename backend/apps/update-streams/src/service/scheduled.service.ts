@@ -97,7 +97,7 @@ export class ScheduledService {
         if (!liveStreamingDetails) return
         const { actualStartTime } = liveStreamingDetails.streamTimes
 
-        console.log('start the stream:', video.snippet.title)
+        console.log('start the stream:', video.id.get())
 
         await this.streamsService.updateStreamTimes({
           where: { videoId: video.id },
@@ -139,7 +139,7 @@ export class ScheduledService {
         const { scheduledStartTime, actualStartTime, actualEndTime } =
           liveStreamingDetails.streamTimes
 
-        console.log('end scheduled stream:', video.snippet.title)
+        console.log('end scheduled stream:', video.id.get())
 
         await this.streamsService.updateStreamTimes({
           where: { videoId: video.id },
