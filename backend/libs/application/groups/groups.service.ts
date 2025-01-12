@@ -8,6 +8,7 @@ export class GroupsService {
     private readonly groupRepository: GroupRepository
   ) {}
 
+  /** @deprecated DBからFetchする形にしたい */
   findAll(): Groups {
     return AllGroups
   }
