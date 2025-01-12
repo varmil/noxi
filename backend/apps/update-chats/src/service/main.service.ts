@@ -17,14 +17,12 @@ export class MainService {
     private readonly streamsService: StreamsService
   ) {}
 
-  // TODO: chunk streams
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /**
    * * スケジュールの場合、スケジュール上の開始から取得する
    * * 終了済みの場合、終了後2分間取得
    * * メンバー限定配信は省く
    */
-  async fetchLives() {
+  async fetchLives({ limit, offset }: { limit?: number; offset?: number }) {
     return (
       await this.streamsService.findAll({
         where: {
@@ -42,7 +40,9 @@ export class MainService {
             }
           ]
         },
-        limit: 1000
+        orderBy: [{ scheduledStartTime: 'asc' }],
+        limit,
+        offset
       })
     ).filter(stream => !stream.membersOnly)
   }
