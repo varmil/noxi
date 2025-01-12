@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { MainService } from 'apps/bundle-supers/src/service/main.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
@@ -10,6 +10,9 @@ import { VideoIds } from '@domain/youtube'
 
 @Injectable()
 export class MainScenario {
+  private readonly CHUNK_SIZE = 100
+  private readonly logger = new Logger(MainScenario.name)
+
   constructor(
     private readonly mainService: MainService,
     private readonly promiseService: PromiseService,
@@ -24,50 +27,56 @@ export class MainScenario {
   }
 
   private async executeLives() {
-    const streams = await this.mainService.fetchLives()
-    console.log(
-      'executeLives()',
-      streams.map(task => task.videoId.get())
-    )
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
 
-    const promises = streams.map(async stream => {
-      const {
-        videoId,
-        streamTimes: { actualStartTime, actualEndTime },
-        snippet: { channelId },
-        group
-      } = stream
-
-      if (!actualStartTime) {
-        throw new Error(`actualStartTime not found for ${videoId.get()}`)
-      }
-
-      const { amountMicros, count } =
-        await this.mainService.calculateTotalInJPY(videoId)
-
-      await this.supersBundlesService.save({
-        data: new SupersBundle({
-          videoId,
-          channelId,
-          amountMicros,
-          count,
-          actualStartTime,
-          actualEndTime,
-          group
+    while (true) {
+      try {
+        const streams = await this.mainService.fetchLives({
+          limit: this.CHUNK_SIZE,
+          offset
         })
-      })
-    })
+        if (streams.length === 0) break
+        offset += this.CHUNK_SIZE
 
-    await this.promiseService.allSettled(promises)
+        const promises = streams.map(async stream => {
+          const {
+            videoId,
+            streamTimes: { actualStartTime, actualEndTime },
+            snippet: { channelId },
+            group
+          } = stream
+
+          if (!actualStartTime) {
+            throw new Error(`actualStartTime not found for ${videoId.get()}`)
+          }
+
+          const { amountMicros, count } =
+            await this.mainService.calculateTotalInJPY(videoId)
+
+          await this.supersBundlesService.save({
+            data: new SupersBundle({
+              videoId,
+              channelId,
+              amountMicros,
+              count,
+              actualStartTime,
+              actualEndTime,
+              group
+            })
+          })
+        })
+        await this.promiseService.allSettled(promises)
+
+        this.logger.log(`executeLives/chunk: ${index(offset)}`)
+      } catch (e) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, e)
+      }
+    }
   }
 
   private async executeQueues() {
     const tasks = await this.mainService.fetchQueues()
-    console.log(
-      'executeQueues()',
-      tasks.map(task => task.videoId.get())
-    )
-
     const streams = await this.streamsService.findAll({
       where: {
         videoIds: new VideoIds(tasks.map(task => task.videoId))

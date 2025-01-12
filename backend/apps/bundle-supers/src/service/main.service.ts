@@ -18,13 +18,19 @@ export class MainService {
     private readonly superStickersService: SuperStickersService
   ) {}
 
-  // TODO: chunk streams
-  // @see backend/apps/summarize-channels/src/scenario/main.scenario.ts
   /** live中（リアルタイム） */
-  async fetchLives() {
+  async fetchLives({
+    limit,
+    offset
+  }: {
+    limit?: number
+    offset?: number
+  }): Promise<Streams> {
     return await this.streamsService.findAll({
       where: { status: new StreamStatus('live') },
-      limit: 1000
+      orderBy: [{ actualStartTime: 'asc' }],
+      limit,
+      offset
     })
   }
 
