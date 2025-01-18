@@ -129,7 +129,7 @@
         "asmr": {
           "metadata": {
             "title": "{channel} ASMR動画一覧",
-            "description": "{channel}のASMR動画一覧をチェック！最新のASMRライブ配信や過去のASMRをまとめて確認。推しの配信を見逃さず楽しもう！"
+            "description": "{channel}のASMR動画一覧をチェック！最新のASMRライブ配信やメン限のASMRをまとめて確認。推しの配信を見逃さず楽しもう！"
           },
           "section": {
             "title": "ASMR動画の一覧"
@@ -438,6 +438,7 @@
     "stream": {
       "noLive": "現在配信中のライブはありません。",
       "noScheduled": "配信予定のライブはありません。",
+      "noEnded": "ライブはまだありません。",
       "likes": "高評価",
       "scheduledLabel": "配信予定"
     },

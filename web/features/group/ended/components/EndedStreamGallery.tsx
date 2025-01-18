@@ -14,7 +14,7 @@ import { getGroup } from 'lib/server-only-context/cache'
 type Props = {
   compact?: boolean
   showHeader?: boolean
-  where?: { channelId?: string; group?: GroupString }
+  where?: { title?: string; channelId?: string; group?: GroupString }
 }
 
 export default async function EndedStreamGallery({
@@ -22,8 +22,9 @@ export default async function EndedStreamGallery({
   showHeader,
   where
 }: PropsWithoutRef<Props>) {
-  const { channelId, group } = where || {}
+  const { title, channelId, group } = where || {}
   const streams = await getStreams({
+    title,
     status: 'ended',
     group,
     channelId,

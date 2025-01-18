@@ -129,7 +129,7 @@
         "asmr": {
           "metadata": {
             "title": "ASMR Videos on {channel}",
-            "description": "Discover the complete list of ASMR from {channel}! Stay updated with their latest ASMR live and past ASMR broadcasts. Never miss your favorite VTuber's streams!"
+            "description": "Discover the complete list of ASMR from {channel}! Stay updated with their latest ASMR live and members only ASMR broadcasts. Never miss your favorite VTuber's streams!"
           },
           "section": {
             "title": "ASMR Videos"
@@ -438,6 +438,7 @@
     "stream": {
       "noLive": "There are no live streams at the moment.",
       "noScheduled": "There are no scheduled live streams at the moment.",
+      "noEnded": "There are no live streams at the moment.",
       "likes": "Likes",
       "scheduledLabel": "UPCOMING"
     },
