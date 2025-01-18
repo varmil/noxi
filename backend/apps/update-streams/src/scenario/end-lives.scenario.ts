@@ -41,7 +41,7 @@ export class EndLivesScenario {
         const { actualStartTime, actualEndTime } =
           liveStreamingDetails.streamTimes
 
-        console.log('end the stream:', video.snippet.title)
+        console.log('end the stream:', video.snippet.title.get())
 
         await this.promiseService.allSettled([
           // save duration here because it is not available while live

@@ -10,6 +10,7 @@ const toPrismaWhere = (
   where: StreamFindAllWhere
 ): Prisma.YoutubeStreamWhereInput => {
   const {
+    title,
     status,
     videoIds,
     group,
@@ -19,6 +20,7 @@ const toPrismaWhere = (
     OR
   } = where
   return {
+    title: { contains: title?.get(), mode: 'insensitive' },
     status: status?.get(),
     videoId: { in: videoIds?.map(e => e.get()) },
     group: group?.get(),

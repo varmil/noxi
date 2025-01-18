@@ -34,7 +34,7 @@ export class UpsertYoutubeStream {
       videoId: videoId.get(),
       publishedAt: publishedAt.get(),
       channelId: channelId.get(),
-      title,
+      title: title.get(),
       description,
       thumbnails,
       tags,
@@ -68,7 +68,7 @@ export class UpsertYoutubeStream {
     } = this.stream
 
     return {
-      title,
+      title: title.get(),
       description,
       views: views ?? null
     }

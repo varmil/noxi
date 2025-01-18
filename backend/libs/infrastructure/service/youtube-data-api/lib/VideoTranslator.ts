@@ -12,7 +12,8 @@ import {
   VideoSnippet,
   Statistics,
   Video,
-  VideoId
+  VideoId,
+  VideoTitle
 } from '@domain/youtube'
 import { LiveChatId } from '@domain/youtube/live-chat-message'
 import { videoAPISchema } from './VideoAPISchema'
@@ -24,8 +25,14 @@ export class VideoTranslator {
     const v = this.parse()
     if (!v) return undefined
 
-    const { channelId, publishedAt, categoryId, defaultLanguage, ...sRest } =
-      v.snippet
+    const {
+      channelId,
+      publishedAt,
+      title,
+      categoryId,
+      defaultLanguage,
+      ...sRest
+    } = v.snippet
     const { viewCount, likeCount, commentCount } = v.statistics
     const {
       scheduledStartTime,
@@ -41,6 +48,7 @@ export class VideoTranslator {
         ...sRest,
         channelId: new ChannelId(channelId),
         publishedAt: new PublishedAt(new Date(publishedAt)),
+        title: new VideoTitle(title),
         categoryId: Number(categoryId),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)

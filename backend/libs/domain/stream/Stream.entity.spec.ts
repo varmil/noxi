@@ -8,7 +8,8 @@ import {
   Duration,
   PublishedAt,
   UpdatedAt,
-  VideoId
+  VideoId,
+  VideoTitle
 } from '@domain/youtube'
 import { Stream } from './Stream.entity'
 
@@ -17,7 +18,7 @@ const stream = new Stream({
   snippet: {
     publishedAt: new PublishedAt(new Date()),
     channelId: new ChannelId('1'),
-    title: 'test',
+    title: new VideoTitle('test'),
     description: 'test',
     thumbnails: {
       default: {
@@ -51,7 +52,7 @@ const NotMembersOnlyStreams = [
   title =>
     new Stream({
       ...stream,
-      snippet: { ...stream.snippet, title }
+      snippet: { ...stream.snippet, title: new VideoTitle(title) }
     })
 )
 
@@ -68,7 +69,7 @@ const MembersOnlyStreams = [
   title =>
     new Stream({
       ...stream,
-      snippet: { ...stream.snippet, title }
+      snippet: { ...stream.snippet, title: new VideoTitle(title) }
     })
 )
 

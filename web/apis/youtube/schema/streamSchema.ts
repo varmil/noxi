@@ -16,8 +16,7 @@ export const responseSchema = z.object({
         width: z.number().optional(),
         height: z.number().optional()
       })
-    ),
-    categoryId: z.number()
+    )
   }),
 
   duration: z.string().duration().optional(),

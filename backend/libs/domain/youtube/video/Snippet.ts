@@ -1,17 +1,19 @@
 import { Exclude, Transform } from 'class-transformer'
 import { LanguageTag } from '@domain/country'
-import { ChannelId, PublishedAt, Thumbnails } from '@domain/youtube'
+import { ChannelId, PublishedAt, Thumbnails, VideoTitle } from '@domain/youtube'
 
 export class VideoSnippet {
   @Transform(({ value }: { value: PublishedAt }) => value.get())
   public readonly publishedAt: PublishedAt
   @Transform(({ value }: { value: ChannelId }) => value.get())
   public readonly channelId: ChannelId
-  public readonly title: string
+  @Transform(({ value }: { value: VideoTitle }) => value.get())
+  public readonly title: VideoTitle
   public readonly description: string
   public readonly thumbnails: Thumbnails
   @Exclude()
   public readonly tags: string[]
+  @Exclude()
   public readonly categoryId: number
   @Exclude()
   public readonly defaultLanguage?: LanguageTag
@@ -19,7 +21,7 @@ export class VideoSnippet {
   constructor(args: {
     publishedAt: PublishedAt
     channelId: ChannelId
-    title: string
+    title: VideoTitle
     description: string
     thumbnails: Thumbnails
     tags?: string[] | null
