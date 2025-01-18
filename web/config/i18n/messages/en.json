@@ -128,11 +128,11 @@
         },
         "asmr": {
           "metadata": {
-            "title": "{channel} ASMR",
+            "title": "ASMR Videos on {channel}",
             "description": "Discover the complete list of ASMR from {channel}! Stay updated with their latest ASMR live and past ASMR broadcasts. Never miss your favorite VTuber's streams!"
           },
           "section": {
-            "title": "ASMR"
+            "title": "ASMR Videos"
           }
         },
         "live": {

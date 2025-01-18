@@ -128,11 +128,11 @@
         },
         "asmr": {
           "metadata": {
-            "title": "{channel} ASMR",
-            "description": "{channel}のASMR配信一覧をチェック！最新のASMRライブ配信や過去のASMRをまとめて確認。推しの配信を見逃さず楽しもう！"
+            "title": "{channel} ASMR動画一覧",
+            "description": "{channel}のASMR動画一覧をチェック！最新のASMRライブ配信や過去のASMRをまとめて確認。推しの配信を見逃さず楽しもう！"
           },
           "section": {
-            "title": "ASMR"
+            "title": "ASMR動画の一覧"
           }
         },
         "live": {
