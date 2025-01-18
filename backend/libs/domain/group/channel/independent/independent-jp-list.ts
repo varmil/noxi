@@ -176,6 +176,12 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCXUUh47D2VNtpsMjut8OHgQ'),
+    title: '麻酔 Masui',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCHkgbFkEddyLE5uQMCem_aw'),
     title: 'でいすいのゲームちゃんねる',
     ...DefaultProps,
@@ -343,6 +349,11 @@ export const JPList: GroupChannel[] = [
     title: 'ナポ・レボリューション',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCabr_YRuRIixVeQy8BMsMPg'),
+    title: '黒月夜桜',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
