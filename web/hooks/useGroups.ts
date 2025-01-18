@@ -13,10 +13,11 @@ const counts = {
   'nijisanji-en': { val: 11, isAll: false },
   vspo: { val: 23, isAll: true },
   'neo-porte': { val: 21, isAll: true },
+  'aogiri-high-school': { val: 14, isAll: true },
   specialite: { val: 21, isAll: true },
   mixstgirls: { val: 8, isAll: true },
   'idol-corp': { val: 13, isAll: true },
-  independent: { val: 65, isAll: false },
+  independent: { val: 67, isAll: false },
   'independent-irl': { val: 14, isAll: false }
 }
 
