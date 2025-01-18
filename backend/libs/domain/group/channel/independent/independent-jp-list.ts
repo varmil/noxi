@@ -356,14 +356,19 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
+    title: '白樺るるは',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
     title: '四宮 伊織 / SHINOMIYA Iori',
     ...DefaultProps,
     gender: Gender.Male
   },
   {
-    id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
-    title: '白樺るるは',
+    id: new ChannelId('UCQudM1LZYLl06QLmqtKQUiQ'),
+    title: '柏木もも',
     ...DefaultProps
   },
   {
