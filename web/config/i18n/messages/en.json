@@ -126,6 +126,15 @@
             "chart": {}
           }
         },
+        "asmr": {
+          "metadata": {
+            "title": "{channel} ASMR",
+            "description": "Discover the complete list of ASMR from {channel}! Stay updated with their latest ASMR live and past ASMR broadcasts. Never miss your favorite VTuber's streams!"
+          },
+          "section": {
+            "title": "ASMR"
+          }
+        },
         "live": {
           "metadata": {
             "title": "{channel} Live Streams",
@@ -281,6 +290,9 @@
             "description": "Check the trends of Super Chat for 90 days (This is a beta version because PeakX has only recently been released)."
           }
         }
+      },
+      "asmr": {
+        "nav": "ASMR"
       },
       "live": {
         "nav": "Live"

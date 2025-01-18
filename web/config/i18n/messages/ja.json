@@ -126,6 +126,15 @@
             "chart": {}
           }
         },
+        "asmr": {
+          "metadata": {
+            "title": "{channel} ASMR",
+            "description": "{channel}のASMR配信一覧をチェック！最新のASMRライブ配信や過去のASMRをまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "ASMR"
+          }
+        },
         "live": {
           "metadata": {
             "title": "{channel} ライブ",
@@ -281,6 +290,9 @@
             "description": "90日間のスパチャ推移を確認できます（PeakXリリースから日が浅いためβ版となります）"
           }
         }
+      },
+      "asmr": {
+        "nav": "ASMR"
       },
       "live": {
         "nav": "ライブ"
