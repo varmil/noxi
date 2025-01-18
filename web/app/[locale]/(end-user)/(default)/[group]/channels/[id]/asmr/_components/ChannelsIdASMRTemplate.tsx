@@ -14,7 +14,7 @@ export async function ChannelsIdASMRTemplate({ id }: PropsWithoutRef<Props>) {
   return (
     <Sections>
       <Section title={t('section.title')}>
-        <Suspense fallback={<p>Loading Live Streams...</p>}>
+        <Suspense fallback={<p>Loading ASMR Streams...</p>}>
           <EndedStreamGallery where={{ channelId: id }} />
         </Suspense>
       </Section>

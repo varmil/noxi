@@ -6,6 +6,7 @@ import { GroupsAppModule } from '@app/groups/groups.app.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { StreamsModule } from '@app/streams/streams.module'
 import { SupersBundleQueuesModule } from '@app/supers-bundle-queues/supers-bundle-queues.module'
+import { PubsubhubbubAppModule } from '@app/youtube/pubsubhubbub/pubsubhubbub.app.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { PubsubhubbubScenario } from './pubsubhubbub.scenario'
 
@@ -15,6 +16,7 @@ import { PubsubhubbubScenario } from './pubsubhubbub.scenario'
     ChatBundleQueuesModule,
     SupersBundleQueuesModule,
     GroupsAppModule,
+    PubsubhubbubAppModule,
     StreamsModule,
     YoutubeAppModule
   ],

@@ -34,7 +34,7 @@ export class StreamTimes {
   }
 
   /**
-   * actualEndTimeを現在時刻で埋める
+   * actualEndTimeがなければ現在時刻で埋める
    * @returns StreamTimes
    */
   @Exclude()
@@ -42,7 +42,7 @@ export class StreamTimes {
     return new StreamTimes({
       scheduledStartTime: this.scheduledStartTime,
       actualStartTime: this.actualStartTime,
-      actualEndTime: new ActualEndTime(new Date())
+      actualEndTime: this.actualEndTime ?? new ActualEndTime(new Date())
     })
   }
 }

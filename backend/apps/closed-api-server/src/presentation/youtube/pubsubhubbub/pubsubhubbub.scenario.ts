@@ -6,6 +6,7 @@ import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
 import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { CallbackService } from '@app/youtube/pubsubhubbub/callback.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { StreamStatusScheduled } from '@domain/stream'
 import { DeletedEntry, UpdatedEntry } from '@domain/youtube'
@@ -20,6 +21,7 @@ export class PubsubhubbubScenario {
 
   constructor(
     private readonly promiseService: PromiseService,
+    private readonly callbackService: CallbackService,
     private readonly channelsService: ChannelsService,
     private readonly groupsService: GroupsService,
     private readonly streamsService: StreamsService,
@@ -56,31 +58,26 @@ export class PubsubhubbubScenario {
   }
 
   /**
-   * ライブ後、非公開（UnArchived）になる場合、ここに来る
-   * 正常な終了処理ではないのでBundleキューなどupdate-streams終了処理はスキップされる
-   * ので注意。シンプルに「削除」でも良いかもしれない．．．
+   * - ライブ後、非公開（UnArchived）or 削除された場合
+   * - 普通に公開だが、ライブストリームが終了した場合
+   *
+   * いずれもここに来る。特に後者が謎。
+   * 正常な終了処理ではないので、分岐で対応する必要がある
    * */
   async handleDeletedCallback({ entry }: { entry: DeletedEntry }) {
     this.logger.log('hDC', entry.toJSON())
+    const videoId = entry.videoId
+    const streamTimes = await this.callbackService.findStreamTimes(videoId)
 
-    const video = await this.videosService.findById(entry.videoId)
-    if (!video || !video.liveStreamingDetails) {
-      this.logger.warn('hDC video not found:', entry.toJSON())
-      return
-    }
-    const { id: videoId, liveStreamingDetails } = video
-
-    if (video.streamStatus?.equals(StreamStatusScheduled)) {
+    if (streamTimes.streamStatus.equals(StreamStatusScheduled)) {
       this.logger.log(`delete scheduled stream ${videoId.get()}`)
       await this.streamsService.delete({ where: { videoId } })
     } else {
-      // コメント参照
-      this.logger.log(`end stream ${videoId.get()}`)
-
+      this.logger.log(`delete/unArchived stream ${videoId.get()}`)
       await this.promiseService.allSettled([
         this.streamsService.updateStreamTimes({
           where: { videoId },
-          data: liveStreamingDetails?.streamTimes.end()
+          data: streamTimes.end()
         }),
         this.chatBundleQueuesService.save({
           where: { videoId },
