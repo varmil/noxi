@@ -13,6 +13,7 @@ export const GroupStrings = [
   'nijisanji-en',
   'vspo',
   'neo-porte',
+  'aogiri-high-school',
   'specialite',
   'mixstgirls',
   'idol-corp',

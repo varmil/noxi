@@ -4,6 +4,7 @@ export const GroupStrings = [
   'vspo',
   'neo-porte',
   'holostars',
+  'aogiri-high-school',
   'specialite',
   'mixstgirls',
   'hololive-english',

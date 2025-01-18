@@ -1,5 +1,6 @@
 import { GroupString } from '@domain/group'
 import {
+  GroupChannels,
   Hololive,
   HololiveEnglish,
   HololiveIndonesia,
@@ -8,10 +9,10 @@ import {
   NijisanjiEN,
   VSPO,
   NeoPorte,
-  GroupChannels,
+  AogiriHighSchool,
+  Specialite,
   Mixstgirls,
   IdolCorp,
-  Specialite,
   Independent,
   IndependentIRL
 } from '@domain/group/channel'
@@ -26,6 +27,7 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
   'nijisanji-en': new NijisanjiEN(),
   vspo: new VSPO(),
   'neo-porte': new NeoPorte(),
+  'aogiri-high-school': new AogiriHighSchool(),
   specialite: new Specialite(),
   mixstgirls: new Mixstgirls(),
   'idol-corp': new IdolCorp(),
@@ -42,6 +44,7 @@ export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
   'nijisanji-en': new NijisanjiEN().channelIds(),
   vspo: new VSPO().channelIds(),
   'neo-porte': new NeoPorte().channelIds(),
+  'aogiri-high-school': new AogiriHighSchool().channelIds(),
   specialite: new Specialite().channelIds(),
   mixstgirls: new Mixstgirls().channelIds(),
   'idol-corp': new IdolCorp().channelIds(),
