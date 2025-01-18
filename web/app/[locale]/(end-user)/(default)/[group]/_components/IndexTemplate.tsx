@@ -15,13 +15,17 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           <ChannelGallery limit={6} footer />
         </section>
         <section className="col-span-full">
-          <LiveStreamGallery compact />
+          <LiveStreamGallery compact showHeader />
         </section>
         <section className="col-span-full">
-          <ScheduledStreamGallery compact />
+          <ScheduledStreamGallery compact showHeader />
         </section>
         <section className="col-span-full">
-          <EndedStreamGallery where={{ group: getGroup() }} compact />
+          <EndedStreamGallery
+            where={{ group: getGroup() }}
+            compact
+            showHeader
+          />
         </section>
       </div>
     </>

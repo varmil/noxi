@@ -13,11 +13,13 @@ import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   compact?: boolean
+  showHeader?: boolean
   where?: { channelId?: string; group?: GroupString }
 }
 
 export default async function EndedStreamGallery({
   compact,
+  showHeader,
   where
 }: PropsWithoutRef<Props>) {
   const { channelId, group } = where || {}
@@ -33,14 +35,18 @@ export default async function EndedStreamGallery({
 
   return (
     <Card>
-      <StreamListHeader
-        titleIcon={<History className="w-6 h-6 text-muted-foreground" />}
-        title={t('title')}
-        description={t('description', {
-          group: (await getTranslations('Global.group'))(`${getGroup()}`)
-        })}
-        badgeText="Archive"
-      />
+      {showHeader ? (
+        <StreamListHeader
+          titleIcon={<History className="w-6 h-6 text-muted-foreground" />}
+          title={t('title')}
+          description={t('description', {
+            group: (await getTranslations('Global.group'))(`${getGroup()}`)
+          })}
+          badgeText="Archive"
+        />
+      ) : (
+        <div className="pb-6"></div>
+      )}
 
       <EndedStreamGalleryContent streams={streams} compact={compact} />
 

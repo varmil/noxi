@@ -11,10 +11,12 @@ import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   compact?: boolean
+  showHeader?: boolean
 }
 
 export default async function LiveStreamGallery({
-  compact
+  compact,
+  showHeader
 }: PropsWithoutRef<Props>) {
   const group = getGroup()
   const [t, streams] = await Promise.all([
@@ -29,14 +31,19 @@ export default async function LiveStreamGallery({
 
   return (
     <Card>
-      <StreamListHeader
-        titleIcon={<Radio className="w-6 h-6 text-red-400" />}
-        title={t('live.title')}
-        description={t('live.description', {
-          group: (await getTranslations('Global.group'))(`${group}`)
-        })}
-        badgeText="Live"
-      />
+      {showHeader ? (
+        <StreamListHeader
+          titleIcon={<Radio className="w-6 h-6 text-red-400" />}
+          title={t('live.title')}
+          description={t('live.description', {
+            group: (await getTranslations('Global.group'))(`${group}`)
+          })}
+          badgeText="Live"
+        />
+      ) : (
+        <div className="pb-6"></div>
+      )}
+
       <LiveStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/live`} />}
     </Card>
