@@ -1,8 +1,7 @@
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsString } from 'class-validator'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 export class VideoDescription extends StringValueObject {
-  @IsNotEmpty()
   @IsString()
   protected readonly val: string
 

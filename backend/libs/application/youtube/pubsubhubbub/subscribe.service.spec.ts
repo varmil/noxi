@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { PubsubhubbubModule } from '@app/youtube/pubsubhubbub/pubsubhubbub.module'
+import { PubsubhubbubAppModule } from '@app/youtube/pubsubhubbub/pubsubhubbub.app.module'
 import { SubscribeService } from '@app/youtube/pubsubhubbub/subscribe.service'
 import { Channels } from '@domain/youtube'
 
@@ -10,7 +10,7 @@ describe('SubscribeService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [LibAppModule, PubsubhubbubModule]
+      imports: [LibAppModule, PubsubhubbubAppModule]
     }).compile()
 
     service = module.get<SubscribeService>(SubscribeService)

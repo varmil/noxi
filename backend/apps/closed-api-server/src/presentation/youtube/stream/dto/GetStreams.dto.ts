@@ -14,9 +14,13 @@ import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { StreamStatus, StreamRepository } from '@domain/stream'
-import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
+import { ChannelId, VideoId, VideoIds, VideoTitle } from '@domain/youtube'
 
 export class GetStreamsDto {
+  @IsOptional()
+  @IsString()
+  title?: string
+
   @IsOptional()
   @IsIn(['scheduled', 'live', 'ended'])
   @IsNotEmpty()
@@ -95,6 +99,8 @@ export class GetStreamsDto {
   @IsInt()
   @Type(() => Number)
   offset?: number
+
+  toTitle = () => (this.title ? new VideoTitle(this.title) : undefined)
 
   toStatus = () => (this.status ? new StreamStatus(this.status) : undefined)
 

@@ -9,7 +9,8 @@ import {
   PublishedAt,
   VideoSnippet,
   VideoId,
-  UpdatedAt
+  UpdatedAt,
+  VideoTitle
 } from '@domain/youtube'
 import type { YoutubeStream as PrismaYoutubeStream } from '@prisma/client'
 
@@ -28,7 +29,7 @@ export class StreamTranslator {
       snippet: new VideoSnippet({
         publishedAt: new PublishedAt(row.publishedAt),
         channelId: new ChannelId(row.channelId),
-        title: row.title,
+        title: new VideoTitle(row.title),
         description: row.description ?? '',
         thumbnails: row.thumbnails,
         tags: row.tags,

@@ -63,7 +63,7 @@ export class MainService {
     if (!continuation) {
       this.logger.warn({
         message: `${videoId.get()} continuation is undefined`,
-        title: stream.snippet.title,
+        title: stream.snippet.title.get(),
         cause: `
         * Maybe the Live Stream is already ended.
         * Maybe the stream is member only.`
@@ -75,14 +75,6 @@ export class MainService {
       await this.youtubeiLiveChatInfraService.list({
         continuation
       })
-
-    if (nextContinuation === undefined) {
-      this.logger.log({
-        message: `${stream.videoId.get()} nextContinuation is undefined`,
-        title: stream.snippet.title,
-        items: items.length
-      })
-    }
 
     const newMessages = items.selectNewerThan(
       latestChatCount?.latestPublishedAt
@@ -117,7 +109,7 @@ export class MainService {
     } else {
       this.logger.log({
         message: `${videoId.get()} Refresh continuation`,
-        title
+        title: title.get()
       })
       const options = await new FirstContinuationFetcher().fetch(videoId)
       return options?.continuation

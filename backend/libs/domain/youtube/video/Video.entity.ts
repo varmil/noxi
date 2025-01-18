@@ -85,7 +85,7 @@ export class Video {
   get isPaidPromotion(): IsPaidPromotion | undefined {
     const { title, description } = this.snippet
     const searchStrs = ['#PR']
-    const isPaidPromotion = [title, description].some(str =>
+    const isPaidPromotion = [title.get(), description].some(str =>
       searchStrs.some(e => {
         return new RegExp(String.raw`${e}\b`, 'i').test(str)
       })

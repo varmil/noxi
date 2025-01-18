@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
@@ -17,6 +18,8 @@ export default async function EndedStreamGalleryContent({
   streams,
   compact
 }: Props) {
+  const [t] = await Promise.all([getTranslations('Features.stream')])
+
   /** compact表示のときはFooterにリンクが出るので、ここでの「もっと見る」は出さない */
   const FIRST_VIEW_LIMIT = 28
   const isCollapsible = !compact && streams.length > FIRST_VIEW_LIMIT
@@ -26,6 +29,10 @@ export default async function EndedStreamGalleryContent({
   return (
     <CardContent>
       <GridCardGalleryContent>
+        {streams.length === 0 && (
+          <p className="text-muted-foreground">{t('noEnded')}</p>
+        )}
+
         <GridCardGalleryFirstView>
           <EndedStreams streams={firstView} compact={compact} />
         </GridCardGalleryFirstView>

@@ -12,11 +12,14 @@ import {
   Duration,
   Thumbnails,
   VideoId,
-  VideoIds
+  VideoIds,
+  VideoTitle
 } from '@domain/youtube'
 import type { Prisma } from '@prisma/client'
 
 export interface StreamFindAllWhere {
+  /** LIKE 検索 */
+  title?: VideoTitle
   status?: StreamStatus
   videoIds?: VideoIds
   group?: Group

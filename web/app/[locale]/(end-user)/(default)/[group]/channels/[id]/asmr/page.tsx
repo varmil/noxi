@@ -3,22 +3,22 @@ import ChannelsIdBasePage, {
   ChannelsIdBasePageProps,
   generateBaseMetadata
 } from '../_components/page/ChannelsIdBasePage'
-import { ChannelsIdLiveTemplate } from './_components/ChannelsIdLiveTemplate'
+import { ChannelsIdASMRTemplate } from './_components/ChannelsIdASMRTemplate'
 
 type Props = ChannelsIdBasePageProps
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateBaseMetadata({
     ...props,
-    namespace: 'Page.group.channelsId.live.metadata'
+    namespace: 'Page.group.channelsId.asmr.metadata'
   })
 }
 
-export default async function GroupChannelsIdLivePage(props: Props) {
+export default async function GroupChannelsIdASMRPage(props: Props) {
   const { id } = await props.params
   return (
     <ChannelsIdBasePage {...props}>
-      <ChannelsIdLiveTemplate id={id} />
+      <ChannelsIdASMRTemplate id={id} />
     </ChannelsIdBasePage>
   )
 }

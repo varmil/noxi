@@ -20,6 +20,7 @@ export class StreamsController {
   async getStreams(@Query() dto: GetStreamsDto) {
     return await this.streamsService.findAll({
       where: {
+        title: dto.toTitle(),
         status: dto.toStatus(),
         videoIds: dto.toVideoIds(),
         group: dto.toGroup(),
@@ -38,6 +39,7 @@ export class StreamsController {
   async getStreamsCount(@Query() dto: GetStreamsDto) {
     return await this.streamsService.count({
       where: {
+        title: dto.toTitle(),
         status: dto.toStatus(),
         videoIds: dto.toVideoIds(),
         group: dto.toGroup(),

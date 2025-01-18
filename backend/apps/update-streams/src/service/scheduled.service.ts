@@ -41,18 +41,6 @@ export class ScheduledService {
         streamScheduledStartTime?.getTime() !==
         stream.streamTimes.scheduledStartTime?.getTime()
       ) {
-        console.log(
-          'update the ScheduledStartTime:',
-          JSON.stringify(
-            {
-              title: video.snippet.title,
-              old: stream.streamTimes.scheduledStartTime,
-              new: streamScheduledStartTime
-            },
-            null,
-            2
-          )
-        )
         await this.streamsService.updateStreamTimes({
           where: { videoId: stream.videoId },
           data: new StreamTimes({
@@ -63,10 +51,6 @@ export class ScheduledService {
 
       // maxresのサムネイルが初回saveで生成されない場合があるのでここでチェック
       if (thumbnails.maxres && !stream.snippet.thumbnails.maxres) {
-        console.log(
-          'update the maxres thumbnail:',
-          JSON.stringify({ title: video.snippet.title }, null, 2)
-        )
         await this.streamsService.updateThumbnails({
           where: { videoId: stream.videoId },
           data: thumbnails

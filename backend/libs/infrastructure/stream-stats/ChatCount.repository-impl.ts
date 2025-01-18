@@ -37,7 +37,6 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
       `
       const quotient = Math.floor(Number(count) / 50)
       if (quotient > 1) {
-        console.log(`c=${count}, q=${quotient}, videoId=${videoId.get()}`)
         skipInterval = Prisma.sql`WHERE "id" % ${quotient} = 0`
       }
     }

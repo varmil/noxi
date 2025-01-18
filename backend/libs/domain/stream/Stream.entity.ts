@@ -59,7 +59,11 @@ export class Stream {
       'メン限'
     ]
     return TITLES.some(title =>
-      this.snippet.title.toLowerCase().replaceAll('-', ' ').includes(title)
+      this.snippet.title
+        .get()
+        .toLowerCase()
+        .replaceAll('-', ' ')
+        .includes(title)
     )
   }
 }

@@ -7,6 +7,7 @@ import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
+  title?: string
   status?: 'scheduled' | 'live' | 'ended'
   videoIds?: string[]
   group?: GroupString
@@ -32,6 +33,7 @@ type Params = {
 }
 
 const createSearchParams = ({
+  title,
   status,
   videoIds,
   group,
@@ -46,6 +48,7 @@ const createSearchParams = ({
   offset
 }: Params) => {
   const searchParams = new URLSearchParams({
+    ...(title && { title }),
     ...(status && { status }),
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(group && { group }),

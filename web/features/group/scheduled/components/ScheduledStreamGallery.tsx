@@ -11,10 +11,12 @@ import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   compact?: boolean
+  showHeader?: boolean
 }
 
 export default async function ScheduledStreamGallery({
-  compact
+  compact,
+  showHeader
 }: PropsWithoutRef<Props>) {
   const group = getGroup()
   const [t, streams] = await Promise.all([
@@ -31,16 +33,23 @@ export default async function ScheduledStreamGallery({
 
   return (
     <Card>
-      <StreamListHeader
-        titleIcon={<CalendarCheck className="w-6 h-6 text-muted-foreground" />}
-        title={t('scheduled.title', {
-          group: (await getTranslations('Global.group'))(`${group}`)
-        })}
-        description={t('scheduled.description', {
-          group: (await getTranslations('Global.group'))(`${group}`)
-        })}
-        badgeText="Scheduled"
-      />
+      {showHeader ? (
+        <StreamListHeader
+          titleIcon={
+            <CalendarCheck className="w-6 h-6 text-muted-foreground" />
+          }
+          title={t('scheduled.title', {
+            group: (await getTranslations('Global.group'))(`${group}`)
+          })}
+          description={t('scheduled.description', {
+            group: (await getTranslations('Global.group'))(`${group}`)
+          })}
+          badgeText="Scheduled"
+        />
+      ) : (
+        <div className="pb-6"></div>
+      )}
+
       <ScheduledStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/scheduled`} />}
     </Card>
