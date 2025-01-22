@@ -43,5 +43,3 @@ updates:
     ignore:
       - dependency-name: '@types/node'
         versions: ['22.x.x', '21.x.x']
-      - dependency-name: 'cache-manager'
-        versions: ['5.x.x']
