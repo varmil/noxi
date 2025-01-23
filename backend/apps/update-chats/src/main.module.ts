@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { GroupsAppModule } from '@app/groups/groups.app.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { StreamStatsModule } from '@app/stream-stats/stream-stats.module'
 import { StreamsModule } from '@app/streams/streams.module'
@@ -18,7 +17,6 @@ import { SaveSuperStickersService } from './service/save-super-stickers.service'
     // in only Local, load .env , in other environments, directly embed with Cloud Run
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
     LibAppModule,
-    GroupsAppModule,
     YoutubeAppModule,
     StreamsModule,
     StreamStatsModule,
