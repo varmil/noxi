@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
+import { Group } from '@domain/group'
 import { SuperChat } from '@domain/supers'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
@@ -11,21 +11,19 @@ export class SaveSuperChatsService {
   private readonly logger = new Logger(SaveSuperChatsService.name)
 
   constructor(
-    private readonly groupsService: GroupsService,
     private readonly promiseService: PromiseService,
     private readonly superChatsService: SuperChatsService
   ) {}
 
   async execute({
     videoId,
-    newMessages
+    newMessages,
+    group
   }: {
     videoId: VideoId
     newMessages: LiveChatMessages
+    group: Group
   }) {
-    const group = await this.groupsService.findOne({ where: { videoId } })
-    if (!group) return
-
     const promises = newMessages.map(async message => {
       if (!message.isSuperChat || !message.snippet.superChatDetails) return
 

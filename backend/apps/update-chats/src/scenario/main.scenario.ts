@@ -4,7 +4,6 @@ import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
-import { StreamsService } from '@app/streams/streams.service'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { Continuation } from '@domain/youtubei/live-chat'
@@ -18,7 +17,6 @@ export class MainScenario {
     private readonly promiseService: PromiseService,
     private readonly mainService: MainService,
     private readonly chatCountsService: ChatCountsService,
-    private readonly streamsService: StreamsService,
     private readonly saveSuperChatsService: SaveSuperChatsService,
     private readonly saveSuperStickersService: SaveSuperStickersService
   ) {}
@@ -37,7 +35,7 @@ export class MainScenario {
         offset += this.CHUNK_SIZE
 
         const promises = streams.map(async stream => {
-          const videoId = stream.videoId
+          const { videoId, group } = stream
           const promises: Promise<void>[] = []
 
           const res = await this.mainService.fetchNewMessages(stream)
@@ -58,10 +56,18 @@ export class MainScenario {
           // super-chats, super-stickers
           {
             promises.push(
-              this.saveSuperChatsService.execute({ videoId, newMessages })
+              this.saveSuperChatsService.execute({
+                videoId,
+                newMessages,
+                group
+              })
             )
             promises.push(
-              this.saveSuperStickersService.execute({ videoId, newMessages })
+              this.saveSuperStickersService.execute({
+                videoId,
+                newMessages,
+                group
+              })
             )
           }
 
@@ -97,13 +103,6 @@ export class MainScenario {
         latestPublishedAt:
           newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
         createdAt: new Date()
-      }
-    })
-
-    await this.streamsService.updateMetrics({
-      where: { videoId },
-      data: {
-        chatMessages: { increment: newMessages.all.get() }
       }
     })
   }
