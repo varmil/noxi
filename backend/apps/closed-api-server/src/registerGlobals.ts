@@ -8,6 +8,10 @@ import compression from 'compression'
 import { useLogger } from '@app/lib/function/useLogger'
 
 export function registerGlobals(app: NestExpressApplication) {
+  // Nest 11 (Express 5)からこれを追加しないと配列型のパースができなくなった
+  // https://github.com/nestjs/nest/issues/14477
+  app.set('query parser', 'extended')
+
   app.useBodyParser('json', { limit: '10mb' })
 
   app.useBodyParser('text', { type: 'application/atom+xml' })
