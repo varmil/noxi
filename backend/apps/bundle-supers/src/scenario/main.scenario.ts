@@ -92,9 +92,15 @@ export class MainScenario {
       })
 
       const stream = this.mainService.findStream({ streams, videoId })
-      if (!stream) return
-      const { actualStartTime, actualEndTime, channelId, group } = stream
+      if (!stream) {
+        // queueからタスクを削除
+        await this.supersBundleQueuesService.delete({
+          where: { videoId }
+        })
+        return
+      }
 
+      const { actualStartTime, actualEndTime, channelId, group } = stream
       const { amountMicros, count } =
         await this.mainService.calculateTotalInJPY(videoId)
 

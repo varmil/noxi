@@ -37,7 +37,7 @@ export class MainScenario {
 
   private async fetchTasks() {
     return await this.chatBundleQueuesService.findAll({
-      limit: 100
+      limit: 300
     })
   }
 }

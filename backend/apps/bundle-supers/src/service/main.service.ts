@@ -73,7 +73,8 @@ export class MainService {
   findStream({ streams, videoId }: { streams: Streams; videoId: VideoId }) {
     const stream = streams.find(s => s.videoId.equals(videoId))
     if (!stream) {
-      throw new Error(`stream not found for ${videoId.get()}`)
+      this.logger.log(`stream not found for ${videoId.get()}`)
+      return undefined
     }
     const {
       streamTimes: { actualStartTime, actualEndTime },
