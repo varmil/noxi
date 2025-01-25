@@ -19,8 +19,12 @@ export async function LiveIdSuperChatTemplate({
  **/
 async function SuperChat({ stream }: { stream: StreamSchema }) {
   const t = await getTranslations('Features.live.superChat')
-  const { videoId, status } = stream
+  const { videoId, status, membersOnly } = stream
+
+  // スケジュール
   if (status === 'scheduled') return <p>{t('notice')}</p>
+  // メンバー限定
+  if (membersOnly) return <p>{t('membersOnly')}</p>
 
   return (
     <section>

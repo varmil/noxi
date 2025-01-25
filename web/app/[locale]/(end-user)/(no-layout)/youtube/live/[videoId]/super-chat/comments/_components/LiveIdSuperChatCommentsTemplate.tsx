@@ -16,8 +16,12 @@ export async function LiveIdSuperChatCommentsTemplate({
 /** SuperChat: Hide when scheduled */
 async function SuperChatComments({ stream }: { stream: StreamSchema }) {
   const t = await getTranslations('Features.live.superChatComments')
-  const { videoId, status } = stream
+  const { videoId, status, membersOnly } = stream
+
+  // スケジュール
   if (status === 'scheduled') return <p>{t('notice')}</p>
+  // メンバー限定
+  if (membersOnly) return <p>{t('membersOnly')}</p>
 
   return <SuperChatGallery videoId={videoId} />
 }

@@ -374,12 +374,14 @@
       "superChat": {
         "nav": "Super Chat",
         "title": "Super Chat amount, trends",
-        "notice": "Super Chat counting will begin once the live stream begins."
+        "notice": "Super Chat counting will begin once the live stream begins.",
+        "membersOnly": "This live stream is for members only, so super chat will not be displayed."
       },
       "superChatComments": {
         "nav": "Super Chat comments",
         "title": "List of Super Chat comments",
-        "notice": "Super Chat counting will begin once the live stream begins."
+        "notice": "Super Chat counting will begin once the live stream begins.",
+        "membersOnly": "This live stream is for members only, so super chat will not be displayed."
       },
       "comments": {
         "nav": "Comments",

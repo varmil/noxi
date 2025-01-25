@@ -36,10 +36,6 @@ export default async function StatsSuperChatTotalAmountCard({
     // }
   )
 
-  if (!chats.length) {
-    return null
-  }
-
   return (
     <StatsCard className={className}>
       <StatsCardHeader>Super Chat</StatsCardHeader>
