@@ -79,7 +79,7 @@ export default async function DefaultModeTemplate({
             {/* Related Videos */}
             <PadSection
               right
-              className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
+              className="hidden @4xl:pt-2 @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
               <div className="flex items-center gap-x-2">
                 <OpenChatButton className="flex-1" />

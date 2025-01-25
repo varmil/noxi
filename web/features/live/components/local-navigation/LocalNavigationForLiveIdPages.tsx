@@ -29,8 +29,8 @@ export default function LocalNavigationForLiveIdPages({
           prefetch: true
         }
       ].filter(e => !!e)}
-      className="border-b mb-8"
-      linkClassName="min-w-20"
+      className="w-full border-b mb-8"
+      linkClassName="min-w-20 sm:min-w-30"
     />
   )
 }
