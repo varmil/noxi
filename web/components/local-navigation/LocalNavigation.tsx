@@ -26,7 +26,7 @@ export default function LocalNavigation({
               key={item.href}
               href={item.href}
               className={cn(
-                'inline-flex items-center justify-center border-b-2 px-3 py-4 text-sm font-medium transition-colors hover:text-foreground focus:outline-none focus:text-foreground focus:border-foreground',
+                'inline-flex items-center justify-center border-b-2 px-3 py-4 text-sm font-medium transition-colors hover:text-foreground focus:outline-hidden focus:text-foreground focus:border-foreground',
                 pathname === item.href
                   ? 'border-foreground text-foreground'
                   : 'border-transparent text-muted-foreground',
