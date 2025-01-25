@@ -1,58 +1,92 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import Image from 'components/styles/Image'
+import { Card, CardContent } from '@/components/ui/card'
+import { getChannels } from 'apis/youtube/getChannels'
+import Bullet from 'components/styles/Bullet'
+import StreamedLive from 'components/styles/date/StreamedLive'
+import Watched from 'components/styles/number/Watched'
 import Watching from 'components/styles/number/Watching'
-import Views from 'components/youtube/statistics/Views'
+import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import { Link } from 'lib/navigation'
 import { getRelatedVideos } from '../../../utils/getRelatedVideos'
 
 export default async function RelatedVideos({
+  type,
   channelId,
   className
-}: PropsWithoutRef<{ channelId: string; className?: string }>) {
+}: PropsWithoutRef<{
+  type: 'live' | 'ended'
+  channelId: string
+  className?: string
+}>) {
   const relatedVideos = await getRelatedVideos({
+    type,
     channelId: channelId
   })
+  const [channels] = await Promise.all([
+    getChannels({
+      ids: relatedVideos.map(stream => stream.snippet.channelId),
+      limit: relatedVideos.length
+    })
+  ])
 
   return (
     <Card
-      className={`bg-secondary border-none lg:bg-transparent lg:shadow-none ${
-        className ?? ''
-      }`}
+      className={`border-none bg-transparent shadow-none ${className ?? ''}`}
     >
-      <CardHeader className="lg:hidden">
-        <CardTitle>Related Videos</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4 lg:px-0">
-        {relatedVideos.map(video => (
-          <Link
-            className="flex space-x-2"
-            key={video.id}
-            href={`/youtube/live/${video.id}`}
-          >
-            <Image
-              src={video.thumbnail ?? ''}
-              alt={video.title}
-              className="w-40 h-24 object-cover rounded-md"
-              width={160}
-              height={96}
-            />
-            <div>
-              <h3 className="break-anywhere text-sm line-clamp-2 mb-1">
-                {video.title}
-              </h3>
-              <WeakLine>{video.channel}</WeakLine>
-              <WeakLine>
-                {video.status === 'live' ? (
-                  <Watching count={video.concurrentViewers} />
-                ) : null}
-                {video.status === 'ended' ? (
-                  <Views views={video.views} />
-                ) : null}
-              </WeakLine>
-            </div>
-          </Link>
-        ))}
+      <CardContent className="space-y-4 px-0">
+        {relatedVideos.map(stream => {
+          const channel = channels.find(
+            channel => channel.basicInfo.id === stream.snippet.channelId
+          )
+          if (!channel) return null
+
+          const {
+            videoId,
+            snippet,
+            status,
+            metrics: { peakConcurrentViewers },
+            streamTimes: { actualEndTime }
+          } = stream
+
+          return (
+            <Link
+              className="flex space-x-2"
+              key={videoId}
+              href={`/youtube/live/${videoId}`}
+            >
+              <div className="w-40">
+                <VideoThumbnail
+                  title={snippet.title}
+                  thumbnails={snippet.thumbnails}
+                  className="rounded-md"
+                  size={'medium'}
+                />
+              </div>
+              <div className="flex-1">
+                <h3 className="break-anywhere text-sm line-clamp-2 mb-1">
+                  {snippet.title}
+                </h3>
+                <WeakLine>{channel.basicInfo.title}</WeakLine>
+                <WeakLine>
+                  {status === 'live' ? (
+                    <Watching count={peakConcurrentViewers} />
+                  ) : null}
+                  {status === 'ended' ? (
+                    <>
+                      {!!peakConcurrentViewers && (
+                        <>
+                          <Watched count={peakConcurrentViewers} />
+                          <Bullet />
+                        </>
+                      )}
+                      {actualEndTime && <StreamedLive date={actualEndTime} />}
+                    </>
+                  ) : null}
+                </WeakLine>
+              </div>
+            </Link>
+          )
+        })}
       </CardContent>
     </Card>
   )

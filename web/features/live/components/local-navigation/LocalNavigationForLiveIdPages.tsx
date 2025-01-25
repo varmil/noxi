@@ -27,6 +27,11 @@ export default function LocalNavigationForLiveIdPages({
           name: t('comments.nav'),
           href: `${basePath}/comments`,
           prefetch: true
+        },
+        {
+          name: t('relatedVideos.nav'),
+          href: `${basePath}/related-videos`,
+          prefetch: true
         }
       ].filter(e => !!e)}
       className="w-full border-b mb-8"

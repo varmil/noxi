@@ -34,6 +34,7 @@ export default function LocalNavigation({
                 linkClassName
               )}
               prefetch={item.prefetch}
+              scroll={false}
             >
               {item.name}
             </Link>
