@@ -5,9 +5,9 @@ import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ChatCounts from 'features/stream-stats/chart/ChatCounts'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
+import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/StatsPeakConcurrentCard'
 import RelatedVideos from '../ui/related-videos/RelatedVideos'
 import StreamBasicInfo from '../ui/stream/StreamBasicInfo'
-import StreamStatsCards from '../ui/stream/card/StreamStatsCards'
 
 type Props = { videoId: string }
 
@@ -26,7 +26,8 @@ async function Overview({
 }) {
   const {
     videoId,
-    snippet: { channelId }
+    snippet: { channelId },
+    metrics: { peakConcurrentViewers }
   } = stream
   const [chatCounts, viewerCounts] = await Promise.all([
     getChatCounts({ videoId }),
@@ -36,7 +37,12 @@ async function Overview({
   return (
     <div className={`${className ?? ''}`}>
       <StreamBasicInfo stream={stream} />
-      <StreamStatsCards stream={stream} />
+      {peakConcurrentViewers ? (
+        <StatsPeakConcurrentCard
+          className="flex-1 grow"
+          count={peakConcurrentViewers}
+        />
+      ) : null}
       <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
       <ChatCounts stream={stream} chatCounts={chatCounts} />
       <RelatedVideos className="@xs:block @4xl:hidden" channelId={channelId} />

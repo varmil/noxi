@@ -11,7 +11,6 @@ export async function LiveIdCommentsTemplate({
   videoId
 }: PropsWithoutRef<Props>) {
   const stream = await getStream(videoId)
-
   return <Comments stream={stream} />
 }
 
