@@ -193,9 +193,29 @@
     "youtube": {
       "live": {
         "id": {
-          "metadata": {
-            "title": "{channel} {title} - Live Stats",
-            "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+          "index": {
+            "metadata": {
+              "title": "{channel} {title} - Live Stats",
+              "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+            }
+          },
+          "superChat": {
+            "metadata": {
+              "title": "{channel} {title} - Live Stats",
+              "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+            },
+            "comments": {
+              "metadata": {
+                "title": "{channel} {title} - Live Stats",
+                "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+              }
+            }
+          },
+          "comments": {
+            "metadata": {
+              "title": "{channel} {title} - Live Stats",
+              "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+            }
           },
           "button": {
             "theaterMode": "Theater Mode",

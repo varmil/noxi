@@ -1,4 +1,4 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
@@ -7,28 +7,22 @@ import {
   MainContainer,
   LgChatContainer,
   XSChatContainer
-} from '../../layouts/default/Default'
-import PadSection from '../../layouts/default/PadSection'
-import MaximizeButton from '../button/MaximizeButton'
-import OpenChatButton from '../button/OpenChatButton'
-import RelatedVideos from '../related-videos/RelatedVideos'
-import EmbedLiveChat from '../stream/EmbedLiveChat'
-import EmbedStream from '../stream/EmbedStream'
-import {
-  LiveTabs,
-  LiveTabsCommentsContent,
-  LiveTabsList,
-  LiveTabsOverviewContent,
-  LiveTabsSuperChatContent
-} from '../tabs/LiveTabs'
+} from '../layouts/default/Default'
+import PadSection from '../layouts/default/PadSection'
+import MaximizeButton from '../ui/button/MaximizeButton'
+import OpenChatButton from '../ui/button/OpenChatButton'
+import RelatedVideos from '../ui/related-videos/RelatedVideos'
+import EmbedLiveChat from '../ui/stream/EmbedLiveChat'
+import EmbedStream from '../ui/stream/EmbedStream'
 
 type Props = {
   videoId: string
 }
 
 export default async function DefaultModeTemplate({
-  videoId
-}: PropsWithoutRef<Props>) {
+  videoId,
+  children
+}: PropsWithChildren<Props>) {
   const stream = await getStream(videoId)
   const {
     snippet: { channelId, title, thumbnails },
@@ -79,15 +73,8 @@ export default async function DefaultModeTemplate({
               left
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
             >
-              <LiveTabs>
-                <LiveTabsList stream={stream} />
-                <LiveTabsSuperChatContent stream={stream} />
-                <LiveTabsCommentsContent stream={stream} />
-                <LiveTabsOverviewContent
-                  className="space-y-6"
-                  stream={stream}
-                />
-              </LiveTabs>
+              {/* サブページのTemplateに委譲する */}
+              {children}
             </PadSection>
 
             {/* Related Videos */}

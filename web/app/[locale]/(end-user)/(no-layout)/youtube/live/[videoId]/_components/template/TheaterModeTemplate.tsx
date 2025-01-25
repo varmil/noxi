@@ -5,16 +5,16 @@ import {
   Theater,
   TheaterContent,
   ResizeHandle
-} from '../../layouts/theater/Theater'
-import MinimizeButton from '../button/MinimizeButton'
-import Rotate180Button from '../button/Rotate180Button'
-import EmbedLiveChat from '../stream/EmbedLiveChat'
-import EmbedStream from '../stream/EmbedStream'
+} from '../layouts/theater/Theater'
+import MinimizeButton from '../ui/button/MinimizeButton'
+import Rotate180Button from '../ui/button/Rotate180Button'
+import EmbedLiveChat from '../ui/stream/EmbedLiveChat'
+import EmbedStream from '../ui/stream/EmbedStream'
 import {
   TheaterBottomBarIcon as BottomBarIcon,
   TheaterBottomBar as BottomBar,
   BOTTOM_BAR_HEIGHT
-} from '../theater/BottomBar'
+} from '../ui/theater/BottomBar'
 
 type Props = {
   videoId: string
