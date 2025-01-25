@@ -373,15 +373,18 @@
       },
       "superChat": {
         "nav": "Super Chat",
-        "title": "Super Chat amount, trends"
+        "title": "Super Chat amount, trends",
+        "notice": "Super Chat counting will begin once the live stream begins."
       },
       "superChatComments": {
         "nav": "Super Chat comments",
-        "title": "List of Super Chat comments"
+        "title": "List of Super Chat comments",
+        "notice": "Super Chat counting will begin once the live stream begins."
       },
       "comments": {
         "nav": "Comments",
-        "title": "List of comments posted on the video"
+        "title": "List of comments posted on the video",
+        "notice": "Once the live stream ends, it will begin tallying user comments."
       }
     },
 
