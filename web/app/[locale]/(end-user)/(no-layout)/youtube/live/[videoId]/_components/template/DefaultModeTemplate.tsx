@@ -1,34 +1,29 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
+import LocalNavigationForLiveIdPages from 'features/live/components/local-navigation/LocalNavigationForLiveIdPages'
 import {
   MainContainer,
   LgChatContainer,
   XSChatContainer
-} from '../../layouts/default/Default'
-import PadSection from '../../layouts/default/PadSection'
-import MaximizeButton from '../button/MaximizeButton'
-import OpenChatButton from '../button/OpenChatButton'
-import RelatedVideos from '../related-videos/RelatedVideos'
-import EmbedLiveChat from '../stream/EmbedLiveChat'
-import EmbedStream from '../stream/EmbedStream'
-import {
-  LiveTabs,
-  LiveTabsCommentsContent,
-  LiveTabsList,
-  LiveTabsOverviewContent,
-  LiveTabsSuperChatContent
-} from '../tabs/LiveTabs'
+} from '../layouts/default/Default'
+import PadSection from '../layouts/default/PadSection'
+import MaximizeButton from '../ui/button/MaximizeButton'
+import OpenChatButton from '../ui/button/OpenChatButton'
+import RelatedVideos from '../ui/related-videos/RelatedVideos'
+import EmbedLiveChat from '../ui/stream/EmbedLiveChat'
+import EmbedStream from '../ui/stream/EmbedStream'
 
 type Props = {
   videoId: string
 }
 
 export default async function DefaultModeTemplate({
-  videoId
-}: PropsWithoutRef<Props>) {
+  videoId,
+  children
+}: PropsWithChildren<Props>) {
   const stream = await getStream(videoId)
   const {
     snippet: { channelId, title, thumbnails },
@@ -75,25 +70,16 @@ export default async function DefaultModeTemplate({
 
           {/* max-w-[1536px] */}
           <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 @4xl:grid-cols-5">
-            <PadSection
-              left
-              className="gap-y-4 @xs:col-span-full @4xl:col-span-3"
-            >
-              <LiveTabs>
-                <LiveTabsList stream={stream} />
-                <LiveTabsSuperChatContent stream={stream} />
-                <LiveTabsCommentsContent stream={stream} />
-                <LiveTabsOverviewContent
-                  className="space-y-6"
-                  stream={stream}
-                />
-              </LiveTabs>
+            <PadSection left className="@xs:col-span-full @4xl:col-span-3">
+              {/* サブページのTemplateに委譲する */}
+              <LocalNavigationForLiveIdPages videoId={videoId} />
+              {children}
             </PadSection>
 
             {/* Related Videos */}
             <PadSection
               right
-              className="hidden @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
+              className="hidden @4xl:pt-2 @4xl:flex @4xl:gap-y-4 @4xl:col-span-2"
             >
               <div className="flex items-center gap-x-2">
                 <OpenChatButton className="flex-1" />

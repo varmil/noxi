@@ -193,9 +193,29 @@
     "youtube": {
       "live": {
         "id": {
-          "metadata": {
-            "title": "{channel} {title}のスパチャ金額、同接数",
-            "description": "YouTubeライブを視聴！{channel}のスパチャ金額や同接数をチェックし人気の瞬間を見逃さず確認しよう。PeakXではなんとスパチャコメントもすべて掲載！VTuberファン必見の情報をお届けします。"
+          "index": {
+            "metadata": {
+              "title": "{channel} {title} - ライブ概要",
+              "description": "YouTubeライブを視聴！{channel}のスパチャ金額や同接数をチェックし人気の瞬間を見逃さず確認しよう。PeakXではなんとスパチャコメントもすべて掲載！"
+            }
+          },
+          "superChat": {
+            "metadata": {
+              "title": "{channel} {title}のスパチャ金額",
+              "description": "このライブ配信のスパチャ金額をチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
+            },
+            "comments": {
+              "metadata": {
+                "title": "{channel} {title}のスパチャコメント",
+                "description": "このライブ配信のスパチャコメントをチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
+              }
+            }
+          },
+          "comments": {
+            "metadata": {
+              "title": "{channel} {title}のコメント",
+              "description": "このライブ配信のユーザーコメントをチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
+            }
           },
           "button": {
             "theaterMode": "シアターモードで大きく表示",
@@ -343,6 +363,30 @@
         "nav": "過去のライブ",
         "title": "過去のライブ配信",
         "description": "{group}の過去のYouTubeライブ配信一覧です"
+      }
+    },
+
+    "live": {
+      "overview": {
+        "nav": "概要",
+        "title": "再生回数や同接数"
+      },
+      "superChat": {
+        "nav": "スパチャ",
+        "title": "スパチャ金額、推移",
+        "notice": "ライブが始まるとスパチャの集計が開始されます",
+        "membersOnly": "メンバー限定のため表示されません"
+      },
+      "superChatComments": {
+        "nav": "スパチャコメント",
+        "title": "スパチャコメント一覧",
+        "notice": "ライブが始まるとスパチャの集計が開始されます",
+        "membersOnly": "メンバー限定のため表示されません"
+      },
+      "comments": {
+        "nav": "コメント",
+        "title": "動画に投稿されたコメント一覧",
+        "notice": "ライブが終了するとユーザーコメントの集計が開始されます"
       }
     },
 

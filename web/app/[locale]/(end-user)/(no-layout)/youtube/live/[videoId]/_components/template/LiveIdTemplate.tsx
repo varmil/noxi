@@ -1,0 +1,51 @@
+import { PropsWithoutRef } from 'react'
+import { getChatCounts } from 'apis/youtube/getChatCounts'
+import { getStream } from 'apis/youtube/getStream'
+import { getViewerCounts } from 'apis/youtube/getViewerCounts'
+import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import ChatCounts from 'features/stream-stats/chart/ChatCounts'
+import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
+import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/StatsPeakConcurrentCard'
+import RelatedVideos from '../ui/related-videos/RelatedVideos'
+import StreamBasicInfo from '../ui/stream/StreamBasicInfo'
+
+type Props = { videoId: string }
+
+export async function LiveIdTemplate({ videoId }: PropsWithoutRef<Props>) {
+  const stream = await getStream(videoId)
+  return <Overview className="space-y-6" stream={stream} />
+}
+
+/** タイトル、投稿者情報 */
+async function Overview({
+  stream,
+  className
+}: {
+  stream: StreamSchema
+  className?: string
+}) {
+  const {
+    videoId,
+    snippet: { channelId },
+    metrics: { peakConcurrentViewers }
+  } = stream
+  const [chatCounts, viewerCounts] = await Promise.all([
+    getChatCounts({ videoId }),
+    getViewerCounts({ videoId })
+  ])
+
+  return (
+    <div className={`${className ?? ''}`}>
+      <StreamBasicInfo stream={stream} />
+      {peakConcurrentViewers ? (
+        <StatsPeakConcurrentCard
+          className="flex-1 grow"
+          count={peakConcurrentViewers}
+        />
+      ) : null}
+      <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
+      <ChatCounts stream={stream} chatCounts={chatCounts} />
+      <RelatedVideos className="@xs:block @4xl:hidden" channelId={channelId} />
+    </div>
+  )
+}
