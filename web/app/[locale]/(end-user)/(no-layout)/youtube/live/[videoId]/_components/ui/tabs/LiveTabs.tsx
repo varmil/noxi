@@ -68,28 +68,28 @@ export async function LiveTabsList({ stream }: { stream: StreamSchema }) {
 // }
 
 /** Comments: Show only ended streams && commentCount exists */
-export async function LiveTabsCommentsContent({
-  stream
-}: {
-  stream: StreamSchema
-}) {
-  const [{ statistics } = {}] = await getStatistics({
-    videoIds: [stream.videoId]
-  })
+// export async function LiveTabsCommentsContent({
+//   stream
+// }: {
+//   stream: StreamSchema
+// }) {
+//   const [{ statistics } = {}] = await getStatistics({
+//     videoIds: [stream.videoId]
+//   })
 
-  const { videoId, status } = stream
-  if (status !== 'ended' || !statistics?.commentCount) return null
+//   const { videoId, status } = stream
+//   if (status !== 'ended' || !statistics?.commentCount) return null
 
-  return (
-    <TabsContent
-      value="comments"
-      forceMount
-      className={'data-[state=inactive]:content-visibility-hidden'}
-    >
-      <YoutubeCommentGallery videoId={videoId} />
-    </TabsContent>
-  )
-}
+//   return (
+//     <TabsContent
+//       value="comments"
+//       forceMount
+//       className={'data-[state=inactive]:content-visibility-hidden'}
+//     >
+//       <YoutubeCommentGallery videoId={videoId} />
+//     </TabsContent>
+//   )
+// }
 
 /** タイトル、投稿者情報 */
 // export async function LiveTabsOverviewContent({

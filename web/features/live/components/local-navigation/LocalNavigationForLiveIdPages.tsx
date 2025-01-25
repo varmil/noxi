@@ -25,7 +25,7 @@ export default function LocalNavigationForLiveIdPages({
         },
         {
           name: t('comments.nav'),
-          href: `${basePath}/live`,
+          href: `${basePath}/comments`,
           prefetch: true
         }
       ].filter(e => !!e)}

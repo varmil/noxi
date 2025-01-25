@@ -8,28 +8,16 @@ import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
 import RelatedVideos from '../ui/related-videos/RelatedVideos'
 import StreamBasicInfo from '../ui/stream/StreamBasicInfo'
 import StreamStatsCards from '../ui/stream/card/StreamStatsCards'
-import {
-  LiveTabs,
-  LiveTabsList,
-  LiveTabsCommentsContent
-} from '../ui/tabs/LiveTabs'
 
 type Props = { videoId: string }
 
 export async function LiveIdTemplate({ videoId }: PropsWithoutRef<Props>) {
   const stream = await getStream(videoId)
-
-  return (
-    <LiveTabs>
-      <LiveTabsList stream={stream} />
-      <LiveTabsCommentsContent stream={stream} />
-      <LiveTabsOverviewContent className="space-y-6" stream={stream} />
-    </LiveTabs>
-  )
+  return <Overview className="space-y-6" stream={stream} />
 }
 
 /** タイトル、投稿者情報 */
-async function LiveTabsOverviewContent({
+async function Overview({
   stream,
   className
 }: {

@@ -5,15 +5,15 @@ import SuperChatGallery from 'features/supers/chat/components/SuperChatGallery'
 
 type Props = { videoId: string }
 
-export async function LiveIdSuperChatTemplate({
+export async function LiveIdSuperChatCommentsTemplate({
   videoId
 }: PropsWithoutRef<Props>) {
   const stream = await getStream(videoId)
-  return <SuperChat stream={stream} />
+  return <SuperChatComments stream={stream} />
 }
 
 /** SuperChat: Hide when scheduled */
-async function SuperChat({ stream }: { stream: StreamSchema }) {
+async function SuperChatComments({ stream }: { stream: StreamSchema }) {
   const { videoId, status } = stream
   if (status === 'scheduled') return null
 
