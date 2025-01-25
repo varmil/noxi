@@ -34,7 +34,7 @@ export default function HeaderXSSheet() {
           <SheetDescription hidden></SheetDescription>
         </SheetHeader>
         <nav className="h-full flex flex-col font-medium">
-          <section className="grid gap-6">
+          <section className="grid gap-6 overflow-y-scroll">
             <Link
               href="/"
               className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary text-lg font-semibold text-primary-foreground md:text-base"
@@ -77,15 +77,13 @@ export default function HeaderXSSheet() {
               icon={<SettingsIcon className="h-6 w-6" />}
               href="#"
             /> */}
-          </section>
 
-          <div className="mt-auto">
             <HeaderLink
               name="Terms of Use and Privacy Policy"
               icon={<PrivacyPolicyIcon className="h-6 w-6" />}
               href="/youtube/terms-of-use-and-privacy-policy"
             />
-          </div>
+          </section>
         </nav>
       </SheetContent>
     </Sheet>
