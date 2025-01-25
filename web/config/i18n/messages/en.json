@@ -196,25 +196,25 @@
           "index": {
             "metadata": {
               "title": "{channel} {title} - Live Stats",
-              "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+              "description": "Watch YouTube Live! Check {channel}'s Super Chat amount and concurrent viewers. PeakX even publishes all Super Chat comments!"
             }
           },
           "superChat": {
             "metadata": {
-              "title": "{channel} {title} - Live Stats",
-              "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+              "title": "{channel} {title} - Super Chat",
+              "description": "Check the Super Chat amount for this live stream! Don't miss out on the popular moments of {channel}."
             },
             "comments": {
               "metadata": {
-                "title": "{channel} {title} - Live Stats",
-                "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+                "title": "{channel} {title} - Super Chat Comments",
+                "description": "Check the Super Chat Comments for this live stream! Don't miss out on the popular moments of {channel}."
               }
             }
           },
           "comments": {
             "metadata": {
-              "title": "{channel} {title} - Live Stats",
-              "description": "Watch YouTube Live! Check {channel}'s Super Chat and Concurrent Viewers. PeakX even publishes all Super Chat comments! VTuber fans must see this."
+              "title": "{channel} {title} - Comments",
+              "description": "Check out user comments on this live stream! Don't miss out on the popular moments on {channel}."
             }
           },
           "button": {
