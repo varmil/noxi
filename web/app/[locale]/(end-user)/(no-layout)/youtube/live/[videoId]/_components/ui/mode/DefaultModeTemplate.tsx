@@ -74,7 +74,7 @@ export default async function DefaultModeTemplate({
           </XSChatContainer>
 
           {/* max-w-[1536px] */}
-          <section className="grid max-w-screen-2xl mx-auto gap-y-4 @4xl:grid-cols-5">
+          <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 @4xl:grid-cols-5">
             <PadSection
               left
               className="gap-y-4 @xs:col-span-full @4xl:col-span-3"

@@ -10,7 +10,7 @@ import Logo from '../Logo'
 
 export default function Header({ className }: { className?: string }) {
   const t = useTranslations('Global')
-  const bgFilter = 'backdrop-blur supports-[backdrop-filter]:bg-background/70'
+  const bgFilter = 'backdrop-blur-sm supports-backdrop-filter:bg-background/70'
   const sm = `${PageSMPX}`
 
   return (

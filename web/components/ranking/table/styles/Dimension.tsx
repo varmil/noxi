@@ -19,7 +19,7 @@ export default function Dimension({
 }) {
   const t = useTranslations('Features.streamRanking')
   const textClasses = active ? 'font-bold' : 'text-muted-foreground'
-  const barColor = active ? '' : '[&>*]:bg-muted-foreground'
+  const barColor = active ? '' : '*:bg-muted-foreground'
 
   if (dividend instanceof BigNumber) {
     dividend = dividend.toNumber()

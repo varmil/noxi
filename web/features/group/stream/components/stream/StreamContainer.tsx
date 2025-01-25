@@ -13,7 +13,7 @@ export const StreamContainer = ({ children }: PropsWithChildren) => (
 )
 
 export const StreamContentContainer = ({ children }: PropsWithChildren) => (
-  <div className="flex-1 grid grid-cols-[auto,1fr,auto] gap-x-3 gap-y-1">
+  <div className="flex-1 grid grid-cols-[auto_1fr_auto] gap-x-3 gap-y-1">
     {children}
   </div>
 )

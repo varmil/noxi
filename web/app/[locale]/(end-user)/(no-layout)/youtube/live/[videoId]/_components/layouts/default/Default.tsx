@@ -20,7 +20,7 @@ export function XSChatContainer({ children }: PropsWithChildren) {
     return (
       // Override space-y-4 with mt-0 here
       <section
-        className={`relative lg:hidden min-h-80 h-[calc(100vh-26rem)] ${PageXSMX} !mt-0`}
+        className={`relative lg:hidden min-h-80 h-[calc(100vh-26rem)] ${PageXSMX} mt-0!`}
       >
         {children}
       </section>

@@ -16,7 +16,7 @@ export default function EmbedLiveChat({
   return (
     <>
       {showCloseButton && (
-        <CloseChatButton className={'absolute top-1 right-1 z-[1]'} />
+        <CloseChatButton className={'absolute top-1 right-1 z-1'} />
       )}
       <iframe
         key={videoId}
