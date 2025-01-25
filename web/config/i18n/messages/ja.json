@@ -366,6 +366,25 @@
       }
     },
 
+    "live": {
+      "overview": {
+        "nav": "概要",
+        "title": "再生回数や同接数"
+      },
+      "superChat": {
+        "nav": "スパチャ",
+        "title": "スパチャ金額、推移"
+      },
+      "superChatComments": {
+        "nav": "スパチャコメント",
+        "title": "スパチャコメント一覧"
+      },
+      "comments": {
+        "nav": "コメント",
+        "title": "動画に投稿されたコメント一覧"
+      }
+    },
+
     "channelsRanking": {
       "ranking": {
         "dimension": {

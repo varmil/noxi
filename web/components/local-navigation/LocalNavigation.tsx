@@ -19,7 +19,8 @@ export default function LocalNavigation({
 
   return (
     <div className={`mx-auto ${className ?? ''}`}>
-      <ScrollArea className="w-full whitespace-nowrap">
+      {/* gridが大事 */}
+      <ScrollArea className="grid w-full whitespace-nowrap">
         <div className="flex h-14 items-center">
           {items.map(item => (
             <Link

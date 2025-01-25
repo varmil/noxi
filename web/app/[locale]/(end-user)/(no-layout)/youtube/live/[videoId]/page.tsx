@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
-import YoutubeLiveIdBasePage, {
+import LiveIdBasePage, {
   generateBaseMetadata,
-  YoutubeLiveIdBasePageProps
-} from './_components/page/YoutubeLiveIdBasePage'
-import { YoutubeLiveIdTemplate } from './_components/template/YoutubeLiveIdTemplate'
+  LiveIdBasePageProps
+} from './_components/page/LiveIdBasePage'
+import { LiveIdTemplate } from './_components/template/LiveIdTemplate'
 
-type Props = YoutubeLiveIdBasePageProps
+type Props = LiveIdBasePageProps
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateBaseMetadata({
@@ -14,13 +14,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 }
 
-export default async function YoutubeLiveIdPage(
-  props: YoutubeLiveIdBasePageProps
-) {
+export default async function YoutubeLiveIdPage(props: LiveIdBasePageProps) {
   const { videoId } = await props.params
   return (
-    <YoutubeLiveIdBasePage {...props}>
-      <YoutubeLiveIdTemplate videoId={videoId} />
-    </YoutubeLiveIdBasePage>
+    <LiveIdBasePage {...props}>
+      <LiveIdTemplate videoId={videoId} />
+    </LiveIdBasePage>
   )
 }

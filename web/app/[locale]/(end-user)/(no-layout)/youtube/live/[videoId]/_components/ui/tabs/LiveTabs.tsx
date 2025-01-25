@@ -45,27 +45,27 @@ export async function LiveTabsList({ stream }: { stream: StreamSchema }) {
   )
 }
 
-/** SuperChat: Hide when scheduled */
-export async function LiveTabsSuperChatContent({
-  stream,
-  className
-}: {
-  stream: StreamSchema
-  className?: string
-}) {
-  const { videoId, status } = stream
-  if (status === 'scheduled') return null
+// /** SuperChat: Hide when scheduled */
+// export async function LiveTabsSuperChatContent({
+//   stream,
+//   className
+// }: {
+//   stream: StreamSchema
+//   className?: string
+// }) {
+//   const { videoId, status } = stream
+//   if (status === 'scheduled') return null
 
-  return (
-    <TabsContent
-      value="superChat"
-      forceMount
-      className={'data-[state=inactive]:content-visibility-hidden'}
-    >
-      <SuperChatGallery videoId={videoId} />
-    </TabsContent>
-  )
-}
+//   return (
+//     <TabsContent
+//       value="superChat"
+//       forceMount
+//       className={'data-[state=inactive]:content-visibility-hidden'}
+//     >
+//       <SuperChatGallery videoId={videoId} />
+//     </TabsContent>
+//   )
+// }
 
 /** Comments: Show only ended streams && commentCount exists */
 export async function LiveTabsCommentsContent({
@@ -92,38 +92,38 @@ export async function LiveTabsCommentsContent({
 }
 
 /** タイトル、投稿者情報 */
-export async function LiveTabsOverviewContent({
-  stream,
-  className
-}: {
-  stream: StreamSchema
-  className?: string
-}) {
-  const {
-    videoId,
-    snippet: { channelId }
-  } = stream
-  const [chatCounts, viewerCounts] = await Promise.all([
-    getChatCounts({ videoId }),
-    getViewerCounts({ videoId })
-  ])
+// export async function LiveTabsOverviewContent({
+//   stream,
+//   className
+// }: {
+//   stream: StreamSchema
+//   className?: string
+// }) {
+//   const {
+//     videoId,
+//     snippet: { channelId }
+//   } = stream
+//   const [chatCounts, viewerCounts] = await Promise.all([
+//     getChatCounts({ videoId }),
+//     getViewerCounts({ videoId })
+//   ])
 
-  return (
-    <TabsContent
-      value="overview"
-      forceMount
-      className={`data-[state=inactive]:content-visibility-hidden`}
-    >
-      <div className={`${className ?? ''}`}>
-        <StreamBasicInfo stream={stream} />
-        <StreamStatsCards stream={stream} />
-        <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
-        <ChatCounts stream={stream} chatCounts={chatCounts} />
-        <RelatedVideos
-          className="@xs:block @4xl:hidden"
-          channelId={channelId}
-        />
-      </div>
-    </TabsContent>
-  )
-}
+//   return (
+//     <TabsContent
+//       value="overview"
+//       forceMount
+//       className={`data-[state=inactive]:content-visibility-hidden`}
+//     >
+//       <div className={`${className ?? ''}`}>
+//         <StreamBasicInfo stream={stream} />
+//         <StreamStatsCards stream={stream} />
+//         <ViewerCounts stream={stream} viewerCounts={viewerCounts} />
+//         <ChatCounts stream={stream} chatCounts={chatCounts} />
+//         <RelatedVideos
+//           className="@xs:block @4xl:hidden"
+//           channelId={channelId}
+//         />
+//       </div>
+//     </TabsContent>
+//   )
+// }

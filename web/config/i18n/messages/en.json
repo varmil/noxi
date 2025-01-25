@@ -366,6 +366,25 @@
       }
     },
 
+    "live": {
+      "overview": {
+        "nav": "Overview",
+        "title": "Number of views and concurrent viewers"
+      },
+      "superChat": {
+        "nav": "Super Chat",
+        "title": "Super Chat amount, trends"
+      },
+      "superChatComments": {
+        "nav": "Super Chat comments",
+        "title": "List of Super Chat comments"
+      },
+      "comments": {
+        "nav": "Comments",
+        "title": "List of comments posted on the video"
+      }
+    },
+
     "channelsRanking": {
       "ranking": {
         "dimension": {

@@ -14,11 +14,11 @@ import TheaterModeTemplate from '../template/TheaterModeTemplate'
 
 const TITLE_MAX_LENGTH = 22
 
-export type YoutubeLiveIdBasePageProps = {
+export type LiveIdBasePageProps = {
   params: Promise<{ locale: string; videoId: string }>
   searchParams?: Promise<{ theater?: '1' }>
 }
-type Props = YoutubeLiveIdBasePageProps
+type Props = LiveIdBasePageProps
 
 export async function generateBaseMetadata(
   props: Props & {
@@ -51,9 +51,7 @@ export async function generateBaseMetadata(
   }
 }
 
-export default async function YoutubeLiveIdBasePage(
-  props: PropsWithChildren<Props>
-) {
+export default async function LiveIdBasePage(props: PropsWithChildren<Props>) {
   const { locale, videoId } = await props.params
   const { group, status } = await getStream(videoId)
 
