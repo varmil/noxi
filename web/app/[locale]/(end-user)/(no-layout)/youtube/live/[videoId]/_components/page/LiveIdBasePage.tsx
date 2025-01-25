@@ -27,6 +27,7 @@ export async function generateBaseMetadata(
       | 'Page.youtube.live.id.superChat.metadata'
       | 'Page.youtube.live.id.superChat.comments.metadata'
       | 'Page.youtube.live.id.comments.metadata'
+      | 'Page.youtube.live.id.relatedVideos.metadata'
   }
 ): Promise<Metadata> {
   const { locale, videoId } = await props.params
@@ -39,15 +40,20 @@ export async function generateBaseMetadata(
   } = await getStream(videoId)
   const { basicInfo } = await getChannel(channelId)
 
+  const slicedTitle =
+    title.length > TITLE_MAX_LENGTH
+      ? title.slice(0, TITLE_MAX_LENGTH - 1) + '…'
+      : title
+
   return {
     title: `${t('title', {
-      title:
-        title.length > TITLE_MAX_LENGTH
-          ? title.slice(0, TITLE_MAX_LENGTH - 1) + '…'
-          : title,
+      title: slicedTitle,
       channel: basicInfo.title
     })}`,
-    description: `${t('description', { channel: basicInfo.title })}`
+    description: `${t('description', {
+      title: slicedTitle,
+      channel: basicInfo.title
+    })}`
   }
 }
 

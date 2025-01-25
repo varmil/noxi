@@ -85,7 +85,7 @@ export default async function DefaultModeTemplate({
                 <OpenChatButton className="flex-1" />
                 <MaximizeButton />
               </div>
-              <RelatedVideos channelId={channelId} />
+              <RelatedVideos type="live" channelId={channelId} />
             </PadSection>
           </section>
         </Page>
