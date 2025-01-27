@@ -1,4 +1,5 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, Suspense } from 'react'
+import StreamGallerySkeleton from 'components/skeleton/StreamGallerySkeleton'
 import { ChannelGallery } from 'features/group/chart/components/ChannelGallery'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
@@ -14,19 +15,23 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
         <section className="col-span-full">
           <ChannelGallery limit={6} footer />
         </section>
-        <section className="col-span-full">
-          <LiveStreamGallery compact showHeader />
-        </section>
-        <section className="col-span-full">
-          <ScheduledStreamGallery compact showHeader />
-        </section>
-        <section className="col-span-full">
-          <EndedStreamGallery
-            where={{ group: getGroup() }}
-            compact
-            showHeader
-          />
-        </section>
+        <Suspense
+          fallback={<StreamGallerySkeleton className="col-span-full" />}
+        >
+          <section className="col-span-full">
+            <LiveStreamGallery compact showHeader />
+          </section>
+          <section className="col-span-full">
+            <ScheduledStreamGallery compact showHeader />
+          </section>
+          <section className="col-span-full">
+            <EndedStreamGallery
+              where={{ group: getGroup() }}
+              compact
+              showHeader
+            />
+          </section>
+        </Suspense>
       </div>
     </>
   )
