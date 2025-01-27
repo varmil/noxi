@@ -40,9 +40,7 @@ export async function ChannelGallery({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <Suspense fallback={<p>Loading cards...</p>}>
-          <ChannelCards channels={channels} />
-        </Suspense>
+        <ChannelCards channels={channels} />
       </CardContent>
       {footer && (
         <CardFooter>

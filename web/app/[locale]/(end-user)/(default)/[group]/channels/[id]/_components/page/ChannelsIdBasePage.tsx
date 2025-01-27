@@ -1,8 +1,9 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, Suspense } from 'react'
 import { Metadata } from 'next'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { Page } from 'components/page'
+import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemplateSkeleton'
 import { GroupString } from 'config/constants/Site'
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -75,7 +76,9 @@ export default async function ChannelsIdBasePage(
           <LocalNavigationForChannelsIdPages channelId={id} />
         </section>
 
-        <section>{props.children}</section>
+        <Suspense fallback={<ChannelsIdXXXTemplateSkeleton />}>
+          <section>{props.children}</section>
+        </Suspense>
       </section>
     </Page>
   )
