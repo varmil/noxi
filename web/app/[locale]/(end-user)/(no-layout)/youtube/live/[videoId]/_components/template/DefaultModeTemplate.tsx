@@ -4,8 +4,8 @@ import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import LocalNavigationForLiveIdPages from 'features/live/components/local-navigation/LocalNavigationForLiveIdPages'
-import LiveIdXXXTemplateSkeleton from 'features/skeleton/components/LiveIdXXXTemplateSkeleton'
-import RelatedVideosSkeleton from 'features/skeleton/components/RelatedVideosSkeleton'
+import LiveIdXXXTemplateSkeleton from 'components/skeleton/LiveIdXXXTemplateSkeleton'
+import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
 import {
   MainContainer,
   LgChatContainer,
