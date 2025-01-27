@@ -1,4 +1,4 @@
-import { PropsWithoutRef, Suspense } from 'react'
+import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import {
   Section,
@@ -14,9 +14,7 @@ export async function ChannelsIdASMRTemplate({ id }: PropsWithoutRef<Props>) {
   return (
     <Sections>
       <Section title={t('section.title')}>
-        <Suspense fallback={<p>Loading ASMR Streams...</p>}>
-          <EndedStreamGallery where={{ title: 'ASMR', channelId: id }} />
-        </Suspense>
+        <EndedStreamGallery where={{ title: 'ASMR', channelId: id }} />
       </Section>
     </Sections>
   )
