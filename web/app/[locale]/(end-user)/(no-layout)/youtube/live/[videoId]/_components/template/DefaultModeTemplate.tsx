@@ -1,9 +1,11 @@
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import LocalNavigationForLiveIdPages from 'features/live/components/local-navigation/LocalNavigationForLiveIdPages'
+import LiveIdXXXTemplateSkeleton from 'features/skeleton/components/LiveIdXXXTemplateSkeleton'
+import RelatedVideosSkeleton from 'features/skeleton/components/RelatedVideosSkeleton'
 import {
   MainContainer,
   LgChatContainer,
@@ -71,9 +73,11 @@ export default async function DefaultModeTemplate({
           {/* max-w-[1536px] */}
           <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 @4xl:grid-cols-5">
             <PadSection left className="@xs:col-span-full @4xl:col-span-3">
-              {/* サブページのTemplateに委譲する */}
               <LocalNavigationForLiveIdPages videoId={videoId} />
-              {children}
+              {/* サブページのTemplateに委譲する */}
+              <Suspense fallback={<LiveIdXXXTemplateSkeleton />}>
+                {children}
+              </Suspense>
             </PadSection>
 
             {/* Related Videos */}
@@ -85,7 +89,9 @@ export default async function DefaultModeTemplate({
                 <OpenChatButton className="flex-1" />
                 <MaximizeButton />
               </div>
-              <RelatedVideos type="live" channelId={channelId} />
+              <Suspense fallback={<RelatedVideosSkeleton />}>
+                <RelatedVideos type="live" channelId={channelId} />
+              </Suspense>
             </PadSection>
           </section>
         </Page>
