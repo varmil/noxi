@@ -3,9 +3,9 @@ import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
-import LocalNavigationForLiveIdPages from 'features/live/components/local-navigation/LocalNavigationForLiveIdPages'
 import LiveIdXXXTemplateSkeleton from 'components/skeleton/LiveIdXXXTemplateSkeleton'
 import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
+import LocalNavigationForLiveIdPages from 'features/live/components/local-navigation/LocalNavigationForLiveIdPages'
 import {
   MainContainer,
   LgChatContainer,
