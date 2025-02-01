@@ -118,10 +118,8 @@ export class ScheduledService {
     const promises = videos
       .filter(video => isFreeChat(video) || isOffline(video))
       .map(async video => {
-        const { liveStreamingDetails } = video
-        if (!liveStreamingDetails) return
         const { scheduledStartTime, actualStartTime, actualEndTime } =
-          liveStreamingDetails.streamTimes
+          video.liveStreamingDetails?.streamTimes || {}
 
         console.log('end scheduled stream:', video.id.get())
 
