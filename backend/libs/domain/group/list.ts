@@ -1,6 +1,7 @@
 import { GroupString } from '@domain/group'
 import {
   GroupChannels,
+  NanashiInc,
   Hololive,
   HololiveEnglish,
   HololiveIndonesia,
@@ -19,6 +20,7 @@ import {
 import { ChannelIds } from '@domain/youtube'
 
 export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
+  '774inc': new NanashiInc(),
   hololive: new Hololive(),
   'hololive-english': new HololiveEnglish(),
   'hololive-indonesia': new HololiveIndonesia(),
@@ -36,6 +38,7 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
 }
 
 export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
+  '774inc': new NanashiInc().channelIds(),
   hololive: new Hololive().channelIds(),
   'hololive-english': new HololiveEnglish().channelIds(),
   'hololive-indonesia': new HololiveIndonesia().channelIds(),

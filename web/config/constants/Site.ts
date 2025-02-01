@@ -5,6 +5,7 @@ export const GroupStrings = [
   'neo-porte',
   'holostars',
   'aogiri-high-school',
+  '774inc',
   'specialite',
   'mixstgirls',
   'hololive-english',

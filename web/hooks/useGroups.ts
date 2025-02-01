@@ -5,6 +5,7 @@ import { GroupStrings } from 'config/constants/Site'
 
 // 通信で取るかも
 const counts = {
+  '774inc': { val: 24, isAll: true },
   hololive: { val: 43, isAll: true },
   'hololive-english': { val: 18, isAll: true },
   'hololive-indonesia': { val: 9, isAll: true },
