@@ -1,5 +1,6 @@
 export * from './aogiri-high-school'
 export * from './group-channel'
+export * from './774inc'
 export * from './hololive'
 export * from './hololive-english'
 export * from './hololive-indonesia'

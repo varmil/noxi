@@ -5,6 +5,7 @@ import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export const GroupStrings = [
+  '774inc',
   'hololive',
   'hololive-english',
   'hololive-indonesia',
