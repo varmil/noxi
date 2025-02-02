@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server'
 import { ChartConfig } from '@/components/ui/chart'
 import { getStream } from 'apis/youtube/getStream'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
-import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { LiveSuperChatChart } from 'features/live/earnings/components/LiveSuperChatChart'
 import { prepareChartData } from 'features/live/earnings/utils/super-chat-chart'
 import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/simple-card/StatsSuperChatTotalAmountCard'
@@ -31,19 +30,18 @@ async function Earnings({ videoId }: { videoId: string }) {
   ])
 
   const {
-    streamTimes: { scheduledStartTime, actualEndTime },
+    streamTimes: { scheduledStartTime, actualStartTime, actualEndTime },
     status,
     membersOnly
   } = stream
 
   // スケジュール
-  if (status === 'scheduled' || !scheduledStartTime)
-    return <p>{feat('notice')}</p>
+  if (status === 'scheduled') return <p>{feat('notice')}</p>
   // メンバー限定
   if (membersOnly) return <p>{feat('membersOnly')}</p>
 
   const chartData = await prepareChartData({
-    startTime: new Date(scheduledStartTime),
+    startTime: new Date(scheduledStartTime ?? actualStartTime ?? Date.now()),
     endTime: actualEndTime ? new Date(actualEndTime) : new Date(),
     data: chats
   })
