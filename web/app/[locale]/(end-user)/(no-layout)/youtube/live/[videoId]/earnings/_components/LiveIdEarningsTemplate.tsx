@@ -52,7 +52,7 @@ async function Earnings({ stream }: { stream: StreamSchema }) {
 
   const chartConfig = {
     amount: {
-      label: 'スーパーチャット金額',
+      label: 'スパチャ金額',
       color: 'hsl(var(--chart-1))'
     },
     cumulativeAmount: {

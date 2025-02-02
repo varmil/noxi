@@ -10,6 +10,8 @@ import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
@@ -55,12 +57,15 @@ export function LiveSuperChatChart({ data, config }: Props) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="time"
+              tickMargin={8}
+              minTickGap={40}
               tickFormatter={time =>
                 format.dateTime(new Date(time), TickFormat)
               }
             />
             <YAxis
               yAxisId="left"
+              tickLine={false}
               tickFormatter={(value: number) =>
                 `${format.number(value, CurrencyFormat)}`
               }
@@ -68,6 +73,7 @@ export function LiveSuperChatChart({ data, config }: Props) {
             <YAxis
               yAxisId="right"
               orientation="right"
+              tickLine={false}
               tickFormatter={(value: number) =>
                 `${format.number(value, CurrencyFormat)}`
               }
@@ -98,6 +104,7 @@ export function LiveSuperChatChart({ data, config }: Props) {
                 return null
               }}
             />
+            <ChartLegend content={<ChartLegendContent />} />
             <Bar
               dataKey="amount"
               yAxisId="left"
