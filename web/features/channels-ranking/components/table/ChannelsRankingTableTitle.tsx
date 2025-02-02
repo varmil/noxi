@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { ChevronRight, TvMinimalPlayIcon } from 'lucide-react'
+import { ChartNoAxesColumnIncreasing, ChevronRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import { Gender } from 'config/constants/Gender'
@@ -31,7 +31,7 @@ export default function ChannelsRankingTableTitle({
   const feat = useTranslations('Features.channelsRanking')
   return (
     <section className={`flex text-sm sm:text-base ${className || ''}`}>
-      <TvMinimalPlayIcon className="w-6 h-6 mr-3" />
+      <ChartNoAxesColumnIncreasing className="w-6 h-6 mr-3" />
 
       <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">
         <h1 className="flex items-center font-bold">

@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Home, Radio, TvMinimalPlayIcon, Users } from 'lucide-react'
+import { CircleDollarSign, Home, Radio, Users } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -33,7 +33,7 @@ export default function BottomNavigation({ className }: Props) {
       href: '/youtube/channels/ranking',
       query: '?period=last24Hours&dimension=super-chat',
       label: t('channels'),
-      icon: TvMinimalPlayIcon
+      icon: CircleDollarSign
     },
     {
       href: '/groups',
