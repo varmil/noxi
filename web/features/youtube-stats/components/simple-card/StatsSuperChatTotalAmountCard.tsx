@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
+import { SuperChatsSchema } from 'apis/youtube/schema/superChatSchema'
 import {
   StatsCardHeader,
   StatsCardContent,
@@ -10,30 +11,20 @@ import {
 import { calculateTotalInJPY } from '../../../../utils/exchange-rates'
 
 type Props = {
-  videoId: string
+  data: SuperChatsSchema
   className?: string
 }
 
 export default async function StatsSuperChatTotalAmountCard({
-  videoId,
+  data,
   className
 }: PropsWithoutRef<Props>) {
-  // TODO: 本当はサーバーサイドで計算したいかも
-  const [chats, t, formatter] = await Promise.all([
-    getSuperChats({
-      videoId,
-      orderBy: [{ field: 'amountMicros', order: 'desc' }],
-      limit: 2000
-    }),
+  const [t, formatter] = await Promise.all([
     getTranslations('Features.youtube.stats.card'),
     getFormatter()
   ])
   const total = formatter.number(
-    BigInt((await calculateTotalInJPY(chats)).toFixed(0))
-    // {
-    //   style: 'currency',
-    //   currency: 'JPY'
-    // }
+    BigInt((await calculateTotalInJPY(data)).toFixed(0))
   )
 
   return (
