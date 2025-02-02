@@ -260,9 +260,9 @@
   "Components": {
     "bottomNavigation": {
       "home": "ホーム",
-      "live": "ライブ",
-      "channels": "チャンネル",
-      "groups": "タレント"
+      "live": "同接数",
+      "channels": "スパチャ金額",
+      "groups": "タレント一覧"
     },
     "comment": {},
     "group": {
