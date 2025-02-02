@@ -5,7 +5,7 @@ import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import LiveIdXXXTemplateSkeleton from 'components/skeleton/LiveIdXXXTemplateSkeleton'
 import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
-import LocalNavigationForLiveIdPages from 'features/live/components/local-navigation/LocalNavigationForLiveIdPages'
+import LocalNavigationForLiveIdPages from 'features/live/local-navigation/components/LocalNavigationForLiveIdPages'
 import {
   MainContainer,
   LgChatContainer,
