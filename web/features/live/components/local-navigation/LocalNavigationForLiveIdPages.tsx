@@ -14,8 +14,8 @@ export default function LocalNavigationForLiveIdPages({
       items={[
         { name: t('overview.nav'), href: basePath, prefetch: true },
         {
-          name: t('superChat.nav'),
-          href: `${basePath}/super-chat`,
+          name: t('earnings.nav'),
+          href: `${basePath}/earnings`,
           prefetch: true
         },
         {
