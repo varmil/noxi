@@ -12,11 +12,13 @@ export type LiveSuperChatChartData = {
 export async function prepareChartData({
   startTime,
   endTime,
-  data
+  data,
+  maxDataPoints = 64
 }: {
   startTime: Date
   endTime: Date
   data: SuperChatsSchema
+  maxDataPoints?: number
 }) {
   let cumulativeAmount = new BigNumber(0)
   const sortedData = data.sort(
@@ -32,18 +34,19 @@ export async function prepareChartData({
       .max(dayjs(endTime), dayjs(sortedData[sortedData.length - 1].createdAt))
       .toDate()
   }
+  const interval = getTimeInterval(startTime, endTime, maxDataPoints)
 
   // 1分ごとのデータポイントを作成
   const result: LiveSuperChatChartData[] = []
   for (
     let time = startTime;
     time <= endTime;
-    time = new Date(time.getTime() + 60000)
+    time = new Date(time.getTime() + interval * 60000)
   ) {
     const events = sortedData.filter(
       e =>
-        e.createdAt.getTime() <= time.getTime() &&
-        e.createdAt.getTime() > time.getTime() - 60000
+        e.createdAt.getTime() > time.getTime() - interval * 60000 &&
+        e.createdAt.getTime() <= time.getTime()
     )
     const amount = (await calculateTotalInJPY(events)).toFixed(0)
     cumulativeAmount = cumulativeAmount.plus(amount)
@@ -56,4 +59,23 @@ export async function prepareChartData({
   }
 
   return result
+}
+
+/**
+ * プロットするデータ数が多いときに間引く
+ * @returns miniute(s) to be plotted in the chart
+ */
+function getTimeInterval(
+  startTime: Date,
+  endTime: Date,
+  maxDataPoints: number
+): number {
+  const totalMinutes = (endTime.getTime() - startTime.getTime()) / (60 * 1000)
+  let interval = 1 // デフォルトは1分間隔
+
+  while (totalMinutes / interval > maxDataPoints) {
+    interval++
+  }
+
+  return interval
 }
