@@ -385,7 +385,15 @@
         "nav": "Earnings",
         "title": "Earnings, Trends",
         "notice": "Earnings counting will begin once the live stream begins.",
-        "membersOnly": "This live stream is for members only, so super chat will not be displayed."
+        "membersOnly": "This live stream is for members only, so super chat will not be displayed.",
+        "chart": {
+          "superChat": {
+            "title": "Super Chat Chart",
+            "description": "Super Chat events and cumulative amounts during the live stream.",
+            "amount": "Super Chat event",
+            "cumulativeAmount": "Cumulative amount"
+          }
+        }
       },
       "superChatComments": {
         "nav": "Super Chat comments",

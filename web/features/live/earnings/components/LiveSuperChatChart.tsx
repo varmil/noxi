@@ -3,18 +3,18 @@
 import {
   DateTimeFormatOptions,
   NumberFormatOptions,
-  useFormatter
+  useFormatter,
+  useTranslations
 } from 'next-intl'
 import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis } from 'recharts'
 import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
+import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,
   ChartCardContent,
@@ -22,6 +22,7 @@ import {
   ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import { LiveSuperChatChartData } from '../utils/super-chat-chart'
+import type { NameType } from 'recharts/types/component/DefaultTooltipContent'
 
 const CurrencyFormat: NumberFormatOptions = {
   style: 'currency',
@@ -29,7 +30,7 @@ const CurrencyFormat: NumberFormatOptions = {
   currency: 'JPY'
 }
 
-const TickFormat: DateTimeFormatOptions = {
+const TimeFormat: DateTimeFormatOptions = {
   hour: 'numeric',
   minute: 'numeric',
   hourCycle: 'h23'
@@ -41,15 +42,14 @@ interface Props {
 }
 
 export function LiveSuperChatChart({ data, config }: Props) {
+  const feat = useTranslations('Features.live.earnings.chart.superChat')
   const format = useFormatter()
 
   return (
     <ChartCard>
       <ChartCardHeader>
-        <ChartCardTitle>スパチャ金額の累積グラフ</ChartCardTitle>
-        <CardDescription>
-          ライブ配信のスパチャイベントと累積金額
-        </CardDescription>
+        <ChartCardTitle>{feat('title')}</ChartCardTitle>
+        <CardDescription>{feat('description')}</CardDescription>
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={config}>
@@ -57,10 +57,11 @@ export function LiveSuperChatChart({ data, config }: Props) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="time"
+              tickLine={false}
               tickMargin={8}
               minTickGap={40}
               tickFormatter={time =>
-                format.dateTime(new Date(time), TickFormat)
+                format.dateTime(new Date(time), TimeFormat)
               }
             />
             <YAxis
@@ -79,32 +80,25 @@ export function LiveSuperChatChart({ data, config }: Props) {
               }
             />
             <ChartTooltip
-              allowEscapeViewBox={{ x: true, y: true }}
-              content={({ active, payload }) => {
-                if (active && payload && payload.length) {
-                  const data = payload[0].payload
-                  return (
-                    <ChartTooltipContent className="w-[165px] sm:w-[180px]">
-                      <div className="text-sm font-bold">
-                        {new Date(data.time).toLocaleString()}
-                      </div>
-                      <div>
-                        スーパーチャット: {data.amount.toFixed(2)}{' '}
-                        {data.currency}
-                      </div>
-                      <div>
-                        累積金額: {data.cumulativeAmount.toFixed(2)}{' '}
-                        {data.currency}
-                      </div>
-                      <div>ユーザー: {data.displayName}</div>
-                      <div>コメント: {data.comment}</div>
-                    </ChartTooltipContent>
-                  )
-                }
-                return null
-              }}
+              allowEscapeViewBox={{ x: false, y: true }}
+              content={
+                <ChartTooltipContent
+                  className="w-[165px] sm:w-[180px]"
+                  labelFormatter={(_label, [{ payload }]) =>
+                    format.dateTime(new Date(payload.time), TimeFormat)
+                  }
+                  formatter={(value, name) => {
+                    return (
+                      <ChartTooltipFormatter
+                        indicatorColor={name}
+                        name={(config[name]?.label as NameType) || name}
+                        value={format.number(value as number, CurrencyFormat)}
+                      />
+                    )
+                  }}
+                />
+              }
             />
-            <ChartLegend content={<ChartLegendContent />} />
             <Bar
               dataKey="amount"
               yAxisId="left"

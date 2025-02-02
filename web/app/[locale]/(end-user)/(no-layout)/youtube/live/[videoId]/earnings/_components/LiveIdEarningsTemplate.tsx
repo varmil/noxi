@@ -16,33 +16,31 @@ type Props = { videoId: string }
 export async function LiveIdEarningsTemplate({
   videoId
 }: PropsWithoutRef<Props>) {
-  // TODO: getSuperChatsと並列通信でもいいかも？
-  const stream = await getStream(videoId)
-  return <Earnings stream={stream} />
+  return <Earnings videoId={videoId} />
 }
 
-async function Earnings({ stream }: { stream: StreamSchema }) {
-  const t = await getTranslations('Features.live.earnings')
-  const {
-    videoId,
-    streamTimes: { scheduledStartTime, actualEndTime },
-    status,
-    membersOnly
-  } = stream
-
-  // スケジュール
-  if (status === 'scheduled' || !scheduledStartTime) return <p>{t('notice')}</p>
-  // メンバー限定
-  if (membersOnly) return <p>{t('membersOnly')}</p>
-
-  // NOTE: 本当はサーバーサイドで計算したいかも
-  const [chats] = await Promise.all([
+async function Earnings({ videoId }: { videoId: string }) {
+  const [feat, stream, chats] = await Promise.all([
+    getTranslations('Features.live.earnings'),
+    getStream(videoId),
     getSuperChats({
       videoId,
       orderBy: [{ field: 'amountMicros', order: 'desc' }],
       limit: 2000
     })
   ])
+
+  const {
+    streamTimes: { scheduledStartTime, actualEndTime },
+    status,
+    membersOnly
+  } = stream
+
+  // スケジュール
+  if (status === 'scheduled' || !scheduledStartTime)
+    return <p>{feat('notice')}</p>
+  // メンバー限定
+  if (membersOnly) return <p>{feat('membersOnly')}</p>
 
   const chartData = await prepareChartData({
     startTime: new Date(scheduledStartTime),
@@ -52,11 +50,11 @@ async function Earnings({ stream }: { stream: StreamSchema }) {
 
   const chartConfig = {
     amount: {
-      label: 'スパチャ金額',
+      label: feat('chart.superChat.amount'),
       color: 'hsl(var(--chart-1))'
     },
     cumulativeAmount: {
-      label: '累積金額',
+      label: feat('chart.superChat.cumulativeAmount'),
       color: 'hsl(var(--chart-2))'
     }
   } satisfies ChartConfig

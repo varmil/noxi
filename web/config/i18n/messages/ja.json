@@ -385,7 +385,15 @@
         "nav": "収益",
         "title": "スパチャ金額、推移、新メンバー加入数",
         "notice": "ライブが始まるとスパチャの集計が開始されます",
-        "membersOnly": "メンバー限定のため表示されません"
+        "membersOnly": "メンバー限定のため表示されません",
+        "chart": {
+          "superChat": {
+            "title": "スパチャ金額グラフ",
+            "description": "ライブ配信のスパチャイベントと累積金額",
+            "amount": "スパチャ金額",
+            "cumulativeAmount": "累積金額"
+          }
+        }
       },
       "superChatComments": {
         "nav": "スパチャコメント",
