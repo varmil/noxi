@@ -36,7 +36,7 @@ export async function prepareChartData({
   }
   const interval = getTimeInterval(startTime, endTime, maxDataPoints)
 
-  // 1分ごとのデータポイントを作成
+  // Interval分ごとのデータポイントを作成
   const result: LiveSuperChatChartData[] = []
   for (
     let time = startTime;
