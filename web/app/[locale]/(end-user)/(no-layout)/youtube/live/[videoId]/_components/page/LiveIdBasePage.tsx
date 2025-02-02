@@ -24,7 +24,7 @@ export async function generateBaseMetadata(
   props: Props & {
     namespace:
       | 'Page.youtube.live.id.index.metadata'
-      | 'Page.youtube.live.id.superChat.metadata'
+      | 'Page.youtube.live.id.earnings.metadata'
       | 'Page.youtube.live.id.superChat.comments.metadata'
       | 'Page.youtube.live.id.comments.metadata'
       | 'Page.youtube.live.id.relatedVideos.metadata'

@@ -6,19 +6,19 @@ import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/sim
 
 type Props = { videoId: string }
 
-export async function LiveIdSuperChatTemplate({
+export async function LiveIdEarningsTemplate({
   videoId
 }: PropsWithoutRef<Props>) {
   const stream = await getStream(videoId)
-  return <SuperChat stream={stream} />
+  return <Earnings stream={stream} />
 }
 
 /**
  * Hide when scheduled
  * TODO: スパチャ累積チャート
  **/
-async function SuperChat({ stream }: { stream: StreamSchema }) {
-  const t = await getTranslations('Features.live.superChat')
+async function Earnings({ stream }: { stream: StreamSchema }) {
+  const t = await getTranslations('Features.live.earnings')
   const { videoId, status, membersOnly } = stream
 
   // スケジュール

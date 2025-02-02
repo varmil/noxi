@@ -200,11 +200,13 @@
               "description": "Watch YouTube Live! Check {channel}'s Super Chat amount and concurrent viewers. PeakX even publishes all Super Chat comments!"
             }
           },
-          "superChat": {
+          "earnings": {
             "metadata": {
               "title": "{channel} {title} - Super Chat",
               "description": "Check the Super Chat amount for this live stream! Don't miss out on the popular moments of {channel}."
-            },
+            }
+          },
+          "superChat": {
             "comments": {
               "metadata": {
                 "title": "{channel} {title} - Super Chat Comments",
@@ -379,10 +381,10 @@
         "nav": "Overview",
         "title": "Number of views and concurrent viewers"
       },
-      "superChat": {
-        "nav": "Super Chat",
-        "title": "Super Chat amount, trends",
-        "notice": "Super Chat counting will begin once the live stream begins.",
+      "earnings": {
+        "nav": "Earnings",
+        "title": "Earnings, Trends",
+        "notice": "Earnings counting will begin once the live stream begins.",
         "membersOnly": "This live stream is for members only, so super chat will not be displayed."
       },
       "superChatComments": {
