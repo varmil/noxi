@@ -1,11 +1,15 @@
+'use client'
+
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
+import { usePathname } from 'lib/navigation'
 
 export default function LocalNavigationForLiveIdPages({
   videoId
 }: {
   videoId: string
 }) {
+  const pathname = usePathname()
   const t = useTranslations('Features.live')
   const basePath = `/youtube/live/${videoId}`
 
@@ -19,14 +23,12 @@ export default function LocalNavigationForLiveIdPages({
           prefetch: true
         },
         {
-          name: t('superChatComments.nav'),
-          href: `${basePath}/super-chat/comments`,
-          prefetch: true
-        },
-        {
           name: t('comments.nav'),
-          href: `${basePath}/comments`,
-          prefetch: true
+          href: `${basePath}/super-chat/comments`,
+          prefetch: true,
+          active:
+            pathname === `${basePath}/super-chat/comments` ||
+            pathname === `${basePath}/comments`
         },
         {
           name: t('relatedVideos.nav'),
@@ -35,7 +37,7 @@ export default function LocalNavigationForLiveIdPages({
         }
       ].filter(e => !!e)}
       className="w-full border-b mb-8"
-      linkClassName="min-w-20 sm:min-w-30"
+      linkClassName="min-w-22 sm:min-w-36"
     />
   )
 }

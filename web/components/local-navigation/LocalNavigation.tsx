@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
 
 type Props = {
-  items: { name: string; href: string; prefetch?: boolean }[]
+  items: { name: string; href: string; prefetch?: boolean; active?: boolean }[]
   className?: string
   linkClassName?: string
 }
@@ -28,7 +28,7 @@ export default function LocalNavigation({
               href={item.href}
               className={cn(
                 'inline-flex items-center justify-center border-b-2 px-3 py-4 text-sm font-medium transition-colors hover:text-foreground focus:outline-hidden focus:text-foreground focus:border-foreground',
-                pathname === item.href
+                pathname === item.href || item.active
                   ? 'border-foreground text-foreground'
                   : 'border-transparent text-muted-foreground',
                 linkClassName
@@ -40,7 +40,7 @@ export default function LocalNavigation({
             </Link>
           ))}
         </div>
-        <ScrollBar orientation="horizontal" className="invisible sm:visible" />
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
   )
