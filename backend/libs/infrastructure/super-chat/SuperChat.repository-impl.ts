@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
+import { VideoId, ChannelId, Group } from '@domain'
 import { SuperChatRepository, SuperChats } from '@domain/supers/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { SuperChatTranslator } from '@infra/super-chat/SuperChatTranslator'
-import { VideoId, ChannelId, Group } from '@domain'
 
 @Injectable()
 export class SuperChatRepositoryImpl implements SuperChatRepository {

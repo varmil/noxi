@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getSuperChatsCount } from 'apis/youtube/getSuperChats'
+import BadgeSkeleton from 'components/skeleton/BadgeSkeleton'
 
 type Props = {
   videoId: string
@@ -17,7 +18,7 @@ export default async function LocalNavigationItemOfComments({
   return (
     <div className="flex items-baseline gap-1">
       <span>{t('comments.nav')}</span>
-      <Suspense>
+      <Suspense fallback={<BadgeSkeleton />}>
         <CountBadge videoId={videoId} />
       </Suspense>
     </div>

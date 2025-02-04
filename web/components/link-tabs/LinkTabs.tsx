@@ -25,7 +25,7 @@ export function LinkTabs({ tabs }: LinkTabsProps) {
             className="flex-1"
             asChild
           >
-            <Link href={tab.href} prefetch={true}>
+            <Link href={tab.href} prefetch={true} scroll={false}>
               {tab.label}
             </Link>
           </TabsTrigger>
