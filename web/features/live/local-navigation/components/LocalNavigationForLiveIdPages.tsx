@@ -1,6 +1,5 @@
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-// import { usePathname } from 'lib/navigation'
 import LocalNavigationItemOfComments from './LocalNavigationItemOfComments'
 
 export default function LocalNavigationForLiveIdPages({
@@ -8,7 +7,6 @@ export default function LocalNavigationForLiveIdPages({
 }: {
   videoId: string
 }) {
-  // const pathname = usePathname()
   const t = useTranslations('Features.live')
   const basePath = `/youtube/live/${videoId}`
 
