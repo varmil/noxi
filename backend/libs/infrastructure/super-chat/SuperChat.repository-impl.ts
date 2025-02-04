@@ -3,6 +3,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { SuperChatRepository, SuperChats } from '@domain/supers/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { SuperChatTranslator } from '@infra/super-chat/SuperChatTranslator'
+import { VideoId, ChannelId, Group } from '@domain'
 
 @Injectable()
 export class SuperChatRepositoryImpl implements SuperChatRepository {
@@ -31,6 +32,24 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
     return new SuperChats(
       rows.map(row => new SuperChatTranslator(row).translate())
     )
+  }
+
+  count: SuperChatRepository['count'] = async ({
+    where: { channelId, videoId, group, createdBefore, createdAfter }
+  }) => {
+    return await this.prismaInfraService.youtubeStreamSuperChat.count({
+      where: {
+        videoId: videoId?.get(),
+        group: group?.get(),
+        createdAt: {
+          gte: createdAfter,
+          lte: createdBefore
+        },
+        stream: {
+          channelId: channelId?.get()
+        }
+      }
+    })
   }
 
   async save({

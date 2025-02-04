@@ -32,6 +32,18 @@ export class SupersController {
     })
   }
 
+  @Get('chats/count')
+  async GetSuperChatsCount(@Query() dto: GetSuperChats) {
+    return await this.superChatsService.count({
+      where: {
+        videoId: dto.toVideoId(),
+        channelId: dto.toChannelId(),
+        createdBefore: dto.toCreatedBefore(),
+        createdAfter: dto.toCreatedAfter()
+      }
+    })
+  }
+
   @Get('stickers')
   async GetSuperStickers(@Query() dto: GetSuperStickers) {
     return await this.superStickersService.findAll({

@@ -28,10 +28,11 @@ export class GetSuperChats {
   @IsRFC3339()
   createdAfter?: string
 
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
-  orderBy: OrderByDto<
+  orderBy?: OrderByDto<
     'commentLength' | 'amountMicros' | 'currency' | 'createdAt'
   >[]
 
@@ -54,9 +55,12 @@ export class GetSuperChats {
   }
 
   toOrderBy = () => {
-    return this.orderBy.map(({ field, order }) => ({
-      [field]: order
-    })) as Parameters<SuperChatRepository['findAll']>[0]['orderBy']
+    return (
+      (this.orderBy?.map(({ field, order }) => ({
+        [field]: order
+      })) as Parameters<SuperChatRepository['findAll']>[0]['orderBy']) ??
+      undefined
+    )
   }
 
   toLimit = () => this.limit
