@@ -16,33 +16,49 @@ type Params = {
   limit: number
 }
 
-export async function getSuperChats({
+const createSearchParams = ({
   videoId,
   channelId,
   createdBefore,
   createdAfter,
   orderBy,
   limit
-}: Params): Promise<SuperChatsSchema> {
+}: Partial<Params>) => {
   const searchParams = new URLSearchParams({
-    limit: String(limit),
+    ...(limit !== undefined && { limit: String(limit) }),
     ...(videoId && { videoId }),
     ...(channelId && { channelId }),
     ...(createdBefore && { createdBefore: createdBefore.toISOString() }),
     ...(createdAfter && { createdAfter: createdAfter.toISOString() })
   })
 
-  orderBy.forEach((orderBy, index) => {
+  orderBy?.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
-  const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`)
+  return searchParams
+}
 
+export async function getSuperChats(params: Params): Promise<SuperChatsSchema> {
+  const searchParams = createSearchParams(params)
+  const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`)
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
-
   const data = responseSchema.parse(await res.json())
   return data.list
+}
+
+export async function getSuperChatsCount(
+  params: Omit<Params, 'limit' | 'offset' | 'orderBy'>
+): Promise<number> {
+  const searchParams = createSearchParams(params)
+  const res = await fetchAPI(
+    `/api/supers/chats/count?${searchParams.toString()}`
+  )
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${await res.text()}`)
+  }
+  return await res.json()
 }

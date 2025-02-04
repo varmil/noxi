@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
+import LocalNavigationItemOfComments from './LocalNavigationItemOfComments'
 
 export default function LocalNavigationForLiveIdPages({
   videoId
@@ -19,13 +20,8 @@ export default function LocalNavigationForLiveIdPages({
           prefetch: true
         },
         {
-          name: t('superChatComments.nav'),
-          href: `${basePath}/super-chat/comments`,
-          prefetch: true
-        },
-        {
-          name: t('comments.nav'),
-          href: `${basePath}/comments`,
+          name: <LocalNavigationItemOfComments videoId={videoId} />,
+          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
           prefetch: true
         },
         {
@@ -35,7 +31,7 @@ export default function LocalNavigationForLiveIdPages({
         }
       ].filter(e => !!e)}
       className="w-full border-b mb-8"
-      linkClassName="min-w-20 sm:min-w-30"
+      linkClassName="min-w-22 sm:min-w-36"
     />
   )
 }

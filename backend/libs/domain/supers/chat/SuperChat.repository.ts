@@ -20,5 +20,15 @@ export interface SuperChatRepository {
     limit?: number
   }) => Promise<SuperChats>
 
+  count: (args: {
+    where: {
+      videoId?: VideoId
+      channelId?: ChannelId
+      group?: Group
+      createdBefore?: Date
+      createdAfter?: Date
+    }
+  }) => Promise<number>
+
   save: (args: { data: SuperChat }) => Promise<void>
 }

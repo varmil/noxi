@@ -18,6 +18,12 @@ export class SuperChatsService {
     return await this.superChatRepository.findAll(args)
   }
 
+  async count(
+    args: Parameters<SuperChatRepository['count']>[0]
+  ): Promise<number> {
+    return await this.superChatRepository.count(args)
+  }
+
   async save(args: Parameters<SuperChatRepository['save']>[0]): Promise<void> {
     await this.superChatRepository.save(args)
   }
