@@ -7,6 +7,9 @@ import { Link } from 'lib/navigation'
 
 const KEY_NAME = 'global/cookie/agreement'
 
+/**
+ * @deprecated 特に必要ないので削除予定
+ */
 export function CookieAgreeBanner({ className }: { className?: string }) {
   const [shouldBeHidden, setValue] = useState<boolean | null | undefined>()
   useEffect(() => {
