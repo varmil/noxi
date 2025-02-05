@@ -45,6 +45,9 @@ declare global {
       readonly NEXT_PUBLIC_GA_ID?: string
 
       readonly VERCEL_ENV?: 'production' | 'preview' | 'development'
+
+      /** 本番でのみ定義 */
+      readonly CLARITY_CODE?: string
     }
   }
 }

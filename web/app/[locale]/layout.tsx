@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/toaster'
+import { ClarityScript } from 'components/script/ClarityScript'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
 
@@ -46,6 +47,7 @@ export default async function LocaleLayout(props: Props) {
       className={`${notoSansJP.className}`}
       suppressHydrationWarning
     >
+      <ClarityScript />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
       <body>
         <ThemeProvider
