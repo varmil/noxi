@@ -31,7 +31,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
     <>
       <Container>
         <HeroSectionContainer>
-          <div className="flex flex-col justify-center gap-y-8">
+          <div className="flex flex-col justify-center gap-y-8 whitespace-pre-wrap">
             <HeroH2>{t('title')}</HeroH2>
             <p className="max-w-[600px] text-muted-foreground md:text-xl">
               {t('description')}

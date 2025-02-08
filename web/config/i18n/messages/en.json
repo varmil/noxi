@@ -73,11 +73,11 @@
   "Page": {
     "index": {
       "metadata": {
-        "title": "The VTuber DB",
+        "title": "The VTuber Super Chat Ranking",
         "description": "Explore PeakX for realtime VTuber Live Streams on YouTube. Stay updated on trends and find your favorite VTuber contents effortlessly."
       },
-      "title": "The VTuber DB",
-      "description": "We organize VTubers from all over the world. We will introduce all VTubers like Hololive, Nijisanji, and more.",
+      "title": "The VTuber Super Chat Ranking",
+      "description": "We organize VTubers from all over the world. We will summarize the Super Chat earnings of VTubers like Hololive, Nijisanji, Independent VTubers and more.",
       "section": {
         "hero": { "more": "Most Watched right now" },
         "socialProof": {
