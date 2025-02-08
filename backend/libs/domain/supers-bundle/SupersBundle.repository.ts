@@ -37,7 +37,6 @@ export interface SupersBundleRepository {
 
   /**
    * Sum amountMicros within a period grouped by channelId
-   * OR: last24Hours && Realtime（ライブ中）の金額計算をする場合に指定する
    **/
   sum: (args: {
     where: {
