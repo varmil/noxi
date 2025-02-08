@@ -1,4 +1,3 @@
-import dayjs from 'lib/dayjs'
 import { getStartOf } from 'utils/ranking/ranking'
 import type { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
@@ -14,9 +13,11 @@ export default function createGetSupersBundlesParams({
   let result = {}
 
   if (period === 'realtime') {
+    // NULL means "live now"
     result = { ...result, actualEndTimeGTE: null, actualEndTimeLTE: null }
   } else {
-    result = { ...result, actualEndTimeGTE: getStartOf(period).toDate() }
+    // それ以外は「CreatedAt」基準で取得
+    result = { ...result, createdAtGTE: getStartOf(period).toDate() }
   }
 
   if (dimension === 'super-chat') {

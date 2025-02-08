@@ -38,6 +38,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
             channelId: where.channelId?.get(),
             group: where.group?.get(),
             actualEndTime: where.actualEndTime,
+            createdAt: where.createdAt,
             channel: { gender: where.gender?.get() }
           }
         : undefined
@@ -97,8 +98,8 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }) => {
-    if (!where.actualEndTime && !where.OR) {
-      throw new BadRequestException('actualEndTime or OR must be specified')
+    if (!where.createdAt) {
+      throw new BadRequestException('createdAt must be specified')
     }
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
@@ -106,8 +107,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         where: {
           channelId: { in: where.channelIds?.map(e => e.get()) },
           group: where.group?.get(),
-          actualEndTime: where.actualEndTime,
-          OR: where.OR,
+          createdAt: where.createdAt,
           channel: { gender: where.gender?.get() }
         },
         _sum: { amountMicros: true },

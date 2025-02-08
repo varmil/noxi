@@ -20,7 +20,9 @@ export interface SupersBundleRepository {
       channelId?: ChannelId
       group?: Group
       gender?: Gender
-      actualEndTime?: { gte?: Date; lte?: Date } | null
+      // NULL means "live now"
+      actualEndTime?: null
+      createdAt?: { gte?: Date; lte?: Date }
     }
     orderBy?: Partial<Record<'amountMicros', 'asc' | 'desc'>>[]
     limit?: number
@@ -42,8 +44,7 @@ export interface SupersBundleRepository {
       channelIds?: ChannelIds
       group?: Group
       gender?: Gender
-      actualEndTime?: { gte: Date; lte?: Date }
-      OR?: [{ actualEndTime: { gte: Date } }, { createdAt: { gte: Date } }]
+      createdAt?: { gte?: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number

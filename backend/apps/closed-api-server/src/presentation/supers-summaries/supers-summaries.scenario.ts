@@ -53,10 +53,10 @@ export class SupersSummariesScenario {
 
   private whereActualEndTime(date?: Date) {
     if (!date) {
-      return { actualEndTime: { gte: new Now().xDaysAgo(1) } }
+      return { createdAt: { gte: new Now().xDaysAgo(1) } }
     }
     return {
-      actualEndTime: { gte: new ActualEndTime(date).xDaysAgo(1), lte: date }
+      createdAt: { gte: new ActualEndTime(date).xDaysAgo(1), lte: date }
     }
   }
 }
