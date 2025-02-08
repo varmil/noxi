@@ -8,7 +8,7 @@ import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
 const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
   '/youtube/live/ranking': {
     dimension: 'concurrent-viewer',
-    period: 'last24Hours'
+    period: 'realtime'
   },
   '/youtube/channels/ranking': {
     dimension: 'super-chat',
@@ -20,7 +20,7 @@ const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
  * Mapping of `dimension` to specific `period` values
  */
 const PERIOD_BY_DIMENSION: Record<string, string> = {
-  'concurrent-viewer': 'last24Hours',
+  'concurrent-viewer': 'realtime',
   'super-chat': 'last24Hours',
   subscriber: 'all'
 }

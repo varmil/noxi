@@ -2,7 +2,7 @@ import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
-import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
+import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 import { Link } from 'lib/navigation'
 import { HeroH2 } from './styles/HeroTitles'
 import SocialProofSection from './ui/social-proof/SocialProofSection'
@@ -31,21 +31,21 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
     <>
       <Container>
         <HeroSectionContainer>
-          <div className="flex flex-col justify-center gap-y-8">
+          <div className="flex flex-col justify-center gap-y-8 whitespace-pre-wrap">
             <HeroH2>{t('title')}</HeroH2>
             <p className="max-w-[600px] text-muted-foreground md:text-xl">
               {t('description')}
             </p>
             <Button className="hidden lg:inline-flex w-fit" asChild>
-              <Link href="/youtube/live/ranking">
+              <Link href="/youtube/channels/ranking">
                 {t('section.hero.more')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
-          <StreamRankingGallery
+          <ChannelsRankingGallery
             period="last24Hours"
-            dimension="concurrent-viewer"
+            dimension="super-chat"
             compact
           />
         </HeroSectionContainer>

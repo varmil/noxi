@@ -8,7 +8,8 @@ export default function createGetSupersSummariesParams({
   group,
   gender,
   country,
-  date
+  date,
+  compact
 }: ChannelsRankingGalleryProps): GetSupersSummaries {
   let result = {}
   let orderBy: GetSupersSummaries['orderBy']
@@ -46,7 +47,7 @@ export default function createGetSupersSummariesParams({
     result = { ...result, date: new Date(date) }
   }
 
-  result = { ...result, limit: 30 }
+  result = { ...result, limit: compact ? 7 : 30 }
 
   return result
 }
