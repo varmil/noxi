@@ -46,6 +46,7 @@ export const JPList: GroupChannel[] = [
     title: 'Patra Channel / 周防パトラ',
     ...DefaultProps
   },
+  // ↑ 600k -
   {
     id: new ChannelId('UCqTGCMjeKOclEEfW8Vs7sXQ'),
     title: 'ガッチマンV',
@@ -148,6 +149,11 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCDxHeaaTTRVgb2Pa2rQXSPw'),
+    title: '天羽しろっぷ',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCrKD8cwv_Wrpx22SO-VeWAQ'),
     title: 'きつねさん / Kitune-san',
     ...DefaultProps,
@@ -175,6 +181,7 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps,
     gender: Gender.Male
   },
+  // ↑ 300k -
   {
     id: new ChannelId('UCXUUh47D2VNtpsMjut8OHgQ'),
     title: '麻酔 Masui',
@@ -205,10 +212,20 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCRLKo8L32CJUg1pKJG7LJpg'),
+    title: 'じんむ',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCsABPC_SPKUaf7BkZGs4wbQ'),
     title: '犯罪学教室のかなえ先生',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCKAYvGOgvJYTn3guxTXqbGQ'),
+    title: '佐佐咲キキ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCu5OhGQzagQkmJoOOnxnBIg'),
@@ -232,6 +249,16 @@ export const JPList: GroupChannel[] = [
     title: 'けんぼー',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UC6ixLgVB4D6ucEXb4VhZ-PA'),
+    title: '毒ヶ衣ちなみ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCNomdKfjGPeJCo3bXaHHPGw'),
+    title: '蓮希るい',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UC_T1YqknD5yrpVlupc-ZXzg'),
@@ -288,6 +315,7 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps,
     gender: Gender.Male
   },
+  // ↑ 100k -
   {
     id: new ChannelId('UCUZ5AlC3rTlM-rA2cj5RP6w'),
     title: '神楽すず',
@@ -356,6 +384,11 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UC7WtdrXXd9_wl5nEGbt12Yw'),
+    title: '天ノ譜ステラ',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCn0bPhgINwJh_2SvHqcjO7Q'),
     title: '白樺るるは',
     ...DefaultProps
@@ -388,9 +421,30 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCoX_ETXDQLX7T1WzhDNwIQQ'),
+    title: 'ごまふろこちゃ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC1NYgNBwE1i6dJNqljqhibg'),
+    title: 'ミソラソラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCXDo8Kpqme1OPSuUjsH74Og'),
+    title: 'あまち　かれんch',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCi1pVIrFVtrRTnyaUtKcgOQ'),
     title: 'Reimu Ch. 甘兎れいむ',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCoH2pmJSNwhoITW8vYWRaow'),
+    title: '音御 光歌',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCXF2g2N8d6xDgzcsoy8pgDA'),
