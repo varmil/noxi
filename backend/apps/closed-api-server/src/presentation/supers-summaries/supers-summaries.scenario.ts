@@ -30,7 +30,7 @@ export class SupersSummariesScenario {
     const { where, orderBy, limit, offset, date } = args
     if (orderBy?.some(orderBy => 'last24Hours' in orderBy)) {
       const sums = await this.supersBundlesService.sum({
-        where: { ...where, ...this.whereActualEndTime(date) },
+        where: { ...where, ...this.whereCreatedAt(date) },
         orderBy: { _sum: { amountMicros: 'desc' } },
         limit,
         offset
@@ -51,12 +51,12 @@ export class SupersSummariesScenario {
     }
   }
 
-  private whereActualEndTime(date?: Date) {
+  private whereCreatedAt(date?: Date) {
     if (!date) {
-      return { actualEndTime: { gte: new Now().xDaysAgo(1) } }
+      return { createdAt: { gte: new Now().xDaysAgo(1) } }
     }
     return {
-      actualEndTime: { gte: new ActualEndTime(date).xDaysAgo(1), lte: date }
+      createdAt: { gte: new ActualEndTime(date).xDaysAgo(1), lte: date }
     }
   }
 }

@@ -28,7 +28,8 @@ export class SupersBundlesController {
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
         gender: dto.toGender(),
-        actualEndTime: dto.toActualEndTime()
+        actualEndTime: dto.toActualEndTime(),
+        createdAt: dto.toCreatedAt()
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
@@ -45,10 +46,7 @@ export class SupersBundlesController {
       await this.supersBundlesService.sum({
         where: {
           channelIds: new ChannelIds([dto.toChannelId()]),
-          OR: [
-            { actualEndTime: dto.toActualEndTime() },
-            { createdAt: dto.toCreatedAt() }
-          ]
+          createdAt: dto.toCreatedAt()
         }
       })
     ).first()

@@ -55,6 +55,14 @@ export class GetSupersBundles {
   actualEndTimeLTE?: string | null
 
   @IsOptional()
+  @IsRFC3339()
+  createdAtLTE?: string
+
+  @IsOptional()
+  @IsRFC3339()
+  createdAtGTE?: string
+
+  @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
@@ -96,19 +104,20 @@ export class GetSupersBundles {
     if (this.actualEndTimeGTE === null || this.actualEndTimeLTE === null) {
       return null
     }
+    return undefined
+  }
 
-    const actualEndTimeGTE =
-      this.actualEndTimeGTE !== undefined
-        ? new Date(this.actualEndTimeGTE)
-        : undefined
-    const actualEndTimeLTE =
-      this.actualEndTimeLTE !== undefined
-        ? new Date(this.actualEndTimeLTE)
-        : undefined
+  toCreatedAt = () => {
+    const createdAtGTE = this.createdAtGTE
+      ? new Date(this.createdAtGTE)
+      : undefined
+    const createdAtLTE = this.createdAtLTE
+      ? new Date(this.createdAtLTE)
+      : undefined
 
     return {
-      ...(actualEndTimeGTE && { gte: actualEndTimeGTE }),
-      ...(actualEndTimeLTE && { lte: actualEndTimeLTE })
+      ...(createdAtGTE && { gte: createdAtGTE }),
+      ...(createdAtLTE && { lte: createdAtLTE })
     }
   }
 

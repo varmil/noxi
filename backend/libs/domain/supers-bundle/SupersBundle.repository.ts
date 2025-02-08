@@ -20,7 +20,9 @@ export interface SupersBundleRepository {
       channelId?: ChannelId
       group?: Group
       gender?: Gender
-      actualEndTime?: { gte?: Date; lte?: Date } | null
+      // NULL means "live now"
+      actualEndTime?: null
+      createdAt?: { gte?: Date; lte?: Date }
     }
     orderBy?: Partial<Record<'amountMicros', 'asc' | 'desc'>>[]
     limit?: number
@@ -35,15 +37,13 @@ export interface SupersBundleRepository {
 
   /**
    * Sum amountMicros within a period grouped by channelId
-   * OR: last24Hours && Realtime（ライブ中）の金額計算をする場合に指定する
    **/
   sum: (args: {
     where: {
       channelIds?: ChannelIds
       group?: Group
       gender?: Gender
-      actualEndTime?: { gte: Date; lte?: Date }
-      OR?: [{ actualEndTime: { gte: Date } }, { createdAt: { gte: Date } }]
+      createdAt?: { gte?: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number

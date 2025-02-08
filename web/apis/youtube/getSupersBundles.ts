@@ -11,8 +11,10 @@ type Params = {
   channelId?: string
   group?: GroupString
   gender?: Gender
-  actualEndTimeGTE?: Date | null
-  actualEndTimeLTE?: Date | null
+  actualEndTimeGTE?: null
+  actualEndTimeLTE?: null
+  createdAtGTE?: Date
+  createdAtLTE?: Date
   orderBy?: {
     field: 'amountMicros'
     order: 'asc' | 'desc'
@@ -28,6 +30,8 @@ export async function getSupersBundles({
   gender,
   actualEndTimeGTE,
   actualEndTimeLTE,
+  createdAtGTE,
+  createdAtLTE,
   orderBy,
   limit,
   offset
@@ -37,12 +41,10 @@ export async function getSupersBundles({
     ...(channelId && { channelId }),
     ...(group && { group }),
     ...(gender && { gender }),
-    ...(actualEndTimeGTE !== undefined && {
-      actualEndTimeGTE: actualEndTimeGTE?.toISOString() ?? 'null'
-    }),
-    ...(actualEndTimeLTE !== undefined && {
-      actualEndTimeLTE: actualEndTimeLTE?.toISOString() ?? 'null'
-    }),
+    ...(actualEndTimeGTE === null && { actualEndTimeGTE: 'null' }),
+    ...(actualEndTimeLTE === null && { actualEndTimeLTE: 'null' }),
+    ...(createdAtGTE && { createdAtGTE: createdAtGTE?.toISOString() }),
+    ...(createdAtLTE && { createdAtLTE: createdAtLTE?.toISOString() }),
     ...(limit && { limit: String(limit) }),
     ...(offset && { offset: String(offset) })
   })
