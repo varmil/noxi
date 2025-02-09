@@ -217,6 +217,16 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCeFvaOWKmS0T-rSQEcfZNog'),
+    title: '月待にゃも',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCM6iy_rSgSMbFjx10Z6VVGA'),
+    title: 'ヒヅキミウ',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCsABPC_SPKUaf7BkZGs4wbQ'),
     title: '犯罪学教室のかなえ先生',
     ...DefaultProps,
@@ -225,6 +235,11 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCKAYvGOgvJYTn3guxTXqbGQ'),
     title: '佐佐咲キキ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCrAsByHNIFObjr2sEaZHkCg'),
+    title: '乙夏れい',
     ...DefaultProps
   },
   {
@@ -258,6 +273,16 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCNomdKfjGPeJCo3bXaHHPGw'),
     title: '蓮希るい',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCBC7vYFNQoGPupe5NxPG4Bw'),
+    title: '久遠たま',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCJkbFDMgYIC-uM4uj6Z4IbQ'),
+    title: '芽唯 - mei -',
     ...DefaultProps
   },
   {
@@ -305,9 +330,20 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
-    id: new ChannelId('UCKa-bMYjrXEhXpaprT3KaFg'),
-    title: '沢城懐',
+    id: new ChannelId('UCw-jEa3_788VkvM2zHzrDnw'),
+    title: '鳳玲天々',
     ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCSH4t_nhsNIoxPza4ooYqaA'),
+    title: '花守へるし',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UC8Ltb0-WwIoEhmCrMzM01ww'),
+    title: '花幽カノン',
+    ...DefaultProps,
+    gender: Gender.Male
   },
   {
     id: new ChannelId('UCkNnf7-5rapGB9BjGuWmkVg'),
