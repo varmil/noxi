@@ -62,7 +62,7 @@ export default async function StreamRankingGallery(
 
       <StreamRankingTable
         dimension={dimension}
-        page={Number(page || 1)}
+        page={Number(page) || 1}
         streams={streams}
       />
 

@@ -51,7 +51,8 @@ export default function createGetStreamsParams({
   // limit, offset
   {
     const limit = compact ? 5 : STREAM_RANKING_PAGE_SIZE
-    const offset = (Number(page || 1) - 1) * STREAM_RANKING_PAGE_SIZE
+    const offset =
+      Math.max((Number(page) || 1) - 1, 0) * STREAM_RANKING_PAGE_SIZE
     result = { ...result, limit, offset }
   }
 
