@@ -25,7 +25,7 @@ export function useGroupByDay(streams: StreamsSchema) {
   const data = Object.values(
     excludeMembersOnly(streams)
       .map<ChartData>(stream => ({
-        dayOfWeek: dayjs.utc(stream.streamTimes.actualStartTime).format('dddd'),
+        dayOfWeek: dayjs(stream.streamTimes.actualStartTime).format('dddd'),
         peak: stream.metrics.peakConcurrentViewers || 0
       }))
       .reduce<{ [dow: string]: ReducedData }>((acc, curr) => {
@@ -60,23 +60,6 @@ export function useGroupByDay(streams: StreamsSchema) {
   return data.sort((a, b) => {
     return DAYS_ORDER.indexOf(a.dayOfWeek) - DAYS_ORDER.indexOf(b.dayOfWeek)
   })
-}
-
-export function useAvarage(streams: StreamsSchema): ChartData[] {
-  return useGroupByDay(streams).map(dayData => ({
-    dayOfWeek: dayData.dayOfWeek,
-    peak: Math.round(dayData.peak / dayData.count)
-  }))
-}
-
-/**
- * avarage viewsが最も多い曜日がオブジェクト形式で抽出されます。
- */
-export function useMaxViewsDay(streams: StreamsSchema) {
-  const grouped = useAvarage(streams)
-  return grouped.reduce((maxDay, currentDay) => {
-    return currentDay.peak > maxDay.peak ? currentDay : maxDay
-  }, grouped[0])
 }
 
 /**
