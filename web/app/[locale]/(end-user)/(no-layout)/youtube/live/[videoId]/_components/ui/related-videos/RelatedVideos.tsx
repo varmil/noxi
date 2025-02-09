@@ -2,6 +2,7 @@ import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
 import Bullet from 'components/styles/Bullet'
+import LiveBadge from 'components/styles/LiveBadge'
 import StreamedLive from 'components/styles/date/StreamedLive'
 import Watched from 'components/styles/number/Watched'
 import Watching from 'components/styles/number/Watching'
@@ -83,6 +84,11 @@ export default async function RelatedVideos({
                     </>
                   ) : null}
                 </WeakLine>
+                {status === 'live' ? (
+                  <WeakLine>
+                    <LiveBadge className="w-fit" />
+                  </WeakLine>
+                ) : null}
               </div>
             </Link>
           )
@@ -93,7 +99,5 @@ export default async function RelatedVideos({
 }
 
 const WeakLine = ({ children }: PropsWithChildren) => (
-  <div className="text-xs sm:text-sm line-clamp-1 text-muted-foreground">
-    {children}
-  </div>
+  <div className="text-xs line-clamp-1 text-muted-foreground">{children}</div>
 )
