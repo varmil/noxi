@@ -28,7 +28,7 @@ type Props = {
 export default function ResponsivePagination({ totalPages, className }: Props) {
   const pathname = usePathname()
   const { get, createQueryString } = useQueryString()
-  const current = Number(get(QS_KEY) || 1)
+  const current = Number(get(QS_KEY)) || 1
 
   return (
     <Pagination className={className}>
