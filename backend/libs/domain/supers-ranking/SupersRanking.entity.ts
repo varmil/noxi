@@ -1,6 +1,6 @@
 import { Exclude, Transform } from 'class-transformer'
-import { Period } from '@domain/lib/period'
-import { Rank, RankingType } from '@domain/supers-ranking'
+import { Period, PeriodStrings } from '@domain/lib/period'
+import { Rank, RankingType, RankingTypeStrings } from '@domain/supers-ranking'
 import { ChannelId } from '@domain/youtube'
 
 export class SupersRanking {
@@ -28,4 +28,10 @@ export class SupersRanking {
     this.rank = args.rank
     this.createdAt = args.createdAt
   }
+
+  @Exclude()
+  static allPeriods = () => PeriodStrings.map(p => new Period(p))
+
+  @Exclude()
+  static allRankingTypes = () => RankingTypeStrings.map(p => new RankingType(p))
 }

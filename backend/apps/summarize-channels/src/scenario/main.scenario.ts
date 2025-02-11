@@ -1,4 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { SupersRanking } from '@domain'
+import { SupersRankingsService } from '@app/supers-rankings/supers-rankings.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { CreateSupersSummariesService } from '../service/create-supers-summaries.service'
 
@@ -9,7 +11,8 @@ export class MainScenario {
 
   constructor(
     private readonly createSupersSummariesService: CreateSupersSummariesService,
-    private readonly channelsService: ChannelsService
+    private readonly channelsService: ChannelsService,
+    private readonly supersRankingsService: SupersRankingsService
   ) {}
 
   async executeSummaries(): Promise<void> {
@@ -37,5 +40,17 @@ export class MainScenario {
 
   async executeRankings(): Promise<void> {
     this.logger.log(`executeRankings: start`)
+
+    for (const period of SupersRanking.allPeriods()) {
+      // last24Hours だけはリアルタイム計算するのでDBには保持しない
+      if (period.isLast24Hours()) continue
+
+      for (const type of SupersRanking.allRankingTypes()) {
+        this.logger.log(`period: ${period.get()}, type: ${type.get()}`)
+        await this.supersRankingsService.createMany({
+          data: { period, rankingType: type }
+        })
+      }
+    }
   }
 }

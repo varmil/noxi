@@ -22,4 +22,8 @@ export class Period extends StringValueObject {
     super(val)
     this.val = val
   }
+
+  isLast24Hours(): boolean {
+    return this.val === 'last24Hours'
+  }
 }

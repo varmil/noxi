@@ -34,7 +34,7 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
 
     await this.prismaInfraService.$executeRawUnsafe(`
       INSERT INTO
-        "SupersRanking" ("channelId", "period", "rankingType", "rank", "createdAt")
+        "ChannelSupersRanking" ("channelId", "period", "rankingType", "rank", "createdAt")
       WITH x AS (
         SELECT
           "channelId",
@@ -43,7 +43,7 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
         FROM "YoutubeStreamSupersSummaryLatest" summary
         JOIN "Channel" c ON summary."channelId" = c."id"
       )
-      SELECT "channelId", "${period.get()}", "${rankingType.get()}", rank, NOW()
+      SELECT "channelId", '${period.get()}', '${rankingType.get()}', rank, NOW()
       FROM x;
     `)
   }
