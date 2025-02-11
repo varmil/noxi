@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { StreamFindAllWhere, StreamRepository, Streams } from '@domain/stream'
 import { Thumbnails, VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -100,15 +101,26 @@ export class StreamRepositoryImpl implements StreamRepository {
     where: { videoId },
     data
   }: Parameters<StreamRepository['updateStreamTimes']>[0]) {
-    await this.prismaInfraService.youtubeStream.update({
-      where: { videoId: videoId.get() },
-      data: {
-        scheduledStartTime: data.scheduledStartTime,
-        actualStartTime: data.actualStartTime?.get(),
-        actualEndTime: data.actualEndTime?.get(),
-        status: data.streamStatus.get()
+    try {
+      await this.prismaInfraService.youtubeStream.update({
+        where: { videoId: videoId.get() },
+        data: {
+          scheduledStartTime: data.scheduledStartTime,
+          actualStartTime: data.actualStartTime?.get(),
+          actualEndTime: data.actualEndTime?.get(),
+          status: data.streamStatus.get()
+        }
+      })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        // An operation failed because it depends on one or more records
+        // that were required but not found.
+        if (error.code === 'P2025') {
+          return
+        }
       }
-    })
+      throw error
+    }
   }
 
   updateMetrics: (
