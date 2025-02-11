@@ -34,6 +34,7 @@ model Channel {
   defaultLanguage String?
   gender          String
 
+  supersRanking       ChannelSupersRanking[]
   streams             YoutubeStream[]
   supersBundles       YoutubeStreamSupersBundle[]
   supersSummaries     YoutubeStreamSupersSummary[]
@@ -41,6 +42,19 @@ model Channel {
 
   @@index([group, subscriberCount])
   @@index([publishedAt])
+}
+
+model ChannelSupersRanking {
+  id          BigInt   @id @default(autoincrement())
+  channelId   String
+  period      String // 'last7Days', 'last30Days', etc.
+  rankingType String // 'overall', 'gender', 'group'
+  rank        Int
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  channel     Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@unique([channelId, period, rankingType, createdAt])
+  @@index([period, rankingType, createdAt])
 }
 
 model YoutubeStream {
@@ -75,6 +89,7 @@ model YoutubeStream {
   @@index([status, group])
   @@index([status, scheduledStartTime])
   @@index([status, actualStartTime])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 model YoutubeStreamViewerCount {
