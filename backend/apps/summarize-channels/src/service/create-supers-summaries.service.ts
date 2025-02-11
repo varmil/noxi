@@ -5,7 +5,7 @@ import { PromiseService } from '@app/lib/promise-service'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { Now } from '@domain/lib'
-import { SupersBundleSums } from '@domain/supers-bundle'
+import { SupersBundleRepository, SupersBundleSums } from '@domain/supers-bundle'
 import { SupersSummary } from '@domain/supers-summary'
 import { ChannelId, Channels } from '@domain/youtube/channel'
 
@@ -20,7 +20,12 @@ export class CreateSupersSummariesService {
   async execute(channels: Channels): Promise<void> {
     const now = new Now()
     const channelIds = channels.ids()
-    const where = (d: Date) => ({ channelIds, actualEndTime: { gte: d } })
+    const where: (
+      d: Date
+    ) => Parameters<SupersBundleRepository['sum']>[0]['where'] = (d: Date) => ({
+      channelIds,
+      createdAt: { gte: d }
+    })
 
     const last7Days = await this.supersBundlesService.sum({
       where: where(now.xDaysAgo(7))

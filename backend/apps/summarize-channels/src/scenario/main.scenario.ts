@@ -12,7 +12,9 @@ export class MainScenario {
     private readonly channelsService: ChannelsService
   ) {}
 
-  async execute(): Promise<void> {
+  async executeSummaries(): Promise<void> {
+    this.logger.log(`executeSummaries: start`)
+
     let offset = 0
     const index = (offset: number) => offset / this.CHUNK_SIZE
     while (true) {
@@ -31,5 +33,9 @@ export class MainScenario {
         this.logger.error(`Error in chunk: ${index(offset)}:`, error)
       }
     }
+  }
+
+  async executeRankings(): Promise<void> {
+    this.logger.log(`executeRankings: start`)
   }
 }

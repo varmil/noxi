@@ -43,7 +43,7 @@ export interface SupersBundleRepository {
       channelIds?: ChannelIds
       group?: Group
       gender?: Gender
-      createdAt?: { gte?: Date; lte?: Date }
+      createdAt: { gte?: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number

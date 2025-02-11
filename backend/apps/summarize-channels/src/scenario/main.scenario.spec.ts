@@ -16,7 +16,7 @@ describe('MainScenario', () => {
     scenario = module.get<MainScenario>(MainScenario)
   })
 
-  describe('execute()', () => {
+  describe('executeSummaries()', () => {
     it('should return void 0', async () => {
       jest
         .spyOn(CreateSupersSummariesService.prototype, 'execute')
@@ -25,7 +25,21 @@ describe('MainScenario', () => {
         .spyOn(ChannelsService.prototype, 'findAll')
         .mockResolvedValue(new Channels([]))
 
-      const result = await scenario.execute()
+      const result = await scenario.executeSummaries()
+      expect(result).toEqual(void 0)
+    })
+  })
+
+  describe('executeRankings()', () => {
+    it('should return void 0', async () => {
+      jest
+        .spyOn(CreateSupersSummariesService.prototype, 'execute')
+        .mockResolvedValue(void 0)
+      jest
+        .spyOn(ChannelsService.prototype, 'findAll')
+        .mockResolvedValue(new Channels([]))
+
+      const result = await scenario.executeRankings()
       expect(result).toEqual(void 0)
     })
   })
