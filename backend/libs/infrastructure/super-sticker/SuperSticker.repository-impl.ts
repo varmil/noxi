@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { SuperStickerRepository, SuperStickers } from '@domain/supers/sticker'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { SuperStickerTranslator } from '@infra/super-sticker/SuperStickerTranslator'
@@ -39,24 +40,34 @@ export class SuperStickerRepositoryImpl implements SuperStickerRepository {
       createdAt
     }
   }: Parameters<SuperStickerRepository['save']>[0]) {
-    await this.prismaInfraService.youtubeStreamSuperSticker.upsert({
-      where: { id: id.get() },
-      create: {
-        id: id.get(),
-        amountMicros: amountMicros.toBigInt(),
-        currency: currency.get(),
-        amountDisplayString: amountDisplayString.get(),
+    try {
+      await this.prismaInfraService.youtubeStreamSuperSticker.upsert({
+        where: { id: id.get() },
+        create: {
+          id: id.get(),
+          amountMicros: amountMicros.toBigInt(),
+          currency: currency.get(),
+          amountDisplayString: amountDisplayString.get(),
 
-        authorChannelId: author.channelId.get(),
-        authorDisplayName: author.displayName.get(),
-        authorProfileImageUrl: author.profileImageUrl.get(),
-        authorIsChatSponsor: author.isChatSponsor.get(),
+          authorChannelId: author.channelId.get(),
+          authorDisplayName: author.displayName.get(),
+          authorProfileImageUrl: author.profileImageUrl.get(),
+          authorIsChatSponsor: author.isChatSponsor.get(),
 
-        videoId: videoId.get(),
-        group: group.get(),
-        createdAt: createdAt.get()
-      },
-      update: {}
-    })
+          videoId: videoId.get(),
+          group: group.get(),
+          createdAt: createdAt.get()
+        },
+        update: {}
+      })
+    } catch (error) {
+      if (error instanceof PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          // UNIQUE制約違反が普通に出るので握りつぶす
+          return
+        }
+      }
+      throw error
+    }
   }
 }
