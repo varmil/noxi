@@ -10,4 +10,16 @@ export class RankingType extends StringValueObject {
     super(val)
     this.val = val
   }
+
+  isOverall() {
+    return this.val === 'overall'
+  }
+
+  isGender() {
+    return this.val === 'gender'
+  }
+
+  isGroup() {
+    return this.val === 'group'
+  }
 }

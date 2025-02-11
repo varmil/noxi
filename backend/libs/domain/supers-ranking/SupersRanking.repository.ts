@@ -7,6 +7,14 @@ import {
 import { ChannelId } from '@domain/youtube'
 
 export interface SupersRankingRepository {
+  /** 指定した期間x切り口の順位表を算出し、全チャンネル一気にINSERTする */
+  createMany: (args: {
+    data: {
+      period: Period
+      rankingType: RankingType
+    }
+  }) => Promise<void>
+
   /** チャンネルの最新の順位を取得 */
   findOne: (args: {
     where: { channelId: ChannelId; period: Period; rankingType: RankingType }
@@ -21,12 +29,4 @@ export interface SupersRankingRepository {
       createdAt: { gte?: Date; lte?: Date }
     }
   }) => Promise<SupersRankings>
-
-  /** 指定した期間x切り口の順位表を算出し、全チャンネル一気にINSERTする */
-  createMany: (args: {
-    data: {
-      period: Period
-      rankingType: RankingType
-    }
-  }) => Promise<void>
 }
