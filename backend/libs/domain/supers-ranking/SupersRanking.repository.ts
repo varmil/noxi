@@ -7,7 +7,11 @@ import {
 import { ChannelId } from '@domain/youtube'
 
 export interface SupersRankingRepository {
-  /** 指定した期間x切り口の順位表を算出し、全チャンネル一気にINSERTする */
+  /**
+   * 指定した期間x切り口の順位表を算出し、全チャンネル一気にINSERTする
+   * summary."${period}" > 0 のもののみ順位を割り当てる。
+   * 0の場合はそもそもINSERTしない（＝ランキング圏外）
+   **/
   createMany: (args: {
     data: {
       period: Period
