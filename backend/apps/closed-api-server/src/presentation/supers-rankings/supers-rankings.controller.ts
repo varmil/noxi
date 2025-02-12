@@ -22,7 +22,7 @@ export class SupersRankingsController {
    * @returns NULL ランキング圏外。つまり配信していない、スパチャ額がゼロ、登録したばかりで集計前など
    *
    * IDが指定できないので便宜上複数取得のEndpointになっているが
-   * 実際返却するのは「単一の」SupersRankingなので注意
+   * 実際返却するのは「単一の」SupersRanking || NULL である
    **/
   @Get()
   async getSupersRankings(@Query() dto: GetSupersRankings) {
