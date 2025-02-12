@@ -18,10 +18,11 @@ export class SupersRankingsController {
 
   /**
    * Retuen a latest ranking
-   * @returns 「単一の」SupersRanking
+   * @returns SupersRanking
+   * @returns NULL ランキング圏外。つまり配信していない、スパチャ額がゼロ、登録したばかりで集計前など
    *
    * IDが指定できないので便宜上複数取得のEndpointになっているが
-   * 実際返却するのは「単一の」SupersRankingなので注意
+   * 実際返却するのは「単一の」SupersRanking || NULL である
    **/
   @Get()
   async getSupersRankings(@Query() dto: GetSupersRankings) {
@@ -34,7 +35,10 @@ export class SupersRankingsController {
     })
   }
 
-  /** Retuen histories of a channel */
+  /**
+   * Retuen histories of a channel
+   * @returns SupersRankings ランキング圏外の日はデータが歯抜けになるので留意
+   **/
   @Get('/histories')
   async getSupersRankingHistories(@Query() dto: GetSupersRankingHistories) {
     return await this.supersRankingsScenario.getSupersRankingHistories({

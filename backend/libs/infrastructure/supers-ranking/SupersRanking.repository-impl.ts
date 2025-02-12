@@ -42,6 +42,7 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
           ${rankOver} AS rank
         FROM "YoutubeStreamSupersSummaryLatest" summary
         JOIN "Channel" c ON summary."channelId" = c."id"
+        WHERE summary."${period.get()}" > 0
       )
       SELECT "channelId", '${period.get()}', '${rankingType.get()}', rank, NOW()
       FROM x;
