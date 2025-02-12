@@ -12,14 +12,25 @@ export class SupersRankingsScenario {
   }
 
   async getSupersRankings(
-    args: Parameters<SupersRankingsService['findOne']>[0]
+    args: Parameters<SupersRankingsService['findAggregatedOne']>[0]
   ) {
-    return await this.supersRankingsService.findOne(args)
+    if (args.where.period.isLast24Hours()) {
+      // last24Hours の場合は都度計算
+      return await this.supersRankingsService.calcLast24HoursOne(args)
+    } else {
+      // それ以外は集計テーブルから取得
+      return await this.supersRankingsService.findAggregatedOne(args)
+    }
   }
 
   async getSupersRankingHistories(
     args: Parameters<SupersRankingsService['findHistories']>[0]
   ) {
-    return await this.supersRankingsService.findHistories(args)
+    if (args.where.period.isLast24Hours()) {
+      // last24Hours の場合は都度計算
+    } else {
+      // それ以外は集計テーブルから取得
+      return await this.supersRankingsService.findHistories(args)
+    }
   }
 }

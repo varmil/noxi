@@ -12,8 +12,16 @@ export class SupersRankingsService {
     await this.supersRankingRepository.createMany(args)
   }
 
-  async findOne(args: Parameters<SupersRankingRepository['findOne']>[0]) {
-    return await this.supersRankingRepository.findOne(args)
+  async calcLast24HoursOne(
+    args: Parameters<SupersRankingRepository['calcLast24HoursOne']>[0]
+  ) {
+    return await this.supersRankingRepository.calcLast24HoursOne(args)
+  }
+
+  async findAggregatedOne(
+    args: Parameters<SupersRankingRepository['findAggregatedOne']>[0]
+  ) {
+    return await this.supersRankingRepository.findAggregatedOne(args)
   }
 
   async findHistories(

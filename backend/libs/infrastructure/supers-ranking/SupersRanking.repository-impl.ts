@@ -49,7 +49,56 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
     `)
   }
 
-  findOne: SupersRankingRepository['findOne'] = async ({
+  calcLast24HoursOne: SupersRankingRepository['calcLast24HoursOne'] = async ({
+    where: { channelId, rankingType }
+  }) => {
+    // rankingTypeによって順位算出時のPARTITION BY句, GROUP BY句が変わる
+    let rankOver = ''
+    let groupBy = ''
+    switch (true) {
+      case rankingType.isOverall():
+        rankOver = `RANK() OVER (ORDER BY SUM("amountMicros") DESC)`
+        groupBy = `GROUP BY "channelId"`
+        break
+      case rankingType.isGender():
+        rankOver = `RANK() OVER (PARTITION BY channel.gender ORDER BY SUM("amountMicros") DESC)`
+        groupBy = `GROUP BY "channelId", channel.gender`
+        break
+      case rankingType.isGroup():
+        rankOver = `RANK() OVER (PARTITION BY channel.group ORDER BY SUM("amountMicros") DESC)`
+        groupBy = `GROUP BY "channelId", channel.group`
+        break
+    }
+
+    const rows = await this.prismaInfraService.$queryRawUnsafe<
+      {
+        channelId: string
+        period: string
+        rankingType: string
+        rank: number
+        createdAt: Date
+      }[]
+    >(`
+      SELECT "channelId", period, rankingType, rank, createdAt FROM (
+        SELECT
+          "channelId",
+          'last24Hours' AS period,
+          '${rankingType.get()}' AS rankingType,
+          ${rankOver} AS rank,
+          MAX("createdAt") AS createdAt
+        FROM "YoutubeStreamSupersBundle" bundle
+        INNER JOIN "Channel" channel ON bundle."channelId" = channel."id"
+        WHERE bundle."createdAt" >= NOW() - INTERVAL '24 hours' AND "amountMicros" > 0
+        ${groupBy}
+      ) sub
+      WHERE
+        "channelId" = ${channelId.get()}
+    `)
+    if (!rows.length) return null
+    return this.toDomain(rows[0])
+  }
+
+  findAggregatedOne: SupersRankingRepository['findAggregatedOne'] = async ({
     where: { channelId, period, rankingType }
   }) => {
     const row = await this.prismaInfraService.channelSupersRanking.findFirst({
@@ -65,7 +114,8 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
   }
 
   findHistories: SupersRankingRepository['findHistories'] = async ({
-    where: { channelId, period, rankingType, createdAt }
+    where: { channelId, period, rankingType, createdAt },
+    limit
   }) => {
     const rows = await this.prismaInfraService.channelSupersRanking.findMany({
       where: {
@@ -74,12 +124,13 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
         rankingType: rankingType.get(),
         createdAt: { gte: createdAt.gte, lte: createdAt.lte }
       },
-      orderBy: { createdAt: 'asc' }
+      orderBy: { createdAt: 'asc' },
+      take: limit
     })
     return new SupersRankings(rows.map(row => this.toDomain(row)))
   }
 
-  private toDomain(row: PrismaChannelSupersRanking) {
+  private toDomain(row: Omit<PrismaChannelSupersRanking, 'id'>) {
     return new SupersRanking({
       channelId: new ChannelId(row.channelId),
       period: new Period(row.period),

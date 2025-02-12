@@ -1,4 +1,5 @@
-import { IsIn, IsOptional, IsRFC3339, IsString } from 'class-validator'
+import { Type } from 'class-transformer'
+import { IsIn, IsInt, IsOptional, IsRFC3339, IsString } from 'class-validator'
 import { ChannelId } from '@domain'
 import { PeriodStrings, PeriodString, Period } from '@domain/lib/period'
 import {
@@ -25,6 +26,11 @@ export class GetSupersRankingHistories {
   @IsRFC3339()
   createdAfter?: string
 
+  @IsOptional()
+  @IsInt()
+  @Type(() => Number)
+  limit?: number
+
   toChannelId = () => new ChannelId(this.channelId)
 
   toPeriod = () => new Period(this.period)
@@ -38,4 +44,6 @@ export class GetSupersRankingHistories {
   toCreatedAfter = () => {
     return this.createdAfter ? new Date(this.createdAfter) : undefined
   }
+
+  toLimit = () => this.limit
 }
