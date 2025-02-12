@@ -47,7 +47,8 @@ export class SupersRankingsController {
         period: dto.toPeriod(),
         rankingType: dto.toRankingType(),
         createdAt: { gte: dto.toCreatedAfter(), lte: dto.toCreatedBefore() }
-      }
+      },
+      limit: dto.toLimit()
     })
   }
 }

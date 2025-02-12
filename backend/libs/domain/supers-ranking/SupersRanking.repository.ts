@@ -19,8 +19,13 @@ export interface SupersRankingRepository {
     }
   }) => Promise<void>
 
+  /** 「過去24時間」の最新の順位を計算して取得 */
+  calcLast24HoursOne: (args: {
+    where: { channelId: ChannelId; rankingType: RankingType }
+  }) => Promise<SupersRanking | null>
+
   /** チャンネルの最新の順位を取得 */
-  findOne: (args: {
+  findAggregatedOne: (args: {
     where: { channelId: ChannelId; period: Period; rankingType: RankingType }
   }) => Promise<SupersRanking | null>
 
@@ -32,5 +37,6 @@ export interface SupersRankingRepository {
       rankingType: RankingType
       createdAt: { gte?: Date; lte?: Date }
     }
+    limit?: number
   }) => Promise<SupersRankings>
 }
