@@ -1,10 +1,10 @@
 import dayjs from 'lib/dayjs'
-import { RankingPeriod } from 'types/ranking'
+import { Period } from 'types/period'
 
 /**
  * 指定期間の開始時点を返す
  **/
-export const getStartOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
+export const getStartOf = (period: Period, date?: dayjs.ConfigType) => {
   const day = dayjs(date)
   let start: dayjs.Dayjs
 
@@ -43,7 +43,7 @@ export const getStartOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
 /**
  * 指定期間の終了時点を返す
  */
-export const getEndOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
+export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
   const day = dayjs(date)
   let end: dayjs.Dayjs
 
@@ -79,10 +79,7 @@ export const getEndOf = (period: RankingPeriod, date?: dayjs.ConfigType) => {
  * 集計バッチがUTC09時（日本時間18時）に動くので基本その時点
  * 「過去24時間」だけは例外でリアルタイム集計なので現在時刻
  */
-export const getUpdatedAt = (
-  period: RankingPeriod,
-  date?: dayjs.ConfigType
-) => {
+export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
   const day = dayjs(date)
   let updatedAt: dayjs.Dayjs
 

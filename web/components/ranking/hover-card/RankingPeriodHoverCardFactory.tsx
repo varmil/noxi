@@ -1,20 +1,16 @@
 import { PropsWithChildren } from 'react'
 import PeriodHoverCard from 'components/ranking/hover-card/period/PeriodHoverCard'
-import { RankingPeriod } from 'types/ranking'
+import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
 import { getEndOf, getStartOf, getUpdatedAt } from 'utils/ranking/ranking'
 
 type Props = PropsWithChildren<{
-  period: RankingPeriod
+  period: ChannelsRankingPeriod | StreamRankingPeriod
   date?: Date
   className?: string
 }>
 
-export default function PeriodHoverCardFactory({
-  period,
-  date,
-  children
-}: Props) {
-  if (period === 'all') return null
+export default function PeriodHoverCardFactory({ period, date }: Props) {
+  if (period === 'all' || period === 'realtime') return null
 
   return (
     <PeriodHoverCard

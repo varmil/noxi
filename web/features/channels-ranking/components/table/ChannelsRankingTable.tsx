@@ -10,10 +10,8 @@ import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import BaseLinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
-import {
-  ChannelsRankingDimension,
-  ChannelsRankingPeriod
-} from 'features/channels-ranking/types/channels-ranking.type'
+import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import { ChannelsRankingPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
@@ -31,11 +29,11 @@ export default async function ChannelsRankingTable({
 }: Props) {
   const [channels, supersSummaries] = await Promise.all([
     getChannels({ ids: channelIds, limit: channelIds.length }),
-    dimension === 'super-chat'
+    dimension === 'super-chat' && period !== 'all'
       ? getSupersSummaries({
           channelIds,
           limit: channelIds.length,
-          orderBy: [{ field: period, order: 'desc' }], // 24Hours or それ以外で型が違うのでこのパラメタは必須
+          orderBy: [{ field: period, order: 'desc' }],
           date
         })
       : Promise.resolve([])

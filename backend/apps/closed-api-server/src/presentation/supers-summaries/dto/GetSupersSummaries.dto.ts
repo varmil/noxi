@@ -11,6 +11,7 @@ import {
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
+import { PeriodString } from '@domain/lib/period'
 import { SupersSummaryRepository } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
@@ -35,16 +36,7 @@ export class GetSupersSummaries {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => OrderByDto)
-  orderBy?: OrderByDto<
-    | 'last24Hours'
-    | 'last7Days'
-    | 'last30Days'
-    | 'last90Days'
-    | 'last1Year'
-    | 'thisWeek'
-    | 'thisMonth'
-    | 'thisYear'
-  >[]
+  orderBy?: OrderByDto<PeriodString>[]
 
   @IsOptional()
   @IsInt()

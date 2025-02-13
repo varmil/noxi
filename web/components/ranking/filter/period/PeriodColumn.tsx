@@ -6,7 +6,7 @@ import {
   ColumnHeader,
   ColumnContent
 } from 'components/ranking/filter/column/Column'
-import { RankingPeriod } from 'types/ranking'
+import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
 
 const QS_KEY = 'period'
 
@@ -15,7 +15,7 @@ const RESET_KEYS = {
   page: null
 }
 
-type Keys = RankingPeriod
+type Keys = ChannelsRankingPeriod | StreamRankingPeriod
 
 type Props = PropsWithoutRef<{
   keys: Keys[]

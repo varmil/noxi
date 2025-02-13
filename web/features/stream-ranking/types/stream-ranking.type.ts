@@ -1,12 +1,7 @@
 import { GroupString } from 'config/constants/Site'
 import { Gender } from 'types/gender'
+import { StreamRankingPeriod } from 'types/period'
 
-export type StreamRankingPeriod =
-  | 'realtime'
-  | 'last24Hours'
-  | 'last7Days'
-  | 'last30Days'
-  | 'last1Year'
 export type StreamRankingDimension = 'concurrent-viewer' | 'super-chat'
 
 export type StreamRankingSearchParams = {

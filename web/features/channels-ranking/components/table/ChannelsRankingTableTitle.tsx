@@ -2,12 +2,10 @@ import { PropsWithChildren } from 'react'
 import { ChartNoAxesColumnIncreasing, ChevronRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
-import { Gender } from 'types/gender'
 import { GroupString } from 'config/constants/Site'
-import {
-  ChannelsRankingPeriod,
-  ChannelsRankingDimension
-} from 'features/channels-ranking/types/channels-ranking.type'
+import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import { Gender } from 'types/gender'
+import { ChannelsRankingPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
   period: ChannelsRankingPeriod

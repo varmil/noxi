@@ -2,10 +2,8 @@ import { PropsWithChildren } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
-import {
-  StreamRankingPeriod,
-  StreamRankingDimension
-} from 'features/stream-ranking/types/stream-ranking.type'
+import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
+import { StreamRankingPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
   period: StreamRankingPeriod

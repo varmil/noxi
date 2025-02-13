@@ -2,9 +2,9 @@ import {
   SupersBundlesSchema,
   responseSchema
 } from 'apis/youtube/schema/supersBundleSchema'
-import { Gender } from 'types/gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
+import { Gender } from 'types/gender'
 
 type Params = {
   videoIds?: string[]
