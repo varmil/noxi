@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 export default function ChannelsIdXXXTemplateSkeleton() {
   return (
     <>
-      <Skeleton className="h-6 w-[85%] max-w-106 mb-6 rounded-xs" />
+      <Skeleton className="h-10 w-[85%] max-w-106 mb-6 rounded-xs" />
 
       <div className="flex flex-col gap-4">
         {[1, 2, 3, 4, 5].map((_, index) => (

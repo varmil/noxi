@@ -21,13 +21,8 @@ export default function LocalNavigationForChannelsIdPages({
           prefetch: true
         },
         {
-          name: t('asmr.nav'),
-          href: `${basePath}/asmr`,
-          prefetch: true
-        },
-        {
           name: t('live.nav'),
-          href: `${basePath}/live`,
+          href: [`${basePath}/live`, `${basePath}/asmr`],
           prefetch: true
         },
         {
