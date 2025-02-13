@@ -3,11 +3,13 @@ import {
   SupersRankingSchema
 } from 'apis/youtube/schema/supersRankingSchema'
 import { fetchAPI } from 'lib/fetchAPI'
+import { Period } from 'types/period'
+import { RankingType } from 'types/supers-ranking'
 
 type Params = {
   channelId: string
-  period: string // TODO: enum
-  rankingType: string // TODO: enum
+  period: Period
+  rankingType: RankingType
 }
 
 export async function getSupersRankings({
