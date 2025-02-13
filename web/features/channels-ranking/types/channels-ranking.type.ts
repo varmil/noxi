@@ -1,15 +1,7 @@
-import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
+import { Gender } from 'types/gender'
+import { ChannelsRankingPeriod } from 'types/period'
 
-export type ChannelsRankingPeriod =
-  | 'last24Hours'
-  | 'last7Days'
-  | 'last30Days'
-  | 'last90Days'
-  | 'last1Year'
-  | 'thisWeek'
-  | 'thisMonth'
-  | 'thisYear'
 export type ChannelsRankingDimension = 'super-chat' | 'subscriber'
 
 export type ChannelsRankingSearchParams = {

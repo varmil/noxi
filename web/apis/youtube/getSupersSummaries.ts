@@ -2,24 +2,17 @@ import {
   SupersSummariesSchema,
   responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
-import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
+import { Gender } from 'types/gender'
+import { Period } from 'types/period'
 
 type Params = {
   channelIds?: string[]
   group?: GroupString
   gender?: Gender
   orderBy?: {
-    field:
-      | 'last24Hours'
-      | 'last7Days'
-      | 'last30Days'
-      | 'last90Days'
-      | 'last1Year'
-      | 'thisWeek'
-      | 'thisMonth'
-      | 'thisYear'
+    field: Period
     order: 'asc' | 'desc'
   }[]
   limit?: number
