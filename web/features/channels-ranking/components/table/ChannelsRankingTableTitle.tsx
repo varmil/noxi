@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { ChartNoAxesColumnIncreasing, ChevronRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
-import { Gender } from 'config/constants/Gender'
+import { Gender } from 'types/gender'
 import { GroupString } from 'config/constants/Site'
 import {
   ChannelsRankingPeriod,

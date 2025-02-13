@@ -2,7 +2,7 @@ import {
   StreamsSchema,
   responseListSchema
 } from 'apis/youtube/schema/streamSchema'
-import { Gender } from 'config/constants/Gender'
+import { Gender } from 'types/gender'
 import { GroupString } from 'config/constants/Site'
 import { fetchAPI } from 'lib/fetchAPI'
 

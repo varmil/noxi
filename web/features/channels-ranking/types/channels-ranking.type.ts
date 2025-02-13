@@ -1,5 +1,5 @@
-import { Gender } from 'config/constants/Gender'
 import { GroupString } from 'config/constants/Site'
+import { Gender } from 'types/gender'
 
 export type ChannelsRankingPeriod =
   | 'last24Hours'

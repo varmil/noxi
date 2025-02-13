@@ -2,7 +2,7 @@ import {
   ChannelsSchema,
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
-import { Gender } from 'config/constants/Gender'
+import { Gender } from 'types/gender'
 import { GroupString } from 'config/constants/Site'
 import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
 
