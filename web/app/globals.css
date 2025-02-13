@@ -37,6 +37,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
 
+  --color-gold: var(--gold);
+  --color-silver: var(--silver);
+  --color-bronze: var(--bronze);
+
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
@@ -54,6 +59,16 @@
     }
     to {
       height: 0;
+    }
+  }
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(-3deg);
+    }
+    50% {
+      transform: rotate(3deg);
     }
   }
 }
@@ -127,6 +142,10 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
   }
 
   .dark {
@@ -155,6 +174,10 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    --gold: #ffd700;
+    --silver: #c0c0c0;
+    --bronze: #cd7f32;
   }
 }
 

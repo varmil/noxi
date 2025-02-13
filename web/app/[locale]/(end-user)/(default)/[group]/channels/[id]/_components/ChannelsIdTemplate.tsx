@@ -5,6 +5,7 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
+import SupersRanking from 'features/supers-ranking/components/SupersRanking'
 import ChannelData from './ui/channel-data/ChannelData'
 
 type Props = { id: string }
@@ -16,10 +17,15 @@ export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
   ])
 
   return (
-    <Sections className={`lg:grid-cols-3`}>
+    <Sections className={`lg:grid-cols-4`}>
+      <Section className="lg:col-span-3 lg:order-2" title={'xxx'}>
+        <SupersRanking channelId={id} />
+      </Section>
+
+      {/* TODO: 何処か別のところに移動させたい */}
       <Section
         gridClassName={'grid-cols-2 lg:grid-cols-1'}
-        className="lg:col-span-1 lg:order-2"
+        className="lg:col-span-1 lg:order-1"
         title={t('data')}
       >
         <ChannelData channel={channel} />

@@ -6,7 +6,7 @@ export function Sections({
 }: PropsWithChildren<{ className?: string }>) {
   return (
     <div
-      className={`grid grid-cols-1 gap-x-1 lg:gap-x-2 gap-y-8 ${
+      className={`grid grid-cols-1 gap-x-1 lg:gap-x-8 gap-y-8 ${
         className ?? ''
       }`}
     >
