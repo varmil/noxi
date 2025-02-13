@@ -26,6 +26,11 @@ export default function LocalNavigationForChannelsIdPages({
           prefetch: true
         },
         {
+          name: t('comments.nav'),
+          href: [`${basePath}/comments`],
+          prefetch: true
+        },
+        {
           name: t('streamTimes.nav'),
           href: `${basePath}/stream-times`,
           prefetch: true

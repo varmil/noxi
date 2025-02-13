@@ -145,6 +145,15 @@
             "title": "ライブ配信"
           }
         },
+        "comments": {
+          "metadata": {
+            "title": "{channel} 最新のコメント",
+            "description": "{channel}の最新のコメント一覧をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "最新のコメント"
+          }
+        },
         "streamTimes": {
           "metadata": {
             "title": "{channel} 配信時間・配信時間帯・配信曜日",
@@ -166,7 +175,6 @@
           }
         },
         "template": {
-          "latestUserReactions": "最新のスーパーチャット、コメント",
           "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ"
         }
@@ -326,6 +334,9 @@
       },
       "live": {
         "nav": "ライブ"
+      },
+      "comments": {
+        "nav": "コメント"
       },
       "streamTimes": {
         "nav": "配信時間",

@@ -139,10 +139,19 @@
         "live": {
           "metadata": {
             "title": "{channel} Live Streams",
-            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and revisit past broadcasts. Never miss your favorite VTuber's streams!"
+            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and Super Chat events. Never miss your favorite VTuber's streams!"
           },
           "section": {
             "title": "Live Streams"
+          }
+        },
+        "comments": {
+          "metadata": {
+            "title": "{channel} Latest comments",
+            "description": "Check out the latest comments on {channel}! Check out the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+          },
+          "section": {
+            "title": "Latest comments"
           }
         },
         "streamTimes": {
@@ -166,7 +175,6 @@
           }
         },
         "template": {
-          "latestUserReactions": "Latest User Reactions",
           "liveTrends": "Live Stream Trends",
           "data": "Data"
         }
@@ -326,6 +334,9 @@
       },
       "live": {
         "nav": "Live"
+      },
+      "comments": {
+        "nav": "Comments"
       },
       "streamTimes": {
         "nav": "Stream Times",

@@ -8,7 +8,6 @@ import {
 import StreamTrendsTable from 'features/channel/components/stream-trends/StreamTrendsTable'
 import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
 import ChannelData from './ui/channel-data/ChannelData'
-import { ChannelCommentTabs } from './ui/latest-user-reactions/ChannelCommentTabs'
 
 type Props = { id: string }
 
@@ -26,13 +25,6 @@ export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
         title={t('data')}
       >
         <ChannelData channel={channel} />
-      </Section>
-
-      <Section
-        className="lg:col-span-2 lg:order-1"
-        title={t('latestUserReactions')}
-      >
-        <ChannelCommentTabs channelId={id} />
       </Section>
 
       <Section
