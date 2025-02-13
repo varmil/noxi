@@ -31,6 +31,11 @@ export default function LocalNavigationForChannelsIdPages({
           prefetch: true
         },
         {
+          name: t('concurrentViewers.nav'),
+          href: `${basePath}/concurrent-viewers`,
+          prefetch: true
+        },
+        {
           name: t('streamTimes.nav'),
           href: `${basePath}/stream-times`,
           prefetch: true

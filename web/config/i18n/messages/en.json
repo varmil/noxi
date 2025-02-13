@@ -154,6 +154,15 @@
             "title": "Latest comments"
           }
         },
+        "concurrentViewers": {
+          "metadata": {
+            "title": "{channel} Concurrent viewers",
+            "description": "Check the number of concurrent viewers for {channel} live streams! Check the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+          },
+          "section": {
+            "title": "Concurrent Viewers Trends"
+          }
+        },
         "streamTimes": {
           "metadata": {
             "title": "{channel} Stream Times",
@@ -175,7 +184,6 @@
           }
         },
         "template": {
-          "liveTrends": "Live Stream Trends",
           "data": "Data"
         }
       },
@@ -329,15 +337,10 @@
           }
         }
       },
-      "asmr": {
-        "nav": "ASMR"
-      },
-      "live": {
-        "nav": "Live"
-      },
-      "comments": {
-        "nav": "Comments"
-      },
+      "asmr": { "nav": "ASMR" },
+      "live": { "nav": "Live" },
+      "comments": { "nav": "Comments" },
+      "concurrentViewers": { "nav": "Concurrent" },
       "streamTimes": {
         "nav": "Stream Times",
         "card": {

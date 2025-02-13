@@ -154,6 +154,15 @@
             "title": "最新のコメント"
           }
         },
+        "concurrentViewers": {
+          "metadata": {
+            "title": "{channel} 同接数",
+            "description": "{channel}のライブ同接数をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "ライブ同接数の推移"
+          }
+        },
         "streamTimes": {
           "metadata": {
             "title": "{channel} 配信時間・配信時間帯・配信曜日",
@@ -175,7 +184,6 @@
           }
         },
         "template": {
-          "liveTrends": "ライブ配信トレンド",
           "data": "チャンネルデータ"
         }
       },
@@ -329,15 +337,10 @@
           }
         }
       },
-      "asmr": {
-        "nav": "ASMR"
-      },
-      "live": {
-        "nav": "ライブ"
-      },
-      "comments": {
-        "nav": "コメント"
-      },
+      "asmr": { "nav": "ASMR" },
+      "live": { "nav": "ライブ" },
+      "comments": { "nav": "コメント" },
+      "concurrentViewers": { "nav": "同接数" },
       "streamTimes": {
         "nav": "配信時間",
         "card": {

@@ -22,6 +22,7 @@ export async function generateBaseMetadata(
       | 'Page.group.channelsId.asmr.metadata'
       | 'Page.group.channelsId.live.metadata'
       | 'Page.group.channelsId.comments.metadata'
+      | 'Page.group.channelsId.concurrentViewers.metadata'
       | 'Page.group.channelsId.streamTimes.metadata'
       | 'Page.group.channelsId.faq.metadata'
   }
