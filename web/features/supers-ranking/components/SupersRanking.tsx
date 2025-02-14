@@ -1,5 +1,7 @@
+import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import {
   TableHeader,
@@ -12,8 +14,11 @@ import {
 import { getChannel } from 'apis/youtube/getChannel'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
+import { GroupString } from 'config/constants/Site'
 import RankBadge from 'features/supers-ranking/components/RankBadge'
+import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCell'
 import { getGroup } from 'lib/server-only-context/cache'
+import { Gender } from 'types/gender'
 import { Period } from 'types/period'
 import ComparedToPreviousPeriod from './ComparedToPreviousPeriod'
 
@@ -70,12 +75,18 @@ export default async function SupersRanking({
                 <TableHead className="text-right">
                   {feat('comparedToPreviousPeriod')}
                 </TableHead>
+                {/* 2xl-: More */}
+                <TableHead className="hidden @2xl:table-cell"></TableHead>
               </TableRow>
             </TableHeader>
+
             <TableBody>
+              {/* OVERALL: period */}
               <TableRow>
-                <TableCell className="font-medium">{feat('overall')}</TableCell>
-                <RankCell rank={overallRanking?.rank} />
+                <LinkCell className="font-medium" period={period}>
+                  {feat('overall')}
+                </LinkCell>
+                <RankCell rank={overallRanking?.rank} period={period} />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -83,12 +94,23 @@ export default async function SupersRanking({
                     value={12}
                   />
                 </TableCell>
+                <SeeMoreCell period={period} />
               </TableRow>
+
+              {/* GENDER: period + gender */}
               <TableRow>
-                <TableCell className="font-medium">
+                <LinkCell
+                  className="font-medium"
+                  period={period}
+                  gender={channel.peakX.gender}
+                >
                   {global(`gender.${channel.peakX.gender}`)}
-                </TableCell>
-                <RankCell rank={genderRanking?.rank} />
+                </LinkCell>
+                <RankCell
+                  rank={genderRanking?.rank}
+                  period={period}
+                  gender={channel.peakX.gender}
+                />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -96,12 +118,23 @@ export default async function SupersRanking({
                     value={23}
                   />
                 </TableCell>
+                <SeeMoreCell period={period} gender={channel.peakX.gender} />
               </TableRow>
+
+              {/* GROUP: period + group */}
               <TableRow>
-                <TableCell className="font-medium">
+                <LinkCell
+                  className="font-medium"
+                  period={period}
+                  group={channel.peakX.group}
+                >
                   {global(`group.${channel.peakX.group}`)}
-                </TableCell>
-                <RankCell rank={groupRanking?.rank} />
+                </LinkCell>
+                <RankCell
+                  rank={groupRanking?.rank}
+                  period={period}
+                  group={channel.peakX.group}
+                />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -109,6 +142,7 @@ export default async function SupersRanking({
                     value={12}
                   />
                 </TableCell>
+                <SeeMoreCell period={period} group={channel.peakX.group} />
               </TableRow>
             </TableBody>
           </Table>
@@ -118,11 +152,47 @@ export default async function SupersRanking({
   )
 }
 
-function RankCell({ rank }: { rank?: number }) {
-  const global = useTranslations('Global')
+function RankCell({
+  rank,
+  period,
+  group,
+  gender
+}: {
+  rank?: number
+  period: Period
+  group?: GroupString
+  gender?: Gender
+}) {
   return (
-    <TableCell align="center">
+    <LinkCell align="center" period={period} group={group} gender={gender}>
       <RankBadge rank={rank} />
-    </TableCell>
+    </LinkCell>
+  )
+}
+
+function SeeMoreCell({
+  period,
+  group,
+  gender
+}: {
+  period: Period
+  group?: GroupString
+  gender?: Gender
+}) {
+  const feat = useTranslations('Features.supersRanking')
+  return (
+    <LinkCell
+      className="hidden @2xl:table-cell"
+      align="right"
+      width={250}
+      period={period}
+      group={group}
+      gender={gender}
+    >
+      <Button variant="secondary" className="cursor-pointer">
+        {feat('more')}
+        <ArrowUpRight className="ml-1 w-4 h-4" />
+      </Button>
+    </LinkCell>
   )
 }
