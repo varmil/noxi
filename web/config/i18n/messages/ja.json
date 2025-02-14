@@ -468,6 +468,7 @@
 
     "supersRanking": {
       "title": "{period}のランキング",
+      "description": "{channel}のスパチャ順位です。「総合」「性別」「所属事務所」の3種類です。",
       "rankingType": "カテゴリ",
       "rank": "順位",
       "comparedToPreviousPeriod": "前期間比",

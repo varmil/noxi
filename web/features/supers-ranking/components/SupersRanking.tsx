@@ -2,7 +2,13 @@ import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardDescription
+} from '@/components/ui/card'
 import {
   TableHeader,
   TableRow,
@@ -65,6 +71,9 @@ export default async function SupersRanking({
           <CardTitle>
             {feat('title', { period: global(`period.${period}`) })}
           </CardTitle>
+          <CardDescription>
+            {feat('description', { channel: channel.basicInfo.title })}
+          </CardDescription>
         </CardHeader>
         <CardContent className="@container">
           <Table>
