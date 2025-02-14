@@ -1,4 +1,5 @@
 import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 type Props = {
   direction: 'up' | 'down'
@@ -10,6 +11,12 @@ export default function ComparedToPreviousPeriod({
   value,
   className
 }: Props) {
+  const feat = useTranslations('Features.supersRanking')
+  // TODO: 実装
+  {
+    return <span className="text-xs text-green-500">{feat('counting')}</span>
+  }
+
   const Icon = direction === 'up' ? ArrowUpIcon : ArrowDownIcon
   const color = direction === 'up' ? 'text-green-500' : 'text-red-500'
 

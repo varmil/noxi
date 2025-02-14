@@ -10,7 +10,7 @@ export default function RankBadge({ rank }: Props) {
   if (!rank) return <UnrankedBadge />
 
   let badgeClass =
-    'flex w-16 h-16 items-center justify-center text-2xl font-bold relative'
+    'flex min-w-14 h-16 items-center justify-center text-2xl font-bold relative'
   const iconClass =
     'absolute top-0 left-[52%] w-4 sm:w-5 h-4 sm:h-5 animate-wiggle'
   let icon: JSX.Element | undefined
