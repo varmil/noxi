@@ -6,27 +6,30 @@ import {
   Sections
 } from 'features/channel/components/container/ChannelSection'
 import SupersRanking from 'features/supers-ranking/components/SupersRanking'
+import { Period } from 'types/period'
 import ChannelData from './ui/channel-data/ChannelData'
 
-type Props = { id: string }
+type Props = PropsWithoutRef<{ id: string; period: Period }>
 
-export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
-  const [t, channel] = await Promise.all([
-    getTranslations('Page.group.channelsId.template'),
+export async function ChannelsIdTemplate({ id, period }: Props) {
+  const [page, channel] = await Promise.all([
+    getTranslations('Page.group.channelsId.index.section'),
     getChannel(id)
   ])
 
   return (
     <Sections className={`lg:grid-cols-4`}>
-      <Section className="lg:col-span-3 lg:order-2" title={'xxx'}>
-        <SupersRanking channelId={id} />
+      <Section
+        className="lg:col-span-3 lg:order-2"
+        title={page('ranking.title')}
+      >
+        <SupersRanking channelId={id} period={period} />
       </Section>
 
-      {/* TODO: 何処か別のところに移動させたい */}
       <Section
         gridClassName={'grid-cols-2 lg:grid-cols-1'}
         className="lg:col-span-1 lg:order-1"
-        title={t('data')}
+        title={page('data.title')}
       >
         <ChannelData channel={channel} />
       </Section>

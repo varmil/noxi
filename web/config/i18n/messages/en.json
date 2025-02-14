@@ -115,6 +115,10 @@
           "metadata": {
             "title": "{channel} Overview - YouTube Channel",
             "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+          },
+          "section": {
+            "ranking": { "title": "Ranking & Stats" },
+            "data": { "title": "Data" }
           }
         },
         "superChat": {
@@ -182,9 +186,6 @@
             "title": "FAQ - Frequently Asked Questions",
             "noData": "No Data"
           }
-        },
-        "template": {
-          "data": "Data"
         }
       },
       "live": {

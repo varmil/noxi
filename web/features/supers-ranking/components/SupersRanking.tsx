@@ -1,5 +1,4 @@
-import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import {
   TableHeader,
@@ -9,9 +8,12 @@ import {
   TableCell,
   Table
 } from '@/components/ui/table'
+import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
 import RankBadge from 'features/supers-ranking/components/RankBadge'
 import { getGroup } from 'lib/server-only-context/cache'
+import { Period } from 'types/period'
+import ComparedToPreviousPeriod from './ComparedToPreviousPeriod'
 
 const vtuberData = {
   group: 'にじさんじ',
@@ -35,18 +37,23 @@ const vtuberData = {
   }
 }
 
-const periods = [
-  { id: '24h', label: '過去24時間' },
-  { id: '7d', label: '過去7日間' },
-  { id: '30d', label: '過去30日間' }
-]
-
-{
-  /* TODO: getSupersRankings() fetchしたデータを表示 */
-}
-export default function SupersRanking({ channelId }: { channelId: string }) {
-  const global = useTranslations('Global.period')
+export default async function SupersRanking({
+  channelId,
+  period
+}: {
+  channelId: string
+  period: Period
+}) {
+  const [global, overallRanking, genderRanking, groupRanking] =
+    await Promise.all([
+      getTranslations('Global.period'),
+      getSupersRankings({ channelId, period, rankingType: 'overall' }),
+      getSupersRankings({ channelId, period, rankingType: 'gender' }),
+      getSupersRankings({ channelId, period, rankingType: 'group' })
+    ])
   const group = getGroup()
+  console.log({ channelId, group, period })
+  console.log({ overallRanking, genderRanking, groupRanking })
 
   return (
     <>
@@ -68,94 +75,66 @@ export default function SupersRanking({ channelId }: { channelId: string }) {
         ]}
       />
 
-      {/* TODO: mapをやめてfetchしたデータを表示 */}
-      {periods.map(period => (
-        <Card key={period.id}>
-          <CardHeader>
-            <CardTitle>{period.label}のランキング</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>カテゴリ</TableHead>
-                  <TableHead>順位</TableHead>
-                  <TableHead>前期間比</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">総合</TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-4">
-                      <RankBadge
-                        rank={vtuberData.rankings[period.id].overall.rank}
-                      />
-                      <span className="text-muted-foreground">位</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <ComparisonValue
-                      change={vtuberData.rankings[period.id].overall.change}
-                    />
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    {vtuberData.gender}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-4">
-                      <RankBadge
-                        rank={vtuberData.rankings[period.id].gender.rank}
-                      />
-                      <span className="text-muted-foreground">位</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <ComparisonValue
-                      change={vtuberData.rankings[period.id].gender.change}
-                    />
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">
-                    {vtuberData.group}
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center space-x-4">
-                      <RankBadge
-                        rank={vtuberData.rankings[period.id].group.rank}
-                      />
-                      <span className="text-muted-foreground">位</span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <ComparisonValue
-                      change={vtuberData.rankings[period.id].group.change}
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-      ))}
+      <Card>
+        <CardHeader>
+          <CardTitle>{global(period)}のランキング</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>カテゴリ</TableHead>
+                <TableHead>順位</TableHead>
+                <TableHead>前期間比</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium">総合</TableCell>
+                <TableCell>
+                  <div className="flex items-center space-x-4">
+                    <RankBadge rank={overallRanking.rank} />
+                    <span className="text-muted-foreground">位</span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <ComparedToPreviousPeriod direction="up" value={12} />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">
+                  {/* TODO: */}
+                  {vtuberData.gender}
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center space-x-4">
+                    <RankBadge rank={genderRanking.rank} />
+                    <span className="text-muted-foreground">位</span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <ComparedToPreviousPeriod direction="down" value={23} />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">
+                  {/* TODO: */}
+                  {vtuberData.group}
+                </TableCell>
+                <TableCell>
+                  <div className="flex items-center space-x-4">
+                    <RankBadge rank={groupRanking.rank} />
+                    <span className="text-muted-foreground">位</span>
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <ComparedToPreviousPeriod direction="up" value={12} />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </>
-  )
-}
-
-const ComparisonValue = ({ change }) => {
-  const Icon = change.direction === 'up' ? ArrowUpIcon : ArrowDownIcon
-  const color = change.direction === 'up' ? 'text-green-500' : 'text-red-500'
-
-  return (
-    <span className={`flex items-center ${color} text-sm font-medium`}>
-      <Icon
-        className="w-4 h-4 mr-1"
-        aria-label={change.direction === 'up' ? '上昇' : '下降'}
-      />
-      {change.value}
-    </span>
   )
 }

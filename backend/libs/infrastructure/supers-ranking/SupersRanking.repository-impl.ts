@@ -79,20 +79,20 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
         createdAt: Date
       }[]
     >(`
-      SELECT "channelId", period, rankingType, rank, createdAt FROM (
+      SELECT "channelId", "period", "rankingType", "rank"::int, "createdAt" FROM (
         SELECT
           "channelId",
-          'last24Hours' AS period,
-          '${rankingType.get()}' AS rankingType,
-          ${rankOver} AS rank,
-          MAX("createdAt") AS createdAt
+          'last24Hours' AS "period",
+          '${rankingType.get()}' AS "rankingType",
+          ${rankOver} AS "rank",
+          MAX("createdAt") AS "createdAt"
         FROM "YoutubeStreamSupersBundle" bundle
         INNER JOIN "Channel" channel ON bundle."channelId" = channel."id"
         WHERE bundle."createdAt" >= NOW() - INTERVAL '24 hours' AND "amountMicros" > 0
         ${groupBy}
       ) sub
       WHERE
-        "channelId" = ${channelId.get()}
+        "channelId" = '${channelId.get()}'
     `)
     if (!rows.length) return null
     return this.toDomain(rows[0])

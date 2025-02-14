@@ -11,6 +11,7 @@ import { SupersSummariesPresentationModule } from '@presentation/supers-summarie
 import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
+import { SupersRankingsPresentationModule } from '@presentation/supers-rankings/supers-rankings.presentation.module'
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     GroupsPresentationModule,
     SupersPresentationModule,
     SupersBundlesPresentationModule,
+    SupersRankingsPresentationModule,
     SupersSummariesPresentationModule,
     YoutubePresentationModule,
     XPresentationModule
