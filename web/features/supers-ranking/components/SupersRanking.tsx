@@ -75,7 +75,7 @@ export default async function SupersRanking({
             <TableBody>
               <TableRow>
                 <TableCell className="font-medium">{feat('overall')}</TableCell>
-                <RankCell rank={overallRanking.rank} />
+                <RankCell rank={overallRanking?.rank} />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -88,7 +88,7 @@ export default async function SupersRanking({
                 <TableCell className="font-medium">
                   {global(`gender.${channel.peakX.gender}`)}
                 </TableCell>
-                <RankCell rank={genderRanking.rank} />
+                <RankCell rank={genderRanking?.rank} />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -101,7 +101,7 @@ export default async function SupersRanking({
                 <TableCell className="font-medium">
                   {global(`group.${channel.peakX.group}`)}
                 </TableCell>
-                <RankCell rank={groupRanking.rank} />
+                <RankCell rank={groupRanking?.rank} />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -118,16 +118,11 @@ export default async function SupersRanking({
   )
 }
 
-function RankCell({ rank }: { rank: number }) {
+function RankCell({ rank }: { rank?: number }) {
   const global = useTranslations('Global')
   return (
     <TableCell align="center">
-      <div className="flex items-baseline justify-center space-x-1">
-        <RankBadge rank={rank} />
-        <span className="text-muted-foreground">
-          {global.rich(`ranking.place`, { rank })}
-        </span>
-      </div>
+      <RankBadge rank={rank} />
     </TableCell>
   )
 }

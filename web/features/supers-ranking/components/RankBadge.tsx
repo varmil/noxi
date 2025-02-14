@@ -1,7 +1,14 @@
 import { JSX } from 'react'
 import { Crown } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
-export default function RankBadge({ rank }) {
+type Props = { rank?: number }
+
+export default function RankBadge({ rank }: Props) {
+  const global = useTranslations('Global')
+
+  if (!rank) return <UnrankedBadge />
+
   let badgeClass =
     'flex w-16 h-16 rounded-full items-center justify-center text-2xl font-bold relative overflow-hidden'
   const iconClass = 'absolute top-1 right-1 w-6 h-6 animate-wiggle'
@@ -30,9 +37,24 @@ export default function RankBadge({ rank }) {
   }
 
   return (
-    <div className={badgeClass} aria-label={ariaLabel}>
-      {rank}
-      {icon}
+    <div className="flex items-baseline justify-center space-x-1">
+      <div className={badgeClass} aria-label={ariaLabel}>
+        {rank}
+        {icon}
+      </div>
+
+      <span className="text-muted-foreground">
+        {global(`ranking.place`, { rank })}
+      </span>
+    </div>
+  )
+}
+
+function UnrankedBadge() {
+  const feat = useTranslations('Features.supersRanking')
+  return (
+    <div className="flex w-16 h-16 items-center justify-center text-muted-foreground">
+      {feat('unranked')}
     </div>
   )
 }

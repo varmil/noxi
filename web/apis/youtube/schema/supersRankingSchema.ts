@@ -1,17 +1,19 @@
 import { z } from 'zod'
 
-export const schema = z.object({
-  rank: z.number().min(0),
-  createdAt: z.coerce.date()
-})
+export const responseSchema = z
+  .object({
+    rank: z.number().min(0),
+    createdAt: z.coerce.date()
+  })
+  .optional()
 
-export type SupersRankingSchema = z.infer<typeof schema>
+export type SupersRankingSchema = z.infer<typeof responseSchema>
 
 // =======================================
 // =======================================
 
 /** GET /api/super-rankings/histories */
 export const responseHistoriesSchema = z.object({
-  list: z.array(schema)
+  list: z.array(responseSchema)
 })
 export type SupersRankingHistoriesSchema = SupersRankingSchema[]

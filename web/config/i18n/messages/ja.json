@@ -471,7 +471,8 @@
       "rankingType": "カテゴリ",
       "rank": "順位",
       "comparedToPreviousPeriod": "前期間比",
-      "overall": "総合"
+      "overall": "総合",
+      "unranked": "圏外"
     },
 
     "youtube": {
