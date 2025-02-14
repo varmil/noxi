@@ -14,7 +14,9 @@ export default function ComparedToPreviousPeriod({
   const feat = useTranslations('Features.supersRanking')
   // TODO: 実装
   {
-    return <span className="text-xs text-green-500">{feat('counting')}</span>
+    return (
+      <span className="text-xs text-muted-foreground">{feat('counting')}</span>
+    )
   }
 
   const Icon = direction === 'up' ? ArrowUpIcon : ArrowDownIcon
