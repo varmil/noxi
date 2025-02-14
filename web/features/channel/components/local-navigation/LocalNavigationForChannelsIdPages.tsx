@@ -21,13 +21,18 @@ export default function LocalNavigationForChannelsIdPages({
           prefetch: true
         },
         {
-          name: t('asmr.nav'),
-          href: `${basePath}/asmr`,
+          name: t('live.nav'),
+          href: [`${basePath}/live`, `${basePath}/asmr`],
           prefetch: true
         },
         {
-          name: t('live.nav'),
-          href: `${basePath}/live`,
+          name: t('comments.nav'),
+          href: [`${basePath}/comments`],
+          prefetch: true
+        },
+        {
+          name: t('concurrentViewers.nav'),
+          href: `${basePath}/concurrent-viewers`,
           prefetch: true
         },
         {

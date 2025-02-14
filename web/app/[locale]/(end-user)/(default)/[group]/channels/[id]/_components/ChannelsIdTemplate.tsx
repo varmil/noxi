@@ -5,42 +5,33 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
-import StreamTrendsTable from 'features/channel/components/stream-trends/StreamTrendsTable'
-import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
+import SupersRanking from 'features/supers-ranking/components/SupersRanking'
+import { Period } from 'types/period'
 import ChannelData from './ui/channel-data/ChannelData'
-import { ChannelCommentTabs } from './ui/latest-user-reactions/ChannelCommentTabs'
 
-type Props = { id: string }
+type Props = PropsWithoutRef<{ id: string; period: Period }>
 
-export async function ChannelsIdTemplate({ id }: PropsWithoutRef<Props>) {
-  const [t, channel] = await Promise.all([
-    getTranslations('Page.group.channelsId.template'),
+export async function ChannelsIdTemplate({ id, period }: Props) {
+  const [page, channel] = await Promise.all([
+    getTranslations('Page.group.channelsId.index.section'),
     getChannel(id)
   ])
 
   return (
-    <Sections className={`lg:grid-cols-3`}>
+    <Sections className={`lg:grid-cols-4`}>
+      <Section
+        className="lg:col-span-3 lg:order-2"
+        title={page('ranking.title')}
+      >
+        <SupersRanking channelId={id} period={period} />
+      </Section>
+
       <Section
         gridClassName={'grid-cols-2 lg:grid-cols-1'}
-        className="lg:col-span-1 lg:order-2"
-        title={t('data')}
+        className="lg:col-span-1 lg:order-1"
+        title={page('data.title')}
       >
         <ChannelData channel={channel} />
-      </Section>
-
-      <Section
-        className="lg:col-span-2 lg:order-1"
-        title={t('latestUserReactions')}
-      >
-        <ChannelCommentTabs channelId={id} />
-      </Section>
-
-      <Section
-        className="@container lg:col-span-full lg:order-3"
-        title={t('liveTrends')}
-      >
-        <ConcurrentViewersBarChart channelId={id} className="z-10" />
-        <StreamTrendsTable channel={channel} />
       </Section>
     </Sections>
   )

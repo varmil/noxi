@@ -1,5 +1,5 @@
 import {
-  schema,
+  responseSchema,
   SupersRankingSchema
 } from 'apis/youtube/schema/supersRankingSchema'
 import { fetchAPI } from 'lib/fetchAPI'
@@ -29,5 +29,10 @@ export async function getSupersRankings({
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
 
-  return schema.parse(await res.json())
+  const text = await res.text()
+  if (!text) {
+    return undefined
+  } else {
+    return responseSchema.parse(JSON.parse(text))
+  }
 }

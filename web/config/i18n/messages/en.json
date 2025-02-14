@@ -56,7 +56,7 @@
       },
       "group": { "all": "All" },
       "country": { "all": "Worldwide" },
-      "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
+      "place": "{rank, selectordinal, one {st} two {nd} few {rd} other {th}}"
     }
   },
 
@@ -115,6 +115,10 @@
           "metadata": {
             "title": "{channel} Overview - YouTube Channel",
             "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+          },
+          "section": {
+            "ranking": { "title": "Ranking & Stats" },
+            "data": { "title": "Data" }
           }
         },
         "superChat": {
@@ -139,10 +143,28 @@
         "live": {
           "metadata": {
             "title": "{channel} Live Streams",
-            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and revisit past broadcasts. Never miss your favorite VTuber's streams!"
+            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and Super Chat events. Never miss your favorite VTuber's streams!"
           },
           "section": {
             "title": "Live Streams"
+          }
+        },
+        "comments": {
+          "metadata": {
+            "title": "{channel} Latest comments",
+            "description": "Check out the latest comments on {channel}! Check out the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+          },
+          "section": {
+            "title": "Latest comments"
+          }
+        },
+        "concurrentViewers": {
+          "metadata": {
+            "title": "{channel} Concurrent viewers",
+            "description": "Check the number of concurrent viewers for {channel} live streams! Check the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+          },
+          "section": {
+            "title": "Concurrent Viewers Trends"
           }
         },
         "streamTimes": {
@@ -164,11 +186,6 @@
             "title": "FAQ - Frequently Asked Questions",
             "noData": "No Data"
           }
-        },
-        "template": {
-          "latestUserReactions": "Latest User Reactions",
-          "liveTrends": "Live Stream Trends",
-          "data": "Data"
         }
       },
       "live": {
@@ -321,12 +338,10 @@
           }
         }
       },
-      "asmr": {
-        "nav": "ASMR"
-      },
-      "live": {
-        "nav": "Live"
-      },
+      "asmr": { "nav": "ASMR" },
+      "live": { "nav": "Live" },
+      "comments": { "nav": "Comments" },
+      "concurrentViewers": { "nav": "Concurrent" },
       "streamTimes": {
         "nav": "Stream Times",
         "card": {
@@ -449,6 +464,18 @@
       "amount": "Amount",
       "chat": { "count": "{count} Super Chats" },
       "sticker": { "count": "{count} Super Stickers" }
+    },
+
+    "supersRanking": {
+      "title": "{period} Ranking",
+      "description": "{channel} ranking based on total amount of Super Chat. All VTubers are ranked in 3 categories: \"Overall\", \"Gender\", and \"Group\".",
+      "rankingType": "Category",
+      "rank": "Rank",
+      "comparedToPreviousPeriod": "vs. Previous Period",
+      "overall": "Overall",
+      "unranked": "Unranked",
+      "counting": "counting",
+      "more": "See Top 30"
     },
 
     "youtube": {

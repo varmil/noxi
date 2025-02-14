@@ -56,7 +56,7 @@
       },
       "group": { "all": "すべて" },
       "country": { "all": "全世界" },
-      "place": "{rank}<weak>位</weak>"
+      "place": "位"
     }
   },
 
@@ -115,6 +115,10 @@
           "metadata": {
             "title": "{channel} 概要",
             "description": "{channel}のスパチャランキング、統計データ、最新の配信情報を網羅的にチェック。同接数が多かったライブ配信、スパチャが多かったライブ配信を瞬時に見つけよう。人気の瞬間や収益データも把握し、VTuber・配信者ファン必見の情報を見逃さない。"
+          },
+          "section": {
+            "ranking": { "title": "人気・統計" },
+            "data": { "title": "基本データ" }
           }
         },
         "superChat": {
@@ -145,6 +149,24 @@
             "title": "ライブ配信"
           }
         },
+        "comments": {
+          "metadata": {
+            "title": "{channel} 最新のコメント",
+            "description": "{channel}の最新のコメント一覧をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "最新のコメント"
+          }
+        },
+        "concurrentViewers": {
+          "metadata": {
+            "title": "{channel} 同接数",
+            "description": "{channel}のライブ同接数をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "ライブ同接数の推移"
+          }
+        },
         "streamTimes": {
           "metadata": {
             "title": "{channel} 配信時間・配信時間帯・配信曜日",
@@ -164,11 +186,6 @@
             "title": "FAQ - よくある質問と回答",
             "noData": "FAQはありません"
           }
-        },
-        "template": {
-          "latestUserReactions": "最新のスーパーチャット、コメント",
-          "liveTrends": "ライブ配信トレンド",
-          "data": "チャンネルデータ"
         }
       },
       "live": {
@@ -321,12 +338,10 @@
           }
         }
       },
-      "asmr": {
-        "nav": "ASMR"
-      },
-      "live": {
-        "nav": "ライブ"
-      },
+      "asmr": { "nav": "ASMR" },
+      "live": { "nav": "ライブ" },
+      "comments": { "nav": "コメント" },
+      "concurrentViewers": { "nav": "同接数" },
       "streamTimes": {
         "nav": "配信時間",
         "card": {
@@ -449,6 +464,18 @@
       "amount": "金額",
       "chat": { "count": "{count} 件のスーパーチャット" },
       "sticker": { "count": "{count} 件のスーパーステッカー" }
+    },
+
+    "supersRanking": {
+      "title": "{period}のランキング",
+      "description": "{channel}のスパチャ順位です。「総合」「性別」「所属事務所」の3種類です。",
+      "rankingType": "カテゴリ",
+      "rank": "順位",
+      "comparedToPreviousPeriod": "前期間比",
+      "overall": "総合",
+      "unranked": "圏外",
+      "counting": "集計中",
+      "more": "Top30を見る"
     },
 
     "youtube": {

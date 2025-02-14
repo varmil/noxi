@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 
 export function Sections({
   children,
@@ -6,7 +6,7 @@ export function Sections({
 }: PropsWithChildren<{ className?: string }>) {
   return (
     <div
-      className={`grid grid-cols-1 gap-x-1 lg:gap-x-2 gap-y-8 ${
+      className={`grid grid-cols-1 gap-x-1 lg:gap-x-8 gap-y-8 ${
         className ?? ''
       }`}
     >
@@ -19,17 +19,20 @@ export function Section({
   gridClassName,
   className,
   title,
+  tabs,
   children
 }: PropsWithChildren<{
   gridClassName?: string
   className?: string
   title?: string
+  tabs?: React.ReactNode
 }>) {
   return (
     <section className={`${className ?? ''}`}>
-      {title && (
-        <h2 className="text-base md:text-lg font-bold pb-6">{title}</h2>
-      )}
+      <div className="flex items-center justify-between pb-6">
+        {title && <h2 className="text-base md:text-lg font-bold">{title}</h2>}
+        {tabs && <div>{tabs}</div>}
+      </div>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>
         {children}
       </div>

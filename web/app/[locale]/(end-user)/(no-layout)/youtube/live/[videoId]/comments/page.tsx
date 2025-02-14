@@ -24,6 +24,7 @@ export default async function YoutubeLiveIdCommentsPage(
   return (
     <LiveIdBasePage {...props}>
       <LinkTabs
+        className="mb-4"
         tabs={[
           {
             label: t('superChatComments.nav'),

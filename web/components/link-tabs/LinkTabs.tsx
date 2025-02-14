@@ -1,5 +1,6 @@
 'use client'
 
+import { useSearchParams } from 'next/navigation'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Link, usePathname } from 'lib/navigation'
 
@@ -9,15 +10,20 @@ interface Tab {
 }
 
 interface LinkTabsProps {
+  className?: string
   tabs: Tab[]
 }
 
-export function LinkTabs({ tabs }: LinkTabsProps) {
+export function LinkTabs({ tabs, className }: LinkTabsProps) {
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const currentUrl = `${pathname}${
+    searchParams.toString() ? `?${searchParams.toString()}` : ''
+  }`
 
   return (
-    <Tabs value={pathname} className="w-full">
-      <TabsList className="w-full mb-4">
+    <Tabs value={currentUrl} className={`w-full ${className ?? ''}`}>
+      <TabsList className="w-full">
         {tabs.map(tab => (
           <TabsTrigger
             key={tab.href}

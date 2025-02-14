@@ -36,7 +36,7 @@ export function StatsCardContent({
   return (
     <CardContent>
       <div
-        className={`text-2xl sm:text-3xl font-bold tabular-nums ${
+        className={`text-xl sm:text-2xl font-bold tabular-nums ${
           className ?? ''
         }`}
       >

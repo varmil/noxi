@@ -1,4 +1,3 @@
-import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import SuperChatGallery from 'features/supers/chat/components/SuperChatGallery'
 import YoutubeCommentGallery from 'features/youtube/comment/YoutubeCommentGallery'
@@ -15,7 +14,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
         </TabsTrigger>
       </TabsList>
 
-      <ScrollArea className="h-[490px] lg:h-[509px] rounded-md border p-4">
+      <section className="">
         <TabsContent
           forceMount
           value="superChat"
@@ -42,7 +41,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
             showStreamLink
           />
         </TabsContent>
-      </ScrollArea>
+      </section>
     </Tabs>
   )
 }
