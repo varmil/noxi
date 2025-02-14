@@ -56,7 +56,7 @@
       },
       "group": { "all": "All" },
       "country": { "all": "Worldwide" },
-      "place": "{rank, selectordinal, one {#<weak>st</weak>} two {#<weak>nd</weak>} few {#<weak>rd</weak>} other {#<weak>th</weak>}}"
+      "place": "{rank, selectordinal, one {st} two {nd} few {rd} other {th}}"
     }
   },
 
@@ -464,6 +464,14 @@
       "amount": "Amount",
       "chat": { "count": "{count} Super Chats" },
       "sticker": { "count": "{count} Super Stickers" }
+    },
+
+    "supersRanking": {
+      "title": "{period} Ranking",
+      "rankingType": "Category",
+      "rank": "Rank",
+      "comparedToPreviousPeriod": "vs. Previous Period",
+      "overall": "Overall"
     },
 
     "youtube": {

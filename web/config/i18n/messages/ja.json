@@ -56,7 +56,7 @@
       },
       "group": { "all": "すべて" },
       "country": { "all": "全世界" },
-      "place": "{rank}<weak>位</weak>"
+      "place": "位"
     }
   },
 
@@ -464,6 +464,14 @@
       "amount": "金額",
       "chat": { "count": "{count} 件のスーパーチャット" },
       "sticker": { "count": "{count} 件のスーパーステッカー" }
+    },
+
+    "supersRanking": {
+      "title": "{period}のランキング",
+      "rankingType": "カテゴリ",
+      "rank": "順位",
+      "comparedToPreviousPeriod": "前期間比",
+      "overall": "総合"
     },
 
     "youtube": {
