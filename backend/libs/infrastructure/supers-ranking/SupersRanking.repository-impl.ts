@@ -49,8 +49,8 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
     `)
   }
 
-  calcLast24HoursOne: SupersRankingRepository['calcLast24HoursOne'] = async ({
-    where: { channelId, rankingType }
+  calcOneUsingBundle: SupersRankingRepository['calcOneUsingBundle'] = async ({
+    where: { channelId, rankingType, createdAt }
   }) => {
     // rankingTypeによって順位算出時のPARTITION BY句, GROUP BY句が変わる
     let rankOver = ''
@@ -70,6 +70,10 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
         break
     }
 
+    const createdAtWhere = `
+      bundle."createdAt" >= '${createdAt.gte.toISOString()}' AND 
+      bundle."createdAt" <= '${createdAt.lte.toISOString()}'`
+
     const rows = await this.prismaInfraService.$queryRawUnsafe<
       {
         channelId: string
@@ -88,7 +92,7 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
           MAX("createdAt") AS "createdAt"
         FROM "YoutubeStreamSupersBundle" bundle
         INNER JOIN "Channel" channel ON bundle."channelId" = channel."id"
-        WHERE bundle."createdAt" >= NOW() - INTERVAL '24 hours' AND "amountMicros" > 0
+        WHERE ${createdAtWhere} AND "amountMicros" > 0
         ${groupBy}
       ) sub
       WHERE

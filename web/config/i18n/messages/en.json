@@ -3,6 +3,10 @@
     "title": "PeakX",
     "headerTitle": "PeakX",
 
+    "datetime": {
+      "updatedAt": "Last updated: {updatedAt}"
+    },
+
     "gender": {
       "all": "All",
       "male": "Male",

@@ -77,7 +77,7 @@ export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
  * 指定期間の「最新データ更新日時」を返す
  *
  * 集計バッチがUTC09時（日本時間18時）に動くので基本その時点
- * 「過去24時間」だけは例外でリアルタイム集計なので現在時刻
+ * 「過去24時間」だけは例外で30分間隔での集計
  */
 export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
   const day = dayjs(date)
@@ -85,7 +85,7 @@ export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
 
   switch (period) {
     case 'last24Hours':
-      updatedAt = day
+      updatedAt = getLast05or35(day)
       break
 
     case 'last7Days':
@@ -103,6 +103,27 @@ export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
   }
 
   return updatedAt
+}
+
+/**
+ * 指定された日時（未指定の場合は現在）を基準に、直近の過去で05分または35分に丸めた時刻を返す。
+ * 秒・ミリ秒は0に固定されます。
+ *
+ * @param date - 基準となる日付（dayjs.ConfigType）
+ * @returns 過去の05分または35分の時刻（Dayjsオブジェクト）
+ */
+function getLast05or35(date?: dayjs.ConfigType): dayjs.Dayjs {
+  const now = dayjs.utc(date) // 指定された日時または現在のUTC時刻
+  const currentMinute = now.minute()
+
+  if (currentMinute >= 35) {
+    return now.startOf('hour').add(35, 'minute')
+  } else if (currentMinute >= 5) {
+    return now.startOf('hour').add(5, 'minute')
+  } else {
+    // 現在の分が5未満の場合、前の時間の35分を返す
+    return now.subtract(1, 'hour').startOf('hour').add(35, 'minute')
+  }
 }
 
 /**
