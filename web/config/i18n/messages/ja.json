@@ -3,6 +3,10 @@
     "title": "PeakX",
     "headerTitle": "PeakX | ピークX",
 
+    "datetime": {
+      "updatedAt": "最終更新: {updatedAt}"
+    },
+
     "gender": {
       "all": "すべて",
       "male": "男性",

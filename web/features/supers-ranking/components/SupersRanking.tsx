@@ -1,13 +1,14 @@
 import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
+import { getFormatter, getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
-  CardDescription
+  CardDescription,
+  CardFooter
 } from '@/components/ui/card'
 import {
   TableHeader,
@@ -26,6 +27,7 @@ import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCel
 import { getGroup } from 'lib/server-only-context/cache'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
+import { getUpdatedAt } from 'utils/ranking/ranking'
 import ComparedToPreviousPeriod from './ComparedToPreviousPeriod'
 
 export default async function SupersRanking({
@@ -35,16 +37,27 @@ export default async function SupersRanking({
   channelId: string
   period: Period
 }) {
-  const [global, feat, overallRanking, genderRanking, groupRanking, channel] =
-    await Promise.all([
-      getTranslations('Global'),
-      getTranslations('Features.supersRanking'),
-      getSupersRankings({ channelId, period, rankingType: 'overall' }),
-      getSupersRankings({ channelId, period, rankingType: 'gender' }),
-      getSupersRankings({ channelId, period, rankingType: 'group' }),
-      getChannel(channelId)
-    ])
+  const [
+    format,
+    global,
+    feat,
+    overallRanking,
+    genderRanking,
+    groupRanking,
+    channel
+  ] = await Promise.all([
+    getFormatter(),
+    getTranslations('Global'),
+    getTranslations('Features.supersRanking'),
+    getSupersRankings({ channelId, period, rankingType: 'overall' }),
+    getSupersRankings({ channelId, period, rankingType: 'gender' }),
+    getSupersRankings({ channelId, period, rankingType: 'group' }),
+    getChannel(channelId)
+  ])
   const group = getGroup()
+  const updatedAt = overallRanking
+    ? format.relativeTime(overallRanking.createdAt)
+    : format.relativeTime(getUpdatedAt(period, new Date()).toDate())
 
   return (
     <>
@@ -72,7 +85,7 @@ export default async function SupersRanking({
             {feat('title', { period: global(`period.${period}`) })}
           </CardTitle>
           <CardDescription>
-            {feat('description', { channel: channel.basicInfo.title })}
+            {global('datetime.updatedAt', { updatedAt })}
           </CardDescription>
         </CardHeader>
         <CardContent className="@container">
@@ -156,6 +169,9 @@ export default async function SupersRanking({
             </TableBody>
           </Table>
         </CardContent>
+        <CardFooter className="text-muted-foreground">
+          {feat('description', { channel: channel.basicInfo.title })}
+        </CardFooter>
       </Card>
     </>
   )
