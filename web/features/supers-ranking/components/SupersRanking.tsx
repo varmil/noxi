@@ -58,9 +58,9 @@ export default async function SupersRanking({
     overallRanking,
     genderRanking,
     groupRanking,
-    [overallPreviousPeriodRanking],
-    [genderPreviousPeriodRanking],
-    [groupPreviousPeriodRanking],
+    // [overallPreviousPeriodRanking],
+    // [genderPreviousPeriodRanking],
+    // [groupPreviousPeriodRanking],
     channel
   ] = await Promise.all([
     getFormatter(),
@@ -69,9 +69,9 @@ export default async function SupersRanking({
     getSupersRankings(baseParams('overall')),
     getSupersRankings(baseParams('gender')),
     getSupersRankings(baseParams('group')),
-    getSupersRankingHistories(historiesParams('overall')),
-    getSupersRankingHistories(historiesParams('gender')),
-    getSupersRankingHistories(historiesParams('group')),
+    // getSupersRankingHistories(historiesParams('overall')),
+    // getSupersRankingHistories(historiesParams('gender')),
+    // getSupersRankingHistories(historiesParams('group')),
     getChannel(channelId)
   ])
   const group = getGroup()
@@ -79,11 +79,11 @@ export default async function SupersRanking({
     ? format.relativeTime(overallRanking.createdAt)
     : format.relativeTime(getUpdatedAt(period, new Date()).toDate())
 
-  console.log({
-    overallPreviousPeriodRanking,
-    genderPreviousPeriodRanking,
-    groupPreviousPeriodRanking
-  })
+  // console.log({
+  //   overallPreviousPeriodRanking,
+  //   genderPreviousPeriodRanking,
+  //   groupPreviousPeriodRanking
+  // })
 
   return (
     <>
