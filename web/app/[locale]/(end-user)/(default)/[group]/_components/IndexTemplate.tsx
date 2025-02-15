@@ -19,10 +19,18 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           fallback={<StreamGallerySkeleton className="col-span-full" />}
         >
           <section className="col-span-full">
-            <LiveStreamGallery compact showHeader />
+            <LiveStreamGallery
+              where={{ group: getGroup() }}
+              compact
+              showHeader
+            />
           </section>
           <section className="col-span-full">
-            <ScheduledStreamGallery compact showHeader />
+            <ScheduledStreamGallery
+              where={{ group: getGroup() }}
+              compact
+              showHeader
+            />
           </section>
           <section className="col-span-full">
             <EndedStreamGallery

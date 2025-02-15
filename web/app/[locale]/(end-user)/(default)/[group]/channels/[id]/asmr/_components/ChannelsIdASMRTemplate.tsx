@@ -37,7 +37,7 @@ export async function ChannelsIdASMRTemplate({ id }: PropsWithoutRef<Props>) {
           />
         }
       >
-        <EndedStreamGallery where={{ title: 'ASMR', channelId: id }} />
+        <EndedStreamGallery where={{ title: 'ASMR', group, channelId: id }} />
       </Section>
     </Sections>
   )

@@ -6,6 +6,8 @@ import {
   Sections
 } from 'features/channel/components/container/ChannelSection'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
+import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
+import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string }
@@ -37,7 +39,21 @@ export async function ChannelsIdLiveTemplate({ id }: PropsWithoutRef<Props>) {
           />
         }
       >
-        <EndedStreamGallery where={{ channelId: id }} />
+        <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
+          <LiveStreamGallery
+            className="flex-1"
+            showHeader
+            where={{ group, channelId: id }}
+            limit={1}
+          />
+          <ScheduledStreamGallery
+            className="flex-1"
+            showHeader
+            where={{ group, channelId: id }}
+            limit={1}
+          />
+        </div>
+        <EndedStreamGallery showHeader where={{ group, channelId: id }} />
       </Section>
     </Sections>
   )
