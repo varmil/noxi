@@ -13,6 +13,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         getEntry({ pathname: `${path}/super-chat` }),
         getEntry({ pathname: `${path}/asmr` }),
         getEntry({ pathname: `${path}/live` }),
+        getEntry({ pathname: `${path}/comments` }),
+        getEntry({ pathname: `${path}/concurrent-viewers` }),
         getEntry({ pathname: `${path}/stream-times` })
       ]
     })
