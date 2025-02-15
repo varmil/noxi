@@ -20,7 +20,6 @@ export interface ChannelRepository {
 
   count: (args: {
     where?: {
-      id?: ChannelIds
       group?: Group
       gender?: Gender
       country?: CountryCode

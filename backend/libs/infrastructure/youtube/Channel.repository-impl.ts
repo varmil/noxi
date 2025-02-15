@@ -48,7 +48,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
   }
 
   count: ChannelRepository['count'] = async ({ where }) => {
-    const { id, group, gender, country } = where || {}
+    const { group, gender, country } = where || {}
     return await this.prismaInfraService.channel.count({
       where: {
         group: group?.get(),

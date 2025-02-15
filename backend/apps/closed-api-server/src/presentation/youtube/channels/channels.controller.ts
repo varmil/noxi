@@ -28,7 +28,7 @@ export class ChannelsController {
   @Get('/count')
   async getChannelsCount(@Query() dto: GetChannelsDto) {
     return await this.channelsService.count({
-      where: { id: dto.toIds(), group: dto.toGroup(), gender: dto.toGender() }
+      where: { group: dto.toGroup(), gender: dto.toGender() }
     })
   }
 
