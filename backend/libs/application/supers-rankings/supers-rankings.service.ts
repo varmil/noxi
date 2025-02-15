@@ -12,10 +12,10 @@ export class SupersRankingsService {
     await this.supersRankingRepository.createMany(args)
   }
 
-  async calcLast24HoursOne(
-    args: Parameters<SupersRankingRepository['calcLast24HoursOne']>[0]
+  async calcOneUsingBundle(
+    args: Parameters<SupersRankingRepository['calcOneUsingBundle']>[0]
   ) {
-    return await this.supersRankingRepository.calcLast24HoursOne(args)
+    return await this.supersRankingRepository.calcOneUsingBundle(args)
   }
 
   async findAggregatedOne(

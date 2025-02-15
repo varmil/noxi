@@ -19,9 +19,18 @@ export interface SupersRankingRepository {
     }
   }) => Promise<void>
 
-  /** 「過去24時間」の最新の順位を計算して取得 */
-  calcLast24HoursOne: (args: {
-    where: { channelId: ChannelId; rankingType: RankingType }
+  /**
+   * 過去24時間の順位を計算して取得する
+   *
+   * インターフェースは履歴（Hisotry）にも対応できるようcreatedAtを遵守する
+   * ので、呼び出し側で24時間のDateを指定する
+   */
+  calcOneUsingBundle: (args: {
+    where: {
+      channelId: ChannelId
+      rankingType: RankingType
+      createdAt: { gte: Date; lte: Date } // 基本 lte - gte = 24時間
+    }
   }) => Promise<SupersRanking | null>
 
   /** チャンネルの最新の順位を取得 */
@@ -35,7 +44,7 @@ export interface SupersRankingRepository {
       channelId: ChannelId
       period: Period
       rankingType: RankingType
-      createdAt: { gte?: Date; lte?: Date }
+      createdAt: { gte: Date; lte: Date }
     }
     limit?: number
   }) => Promise<SupersRankings>

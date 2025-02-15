@@ -19,14 +19,17 @@ import {
   Table
 } from '@/components/ui/table'
 import { getChannel } from 'apis/youtube/getChannel'
+import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistories'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
 import { GroupString } from 'config/constants/Site'
 import RankBadge from 'features/supers-ranking/components/RankBadge'
 import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCell'
+import { rangeDatetimeForPreviousPeriod } from 'features/supers-ranking/utils/previous-period'
 import { getGroup } from 'lib/server-only-context/cache'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
+import { RankingType } from 'types/supers-ranking'
 import { getUpdatedAt } from 'utils/ranking/ranking'
 import ComparedToPreviousPeriod from './ComparedToPreviousPeriod'
 
@@ -37,6 +40,17 @@ export default async function SupersRanking({
   channelId: string
   period: Period
 }) {
+  const baseParams = (rankingType: RankingType) => ({
+    channelId,
+    period,
+    rankingType
+  })
+  const historiesParams = (rankingType: RankingType) => ({
+    ...baseParams(rankingType),
+    createdAfter: rangeDatetimeForPreviousPeriod(period).gte,
+    createdBefore: rangeDatetimeForPreviousPeriod(period).lte,
+    limit: 1
+  })
   const [
     format,
     global,
@@ -44,20 +58,32 @@ export default async function SupersRanking({
     overallRanking,
     genderRanking,
     groupRanking,
+    [overallPreviousPeriodRanking],
+    [genderPreviousPeriodRanking],
+    [groupPreviousPeriodRanking],
     channel
   ] = await Promise.all([
     getFormatter(),
     getTranslations('Global'),
     getTranslations('Features.supersRanking'),
-    getSupersRankings({ channelId, period, rankingType: 'overall' }),
-    getSupersRankings({ channelId, period, rankingType: 'gender' }),
-    getSupersRankings({ channelId, period, rankingType: 'group' }),
+    getSupersRankings(baseParams('overall')),
+    getSupersRankings(baseParams('gender')),
+    getSupersRankings(baseParams('group')),
+    getSupersRankingHistories(historiesParams('overall')),
+    getSupersRankingHistories(historiesParams('gender')),
+    getSupersRankingHistories(historiesParams('group')),
     getChannel(channelId)
   ])
   const group = getGroup()
   const updatedAt = overallRanking
     ? format.relativeTime(overallRanking.createdAt)
     : format.relativeTime(getUpdatedAt(period, new Date()).toDate())
+
+  console.log({
+    overallPreviousPeriodRanking,
+    genderPreviousPeriodRanking,
+    groupPreviousPeriodRanking
+  })
 
   return (
     <>

@@ -18,13 +18,11 @@ export class GetSupersRankingHistories {
   @IsIn(RankingTypeStrings)
   rankingType: RankingTypeString
 
-  @IsOptional()
   @IsRFC3339()
-  createdBefore?: string
+  createdBefore: string
 
-  @IsOptional()
   @IsRFC3339()
-  createdAfter?: string
+  createdAfter: string
 
   @IsOptional()
   @IsInt()
@@ -37,13 +35,9 @@ export class GetSupersRankingHistories {
 
   toRankingType = () => new RankingType(this.rankingType)
 
-  toCreatedBefore = () => {
-    return this.createdBefore ? new Date(this.createdBefore) : undefined
-  }
+  toCreatedBefore = () => new Date(this.createdBefore)
 
-  toCreatedAfter = () => {
-    return this.createdAfter ? new Date(this.createdAfter) : undefined
-  }
+  toCreatedAfter = () => new Date(this.createdAfter)
 
   toLimit = () => this.limit
 }
