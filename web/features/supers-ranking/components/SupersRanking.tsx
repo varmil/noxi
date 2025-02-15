@@ -58,9 +58,9 @@ export default async function SupersRanking({
     overallRanking,
     genderRanking,
     groupRanking,
-    // [overallPreviousPeriodRanking],
-    // [genderPreviousPeriodRanking],
-    // [groupPreviousPeriodRanking],
+    [overallPreviousPeriodRanking],
+    [genderPreviousPeriodRanking],
+    [groupPreviousPeriodRanking],
     channel
   ] = await Promise.all([
     getFormatter(),
@@ -69,9 +69,9 @@ export default async function SupersRanking({
     getSupersRankings(baseParams('overall')),
     getSupersRankings(baseParams('gender')),
     getSupersRankings(baseParams('group')),
-    // getSupersRankingHistories(historiesParams('overall')),
-    // getSupersRankingHistories(historiesParams('gender')),
-    // getSupersRankingHistories(historiesParams('group')),
+    getSupersRankingHistories(historiesParams('overall')),
+    getSupersRankingHistories(historiesParams('gender')),
+    getSupersRankingHistories(historiesParams('group')),
     getChannel(channelId)
   ])
   const group = getGroup()
@@ -79,11 +79,12 @@ export default async function SupersRanking({
     ? format.relativeTime(overallRanking.createdAt)
     : format.relativeTime(getUpdatedAt(period, new Date()).toDate())
 
-  // console.log({
-  //   overallPreviousPeriodRanking,
-  //   genderPreviousPeriodRanking,
-  //   groupPreviousPeriodRanking
-  // })
+  // FIXME: deleteme
+  console.log({
+    overallPreviousPeriodRanking,
+    genderPreviousPeriodRanking,
+    groupPreviousPeriodRanking
+  })
 
   return (
     <>
@@ -138,8 +139,11 @@ export default async function SupersRanking({
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
-                    direction="up"
-                    value={12}
+                    current={overallRanking?.rank}
+                    previous={overallPreviousPeriodRanking?.rank}
+                    totalNumber={500} // TODO:
+                    // TODO: データが溜まったら消す
+                    counting={period !== 'last24Hours'}
                   />
                 </TableCell>
                 <SeeMoreCell period={period} />
@@ -162,8 +166,11 @@ export default async function SupersRanking({
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
-                    direction="down"
-                    value={23}
+                    current={genderRanking?.rank}
+                    previous={genderPreviousPeriodRanking?.rank}
+                    totalNumber={250} // TODO:
+                    // TODO: データが溜まったら消す
+                    counting={period !== 'last24Hours'}
                   />
                 </TableCell>
                 <SeeMoreCell period={period} gender={channel.peakX.gender} />
@@ -186,8 +193,11 @@ export default async function SupersRanking({
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
-                    direction="up"
-                    value={12}
+                    current={groupRanking?.rank}
+                    previous={groupPreviousPeriodRanking?.rank}
+                    totalNumber={100} // TODO:
+                    // TODO: データが溜まったら消す
+                    counting={period !== 'last24Hours'}
                   />
                 </TableCell>
                 <SeeMoreCell period={period} group={channel.peakX.group} />

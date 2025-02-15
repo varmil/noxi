@@ -18,6 +18,14 @@ export interface ChannelRepository {
     offset?: number
   }) => Promise<Channels>
 
+  count: (args: {
+    where?: {
+      group?: Group
+      gender?: Gender
+      country?: CountryCode
+    }
+  }) => Promise<number>
+
   findById: (id: ChannelId) => Promise<Channel | null>
 
   save: (args: Channel) => Promise<void>

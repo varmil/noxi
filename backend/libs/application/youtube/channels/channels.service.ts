@@ -16,6 +16,12 @@ export class ChannelsService {
     return await this.channelRepository.findAll(args)
   }
 
+  async count(
+    args: Parameters<ChannelRepository['count']>[0]
+  ): Promise<number> {
+    return await this.channelRepository.count(args)
+  }
+
   async findById(
     args: Parameters<ChannelRepository['findById']>[0]
   ): Promise<Channel | null> {
