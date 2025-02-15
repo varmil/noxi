@@ -19,6 +19,7 @@ import {
   Table
 } from '@/components/ui/table'
 import { getChannel } from 'apis/youtube/getChannel'
+import { getChannelsCount } from 'apis/youtube/getChannels'
 import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistories'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
@@ -51,6 +52,7 @@ export default async function SupersRanking({
     createdBefore: rangeDatetimeForPreviousPeriod(period).lte,
     limit: 1
   })
+  const group = getGroup()
   const [
     format,
     global,
@@ -74,17 +76,16 @@ export default async function SupersRanking({
     getSupersRankingHistories(historiesParams('group')),
     getChannel(channelId)
   ])
-  const group = getGroup()
+  const [overallChannelsCount, genderChannelsCount, groupChannelsCount] =
+    await Promise.all([
+      getChannelsCount({}),
+      getChannelsCount({ gender: channel.peakX.gender }),
+      getChannelsCount({ group: channel.peakX.group })
+    ])
+
   const updatedAt = overallRanking
     ? format.relativeTime(overallRanking.createdAt)
     : format.relativeTime(getUpdatedAt(period, new Date()).toDate())
-
-  // FIXME: deleteme
-  console.log({
-    overallPreviousPeriodRanking,
-    genderPreviousPeriodRanking,
-    groupPreviousPeriodRanking
-  })
 
   return (
     <>
@@ -141,7 +142,7 @@ export default async function SupersRanking({
                     className="justify-end"
                     current={overallRanking?.rank}
                     previous={overallPreviousPeriodRanking?.rank}
-                    totalNumber={500} // TODO:
+                    totalNumber={overallChannelsCount}
                     // TODO: データが溜まったら消す
                     counting={period !== 'last24Hours'}
                   />
@@ -168,7 +169,7 @@ export default async function SupersRanking({
                     className="justify-end"
                     current={genderRanking?.rank}
                     previous={genderPreviousPeriodRanking?.rank}
-                    totalNumber={250} // TODO:
+                    totalNumber={genderChannelsCount}
                     // TODO: データが溜まったら消す
                     counting={period !== 'last24Hours'}
                   />
@@ -195,7 +196,7 @@ export default async function SupersRanking({
                     className="justify-end"
                     current={groupRanking?.rank}
                     previous={groupPreviousPeriodRanking?.rank}
-                    totalNumber={100} // TODO:
+                    totalNumber={groupChannelsCount}
                     // TODO: データが溜まったら消す
                     counting={period !== 'last24Hours'}
                   />
