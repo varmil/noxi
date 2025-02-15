@@ -381,7 +381,7 @@
       },
       "scheduled": {
         "nav": "Schedule",
-        "title": "Live Streaming Schedule",
+        "title": "Schedule",
         "description": "Check out {group}'s YouTube streaming schedule for today! We'll also introduce the YouTube channels of the {group} talents."
       },
       "ended": {
@@ -530,7 +530,7 @@
     },
     "stream": {
       "noLive": "There are no live streams at the moment.",
-      "noScheduled": "There are no scheduled live streams at the moment.",
+      "noScheduled": "There are no scheduled streams at the moment.",
       "noEnded": "There are no live streams at the moment.",
       "likes": "Likes",
       "scheduledLabel": "UPCOMING"

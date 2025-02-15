@@ -13,18 +13,18 @@ type Props = PropsWithChildren<{
   className?: string
 }>
 
-const gridGapYClasses = 'gap-y-6 sm:gap-y-8'
+const gridGapYClasses = 'gap-y-6 @xl:gap-y-8'
 
 const getGridClasses = (className?: string) => {
-  return `grid gap-x-2 sm:gap-x-4 ${gridGapYClasses} \
-         ${className ?? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}`
+  return `grid gap-x-2 @xl:gap-x-4 ${gridGapYClasses} \
+         ${className ?? 'grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-4'}`
 }
 
 /**
  * 親コンテナ
  */
 export function GridCardGalleryContent({ children }: PropsWithChildren) {
-  return <div className={`grid ${gridGapYClasses}`}>{children}</div>
+  return <div className={`@container grid ${gridGapYClasses}`}>{children}</div>
 }
 
 /**

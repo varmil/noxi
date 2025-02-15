@@ -9,7 +9,6 @@ import StreamListFooter from 'features/group/stream/components/stream-list/Strea
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
 import { STREAM_GALLERY_LIMIT } from 'features/group/types/stream-gallery'
 import { CACHE_1H } from 'lib/fetchAPI'
-import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
   compact?: boolean
@@ -40,9 +39,13 @@ export default async function EndedStreamGallery({
         <StreamListHeader
           titleIcon={<History className="w-6 h-6 text-muted-foreground" />}
           title={t('title')}
-          description={t('description', {
-            group: (await getTranslations('Global.group'))(`${getGroup()}`)
-          })}
+          description={
+            group
+              ? t('description', {
+                  group: (await getTranslations('Global.group'))(`${group}`)
+                })
+              : ''
+          }
           badgeText="Archive"
         />
       ) : (

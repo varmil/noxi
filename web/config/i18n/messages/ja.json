@@ -381,7 +381,7 @@
       },
       "scheduled": {
         "nav": "スケジュール",
-        "title": "配信スケジュール",
+        "title": "スケジュール",
         "description": "{group}の今日-明日のライブ配信予定スケジュール一覧です"
       },
       "ended": {
@@ -530,7 +530,7 @@
     },
     "stream": {
       "noLive": "現在配信中のライブはありません。",
-      "noScheduled": "配信予定のライブはありません。",
+      "noScheduled": "予定はありません。",
       "noEnded": "ライブはまだありません。",
       "likes": "高評価",
       "scheduledLabel": "配信予定"
