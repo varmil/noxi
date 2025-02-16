@@ -1,4 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
+import {
+  Prisma,
+  YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
+} from '@prisma/client'
 import BigNumber from 'bignumber.js'
 import { AmountMicros, Group } from '@domain'
 import {
@@ -16,10 +20,6 @@ import {
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import {
-  Prisma,
-  YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
-} from '@prisma/client'
 
 @Injectable()
 export class SupersBundleRepositoryImpl implements SupersBundleRepository {
@@ -136,7 +136,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       gender
     } = where
     const result = await this.prismaInfraService.$queryRaw<
-      Array<{ count: number }>
+      { count: number }[]
     >`
       SELECT COUNT(DISTINCT t."channelId") AS count
       FROM "YoutubeStreamSupersBundle" t

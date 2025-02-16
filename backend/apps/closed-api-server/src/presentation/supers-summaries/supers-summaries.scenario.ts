@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { Group } from '@domain/group'
-import { ActualEndTime, ChannelIds } from '@domain/youtube'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
+import { Group } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { PeriodString } from '@domain/lib/period'
+import { ActualEndTime, ChannelIds } from '@domain/youtube'
 
 @Injectable()
 export class SupersSummariesScenario {
