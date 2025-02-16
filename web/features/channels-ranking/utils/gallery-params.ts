@@ -1,15 +1,20 @@
+import { getChannels } from 'apis/youtube/getChannels'
 import { ChannelsRankingGalleryProps } from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
+import {
+  CHANNELS_RANKING_COMPACT_PAGE_SIZE,
+  CHANNELS_RANKING_PAGE_SIZE
+} from 'features/channels-ranking/utils/channels-ranking-pagination'
 import type { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 
 type GetSupersSummaries = Parameters<typeof getSupersSummaries>[0]
-
-export default function createGetSupersSummariesParams({
+export function createGetSupersSummariesParams({
   period,
   group,
   gender,
   country,
   date,
-  compact
+  compact,
+  page
 }: ChannelsRankingGalleryProps): GetSupersSummaries {
   let result = {}
   let orderBy: GetSupersSummaries['orderBy']
@@ -39,7 +44,7 @@ export default function createGetSupersSummariesParams({
   }
 
   if (country) {
-    // TODO: ChannelとJOINする必要あり
+    // ChannelとJOINする必要あり
   }
 
   // 現状OG専用パラメタ
@@ -47,7 +52,31 @@ export default function createGetSupersSummariesParams({
     result = { ...result, date: new Date(date) }
   }
 
-  result = { ...result, limit: compact ? 7 : 30 }
+  result = {
+    ...result,
+    limit: compact
+      ? CHANNELS_RANKING_COMPACT_PAGE_SIZE
+      : CHANNELS_RANKING_PAGE_SIZE,
+    offset: getOffset(page)
+  }
 
   return result
 }
+
+type GetChannels = Parameters<typeof getChannels>[0]
+export function createGetChannelsParams({
+  group,
+  gender,
+  page
+}: ChannelsRankingGalleryProps): GetChannels {
+  return {
+    group,
+    gender,
+    orderBy: [{ field: 'subscriberCount', order: 'desc' }],
+    limit: CHANNELS_RANKING_PAGE_SIZE,
+    offset: getOffset(page)
+  }
+}
+
+const getOffset = (page?: string) =>
+  Math.max((Number(page) || 1) - 1, 0) * CHANNELS_RANKING_PAGE_SIZE
