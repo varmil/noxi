@@ -25,6 +25,7 @@ type Props = {
   config: ChartConfig
 }
 
+/** @deprecated it's may be delete in the near future */
 export default function SupersTrendsChart({
   supersSummaryHistories,
   config

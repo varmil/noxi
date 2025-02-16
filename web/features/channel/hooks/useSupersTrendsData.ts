@@ -2,6 +2,7 @@ import { useFormatter } from 'next-intl'
 import { SupersSummaryHistoriesSchema } from 'apis/youtube/schema/supersSummarySchema'
 import { convertMicrosToAmount } from 'utils/amount'
 
+/** @deprecated it's may be delete in the near future */
 export function useSupersTrendsData(histories: SupersSummaryHistoriesSchema) {
   const format = useFormatter()
   const data = histories.map(history => {
