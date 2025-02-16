@@ -25,6 +25,8 @@ export default async function IndexTemplate({
       ? await getSupersSummariesCount(getSupersSummariesParams(searchParams))
       : await getChannelsCount(getChannelsParams(searchParams))
 
+  console.log(count)
+
   return (
     <section className={`space-y-4`}>
       <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>

@@ -23,8 +23,8 @@ export class CreateSupersSummariesService {
     const where: (
       d: Date
     ) => Parameters<SupersBundleRepository['sum']>[0]['where'] = (d: Date) => ({
-      channelIds,
-      createdAt: { gte: d }
+      createdAt: { gte: d },
+      channelIds
     })
 
     const last7Days = await this.supersBundlesService.sum({

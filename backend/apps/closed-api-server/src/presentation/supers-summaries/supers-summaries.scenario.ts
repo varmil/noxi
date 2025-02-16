@@ -74,10 +74,9 @@ export class SupersSummariesScenario {
   }) {
     const { where, orderBy, date } = args
     if (orderBy?.some(orderBy => 'last24Hours' in orderBy)) {
-      const sums = await this.supersBundlesService.sum({
+      return await this.supersBundlesService.countSum({
         where: { ...where, ...this.whereCreatedAt(date) }
       })
-      return 1111
     } else {
       return await this.supersSummariesService.count({ where })
     }

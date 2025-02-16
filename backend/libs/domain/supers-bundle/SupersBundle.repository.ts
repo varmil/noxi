@@ -40,13 +40,25 @@ export interface SupersBundleRepository {
    **/
   sum: (args: {
     where: {
-      channelIds?: ChannelIds
+      createdAt: { gte: Date; lte?: Date }
       group?: Group
+      channelIds?: ChannelIds
       gender?: Gender
-      createdAt: { gte?: Date; lte?: Date }
     }
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number
     offset?: number
   }) => Promise<SupersBundleSums>
+
+  /**
+   * Sumの件数を返す
+   **/
+  countSum: (args: {
+    where: {
+      createdAt: { gte: Date; lte?: Date }
+      group?: Group
+      channelIds?: ChannelIds
+      gender?: Gender
+    }
+  }) => Promise<number>
 }

@@ -41,6 +41,7 @@ model Channel {
   supersSummaryLatest YoutubeStreamSupersSummaryLatest?
 
   @@index([group, subscriberCount])
+  @@index([gender])
   @@index([publishedAt])
 }
 
@@ -194,6 +195,7 @@ model YoutubeStreamSupersBundle {
   @@index([channelId, actualEndTime, amountMicros])
   @@index([group, actualStartTime, amountMicros])
   @@index([group, actualEndTime, amountMicros])
+  @@index([createdAt, group])
 }
 
 // JPY amountMicros

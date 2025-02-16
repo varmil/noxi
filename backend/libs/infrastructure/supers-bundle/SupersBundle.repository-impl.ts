@@ -16,7 +16,7 @@ import {
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type {
+import {
   Prisma,
   YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
 } from '@prisma/client'
@@ -98,16 +98,13 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }) => {
-    if (!where.createdAt) {
-      throw new BadRequestException('createdAt must be specified')
-    }
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
         by: ['channelId'],
         where: {
-          channelId: { in: where.channelIds?.map(e => e.get()) },
-          group: where.group?.get(),
           createdAt: where.createdAt,
+          group: where.group?.get(),
+          channelId: { in: where.channelIds?.map(e => e.get()) },
           channel: { gender: where.gender?.get() }
         },
         _sum: { amountMicros: true },
@@ -129,6 +126,32 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
           })
       )
     )
+  }
+
+  countSum: SupersBundleRepository['countSum'] = async ({ where }) => {
+    const {
+      createdAt: { gte, lte },
+      group,
+      channelIds,
+      gender
+    } = where
+    const result = await this.prismaInfraService.$queryRaw<
+      Array<{ count: number }>
+    >`
+      SELECT COUNT(DISTINCT t."channelId") AS count
+      FROM "YoutubeStreamSupersBundle" t
+      JOIN "Channel" c ON t."channelId" = c."id"
+      WHERE t."createdAt" >= ${gte} 
+        AND t."createdAt" <= ${lte ?? new Date()}
+        ${group ? Prisma.sql`AND t."group" = ${group.get()}` : Prisma.empty}
+        ${
+          channelIds
+            ? Prisma.sql`AND t."channelId" IN (${Prisma.join(channelIds.map(e => e.get()))})`
+            : Prisma.empty
+        }
+        ${gender ? Prisma.sql`AND c."gender" = ${gender.get()}` : Prisma.empty}
+    `
+    return result[0]?.count ?? 0
   }
 
   private toDomain(row: PrismaYoutubeStreamSupersBundle) {
