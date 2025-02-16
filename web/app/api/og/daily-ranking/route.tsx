@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { getDailySupersRanking } from 'features/channels-ranking/utils/getSupersRanking'
+import { getDailySupersRanking } from 'features/channels-ranking/utils/getDailySupersRanking'
 import dayjs from 'lib/dayjs'
 import { getWebUrl } from 'utils/web-url'
 // App router includes @vercel/og.
