@@ -7,7 +7,7 @@ import {
 import type { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 
 type GetSupersSummaries = Parameters<typeof getSupersSummaries>[0]
-export function createGetSupersSummariesParams({
+export function getSupersSummariesParams({
   period,
   group,
   gender,
@@ -64,7 +64,7 @@ export function createGetSupersSummariesParams({
 }
 
 type GetChannels = Parameters<typeof getChannels>[0]
-export function createGetChannelsParams({
+export function getChannelsParams({
   group,
   gender,
   page

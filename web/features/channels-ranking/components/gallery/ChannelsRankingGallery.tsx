@@ -10,8 +10,8 @@ import ChannelsRankingTableTitle from 'features/channels-ranking/components/tabl
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import { Link } from 'lib/navigation'
 import {
-  createGetChannelsParams,
-  createGetSupersSummariesParams
+  getChannelsParams,
+  getSupersSummariesParams
 } from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
@@ -36,13 +36,13 @@ export default async function ChannelsRankingGallery(
 
   if (dimension === 'super-chat') {
     const supersSummaries = await getSupersSummaries(
-      createGetSupersSummariesParams(props)
+      getSupersSummariesParams(props)
     )
     channelIds = supersSummaries.map(summary => summary.channelId)
   }
 
   if (dimension === 'subscriber') {
-    const channels = await getChannels(createGetChannelsParams(props))
+    const channels = await getChannels(getChannelsParams(props))
     channelIds = channels.map(channel => channel.basicInfo.id)
   }
 
