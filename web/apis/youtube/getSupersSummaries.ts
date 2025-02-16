@@ -58,8 +58,12 @@ export async function getSupersSummaries(
   return data.list
 }
 
+/**
+ * orderByにperiodが入っており、last24Hours or それ以外
+ * でcountロジックが異なるため、サーバーに渡す必要がある
+ */
 export async function getSupersSummariesCount(
-  params: Omit<Params, 'limit' | 'offset' | 'orderBy'>
+  params: Omit<Params, 'limit' | 'offset'>
 ): Promise<number> {
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(

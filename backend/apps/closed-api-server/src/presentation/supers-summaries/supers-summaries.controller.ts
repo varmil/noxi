@@ -37,6 +37,19 @@ export class SupersSummariesController {
     })
   }
 
+  @Get('/count')
+  async getSupersSummariesCount(@Query() dto: GetSupersSummaries) {
+    return await this.supersSummariesScenario.countSupersSummaries({
+      where: {
+        channelIds: dto.toChannelIds(),
+        group: dto.toGroup(),
+        gender: dto.toGender()
+      },
+      orderBy: dto.toOrderBy(),
+      date: dto.date
+    })
+  }
+
   /** Retuen a latest summary */
   @Get(':id')
   async getSupersSummary(@Param('id') id: string) {

@@ -12,7 +12,6 @@ import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { PeriodString } from '@domain/lib/period'
-import { SupersSummaryRepository } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export class GetSupersSummaries {
@@ -68,8 +67,7 @@ export class GetSupersSummaries {
     return (
       (this.orderBy?.map(({ field, order }) => ({
         [field]: order
-      })) as Parameters<SupersSummaryRepository['findAll']>[0]['orderBy']) ??
-      undefined
+      })) as Record<PeriodString, 'asc' | 'desc'>[]) ?? undefined
     )
   }
 

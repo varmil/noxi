@@ -3,10 +3,16 @@ import { Gender } from '@domain/lib'
 import { SupersSummary, SupersSummaries } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
+export interface SupersSummaryFindAllWhere {
+  channelIds?: ChannelIds
+  group?: Group
+  gender?: Gender
+}
+
 export interface SupersSummaryRepository {
   /** 最新の状態を取得 */
   findAll: (args: {
-    where?: { channelIds?: ChannelIds; group?: Group; gender?: Gender }
+    where?: SupersSummaryFindAllWhere
     orderBy?: Partial<
       Record<
         | 'last7Days'
@@ -22,6 +28,9 @@ export interface SupersSummaryRepository {
     limit?: number
     offset?: number
   }) => Promise<SupersSummaries>
+
+  /** 最新の状態の件数を取得 */
+  count: (args: { where?: SupersSummaryFindAllWhere }) => Promise<number>
 
   /** 特定のチャンネルの最新の状態を取得 */
   findOne: (args: {

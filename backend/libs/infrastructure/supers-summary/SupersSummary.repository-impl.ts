@@ -4,11 +4,24 @@ import { AmountMicros } from '@domain/supers'
 import {
   SupersSummaryRepository,
   SupersSummary,
-  SupersSummaries
+  SupersSummaries,
+  SupersSummaryFindAllWhere
 } from '@domain/supers-summary'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type { YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary } from '@prisma/client'
+import type {
+  Prisma,
+  YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary
+} from '@prisma/client'
+
+const toPrismaWhere = (
+  where?: SupersSummaryFindAllWhere
+): Prisma.YoutubeStreamSupersSummaryLatestWhereInput => {
+  const channelIds = where?.channelIds?.map(e => e.get())
+  const group = where?.group?.get()
+  const gender = where?.gender?.get()
+  return { channelId: { in: channelIds }, channel: { group, gender } }
+}
 
 @Injectable()
 export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
@@ -20,18 +33,20 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
     limit = 30,
     offset = 0
   }: Parameters<SupersSummaryRepository['findAll']>[0]) {
-    const channelIds = where?.channelIds?.map(e => e.get())
-    const group = where?.group?.get()
-    const gender = where?.gender?.get()
-
     const rows =
       await this.prismaInfraService.youtubeStreamSupersSummaryLatest.findMany({
-        where: { channelId: { in: channelIds }, channel: { group, gender } },
+        where: toPrismaWhere(where),
         orderBy,
         take: limit,
         skip: offset
       })
     return new SupersSummaries(rows.map(row => this.toDomain(row)))
+  }
+
+  count: SupersSummaryRepository['count'] = async ({ where }) => {
+    return await this.prismaInfraService.youtubeStreamSupersSummaryLatest.count(
+      { where: toPrismaWhere(where) }
+    )
   }
 
   findOne: (args: {
