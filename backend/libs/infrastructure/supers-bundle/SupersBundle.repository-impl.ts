@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import {
   Prisma,
   YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
@@ -98,6 +98,14 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }) => {
+    let amountMicros:
+      | Prisma.BigIntFilter<'YoutubeStreamSupersBundle'>
+      | undefined
+    for (const [key, value] of Object.entries(where.amountMicros || {})) {
+      amountMicros = amountMicros
+        ? { ...amountMicros, [key]: value.toBigInt() }
+        : { [key]: value.toBigInt() }
+    }
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
         by: ['channelId'],
@@ -105,7 +113,8 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
           createdAt: where.createdAt,
           group: where.group?.get(),
           channelId: { in: where.channelIds?.map(e => e.get()) },
-          channel: { gender: where.gender?.get() }
+          channel: { gender: where.gender?.get() },
+          amountMicros
         },
         _sum: { amountMicros: true },
         orderBy,
@@ -129,27 +138,27 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   }
 
   countSum: SupersBundleRepository['countSum'] = async ({ where }) => {
+    const { sql, join, empty } = Prisma
     const {
       createdAt: { gte, lte },
       group,
-      channelIds,
+      channelIds: ids,
+      amountMicros,
       gender
     } = where
-    const result = await this.prismaInfraService.$queryRaw<
-      { count: number }[]
-    >`
+    const result = await this.prismaInfraService.$queryRaw<{ count: number }[]>`
       SELECT COUNT(DISTINCT t."channelId") AS count
       FROM "YoutubeStreamSupersBundle" t
       JOIN "Channel" c ON t."channelId" = c."id"
       WHERE t."createdAt" >= ${gte} 
         AND t."createdAt" <= ${lte ?? new Date()}
-        ${group ? Prisma.sql`AND t."group" = ${group.get()}` : Prisma.empty}
-        ${
-          channelIds
-            ? Prisma.sql`AND t."channelId" IN (${Prisma.join(channelIds.map(e => e.get()))})`
-            : Prisma.empty
-        }
-        ${gender ? Prisma.sql`AND c."gender" = ${gender.get()}` : Prisma.empty}
+        ${group ? sql`AND t."group" = ${group.get()}` : empty}
+        ${ids ? sql`AND t."channelId" IN (${join(ids.map(e => e.get()))})` : empty}
+        ${gender ? sql`AND c."gender" = ${gender.get()}` : empty}
+        ${amountMicros?.gt ? sql`AND t."amountMicros" > ${amountMicros.gt.toBigInt()}` : empty}
+        ${amountMicros?.gte ? sql`AND t."amountMicros" >= ${amountMicros.gte.toBigInt()}` : empty}
+        ${amountMicros?.lt ? sql`AND t."amountMicros" < ${amountMicros.lt.toBigInt()}` : empty}
+        ${amountMicros?.lte ? sql`AND t."amountMicros" <= ${amountMicros.lte.toBigInt()}` : empty}
     `
     return result[0]?.count ?? 0
   }

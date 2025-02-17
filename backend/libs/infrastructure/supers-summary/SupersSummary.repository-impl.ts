@@ -26,11 +26,24 @@ const toPrismaWhere = (
   const periodConditions: Partial<
     Record<
       PeriodString,
-      { gt?: number; gte?: number; lt?: number; lte?: number }
+      {
+        gt?: bigint
+        gte?: bigint
+        lt?: bigint
+        lte?: bigint
+      }
     >
   > = {}
   for (const period of PeriodStrings) {
-    if (where?.[period]) periodConditions[period] = where[period]
+    const column = where?.[period] || {}
+    if (Object.keys(column).length > 0) {
+      periodConditions[period] = {
+        ...(column?.gt && { gt: column.gt.toBigInt() }),
+        ...(column?.gte && { gte: column.gte.toBigInt() }),
+        ...(column?.lt && { lt: column.lt.toBigInt() }),
+        ...(column?.lte && { lte: column.lte.toBigInt() })
+      }
+    }
   }
 
   return {

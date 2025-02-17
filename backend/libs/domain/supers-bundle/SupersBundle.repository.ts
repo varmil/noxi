@@ -13,6 +13,19 @@ export interface AmountMicrosSum {
   amountMicros: AmountMicros
 }
 
+interface SupersBundleSumWhere {
+  createdAt: { gte: Date; lte?: Date }
+  group?: Group
+  channelIds?: ChannelIds
+  gender?: Gender
+  amountMicros?: {
+    gt?: AmountMicros
+    gte?: AmountMicros
+    lt?: AmountMicros
+    lte?: AmountMicros
+  }
+}
+
 export interface SupersBundleRepository {
   findAll: (args: {
     where?: {
@@ -39,12 +52,7 @@ export interface SupersBundleRepository {
    * Sum amountMicros within a period grouped by channelId
    **/
   sum: (args: {
-    where: {
-      createdAt: { gte: Date; lte?: Date }
-      group?: Group
-      channelIds?: ChannelIds
-      gender?: Gender
-    }
+    where: SupersBundleSumWhere
     orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
     limit?: number
     offset?: number
@@ -53,12 +61,5 @@ export interface SupersBundleRepository {
   /**
    * Sumの件数を返す
    **/
-  countSum: (args: {
-    where: {
-      createdAt: { gte: Date; lte?: Date }
-      group?: Group
-      channelIds?: ChannelIds
-      gender?: Gender
-    }
-  }) => Promise<number>
+  countSum: (args: { where: SupersBundleSumWhere }) => Promise<number>
 }
