@@ -28,7 +28,8 @@ export class SupersSummariesController {
       where: {
         channelIds: dto.toChannelIds(),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        amountMicros: dto.amountMicros // parse in scenario
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
@@ -43,7 +44,8 @@ export class SupersSummariesController {
       where: {
         channelIds: dto.toChannelIds(),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        amountMicros: dto.amountMicros // parse in scenario
       },
       orderBy: dto.toOrderBy(),
       date: dto.date

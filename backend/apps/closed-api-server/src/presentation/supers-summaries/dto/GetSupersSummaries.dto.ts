@@ -6,7 +6,6 @@ import {
   IsInt,
   IsOptional,
   IsString,
-  Min,
   ValidateNested
 } from 'class-validator'
 import { AmountMicros } from '@domain'
@@ -17,17 +16,15 @@ import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 /** 金額による絞り込み */
-class AmountMicrosDto {
+export class AmountMicrosDto {
   @IsIn(PeriodStrings)
   period: PeriodString
 
   @IsIn(['gt', 'gte', 'lt', 'lte'])
   operator: 'gt' | 'gte' | 'lt' | 'lte'
 
-  @Min(0)
-  @IsInt()
-  @Type(() => BigInt)
-  value: bigint
+  @Transform(({ value }: { value: string }) => new AmountMicros(value))
+  value: AmountMicros
 }
 
 export class GetSupersSummaries {
@@ -83,18 +80,6 @@ export class GetSupersSummaries {
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
-
-  toAmountMicros = () => {
-    return this.amountMicros
-      ? {
-          [this.amountMicros.period]: {
-            [this.amountMicros.operator]: new AmountMicros(
-              this.amountMicros.value
-            )
-          }
-        }
-      : undefined
-  }
 
   toOrderBy = () => {
     return (

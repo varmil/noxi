@@ -13,7 +13,7 @@ export interface AmountMicrosSum {
   amountMicros: AmountMicros
 }
 
-interface SupersBundleSumWhere {
+export interface SupersBundleSumWhere {
   createdAt: { gte: Date; lte?: Date }
   group?: Group
   channelIds?: ChannelIds
