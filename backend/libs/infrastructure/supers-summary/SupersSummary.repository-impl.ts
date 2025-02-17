@@ -13,6 +13,7 @@ import type {
   Prisma,
   YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary
 } from '@prisma/client'
+import { PeriodString, PeriodStrings } from '@domain/lib/period'
 
 const toPrismaWhere = (
   where?: SupersSummaryFindAllWhere
@@ -20,7 +21,23 @@ const toPrismaWhere = (
   const channelIds = where?.channelIds?.map(e => e.get())
   const group = where?.group?.get()
   const gender = where?.gender?.get()
-  return { channelId: { in: channelIds }, channel: { group, gender } }
+
+  // PeriodStrings に含まれるキーについて条件を動的に生成
+  const periodConditions: Partial<
+    Record<
+      PeriodString,
+      { gt?: number; gte?: number; lt?: number; lte?: number }
+    >
+  > = {}
+  for (const period of PeriodStrings) {
+    if (where?.[period]) periodConditions[period] = where[period]
+  }
+
+  return {
+    channelId: { in: channelIds },
+    channel: { group, gender },
+    ...periodConditions
+  }
 }
 
 @Injectable()

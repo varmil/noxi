@@ -15,6 +15,7 @@ export class SupersSummariesScenario {
 
   /**
    * Retuen latest summaries
+   * １円以上のみSELECTするので /channels/ranking ページ専用
    *
    * 過去24時間：
    * よりリアルタイムな正確な集計をするためにSupersBundlesを直接みる
@@ -62,6 +63,7 @@ export class SupersSummariesScenario {
 
   /**
    * Retuen latest summaries "COUNT"
+   * １円以上のみCOUNTするので /channels/ranking ページ専用
    **/
   async countSupersSummaries(args: {
     where?: {

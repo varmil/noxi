@@ -1,13 +1,24 @@
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
+import { PeriodString } from '@domain/lib/period'
 import { SupersSummary, SupersSummaries } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
-export interface SupersSummaryFindAllWhere {
+export type SupersSummaryFindAllWhere = {
   channelIds?: ChannelIds
   group?: Group
   gender?: Gender
-}
+} & Partial<
+  Record<
+    PeriodString,
+    {
+      gt?: number
+      gte?: number
+      lt?: number
+      lte?: number
+    }
+  >
+>
 
 export interface SupersSummaryRepository {
   /** 最新の状態を取得 */

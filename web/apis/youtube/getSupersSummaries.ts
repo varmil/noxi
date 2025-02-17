@@ -11,19 +11,27 @@ type Params = {
   channelIds?: string[]
   group?: GroupString
   gender?: Gender
+  amountMicros?: {
+    period: Period
+    operator: 'gt' | 'gte' | 'lt' | 'lte'
+    value: number
+  }
+  date?: Date
+
   orderBy?: {
     field: Period
     order: 'asc' | 'desc'
   }[]
+
   limit?: number
   offset?: number
-  date?: Date
 }
 
 const createSearchParams = ({
   channelIds,
   group,
   gender,
+  amountMicros,
   orderBy,
   limit,
   offset,
@@ -37,6 +45,12 @@ const createSearchParams = ({
     ...(offset && { offset: String(offset) }),
     ...(date && { date: date.toISOString() })
   })
+
+  if (amountMicros) {
+    searchParams.append('amountMicros[period]', amountMicros.period)
+    searchParams.append('amountMicros[operator]', amountMicros.operator)
+    searchParams.append('amountMicros[value]', String(amountMicros.value))
+  }
 
   orderBy?.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)
