@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import BigNumber from 'bignumber.js'
+import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { AmountMicros } from '@domain/supers'
 import {
   SupersSummaryRepository,
@@ -13,7 +14,6 @@ import type {
   Prisma,
   YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary
 } from '@prisma/client'
-import { PeriodString, PeriodStrings } from '@domain/lib/period'
 
 const toPrismaWhere = (
   where?: SupersSummaryFindAllWhere
