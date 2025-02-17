@@ -22,7 +22,6 @@ type Params = {
     field: Period
     order: 'asc' | 'desc'
   }[]
-
   limit?: number
   offset?: number
 }
