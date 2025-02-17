@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
@@ -90,7 +89,7 @@ export class GetSupersSummaries {
       ? {
           [this.amountMicros.period]: {
             [this.amountMicros.operator]: new AmountMicros(
-              this.amountMicros.value.toString()
+              this.amountMicros.value
             )
           }
         }

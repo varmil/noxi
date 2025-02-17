@@ -149,13 +149,13 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   private toDomain(row: Omit<PrismaYoutubeStreamSupersSummary, 'id'>) {
     return new SupersSummary({
       channelId: new ChannelId(row.channelId),
-      last7Days: new AmountMicros(row.last7Days.toString()),
-      last30Days: new AmountMicros(row.last30Days.toString()),
-      last90Days: new AmountMicros(row.last90Days.toString()),
-      last1Year: new AmountMicros(row.last1Year.toString()),
-      thisWeek: new AmountMicros(row.thisWeek.toString()),
-      thisMonth: new AmountMicros(row.thisMonth.toString()),
-      thisYear: new AmountMicros(row.thisYear.toString()),
+      last7Days: new AmountMicros(row.last7Days),
+      last30Days: new AmountMicros(row.last30Days),
+      last90Days: new AmountMicros(row.last90Days),
+      last1Year: new AmountMicros(row.last1Year),
+      thisWeek: new AmountMicros(row.thisWeek),
+      thisMonth: new AmountMicros(row.thisMonth),
+      thisYear: new AmountMicros(row.thisYear),
       createdAt: row.createdAt
     })
   }

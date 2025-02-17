@@ -126,9 +126,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         row =>
           new SupersBundleSum({
             channelId: new ChannelId(row.channelId),
-            amountMicros: new AmountMicros(
-              row._sum.amountMicros?.toString() ?? 0
-            )
+            amountMicros: new AmountMicros(row._sum.amountMicros ?? 0)
           })
       )
     )
@@ -164,7 +162,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     return new SupersBundle({
       videoId: new VideoId(row.videoId),
       channelId: new ChannelId(row.channelId),
-      amountMicros: new AmountMicros(row.amountMicros.toString()),
+      amountMicros: new AmountMicros(row.amountMicros),
       count: new SupersCount(row.count),
       actualStartTime: new ActualStartTime(row.actualStartTime),
       actualEndTime: row.actualEndTime

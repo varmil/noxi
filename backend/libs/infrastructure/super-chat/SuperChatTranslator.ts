@@ -24,7 +24,7 @@ export class SuperChatTranslator {
 
     return new SuperChat({
       id: new LiveChatMessageId(row.id),
-      amountMicros: new AmountMicros(row.amountMicros.toString()),
+      amountMicros: new AmountMicros(row.amountMicros),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
       userComment: new UserComment(row.userComment),

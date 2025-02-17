@@ -19,7 +19,7 @@ export class SuperStickerTranslator {
 
     return new SuperSticker({
       id: new LiveChatMessageId(row.id),
-      amountMicros: new AmountMicros(row.amountMicros.toString()),
+      amountMicros: new AmountMicros(row.amountMicros),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
 
