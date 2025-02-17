@@ -12,6 +12,8 @@ export type ChannelsRankingSearchParams = {
   country?: string
   /** For OG */
   date?: string
+  /** For Pagination */
+  page?: string
 }
 
 export type ChannelsRanking = {

@@ -7,9 +7,13 @@ export class AmountMicros extends BigNumberValueObject {
   @IsNotEmpty()
   protected readonly val: BigNumber
 
-  constructor(val: BigNumber) {
-    super(val)
-    this.val = val
+  constructor(val: string | number | BigNumber.Instance | bigint) {
+    if (typeof val === 'bigint') {
+      val = val.toString()
+    }
+
+    super(BigNumber(val))
+    this.val = BigNumber(val)
   }
 
   toAmount() {

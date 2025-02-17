@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import { Transform } from 'class-transformer'
 import { AmountMicros } from '@domain/supers/base'
 import { ChannelId } from '@domain/youtube'
@@ -46,7 +45,7 @@ export class SupersSummary {
   }
 
   static zero(channelId: ChannelId): SupersSummary {
-    const zero = new AmountMicros(BigNumber(0))
+    const zero = new AmountMicros(0)
     return new SupersSummary({
       channelId,
       last7Days: zero,

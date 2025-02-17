@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import BigNumber from 'bignumber.js'
 import { AmountMicros } from '@domain'
 import { PromiseService } from '@app/lib/promise-service'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
@@ -23,8 +22,8 @@ export class CreateSupersSummariesService {
     const where: (
       d: Date
     ) => Parameters<SupersBundleRepository['sum']>[0]['where'] = (d: Date) => ({
-      channelIds,
-      createdAt: { gte: d }
+      createdAt: { gte: d },
+      channelIds
     })
 
     const last7Days = await this.supersBundlesService.sum({
@@ -52,7 +51,7 @@ export class CreateSupersSummariesService {
     const getAmountMicros = (data: SupersBundleSums, channelId: ChannelId) => {
       return (
         data.find(c => c.channelId.equals(channelId))?.amountMicros ??
-        new AmountMicros(BigNumber(0))
+        new AmountMicros(0)
       )
     }
 

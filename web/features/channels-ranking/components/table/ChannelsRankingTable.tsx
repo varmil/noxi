@@ -11,21 +11,24 @@ import Dimension from 'components/ranking/table/styles/Dimension'
 import BaseLinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import { CHANNELS_RANKING_PAGE_SIZE } from 'features/channels-ranking/utils/channels-ranking-pagination'
 import { ChannelsRankingPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  date?: Date
   channelIds: string[]
+  date?: Date
+  page?: number
 }>
 
 export default async function ChannelsRankingTable({
   period,
   dimension,
+  channelIds,
   date,
-  channelIds
+  page = 1
 }: Props) {
   const [channels, supersSummaries] = await Promise.all([
     getChannels({ ids: channelIds, limit: channelIds.length }),
@@ -71,7 +74,7 @@ export default async function ChannelsRankingTable({
               {/* Rank */}
               <TableCell className="align-top">
                 <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
-                  {i + 1}
+                  {i + 1 + (page - 1) * CHANNELS_RANKING_PAGE_SIZE}
                 </div>
               </TableCell>
 

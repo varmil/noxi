@@ -1,14 +1,56 @@
 import { Injectable } from '@nestjs/common'
-import BigNumber from 'bignumber.js'
+import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { AmountMicros } from '@domain/supers'
 import {
   SupersSummaryRepository,
   SupersSummary,
-  SupersSummaries
+  SupersSummaries,
+  SupersSummaryFindAllWhere
 } from '@domain/supers-summary'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type { YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary } from '@prisma/client'
+import type {
+  Prisma,
+  YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary
+} from '@prisma/client'
+
+const toPrismaWhere = (
+  where?: SupersSummaryFindAllWhere
+): Prisma.YoutubeStreamSupersSummaryLatestWhereInput => {
+  const channelIds = where?.channelIds?.map(e => e.get())
+  const group = where?.group?.get()
+  const gender = where?.gender?.get()
+
+  // PeriodStrings に含まれるキーについて条件を動的に生成
+  const periodConditions: Partial<
+    Record<
+      PeriodString,
+      {
+        gt?: bigint
+        gte?: bigint
+        lt?: bigint
+        lte?: bigint
+      }
+    >
+  > = {}
+  for (const period of PeriodStrings) {
+    const column = where?.[period] || {}
+    if (Object.keys(column).length > 0) {
+      periodConditions[period] = {
+        ...(column?.gt && { gt: column.gt.toBigInt() }),
+        ...(column?.gte && { gte: column.gte.toBigInt() }),
+        ...(column?.lt && { lt: column.lt.toBigInt() }),
+        ...(column?.lte && { lte: column.lte.toBigInt() })
+      }
+    }
+  }
+
+  return {
+    channelId: { in: channelIds },
+    channel: { group, gender },
+    ...periodConditions
+  }
+}
 
 @Injectable()
 export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
@@ -20,18 +62,20 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
     limit = 30,
     offset = 0
   }: Parameters<SupersSummaryRepository['findAll']>[0]) {
-    const channelIds = where?.channelIds?.map(e => e.get())
-    const group = where?.group?.get()
-    const gender = where?.gender?.get()
-
     const rows =
       await this.prismaInfraService.youtubeStreamSupersSummaryLatest.findMany({
-        where: { channelId: { in: channelIds }, channel: { group, gender } },
+        where: toPrismaWhere(where),
         orderBy,
         take: limit,
         skip: offset
       })
     return new SupersSummaries(rows.map(row => this.toDomain(row)))
+  }
+
+  count: SupersSummaryRepository['count'] = async ({ where }) => {
+    return await this.prismaInfraService.youtubeStreamSupersSummaryLatest.count(
+      { where: toPrismaWhere(where) }
+    )
   }
 
   findOne: (args: {
@@ -105,13 +149,13 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   private toDomain(row: Omit<PrismaYoutubeStreamSupersSummary, 'id'>) {
     return new SupersSummary({
       channelId: new ChannelId(row.channelId),
-      last7Days: new AmountMicros(BigNumber(row.last7Days.toString())),
-      last30Days: new AmountMicros(BigNumber(row.last30Days.toString())),
-      last90Days: new AmountMicros(BigNumber(row.last90Days.toString())),
-      last1Year: new AmountMicros(BigNumber(row.last1Year.toString())),
-      thisWeek: new AmountMicros(BigNumber(row.thisWeek.toString())),
-      thisMonth: new AmountMicros(BigNumber(row.thisMonth.toString())),
-      thisYear: new AmountMicros(BigNumber(row.thisYear.toString())),
+      last7Days: new AmountMicros(row.last7Days),
+      last30Days: new AmountMicros(row.last30Days),
+      last90Days: new AmountMicros(row.last90Days),
+      last1Year: new AmountMicros(row.last1Year),
+      thisWeek: new AmountMicros(row.thisWeek),
+      thisMonth: new AmountMicros(row.thisMonth),
+      thisYear: new AmountMicros(row.thisYear),
       createdAt: row.createdAt
     })
   }

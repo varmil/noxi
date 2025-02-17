@@ -28,11 +28,26 @@ export class SupersSummariesController {
       where: {
         channelIds: dto.toChannelIds(),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        amountMicros: dto.amountMicros // parse in scenario
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
       offset: dto.toOffset(),
+      date: dto.date
+    })
+  }
+
+  @Get('/count')
+  async getSupersSummariesCount(@Query() dto: GetSupersSummaries) {
+    return await this.supersSummariesScenario.countSupersSummaries({
+      where: {
+        channelIds: dto.toChannelIds(),
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        amountMicros: dto.amountMicros // parse in scenario
+      },
+      orderBy: dto.toOrderBy(),
       date: dto.date
     })
   }

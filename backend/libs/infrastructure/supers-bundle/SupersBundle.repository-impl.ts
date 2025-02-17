@@ -1,5 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
-import BigNumber from 'bignumber.js'
+import { Injectable } from '@nestjs/common'
+import {
+  Prisma,
+  YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
+} from '@prisma/client'
 import { AmountMicros, Group } from '@domain'
 import {
   SupersBundleRepository,
@@ -16,10 +19,6 @@ import {
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type {
-  Prisma,
-  YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
-} from '@prisma/client'
 
 @Injectable()
 export class SupersBundleRepositoryImpl implements SupersBundleRepository {
@@ -98,17 +97,24 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }) => {
-    if (!where.createdAt) {
-      throw new BadRequestException('createdAt must be specified')
+    let amountMicros:
+      | Prisma.BigIntFilter<'YoutubeStreamSupersBundle'>
+      | undefined
+    for (const [key, value] of Object.entries(where.amountMicros || {})) {
+      amountMicros = amountMicros
+        ? { ...amountMicros, [key]: value.toBigInt() }
+        : { [key]: value.toBigInt() }
     }
+
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
         by: ['channelId'],
         where: {
-          channelId: { in: where.channelIds?.map(e => e.get()) },
-          group: where.group?.get(),
           createdAt: where.createdAt,
-          channel: { gender: where.gender?.get() }
+          group: where.group?.get(),
+          channelId: { in: where.channelIds?.map(e => e.get()) },
+          channel: { gender: where.gender?.get() },
+          amountMicros
         },
         _sum: { amountMicros: true },
         orderBy,
@@ -121,21 +127,43 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         row =>
           new SupersBundleSum({
             channelId: new ChannelId(row.channelId),
-            amountMicros: new AmountMicros(
-              row._sum.amountMicros
-                ? BigNumber(row._sum.amountMicros.toString())
-                : new BigNumber(0)
-            )
+            amountMicros: new AmountMicros(row._sum.amountMicros ?? 0)
           })
       )
     )
+  }
+
+  countSum: SupersBundleRepository['countSum'] = async ({ where }) => {
+    const { sql, join, empty } = Prisma
+    const {
+      createdAt: { gte, lte },
+      group,
+      channelIds: ids,
+      amountMicros,
+      gender
+    } = where
+    const result = await this.prismaInfraService.$queryRaw<{ count: number }[]>`
+      SELECT COUNT(DISTINCT t."channelId") AS count
+      FROM "YoutubeStreamSupersBundle" t
+      JOIN "Channel" c ON t."channelId" = c."id"
+      WHERE t."createdAt" >= ${gte} 
+        AND t."createdAt" <= ${lte ?? new Date()}
+        ${group ? sql`AND t."group" = ${group.get()}` : empty}
+        ${ids ? sql`AND t."channelId" IN (${join(ids.map(e => e.get()))})` : empty}
+        ${gender ? sql`AND c."gender" = ${gender.get()}` : empty}
+        ${amountMicros?.gt ? sql`AND t."amountMicros" > ${amountMicros.gt.toBigInt()}` : empty}
+        ${amountMicros?.gte ? sql`AND t."amountMicros" >= ${amountMicros.gte.toBigInt()}` : empty}
+        ${amountMicros?.lt ? sql`AND t."amountMicros" < ${amountMicros.lt.toBigInt()}` : empty}
+        ${amountMicros?.lte ? sql`AND t."amountMicros" <= ${amountMicros.lte.toBigInt()}` : empty}
+    `
+    return result[0]?.count ?? 0
   }
 
   private toDomain(row: PrismaYoutubeStreamSupersBundle) {
     return new SupersBundle({
       videoId: new VideoId(row.videoId),
       channelId: new ChannelId(row.channelId),
-      amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
+      amountMicros: new AmountMicros(row.amountMicros),
       count: new SupersCount(row.count),
       actualStartTime: new ActualStartTime(row.actualStartTime),
       actualEndTime: row.actualEndTime

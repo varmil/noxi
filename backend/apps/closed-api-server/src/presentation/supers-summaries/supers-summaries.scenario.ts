@@ -1,19 +1,31 @@
-import { Injectable, Logger } from '@nestjs/common'
-import { ActualEndTime } from '@domain'
+import { Injectable } from '@nestjs/common'
+import { SupersBundleSumWhere, SupersSummaryFindAllWhere } from '@domain'
+import { AmountMicrosDto } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
-import { Now } from '@domain/lib'
+import { Group } from '@domain/group'
+import { Gender, Now } from '@domain/lib'
+import { PeriodString } from '@domain/lib/period'
+import { ActualEndTime, ChannelIds } from '@domain/youtube'
+
+interface WHERE {
+  channelIds?: ChannelIds
+  group?: Group
+  gender?: Gender
+  amountMicros?: AmountMicrosDto
+}
+type OrderBy = Record<PeriodString, 'asc' | 'desc'>[]
 
 @Injectable()
 export class SupersSummariesScenario {
-  private readonly logger = new Logger(SupersSummariesScenario.name)
-
   constructor(
     private readonly supersBundlesService: SupersBundlesService,
     private readonly supersSummariesService: SupersSummariesService
   ) {}
 
-  /** Retuen latest summaries
+  /**
+   * Retuen latest summaries
+   * １円以上のみSELECTするので /channels/ranking ページ専用
    *
    * 過去24時間：
    * よりリアルタイムな正確な集計をするためにSupersBundlesを直接みる
@@ -24,13 +36,22 @@ export class SupersSummariesScenario {
    * それ以外：
    * SupersSummariesをみる
    **/
-  async getSupersSummaries(
-    args: Parameters<SupersSummariesService['findAll']>[0] & { date?: Date }
-  ) {
-    const { where, orderBy, limit, offset, date } = args
+  async getSupersSummaries(args: {
+    where?: WHERE
+    orderBy?: OrderBy
+    limit?: number
+    offset?: number
+    date?: Date
+  }) {
+    const { amountMicros, ...where } = args.where || {}
+    const { orderBy, limit, offset, date } = args
     if (orderBy?.some(orderBy => 'last24Hours' in orderBy)) {
       const sums = await this.supersBundlesService.sum({
-        where: { ...where, ...this.whereCreatedAt(date) },
+        where: {
+          ...where,
+          ...this.whereCreatedAt(date),
+          ...this.whereAmountUsingBundle(amountMicros)
+        },
         orderBy: { _sum: { amountMicros: 'desc' } },
         limit,
         offset
@@ -43,7 +64,10 @@ export class SupersSummariesScenario {
       }
     } else {
       return await this.supersSummariesService.findAll({
-        where,
+        where: {
+          ...where,
+          ...this.whereAmountUsingSummary(amountMicros)
+        },
         orderBy,
         limit,
         offset
@@ -51,12 +75,68 @@ export class SupersSummariesScenario {
     }
   }
 
+  /**
+   * Retuen latest summaries "COUNT"
+   * １円以上のみCOUNTするので /channels/ranking ページ専用
+   **/
+  async countSupersSummaries(args: {
+    where?: WHERE
+    orderBy?: OrderBy
+    date?: Date
+  }) {
+    const { amountMicros, ...where } = args.where || {}
+    const { orderBy, date } = args
+    if (orderBy?.some(orderBy => 'last24Hours' in orderBy)) {
+      return await this.supersBundlesService.countSum({
+        where: {
+          ...where,
+          ...this.whereCreatedAt(date),
+          ...this.whereAmountUsingBundle(amountMicros)
+        }
+      })
+    } else {
+      return await this.supersSummariesService.count({
+        where: {
+          ...where,
+          ...this.whereAmountUsingSummary(amountMicros)
+        }
+      })
+    }
+  }
+
+  /** last24Hoursの「日時指定」 */
   private whereCreatedAt(date?: Date) {
     if (!date) {
       return { createdAt: { gte: new Now().xDaysAgo(1) } }
     }
     return {
       createdAt: { gte: new ActualEndTime(date).xDaysAgo(1), lte: date }
+    }
+  }
+
+  /** last24Hoursの「金額指定」 */
+  private whereAmountUsingBundle(
+    amountMicros?: AmountMicrosDto
+  ): { amountMicros?: SupersBundleSumWhere['amountMicros'] } | undefined {
+    if (!amountMicros) {
+      return undefined
+    }
+    return {
+      amountMicros: { [amountMicros.operator]: amountMicros.value }
+    }
+  }
+
+  /** last24Hours以外の「金額指定」 */
+  private whereAmountUsingSummary(
+    amountMicros?: AmountMicrosDto
+  ): SupersSummaryFindAllWhere | undefined {
+    if (!amountMicros) {
+      return undefined
+    }
+    return {
+      [amountMicros.period]: {
+        [amountMicros.operator]: amountMicros.value
+      }
     }
   }
 }

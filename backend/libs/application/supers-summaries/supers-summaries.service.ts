@@ -12,6 +12,10 @@ export class SupersSummariesService {
     return await this.supersSummaryRepository.findAll(args)
   }
 
+  async count(args: Parameters<SupersSummaryRepository['count']>[0]) {
+    return await this.supersSummaryRepository.count(args)
+  }
+
   async findOne(args: Parameters<SupersSummaryRepository['findOne']>[0]) {
     return await this.supersSummaryRepository.findOne(args)
   }

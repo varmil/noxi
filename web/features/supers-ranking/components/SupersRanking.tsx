@@ -83,9 +83,9 @@ export default async function SupersRanking({
       getChannelsCount({ group: channel.peakX.group })
     ])
 
-  const updatedAt = overallRanking
-    ? format.relativeTime(overallRanking.createdAt)
-    : format.relativeTime(getUpdatedAt(period, new Date()).toDate())
+  const updatedAt = format.relativeTime(
+    getUpdatedAt(period, new Date()).toDate()
+  )
 
   return (
     <>

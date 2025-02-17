@@ -7,7 +7,6 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import BigNumber from 'bignumber.js'
 import { GetSupersBundles } from '@presentation/supers-bundles/dto/GetSupersBundles.dto'
 import { GetSupersBundlesSum } from '@presentation/supers-bundles/dto/GetSupersBundlesSum.dto'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
@@ -55,7 +54,7 @@ export class SupersBundlesController {
     if (!sum) {
       return new SupersBundleSum({
         channelId: dto.toChannelId(),
-        amountMicros: new AmountMicros(BigNumber(0))
+        amountMicros: new AmountMicros(0)
       })
     }
     return sum

@@ -23,4 +23,8 @@ export class SupersBundlesService {
   async sum(args: Parameters<SupersBundleRepository['sum']>[0]) {
     return await this.supersBundleRepository.sum(args)
   }
+
+  async countSum(args: Parameters<SupersBundleRepository['countSum']>[0]) {
+    return await this.supersBundleRepository.countSum(args)
+  }
 }

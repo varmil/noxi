@@ -9,7 +9,10 @@ import ChannelsRankingTable from 'features/channels-ranking/components/table/Cha
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import { Link } from 'lib/navigation'
-import createGetSupersSummariesParams from '../../utils/createGetSupersSummariesParams'
+import {
+  getChannelsParams,
+  getSupersSummariesParams
+} from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
   compact?: boolean
@@ -28,22 +31,18 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
   const t = await getTranslations('Features.channelsRanking')
-  const { period, dimension, group, gender, date, compact, className } = props
+  const { period, dimension, group, gender, date, page, compact, className } =
+    props
 
   if (dimension === 'super-chat') {
     const supersSummaries = await getSupersSummaries(
-      createGetSupersSummariesParams(props)
+      getSupersSummariesParams(props)
     )
     channelIds = supersSummaries.map(summary => summary.channelId)
   }
 
   if (dimension === 'subscriber') {
-    const channels = await getChannels({
-      group: props.group,
-      gender: props.gender,
-      orderBy: [{ field: 'subscriberCount', order: 'desc' }],
-      limit: 30
-    })
+    const channels = await getChannels(getChannelsParams(props))
     channelIds = channels.map(channel => channel.basicInfo.id)
   }
 
@@ -61,8 +60,9 @@ export default async function ChannelsRankingGallery(
       <ChannelsRankingTable
         period={period}
         dimension={dimension}
-        date={date ? new Date(date) : undefined}
         channelIds={channelIds}
+        date={date ? new Date(date) : undefined}
+        page={Number(page) || 1}
       />
 
       {compact && (

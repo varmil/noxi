@@ -8,12 +8,24 @@ import {
   IsString,
   ValidateNested
 } from 'class-validator'
+import { AmountMicros } from '@domain'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
-import { PeriodString } from '@domain/lib/period'
-import { SupersSummaryRepository } from '@domain/supers-summary'
+import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { ChannelId, ChannelIds } from '@domain/youtube'
+
+/** 金額による絞り込み */
+export class AmountMicrosDto {
+  @IsIn(PeriodStrings)
+  period: PeriodString
+
+  @IsIn(['gt', 'gte', 'lt', 'lte'])
+  operator: 'gt' | 'gte' | 'lt' | 'lte'
+
+  @Transform(({ value }: { value: string }) => new AmountMicros(value))
+  value: AmountMicros
+}
 
 export class GetSupersSummaries {
   @IsOptional()
@@ -32,6 +44,18 @@ export class GetSupersSummaries {
   @IsOptional()
   gender?: GenderString
 
+  /** JPY micro */
+  @IsOptional()
+  @Type(() => AmountMicrosDto)
+  amountMicros?: AmountMicrosDto
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new Date(value) : undefined
+  )
+  @IsDate()
+  date: Date
+
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
@@ -48,13 +72,6 @@ export class GetSupersSummaries {
   @Type(() => Number)
   offset?: number
 
-  @IsOptional()
-  @Transform(({ value }: { value?: string }) =>
-    value ? new Date(value) : undefined
-  )
-  @IsDate()
-  date: Date
-
   toChannelIds = () =>
     this.channelIds
       ? new ChannelIds(this.channelIds.map(id => new ChannelId(id)))
@@ -68,8 +85,7 @@ export class GetSupersSummaries {
     return (
       (this.orderBy?.map(({ field, order }) => ({
         [field]: order
-      })) as Parameters<SupersSummaryRepository['findAll']>[0]['orderBy']) ??
-      undefined
+      })) as Record<PeriodString, 'asc' | 'desc'>[]) ?? undefined
     )
   }
 
