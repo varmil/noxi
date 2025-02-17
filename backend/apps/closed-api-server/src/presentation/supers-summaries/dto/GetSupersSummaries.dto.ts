@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
@@ -6,13 +7,29 @@ import {
   IsInt,
   IsOptional,
   IsString,
+  Min,
   ValidateNested
 } from 'class-validator'
+import { AmountMicros } from '@domain'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
-import { PeriodString } from '@domain/lib/period'
+import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { ChannelId, ChannelIds } from '@domain/youtube'
+
+/** 金額による絞り込み */
+class AmountMicrosDto {
+  @IsIn(PeriodStrings)
+  period: PeriodString
+
+  @IsIn(['gt', 'gte', 'lt', 'lte'])
+  operator: 'gt' | 'gte' | 'lt' | 'lte'
+
+  @Min(0)
+  @IsInt()
+  @Type(() => BigInt)
+  value: bigint
+}
 
 export class GetSupersSummaries {
   @IsOptional()
@@ -31,6 +48,18 @@ export class GetSupersSummaries {
   @IsOptional()
   gender?: GenderString
 
+  /** JPY micro */
+  @IsOptional()
+  @Type(() => AmountMicrosDto)
+  amountMicros?: AmountMicrosDto
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new Date(value) : undefined
+  )
+  @IsDate()
+  date: Date
+
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
@@ -47,13 +76,6 @@ export class GetSupersSummaries {
   @Type(() => Number)
   offset?: number
 
-  @IsOptional()
-  @Transform(({ value }: { value?: string }) =>
-    value ? new Date(value) : undefined
-  )
-  @IsDate()
-  date: Date
-
   toChannelIds = () =>
     this.channelIds
       ? new ChannelIds(this.channelIds.map(id => new ChannelId(id)))
@@ -62,6 +84,18 @@ export class GetSupersSummaries {
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
+
+  toAmountMicros = () => {
+    return this.amountMicros
+      ? {
+          [this.amountMicros.period]: {
+            [this.amountMicros.operator]: new AmountMicros(
+              this.amountMicros.value.toString()
+            )
+          }
+        }
+      : undefined
+  }
 
   toOrderBy = () => {
     return (

@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import { Group } from '@domain/group'
 import { Currency } from '@domain/lib/currency'
 import { SuperSticker, AmountDisplayString, AmountMicros } from '@domain/supers'
@@ -20,7 +19,7 @@ export class SuperStickerTranslator {
 
     return new SuperSticker({
       id: new LiveChatMessageId(row.id),
-      amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
+      amountMicros: new AmountMicros(row.amountMicros.toString()),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
 

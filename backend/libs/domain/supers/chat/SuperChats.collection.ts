@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import { ExchangeRates } from '@domain/exchange-rate'
 import { Collection } from '@domain/lib/Collection'
 import { AmountMicros } from '@domain/supers/base'
@@ -11,7 +10,7 @@ export class SuperChats extends Collection<SuperChat> {
 
   /** @returns Rounded Micro JPY */
   calculateTotalInJPY(rates: ExchangeRates): AmountMicros {
-    let totalInJPY = new AmountMicros(BigNumber(0))
+    let totalInJPY = new AmountMicros(0)
 
     for (const chat of this.list) {
       const amountInJPY = chat.convertToJPY(rates)

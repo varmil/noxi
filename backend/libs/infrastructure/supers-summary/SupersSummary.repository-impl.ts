@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import BigNumber from 'bignumber.js'
 import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { AmountMicros } from '@domain/supers'
 import {
@@ -150,13 +149,13 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
   private toDomain(row: Omit<PrismaYoutubeStreamSupersSummary, 'id'>) {
     return new SupersSummary({
       channelId: new ChannelId(row.channelId),
-      last7Days: new AmountMicros(BigNumber(row.last7Days.toString())),
-      last30Days: new AmountMicros(BigNumber(row.last30Days.toString())),
-      last90Days: new AmountMicros(BigNumber(row.last90Days.toString())),
-      last1Year: new AmountMicros(BigNumber(row.last1Year.toString())),
-      thisWeek: new AmountMicros(BigNumber(row.thisWeek.toString())),
-      thisMonth: new AmountMicros(BigNumber(row.thisMonth.toString())),
-      thisYear: new AmountMicros(BigNumber(row.thisYear.toString())),
+      last7Days: new AmountMicros(row.last7Days.toString()),
+      last30Days: new AmountMicros(row.last30Days.toString()),
+      last90Days: new AmountMicros(row.last90Days.toString()),
+      last1Year: new AmountMicros(row.last1Year.toString()),
+      thisWeek: new AmountMicros(row.thisWeek.toString()),
+      thisMonth: new AmountMicros(row.thisMonth.toString()),
+      thisYear: new AmountMicros(row.thisYear.toString()),
       createdAt: row.createdAt
     })
   }

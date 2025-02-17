@@ -3,7 +3,6 @@ import {
   Prisma,
   YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
 } from '@prisma/client'
-import BigNumber from 'bignumber.js'
 import { AmountMicros, Group } from '@domain'
 import {
   SupersBundleRepository,
@@ -128,9 +127,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
           new SupersBundleSum({
             channelId: new ChannelId(row.channelId),
             amountMicros: new AmountMicros(
-              row._sum.amountMicros
-                ? BigNumber(row._sum.amountMicros.toString())
-                : new BigNumber(0)
+              row._sum.amountMicros?.toString() ?? 0
             )
           })
       )
@@ -167,7 +164,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     return new SupersBundle({
       videoId: new VideoId(row.videoId),
       channelId: new ChannelId(row.channelId),
-      amountMicros: new AmountMicros(BigNumber(row.amountMicros.toString())),
+      amountMicros: new AmountMicros(row.amountMicros.toString()),
       count: new SupersCount(row.count),
       actualStartTime: new ActualStartTime(row.actualStartTime),
       actualEndTime: row.actualEndTime

@@ -1,4 +1,3 @@
-import BigNumber from 'bignumber.js'
 import { ExchangeRates } from '@domain/exchange-rate'
 import { Collection } from '@domain/lib/Collection'
 import { AmountMicros } from '@domain/supers/base'
@@ -11,7 +10,7 @@ export class SuperStickers extends Collection<SuperSticker> {
 
   /** @returns Rounded Micro JPY */
   calculateTotalInJPY(rates: ExchangeRates): AmountMicros {
-    let totalInJPY = new AmountMicros(BigNumber(0))
+    let totalInJPY = new AmountMicros(0)
 
     for (const sticker of this.list) {
       const amountInJPY = sticker.convertToJPY(rates)

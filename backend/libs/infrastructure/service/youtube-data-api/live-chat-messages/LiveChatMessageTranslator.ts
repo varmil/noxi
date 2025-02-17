@@ -1,5 +1,4 @@
 import { type youtube_v3 } from '@googleapis/youtube'
-import BigNumber from 'bignumber.js'
 import { z } from 'zod'
 import { Currency } from '@domain/lib/currency'
 import { AmountDisplayString, AmountMicros, UserComment } from '@domain/supers'
@@ -74,7 +73,7 @@ export class LiveChatMessageTranslator {
       const { amountMicros, currency, amountDisplayString, userComment } =
         snippet.superChatDetails
       superChatDetails = new SuperChatDetails({
-        amountMicros: new AmountMicros(BigNumber(amountMicros)),
+        amountMicros: new AmountMicros(amountMicros),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString),
         userComment: new UserComment(userComment ?? '')
@@ -92,7 +91,7 @@ export class LiveChatMessageTranslator {
         snippet.superStickerDetails
 
       superStickerDetails = new SuperStickerDetails({
-        amountMicros: new AmountMicros(BigNumber(amountMicros)),
+        amountMicros: new AmountMicros(amountMicros),
         currency: new Currency(currency),
         amountDisplayString: new AmountDisplayString(amountDisplayString)
       })
