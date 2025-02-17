@@ -16,7 +16,7 @@ export function getSupersSummariesParams({
   compact,
   page
 }: ChannelsRankingGalleryProps): GetSupersSummaries {
-  let result = {}
+  let result: GetSupersSummaries = {}
   let orderBy: GetSupersSummaries['orderBy']
 
   switch (period) {
@@ -45,6 +45,12 @@ export function getSupersSummariesParams({
 
   if (country) {
     // ChannelとJOINする必要あり
+  }
+
+  // チャンネルランキング（Super Chat）には
+  // 金額が０円より大きいもののみ表示する
+  {
+    result = { ...result, amountMicros: { period, operator: 'gt', value: 0 } }
   }
 
   // 現状OG専用パラメタ

@@ -105,6 +105,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         ? { ...amountMicros, [key]: value.toBigInt() }
         : { [key]: value.toBigInt() }
     }
+
     const rows =
       await this.prismaInfraService.youtubeStreamSupersBundle.groupBy({
         by: ['channelId'],
