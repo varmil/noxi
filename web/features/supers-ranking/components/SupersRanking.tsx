@@ -24,6 +24,7 @@ import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistorie
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
 import Underline from 'components/styles/string/Underline'
+import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { GroupString } from 'config/constants/Site'
 import RankBadge from 'features/supers-ranking/components/RankBadge'
 import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCell'
@@ -231,7 +232,13 @@ function RankCell({
   gender?: Gender
 }) {
   return (
-    <LinkCell align="center" period={period} group={group} gender={gender}>
+    <LinkCell
+      align="center"
+      period={period}
+      group={group}
+      gender={gender}
+      page={ChannelsRankingPagination.getPageFromRank(rank)}
+    >
       <RankBadge rank={rank} />
     </LinkCell>
   )

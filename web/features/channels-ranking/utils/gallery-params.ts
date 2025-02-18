@@ -1,9 +1,6 @@
 import { getChannels } from 'apis/youtube/getChannels'
+import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { ChannelsRankingGalleryProps } from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
-import {
-  CHANNELS_RANKING_COMPACT_PAGE_SIZE,
-  CHANNELS_RANKING_PAGE_SIZE
-} from 'features/channels-ranking/utils/channels-ranking-pagination'
 import type { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 
 type GetSupersSummaries = Parameters<typeof getSupersSummaries>[0]
@@ -61,8 +58,8 @@ export function getSupersSummariesParams({
   result = {
     ...result,
     limit: compact
-      ? CHANNELS_RANKING_COMPACT_PAGE_SIZE
-      : CHANNELS_RANKING_PAGE_SIZE,
+      ? ChannelsRankingPagination.COMPACT_PAGE_SIZE
+      : ChannelsRankingPagination.PAGE_SIZE,
     offset: getOffset(page)
   }
 
@@ -79,10 +76,10 @@ export function getChannelsParams({
     group,
     gender,
     orderBy: [{ field: 'subscriberCount', order: 'desc' }],
-    limit: CHANNELS_RANKING_PAGE_SIZE,
+    limit: ChannelsRankingPagination.PAGE_SIZE,
     offset: getOffset(page)
   }
 }
 
 const getOffset = (page?: string) =>
-  Math.max((Number(page) || 1) - 1, 0) * CHANNELS_RANKING_PAGE_SIZE
+  Math.max((Number(page) || 1) - 1, 0) * ChannelsRankingPagination.PAGE_SIZE

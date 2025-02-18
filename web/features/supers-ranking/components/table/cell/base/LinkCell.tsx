@@ -9,6 +9,7 @@ export default function LinkCell({
   period,
   group,
   gender,
+  page,
   align,
   className,
   width,
@@ -17,6 +18,8 @@ export default function LinkCell({
   period: Period
   group?: GroupString
   gender?: Gender
+  /** min 1 */
+  page?: number
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   width?: number
@@ -24,7 +27,8 @@ export default function LinkCell({
   const searchParams = new URLSearchParams({
     period,
     ...(group && { group }),
-    ...(gender && { gender })
+    ...(gender && { gender }),
+    ...(page && page >= 2 && { page: page.toString() })
   })
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
