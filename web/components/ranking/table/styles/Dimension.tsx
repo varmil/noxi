@@ -17,7 +17,7 @@ export default function Dimension({
   icon?: JSX.Element
   rtl?: boolean
 }) {
-  const t = useTranslations('Features.streamRanking')
+  const feat = useTranslations('Features.streamRanking')
   const textClasses = active ? 'font-bold' : 'text-muted-foreground'
   const barColor = active ? '' : '*:bg-muted-foreground'
 
@@ -47,7 +47,7 @@ export default function Dimension({
       {active ? (
         <div>
           <Progress
-            title={t('viewers')}
+            title={feat('viewers')}
             className={`h-1 ${barColor} ${rtl ? 'rotate-180' : ''}`}
             value={(dividend / divisor) * 100}
           />

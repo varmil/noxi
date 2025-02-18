@@ -5,7 +5,7 @@ import { TableHeader, TableRow, TableHead } from '@/components/ui/table'
 type Props = PropsWithoutRef<{}>
 
 export default async function StreamTrendsTableHeader({}: Props) {
-  const t = await getTranslations('Features.streamRanking')
+  const feat = await getTranslations('Features.streamRanking')
 
   return (
     <TableHeader className="text-xs">
@@ -17,15 +17,17 @@ export default async function StreamTrendsTableHeader({}: Props) {
         <TableHead className="" />
 
         {/* Title */}
-        <TableHead className="text-nowrap">{t('streamTitle')}</TableHead>
+        <TableHead className="text-nowrap">{feat('streamTitle')}</TableHead>
 
         {/* 同接数 */}
         <TableHead className="text-nowrap text-center">
-          {t('viewers')}
+          {feat('viewers')}
         </TableHead>
 
         {/* 日付 */}
-        <TableHead className="text-nowrap text-center">{t('date')}</TableHead>
+        <TableHead className="text-nowrap text-center">
+          {feat('date')}
+        </TableHead>
       </TableRow>
     </TableHeader>
   )
