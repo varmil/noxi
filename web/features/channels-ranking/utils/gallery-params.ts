@@ -57,10 +57,8 @@ export function getSupersSummariesParams({
 
   result = {
     ...result,
-    limit: compact
-      ? ChannelsRankingPagination.COMPACT_PAGE_SIZE
-      : ChannelsRankingPagination.PAGE_SIZE,
-    offset: getOffset(page)
+    limit: ChannelsRankingPagination.getLimit(compact),
+    offset: ChannelsRankingPagination.getOffset(page)
   }
 
   return result
@@ -76,10 +74,7 @@ export function getChannelsParams({
     group,
     gender,
     orderBy: [{ field: 'subscriberCount', order: 'desc' }],
-    limit: ChannelsRankingPagination.PAGE_SIZE,
-    offset: getOffset(page)
+    limit: ChannelsRankingPagination.getLimit(),
+    offset: ChannelsRankingPagination.getOffset(page)
   }
 }
-
-const getOffset = (page?: string) =>
-  Math.max((Number(page) || 1) - 1, 0) * ChannelsRankingPagination.PAGE_SIZE

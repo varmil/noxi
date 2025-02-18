@@ -2,11 +2,11 @@ import { PropsWithoutRef } from 'react'
 import { getStreamsCount } from 'apis/youtube/getStreams'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { StreamRankingPagination } from 'config/constants/Pagination'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
-import { STREAM_RANKING_PAGE_SIZE } from 'features/stream-ranking/utils/stream-ranking-pagination'
 
 type Props = {
   searchParams: StreamRankingSearchParams
@@ -35,7 +35,7 @@ export default async function IndexTemplate({
       {searchParams.dimension === 'concurrent-viewer' && (
         <section className={`${PageSMPX}`}>
           <ResponsivePagination
-            totalPages={Math.ceil(count / STREAM_RANKING_PAGE_SIZE)}
+            totalPages={StreamRankingPagination.getTotalPages(count)}
           />
         </section>
       )}

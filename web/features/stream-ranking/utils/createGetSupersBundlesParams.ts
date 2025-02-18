@@ -1,3 +1,4 @@
+import { StreamRankingPagination } from 'config/constants/Pagination'
 import { getStartOf } from 'utils/ranking/ranking'
 import type { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
@@ -39,7 +40,14 @@ export default function createGetSupersBundlesParams({
     // TODO: ChannelとJOINする必要あり
   }
 
-  result = { ...result, limit: compact ? 5 : period === 'realtime' ? 100 : 30 }
+  result = {
+    ...result,
+    limit: compact
+      ? StreamRankingPagination.COMPACT_PAGE_SIZE
+      : period === 'realtime'
+      ? 100
+      : 30
+  }
 
   return result
 }
