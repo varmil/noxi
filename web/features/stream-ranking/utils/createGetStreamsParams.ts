@@ -1,4 +1,4 @@
-import { STREAM_RANKING_PAGE_SIZE } from 'features/stream-ranking/utils/stream-ranking-pagination'
+import { StreamRankingPagination } from 'config/constants/Pagination'
 import { getStartOf } from 'utils/ranking/ranking'
 import type { getStreams } from 'apis/youtube/getStreams'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
@@ -50,10 +50,11 @@ export default function createGetStreamsParams({
 
   // limit, offset
   {
-    const limit = compact ? 5 : STREAM_RANKING_PAGE_SIZE
-    const offset =
-      Math.max((Number(page) || 1) - 1, 0) * STREAM_RANKING_PAGE_SIZE
-    result = { ...result, limit, offset }
+    result = {
+      ...result,
+      limit: StreamRankingPagination.getLimit(compact),
+      offset: StreamRankingPagination.getOffset(page)
+    }
   }
 
   return result

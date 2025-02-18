@@ -23,6 +23,8 @@ import { getChannelsCount } from 'apis/youtube/getChannels'
 import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistories'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
+import Underline from 'components/styles/string/Underline'
+import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { GroupString } from 'config/constants/Site'
 import RankBadge from 'features/supers-ranking/components/RankBadge'
 import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCell'
@@ -134,7 +136,7 @@ export default async function SupersRanking({
               {/* OVERALL: period */}
               <TableRow>
                 <LinkCell className="font-medium" period={period}>
-                  {feat('overall')}
+                  <Underline>{feat('overall')}</Underline>
                 </LinkCell>
                 <RankCell rank={overallRanking?.rank} period={period} />
                 <TableCell align="right">
@@ -157,7 +159,9 @@ export default async function SupersRanking({
                   period={period}
                   gender={channel.peakX.gender}
                 >
-                  {global(`gender.${channel.peakX.gender}`)}
+                  <Underline>
+                    {global(`gender.${channel.peakX.gender}`)}
+                  </Underline>
                 </LinkCell>
                 <RankCell
                   rank={genderRanking?.rank}
@@ -184,7 +188,9 @@ export default async function SupersRanking({
                   period={period}
                   group={channel.peakX.group}
                 >
-                  {global(`group.${channel.peakX.group}`)}
+                  <Underline>
+                    {global(`group.${channel.peakX.group}`)}
+                  </Underline>
                 </LinkCell>
                 <RankCell
                   rank={groupRanking?.rank}
@@ -226,7 +232,13 @@ function RankCell({
   gender?: Gender
 }) {
   return (
-    <LinkCell align="center" period={period} group={group} gender={gender}>
+    <LinkCell
+      align="center"
+      period={period}
+      group={group}
+      gender={gender}
+      page={ChannelsRankingPagination.getPageFromRank(rank)}
+    >
       <RankBadge rank={rank} />
     </LinkCell>
   )

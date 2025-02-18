@@ -8,10 +8,10 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
+import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import BaseLinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
-import { CHANNELS_RANKING_PAGE_SIZE } from 'features/channels-ranking/utils/channels-ranking-pagination'
 import { ChannelsRankingPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
 
@@ -74,7 +74,7 @@ export default async function ChannelsRankingTable({
               {/* Rank */}
               <TableCell className="align-top">
                 <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
-                  {i + 1 + (page - 1) * CHANNELS_RANKING_PAGE_SIZE}
+                  {i + 1 + (page - 1) * ChannelsRankingPagination.PAGE_SIZE}
                 </div>
               </TableCell>
 

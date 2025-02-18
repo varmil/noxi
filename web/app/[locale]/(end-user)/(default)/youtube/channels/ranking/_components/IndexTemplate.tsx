@@ -3,10 +3,10 @@ import { getChannelsCount } from 'apis/youtube/getChannels'
 import { getSupersSummariesCount } from 'apis/youtube/getSupersSummaries'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import ChannelsRankingFilterGallery from 'features/channels-ranking/components/filter/ChannelsRankingFilterGallery'
 import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
-import { CHANNELS_RANKING_PAGE_SIZE } from 'features/channels-ranking/utils/channels-ranking-pagination'
 import {
   getChannelsParams,
   getSupersSummariesParams
@@ -43,7 +43,7 @@ export default async function IndexTemplate({
 
       <section className={`${PageSMPX}`}>
         <ResponsivePagination
-          totalPages={Math.ceil(count / CHANNELS_RANKING_PAGE_SIZE)}
+          totalPages={ChannelsRankingPagination.getTotalPages(count)}
         />
       </section>
     </section>
