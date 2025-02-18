@@ -70,7 +70,7 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "streamsRanking": "VTuberライブ",
+    "streamsRanking": "VTuber",
     "channelsRanking": "VTuber"
   },
 
@@ -78,7 +78,7 @@
     "index": {
       "metadata": {
         "title": "VTuberスパチャランキング",
-        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるPeakXでは、人気VTuberの最新情報、スーパーチャット額の統計を網羅。同接数ランキング、スパチャランキングを用いてお気に入りのVTuberを瞬時に見つけよう。今、注目の配信を見逃さない。過去の人気ライブも一瞬で見つかる。PeakXは便利な情報をお届けします。"
+        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるPeakXでは、人気VTuberの最新情報、スーパーチャット額の統計を網羅。同接ランキング、スパチャランキングを用いてお気に入りのVTuberを瞬時に見つけよう。今、注目の配信を見逃さない。過去の人気ライブも一瞬で見つかる。PeakXは便利な情報をお届けします。"
       },
       "title": "世界最大の\nVTuberスパチャ\nランキングDB",
       "description": "ホロライブ、にじさんじ、個人勢VTuberすべてを即座に確認。YouTubeライブのスパチャランキング、同接数ランキングをリアルタイムにチェック",
@@ -165,7 +165,7 @@
         "concurrentViewers": {
           "metadata": {
             "title": "{channel} 同接数",
-            "description": "{channel}のライブ同接数をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+            "description": "{channel}の同接数をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
           },
           "section": {
             "title": "ライブ同接数の推移"
@@ -254,8 +254,8 @@
         },
         "ranking": {
           "metadata": {
-            "title": "VTuberライブ",
-            "description": "VTuberライブランキング（リアルタイム集計）を確認！同接数、スパチャ額でライブ配信をソートし、人気の瞬間を見逃さずチェック。所属グループや国、性別でお気に入りのVTuberを探そう。"
+            "title": "VTuber",
+            "description": "VTuber同接数ランキングを確認！同接数、スパチャ金額でライブ配信をソートし、人気の瞬間を見逃さずチェック。所属グループや国、性別でお気に入りのVTuberを探そう。"
           }
         }
       },
@@ -450,8 +450,8 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "同接数ランキング - {period}",
-          "super-chat": "スパチャランキング - {period}"
+          "concurrent-viewer": "{group} {gender} 同接ランキング - {period}",
+          "super-chat": "{group} {gender} スパチャランキング - {period}"
         }
       },
       "viewAll": "すべて見る",
@@ -479,7 +479,7 @@
       "overall": "総合",
       "unranked": "圏外",
       "counting": "集計中",
-      "more": "Top30を見る"
+      "more": "Top20を見る"
     },
 
     "youtube": {

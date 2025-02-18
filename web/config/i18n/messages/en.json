@@ -70,7 +70,7 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "streamsRanking": "VTuber Live",
+    "streamsRanking": "VTuber",
     "channelsRanking": "VTuber"
   },
 
@@ -165,7 +165,7 @@
         "concurrentViewers": {
           "metadata": {
             "title": "{channel} Concurrent viewers",
-            "description": "Check the number of concurrent viewers for {channel} live streams! Check the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+            "description": "Check the number of concurrent viewers for {channel}! Check the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
           },
           "section": {
             "title": "Concurrent Viewers Trends"
@@ -254,7 +254,7 @@
         },
         "ranking": {
           "metadata": {
-            "title": "VTuber Live - ",
+            "title": "VTuber - ",
             "description": "VTuber Live Ranking now available! Sort live streams by concurrent viewers and super chat amounts, and don't miss out on the most popular moments. Find your favorite VTuber by group, country, or gender."
           }
         }
@@ -450,8 +450,8 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "Most Live Viewers - {period}",
-          "super-chat": "Most Super Chatted - {period}"
+          "concurrent-viewer": "{group} {gender} Most Live Viewers - {period}",
+          "super-chat": "{group} {gender} Most Super Chatted - {period}"
         }
       },
       "viewAll": "View All",
@@ -479,7 +479,7 @@
       "overall": "Overall",
       "unranked": "Unranked",
       "counting": "counting",
-      "more": "See Top 30"
+      "more": "See Top 20"
     },
 
     "youtube": {

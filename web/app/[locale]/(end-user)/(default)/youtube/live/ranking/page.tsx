@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
+import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
@@ -13,34 +14,28 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const searchParams = await props.searchParams
-  const global = await getTranslations({ locale, namespace: 'Global' })
-  const page = await getTranslations({
+  const { period, dimension, group, gender } = await props.searchParams
+  return await generateTitleAndDescription({
     locale,
-    namespace: 'Page.youtube.live.ranking'
+    pageNamespace: 'Page.youtube.live.ranking',
+    featNamespace: 'Features.streamRanking.ranking.dimension',
+    period,
+    dimension,
+    group,
+    gender
   })
-  const feat = await getTranslations({
-    locale,
-    namespace: 'Features.streamRanking.ranking.dimension'
-  })
-
-  return {
-    title: `${page('metadata.title')} ${feat(searchParams.dimension, {
-      period: global(`period.${searchParams.period}`)
-    })} - ${global('title')}`,
-    description: `${page('metadata.description')}`
-  }
 }
 
 export default function YoutubeLiveRankingPage(props: Props) {
   const { locale } = use(props.params)
   const searchParams = use(props.searchParams)
+  const { period, dimension, group, gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale)
   const breadcrumb = useTranslations('Breadcrumb')
-  const tg = useTranslations('Global')
-  const t = useTranslations('Features.streamRanking.ranking.dimension')
+  const global = useTranslations('Global')
+  const feat = useTranslations('Features.streamRanking.ranking.dimension')
 
   return (
     <Page
@@ -51,9 +46,13 @@ export default function YoutubeLiveRankingPage(props: Props) {
         },
         {
           href: `#`,
-          name: t(searchParams.dimension, {
-            period: tg(`period.${searchParams.period}`)
+          name: feat(dimension, {
+            period: global(`period.${period}`),
+            group: group ? global(`group.${group}`) : '',
+            gender: gender ? global(`gender.${gender}`) : ''
           })
+            .replace(/\s+/g, ' ')
+            .trim()
         }
       ]}
       noPadding

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { ChartNoAxesColumnIncreasing, ChevronRight } from 'lucide-react'
+import { ChartNoAxesColumnIncreasing } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import { GroupString } from 'config/constants/Site'
@@ -24,7 +24,6 @@ export default function ChannelsRankingTableTitle({
   date,
   className
 }: Props) {
-  const breadcrumb = useTranslations('Breadcrumb')
   const global = useTranslations('Global')
   const feat = useTranslations('Features.channelsRanking')
   return (
@@ -34,14 +33,10 @@ export default function ChannelsRankingTableTitle({
       <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">
         <h1 className="flex items-center font-bold">
           <div className="flex gap-x-1 sm:gap-x-2 items-center line-clamp-1">
-            <span className="flex-1 break-anywhere line-clamp-1">
-              {breadcrumb('channelsRanking')}
-            </span>
-            <ChevronRight className="relative w-3 h-3 top-[1px]" />
             <span className="line-clamp-1">
               {feat(`ranking.dimension.${dimension}`, {
                 period: global(`period.${period}`),
-                group: group ? global(`group.${group}`) : '',
+                group: group ? global(`group.${group}`) : 'VTuber',
                 gender: gender ? global(`gender.${gender}`) : ''
               })
                 .replace(/\s+/g, ' ')

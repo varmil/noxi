@@ -5,6 +5,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
+import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
 import IndexTemplate from './_components/IndexTemplate'
 
@@ -16,30 +17,16 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
   const { period, dimension, group, gender, date } = await props.searchParams
-  const global = await getTranslations({ locale, namespace: 'Global' })
-  const page = await getTranslations({
-    locale,
-    namespace: 'Page.youtube.channels.ranking'
-  })
-  const feat = await getTranslations({
-    locale,
-    namespace: 'Features.channelsRanking.ranking.dimension'
-  })
-
-  // 「ホロライブ」や「にじさんじ」 などグループ名が指定されている場合は、「VTuber」
-  //  を省略してシンプルなタイトルにする方がSEOとユーザー体験の観点から最適
-  const titlePrefix = group ? '' : page('metadata.title')
-
   return {
-    title: `${titlePrefix} ${feat(dimension, {
-      period: global(`period.${period}`),
-      group: group ? global(`group.${group}`) : '',
-      gender: gender ? global(`gender.${gender}`) : ''
-    })
-      .replace(/\s+/g, ' ')
-      .trim()} - ${global('title')}`,
-
-    description: `${page('metadata.description')}`,
+    ...(await generateTitleAndDescription({
+      locale,
+      pageNamespace: 'Page.youtube.channels.ranking',
+      featNamespace: 'Features.channelsRanking.ranking.dimension',
+      period,
+      dimension,
+      group,
+      gender
+    })),
 
     openGraph: {
       images: [
