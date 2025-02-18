@@ -28,6 +28,7 @@ type Props = {
 export default function ResponsivePagination({ totalPages, className }: Props) {
   const pathname = usePathname()
   const { get, createQueryString } = useQueryString()
+  const total = Math.max(1, totalPages) // min 1
   const current = Number(get(QS_KEY)) || 1
 
   return (
@@ -50,21 +51,21 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
             disabled={current === 1}
           />
         </PaginationItem>
-        <SP current={current} totalPages={totalPages} />
-        <NotSP current={current} totalPages={totalPages} />
+        <SP current={current} totalPages={total} />
+        <NotSP current={current} totalPages={total} />
         <PaginationItem>
           <PaginationNext
             href={`${pathname}?${createQueryString(
               QS_KEY,
-              Math.min(totalPages, current + 1).toString()
+              Math.min(total, current + 1).toString()
             )}`}
-            disabled={current === totalPages}
+            disabled={current === total}
           />
         </PaginationItem>
         {/* <PaginationItem className="hidden">
           <PaginationLast
-            href={`#`} // href={`?page=${totalPages}`}
-            disabled={current === totalPages}
+            href={`#`} // href={`?page=${total}`}
+            disabled={current === total}
           />
         </PaginationItem> */}
       </PaginationContent>
