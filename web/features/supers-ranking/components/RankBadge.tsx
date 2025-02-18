@@ -1,6 +1,7 @@
 import { JSX } from 'react'
 import { Award, Crown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import Underline from 'components/styles/string/Underline'
 
 type Props = { rank?: number }
 
@@ -41,7 +42,7 @@ export default function RankBadge({ rank }: Props) {
     <div className="flex items-baseline justify-center space-x-1">
       <div className={badgeClass} aria-label={ariaLabel}>
         {icon}
-        {rank}
+        <Underline>{rank}</Underline>
       </div>
 
       <span className="text-muted-foreground">
