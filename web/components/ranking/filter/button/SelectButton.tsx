@@ -33,7 +33,11 @@ export default function SelectButton({
       asChild
       variant={active ? activeVariant ?? 'default' : 'ghost'}
     >
-      <Link href={`${pathname}?${createQueryStrings(qs)}`} prefetch={true}>
+      <Link
+        href={`${pathname}?${createQueryStrings(qs)}`}
+        prefetch={true}
+        scroll={false}
+      >
         {children}
       </Link>
     </Button>
