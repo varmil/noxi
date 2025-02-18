@@ -255,7 +255,12 @@
         "ranking": {
           "metadata": {
             "title": "VTuber",
-            "description": "VTuber同接数ランキングを確認！同接数、スパチャ金額でライブ配信をソートし、人気の瞬間を見逃さずチェック。所属グループや国、性別でお気に入りのVTuberを探そう。"
+            "description": {
+              "dimension": {
+                "concurrent-viewer": "YouTubeライブ配信の{period}の同接数を集計。ランキング形式で同接数を比較し、人気ライブをチェックしよう。",
+                "super-chat": "YouTubeライブ配信の{period}のスーパーチャット総額を集計。リアルタイム収益や配信パフォーマンスを比較し、人気ライブをチェックできるPeakXのランキングページです。"
+              }
+            }
           }
         }
       },
@@ -263,7 +268,12 @@
         "ranking": {
           "metadata": {
             "title": "VTuber",
-            "description": "過去24時間、過去X日間でスーパーチャット金額が多いVTuberランキングを公開！推しの活躍を確認し、人気VTuberの注目度をチェック。VTuber情報を見逃さずに！"
+            "description": {
+              "dimension": {
+                "super-chat": "{period}の各VTuberチャンネルのスーパーチャット収益を集計。所属グループや性別別の比較情報も提供し、人気VTuberの収益パフォーマンスをPeakXで確認できます。",
+                "subscriber": "{group}{gender}のチャンネル登録者数ランキングページです。ランキング形式でVTuberを比較し、推しの活躍をチェックしよう。"
+              }
+            }
           }
         }
       }
@@ -451,7 +461,7 @@
       "ranking": {
         "dimension": {
           "concurrent-viewer": "{group} {gender} 同接ランキング - {period}",
-          "super-chat": "{group} {gender} スパチャランキング - {period}"
+          "super-chat": "【ライブ別】{group} {gender} スパチャランキング - {period}"
         }
       },
       "viewAll": "すべて見る",

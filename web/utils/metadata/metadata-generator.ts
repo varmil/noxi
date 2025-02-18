@@ -31,17 +31,21 @@ export const generateTitleAndDescription = async ({
 
   // 「ホロライブ」や「にじさんじ」 などグループ名が指定されている場合は、「VTuber」
   //  を省略してシンプルなタイトルにする方がSEOとユーザー体験の観点から最適
-  const titlePrefix = group ? '' : page('metadata.title')
-
   return {
-    title: `${titlePrefix} ${feat(dimension, {
+    title: `${feat(dimension, {
       period: global(`period.${period}`),
-      group: group ? global(`group.${group}`) : '',
+      group: group ? global(`group.${group}`) : 'VTuber',
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')
       .trim()} - ${global('title')}`,
 
-    description: `${page('metadata.description')}`
+    description: `${page(`metadata.description.dimension.${dimension}`, {
+      period: global(`period.${period}`),
+      group: group ? global(`group.${group}`) : 'VTuber',
+      gender: gender ? global(`gender.${gender}`) : ''
+    })
+      .replace(/\s+/g, ' ')
+      .trim()}`
   }
 }

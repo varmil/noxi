@@ -255,7 +255,12 @@
         "ranking": {
           "metadata": {
             "title": "VTuber - ",
-            "description": "VTuber Live Ranking now available! Sort live streams by concurrent viewers and super chat amounts, and don't miss out on the most popular moments. Find your favorite VTuber by group, country, or gender."
+            "description": {
+              "dimension": {
+                "concurrent-viewer": "Counts concurrent viewers for each YouTube live stream in {period}. Compare concurrent viewers in a ranking format and check out popular live streams.",
+                "super-chat": "Explore the super chat revenue ranking for YouTube live streams over the {period}. Compare real-time earnings and performance metrics on PeakX's detailed live ranking page."
+              }
+            }
           }
         }
       },
@@ -263,7 +268,12 @@
         "ranking": {
           "metadata": {
             "title": "VTuber",
-            "description": "Explore the top VTuber rankings based on Super Chat earnings over the past 24 hours or X days! Check your favorite creators' performance and discover trending VTubers. Stay updated with the latest insights!"
+            "description": {
+              "dimension": {
+                "super-chat": "Aggregates Super Chat revenues from each VTuber channel in {period}. Comparison information is also provided by group and gender, so you can check the revenue performance of popular VTubers on PeakX.",
+                "subscriber": "Ranking of {group}{gender} channel subscribers. Compare VTubers in the ranking format and check the performance of your favorites."
+              }
+            }
           }
         }
       }
@@ -451,7 +461,7 @@
       "ranking": {
         "dimension": {
           "concurrent-viewer": "{group} {gender} Most Live Viewers - {period}",
-          "super-chat": "{group} {gender} Most Super Chatted - {period}"
+          "super-chat": "Live-Specific {group} {gender} Most Super Chatted - {period}"
         }
       },
       "viewAll": "View All",
