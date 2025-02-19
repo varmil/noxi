@@ -335,6 +335,12 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCxnzp4TBChbSLMzxf2f9KIA'),
+    title: 'ライトのスターボーイチャンネル',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCSH4t_nhsNIoxPza4ooYqaA'),
     title: '花守へるし',
     ...DefaultProps
@@ -398,6 +404,12 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCkIZP7jjbCALPbXQkdTSO6A'),
+    title: '二條ひらめ',
+    ...DefaultProps,
+    gender: Gender.Male
+  },
+  {
     id: new ChannelId('UCKBt1UvTHNmpVUDIrNZKWeQ'),
     title: '切嘛 / Kiruma',
     ...DefaultProps,
@@ -406,6 +418,16 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UC77FLsC_6ZmjhZ7BA5uV_KQ'),
     title: 'くぅch. 沙倉くぅ / Sakura Qoo',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCbA0mV8uL5-aTb2SeZ-X_cg'),
+    title: '小鳥遊こばと',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCA-dBOiqriMhZdRYP7t8Jjg'),
+    title: 'のりまきゆずゆ',
     ...DefaultProps
   },
   {
@@ -422,6 +444,21 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UC7WtdrXXd9_wl5nEGbt12Yw'),
     title: '天ノ譜ステラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCs5ojCJFNXaBgUrGmarvrPQ'),
+    title: '雪兎ちゃう',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCEScfuEl7JE7dVA49NiO3GQ'),
+    title: '瑠川ねぎ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCcq3DnobBkRca4p8pntDntg'),
+    title: '鬼ヶ島ぴぃち',
     ...DefaultProps
   },
   {
@@ -457,8 +494,18 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCiuPXlBtG5aEu2k4EMn3tug'),
+    title: '豹矢りいす',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCoX_ETXDQLX7T1WzhDNwIQQ'),
     title: 'ごまふろこちゃ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCBWAwxAEhSZuVSU7jN4Abyw'),
+    title: '夢見ここち',
     ...DefaultProps
   },
   {
@@ -496,6 +543,11 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCn6Ufc6C9ZdGlCYTXOVFGLA'),
     title: '羽咲みく -Miku Hanesaki-',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCJBm6oN-1wPzNFiASoV1wmg'),
+    title: '小都世 - KOTOSE -',
     ...DefaultProps
   }
 ]
