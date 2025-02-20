@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import RankingAnchorHash from 'components/ranking/anchor/RankingAnchorHash'
+import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -75,9 +75,9 @@ export default function YoutubeChannelsRankingPage(props: Props) {
       noPadding
       fullWidth
     >
-      <RankingAnchorHash>
+      <RankHighlighter>
         <IndexTemplate searchParams={searchParams} />
-      </RankingAnchorHash>
+      </RankHighlighter>
     </Page>
   )
 }

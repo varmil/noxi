@@ -1,5 +1,6 @@
 import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
+import { RANK_HIGHLIGHTER_QS_KEY } from 'components/ranking/highlighter/rank-highlighter'
 import { GroupString } from 'config/constants/Site'
 import { Link } from 'lib/navigation'
 import { Gender } from 'types/gender'
@@ -10,6 +11,7 @@ export default function LinkCell({
   group,
   gender,
   page,
+  rank,
   align,
   className,
   width,
@@ -20,6 +22,8 @@ export default function LinkCell({
   gender?: Gender
   /** min 1 */
   page?: number
+  /** アンカーハッシュ用。指定されている場合遷移後にクライアントでスクロール＋ハイライト */
+  rank?: number
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   width?: number
@@ -28,8 +32,10 @@ export default function LinkCell({
     period,
     ...(group && { group }),
     ...(gender && { gender }),
-    ...(page && page >= 2 && { page: page.toString() })
+    ...(page && page >= 2 && { page: page.toString() }),
+    ...(rank && { [RANK_HIGHLIGHTER_QS_KEY]: rank.toString() })
   })
+
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
       <Link

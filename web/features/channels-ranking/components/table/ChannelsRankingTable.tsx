@@ -5,6 +5,7 @@ import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
 import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
@@ -72,7 +73,10 @@ export default async function ChannelsRankingTable({
           return (
             <TableRow
               key={channelId}
-              id={`rank-${Pagination.getRankFromPage(page, i)}`} // For Anchor Hash
+              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${Pagination.getRankFromPage(
+                page,
+                i
+              )}`} // For Highlighter
             >
               {/* Rank */}
               <TableCell className="align-top">
