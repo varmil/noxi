@@ -153,15 +153,6 @@
             "title": "Live Streams"
           }
         },
-        "comments": {
-          "metadata": {
-            "title": "{channel} Latest comments",
-            "description": "Check out the latest comments on {channel}! Check out the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
-          },
-          "section": {
-            "title": "Latest comments"
-          }
-        },
         "concurrentViewers": {
           "metadata": {
             "title": "{channel} Concurrent viewers",
@@ -169,6 +160,15 @@
           },
           "section": {
             "title": "Concurrent Viewers Trends"
+          }
+        },
+        "comments": {
+          "metadata": {
+            "title": "{channel} Latest comments",
+            "description": "Check out the latest comments on {channel}! Check out the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+          },
+          "section": {
+            "title": "Latest comments"
           }
         },
         "streamTimes": {
@@ -354,8 +354,8 @@
       },
       "asmr": { "nav": "ASMR" },
       "live": { "nav": "Live" },
-      "comments": { "nav": "Comments" },
       "concurrentViewers": { "nav": "Concurrent" },
+      "comments": { "nav": "Comments" },
       "streamTimes": {
         "nav": "Stream Times",
         "card": {
