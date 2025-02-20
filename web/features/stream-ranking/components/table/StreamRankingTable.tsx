@@ -9,7 +9,7 @@ import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import { StreamRankingPagination } from 'config/constants/Pagination'
+import { StreamRankingPagination as Pagination } from 'config/constants/Pagination'
 import { GroupString } from 'config/constants/Site'
 import TableCellOfStreamForSmallContainer from 'features/stream-ranking/components/table/cell/TableCellOfStreamForSmallContainer'
 import TableCellOfStreamThumbnail from 'features/stream-ranking/components/table/cell/TableCellOfStreamThumbnail'
@@ -59,11 +59,14 @@ export default async function StreamRankingTable({
           )
 
           return (
-            <TableRow key={videoId}>
+            <TableRow
+              key={videoId}
+              id={`rank-${Pagination.getRankFromPage(page, i)}`} // For Anchor Hash
+            >
               {/* Rank */}
               <TableCell className="align-top">
                 <div className="text-lg font-bold w-4 @lg:w-5 text-nowrap tracking-tight">
-                  {i + 1 + (page - 1) * StreamRankingPagination.PAGE_SIZE}
+                  {Pagination.getRankFromPage(page, i)}
                 </div>
               </TableCell>
 
