@@ -20,7 +20,7 @@
     "@nestjs/cache-manager": "^3.0.0",
     "@nestjs/common": "^11.0.10",
     "@nestjs/config": "^4.0.0",
-    "@nestjs/core": "^11.0.9",
+    "@nestjs/core": "^11.0.10",
     "@nestjs/platform-express": "^11.0.9",
     "@prisma/client": "^6.3.1",
     "@ubie/nslog": "^1.2.1",
