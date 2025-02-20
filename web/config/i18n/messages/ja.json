@@ -153,15 +153,6 @@
             "title": "ライブ配信"
           }
         },
-        "comments": {
-          "metadata": {
-            "title": "{channel} 最新のコメント",
-            "description": "{channel}の最新のコメント一覧をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
-          },
-          "section": {
-            "title": "最新のコメント"
-          }
-        },
         "concurrentViewers": {
           "metadata": {
             "title": "{channel} 同接数",
@@ -169,6 +160,15 @@
           },
           "section": {
             "title": "ライブ同接数の推移"
+          }
+        },
+        "comments": {
+          "metadata": {
+            "title": "{channel} 最新のコメント",
+            "description": "{channel}の最新のコメント一覧をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+          },
+          "section": {
+            "title": "最新のコメント"
           }
         },
         "streamTimes": {
@@ -336,9 +336,6 @@
       },
       "superChat": {
         "nav": "スパチャ",
-        "realtime": "リアルタイム更新",
-        "realtimeDescription": "金額は30分間隔で更新されます",
-        "createdAt": "{date} に更新されました",
         "chart": {
           "cumulative": {
             "title": "今月のスパチャ",
@@ -354,8 +351,8 @@
       },
       "asmr": { "nav": "ASMR" },
       "live": { "nav": "ライブ" },
-      "comments": { "nav": "コメント" },
       "concurrentViewers": { "nav": "同接数" },
+      "comments": { "nav": "コメント" },
       "streamTimes": {
         "nav": "配信時間",
         "card": {

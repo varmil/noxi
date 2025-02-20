@@ -5,10 +5,11 @@ import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
 import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import { ChannelsRankingPagination } from 'config/constants/Pagination'
+import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
 import BaseLinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
 import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
@@ -70,11 +71,17 @@ export default async function ChannelsRankingTable({
           ) => <BaseLinkCell channelId={channelId} group={group} {...props} />
 
           return (
-            <TableRow key={channelId}>
+            <TableRow
+              key={channelId}
+              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${Pagination.getRankFromPage(
+                page,
+                i
+              )}`} // For Highlighter
+            >
               {/* Rank */}
               <TableCell className="align-top">
                 <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
-                  {i + 1 + (page - 1) * ChannelsRankingPagination.PAGE_SIZE}
+                  {Pagination.getRankFromPage(page, i)}
                 </div>
               </TableCell>
 
