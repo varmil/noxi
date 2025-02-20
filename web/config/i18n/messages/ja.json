@@ -336,9 +336,6 @@
       },
       "superChat": {
         "nav": "スパチャ",
-        "realtime": "リアルタイム更新",
-        "realtimeDescription": "金額は30分間隔で更新されます",
-        "createdAt": "{date} に更新されました",
         "chart": {
           "cumulative": {
             "title": "今月のスパチャ",

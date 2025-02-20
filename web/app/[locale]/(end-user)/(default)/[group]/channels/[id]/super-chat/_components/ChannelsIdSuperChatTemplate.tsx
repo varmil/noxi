@@ -15,8 +15,7 @@ type Props = { id: string }
 export async function ChannelsIdSuperChatTemplate({
   id
 }: PropsWithoutRef<Props>) {
-  const [global, page, feat, historiesThisMonth] = await Promise.all([
-    getTranslations('Global'),
+  const [page, feat, historiesThisMonth] = await Promise.all([
     getTranslations('Page.group.channelsId.superChat'),
     getTranslations('Features.channel.superChat'),
     // For Cumulative chart

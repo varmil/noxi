@@ -336,9 +336,6 @@
       },
       "superChat": {
         "nav": "Super Chat",
-        "realtime": "Realtime",
-        "realtimeDescription": "The amount is updated every 30 minutes.",
-        "createdAt": "Updated {date}.",
         "chart": {
           "cumulative": {
             "title": "Super Chat amount - This Month",
