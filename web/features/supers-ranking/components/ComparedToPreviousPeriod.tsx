@@ -1,11 +1,5 @@
-import { ForwardRefExoticComponent, RefAttributes } from 'react'
-import {
-  ArrowUpIcon,
-  ArrowDownIcon,
-  MinusIcon,
-  LucideProps
-} from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import Difference from 'components/styles/string/Difference'
 
 type Props = {
   /** 今回の順位 */
@@ -32,10 +26,6 @@ export default function ComparedToPreviousPeriod({
     )
   }
 
-  let Icon: ForwardRefExoticComponent<
-    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
-  >
-  let color: string, label: string
   let diff: number = 0
 
   // CASE: 前回：圏外　今回：圏内
@@ -59,34 +49,5 @@ export default function ComparedToPreviousPeriod({
     diff = previous - current
   }
 
-  switch (true) {
-    case diff > 0:
-      Icon = ArrowUpIcon
-      color = 'text-green-500'
-      label = '上昇'
-      break
-    case diff < 0:
-      Icon = ArrowDownIcon
-      color = 'text-red-500'
-      label = '下降'
-      break
-    case diff === 0:
-      Icon = MinusIcon
-      color = 'text-green-500'
-      label = '維持'
-      break
-    default:
-      return null
-  }
-
-  return (
-    <span
-      className={`flex items-center ${color} text-sm font-medium ${
-        className ?? ''
-      }`}
-    >
-      <Icon className="w-4 h-4 mr-1" aria-label={label} />
-      {diff !== 0 ? diff : ''}
-    </span>
-  )
+  return <Difference diff={diff} className={className} />
 }
