@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Difference from 'components/styles/string/Difference'
 
 export function StatsCards({ children }: PropsWithChildren<{}>) {
   return (
@@ -27,20 +28,32 @@ export function StatsCardHeader({ children }: PropsWithChildren) {
   )
 }
 
-type Props = { subText?: string; className?: string }
+type Props = {
+  diff?: number
+  diffIsPercent?: boolean
+  subText?: string
+  className?: string
+}
 export function StatsCardContent({
+  diff,
+  diffIsPercent,
   subText,
   children,
   className
 }: PropsWithChildren<Props>) {
   return (
     <CardContent>
-      <div
-        className={`text-xl sm:text-2xl font-bold tabular-nums ${
-          className ?? ''
-        }`}
-      >
-        {children}
+      <div className="flex items-baseline gap-x-5">
+        <div
+          className={`text-xl sm:text-2xl font-bold tabular-nums ${
+            className ?? ''
+          }`}
+        >
+          {children}
+        </div>
+        {diff !== undefined ? (
+          <Difference diff={diff} isPercent={diffIsPercent} />
+        ) : null}
       </div>
       {subText && (
         <p className="mt-1.5 text-xs text-muted-foreground">{subText}</p>

@@ -9,6 +9,11 @@ import { getStartOf } from 'utils/period/ranking'
  * FROM(gte): getStartOf - 1day(=24h)
  * TO(lte):   getStartOf
  *
+ * NOTE:
+ * last24Hoursも「たまたま」このロジックで大丈夫
+ * 集計テーブルは参照していないが、たまたまこのロジックにより
+ * 48h - 24hの幅の生データを参照できるので。
+ *
  * @returns { gte: Date, lte: Date }
  */
 export const rangeDatetimeForPreviousPeriod = (

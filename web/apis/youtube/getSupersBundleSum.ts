@@ -6,23 +6,20 @@ import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelId: string
-  createdAtGTE: Date
-  createdAtLTE?: Date
-  limit?: number
+  createdAfter: Date
+  createdBefore?: Date
 }
 
 export async function getSupersBundleSum({
   channelId,
-  createdAtGTE,
-  createdAtLTE,
-  limit
+  createdAfter,
+  createdBefore
 }: Params): Promise<SupersBundleSumSchema> {
   const searchParams = new URLSearchParams({
     channelId,
     period: 'last24Hours',
-    createdAtGTE: createdAtGTE.toISOString(),
-    ...(createdAtLTE && { createdAtLTE: createdAtLTE?.toISOString() }),
-    ...(limit && { limit: String(limit) })
+    createdAfter: createdAfter.toISOString(),
+    ...(createdBefore && { createdBefore: createdBefore?.toISOString() })
   })
   const res = await fetchAPI(
     `/api/supers-bundles/sum?${searchParams.toString()}`

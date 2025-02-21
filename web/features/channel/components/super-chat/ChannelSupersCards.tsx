@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
+import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistories'
 import { RANK_HIGHLIGHTER_QS_KEY } from 'components/ranking/highlighter/rank-highlighter'
 import {
   StatsCard,
@@ -17,6 +18,7 @@ import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { Link } from 'lib/navigation'
 import { Period } from 'types/period'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
+import { calcPercentageChange } from 'utils/math/math'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
 import { getStartOf, getUpdatedAt } from 'utils/period/ranking'
 
@@ -26,10 +28,16 @@ import { getStartOf, getUpdatedAt } from 'utils/period/ranking'
 export default async function ChannelSupersCards({
   channelId
 }: PropsWithChildren<{ channelId: string; className?: string }>) {
-  const baseParams = (period: Period) => ({
+  const rankingsParams = (period: Period) => ({
     channelId,
     period,
     rankingType: 'overall' as const
+  })
+  const historiesParams = (period: Period) => ({
+    channelId,
+    createdAfter: rangeDatetimeForPreviousPeriod(period).gte,
+    createdBefore: rangeDatetimeForPreviousPeriod(period).lte,
+    limit: 1
   })
   const [
     format,
@@ -37,30 +45,28 @@ export default async function ChannelSupersCards({
     last24HoursRank,
     last7DaysRank,
     last30DaysRank,
-    summary,
     sum,
+    summary,
     // ↓ Previous Priod Data
-    previousLast24HoursSum
+    previousLast24HoursSum,
+    [previousLast7DaysSummary] = [undefined],
+    [previousLast30DaysSummary] = [undefined]
   ] = await Promise.all([
     getFormatter(),
     getTranslations('Global'),
-    getSupersRankings(baseParams('last24Hours')),
-    getSupersRankings(baseParams('last7Days')),
-    getSupersRankings(baseParams('last30Days')),
-    getSupersSummary(channelId),
+    getSupersRankings(rankingsParams('last24Hours')),
+    getSupersRankings(rankingsParams('last7Days')),
+    getSupersRankings(rankingsParams('last30Days')),
     getSupersBundleSum({
       channelId,
-      createdAtGTE: getStartOf('last24Hours').toDate()
+      createdAfter: getStartOf('last24Hours').toDate()
     }),
+    getSupersSummary(channelId),
     // ↓ Previous Priod Data
-    getSupersBundleSum({
-      channelId,
-      createdAtGTE: rangeDatetimeForPreviousPeriod('last24Hours').gte,
-      createdAtLTE: rangeDatetimeForPreviousPeriod('last24Hours').lte
-    })
+    getSupersBundleSum(historiesParams('last24Hours')),
+    getSupersSummaryHistories(historiesParams('last7Days')),
+    getSupersSummaryHistories(historiesParams('last30Days'))
   ])
-
-  console.log({ previousLast24HoursSum })
 
   const createdAtText = `${format.relativeTime(
     summary.createdAt
@@ -83,6 +89,11 @@ export default async function ChannelSupersCards({
         </StatsCardHeader>
         <StatsCardContent
           className="flex gap-1 items-center"
+          diff={calcPercentageChange(
+            Number(sum.amountMicros),
+            Number(previousLast24HoursSum.amountMicros)
+          )}
+          diffIsPercent
           subText={global('datetime.updatedAt', {
             updatedAt: format.relativeTime(
               getUpdatedAt('last24Hours', new Date()).toDate()
@@ -104,6 +115,11 @@ export default async function ChannelSupersCards({
         <StatsCardHeader>{global('period.last7Days')}</StatsCardHeader>
         <StatsCardContent
           className="flex gap-1 items-center"
+          diff={calcPercentageChange(
+            Number(summary.last7Days),
+            Number(previousLast7DaysSummary?.last7Days ?? 0)
+          )}
+          diffIsPercent
           subText={global('datetime.updatedAt', {
             updatedAt: createdAtText
           })}
@@ -123,6 +139,11 @@ export default async function ChannelSupersCards({
         <StatsCardHeader>{global('period.last30Days')}</StatsCardHeader>
         <StatsCardContent
           className="flex gap-1 items-center"
+          diff={calcPercentageChange(
+            Number(summary.last30Days),
+            Number(previousLast30DaysSummary?.last30Days ?? 0)
+          )}
+          diffIsPercent
           subText={global('datetime.updatedAt', {
             updatedAt: createdAtText
           })}

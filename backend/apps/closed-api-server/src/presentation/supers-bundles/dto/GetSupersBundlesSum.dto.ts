@@ -1,5 +1,4 @@
 import { IsIn, IsOptional, IsRFC3339, IsString } from 'class-validator'
-import { Now } from '@domain'
 import { ChannelId } from '@domain/youtube'
 
 export class GetSupersBundlesSum {
@@ -10,23 +9,23 @@ export class GetSupersBundlesSum {
   @IsIn(['last24Hours'])
   period: 'last24Hours'
 
+  @IsRFC3339()
+  createdAfter: string
+
   @IsOptional()
   @IsRFC3339()
-  createdAtLTE?: string
-
-  @IsRFC3339()
-  createdAtGTE: string
+  createdBefore?: string
 
   toChannelId = () => new ChannelId(this.channelId)
 
   toCreatedAt = () => {
-    const createdAtLTE = this.createdAtLTE
-      ? new Date(this.createdAtLTE)
+    const createdBefore = this.createdBefore
+      ? new Date(this.createdBefore)
       : undefined
 
     return {
-      gte: new Date(this.createdAtGTE),
-      ...(createdAtLTE && { lte: createdAtLTE })
+      gte: new Date(this.createdAfter),
+      ...(createdBefore && { lte: createdBefore })
     }
   }
 }
