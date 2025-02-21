@@ -17,7 +17,8 @@ import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { Link } from 'lib/navigation'
 import { Period } from 'types/period'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
-import { getUpdatedAt } from 'utils/ranking/ranking'
+import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
+import { getStartOf, getUpdatedAt } from 'utils/period/ranking'
 
 /**
  * SupersSummaryをまとめて表示するコンポーネント
@@ -37,7 +38,9 @@ export default async function ChannelSupersCards({
     last7DaysRank,
     last30DaysRank,
     summary,
-    sum
+    sum,
+    // ↓ Previous Priod Data
+    previousLast24HoursSum
   ] = await Promise.all([
     getFormatter(),
     getTranslations('Global'),
@@ -45,8 +48,19 @@ export default async function ChannelSupersCards({
     getSupersRankings(baseParams('last7Days')),
     getSupersRankings(baseParams('last30Days')),
     getSupersSummary(channelId),
-    getSupersBundleSum({ channelId })
+    getSupersBundleSum({
+      channelId,
+      createdAtGTE: getStartOf('last24Hours').toDate()
+    }),
+    // ↓ Previous Priod Data
+    getSupersBundleSum({
+      channelId,
+      createdAtGTE: rangeDatetimeForPreviousPeriod('last24Hours').gte,
+      createdAtLTE: rangeDatetimeForPreviousPeriod('last24Hours').lte
+    })
   ])
+
+  console.log({ previousLast24HoursSum })
 
   const createdAtText = `${format.relativeTime(
     summary.createdAt

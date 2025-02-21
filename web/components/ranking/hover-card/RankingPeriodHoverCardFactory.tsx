@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import PeriodHoverCard from 'components/ranking/hover-card/period/PeriodHoverCard'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
-import { getEndOf, getStartOf, getUpdatedAt } from 'utils/ranking/ranking'
+import { getEndOf, getStartOf, getUpdatedAt } from 'utils/period/ranking'
 
 type Props = PropsWithChildren<{
   period: ChannelsRankingPeriod | StreamRankingPeriod

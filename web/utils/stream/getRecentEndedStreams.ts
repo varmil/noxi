@@ -1,5 +1,5 @@
 import { getStreams } from 'apis/youtube/getStreams'
-import { getStartOf } from 'utils/ranking/ranking'
+import { getStartOf } from 'utils/period/ranking'
 
 /**
  * last30Days
