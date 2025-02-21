@@ -73,10 +73,7 @@ export default async function ChannelsRankingTable({
           return (
             <TableRow
               key={channelId}
-              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${Pagination.getRankFromPage(
-                page,
-                i
-              )}`} // For Highlighter
+              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
             >
               {/* Rank */}
               <TableCell className="align-top">
