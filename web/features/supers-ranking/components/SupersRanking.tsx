@@ -138,7 +138,11 @@ export default async function SupersRanking({
                 <LinkCell className="font-medium" period={period}>
                   <Underline>{feat('overall')}</Underline>
                 </LinkCell>
-                <RankCell rank={overallRanking?.rank} period={period} />
+                <RankCell
+                  rank={overallRanking?.rank}
+                  period={period}
+                  channelId={channelId}
+                />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
                     className="justify-end"
@@ -167,6 +171,7 @@ export default async function SupersRanking({
                   rank={genderRanking?.rank}
                   period={period}
                   gender={channel.peakX.gender}
+                  channelId={channelId}
                 />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
@@ -196,6 +201,7 @@ export default async function SupersRanking({
                   rank={groupRanking?.rank}
                   period={period}
                   group={channel.peakX.group}
+                  channelId={channelId}
                 />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
@@ -224,12 +230,14 @@ function RankCell({
   rank,
   period,
   group,
-  gender
+  gender,
+  channelId
 }: {
   rank?: number
   period: Period
   group?: GroupString
   gender?: Gender
+  channelId?: string
 }) {
   return (
     <LinkCell
@@ -238,7 +246,7 @@ function RankCell({
       group={group}
       gender={gender}
       page={ChannelsRankingPagination.getPageFromRank(rank)}
-      rank={rank}
+      channelId={channelId}
     >
       <RankBadge rank={rank} />
     </LinkCell>

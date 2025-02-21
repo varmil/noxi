@@ -22,12 +22,18 @@ export default function RankHighlighter({ children }: PropsWithChildren) {
   const { createQueryString } = useQueryString()
 
   useEffect(() => {
-    const rank = searchParams.get(RANK_HIGHLIGHTER_QS_KEY)
-    if (!rank) return
+    // クエリストリングから削除
+    router.replace(
+      `${pathname}?${createQueryString(RANK_HIGHLIGHTER_QS_KEY, null)}`,
+      { scroll: false }
+    )
+
+    const channelId = searchParams.get(RANK_HIGHLIGHTER_QS_KEY)
+    if (!channelId) return
 
     // 対象の要素を取得
     const targetElement = document.getElementById(
-      `${RANK_HIGHLIGHTER_ID_PREFIX}${rank}`
+      `${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`
     )
     if (!targetElement) return
 
@@ -39,14 +45,6 @@ export default function RankHighlighter({ children }: PropsWithChildren) {
       'bg-accent',
       'transition-colors',
       'duration-800'
-    )
-
-    // クエリストリングから削除
-    router.replace(
-      `${pathname}?${createQueryString(RANK_HIGHLIGHTER_QS_KEY, null)}`,
-      {
-        scroll: false
-      }
     )
   }, [createQueryString, pathname, router, searchParams])
 

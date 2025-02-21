@@ -62,10 +62,7 @@ export default async function StreamRankingTable({
           return (
             <TableRow
               key={videoId}
-              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${Pagination.getRankFromPage(
-                page,
-                i
-              )}`} // For Highlighter
+              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channel.basicInfo.id}`} // For Highlighter
             >
               {/* Rank */}
               <TableCell className="align-top">

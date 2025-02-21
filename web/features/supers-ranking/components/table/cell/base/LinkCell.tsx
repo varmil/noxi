@@ -11,7 +11,7 @@ export default function LinkCell({
   group,
   gender,
   page,
-  rank,
+  channelId,
   align,
   className,
   width,
@@ -22,8 +22,8 @@ export default function LinkCell({
   gender?: Gender
   /** min 1 */
   page?: number
-  /** アンカーハッシュ用。指定されている場合遷移後にクライアントでスクロール＋ハイライト */
-  rank?: number
+  /** RankHighlighter用。指定されている場合遷移後にBrowserでscroll＋highlight */
+  channelId?: string
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   width?: number
@@ -33,7 +33,7 @@ export default function LinkCell({
     ...(group && { group }),
     ...(gender && { gender }),
     ...(page && page >= 2 && { page: page.toString() }),
-    ...(rank && { [RANK_HIGHLIGHTER_QS_KEY]: rank.toString() })
+    ...(channelId && { [RANK_HIGHLIGHTER_QS_KEY]: channelId })
   })
 
   return (

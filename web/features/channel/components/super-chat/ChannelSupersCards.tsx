@@ -76,7 +76,11 @@ export default async function ChannelSupersCards({
           })}
         >
           <JapaneseYen className="w-4 h-4" />
-          <LinkToRanking period="last24Hours" rank={last24HoursRank?.rank}>
+          <LinkToRanking
+            period="last24Hours"
+            rank={last24HoursRank?.rank}
+            channelId={channelId}
+          >
             {formatMicrosAsRoundedAmount(sum.amountMicros)}
           </LinkToRanking>
         </StatsCardContent>
@@ -91,7 +95,11 @@ export default async function ChannelSupersCards({
           })}
         >
           <JapaneseYen className="w-4 h-4" />
-          <LinkToRanking period="last7Days" rank={last7DaysRank?.rank}>
+          <LinkToRanking
+            period="last7Days"
+            rank={last7DaysRank?.rank}
+            channelId={channelId}
+          >
             {formatMicrosAsRoundedAmount(summary.last7Days)}
           </LinkToRanking>
         </StatsCardContent>
@@ -106,7 +114,11 @@ export default async function ChannelSupersCards({
           })}
         >
           <JapaneseYen className="w-4 h-4" />
-          <LinkToRanking period="last30Days" rank={last30DaysRank?.rank}>
+          <LinkToRanking
+            period="last30Days"
+            rank={last30DaysRank?.rank}
+            channelId={channelId}
+          >
             {formatMicrosAsRoundedAmount(summary.last30Days)}
           </LinkToRanking>
         </StatsCardContent>
@@ -119,10 +131,12 @@ export default async function ChannelSupersCards({
 const LinkToRanking = ({
   period,
   rank,
+  channelId,
   children
 }: PropsWithChildren<{
   period: Period
   rank?: number
+  channelId?: string
 }>) => {
   if (!rank) {
     return <>{children}</>
@@ -133,7 +147,7 @@ const LinkToRanking = ({
     dimension: 'super-chat',
     period,
     ...(page && page >= 2 && { page: page.toString() }),
-    ...(rank && { [RANK_HIGHLIGHTER_QS_KEY]: rank.toString() })
+    ...(channelId && { [RANK_HIGHLIGHTER_QS_KEY]: channelId })
   })
   return (
     <Link
