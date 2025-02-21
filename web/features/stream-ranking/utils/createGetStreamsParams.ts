@@ -1,5 +1,5 @@
 import { StreamRankingPagination } from 'config/constants/Pagination'
-import { getStartOf } from 'utils/ranking/ranking'
+import { getStartOf } from 'utils/period/ranking'
 import type { getStreams } from 'apis/youtube/getStreams'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 

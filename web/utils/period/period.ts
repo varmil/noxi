@@ -1,5 +1,5 @@
 import { Period } from 'types/period'
-import { getStartOf } from 'utils/ranking/ranking'
+import { getStartOf } from 'utils/period/ranking'
 
 /**
  * histories系の集計テーブルから
