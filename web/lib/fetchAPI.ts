@@ -23,10 +23,12 @@ export const fetchAPI = async (
   //   init.cache = 'no-store'
   // }
 
-  // Set default revalidate
-  if (!init) init = {}
-  if (!init.next) init.next = {}
-  init.next.revalidate = CACHE_1M
+  // Set default revalidate if init.cache is not set
+  if (!init?.cache) {
+    if (!init) init = {}
+    if (!init.next) init.next = {}
+    init.next.revalidate = CACHE_1M
+  }
 
   return await fetch(url.toString(), init)
 }

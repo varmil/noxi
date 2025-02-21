@@ -1,3 +1,4 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -9,8 +10,13 @@ import { GetSupersRankingHistories } from '@presentation/supers-rankings/dto/Get
 import { GetSupersRankings } from '@presentation/supers-rankings/dto/GetSupersRankings.dto'
 import { SupersRankingsScenario } from '@presentation/supers-rankings/supers-rankings.scenario'
 
+/**
+ * NextのキャッシュがSWR挙動で使いにくい（古い値が見えることが多い）ので
+ * 試しにバックエンドのキャッシュを使ってみる
+ **/
 @Controller('supers-rankings')
-@UseInterceptors(ClassSerializerInterceptor)
+@UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
+@CacheTTL(120 * 1000)
 export class SupersRankingsController {
   constructor(
     private readonly supersRankingsScenario: SupersRankingsScenario
