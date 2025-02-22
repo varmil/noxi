@@ -302,6 +302,11 @@
       "listing": "Listing {count} talents.",
       "listingAll": "All {count} talents are listed."
     },
+    "header": {
+      "liveRanking": "Live Ranking",
+      "channelsRanking": "Channels Ranking",
+      "talents": "Talents"
+    },
     "pagination": {
       "previous": "Back",
       "next": "Next",
