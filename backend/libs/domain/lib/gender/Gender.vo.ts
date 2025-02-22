@@ -1,3 +1,5 @@
+import { BadRequestException } from '@nestjs/common'
+import { Exclude } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
@@ -16,5 +18,21 @@ export class Gender extends StringValueObject {
   constructor(val: string) {
     super(val)
     this.val = val
+  }
+
+  @Exclude()
+  toJP() {
+    switch (this.val) {
+      case 'male':
+        return '男性'
+      case 'female':
+        return '女性'
+      case 'nonbinary':
+        return 'ノンバイナリー'
+      default:
+        throw new BadRequestException(
+          'Unsupported gender to translate into Japanese'
+        )
+    }
   }
 }

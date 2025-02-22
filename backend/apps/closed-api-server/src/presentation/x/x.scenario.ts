@@ -2,8 +2,9 @@ import { Injectable, Logger } from '@nestjs/common'
 import { TwitterApi } from 'twitter-api-v2'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { Now } from '@domain/lib'
-import { ChannelId, ChannelIds } from '@domain/youtube'
+import { Group } from '@domain/group'
+import { Gender, Now } from '@domain/lib'
+import { ChannelIds } from '@domain/youtube'
 
 @Injectable()
 export class XScenario {
@@ -32,19 +33,33 @@ export class XScenario {
   /**
    * 過去24時間のスパチャランキングをXへ投稿する
    **/
-  async postChannelsRankingInLast24Hours() {
+  async postChannelsRankingInLast24Hours({
+    where: { group, gender }
+  }: {
+    where: { group?: Group; gender?: Gender }
+  }) {
     const sums = await this.supersBundlesService.sum({
-      where: { createdAt: { gte: new Now().xDaysAgo(1) } },
+      where: { group, gender, createdAt: { gte: new Now().xDaysAgo(1) } },
       orderBy: { _sum: { amountMicros: 'desc' } },
       limit: 4
     })
-
-    const channelIds = sums.map(s => s.channelId.get())
     const channels = await this.channelsService.findAll({
-      where: { id: new ChannelIds(channelIds.map(id => new ChannelId(id))) }
+      where: {
+        id: new ChannelIds(sums.map(s => s.channelId))
+      }
+    })
+    const searchParams = new URLSearchParams({
+      dimension: 'super-chat',
+      period: 'last24Hours',
+      ...(group && { group: group.get() }),
+      ...(gender && { gender: gender.get() }),
+      date: new Date().toISOString()
     })
 
-    const message1 = `VTuberスパチャランキング ${this.formatter.format(new Date())}`
+    const message1 =
+      `${group ? group.toJP() : 'VTuber'}${gender ? gender.toJP() : ''}スパチャランキング ${this.formatter.format(new Date())}`
+        .replace(/\s+/g, ' ')
+        .trim()
     const message2 = sums
       .map(
         (s, i) =>
@@ -52,10 +67,10 @@ export class XScenario {
       )
       .join('\n')
     const message3 = `タップですべて表示`
-    const message4 = `https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last24Hours&date=${new Date().toISOString()}`
+    const message4 = `https://www.peakx.net/ja/youtube/channels/ranking?${searchParams.toString()}`
     const content = `${message1}\n${message2}\n\n${message3}\n${message4}`
-
     const tweet = await this.xClient.v2.tweet(content)
+
     if (!tweet.errors) {
       this.logger.log('tweeted', tweet.data)
     } else {
