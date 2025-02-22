@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common'
 import { Exclude, Expose, Transform } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
 import { ChannelIdsByGroup, ChannelsByGroup } from '@domain/group/list'
@@ -45,5 +46,21 @@ export class Group extends StringValueObject<GroupString> {
   @Exclude()
   findChannel(id: ChannelId) {
     return ChannelsByGroup[this.val].findById(id)
+  }
+
+  @Exclude()
+  toJP() {
+    switch (this.val) {
+      case 'hololive':
+        return 'ホロライブ'
+      case 'nijisanji':
+        return 'にじさんじ'
+      case 'independent':
+        return '個人勢VTuber'
+      default:
+        throw new BadRequestException(
+          'Unsupported group to translate into Japanese'
+        )
+    }
   }
 }
