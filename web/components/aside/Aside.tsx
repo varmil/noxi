@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { Ellipsis } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -17,7 +18,8 @@ import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default function Aside({ className }: { className?: string }) {
-  const t = useTranslations('Global')
+  const global = useTranslations('Global')
+  const comp = useTranslations('Components')
   const groups = useGroups()
 
   return (
@@ -36,10 +38,17 @@ export default function Aside({ className }: { className?: string }) {
                   className="group flex h-8 w-8 shrink-0 items-center justify-center gap-2 rounded-full bg-secondary mb-2.5"
                 >
                   <Logo className="h-4 w-4 transition-all group-hover:scale-110" />
-                  <span className="sr-only">{t('title')}</span>
+                  <span className="sr-only">{global('title')}</span>
                 </Link>
 
                 <AsideStreamIcons />
+
+                <AsideIcon
+                  name={comp('styles.more')}
+                  href={`/youtube/live/ranking?period=realtime&dimension=concurrent-viewer`}
+                  icon={<Ellipsis className="h-6 w-6" />}
+                  roundedFull
+                />
 
                 <Separator orientation="horizontal" />
 

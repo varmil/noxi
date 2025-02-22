@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { useTranslations } from 'next-intl'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,6 +15,7 @@ import GroupGallery from 'components/group/GroupGallery'
 import { Link } from 'lib/navigation'
 
 export default function HeaderNavigationMenu() {
+  const comp = useTranslations('Components.header')
   return (
     <NavigationMenu>
       <NavigationMenuList>
@@ -21,22 +23,24 @@ export default function HeaderNavigationMenu() {
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href="/youtube/live/ranking?period=realtime" prefetch={true}>
-              Live Ranking
-            </Link>
-          </NavigationMenuLink>
-
-          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link
-              href="/youtube/channels/ranking?period=last24Hours"
-              prefetch={true}
-            >
-              Channels Ranking
+              {comp('liveRanking')}
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Talents</NavigationMenuTrigger>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link
+              href="/youtube/channels/ranking?period=last24Hours"
+              prefetch={true}
+            >
+              {comp('channelsRanking')}
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>{comp('talents')}</NavigationMenuTrigger>
           <NavigationMenuContent>
             <GroupGallery
               className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] text-sm"
