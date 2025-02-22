@@ -44,14 +44,14 @@ export class XScenario {
       where: { id: new ChannelIds(channelIds.map(id => new ChannelId(id))) }
     })
 
-    const message1 = `VTuberスパチャランキングTop4 ${this.formatter.format(new Date())}`
+    const message1 = `VTuberスパチャランキング ${this.formatter.format(new Date())}`
     const message2 = sums
       .map(
         (s, i) =>
           `${i + 1}位．${channels.find(c => c.basicInfo.id.equals(s.channelId))?.basicInfo.title}`
       )
       .join('\n')
-    const message3 = `※βテスト中。タップでTop30まで表示`
+    const message3 = `タップですべて表示`
     const message4 = `https://www.peakx.net/ja/youtube/channels/ranking?dimension=super-chat&period=last24Hours&date=${new Date().toISOString()}`
     const content = `${message1}\n${message2}\n\n${message3}\n${message4}`
 
