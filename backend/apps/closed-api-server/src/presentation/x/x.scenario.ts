@@ -17,8 +17,8 @@ function truncateTitle(
   let result = ''
 
   for (const char of title) {
-    // 全角なら+1、半角なら+0.5
-    width += char.match(/[^\x00-\x7F]/) ? 1 : 0.5
+    // 半角文字（ASCII・英数字・記号）は0.5、それ以外（全角）は1
+    width += char.match(/[\p{ASCII}]/u) ? 0.5 : 1
 
     if (width > maxWidth) {
       return result + '...'
