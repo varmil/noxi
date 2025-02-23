@@ -6,7 +6,7 @@ import { Group } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { ChannelIds } from '@domain/youtube'
 
-const MAX_LENGTH_PER_LINE = 19
+const MAX_LENGTH_PER_LINE = 16
 
 /** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
 function truncateTitle(
@@ -65,7 +65,7 @@ export class XScenario {
     const sums = await this.supersBundlesService.sum({
       where: { group, gender, createdAt: { gte: new Now().xDaysAgo(1) } },
       orderBy: { _sum: { amountMicros: 'desc' } },
-      limit: 4
+      limit: 5
     })
     const channels = await this.channelsService.findAll({
       where: {
@@ -81,7 +81,7 @@ export class XScenario {
     })
 
     const message1 =
-      `本日の${group ? group.toJP() : 'VTuber'}${gender ? gender.toJP() : ''}ランキング`
+      `本日の${group ? group.toJP() : '総合'}${gender ? gender.toJP() : ''}ランキング`
         .replace(/\s+/g, ' ')
         .trim()
     const message2 = sums
@@ -94,7 +94,7 @@ export class XScenario {
       .join('\n')
     const message3 = `リアルタイム集計。タップですべて表示`
     const message4 = `https://www.peakx.net/ja/youtube/channels/ranking?${searchParams.toString()}`
-    const content = `${message1}\n${message2}\n\n${message3}\n${message4}`
+    const content = `${message1}\n\n${message2}\n\n${message3}\n${message4}`
     const tweet = await this.xClient.v2.tweet(content)
 
     if (!tweet.errors) {
