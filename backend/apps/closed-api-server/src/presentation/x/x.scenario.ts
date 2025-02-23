@@ -6,14 +6,38 @@ import { Group } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { ChannelIds } from '@domain/youtube'
 
+const MAX_LENGTH_PER_LINE = 19
+
+/** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
+function truncateTitle(
+  title: string,
+  maxWidth: number = MAX_LENGTH_PER_LINE
+): string {
+  let width = 0
+  let result = ''
+
+  for (const char of title) {
+    // 全角なら+1、半角なら+0.5
+    width += char.match(/[^\x00-\x7F]/) ? 1 : 0.5
+
+    if (width > maxWidth) {
+      return result + '...'
+    }
+
+    result += char
+  }
+
+  return result
+}
+
 @Injectable()
 export class XScenario {
   private readonly logger = new Logger(XScenario.name)
-  private readonly formatter = Intl.DateTimeFormat('ja-JP', {
-    month: '2-digit',
-    day: '2-digit',
-    weekday: 'short'
-  })
+  // private readonly formatter = Intl.DateTimeFormat('ja-JP', {
+  //   month: '2-digit',
+  //   day: '2-digit',
+  //   weekday: 'short'
+  // })
   private readonly xClient: TwitterApi
 
   constructor(
@@ -57,16 +81,18 @@ export class XScenario {
     })
 
     const message1 =
-      `${group ? group.toJP() : 'VTuber'}${gender ? gender.toJP() : ''}スパチャランキング ${this.formatter.format(new Date())}`
+      `本日の${group ? group.toJP() : 'VTuber'}${gender ? gender.toJP() : ''}ランキング`
         .replace(/\s+/g, ' ')
         .trim()
     const message2 = sums
-      .map(
-        (s, i) =>
-          `${i + 1}位．${channels.find(c => c.basicInfo.id.equals(s.channelId))?.basicInfo.title}`
-      )
+      .map((s, i) => {
+        return `${i + 1}位.${truncateTitle(
+          channels.find(c => c.basicInfo.id.equals(s.channelId))?.basicInfo
+            .title ?? ''
+        )}`
+      })
       .join('\n')
-    const message3 = `タップですべて表示`
+    const message3 = `リアルタイム集計。タップですべて表示`
     const message4 = `https://www.peakx.net/ja/youtube/channels/ranking?${searchParams.toString()}`
     const content = `${message1}\n${message2}\n\n${message3}\n${message4}`
     const tweet = await this.xClient.v2.tweet(content)
