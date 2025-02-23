@@ -26,7 +26,7 @@ export async function GET(request: Request) {
     group,
     gender,
     date: searchParams.get('date') ?? undefined,
-    limit: 4
+    limit: 5
   })
 
   const formatter = Intl.DateTimeFormat('ja-JP', {
@@ -54,7 +54,7 @@ export async function GET(request: Request) {
       >
         <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
           <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
-            <div style={{ fontSize: 30 }} tw="ml-2 text-neutral-500">
+            <div style={{ fontSize: 30 }} tw="text-neutral-500">
               {formatter.format(
                 dayjs(searchParams.get('date') ?? undefined).toDate()
               )}
@@ -74,7 +74,7 @@ export async function GET(request: Request) {
           </div>
         </section>
 
-        <section style={{ gap: 32 }} tw="flex-1 flex flex-col">
+        <section style={{ gap: 26 }} tw="flex-1 flex flex-col">
           {ranking.map((e, i) => (
             <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
               <div tw="flex items-baseline text-6xl font-bold">
@@ -82,13 +82,13 @@ export async function GET(request: Request) {
                 <span tw="text-2xl text-neutral-500">位</span>
               </div>
 
-              <div tw="flex w-[110px] h-[110px] justify-center items-center rounded-full overflow-hidden">
+              <div tw="flex w-[96px] h-[96px] justify-center items-center rounded-full overflow-hidden">
                 <img
                   src={e.channelThumbnails}
                   alt={e.channelTitle}
                   style={{
-                    width: 110,
-                    height: 110,
+                    width: 96,
+                    height: 96,
                     objectFit: 'cover'
                   }}
                 />
@@ -98,8 +98,8 @@ export async function GET(request: Request) {
                   tw="text-left text-3xl font-bold overflow-hidden"
                   style={{ height: '1.3em' }}
                 >
-                  {e.channelTitle.length > 30
-                    ? `${e.channelTitle.slice(0, 30)}...`
+                  {e.channelTitle.length > 28
+                    ? `${e.channelTitle.slice(0, 28)}...`
                     : e.channelTitle}
                 </div>
                 <div tw="flex text-xl">{e.amount} 円 / 日</div>
