@@ -1,23 +1,30 @@
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
+import { GroupString } from 'config/constants/Site'
 import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
+import { Gender } from 'types/gender'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 /**
  * @param date used for last24Hours ranking
- * @param limit last24Hours ranking limit
  **/
 export async function getDailySupersRanking({
+  group,
+  gender,
   date,
   limit
 }: {
+  group?: GroupString
+  gender?: Gender
   date?: dayjs.ConfigType
   limit?: number
 }): Promise<ChannelsRanking[]> {
   const supersSummaries = await getSupersSummaries({
-    orderBy: [{ field: 'last24Hours', order: 'desc' }],
+    group,
+    gender,
     date: dayjs(date).toDate(),
+    orderBy: [{ field: 'last24Hours', order: 'desc' }],
     limit
   })
   const [channels] = await Promise.all([
