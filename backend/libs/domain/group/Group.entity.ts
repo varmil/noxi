@@ -55,6 +55,8 @@ export class Group extends StringValueObject<GroupString> {
         return 'ホロライブ'
       case 'nijisanji':
         return 'にじさんじ'
+      case 'vspo':
+        return 'ぶいすぽっ'
       case 'independent':
         return '個人勢VTuber'
       default:
