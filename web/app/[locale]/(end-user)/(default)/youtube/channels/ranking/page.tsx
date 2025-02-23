@@ -34,6 +34,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         {
           url: getOgUrl(
             `/daily-ranking?${new URLSearchParams({
+              ...(group && { group }),
+              ...(gender && { gender }),
               ...(date && { date: dayjs(date).toISOString() })
             }).toString()}`
           )
