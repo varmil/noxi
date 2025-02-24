@@ -42,7 +42,7 @@
     "zx": "^8.3.2"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.18.0",
     "@nestjs/cli": "^11.0.4",
     "@nestjs/schematics": "^11.0.1",
