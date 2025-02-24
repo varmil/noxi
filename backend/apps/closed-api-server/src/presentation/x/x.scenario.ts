@@ -6,7 +6,7 @@ import { Group } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { ChannelIds } from '@domain/youtube'
 
-const MAX_LENGTH_PER_LINE = 16
+const MAX_LENGTH_PER_LINE = 15
 
 /** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
 function truncateTitle(
@@ -21,7 +21,7 @@ function truncateTitle(
     width += char.match(/[\p{ASCII}]/u) ? 0.5 : 1
 
     if (width > maxWidth) {
-      return result + '...'
+      return result + '…'
     }
 
     result += char
