@@ -26,6 +26,7 @@ export default function CountryColumn({ className }: Props) {
         <SelectButton
           qs={{ [QS_KEY]: null, ...RESET_KEYS }}
           activeVariant="secondary"
+          prefetch={false}
         >
           🌐 {tg('country.all')}
         </SelectButton>
