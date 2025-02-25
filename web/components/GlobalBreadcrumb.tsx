@@ -41,7 +41,9 @@ export default function GlobalBreadcrumb({
                 {<BreadcrumbSeparator />}
                 <BreadcrumbItem>
                   <BreadcrumbLink asChild>
-                    <Link href={item.href}>{item.name}</Link>
+                    <Link href={item.href} prefetch={false}>
+                      {item.name}
+                    </Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
               </React.Fragment>

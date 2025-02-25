@@ -14,10 +14,12 @@ export default function SelectButton({
 
   children,
   className,
+  prefetch = true,
   ...rest
 }: ComponentProps<typeof Button> & {
   activeVariant?: 'default' | 'secondary'
   qs: Record<string, string | null>
+  prefetch?: boolean | null
 }) {
   const pathname = usePathname()
   const { has, createQueryStrings } = useQueryString()
@@ -35,7 +37,7 @@ export default function SelectButton({
     >
       <Link
         href={`${pathname}?${createQueryStrings(qs)}`}
-        prefetch={true}
+        prefetch={prefetch}
         scroll={false}
       >
         {children}

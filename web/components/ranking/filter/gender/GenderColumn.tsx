@@ -26,18 +26,21 @@ export default function GenderColumn({ className }: Props) {
         <SelectButton
           qs={{ [QS_KEY]: null, ...RESET_KEYS }}
           activeVariant="secondary"
+          prefetch={false}
         >
           {tg('gender.all')}
         </SelectButton>
         <SelectButton
           qs={{ [QS_KEY]: 'male', ...RESET_KEYS }}
           activeVariant="secondary"
+          prefetch={false}
         >
           {tg('gender.male')}
         </SelectButton>
         <SelectButton
           qs={{ [QS_KEY]: 'female', ...RESET_KEYS }}
           activeVariant="secondary"
+          prefetch={false}
         >
           {tg('gender.female')}
         </SelectButton>
