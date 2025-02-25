@@ -40,8 +40,8 @@ const createSearchParams = ({
     ...(channelIds && { channelIds: [...new Set(channelIds)].join(',') }),
     ...(group && { group }),
     ...(gender && { gender }),
-    ...(limit && { limit: String(limit) }),
-    ...(offset && { offset: String(offset) }),
+    ...(limit !== undefined && { limit: String(limit) }),
+    ...(offset !== undefined && { offset: String(offset) }),
     ...(date && { date: date.toISOString() })
   })
 

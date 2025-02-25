@@ -18,7 +18,10 @@ export default async function AsideStreamIcons({}: PropsWithoutRef<Props>) {
   if (streams.length === 0) return null
 
   const [channels, liveStreamingDetailsList] = await Promise.all([
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getChannels({
+      ids: streams.map(stream => stream.snippet.channelId),
+      limit: streams.length
+    }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
 

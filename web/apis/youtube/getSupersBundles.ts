@@ -45,8 +45,8 @@ export async function getSupersBundles({
     ...(actualEndTimeLTE === null && { actualEndTimeLTE: 'null' }),
     ...(createdAtGTE && { createdAtGTE: createdAtGTE?.toISOString() }),
     ...(createdAtLTE && { createdAtLTE: createdAtLTE?.toISOString() }),
-    ...(limit && { limit: String(limit) }),
-    ...(offset && { offset: String(offset) })
+    ...(limit !== undefined && { limit: String(limit) }),
+    ...(offset !== undefined && { offset: String(offset) })
   })
 
   orderBy?.forEach((orderBy, index) => {
