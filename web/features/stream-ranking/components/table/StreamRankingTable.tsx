@@ -31,10 +31,14 @@ export default async function StreamRankingTable({
   streams
 }: Props) {
   const [channels, bundles] = await Promise.all([
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getChannels({
+      ids: streams.map(stream => stream.snippet.channelId),
+      limit: streams.length
+    }),
     getSupersBundles({
       videoIds: streams.map(stream => stream.videoId),
-      orderBy: [{ field: 'amountMicros', order: 'desc' }]
+      orderBy: [{ field: 'amountMicros', order: 'desc' }],
+      limit: streams.length
     })
   ])
   /** Progress.valueで使用する */

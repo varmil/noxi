@@ -22,7 +22,10 @@ export default async function LiveStreamGalleryContent({
 }: Props) {
   const [t, channels, liveStreamingDetailsList] = await Promise.all([
     getTranslations('Features.stream'),
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getChannels({
+      ids: streams.map(stream => stream.snippet.channelId),
+      limit: streams.length
+    }),
     getLiveStreamingDetails({ videoIds: streams.map(stream => stream.videoId) })
   ])
 

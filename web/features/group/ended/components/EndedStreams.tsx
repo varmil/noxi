@@ -11,7 +11,10 @@ type Props = {
 
 export default async function EndedStreams({ streams, compact }: Props) {
   const [channels, statisticsList] = await Promise.all([
-    getChannels({ ids: streams.map(stream => stream.snippet.channelId) }),
+    getChannels({
+      ids: streams.map(stream => stream.snippet.channelId),
+      limit: streams.length
+    }),
     getStatistics({ videoIds: streams.map(stream => stream.videoId) })
   ])
 

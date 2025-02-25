@@ -21,7 +21,8 @@ export default async function ScheduledStreamGalleryContent({
 }: Props) {
   const t = await getTranslations('Features.stream')
   const channels = await getChannels({
-    ids: streams.map(stream => stream.snippet.channelId)
+    ids: streams.map(stream => stream.snippet.channelId),
+    limit: streams.length
   })
   const groupedStreams = compact
     ? await getCompactGroupedStreams({ streams })
