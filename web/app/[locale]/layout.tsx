@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
@@ -62,7 +61,6 @@ export default async function LocaleLayout(props: Props) {
             <Toaster />
           </NextIntlClientProvider>
         </ThemeProvider>
-        <SpeedInsights sampleRate={0.5} />
       </body>
     </html>
   )
