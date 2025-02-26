@@ -15,6 +15,14 @@ const RESET_KEYS = {
   page: null
 }
 
+const PREFETCH_KEYS = [
+  'realtime',
+  'last24Hours',
+  'last7Days',
+  'last30Days',
+  'last1Year'
+]
+
 type Keys = ChannelsRankingPeriod | StreamRankingPeriod
 
 type Props = PropsWithoutRef<{
@@ -30,7 +38,11 @@ export default function PeriodColumn({ keys, className }: Props) {
       <ColumnHeader>{tg('ranking.filter.period')}</ColumnHeader>
       <ColumnContent>
         {keys.map(key => (
-          <SelectButton key={key} qs={{ [QS_KEY]: key, ...RESET_KEYS }}>
+          <SelectButton
+            key={key}
+            qs={{ [QS_KEY]: key, ...RESET_KEYS }}
+            prefetch={PREFETCH_KEYS.includes(key)}
+          >
             {tg(`period.${key}`)}
           </SelectButton>
         ))}

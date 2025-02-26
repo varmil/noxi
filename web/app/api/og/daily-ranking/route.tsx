@@ -78,24 +78,26 @@ export async function GET(request: Request) {
           {ranking.map((e, i) => (
             <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
               <div tw="flex items-baseline">
-                <span tw="text-5xl font-bold">{e.rank}</span>
+                <span tw="font-bold" style={{ fontSize: 50, lineHeight: 1 }}>
+                  {e.rank}
+                </span>
                 <span tw="text-xl text-neutral-500">位</span>
               </div>
 
-              <div tw="flex w-[88px] h-[88px] justify-center items-center rounded-full overflow-hidden">
+              <div tw="flex w-[90px] h-[90px] justify-center items-center rounded-full overflow-hidden">
                 <img
                   src={e.channelThumbnails}
                   alt={e.channelTitle}
                   style={{
-                    width: 88,
-                    height: 88,
+                    width: 90,
+                    height: 90,
                     objectFit: 'cover'
                   }}
                 />
               </div>
               <div tw="flex flex-1 flex-col">
                 <div
-                  tw="text-left text-2xl text-neutral-600 overflow-hidden"
+                  tw="text-left text-2xl text-neutral-700 overflow-hidden"
                   style={{ height: '1.3em' }}
                 >
                   {e.channelTitle.length > 28

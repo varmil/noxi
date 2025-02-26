@@ -14,7 +14,7 @@ export default function LinkCell({
 }>) {
   return (
     <TableCell width={width} className={className ?? ''}>
-      <Link href={`/youtube/live/${videoId}`} prefetch={true}>
+      <Link href={`/youtube/live/${videoId}`} prefetch={false}>
         {children}
       </Link>
     </TableCell>

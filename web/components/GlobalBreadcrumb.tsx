@@ -30,7 +30,7 @@ export default function GlobalBreadcrumb({
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink asChild>
-                <Link href="/" aria-label="Home">
+                <Link href="/" aria-label="Home" prefetch={false}>
                   <HomeIcon className="h-5 w-5" />
                 </Link>
               </BreadcrumbLink>
