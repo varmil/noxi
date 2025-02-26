@@ -1,7 +1,7 @@
 import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
 import { RANK_HIGHLIGHTER_QS_KEY } from 'components/ranking/highlighter/rank-highlighter'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'

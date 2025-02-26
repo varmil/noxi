@@ -49,7 +49,9 @@ const LanguageButton = ({
         isActive ? 'font-semibold border-b-2 border-primary rounded-none' : ''
       }`}
     >
-      <Link href={createPathForLanguage(locale)}>{children}</Link>
+      <Link href={createPathForLanguage(locale)} prefetch={false}>
+        {children}
+      </Link>
     </Button>
   )
 }

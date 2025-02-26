@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { GroupStrings } from 'config/constants/Site'
+import { GroupStrings } from 'config/constants/Group'
 import { getEntry } from 'config/sitemap/getEntry'
 import dayjs from 'lib/dayjs'
 

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 
 export default function LocalNavigationForGroupPages({
   group

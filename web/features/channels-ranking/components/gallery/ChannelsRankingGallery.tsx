@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { PageXSPX } from 'components/page'
+import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
@@ -67,7 +68,7 @@ export default async function ChannelsRankingGallery(
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href="/youtube/channels/ranking">
+          <Link href={ChannelsRankingDefaultUrl}>
             {t('viewAll')}
             <ArrowUpRight className="h-4 w-4" />
           </Link>

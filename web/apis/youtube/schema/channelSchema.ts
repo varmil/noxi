@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { GroupStrings } from 'config/constants/Site'
+import { GroupStrings } from 'config/constants/Group'
 
 export const schema = z.object({
   basicInfo: z.object({

@@ -24,6 +24,7 @@ export default function Header({ className }: { className?: string }) {
       <Link
         href="/"
         className="flex items-center gap-2.5 transition-all hover:scale-105"
+        prefetch={false}
       >
         <Logo className="w-6 h-6" />
         <PeakXText className="w-[49.64px] h-[17px]" />

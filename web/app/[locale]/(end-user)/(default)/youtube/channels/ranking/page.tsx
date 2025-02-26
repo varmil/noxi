@@ -1,9 +1,10 @@
 import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
+import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -60,7 +61,7 @@ export default function YoutubeChannelsRankingPage(props: Props) {
     <Page
       breadcrumb={[
         {
-          href: `/youtube/channels/ranking`,
+          href: ChannelsRankingDefaultUrl,
           name: breadcrumb('channelsRanking')
         },
         {

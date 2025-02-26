@@ -1,7 +1,7 @@
 import React from 'react'
 import { LucideProps, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { GroupStrings } from 'config/constants/Site'
+import { GroupStrings } from 'config/constants/Group'
 
 // 通信で取るかも
 const counts = {

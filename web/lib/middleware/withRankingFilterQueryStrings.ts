@@ -1,4 +1,5 @@
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
+import { DefaultPeriodByDimension } from 'config/constants/RankingRoute'
 import { defaultCountry } from 'config/i18n/country'
 import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
 
@@ -7,22 +8,13 @@ import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
  */
 const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
   '/youtube/live/ranking': {
-    dimension: 'concurrent-viewer',
-    period: 'realtime'
+    period: DefaultPeriodByDimension['concurrent-viewer'],
+    dimension: 'concurrent-viewer'
   },
   '/youtube/channels/ranking': {
-    dimension: 'super-chat',
-    period: 'last24Hours'
+    period: DefaultPeriodByDimension['super-chat'],
+    dimension: 'super-chat'
   }
-}
-
-/**
- * Mapping of `dimension` to specific `period` values
- */
-const PERIOD_BY_DIMENSION: Record<string, string> = {
-  'concurrent-viewer': 'realtime',
-  'super-chat': 'last24Hours',
-  subscriber: 'all'
 }
 
 /**
@@ -55,19 +47,19 @@ function resolveQueryValue(
 ): string | undefined {
   if (key === 'country') return getCountryCode(req)
 
-  if (key === 'dimension') {
-    const defaultDimension = QUERY_STRING_RULES[normalizedPathname]?.dimension
-    return searchParams.get('dimension') || defaultDimension
-  }
-
   if (key === 'period') {
     const dimension =
       searchParams.get('dimension') ||
       QUERY_STRING_RULES[normalizedPathname]?.dimension
     return (
-      PERIOD_BY_DIMENSION[dimension] ||
+      DefaultPeriodByDimension[dimension] ||
       QUERY_STRING_RULES[normalizedPathname]?.period
     )
+  }
+
+  if (key === 'dimension') {
+    const defaultDimension = QUERY_STRING_RULES[normalizedPathname]?.dimension
+    return searchParams.get('dimension') || defaultDimension
   }
 
   return undefined

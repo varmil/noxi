@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'

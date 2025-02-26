@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/scheduled/_components/IndexTemplate'
 import { Page } from 'components/page'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
 

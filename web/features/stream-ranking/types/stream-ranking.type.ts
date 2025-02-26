@@ -1,4 +1,4 @@
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'
 

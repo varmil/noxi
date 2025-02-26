@@ -2,6 +2,7 @@ import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
+import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 import { Link } from 'lib/navigation'
 import { HeroH2 } from './styles/HeroTitles'
@@ -37,7 +38,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
               {t('description')}
             </p>
             <Button className="hidden lg:inline-flex w-fit" asChild>
-              <Link href="/youtube/channels/ranking">
+              <Link href={ChannelsRankingDefaultUrl}>
                 {t('section.hero.more')}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

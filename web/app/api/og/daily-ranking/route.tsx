@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import ja from 'config/i18n/messages/ja.json'
 import { getDailySupersRanking } from 'features/channels-ranking/utils/getDailySupersRanking'
 import dayjs from 'lib/dayjs'

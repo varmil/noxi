@@ -2,7 +2,7 @@ import {
   SupersSummariesSchema,
   responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'

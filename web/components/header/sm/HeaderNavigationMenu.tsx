@@ -12,6 +12,7 @@ import {
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
 import GroupGallery from 'components/group/GroupGallery'
+import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import { Link } from 'lib/navigation'
 
 export default function HeaderNavigationMenu() {
@@ -30,10 +31,7 @@ export default function HeaderNavigationMenu() {
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link
-              href="/youtube/channels/ranking?period=last24Hours"
-              prefetch={true}
-            >
+            <Link href={ChannelsRankingDefaultUrl} prefetch={true}>
               {comp('channelsRanking')}
             </Link>
           </NavigationMenuLink>
