@@ -52,7 +52,7 @@ export async function GET(request: Request) {
           gap: 44
         }}
       >
-        <section tw="flex flex-col items-start justify-between w-[550px] h-full text-4xl font-bold">
+        <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
           <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
             <div style={{ fontSize: 30 }} tw="text-neutral-500">
               {formatter.format(
@@ -64,7 +64,7 @@ export async function GET(request: Request) {
             </div>
           </div>
 
-          <div tw="flex flex-col -top-12" style={{ fontSize: 82 }}>
+          <div tw="flex flex-col -top-12" style={{ fontSize: 80 }}>
             <div tw="flex">{group ? ja.Global.group[group] : `VTuber総合`}</div>
             <div tw="flex">{gender ? ja.Global.gender[gender] : ``}</div>
           </div>
@@ -74,30 +74,30 @@ export async function GET(request: Request) {
           </div>
         </section>
 
-        <section style={{ gap: 28 }} tw="flex-1 flex flex-col">
+        <section style={{ gap: 26 }} tw="flex-1 flex flex-col">
           {ranking.map((e, i) => (
             <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
               <div tw="flex items-baseline">
-                <span tw="font-bold" style={{ fontSize: 50, lineHeight: 1 }}>
+                <span tw="font-bold" style={{ fontSize: 55, lineHeight: 1 }}>
                   {e.rank}
                 </span>
-                <span tw="text-xl text-neutral-500">位</span>
+                <span tw="text-2xl text-neutral-500">位</span>
               </div>
 
-              <div tw="flex w-[90px] h-[90px] justify-center items-center rounded-full overflow-hidden">
+              <div tw="flex w-[94px] h-[94px] justify-center items-center rounded-full overflow-hidden">
                 <img
                   src={e.channelThumbnails}
                   alt={e.channelTitle}
                   style={{
-                    width: 90,
-                    height: 90,
+                    width: 94,
+                    height: 94,
                     objectFit: 'cover'
                   }}
                 />
               </div>
               <div tw="flex flex-1 flex-col">
                 <div
-                  tw="text-left text-2xl text-neutral-700 overflow-hidden"
+                  tw="text-left text-3xl text-neutral-600 overflow-hidden"
                   style={{ height: '1.3em' }}
                 >
                   {e.channelTitle.length > 28
