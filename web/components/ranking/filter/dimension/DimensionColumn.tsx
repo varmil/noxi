@@ -6,22 +6,24 @@ import {
   ColumnHeader,
   ColumnContent
 } from 'components/ranking/filter/column/Column'
+import { DefaultPeriodByDimension } from 'config/constants/RankingRoute'
+import { Dimension } from 'types/dimension'
 
 const QS_KEY = 'dimension'
 
-// Dimensionを変えたらPeriodも追加でリセット
-const RESET_KEYS = {
-  period: null, // TODO: set xxx as default
-  date: null,
-  page: null
-}
-
-type Keys = 'concurrent-viewer' | 'super-chat' | 'subscriber'
+type Keys = Dimension
 
 type Props = PropsWithoutRef<{
   keys: Keys[]
   className?: string
 }>
+
+// Dimensionを変えたらPeriodも追加でリセット
+const RESET_KEYS = (dimension: Keys) => ({
+  period: DefaultPeriodByDimension[dimension],
+  date: null,
+  page: null
+})
 
 export default function DimensionColumn({ keys, className }: Props) {
   const tg = useTranslations('Global.ranking')
@@ -30,7 +32,7 @@ export default function DimensionColumn({ keys, className }: Props) {
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
         {keys.map(key => (
-          <SelectButton key={key} qs={{ [QS_KEY]: key, ...RESET_KEYS }}>
+          <SelectButton key={key} qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}>
             {tg(`dimension.${key}`)}
           </SelectButton>
         ))}
