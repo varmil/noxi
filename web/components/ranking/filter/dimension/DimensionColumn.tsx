@@ -11,7 +11,7 @@ const QS_KEY = 'dimension'
 
 // Dimensionを変えたらPeriodも追加でリセット
 const RESET_KEYS = {
-  period: null,
+  period: null, // TODO: set xxx as default
   date: null,
   page: null
 }
