@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { GroupStrings } from 'config/constants/Site'
+import { GroupStrings } from 'config/constants/Group'
 
 export const responseSchema = z.object({
   videoId: z.string(),

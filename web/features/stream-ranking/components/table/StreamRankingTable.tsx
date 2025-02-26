@@ -11,7 +11,7 @@ import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import { StreamRankingPagination as Pagination } from 'config/constants/Pagination'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import TableCellOfStreamForSmallContainer from 'features/stream-ranking/components/table/cell/TableCellOfStreamForSmallContainer'
 import TableCellOfStreamThumbnail from 'features/stream-ranking/components/table/cell/TableCellOfStreamThumbnail'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'

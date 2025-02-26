@@ -1,6 +1,6 @@
 import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 
 export default function LinkCell({

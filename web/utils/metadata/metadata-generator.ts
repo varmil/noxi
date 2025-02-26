@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { GroupString } from 'config/constants/Site'
+import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
 
