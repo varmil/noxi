@@ -65,10 +65,18 @@ export default async function ChannelsRankingTable({
 
           const { group, country } = channel.peakX
 
+          /** Top 5まではCTRが高いのでprefetch=true */
           const LinkCell = (
             props: PropsWithChildren &
               Omit<ComponentProps<typeof BaseLinkCell>, 'channelId' | 'group'>
-          ) => <BaseLinkCell channelId={channelId} group={group} {...props} />
+          ) => (
+            <BaseLinkCell
+              channelId={channelId}
+              group={group}
+              prefetch={i < 5}
+              {...props}
+            />
+          )
 
           return (
             <TableRow

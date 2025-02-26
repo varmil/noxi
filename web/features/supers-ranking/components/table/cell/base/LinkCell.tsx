@@ -29,6 +29,7 @@ export default function LinkCell({
   width?: number
 }>) {
   const searchParams = new URLSearchParams({
+    dimension: 'super-chat',
     period,
     ...(group && { group }),
     ...(gender && { gender }),
@@ -40,7 +41,7 @@ export default function LinkCell({
     <TableCell width={width} className={className ?? ''} align={align}>
       <Link
         href={`/youtube/channels/ranking?${searchParams.toString()}`}
-        prefetch={true}
+        prefetch={false}
       >
         {children}
       </Link>

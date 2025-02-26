@@ -9,17 +9,19 @@ export default function LinkCell({
   align,
   className,
   width,
+  prefetch = false,
   children
 }: PropsWithChildren<{
   channelId: string
   group: GroupString
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
+  prefetch?: boolean
   width?: number
 }>) {
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
-      <Link href={`/${group}/channels/${channelId}`} prefetch={true}>
+      <Link href={`/${group}/channels/${channelId}`} prefetch={prefetch}>
         {children}
       </Link>
     </TableCell>

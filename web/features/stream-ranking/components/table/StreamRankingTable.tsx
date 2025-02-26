@@ -95,7 +95,7 @@ export default async function StreamRankingTable({
                   <Link
                     className="text-sm font-light line-clamp-2 break-anywhere"
                     href={`/youtube/live/${videoId}`}
-                    prefetch={true}
+                    prefetch={false}
                   >
                     {stream.snippet.title}
                   </Link>
@@ -149,6 +149,7 @@ const SmallChannel = ({
     <Link
       className={`flex items-center gap-2 ${className || ''}`}
       href={`/${group}/channels/${channel.basicInfo.id}`}
+      prefetch={false}
     >
       <Avatar className="w-5 h-5 transition-all hover:scale-105">
         <AvatarImage
