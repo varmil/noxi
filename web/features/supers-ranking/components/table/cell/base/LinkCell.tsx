@@ -5,6 +5,7 @@ import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
+import { createSearchParams } from 'utils/ranking/channels-ranking'
 
 export default function LinkCell({
   period,
@@ -23,18 +24,18 @@ export default function LinkCell({
   /** min 1 */
   page?: number
   /** RankHighlighter用。指定されている場合遷移後にBrowserでscroll＋highlight */
-  channelId?: string
+  [RANK_HIGHLIGHTER_QS_KEY]?: string
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   width?: number
 }>) {
-  const searchParams = new URLSearchParams({
-    period,
+  const searchParams = createSearchParams({
     dimension: 'super-chat',
-    ...(group && { group }),
-    ...(gender && { gender }),
-    ...(page && page >= 2 && { page: page.toString() }),
-    ...(channelId && { [RANK_HIGHLIGHTER_QS_KEY]: channelId })
+    period,
+    group,
+    gender,
+    page,
+    channelId
   })
 
   return (

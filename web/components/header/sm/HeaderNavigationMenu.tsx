@@ -23,7 +23,7 @@ export default function HeaderNavigationMenu() {
         <NavigationMenuItem>
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/youtube/live/ranking?period=realtime" prefetch={true}>
+            <Link href="/youtube/live/ranking?dimension=concurrent-viewer&period=realtime">
               {comp('liveRanking')}
             </Link>
           </NavigationMenuLink>
@@ -31,7 +31,7 @@ export default function HeaderNavigationMenu() {
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href={ChannelsRankingDefaultUrl} prefetch={true}>
+            <Link href={ChannelsRankingDefaultUrl}>
               {comp('channelsRanking')}
             </Link>
           </NavigationMenuLink>

@@ -7,16 +7,16 @@ import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
-  period: StreamRankingPeriod
   dimension: StreamRankingDimension
+  period: StreamRankingPeriod
   group?: GroupString
   gender?: Gender
   className?: string
 }>
 
 export default function StreamRankingTableTitle({
-  period,
   dimension,
+  period,
   group,
   gender,
   className

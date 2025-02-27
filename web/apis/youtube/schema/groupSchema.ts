@@ -1,7 +1,8 @@
 import { z } from 'zod'
+import { GroupStrings } from 'config/constants/Group'
 
 export const schema = z.object({
-  val: z.string(),
+  val: z.enum(GroupStrings),
   channelIds: z.array(z.string())
 })
 export const responseSchema = z.object({ list: z.array(schema) })

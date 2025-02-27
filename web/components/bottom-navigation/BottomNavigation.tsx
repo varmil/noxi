@@ -25,13 +25,13 @@ export default function BottomNavigation({ className }: Props) {
     },
     {
       href: '/youtube/live/ranking',
-      query: '?period=realtime&dimension=concurrent-viewer',
+      query: '?dimension=concurrent-viewer&period=realtime',
       label: t('live'),
       icon: Radio
     },
     {
       href: '/youtube/channels/ranking',
-      query: '?period=last24Hours&dimension=super-chat',
+      query: '?dimension=super-chat&period=last24Hours',
       label: t('channels'),
       icon: CircleDollarSign
     },

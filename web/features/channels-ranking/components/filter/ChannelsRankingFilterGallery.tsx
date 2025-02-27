@@ -14,8 +14,8 @@ type Props = PropsWithoutRef<{
 }>
 
 export default function ChannelsRankingFilterGallery({
-  className,
-  dimension
+  dimension,
+  className
 }: Props) {
   return (
     <GalleryContainer className={className}>

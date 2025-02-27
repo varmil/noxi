@@ -8,12 +8,12 @@ import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
  */
 const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
   '/youtube/live/ranking': {
-    period: DefaultPeriodByDimension['concurrent-viewer'],
-    dimension: 'concurrent-viewer'
+    dimension: 'concurrent-viewer',
+    period: DefaultPeriodByDimension['concurrent-viewer']
   },
   '/youtube/channels/ranking': {
-    period: DefaultPeriodByDimension['super-chat'],
-    dimension: 'super-chat'
+    dimension: 'super-chat',
+    period: DefaultPeriodByDimension['super-chat']
   }
 }
 
@@ -47,6 +47,11 @@ function resolveQueryValue(
 ): string | undefined {
   if (key === 'country') return getCountryCode(req)
 
+  if (key === 'dimension') {
+    const defaultDimension = QUERY_STRING_RULES[normalizedPathname]?.dimension
+    return searchParams.get('dimension') || defaultDimension
+  }
+
   if (key === 'period') {
     const dimension =
       searchParams.get('dimension') ||
@@ -55,11 +60,6 @@ function resolveQueryValue(
       DefaultPeriodByDimension[dimension] ||
       QUERY_STRING_RULES[normalizedPathname]?.period
     )
-  }
-
-  if (key === 'dimension') {
-    const defaultDimension = QUERY_STRING_RULES[normalizedPathname]?.dimension
-    return searchParams.get('dimension') || defaultDimension
   }
 
   return undefined

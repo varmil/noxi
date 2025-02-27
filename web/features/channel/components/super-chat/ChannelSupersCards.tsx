@@ -21,6 +21,7 @@ import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { calcPercentageChange } from 'utils/math/math'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
 import { getStartOf, getUpdatedAt } from 'utils/period/ranking'
+import { createSearchParams } from 'utils/ranking/channels-ranking'
 
 /**
  * SupersSummaryをまとめて表示するコンポーネント
@@ -178,11 +179,11 @@ const LinkToRanking = ({
   }
 
   const page = ChannelsRankingPagination.getPageFromRank(rank)
-  const searchParams = new URLSearchParams({
-    period,
+  const searchParams = createSearchParams({
     dimension: 'super-chat',
-    ...(page && page >= 2 && { page: page.toString() }),
-    ...(channelId && { [RANK_HIGHLIGHTER_QS_KEY]: channelId })
+    period,
+    page,
+    channelId
   })
   return (
     <Link

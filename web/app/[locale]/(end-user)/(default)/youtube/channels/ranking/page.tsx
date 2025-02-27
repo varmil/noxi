@@ -9,6 +9,7 @@ import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/cha
 import dayjs from 'lib/dayjs'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
+import { createSearchParams } from 'utils/ranking/channels-ranking'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
@@ -48,14 +49,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
     // canonical: channelId=xxx を除外する
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/youtube/channels/ranking?${new URLSearchParams(
+      canonical: `${getWebUrl()}/${locale}/youtube/channels/ranking?${createSearchParams(
         {
           period,
           dimension,
-          ...(group && { group }),
-          ...(gender && { gender }),
-          ...(date && { date }),
-          ...(page && { page })
+          group,
+          gender,
+          date,
+          ...(page && { page: Number(page) })
         }
       ).toString()}`
     }
