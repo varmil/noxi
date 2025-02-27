@@ -8,8 +8,8 @@ import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
-  period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  period: ChannelsRankingPeriod
   group?: GroupString
   gender?: Gender
   date?: Date
@@ -17,8 +17,8 @@ type Props = PropsWithChildren<{
 }>
 
 export default function ChannelsRankingTableTitle({
-  period,
   dimension,
+  period,
   group,
   gender,
   date,

@@ -17,8 +17,8 @@ import { ChannelsRankingPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
-  period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  period: ChannelsRankingPeriod
   channelIds: string[]
   date?: Date
   page?: number

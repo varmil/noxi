@@ -5,8 +5,8 @@ import { ChannelsRankingPeriod } from 'types/period'
 export type ChannelsRankingDimension = 'super-chat' | 'subscriber'
 
 export type ChannelsRankingSearchParams = {
-  period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  period: ChannelsRankingPeriod
   group?: GroupString
   gender?: Gender
   country?: string

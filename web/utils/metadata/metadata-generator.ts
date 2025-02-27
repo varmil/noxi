@@ -10,8 +10,8 @@ type Args = {
   featNamespace:
     | 'Features.channelsRanking.ranking.dimension'
     | 'Features.streamRanking.ranking.dimension'
-  period: ChannelsRankingPeriod | StreamRankingPeriod
   dimension: 'super-chat' | 'subscriber' | 'concurrent-viewer'
+  period: ChannelsRankingPeriod | StreamRankingPeriod
   group?: GroupString
   gender?: Gender
 }
@@ -20,8 +20,8 @@ export const generateTitleAndDescription = async ({
   locale,
   pageNamespace,
   featNamespace,
-  period,
   dimension,
+  period,
   group,
   gender
 }: Args): Promise<Pick<Metadata, 'title' | 'description'>> => {
