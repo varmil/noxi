@@ -13,20 +13,20 @@ export default function LocalNavigationForLiveIdPages({
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), href: basePath, prefetch: true },
+        { name: t('overview.nav'), pathname: basePath, prefetch: true },
         {
           name: t('earnings.nav'),
-          href: `${basePath}/earnings`,
+          pathname: `${basePath}/earnings`,
           prefetch: true
         },
         {
           name: <LocalNavigationItemOfComments videoId={videoId} />,
-          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
+          pathname: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
           prefetch: true
         },
         {
           name: t('relatedVideos.nav'),
-          href: `${basePath}/related-videos`,
+          pathname: `${basePath}/related-videos`,
           prefetch: true
         }
       ].filter(e => !!e)}

@@ -14,36 +14,36 @@ export default function LocalNavigationForChannelsIdPages({
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), href: basePath, prefetch: true },
+        { name: t('overview.nav'), pathname: basePath, prefetch: true },
         {
           name: t('superChat.nav'),
-          href: `${basePath}/super-chat`,
+          pathname: `${basePath}/super-chat`,
           prefetch: true
         },
         {
           name: t('live.nav'),
-          href: [`${basePath}/live`, `${basePath}/asmr`],
+          pathname: [`${basePath}/live`, `${basePath}/asmr`],
           prefetch: true
         },
         {
           name: t('concurrentViewers.nav'),
-          href: `${basePath}/concurrent-viewers`,
+          pathname: `${basePath}/concurrent-viewers`,
           prefetch: true
         },
         {
           name: t('comments.nav'),
-          href: [`${basePath}/comments`],
+          pathname: [`${basePath}/comments`],
           prefetch: true
         },
         {
           name: t('streamTimes.nav'),
-          href: `${basePath}/stream-times`,
+          pathname: `${basePath}/stream-times`,
           prefetch: true
         },
         hasFAQ(channelId)
           ? {
               name: t('faq.nav'),
-              href: `${basePath}/faq`
+              pathname: `${basePath}/faq`
             }
           : null
       ].filter(e => !!e)}
