@@ -13,6 +13,7 @@ const counts = {
   nijisanji: { val: 153, isAll: true },
   'nijisanji-en': { val: 11, isAll: false },
   vspo: { val: 23, isAll: true },
+  'kizuna-ai': { val: 1, isAll: false },
   'neo-porte': { val: 21, isAll: true },
   'aogiri-high-school': { val: 14, isAll: true },
   specialite: { val: 21, isAll: true },
