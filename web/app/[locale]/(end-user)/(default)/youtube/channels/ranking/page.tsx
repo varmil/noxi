@@ -18,7 +18,8 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const { period, dimension, group, gender, date } = await props.searchParams
+  const { period, dimension, group, gender, date, page } =
+    await props.searchParams
   return {
     ...(await generateTitleAndDescription({
       locale,
@@ -42,6 +43,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           )
         }
       ]
+    },
+
+    // canonical: channelId=xxx を除外する
+    alternates: {
+      canonical: `/${locale}/youtube/channels/ranking?${new URLSearchParams({
+        period,
+        dimension,
+        ...(group && { group }),
+        ...(gender && { gender }),
+        ...(date && { date }),
+        ...(page && { page })
+      }).toString()}`
     }
   }
 }
