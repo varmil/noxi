@@ -29,8 +29,8 @@ export default function LinkCell({
   width?: number
 }>) {
   const searchParams = new URLSearchParams({
-    dimension: 'super-chat',
     period,
+    dimension: 'super-chat',
     ...(group && { group }),
     ...(gender && { gender }),
     ...(page && page >= 2 && { page: page.toString() }),

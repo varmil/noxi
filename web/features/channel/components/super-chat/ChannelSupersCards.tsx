@@ -179,8 +179,8 @@ const LinkToRanking = ({
 
   const page = ChannelsRankingPagination.getPageFromRank(rank)
   const searchParams = new URLSearchParams({
-    dimension: 'super-chat',
     period,
+    dimension: 'super-chat',
     ...(page && page >= 2 && { page: page.toString() }),
     ...(channelId && { [RANK_HIGHLIGHTER_QS_KEY]: channelId })
   })
