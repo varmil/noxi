@@ -14,6 +14,7 @@ export const GroupStrings = [
   'nijisanji',
   'nijisanji-en',
   'vspo',
+  'kizuna-ai',
   'neo-porte',
   'aogiri-high-school',
   'specialite',
@@ -57,6 +58,8 @@ export class Group extends StringValueObject<GroupString> {
         return 'にじさんじ'
       case 'vspo':
         return 'ぶいすぽっ'
+      case 'kizuna-ai':
+        return 'Kizuna AI'
       case 'independent':
         return '個人勢VTuber'
       default:

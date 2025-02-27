@@ -17,6 +17,7 @@ import {
   Independent,
   IndependentIRL
 } from '@domain/group/channel'
+import { KizunaAI } from '@domain/group/channel/kizuna-ai'
 import { ChannelIds } from '@domain/youtube'
 
 export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
@@ -28,6 +29,7 @@ export const ChannelsByGroup: Record<GroupString, GroupChannels> = {
   nijisanji: new Nijisanji(),
   'nijisanji-en': new NijisanjiEN(),
   vspo: new VSPO(),
+  'kizuna-ai': new KizunaAI(),
   'neo-porte': new NeoPorte(),
   'aogiri-high-school': new AogiriHighSchool(),
   specialite: new Specialite(),
@@ -46,6 +48,7 @@ export const ChannelIdsByGroup: Record<GroupString, ChannelIds> = {
   nijisanji: new Nijisanji().channelIds(),
   'nijisanji-en': new NijisanjiEN().channelIds(),
   vspo: new VSPO().channelIds(),
+  'kizuna-ai': new KizunaAI().channelIds(),
   'neo-porte': new NeoPorte().channelIds(),
   'aogiri-high-school': new AogiriHighSchool().channelIds(),
   specialite: new Specialite().channelIds(),
