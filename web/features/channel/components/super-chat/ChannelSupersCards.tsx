@@ -6,22 +6,18 @@ import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
 import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistories'
-import { RANK_HIGHLIGHTER_QS_KEY } from 'components/ranking/highlighter/rank-highlighter'
 import {
   StatsCard,
   StatsCardContent,
   StatsCardHeader,
   StatsCards
 } from 'components/styles/card/StatsCard'
-import Underline from 'components/styles/string/Underline'
-import { ChannelsRankingPagination } from 'config/constants/Pagination'
-import { Link } from 'lib/navigation'
 import { Period } from 'types/period'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { calcPercentageChange } from 'utils/math/math'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
 import { getStartOf, getUpdatedAt } from 'utils/period/ranking'
-import { createSearchParams } from 'utils/ranking/channels-ranking'
+import LinkToRanking from './link/LinkToRanking'
 
 /**
  * SupersSummaryをまとめて表示するコンポーネント
@@ -105,7 +101,7 @@ export default async function ChannelSupersCards({
           <LinkToRanking
             period="last24Hours"
             rank={last24HoursRank?.rank}
-            channelId={channelId}
+            highlightedChannelId={channelId}
           >
             {formatMicrosAsRoundedAmount(sum.amountMicros)}
           </LinkToRanking>
@@ -129,7 +125,7 @@ export default async function ChannelSupersCards({
           <LinkToRanking
             period="last7Days"
             rank={last7DaysRank?.rank}
-            channelId={channelId}
+            highlightedChannelId={channelId}
           >
             {formatMicrosAsRoundedAmount(summary.last7Days)}
           </LinkToRanking>
@@ -153,44 +149,12 @@ export default async function ChannelSupersCards({
           <LinkToRanking
             period="last30Days"
             rank={last30DaysRank?.rank}
-            channelId={channelId}
+            highlightedChannelId={channelId}
           >
             {formatMicrosAsRoundedAmount(summary.last30Days)}
           </LinkToRanking>
         </StatsCardContent>
       </StatsCard>
     </StatsCards>
-  )
-}
-
-/** rankが圏内ならばランキングページへリンク。圏外ならばリンクしない */
-const LinkToRanking = ({
-  period,
-  rank,
-  channelId,
-  children
-}: PropsWithChildren<{
-  period: Period
-  rank?: number
-  channelId?: string
-}>) => {
-  if (!rank) {
-    return <>{children}</>
-  }
-
-  const page = ChannelsRankingPagination.getPageFromRank(rank)
-  const searchParams = createSearchParams({
-    dimension: 'super-chat',
-    period,
-    page,
-    channelId
-  })
-  return (
-    <Link
-      href={`/youtube/channels/ranking?${searchParams.toString()}`}
-      prefetch={true}
-    >
-      <Underline>{children}</Underline>
-    </Link>
   )
 }

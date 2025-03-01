@@ -1,4 +1,3 @@
-import { RANK_HIGHLIGHTER_QS_KEY } from 'components/ranking/highlighter/rank-highlighter'
 import { GroupString } from 'config/constants/Group'
 import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
@@ -12,8 +11,6 @@ export const createSearchParams = (params: {
   page?: number
   /** for OG image */
   date?: string
-  /** for Rank Highlighter */
-  [RANK_HIGHLIGHTER_QS_KEY]?: string
 }) => {
   /** dimension, group, periodの順番（SEO） */
   return new URLSearchParams({
@@ -22,7 +19,6 @@ export const createSearchParams = (params: {
     ...(params.gender && { gender: params.gender }),
     period: params.period,
     ...(params.page && params.page >= 2 && { page: params.page.toString() }),
-    ...(params.date && { date: params.date }),
-    ...(params.channelId && { channelId: params.channelId })
+    ...(params.date && { date: params.date })
   })
 }
