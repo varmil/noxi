@@ -12,7 +12,10 @@ import {
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
 import GroupGallery from 'components/group/GroupGallery'
-import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
+import {
+  ChannelsRankingDefaultUrl,
+  StreamRankingDefaultUrl
+} from 'config/constants/RankingRoute'
 import { Link } from 'lib/navigation'
 
 export default function HeaderNavigationMenu() {
@@ -23,9 +26,7 @@ export default function HeaderNavigationMenu() {
         <NavigationMenuItem>
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/youtube/live/ranking?dimension=concurrent-viewer&period=realtime">
-              {comp('liveRanking')}
-            </Link>
+            <Link href={StreamRankingDefaultUrl}>{comp('liveRanking')}</Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 

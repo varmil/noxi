@@ -32,7 +32,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       group,
       gender
     })),
-
     openGraph: {
       images: [
         {
@@ -46,8 +45,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         }
       ]
     },
-
-    // canonical: channelId=xxx を除外する
     alternates: {
       canonical: `${getWebUrl()}/${locale}/youtube/channels/ranking?${createSearchParams(
         {
