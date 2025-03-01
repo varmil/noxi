@@ -6,6 +6,7 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
+import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
@@ -70,7 +71,7 @@ export default async function StreamRankingGallery(
 
       {compact && (
         <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href="/youtube/live/ranking">
+          <Link href={StreamRankingDefaultUrl}>
             {t('viewAll')}
             <ArrowUpRight className="h-4 w-4" />
           </Link>

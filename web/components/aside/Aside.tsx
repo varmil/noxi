@@ -13,6 +13,7 @@ import AsideIcon from 'components/aside/AsideIcon'
 import AsideStreamIcons from 'components/aside/AsideStreamIcons'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import AsideSkeleton from 'components/skeleton/AsideSkeleton'
+import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
 import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
@@ -46,7 +47,7 @@ export default function Aside({ className }: { className?: string }) {
 
                 <AsideIcon
                   name={comp('styles.more')}
-                  href={`/youtube/live/ranking?period=realtime&dimension=concurrent-viewer`}
+                  href={StreamRankingDefaultUrl}
                   icon={<Ellipsis className="h-6 w-6" />}
                   roundedFull
                 />
