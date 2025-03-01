@@ -5,6 +5,7 @@ import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
+import groupUsingGender from 'utils/ranking/groupUsingGender'
 import { createSearchParams } from 'utils/ranking/stream-ranking'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
@@ -33,7 +34,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           period,
           dimension,
           group,
-          gender,
+          ...(groupUsingGender(group) && { gender }),
           ...(page && { page: Number(page) })
         }
       ).toString()}`
