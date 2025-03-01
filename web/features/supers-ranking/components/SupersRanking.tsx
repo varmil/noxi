@@ -246,7 +246,7 @@ function RankCell({
       group={group}
       gender={gender}
       page={ChannelsRankingPagination.getPageFromRank(rank)}
-      channelId={channelId}
+      highlightedChannelId={channelId}
     >
       <RankBadge rank={rank} />
     </LinkCell>

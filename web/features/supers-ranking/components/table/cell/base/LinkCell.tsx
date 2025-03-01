@@ -1,6 +1,8 @@
+'use client'
+
 import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
-import { RANK_HIGHLIGHTER_QS_KEY } from 'components/ranking/highlighter/rank-highlighter'
+import { RANK_HIGHLIGHTER_STORAGE_KEY } from 'components/ranking/highlighter/rank-highlighter'
 import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 import { Gender } from 'types/gender'
@@ -12,7 +14,7 @@ export default function LinkCell({
   group,
   gender,
   page,
-  channelId,
+  highlightedChannelId: channelId,
   align,
   className,
   width,
@@ -23,8 +25,7 @@ export default function LinkCell({
   gender?: Gender
   /** min 1 */
   page?: number
-  /** RankHighlighter用。指定されている場合遷移後にBrowserでscroll＋highlight */
-  [RANK_HIGHLIGHTER_QS_KEY]?: string
+  [RANK_HIGHLIGHTER_STORAGE_KEY]?: string
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   width?: number
@@ -34,8 +35,7 @@ export default function LinkCell({
     period,
     group,
     gender,
-    page,
-    channelId
+    page
   })
 
   return (
@@ -43,6 +43,11 @@ export default function LinkCell({
       <Link
         href={`/youtube/channels/ranking?${searchParams.toString()}`}
         prefetch={false}
+        onClick={() => {
+          if (channelId) {
+            sessionStorage.setItem(RANK_HIGHLIGHTER_STORAGE_KEY, channelId)
+          }
+        }}
       >
         {children}
       </Link>
