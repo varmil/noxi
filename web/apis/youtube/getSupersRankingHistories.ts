@@ -23,6 +23,10 @@ export async function getSupersRankingHistories({
   createdAfter,
   limit
 }: Params): Promise<SupersRankingHistoriesSchema> {
+  if (channelIds.length === 0) {
+    return []
+  }
+
   const searchParams = new URLSearchParams({
     channelIds: [...new Set(channelIds)].join(','),
     period,
