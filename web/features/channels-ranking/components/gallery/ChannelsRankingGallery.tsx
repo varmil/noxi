@@ -50,8 +50,8 @@ export default async function ChannelsRankingGallery(
   return (
     <section className={`@container space-y-4 sm:space-y-6 ${className || ''}`}>
       <ChannelsRankingTableTitle
-        period={period}
         dimension={dimension}
+        period={period}
         group={group}
         gender={gender}
         date={date ? new Date(date) : undefined}
@@ -59,9 +59,11 @@ export default async function ChannelsRankingGallery(
       />
 
       <ChannelsRankingTable
-        period={period}
-        dimension={dimension}
         channelIds={channelIds}
+        dimension={dimension}
+        period={period}
+        group={group}
+        gender={gender}
         date={date ? new Date(date) : undefined}
         page={Number(page) || 1}
       />

@@ -4,7 +4,7 @@ import { Rank, RankingType, RankingTypeStrings } from '@domain/supers-ranking'
 import { ChannelId } from '@domain/youtube'
 
 export class SupersRanking {
-  @Exclude()
+  @Transform(({ value }: { value: ChannelId }) => value.get())
   readonly channelId: ChannelId
   @Exclude()
   readonly period: Period

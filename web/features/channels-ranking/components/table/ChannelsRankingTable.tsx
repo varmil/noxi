@@ -1,47 +1,73 @@
 import { ComponentProps, PropsWithChildren, PropsWithoutRef } from 'react'
 import { ChevronRight, JapaneseYen } from 'lucide-react'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
+import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistories'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
-import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
 import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
 import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
 import Dimension from 'components/ranking/table/styles/Dimension'
+import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
-import BaseLinkCell from 'features/channels-ranking/components/table/cell/base/LinkCell'
-import ChannelsRankingTableHeader from 'features/channels-ranking/components/table/header/ChannelsRankingTableHeader'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
+import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
+import {
+  getSupersRankingType,
+  hasSupersRanking
+} from 'utils/ranking/channels-ranking'
+import ChannelThumbnail from './cell/ChannelThumbnail'
+import BaseLinkCell from './cell/base/LinkCell'
+import ChannelsRankingTableHeader from './header/ChannelsRankingTableHeader'
 
 type Props = PropsWithoutRef<{
+  channelIds: string[]
   dimension: ChannelsRankingDimension
   period: ChannelsRankingPeriod
-  channelIds: string[]
+  group?: GroupString
+  gender?: Gender
   date?: Date
   page?: number
 }>
 
 export default async function ChannelsRankingTable({
-  period,
-  dimension,
   channelIds,
+  dimension,
+  period,
+  group,
+  gender,
   date,
   page = 1
 }: Props) {
-  const [channels, supersSummaries] = await Promise.all([
-    getChannels({ ids: channelIds, limit: channelIds.length }),
-    dimension === 'super-chat' && period !== 'all'
-      ? getSupersSummaries({
-          channelIds,
-          limit: channelIds.length,
-          orderBy: [{ field: period, order: 'desc' }],
-          date
-        })
-      : Promise.resolve([])
-  ])
+  const isSuperChat = dimension === 'super-chat' && period !== 'all'
+  const [channels, supersSummaries, supersRankingHistories] = await Promise.all(
+    [
+      getChannels({ ids: channelIds, limit: channelIds.length }),
+      isSuperChat
+        ? getSupersSummaries({
+            channelIds,
+            limit: channelIds.length,
+            orderBy: [{ field: period, order: 'desc' }],
+            date
+          })
+        : Promise.resolve([]),
+      isSuperChat && hasSupersRanking({ dimension, group, gender })
+        ? getSupersRankingHistories({
+            channelIds,
+            period,
+            rankingType: getSupersRankingType({ group, gender }),
+            createdAfter: rangeDatetimeForPreviousPeriod(period).gte,
+            createdBefore: rangeDatetimeForPreviousPeriod(period).lte,
+            limit: channelIds.length
+          })
+        : Promise.resolve([])
+    ]
+  )
+
+  console.log('supersRankingHistories', supersRankingHistories)
 
   /** Progress.valueで使用する */
   const topAmountMicros = (supersSummaries[0]?.[period] as bigint) ?? BigInt(0)
@@ -142,27 +168,5 @@ export default async function ChannelsRankingTable({
         })}
       </TableBody>
     </Table>
-  )
-}
-
-const ChannelThumbnail = ({
-  className,
-  channel
-}: {
-  className?: string
-  channel: ChannelSchema
-}) => {
-  return (
-    <Avatar
-      className={`w-7 h-7 @lg:w-12 @lg:h-12 transition-all hover:scale-105 ${
-        className || ''
-      }`}
-    >
-      <AvatarImage
-        src={channel.basicInfo.thumbnails.medium?.url}
-        alt={channel.basicInfo.title}
-      />
-      <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
-    </Avatar>
   )
 }
