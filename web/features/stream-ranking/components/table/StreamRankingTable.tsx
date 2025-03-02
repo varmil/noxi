@@ -20,9 +20,9 @@ import { Link } from 'lib/navigation'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
+  streams: StreamsSchema
   dimension: StreamRankingDimension
   page: number
-  streams: StreamsSchema
 }>
 
 export default async function StreamRankingTable({
