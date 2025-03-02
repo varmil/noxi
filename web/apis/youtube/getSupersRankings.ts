@@ -16,7 +16,7 @@ export async function getSupersRankings({
   channelId,
   period,
   rankingType
-}: Params): Promise<SupersRankingSchema> {
+}: Params): Promise<SupersRankingSchema | undefined> {
   const searchParams = new URLSearchParams({
     channelId,
     period,

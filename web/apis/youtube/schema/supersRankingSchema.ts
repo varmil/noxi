@@ -1,11 +1,10 @@
 import { z } from 'zod'
 
-export const responseSchema = z
-  .object({
-    rank: z.number().min(0),
-    createdAt: z.coerce.date()
-  })
-  .optional()
+export const responseSchema = z.object({
+  channelId: z.string(),
+  rank: z.number().min(0),
+  createdAt: z.coerce.date()
+})
 
 export type SupersRankingSchema = z.infer<typeof responseSchema>
 

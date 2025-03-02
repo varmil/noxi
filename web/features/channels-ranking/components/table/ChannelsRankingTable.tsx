@@ -20,6 +20,7 @@ import {
   hasSupersRanking
 } from 'utils/ranking/channels-ranking'
 import ChannelThumbnail from './cell/ChannelThumbnail'
+import ComparedToPreviousPeriod from './cell/ComparedToPreviousPeriod'
 import BaseLinkCell from './cell/base/LinkCell'
 import ChannelsRankingTableHeader from './header/ChannelsRankingTableHeader'
 
@@ -67,8 +68,6 @@ export default async function ChannelsRankingTable({
     ]
   )
 
-  console.log('supersRankingHistories', supersRankingHistories)
-
   /** Progress.valueで使用する */
   const topAmountMicros = (supersSummaries[0]?.[period] as bigint) ?? BigInt(0)
   const topSubscribers =
@@ -89,8 +88,6 @@ export default async function ChannelsRankingTable({
             summary => summary.channelId === channelId
           )?.[period] as bigint | undefined
 
-          const { group, country } = channel.peakX
-
           /** Top 5まではCTRが高いのでprefetch=true */
           const LinkCell = (
             props: PropsWithChildren &
@@ -98,11 +95,13 @@ export default async function ChannelsRankingTable({
           ) => (
             <BaseLinkCell
               channelId={channelId}
-              group={group}
+              group={channel.peakX.group}
               prefetch={i < 5}
               {...props}
             />
           )
+
+          const rank = Pagination.getRankFromPage(page, i)
 
           return (
             <TableRow
@@ -110,9 +109,25 @@ export default async function ChannelsRankingTable({
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
             >
               {/* Rank */}
-              <TableCell className="align-top">
-                <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
-                  {Pagination.getRankFromPage(page, i)}
+              <TableCell className="py-1">
+                <div className="flex flex-col items-center gap-0.5 @lg:gap-1">
+                  <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
+                    {Pagination.getRankFromPage(page, i)}
+                  </div>
+                  {hasSupersRanking({ dimension, group, gender }) && (
+                    <ComparedToPreviousPeriod
+                      current={rank}
+                      previous={
+                        supersRankingHistories.find(
+                          h => h.channelId === channelId
+                        )?.rank
+                      }
+                      // TODO: データが溜まったら消す
+                      counting={
+                        !(period === 'last24Hours' || period === 'last7Days')
+                      }
+                    />
+                  )}
                 </div>
               </TableCell>
 
@@ -123,8 +138,10 @@ export default async function ChannelsRankingTable({
 
               {/* Channel Title */}
               <LinkCell>
-                <div className="flex items-center line-clamp-1 hover:underline">
-                  {channel.basicInfo.title}
+                <div className="flex items-center hover:underline">
+                  <span className="line-clamp-2 break-anywhere">
+                    {channel.basicInfo.title}
+                  </span>
                 </div>
               </LinkCell>
 
@@ -154,10 +171,10 @@ export default async function ChannelsRankingTable({
               )}
 
               {/* 3xl-: Group */}
-              <TableCellOfGroup groupId={group} />
+              <TableCellOfGroup groupId={channel.peakX.group} />
 
               {/* 3xl-: Country */}
-              <TableCellOfCountry countryCode={country} />
+              <TableCellOfCountry countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
               <LinkCell className="@3xl:hidden">
