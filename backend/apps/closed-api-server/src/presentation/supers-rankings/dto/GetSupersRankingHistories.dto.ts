@@ -7,13 +7,13 @@ import {
   IsRFC3339,
   IsString
 } from 'class-validator'
-import { ChannelId, ChannelIds } from '@domain/youtube'
 import { PeriodStrings, PeriodString, Period } from '@domain/lib/period'
 import {
   RankingTypeStrings,
   RankingTypeString,
   RankingType
 } from '@domain/supers-ranking'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export class GetSupersRankingHistories {
   @IsArray()

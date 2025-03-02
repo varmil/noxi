@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common'
+import { type ChannelSupersRanking as PrismaChannelSupersRanking } from '@prisma/client'
 import { Period } from '@domain/lib/period'
 import {
   Rank,
@@ -9,10 +10,6 @@ import {
 } from '@domain/supers-ranking'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import {
-  Prisma,
-  type ChannelSupersRanking as PrismaChannelSupersRanking
-} from '@prisma/client'
 
 @Injectable()
 export class SupersRankingRepositoryImpl implements SupersRankingRepository {
