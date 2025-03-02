@@ -4,7 +4,7 @@ import {
   SupersRanking,
   SupersRankings
 } from '@domain/supers-ranking'
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface SupersRankingRepository {
   /**
@@ -25,13 +25,13 @@ export interface SupersRankingRepository {
    * インターフェースは履歴（Hisotry）にも対応できるようcreatedAtを遵守する
    * ので、呼び出し側で24時間のDateを指定する
    */
-  calcOneUsingBundle: (args: {
+  calcAllUsingBundle: (args: {
     where: {
-      channelId: ChannelId
+      channelIds: ChannelIds
       rankingType: RankingType
       createdAt: { gte: Date; lte: Date } // 基本 lte - gte = 24時間
     }
-  }) => Promise<SupersRanking | null>
+  }) => Promise<SupersRankings>
 
   /** チャンネルの最新の順位を取得 */
   findAggregatedOne: (args: {
@@ -41,7 +41,7 @@ export interface SupersRankingRepository {
   /** チャンネルの順位推移を取得 */
   findHistories: (args: {
     where: {
-      channelId: ChannelId
+      channelIds: ChannelIds
       period: Period
       rankingType: RankingType
       createdAt: { gte: Date; lte: Date }

@@ -2,12 +2,12 @@ import {
   SupersRankingHistoriesSchema,
   responseHistoriesSchema
 } from 'apis/youtube/schema/supersRankingSchema'
-import { CACHE_10M, CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_10M, fetchAPI } from 'lib/fetchAPI'
 import { Period } from 'types/period'
 import { RankingType } from 'types/supers-ranking'
 
 type Params = {
-  channelId: string
+  channelIds: string[]
   period: Period
   rankingType: RankingType
   createdBefore: Date
@@ -16,7 +16,7 @@ type Params = {
 }
 
 export async function getSupersRankingHistories({
-  channelId,
+  channelIds,
   period,
   rankingType,
   createdBefore,
@@ -24,7 +24,7 @@ export async function getSupersRankingHistories({
   limit
 }: Params): Promise<SupersRankingHistoriesSchema> {
   const searchParams = new URLSearchParams({
-    channelId,
+    channelIds: [...new Set(channelIds)].join(','),
     period,
     rankingType,
     ...(createdBefore && { createdBefore: createdBefore.toISOString() }),

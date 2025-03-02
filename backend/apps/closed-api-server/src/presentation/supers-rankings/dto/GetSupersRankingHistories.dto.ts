@@ -1,16 +1,27 @@
-import { Type } from 'class-transformer'
-import { IsIn, IsInt, IsOptional, IsRFC3339, IsString } from 'class-validator'
-import { ChannelId } from '@domain'
+import { Transform, Type } from 'class-transformer'
+import {
+  IsArray,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsRFC3339,
+  IsString
+} from 'class-validator'
 import { PeriodStrings, PeriodString, Period } from '@domain/lib/period'
 import {
   RankingTypeStrings,
   RankingTypeString,
   RankingType
 } from '@domain/supers-ranking'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export class GetSupersRankingHistories {
-  @IsString()
-  channelId: string
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }: { value: string }) =>
+    value ? value.split(',') : undefined
+  )
+  channelIds: string[]
 
   @IsIn(PeriodStrings)
   period: PeriodString
@@ -29,7 +40,8 @@ export class GetSupersRankingHistories {
   @Type(() => Number)
   limit?: number
 
-  toChannelId = () => new ChannelId(this.channelId)
+  toChannelIds = () =>
+    new ChannelIds(this.channelIds.map(id => new ChannelId(id)))
 
   toPeriod = () => new Period(this.period)
 
