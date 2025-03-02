@@ -64,9 +64,9 @@ export default async function SupersRanking({
     overallRanking,
     genderRanking,
     groupRanking,
-    [overallPreviousPeriodRanking],
-    [genderPreviousPeriodRanking],
-    [groupPreviousPeriodRanking],
+    [overallPreviousPeriodRanking] = [undefined],
+    [genderPreviousPeriodRanking] = [undefined],
+    [groupPreviousPeriodRanking] = [undefined],
     channel
   ] = await Promise.all([
     getFormatter(),
