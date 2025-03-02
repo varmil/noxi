@@ -9,7 +9,10 @@ import {
 } from '@domain/supers-ranking'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type { ChannelSupersRanking as PrismaChannelSupersRanking } from '@prisma/client'
+import {
+  Prisma,
+  type ChannelSupersRanking as PrismaChannelSupersRanking
+} from '@prisma/client'
 
 @Injectable()
 export class SupersRankingRepositoryImpl implements SupersRankingRepository {
@@ -49,8 +52,8 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
     `)
   }
 
-  calcOneUsingBundle: SupersRankingRepository['calcOneUsingBundle'] = async ({
-    where: { channelId, rankingType, createdAt }
+  calcAllUsingBundle: SupersRankingRepository['calcAllUsingBundle'] = async ({
+    where: { channelIds, rankingType, createdAt }
   }) => {
     // rankingTypeによって順位算出時のPARTITION BY句, GROUP BY句が変わる
     let rankOver = ''
@@ -96,10 +99,9 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
         ${groupBy}
       ) sub
       WHERE
-        "channelId" = '${channelId.get()}'
+        "channelId" IN (${channelIds.map(channelId => `'${channelId.get()}'`).join(',')})
     `)
-    if (!rows.length) return null
-    return this.toDomain(rows[0])
+    return new SupersRankings(rows.map(row => this.toDomain(row)))
   }
 
   findAggregatedOne: SupersRankingRepository['findAggregatedOne'] = async ({
@@ -118,12 +120,12 @@ export class SupersRankingRepositoryImpl implements SupersRankingRepository {
   }
 
   findHistories: SupersRankingRepository['findHistories'] = async ({
-    where: { channelId, period, rankingType, createdAt },
+    where: { channelIds, period, rankingType, createdAt },
     limit
   }) => {
     const rows = await this.prismaInfraService.channelSupersRanking.findMany({
       where: {
-        channelId: channelId.get(),
+        channelId: { in: channelIds.map(channelId => channelId.get()) },
         period: period.get(),
         rankingType: rankingType.get(),
         createdAt: { gte: createdAt.gte, lte: createdAt.lte }

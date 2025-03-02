@@ -43,13 +43,15 @@ export default async function SupersRanking({
   channelId: string
   period: Period
 }) {
-  const baseParams = (rankingType: RankingType) => ({
+  const currentParams = (rankingType: RankingType) => ({
     channelId,
     period,
     rankingType
   })
   const historiesParams = (rankingType: RankingType) => ({
-    ...baseParams(rankingType),
+    channelIds: [channelId],
+    period,
+    rankingType,
     createdAfter: rangeDatetimeForPreviousPeriod(period).gte,
     createdBefore: rangeDatetimeForPreviousPeriod(period).lte,
     limit: 1
@@ -70,9 +72,9 @@ export default async function SupersRanking({
     getFormatter(),
     getTranslations('Global'),
     getTranslations('Features.supersRanking'),
-    getSupersRankings(baseParams('overall')),
-    getSupersRankings(baseParams('gender')),
-    getSupersRankings(baseParams('group')),
+    getSupersRankings(currentParams('overall')),
+    getSupersRankings(currentParams('gender')),
+    getSupersRankings(currentParams('group')),
     getSupersRankingHistories(historiesParams('overall')),
     getSupersRankingHistories(historiesParams('gender')),
     getSupersRankingHistories(historiesParams('group')),

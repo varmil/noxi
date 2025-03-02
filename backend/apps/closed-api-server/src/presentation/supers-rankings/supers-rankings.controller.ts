@@ -49,7 +49,7 @@ export class SupersRankingsController {
   async getSupersRankingHistories(@Query() dto: GetSupersRankingHistories) {
     return await this.supersRankingsScenario.getSupersRankingHistories({
       where: {
-        channelId: dto.toChannelId(),
+        channelIds: dto.toChannelIds(),
         period: dto.toPeriod(),
         rankingType: dto.toRankingType(),
         createdAt: { gte: dto.toCreatedAfter(), lte: dto.toCreatedBefore() }
