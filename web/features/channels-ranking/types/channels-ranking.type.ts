@@ -14,6 +14,8 @@ export type ChannelsRankingSearchParams = {
   date?: string
   /** For Pagination */
   page?: string
+  /** @Important Googleから検索結果を削除するためだけに使用。完全に消えたらこのプロパティも削除 */
+  channelId?: string
 }
 
 export type ChannelsRanking = {
