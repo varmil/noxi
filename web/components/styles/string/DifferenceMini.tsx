@@ -1,17 +1,13 @@
 import { ForwardRefExoticComponent, RefAttributes } from 'react'
-import {
-  ArrowUpIcon,
-  ArrowDownIcon,
-  MinusIcon,
-  LucideProps
-} from 'lucide-react'
+import { MinusIcon, LucideProps, ChevronUp, ChevronDown } from 'lucide-react'
 
 type Props = {
   diff: number
-  isPercent?: boolean
   className?: string
 }
-export default function Difference({ diff, isPercent, className }: Props) {
+
+/** 一覧ページなどで使う */
+export default function DifferenceMini({ diff, className }: Props) {
   let Icon: ForwardRefExoticComponent<
     Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
   >
@@ -19,12 +15,12 @@ export default function Difference({ diff, isPercent, className }: Props) {
 
   switch (true) {
     case diff > 0:
-      Icon = ArrowUpIcon
+      Icon = ChevronUp
       color = 'text-green-500'
       label = '順位上昇'
       break
     case diff < 0:
-      Icon = ArrowDownIcon
+      Icon = ChevronDown
       color = 'text-red-500'
       label = '順位下降'
       break
@@ -37,21 +33,9 @@ export default function Difference({ diff, isPercent, className }: Props) {
       return null
   }
 
-  let text = ''
-  if (!isFinite(diff)) {
-    text = isPercent ? `∞%` : `∞`
-  } else if (diff !== 0) {
-    text = isPercent ? `${diff.toFixed(1)}%` : `${diff}`
-  }
-
   return (
-    <span
-      className={`flex items-center text-sm font-medium ${color} ${
-        className ?? ''
-      }`}
-    >
-      <Icon className={`w-4 h-4 mr-1`} aria-label={label} />
-      {text}
+    <span className={`flex items-center ${color} ${className ?? ''}`}>
+      <Icon className={`w-3 h-3 sm:stroke-3`} aria-label={label} />
     </span>
   )
 }

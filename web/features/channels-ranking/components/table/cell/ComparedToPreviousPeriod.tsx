@@ -1,4 +1,4 @@
-import Difference from 'components/styles/string/Difference'
+import DifferenceMini from 'components/styles/string/DifferenceMini'
 
 type Props = {
   /** 今回の順位 */
@@ -36,5 +36,5 @@ export default function ComparedToPreviousPeriod({
     return null
   }
 
-  return <Difference diff={diff} className={className} hideText size="xs" />
+  return <DifferenceMini diff={diff} className={className} />
 }

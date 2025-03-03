@@ -4,6 +4,8 @@ import { getEntry } from 'config/sitemap/getEntry'
 import { Period } from 'types/period'
 import { createSearchParams } from 'utils/ranking/channels-ranking'
 
+export const dynamic = 'force-dynamic'
+
 const periods: Period[] = [
   'last24Hours',
   'last7Days',
@@ -28,6 +30,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...(gender && { gender })
       })
       return getEntry({
+        changeFrequency: 'hourly',
+        lastModified: new Date(),
         pathname: `/youtube/channels/ranking?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
@@ -44,6 +48,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         group: group.val
       })
       return getEntry({
+        changeFrequency: 'hourly',
+        lastModified: new Date(),
         pathname: `/youtube/channels/ranking?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
@@ -59,6 +65,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...(gender && { gender })
     })
     return getEntry({
+      changeFrequency: 'hourly',
+      lastModified: new Date(),
       pathname: `/youtube/channels/ranking?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
@@ -73,6 +81,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       group: group.val
     })
     return getEntry({
+      changeFrequency: 'hourly',
+      lastModified: new Date(),
       pathname: `/youtube/channels/ranking?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
