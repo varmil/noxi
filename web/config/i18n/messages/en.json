@@ -118,7 +118,7 @@
       "channelsId": {
         "index": {
           "metadata": {
-            "title": "{channel} Overview - YouTube Channel",
+            "title": "{channel} Overview",
             "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
           },
           "section": {
@@ -128,7 +128,7 @@
         },
         "superChat": {
           "metadata": {
-            "title": "Super Chat Summary of {channel} - Total Earnings Over the Last X Days",
+            "title": "Super Chat Summary of {channel}",
             "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
           },
           "section": {
@@ -184,7 +184,7 @@
         },
         "faq": {
           "metadata": {
-            "title": "{channel} FAQ - Frequently Asked Questions",
+            "title": "{channel} FAQ",
             "description": "The FAQ page for {channel}. Find answers to questions about the person behind the channel, their content and activities. Explore more on PeakX."
           },
           "section": {
@@ -271,7 +271,7 @@
             "title": "VTuber",
             "description": {
               "dimension": {
-                "super-chat": "Aggregates Super Chat revenues from each VTuber channel in {period}. Comparison information is also provided by group and gender, so you can check the revenue performance of popular VTubers on PeakX.",
+                "super-chat": "Aggregates Super Chat revenues from each {group}{gender} channel in {period}. Compare VTubers by group and gender, so you can check the revenue performance of popular VTubers.",
                 "subscriber": "Ranking of {group}{gender} channel subscribers. Compare VTubers in the ranking format and check the performance of your favorites."
               }
             }
@@ -447,7 +447,7 @@
     "channelsRanking": {
       "ranking": {
         "dimension": {
-          "super-chat": "{group} {gender} Most Super Chatted - {period}",
+          "super-chat": "{group} {gender} Most Super Chatted in {period}",
           "subscriber": "{group} {gender} Most Subscribed"
         }
       },
@@ -463,8 +463,8 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "{group} {gender} Most Live Viewers - {period}",
-          "super-chat": "Live-Specific {group} {gender} Most Super Chatted - {period}"
+          "concurrent-viewer": "{group} {gender} Most Live Viewers in {period}",
+          "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
         }
       },
       "viewAll": "View All",
