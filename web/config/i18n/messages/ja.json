@@ -271,7 +271,7 @@
             "title": "VTuber",
             "description": {
               "dimension": {
-                "super-chat": "{period}の各VTuberチャンネルのスーパーチャット収益を集計。所属グループや性別別の比較情報も提供し、人気VTuberの収益パフォーマンスをPeakXで確認できます。",
+                "super-chat": "{period}における{group}{gender}のスーパーチャット収益を集計。所属事務所や性別別の比較情報も提供。人気VTuberの収益パフォーマンスを確認できます。",
                 "subscriber": "{group}{gender}のチャンネル登録者数ランキングページです。ランキング形式でVTuberを比較し、推しの活躍をチェックしよう。"
               }
             }
