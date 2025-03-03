@@ -21,7 +21,7 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const { period, dimension, group, gender, date, page } =
+  const { period, dimension, group, gender, date, page, channelId } =
     await props.searchParams
   return {
     ...(await generateTitleAndDescription({
@@ -57,6 +57,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           ...(page && { page: Number(page) })
         }
       ).toString()}`
+    },
+    // channelIdがついたURLはDirtyなので検索結果から消したい
+    robots: {
+      index: channelId ? false : undefined,
+      follow: channelId ? false : undefined
     }
   }
 }
