@@ -16,16 +16,19 @@ const host = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
 
 export function getEntry({
   pathname,
+  changeFrequency,
   lastModified,
   videos
 }: {
   pathname: string
+  changeFrequency?: MetadataRoute.Sitemap[0]['changeFrequency']
   lastModified?: Date
   videos?: Video[]
 }): MetadataRoute.Sitemap[0] & { videos?: Video[] } {
   const { defaultLocale, locales } = routing
   return {
     url: getUrl(pathname, defaultLocale),
+    changeFrequency,
     lastModified,
     alternates: {
       languages: Object.fromEntries(

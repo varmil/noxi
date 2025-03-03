@@ -2,6 +2,8 @@ import { MetadataRoute } from 'next'
 import { getGroups } from 'apis/youtube/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
 
@@ -9,7 +11,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return group.channelIds.flatMap(channelId => {
       const path = `/${group.val}/channels/${channelId}`
       return [
-        getEntry({ pathname: path }),
+        getEntry({
+          pathname: path,
+          changeFrequency: 'hourly',
+          lastModified: new Date()
+        }),
         getEntry({ pathname: `${path}/super-chat` }),
         getEntry({ pathname: `${path}/asmr` }),
         getEntry({ pathname: `${path}/live` }),
