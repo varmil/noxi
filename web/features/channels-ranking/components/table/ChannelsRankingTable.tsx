@@ -110,7 +110,7 @@ export default async function ChannelsRankingTable({
             >
               {/* Rank */}
               <TableCell className="py-1">
-                <div className="flex flex-col items-center gap-0.5 @lg:gap-1">
+                <div className="flex flex-col items-center gap-0 @lg:gap-0.5">
                   <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
                     {Pagination.getRankFromPage(page, i)}
                   </div>
