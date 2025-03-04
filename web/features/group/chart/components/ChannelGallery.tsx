@@ -1,4 +1,4 @@
-import { PropsWithoutRef, Suspense } from 'react'
+import { PropsWithoutRef } from 'react'
 import { List, Users } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
@@ -11,24 +11,26 @@ import {
 } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
 import { ChannelCards } from 'components/youtube/channel/ChannelCards'
+import { ChannelGalleryPagination } from 'config/constants/Pagination'
+import { ChannelGallerySearchParams } from 'features/group/types/channel-gallery'
 import { Link } from 'lib/navigation'
 import { getGroup } from 'lib/server-only-context/cache'
 
-type Props = {
-  limit: number
-  footer?: boolean
+type Props = ChannelGallerySearchParams & {
+  compact?: boolean
 }
 
 export async function ChannelGallery({
-  limit,
-  footer
+  page,
+  compact
 }: PropsWithoutRef<Props>) {
   const group = (await getTranslations('Global.group'))(`${getGroup()}`)
   const t = await getTranslations('Features.group.talents')
   const channels = await getChannels({
     group: getGroup(),
     orderBy: [{ field: 'subscriberCount', order: 'desc' }],
-    limit
+    limit: ChannelGalleryPagination.getLimit(compact),
+    offset: ChannelGalleryPagination.getOffset(page)
   })
 
   return (
@@ -42,7 +44,7 @@ export async function ChannelGallery({
       <CardContent>
         <ChannelCards channels={channels} />
       </CardContent>
-      {footer && (
+      {compact && (
         <CardFooter>
           <Button asChild variant="outline" className="w-full">
             <Link href={`${getGroup()}/charts/channels`}>
