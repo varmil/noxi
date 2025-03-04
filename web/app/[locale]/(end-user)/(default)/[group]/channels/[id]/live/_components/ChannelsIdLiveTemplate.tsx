@@ -1,6 +1,13 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
+import { getStreamsCount } from 'apis/youtube/getStreams'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
+import { PageSMPX } from 'components/page'
+import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import {
+  ChannelsRankingPagination,
+  StreamGalleryPagination
+} from 'config/constants/Pagination'
 import {
   Section,
   Sections
@@ -8,14 +15,20 @@ import {
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
 import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
+import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
+import { CACHE_1D } from 'lib/fetchAPI'
 import { getGroup } from 'lib/server-only-context/cache'
 
-type Props = { id: string }
+type Props = { id: string; searchParams: StreamGallerySearchParams }
 
-export async function ChannelsIdLiveTemplate({ id }: PropsWithoutRef<Props>) {
-  const [page, feat] = await Promise.all([
+export async function ChannelsIdLiveTemplate({
+  id,
+  searchParams
+}: PropsWithoutRef<Props>) {
+  const [page, feat, count] = await Promise.all([
     getTranslations('Page.group.channelsId.live'),
-    getTranslations('Features.channel')
+    getTranslations('Features.channel'),
+    getStreamsCount({ channelId: id, status: 'ended', revalidate: CACHE_1D })
   ])
   const group = getGroup()
 
@@ -36,24 +49,38 @@ export async function ChannelsIdLiveTemplate({ id }: PropsWithoutRef<Props>) {
                 href: `/${group}/channels/${id}/asmr`
               }
             ]}
+            ignoreSearchParams
           />
         }
       >
-        <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
-          <LiveStreamGallery
-            className="flex-1"
+        {Number(searchParams.page || 1) === 1 && (
+          <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
+            <LiveStreamGallery
+              className="flex-1"
+              showHeader
+              where={{ group, channelId: id }}
+              limit={1}
+            />
+            <ScheduledStreamGallery
+              className="flex-1"
+              showHeader
+              where={{ group, channelId: id }}
+              limit={1}
+            />
+          </div>
+        )}
+        <section className={`space-y-4`}>
+          <EndedStreamGallery
             showHeader
             where={{ group, channelId: id }}
-            limit={1}
+            {...searchParams}
           />
-          <ScheduledStreamGallery
-            className="flex-1"
-            showHeader
-            where={{ group, channelId: id }}
-            limit={1}
-          />
-        </div>
-        <EndedStreamGallery showHeader where={{ group, channelId: id }} />
+          <section className={`${PageSMPX}`}>
+            <ResponsivePagination
+              totalPages={StreamGalleryPagination.getTotalPages(count)}
+            />
+          </section>
+        </section>
       </Section>
     </Sections>
   )

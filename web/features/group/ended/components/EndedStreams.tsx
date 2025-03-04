@@ -2,14 +2,10 @@ import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import Stream from 'features/group/stream/components/Stream'
-import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
-type Props = {
-  streams: StreamsSchema
-  compact?: boolean
-}
+type Props = { streams: StreamsSchema }
 
-export default async function EndedStreams({ streams, compact }: Props) {
+export default async function EndedStreams({ streams }: Props) {
   const [channels, statisticsList] = await Promise.all([
     getChannels({
       ids: streams.map(stream => stream.snippet.channelId),
@@ -35,7 +31,6 @@ export default async function EndedStreams({ streams, compact }: Props) {
           return { stream, channel, video }
         })
         .filter(item => item !== null)
-        .slice(0, compact ? STREAM_GALLERY_COMPACT_LIMIT : undefined)
         .map(({ stream, channel, video }) => {
           return (
             <Stream

@@ -1,17 +1,31 @@
 import { PropsWithoutRef } from 'react'
+import { getStreamsCount } from 'apis/youtube/getStreams'
+import { PageSMPX } from 'components/page'
+import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { StreamGalleryPagination } from 'config/constants/Pagination'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
+import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
+import { CACHE_1D } from 'lib/fetchAPI'
 import { getGroup } from 'lib/server-only-context/cache'
 
-type Props = {}
+type Props = {
+  searchParams: StreamGallerySearchParams
+}
 
-export async function IndexTemplate({}: PropsWithoutRef<Props>) {
+export async function IndexTemplate({ searchParams }: PropsWithoutRef<Props>) {
+  const count = await getStreamsCount({
+    status: 'ended',
+    group: getGroup(),
+    revalidate: CACHE_1D
+  })
   return (
-    <>
-      <div className="grid grid-cols-4 gap-2 sm:gap-2">
-        <section className="col-span-full">
-          <EndedStreamGallery where={{ group: getGroup() }} />
-        </section>
-      </div>
-    </>
+    <section className="space-y-4">
+      <EndedStreamGallery where={{ group: getGroup() }} {...searchParams} />
+      <section className={`${PageSMPX}`}>
+        <ResponsivePagination
+          totalPages={StreamGalleryPagination.getTotalPages(count)}
+        />
+      </section>
+    </section>
   )
 }

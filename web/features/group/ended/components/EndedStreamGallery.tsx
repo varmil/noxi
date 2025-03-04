@@ -4,19 +4,21 @@ import { getTranslations } from 'next-intl/server'
 import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Group'
+import { StreamGalleryPagination } from 'config/constants/Pagination'
 import EndedStreamGalleryContent from 'features/group/ended/components/EndedStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
-import { STREAM_GALLERY_LIMIT } from 'features/group/types/stream-gallery'
+import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
 import { CACHE_1H } from 'lib/fetchAPI'
 
-type Props = {
+type Props = StreamGallerySearchParams & {
   compact?: boolean
   showHeader?: boolean
   where?: { title?: string; channelId?: string; group?: GroupString }
 }
 
 export default async function EndedStreamGallery({
+  page,
   compact,
   showHeader,
   where
@@ -28,7 +30,8 @@ export default async function EndedStreamGallery({
     group,
     channelId,
     orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: STREAM_GALLERY_LIMIT,
+    limit: StreamGalleryPagination.getLimit(compact),
+    offset: StreamGalleryPagination.getOffset(page),
     revalidate: CACHE_1H
   })
   const t = await getTranslations('Features.group.ended')
@@ -52,7 +55,7 @@ export default async function EndedStreamGallery({
         <div className="pb-6"></div>
       )}
 
-      <EndedStreamGalleryContent streams={streams} compact={compact} />
+      <EndedStreamGalleryContent streams={streams} />
 
       {compact && group && <StreamListFooter href={`/${group}/ended`} />}
     </Card>
