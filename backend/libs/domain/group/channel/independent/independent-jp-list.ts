@@ -21,11 +21,6 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
-    id: new ChannelId('UC9ruVYPv7yJmV0Rh0NKA-Lw'),
-    title: 'kson ONAIR',
-    ...DefaultProps
-  },
-  {
     id: new ChannelId('UCH4yRBPH2pDUjPeqomx8CTQ'),
     title: 'てるとくん',
     ...DefaultProps,
@@ -410,6 +405,11 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCC2jToWuZRpMhyYyTt0xJYw'),
+    title: 'G.I.N',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCKBt1UvTHNmpVUDIrNZKWeQ'),
     title: '切嘛 / Kiruma',
     ...DefaultProps,
@@ -467,6 +467,11 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCwhH8ZM5aNdMo8XzkY2b-AA'),
+    title: '真白ぽん',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCrG08WU5TTsVINMx7hLEmmQ'),
     title: '四宮 伊織 / SHINOMIYA Iori',
     ...DefaultProps,
@@ -482,6 +487,21 @@ export const JPList: GroupChannel[] = [
     title: '一翔剣ちゃんねる',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCjQgPXWvEeOQrdmTkdnHu6g'),
+    title: '愛乃ひめ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCAuCBqze_GL7-nPAzI62LNw'),
+    title: 'まるちぃ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCcZPZ680duJJXnm9J0AAuBg'),
+    title: '蒼星すい',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCz4jhqrCfthF8NnldZeK_rw'),
@@ -509,8 +529,18 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCFqVAFANOHm17UVy8sWkhqw'),
+    title: '魔ノむえる',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UC1NYgNBwE1i6dJNqljqhibg'),
     title: 'ミソラソラ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCF3EqpGBmczbO7LFqKrkrNQ'),
+    title: '神咲リリカ',
     ...DefaultProps
   },
   {
@@ -521,6 +551,21 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCi1pVIrFVtrRTnyaUtKcgOQ'),
     title: 'Reimu Ch. 甘兎れいむ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCaX0TkyC3iihxsbI2Izoqcw'),
+    title: '真白猫ミミィ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCnQl4A4mJCdCaxbuPUMtF0g'),
+    title: 'なこむすめ',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCTsz6woh-f2bamM3nKVzGyQ'),
+    title: '岬テト',
     ...DefaultProps
   },
   {
