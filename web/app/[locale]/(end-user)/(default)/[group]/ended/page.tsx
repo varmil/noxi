@@ -5,11 +5,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Group'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
+import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
 import { setGroup } from 'lib/server-only-context/cache'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{ locale: string; group: GroupString }>
+  searchParams: Promise<StreamGallerySearchParams>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -29,12 +31,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default function GroupEndedPage(props: Props) {
   const { locale, group } = use(props.params)
+  const searchParams = use(props.searchParams)
 
   // Enable static rendering
   setRequestLocale(locale)
   setGroup(group)
 
-  const tg = useTranslations('Global')
   const t = useTranslations('Breadcrumb')
   const groupName = t('group', {
     group: useTranslations('Global')(`group.${group}`)
@@ -53,7 +55,7 @@ export default function GroupEndedPage(props: Props) {
       h1={`${groupName} ${t('ended')}`}
     >
       <LocalNavigationForGroupPages group={group} />
-      <IndexTemplate />
+      <IndexTemplate searchParams={searchParams} />
     </Page>
   )
 }

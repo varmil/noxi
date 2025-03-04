@@ -10,16 +10,24 @@ interface Tab {
 }
 
 interface LinkTabsProps {
-  className?: string
   tabs: Tab[]
+  className?: string
+  /** Active判定の際にsearchParamsをみない */
+  ignoreSearchParams?: boolean
 }
 
-export function LinkTabs({ tabs, className }: LinkTabsProps) {
+export function LinkTabs({
+  tabs,
+  className,
+  ignoreSearchParams
+}: LinkTabsProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const currentUrl = `${pathname}${
-    searchParams.toString() ? `?${searchParams.toString()}` : ''
-  }`
+  const currentUrl = ignoreSearchParams
+    ? pathname
+    : `${pathname}${
+        searchParams.toString() ? `?${searchParams.toString()}` : ''
+      }`
 
   return (
     <Tabs value={currentUrl} className={`w-full ${className ?? ''}`}>
