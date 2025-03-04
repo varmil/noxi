@@ -11,6 +11,12 @@ const DefaultProps = {
 
 export const JPList: GroupChannel[] = [
   {
+    id: new ChannelId('UC9ruVYPv7yJmV0Rh0NKA-Lw'),
+    title: 'kson ONAIR',
+    ...DefaultProps,
+    gender: Gender.Female
+  },
+  {
     id: new ChannelId('UCMi0f6r-fUqdzM7OOqC-yfA'),
     title: '真神ハティ / Hati Magami',
     ...DefaultProps,
