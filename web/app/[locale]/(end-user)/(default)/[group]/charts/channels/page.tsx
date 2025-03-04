@@ -2,15 +2,16 @@ import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { ChartTemplate } from 'app/[locale]/(end-user)/(default)/[group]/charts/channels/_components/ChartTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Group'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
+import { ChannelGallerySearchParams } from 'features/group/types/channel-gallery'
 import { setGroup } from 'lib/server-only-context/cache'
+import { ChartTemplate } from './_components/ChartTemplate'
 
 type Props = {
   params: Promise<{ locale: string; group: GroupString }>
-  searchParams?: Promise<ConstructorParameters<typeof URLSearchParams>[0]>
+  searchParams: Promise<ChannelGallerySearchParams>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -27,6 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default function GroupChartsPage(props: Props) {
   const { locale, group } = use(props.params)
+  const searchParams = use(props.searchParams)
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -50,7 +52,7 @@ export default function GroupChartsPage(props: Props) {
       h1={`${groupName} ${t('channels')}`}
     >
       <LocalNavigationForGroupPages group={group} />
-      <ChartTemplate />
+      <ChartTemplate searchParams={searchParams} />
     </Page>
   )
 }

@@ -13,7 +13,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
     <>
       <div className="grid grid-cols-4 gap-2 sm:gap-2">
         <section className="col-span-full">
-          <ChannelGallery limit={6} footer />
+          <ChannelGallery compact />
         </section>
         <Suspense
           fallback={<StreamGallerySkeleton className="col-span-full" />}

@@ -40,5 +40,19 @@ class StreamRankingSingleton {
     Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
 }
 
+class ChannelGallerySingleton {
+  readonly PAGE_SIZE = 24 // 1,2,3の公倍数
+  readonly COMPACT_PAGE_SIZE = 6
+
+  getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
+
+  getLimit = (compact?: boolean) =>
+    compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
+
+  getOffset = (page?: string) =>
+    Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
+}
+
 export const ChannelsRankingPagination = new ChannelsRankingSingleton()
 export const StreamRankingPagination = new StreamRankingSingleton()
+export const ChannelGalleryPagination = new ChannelGallerySingleton()
