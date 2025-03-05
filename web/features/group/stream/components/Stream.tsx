@@ -3,7 +3,7 @@ import { LiveStreamingDetailsSchema } from 'apis/youtube/data-api/schema/liveStr
 import { StatisticsSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import LiveBadge from 'components/styles/LiveBadge'
+import LiveBadge from 'components/styles/badge/LiveBadge'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
 import {

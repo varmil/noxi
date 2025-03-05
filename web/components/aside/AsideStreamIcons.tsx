@@ -4,7 +4,7 @@ import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingD
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams } from 'apis/youtube/getStreams'
 import AsideIcon from 'components/aside/AsideIcon'
-import LiveBadge from 'components/styles/LiveBadge'
+import LiveBadge from 'components/styles/badge/LiveBadge'
 import Watching from 'components/styles/number/Watching'
 
 type Props = {}

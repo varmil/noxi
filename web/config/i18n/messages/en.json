@@ -321,11 +321,16 @@
         "start": "Start",
         "end": "End",
         "criteria": "Criteria",
-        "criteriaDescription": "Live ended during the period",
+        "criteriaDescription": "Live started during the period",
         "updatedAt": "Updated At"
       }
     },
     "styles": {
+      "badge": {
+        "realtime": "Realtime",
+        "past": "Past data",
+        "labelForRealtime": "Show latest data"
+      },
       "more": "Read More",
       "scheduledFor": "Scheduled for {datetime}",
       "startedStreaming": "Started streaming {datetime}",

@@ -53,7 +53,7 @@ class ChannelGallerySingleton {
 }
 
 class StreamGallerySingleton {
-  readonly PAGE_SIZE = 16
+  readonly PAGE_SIZE = 12
   readonly COMPACT_PAGE_SIZE = 4
 
   getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)

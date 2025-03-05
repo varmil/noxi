@@ -26,7 +26,8 @@ export default async function EndedStreams({ streams }: Props) {
           const video = statisticsList.find(
             stats => stats.id === stream.videoId
           )
-          if (!video) return null
+          // ここをコメントアウト外すと削除された配信は非表示になる
+          // if (!video) return null
 
           return { stream, channel, video }
         })
@@ -37,7 +38,7 @@ export default async function EndedStreams({ streams }: Props) {
               key={stream.videoId}
               stream={stream}
               channel={channel}
-              statistics={video.statistics}
+              statistics={video?.statistics}
             />
           )
         })}

@@ -2,7 +2,9 @@ import { PropsWithChildren } from 'react'
 import { ChartNoAxesColumnIncreasing } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
+import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
 import { GroupString } from 'config/constants/Group'
+import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
@@ -48,8 +50,11 @@ export default function ChannelsRankingTableTitle({
           </div>
         </h1>
 
-        <div>
+        <div className="flex items-baseline gap-x-3">
           <PeriodHoverCardFactory period={period} date={date} />
+          {period === 'last24Hours' && (
+            <RealtimeStatusBadge href={ChannelsRankingDefaultUrl} date={date} />
+          )}
         </div>
       </div>
     </section>
