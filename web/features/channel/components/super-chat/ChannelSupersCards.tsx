@@ -6,6 +6,7 @@ import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
 import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistories'
+import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
 import {
   StatsCard,
   StatsCardContent,
@@ -80,9 +81,7 @@ export default async function ChannelSupersCards({
       <StatsCard>
         <StatsCardHeader>
           <span>{global('period.last24Hours')}</span>
-          <Badge variant="destructive" className="flex items-center gap-1">
-            Realtime
-          </Badge>
+          <RealtimeStatusBadge date={new Date()} />
         </StatsCardHeader>
         <StatsCardContent
           className="flex gap-1 items-center"
