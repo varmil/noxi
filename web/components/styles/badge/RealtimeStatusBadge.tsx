@@ -54,7 +54,7 @@ export function RealtimeStatusBadge({
           )}
         />
       </span>
-      <span className="text-xs">
+      <span className="text-xs text-nowrap">
         {isLive ? comp('realtime') : comp('past')}
       </span>
     </>
