@@ -27,7 +27,7 @@ export default function PeriodHoverCard({ start, end, updatedAt }: Props) {
 
   return (
     <Popover>
-      <PopoverTrigger tabIndex={0}>
+      <PopoverTrigger tabIndex={0} className="cursor-pointer">
         {/* 24時間以内の場合はendのみ表示する */}
         {isWithin24Hours(start, end) ? (
           <PopoverDate date={end} />
