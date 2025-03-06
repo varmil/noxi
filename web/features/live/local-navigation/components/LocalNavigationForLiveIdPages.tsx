@@ -1,11 +1,12 @@
+/**
+ * @important workaround: googlebotがscript内のhrefを拾って404扱いにする問題
+ * これを回避するために、use clientをつけてhref部分を露出させないようにする
+ */
 'use client'
 
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
 
-/**
- *
- */
 export default function LocalNavigationForLiveIdPages({
   videoId,
   commentsTab

@@ -75,7 +75,7 @@ export default async function ChannelsIdBasePage(
       <section className="flex flex-col">
         <ChannelProfile basicInfo={basicInfo} />
         <section>
-          <LocalNavigationForChannelsIdPages channelId={id} />
+          <LocalNavigationForChannelsIdPages channelId={id} group={group} />
         </section>
 
         <Suspense fallback={<ChannelsIdXXXTemplateSkeleton />}>
