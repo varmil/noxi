@@ -17,7 +17,7 @@ export default async function sitemap({
   id: number
 }): Promise<MetadataRoute.Sitemap> {
   const streams = await getStreams({
-    orderBy: [{ field: 'videoId', order: 'asc' }],
+    orderBy: [{ field: 'actualEndTime', order: 'asc' }],
     limit: LIMIT,
     offset: id * LIMIT,
     revalidate: CACHE_1D
