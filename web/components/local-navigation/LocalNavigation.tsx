@@ -8,7 +8,7 @@ import { Link, usePathname } from 'lib/navigation'
 type Props = {
   items: {
     name: string | React.ReactNode
-    pathname: string | string[]
+    href: string | string[]
     prefetch?: boolean
   }[]
   className?: string
@@ -28,12 +28,10 @@ export default function LocalNavigation({
       <ScrollArea className="grid w-full whitespace-nowrap">
         <div className="flex h-14 items-center">
           {items.map(item => {
-            const isActive = [item.pathname]
+            const isActive = [item.href]
               .flat()
               .some(itemPathname => pathname === itemPathname)
-            const href = Array.isArray(item.pathname)
-              ? item.pathname[0]
-              : item.pathname
+            const href = Array.isArray(item.href) ? item.href[0] : item.href
 
             return (
               <Link

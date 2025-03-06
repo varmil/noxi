@@ -11,9 +11,7 @@ type Props = {
 }
 
 /** スパチャコメント＋コメントの数をBadgeで表示する */
-export default async function LocalNavigationItemOfComments({
-  videoId
-}: Props) {
+export default async function LocalNavCommentsTab({ videoId }: Props) {
   const t = await getTranslations('Features.live')
   return (
     <div className="flex items-baseline gap-1">

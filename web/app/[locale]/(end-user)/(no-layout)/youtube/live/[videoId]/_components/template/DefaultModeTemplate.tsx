@@ -5,8 +5,8 @@ import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import LiveIdXXXTemplateSkeleton from 'components/skeleton/LiveIdXXXTemplateSkeleton'
 import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
+import LocalNavCommentsTab from 'features/live/local-navigation/components/LocalNavCommentsTab'
 import LocalNavigationForLiveIdPages from 'features/live/local-navigation/components/LocalNavigationForLiveIdPages'
-import LocalNavigationItemOfComments from 'features/live/local-navigation/components/LocalNavigationItemOfComments'
 import {
   MainContainer,
   LgChatContainer,
@@ -76,9 +76,7 @@ export default async function DefaultModeTemplate({
             <PadSection left className="@xs:col-span-full @4xl:col-span-3">
               <LocalNavigationForLiveIdPages
                 videoId={videoId}
-                commentsTab={
-                  <LocalNavigationItemOfComments videoId={videoId} />
-                }
+                commentsTab={<LocalNavCommentsTab videoId={videoId} />}
               />
               {/* サブページのTemplateに委譲する */}
               <Suspense fallback={<LiveIdXXXTemplateSkeleton />}>

@@ -13,19 +13,19 @@ export default function LocalNavigationForGroupPages({
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), pathname: basePath, prefetch: true },
+        { name: t('overview.nav'), href: basePath, prefetch: true },
         {
           name: t('talents.nav'),
-          pathname: `${basePath}/charts/channels`,
+          href: `${basePath}/charts/channels`,
           prefetch: true
         },
-        { name: t('live.nav'), pathname: `${basePath}/live`, prefetch: true },
+        { name: t('live.nav'), href: `${basePath}/live`, prefetch: true },
         {
           name: t('scheduled.nav'),
-          pathname: `${basePath}/scheduled`,
+          href: `${basePath}/scheduled`,
           prefetch: true
         },
-        { name: t('ended.nav'), pathname: `${basePath}/ended` }
+        { name: t('ended.nav'), href: `${basePath}/ended` }
       ]}
       className="mb-6"
     />
