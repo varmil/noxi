@@ -1,11 +1,14 @@
+'use client'
+
 import { PropsWithChildren } from 'react'
 import { ChartNoAxesColumnIncreasing } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
 import { GroupString } from 'config/constants/Group'
-import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import useQueryString from 'hooks/useQueryString'
+import { usePathname } from 'lib/navigation'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
 
@@ -35,6 +38,8 @@ export default function ChannelsRankingTableTitle({
   })
     .replace(/\s+/g, ' ')
     .trim()
+  const pathname = usePathname()
+  const { createQueryString } = useQueryString()
   return (
     <section className={`flex text-sm sm:text-base ${className || ''}`}>
       <ChartNoAxesColumnIncreasing className="w-6 h-6 mr-3" />
@@ -53,7 +58,10 @@ export default function ChannelsRankingTableTitle({
         <div className="flex items-baseline gap-x-3">
           <PeriodHoverCardFactory period={period} date={date} />
           {period === 'last24Hours' && (
-            <RealtimeStatusBadge href={ChannelsRankingDefaultUrl} date={date} />
+            <RealtimeStatusBadge
+              href={`${pathname}?${createQueryString('date', null)}`}
+              date={date}
+            />
           )}
         </div>
       </div>
