@@ -2,12 +2,16 @@
 
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-import LocalNavigationItemOfComments from './LocalNavigationItemOfComments'
 
+/**
+ *
+ */
 export default function LocalNavigationForLiveIdPages({
-  videoId
+  videoId,
+  commentsTab
 }: {
   videoId: string
+  commentsTab: React.ReactNode // Server Component を受け取る
 }) {
   const t = useTranslations('Features.live')
   const basePath = `/youtube/live/${videoId}`
@@ -22,7 +26,7 @@ export default function LocalNavigationForLiveIdPages({
           prefetch: true
         },
         {
-          name: <LocalNavigationItemOfComments videoId={videoId} />,
+          name: commentsTab, // Server Component の結果を挿入,
           pathname: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
           prefetch: true
         },
