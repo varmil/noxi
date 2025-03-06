@@ -1,11 +1,18 @@
+/**
+ * @important workaround: googlebotがscript内のhrefを拾って404扱いにする問題
+ * これを回避するために、use clientをつけてhref部分を露出させないようにする
+ */
+'use client'
+
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-import LocalNavigationItemOfComments from './LocalNavigationItemOfComments'
 
 export default function LocalNavigationForLiveIdPages({
-  videoId
+  videoId,
+  commentsTab
 }: {
   videoId: string
+  commentsTab: React.ReactNode // Server Component を受け取る
 }) {
   const t = useTranslations('Features.live')
   const basePath = `/youtube/live/${videoId}`
@@ -13,20 +20,20 @@ export default function LocalNavigationForLiveIdPages({
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), pathname: basePath, prefetch: true },
+        { name: t('overview.nav'), href: basePath, prefetch: true },
         {
           name: t('earnings.nav'),
-          pathname: `${basePath}/earnings`,
+          href: `${basePath}/earnings`,
           prefetch: true
         },
         {
-          name: <LocalNavigationItemOfComments videoId={videoId} />,
-          pathname: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
+          name: commentsTab, // Server Component の結果を挿入,
+          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
           prefetch: true
         },
         {
           name: t('relatedVideos.nav'),
-          pathname: `${basePath}/related-videos`,
+          href: `${basePath}/related-videos`,
           prefetch: true
         }
       ].filter(e => !!e)}

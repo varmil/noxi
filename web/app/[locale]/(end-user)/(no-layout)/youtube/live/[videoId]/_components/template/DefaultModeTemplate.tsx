@@ -5,6 +5,7 @@ import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import LiveIdXXXTemplateSkeleton from 'components/skeleton/LiveIdXXXTemplateSkeleton'
 import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
+import LocalNavCommentsTab from 'features/live/local-navigation/components/LocalNavCommentsTab'
 import LocalNavigationForLiveIdPages from 'features/live/local-navigation/components/LocalNavigationForLiveIdPages'
 import {
   MainContainer,
@@ -73,7 +74,10 @@ export default async function DefaultModeTemplate({
           {/* max-w-[1536px] */}
           <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 @4xl:grid-cols-5">
             <PadSection left className="@xs:col-span-full @4xl:col-span-3">
-              <LocalNavigationForLiveIdPages videoId={videoId} />
+              <LocalNavigationForLiveIdPages
+                videoId={videoId}
+                commentsTab={<LocalNavCommentsTab videoId={videoId} />}
+              />
               {/* サブページのTemplateに委譲する */}
               <Suspense fallback={<LiveIdXXXTemplateSkeleton />}>
                 {children}

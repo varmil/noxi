@@ -1,49 +1,56 @@
+/**
+ * @important workaround: googlebotがscript内のhrefを拾って404扱いにする問題
+ * これを回避するために、use clientをつけてhref部分を露出させないようにする
+ */
+'use client'
+
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-import { getGroup } from 'lib/server-only-context/cache'
+import { GroupString } from 'config/constants/Group'
 
 export default function LocalNavigationForChannelsIdPages({
-  channelId
+  channelId,
+  group
 }: {
   channelId: string
+  group: GroupString
 }) {
-  const group = getGroup()
   const t = useTranslations('Features.channel')
   const basePath = `/${group}/channels/${channelId}`
 
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), pathname: basePath, prefetch: true },
+        { name: t('overview.nav'), href: basePath, prefetch: true },
         {
           name: t('superChat.nav'),
-          pathname: `${basePath}/super-chat`,
+          href: `${basePath}/super-chat`,
           prefetch: true
         },
         {
           name: t('live.nav'),
-          pathname: [`${basePath}/live`, `${basePath}/asmr`],
+          href: [`${basePath}/live`, `${basePath}/asmr`],
           prefetch: true
         },
         {
           name: t('concurrentViewers.nav'),
-          pathname: `${basePath}/concurrent-viewers`,
+          href: `${basePath}/concurrent-viewers`,
           prefetch: true
         },
         {
           name: t('comments.nav'),
-          pathname: [`${basePath}/comments`],
+          href: [`${basePath}/comments`],
           prefetch: true
         },
         {
           name: t('streamTimes.nav'),
-          pathname: `${basePath}/stream-times`,
+          href: `${basePath}/stream-times`,
           prefetch: true
         },
         hasFAQ(channelId)
           ? {
               name: t('faq.nav'),
-              pathname: `${basePath}/faq`
+              href: `${basePath}/faq`
             }
           : null
       ].filter(e => !!e)}
