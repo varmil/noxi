@@ -32,7 +32,7 @@
     "compression": "^1.8.0",
     "dayjs": "^1.11.13",
     "fast-xml-parser": "^5.0.8",
-    "firebase-admin": "^13.1.0",
+    "firebase-admin": "^13.2.0",
     "keyv": "^5.2.3",
     "prisma-json-types-generator": "^3.2.2",
     "reflect-metadata": "^0.2.0",
