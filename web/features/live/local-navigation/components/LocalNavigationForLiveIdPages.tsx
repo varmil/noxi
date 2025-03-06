@@ -1,3 +1,5 @@
+'use client'
+
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
 import LocalNavigationItemOfComments from './LocalNavigationItemOfComments'
