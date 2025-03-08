@@ -51,8 +51,10 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
             disabled={current === 1}
           />
         </PaginationItem>
-        <SP current={current} totalPages={total} />
-        <NotSP current={current} totalPages={total} />
+        <PaginationItem>
+          <SP current={current} totalPages={total} />
+          <NotSP current={current} totalPages={total} />
+        </PaginationItem>
         <PaginationItem>
           <PaginationNext
             href={`${pathname}?${createQueryString(
@@ -83,11 +85,9 @@ const SP = ({
   const t = useTranslations('Components.pagination')
   return (
     <div className="contents sm:hidden">
-      <PaginationItem>
-        <PaginationInfo>
-          {current} / {totalPages} {t('page')}
-        </PaginationInfo>
-      </PaginationItem>
+      <PaginationInfo>
+        {current} / {totalPages} {t('page')}
+      </PaginationInfo>
     </div>
   )
 }
@@ -103,7 +103,7 @@ const NotSP = ({
   const { createQueryString } = useQueryString()
 
   return (
-    <div className="hidden sm:contents">
+    <div className="hidden sm:flex flex-row items-center gap-1">
       {[...Array(totalPages)].map((_, index) => {
         const pageNumber = index + 1
         if (
@@ -112,24 +112,19 @@ const NotSP = ({
           (pageNumber >= current - 1 && pageNumber <= current + 1)
         ) {
           return (
-            <PaginationItem key={pageNumber}>
-              <PaginationLink
-                href={`${pathname}?${createQueryString(
-                  QS_KEY,
-                  pageNumber === 1 ? null : pageNumber.toString()
-                )}`}
-                isActive={pageNumber === current}
-              >
-                {pageNumber}
-              </PaginationLink>
-            </PaginationItem>
+            <PaginationLink
+              key={pageNumber}
+              href={`${pathname}?${createQueryString(
+                QS_KEY,
+                pageNumber === 1 ? null : pageNumber.toString()
+              )}`}
+              isActive={pageNumber === current}
+            >
+              {pageNumber}
+            </PaginationLink>
           )
         } else if (pageNumber === current - 2 || pageNumber === current + 2) {
-          return (
-            <PaginationItem key={pageNumber}>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )
+          return <PaginationEllipsis key={pageNumber} />
         }
         return null
       })}

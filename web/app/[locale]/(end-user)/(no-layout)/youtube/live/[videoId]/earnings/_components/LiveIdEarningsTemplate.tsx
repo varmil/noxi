@@ -49,11 +49,11 @@ async function Earnings({ videoId }: { videoId: string }) {
   const chartConfig = {
     amount: {
       label: feat('chart.superChat.amount'),
-      color: 'hsl(var(--chart-1))'
+      color: 'var(--chart-1)'
     },
     cumulativeAmount: {
       label: feat('chart.superChat.cumulativeAmount'),
-      color: 'hsl(var(--chart-2))'
+      color: 'var(--chart-2)'
     }
   } satisfies ChartConfig
 

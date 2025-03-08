@@ -29,11 +29,11 @@ export async function ChannelsIdSuperChatTemplate({
   const cumulativeChartConfig = {
     daily: {
       label: feat('chart.cumulative.daily'),
-      color: 'hsl(var(--muted-foreground))'
+      color: 'var(--muted-foreground)'
     },
     monthly: {
       label: feat('chart.cumulative.monthly'),
-      color: 'hsl(var(--primary))'
+      color: 'var(--primary)'
     }
   } satisfies ChartConfig
 

@@ -64,8 +64,9 @@ export default function BottomNavigation({ className }: Props) {
               // OR 判定でアクティブかどうか
               className={cn(
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
+                'font-normal text-muted-foreground',
                 (item.isActive || isActive(item.pathname)) &&
-                  'bg-muted text-primary font-bold hover:bg-muted hover:text-primary'
+                  'bg-accent text-accent-foreground font-bold hover:bg-muted hover:text-primary'
               )}
             >
               <Link href={item.pathname + (item.query || '')} prefetch={true}>

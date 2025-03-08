@@ -7,7 +7,7 @@ import Chart from './Chart'
 const chartConfig = {
   desktop: {
     label: 'Desktop',
-    color: 'hsl(var(--chart-3))'
+    color: 'var(--chart-3)'
   }
 } satisfies ChartConfig
 

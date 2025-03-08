@@ -55,7 +55,7 @@ export default async function LocaleLayout(props: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <NextTopLoader color="hsl(var(--primary))" showSpinner={false} />
+          <NextTopLoader color="var(--primary)" showSpinner={false} />
           <NextIntlClientProvider messages={messages}>
             {children}
             <Toaster />

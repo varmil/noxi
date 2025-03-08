@@ -47,14 +47,14 @@ export default function SupersTrendsChart({
 
             <XAxis
               dataKey="date"
-              stroke="hsl(var(--foreground))"
+              stroke="var(--foreground)"
               tickMargin={10}
               minTickGap={20}
               tickLine={false}
               axisLine={false}
             />
             <YAxis
-              stroke="hsl(var(--foreground))"
+              stroke="var(--foreground)"
               domain={['dataMin', 'auto']}
               tickCount={4}
               tickMargin={5}

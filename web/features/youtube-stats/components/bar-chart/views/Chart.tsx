@@ -120,7 +120,7 @@ export default function Chart({
 
             <ReferenceLine
               y={averageViews(statisticsList)}
-              stroke="hsl(var(--muted-foreground))"
+              stroke="var(--muted-foreground)"
               strokeDasharray="3 3"
               strokeWidth={1}
             >
@@ -129,7 +129,7 @@ export default function Chart({
                 value="Avg. Views"
                 className="text-sm"
                 offset={10}
-                fill="hsl(var(--foreground))"
+                fill="var(--foreground)"
               />
             </ReferenceLine>
           </BarChart>

@@ -17,10 +17,10 @@ import * as dayOfWeek from '../utils/dayOfWeek'
 
 const chartConfig = {
   desktop: {
-    color: 'hsl(var(--chart-2))'
+    color: 'var(--chart-2)'
   },
   label: {
-    color: 'hsl(var(--background))'
+    color: 'var(--background)'
   }
 } satisfies ChartConfig
 

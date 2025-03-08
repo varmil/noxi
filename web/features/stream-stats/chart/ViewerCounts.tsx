@@ -28,7 +28,7 @@ import { FormatForTick } from 'features/stream-stats/hooks/useFormattedDatetime'
 const chartConfig = {
   count: {
     label: 'Count',
-    color: 'hsl(var(--chart-2))'
+    color: 'var(--chart-2)'
   }
 } satisfies ChartConfig
 
