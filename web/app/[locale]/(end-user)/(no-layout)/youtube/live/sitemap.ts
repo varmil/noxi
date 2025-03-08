@@ -25,11 +25,11 @@ export default async function sitemap({
 
   return streams
     .map(stream => {
-      const { videoId, updatedAt } = stream
+      const { videoId } = stream
 
       return getEntry({
-        pathname: `/youtube/live/${videoId}`,
-        lastModified: updatedAt
+        pathname: `/youtube/live/${videoId}`
+        // lastModified: updatedAt
       })
     })
     .filter(e => !!e)
