@@ -28,8 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...(gender && { gender })
       })
       return getEntry({
-        changeFrequency: 'hourly',
-        lastModified: new Date(),
         pathname: `/youtube/live/ranking?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
@@ -46,8 +44,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         group: group.val
       })
       return getEntry({
-        changeFrequency: 'hourly',
-        lastModified: new Date(),
         pathname: `/youtube/live/ranking?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
@@ -64,8 +60,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         ...(gender && { gender })
       })
       return getEntry({
-        changeFrequency: 'hourly',
-        lastModified: new Date(),
         pathname: `/youtube/live/ranking?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
@@ -82,8 +76,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         group: group.val
       })
       return getEntry({
-        changeFrequency: 'hourly',
-        lastModified: new Date(),
         pathname: `/youtube/live/ranking?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
