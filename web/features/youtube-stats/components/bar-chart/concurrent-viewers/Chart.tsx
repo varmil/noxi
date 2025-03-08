@@ -105,7 +105,7 @@ export default function Chart({
 
             <ReferenceLine
               y={average(streams)}
-              stroke="hsl(var(--muted-foreground))"
+              stroke="var(--muted-foreground)"
               strokeDasharray="3 3"
               strokeWidth={1}
             >
@@ -114,7 +114,7 @@ export default function Chart({
                 value={t('avgConcurrentViewers')}
                 className="text-xs"
                 offset={10}
-                fill="hsl(var(--foreground))"
+                fill="var(--foreground)"
               />
             </ReferenceLine>
           </BarChart>
