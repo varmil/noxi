@@ -57,11 +57,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           ...(page && { page: Number(page) })
         }
       ).toString()}`
-    },
-    // channelIdがついたURLはDirtyなので検索結果から消したい
-    robots: {
-      index: channelId ? false : undefined,
-      follow: channelId ? false : undefined
     }
   }
 }
