@@ -72,7 +72,9 @@ export class MainScenario {
           }
 
           // TODO: new-members
-          // {}
+          {
+            // this.logger.log(newMessages)
+          }
 
           await this.promiseService.allSettled(promises)
         })
