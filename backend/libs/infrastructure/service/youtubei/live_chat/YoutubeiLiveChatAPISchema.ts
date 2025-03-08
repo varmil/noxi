@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+export const authorNameSchema = z.object({
+  simpleText: z.string()
+})
+
+export const authorPhotoSchema = z.object({
+  thumbnails: z.array(z.object({ url: z.string() }))
+})
+
 export const authorBadgesSchema = z
   .array(
     z.object({
@@ -27,13 +35,11 @@ export const textMessageSchema = z
 
 const textRenderer = z.object({
   id: z.string(),
-  authorName: z.object({ simpleText: z.string() }).optional(),
-  authorPhoto: z.object({
-    thumbnails: z.array(z.object({ url: z.string() }))
-  }),
-  authorExternalChannelId: z.string(),
-  message: textMessageSchema,
   timestampUsec: z.string(),
+  authorExternalChannelId: z.string(),
+  authorName: authorNameSchema,
+  authorPhoto: authorPhotoSchema,
+  message: textMessageSchema,
   authorBadges: authorBadgesSchema
 })
 
@@ -45,31 +51,47 @@ const paidRenderer = textRenderer.merge(
   })
 )
 
+// authorBadges[0].liveChatAuthorBadgeRenderer.tooltipに
+// "メンバー（3 年）" のような文字列が含まれる
+const membershipRenderer = textRenderer
+
+const membershipGiftRenderer = z.object({
+  id: z.string(),
+  timestampUsec: z.string(),
+  authorExternalChannelId: z.string(),
+  header: z.object({
+    liveChatSponsorshipsHeaderRenderer: z.object({
+      authorName: authorNameSchema,
+      authorPhoto: authorPhotoSchema,
+      // primaryText.runs[0].text に "10" のようなギフト数が含まれる
+      primaryText: textMessageSchema,
+      authorBadges: authorBadgesSchema
+    })
+  })
+})
+
 export const addChatItemActionItemSchema = z.object({
   // 通常のメッセージ
   liveChatTextMessageRenderer: textRenderer.optional(),
   // スーパーチャット
   liveChatPaidMessageRenderer: paidRenderer.optional(),
   // スーパーステッカー
-  liveChatPaidStickerRenderer: paidRenderer.optional()
+  liveChatPaidStickerRenderer: paidRenderer.optional(),
+  // メンバー加入
+  liveChatMembershipItemRenderer: membershipRenderer.optional(),
+  // メンバーシップギフト
+  liveChatSponsorshipsGiftPurchaseAnnouncementRenderer:
+    membershipGiftRenderer.optional()
 })
 
-const continuationData = z
-  .object({
-    continuation: z.string()
-  })
-  .optional()
-
+const continuationData = z.object({ continuation: z.string() }).optional()
 export const youtubeiLiveChatAPISchema = z.object({
   responseContext: z.object({
     serviceTrackingParams: z.array(
       z.object({
         service: z.string(),
         params: z.array(
-          z.object({
-            key: z.string(),
-            value: z.string().optional()
-          })
+          z.object({ key: z.string(), value: z.string().optional() })
         )
       })
     )
