@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -21,7 +22,6 @@ import {
   SelectContent
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { toast } from '@/components/ui/use-toast'
 import { requestFromSuperAdmin } from 'features/super-admin/api/requestFromSuperAdmin'
 
 const formSchema = z.object({
@@ -55,8 +55,7 @@ export function SuperAdminRequestForm() {
     try {
       await requestFromSuperAdmin(data)
 
-      toast({
-        title: 'You submitted the following values:',
+      toast('You submitted the following values:', {
         description: (
           <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
             <code className="text-white">{JSON.stringify(data, null, 2)}</code>
@@ -64,9 +63,7 @@ export function SuperAdminRequestForm() {
         )
       })
     } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
+      toast.error('Uh oh! Something went wrong.', {
         description: 'There was a problem with your request.'
       })
     }

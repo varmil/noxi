@@ -24,6 +24,7 @@ export default function MaximizeButton() {
             size="icon"
             // className="w-full"
             onClick={() => setTheaterMode(true)}
+            aria-label={t('theaterMode')}
           >
             <Maximize className="h-4 w-4" />
           </Button>

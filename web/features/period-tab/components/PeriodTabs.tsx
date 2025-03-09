@@ -50,7 +50,7 @@ export default function PeriodTabs({
       onValueChange={value => setSelectedRange(value as DateRange)}
     >
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
-        <TabsList className="mb-4 sm:mb-0">
+        <TabsList>
           <TabsTrigger value="7days">過去7日間</TabsTrigger>
           <TabsTrigger value="30days">過去30日間</TabsTrigger>
           <TabsTrigger value="1year">過去1年間</TabsTrigger>
