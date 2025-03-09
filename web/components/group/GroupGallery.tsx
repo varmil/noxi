@@ -47,7 +47,7 @@ export default function GroupGallery({
           key={group.id}
           title={group.name}
           href={`/${group.id}`}
-          icon={<group.icon />}
+          icon={<group.icon className="size-6 text-foreground" />}
           useNavigationMenuLink={useNavigationMenuLink}
         >
           {t(group.count.isAll ? 'listingAll' : 'listing', {
@@ -86,7 +86,7 @@ const ListItem = React.forwardRef<
           prefetch={true}
         >
           <div className="flex items-center gap-x-4">
-            <div className="w-6 h-6">{icon}</div>
+            <div className="w-6 h-6 ">{icon}</div>
             <div className="font-medium leading-none">{title}</div>
           </div>
           <p className="line-clamp-2 leading-snug text-muted-foreground">
