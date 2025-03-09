@@ -39,7 +39,13 @@ export function LinkTabs({
             className="flex-1"
             asChild
           >
-            <Link href={tab.href} prefetch={true} scroll={false} replace>
+            <Link
+              href={tab.href}
+              prefetch={true}
+              scroll={false}
+              replace
+              aria-controls={undefined}
+            >
               {tab.label}
             </Link>
           </TabsTrigger>

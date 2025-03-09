@@ -249,6 +249,7 @@
             }
           },
           "button": {
+            "label": "その他の操作",
             "theaterMode": "シアターモードで大きく表示",
             "openChat": "チャットを表示"
           }
@@ -309,8 +310,10 @@
       "talents": "タレント一覧"
     },
     "pagination": {
+      "first": "最初のページへ",
       "previous": "前へ",
       "next": "次へ",
+      "last": "最後のページへ",
       "more": "さらにページがあります",
       "page": "ページ"
     },

@@ -152,10 +152,7 @@ const SmallChannel = ({
       prefetch={false}
     >
       <Avatar className="w-5 h-5 transition-all hover:scale-105">
-        <AvatarImage
-          src={channel.basicInfo.thumbnails.medium?.url}
-          alt={channel.basicInfo.title}
-        />
+        <AvatarImage src={channel.basicInfo.thumbnails.medium?.url} alt={''} />
         <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
       </Avatar>
       <div className="line-clamp-1">{channel.basicInfo.title}</div>
