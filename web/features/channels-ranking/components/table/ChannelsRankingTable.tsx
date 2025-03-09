@@ -107,6 +107,7 @@ export default async function ChannelsRankingTable({
             <TableRow
               key={channelId}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
+              className="h-[60px]"
             >
               {/* Rank */}
               <TableCell className="py-1">
@@ -177,9 +178,9 @@ export default async function ChannelsRankingTable({
               <TableCellOfCountry countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
-              <LinkCell className="@3xl:hidden">
+              {/* <LinkCell className="@3xl:hidden">
                 <ChevronRight className="w-4 h-4" />
-              </LinkCell>
+              </LinkCell> */}
             </TableRow>
           )
         })}

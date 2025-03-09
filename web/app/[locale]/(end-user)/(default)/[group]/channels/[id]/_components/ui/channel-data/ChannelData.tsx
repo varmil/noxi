@@ -29,7 +29,11 @@ export default function ChannelData({ channel }: { channel: ChannelSchema }) {
 
       <div className="col-span-2 flex items-center justify-center lg:hidden">
         {isOpen ? null : (
-          <Button variant="ghost" onClick={() => setIsOpen(true)}>
+          <Button
+            variant="ghost"
+            onClick={() => setIsOpen(true)}
+            aria-label="Show more"
+          >
             <ChevronDown className="h-4 w-4" />
           </Button>
         )}

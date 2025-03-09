@@ -49,6 +49,7 @@ export function ChannelProfileContent({
               <Button
                 variant={isExpanded ? 'outline' : 'ghost'}
                 onClick={() => setIsExpanded(!isExpanded)}
+                className="text-muted-foreground"
               >
                 {isExpanded ? 'Read Less' : 'Read More'}
               </Button>
