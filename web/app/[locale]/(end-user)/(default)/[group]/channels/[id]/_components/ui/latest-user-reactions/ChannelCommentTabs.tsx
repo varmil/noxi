@@ -14,32 +14,34 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
         </TabsTrigger>
       </TabsList>
 
-      <TabsContent
-        forceMount
-        value="superChat"
-        className={'data-[state=inactive]:content-visibility-hidden'}
-      >
-        <SuperChatGallery
-          channelId={channelId}
-          createdAfter={
-            new Date(new Date().getTime() - 24 * 30 * 60 * 60 * 1000)
-          }
-          limit={30}
-          showStreamLink
-        />
-      </TabsContent>
-      <TabsContent
-        forceMount
-        value="comments"
-        className={'data-[state=inactive]:content-visibility-hidden'}
-      >
-        <YoutubeCommentGallery
-          channelId={channelId}
-          order="time"
-          limit={30}
-          showStreamLink
-        />
-      </TabsContent>
+      <section>
+        <TabsContent
+          forceMount
+          value="superChat"
+          className={'data-[state=inactive]:content-visibility-hidden'}
+        >
+          <SuperChatGallery
+            channelId={channelId}
+            createdAfter={
+              new Date(new Date().getTime() - 24 * 30 * 60 * 60 * 1000)
+            }
+            limit={30}
+            showStreamLink
+          />
+        </TabsContent>
+        <TabsContent
+          forceMount
+          value="comments"
+          className={'data-[state=inactive]:content-visibility-hidden'}
+        >
+          <YoutubeCommentGallery
+            channelId={channelId}
+            order="time"
+            limit={30}
+            showStreamLink
+          />
+        </TabsContent>
+      </section>
     </Tabs>
   )
 }
