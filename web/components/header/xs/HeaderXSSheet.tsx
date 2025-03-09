@@ -28,18 +28,15 @@ export default function HeaderXSSheet() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="sm:max-w-xs">
+      <SheetContent side="left" className="p-6 sm:max-w-xs">
         <SheetHeader hidden>
           <SheetTitle hidden>PeakX</SheetTitle>
           <SheetDescription hidden></SheetDescription>
         </SheetHeader>
         <nav className="h-full flex flex-col font-medium">
           <section className="grid gap-6 overflow-y-scroll">
-            <Link
-              href="/"
-              className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2"
-            >
-              <Logo className="h-5 w-5 transition-all group-hover:scale-110" />
+            <Link href="/" className="h-10 w-10">
+              <Logo className="h-8 w-8" />
               <span className="sr-only">PeakX</span>
             </Link>
 
