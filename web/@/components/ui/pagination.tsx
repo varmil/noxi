@@ -68,33 +68,39 @@ PaginationLink.displayName = 'PaginationLink'
 const PaginationPrevious = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to previous page"
-    size="default"
-    className={cn('gap-1 pl-2.5', className)}
-    {...props}
-  >
-    <ChevronLeft className="relative h-4 w-4 top-[1px]" />
-    <span>{useTranslations('Components.pagination')('previous')}</span>
-  </PaginationLink>
-)
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('previous')}
+      size="default"
+      className={cn('gap-1 pl-2.5', className)}
+      {...props}
+    >
+      <ChevronLeft className="relative h-4 w-4 top-[1px]" />
+      <span>{t('previous')}</span>
+    </PaginationLink>
+  )
+}
 PaginationPrevious.displayName = 'PaginationPrevious'
 
 const PaginationNext = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="Go to next page"
-    size="default"
-    className={cn('gap-1 pr-2.5', className)}
-    {...props}
-  >
-    <span>{useTranslations('Components.pagination')('next')}</span>
-    <ChevronRight className="relative h-4 w-4 top-[1px]" />
-  </PaginationLink>
-)
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('next')}
+      size="default"
+      className={cn('gap-1 pr-2.5', className)}
+      {...props}
+    >
+      <span>{t('next')}</span>
+      <ChevronRight className="relative h-4 w-4 top-[1px]" />
+    </PaginationLink>
+  )
+}
 PaginationNext.displayName = 'PaginationNext'
 
 const PaginationEllipsis = ({
@@ -128,33 +134,39 @@ PaginationInfo.displayName = 'PaginationInfo'
 const PaginationFirst = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="最初のページへ"
-    size="default"
-    className={cn('gap-1', className)}
-    {...props}
-  >
-    <ChevronLeft className="relative h-4 w-4 top-[1px]" />
-    <ChevronLeft className="relative h-4 w-4 top-[1px] -ml-2.5" />
-  </PaginationLink>
-)
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('first')}
+      size="default"
+      className={cn('gap-1', className)}
+      {...props}
+    >
+      <ChevronLeft className="relative h-4 w-4 top-[1px]" />
+      <ChevronLeft className="relative h-4 w-4 top-[1px] -ml-2.5" />
+    </PaginationLink>
+  )
+}
 PaginationFirst.displayName = 'PaginationFirst'
 
 const PaginationLast = ({
   className,
   ...props
-}: React.ComponentProps<typeof PaginationLink>) => (
-  <PaginationLink
-    aria-label="最後のページへ"
-    size="default"
-    className={cn('gap-1', className)}
-    {...props}
-  >
-    <ChevronRight className="relative h-4 w-4 top-[1px]" />
-    <ChevronRight className="relative h-4 w-4 top-[1px] -ml-2.5" />
-  </PaginationLink>
-)
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('last')}
+      size="default"
+      className={cn('gap-1', className)}
+      {...props}
+    >
+      <ChevronRight className="relative h-4 w-4 top-[1px]" />
+      <ChevronRight className="relative h-4 w-4 top-[1px] -ml-2.5" />
+    </PaginationLink>
+  )
+}
 PaginationLast.displayName = 'PaginationLast'
 
 export {

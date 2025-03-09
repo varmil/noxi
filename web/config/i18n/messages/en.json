@@ -249,6 +249,7 @@
             }
           },
           "button": {
+            "label": "Other operations",
             "theaterMode": "Theater Mode",
             "openChat": "Open Live Chat"
           }
@@ -309,8 +310,10 @@
       "talents": "Talents"
     },
     "pagination": {
+      "first": "First page",
       "previous": "Back",
       "next": "Next",
+      "last": "Last page",
       "more": "More pages",
       "page": "Page"
     },
