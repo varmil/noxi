@@ -46,6 +46,7 @@ export function Page({
       )}
 
       <main
+        role="main"
         className={`relative z-0 ${containerClass} min-h-screen ${padding} ${
           className ?? ''
         }`}

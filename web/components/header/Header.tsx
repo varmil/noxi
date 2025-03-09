@@ -28,7 +28,7 @@ export default function Header({ className }: { className?: string }) {
       >
         <Logo className="w-6 h-6" />
         <PeakXText className="w-[49.64px] h-[17px]" />
-        <h2 className="sr-only">{t('headerTitle')}</h2>
+        <div className="sr-only">{t('headerTitle')}</div>
       </Link>
 
       <div className="hidden md:block">
