@@ -20,17 +20,17 @@ export default function Difference({ diff, isPercent, className }: Props) {
   switch (true) {
     case diff > 0:
       Icon = ArrowUpIcon
-      color = 'text-green-500'
+      color = 'text-green-700 dark:text-green-500'
       label = '順位上昇'
       break
     case diff < 0:
       Icon = ArrowDownIcon
-      color = 'text-red-500'
+      color = 'text-red-700 dark:text-red-500'
       label = '順位下降'
       break
     case diff === 0:
       Icon = MinusIcon
-      color = 'text-green-500'
+      color = 'text-green-700 dark:text-green-500'
       label = '順位維持'
       break
     default:
