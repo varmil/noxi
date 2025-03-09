@@ -43,34 +43,36 @@ export default function BottomNavigation({ className }: Props) {
     }
   ]
 
-  const isActive = (href: string) => {
-    return pathname === href
-  }
-
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full h-14 bg-background md:hidden ${
+      className={`fixed bottom-0 left-0 w-full h-14.5 bg-background md:hidden ${
         className ?? ''
       }`}
     >
       <div className="grid h-full grid-cols-4 mx-auto">
         {navigation.map(item => {
+          const isActive = (href: string) => {
+            return item.isActive || pathname === href
+          }
           const Icon = item.icon
           return (
             <Button
               key={item.pathname}
               variant="ghost"
               asChild
-              // OR 判定でアクティブかどうか
               className={cn(
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
                 'font-normal text-muted-foreground',
-                (item.isActive || isActive(item.pathname)) &&
-                  'bg-accent text-accent-foreground font-bold hover:bg-muted hover:text-primary'
+                isActive(item.pathname) &&
+                  'bg-accent text-accent-foreground font-bold hover:bg-muted'
               )}
             >
               <Link href={item.pathname + (item.query || '')} prefetch={true}>
-                <Icon className="w-5 h-5" />
+                <Icon
+                  className={`size-5 ${
+                    isActive(item.pathname) ? 'text-primary' : ''
+                  }`}
+                />
                 <span className="text-xs">{item.label}</span>
               </Link>
             </Button>
