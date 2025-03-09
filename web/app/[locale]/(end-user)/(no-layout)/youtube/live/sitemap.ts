@@ -28,8 +28,9 @@ export default async function sitemap({
       const { videoId } = stream
 
       return getEntry({
-        pathname: `/youtube/live/${videoId}`
-        // lastModified: updatedAt
+        pathname: `/youtube/live/${videoId}`,
+        // NOTE: googlebotが正しい更新を終えたらコメントアウトする
+        lastModified: new Date('2025-03-09T16:58:00+09:00')
       })
     })
     .filter(e => !!e)
