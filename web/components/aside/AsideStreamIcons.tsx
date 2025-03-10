@@ -66,9 +66,7 @@ function Content(params: {
 }) {
   return (
     <section className="flex flex-col gap-y-0.5">
-      <div className="text-secondary-foreground text-xs">
-        {params.channelTitle}
-      </div>
+      <div className="text-xs">{params.channelTitle}</div>
       <div>{params.streamTitle}</div>
       <div className="flex gap-0.5">
         <LiveBadge />

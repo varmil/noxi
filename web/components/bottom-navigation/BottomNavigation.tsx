@@ -64,15 +64,11 @@ export default function BottomNavigation({ className }: Props) {
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
                 'font-normal text-muted-foreground',
                 isActive(item.pathname) &&
-                  'bg-accent text-accent-foreground font-bold hover:bg-muted'
+                  'bg-ms-secondary-container text-ms-on-secondary-container font-bold'
               )}
             >
               <Link href={item.pathname + (item.query || '')} prefetch={true}>
-                <Icon
-                  className={`size-5 ${
-                    isActive(item.pathname) ? 'text-primary' : ''
-                  }`}
-                />
+                <Icon className={`size-5`} />
                 <span className="text-xs">{item.label}</span>
               </Link>
             </Button>
