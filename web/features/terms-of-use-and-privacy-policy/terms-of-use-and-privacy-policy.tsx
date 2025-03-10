@@ -17,7 +17,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
           <nav className="mt-4 space-y-2">
             <Link
               href="#terms-of-use"
-              className="text-primary hover:underline"
+              className="hover:underline"
               prefetch={false}
             >
               Terms of Use
@@ -25,7 +25,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <br />
             <Link
               href="#privacy-policy"
-              className="text-primary hover:underline"
+              className="hover:underline"
               prefetch={false}
             >
               Privacy Policy

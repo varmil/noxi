@@ -558,7 +558,8 @@
       "noScheduled": "There are no scheduled streams at the moment.",
       "noEnded": "There are no live streams at the moment.",
       "likes": "Likes",
-      "scheduledLabel": "UPCOMING"
+      "scheduledLabel": "UPCOMING",
+      "earningsLabel": "Super Chat Earnings (Yen)"
     },
     "streamStats": {
       "srChatCountsChart": "The area graph shows the trend in the number of live chats during {dateRange}. The current total number of chats is {total}.",

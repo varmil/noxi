@@ -40,7 +40,7 @@ export default function ChannelCard({
         height={200}
         className="object-cover w-[33%] h-full rounded-l-lg"
       />
-      <div className="px-4 py-2 bg-background flex-1 w-[70%]">
+      <div className="px-4 py-2 flex-1 w-[70%]">
         <h3 className="line-clamp-1 mb-2">{name}</h3>
 
         <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ export default function ChannelCard({
             <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
               <span>{t('totalSubscribers')}</span>
             </div>
-            <span className="text-lg font-bold text-primary">
+            <span className="text-lg font-bold">
               <IntlNumberFormat>{subscriberCount}</IntlNumberFormat>
             </span>
           </div>
