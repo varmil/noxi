@@ -24,17 +24,15 @@ export default async function StreamTextOfEnded({
   return (
     <>
       {actualEndTime && (
-        <>
-          <span>
-            {!!viewCount && (
-              <>
-                <Views views={viewCount} />
-                <Bullet />
-              </>
-            )}
-            <StreamedLive date={actualEndTime} />
-          </span>
-        </>
+        <div>
+          {!!viewCount && (
+            <>
+              <Views views={viewCount} />
+              <Bullet />
+            </>
+          )}
+          <StreamedLive date={actualEndTime} />
+        </div>
       )}
     </>
   )

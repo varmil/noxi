@@ -3,6 +3,7 @@ import { LiveStreamingDetailsSchema } from 'apis/youtube/data-api/schema/liveStr
 import { StatisticsSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import { SupersBundleSchema } from 'apis/youtube/schema/supersBundleSchema'
 import LiveBadge from 'components/styles/badge/LiveBadge'
 import DurationBadge from 'features/group/stream/components/badge/DurationBadge'
 import UpcomingBadge from 'features/group/stream/components/badge/UpcomingBadge'
@@ -13,6 +14,7 @@ import {
   StreamTextContainer
 } from 'features/group/stream/components/stream/StreamContainer'
 import StreamImg from 'features/group/stream/components/stream/StreamImg'
+import StreamTextOfEarnings from 'features/group/stream/components/stream/text/StreamTextOfEarnings'
 import StreamTextOfEnded from 'features/group/stream/components/stream/text/StreamTextOfEnded'
 import StreamTextOfLive from 'features/group/stream/components/stream/text/StreamTextOfLive'
 import StreamTextOfScheduled from 'features/group/stream/components/stream/text/StreamTextOfScheduled'
@@ -32,13 +34,16 @@ type Props = {
   liveStreamingDetails?: LiveStreamingDetailsSchema
   /** Batch取得したもの */
   statistics?: StatisticsSchema
+  /** Batch取得したもの */
+  supersBundle?: SupersBundleSchema
 }
 
 export default async function Stream({
   stream,
   channel,
   liveStreamingDetails,
-  statistics
+  statistics,
+  supersBundle
 }: PropsWithoutRef<Props>) {
   const { streamTimes } = stream
   const isLive = stream.status === 'live'
@@ -70,6 +75,7 @@ export default async function Stream({
           {isEnded && (
             <StreamTextOfEnded stream={stream} statistics={statistics} />
           )}
+          <StreamTextOfEarnings supersBundle={supersBundle} />
         </StreamTextContainer>
       </StreamContentContainer>
     </StreamContainer>
