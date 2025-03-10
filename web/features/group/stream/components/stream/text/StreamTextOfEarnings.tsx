@@ -15,7 +15,7 @@ export default async function StreamTextOfEarnings({
   return (
     <div className="flex items-center gap-0.5">
       <JapaneseYen className="w-3 h-3" />
-      <span className="font-medium" aria-label="スパチャ収益">
+      <span className="font-medium" aria-label="スパチャ収益（円）">
         {formatMicrosAsRoundedAmount(amountMicros)}
       </span>
     </div>
