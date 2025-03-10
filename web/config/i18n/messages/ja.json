@@ -558,7 +558,8 @@
       "noScheduled": "予定はありません。",
       "noEnded": "ライブはまだありません。",
       "likes": "高評価",
-      "scheduledLabel": "配信予定"
+      "scheduledLabel": "配信予定",
+      "earningsLabel": "スパチャ収益（円）"
     },
     "streamStats": {
       "srChatCountsChart": "{dateRange}におけるライブのチャット数推移を面グラフで示しています。現在のチャット総数は{total}件です。",
