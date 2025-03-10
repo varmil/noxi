@@ -28,7 +28,7 @@ export default function SelectButton({
 
   return (
     <Button
-      className={`w-full text-xs sm:text-sm h-8 sm:h-10 font-normal justify-start ${
+      className={`w-full text-xs sm:text-sm h-8 sm:h-10 font-normal justify-start rounded-none ${
         className || ''
       }`}
       {...rest}
