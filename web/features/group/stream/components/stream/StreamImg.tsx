@@ -13,7 +13,7 @@ export default function StreamImg({
   } = stream
 
   return (
-    <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+    <div className="relative aspect-video w-full rounded-2xl overflow-hidden">
       <Link href={`/youtube/live/${videoId}`}>
         <VideoThumbnail size="standard" title={title} thumbnails={thumbnails} />
         {children}
