@@ -77,7 +77,7 @@ export default async function ChannelsRankingTable({
   return (
     <Table>
       <ChannelsRankingTableHeader dimension={dimension} />
-      <TableBody>
+      <TableBody zebraStripes>
         {channelIds.map((channelId, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === channelId
@@ -107,7 +107,7 @@ export default async function ChannelsRankingTable({
             <TableRow
               key={channelId}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
-              className="h-[60px] border-none"
+              className="border-none"
             >
               {/* Rank */}
               <TableCell className="py-1">
