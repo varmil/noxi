@@ -65,7 +65,7 @@ export default async function StreamRankingTable({
 
           return (
             <TableRow
-              key={videoId}
+              key={`${videoId}-${i}`}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channel.basicInfo.id}`} // For Highlighter
               className="border-none"
             >
