@@ -35,7 +35,11 @@ export default function TableCellOfStreamForSmallContainer({
   return (
     <LinkCell videoId={videoId} className="@lg:hidden">
       <div className="flex flex-col gap-2">
-        <div className="font-light line-clamp-2 break-anywhere">{title}</div>
+        <SmallChannel channel={channel} />
+
+        <span className="text-muted-foreground line-clamp-2 break-anywhere">
+          {title}
+        </span>
 
         {dimension === 'concurrent-viewer' ? (
           <Dimension
@@ -53,8 +57,6 @@ export default function TableCellOfStreamForSmallContainer({
             icon={<JapaneseYen className="w-3 h-3" />}
           />
         ) : null}
-
-        <SmallChannel channel={channel} />
       </div>
     </LinkCell>
   )
@@ -68,8 +70,8 @@ const SmallChannel = ({
   channel: ChannelSchema
 }) => {
   return (
-    <div className={`flex items-center gap-2 font-light ${className || ''}`}>
-      <Avatar className="w-4 h-4 @md:w-5 @md:h-5 transition-all hover:scale-105">
+    <div className={`flex items-center gap-2 ${className || ''}`}>
+      <Avatar className="size-6 @md:size-6 transition-all hover:scale-105">
         <AvatarImage
           src={channel.basicInfo.thumbnails.medium?.url}
           alt={channel.basicInfo.title}

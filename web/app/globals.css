@@ -41,8 +41,6 @@
   --color-gold: var(--gold);
   --color-silver: var(--silver);
   --color-bronze: var(--bronze);
-  --color-ms-secondary-container: var(--ms-secondary-container);
-  --color-ms-on-secondary-container: var(--ms-on-secondary-container);
 
   --animate-wiggle: wiggle 1s ease-in-out infinite;
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -150,8 +148,6 @@
     --gold: hsl(51 100% 35%);
     --silver: hsl(0 0% 40%);
     --bronze: hsl(30 60% 35%);
-    --ms-secondary-container: #fed08d;
-    --ms-on-secondary-container: #795721;
   }
 
   .dark {
@@ -185,8 +181,6 @@
     --gold: hsl(51 100% 65%);
     --silver: hsl(0 0% 85%);
     --bronze: hsl(30 60% 65%);
-    --ms-secondary-container: #62430d;
-    --ms-on-secondary-container: #ddb172;
   }
 }
 

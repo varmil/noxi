@@ -21,7 +21,7 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
 
         {/* xs-md: Stream Title & Ch. Thumbnail & Ch. Title */}
         <TableHead className="@lg:hidden text-nowrap">
-          {t('streamTitle')} / {t('viewers')} / {t('channel')}
+          {t('channel')} / {t('streamTitle')} / {t('viewers')}
         </TableHead>
 
         {/* lg-: Channel + Stream Title */}
