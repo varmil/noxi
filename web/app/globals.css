@@ -145,7 +145,7 @@
     --chart-4: hsl(43 74% 66%);
     --chart-5: hsl(27 87% 67%);
 
-    --gold: hsl(51 100% 35%);
+    --gold: hsl(51 100% 45%);
     --silver: hsl(0 0% 40%);
     --bronze: hsl(30 60% 35%);
   }
@@ -178,9 +178,9 @@
     --chart-4: hsl(280 65% 60%);
     --chart-5: hsl(340 75% 55%);
 
-    --gold: hsl(51 100% 65%);
+    --gold: hsl(51 100% 45%);
     --silver: hsl(0 0% 85%);
-    --bronze: hsl(30 60% 65%);
+    --bronze: hsl(30 60% 50%);
   }
 }
 

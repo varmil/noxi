@@ -16,7 +16,7 @@ export default function DifferenceMini({ diff, className }: Props) {
   switch (true) {
     case diff > 0:
       Icon = ChevronUp
-      color = 'text-green-700 dark:text-green-500'
+      color = 'text-green-800 dark:text-green-500'
       label = '順位上昇'
       break
     case diff < 0:
@@ -26,7 +26,7 @@ export default function DifferenceMini({ diff, className }: Props) {
       break
     case diff === 0:
       Icon = MinusIcon
-      color = 'text-green-700 dark:text-green-500'
+      color = 'text-green-800 dark:text-green-500'
       label = '順位維持'
       break
     default:

@@ -20,7 +20,7 @@ export default function RankBadge({ rank }: Props) {
   switch (rank) {
     case 1:
       badgeClass += ''
-      icon = <Crown className={`${iconClass} fill-gold stroke-gold`} />
+      icon = <Crown className={`${iconClass} fill-gold stroke-1`} />
       ariaLabel = '1位 金メダル'
       break
     case 2:
