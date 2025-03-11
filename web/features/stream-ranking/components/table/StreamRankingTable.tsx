@@ -67,6 +67,7 @@ export default async function StreamRankingTable({
             <TableRow
               key={videoId}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channel.basicInfo.id}`} // For Highlighter
+              className="h-[120px] border-none"
             >
               {/* Rank */}
               <TableCell className="align-top">
@@ -93,7 +94,7 @@ export default async function StreamRankingTable({
                 <div className="flex flex-col gap-4">
                   <SmallChannel channel={channel} group={stream.group} />
                   <Link
-                    className="text-sm font-light line-clamp-2 break-anywhere"
+                    className="text-sm text-muted-foreground line-clamp-2 break-anywhere"
                     href={`/youtube/live/${videoId}`}
                     prefetch={false}
                   >
@@ -151,7 +152,7 @@ const SmallChannel = ({
       href={`/${group}/channels/${channel.basicInfo.id}`}
       prefetch={false}
     >
-      <Avatar className="w-5 h-5 transition-all hover:scale-105">
+      <Avatar className="size-8 transition-all hover:scale-105">
         <AvatarImage src={channel.basicInfo.thumbnails.medium?.url} alt={''} />
         <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
       </Avatar>

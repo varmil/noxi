@@ -64,7 +64,7 @@ export default function BottomNavigation({ className }: Props) {
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
                 'font-normal text-muted-foreground',
                 isActive(item.pathname) &&
-                  'bg-ms-secondary-container text-ms-on-secondary-container font-bold'
+                  'bg-accent text-accent-foreground font-bold'
               )}
             >
               <Link href={item.pathname + (item.query || '')} prefetch={true}>
