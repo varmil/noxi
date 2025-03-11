@@ -33,39 +33,16 @@ const TableHeader = React.forwardRef<
 ))
 TableHeader.displayName = 'TableHeader'
 
-interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {
-  zebraStripes?: boolean
-}
-
-const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
-  ({ className, zebraStripes = false, children, ...props }, ref) => {
-    const childrenWithZebraStripes = React.Children.map(
-      children,
-      (child, index) => {
-        if (
-          React.isValidElement<React.PropsWithChildren<TableRowProps>>(child) &&
-          child.type === TableRow
-        ) {
-          return React.cloneElement(child, {
-            isEven: index % 2 === 0,
-            zebraStripes,
-            ...child.props
-          })
-        }
-        return child
-      }
-    )
-    return (
-      <tbody
-        ref={ref}
-        className={cn('[&_tr:last-child]:border-0', className)}
-        {...props}
-      >
-        {zebraStripes ? childrenWithZebraStripes : children}
-      </tbody>
-    )
-  }
-)
+const TableBody = React.forwardRef<
+  HTMLTableSectionElement,
+  React.HTMLAttributes<HTMLTableSectionElement>
+>(({ className, ...props }, ref) => (
+  <tbody
+    ref={ref}
+    className={cn('[&_tr:last-child]:border-0', className)}
+    {...props}
+  />
+))
 TableBody.displayName = 'TableBody'
 
 const TableFooter = React.forwardRef<
@@ -83,25 +60,20 @@ const TableFooter = React.forwardRef<
 ))
 TableFooter.displayName = 'TableFooter'
 
-interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  zebraStripes?: boolean
-  isEven?: boolean
-}
-
-const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
-  ({ className, zebraStripes = false, isEven = false, ...props }, ref) => (
-    <tr
-      ref={ref}
-      className={cn(
-        'border-b border-border-variant transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
-        zebraStripes && isEven && 'bg-background',
-        zebraStripes && !isEven && 'bg-accent/25',
-        className
-      )}
-      {...props}
-    />
-  )
-)
+const TableRow = React.forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement> & { zebraStripes?: boolean }
+>(({ className, zebraStripes = false, ...props }, ref) => (
+  <tr
+    ref={ref}
+    className={cn(
+      'border-b border-border-variant transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+      zebraStripes && 'even:bg-muted odd:bg-background',
+      className
+    )}
+    {...props}
+  />
+))
 TableRow.displayName = 'TableRow'
 
 const TableHead = React.forwardRef<

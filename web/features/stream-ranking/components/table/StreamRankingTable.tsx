@@ -48,7 +48,7 @@ export default async function StreamRankingTable({
   return (
     <Table>
       <StreamRankingTableHeader dimension={dimension} />
-      <TableBody zebraStripes>
+      <TableBody>
         {streams.map((stream, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId
@@ -68,6 +68,7 @@ export default async function StreamRankingTable({
               key={videoId}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channel.basicInfo.id}`} // For Highlighter
               className="border-none"
+              zebraStripes
             >
               {/* Rank */}
               <TableCell className="align-top">
