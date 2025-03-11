@@ -10,7 +10,7 @@ export default function ChannelThumbnail({
 }) {
   return (
     <Avatar
-      className={`size-7.5 @lg:size-12 transition-all hover:scale-105 ${
+      className={`size-7.5 @lg:size-9 transition-all hover:scale-105 ${
         className || ''
       }`}
     >

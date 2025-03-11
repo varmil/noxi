@@ -10,7 +10,7 @@ export default function TableCellOfGroup({
 }) {
   return (
     <Cell className="hidden @3xl:table-cell" width={100}>
-      <GroupImageOrIcon className="w-8 h-8 m-auto" groupId={groupId} />
+      <GroupImageOrIcon className="size-7 m-auto" groupId={groupId} />
     </Cell>
   )
 }
