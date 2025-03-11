@@ -12,7 +12,7 @@ export default async function ChannelsRankingTableHeader({ dimension }: Props) {
 
   return (
     <TableHeader>
-      <TableRow className="border-none">
+      <TableRow>
         {/* Rank */}
         <TableHead className="w-0 text-nowrap"></TableHead>
 
