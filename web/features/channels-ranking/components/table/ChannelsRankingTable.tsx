@@ -105,7 +105,7 @@ export default async function ChannelsRankingTable({
 
           return (
             <TableRow
-              key={channelId}
+              key={`${channelId}-${i}`}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
               className="border-none"
             >
