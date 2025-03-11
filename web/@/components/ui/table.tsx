@@ -93,9 +93,9 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
     <tr
       ref={ref}
       className={cn(
-        'border-b border-border-variant transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted',
+        'border-b border-border-variant transition-colors hover:bg-accent/60 data-[state=selected]:bg-accent',
         zebraStripes && isEven && 'bg-background',
-        zebraStripes && !isEven && 'bg-accent/25',
+        zebraStripes && !isEven && 'bg-accent/25 dark:not-hover:bg-accent/18', // ゼブラのコントラストが1.06前後になるよう調整
         className
       )}
       {...props}
