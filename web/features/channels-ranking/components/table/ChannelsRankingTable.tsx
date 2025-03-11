@@ -178,9 +178,9 @@ export default async function ChannelsRankingTable({
               <TableCellOfCountry countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
-              {/* <LinkCell className="@3xl:hidden">
+              <LinkCell className="min-w-[40px] @3xl:hidden">
                 <ChevronRight className="w-4 h-4" />
-              </LinkCell> */}
+              </LinkCell>
             </TableRow>
           )
         })}

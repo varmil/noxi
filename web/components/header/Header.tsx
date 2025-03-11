@@ -15,7 +15,7 @@ export default function Header({ className }: { className?: string }) {
 
   return (
     <header
-      className={`sticky top-0 flex h-14 items-center gap-4 border-b border-border/60 bg-background px-1.5 ${bgFilter} ${sm} ${
+      className={`sticky top-0 flex h-14 items-center gap-4 border-b border-dotted border-border-variant bg-background px-1.5 ${bgFilter} ${sm} ${
         className ?? ''
       }`}
     >

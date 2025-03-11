@@ -34,14 +34,11 @@ export default async function IndexTemplate({
         />
       </section>
 
-      <section className={`${PageSMPX}`}>
+      <section className={`${PageSMPX} space-y-6`}>
         <ChannelsRankingGallery
           className="max-w-6xl mx-auto"
           {...searchParams}
         />
-      </section>
-
-      <section className={`${PageSMPX}`}>
         <ResponsivePagination
           totalPages={ChannelsRankingPagination.getTotalPages(count)}
         />

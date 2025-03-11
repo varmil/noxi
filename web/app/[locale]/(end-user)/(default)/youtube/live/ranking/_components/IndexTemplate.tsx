@@ -27,18 +27,15 @@ export default async function IndexTemplate({
         <StreamRankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
 
-      <section className={`${PageSMPX}`}>
+      <section className={`${PageSMPX} space-y-6`}>
         <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
-      </section>
-
-      {/* とりあえずViewerのときのみ表示 */}
-      {searchParams.dimension === 'concurrent-viewer' && (
-        <section className={`${PageSMPX}`}>
+        {/* とりあえずViewerのときのみ表示 */}
+        {searchParams.dimension === 'concurrent-viewer' && (
           <ResponsivePagination
             totalPages={StreamRankingPagination.getTotalPages(count)}
           />
-        </section>
-      )}
+        )}
+      </section>
     </section>
   )
 }
