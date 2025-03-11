@@ -14,8 +14,8 @@ type Props = PropsWithoutRef<{
 export default function StreamRankingFilterGallery({ className }: Props) {
   return (
     <GalleryContainer className={className}>
-      <ScrollArea className="w-full whitespace-nowrap border">
-        <div className="flex divide-x">
+      <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
+        <div className="flex divide-x divide-border-variant">
           <PeriodColumn
             keys={[
               'realtime',

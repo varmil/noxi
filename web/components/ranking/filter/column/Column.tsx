@@ -3,7 +3,9 @@ import { Search } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export const Column = ({ children }: PropsWithChildren) => (
-  <div className="flex-1 p-4 pb-0 min-w-[151px]">{children}</div>
+  <div className="flex-1 pt-4 px-4 pb-0 min-w-[151px] overflow-hidden">
+    {children}
+  </div>
 )
 
 export const ColumnHeader = ({
