@@ -27,7 +27,7 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
   const { title, thumbnail, date, views, peakConcurrentViewers } = data
 
   return (
-    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-1.5 gap-1 bg-muted rounded-sm border text-xs text-muted-foreground">
+    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-1.5 gap-1 bg-popover rounded-sm border text-xs text-muted-foreground">
       <section className="col-span-full">
         <div className="aspect-video overflow-hidden rounded-sm">
           <Image
@@ -49,7 +49,7 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
           </div>
         )}
         {!!peakConcurrentViewers && (
-          <div className="font-bold">
+          <div className="font-bold text-popover-foreground">
             Peak{' '}
             <IntlNumberFormat>{peakConcurrentViewers ?? 0}</IntlNumberFormat>
           </div>

@@ -121,15 +121,15 @@
     --foreground: hsl(41 0% 7.5%);
     --card: hsl(41 0% 95%);
     --card-foreground: hsl(41 0% 12.5%);
-    --popover: hsl(41 0% 97.5%);
-    --popover-foreground: hsl(41 95% 5%);
+    --popover: hsl(41 0% 93.5%);
+    --popover-foreground: hsl(41 0% 5%);
     --primary: hsl(41 100% 49.4%);
-    --primary-foreground: #222;
-    --secondary: hsl(41 14% 88%);
+    --primary-foreground: hsl(0 0% 9%);
+    --secondary: hsl(41 20% 90%);
     --secondary-foreground: hsl(0 0 10%);
-    --muted: hsl(79 10% 90%);
-    --muted-foreground: hsl(41 0% 37.5%);
-    --accent: hsl(79 10% 85%);
+    --muted: hsl(41 5% 90%);
+    --muted-foreground: hsl(41 0% 39.5%);
+    --accent: hsl(41 5% 88%);
     --accent-foreground: hsl(41 0% 12.5%);
     --destructive: hsl(0 50% 40%);
     --destructive-foreground: hsl(41 0% 95%);
@@ -151,25 +151,25 @@
   }
 
   .dark {
-    --background: hsl(41 10% 7.5%);
+    --background: hsl(41 10% 4.1%);
     --foreground: hsl(41 0% 95%);
-    --card: hsl(41 0% 5%);
+    --card: hsl(41 10% 3.9%);
     --card-foreground: hsl(41 0% 95%);
-    --popover: hsl(41 10% 5%);
+    --popover: hsl(41 10% 3.1%);
     --popover-foreground: hsl(41 0% 95%);
     --primary: hsl(41 100% 49.4%);
     --primary-foreground: hsl(0 0% 0%);
-    --secondary: hsl(79 5% 17%);
-    --secondary-foreground: hsl(0, 0%, 98%);
-    --muted: hsl(41 10% 15%);
-    --muted-foreground: hsl(0, 0%, 73%);
-    --accent: hsl(79 10% 20%);
-    --accent-foreground: hsl(41 0% 92.5%);
-    --destructive: hsl(0 50% 40%);
-    --destructive-foreground: hsl(41 0% 95%);
-    --border: hsl(41 20% 34%);
+    --secondary: hsl(41 1% 17%);
+    --secondary-foreground: hsl(41 0% 98%);
+    --muted: hsl(41 5% 13.5%);
+    --muted-foreground: hsl(41 0% 61%);
+    --accent: hsl(41 5% 16%);
+    --accent-foreground: hsl(41 0% 95%);
+    --destructive: hsl(0 50% 35%);
+    --destructive-foreground: hsl(41 0% 90%);
+    --border: hsl(41 20% 20%);
     --border-variant: hsl(41 5% 17%);
-    --input: hsl(41 20% 34%);
+    --input: hsl(41 20% 20%);
     --ring: hsl(41 88.7% 45.3%);
 
     --chart-1: hsl(220 70% 50%);
