@@ -29,11 +29,8 @@ export default function RankHighlighter({ children }: PropsWithChildren) {
       targetElement.scrollIntoView({ behavior: 'instant', block: 'center' })
 
       // 要素をハイライト
-      targetElement.classList.add(
-        'bg-accent',
-        'transition-colors',
-        'duration-400'
-      )
+      targetElement.setAttribute('data-state', 'selected')
+      targetElement.classList.add('transition-colors', 'duration-300')
     }
   }, [])
 

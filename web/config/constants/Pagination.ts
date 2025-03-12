@@ -1,5 +1,5 @@
 class ChannelsRankingSingleton {
-  readonly PAGE_SIZE = 20
+  readonly PAGE_SIZE = 25
   readonly COMPACT_PAGE_SIZE = 7
 
   getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
