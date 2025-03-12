@@ -95,7 +95,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       className={cn(
         'border-b border-border-variant transition-colors hover:bg-accent/50 data-[state=selected]:bg-accent',
         zebraStripes && isEven && 'bg-background',
-        zebraStripes && !isEven && 'bg-accent/30', // ゼブラのコントラストが1.05前後になるよう調整
+        zebraStripes && !isEven && 'bg-accent/22', // ゼブラのコントラストが1.05前後になるよう調整
         className
       )}
       {...props}
