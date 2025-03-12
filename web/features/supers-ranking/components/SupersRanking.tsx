@@ -274,7 +274,7 @@ function SeeMoreCell({
       group={group}
       gender={gender}
     >
-      <Button variant="secondary" className="cursor-pointer">
+      <Button variant="outline" className="cursor-pointer">
         {feat('more')}
         <ArrowUpRight className="ml-1 w-4 h-4" />
       </Button>

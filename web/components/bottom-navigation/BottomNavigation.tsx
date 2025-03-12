@@ -62,7 +62,7 @@ export default function BottomNavigation({ className }: Props) {
               asChild
               className={cn(
                 'h-full rounded-none flex flex-col items-center justify-center gap-1 p-0',
-                'font-normal text-muted-foreground',
+                'text-muted-foreground',
                 isActive(item.pathname) &&
                   'bg-accent text-accent-foreground font-bold'
               )}
