@@ -1,6 +1,7 @@
 'use client'
 
 import { PropsWithChildren, useState } from 'react'
+import { ChevronUp, ChevronDown } from 'lucide-react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
@@ -39,19 +40,24 @@ export function ChannelProfileContent({
           <div className="max-w-xl break-anywhere whitespace-normal">
             <div
               className={`overflow-hidden transition-all duration-300 ${
-                isExpanded ? 'max-h-[10000px]' : 'max-h-[100px]'
+                isExpanded ? 'max-h-[10000px]' : 'max-h-[64px]'
               }`}
             >
               {children}
             </div>
 
-            <div className="mt-2 flex justify-end">
+            <div className="flex justify-center">
               <Button
-                variant={isExpanded ? 'outline' : 'ghost'}
+                variant="ghost"
                 onClick={() => setIsExpanded(!isExpanded)}
                 className="text-muted-foreground"
+                aria-label={isExpanded ? 'Read Less' : 'Read More'}
               >
-                {isExpanded ? 'Read Less' : 'Read More'}
+                {isExpanded ? (
+                  <ChevronUp className="size-4" />
+                ) : (
+                  <ChevronDown className="size-4" />
+                )}
               </Button>
             </div>
           </div>

@@ -27,7 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function HololiveScheduledPage(props: Props) {
+export default function GroupScheduledPage(props: Props) {
   const { locale, group } = use(props.params)
 
   // Enable static rendering

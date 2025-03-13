@@ -32,7 +32,7 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
   const current = Number(get(QS_KEY)) || 1
 
   return (
-    <Pagination className={className}>
+    <Pagination className={`${className} text-base sm:text-lg`}>
       <PaginationContent>
         {/* <PaginationItem className="hidden">
           <PaginationFirst

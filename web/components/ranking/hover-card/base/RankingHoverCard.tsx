@@ -17,7 +17,7 @@ export const PopoverDate = ({ date }: { date: dayjs.ConfigType }) => {
 }
 
 export const Title = ({ children }: PropsWithChildren) => (
-  <h4 className="text-sm">{children}</h4>
+  <h4 className="">{children}</h4>
 )
 
 export const Items = ({ children }: PropsWithChildren) => (
@@ -29,17 +29,15 @@ export const Item = ({ children }: PropsWithChildren) => (
 )
 
 export const ItemTitle = ({ children }: PropsWithChildren) => (
-  <h5 className="text-sm font-semibold">{children}</h5>
+  <h5 className="font-semibold">{children}</h5>
 )
 
 export const ItemDescription = ({ children }: PropsWithChildren) => (
-  <div className="rounded-md bg-muted px-3 py-2 text-sm text-center">
-    {children}
-  </div>
+  <div className="rounded-md bg-muted px-3 py-2 text-center">{children}</div>
 )
 
 export const DatetimeContainer = ({ children }: PropsWithChildren) => (
-  <div className="grid grid-cols-[4rem_1fr] gap-2 text-sm">{children}</div>
+  <div className="grid grid-cols-[4rem_1fr] gap-2">{children}</div>
 )
 
 export const Datetime = ({ date }: { date: Date | number }) => {

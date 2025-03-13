@@ -61,10 +61,6 @@ export default async function ChannelsIdBasePage(
     <Page
       breadcrumb={[
         {
-          href: `/groups`,
-          name: (await getTranslations('Page.groups.metadata'))('title')
-        },
-        {
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
