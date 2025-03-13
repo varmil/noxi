@@ -45,12 +45,12 @@ export default function BottomNavigation({ className }: Props) {
 
   return (
     <div
-      className={`fixed bottom-[calc(0px+env(safe-area-inset-bottom))] left-0 right-0 w-full h-14.5 bg-background md:hidden ${
+      className={`sticky bottom-0 left-0 w-full h-14.5 bg-background md:hidden ${
         className ?? ''
       }`}
     >
       {/* workaround: https://stackoverflow.com/questions/73891040/div-with-sticky-position-relative-to-the-bottom-jumps-around-when-scrolling */}
-      <div className="fixed" />
+      <div className="fixed text-transparent" />
       <div className="grid h-full grid-cols-4 mx-auto">
         {navigation.map(item => {
           const isActive = (href: string) => {
