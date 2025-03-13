@@ -9,7 +9,7 @@ export default function SocialProofSection() {
     <section>
       <div className="flex flex-col items-center space-y-8 text-center">
         <HeroH3>{t('title')}</HeroH3>
-        <p className="max-w-[800px] text-lg text-muted-foreground md:text-xl">
+        <p className="max-w-[800px] text-muted-foreground text-lg md:text-xl">
           {t('description')}
         </p>
 

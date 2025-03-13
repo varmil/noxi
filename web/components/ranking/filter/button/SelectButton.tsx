@@ -28,9 +28,7 @@ export default function SelectButton({
 
   return (
     <Button
-      className={`w-full h-9 sm:h-10 font-normal justify-start ${
-        className || ''
-      }`}
+      className={`w-full font-normal justify-start ${className || ''}`}
       {...rest}
       asChild
       variant={active ? activeVariant ?? 'default' : 'ghost'}
