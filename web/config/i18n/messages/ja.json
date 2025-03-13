@@ -377,7 +377,7 @@
         "chart": {
           "countsByDoW": {
             "title": "曜日ごとの配信頻度",
-            "description": "各曜日におけるライブ配信回数を表示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
+            "description": "各曜日のライブ回数を表示",
             "srOnly": "1週間の各曜日におけるライブ配信回数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
             "srOnlyLoop": "{DoW}に{count}本のライブ配信が行われました。"
           },
@@ -515,11 +515,7 @@
         "count": "{count} 件のコメント"
       },
       "video": {
-        "views": "{count}回視聴",
-        "watchTime": "総再生時間",
-        "likeRatio": "この動画の高評価数 / 再生回数（高評価率）は{rate}%です。この値は視聴者の満足度や反応を測るのに役立ちます。",
-        "commentRatio": "この動画のコメント数 / 再生回数（コメント率）は{rate}%です。この値は視聴者が動画にどれだけ積極的にコメントを残しているかの指標です。",
-        "noVideos": "直近、ライブ配信以外の動画投稿はありません。"
+        "views": "{count}回視聴"
       },
       "highlight-clip": {
         "title": "最新の切り抜き動画まとめ",
@@ -534,7 +530,7 @@
           "avgConcurrentViewers": "平均同接数",
           "viewsChart": "視聴回数 - ライブ配信",
           "streamTimeHistogram": "ライブ配信時間帯",
-          "descStreamTimeHistogram": "各時間帯におけるYouTubeライブ配信の頻度を表示しています。配信時間全体を通じてカウントされています。",
+          "descStreamTimeHistogram": "各時間帯のライブの頻度を表示",
           "timeSlot": "時間帯",
           "streamFrequency": "配信回数",
           "srPeakConcurrentViewersChart": "{dateRange}におけるライブ配信の最大視聴者数を棒グラフで示しています。この期間の平均視聴者数は{viewers}人です。",

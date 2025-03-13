@@ -19,11 +19,10 @@ export function StatsCard({
 
 export function StatsCardHeader({ children }: PropsWithChildren) {
   return (
-    <CardHeader className="flex flex-row items-center pb-2">
-      <CardTitle className="flex justify-between w-full font-medium h-5">
+    <CardHeader className="pb-2">
+      <CardTitle className="flex justify-between w-full font-medium">
         {children}
       </CardTitle>
-      {/* <Icon className="h-4 w-4 text-muted-foreground" /> */}
     </CardHeader>
   )
 }
@@ -43,7 +42,7 @@ export function StatsCardContent({
 }: PropsWithChildren<Props>) {
   return (
     <CardContent>
-      <div className="flex items-baseline gap-x-5">
+      <div className="flex items-baseline gap-x-6">
         <div
           className={`text-xl sm:text-2xl font-bold tabular-nums ${
             className ?? ''
@@ -56,7 +55,7 @@ export function StatsCardContent({
         ) : null}
       </div>
       {subText && (
-        <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground">
+        <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
           {subText}
         </p>
       )}
