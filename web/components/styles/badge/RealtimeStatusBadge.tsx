@@ -54,14 +54,14 @@ export function RealtimeStatusBadge({
           )}
         />
       </span>
-      <span className="text-xs text-nowrap">
+      <span className="text-nowrap">
         {isLive ? comp('realtime') : comp('past')}
       </span>
     </>
   )
 
   const badgeClasses = cn(
-    'text-sm font-light cursor-default',
+    'font-light cursor-default',
     isLive ? '' : 'hover:bg-zinc-300 cursor-pointer',
     className
   )

@@ -55,7 +55,7 @@ export default function ChannelsRankingTableTitle({
           </div>
         </h1>
 
-        <div className="flex items-baseline gap-x-3">
+        <div className="flex items-center gap-x-3">
           <PeriodHoverCardFactory period={period} date={date} />
           {period === 'last24Hours' && (
             <RealtimeStatusBadge
