@@ -27,7 +27,7 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
   const { title, thumbnail, date, views, peakConcurrentViewers } = data
 
   return (
-    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-1.5 gap-1 bg-popover rounded-sm border text-muted-foreground">
+    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-2 gap-2 bg-popover rounded border text-sm text-muted-foreground">
       <section className="col-span-full">
         <div className="aspect-video overflow-hidden rounded-sm">
           <Image
@@ -40,7 +40,9 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
         </div>
       </section>
 
-      <section className="col-span-full line-clamp-2">{title}</section>
+      <section className="col-span-full line-clamp-2 break-all">
+        {title}
+      </section>
 
       <section className="col-span-full flex">
         {!!views && (
