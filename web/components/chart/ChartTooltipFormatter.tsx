@@ -32,7 +32,7 @@ export default function ChartTooltipFormatter({
 
 export function ChartTooltipTotal({ value }: { value: Value }) {
   return (
-    <div className="mt-1.5 flex basis-full items-center border-t pt-1.5 text-xs font-medium text-foreground">
+    <div className="mt-1.5 flex basis-full items-center border-t pt-1.5 font-medium text-foreground">
       Total
       <div className="ml-auto flex items-baseline gap-0.5 font-medium tabular-nums text-foreground">
         {value}
