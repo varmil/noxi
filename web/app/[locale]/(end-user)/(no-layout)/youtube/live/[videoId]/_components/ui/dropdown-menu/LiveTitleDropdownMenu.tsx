@@ -23,7 +23,7 @@ export function LiveTitleDropdownMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" aria-label={t('label')}>
-          <EllipsisVertical className="h-6 w-6" />
+          <EllipsisVertical className="size-5 sm:size-7" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
