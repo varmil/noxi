@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
-import { Badge } from '@/components/ui/badge'
 import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
@@ -66,16 +65,6 @@ export default async function ChannelSupersCards({
     getSupersSummaryHistories(historiesParams('last30Days'))
   ])
 
-  const createdAtText = `${format.relativeTime(
-    summary.createdAt
-  )}, ${format.dateTime(summary.createdAt, {
-    month: '2-digit',
-    day: '2-digit',
-    hour: 'numeric',
-    minute: 'numeric',
-    timeZoneName: 'short'
-  })}`
-
   return (
     <StatsCards>
       <StatsCard>
@@ -117,7 +106,7 @@ export default async function ChannelSupersCards({
           )}
           diffIsPercent
           subText={global('datetime.updatedAt', {
-            updatedAt: createdAtText
+            updatedAt: format.relativeTime(summary.createdAt)
           })}
         >
           <JapaneseYen className="w-4 h-4" />
@@ -141,7 +130,7 @@ export default async function ChannelSupersCards({
           )}
           diffIsPercent
           subText={global('datetime.updatedAt', {
-            updatedAt: createdAtText
+            updatedAt: format.relativeTime(summary.createdAt)
           })}
         >
           <JapaneseYen className="w-4 h-4" />

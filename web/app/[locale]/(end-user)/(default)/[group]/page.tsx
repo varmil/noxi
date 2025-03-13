@@ -35,7 +35,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function HololivePage(props: Props) {
+export default function GroupPage(props: Props) {
   const { locale, group } = use(props.params)
 
   // Enable static rendering

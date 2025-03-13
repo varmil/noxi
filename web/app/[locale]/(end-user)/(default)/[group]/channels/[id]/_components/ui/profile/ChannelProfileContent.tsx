@@ -39,7 +39,7 @@ export function ChannelProfileContent({
           <div className="max-w-xl break-anywhere whitespace-normal">
             <div
               className={`overflow-hidden transition-all duration-300 ${
-                isExpanded ? 'max-h-[10000px]' : 'max-h-[100px]'
+                isExpanded ? 'max-h-[10000px]' : 'max-h-[64px]'
               }`}
             >
               {children}
