@@ -19,7 +19,7 @@ export function StatsCard({
 
 export function StatsCardHeader({ children }: PropsWithChildren) {
   return (
-    <CardHeader className="flex flex-row items-center space-y-0 pb-2">
+    <CardHeader className="flex flex-row items-center pb-2">
       <CardTitle className="flex justify-between w-full font-medium h-5">
         {children}
       </CardTitle>
