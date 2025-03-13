@@ -40,7 +40,7 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
         </div>
       </section>
 
-      <section className="col-span-full line-clamp-2 break-all">
+      <section className="col-span-full line-clamp-2 break-anywhere">
         {title}
       </section>
 
