@@ -64,8 +64,7 @@ export default async function ChannelsIdBasePage(
           href: `/${group}`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: `/${group}/charts/channels`, name: t('channels') },
-        { href: '#', name: basicInfo.title }
+        { href: `/${group}/charts/channels/${id}`, name: basicInfo.title }
       ]}
     >
       <section className="flex flex-col">

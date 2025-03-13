@@ -46,10 +46,6 @@ export default async function DefaultModeTemplate({
           className="space-y-4"
           breadcrumb={[
             {
-              href: `/${group}`,
-              name: t('group', { group: tg(`group.${group}`) })
-            },
-            {
               href: `/${group}/channels/${basicInfo.id}`,
               name: basicInfo.title
             },

@@ -12,7 +12,7 @@ type Props = { videoId: string }
 
 export async function LiveIdTemplate({ videoId }: PropsWithoutRef<Props>) {
   const stream = await getStream(videoId)
-  return <Overview className="space-y-6" stream={stream} />
+  return <Overview className="space-y-8" stream={stream} />
 }
 
 /** タイトル、投稿者情報 */
