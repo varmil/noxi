@@ -46,9 +46,7 @@ export default function Difference({ diff, isPercent, className }: Props) {
 
   return (
     <span
-      className={`flex items-center text-sm font-medium ${color} ${
-        className ?? ''
-      }`}
+      className={`flex items-center font-medium ${color} ${className ?? ''}`}
     >
       <Icon className={`w-4 h-4 mr-1`} aria-label={label} />
       {text}

@@ -26,7 +26,7 @@ export default function LocalNavigation({
     <div className={`mx-auto ${className ?? ''}`}>
       {/* gridが大事 */}
       <ScrollArea className="grid w-full whitespace-nowrap">
-        <div className="flex h-14 items-center">
+        <div className="flex h-auto items-center">
           {items.map(item => {
             const isActive = [item.href]
               .flat()

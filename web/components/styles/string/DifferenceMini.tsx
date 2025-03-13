@@ -35,7 +35,7 @@ export default function DifferenceMini({ diff, className }: Props) {
 
   return (
     <span className={`flex items-center ${color} ${className ?? ''}`}>
-      <Icon className={`w-3 h-3 sm:stroke-3`} aria-label={label} />
+      <Icon className={`size-3 sm:size-4 sm:stroke-3`} aria-label={label} />
     </span>
   )
 }
