@@ -8,7 +8,7 @@ export default async function StreamTrendsTableHeader({}: Props) {
   const feat = await getTranslations('Features.streamRanking')
 
   return (
-    <TableHeader className="text-xs">
+    <TableHeader>
       <TableRow>
         {/* Rank */}
         <TableHead className="w-0 text-nowrap">Top 3</TableHead>
