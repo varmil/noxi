@@ -41,7 +41,7 @@ export default function ChannelsRankingTableTitle({
   const pathname = usePathname()
   const { createQueryString } = useQueryString()
   return (
-    <section className={`flex text-sm sm:text-base ${className || ''}`}>
+    <section className={`flex ${className || ''}`}>
       <ChartNoAxesColumnIncreasing className="w-6 h-6 mr-3" />
 
       <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">

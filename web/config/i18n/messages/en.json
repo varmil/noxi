@@ -493,7 +493,7 @@
 
     "supersRanking": {
       "title": "{period} Ranking",
-      "description": "{channel} ranking based on total amount of Super Chat. All VTubers are ranked in 3 categories: \"Overall\", \"Gender\", and \"Group\".",
+      "description": "Ranking based on total amount of Super Chat & Sticker. All VTubers are ranked in 3 categories: \"Overall\", \"Gender\", and \"Group\".",
       "rankingType": "Category",
       "rank": "Rank",
       "comparedToPreviousPeriod": "vs. Previous Period",

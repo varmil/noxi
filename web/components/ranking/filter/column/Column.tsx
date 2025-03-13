@@ -19,7 +19,7 @@ export const ColumnHeader = ({
 )
 
 export const ColumnContent = ({ children }: PropsWithChildren) => (
-  <ScrollArea className="h-[160px] sm:h-[175px]">
-    <div className="flex flex-col gap-y-0.5 ">{children}</div>
+  <ScrollArea className="h-[168px] sm:h-[185px]">
+    <div className="flex flex-col gap-y-0.5">{children}</div>
   </ScrollArea>
 )

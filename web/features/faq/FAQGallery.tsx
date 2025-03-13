@@ -9,7 +9,7 @@ type Props = {
 
 export default function FAQGallery({ name, faqs }: PropsWithoutRef<Props>) {
   return (
-    <section className="w-full border-none shadow-none text-sm sm:text-base">
+    <section className="w-full border-none shadow-none">
       <div>
         <div className="mb-4 text-muted-foreground">
           「前世やプロフィール、経歴はどんな感じなんだろう？」

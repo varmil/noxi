@@ -38,7 +38,7 @@ export default function LocalNavigation({
                 key={href}
                 href={href}
                 className={cn(
-                  'inline-flex items-center justify-center border-b-2 px-3 py-4 text-sm font-medium transition-colors hover:text-foreground focus:outline-hidden focus:text-foreground focus:border-foreground',
+                  'inline-flex items-center justify-center border-b-2 px-3 py-4 font-medium transition-colors hover:text-foreground focus:outline-hidden focus:text-foreground focus:border-foreground',
                   isActive
                     ? 'border-foreground text-foreground'
                     : 'border-transparent text-muted-foreground',

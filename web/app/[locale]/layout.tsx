@@ -48,7 +48,7 @@ export default async function LocaleLayout(props: Props) {
     >
       <ClarityScript />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
-      <body>
+      <body className="text-sm sm:text-base">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

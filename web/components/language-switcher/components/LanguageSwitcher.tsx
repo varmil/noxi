@@ -44,8 +44,9 @@ const LanguageButton = ({
   return (
     <Button
       asChild
+      size="sm"
       variant="ghost"
-      className={`h-auto px-1 py-0.5 font-light ${
+      className={`!h-auto px-1 py-0.5 font-light ${
         isActive ? 'font-semibold border-b-2 border-primary rounded-none' : ''
       }`}
     >
