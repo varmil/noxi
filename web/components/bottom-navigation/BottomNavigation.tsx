@@ -49,6 +49,8 @@ export default function BottomNavigation({ className }: Props) {
         className ?? ''
       }`}
     >
+      {/* workaround: https://stackoverflow.com/questions/73891040/div-with-sticky-position-relative-to-the-bottom-jumps-around-when-scrolling */}
+      <div className="fixed" />
       <div className="grid h-full grid-cols-4 mx-auto">
         {navigation.map(item => {
           const isActive = (href: string) => {
