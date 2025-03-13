@@ -45,7 +45,7 @@ export default function BottomNavigation({ className }: Props) {
 
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full h-14.5 bg-background md:hidden ${
+      className={`fixed bottom-[calc(0px+env(safe-area-inset-bottom))] left-0 right-0 w-full h-14.5 bg-background md:hidden ${
         className ?? ''
       }`}
     >
