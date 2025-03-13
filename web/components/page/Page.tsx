@@ -40,7 +40,9 @@ export function Page({
       {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
 
       {h1 && (
-        <div className={`z-0 bg-muted text-muted-foreground py-6 ${padding}`}>
+        <div
+          className={`z-0 text-xl bg-muted text-muted-foreground py-6 ${padding}`}
+        >
           <h1 className="font-bold">{h1}</h1>
         </div>
       )}
