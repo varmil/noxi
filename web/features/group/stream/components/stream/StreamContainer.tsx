@@ -55,7 +55,9 @@ export const StreamTextContainer = ({
   } = stream
   return (
     <div>
-      <h3 className="tracking-tight line-clamp-2 break-all mb-1">{title}</h3>
+      <h3 className="tracking-tight line-clamp-2 break-anywhere mb-1">
+        {title}
+      </h3>
       <div className="col-start-2 flex items-center gap-1">
         <div className="text-xs sm:text-sm text-muted-foreground">
           <Link

@@ -20,7 +20,7 @@ const Container = (props: PropsWithChildren<{}>) => {
 
 const HeroSectionContainer = (props: PropsWithChildren<{}>) => {
   return (
-    <div className="grid gap-8 lg:grid-cols-[1fr_500px] lg:gap-12 xl:grid-cols-[1fr_700px]">
+    <div className="grid gap-12 lg:grid-cols-[1fr_500px] xl:grid-cols-[1fr_700px]">
       {props.children}
     </div>
   )
