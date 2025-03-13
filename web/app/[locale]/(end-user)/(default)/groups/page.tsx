@@ -1,5 +1,4 @@
-import { use } from "react";
-import { group } from 'console'
+import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -11,11 +10,9 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
 
-  const {
-    locale
-  } = params;
+  const { locale } = params
 
   const tg = await getTranslations({ locale, namespace: 'Global' })
   const t = await getTranslations({ locale, namespace: 'Page.groups.metadata' })
@@ -26,11 +23,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default function GroupsPage(props: Props) {
-  const params = use(props.params);
+  const params = use(props.params)
 
-  const {
-    locale
-  } = params;
+  const { locale } = params
 
   // Enable static rendering
   setRequestLocale(locale)

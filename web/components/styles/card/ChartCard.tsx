@@ -41,11 +41,7 @@ export function ChartCardTitle({
   className
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <CardTitle
-      className={`text-sm md:text-base md:leading-none font-semibold  ${
-        className ?? ''
-      }`}
-    >
+    <CardTitle className={`font-semibold ${className ?? ''}`}>
       {children}
     </CardTitle>
   )

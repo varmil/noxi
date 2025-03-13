@@ -140,7 +140,7 @@ export default async function ChannelsRankingTable({
               {/* Channel Title */}
               <LinkCell>
                 <div className="flex items-center hover:underline">
-                  <span className="line-clamp-2 break-anywhere">
+                  <span className="tracking-tighter @lg:tracking-normal line-clamp-1 break-all">
                     {channel.basicInfo.title}
                   </span>
                 </div>
@@ -148,7 +148,7 @@ export default async function ChannelsRankingTable({
 
               {/* Supers */}
               {dimension === 'super-chat' && (
-                <LinkCell className="min-w-[102px] max-w-[180px]">
+                <LinkCell className="min-w-[98px] max-w-[180px]">
                   <Dimension
                     active={true}
                     dividend={convertMicrosToAmount(summary ?? BigInt(0))}
@@ -161,7 +161,7 @@ export default async function ChannelsRankingTable({
 
               {/* Subscribers */}
               {dimension === 'subscriber' && (
-                <LinkCell className="min-w-[102px] max-w-[180px]" align="right">
+                <LinkCell className="min-w-[98px] max-w-[180px]" align="right">
                   <Dimension
                     active={dimension === 'subscriber'}
                     dividend={channel.statistics.subscriberCount}
@@ -178,7 +178,7 @@ export default async function ChannelsRankingTable({
               <TableCellOfCountry countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
-              <LinkCell className="min-w-[40px] @3xl:hidden">
+              <LinkCell className="min-w-[36px] @3xl:hidden">
                 <ChevronRight className="w-4 h-4" />
               </LinkCell>
             </TableRow>

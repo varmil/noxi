@@ -19,8 +19,8 @@ export function StatsCard({
 
 export function StatsCardHeader({ children }: PropsWithChildren) {
   return (
-    <CardHeader className="flex flex-row items-center space-y-0 pb-2">
-      <CardTitle className="flex justify-between w-full text-sm font-medium h-5">
+    <CardHeader className="flex flex-row items-center pb-2">
+      <CardTitle className="flex justify-between w-full font-medium h-5">
         {children}
       </CardTitle>
       {/* <Icon className="h-4 w-4 text-muted-foreground" /> */}
@@ -56,7 +56,9 @@ export function StatsCardContent({
         ) : null}
       </div>
       {subText && (
-        <p className="mt-1.5 text-xs text-muted-foreground">{subText}</p>
+        <p className="mt-1.5 text-xs sm:text-sm text-muted-foreground">
+          {subText}
+        </p>
       )}
     </CardContent>
   )

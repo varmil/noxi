@@ -37,7 +37,7 @@ export default function TableCellOfStreamForSmallContainer({
       <div className="flex flex-col gap-2">
         <SmallChannel channel={channel} />
 
-        <span className="text-muted-foreground line-clamp-2 break-anywhere">
+        <span className="text-muted-foreground line-clamp-1 break-all">
           {title}
         </span>
 
@@ -78,7 +78,7 @@ const SmallChannel = ({
         />
         <AvatarFallback>{channel.basicInfo.title}</AvatarFallback>
       </Avatar>
-      <div className="line-clamp-1">{channel.basicInfo.title}</div>
+      <div className="line-clamp-1 break-all">{channel.basicInfo.title}</div>
     </div>
   )
 }

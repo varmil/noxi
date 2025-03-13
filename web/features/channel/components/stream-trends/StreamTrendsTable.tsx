@@ -40,54 +40,49 @@ export default async function StreamTrendsTable({ channel, className }: Props) {
           return (
             <TableRow key={videoId}>
               {/* Rank */}
-              <TableCell className="align-top">
-                <div className="text-lg font-bold text-nowrap">{i + 1}</div>
+              <TableCell className="align-middle">
+                <div className="text-lg @lg:font-bold text-nowrap">{i + 1}</div>
+              </TableCell>
+
+              {/* 同接数 */}
+              <TableCell
+                width={100}
+                className="font-bold text-nowrap"
+                align="right"
+              >
+                {peakConcurrentViewers.toLocaleString()}
               </TableCell>
 
               {/* Stream Thumbnail */}
               <TableCell
-                width={250}
-                className="min-w-[100px] max-w-[150px] relative"
-                align="center"
+                width={200}
+                className="min-w-[60px] max-w-[100px] relative"
+                align="right"
               >
                 <Link href={`/youtube/live/${videoId}`}>
                   <VideoThumbnail
                     size="high"
                     title={title}
                     thumbnails={thumbnails}
-                    className="min-w-[100px] max-w-[150px] rounded-sm"
+                    className="min-w-[60px] max-w-[100px] rounded-sm"
                   />
                 </Link>
               </TableCell>
 
               {/* Title */}
-              <TableCell width={800} className="min-w-[200px] max-w-[400px]">
+              <TableCell width={800} className="min-w-[200px] max-w-[600px]">
                 <Link
-                  className="line-clamp-2 break-anywhere"
+                  className="line-clamp-1 break-all"
                   href={`/youtube/live/${videoId}`}
                 >
                   {title}
                 </Link>
               </TableCell>
 
-              {/* 同接数 */}
-              <TableCell
-                width={100}
-                className="text-lg font-bold text-nowrap"
-                align="center"
-              >
-                {peakConcurrentViewers}
-              </TableCell>
-
               {/* 日付 */}
-              <TableCell width={70} className="text-nowrap" align="center">
+              <TableCell width={70} className="text-nowrap" align="right">
                 {actualStartTime ? (
-                  <>
-                    {format.dateTime(new Date(actualStartTime), {
-                      day: 'numeric',
-                      month: 'short'
-                    })}
-                  </>
+                  <>{format.relativeTime(new Date(actualStartTime))}</>
                 ) : (
                   <>--</>
                 )}

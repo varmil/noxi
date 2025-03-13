@@ -11,7 +11,7 @@ export function CommentStreamLink({
   return (
     <div className="flex items-center w-full gap-x-1">
       <LinkIcon className="w-3 h-3 text-muted-foreground" />
-      <div className="flex-1 text-xs text-muted-foreground line-clamp-1 break-anywhere">
+      <div className="flex-1 text-xs sm:text-sm text-muted-foreground line-clamp-1 break-anywhere">
         <Link className="hover:underline" href={`/youtube/live/${videoId}`}>
           {snippet.title}
         </Link>

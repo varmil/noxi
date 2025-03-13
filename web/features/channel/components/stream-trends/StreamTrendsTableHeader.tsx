@@ -8,10 +8,15 @@ export default async function StreamTrendsTableHeader({}: Props) {
   const feat = await getTranslations('Features.streamRanking')
 
   return (
-    <TableHeader className="text-xs">
+    <TableHeader>
       <TableRow>
         {/* Rank */}
         <TableHead className="w-0 text-nowrap">Top 3</TableHead>
+
+        {/* 同接数 */}
+        <TableHead className="text-nowrap text-right">
+          {feat('viewers')}
+        </TableHead>
 
         {/* Thumbnail */}
         <TableHead className="" />
@@ -19,15 +24,8 @@ export default async function StreamTrendsTableHeader({}: Props) {
         {/* Title */}
         <TableHead className="text-nowrap">{feat('streamTitle')}</TableHead>
 
-        {/* 同接数 */}
-        <TableHead className="text-nowrap text-center">
-          {feat('viewers')}
-        </TableHead>
-
         {/* 日付 */}
-        <TableHead className="text-nowrap text-center">
-          {feat('date')}
-        </TableHead>
+        <TableHead className="text-nowrap text-right">{feat('date')}</TableHead>
       </TableRow>
     </TableHeader>
   )

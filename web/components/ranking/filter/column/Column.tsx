@@ -12,14 +12,14 @@ export const ColumnHeader = ({
   children,
   showSearch
 }: PropsWithChildren<{ showSearch?: boolean }>) => (
-  <div className="flex items-center justify-between mb-4">
-    <h3 className="font-medium">{children}</h3>
-    {showSearch ? <Search className="h-4 w-4 text-muted-foreground" /> : null}
+  <div className="flex items-center justify-between mb-4 text-muted-foreground">
+    <h3 className="tracking-tight font-medium">{children}</h3>
+    {showSearch ? <Search className="size-4" /> : null}
   </div>
 )
 
 export const ColumnContent = ({ children }: PropsWithChildren) => (
-  <ScrollArea className="h-[160px] sm:h-[175px]">
-    <div className="flex flex-col gap-y-0.5 ">{children}</div>
+  <ScrollArea className="h-[168px] sm:h-[184px]">
+    <div className="flex flex-col gap-y-1">{children}</div>
   </ScrollArea>
 )

@@ -55,7 +55,7 @@ export default async function RelatedVideos({
               key={videoId}
               href={`/youtube/live/${videoId}`}
             >
-              <div className="w-40">
+              <div className="w-42">
                 <VideoThumbnail
                   title={snippet.title}
                   thumbnails={snippet.thumbnails}
@@ -99,5 +99,7 @@ export default async function RelatedVideos({
 }
 
 const WeakLine = ({ children }: PropsWithChildren) => (
-  <div className="text-xs line-clamp-1 text-muted-foreground">{children}</div>
+  <div className="text-xs sm:text-sm line-clamp-1 text-muted-foreground">
+    {children}
+  </div>
 )

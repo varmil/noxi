@@ -160,7 +160,7 @@
     --s-container: 5%;
     --s-text: 5%;
     --s-border: 20%;
-    --l-bg: 1%;
+    --l-bg: 1.5%;
     --fg: hsl(41 var(--s-text) 91.5%); /** shadcn, X, YouTube */
 
     --background: hsl(41 var(--s-surface) var(--l-bg));

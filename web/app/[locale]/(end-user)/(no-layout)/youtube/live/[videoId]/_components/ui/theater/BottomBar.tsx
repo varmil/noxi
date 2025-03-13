@@ -8,7 +8,7 @@ export function TheaterBottomBar({
   children
 }: PropsWithChildren<{ className?: string }>) {
   const sizeClass = 'h-[clamp(2.5rem,9vmin,3.5rem)]'
-  const textClass = 'text-xs lg:text-base text-gray-300'
+  const textClass = 'text-xs sm:text-sm text-gray-300'
   return (
     <section
       className={`${sizeClass} ${textClass} bg-black flex items-center px-4 space-x-6 ${
