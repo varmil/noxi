@@ -30,7 +30,11 @@ export function Section({
   return (
     <section className={`${className ?? ''}`}>
       <div className="flex items-center justify-between pb-6">
-        {title && <h2 className="text-base md:text-lg font-bold">{title}</h2>}
+        {title && (
+          <h2 className="text-lg font-bold tracking-tight border-b-4 border-dotted border-border-variant">
+            {title}
+          </h2>
+        )}
         {tabs && <div>{tabs}</div>}
       </div>
       <div className={`grid gap-1 ${gridClassName ?? ''} lg:gap-2`}>

@@ -15,11 +15,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
       </TabsList>
 
       <section>
-        <TabsContent
-          forceMount
-          value="superChat"
-          className={'data-[state=inactive]:content-visibility-hidden'}
-        >
+        <TabsContent value="superChat">
           <SuperChatGallery
             channelId={channelId}
             createdAfter={
@@ -29,11 +25,7 @@ export function ChannelCommentTabs({ channelId }: { channelId: string }) {
             showStreamLink
           />
         </TabsContent>
-        <TabsContent
-          forceMount
-          value="comments"
-          className={'data-[state=inactive]:content-visibility-hidden'}
-        >
+        <TabsContent value="comments">
           <YoutubeCommentGallery
             channelId={channelId}
             order="time"
