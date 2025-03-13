@@ -22,7 +22,7 @@ export default function CommentContent({ children }: PropsWithChildren) {
     <>
       <p
         ref={contentRef}
-        className={`whitespace-pre-wrap break-anywhere ${
+        className={`text-base whitespace-pre-wrap break-anywhere ${
           !isExpanded && showReadMore ? 'line-clamp-4' : ''
         }`}
       >
