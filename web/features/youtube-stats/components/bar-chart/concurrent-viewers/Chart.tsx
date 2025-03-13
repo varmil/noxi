@@ -112,7 +112,6 @@ export default function Chart({
               <Label
                 position="insideBottomLeft"
                 value={t('avgConcurrentViewers')}
-                className="text-xs"
                 offset={10}
                 fill="var(--foreground)"
               />

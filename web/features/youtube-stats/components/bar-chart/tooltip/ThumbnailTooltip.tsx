@@ -27,7 +27,7 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
   const { title, thumbnail, date, views, peakConcurrentViewers } = data
 
   return (
-    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-1.5 gap-1 bg-popover rounded-sm border text-xs text-muted-foreground">
+    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-1.5 gap-1 bg-popover rounded-sm border text-muted-foreground">
       <section className="col-span-full">
         <div className="aspect-video overflow-hidden rounded-sm">
           <Image
