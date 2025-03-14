@@ -5,8 +5,11 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistories'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
-import TableCellOfCountry from 'components/ranking/table/cell/TableCellOfCountry'
-import TableCellOfGroup from 'components/ranking/table/cell/TableCellOfGroup'
+import CountryCell from 'components/ranking/table/cell/CountryCell'
+import GroupCell from 'components/ranking/table/cell/GroupCell'
+import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
+import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
+import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
@@ -19,9 +22,7 @@ import {
   getSupersRankingType,
   hasSupersRanking
 } from 'utils/ranking/channels-ranking'
-import ChannelThumbnail from './cell/ChannelThumbnail'
 import ComparedToPreviousPeriod from './cell/ComparedToPreviousPeriod'
-import BaseLinkCell from './cell/base/LinkCell'
 import ChannelsRankingTableHeader from './header/ChannelsRankingTableHeader'
 
 type Props = PropsWithoutRef<{
@@ -91,9 +92,12 @@ export default async function ChannelsRankingTable({
           /** Top 5まではCTRが高いのでprefetch=true */
           const LinkCell = (
             props: PropsWithChildren &
-              Omit<ComponentProps<typeof BaseLinkCell>, 'channelId' | 'group'>
+              Omit<
+                ComponentProps<typeof LinkToChannelCell>,
+                'channelId' | 'group'
+              >
           ) => (
-            <BaseLinkCell
+            <LinkToChannelCell
               channelId={channelId}
               group={channel.peakX.group}
               prefetch={i < 5}
@@ -110,9 +114,9 @@ export default async function ChannelsRankingTable({
               className="border-none"
             >
               {/* Rank */}
-              <TableCell className="py-1">
+              <TableCell className="min-w-2 max-w-16 py-1">
                 <div className="flex flex-col items-center gap-0 @lg:gap-0.5">
-                  <div className="text-center text-lg @lg:font-bold w-6 text-nowrap">
+                  <div className="text-center text-lg @lg:font-bold text-nowrap tracking-tight">
                     {Pagination.getRankFromPage(page, i)}
                   </div>
                   {hasSupersRanking({ dimension, group, gender }) && (
@@ -139,11 +143,7 @@ export default async function ChannelsRankingTable({
 
               {/* Channel Title */}
               <LinkCell>
-                <div className="flex items-center hover:underline">
-                  <span className="tracking-tighter @lg:tracking-normal line-clamp-1 break-all">
-                    {channel.basicInfo.title}
-                  </span>
-                </div>
+                <ChannelTitle channel={channel} />
               </LinkCell>
 
               {/* Supers */}
@@ -172,10 +172,10 @@ export default async function ChannelsRankingTable({
               )}
 
               {/* 3xl-: Group */}
-              <TableCellOfGroup groupId={channel.peakX.group} />
+              <GroupCell groupId={channel.peakX.group} />
 
               {/* 3xl-: Country */}
-              <TableCellOfCountry countryCode={channel.peakX.country} />
+              <CountryCell countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
               <LinkCell className="min-w-[36px] @3xl:hidden">
