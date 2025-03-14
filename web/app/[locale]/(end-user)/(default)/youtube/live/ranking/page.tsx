@@ -49,17 +49,12 @@ export default function YoutubeLiveRankingPage(props: Props) {
 
   // Enable static rendering
   setRequestLocale(locale)
-  const breadcrumb = useTranslations('Breadcrumb')
   const global = useTranslations('Global')
   const feat = useTranslations('Features.streamRanking.ranking.dimension')
 
   return (
     <Page
       breadcrumb={[
-        {
-          href: `/youtube/live/ranking`,
-          name: breadcrumb('streamsRanking')
-        },
         {
           href: `#`,
           name: feat(dimension, {
