@@ -160,8 +160,8 @@
     --s-container: 5%;
     --s-text: 5%;
     --s-border: 20%;
-    --l-bg: 1.5%;
-    --fg: hsl(41 var(--s-text) 91.5%); /** shadcn, X, YouTube */
+    --l-bg: 4.1%;
+    --fg: hsl(41 var(--s-text) 97.8%); /** shadcn, X, YouTube */
 
     --background: hsl(41 var(--s-surface) var(--l-bg));
     --foreground: var(--fg);
@@ -171,11 +171,11 @@
     --popover-foreground: var(--fg);
     --primary: hsl(41 100% 49.4%);
     --primary-foreground: hsl(41 var(--s-text) 5%);
-    --secondary: hsl(41 calc(var(--s-container) / 5) 12%);
+    --secondary: hsl(41 calc(var(--s-container) / 5) 15.1%);
     --secondary-foreground: var(--fg);
-    --muted: hsl(41 var(--s-container) 13%);
-    --muted-foreground: hsl(41 calc(var(--s-text) / 2) 62%);
-    --accent: hsl(41 var(--s-container) 14.2%);
+    --muted: hsl(41 var(--s-container) 15.1%);
+    --muted-foreground: hsl(41 calc(var(--s-text) / 2) 63.9%);
+    --accent: hsl(41 var(--s-container) 15.1%);
     --accent-foreground: var(--fg);
     --destructive: hsl(0 50% 35%);
     --destructive-foreground: var(--fg);
