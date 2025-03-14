@@ -42,7 +42,7 @@ export default function ChannelsRankingTableTitle({
   const { createQueryString } = useQueryString()
   return (
     <section className={`flex ${className || ''}`}>
-      <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">
+      <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between sm:items-center">
         <h1
           title={title}
           className="flex items-center text-lg sm:text-xl font-bold"

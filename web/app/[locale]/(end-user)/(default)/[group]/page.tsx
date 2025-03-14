@@ -49,13 +49,7 @@ export default function GroupPage(props: Props) {
 
   return (
     <Page
-      breadcrumb={[
-        {
-          href: `/groups`,
-          name: useTranslations('Page.groups.metadata')('title')
-        },
-        { href: `/${group}`, name: groupName }
-      ]}
+      breadcrumb={[{ href: `/${group}`, name: groupName }]}
       h1={`${groupName} ${useTranslations('Features.group')('overview.nav')}`}
     >
       <LocalNavigationForGroupPages group={group} />

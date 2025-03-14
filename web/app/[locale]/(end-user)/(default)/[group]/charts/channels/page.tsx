@@ -42,10 +42,6 @@ export default function GroupChartsPage(props: Props) {
   return (
     <Page
       breadcrumb={[
-        {
-          href: `/groups`,
-          name: useTranslations('Page.groups.metadata')('title')
-        },
         { href: `/${group}`, name: groupName },
         { href: `/${group}/charts/channels`, name: t('channels') }
       ]}
