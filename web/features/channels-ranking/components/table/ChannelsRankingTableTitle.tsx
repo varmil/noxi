@@ -45,7 +45,7 @@ export default function ChannelsRankingTableTitle({
       <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between">
         <h1
           title={title}
-          className="flex items-center text-base sm:text-lg font-bold"
+          className="flex items-center text-lg sm:text-xl font-bold"
           aria-label={title}
         >
           <div className="flex gap-x-1 sm:gap-x-2 items-center">
