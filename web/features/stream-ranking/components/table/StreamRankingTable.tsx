@@ -5,7 +5,6 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
-import CountryCell from 'components/ranking/table/cell/CountryCell'
 import GroupCell from 'components/ranking/table/cell/GroupCell'
 import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
 import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
@@ -16,7 +15,6 @@ import StreamThumbnailCell from 'features/stream-ranking/components/table/cell/S
 import StreamLinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
-import { Link } from 'lib/navigation'
 import { convertMicrosToAmount } from 'utils/amount'
 
 type Props = PropsWithoutRef<{
@@ -93,21 +91,18 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <ChannelLinkCell align="center">
+              <ChannelLinkCell align="center" className="z-10 sticky left-0">
                 <ChannelThumbnail channel={channel} />
               </ChannelLinkCell>
 
               {/* Channel Title */}
-              <ChannelLinkCell width={240}>
-                <ChannelTitle channel={channel} className="min-w-[104px]" />
+              <ChannelLinkCell width={400} className="min-w-[160px]">
+                <ChannelTitle channel={channel} />
               </ChannelLinkCell>
 
               {/* xs- md: Concurrent Viewers */}
               {dimension === 'concurrent-viewer' && (
-                <ChannelLinkCell
-                  width={160}
-                  className="min-w-[80px] @lg:hidden"
-                >
+                <ChannelLinkCell width={160} className="min-w-24">
                   <Dimension
                     active={dimension === 'concurrent-viewer'}
                     dividend={peakConcurrentViewers}
@@ -118,10 +113,7 @@ export default async function StreamRankingTable({
 
               {/*  xs- md: Supers */}
               {dimension === 'super-chat' && (
-                <ChannelLinkCell
-                  width={160}
-                  className="min-w-[80px] @lg:hidden"
-                >
+                <ChannelLinkCell width={160} className="min-w-24">
                   <Dimension
                     active={dimension === 'super-chat'}
                     dividend={convertMicrosToAmount(
@@ -147,32 +139,8 @@ export default async function StreamRankingTable({
                 </span>
               </StreamLinkCell>
 
-              {/* lg-: Viewers */}
-              <TableCell width={144} className="hidden @lg:table-cell min-w-24">
-                <Dimension
-                  active={dimension === 'concurrent-viewer'}
-                  dividend={peakConcurrentViewers}
-                  divisor={topConcurrentViewers}
-                />
-              </TableCell>
-
-              {/* lg-: Supers */}
-              <TableCell width={144} className="hidden @lg:table-cell min-w-24">
-                <Dimension
-                  active={dimension === 'super-chat'}
-                  dividend={convertMicrosToAmount(
-                    bundle?.amountMicros ?? BigInt(0)
-                  )}
-                  divisor={convertMicrosToAmount(topAmountMicros)}
-                  icon={<JapaneseYen className="w-4 h-4" />}
-                />
-              </TableCell>
-
               {/* 3xl-: Group */}
               <GroupCell groupId={stream.group} />
-
-              {/* 3xl-: Country */}
-              <CountryCell countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
               <StreamLinkCell
