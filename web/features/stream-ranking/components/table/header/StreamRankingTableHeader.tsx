@@ -39,16 +39,6 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
         {/* Stream Title */}
         <TableHead className="text-nowrap">{stream('streamTitle')}</TableHead>
 
-        {/* lg-: Viewers */}
-        {/* <TableHead className="hidden @lg:table-cell text-nowrap">
-          {stream('viewers')}
-        </TableHead> */}
-
-        {/* lg-: Supers */}
-        {/* <TableHead className="hidden @lg:table-cell text-nowrap">
-          {stream('supers')}
-        </TableHead> */}
-
         {/* 3xl-: Group */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
           {stream('group')}

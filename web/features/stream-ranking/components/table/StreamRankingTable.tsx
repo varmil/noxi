@@ -91,7 +91,7 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <ChannelLinkCell align="center">
+              <ChannelLinkCell align="center" className="z-10 sticky left-0">
                 <ChannelThumbnail channel={channel} />
               </ChannelLinkCell>
 
@@ -138,27 +138,6 @@ export default async function StreamRankingTable({
                   {stream.snippet.title}
                 </span>
               </StreamLinkCell>
-
-              {/* lg-: Viewers */}
-              {/* <TableCell width={144} className="hidden @lg:table-cell min-w-24">
-                <Dimension
-                  active={dimension === 'concurrent-viewer'}
-                  dividend={peakConcurrentViewers}
-                  divisor={topConcurrentViewers}
-                />
-              </TableCell> */}
-
-              {/* lg-: Supers */}
-              {/* <TableCell width={144} className="hidden @lg:table-cell min-w-24">
-                <Dimension
-                  active={dimension === 'super-chat'}
-                  dividend={convertMicrosToAmount(
-                    bundle?.amountMicros ?? BigInt(0)
-                  )}
-                  divisor={convertMicrosToAmount(topAmountMicros)}
-                  icon={<JapaneseYen className="w-4 h-4" />}
-                />
-              </TableCell> */}
 
               {/* 3xl-: Group */}
               <GroupCell groupId={stream.group} />
