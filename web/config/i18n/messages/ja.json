@@ -55,7 +55,7 @@
         "country": "国"
       },
       "dimension": {
-        "concurrent-viewer": "同時視聴者数",
+        "concurrent-viewer": "同接数",
         "super-chat": "スパチャ金額",
         "subscriber": "チャンネル登録者数"
       },
