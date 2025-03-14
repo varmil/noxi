@@ -1,5 +1,5 @@
 import { ComponentProps, PropsWithChildren, PropsWithoutRef } from 'react'
-import { JapaneseYen } from 'lucide-react'
+import { ChevronRight, JapaneseYen } from 'lucide-react'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersBundles } from 'apis/youtube/getSupersBundles'
@@ -13,6 +13,7 @@ import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import { StreamRankingPagination as Pagination } from 'config/constants/Pagination'
 import StreamThumbnailCell from 'features/stream-ranking/components/table/cell/StreamThumbnailCell'
+import StreamLinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
 import StreamRankingTableHeader from 'features/stream-ranking/components/table/header/StreamRankingTableHeader'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Link } from 'lib/navigation'
@@ -63,7 +64,7 @@ export default async function StreamRankingTable({
             bundle => bundle.videoId === stream.videoId
           )
 
-          const LinkCell = (
+          const ChannelLinkCell = (
             props: PropsWithChildren &
               Omit<
                 ComponentProps<typeof LinkToChannelCell>,
@@ -92,29 +93,35 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <LinkCell align="center">
+              <ChannelLinkCell align="center">
                 <ChannelThumbnail channel={channel} />
-              </LinkCell>
+              </ChannelLinkCell>
 
               {/* Channel Title */}
-              <LinkCell width={160}>
-                <ChannelTitle channel={channel} className="min-w-[96px]" />
-              </LinkCell>
+              <ChannelLinkCell width={240}>
+                <ChannelTitle channel={channel} className="min-w-[104px]" />
+              </ChannelLinkCell>
 
               {/* xs- md: Concurrent Viewers */}
               {dimension === 'concurrent-viewer' && (
-                <LinkCell width={160} className="min-w-[80px] @lg:hidden">
+                <ChannelLinkCell
+                  width={160}
+                  className="min-w-[80px] @lg:hidden"
+                >
                   <Dimension
                     active={dimension === 'concurrent-viewer'}
                     dividend={peakConcurrentViewers}
                     divisor={topConcurrentViewers}
                   />
-                </LinkCell>
+                </ChannelLinkCell>
               )}
 
               {/*  xs- md: Supers */}
               {dimension === 'super-chat' && (
-                <TableCell width={160} className="min-w-[80px] @lg:hidden">
+                <ChannelLinkCell
+                  width={160}
+                  className="min-w-[80px] @lg:hidden"
+                >
                   <Dimension
                     active={dimension === 'super-chat'}
                     dividend={convertMicrosToAmount(
@@ -123,22 +130,22 @@ export default async function StreamRankingTable({
                     divisor={convertMicrosToAmount(topAmountMicros)}
                     icon={<JapaneseYen className="w-4 h-4" />}
                   />
-                </TableCell>
+                </ChannelLinkCell>
               )}
 
               {/* Stream Thumbnail */}
               <StreamThumbnailCell stream={stream} />
 
               {/* Stream Title */}
-              <TableCell width={400} className="min-w-[144px]">
-                <Link
-                  className="text-sm text-muted-foreground line-clamp-2 break-anywhere"
-                  href={`/youtube/live/${videoId}`}
-                  prefetch={false}
-                >
+              <StreamLinkCell
+                width={384}
+                videoId={videoId}
+                className="min-w-[180px]"
+              >
+                <span className="text-sm text-muted-foreground hover:underline line-clamp-2 break-anywhere">
                   {stream.snippet.title}
-                </Link>
-              </TableCell>
+                </span>
+              </StreamLinkCell>
 
               {/* lg-: Viewers */}
               <TableCell width={144} className="hidden @lg:table-cell min-w-24">
@@ -166,6 +173,14 @@ export default async function StreamRankingTable({
 
               {/* 3xl-: Country */}
               <CountryCell countryCode={channel.peakX.country} />
+
+              {/* xs - 2xl: Link Icon */}
+              <StreamLinkCell
+                videoId={videoId}
+                className="min-w-[36px] @3xl:hidden"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </StreamLinkCell>
             </TableRow>
           )
         })}

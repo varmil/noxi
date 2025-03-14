@@ -9,12 +9,16 @@ export default function StreamThumbnailCell({
 }) {
   const videoId = stream.videoId
   return (
-    <LinkCell videoId={videoId} className="min-w-[52px] max-w-[112px] relative">
+    <LinkCell
+      width={80}
+      videoId={videoId}
+      className="min-w-[48px] max-w-[96px] relative"
+    >
       <VideoThumbnail
         size="high"
         title={stream.snippet.title}
         thumbnails={stream.snippet.thumbnails}
-        className="min-w-[52px] max-w-[112px] rounded"
+        className="min-w-[48px] max-w-[96px] rounded"
       />
     </LinkCell>
   )
