@@ -20,6 +20,6 @@ export const ColumnHeader = ({
 
 export const ColumnContent = ({ children }: PropsWithChildren) => (
   <ScrollArea className="h-[164px] sm:h-[184px]">
-    <div className="flex flex-col">{children}</div>
+    <div className="flex flex-col gap-0.5">{children}</div>
   </ScrollArea>
 )

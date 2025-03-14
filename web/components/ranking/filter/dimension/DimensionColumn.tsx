@@ -33,7 +33,7 @@ export default function DimensionColumn({ className }: Props) {
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
-        <Label label="Channels" className="mb-2" />
+        <Label label="Channels" className="mb-1.5" />
         {CHANNELS_KEYS.map(key => (
           <SelectButton
             key={key}
@@ -44,7 +44,7 @@ export default function DimensionColumn({ className }: Props) {
           </SelectButton>
         ))}
 
-        <Label label="Live" className="my-2" />
+        <Label label="Live" className="my-1.5" />
         {STREAM_KEYS.map(key => (
           <SelectButton
             key={key}
