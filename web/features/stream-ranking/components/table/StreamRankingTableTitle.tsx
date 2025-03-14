@@ -31,10 +31,10 @@ export default function StreamRankingTableTitle({
     .replace(/\s+/g, ' ')
     .trim()
   return (
-    <section className={`text-sm sm:text-base ${className || ''}`}>
+    <section className={`${className || ''}`}>
       <h1
         title={title}
-        className="flex text-base sm:text-lg font-bold"
+        className="flex text-lg sm:text-xl font-bold"
         aria-label={title}
       >
         <div className="flex gap-x-1 sm:gap-x-2 items-center">

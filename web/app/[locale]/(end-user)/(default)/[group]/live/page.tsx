@@ -42,10 +42,6 @@ export default function GroupLivePage(props: Props) {
   return (
     <Page
       breadcrumb={[
-        {
-          href: `/groups`,
-          name: useTranslations('Page.groups.metadata')('title')
-        },
         { href: `/${group}`, name: groupName },
         { href: `/${group}/live`, name: t('live') }
       ]}
