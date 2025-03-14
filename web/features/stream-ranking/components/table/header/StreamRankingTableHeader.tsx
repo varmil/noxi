@@ -8,7 +8,8 @@ type Props = PropsWithoutRef<{
 }>
 
 export default async function StreamRankingTableHeader({ dimension }: Props) {
-  const t = await getTranslations('Features.streamRanking')
+  const stream = await getTranslations('Features.streamRanking')
+  const channels = await getTranslations('Features.channelsRanking')
 
   return (
     <TableHeader>
@@ -16,37 +17,50 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
         {/* Rank */}
         <TableHead className="w-0 text-nowrap"></TableHead>
 
+        {/* Channel Thumbnail */}
+        <TableHead className="text-center" />
+
+        {/* Channel Title */}
+        <TableHead className="">{channels('channel')}</TableHead>
+
+        {/* xs-md: Concurrent Viewers */}
+        {dimension === 'concurrent-viewer' && (
+          <TableHead className="text-nowrap @lg:hidden">
+            {stream('viewers')}
+          </TableHead>
+        )}
+
+        {/*  xs- md: Supers */}
+        {dimension === 'super-chat' && (
+          <TableHead className="text-nowrap @lg:hidden">
+            {stream('supers')}
+          </TableHead>
+        )}
+
         {/* Stream Thumbnail */}
         <TableHead className="" />
 
-        {/* xs-md: Stream Title & Ch. Thumbnail & Ch. Title */}
-        <TableHead className="@lg:hidden text-nowrap">
-          {t('channel')} / {t('streamTitle')} / {t('viewers')}
-        </TableHead>
-
-        {/* lg-: Channel + Stream Title */}
-        <TableHead className="hidden @lg:table-cell text-nowrap">
-          {t('channel')} / {t('streamTitle')}
-        </TableHead>
+        {/* Stream Title */}
+        <TableHead className="text-nowrap">{stream('streamTitle')}</TableHead>
 
         {/* lg-: Viewers */}
         <TableHead className="hidden @lg:table-cell text-nowrap">
-          {t('viewers')}
+          {stream('viewers')}
         </TableHead>
 
         {/* lg-: Supers */}
         <TableHead className="hidden @lg:table-cell text-nowrap">
-          {t('supers')}
+          {stream('supers')}
         </TableHead>
 
         {/* 3xl-: Group */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
-          {t('group')}
+          {stream('group')}
         </TableHead>
 
         {/* 3xl-: Country */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
-          {t('country')}
+          {stream('country')}
         </TableHead>
       </TableRow>
     </TableHeader>

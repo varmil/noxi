@@ -3,7 +3,7 @@ import { TableCell } from '@/components/ui/table'
 import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 
-export default function LinkCell({
+export default function LinkToChannelCell({
   channelId,
   group,
   align,
