@@ -123,11 +123,11 @@
     --s-border: 20%;
 
     --background: hsl(41 var(--s-surface) 95%);
-    --foreground: hsl(41 var(--s-text) 7.5%);
+    --foreground: hsl(41 var(--s-text) 4.1%);
     --card: hsl(41 var(--s-surface) 95%);
-    --card-foreground: hsl(41 var(--s-text) 12.5%);
+    --card-foreground: hsl(41 var(--s-text) 4.1%);
     --popover: hsl(41 var(--s-surface) 93.5%);
-    --popover-foreground: hsl(41 var(--s-text) 5%);
+    --popover-foreground: hsl(41 var(--s-text) 4.1%);
     --primary: hsl(41 100% 49.4%);
     --primary-foreground: hsl(41 var(--s-text) 5%);
     --secondary: hsl(41 calc(var(--s-container) / 5) 91.2%);

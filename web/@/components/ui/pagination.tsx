@@ -56,6 +56,7 @@ const PaginationLink = ({
         variant: isActive ? 'outline' : 'ghost',
         size
       }),
+      'text-base sm:text-lg',
       className,
       disabled && 'pointer-events-none opacity-50'
     )}
