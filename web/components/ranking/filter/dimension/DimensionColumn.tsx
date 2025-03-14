@@ -14,7 +14,6 @@ const QS_KEY = 'dimension'
 type Keys = Dimension
 
 type Props = PropsWithoutRef<{
-  keys: Keys[]
   className?: string
 }>
 
@@ -25,14 +24,33 @@ const RESET_KEYS = (dimension: Keys) => ({
   page: null
 })
 
-export default function DimensionColumn({ keys, className }: Props) {
+const CHANNELS_KEYS = ['super-chat', 'subscriber'] as const
+const STREAM_KEYS = ['concurrent-viewer', 'super-chat'] as const
+
+export default function DimensionColumn({ className }: Props) {
   const tg = useTranslations('Global.ranking')
   return (
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
-        {keys.map(key => (
-          <SelectButton key={key} qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}>
+        <Label label="Channels" className="mb-2" />
+        {CHANNELS_KEYS.map(key => (
+          <SelectButton
+            key={key}
+            pathname={'/youtube/channels/ranking'}
+            qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
+          >
+            {tg(`dimension.${key}`)}
+          </SelectButton>
+        ))}
+
+        <Label label="Live" className="my-2" />
+        {STREAM_KEYS.map(key => (
+          <SelectButton
+            key={key}
+            pathname={'/youtube/live/ranking'}
+            qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
+          >
             {tg(`dimension.${key}`)}
           </SelectButton>
         ))}
@@ -40,3 +58,7 @@ export default function DimensionColumn({ keys, className }: Props) {
     </Column>
   )
 }
+
+const Label = ({ label, className }: { label: string; className?: string }) => (
+  <div className={`text-muted-foreground text-xs ${className}`}>{label}</div>
+)

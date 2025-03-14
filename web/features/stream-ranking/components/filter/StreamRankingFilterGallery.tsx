@@ -25,7 +25,7 @@ export default function StreamRankingFilterGallery({ className }: Props) {
               'last1Year'
             ]}
           />
-          <DimensionColumn keys={['concurrent-viewer', 'super-chat']} />
+          <DimensionColumn />
           <GroupColumn />
           <GenderColumn />
           <CountryColumn />

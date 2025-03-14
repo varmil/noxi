@@ -36,7 +36,7 @@ export default function ChannelsRankingFilterGallery({
                   ]
             }
           />
-          <DimensionColumn keys={['super-chat', 'subscriber']} />
+          <DimensionColumn />
           <GroupColumn />
           <GenderColumn />
           <CountryColumn />
