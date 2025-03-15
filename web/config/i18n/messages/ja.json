@@ -336,10 +336,10 @@
       },
       "string": {
         "difference": {
-          "last24Hours": "前日と比べて",
-          "last7Days": "7日前と比べて",
-          "last30Days": "30日前と比べて",
-          "last1Year": "1年前と比べて"
+          "last24Hours": "前日と比べて<diff></diff>",
+          "last7Days": "7日前と比べて<diff></diff>",
+          "last30Days": "30日前と比べて<diff></diff>",
+          "last1Year": "1年前と比べて<diff></diff>"
         }
       },
       "more": "もっと見る",

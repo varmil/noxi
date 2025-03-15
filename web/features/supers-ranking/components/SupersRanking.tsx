@@ -147,7 +147,7 @@ export default async function SupersRanking({
                 />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
-                    className="justify-end"
+                    className="flex justify-end"
                     current={overallRanking?.rank}
                     previous={overallPreviousPeriodRanking?.rank}
                     totalNumber={overallChannelsCount}
@@ -177,7 +177,7 @@ export default async function SupersRanking({
                 />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
-                    className="justify-end"
+                    className="flex justify-end"
                     current={genderRanking?.rank}
                     previous={genderPreviousPeriodRanking?.rank}
                     totalNumber={genderChannelsCount}
@@ -207,7 +207,7 @@ export default async function SupersRanking({
                 />
                 <TableCell align="right">
                   <ComparedToPreviousPeriod
-                    className="justify-end"
+                    className="flex justify-end"
                     current={groupRanking?.rank}
                     previous={groupPreviousPeriodRanking?.rank}
                     totalNumber={groupChannelsCount}

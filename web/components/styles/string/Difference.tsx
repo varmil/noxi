@@ -54,33 +54,33 @@ export default function Difference({
     text = isPercent ? `${diff.toFixed(1)}%` : `${diff}`
   }
 
-  let periodText = ''
-  switch (period) {
-    case 'last24Hours':
-      periodText = comp('last24Hours')
-      break
-    case 'last7Days':
-      periodText = comp('last7Days')
-      break
-    case 'last30Days':
-      periodText = comp('last30Days')
-      break
-    case 'last1Year':
-      periodText = comp('last1Year')
-      break
-    default:
-      break
-  }
-
-  return (
-    <div className={`flex items-center gap-x-4 ${className ?? ''}`}>
-      <div className={`flex items-center font-medium ${color}`}>
-        <Icon className={`w-4 h-4 mr-1`} aria-label={label} />
-        {text}
-      </div>
-      {period && (
-        <span className="text-sm text-muted-foreground">{periodText}</span>
-      )}
+  const Component = () => (
+    <div className={`flex items-center font-medium ${color}`}>
+      <Icon className={`size-4 mr-1`} aria-label={label} />
+      {text}
     </div>
   )
+
+  if (period) {
+    if (
+      period !== 'last24Hours' &&
+      period !== 'last7Days' &&
+      period !== 'last30Days' &&
+      period !== 'last1Year'
+    )
+      return null
+    return (
+      <div className={className}>
+        <span className="flex items-center text-sm text-muted-foreground gap-x-2">
+          {comp.rich(period, { diff: () => <Component /> })}
+        </span>
+      </div>
+    )
+  } else {
+    return (
+      <div className={className}>
+        <Component />
+      </div>
+    )
+  }
 }
