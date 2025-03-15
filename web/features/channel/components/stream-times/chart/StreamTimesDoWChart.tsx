@@ -9,7 +9,6 @@ import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
   ChartCard,
   ChartCardContent,
-  ChartCardFooter,
   ChartCardHeader,
   ChartCardTitle
 } from 'components/styles/card/ChartCard'
@@ -63,14 +62,7 @@ export default function StreamTimesDoWChart({
           </BarChart>
         </ChartContainer>
       </ChartCardContent>
-      <ChartCardFooter className="flex-col items-start gap-1">
-        <CardDescription>
-          The most live streams are held on{' '}
-          <span className="font-medium text-foreground">
-            {dayOfWeek.useMaxLiveCountsDay(streams).dayOfWeek}
-          </span>
-        </CardDescription>
-      </ChartCardFooter>
+
       <div className="sr-only">
         {t('srOnly')}
         {data.map(dayData =>

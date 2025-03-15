@@ -50,6 +50,7 @@ export async function ChannelsIdLiveTemplate({
               }
             ]}
             ignoreSearchParams
+            size="sm"
           />
         }
       >
