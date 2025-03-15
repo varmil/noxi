@@ -92,7 +92,7 @@ export default async function SupersRanking({
   )
 
   return (
-    <>
+    <div>
       <LinkTabs
         className="mb-2"
         tabs={[
@@ -224,7 +224,7 @@ export default async function SupersRanking({
           {feat('description', { channel: channel.basicInfo.title })}
         </CardFooter>
       </Card>
-    </>
+    </div>
   )
 }
 
