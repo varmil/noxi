@@ -126,7 +126,7 @@ const PaginationInfo = ({
   ...props
 }: React.ComponentProps<'span'>) => (
   <span
-    className={cn('flex items-center justify-center', className)}
+    className={cn('flex items-center justify-center text-base', className)}
     {...props}
   />
 )
