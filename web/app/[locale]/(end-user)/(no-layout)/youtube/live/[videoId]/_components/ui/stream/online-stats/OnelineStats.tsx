@@ -3,7 +3,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 
 export default function OnelineStats({ children }: PropsWithChildren) {
   return (
-    <div className="flex items-center text-xs sm:text-sm text-muted-foreground space-x-2 bg-muted px-4 py-2 rounded-xl">
+    <div className="flex items-center text-sm text-muted-foreground space-x-1.5 bg-muted px-4 py-2 rounded-xl">
       {children}
     </div>
   )
