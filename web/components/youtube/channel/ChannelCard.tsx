@@ -45,10 +45,10 @@ export default function ChannelCard({
 
         <div className="flex items-center gap-2">
           <div className="ra-val mb-0 sm:mb-0.5">
-            <div className="text-xs sm:text-sm text-muted-foreground line leading-3">
+            <div className="text-xs text-muted-foreground line leading-3">
               <span>{t('totalSubscribers')}</span>
             </div>
-            <span className="text-lg font-bold">
+            <span className="text-xl font-bold">
               <IntlNumberFormat>{subscriberCount}</IntlNumberFormat>
             </span>
           </div>

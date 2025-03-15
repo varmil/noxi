@@ -1,147 +1,108 @@
-import * as React from 'react'
-import { cn } from '@/lib/utils'
+"use client"
 
-const Table = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
-  <div className="relative w-full overflow-auto">
-    <table
-      ref={ref}
-      className={cn('w-full caption-bottom', className)}
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+function Table({ className, ...props }: React.ComponentProps<"table">) {
+  return (
+    <div
+      data-slot="table-container"
+      className="relative w-full overflow-x-auto"
+    >
+      <table
+        data-slot="table"
+        className={cn("w-full caption-bottom text-sm", className)}
+        {...props}
+      />
+    </div>
+  )
+}
+
+function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
+  return (
+    <thead
+      data-slot="table-header"
+      className={cn("[&_tr]:border-b", className)}
       {...props}
     />
-  </div>
-))
-Table.displayName = 'Table'
-
-const TableHeader = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <thead
-    ref={ref}
-    className={cn(
-      '[&_tr]:border-b border-border-variant text-xs sm:text-sm',
-      className
-    )}
-    {...props}
-  />
-))
-TableHeader.displayName = 'TableHeader'
-
-interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {
-  zebraStripes?: boolean
+  )
 }
 
-const TableBody = React.forwardRef<HTMLTableSectionElement, TableBodyProps>(
-  ({ className, zebraStripes = false, children, ...props }, ref) => {
-    const childrenWithZebraStripes = React.Children.map(
-      children,
-      (child, index) => {
-        if (
-          React.isValidElement<React.PropsWithChildren<TableRowProps>>(child) &&
-          child.type === TableRow
-        ) {
-          return React.cloneElement(child, {
-            isEven: index % 2 === 0,
-            zebraStripes,
-            ...child.props
-          })
-        }
-        return child
-      }
-    )
-    return (
-      <tbody
-        ref={ref}
-        className={cn('[&_tr:last-child]:border-0', className)}
-        {...props}
-      >
-        {zebraStripes ? childrenWithZebraStripes : children}
-      </tbody>
-    )
-  }
-)
-TableBody.displayName = 'TableBody'
-
-const TableFooter = React.forwardRef<
-  HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
-  <tfoot
-    ref={ref}
-    className={cn(
-      'border-t border-border-variant bg-muted/50 font-medium last:[&>tr]:border-b-0',
-      className
-    )}
-    {...props}
-  />
-))
-TableFooter.displayName = 'TableFooter'
-
-interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-  zebraStripes?: boolean
-  isEven?: boolean
+function TableBody({ className, ...props }: React.ComponentProps<"tbody">) {
+  return (
+    <tbody
+      data-slot="table-body"
+      className={cn("[&_tr:last-child]:border-0", className)}
+      {...props}
+    />
+  )
 }
 
-const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
-  ({ className, zebraStripes = false, isEven = false, ...props }, ref) => (
-    <tr
-      ref={ref}
+function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
+  return (
+    <tfoot
+      data-slot="table-footer"
       className={cn(
-        'border-b border-border-variant transition-colors hover:bg-accent/50 data-[state=selected]:bg-accent',
-        zebraStripes && isEven && 'bg-background',
-        zebraStripes && !isEven && 'bg-accent/22', // ゼブラのコントラストが1.05前後になるよう調整
+        "bg-muted/50 border-t font-medium [&>tr]:last:border-b-0",
         className
       )}
       {...props}
     />
   )
-)
-TableRow.displayName = 'TableRow'
+}
 
-const TableHead = React.forwardRef<
-  HTMLTableCellElement,
-  React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <th
-    ref={ref}
-    className={cn(
-      'h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
-      className
-    )}
-    {...props}
-  />
-))
-TableHead.displayName = 'TableHead'
+function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
+  return (
+    <tr
+      data-slot="table-row"
+      className={cn(
+        "hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
-const TableCell = React.forwardRef<
-  HTMLTableCellElement,
-  React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
-  <td
-    ref={ref}
-    className={cn(
-      'px-2 py-3.5 align-middle [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]',
-      className
-    )}
-    {...props}
-  />
-))
-TableCell.displayName = 'TableCell'
+function TableHead({ className, ...props }: React.ComponentProps<"th">) {
+  return (
+    <th
+      data-slot="table-head"
+      className={cn(
+        "text-muted-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
 
-const TableCaption = React.forwardRef<
-  HTMLTableCaptionElement,
-  React.HTMLAttributes<HTMLTableCaptionElement>
->(({ className, ...props }, ref) => (
-  <caption
-    ref={ref}
-    className={cn('mt-4 text-sm text-muted-foreground', className)}
-    {...props}
-  />
-))
-TableCaption.displayName = 'TableCaption'
+function TableCell({ className, ...props }: React.ComponentProps<"td">) {
+  return (
+    <td
+      data-slot="table-cell"
+      className={cn(
+        "p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0 [&>[role=checkbox]]:translate-y-[2px]",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
+function TableCaption({
+  className,
+  ...props
+}: React.ComponentProps<"caption">) {
+  return (
+    <caption
+      data-slot="table-caption"
+      className={cn("text-muted-foreground mt-4 text-sm", className)}
+      {...props}
+    />
+  )
+}
 
 export {
   Table,
@@ -151,5 +112,5 @@ export {
   TableHead,
   TableRow,
   TableCell,
-  TableCaption
+  TableCaption,
 }
