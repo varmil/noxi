@@ -109,7 +109,7 @@ const NotSP = ({
         if (
           pageNumber === 1 ||
           pageNumber === totalPages ||
-          (pageNumber >= current - 1 && pageNumber <= current + 1)
+          (pageNumber >= current - 2 && pageNumber <= current + 2)
         ) {
           return (
             <PaginationLink
@@ -123,7 +123,7 @@ const NotSP = ({
               {pageNumber}
             </PaginationLink>
           )
-        } else if (pageNumber === current - 2 || pageNumber === current + 2) {
+        } else if (pageNumber === current - 3 || pageNumber === current + 3) {
           return <PaginationEllipsis key={pageNumber} />
         }
         return null

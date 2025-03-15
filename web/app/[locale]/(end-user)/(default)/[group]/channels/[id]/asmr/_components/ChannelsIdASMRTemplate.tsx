@@ -51,6 +51,7 @@ export async function ChannelsIdASMRTemplate({
               }
             ]}
             ignoreSearchParams
+            size="sm"
           />
         }
       >

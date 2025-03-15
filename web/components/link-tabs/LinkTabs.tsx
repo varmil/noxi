@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
 
 interface Tab {
@@ -14,12 +15,14 @@ interface LinkTabsProps {
   className?: string
   /** Active判定の際にsearchParamsをみない */
   ignoreSearchParams?: boolean
+  size?: 'sm'
 }
 
 export function LinkTabs({
   tabs,
   className,
-  ignoreSearchParams
+  ignoreSearchParams,
+  size
 }: LinkTabsProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -31,12 +34,12 @@ export function LinkTabs({
 
   return (
     <Tabs value={currentUrl} className={`w-full ${className ?? ''}`}>
-      <TabsList className="w-full">
+      <TabsList className={cn('w-full', size === 'sm' && 'h-9')}>
         {tabs.map(tab => (
           <TabsTrigger
             key={tab.href}
             value={tab.href}
-            className="flex-1"
+            className={cn('flex-1', size === 'sm' && 'text-sm py-1')}
             asChild
           >
             <Link
