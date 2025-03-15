@@ -94,7 +94,7 @@ export default async function SupersRanking({
   return (
     <div>
       <LinkTabs
-        className="mb-2"
+        className="mb-4"
         tabs={[
           {
             label: global('period.last24Hours'),
