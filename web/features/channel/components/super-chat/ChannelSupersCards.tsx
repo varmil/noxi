@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
+import { Badge } from '@/components/ui/badge'
 import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
@@ -16,7 +17,7 @@ import { Period } from 'types/period'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { calcPercentageChange } from 'utils/math/math'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
-import { getStartOf, getUpdatedAt } from 'utils/period/ranking'
+import { getStartOf } from 'utils/period/ranking'
 import LinkToRanking from './link/LinkToRanking'
 
 /**
@@ -79,11 +80,7 @@ export default async function ChannelSupersCards({
             Number(previousLast24HoursSum.amountMicros)
           )}
           diffIsPercent
-          subText={global('datetime.updatedAt', {
-            updatedAt: format.relativeTime(
-              getUpdatedAt('last24Hours', new Date()).toDate()
-            )
-          })}
+          period="last24Hours"
         >
           <JapaneseYen className="w-4 h-4" />
           <LinkToRanking
@@ -97,7 +94,12 @@ export default async function ChannelSupersCards({
       </StatsCard>
 
       <StatsCard>
-        <StatsCardHeader>{global('period.last7Days')}</StatsCardHeader>
+        <StatsCardHeader>
+          <span>{global('period.last7Days')}</span>
+          <span className="text-xs font-light text-muted-foreground">
+            {format.relativeTime(summary.createdAt)}
+          </span>
+        </StatsCardHeader>
         <StatsCardContent
           className="flex gap-1 items-center"
           diff={calcPercentageChange(
@@ -105,9 +107,7 @@ export default async function ChannelSupersCards({
             Number(previousLast7DaysSummary?.last7Days ?? 0)
           )}
           diffIsPercent
-          subText={global('datetime.updatedAt', {
-            updatedAt: format.relativeTime(summary.createdAt)
-          })}
+          period="last7Days"
         >
           <JapaneseYen className="w-4 h-4" />
           <LinkToRanking
@@ -121,7 +121,12 @@ export default async function ChannelSupersCards({
       </StatsCard>
 
       <StatsCard>
-        <StatsCardHeader>{global('period.last30Days')}</StatsCardHeader>
+        <StatsCardHeader>
+          <span>{global('period.last30Days')}</span>
+          <span className="text-xs font-light text-muted-foreground">
+            {format.relativeTime(summary.createdAt)}
+          </span>
+        </StatsCardHeader>
         <StatsCardContent
           className="flex gap-1 items-center"
           diff={calcPercentageChange(
@@ -129,9 +134,7 @@ export default async function ChannelSupersCards({
             Number(previousLast30DaysSummary?.last30Days ?? 0)
           )}
           diffIsPercent
-          subText={global('datetime.updatedAt', {
-            updatedAt: format.relativeTime(summary.createdAt)
-          })}
+          period="last30Days"
         >
           <JapaneseYen className="w-4 h-4" />
           <LinkToRanking

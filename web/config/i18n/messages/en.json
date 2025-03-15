@@ -334,6 +334,14 @@
         "past": "Past data",
         "labelForRealtime": "Show latest data"
       },
+      "string": {
+        "difference": {
+          "last24Hours": "compared to yesterday",
+          "last7Days": "compared to 7 days ago",
+          "last30Days": "compared to 30 days ago",
+          "last1Year": "compared to 1 year ago"
+        }
+      },
       "more": "Read More",
       "scheduledFor": "Scheduled for {datetime}",
       "startedStreaming": "Started streaming {datetime}",

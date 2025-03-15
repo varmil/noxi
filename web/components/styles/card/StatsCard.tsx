@@ -1,6 +1,7 @@
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Difference from 'components/styles/string/Difference'
+import { Period } from 'types/period'
 
 export function StatsCards({ children }: PropsWithChildren<{}>) {
   return (
@@ -20,7 +21,7 @@ export function StatsCard({
 export function StatsCardHeader({ children }: PropsWithChildren) {
   return (
     <CardHeader className="pb-2">
-      <CardTitle className="flex justify-between w-full font-medium">
+      <CardTitle className="text-sm flex justify-between items-center w-full font-medium">
         {children}
       </CardTitle>
     </CardHeader>
@@ -30,35 +31,36 @@ export function StatsCardHeader({ children }: PropsWithChildren) {
 type Props = {
   diff?: number
   diffIsPercent?: boolean
-  subText?: string
+  period?: Period
+  subText?: string | React.ReactNode
   className?: string
 }
 export function StatsCardContent({
   diff,
   diffIsPercent,
+  period,
   subText,
   children,
   className
 }: PropsWithChildren<Props>) {
   return (
-    <CardContent>
+    <CardContent className="flex flex-col gap-y-1">
       <div className="flex items-baseline gap-x-6">
-        <div
-          className={`text-xl sm:text-2xl font-bold tabular-nums ${
-            className ?? ''
-          }`}
-        >
+        <div className={`text-2xl font-bold tabular-nums ${className ?? ''}`}>
           {children}
         </div>
-        {diff !== undefined ? (
-          <Difference diff={diff} isPercent={diffIsPercent} />
-        ) : null}
       </div>
-      {subText && (
-        <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
-          {subText}
-        </p>
-      )}
+      <div className="flex justify-between items-baseline gap-x-6">
+        {diff !== undefined ? (
+          <Difference
+            className="mt-5"
+            diff={diff}
+            isPercent={diffIsPercent}
+            period={period}
+          />
+        ) : null}
+        {subText && <p className="text-xs text-muted-foreground">{subText}</p>}
+      </div>
     </CardContent>
   )
 }

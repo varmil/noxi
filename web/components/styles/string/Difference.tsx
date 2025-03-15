@@ -5,13 +5,23 @@ import {
   MinusIcon,
   LucideProps
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { Period } from 'types/period'
 
 type Props = {
   diff: number
   isPercent?: boolean
+  period?: Period
   className?: string
 }
-export default function Difference({ diff, isPercent, className }: Props) {
+export default function Difference({
+  diff,
+  isPercent,
+  period,
+  className
+}: Props) {
+  const comp = useTranslations('Components.styles.string.difference')
+
   let Icon: ForwardRefExoticComponent<
     Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
   >
@@ -44,12 +54,33 @@ export default function Difference({ diff, isPercent, className }: Props) {
     text = isPercent ? `${diff.toFixed(1)}%` : `${diff}`
   }
 
+  let periodText = ''
+  switch (period) {
+    case 'last24Hours':
+      periodText = comp('last24Hours')
+      break
+    case 'last7Days':
+      periodText = comp('last7Days')
+      break
+    case 'last30Days':
+      periodText = comp('last30Days')
+      break
+    case 'last1Year':
+      periodText = comp('last1Year')
+      break
+    default:
+      break
+  }
+
   return (
-    <span
-      className={`flex items-center font-medium ${color} ${className ?? ''}`}
-    >
-      <Icon className={`w-4 h-4 mr-1`} aria-label={label} />
-      {text}
-    </span>
+    <div className={`flex items-center gap-x-4 ${className ?? ''}`}>
+      <div className={`flex items-center text-base font-medium ${color}`}>
+        <Icon className={`w-4 h-4 mr-1`} aria-label={label} />
+        {text}
+      </div>
+      {period && (
+        <span className="text-sm text-muted-foreground">{periodText}</span>
+      )}
+    </div>
   )
 }
