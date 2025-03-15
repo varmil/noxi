@@ -334,6 +334,14 @@
         "past": "過去データ",
         "labelForRealtime": "最新のデータを表示"
       },
+      "string": {
+        "difference": {
+          "last24Hours": "前日と比べて",
+          "last7Days": "7日前と比べて",
+          "last30Days": "30日前と比べて",
+          "last1Year": "1年前と比べて"
+        }
+      },
       "more": "もっと見る",
       "scheduledFor": "{datetime} に公開予定",
       "startedStreaming": "{datetime}にライブ配信開始",
