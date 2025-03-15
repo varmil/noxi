@@ -53,7 +53,7 @@ export function StatsCardContent({
       <div className="flex justify-between items-baseline gap-x-6">
         {diff !== undefined ? (
           <Difference
-            className="mt-5"
+            className="mt-3"
             diff={diff}
             isPercent={diffIsPercent}
             period={period}

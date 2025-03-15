@@ -336,10 +336,10 @@
       },
       "string": {
         "difference": {
-          "last24Hours": "compared to yesterday",
-          "last7Days": "compared to 7 days ago",
-          "last30Days": "compared to 30 days ago",
-          "last1Year": "compared to 1 year ago"
+          "last24Hours": "<diff></diff> compared to yesterday",
+          "last7Days": "<diff></diff> compared to 7 days ago",
+          "last30Days": "<diff></diff> compared to 30 days ago",
+          "last1Year": "<diff></diff> compared to 1 year ago"
         }
       },
       "more": "Read More",
