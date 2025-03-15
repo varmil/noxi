@@ -74,7 +74,7 @@ export default function Difference({
 
   return (
     <div className={`flex items-center gap-x-4 ${className ?? ''}`}>
-      <div className={`flex items-center text-base font-medium ${color}`}>
+      <div className={`flex items-center font-medium ${color}`}>
         <Icon className={`w-4 h-4 mr-1`} aria-label={label} />
         {text}
       </div>
