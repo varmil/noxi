@@ -55,7 +55,7 @@ function ChartContainer({
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
   // NOTE: 2025/03/16 max-h だと余分な高さを確保してしまうのでh-でよい
-  const heightWidthClasses = 'h-[200px] sm:h-[300px] w-[99.5%]'
+  const heightWidthClasses = 'h-[200px] sm:h-[250px] w-[99.5%]'
 
   return (
     <ChartContext.Provider value={{ config }}>

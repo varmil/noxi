@@ -10,6 +10,7 @@ import {
 import { useTranslations } from 'next-intl'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Link } from 'lib/navigation'
 
 function Pagination({ className, ...props }: React.ComponentProps<'nav'>) {
   return (
@@ -44,7 +45,7 @@ type PaginationLinkProps = {
   isActive?: boolean
   disabled?: boolean
 } & Pick<React.ComponentProps<typeof Button>, 'size'> &
-  React.ComponentProps<'a'>
+  React.ComponentProps<typeof Link>
 
 function PaginationLink({
   className,
@@ -55,7 +56,7 @@ function PaginationLink({
   ...props
 }: PaginationLinkProps) {
   return (
-    <a
+    <Link
       aria-current={isActive ? 'page' : undefined}
       data-slot="pagination-link"
       data-active={isActive}
@@ -77,15 +78,16 @@ function PaginationPrevious({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
+  const t = useTranslations('Components.pagination')
   return (
     <PaginationLink
-      aria-label="Go to previous page"
+      aria-label={t('previous')}
       size="default"
       className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
+      <span className="hidden sm:block">{t('previous')}</span>
     </PaginationLink>
   )
 }
@@ -94,14 +96,15 @@ function PaginationNext({
   className,
   ...props
 }: React.ComponentProps<typeof PaginationLink>) {
+  const t = useTranslations('Components.pagination')
   return (
     <PaginationLink
-      aria-label="Go to next page"
+      aria-label={t('next')}
       size="default"
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
+      <span className="hidden sm:block">{t('next')}</span>
       <ChevronRightIcon />
     </PaginationLink>
   )
@@ -129,7 +132,7 @@ const PaginationInfo = ({
   ...props
 }: React.ComponentProps<'span'>) => (
   <span
-    className={cn('flex items-center justify-center text-base', className)}
+    className={cn('flex items-center justify-center', className)}
     {...props}
   />
 )

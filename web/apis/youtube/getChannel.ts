@@ -10,6 +10,7 @@ export async function getChannel(id: string): Promise<ChannelSchema> {
   if (!res.ok) {
     // Specifically handle 404 errors
     if (res.status === 404) {
+      console.log(`Channel not found: ${id}`)
       return notFound()
     }
     // For all other errors, throw a generic error (will result in 500 status)

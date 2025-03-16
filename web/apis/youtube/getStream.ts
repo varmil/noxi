@@ -16,6 +16,7 @@ export async function getStream(id: string): Promise<StreamSchema> {
   if (!res.ok) {
     // Specifically handle 404 errors
     if (res.status === 404) {
+      console.log(`Stream not found: ${id}`)
       return notFound()
     }
     // For all other errors, throw a generic error (will result in 500 status)
