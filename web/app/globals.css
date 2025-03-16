@@ -138,9 +138,9 @@
     --accent-foreground: hsl(41 var(--s-text) 12.5%);
     --destructive: hsl(0 50% 40%);
     --destructive-foreground: hsl(41 var(--s-text) 95%);
-    --border: hsl(41 var(--s-border) 66%);
+    --border: hsl(41 var(--s-border) 85%);
     --border-variant: hsl(41 var(--s-border) 85%);
-    --input: hsl(41 var(--s-border) 66%);
+    --input: hsl(41 var(--s-border) 85%);
     --ring: hsl(41 88.7% 45.3%);
     --radius: 0.45rem;
 
@@ -179,9 +179,9 @@
     --accent-foreground: var(--fg);
     --destructive: hsl(0 50% 35%);
     --destructive-foreground: var(--fg);
-    --border: hsl(41 var(--s-border) 30%);
+    --border: hsl(41 var(--s-border) 14%);
     --border-variant: hsl(41 var(--s-border) 14%);
-    --input: hsl(41 var(--s-border) 30%);
+    --input: hsl(41 var(--s-border) 14%);
     --ring: hsl(41 88.7% 45.3%);
 
     --chart-1: hsl(220 70% 50%);
