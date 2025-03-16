@@ -111,7 +111,6 @@ export default async function ChannelsRankingTable({
             <TableRow
               key={`${channelId}-${i}`}
               id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
-              className="border-none"
             >
               {/* Rank */}
               <TableCell className="min-w-2 max-w-16 py-1">
