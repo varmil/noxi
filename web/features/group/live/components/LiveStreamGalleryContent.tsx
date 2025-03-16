@@ -5,11 +5,11 @@ import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingD
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
-  GridCardGalleryContent,
-  GridCardGalleryFirstView
+  GridCardGalleryContainer,
+  GridCardGalleryContent
 } from 'components/styles/GridCardContainer'
+import { StreamGalleryPagination } from 'config/constants/Pagination'
 import Stream from 'features/group/stream/components/Stream'
-import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -30,17 +30,17 @@ export default async function LiveStreamGalleryContent({
   ])
 
   const displayedStreams = compact
-    ? streams.slice(0, STREAM_GALLERY_COMPACT_LIMIT)
+    ? streams.slice(0, StreamGalleryPagination.COMPACT_PAGE_SIZE)
     : streams
 
   return (
     <CardContent>
-      <GridCardGalleryContent>
+      <GridCardGalleryContainer>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noLive')}</p>
         )}
 
-        <GridCardGalleryFirstView>
+        <GridCardGalleryContent>
           {displayedStreams.map(stream => {
             const channel = channels.find(
               channel => channel.basicInfo.id === stream.snippet.channelId
@@ -62,8 +62,8 @@ export default async function LiveStreamGalleryContent({
               />
             )
           })}
-        </GridCardGalleryFirstView>
-      </GridCardGalleryContent>
+        </GridCardGalleryContent>
+      </GridCardGalleryContainer>
     </CardContent>
   )
 }

@@ -51,9 +51,7 @@ export default async function EndedStreamGallery({
           }
           badgeText="Archive"
         />
-      ) : (
-        <div className="pb-6"></div>
-      )}
+      ) : null}
 
       <EndedStreamGalleryContent streams={streams} />
 

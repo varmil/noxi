@@ -3,8 +3,8 @@ import { getTranslations } from 'next-intl/server'
 import { CardContent } from '@/components/ui/card'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
-  GridCardGalleryContent,
-  GridCardGalleryFirstView
+  GridCardGalleryContainer,
+  GridCardGalleryContent
 } from 'components/styles/GridCardContainer'
 import EndedStreams from 'features/group/ended/components/EndedStreams'
 
@@ -15,14 +15,14 @@ export default async function EndedStreamGalleryContent({ streams }: Props) {
 
   return (
     <CardContent>
-      <GridCardGalleryContent>
+      <GridCardGalleryContainer>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noEnded')}</p>
         )}
-        <GridCardGalleryFirstView>
+        <GridCardGalleryContent>
           <EndedStreams streams={streams} />
-        </GridCardGalleryFirstView>
-      </GridCardGalleryContent>
+        </GridCardGalleryContent>
+      </GridCardGalleryContainer>
     </CardContent>
   )
 }

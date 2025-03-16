@@ -14,7 +14,7 @@ export default function CustomTooltip({ payload }: Props) {
   if (!data) return null
 
   return (
-    <div className="rounded-lg border bg-popover text-popover-foreground p-2 shadow-xs text-xs sm:text-sm">
+    <div className="rounded-lg border bg-popover text-popover-foreground px-2.5 py-1.5 shadow-xl">
       <div className="grid grid-cols-2 gap-2">
         <div className="flex flex-col gap-1">
           <span className="uppercase text-muted-foreground">

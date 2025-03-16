@@ -31,7 +31,7 @@ export default function CommentContent({ children }: PropsWithChildren) {
       {showReadMore && !isExpanded && (
         <Button
           variant="ghost"
-          className="text-sm p-0 font-normal text-muted-foreground"
+          className="p-0 font-normal text-muted-foreground"
           onClick={() => setIsExpanded(true)}
         >
           続きを読む

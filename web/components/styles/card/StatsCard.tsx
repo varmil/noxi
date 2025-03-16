@@ -15,12 +15,12 @@ export function StatsCard({
   children,
   className
 }: PropsWithChildren<{ className?: string }>) {
-  return <Card className={className}>{children}</Card>
+  return <Card className={`gap-2 ${className}`}>{children}</Card>
 }
 
 export function StatsCardHeader({ children }: PropsWithChildren) {
   return (
-    <CardHeader className="pb-2">
+    <CardHeader className="gap-0">
       <CardTitle className="text-sm flex justify-between items-center w-full font-medium">
         {children}
       </CardTitle>
@@ -44,7 +44,7 @@ export function StatsCardContent({
   className
 }: PropsWithChildren<Props>) {
   return (
-    <CardContent className="flex flex-col gap-y-1">
+    <CardContent className="flex flex-col gap-y-0">
       <div className="flex items-baseline gap-x-6">
         <div className={`text-2xl font-bold tabular-nums ${className ?? ''}`}>
           {children}
@@ -53,7 +53,7 @@ export function StatsCardContent({
       <div className="flex justify-between items-baseline gap-x-6">
         {diff !== undefined ? (
           <Difference
-            className="mt-3"
+            className="mt-2"
             diff={diff}
             isPercent={diffIsPercent}
             period={period}

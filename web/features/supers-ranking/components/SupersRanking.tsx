@@ -220,7 +220,7 @@ export default async function SupersRanking({
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter className="text-muted-foreground">
+        <CardFooter className="text-sm text-muted-foreground">
           {feat('description', { channel: channel.basicInfo.title })}
         </CardFooter>
       </Card>

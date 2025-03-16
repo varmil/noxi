@@ -43,12 +43,14 @@ export default async function StreamBasicInfo({
           </Avatar>
         </Link>
         <div>
-          <p className="flex gap-x-1 items-center">
+          <p className="flex gap-x-2 items-center">
             <Link
               href={`/${group}/channels/${basicInfo.id}`}
-              className="flex-1 text-base font-semibold hover:text-accent-foreground"
+              className="flex-1"
             >
-              {basicInfo.title}
+              <span className="text-base font-semibold hover:underline line-clamp-1 break-all">
+                {basicInfo.title}
+              </span>
             </Link>
             <span className="w-16 text-sm text-muted-foreground">
               <IntlNumberFormat>{statistics.subscriberCount}</IntlNumberFormat>

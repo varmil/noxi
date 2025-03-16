@@ -34,12 +34,6 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
   return (
     <Pagination className={`${className}`}>
       <PaginationContent>
-        {/* <PaginationItem className="hidden">
-          <PaginationFirst
-            href={`#`} // href="?page=1"
-            disabled={current === 1}
-          />
-        </PaginationItem> */}
         <PaginationItem>
           <PaginationPrevious
             href={`${pathname}?${createQueryString(
@@ -64,12 +58,6 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
             disabled={current === total}
           />
         </PaginationItem>
-        {/* <PaginationItem className="hidden">
-          <PaginationLast
-            href={`#`} // href={`?page=${total}`}
-            disabled={current === total}
-          />
-        </PaginationItem> */}
       </PaginationContent>
     </Pagination>
   )

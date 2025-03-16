@@ -60,7 +60,5 @@ export default function DimensionColumn({ className }: Props) {
 }
 
 const Label = ({ label, className }: { label: string; className?: string }) => (
-  <div className={`text-muted-foreground text-xs sm:text-sm ${className}`}>
-    {label}
-  </div>
+  <div className={`text-muted-foreground text-xs ${className}`}>{label}</div>
 )

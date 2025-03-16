@@ -71,7 +71,7 @@ export default function Difference({
       return null
     return (
       <div className={className}>
-        <span className="flex items-center text-sm text-muted-foreground gap-x-2">
+        <span className="flex items-center text-xs text-muted-foreground gap-x-2">
           {comp.rich(period, { diff: () => <Component /> })}
         </span>
       </div>

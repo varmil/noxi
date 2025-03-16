@@ -28,6 +28,11 @@ function ScrollArea({
   )
 }
 
+/**
+ * @Custom
+ * w-2.5 --> w-2, h-2.5 --> h-2
+ * rounded-full --> rounded-xs
+ */
 function ScrollBar({
   className,
   orientation = 'vertical',
@@ -49,7 +54,7 @@ function ScrollBar({
     >
       <ScrollAreaPrimitive.ScrollAreaThumb
         data-slot="scroll-area-thumb"
-        className="bg-border/60 rounded-xs relative flex-1"
+        className="bg-border relative flex-1 rounded-xs"
       />
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   )

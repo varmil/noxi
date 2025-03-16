@@ -8,7 +8,7 @@ export default function StreamGallerySkeleton({
 }) {
   return (
     <Card className={`w-full ${className}`}>
-      <CardHeader className="flex flex-row items-center justify-between p-4 sm:p-6 space-y-0">
+      <CardHeader className="flex flex-row items-center justify-between mb-1.5">
         <div className="flex items-center gap-2">
           <Skeleton className="h-6 w-6" /> {/* アイコン用のSkeleton */}
           <Skeleton className="h-6 w-32" /> {/* タイトル用のSkeleton */}
@@ -22,7 +22,7 @@ export default function StreamGallerySkeleton({
             <div className="flex gap-x-3">
               <Skeleton className="h-9 w-9 rounded-full" />
               <div className="flex-1 space-y-2">
-                <Skeleton className="h-8 sm:h-12 w-full" />
+                <Skeleton className="h-8 sm:h-10 w-full" />
                 <Skeleton className="h-4 w-4/5" />
                 <Skeleton className="h-4 w-4/5" />
               </div>

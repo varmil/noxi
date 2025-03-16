@@ -52,9 +52,7 @@ export default async function LiveStreamGallery({
           }
           badgeText="Live"
         />
-      ) : (
-        <div className="pb-6"></div>
-      )}
+      ) : null}
 
       <LiveStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/live`} />}

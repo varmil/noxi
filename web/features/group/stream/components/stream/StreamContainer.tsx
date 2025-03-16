@@ -4,11 +4,7 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { Link } from 'lib/navigation'
 
-/**
- * @note 関連動画を見せるUIとしてコメントアウト部分は使えそう
- */
 export const StreamContainer = ({ children }: PropsWithChildren) => (
-  // <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">{children}</div>
   <div className="flex flex-col gap-2">{children}</div>
 )
 
@@ -55,11 +51,11 @@ export const StreamTextContainer = ({
   } = stream
   return (
     <div>
-      <h3 className="tracking-tight line-clamp-2 break-anywhere mb-1">
+      <h3 className="text-sm tracking-tight line-clamp-2 break-anywhere mb-1">
         {title}
       </h3>
       <div className="col-start-2 flex items-center gap-1">
-        <div className="text-xs sm:text-sm text-muted-foreground">
+        <div className="text-xs text-muted-foreground">
           <Link
             href={`/${group}/channels/${channelId}`}
             className="line-clamp-1 break-all hover:text-accent-foreground"

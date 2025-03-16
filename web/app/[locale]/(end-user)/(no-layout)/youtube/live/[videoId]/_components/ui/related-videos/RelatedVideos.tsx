@@ -31,10 +31,8 @@ export default async function RelatedVideos({
   ])
 
   return (
-    <Card
-      className={`border-none bg-transparent shadow-none ${className ?? ''}`}
-    >
-      <CardContent className="space-y-4 px-0">
+    <section>
+      <div className="space-y-4 px-0">
         {relatedVideos.map(stream => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId
@@ -93,8 +91,8 @@ export default async function RelatedVideos({
             </Link>
           )
         })}
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   )
 }
 

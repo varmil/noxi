@@ -15,7 +15,7 @@ export function ChartCard({
   className
 }: PropsWithChildren<{ className?: string }>) {
   return (
-    <Card className={`border-0 bg-inherit shadow-none ${className}`}>
+    <Card className={`border-0 bg-inherit shadow-none py-0 ${className}`}>
       {children}
     </Card>
   )
