@@ -56,9 +56,7 @@ export default async function ScheduledStreamGallery({
           }
           badgeText="Scheduled"
         />
-      ) : (
-        <div className="pb-6"></div>
-      )}
+      ) : null}
 
       <ScheduledStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/scheduled`} />}
