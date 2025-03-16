@@ -1,8 +1,12 @@
+/**
+ * @Custom
+ * Use `next-intl` for i18n
+ * Add PaginationInfo
+ * Add relative top-[1px] for ChevronLeftIcon and ChevronRightIcon
+ */
 import * as React from 'react'
 import {
-  ChevronLeft,
   ChevronLeftIcon,
-  ChevronRight,
   ChevronRightIcon,
   MoreHorizontalIcon
 } from 'lucide-react'
@@ -86,7 +90,7 @@ function PaginationPrevious({
       className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
       {...props}
     >
-      <ChevronLeftIcon />
+      <ChevronLeftIcon className="relative top-[1px]" />
       <span className="hidden sm:block">{t('previous')}</span>
     </PaginationLink>
   )
@@ -105,7 +109,7 @@ function PaginationNext({
       {...props}
     >
       <span className="hidden sm:block">{t('next')}</span>
-      <ChevronRightIcon />
+      <ChevronRightIcon className="relative top-[1px]" />
     </PaginationLink>
   )
 }
@@ -122,7 +126,9 @@ function PaginationEllipsis({
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />
-      <span className="sr-only">More pages</span>
+      <span className="sr-only">
+        {useTranslations('Components.pagination')('more')}
+      </span>
     </span>
   )
 }
@@ -138,44 +144,6 @@ const PaginationInfo = ({
 )
 PaginationInfo.displayName = 'PaginationInfo'
 
-const PaginationFirst = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => {
-  const t = useTranslations('Components.pagination')
-  return (
-    <PaginationLink
-      aria-label={t('first')}
-      size="default"
-      className={cn('gap-1', className)}
-      {...props}
-    >
-      <ChevronLeft className="relative h-4 w-4 top-[1px]" />
-      <ChevronLeft className="relative h-4 w-4 top-[1px] -ml-2.5" />
-    </PaginationLink>
-  )
-}
-PaginationFirst.displayName = 'PaginationFirst'
-
-const PaginationLast = ({
-  className,
-  ...props
-}: React.ComponentProps<typeof PaginationLink>) => {
-  const t = useTranslations('Components.pagination')
-  return (
-    <PaginationLink
-      aria-label={t('last')}
-      size="default"
-      className={cn('gap-1', className)}
-      {...props}
-    >
-      <ChevronRight className="relative h-4 w-4 top-[1px]" />
-      <ChevronRight className="relative h-4 w-4 top-[1px] -ml-2.5" />
-    </PaginationLink>
-  )
-}
-PaginationLast.displayName = 'PaginationLast'
-
 export {
   Pagination,
   PaginationContent,
@@ -184,7 +152,5 @@ export {
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,
-  PaginationInfo,
-  PaginationFirst,
-  PaginationLast
+  PaginationInfo
 }
