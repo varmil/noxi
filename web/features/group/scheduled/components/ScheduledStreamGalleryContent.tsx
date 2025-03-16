@@ -4,11 +4,11 @@ import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
-  GridCardGalleryContent,
-  GridCardGalleryFirstView
+  GridCardGalleryContainer,
+  GridCardGalleryContent
 } from 'components/styles/GridCardContainer'
+import { StreamGalleryPagination } from 'config/constants/Pagination'
 import Stream from 'features/group/stream/components/Stream'
-import { STREAM_GALLERY_COMPACT_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
@@ -30,7 +30,7 @@ export default async function ScheduledStreamGalleryContent({
 
   return (
     <CardContent>
-      <GridCardGalleryContent>
+      <GridCardGalleryContainer>
         {streams.length === 0 && (
           <p className="text-muted-foreground">{t('noScheduled')}</p>
         )}
@@ -38,7 +38,7 @@ export default async function ScheduledStreamGalleryContent({
           {/* Loop by date */}
           {Object.entries(groupedStreams).map(([date, events]) => {
             return (
-              <GridCardGalleryFirstView key={date}>
+              <GridCardGalleryContent key={date}>
                 {events.map(stream => {
                   const channel = channels.find(
                     channel => channel.basicInfo.id === stream.snippet.channelId
@@ -52,11 +52,11 @@ export default async function ScheduledStreamGalleryContent({
                     />
                   )
                 })}
-              </GridCardGalleryFirstView>
+              </GridCardGalleryContent>
             )
           })}
         </section>
-      </GridCardGalleryContent>
+      </GridCardGalleryContainer>
     </CardContent>
   )
 }
@@ -77,7 +77,7 @@ async function getCompactGroupedStreams({
         if (a.metrics.likes < b.metrics.likes) return 1
         return 0
       })
-      .slice(0, STREAM_GALLERY_COMPACT_LIMIT)
+      .slice(0, StreamGalleryPagination.COMPACT_PAGE_SIZE)
   }
 }
 
@@ -85,12 +85,7 @@ async function getCompactGroupedStreams({
  * not-compact表示の場合、dateKeyごとに表示
  * dateKeyの中はstatistics.likeCountの降順
  */
-async function getGroupedStreams({
-  streams
-}: {
-  streams: StreamsSchema
-  compact?: boolean
-}) {
+async function getGroupedStreams({ streams }: { streams: StreamsSchema }) {
   const format = await getFormatter()
   let groupedStreams: Record<string, StreamsSchema> = {}
 

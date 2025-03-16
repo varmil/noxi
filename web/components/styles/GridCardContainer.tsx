@@ -1,13 +1,4 @@
-'use client'
-
-import { PropsWithChildren, useState } from 'react'
-import { useTranslations } from 'next-intl'
-import { Button } from '@/components/ui/button'
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
-} from '@/components/ui/collapsible'
+import { PropsWithChildren } from 'react'
 
 type Props = PropsWithChildren<{
   className?: string
@@ -23,33 +14,13 @@ const getGridClasses = (className?: string) => {
 /**
  * 親コンテナ
  */
-export function GridCardGalleryContent({ children }: PropsWithChildren) {
+export function GridCardGalleryContainer({ children }: PropsWithChildren) {
   return <div className={`@container grid ${gridGapYClasses}`}>{children}</div>
 }
 
 /**
- * @usage GridCardGalleryContent > GridCardGalleryFirstView
+ * @usage GridCardGalleryContainer > GridCardGalleryContent
  */
-export function GridCardGalleryFirstView({ className, children }: Props) {
+export function GridCardGalleryContent({ className, children }: Props) {
   return <section className={getGridClasses(className)}>{children}</section>
-}
-
-/**
- * @usage GridCardGalleryContent > GridCardGalleryMore
- */
-export function GridCardGalleryMore({ className, children }: Props) {
-  const [isOpen, setIsOpen] = useState(false)
-  const t = useTranslations('Components.styles')
-  return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleContent className={getGridClasses(className)}>
-        {children}
-      </CollapsibleContent>
-      <CollapsibleTrigger asChild className={`w-full ${isOpen && 'hidden'}`}>
-        <Button variant="outline" className="w-full">
-          {t('more')}
-        </Button>
-      </CollapsibleTrigger>
-    </Collapsible>
-  )
 }
