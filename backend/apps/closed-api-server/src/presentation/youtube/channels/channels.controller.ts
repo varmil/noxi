@@ -2,6 +2,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  NotFoundException,
   Param,
   Query,
   UseInterceptors
@@ -34,6 +35,10 @@ export class ChannelsController {
 
   @Get(':id')
   async getChannel(@Param('id') id: string) {
-    return await this.channelsService.findById(new ChannelId(id))
+    const channel = await this.channelsService.findById(new ChannelId(id))
+    if (!channel) {
+      throw new NotFoundException(`channel not found for ${id}`)
+    }
+    return channel
   }
 }
