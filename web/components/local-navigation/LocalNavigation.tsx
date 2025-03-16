@@ -23,7 +23,7 @@ export default function LocalNavigation({
   const pathname = usePathname()
 
   return (
-    <div className={`mx-auto ${className ?? ''}`}>
+    <div className={`text-sm mx-auto ${className ?? ''}`}>
       {/* gridが大事 */}
       <ScrollArea className="grid w-full whitespace-nowrap">
         <div className="flex h-auto items-center">
