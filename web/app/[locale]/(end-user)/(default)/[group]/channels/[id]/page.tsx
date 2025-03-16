@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { Period } from 'types/period'
+import { getWebUrl } from 'utils/web-url'
 import { ChannelsIdTemplate } from './_components/ChannelsIdTemplate'
 import ChannelsIdBasePage, {
   ChannelsIdBasePageProps,
@@ -11,10 +12,16 @@ type Props = ChannelsIdBasePageProps & {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  return generateBaseMetadata({
-    ...props,
-    namespace: 'Page.group.channelsId.index.metadata'
-  })
+  const { locale, group, id } = await props.params
+  return {
+    ...(await generateBaseMetadata({
+      ...props,
+      namespace: 'Page.group.channelsId.index.metadata'
+    })),
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}`
+    }
+  }
 }
 
 export default async function GroupChannelsIdPage(props: Props) {
