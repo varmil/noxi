@@ -1,10 +1,13 @@
 import * as React from 'react'
 import {
+  ChevronLeft,
   ChevronLeftIcon,
+  ChevronRight,
   ChevronRightIcon,
   MoreHorizontalIcon
 } from 'lucide-react'
 
+import { useTranslations } from 'next-intl'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
@@ -39,12 +42,15 @@ function PaginationItem({ ...props }: React.ComponentProps<'li'>) {
 
 type PaginationLinkProps = {
   isActive?: boolean
+  disabled?: boolean
 } & Pick<React.ComponentProps<typeof Button>, 'size'> &
   React.ComponentProps<'a'>
 
 function PaginationLink({
   className,
   isActive,
+  disabled,
+  href,
   size = 'icon',
   ...props
 }: PaginationLinkProps) {
@@ -58,8 +64,10 @@ function PaginationLink({
           variant: isActive ? 'outline' : 'ghost',
           size
         }),
-        className
+        className,
+        disabled && 'pointer-events-none opacity-50'
       )}
+      href={disabled ? '#' : href}
       {...props}
     />
   )
@@ -116,6 +124,55 @@ function PaginationEllipsis({
   )
 }
 
+const PaginationInfo = ({
+  className,
+  ...props
+}: React.ComponentProps<'span'>) => (
+  <span
+    className={cn('flex items-center justify-center text-base', className)}
+    {...props}
+  />
+)
+PaginationInfo.displayName = 'PaginationInfo'
+
+const PaginationFirst = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('first')}
+      size="default"
+      className={cn('gap-1', className)}
+      {...props}
+    >
+      <ChevronLeft className="relative h-4 w-4 top-[1px]" />
+      <ChevronLeft className="relative h-4 w-4 top-[1px] -ml-2.5" />
+    </PaginationLink>
+  )
+}
+PaginationFirst.displayName = 'PaginationFirst'
+
+const PaginationLast = ({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) => {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('last')}
+      size="default"
+      className={cn('gap-1', className)}
+      {...props}
+    >
+      <ChevronRight className="relative h-4 w-4 top-[1px]" />
+      <ChevronRight className="relative h-4 w-4 top-[1px] -ml-2.5" />
+    </PaginationLink>
+  )
+}
+PaginationLast.displayName = 'PaginationLast'
+
 export {
   Pagination,
   PaginationContent,
@@ -123,5 +180,8 @@ export {
   PaginationItem,
   PaginationPrevious,
   PaginationNext,
-  PaginationEllipsis
+  PaginationEllipsis,
+  PaginationInfo,
+  PaginationFirst,
+  PaginationLast
 }

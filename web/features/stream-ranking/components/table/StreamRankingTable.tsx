@@ -46,7 +46,7 @@ export default async function StreamRankingTable({
   return (
     <Table>
       <StreamRankingTableHeader dimension={dimension} />
-      <TableBody zebraStripes>
+      <TableBody>
         {streams.map((stream, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId

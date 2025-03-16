@@ -78,7 +78,7 @@ export default async function ChannelsRankingTable({
   return (
     <Table>
       <ChannelsRankingTableHeader dimension={dimension} />
-      <TableBody zebraStripes>
+      <TableBody>
         {channelIds.map((channelId, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === channelId
