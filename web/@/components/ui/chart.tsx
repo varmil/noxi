@@ -34,6 +34,11 @@ function useChart() {
   return context
 }
 
+/**
+ * @Custom
+ * heightWidthClassesを追加
+ * ResponsiveContainerにちゃんとクラスを適用するように
+ */
 function ChartContainer({
   id,
   className,
@@ -49,6 +54,9 @@ function ChartContainer({
   const uniqueId = React.useId()
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
+  // NOTE: 2025/03/16
+  const heightWidthClasses = 'max-h-[300px] w-[99.5%]'
+
   return (
     <ChartContext.Provider value={{ config }}>
       <div
@@ -61,7 +69,7 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer>
+        <RechartsPrimitive.ResponsiveContainer className={heightWidthClasses}>
           {children}
         </RechartsPrimitive.ResponsiveContainer>
       </div>
