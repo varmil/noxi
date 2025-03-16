@@ -41,7 +41,7 @@ export default function ChannelCard({
         className="object-cover w-[33%] h-full rounded-l-lg"
       />
       <div className="px-4 py-2 flex-1 w-[70%]">
-        <h3 className="text-base line-clamp-1 mb-2">{name}</h3>
+        <h3 className="text-base tracking-tight line-clamp-1 mb-2">{name}</h3>
 
         <div className="flex items-center gap-2">
           <div className="ra-val mb-0 sm:mb-0.5">
@@ -54,13 +54,13 @@ export default function ChannelCard({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span>
             <IntlNumberFormat>{totalViewCount}</IntlNumberFormat>{' '}
             {t('totalViews')}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <span>
             {t('joined', {
               date: format.dateTime(new Date(publishedAt), {

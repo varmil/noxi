@@ -15,14 +15,12 @@ interface LinkTabsProps {
   className?: string
   /** Active判定の際にsearchParamsをみない */
   ignoreSearchParams?: boolean
-  size?: 'sm'
 }
 
 export function LinkTabs({
   tabs,
   className,
-  ignoreSearchParams,
-  size
+  ignoreSearchParams
 }: LinkTabsProps) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -34,12 +32,12 @@ export function LinkTabs({
 
   return (
     <Tabs value={currentUrl} className={`w-full ${className ?? ''}`}>
-      <TabsList className={cn('w-full', size === 'sm' && 'h-9')}>
+      <TabsList className={cn('w-full')}>
         {tabs.map(tab => (
           <TabsTrigger
             key={tab.href}
             value={tab.href}
-            className={cn('flex-1', size === 'sm' && 'text-sm py-1')}
+            className={cn('flex-1')}
             asChild
           >
             <Link

@@ -33,7 +33,7 @@ export default function GroupsPage(props: Props) {
 
   return (
     <Page breadcrumb={[{ href: `/groups`, name: t('title') }]}>
-      <GroupGallery className="grid w-full px-4 gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-3 text-sm lg:text-base" />
+      <GroupGallery className="grid w-full px-4 gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-2 text-sm" />
     </Page>
   )
 }
