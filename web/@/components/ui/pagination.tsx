@@ -1,8 +1,19 @@
 /**
- * @Custom
+ * @Custom　2025/03/16
+ *
  * Use `next-intl` for i18n
  * Add PaginationInfo
- * Add relative top-[1px] for ChevronLeftIcon and ChevronRightIcon
+ * Gap Adjustment:
+ *    Changed the gap between pagination items from gap-1 to gap-4 sm:gap-1
+ * PaginationLink Props Update:
+ *    Added defaultVariant prop with options: 'default', 'secondary', 'ghost'
+ *    Updated the variant logic to use defaultVariant instead of variant
+ * Icon Sizing:
+ *    Maintained relative top-[1px] alignment for both ChevronLeftIcon and ChevronRightIcon
+ * Button Size Changes:
+ *    Changed PaginationPrevious and PaginationNext sizes from default to sm
+ *    Updated defaultVariant for PaginationPrevious to 'secondary'
+ *    Updated defaultVariant for PaginationNext to 'default'
  */
 import * as React from 'react'
 import {
@@ -35,7 +46,7 @@ function PaginationContent({
   return (
     <ul
       data-slot="pagination-content"
-      className={cn('flex flex-row items-center gap-1', className)}
+      className={cn('flex flex-row items-center gap-4 sm:gap-1', className)}
       {...props}
     />
   )
@@ -48,6 +59,7 @@ function PaginationItem({ ...props }: React.ComponentProps<'li'>) {
 type PaginationLinkProps = {
   isActive?: boolean
   disabled?: boolean
+  defaultVariant?: 'default' | 'secondary' | 'ghost'
 } & Pick<React.ComponentProps<typeof Button>, 'size'> &
   React.ComponentProps<typeof Link>
 
@@ -55,6 +67,7 @@ function PaginationLink({
   className,
   isActive,
   disabled,
+  defaultVariant = 'ghost',
   href,
   size = 'icon',
   ...props
@@ -66,7 +79,7 @@ function PaginationLink({
       data-active={isActive}
       className={cn(
         buttonVariants({
-          variant: isActive ? 'outline' : 'ghost',
+          variant: isActive ? 'outline' : defaultVariant,
           size
         }),
         className,
@@ -86,12 +99,13 @@ function PaginationPrevious({
   return (
     <PaginationLink
       aria-label={t('previous')}
-      size="default"
+      size="sm"
       className={cn('gap-1 px-2.5 sm:pl-2.5', className)}
+      defaultVariant="secondary"
       {...props}
     >
       <ChevronLeftIcon className="relative top-[1px]" />
-      <span className="hidden sm:block">{t('previous')}</span>
+      <span>{t('previous')}</span>
     </PaginationLink>
   )
 }
@@ -104,11 +118,12 @@ function PaginationNext({
   return (
     <PaginationLink
       aria-label={t('next')}
-      size="default"
+      size="sm"
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
+      defaultVariant="default"
       {...props}
     >
-      <span className="hidden sm:block">{t('next')}</span>
+      <span>{t('next')}</span>
       <ChevronRightIcon className="relative top-[1px]" />
     </PaginationLink>
   )
