@@ -3,7 +3,7 @@
  *
  * Use `next-intl` for i18n
  * Add PaginationInfo
- * Add prefetch={true}
+ * Add prefetch={true} for Next button
  * Gap Adjustment:
  *    Changed the gap between pagination items from gap-1 to gap-4 sm:gap-1
  * PaginationLink Props Update:
@@ -71,6 +71,7 @@ function PaginationLink({
   defaultVariant = 'ghost',
   href,
   size = 'icon',
+  prefetch,
   ...props
 }: PaginationLinkProps) {
   return (
@@ -87,7 +88,7 @@ function PaginationLink({
         disabled && 'pointer-events-none opacity-50'
       )}
       href={disabled ? '#' : href}
-      prefetch={true}
+      prefetch={prefetch}
       {...props}
     />
   )
@@ -123,6 +124,7 @@ function PaginationNext({
       size="sm"
       className={cn('gap-1 px-2.5 sm:pr-2.5', className)}
       defaultVariant="default"
+      prefetch={true} // Next button is important, so prefetch is true
       {...props}
     >
       <span>{t('next')}</span>
