@@ -54,8 +54,8 @@ function ChartContainer({
   const uniqueId = React.useId()
   const chartId = `chart-${id || uniqueId.replace(/:/g, '')}`
 
-  // NOTE: 2025/03/16
-  const heightWidthClasses = 'max-h-[300px] w-[99.5%]'
+  // NOTE: 2025/03/16 max-h だと余分な高さを確保してしまうのでh-でよい
+  const heightWidthClasses = 'h-[200px] sm:h-[300px] w-[99.5%]'
 
   return (
     <ChartContext.Provider value={{ config }}>
@@ -64,6 +64,7 @@ function ChartContainer({
         data-chart={chartId}
         className={cn(
           "[&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-radial-bar-background-sector]:fill-muted [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-muted [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border flex aspect-video justify-center text-xs [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-layer]:outline-hidden [&_.recharts-sector]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-surface]:outline-hidden",
+          heightWidthClasses,
           className
         )}
         {...props}
@@ -112,6 +113,10 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip
 
+/**
+ * @Custom
+ * items-center --> items-baseline
+ */
 function ChartTooltipContent({
   active,
   payload,
@@ -197,7 +202,7 @@ function ChartTooltipContent({
               key={item.dataKey}
               className={cn(
                 '[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5',
-                indicator === 'dot' && 'items-center'
+                indicator === 'dot' && 'items-baseline'
               )}
             >
               {formatter && item?.value !== undefined && item.name ? (
@@ -231,7 +236,7 @@ function ChartTooltipContent({
                   <div
                     className={cn(
                       'flex flex-1 justify-between leading-none',
-                      nestLabel ? 'items-end' : 'items-center'
+                      nestLabel ? 'items-end' : 'items-baseline'
                     )}
                   >
                     <div className="grid gap-1.5">
