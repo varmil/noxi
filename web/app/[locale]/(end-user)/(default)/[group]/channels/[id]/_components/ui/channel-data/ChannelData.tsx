@@ -12,18 +12,18 @@ import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsV
 export default function ChannelData({ channel }: { channel: ChannelSchema }) {
   const { basicInfo, statistics } = channel
   const [isOpen, setIsOpen] = React.useState(false)
-  const xsClasses = isOpen ? 'block' : 'hidden'
+  const xsClasses = isOpen ? 'flex' : 'hidden'
 
   return (
     <>
       <StatsSubscribersCard count={statistics?.subscriberCount ?? 0} />
       <StatsViewsCard count={statistics?.viewCount ?? 0} />
       <StatsVideosCard
-        className={`${xsClasses} lg:block`}
+        className={`${xsClasses} lg:flex`}
         count={statistics?.videoCount ?? 0}
       />
       <StatsJoinedCard
-        className={`${xsClasses} lg:block`}
+        className={`${xsClasses} lg:flex`}
         date={new Date(basicInfo?.publishedAt).toISOString() ?? 'N/A'}
       />
 
