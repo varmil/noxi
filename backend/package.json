@@ -31,7 +31,7 @@
     "class-validator": "^0.14.1",
     "compression": "^1.8.0",
     "dayjs": "^1.11.13",
-    "fast-xml-parser": "^5.0.8",
+    "fast-xml-parser": "^5.0.9",
     "firebase-admin": "^13.2.0",
     "keyv": "^5.2.3",
     "prisma-json-types-generator": "^3.2.2",
