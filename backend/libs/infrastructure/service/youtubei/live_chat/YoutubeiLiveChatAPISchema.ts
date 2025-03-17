@@ -1,8 +1,10 @@
 import { z } from 'zod'
 
-export const authorNameSchema = z.object({
-  simpleText: z.string()
-})
+export const authorNameSchema = z
+  .object({
+    simpleText: z.string()
+  })
+  .optional()
 
 export const authorPhotoSchema = z.object({
   thumbnails: z.array(z.object({ url: z.string() }))
