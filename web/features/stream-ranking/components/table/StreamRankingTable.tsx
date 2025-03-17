@@ -92,7 +92,7 @@ export default async function StreamRankingTable({
               {/* Channel Thumbnail */}
               <ChannelLinkCell
                 align="center"
-                className="z-10 sticky bg-background left-0"
+                className="@max-md:z-10 @max-md:sticky @max-md:bg-background @max-md:left-0"
               >
                 <ChannelThumbnail channel={channel} />
               </ChannelLinkCell>
