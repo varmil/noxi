@@ -126,10 +126,6 @@ export default async function ChannelsRankingTable({
                           h => h.channelId === channelId
                         )?.rank
                       }
-                      // TODO: データが溜まったら消す
-                      counting={
-                        !(period === 'last24Hours' || period === 'last7Days')
-                      }
                     />
                   )}
                 </div>

@@ -151,8 +151,6 @@ export default async function SupersRanking({
                     current={overallRanking?.rank}
                     previous={overallPreviousPeriodRanking?.rank}
                     totalNumber={overallChannelsCount}
-                    // TODO: データが溜まったら消す
-                    counting={period === 'last30Days'}
                   />
                 </TableCell>
                 <SeeMoreCell period={period} />
@@ -181,8 +179,6 @@ export default async function SupersRanking({
                     current={genderRanking?.rank}
                     previous={genderPreviousPeriodRanking?.rank}
                     totalNumber={genderChannelsCount}
-                    // TODO: データが溜まったら消す
-                    counting={period === 'last30Days'}
                   />
                 </TableCell>
                 <SeeMoreCell period={period} gender={channel.peakX.gender} />
@@ -211,8 +207,6 @@ export default async function SupersRanking({
                     current={groupRanking?.rank}
                     previous={groupPreviousPeriodRanking?.rank}
                     totalNumber={groupChannelsCount}
-                    // TODO: データが溜まったら消す
-                    counting={period === 'last30Days'}
                   />
                 </TableCell>
                 <SeeMoreCell period={period} group={channel.peakX.group} />
