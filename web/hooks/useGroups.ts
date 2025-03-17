@@ -19,7 +19,7 @@ const counts = {
   specialite: { val: 21, isAll: true },
   mixstgirls: { val: 8, isAll: true },
   'idol-corp': { val: 13, isAll: true },
-  independent: { val: 113, isAll: false },
+  independent: { val: 123, isAll: false },
   'independent-irl': { val: 15, isAll: false }
 }
 

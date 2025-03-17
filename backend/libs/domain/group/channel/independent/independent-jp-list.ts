@@ -41,6 +41,11 @@ export const JPList: GroupChannel[] = [
     title: 'Patra Channel / 周防パトラ',
     ...DefaultProps
   },
+  {
+    id: new ChannelId('UCmZA7XRRzmxhM4jPltZX1Zg'),
+    title: '桜ころみん',
+    ...DefaultProps
+  },
   // ↑ 600k -
   {
     id: new ChannelId('UCqTGCMjeKOclEEfW8Vs7sXQ'),
@@ -195,6 +200,11 @@ export const JPList: GroupChannel[] = [
     ...DefaultProps
   },
   {
+    id: new ChannelId('UCAVdcteEwgNrEBW7Aj9pZSw'),
+    title: '碧依 さくら',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UC2-hRIDWzqAnTjOxdLDmhCA'),
     title: 'おやつ@ゲームチャンネル',
     ...DefaultProps,
@@ -242,6 +252,11 @@ export const JPList: GroupChannel[] = [
     title: 'ロッコク【動画解説】',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCftJR3Qm0LyEuEQue1QYytA'),
+    title: '蒼真なひろ',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCY5M1FeR1BQNsnumsJA1epA'),
@@ -319,6 +334,16 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UC3uoOH4N2F4T9FyAGDwM6Ow'),
+    title: '琥珀ねね',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCq4urABC8bl-2uXOzBN1GCA'),
+    title: 'みのるちゃんねり',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCXzTXNuT08FZ6CNe1gTv3Rw'),
     title: '天狼 -Tenro-',
     ...DefaultProps,
@@ -334,6 +359,21 @@ export const JPList: GroupChannel[] = [
     title: 'ライトのスターボーイチャンネル',
     ...DefaultProps,
     gender: Gender.Male
+  },
+  {
+    id: new ChannelId('UCGsYwogFsaHmYREWUvXAOCA'),
+    title: '塚本のべる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCO2bnzPlCau6YzLoSt8EDdA'),
+    title: '天羽よつは',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCOUC90B_eKHDZDvFSpSjhMQ'),
+    title: '輪廻 - RINNE',
+    ...DefaultProps
   },
   {
     id: new ChannelId('UCSH4t_nhsNIoxPza4ooYqaA'),
@@ -371,6 +411,11 @@ export const JPList: GroupChannel[] = [
     gender: Gender.Male
   },
   {
+    id: new ChannelId('UCZszUCQMhWNVMxp6CSoyWoA'),
+    title: '人生 つみこ',
+    ...DefaultProps
+  },
+  {
     id: new ChannelId('UCNhiCwqhYJhgspDYuxC1zDw'),
     title: '未知カケルch',
     ...DefaultProps,
@@ -391,6 +436,11 @@ export const JPList: GroupChannel[] = [
   {
     id: new ChannelId('UCwUNuXd6rN08SQFzlIH4Ozg'),
     title: 'なつめえりちゃんねる',
+    ...DefaultProps
+  },
+  {
+    id: new ChannelId('UCqXvL55GYHtRZhBS03LVGnQ'),
+    title: '楪 帆波',
     ...DefaultProps
   },
   {
