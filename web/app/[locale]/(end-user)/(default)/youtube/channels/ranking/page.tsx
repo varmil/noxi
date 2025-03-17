@@ -52,7 +52,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           dimension,
           group,
           ...(groupUsingGender(group) && { gender }),
-          date,
           ...(page && { page: Number(page) })
         }
       ).toString()}`

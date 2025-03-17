@@ -90,12 +90,15 @@ export default async function StreamRankingTable({
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <ChannelLinkCell align="center" className="z-10 sticky left-0">
+              <ChannelLinkCell
+                align="center"
+                className="@max-md:z-10 @max-md:sticky @max-md:bg-background @max-md:left-0"
+              >
                 <ChannelThumbnail channel={channel} />
               </ChannelLinkCell>
 
               {/* Channel Title */}
-              <ChannelLinkCell width={400} className="min-w-[160px]">
+              <ChannelLinkCell width={400} className="min-w-[152px]">
                 <ChannelTitle channel={channel} />
               </ChannelLinkCell>
 
@@ -129,11 +132,11 @@ export default async function StreamRankingTable({
 
               {/* Stream Title */}
               <StreamLinkCell
-                width={384}
+                width={500}
                 videoId={videoId}
-                className="min-w-[180px]"
+                className="min-w-[240px]"
               >
-                <span className="text-muted-foreground hover:underline line-clamp-2 break-anywhere">
+                <span className="hover:underline line-clamp-1 break-anywhere">
                   {stream.snippet.title}
                 </span>
               </StreamLinkCell>
