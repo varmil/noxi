@@ -12,7 +12,9 @@ export default function ChannelTitle({ channel, group, className }: Props) {
   const global = useTranslations('Global')
   return (
     <div
-      className={`flex flex-col gap-y-0 items-start group ${className || ''}`}
+      className={`flex flex-col gap-y-1.5 @lg:gap-y-2 items-start group ${
+        className || ''
+      }`}
     >
       <span className="font-medium tracking-tight @lg:tracking-normal line-clamp-1 break-all group-hover:underline">
         {channel.basicInfo.title}
