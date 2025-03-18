@@ -43,7 +43,7 @@ export default function Dimension({
       </span>
       <div>
         <Progress
-          className={`h-0.5 sm:h-1 ${rtl ? 'rotate-180' : ''} ${
+          className={`h-0.75 sm:h-1 ${rtl ? 'rotate-180' : ''} ${
             className || ''
           }`}
           value={(dividend / divisor) * 100}
