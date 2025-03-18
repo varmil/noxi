@@ -87,7 +87,7 @@ export default async function StreamRankingTable({
             >
               {/* Rank */}
               <TableCell className="min-w-2 max-w-16">
-                <div className="text-lg font-bold text-nowrap tracking-tight">
+                <div className="text-center text-lg @lg:text-xl text-nowrap tracking-tight">
                   {Pagination.getRankFromPage(page, i)}
                 </div>
               </TableCell>

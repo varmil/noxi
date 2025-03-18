@@ -115,7 +115,7 @@ export default async function ChannelsRankingTable({
               {/* Rank */}
               <TableCell className="min-w-2 max-w-16 py-1">
                 <div className="flex flex-col items-center gap-0 @lg:gap-0.5">
-                  <div className="text-center text-lg @lg:font-bold text-nowrap tracking-tight">
+                  <div className="text-center text-lg @lg:text-xl text-nowrap tracking-tight">
                     {Pagination.getRankFromPage(page, i)}
                   </div>
                   {hasSupersRanking({ dimension, group, gender }) && (
