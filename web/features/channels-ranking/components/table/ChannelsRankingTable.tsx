@@ -138,17 +138,21 @@ export default async function ChannelsRankingTable({
 
               {/* Channel Title */}
               <LinkCell>
-                <ChannelTitle channel={channel} />
+                <ChannelTitle
+                  channel={channel}
+                  group={!group ? channel.peakX.group : undefined}
+                />
               </LinkCell>
 
               {/* Supers */}
               {dimension === 'super-chat' && (
                 <LinkCell className="min-w-[98px] max-w-[180px]">
                   <Dimension
-                    active={true}
                     dividend={convertMicrosToAmount(summary ?? BigInt(0))}
                     divisor={convertMicrosToAmount(topAmountMicros)}
-                    icon={<JapaneseYen className="w-3 h-3 @lg:w-4 @lg:h-4" />}
+                    icon={
+                      <JapaneseYen className="size-3 text-muted-foreground" />
+                    }
                     rtl
                   />
                 </LinkCell>
@@ -158,7 +162,6 @@ export default async function ChannelsRankingTable({
               {dimension === 'subscriber' && (
                 <LinkCell className="min-w-[98px] max-w-[180px]" align="right">
                   <Dimension
-                    active={dimension === 'subscriber'}
                     dividend={channel.statistics.subscriberCount}
                     divisor={topSubscribers}
                     rtl
@@ -173,8 +176,8 @@ export default async function ChannelsRankingTable({
               <CountryCell countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
-              <LinkCell className="min-w-[36px] @3xl:hidden">
-                <ChevronRight className="w-4 h-4" />
+              <LinkCell className="min-w-[32px] @3xl:hidden">
+                <ChevronRight className="size-4" />
               </LinkCell>
             </TableRow>
           )

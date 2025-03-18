@@ -10,6 +10,7 @@ import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
 import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
 import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
+import { GroupString } from 'config/constants/Group'
 import { StreamRankingPagination as Pagination } from 'config/constants/Pagination'
 import StreamThumbnailCell from 'features/stream-ranking/components/table/cell/StreamThumbnailCell'
 import StreamLinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
@@ -20,11 +21,13 @@ import { convertMicrosToAmount } from 'utils/amount'
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
   dimension: StreamRankingDimension
+  group?: GroupString
   page: number
 }>
 
 export default async function StreamRankingTable({
   dimension,
+  group,
   page,
   streams
 }: Props) {
@@ -99,14 +102,16 @@ export default async function StreamRankingTable({
 
               {/* Channel Title */}
               <ChannelLinkCell width={400} className="min-w-[152px]">
-                <ChannelTitle channel={channel} />
+                <ChannelTitle
+                  channel={channel}
+                  group={!group ? channel.peakX.group : undefined}
+                />
               </ChannelLinkCell>
 
               {/* xs- md: Concurrent Viewers */}
               {dimension === 'concurrent-viewer' && (
                 <ChannelLinkCell width={160} className="min-w-24">
                   <Dimension
-                    active={dimension === 'concurrent-viewer'}
                     dividend={peakConcurrentViewers}
                     divisor={topConcurrentViewers}
                   />
@@ -117,12 +122,14 @@ export default async function StreamRankingTable({
               {dimension === 'super-chat' && (
                 <ChannelLinkCell width={160} className="min-w-24">
                   <Dimension
-                    active={dimension === 'super-chat'}
                     dividend={convertMicrosToAmount(
                       bundle?.amountMicros ?? BigInt(0)
                     )}
                     divisor={convertMicrosToAmount(topAmountMicros)}
-                    icon={<JapaneseYen className="w-4 h-4" />}
+                    icon={
+                      <JapaneseYen className="size-3 text-muted-foreground" />
+                    }
+                    rtl
                   />
                 </ChannelLinkCell>
               )}
@@ -136,7 +143,7 @@ export default async function StreamRankingTable({
                 videoId={videoId}
                 className="min-w-[240px]"
               >
-                <span className="hover:underline line-clamp-1 break-anywhere">
+                <span className="hover:underline line-clamp-1 break-all">
                   {stream.snippet.title}
                 </span>
               </StreamLinkCell>
@@ -147,9 +154,9 @@ export default async function StreamRankingTable({
               {/* xs - 2xl: Link Icon */}
               <StreamLinkCell
                 videoId={videoId}
-                className="min-w-[36px] @3xl:hidden"
+                className="min-w-[32px] @3xl:hidden"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="size-4" />
               </StreamLinkCell>
             </TableRow>
           )

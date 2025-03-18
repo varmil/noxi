@@ -1,25 +1,22 @@
 import type { JSX } from 'react'
 import BigNumber from 'bignumber.js'
-import { useTranslations } from 'next-intl'
 import { Progress } from '@/components/ui/progress'
 
 /** text + progress bar */
 export default function Dimension({
-  active,
   dividend,
   divisor,
+  className,
   icon,
   rtl
 }: {
-  active?: boolean
   dividend: number | BigNumber
   divisor: number | BigNumber
+  className?: string
   icon?: JSX.Element
   rtl?: boolean
 }) {
-  const feat = useTranslations('Features.streamRanking')
-  const textClasses = active ? 'font-bold' : 'text-muted-foreground'
-  const barColor = active ? '' : '*:bg-muted-foreground'
+  const textClasses = 'sm:font-bold'
 
   if (dividend instanceof BigNumber) {
     dividend = dividend.toNumber()
@@ -44,15 +41,14 @@ export default function Dimension({
           '--'
         )}
       </span>
-      {active ? (
-        <div>
-          <Progress
-            title={feat('viewers')}
-            className={`h-1 ${barColor} ${rtl ? 'rotate-180' : ''}`}
-            value={(dividend / divisor) * 100}
-          />
-        </div>
-      ) : null}
+      <div>
+        <Progress
+          className={`h-0.5 sm:h-1 ${rtl ? 'rotate-180' : ''} ${
+            className || ''
+          }`}
+          value={(dividend / divisor) * 100}
+        />
+      </div>
     </div>
   )
 }
