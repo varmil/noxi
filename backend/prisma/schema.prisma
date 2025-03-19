@@ -64,14 +64,13 @@ model ChannelMembershipSummary {
   id           BigInt   @id @default(autoincrement())
   channelId    String
   period       String // 'last7Days', 'last30Days', etc.
-  rankingType  String // 'overall', 'gender', 'group'
   amountMicros BigInt // JPY
   count        Int
   createdAt    DateTime @default(now()) @db.Timestamptz(3)
   channel      Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-  @@unique([channelId, period, rankingType, createdAt])
-  @@index([period, rankingType, createdAt])
+  @@unique([channelId, period, createdAt])
+  @@index([period, createdAt])
 }
 
 model YoutubeStream {
