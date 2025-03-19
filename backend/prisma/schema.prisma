@@ -34,7 +34,7 @@ model Channel {
   defaultLanguage String?
   gender          String
 
-  supersRanking       ChannelSupersRanking[]
+  supersRankings      ChannelSupersRanking[]
   streams             YoutubeStream[]
   supersBundles       YoutubeStreamSupersBundle[]
   supersSummaries     YoutubeStreamSupersSummary[]
