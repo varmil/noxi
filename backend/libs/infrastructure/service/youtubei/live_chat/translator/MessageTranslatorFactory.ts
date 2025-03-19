@@ -4,6 +4,8 @@ import { IMessageTranslator } from './IMessageTranslator'
 import { PaidMessageTranslator } from './PaidMessageTranslator'
 import { PaidStickerTranslator } from './PaidStickerTranslator'
 import { TextMessageTranslator } from './TextMessageTranslator'
+import { MembershipItemTranslator } from './MembershipItemTranslator'
+import { MembershipGiftTranslator } from './MembershipGiftTranslator'
 
 export class MessageTranslatorFactory {
   static createTranslator(
@@ -12,7 +14,9 @@ export class MessageTranslatorFactory {
     const {
       liveChatTextMessageRenderer,
       liveChatPaidMessageRenderer,
-      liveChatPaidStickerRenderer
+      liveChatPaidStickerRenderer,
+      liveChatMembershipItemRenderer,
+      liveChatSponsorshipsGiftPurchaseAnnouncementRenderer
     } = item
 
     if (liveChatTextMessageRenderer) {
@@ -21,6 +25,12 @@ export class MessageTranslatorFactory {
       return new PaidMessageTranslator(liveChatPaidMessageRenderer)
     } else if (liveChatPaidStickerRenderer) {
       return new PaidStickerTranslator(liveChatPaidStickerRenderer)
+    } else if (liveChatMembershipItemRenderer) {
+      return new MembershipItemTranslator(liveChatMembershipItemRenderer)
+    } else if (liveChatSponsorshipsGiftPurchaseAnnouncementRenderer) {
+      return new MembershipGiftTranslator(
+        liveChatSponsorshipsGiftPurchaseAnnouncementRenderer
+      )
     }
 
     return undefined
