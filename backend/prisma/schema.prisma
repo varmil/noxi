@@ -39,6 +39,8 @@ model Channel {
   supersBundles       YoutubeStreamSupersBundle[]
   supersSummaries     YoutubeStreamSupersSummary[]
   supersSummaryLatest YoutubeStreamSupersSummaryLatest?
+  membershipBundles   StreamMembershipBundle[]
+  membershipSummaries ChannelMembershipSummary[]
 
   @@index([group, subscriberCount])
   @@index([gender])
@@ -53,6 +55,20 @@ model ChannelSupersRanking {
   rank        Int
   createdAt   DateTime @default(now()) @db.Timestamptz(3)
   channel     Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@unique([channelId, period, rankingType, createdAt])
+  @@index([period, rankingType, createdAt])
+}
+
+model ChannelMembershipSummary {
+  id           BigInt   @id @default(autoincrement())
+  channelId    String
+  period       String // 'last7Days', 'last30Days', etc.
+  rankingType  String // 'overall', 'gender', 'group'
+  amountMicros BigInt // JPY
+  count        Int
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+  channel      Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
   @@unique([channelId, period, rankingType, createdAt])
   @@index([period, rankingType, createdAt])
@@ -244,6 +260,45 @@ model YoutubeStreamSupersSummaryLatest {
   @@index([channelId, thisWeek])
   @@index([channelId, thisMonth])
   @@index([channelId, thisYear])
+}
+
+model StreamMembership {
+  id     String  @id
+  count  Int
+  isGift Boolean
+
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+
+  videoId   String
+  group     String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+  @@index([group, createdAt])
+}
+
+model StreamMembershipBundle {
+  videoId         String    @id
+  channelId       String
+  /// JPY
+  amountMicros    BigInt
+  count           Int
+  actualStartTime DateTime  @db.Timestamptz(3)
+  actualEndTime   DateTime? @db.Timestamptz(3)
+  group           String
+  createdAt       DateTime  @default(now()) @db.Timestamptz(3)
+  channel         Channel   @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@index([actualStartTime, amountMicros])
+  @@index([actualEndTime, amountMicros])
+  @@index([channelId, actualStartTime, amountMicros])
+  @@index([channelId, actualEndTime, amountMicros])
+  @@index([group, actualStartTime, amountMicros])
+  @@index([group, actualEndTime, amountMicros])
+  @@index([createdAt, group])
 }
 
 model ExchangeRate {

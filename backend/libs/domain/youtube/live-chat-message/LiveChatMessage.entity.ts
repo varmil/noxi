@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer'
+import { Exclude, Expose } from 'class-transformer'
 import {
   AuthorDetails,
   LiveChatMessageId,
@@ -31,12 +31,20 @@ export class LiveChatMessage {
     return this.snippet.type.equals(new Type('superChatEvent'))
   }
 
-  @Expose()
+  @Exclude()
   get isSuperSticker() {
     return this.snippet.type.equals(new Type('superStickerEvent'))
   }
 
-  @Expose()
+  @Exclude()
+  get isMembership() {
+    return (
+      this.snippet.type.equals(new Type('newSponsorEvent')) ||
+      this.snippet.type.equals(new Type('membershipGiftingEvent'))
+    )
+  }
+
+  @Exclude()
   get fromMember(): boolean {
     return this.authorDetails.isChatSponsor.get()
   }
