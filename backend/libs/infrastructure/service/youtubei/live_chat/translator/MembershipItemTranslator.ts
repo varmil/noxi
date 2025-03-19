@@ -1,18 +1,16 @@
+import { z } from 'zod'
 import { PublishedAt } from '@domain'
 import {
   LiveChatMessage,
-  AuthorDetails,
   MembershipDetails,
-  LiveChatId,
   Type,
   Snippet,
   LiveChatMessageId
 } from '@domain/youtube/live-chat-message'
 import { Count, IsGift } from '@domain/youtube/membership'
+import { addChatItemActionItemSchema } from '@infra/service/youtubei/live_chat/YoutubeiLiveChatAPISchema'
 import { BaseTranslator } from '@infra/service/youtubei/live_chat/translator/BaseTranslator'
 import { IMessageTranslator } from '@infra/service/youtubei/live_chat/translator/IMessageTranslator'
-import { addChatItemActionItemSchema } from '@infra/service/youtubei/live_chat/YoutubeiLiveChatAPISchema'
-import { z } from 'zod'
 
 export class MembershipItemTranslator
   extends BaseTranslator

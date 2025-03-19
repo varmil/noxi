@@ -1,5 +1,5 @@
-import { BooleanValueObject } from '@domain/lib'
 import { IsNotEmpty } from 'class-validator'
+import { BooleanValueObject } from '@domain/lib'
 
 export class IsGift extends BooleanValueObject {
   @IsNotEmpty()

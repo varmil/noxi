@@ -1,5 +1,5 @@
-import { NumberValueObject } from '@domain/lib'
 import { IsNotEmpty, Min } from 'class-validator'
+import { NumberValueObject } from '@domain/lib'
 
 export class Count extends NumberValueObject {
   @IsNotEmpty()
