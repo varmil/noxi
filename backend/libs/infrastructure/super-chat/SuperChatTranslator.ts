@@ -5,13 +5,8 @@ import {
   IsChatSponsor
 } from '@domain/author'
 import { Group } from '@domain/group'
-import { Currency } from '@domain/lib/currency'
-import {
-  SuperChat,
-  AmountDisplayString,
-  AmountMicros,
-  UserComment
-} from '@domain/supers'
+import { AmountMicros, Currency } from '@domain/lib/currency'
+import { SuperChat, AmountDisplayString, UserComment } from '@domain/supers'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'

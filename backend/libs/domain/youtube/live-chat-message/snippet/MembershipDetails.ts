@@ -1,4 +1,4 @@
-import { Count, IsGift } from '@domain/membership/gift'
+import { Count, IsGift } from '@domain/membership'
 
 /**
  * liveChatMembershipItemRenderer

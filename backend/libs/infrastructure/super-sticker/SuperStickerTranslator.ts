@@ -5,8 +5,8 @@ import {
   ProfileImageUrl
 } from '@domain/author'
 import { Group } from '@domain/group'
-import { Currency } from '@domain/lib/currency'
-import { SuperSticker, AmountDisplayString, AmountMicros } from '@domain/supers'
+import { AmountMicros, Currency } from '@domain/lib/currency'
+import { SuperSticker, AmountDisplayString } from '@domain/supers'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/client'

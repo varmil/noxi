@@ -10,7 +10,7 @@ import {
 import { GetSupersBundles } from '@presentation/supers-bundles/dto/GetSupersBundles.dto'
 import { GetSupersBundlesSum } from '@presentation/supers-bundles/dto/GetSupersBundlesSum.dto'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
-import { AmountMicros } from '@domain/supers'
+import { AmountMicros } from '@domain/lib/currency'
 import { SupersBundleSum } from '@domain/supers-bundle'
 import { ChannelIds, VideoId } from '@domain/youtube'
 

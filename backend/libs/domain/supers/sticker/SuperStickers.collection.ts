@@ -1,6 +1,6 @@
 import { ExchangeRates } from '@domain/exchange-rate'
 import { Collection } from '@domain/lib/Collection'
-import { AmountMicros } from '@domain/supers/base'
+import { AmountMicros } from '@domain/lib/currency'
 import { SuperSticker } from '@domain/supers/sticker/SuperSticker.entity'
 
 export class SuperStickers extends Collection<SuperSticker> {

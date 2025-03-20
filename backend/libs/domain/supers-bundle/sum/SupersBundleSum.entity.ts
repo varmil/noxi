@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer'
-import { AmountMicros } from '@domain/supers/base'
+import { AmountMicros } from '@domain/lib/currency'
 import { ChannelId } from '@domain/youtube'
 
 export class SupersBundleSum {

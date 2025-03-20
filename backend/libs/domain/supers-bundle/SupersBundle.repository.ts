@@ -1,6 +1,6 @@
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
-import { AmountMicros } from '@domain/supers'
+import { AmountMicros } from '@domain/lib/currency'
 import {
   SupersBundle,
   SupersBundles,

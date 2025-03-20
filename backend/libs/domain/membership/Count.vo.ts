@@ -1,9 +1,9 @@
-import { IsNotEmpty, Min } from 'class-validator'
+import { IsInt, IsNotEmpty } from 'class-validator'
 import { NumberValueObject } from '@domain/lib'
 
 export class Count extends NumberValueObject {
   @IsNotEmpty()
-  @Min(1)
+  @IsInt()
   public readonly val: number
 
   constructor(val: number) {

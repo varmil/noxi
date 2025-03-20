@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
+import { AmountMicros } from '@domain/lib/currency'
 import { PeriodString, PeriodStrings } from '@domain/lib/period'
-import { AmountMicros } from '@domain/supers'
 import {
   SupersSummaryRepository,
   SupersSummary,

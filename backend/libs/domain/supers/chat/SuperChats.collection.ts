@@ -1,6 +1,6 @@
 import { ExchangeRates } from '@domain/exchange-rate'
 import { Collection } from '@domain/lib/Collection'
-import { AmountMicros } from '@domain/supers/base'
+import { AmountMicros } from '@domain/lib/currency'
 import { SuperChat } from '@domain/supers/chat/SuperChat.entity'
 
 export class SuperChats extends Collection<SuperChat> {

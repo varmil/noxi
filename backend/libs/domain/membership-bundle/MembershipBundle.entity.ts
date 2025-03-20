@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer'
 import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
-import { SupersCount } from '@domain/supers-bundle'
+import { Count } from '@domain/membership'
 import {
   ActualEndTime,
   ActualStartTime,
@@ -9,7 +9,7 @@ import {
   VideoId
 } from '@domain/youtube'
 
-export class SupersBundle {
+export class MembershipBundle {
   @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly videoId: VideoId
   @Transform(({ value }: { value: ChannelId }) => value.get())
@@ -17,8 +17,8 @@ export class SupersBundle {
   /** JPY */
   @Transform(({ value }: { value: AmountMicros }) => value.toString())
   public readonly amountMicros: AmountMicros
-  @Transform(({ value }: { value: SupersCount }) => value.get())
-  public readonly count: SupersCount
+  @Transform(({ value }: { value: Count }) => value.get())
+  public readonly count: Count
   @Transform(({ value }: { value: ActualStartTime }) => value.get())
   public readonly actualStartTime: ActualStartTime
   /** ライブ中の場合はundefined, ライブ終了後の場合は終了時刻 */
@@ -31,7 +31,7 @@ export class SupersBundle {
     videoId: VideoId
     channelId: ChannelId
     amountMicros: AmountMicros
-    count: SupersCount
+    count: Count
     actualStartTime: ActualStartTime
     actualEndTime?: ActualEndTime
     group: Group
