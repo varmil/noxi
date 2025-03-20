@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { MainService } from 'apps/bundle-supers/src/service/main.service'
+import { MainService } from 'apps/bundle-chat-events/src/service/main.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
 import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'

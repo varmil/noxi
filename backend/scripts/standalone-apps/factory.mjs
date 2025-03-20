@@ -10,7 +10,7 @@ import { $, argv } from 'zx'
 
 const schema0 = z.union([
   z.literal('bundle-chats'),
-  z.literal('bundle-supers'),
+  z.literal('bundle-chat-events'),
   z.literal('groups/update-channels'),
   z.literal('pubsubhubbub'),
   z.literal('summarize-channels'),

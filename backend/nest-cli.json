@@ -30,13 +30,13 @@
         "tsConfigPath": "apps/bundle-chats/tsconfig.app.json"
       }
     },
-    "bundle-supers": {
+    "bundle-chat-events": {
       "type": "application",
-      "root": "apps/bundle-supers",
+      "root": "apps/bundle-chat-events",
       "entryFile": "main",
-      "sourceRoot": "apps/bundle-supers/src",
+      "sourceRoot": "apps/bundle-chat-events/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/bundle-supers/tsconfig.app.json"
+        "tsConfigPath": "apps/bundle-chat-events/tsconfig.app.json"
       }
     },
     "groups/update-channels": {
