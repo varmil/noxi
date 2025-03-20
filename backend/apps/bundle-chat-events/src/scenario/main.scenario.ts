@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { MainService } from 'apps/bundle-chat-events/src/service/main.service'
+import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
-import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { QueueStatusInProgress } from '@domain/queue'
 import { SupersBundle } from '@domain/supers-bundle'
@@ -17,7 +17,7 @@ export class MainScenario {
     private readonly mainService: MainService,
     private readonly promiseService: PromiseService,
     private readonly streamsService: StreamsService,
-    private readonly supersBundleQueuesService: SupersBundleQueuesService,
+    private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService,
     private readonly supersBundlesService: SupersBundlesService
   ) {}
 
@@ -86,7 +86,7 @@ export class MainScenario {
 
     const promises = tasks.map(async ({ videoId }) => {
       // タスクを処理中に更新
-      await this.supersBundleQueuesService.save({
+      await this.chatEventsBundleQueuesService.save({
         where: { videoId },
         data: { status: QueueStatusInProgress }
       })
@@ -94,7 +94,7 @@ export class MainScenario {
       const stream = this.mainService.findStream({ streams, videoId })
       if (!stream) {
         // queueからタスクを削除
-        await this.supersBundleQueuesService.delete({
+        await this.chatEventsBundleQueuesService.delete({
           where: { videoId }
         })
         return
@@ -117,7 +117,7 @@ export class MainScenario {
       })
 
       // queueからタスクを削除
-      await this.supersBundleQueuesService.delete({
+      await this.chatEventsBundleQueuesService.delete({
         where: { videoId }
       })
     })

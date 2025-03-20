@@ -1,31 +1,31 @@
 import { Injectable } from '@nestjs/common'
-import { QueueStatus } from '@domain/queue'
 import {
-  SupersBundleQueueRepository,
-  SupersBundleQueues,
-  SupersBundleQueue
-} from '@domain/supers-bundle-queue'
+  ChatEventsBundleQueueRepository,
+  ChatEventsBundleQueues,
+  ChatEventsBundleQueue
+} from '@domain/chat-events-bundle-queue'
+import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
-export class SupersBundleQueueRepositoryImpl
-  implements SupersBundleQueueRepository
+export class ChatEventsBundleQueueRepositoryImpl
+  implements ChatEventsBundleQueueRepository
 {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
     limit
-  }: Parameters<SupersBundleQueueRepository['findAll']>[0]) {
+  }: Parameters<ChatEventsBundleQueueRepository['findAll']>[0]) {
     const rows =
-      await this.prismaInfraService.youtubeStreamSupersBundleQueue.findMany({
+      await this.prismaInfraService.streamChatEventsBundleQueue.findMany({
         take: limit
       })
 
-    return new SupersBundleQueues(
+    return new ChatEventsBundleQueues(
       rows.map(
         row =>
-          new SupersBundleQueue({
+          new ChatEventsBundleQueue({
             status: new QueueStatus(row.status),
             videoId: new VideoId(row.videoId),
             createdAt: row.createdAt
@@ -37,8 +37,8 @@ export class SupersBundleQueueRepositoryImpl
   async save({
     where,
     data
-  }: Parameters<SupersBundleQueueRepository['save']>[0]) {
-    await this.prismaInfraService.youtubeStreamSupersBundleQueue.upsert({
+  }: Parameters<ChatEventsBundleQueueRepository['save']>[0]) {
+    await this.prismaInfraService.streamChatEventsBundleQueue.upsert({
       where: { videoId: where.videoId.get() },
       update: { status: data.status.get() },
       create: { videoId: where.videoId.get(), status: data.status.get() }
@@ -47,8 +47,8 @@ export class SupersBundleQueueRepositoryImpl
 
   async delete({
     where: { videoId }
-  }: Parameters<SupersBundleQueueRepository['delete']>[0]) {
-    await this.prismaInfraService.youtubeStreamSupersBundleQueue.delete({
+  }: Parameters<ChatEventsBundleQueueRepository['delete']>[0]) {
+    await this.prismaInfraService.streamChatEventsBundleQueue.delete({
       where: { videoId: videoId.get() }
     })
   }
