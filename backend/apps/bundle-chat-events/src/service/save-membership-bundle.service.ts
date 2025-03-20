@@ -1,8 +1,8 @@
-import { AmountMicros } from '@domain'
 import { Injectable } from '@nestjs/common'
 import { MembershipBundlesService } from '@app/membership-bundles/membership-bundles.service'
 import { MembershipsService } from '@app/memberships/memberships.service'
 import { Group } from '@domain/group'
+import { AmountMicros } from '@domain/lib/currency'
 import { MembershipBundle } from '@domain/membership-bundle'
 import {
   ActualEndTime,

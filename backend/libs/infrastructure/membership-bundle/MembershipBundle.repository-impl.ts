@@ -3,8 +3,8 @@ import {
   Prisma,
   StreamMembershipBundle as PrismaStreamMembershipBundle
 } from '@prisma/client'
-import { AmountMicros } from '@domain'
 import { Group } from '@domain/group'
+import { AmountMicros } from '@domain/lib/currency'
 import { Count } from '@domain/membership'
 import {
   MembershipBundle,

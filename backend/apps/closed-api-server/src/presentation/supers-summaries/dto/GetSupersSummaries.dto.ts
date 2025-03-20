@@ -8,9 +8,9 @@ import {
   IsString,
   ValidateNested
 } from 'class-validator'
-import { AmountMicros } from '@domain'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
+import { AmountMicros } from '@domain/lib/currency'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { PeriodString, PeriodStrings } from '@domain/lib/period'
 import { ChannelId, ChannelIds } from '@domain/youtube'

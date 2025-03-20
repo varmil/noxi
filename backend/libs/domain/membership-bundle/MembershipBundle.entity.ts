@@ -1,7 +1,7 @@
 import { Transform } from 'class-transformer'
 import { Group } from '@domain/group'
+import { AmountMicros } from '@domain/lib/currency'
 import { Count } from '@domain/membership'
-import { AmountMicros } from '@domain/supers/base'
 import {
   ActualEndTime,
   ActualStartTime,

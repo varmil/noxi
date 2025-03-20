@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer'
 import { Group } from '@domain/group'
-import { AmountMicros } from '@domain/supers/base'
+import { AmountMicros } from '@domain/lib/currency'
 import { SupersCount } from '@domain/supers-bundle'
 import {
   ActualEndTime,

@@ -3,7 +3,8 @@ import {
   Prisma,
   YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
 } from '@prisma/client'
-import { AmountMicros, Group } from '@domain'
+import { Group } from '@domain/group'
+import { AmountMicros } from '@domain/lib/currency'
 import {
   SupersBundleRepository,
   SupersBundles,
