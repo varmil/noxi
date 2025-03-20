@@ -1,4 +1,5 @@
 import { Exclude, Transform } from 'class-transformer'
+import { Author } from '@domain/author'
 import { ExchangeRates } from '@domain/exchange-rate'
 import { Group } from '@domain/group'
 import { PublishedAt, VideoId } from '@domain/youtube'
@@ -6,7 +7,6 @@ import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import { Currency } from '../../lib/currency/Currency.vo'
 import { AmountDisplayString } from './AmountDisplayString.vo'
 import { AmountMicros } from './AmountMicros.vo'
-import { Author } from './author/Author'
 
 export class Supers {
   @Transform(({ value }: { value: LiveChatMessageId }) => value.get())

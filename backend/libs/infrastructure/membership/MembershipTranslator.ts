@@ -5,35 +5,27 @@ import {
   IsChatSponsor
 } from '@domain/author'
 import { Group } from '@domain/group'
-import { Currency } from '@domain/lib/currency'
-import {
-  SuperChat,
-  AmountDisplayString,
-  AmountMicros,
-  UserComment
-} from '@domain/supers'
+import { Count, IsGift, Membership } from '@domain/membership'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
-import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'
+import type { StreamMembership as PrismaMembership } from '@prisma/client'
 
-export class SuperChatTranslator {
-  constructor(private readonly row: PrismaSuperChat) {}
+export class MembershipTranslator {
+  constructor(private readonly row: PrismaMembership) {}
 
-  translate(): SuperChat {
+  translate(): Membership {
     const row = this.row
 
-    return new SuperChat({
+    return new Membership({
       id: new LiveChatMessageId(row.id),
-      amountMicros: new AmountMicros(row.amountMicros),
-      currency: new Currency(row.currency),
-      amountDisplayString: new AmountDisplayString(row.amountDisplayString),
-      userComment: new UserComment(row.userComment),
+      count: new Count(row.count),
+      isGift: new IsGift(row.isGift),
 
       author: new Author({
         channelId: new ChannelId(row.authorChannelId),
         displayName: new DisplayName(row.authorDisplayName),
         profileImageUrl: new ProfileImageUrl(row.authorProfileImageUrl),
-        isChatSponsor: new IsChatSponsor(row.authorIsChatSponsor)
+        isChatSponsor: new IsChatSponsor(true) // とりあえず常にTRUE
       }),
 
       videoId: new VideoId(row.videoId),
