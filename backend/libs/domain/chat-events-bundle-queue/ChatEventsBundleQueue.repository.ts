@@ -1,9 +1,9 @@
+import { ChatEventsBundleQueues } from '@domain/chat-events-bundle-queue'
 import { QueueStatus } from '@domain/queue'
-import { SupersBundleQueues } from '@domain/supers-bundle-queue'
 import { VideoId } from '@domain/youtube'
 
-export interface SupersBundleQueueRepository {
-  findAll: (args: { limit?: number }) => Promise<SupersBundleQueues>
+export interface ChatEventsBundleQueueRepository {
+  findAll: (args: { limit?: number }) => Promise<ChatEventsBundleQueues>
 
   save: (args: {
     where: { videoId: VideoId }

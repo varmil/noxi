@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
-import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
 import { Streams, StreamStatus } from '@domain/stream'
 import { SupersCount } from '@domain/supers-bundle'
 import { VideoId } from '@domain/youtube'
@@ -13,7 +13,7 @@ export class MainService {
 
   constructor(
     private readonly streamsService: StreamsService,
-    private readonly supersBundleQueuesService: SupersBundleQueuesService,
+    private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService,
     private readonly superChatsService: SuperChatsService,
     private readonly superStickersService: SuperStickersService
   ) {}
@@ -36,7 +36,7 @@ export class MainService {
 
   /**  queue */
   async fetchQueues() {
-    return await this.supersBundleQueuesService.findAll({
+    return await this.chatEventsBundleQueuesService.findAll({
       limit: 100
     })
   }
