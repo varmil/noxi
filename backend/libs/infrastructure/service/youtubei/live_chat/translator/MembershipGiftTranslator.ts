@@ -43,9 +43,11 @@ export class MembershipGiftTranslator
 
     const type = new Type('membershipGiftingEvent')
 
-    const count = Number(primaryText?.runs?.[0]?.text)
+    const count = Number(primaryText?.runs?.[1]?.text)
     if (!count) {
-      console.error('[MembershipGiftTranslator] primaryText is not defined')
+      console.error(
+        `primaryText[1] is not defined: ${JSON.stringify(primaryText)}`
+      )
       return undefined
     }
 
