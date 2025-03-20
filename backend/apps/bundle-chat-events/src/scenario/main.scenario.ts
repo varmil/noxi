@@ -92,9 +92,9 @@ export class MainScenario {
         return
       }
 
-      // スーパーチャット＋スーパーステッカーのここまでの合計を記録
+      // スーパーチャット＋スーパーステッカーの合計を記録
       await this.saveSupersBundle.execute({ videoId, ...stream })
-      // メンバーシップ加入のここまでの合計を記録
+      // メンバーシップ加入の合計を記録
       await this.saveMembershipBundle.execute({ videoId, ...stream })
 
       // queueからタスクを削除
