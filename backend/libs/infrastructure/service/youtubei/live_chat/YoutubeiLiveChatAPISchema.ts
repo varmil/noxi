@@ -65,7 +65,7 @@ const membershipGiftRenderer = z.object({
     liveChatSponsorshipsHeaderRenderer: z.object({
       authorName: authorNameSchema,
       authorPhoto: authorPhotoSchema,
-      // primaryText.runs[0].text に "10" のようなギフト数が含まれる
+      // primaryText.runs[1].text に "10" のようなギフト数が含まれる（※英語の場合）
       primaryText: textMessageSchema,
       authorBadges: authorBadgesSchema
     })
