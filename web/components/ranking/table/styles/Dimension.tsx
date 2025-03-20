@@ -16,7 +16,7 @@ export default function Dimension({
   icon?: JSX.Element
   rtl?: boolean
 }) {
-  const textClasses = 'sm:font-bold'
+  const textClasses = 'font-bold'
 
   if (dividend instanceof BigNumber) {
     dividend = dividend.toNumber()
@@ -43,9 +43,7 @@ export default function Dimension({
       </span>
       <div>
         <Progress
-          className={`h-0.75 sm:h-1 ${rtl ? 'rotate-180' : ''} ${
-            className || ''
-          }`}
+          className={`h-1 ${rtl ? 'rotate-180' : ''} ${className || ''}`}
           value={(dividend / divisor) * 100}
         />
       </div>
