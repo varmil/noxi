@@ -33,7 +33,7 @@ export class SaveMembershipsService {
         id: message.id.get(),
         videoId: videoId.get(),
         group: group.get(),
-        membership: { count, isGift },
+        membership: { count: count.get(), isGift: isGift.get() },
         author: message.authorDetails.displayName.get()
       })
 
