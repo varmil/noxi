@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { SaveMembershipsService } from 'apps/update-chats/src/service/save-memberships.service'
 import { LibAppModule } from '@app/lib/lib.app.module'
+import { MembershipsModule } from '@app/memberships/memberships.module'
 import { StreamStatsModule } from '@app/stream-stats/stream-stats.module'
 import { StreamsModule } from '@app/streams/streams.module'
 import { SuperChatsModule } from '@app/super-chats/super-chats.module'
@@ -18,6 +20,7 @@ import { SaveSuperStickersService } from './service/save-super-stickers.service'
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
     LibAppModule,
     YoutubeAppModule,
+    MembershipsModule,
     StreamsModule,
     StreamStatsModule,
     SuperChatsModule,
@@ -28,6 +31,7 @@ import { SaveSuperStickersService } from './service/save-super-stickers.service'
   providers: [
     MainScenario,
     MainService,
+    SaveMembershipsService,
     SaveSuperChatsService,
     SaveSuperStickersService
   ]

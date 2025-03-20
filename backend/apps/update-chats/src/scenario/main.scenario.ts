@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { MainService } from 'apps/update-chats/src/service/main.service'
+import { SaveMembershipsService } from 'apps/update-chats/src/service/save-memberships.service'
 import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-chats.service'
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
@@ -17,6 +18,7 @@ export class MainScenario {
     private readonly promiseService: PromiseService,
     private readonly mainService: MainService,
     private readonly chatCountsService: ChatCountsService,
+    private readonly saveMembershipsService: SaveMembershipsService,
     private readonly saveSuperChatsService: SaveSuperChatsService,
     private readonly saveSuperStickersService: SaveSuperStickersService
   ) {}
@@ -71,9 +73,15 @@ export class MainScenario {
             )
           }
 
-          // TODO: new-members
+          // new-members & membership gift
           {
-            // this.logger.log(newMessages)
+            promises.push(
+              this.saveMembershipsService.execute({
+                videoId,
+                newMessages,
+                group
+              })
+            )
           }
 
           await this.promiseService.allSettled(promises)
