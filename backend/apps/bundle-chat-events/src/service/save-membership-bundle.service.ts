@@ -53,7 +53,7 @@ export class SaveMembershipBundleService {
   /**
    * TODO:
    * 本来タレントごとに価格設定できるがいったん全員
-   * 410円として計算する
+   * 490円として計算する
    */
   private async calculateTotalInJPY(videoId: VideoId) {
     const memberships = await this.membershipsService.findAll({
@@ -62,7 +62,7 @@ export class SaveMembershipBundleService {
     const count = memberships.countAll()
 
     return {
-      amountMicros: new AmountMicros(410 * 1_000_000 * count.get()),
+      amountMicros: new AmountMicros(490 * 1_000_000 * count.get()),
       count
     }
   }
