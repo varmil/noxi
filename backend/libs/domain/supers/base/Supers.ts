@@ -6,7 +6,7 @@ import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import { Currency } from '../../lib/currency/Currency.vo'
 import { AmountDisplayString } from './AmountDisplayString.vo'
 import { AmountMicros } from './AmountMicros.vo'
-import { Author } from './author/Author'
+import { Author } from '../../author/Author'
 
 export class Supers {
   @Transform(({ value }: { value: LiveChatMessageId }) => value.get())

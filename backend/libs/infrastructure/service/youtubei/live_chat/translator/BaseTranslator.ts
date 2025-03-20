@@ -1,9 +1,5 @@
 import { z } from 'zod'
-import {
-  DisplayName,
-  IsChatSponsor,
-  ProfileImageUrl
-} from '@domain/supers/base/author'
+import { DisplayName, IsChatSponsor, ProfileImageUrl } from '@domain/author'
 import { ChannelId } from '@domain/youtube'
 import { AuthorDetails } from '@domain/youtube/live-chat-message'
 import {

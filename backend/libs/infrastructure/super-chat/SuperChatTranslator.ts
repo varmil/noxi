@@ -11,7 +11,7 @@ import {
   DisplayName,
   ProfileImageUrl,
   IsChatSponsor
-} from '@domain/supers/base/author'
+} from '@domain/author'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'

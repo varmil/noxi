@@ -6,7 +6,7 @@ import {
   DisplayName,
   IsChatSponsor,
   ProfileImageUrl
-} from '@domain/supers/base/author'
+} from '@domain/author'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
 import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/client'
