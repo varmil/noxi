@@ -2,7 +2,7 @@ import { Exclude } from 'class-transformer'
 import { Transform } from 'class-transformer'
 import { Author } from '@domain/author'
 import { Group } from '@domain/group'
-import { Count, IsGift } from '@domain/membership/gift'
+import { Count, IsGift } from '@domain/membership'
 import { LiveChatMessageId, VideoId, PublishedAt } from '@domain/youtube'
 
 export class Membership {

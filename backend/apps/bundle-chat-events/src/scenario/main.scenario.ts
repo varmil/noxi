@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { MainService } from 'apps/bundle-chat-events/src/service/main.service'
+import { SaveMembershipBundleService } from 'apps/bundle-chat-events/src/service/save-membership-bundle.service'
+import { SaveSupersBundleService } from 'apps/bundle-chat-events/src/service/save-supers-bundle.service'
 import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
-import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { QueueStatusInProgress } from '@domain/queue'
-import { SupersBundle } from '@domain/supers-bundle'
 import { VideoIds } from '@domain/youtube'
 
 @Injectable()
@@ -15,10 +15,11 @@ export class MainScenario {
 
   constructor(
     private readonly mainService: MainService,
+    private readonly saveSupersBundle: SaveSupersBundleService,
+    private readonly saveMembershipBundle: SaveMembershipBundleService,
     private readonly promiseService: PromiseService,
     private readonly streamsService: StreamsService,
-    private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService,
-    private readonly supersBundlesService: SupersBundlesService
+    private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService
   ) {}
 
   async execute(): Promise<void> {
@@ -40,30 +41,21 @@ export class MainScenario {
         offset += this.CHUNK_SIZE
 
         const promises = streams.map(async stream => {
-          const {
-            videoId,
-            streamTimes: { actualStartTime, actualEndTime },
-            snippet: { channelId },
-            group
-          } = stream
-
-          if (!actualStartTime) {
-            throw new Error(`actualStartTime not found for ${videoId.get()}`)
-          }
-
-          const { amountMicros, count } =
-            await this.mainService.calculateTotalInJPY(videoId)
-
-          await this.supersBundlesService.save({
-            data: new SupersBundle({
-              videoId,
-              channelId,
-              amountMicros,
-              count,
-              actualStartTime,
-              actualEndTime,
-              group
-            })
+          // スーパーチャット＋スーパーステッカーのここまでの合計を記録
+          await this.saveSupersBundle.execute({
+            videoId: stream.videoId,
+            actualStartTime: stream.streamTimes.actualStartTime,
+            actualEndTime: stream.streamTimes.actualEndTime,
+            channelId: stream.snippet.channelId,
+            group: stream.group
+          })
+          // メンバーシップ加入のここまでの合計を記録
+          await this.saveMembershipBundle.execute({
+            videoId: stream.videoId,
+            actualStartTime: stream.streamTimes.actualStartTime,
+            actualEndTime: stream.streamTimes.actualEndTime,
+            channelId: stream.snippet.channelId,
+            group: stream.group
           })
         })
         await this.promiseService.allSettled(promises)
@@ -100,21 +92,10 @@ export class MainScenario {
         return
       }
 
-      const { actualStartTime, actualEndTime, channelId, group } = stream
-      const { amountMicros, count } =
-        await this.mainService.calculateTotalInJPY(videoId)
-
-      await this.supersBundlesService.save({
-        data: new SupersBundle({
-          videoId,
-          channelId,
-          amountMicros,
-          count,
-          actualStartTime,
-          actualEndTime,
-          group
-        })
-      })
+      // スーパーチャット＋スーパーステッカーのここまでの合計を記録
+      await this.saveSupersBundle.execute({ videoId, ...stream })
+      // メンバーシップ加入のここまでの合計を記録
+      await this.saveMembershipBundle.execute({ videoId, ...stream })
 
       // queueからタスクを削除
       await this.chatEventsBundleQueuesService.delete({
