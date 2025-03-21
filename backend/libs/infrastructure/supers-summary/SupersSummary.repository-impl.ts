@@ -139,7 +139,7 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
         update: prismaData,
         create: { channelId: channelId.get(), ...prismaData }
       }),
-      // ログ的に残す（移動平均や分散を計算するため）
+      // Historyに残す（過去との差分を計算するため）
       prisma.youtubeStreamSupersSummary.create({
         data: { channelId: channelId.get(), ...prismaData }
       })
