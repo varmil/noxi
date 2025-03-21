@@ -15,7 +15,7 @@ export default function ChannelTitle({ channel, className }: Props) {
         className || ''
       }`}
     >
-      <span className="@lg:font-medium line-clamp-1 break-all group-hover:underline">
+      <span className="line-clamp-1 break-all group-hover:underline">
         {channel.basicInfo.title}
       </span>
       {/* {group && (
