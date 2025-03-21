@@ -1,0 +1,97 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+/// Always after the prisma-client-js generator
+generator json {
+  provider = "prisma-json-types-generator"
+  // namespace = "PrismaJson"
+  // clientOutput = "<finds it automatically>"
+  // (./ -> relative to schema, or an importable path to require() it)
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Channel {
+  id              String   @id
+  title           String
+  description     String
+  /// [Thumbnails]
+  thumbnails      Json
+  publishedAt     DateTime
+  playlistId      String
+  viewCount       BigInt
+  subscriberCount Int
+  videoCount      Int
+  /// [Keywords]
+  keywords        Json
+
+  group           String
+  country         String
+  defaultLanguage String?
+  gender          String
+
+  supersRankings      ChannelSupersRanking[]
+  streams             YoutubeStream[]
+  supersBundles       YoutubeStreamSupersBundle[]
+  supersSummaries     YoutubeStreamSupersSummary[]
+  supersSummaryLatest YoutubeStreamSupersSummaryLatest?
+  membershipBundles   StreamMembershipBundle[]
+  membershipSummaries ChannelMembershipSummary[]
+
+  @@index([group, subscriberCount])
+  @@index([gender])
+  @@index([publishedAt])
+}
+
+model YoutubeStream {
+  videoId                  String    @id
+  publishedAt              DateTime  @db.Timestamptz(3)
+  channelId                String
+  title                    String
+  description              String?
+  /// [Thumbnails]
+  thumbnails               Json
+  tags                     String[]
+  categoryId               Int       @db.SmallInt
+  defaultLanguage          String?
+  duration                 String?
+  scheduledStartTime       DateTime? @db.Timestamptz(3)
+  actualStartTime          DateTime? @db.Timestamptz(3)
+  actualEndTime            DateTime? @db.Timestamptz(3)
+  maxViewerCount           Int       @default(0)
+  averageConcurrentViewers Int       @default(0)
+  chatMessages             Int       @default(0)
+  views                    Int?
+  likeCount                Int       @default(0)
+
+  status    String
+  group     String
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  channel    Channel                  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  superChats YoutubeStreamSuperChat[]
+
+  @@index([channelId])
+  @@index([status, group])
+  @@index([status, scheduledStartTime])
+  @@index([status, actualStartTime])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
+}
+
+model StreamChatEventsBundleQueue {
+  id        Int      @id @default(autoincrement())
+  status    String
+  videoId   String   @unique
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+}
+
+model ExchangeRate {
+  currency  String   @id
+  rate      Float
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+}

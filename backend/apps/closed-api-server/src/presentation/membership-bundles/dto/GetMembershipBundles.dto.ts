@@ -1,4 +1,3 @@
-import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Transform, Type } from 'class-transformer'
 import {
   IsArray,
@@ -10,6 +9,7 @@ import {
   ValidateIf,
   ValidateNested
 } from 'class-validator'
+import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { MembershipBundleRepository } from '@domain/membership-bundle'
