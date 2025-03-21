@@ -20,7 +20,7 @@ export class MembershipSummariesController {
     private readonly membershipSummariesService: MembershipSummariesService
   ) {}
 
-  /** Retuen latest summaries */
+  /** Return latest summaries */
   @Get()
   async getMembershipSummaries(@Query() dto: GetMembershipSummaries) {
     return await this.membershipSummariesScenario.getMembershipSummaries({
