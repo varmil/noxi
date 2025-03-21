@@ -36,7 +36,7 @@ export class SupersBundlesController {
     })
   }
 
-  /** 単一Channel & last 24 hours の集計 */
+  /** last 24 hours の「チャンネルごと」集計 */
   @Get('sum')
   async getSupersBundleSum(
     @Query() dto: GetSupersBundlesSum
