@@ -21,6 +21,7 @@ model ChannelMembershipSummaryLatest {
 
   @@id([channelId, period])
   @@index([period, amountMicros])
+  @@index([period, count])
 }
 
 model StreamMembership {
