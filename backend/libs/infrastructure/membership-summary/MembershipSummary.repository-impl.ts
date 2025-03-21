@@ -45,7 +45,7 @@ export class MembershipSummaryRepositoryImpl
   async findAll({
     where,
     orderBy,
-    limit = 30,
+    limit = 20,
     offset = 0
   }: Parameters<MembershipSummaryRepository['findAll']>[0]) {
     const rows =
