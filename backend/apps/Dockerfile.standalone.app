@@ -16,7 +16,7 @@ FROM node:20-slim AS deps
 RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app/backend
 COPY ./package*.json ./
-COPY ./prisma/schema.prisma ./prisma/schema.prisma
+COPY ./prisma/schema ./prisma/schema
 RUN npm i --production=false
 RUN npx prisma generate
 
