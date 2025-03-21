@@ -35,13 +35,14 @@ model Channel {
   defaultLanguage String?
   gender          String
 
-  supersRankings      ChannelSupersRanking[]
-  streams             YoutubeStream[]
-  supersBundles       YoutubeStreamSupersBundle[]
-  supersSummaries     YoutubeStreamSupersSummary[]
-  supersSummaryLatest YoutubeStreamSupersSummaryLatest?
-  membershipBundles   StreamMembershipBundle[]
-  membershipSummaries ChannelMembershipSummary[]
+  supersRankings           ChannelSupersRanking[]
+  streams                  YoutubeStream[]
+  supersBundles            YoutubeStreamSupersBundle[]
+  supersSummaries          YoutubeStreamSupersSummary[]
+  supersSummaryLatest      YoutubeStreamSupersSummaryLatest?
+  membershipBundles        StreamMembershipBundle[]
+  membershipSummaries      ChannelMembershipSummary[]
+  membershipSummaryLatests ChannelMembershipSummaryLatest[]
 
   @@index([group, subscriberCount])
   @@index([gender])

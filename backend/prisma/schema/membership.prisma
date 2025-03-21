@@ -11,6 +11,18 @@ model ChannelMembershipSummary {
   @@index([period, createdAt])
 }
 
+model ChannelMembershipSummaryLatest {
+  channelId    String
+  period       String // 'last7Days', 'last30Days', etc.
+  amountMicros BigInt // JPY
+  count        Int
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+  channel      Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@id([channelId, period])
+  @@index([period, amountMicros])
+}
+
 model StreamMembership {
   id     String  @id
   count  Int
