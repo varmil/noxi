@@ -26,7 +26,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       period,
       dimension,
       group,
-      gender
+      gender,
+      page
     })),
     alternates: {
       canonical: `${getWebUrl()}/${locale}/youtube/live/ranking?${createSearchParams(
