@@ -62,6 +62,10 @@
       "group": { "all": "All" },
       "country": { "all": "Worldwide" },
       "place": "{rank, selectordinal, one {st} two {nd} few {rd} other {th}}"
+    },
+
+    "pagination": {
+      "page": "Page"
     }
   },
 

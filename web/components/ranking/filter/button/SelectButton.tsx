@@ -38,7 +38,7 @@ export default function SelectButton({
       variant={active ? activeVariant ?? 'default' : 'ghost'}
     >
       <Link
-        href={`${pathname ?? currentPathname}?${createQueryStrings(qs)}`}
+        href={`${pathname ?? currentPathname}${createQueryStrings(qs)}`}
         prefetch={prefetch}
         scroll={false}
       >

@@ -2,8 +2,9 @@
  * @Custom　2025/03/16
  *
  * Use `next-intl` for i18n
- * Add PaginationInfo
+ * Add PaginationInfo, PaginationFirst
  * Add prefetch={true} for Next button
+ * Add hidden sm:block for Previous button
  * Gap Adjustment:
  *    Changed the gap between pagination items from gap-1 to gap-4 sm:gap-1
  * PaginationLink Props Update:
@@ -20,6 +21,7 @@ import * as React from 'react'
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
+  ChevronsLeftIcon,
   MoreHorizontalIcon
 } from 'lucide-react'
 
@@ -94,6 +96,25 @@ function PaginationLink({
   )
 }
 
+/** SP専用：最初に戻るボタン */
+function PaginationFirst({
+  className,
+  ...props
+}: React.ComponentProps<typeof PaginationLink>) {
+  const t = useTranslations('Components.pagination')
+  return (
+    <PaginationLink
+      aria-label={t('first')}
+      size="sm"
+      className={className}
+      defaultVariant="secondary"
+      {...props}
+    >
+      <ChevronsLeftIcon className="relative top-[1px]" />
+    </PaginationLink>
+  )
+}
+
 function PaginationPrevious({
   className,
   ...props
@@ -108,7 +129,7 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon className="relative top-[1px]" />
-      <span>{t('previous')}</span>
+      <span className="hidden sm:block">{t('previous')}</span>
     </PaginationLink>
   )
 }
@@ -168,6 +189,7 @@ export {
   PaginationContent,
   PaginationLink,
   PaginationItem,
+  PaginationFirst,
   PaginationPrevious,
   PaginationNext,
   PaginationEllipsis,

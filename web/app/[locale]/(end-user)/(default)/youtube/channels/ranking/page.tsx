@@ -20,7 +20,7 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const { period, dimension, group, gender, date, page, channelId } =
+  const { period, dimension, group, gender, date, page } =
     await props.searchParams
   return {
     ...(await generateTitleAndDescription({
@@ -30,7 +30,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       period,
       dimension,
       group,
-      gender
+      gender,
+      page
     })),
     openGraph: {
       images: [

@@ -62,6 +62,10 @@
       "group": { "all": "すべて" },
       "country": { "all": "全世界" },
       "place": "位"
+    },
+
+    "pagination": {
+      "page": "ページ"
     }
   },
 
