@@ -21,7 +21,7 @@ export default function useQueryString() {
         params.set(name, value)
       }
 
-      return params.toString()
+      return params.toString() ? `?${params.toString()}` : ''
     },
     [searchParams]
   )
@@ -36,7 +36,7 @@ export default function useQueryString() {
           params.set(name, value)
         }
       })
-      return params.toString()
+      return params.toString() ? `?${params.toString()}` : ''
     },
     [searchParams]
   )

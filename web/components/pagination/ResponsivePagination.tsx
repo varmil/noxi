@@ -5,6 +5,7 @@ import {
   Pagination,
   PaginationContent,
   PaginationEllipsis,
+  PaginationFirst,
   PaginationInfo,
   PaginationItem,
   PaginationLink,
@@ -34,9 +35,14 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
   return (
     <Pagination className={`${className}`}>
       <PaginationContent>
-        <PaginationItem>
+        <PaginationItem className="flex w-[80px] justify-end gap-2">
+          <PaginationFirst
+            className="sm:hidden"
+            href={`${pathname}${createQueryString(QS_KEY, null)}`}
+            disabled={current === 1}
+          />
           <PaginationPrevious
-            href={`${pathname}?${createQueryString(
+            href={`${pathname}${createQueryString(
               QS_KEY,
               Math.max(1, current - 1) === 1
                 ? null
@@ -49,9 +55,9 @@ export default function ResponsivePagination({ totalPages, className }: Props) {
           <SP current={current} totalPages={total} />
           <NotSP current={current} totalPages={total} />
         </PaginationItem>
-        <PaginationItem>
+        <PaginationItem className="flex w-[80px]">
           <PaginationNext
-            href={`${pathname}?${createQueryString(
+            href={`${pathname}${createQueryString(
               QS_KEY,
               Math.min(total, current + 1).toString()
             )}`}
@@ -102,7 +108,7 @@ const NotSP = ({
           return (
             <PaginationLink
               key={pageNumber}
-              href={`${pathname}?${createQueryString(
+              href={`${pathname}${createQueryString(
                 QS_KEY,
                 pageNumber === 1 ? null : pageNumber.toString()
               )}`}

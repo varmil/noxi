@@ -40,7 +40,7 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                 active={!has(QS_KEY) || has(QS_KEY, 'subscribers')}
               >
                 <Link
-                  href={`${pathname}?${createQueryString(
+                  href={`${pathname}${createQueryString(
                     QS_KEY,
                     'subscribers'
                   )}`}
@@ -49,20 +49,9 @@ export function SortByDrawer({ children }: React.PropsWithChildren) {
                   Subscribers
                 </Link>
               </DrawerSelectButton>
-              {/* <DrawerSelectButton asChild active={has(QS_KEY, 'avarage-views')}>
-                <Link
-                  href={`${pathname}?${createQueryString(
-                    QS_KEY,
-                    'avarage-views'
-                  )}`}
-                  prefetch={true}
-                >
-                  Avarage views in the past 30 days
-                </Link>
-              </DrawerSelectButton> */}
               <DrawerSelectButton asChild active={has(QS_KEY, 'views')}>
                 <Link
-                  href={`${pathname}?${createQueryString(QS_KEY, 'views')}`}
+                  href={`${pathname}${createQueryString(QS_KEY, 'views')}`}
                   prefetch={true}
                 >
                   Views

@@ -59,7 +59,7 @@ export default function ChannelsRankingTableTitle({
           <PeriodHoverCardFactory period={period} date={date} />
           {period === 'last24Hours' && (
             <RealtimeStatusBadge
-              href={`${pathname}?${createQueryString('date', null)}`}
+              href={`${pathname}${createQueryString('date', null)}`}
               date={date}
             />
           )}
