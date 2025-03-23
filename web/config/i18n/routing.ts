@@ -7,5 +7,10 @@ export const routing = defineRouting({
   // A list of all locales that are supported
   locales: ['en', 'ja'],
 
-  localePrefix: 'always'
+  localePrefix: 'always',
+
+  // Expire in one year
+  localeCookie: {
+    maxAge: 60 * 60 * 24 * 365
+  }
 })
