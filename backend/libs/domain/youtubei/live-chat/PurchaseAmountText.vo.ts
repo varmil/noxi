@@ -1,8 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { IsNotEmpty } from 'class-validator'
-import { CurrencySymbol } from '@domain/lib/currency'
+import { AmountMicros, CurrencySymbol } from '@domain/lib/currency'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
-import { AmountMicros } from '@domain/supers'
 
 export class PurchaseAmountText extends StringValueObject {
   @IsNotEmpty()

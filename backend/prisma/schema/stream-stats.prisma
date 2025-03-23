@@ -1,0 +1,28 @@
+model YoutubeStreamViewerCount {
+  id        Int      @id @default(autoincrement())
+  videoId   String
+  count     Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+}
+
+model YoutubeStreamChatCount {
+  id                BigInt   @id @default(autoincrement())
+  videoId           String
+  all               Int      @default(0)
+  member            Int      @default(0)
+  nextContinuation  String?
+  latestPublishedAt DateTime @db.Timestamptz(3)
+  createdAt         DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([videoId, createdAt])
+  @@index([videoId, all, createdAt])
+}
+
+model YoutubeStreamChatBundleQueue {
+  id        Int      @id @default(autoincrement())
+  status    String
+  videoId   String   @unique
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+}

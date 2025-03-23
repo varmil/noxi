@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { QueueStatusUnprocessed } from '@domain'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
-import { SupersBundleQueuesService } from '@app/supers-bundle-queues/supers-bundle-queues.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { CallbackService } from '@app/youtube/pubsubhubbub/callback.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
@@ -27,7 +27,7 @@ export class PubsubhubbubScenario {
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService,
     private readonly chatBundleQueuesService: ChatBundleQueuesService,
-    private readonly supersBundleQueuesService: SupersBundleQueuesService
+    private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService
   ) {}
 
   async handleUpdatedCallback({ entry }: { entry: UpdatedEntry }) {
@@ -83,7 +83,7 @@ export class PubsubhubbubScenario {
           where: { videoId },
           data: { status: QueueStatusUnprocessed }
         }),
-        this.supersBundleQueuesService.save({
+        this.chatEventsBundleQueuesService.save({
           where: { videoId },
           data: { status: QueueStatusUnprocessed }
         })

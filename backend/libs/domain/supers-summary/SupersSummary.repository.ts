@@ -1,7 +1,7 @@
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
+import { AmountMicros } from '@domain/lib/currency'
 import { PeriodString } from '@domain/lib/period'
-import { AmountMicros } from '@domain/supers/base'
 import { SupersSummary, SupersSummaries } from '@domain/supers-summary'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 

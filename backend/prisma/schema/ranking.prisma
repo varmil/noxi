@@ -1,0 +1,12 @@
+model ChannelSupersRanking {
+  id          BigInt   @id @default(autoincrement())
+  channelId   String
+  period      String // 'last7Days', 'last30Days', etc.
+  rankingType String // 'overall', 'gender', 'group'
+  rank        Int
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  channel     Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@unique([channelId, period, rankingType, createdAt])
+  @@index([period, rankingType, createdAt])
+}

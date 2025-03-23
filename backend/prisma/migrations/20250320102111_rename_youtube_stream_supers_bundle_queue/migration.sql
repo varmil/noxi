@@ -1,0 +1,1 @@
+ALTER TABLE "YoutubeStreamSupersBundleQueue" RENAME TO "StreamChatEventsBundleQueue";

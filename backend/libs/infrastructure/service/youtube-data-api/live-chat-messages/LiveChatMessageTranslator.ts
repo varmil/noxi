@@ -1,12 +1,8 @@
 import { type youtube_v3 } from '@googleapis/youtube'
 import { z } from 'zod'
-import { Currency } from '@domain/lib/currency'
-import { AmountDisplayString, AmountMicros, UserComment } from '@domain/supers'
-import {
-  DisplayName,
-  IsChatSponsor,
-  ProfileImageUrl
-} from '@domain/supers/base/author'
+import { DisplayName, IsChatSponsor, ProfileImageUrl } from '@domain/author'
+import { AmountMicros, Currency } from '@domain/lib/currency'
+import { AmountDisplayString, UserComment } from '@domain/supers'
 import { ChannelId, PublishedAt } from '@domain/youtube'
 import {
   AuthorDetails,

@@ -1,5 +1,6 @@
 import { Currency } from '@domain/lib/currency'
-import { AmountMicros, AmountDisplayString } from '@domain/supers'
+import { AmountMicros } from '@domain/lib/currency'
+import { AmountDisplayString } from '@domain/supers'
 
 export class SuperXXXDetails {
   public readonly amountMicros: AmountMicros
