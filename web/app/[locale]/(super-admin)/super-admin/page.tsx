@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { SuperAdminDashboard } from 'features/super-admin/components/SuperAdminDashboard'
 
 type Props = {
@@ -11,14 +11,12 @@ export async function generateMetadata({}: Props): Promise<Metadata> {
 }
 
 export default async function SuperAdminPage(props: Props) {
-  const params = await props.params;
+  const params = await props.params
 
-  const {
-    locale
-  } = params;
+  const { locale } = params
 
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
 
   return (
     <>

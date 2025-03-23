@@ -2,8 +2,8 @@ import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, setRequestLocale } from 'next-intl/server'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
 import { ClarityScript } from 'components/script/ClarityScript'
@@ -29,16 +29,12 @@ export default async function LocaleLayout(props: Props) {
   const { children } = props
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
 
   // Enable static rendering
   setRequestLocale(locale)
-
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages()
 
   return (
     <html
@@ -56,7 +52,7 @@ export default async function LocaleLayout(props: Props) {
           disableTransitionOnChange
         >
           <NextTopLoader color="var(--primary)" showSpinner={false} />
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider>
             {children}
             <Toaster />
           </NextIntlClientProvider>

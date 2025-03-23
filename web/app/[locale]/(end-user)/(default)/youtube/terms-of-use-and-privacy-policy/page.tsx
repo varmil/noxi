@@ -1,7 +1,7 @@
-import { use } from "react";
+import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
-import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import TermsOfUseAndPrivacyPolicy from 'features/terms-of-use-and-privacy-policy/terms-of-use-and-privacy-policy'
 
@@ -10,12 +10,9 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params;
+  const params = await props.params
 
-  const {
-    locale,
-    name
-  } = params;
+  const { locale, name } = params
 
   const tg = await getTranslations({ locale, namespace: 'Global' })
 
@@ -26,15 +23,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default function TermsOfUseAndPrivacyPolicyPage(props: Props) {
-  const params = use(props.params);
+  const params = use(props.params)
 
-  const {
-    locale,
-    name
-  } = params;
+  const { locale, name } = params
 
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
 
   const t = useTranslations('Breadcrumb')
 

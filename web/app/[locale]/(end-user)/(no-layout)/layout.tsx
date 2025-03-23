@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { GroupString } from 'config/constants/Group'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -16,7 +16,7 @@ export default async function NoLayout(props: Props) {
   const { children } = props
 
   // Enable static rendering
-  unstable_setRequestLocale(locale)
+  setRequestLocale(locale)
   setGroup(group)
 
   return <>{children}</>
