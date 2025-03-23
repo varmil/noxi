@@ -3,7 +3,7 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages, setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
 import { ClarityScript } from 'components/script/ClarityScript'
@@ -36,10 +36,6 @@ export default async function LocaleLayout(props: Props) {
   // Enable static rendering
   setRequestLocale(locale)
 
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages()
-
   return (
     <html
       lang={locale}
@@ -56,7 +52,7 @@ export default async function LocaleLayout(props: Props) {
           disableTransitionOnChange
         >
           <NextTopLoader color="var(--primary)" showSpinner={false} />
-          <NextIntlClientProvider messages={messages}>
+          <NextIntlClientProvider>
             {children}
             <Toaster />
           </NextIntlClientProvider>
