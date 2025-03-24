@@ -2,6 +2,7 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 import { DefaultPeriodByDimension } from 'config/constants/RankingRoute'
 import { defaultCountry } from 'config/i18n/country'
 import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
+import { normalizePathname } from 'lib/pathname'
 
 /**
  * Default query parameters for each page and dimension
@@ -15,18 +16,6 @@ const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
     dimension: 'super-chat',
     period: DefaultPeriodByDimension['super-chat']
   }
-}
-
-/**
- * Extract the locale and normalize the pathname
- */
-function normalizePathname(pathname: string): string {
-  const parts = pathname.split('/')
-  if (parts.length > 1 && /^[a-z]{2}(?:-[A-Z]{2})?$/.test(parts[1])) {
-    // Remove the locale part if it exists (e.g., /ja or /en-US)
-    parts.splice(1, 1)
-  }
-  return parts.join('/')
 }
 
 /**
