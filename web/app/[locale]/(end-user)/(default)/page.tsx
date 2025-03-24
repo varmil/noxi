@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import dayjs from 'lib/dayjs'
 import { getOgUrl } from 'utils/og-url'
+import { getWebUrl } from 'utils/web-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
@@ -30,6 +31,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
           url: getOgUrl(`/daily-ranking?${searchParams.toString()}`)
         }
       ]
+    },
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}`
     }
   }
 }
