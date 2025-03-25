@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
+import { CreateMembershipSummariesService } from 'apps/summarize-channels/src/service/create-membership-summaries.service'
 import { CreateSupersSummariesService } from 'apps/summarize-channels/src/service/create-supers-summaries.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
 import { MainModule } from '../main.module'
 import { MainScenario } from './main.scenario'
-import { CreateMembershipSummariesService } from 'apps/summarize-channels/src/service/create-membership-summaries.service'
 
 describe('MainScenario', () => {
   let scenario: MainScenario

@@ -18,8 +18,8 @@ async function bootstrap() {
   useLogger(app)
 
   const scenario = app.select(MainModule).get(MainScenario)
-  // await scenario.executeSupersSummaries()
-  // await scenario.executeRankings()
+  await scenario.executeSupersSummaries()
+  await scenario.executeRankings()
   await scenario.executeMembershipSummaries()
 
   await app.close()
