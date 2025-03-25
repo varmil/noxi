@@ -5,10 +5,11 @@ import { MainModule } from './main.module'
 import { MainScenario } from './scenario/main.scenario'
 
 /**
- * 1. Summaryを作成する
+ * 1. Supers Summaryを作成する
  * 2. Rankingを作成する
+ * 3. Membership Summaryを作成する
  *
- * Summaryを「全て」作り終わったあとでないと
+ * SupersSummaryを「全て」作り終わったあとでないと
  * Rankingを作れない（順位が確定しない）ので
  * 一番上位のここで手続きを制御する
  */
@@ -17,8 +18,9 @@ async function bootstrap() {
   useLogger(app)
 
   const scenario = app.select(MainModule).get(MainScenario)
-  await scenario.executeSummaries()
+  await scenario.executeSupersSummaries()
   await scenario.executeRankings()
+  await scenario.executeMembershipSummaries()
 
   await app.close()
 }

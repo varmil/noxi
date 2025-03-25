@@ -42,6 +42,8 @@ export class MembershipSummary {
     })
   }
 
+  /** last24Hoursは除く */
   @Exclude()
-  static allPeriods = () => PeriodStrings.map(p => new Period(p))
+  static allPeriods = () =>
+    PeriodStrings.filter(p => p !== 'last24Hours').map(p => new Period(p))
 }

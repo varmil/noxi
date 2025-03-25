@@ -27,6 +27,9 @@ export abstract class Collection<T> {
   map = <U>(fn: (value: T, index: number) => U) => this.list?.map(fn)
 
   @Exclude()
+  flatMap = <U>(fn: (value: T, index: number) => U[]) => this.list?.flatMap(fn)
+
+  @Exclude()
   filter(callback: (item: T, index?: number) => boolean): this {
     return this.newInstance(this.list.filter(callback))
   }

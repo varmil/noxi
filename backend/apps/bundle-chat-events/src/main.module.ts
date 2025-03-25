@@ -7,6 +7,7 @@ import { SaveSupersBundleService } from 'apps/bundle-chat-events/src/service/sav
 import { ChatEventsBundleQueuesModule } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 import { MembershipBundlesAppModule } from '@app/membership-bundles/membership-bundles.module'
+import { MembershipPricesAppModule } from '@app/membership-prices/membership-prices.app.module'
 import { MembershipsModule } from '@app/memberships/memberships.module'
 import { StreamsModule } from '@app/streams/streams.module'
 import { SuperChatsModule } from '@app/super-chats/super-chats.module'
@@ -22,6 +23,7 @@ import { SupersBundlesAppModule } from '@app/supers-bundles/supers-bundles.modul
     ChatEventsBundleQueuesModule,
     SupersBundlesAppModule,
     MembershipBundlesAppModule,
+    MembershipPricesAppModule,
     MembershipsModule,
     SuperChatsModule,
     SuperStickersModule

@@ -1,7 +1,25 @@
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
-import { MembershipBundle, MembershipBundles } from '@domain/membership-bundle'
-import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
+import { Count } from '@domain/membership'
+import {
+  MembershipBundle,
+  MembershipBundles,
+  MembershipBundleSums
+} from '@domain/membership-bundle'
+import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
+
+export interface MembershipBundleSumWhere {
+  createdAt: { gte: Date; lte?: Date }
+  group?: Group
+  channelIds?: ChannelIds
+  gender?: Gender
+  count?: {
+    gt?: Count
+    gte?: Count
+    lt?: Count
+    lte?: Count
+  }
+}
 
 export interface MembershipBundleRepository {
   findAll: (args: {
@@ -24,4 +42,14 @@ export interface MembershipBundleRepository {
   }) => Promise<MembershipBundle | null>
 
   save: (args: { data: MembershipBundle }) => Promise<void>
+
+  /**
+   * Sum count & amountMicros within a period grouped by channelId
+   **/
+  sum: (args: {
+    where: MembershipBundleSumWhere
+    orderBy?: { _sum: { amountMicros: 'asc' | 'desc' } }
+    limit?: number
+    offset?: number
+  }) => Promise<MembershipBundleSums>
 }
