@@ -1,31 +1,39 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { GroupsService } from '@app/groups/groups.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
 export class MainScenario {
+  private readonly CHUNK_SIZE = 50
   private readonly logger = new Logger(MainScenario.name)
 
   constructor(
     private readonly channelsService: ChannelsService,
-    private readonly channelsInfraService: ChannelsInfraService,
-    private readonly groupsService: GroupsService
+    private readonly channelsInfraService: ChannelsInfraService
   ) {}
 
   async execute(): Promise<void> {
-    const groups = this.groupsService.findAll()
-    for (const group of groups.get()) {
-      this.logger.debug(`start ${group.get()}`)
+    let offset = 0
+    const index = (offset: number) => offset / this.CHUNK_SIZE
+    while (true) {
+      try {
+        const channels = await this.channelsService.findAll({
+          orderBy: [{ subscriberCount: 'desc' }],
+          limit: this.CHUNK_SIZE,
+          offset
+        })
+        if (channels.length === 0) break
+        offset += this.CHUNK_SIZE
 
-      const channels = await this.channelsInfraService.list({
-        where: { channelIds: group.channelIds }
-      })
+        this.logger.log(`processChunk: ${index(offset)}`)
 
-      await this.channelsService.bulkSave({
-        data: { channels, group }
-      })
-      this.logger.debug(`end ${group.get()}`)
+        const channelsFromApi = await this.channelsInfraService.list({
+          where: { channelIds: channels.ids() }
+        })
+        await this.channelsService.bulkUpdate({ data: channelsFromApi })
+      } catch (error) {
+        this.logger.error(`Error in chunk: ${index(offset)}:`, error)
+      }
     }
   }
 }

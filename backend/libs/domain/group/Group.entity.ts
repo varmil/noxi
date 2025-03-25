@@ -1,9 +1,7 @@
 import { BadRequestException } from '@nestjs/common'
-import { Exclude, Expose, Transform } from 'class-transformer'
+import { Exclude } from 'class-transformer'
 import { IsIn, IsNotEmpty } from 'class-validator'
-import { ChannelIdsByGroup, ChannelsByGroup } from '@domain/group/list'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
-import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export const GroupStrings = [
   '774inc',
@@ -34,19 +32,6 @@ export class Group extends StringValueObject<GroupString> {
   constructor(val: string) {
     super(val as GroupString)
     this.val = val as GroupString
-  }
-
-  @Expose()
-  @Transform(({ value }: { value: { list: ChannelId[] } }) =>
-    value.list.map(e => e.get())
-  )
-  get channelIds(): ChannelIds {
-    return ChannelIdsByGroup[this.val]
-  }
-
-  @Exclude()
-  findChannel(id: ChannelId) {
-    return ChannelsByGroup[this.val].findById(id)
   }
 
   @Exclude()

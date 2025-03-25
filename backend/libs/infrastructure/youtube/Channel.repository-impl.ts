@@ -1,5 +1,6 @@
 import { Injectable, NotImplementedException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
+import { identity } from 'zx/build/util'
 import { Gender, Group } from '@domain'
 import { CountryCode, LanguageTag } from '@domain/country'
 import {
@@ -72,49 +73,45 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     throw new NotImplementedException()
   }
 
-  async bulkSave({
-    data: { channels, group }
-  }: Parameters<ChannelRepository['bulkSave']>[0]) {
-    const prismaData: Prisma.ChannelCreateInput[] = channels.map(channel => {
-      const {
-        basicInfo: { id, title, description, thumbnails, publishedAt },
-        contentDetails,
-        statistics: { viewCount, subscriberCount, videoCount },
-        brandingSettings: { keywords }
-      } = channel
+  async bulkUpdate({
+    data: channels
+  }: Parameters<ChannelRepository['bulkUpdate']>[0]) {
+    const prismaData: (Prisma.ChannelUpdateArgs['data'] & { id: string })[] =
+      channels.map(channel => {
+        const {
+          basicInfo: { id, title, description, thumbnails, publishedAt },
+          contentDetails,
+          statistics: { viewCount, subscriberCount, videoCount },
+          brandingSettings: { keywords }
+        } = channel
 
-      const groupChannel = group.findChannel(id)
-      if (!groupChannel) {
-        throw new Error(`Channel not found in group: ${id.get()}`)
-      }
-
-      return {
-        id: id.get(),
-        title,
-        description,
-        thumbnails,
-        publishedAt,
-        playlistId: contentDetails.uploadsPlaylistId,
-        viewCount,
-        subscriberCount,
-        videoCount,
-        keywords: keywords.map(k => k.get()),
-        group: group.get(),
-        // PeakX defines
-        // * country code
-        // * defaultLanguage
-        // * gender
-        country: groupChannel.country.get(),
-        defaultLanguage: groupChannel.defaultLangage.get(),
-        gender: groupChannel.gender.get()
-      }
-    })
+        return {
+          id: id.get(),
+          title,
+          description,
+          thumbnails,
+          publishedAt,
+          playlistId: contentDetails.uploadsPlaylistId,
+          viewCount,
+          subscriberCount,
+          videoCount,
+          keywords: keywords.map(k => k.get())
+          // PeakX defines
+          // * group
+          // * country code
+          // * defaultLanguage
+          // * gender
+          // group: group.get()
+          // country: groupChannel.country.get(),
+          // defaultLanguage: groupChannel.defaultLangage.get(),
+          // gender: groupChannel.gender.get()
+        }
+      })
 
     const query = prismaData.map(channel =>
-      this.prismaInfraService.channel.upsert({
+      this.prismaInfraService.channel.update({
         where: { id: channel.id },
-        update: channel,
-        create: channel
+        data: channel
       })
     )
 
