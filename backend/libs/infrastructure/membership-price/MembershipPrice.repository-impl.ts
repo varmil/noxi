@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common'
-import { ChannelId, Rate } from '@domain'
-import { Currency } from '@domain/lib/currency'
 import {
   MembershipPrice,
-  MembershipPriceRepository,
-  MembershipPrices,
-  PriceMicros
+  PriceMicros,
+  MembershipPriceRepository
 } from '@domain/membership-price'
+import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
@@ -15,16 +13,16 @@ export class MembershipPriceRepositoryImpl
 {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  async findAll() {
-    const rows = await this.prismaInfraService.membershipPrice.findMany()
-    return new MembershipPrices(
-      rows.map(
-        e =>
-          new MembershipPrice({
-            channelId: new ChannelId(e.channelId),
-            priceMicros: new PriceMicros(e.priceMicros)
-          })
-      )
-    )
+  async findById(channelId: ChannelId) {
+    const row = await this.prismaInfraService.membershipPrice.findUnique({
+      where: { channelId: channelId.get() }
+    })
+    if (!row) {
+      return null
+    }
+    return new MembershipPrice({
+      channelId,
+      priceMicros: new PriceMicros(row.priceMicros)
+    })
   }
 }

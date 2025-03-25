@@ -1,5 +1,6 @@
-import { MembershipPrices } from '@domain/membership-price'
+import { MembershipPrice } from '@domain/membership-price'
+import { ChannelId } from '@domain/youtube'
 
 export interface MembershipPriceRepository {
-  findAll: () => Promise<MembershipPrices>
+  findById: (channelId: ChannelId) => Promise<MembershipPrice | null>
 }
