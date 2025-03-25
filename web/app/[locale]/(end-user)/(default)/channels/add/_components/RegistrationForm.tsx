@@ -282,7 +282,7 @@ export function RegistrationForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <FormControl>
+                    <FormControl className="cursor-pointer">
                       <SelectTrigger>
                         <SelectValue placeholder="言語を選択" />
                       </SelectTrigger>
