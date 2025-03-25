@@ -62,3 +62,9 @@ model StreamMembershipBundle {
   @@index([group, actualEndTime, amountMicros])
   @@index([createdAt, group])
 }
+
+model MembershipPrice {
+  channelId   String @id
+  priceMicros BigInt
+  currency    String @default("JPY")
+}
