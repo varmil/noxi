@@ -19,4 +19,8 @@ export class MembershipBundlesService {
   async save(args: Parameters<MembershipBundleRepository['save']>[0]) {
     await this.membershipBundleRepository.save(args)
   }
+
+  async sum(args: Parameters<MembershipBundleRepository['sum']>[0]) {
+    return await this.membershipBundleRepository.sum(args)
+  }
 }

@@ -9,7 +9,9 @@ import { Count } from '@domain/membership'
 import {
   MembershipBundle,
   MembershipBundleRepository,
-  MembershipBundles
+  MembershipBundles,
+  MembershipBundleSum,
+  MembershipBundleSums
 } from '@domain/membership-bundle'
 import {
   ActualEndTime,
@@ -90,6 +92,39 @@ export class MembershipBundleRepositoryImpl
       update,
       create: { videoId: videoId.get(), ...update }
     })
+  }
+
+  async sum(args: Parameters<MembershipBundleRepository['sum']>[0]) {
+    const count = args.where.count && {
+      gt: args.where.count.gt?.get(),
+      gte: args.where.count.gte?.get(),
+      lt: args.where.count.lt?.get(),
+      lte: args.where.count.lte?.get()
+    }
+    const rows = await this.prismaInfraService.streamMembershipBundle.groupBy({
+      by: ['channelId'],
+      where: {
+        createdAt: args.where.createdAt,
+        group: args.where.group?.get(),
+        channelId: { in: args.where.channelIds?.map(e => e.get()) },
+        channel: { gender: args.where.gender?.get() },
+        count
+      },
+      _sum: { amountMicros: true, count: true },
+      orderBy: args.orderBy,
+      take: args.limit,
+      skip: args.offset
+    })
+    return new MembershipBundleSums(
+      rows.map(
+        row =>
+          new MembershipBundleSum({
+            channelId: new ChannelId(row.channelId),
+            amountMicros: new AmountMicros(row._sum.amountMicros ?? 0),
+            count: new Count(row._sum.count ?? 0)
+          })
+      )
+    )
   }
 
   private toDomain(row: PrismaStreamMembershipBundle) {
