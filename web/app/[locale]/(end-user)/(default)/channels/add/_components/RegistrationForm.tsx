@@ -164,7 +164,6 @@ export function RegistrationForm() {
                 <FormItem>
                   <div className="flex items-center gap-2">
                     <FormLabel>YouTubeチャンネルID</FormLabel>
-                    {/* Popoverを独立した要素として配置 */}
                     <HowToCheckChannelIdPopover />
                   </div>
                   <FormControl>
@@ -234,6 +233,7 @@ export function RegistrationForm() {
                       <SelectItem value="other">その他</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormDescription>活動（所属）する国</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -262,6 +262,7 @@ export function RegistrationForm() {
                       <SelectItem value="other">その他</SelectItem>
                     </SelectContent>
                   </Select>
+                  <FormDescription>配信で使う主な言語</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
