@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/groups/update-channels/src/main.module'
 import { MainScenario } from 'apps/groups/update-channels/src/scenario/main.scenario'
-import { StreamsService } from '@app/streams/streams.service'
-import { Streams } from '@domain/stream'
+import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
@@ -20,8 +19,8 @@ describe('MainScenario', () => {
   describe('execute()', () => {
     it('should return void 0', async () => {
       jest
-        .spyOn(StreamsService.prototype, 'findAll')
-        .mockResolvedValue(new Streams([]))
+        .spyOn(ChannelsService.prototype, 'findAll')
+        .mockResolvedValue(new Channels([]))
       jest
         .spyOn(ChannelsInfraService.prototype, 'list')
         .mockResolvedValue(new Channels([]))
