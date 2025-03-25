@@ -18,11 +18,6 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Select,
@@ -33,6 +28,7 @@ import {
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getChannelSnippet } from 'apis/youtube/data-api/getChannelSnippet'
+import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 
 // チャンネルIDのバリデーションスキーマを更新
 const formSchema = z.object({
@@ -169,36 +165,7 @@ export function RegistrationForm() {
                   <div className="flex items-center gap-2">
                     <FormLabel>YouTubeチャンネルID</FormLabel>
                     {/* Popoverを独立した要素として配置 */}
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          className="h-6 w-6 rounded-full p-0 border-none"
-                        >
-                          <HelpCircle className="h-4 w-4" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-80 p-4" side="right">
-                        <div className="space-y-2">
-                          <h4 className="font-medium">
-                            チャンネルIDの確認方法
-                          </h4>
-                          <div className="text-sm space-y-1">
-                            <p className="font-semibold">《 確認手順 》</p>
-                            <p>［１］チャンネルページを開く</p>
-                            <p>［２］チャンネルの概要欄(説明欄)をクリック</p>
-                            <p>［３］【概要】が表示される</p>
-                            <p>
-                              ［４］【概要】の一番下の『チャンネルを共有』をクリック
-                            </p>
-                            <p>［５］『チャンネルIDをコピー』をクリック</p>
-                            <p>［６］これで チャンネルID を取得できます</p>
-                          </div>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
+                    <HowToCheckChannelIdPopover />
                   </div>
                   <FormControl>
                     <Input
