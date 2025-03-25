@@ -30,7 +30,5 @@ export interface ChannelRepository {
 
   save: (args: Channel) => Promise<void>
 
-  bulkSave: (args: {
-    data: { channels: Channels; group: Group }
-  }) => Promise<void>
+  bulkUpdate: (args: { data: Channels }) => Promise<void>
 }
