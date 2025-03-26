@@ -155,9 +155,7 @@ export function HistoryList() {
                       <dt className="text-muted-foreground">登録者数:</dt>
                       <dd>{app.subscriberCount.toLocaleString()}人</dd>
 
-                      <dt className="text-muted-foreground">
-                        直近30日間のライブ配信:
-                      </dt>
+                      <dt className="text-muted-foreground">ライブ回数/月:</dt>
                       <dd>{app.recentLiveStreams}回</dd>
                     </dl>
                   </div>

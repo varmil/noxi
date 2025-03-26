@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
@@ -27,7 +26,9 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
+import { ChannelInfo } from '../../_types/ChannelInfoForAdd'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
+import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
 import RegistrationFormSkeleton from './RegistrationFormSkeleton'
 
 // チャンネルIDのバリデーションスキーマを更新
@@ -46,16 +47,6 @@ const formSchema = z.object({
   }),
   agency: z.string().min(1, { message: '所属事務所を選択してください' })
 })
-
-// チャンネル情報の型定義を更新
-type ChannelInfo = {
-  title: string
-  thumbnail: string
-  subscriberCount: number
-  recentLiveStreams: number
-  meetsSubscriberRequirement: boolean
-  meetsLiveStreamRequirement: boolean
-} | null
 
 // 国と言語の表示名マッピング
 const countryNames: Record<string, string> = {
@@ -206,7 +197,6 @@ export function RegistrationForm() {
                 <FormItem>
                   <div className="flex items-center gap-2">
                     <FormLabel>YouTubeチャンネルID</FormLabel>
-                    {/* Popoverを独立した要素として配置 */}
                     <HowToCheckChannelIdPopover />
                   </div>
                   <FormControl>
@@ -230,59 +220,7 @@ export function RegistrationForm() {
             {isLoading && <RegistrationFormSkeleton />}
 
             {!isLoading && channelInfo && (
-              <div className="border rounded-md overflow-hidden">
-                <div className="flex items-center space-x-4 p-4">
-                  <img
-                    src={channelInfo.thumbnail || '/placeholder.svg'}
-                    alt={channelInfo.title}
-                    className="h-12 w-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <h3 className="font-medium">{channelInfo.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      チャンネル情報を確認しました
-                    </p>
-                  </div>
-                </div>
-
-                <div className="border-t bg-muted/20 p-4 space-y-3">
-                  <h4 className="text-sm font-medium">申請条件</h4>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {channelInfo.meetsSubscriberRequirement ? (
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                      ) : (
-                        <AlertCircle className="h-5 w-5 text-red-500" />
-                      )}
-                      <span className="text-sm">
-                        チャンネル登録者数:{' '}
-                        {channelInfo.subscriberCount.toLocaleString()}人
-                      </span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">
-                      1,000人以上必要
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {channelInfo.meetsLiveStreamRequirement ? (
-                        <CheckCircle2 className="h-5 w-5 text-green-500" />
-                      ) : (
-                        <AlertCircle className="h-5 w-5 text-red-500" />
-                      )}
-                      <span className="text-sm">
-                        直近30日間のライブ配信: {channelInfo.recentLiveStreams}
-                        回
-                      </span>
-                    </div>
-                    <span className="text-xs text-muted-foreground">
-                      4回以上必要
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <RegistrationFormChannelInfo channelInfo={channelInfo} />
             )}
 
             <FormField

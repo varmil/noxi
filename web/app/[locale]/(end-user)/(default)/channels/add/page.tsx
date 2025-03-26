@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <Page
       breadcrumb={[{ href: `/channels/add`, name: 'VTuberチャンネル登録申請' }]}
-      className="mx-auto py-10 space-y-10"
+      className="mx-auto py-6 space-y-10"
     >
       <h1 className="text-2xl sm:text-3xl font-bold text-center tracking-tight">
         VTuberチャンネル登録申請
