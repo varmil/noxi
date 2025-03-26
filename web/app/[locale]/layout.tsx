@@ -54,7 +54,7 @@ export default async function LocaleLayout(props: Props) {
           <NextTopLoader color="var(--primary)" showSpinner={false} />
           <NextIntlClientProvider>
             {children}
-            <Toaster />
+            <Toaster richColors />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

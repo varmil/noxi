@@ -96,6 +96,7 @@ export function RegistrationForm() {
       agency: ''
     }
   })
+  const selectedAgency = form.watch('agency')
 
   async function handleChannelIdChange(value: string) {
     // UCから始まる24桁の英数字かどうかをチェック
@@ -106,10 +107,14 @@ export function RegistrationForm() {
         const info = await getChannelForAdd(value)
         setChannelInfo(info)
       } catch (error) {
-        console.error('Error fetching channel info:', error)
         toast.error('エラー', {
-          description:
-            'チャンネル情報の取得に失敗しました。チャンネルIDを確認してください。'
+          description: (
+            <>
+              チャンネル情報の取得に失敗しました。
+              <br />
+              チャンネルIDを確認してください。
+            </>
+          )
         })
         setChannelInfo(null)
       } finally {
@@ -128,7 +133,7 @@ export function RegistrationForm() {
         channelInfo.meetsLiveStreamRequirement
 
       if (!meetsAllRequirements) {
-        toast.error('申請条件を満たしていません', {
+        toast.warning('申請条件を満たしていません', {
           description:
             'チャンネル登録者数が1000人以上で、直近30日間に4回以上のライブ配信が必要です。'
         })
@@ -137,7 +142,7 @@ export function RegistrationForm() {
     }
 
     // 実際のアプリケーションではここでデータを保存する処理を実装
-    toast('申請が送信されました', {
+    toast.success('申請が送信されました', {
       description: `チャンネルID: ${values.channelId}`
     })
 
@@ -174,9 +179,19 @@ export function RegistrationForm() {
     window.location.reload()
   }
 
-  // 数値を日本語の表記に整形する関数
-  function formatNumber(num: number): string {
-    return new Intl.NumberFormat('ja-JP').format(num)
+  // 申請ボタンが有効かどうかを判定する関数
+  const isSubmitEnabled = () => {
+    // チャンネル情報の条件を満たしているか
+    const channelConditionsMet =
+      channelInfo &&
+      channelInfo.meetsSubscriberRequirement &&
+      channelInfo.meetsLiveStreamRequirement
+
+    // 所属事務所が選択されているか
+    const agencySelected = selectedAgency && selectedAgency.trim() !== ''
+
+    // 両方の条件を満たしている場合のみ有効
+    return !isLoading && channelConditionsMet && agencySelected
   }
 
   return (
@@ -400,14 +415,7 @@ export function RegistrationForm() {
             <Button
               type="submit"
               className="w-full"
-              disabled={
-                isLoading ||
-                !channelInfo ||
-                !(
-                  channelInfo.meetsSubscriberRequirement &&
-                  channelInfo.meetsLiveStreamRequirement
-                )
-              }
+              disabled={!isSubmitEnabled()}
             >
               申請する
             </Button>
