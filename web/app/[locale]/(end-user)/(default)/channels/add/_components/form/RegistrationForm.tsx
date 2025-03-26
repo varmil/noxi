@@ -26,9 +26,9 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
 import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
+import RegistrationFormSkeleton from './RegistrationFormSkeleton'
 
 // チャンネルIDのバリデーションスキーマを更新
 const formSchema = z.object({
@@ -227,15 +227,7 @@ export function RegistrationForm() {
               )}
             />
 
-            {isLoading && (
-              <div className="flex items-center space-x-4 p-4 border rounded-md">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
-                </div>
-              </div>
-            )}
+            {isLoading && <RegistrationFormSkeleton />}
 
             {!isLoading && channelInfo && (
               <div className="border rounded-md overflow-hidden">

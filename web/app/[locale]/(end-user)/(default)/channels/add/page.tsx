@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Page } from 'components/page'
-import { HistoryList } from './_components/HistoryList'
-import { RegistrationForm } from './_components/RegistrationForm'
+import { RegistrationForm } from './_components/form/RegistrationForm'
+import { HistoryList } from './_components/history/HistoryList'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
