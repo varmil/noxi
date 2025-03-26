@@ -23,6 +23,8 @@ type Application = {
   genderName: string
   agency: string
   agencyName: string
+  subscriberCount?: number
+  recentLiveStreams?: number
   timestamp: string
   status: 'pending' | 'approved' | 'rejected'
 }
@@ -149,6 +151,22 @@ export function HistoryList() {
 
                       <dt className="text-muted-foreground">所属事務所:</dt>
                       <dd>{app.agencyName}</dd>
+
+                      {app.subscriberCount !== undefined && (
+                        <>
+                          <dt className="text-muted-foreground">登録者数:</dt>
+                          <dd>{app.subscriberCount.toLocaleString()}人</dd>
+                        </>
+                      )}
+
+                      {app.recentLiveStreams !== undefined && (
+                        <>
+                          <dt className="text-muted-foreground">
+                            直近30日間のライブ配信:
+                          </dt>
+                          <dd>{app.recentLiveStreams}回</dd>
+                        </>
+                      )}
                     </dl>
                   </div>
                 </CollapsibleContent>

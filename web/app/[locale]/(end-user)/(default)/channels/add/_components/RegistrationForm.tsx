@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { HelpCircle } from 'lucide-react'
+import { AlertCircle, CheckCircle2 } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
@@ -27,7 +27,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { Skeleton } from '@/components/ui/skeleton'
-import { getChannelSnippet } from 'apis/youtube/data-api/getChannelSnippet'
+import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 
 // チャンネルIDのバリデーションスキーマを更新
@@ -47,9 +47,14 @@ const formSchema = z.object({
   agency: z.string().min(1, { message: '所属事務所を選択してください' })
 })
 
+// チャンネル情報の型定義を更新
 type ChannelInfo = {
   title: string
   thumbnail: string
+  subscriberCount: number
+  recentLiveStreams: number
+  meetsSubscriberRequirement: boolean
+  meetsLiveStreamRequirement: boolean
 } | null
 
 // 国と言語の表示名マッピング
@@ -98,11 +103,11 @@ export function RegistrationForm() {
       setIsLoading(true)
       setChannelInfo(null)
       try {
-        const info = await getChannelSnippet(value)
+        const info = await getChannelForAdd(value)
         setChannelInfo(info)
       } catch (error) {
         console.error('Error fetching channel info:', error)
-        toast.warning('エラー', {
+        toast.error('エラー', {
           description:
             'チャンネル情報の取得に失敗しました。チャンネルIDを確認してください。'
         })
@@ -116,6 +121,21 @@ export function RegistrationForm() {
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // チャンネルの条件を満たしているか確認
+    if (channelInfo) {
+      const meetsAllRequirements =
+        channelInfo.meetsSubscriberRequirement &&
+        channelInfo.meetsLiveStreamRequirement
+
+      if (!meetsAllRequirements) {
+        toast.error('申請条件を満たしていません', {
+          description:
+            'チャンネル登録者数が1000人以上で、直近30日間に4回以上のライブ配信が必要です。'
+        })
+        return
+      }
+    }
+
     // 実際のアプリケーションではここでデータを保存する処理を実装
     toast('申請が送信されました', {
       description: `チャンネルID: ${values.channelId}`
@@ -135,6 +155,8 @@ export function RegistrationForm() {
       genderName: values.gender === 'male' ? '男性' : '女性',
       agency: values.agency,
       agencyName: agencyNames[values.agency] || values.agency,
+      subscriberCount: channelInfo?.subscriberCount || 0,
+      recentLiveStreams: channelInfo?.recentLiveStreams || 0,
       timestamp: new Date().toISOString(),
       status: 'pending'
     }
@@ -152,6 +174,11 @@ export function RegistrationForm() {
     window.location.reload()
   }
 
+  // 数値を日本語の表記に整形する関数
+  function formatNumber(num: number): string {
+    return new Intl.NumberFormat('ja-JP').format(num)
+  }
+
   return (
     <Card>
       <CardContent className="pt-6">
@@ -164,6 +191,7 @@ export function RegistrationForm() {
                 <FormItem>
                   <div className="flex items-center gap-2">
                     <FormLabel>YouTubeチャンネルID</FormLabel>
+                    {/* Popoverを独立した要素として配置 */}
                     <HowToCheckChannelIdPopover />
                   </div>
                   <FormControl>
@@ -195,17 +223,57 @@ export function RegistrationForm() {
             )}
 
             {!isLoading && channelInfo && (
-              <div className="flex items-center space-x-4 p-4 border rounded-md">
-                <img
-                  src={channelInfo.thumbnail || '/placeholder.svg'}
-                  alt={channelInfo.title}
-                  className="h-12 w-12 rounded-full object-cover"
-                />
-                <div>
-                  <h3 className="font-medium">{channelInfo.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    チャンネル情報を確認しました
-                  </p>
+              <div className="border rounded-md overflow-hidden">
+                <div className="flex items-center space-x-4 p-4">
+                  <img
+                    src={channelInfo.thumbnail || '/placeholder.svg'}
+                    alt={channelInfo.title}
+                    className="h-12 w-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <h3 className="font-medium">{channelInfo.title}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      チャンネル情報を確認しました
+                    </p>
+                  </div>
+                </div>
+
+                <div className="border-t bg-muted/20 p-4 space-y-3">
+                  <h4 className="text-sm font-medium">申請条件</h4>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {channelInfo.meetsSubscriberRequirement ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      ) : (
+                        <AlertCircle className="h-5 w-5 text-red-500" />
+                      )}
+                      <span className="text-sm">
+                        チャンネル登録者数:{' '}
+                        {channelInfo.subscriberCount.toLocaleString()}人
+                      </span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      1,000人以上必要
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      {channelInfo.meetsLiveStreamRequirement ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      ) : (
+                        <AlertCircle className="h-5 w-5 text-red-500" />
+                      )}
+                      <span className="text-sm">
+                        直近30日間のライブ配信: {channelInfo.recentLiveStreams}
+                        回
+                      </span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      4回以上必要
+                    </span>
+                  </div>
                 </div>
               </div>
             )}
@@ -233,7 +301,6 @@ export function RegistrationForm() {
                       <SelectItem value="other">その他</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormDescription>活動（所属）する国</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -249,7 +316,7 @@ export function RegistrationForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <FormControl className="cursor-pointer">
+                    <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="言語を選択" />
                       </SelectTrigger>
@@ -262,7 +329,6 @@ export function RegistrationForm() {
                       <SelectItem value="other">その他</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormDescription>配信で使う主な言語</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -331,7 +397,18 @@ export function RegistrationForm() {
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={
+                isLoading ||
+                !channelInfo ||
+                !(
+                  channelInfo.meetsSubscriberRequirement &&
+                  channelInfo.meetsLiveStreamRequirement
+                )
+              }
+            >
               申請する
             </Button>
           </form>
