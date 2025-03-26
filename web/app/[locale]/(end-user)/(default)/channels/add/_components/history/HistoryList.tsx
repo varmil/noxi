@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
+import { useFormatter } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -23,6 +24,8 @@ type Application = {
   genderName: string
   agency: string
   agencyName: string
+  subscriberCount: number
+  recentLiveStreams: number
   timestamp: string
   status: 'pending' | 'approved' | 'rejected'
 }
@@ -30,6 +33,7 @@ type Application = {
 export function HistoryList() {
   const [applications, setApplications] = useState<Application[]>([])
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
+  const format = useFormatter()
 
   useEffect(() => {
     // ローカルストレージから履歴を取得（デモ用）
@@ -73,13 +77,12 @@ export function HistoryList() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return new Intl.DateTimeFormat('ja-JP', {
-      year: 'numeric',
+    return format.dateTime(date, {
       month: '2-digit',
       day: '2-digit',
       hour: '2-digit',
       minute: '2-digit'
-    }).format(date)
+    })
   }
 
   return (
@@ -119,10 +122,10 @@ export function HistoryList() {
                       申請日時: {formatDate(app.timestamp)}
                     </p>
                     <CollapsibleTrigger asChild>
-                      <button className="text-xs flex items-center text-muted-foreground hover:text-foreground">
+                      <button className="text-xs flex items-center text-muted-foreground cursor-pointer hover:text-foreground">
                         {openItems[app.id] ? (
                           <>
-                            <span>詳細を閉じる</span>
+                            <span>閉じる</span>
                             <ChevronUp className="h-4 w-4 ml-1" />
                           </>
                         ) : (
@@ -149,6 +152,12 @@ export function HistoryList() {
 
                       <dt className="text-muted-foreground">所属事務所:</dt>
                       <dd>{app.agencyName}</dd>
+
+                      <dt className="text-muted-foreground">登録者数:</dt>
+                      <dd>{app.subscriberCount.toLocaleString()}人</dd>
+
+                      <dt className="text-muted-foreground">ライブ回数/月:</dt>
+                      <dd>{app.recentLiveStreams}回</dd>
                     </dl>
                   </div>
                 </CollapsibleContent>

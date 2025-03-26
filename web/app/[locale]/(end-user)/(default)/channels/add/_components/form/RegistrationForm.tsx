@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { HelpCircle } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import * as z from 'zod'
@@ -26,9 +25,11 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Skeleton } from '@/components/ui/skeleton'
-import { getChannelSnippet } from 'apis/youtube/data-api/getChannelSnippet'
+import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
+import { ChannelInfo } from '../../_types/ChannelInfoForAdd'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
+import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
+import RegistrationFormSkeleton from './RegistrationFormSkeleton'
 
 // チャンネルIDのバリデーションスキーマを更新
 const formSchema = z.object({
@@ -46,11 +47,6 @@ const formSchema = z.object({
   }),
   agency: z.string().min(1, { message: '所属事務所を選択してください' })
 })
-
-type ChannelInfo = {
-  title: string
-  thumbnail: string
-} | null
 
 // 国と言語の表示名マッピング
 const countryNames: Record<string, string> = {
@@ -91,6 +87,7 @@ export function RegistrationForm() {
       agency: ''
     }
   })
+  const selectedAgency = form.watch('agency')
 
   async function handleChannelIdChange(value: string) {
     // UCから始まる24桁の英数字かどうかをチェック
@@ -98,13 +95,17 @@ export function RegistrationForm() {
       setIsLoading(true)
       setChannelInfo(null)
       try {
-        const info = await getChannelSnippet(value)
+        const info = await getChannelForAdd(value)
         setChannelInfo(info)
       } catch (error) {
-        console.error('Error fetching channel info:', error)
-        toast.warning('エラー', {
-          description:
-            'チャンネル情報の取得に失敗しました。チャンネルIDを確認してください。'
+        toast.error('エラー', {
+          description: (
+            <>
+              チャンネル情報の取得に失敗しました。
+              <br />
+              チャンネルIDを確認してください。
+            </>
+          )
         })
         setChannelInfo(null)
       } finally {
@@ -116,8 +117,23 @@ export function RegistrationForm() {
   }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // チャンネルの条件を満たしているか確認
+    if (channelInfo) {
+      const meetsAllRequirements =
+        channelInfo.meetsSubscriberRequirement &&
+        channelInfo.meetsLiveStreamRequirement
+
+      if (!meetsAllRequirements) {
+        toast.warning('申請条件を満たしていません', {
+          description:
+            'チャンネル登録者数が1000人以上で、直近30日間に4回以上のライブ配信が必要です。'
+        })
+        return
+      }
+    }
+
     // 実際のアプリケーションではここでデータを保存する処理を実装
-    toast('申請が送信されました', {
+    toast.success('申請が送信されました', {
       description: `チャンネルID: ${values.channelId}`
     })
 
@@ -135,6 +151,8 @@ export function RegistrationForm() {
       genderName: values.gender === 'male' ? '男性' : '女性',
       agency: values.agency,
       agencyName: agencyNames[values.agency] || values.agency,
+      subscriberCount: channelInfo?.subscriberCount || 0,
+      recentLiveStreams: channelInfo?.recentLiveStreams || 0,
       timestamp: new Date().toISOString(),
       status: 'pending'
     }
@@ -150,6 +168,21 @@ export function RegistrationForm() {
 
     // 履歴リストを更新するためにページをリロード
     window.location.reload()
+  }
+
+  // 申請ボタンが有効かどうかを判定する関数
+  const isSubmitEnabled = () => {
+    // チャンネル情報の条件を満たしているか
+    const channelConditionsMet =
+      channelInfo &&
+      channelInfo.meetsSubscriberRequirement &&
+      channelInfo.meetsLiveStreamRequirement
+
+    // 所属事務所が選択されているか
+    const agencySelected = selectedAgency && selectedAgency.trim() !== ''
+
+    // 両方の条件を満たしている場合のみ有効
+    return !isLoading && channelConditionsMet && agencySelected
   }
 
   return (
@@ -184,30 +217,10 @@ export function RegistrationForm() {
               )}
             />
 
-            {isLoading && (
-              <div className="flex items-center space-x-4 p-4 border rounded-md">
-                <Skeleton className="h-12 w-12 rounded-full" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-[250px]" />
-                  <Skeleton className="h-4 w-[200px]" />
-                </div>
-              </div>
-            )}
+            {isLoading && <RegistrationFormSkeleton />}
 
             {!isLoading && channelInfo && (
-              <div className="flex items-center space-x-4 p-4 border rounded-md">
-                <img
-                  src={channelInfo.thumbnail || '/placeholder.svg'}
-                  alt={channelInfo.title}
-                  className="h-12 w-12 rounded-full object-cover"
-                />
-                <div>
-                  <h3 className="font-medium">{channelInfo.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    チャンネル情報を確認しました
-                  </p>
-                </div>
-              </div>
+              <RegistrationFormChannelInfo channelInfo={channelInfo} />
             )}
 
             <FormField
@@ -233,7 +246,6 @@ export function RegistrationForm() {
                       <SelectItem value="other">その他</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormDescription>活動（所属）する国</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -249,7 +261,7 @@ export function RegistrationForm() {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
-                    <FormControl className="cursor-pointer">
+                    <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="言語を選択" />
                       </SelectTrigger>
@@ -262,7 +274,6 @@ export function RegistrationForm() {
                       <SelectItem value="other">その他</SelectItem>
                     </SelectContent>
                   </Select>
-                  <FormDescription>配信で使う主な言語</FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -331,7 +342,11 @@ export function RegistrationForm() {
               )}
             />
 
-            <Button type="submit" className="w-full">
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={!isSubmitEnabled()}
+            >
               申請する
             </Button>
           </form>
