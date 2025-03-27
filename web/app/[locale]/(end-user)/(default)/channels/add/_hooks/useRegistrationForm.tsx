@@ -7,7 +7,6 @@ import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
 import { ChannelInfo } from 'apis/youtube/data-api/getChannelForAdd'
 import { existsChannel } from 'apis/youtube/getChannel'
 
-// チャンネルIDのバリデーションスキーマを更新
 const formSchema = z.object({
   channelId: z
     .string()

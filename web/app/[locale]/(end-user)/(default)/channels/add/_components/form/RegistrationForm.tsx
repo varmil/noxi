@@ -23,7 +23,10 @@ import {
 } from '@/components/ui/select'
 import { GroupStrings } from 'config/constants/Group'
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
-import { countrySelects, languageSelects } from '../../_types/channels-add'
+import {
+  countrySelects,
+  languageSelects
+} from '../../_types/channel-registration'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
 import RegistrationFormSkeleton from './RegistrationFormSkeleton'
