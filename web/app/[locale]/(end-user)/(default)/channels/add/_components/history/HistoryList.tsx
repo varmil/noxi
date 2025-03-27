@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { useFormatter } from 'next-intl'
+import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -15,25 +15,22 @@ type Application = {
   id: string
   channelId: string
   channelTitle: string
-  // 新しいフィールドを追加
   country: string
-  countryName: string
   language: string
-  languageName: string
   gender: string
-  genderName: string
-  agency: string
-  agencyName: string
+  group: string
   subscriberCount: number
-  recentLiveStreams: number
-  timestamp: string
-  status: 'pending' | 'approved' | 'rejected'
+  liveStreamCount: number
+  appliedAt: string
+  status: 'pending' | 'approved' | 'done' | 'rejected'
 }
 
 export function HistoryList() {
+  const locale = useLocale()
+  const format = useFormatter()
+  const global = useTranslations('Global')
   const [applications, setApplications] = useState<Application[]>([])
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
-  const format = useFormatter()
 
   useEffect(() => {
     // ローカルストレージから履歴を取得（デモ用）
@@ -62,6 +59,12 @@ export function HistoryList() {
         return (
           <Badge variant="outline" className="bg-green-100 text-green-800">
             承認済み
+          </Badge>
+        )
+      case 'done':
+        return (
+          <Badge variant="outline" className="bg-green-100 text-green-800">
+            完了
           </Badge>
         )
       case 'rejected':
@@ -119,7 +122,7 @@ export function HistoryList() {
                   </p>
                   <div className="flex items-center justify-between mt-2">
                     <p className="text-xs text-muted-foreground">
-                      申請日時: {formatDate(app.timestamp)}
+                      申請日時: {formatDate(app.appliedAt)}
                     </p>
                     <CollapsibleTrigger asChild>
                       <button className="text-xs flex items-center text-muted-foreground cursor-pointer hover:text-foreground">
@@ -142,22 +145,30 @@ export function HistoryList() {
                   <div className="px-4 pb-4 pt-2 border-t bg-muted/20">
                     <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                       <dt className="text-muted-foreground">国:</dt>
-                      <dd>{app.countryName}</dd>
+                      <dd>
+                        {new Intl.DisplayNames([locale], {
+                          type: 'region'
+                        }).of(app.country)}
+                      </dd>
 
                       <dt className="text-muted-foreground">言語:</dt>
-                      <dd>{app.languageName}</dd>
+                      <dd>
+                        {new Intl.DisplayNames([locale], {
+                          type: 'language'
+                        }).of(app.language)}
+                      </dd>
 
                       <dt className="text-muted-foreground">性別:</dt>
-                      <dd>{app.genderName}</dd>
+                      <dd>{global(`gender.${app.gender}`)}</dd>
 
                       <dt className="text-muted-foreground">所属事務所:</dt>
-                      <dd>{app.agencyName}</dd>
+                      <dd>{global(`group.${app.group}`)}</dd>
 
                       <dt className="text-muted-foreground">登録者数:</dt>
                       <dd>{app.subscriberCount.toLocaleString()}人</dd>
 
                       <dt className="text-muted-foreground">ライブ回数/月:</dt>
-                      <dd>{app.recentLiveStreams}回</dd>
+                      <dd>{app.liveStreamCount}回</dd>
                     </dl>
                   </div>
                 </CollapsibleContent>

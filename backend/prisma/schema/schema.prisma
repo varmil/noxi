@@ -49,6 +49,25 @@ model Channel {
   @@index([publishedAt])
 }
 
+model ChannelRegistration {
+  channelId       String @id
+  title           String
+  country         String
+  defaultLanguage String
+  gender          String
+  group           String
+  subscriberCount Int
+  liveStreamCount Int
+
+  /// pending, approved, done, rejected
+  status    String
+  appliedAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+  @@index([status, appliedAt])
+  @@index([appliedAt])
+}
+
 model YoutubeStream {
   videoId                  String    @id
   publishedAt              DateTime  @db.Timestamptz(3)
