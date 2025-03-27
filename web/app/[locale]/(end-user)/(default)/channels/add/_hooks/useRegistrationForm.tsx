@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -40,20 +41,14 @@ const languageNames: Record<string, string> = {
   other: 'その他'
 }
 
-const groupNames: Record<string, string> = {
-  hololive: 'ホロライブ',
-  nijisanji: 'にじさんじ',
-  vshojo: 'VShojo',
-  independent: '個人/独立',
-  other: 'その他'
-}
-
 const genderNames: Record<string, string> = {
   male: '男性',
   female: '女性'
 }
 
 export function useRegistrationForm() {
+  const global = useTranslations('Global')
+
   const [channelInfo, setChannelInfo] = useState<ChannelInfo>(null)
   /** チャンネル情報をData APIから取得中 */
   const [isLoading, setIsLoading] = useState(false)
@@ -123,7 +118,7 @@ export function useRegistrationForm() {
         gender: values.gender,
         genderName: genderNames[values.gender] || values.gender,
         group: values.group,
-        groupName: groupNames[values.group] || values.group,
+        groupName: global(`group.${values.group}`) || values.group,
         subscriberCount: channelInfo?.subscriberCount || 0,
         recentLiveStreams: channelInfo?.recentLiveStreams || 0,
         appliedAt: new Date().toISOString(),
@@ -150,7 +145,7 @@ export function useRegistrationForm() {
 
       // form.reset(); // 送信後にフォームをリセットする場合
     },
-    [channelInfo] // channelInfo を依存配列に追加
+    [channelInfo, global]
   )
 
   /**

@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -20,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { GroupStrings } from 'config/constants/Group'
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
@@ -36,6 +38,7 @@ export function RegistrationForm() {
     onSubmit,
     isSubmitEnabled
   } = useRegistrationForm()
+  const global = useTranslations('Global')
 
   return (
     <Card>
@@ -188,11 +191,11 @@ export function RegistrationForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="hololive">ホロライブ</SelectItem>
-                      <SelectItem value="nijisanji">にじさんじ</SelectItem>
-                      <SelectItem value="vshojo">VShojo</SelectItem>
-                      <SelectItem value="independent">個人/独立</SelectItem>
-                      <SelectItem value="other">その他</SelectItem>
+                      {GroupStrings.map(group => (
+                        <SelectItem key={group} value={group}>
+                          {global(`group.${group}`)}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
