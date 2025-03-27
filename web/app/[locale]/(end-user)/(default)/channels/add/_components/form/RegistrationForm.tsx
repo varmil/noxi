@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/select'
 import { GroupStrings } from 'config/constants/Group'
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
+import { countrySelects, languageSelects } from '../../_types/channels-add'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
 import RegistrationFormSkeleton from './RegistrationFormSkeleton'
@@ -39,6 +40,7 @@ export function RegistrationForm() {
     isSubmitEnabled
   } = useRegistrationForm()
   const global = useTranslations('Global')
+  const locale = useLocale()
 
   return (
     <Card>
@@ -100,11 +102,13 @@ export function RegistrationForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="japan">日本</SelectItem>
-                      <SelectItem value="usa">アメリカ</SelectItem>
-                      <SelectItem value="korea">韓国</SelectItem>
-                      <SelectItem value="china">中国</SelectItem>
-                      <SelectItem value="other">その他</SelectItem>
+                      {countrySelects.map(value => (
+                        <SelectItem key={value} value={value}>
+                          {new Intl.DisplayNames([locale], {
+                            type: 'region'
+                          }).of(value)}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -128,11 +132,13 @@ export function RegistrationForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="japanese">日本語</SelectItem>
-                      <SelectItem value="english">英語</SelectItem>
-                      <SelectItem value="korean">韓国語</SelectItem>
-                      <SelectItem value="chinese">中国語</SelectItem>
-                      <SelectItem value="other">その他</SelectItem>
+                      {languageSelects.map(value => (
+                        <SelectItem key={value} value={value}>
+                          {new Intl.DisplayNames([locale], {
+                            type: 'language'
+                          }).of(value)}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -157,7 +163,7 @@ export function RegistrationForm() {
                           <RadioGroupItem value="male" />
                         </FormControl>
                         <FormLabel className="font-normal cursor-pointer">
-                          男性
+                          {global('gender.male')}
                         </FormLabel>
                       </FormItem>
                       <FormItem className="flex items-center space-x-2 space-y-0">
@@ -165,7 +171,7 @@ export function RegistrationForm() {
                           <RadioGroupItem value="female" />
                         </FormControl>
                         <FormLabel className="font-normal cursor-pointer">
-                          女性
+                          {global('gender.female')}
                         </FormLabel>
                       </FormItem>
                     </RadioGroup>

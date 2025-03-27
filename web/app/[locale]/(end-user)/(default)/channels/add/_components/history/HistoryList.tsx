@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { useFormatter } from 'next-intl'
+import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -15,15 +15,10 @@ type Application = {
   id: string
   channelId: string
   channelTitle: string
-  // 新しいフィールドを追加
   country: string
-  countryName: string
   language: string
-  languageName: string
   gender: string
-  genderName: string
   group: string
-  groupName: string
   subscriberCount: number
   recentLiveStreams: number
   appliedAt: string
@@ -31,9 +26,11 @@ type Application = {
 }
 
 export function HistoryList() {
+  const locale = useLocale()
+  const format = useFormatter()
+  const global = useTranslations('Global')
   const [applications, setApplications] = useState<Application[]>([])
   const [openItems, setOpenItems] = useState<Record<string, boolean>>({})
-  const format = useFormatter()
 
   useEffect(() => {
     // ローカルストレージから履歴を取得（デモ用）
@@ -148,16 +145,24 @@ export function HistoryList() {
                   <div className="px-4 pb-4 pt-2 border-t bg-muted/20">
                     <dl className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
                       <dt className="text-muted-foreground">国:</dt>
-                      <dd>{app.countryName}</dd>
+                      <dd>
+                        {new Intl.DisplayNames([locale], {
+                          type: 'region'
+                        }).of(app.country)}
+                      </dd>
 
                       <dt className="text-muted-foreground">言語:</dt>
-                      <dd>{app.languageName}</dd>
+                      <dd>
+                        {new Intl.DisplayNames([locale], {
+                          type: 'language'
+                        }).of(app.language)}
+                      </dd>
 
                       <dt className="text-muted-foreground">性別:</dt>
-                      <dd>{app.genderName}</dd>
+                      <dd>{global(`gender.${app.gender}`)}</dd>
 
                       <dt className="text-muted-foreground">所属事務所:</dt>
-                      <dd>{app.groupName}</dd>
+                      <dd>{global(`group.${app.group}`)}</dd>
 
                       <dt className="text-muted-foreground">登録者数:</dt>
                       <dd>{app.subscriberCount.toLocaleString()}人</dd>

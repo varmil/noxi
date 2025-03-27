@@ -1,5 +1,5 @@
 import { CheckCircle2, AlertCircle } from 'lucide-react'
-import { ChannelInfo } from '../../_types/ChannelInfoForAdd'
+import { ChannelInfo } from '../../_types/channels-add'
 
 export default function RegistrationFormChannelInfo({
   channelInfo

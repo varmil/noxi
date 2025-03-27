@@ -50,8 +50,7 @@ model Channel {
 }
 
 model ChannelRegistration {
-  id              String @id
-  channelId       String
+  channelId       String @id
   title           String
   country         String
   defaultLanguage String
