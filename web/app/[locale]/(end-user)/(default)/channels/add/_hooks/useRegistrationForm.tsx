@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
-import { ChannelInfo } from '../_types/channels-add'
+import { ChannelInfo } from 'apis/youtube/data-api/getChannelForAdd'
+import { existsChannel } from 'apis/youtube/getChannel'
 
 // チャンネルIDのバリデーションスキーマを更新
 const formSchema = z.object({
@@ -24,7 +25,7 @@ const formSchema = z.object({
 })
 
 export function useRegistrationForm() {
-  const [channelInfo, setChannelInfo] = useState<ChannelInfo>(null)
+  const [channelInfo, setChannelInfo] = useState<ChannelInfo | null>(null)
   /** チャンネル情報をData APIから取得中 */
   const [isLoading, setIsLoading] = useState(false)
   /** すでにPeakXに当該チャンネルが登録されている */
@@ -48,9 +49,19 @@ export function useRegistrationForm() {
     if (value.match(/^UC[a-zA-Z0-9_-]{22}$/)) {
       setIsLoading(true)
       setChannelInfo(null)
+
+      // TODO: 却下済みのチャンネルの判定
+      // サーバーから ChannelRegistration.status を取得する
+      // status === 'rejected' かつ appliedAt が 1ヶ月以上経過していない場合、
+      // isRejected を true にする
       try {
-        const info = await getChannelForAdd(value)
+        const [info, exists] = await Promise.all([
+          getChannelForAdd(value),
+          existsChannel(value)
+        ])
         setChannelInfo(info)
+        setIsRegistered(exists)
+        setIsRejected(false)
       } catch (error) {
         toast.error('エラー', {
           description: (
@@ -96,7 +107,7 @@ export function useRegistrationForm() {
         gender: values.gender,
         group: values.group,
         subscriberCount: channelInfo.subscriberCount,
-        recentLiveStreams: channelInfo.recentLiveStreams,
+        liveStreamCount: channelInfo.liveStreamCount,
         appliedAt: new Date().toISOString(),
         status: 'pending'
       }

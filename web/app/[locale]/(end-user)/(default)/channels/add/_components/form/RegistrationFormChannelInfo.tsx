@@ -1,5 +1,5 @@
 import { CheckCircle2, AlertCircle } from 'lucide-react'
-import { ChannelInfo } from '../../_types/channels-add'
+import { ChannelInfo } from 'apis/youtube/data-api/getChannelForAdd'
 
 export default function RegistrationFormChannelInfo({
   channelInfo
@@ -51,7 +51,7 @@ export default function RegistrationFormChannelInfo({
             )}
             <div className="flex flex-col sm:flex-row sm:gap-2 text-sm">
               <span>直近30日間のライブ:</span>
-              <span>{channelInfo.recentLiveStreams}回</span>
+              <span>{channelInfo.liveStreamCount}回</span>
             </div>
           </div>
           <span className="text-xs text-muted-foreground">4回以上必要</span>

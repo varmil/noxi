@@ -71,10 +71,10 @@ export function RegistrationForm() {
                   </FormDescription>
                   <FormMessage />
                   {!isLoading && isRegistered && (
-                    <ErrorMessage message="このチャンネルはすでにPeakXに登録されています。" />
+                    <ErrorMessage message="このチャンネルはすでにPeakXに登録されています。登録後1週間程度でライブの取得が始まります" />
                   )}
                   {!isLoading && isRejected && (
-                    <ErrorMessage message="このチャンネルは却下済みのため、現在申請できません。(却下後1ヶ月経過すると再度申請可能です)" />
+                    <ErrorMessage message="このチャンネルは却下済みのため、現在申請できません。(却下後約1ヶ月経過すると再度申請可能です)" />
                   )}
                 </FormItem>
               )}

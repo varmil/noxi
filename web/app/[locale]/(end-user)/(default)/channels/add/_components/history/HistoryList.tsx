@@ -20,7 +20,7 @@ type Application = {
   gender: string
   group: string
   subscriberCount: number
-  recentLiveStreams: number
+  liveStreamCount: number
   appliedAt: string
   status: 'pending' | 'approved' | 'done' | 'rejected'
 }
@@ -168,7 +168,7 @@ export function HistoryList() {
                       <dd>{app.subscriberCount.toLocaleString()}人</dd>
 
                       <dt className="text-muted-foreground">ライブ回数/月:</dt>
-                      <dd>{app.recentLiveStreams}回</dd>
+                      <dd>{app.liveStreamCount}回</dd>
                     </dl>
                   </div>
                 </CollapsibleContent>

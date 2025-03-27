@@ -1,11 +1,11 @@
 'use server'
 
-// チャンネル情報の型定義を拡張
-type ChannelInfo = {
+/** チャンネル申請用 */
+export type ChannelInfo = {
   title: string
   thumbnail: string
   subscriberCount: number
-  recentLiveStreams: number
+  liveStreamCount: number
   meetsSubscriberRequirement: boolean
   meetsLiveStreamRequirement: boolean
 }
@@ -30,7 +30,6 @@ export async function getChannelForAdd(
     if (!channelResponse.ok) {
       throw new Error('YouTube APIからのレスポンスが正常ではありません')
     }
-
     const channelData = await channelResponse.json()
 
     if (!channelData.items || channelData.items.length === 0) {
@@ -56,14 +55,14 @@ export async function getChannelForAdd(
     }
 
     const searchData = await searchResponse.json()
-    const recentLiveStreams = searchData.items ? searchData.items.length : 0
-    const meetsLiveStreamRequirement = recentLiveStreams >= 4
+    const liveStreamCount = searchData.items ? searchData.items.length : 0
+    const meetsLiveStreamRequirement = liveStreamCount >= 4
 
     return {
       title: channel.snippet.title,
       thumbnail: channel.snippet.thumbnails.default.url,
       subscriberCount,
-      recentLiveStreams,
+      liveStreamCount,
       meetsSubscriberRequirement,
       meetsLiveStreamRequirement
     }
