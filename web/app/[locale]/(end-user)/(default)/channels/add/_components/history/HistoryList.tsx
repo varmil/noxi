@@ -22,8 +22,8 @@ type Application = {
   languageName: string
   gender: string
   genderName: string
-  agency: string
-  agencyName: string
+  group: string
+  groupName: string
   subscriberCount: number
   recentLiveStreams: number
   appliedAt: string
@@ -157,7 +157,7 @@ export function HistoryList() {
                       <dd>{app.genderName}</dd>
 
                       <dt className="text-muted-foreground">所属事務所:</dt>
-                      <dd>{app.agencyName}</dd>
+                      <dd>{app.groupName}</dd>
 
                       <dt className="text-muted-foreground">登録者数:</dt>
                       <dd>{app.subscriberCount.toLocaleString()}人</dd>

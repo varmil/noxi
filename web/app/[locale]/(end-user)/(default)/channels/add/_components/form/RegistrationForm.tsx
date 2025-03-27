@@ -45,7 +45,7 @@ const formSchema = z.object({
   gender: z.enum(['male', 'female'], {
     required_error: '性別を選択してください'
   }),
-  agency: z.string().min(1, { message: '所属事務所を選択してください' })
+  group: z.string().min(1, { message: '所属事務所を選択してください' })
 })
 
 // 国と言語の表示名マッピング
@@ -65,7 +65,7 @@ const languageNames: Record<string, string> = {
   other: 'その他'
 }
 
-const agencyNames: Record<string, string> = {
+const groupNames: Record<string, string> = {
   hololive: 'ホロライブ',
   nijisanji: 'にじさんじ',
   vshojo: 'VShojo',
@@ -89,10 +89,10 @@ export function RegistrationForm() {
       country: 'japan',
       language: 'japanese',
       gender: 'female',
-      agency: ''
+      group: ''
     }
   })
-  const selectedAgency = form.watch('agency')
+  const selectedGroup = form.watch('group')
 
   async function handleChannelIdChange(value: string) {
     // UCから始まる24桁の英数字かどうかをチェック
@@ -153,8 +153,8 @@ export function RegistrationForm() {
       languageName: languageNames[values.language] || values.language,
       gender: values.gender,
       genderName: values.gender === 'male' ? '男性' : '女性',
-      agency: values.agency,
-      agencyName: agencyNames[values.agency] || values.agency,
+      group: values.group,
+      groupName: groupNames[values.group] || values.group,
       subscriberCount: channelInfo?.subscriberCount || 0,
       recentLiveStreams: channelInfo?.recentLiveStreams || 0,
       appliedAt: new Date().toISOString(),
@@ -183,7 +183,7 @@ export function RegistrationForm() {
       channelInfo.meetsLiveStreamRequirement
 
     // 所属事務所が選択されているか
-    const agencySelected = selectedAgency && selectedAgency.trim() !== ''
+    const groupSelected = selectedGroup && selectedGroup.trim() !== ''
 
     // すでにPeakXに登録されているチャンネルIDは申請できません
     const isNotRegistered = !isRegistered
@@ -195,7 +195,7 @@ export function RegistrationForm() {
     return (
       !isLoading &&
       channelConditionsMet &&
-      agencySelected &&
+      groupSelected &&
       isNotRegistered &&
       isNotRejected
     )
@@ -332,7 +332,7 @@ export function RegistrationForm() {
 
             <FormField
               control={form.control}
-              name="agency"
+              name="group"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>所属事務所</FormLabel>
