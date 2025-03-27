@@ -75,7 +75,12 @@ const agencyNames: Record<string, string> = {
 
 export function RegistrationForm() {
   const [channelInfo, setChannelInfo] = useState<ChannelInfo>(null)
+  /** チャンネル情報をData APIから取得中 */
   const [isLoading, setIsLoading] = useState(false)
+  /** すでにPeakXに当該チャンネルが登録されている */
+  const [isRegistered, setIsRegistered] = useState(false)
+  /** 当該チャンネルが却下済み && 1ヶ月以上経過していない */
+  const [isRejected, setIsRejected] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -118,19 +123,18 @@ export function RegistrationForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // チャンネルの条件を満たしているか確認
-    if (channelInfo) {
-      const meetsAllRequirements =
-        channelInfo.meetsSubscriberRequirement &&
-        channelInfo.meetsLiveStreamRequirement
-
-      if (!meetsAllRequirements) {
-        toast.warning('申請条件を満たしていません', {
-          description:
-            'チャンネル登録者数が1000人以上で、直近30日間に4回以上のライブ配信が必要です。'
-        })
-        return
-      }
-    }
+    // if (channelInfo) {
+    //   const meetsAllRequirements =
+    //     channelInfo.meetsSubscriberRequirement &&
+    //     channelInfo.meetsLiveStreamRequirement
+    //   if (!meetsAllRequirements) {
+    //     toast.warning('申請条件を満たしていません', {
+    //       description:
+    //         'チャンネル登録者数が1000人以上で、直近30日間に4回以上のライブ配信が必要です。'
+    //     })
+    //     return
+    //   }
+    // }
 
     // 実際のアプリケーションではここでデータを保存する処理を実装
     toast.success('申請が送信されました', {
@@ -153,7 +157,7 @@ export function RegistrationForm() {
       agencyName: agencyNames[values.agency] || values.agency,
       subscriberCount: channelInfo?.subscriberCount || 0,
       recentLiveStreams: channelInfo?.recentLiveStreams || 0,
-      timestamp: new Date().toISOString(),
+      appliedAt: new Date().toISOString(),
       status: 'pending'
     }
 
@@ -181,8 +185,20 @@ export function RegistrationForm() {
     // 所属事務所が選択されているか
     const agencySelected = selectedAgency && selectedAgency.trim() !== ''
 
-    // 両方の条件を満たしている場合のみ有効
-    return !isLoading && channelConditionsMet && agencySelected
+    // すでにPeakXに登録されているチャンネルIDは申請できません
+    const isNotRegistered = !isRegistered
+
+    // 却下済みのチャンネルは1ヶ月以上経過している必要があります
+    const isNotRejected = !isRejected
+
+    // すべての条件を満たしている場合のみ有効
+    return (
+      !isLoading &&
+      channelConditionsMet &&
+      agencySelected &&
+      isNotRegistered &&
+      isNotRejected
+    )
   }
 
   return (

@@ -26,8 +26,8 @@ type Application = {
   agencyName: string
   subscriberCount: number
   recentLiveStreams: number
-  timestamp: string
-  status: 'pending' | 'approved' | 'rejected'
+  appliedAt: string
+  status: 'pending' | 'approved' | 'done' | 'rejected'
 }
 
 export function HistoryList() {
@@ -62,6 +62,12 @@ export function HistoryList() {
         return (
           <Badge variant="outline" className="bg-green-100 text-green-800">
             承認済み
+          </Badge>
+        )
+      case 'done':
+        return (
+          <Badge variant="outline" className="bg-green-100 text-green-800">
+            完了
           </Badge>
         )
       case 'rejected':
@@ -119,7 +125,7 @@ export function HistoryList() {
                   </p>
                   <div className="flex items-center justify-between mt-2">
                     <p className="text-xs text-muted-foreground">
-                      申請日時: {formatDate(app.timestamp)}
+                      申請日時: {formatDate(app.appliedAt)}
                     </p>
                     <CollapsibleTrigger asChild>
                       <button className="text-xs flex items-center text-muted-foreground cursor-pointer hover:text-foreground">
