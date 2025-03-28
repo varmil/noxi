@@ -1,6 +1,7 @@
 import { CacheModule } from '@nestjs/cache-manager'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
@@ -21,6 +22,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
     CacheModule.register({ isGlobal: true }),
     LibAppModule,
+    ChannelRegistrationsPresentationModule,
     CloudSchedulersPresentationModule,
     ExchangeRatesPresentationModule,
     GroupsPresentationModule,
