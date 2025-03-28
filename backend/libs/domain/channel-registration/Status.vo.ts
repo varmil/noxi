@@ -8,6 +8,8 @@ export const StatusStrings = [
   'rejected'
 ] as const
 
+export type StatusString = (typeof StatusStrings)[number]
+
 export class Status extends StringValueObject {
   @IsNotEmpty()
   @IsIn(StatusStrings)

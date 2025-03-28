@@ -22,8 +22,18 @@ export class ChannelRegistrationRepositoryImpl
 {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  findAll: ChannelRegistrationRepository['findAll'] = async () => {
-    const rows = await this.prismaInfraService.channelRegistration.findMany()
+  findAll: ChannelRegistrationRepository['findAll'] = async ({
+    where,
+    orderBy,
+    limit,
+    offset
+  }) => {
+    const rows = await this.prismaInfraService.channelRegistration.findMany({
+      where: { status: where.status.get() },
+      orderBy,
+      take: limit,
+      skip: offset
+    })
     return new ChannelRegistrations(
       rows.map(
         e =>
@@ -41,6 +51,25 @@ export class ChannelRegistrationRepositoryImpl
           })
       )
     )
+  }
+
+  findById: ChannelRegistrationRepository['findById'] = async channelId => {
+    const row = await this.prismaInfraService.channelRegistration.findUnique({
+      where: { channelId: channelId.get() }
+    })
+    if (!row) return null
+    return new ChannelRegistration({
+      channelId: new ChannelId(row.channelId),
+      title: new ChannelTitle(row.title),
+      country: new CountryCode(row.country),
+      defaultLanguage: new LanguageTag(row.defaultLanguage),
+      gender: new Gender(row.gender),
+      group: new Group(row.group),
+      subscriberCount: new SubscriberCount(row.subscriberCount),
+      liveStreamCount: new LiveStreamCount(row.liveStreamCount),
+      status: new Status(row.status),
+      appliedAt: new AppliedAt(row.appliedAt)
+    })
   }
 
   save: ChannelRegistrationRepository['save'] = async data => {

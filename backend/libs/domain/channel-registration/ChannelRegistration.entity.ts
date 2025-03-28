@@ -1,4 +1,4 @@
-import { Transform } from 'class-transformer'
+import { Exclude, Transform } from 'class-transformer'
 import { AppliedAt, Status } from '@domain/channel-registration'
 import { CountryCode, LanguageTag } from '@domain/country'
 import { Group } from '@domain/group'
@@ -54,5 +54,25 @@ export class ChannelRegistration {
     this.liveStreamCount = args.liveStreamCount
     this.status = args.status
     this.appliedAt = args.appliedAt
+  }
+
+  @Exclude()
+  isApproved(): boolean {
+    return this.status.get() === 'approved'
+  }
+
+  @Exclude()
+  isPending(): boolean {
+    return this.status.get() === 'pending'
+  }
+
+  @Exclude()
+  isDone(): boolean {
+    return this.status.get() === 'done'
+  }
+
+  @Exclude()
+  isRejected(): boolean {
+    return this.status.get() === 'rejected'
   }
 }

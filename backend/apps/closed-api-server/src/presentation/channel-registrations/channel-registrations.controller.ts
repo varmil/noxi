@@ -1,11 +1,16 @@
 import {
   Body,
   ClassSerializerInterceptor,
+  ConflictException,
   Controller,
   Get,
+  Param,
   Post,
+  Query,
   UseInterceptors
 } from '@nestjs/common'
+import { ChannelId } from '@domain'
+import { GetChannelRegistrations } from '@presentation/channel-registrations/dto/GetChannelRegistrations.dto'
 import { PostChannelRegistration } from '@presentation/channel-registrations/dto/PostChannelRegistration.dto'
 import { ChannelRegistrationsService } from '@app/channel-registrations/channel-registrations.service'
 import { ChannelRegistration } from '@domain/channel-registration'
@@ -18,12 +23,35 @@ export class ChannelRegistrationsController {
   ) {}
 
   @Get()
-  async getChannelRegistrations() {
-    return await this.channelRegistrationsService.findAll()
+  async getChannelRegistrations(@Query() dto: GetChannelRegistrations) {
+    return await this.channelRegistrationsService.findAll({
+      where: { status: dto.toStatus() },
+      orderBy: dto.toOrderBy(),
+      limit: dto.toLimit(),
+      offset: dto.toOffset()
+    })
+  }
+
+  @Get(':channelId')
+  async getChannelRegistrationById(@Param('channelId') channelId: string) {
+    return await this.channelRegistrationsService.findById(
+      new ChannelId(channelId)
+    )
   }
 
   @Post()
   async saveChannelRegistration(@Body() dto: PostChannelRegistration) {
+    // すでに申請履歴がある && status が approved or done
+    // の場合は409を返す
+    const existing = await this.channelRegistrationsService.findById(
+      dto.toChannelId()
+    )
+    if (existing?.isApproved() || existing?.isDone()) {
+      throw new ConflictException(
+        `Channel: ${dto.toChannelId().get()} is already approved or done`
+      )
+    }
+
     return await this.channelRegistrationsService.save(
       new ChannelRegistration({
         channelId: dto.toChannelId(),
