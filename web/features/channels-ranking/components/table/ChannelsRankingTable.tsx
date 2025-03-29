@@ -89,7 +89,7 @@ export default async function ChannelsRankingTable({
             summary => summary.channelId === channelId
           )?.[period] as bigint | undefined
 
-          /** Top 5まではCTRが高いのでprefetch=true */
+          /** prefetch=false */
           const LinkCell = (
             props: PropsWithChildren &
               Omit<
@@ -100,7 +100,7 @@ export default async function ChannelsRankingTable({
             <LinkToChannelCell
               channelId={channelId}
               group={channel.peakX.group}
-              prefetch={i < 5}
+              prefetch={false} // before: i < 5
               {...props}
             />
           )

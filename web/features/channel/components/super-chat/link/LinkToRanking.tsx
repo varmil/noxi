@@ -32,7 +32,7 @@ export default function LinkToRanking({
   return (
     <Link
       href={`/youtube/channels/ranking?${searchParams.toString()}`}
-      prefetch={true}
+      prefetch={false}
       onClick={() => {
         if (channelId) {
           sessionStorage.setItem(RANK_HIGHLIGHTER_STORAGE_KEY, channelId)
