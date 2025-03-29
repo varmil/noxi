@@ -28,7 +28,7 @@ export interface ChannelRepository {
 
   findById: (id: ChannelId) => Promise<Channel | null>
 
-  save: (args: Channel) => Promise<void>
+  bulkCreate: (args: { data: Channels }) => Promise<void>
 
   bulkUpdate: (args: { data: Channels }) => Promise<void>
 }

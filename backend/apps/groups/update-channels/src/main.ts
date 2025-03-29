@@ -11,6 +11,7 @@ async function bootstrap() {
   {
     const updateChannelsScenario = app.select(MainModule).get(MainScenario)
     await updateChannelsScenario.execute()
+    await updateChannelsScenario.executeRegistrations()
   }
 
   await app.close()

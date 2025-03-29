@@ -1,4 +1,4 @@
-import { Injectable, NotImplementedException } from '@nestjs/common'
+import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { Gender, Group } from '@domain'
 import { CountryCode, LanguageTag } from '@domain/country'
@@ -68,8 +68,10 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     return this.toDomain(channel)
   }
 
-  save: (args: Channel) => Promise<void> = () => {
-    throw new NotImplementedException()
+  bulkCreate: ChannelRepository['bulkCreate'] = async ({ data: channels }) => {
+    await this.prismaInfraService.channel.createMany({
+      data: channels.map(channel => this.toPrisma(channel))
+    })
   }
 
   async bulkUpdate({
@@ -95,15 +97,6 @@ export class ChannelRepositoryImpl implements ChannelRepository {
           subscriberCount,
           videoCount,
           keywords: keywords.map(k => k.get())
-          // PeakX defines
-          // * group
-          // * country code
-          // * defaultLanguage
-          // * gender
-          // group: group.get()
-          // country: groupChannel.country.get(),
-          // defaultLanguage: groupChannel.defaultLangage.get(),
-          // gender: groupChannel.gender.get()
         }
       })
 
@@ -115,6 +108,51 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     )
 
     await this.prismaInfraService.$transaction([...query])
+  }
+
+  private toPrisma(channel: Channel) {
+    const {
+      basicInfo: { id, title, description, thumbnails, publishedAt },
+      contentDetails,
+      statistics: { viewCount, subscriberCount, videoCount },
+      brandingSettings: { keywords },
+      peakX: { group, country, defaultLanguage, gender } = {}
+    } = channel
+
+    if (!group) {
+      throw new UnprocessableEntityException('Group is required')
+    }
+    if (!country) {
+      throw new UnprocessableEntityException('Country is required')
+    }
+    if (!defaultLanguage) {
+      throw new UnprocessableEntityException('Default language is required')
+    }
+    if (!gender) {
+      throw new UnprocessableEntityException('Gender is required')
+    }
+
+    return {
+      id: id.get(),
+      title,
+      description,
+      thumbnails,
+      publishedAt,
+      playlistId: contentDetails.uploadsPlaylistId,
+      viewCount,
+      subscriberCount,
+      videoCount,
+      keywords: keywords.map(k => k.get()),
+      // PeakX defines
+      // * group
+      // * country code
+      // * defaultLanguage
+      // * gender
+      group: group.get(),
+      country: country.get(),
+      defaultLanguage: defaultLanguage.get(),
+      gender: gender.get()
+    }
   }
 
   private toDomain(row: PrismaChannel) {

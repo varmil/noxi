@@ -100,4 +100,17 @@ export class ChannelRegistrationRepositoryImpl
       }
     })
   }
+
+  updateMany: ChannelRegistrationRepository['updateMany'] = async ({
+    where,
+    data
+  }) => {
+    await this.prismaInfraService.channelRegistration.updateMany({
+      where: {
+        channelId: { in: where.channelIds.map(c => c.get()) },
+        status: where.status?.get()
+      },
+      data: { status: data.status.get() }
+    })
+  }
 }
