@@ -32,7 +32,7 @@ const formDefaultValues = {
   country: 'JP',
   language: 'ja',
   gender: 'female',
-  group: undefined
+  group: ''
 } as const
 
 export function useRegistrationForm() {
