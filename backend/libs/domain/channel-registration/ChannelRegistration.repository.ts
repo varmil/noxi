@@ -8,7 +8,7 @@ import { ChannelId } from '@domain/youtube'
 export interface ChannelRegistrationRepository {
   findAll: (args: {
     where: {
-      status: Status
+      status?: Status
     }
     orderBy: {
       appliedAt: 'asc' | 'desc'

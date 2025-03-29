@@ -29,7 +29,7 @@ export class ChannelRegistrationRepositoryImpl
     offset
   }) => {
     const rows = await this.prismaInfraService.channelRegistration.findMany({
-      where: { status: where.status.get() },
+      where: { status: where.status?.get() },
       orderBy,
       take: limit,
       skip: offset

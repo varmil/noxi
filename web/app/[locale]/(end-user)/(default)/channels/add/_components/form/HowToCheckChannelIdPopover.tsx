@@ -23,7 +23,7 @@ export default function HowToCheckChannelIdPopover() {
             <p className="font-semibold">《 確認手順 》</p>
             <div className="space-y-2">
               <Li>
-                <span>1.</span>チャンネルページを開く
+                <span>1.</span>YouTubeチャンネルページを開く
               </Li>
               <Li>
                 <span>2.</span>チャンネルの概要欄(説明欄)をクリック
@@ -37,8 +37,9 @@ export default function HowToCheckChannelIdPopover() {
               <Li>
                 <span>4.</span>
                 <p>
-                  <span className="font-bold">概要</span>
-                  の一番下の『チャンネルを共有』をクリック
+                  <span className="font-bold">概要</span>の一番下の
+                  <br />
+                  『チャンネルを共有』をクリック
                 </p>
               </Li>
               <Li>

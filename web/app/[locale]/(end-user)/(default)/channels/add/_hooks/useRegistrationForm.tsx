@@ -6,6 +6,10 @@ import { z } from 'zod'
 import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
 import { ChannelInfo } from 'apis/youtube/data-api/getChannelForAdd'
 import { existsChannel } from 'apis/youtube/getChannel'
+import { getChannelRegistration } from 'apis/youtube/getChannelRegistration'
+import { postChannelRegistration } from 'apis/youtube/postChannelRegistration'
+import dayjs from 'lib/dayjs'
+import { useRouter } from 'lib/navigation'
 
 const formSchema = z.object({
   channelId: z
@@ -23,71 +27,93 @@ const formSchema = z.object({
   group: z.string().min(1, { message: '所属事務所を選択してください' })
 })
 
+const formDefaultValues = {
+  channelId: '',
+  country: 'JP',
+  language: 'ja',
+  gender: 'female',
+  group: ''
+} as const
+
 export function useRegistrationForm() {
+  const router = useRouter()
+
   const [channelInfo, setChannelInfo] = useState<ChannelInfo | null>(null)
-  /** チャンネル情報をData APIから取得中 */
+  /** チャンネル情報をData API & Closed API Serverから取得中 */
   const [isLoading, setIsLoading] = useState(false)
   /** すでにPeakXに当該チャンネルが登録されている */
   const [isRegistered, setIsRegistered] = useState(false)
+  /** すでに申請が存在し、approved or done になっている */
+  const [isAlreadyApproved, setIsAlreadyApproved] = useState(false)
   /** 当該チャンネルが却下済み && 1ヶ月以上経過していない */
   const [isRejected, setIsRejected] = useState(false)
 
+  const resetStates = useCallback(() => {
+    setChannelInfo(null)
+    setIsRegistered(false)
+    setIsAlreadyApproved(false)
+    setIsRejected(false)
+  }, [])
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      channelId: '',
-      country: 'JP',
-      language: 'ja',
-      gender: 'female',
-      group: ''
-    }
+    defaultValues: formDefaultValues
   })
 
-  const handleChannelIdChange = useCallback(async (value: string) => {
-    // UCから始まる24桁の英数字かどうかをチェック
-    if (value.match(/^UC[a-zA-Z0-9_-]{22}$/)) {
-      setIsLoading(true)
-      setChannelInfo(null)
-
-      // TODO: 却下済みのチャンネルの判定
-      // サーバーから ChannelRegistration.status を取得する
-      // status === 'rejected' かつ appliedAt が 1ヶ月以上経過していない場合、
-      // isRejected を true にする
-      try {
-        const [info, exists] = await Promise.all([
-          getChannelForAdd(value),
-          existsChannel(value)
-        ])
-        setChannelInfo(info)
-        setIsRegistered(exists)
-        setIsRejected(false)
-      } catch (error) {
-        toast.error('エラー', {
-          description: (
-            <>
-              チャンネル情報の取得に失敗しました。
-              <br />
-              チャンネルIDを確認してください。
-            </>
-          )
-        })
+  /**
+   * チャンネルIDの変更を処理する
+   *
+   * 却下済みのチャンネルの判定
+   *   status === 'rejected' かつ appliedAt が 1ヶ月以上経過していない場合、
+   *   isRejected を true にする
+   */
+  const handleChannelIdChange = useCallback(
+    async (value: string) => {
+      // UCから始まる24桁の英数字かどうかをチェック
+      if (value.match(/^UC[a-zA-Z0-9_-]{22}$/)) {
+        setIsLoading(true)
         setChannelInfo(null)
-        setIsRegistered(false)
-        setIsRejected(false)
-      } finally {
-        setIsLoading(false)
+
+        try {
+          const [info, registration, exists] = await Promise.all([
+            getChannelForAdd(value),
+            getChannelRegistration(value),
+            existsChannel(value)
+          ])
+          setChannelInfo(info)
+          setIsAlreadyApproved(
+            registration?.status === 'approved' ||
+              registration?.status === 'done'
+          )
+          setIsRegistered(exists)
+          setIsRejected(
+            registration?.status === 'rejected' &&
+              dayjs().isBefore(dayjs(registration?.appliedAt).add(30, 'day'))
+          )
+        } catch (error) {
+          toast.error('エラー', {
+            description: (
+              <>
+                チャンネル情報の取得に失敗しました。
+                <br />
+                チャンネルIDを確認してください。
+              </>
+            )
+          })
+          resetStates()
+        } finally {
+          setIsLoading(false)
+        }
+      } else {
+        resetStates()
       }
-    } else {
-      setChannelInfo(null)
-      setIsRegistered(false)
-      setIsRejected(false)
-    }
-  }, [])
+    },
+    [resetStates]
+  )
 
   const onSubmit = useCallback(
     async (values: z.infer<typeof formSchema>) => {
-      // TODO: 実際のアプリケーションではここでデータを保存する処理を実装
-      toast.success('申請が送信されました', {
+      toast.success('送信中...', {
         description: `チャンネルID: ${values.channelId}`
       })
 
@@ -96,42 +122,33 @@ export function useRegistrationForm() {
         return
       }
 
-      // ----- ローカルストレージへの保存処理 (デモ用) -----
-      const newApplication = {
-        id: Math.random().toString(36).substring(2, 9),
-        channelId: values.channelId,
-        channelTitle: channelInfo.title,
-        country: values.country,
-        language: values.language,
-        gender: values.gender,
-        group: values.group,
-        subscriberCount: channelInfo.subscriberCount,
-        liveStreamCount: channelInfo.liveStreamCount,
-        appliedAt: new Date().toISOString(),
-        status: 'pending'
-      }
-
       try {
-        const history = JSON.parse(
-          localStorage.getItem('applicationHistory') || '[]'
-        )
-        localStorage.setItem(
-          'applicationHistory',
-          JSON.stringify([newApplication, ...history])
-        )
+        await postChannelRegistration({
+          channelId: values.channelId,
+          title: channelInfo.title,
+          country: values.country,
+          language: values.language,
+          gender: values.gender,
+          group: values.group,
+          subscriberCount: channelInfo.subscriberCount,
+          liveStreamCount: channelInfo.liveStreamCount,
+          appliedAt: new Date().toISOString()
+        })
 
-        // 履歴リストを更新するためにページをリロード
-        // より良いのは状態管理や再取得
-        window.location.reload()
+        toast.success('申請を送信しました', {
+          description: `チャンネルID: ${values.channelId}`
+        })
+
+        // 履歴リストを更新するためにリロード
+        router.refresh()
+        form.reset(formDefaultValues)
+        resetStates()
       } catch (e) {
-        console.error('Failed to save to local storage', e)
-        toast.error('履歴の保存に失敗しました。')
+        console.error('Failed to save application', e)
+        toast.error('申請に失敗しました。')
       }
-      // ----- デモ用処理ここまで -----
-
-      // form.reset(); // 送信後にフォームをリセットする場合
     },
-    [channelInfo]
+    [channelInfo, form, router, resetStates]
   )
 
   /**
@@ -141,6 +158,7 @@ export function useRegistrationForm() {
    * - フォームのバリデーションが通る
    * - チャンネル情報の取得が完了
    * - チャンネルの条件を満たしている
+   * - まだ承認されていない
    * - まだPeakXに登録されていない
    * - 却下済みのチャンネルの場合、1ヶ月以上経過している
    */
@@ -154,15 +172,24 @@ export function useRegistrationForm() {
       form.formState.isValid &&
       !isLoading &&
       channelConditionsMet &&
+      !isAlreadyApproved &&
       !isRegistered &&
       !isRejected
     )
-  }, [form.formState.isValid, channelInfo, isLoading, isRegistered, isRejected])
+  }, [
+    form.formState.isValid,
+    channelInfo,
+    isLoading,
+    isAlreadyApproved,
+    isRegistered,
+    isRejected
+  ])
 
   return {
     form,
     channelInfo,
     isLoading,
+    isAlreadyApproved,
     isRegistered,
     isRejected,
     handleChannelIdChange,
