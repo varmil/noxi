@@ -1,6 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { getChannelRegistrations } from 'apis/youtube/getChannelRegistrations'
-import { RegistrationHistory } from 'app/[locale]/(end-user)/(default)/channels/add/_components/history/RegistrationHistory'
+import { RegistrationHistory } from './RegistrationHistory'
 
 export async function HistoryList() {
   const registrations = await getChannelRegistrations({
@@ -11,7 +17,10 @@ export async function HistoryList() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>申請履歴</CardTitle>
+        <CardTitle>申請履歴（最新30件）</CardTitle>
+        <CardDescription>
+          ステータス『完了』になると１週間程度でライブの同期がはじまります
+        </CardDescription>
       </CardHeader>
       <CardContent>
         {registrations.length === 0 ? (

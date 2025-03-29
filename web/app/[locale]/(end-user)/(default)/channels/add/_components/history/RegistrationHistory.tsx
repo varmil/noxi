@@ -44,7 +44,7 @@ export function RegistrationHistory({
         )
       case 'done':
         return (
-          <Badge variant="outline" className="bg-green-100 text-green-800">
+          <Badge variant="outline" className="bg-violet-100 text-violet-800">
             完了
           </Badge>
         )
