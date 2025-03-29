@@ -36,6 +36,7 @@ export function RegistrationForm() {
     form,
     channelInfo,
     isLoading,
+    isAlreadyApproved,
     isRegistered,
     isRejected,
     handleChannelIdChange,
@@ -44,6 +45,28 @@ export function RegistrationForm() {
   } = useRegistrationForm()
   const global = useTranslations('Global')
   const locale = useLocale()
+
+  const ChannelErrorMessage = () => {
+    if (isLoading) {
+      return null
+    }
+    if (isRegistered) {
+      return (
+        <ErrorMessage message="このチャンネルはすでにPeakXに登録されています。登録後1週間程度でライブの取得が始まります" />
+      )
+    }
+    if (isAlreadyApproved) {
+      return (
+        <ErrorMessage message="このチャンネルは申請承認済みです。このあと通常1週間程度で登録が完了します。" />
+      )
+    }
+    if (isRejected) {
+      return (
+        <ErrorMessage message="このチャンネルは却下済みのため、現在申請できません。(却下後約1ヶ月経過すると再度申請可能です)" />
+      )
+    }
+    return null
+  }
 
   return (
     <Card>
@@ -73,12 +96,7 @@ export function RegistrationForm() {
                     YouTubeチャンネルのIDを入力してください（UCから始まる24桁の英数字）
                   </FormDescription>
                   <FormMessage />
-                  {!isLoading && isRegistered && (
-                    <ErrorMessage message="このチャンネルはすでにPeakXに登録されています。登録後1週間程度でライブの取得が始まります" />
-                  )}
-                  {!isLoading && isRejected && (
-                    <ErrorMessage message="このチャンネルは却下済みのため、現在申請できません。(却下後約1ヶ月経過すると再度申請可能です)" />
-                  )}
+                  <ChannelErrorMessage />
                 </FormItem>
               )}
             />

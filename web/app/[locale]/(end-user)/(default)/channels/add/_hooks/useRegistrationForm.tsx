@@ -6,6 +6,8 @@ import { z } from 'zod'
 import { getChannelForAdd } from 'apis/youtube/data-api/getChannelForAdd'
 import { ChannelInfo } from 'apis/youtube/data-api/getChannelForAdd'
 import { existsChannel } from 'apis/youtube/getChannel'
+import { getChannelRegistration } from 'apis/youtube/getChannelRegistration'
+import dayjs from 'lib/dayjs'
 
 const formSchema = z.object({
   channelId: z
@@ -25,10 +27,12 @@ const formSchema = z.object({
 
 export function useRegistrationForm() {
   const [channelInfo, setChannelInfo] = useState<ChannelInfo | null>(null)
-  /** チャンネル情報をData APIから取得中 */
+  /** チャンネル情報をData API & Closed API Serverから取得中 */
   const [isLoading, setIsLoading] = useState(false)
   /** すでにPeakXに当該チャンネルが登録されている */
   const [isRegistered, setIsRegistered] = useState(false)
+  /** すでに申請が存在し、approved or done になっている */
+  const [isAlreadyApproved, setIsAlreadyApproved] = useState(false)
   /** 当該チャンネルが却下済み && 1ヶ月以上経過していない */
   const [isRejected, setIsRejected] = useState(false)
 
@@ -43,24 +47,34 @@ export function useRegistrationForm() {
     }
   })
 
+  /**
+   * チャンネルIDの変更を処理する
+   *
+   * 却下済みのチャンネルの判定
+   *   status === 'rejected' かつ appliedAt が 1ヶ月以上経過していない場合、
+   *   isRejected を true にする
+   */
   const handleChannelIdChange = useCallback(async (value: string) => {
     // UCから始まる24桁の英数字かどうかをチェック
     if (value.match(/^UC[a-zA-Z0-9_-]{22}$/)) {
       setIsLoading(true)
       setChannelInfo(null)
 
-      // TODO: 却下済みのチャンネルの判定
-      // サーバーから ChannelRegistration.status を取得する
-      // status === 'rejected' かつ appliedAt が 1ヶ月以上経過していない場合、
-      // isRejected を true にする
       try {
-        const [info, exists] = await Promise.all([
+        const [info, registration, exists] = await Promise.all([
           getChannelForAdd(value),
+          getChannelRegistration(value),
           existsChannel(value)
         ])
         setChannelInfo(info)
+        setIsAlreadyApproved(
+          registration?.status === 'approved' || registration?.status === 'done'
+        )
         setIsRegistered(exists)
-        setIsRejected(false)
+        setIsRejected(
+          registration?.status === 'rejected' &&
+            dayjs().isBefore(dayjs(registration?.appliedAt).add(30, 'day'))
+        )
       } catch (error) {
         toast.error('エラー', {
           description: (
@@ -163,6 +177,7 @@ export function useRegistrationForm() {
     form,
     channelInfo,
     isLoading,
+    isAlreadyApproved,
     isRegistered,
     isRejected,
     handleChannelIdChange,
