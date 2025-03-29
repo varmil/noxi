@@ -8,8 +8,9 @@ import {
 } from '@domain/channel-registration'
 
 export class GetChannelRegistrations {
+  @IsOptional()
   @IsIn(StatusStrings)
-  status: StatusString
+  status?: StatusString
 
   @IsOptional()
   @Type(() => OrderByDto)
@@ -25,7 +26,7 @@ export class GetChannelRegistrations {
   @Type(() => Number)
   offset?: number
 
-  toStatus = () => new Status(this.status)
+  toStatus = () => (this.status ? new Status(this.status) : undefined)
 
   toOrderBy = () => ({ appliedAt: this.orderBy?.order })
 

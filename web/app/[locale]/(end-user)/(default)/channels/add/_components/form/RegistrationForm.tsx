@@ -114,6 +114,7 @@ export function RegistrationForm() {
                 <FormItem>
                   <FormLabel>国</FormLabel>
                   <Select
+                    key={field.value} // workaround: force reset UI
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
@@ -144,6 +145,7 @@ export function RegistrationForm() {
                 <FormItem>
                   <FormLabel>言語</FormLabel>
                   <Select
+                    key={field.value} // workaround: force reset UI
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
@@ -209,6 +211,7 @@ export function RegistrationForm() {
                 <FormItem>
                   <FormLabel>所属事務所</FormLabel>
                   <Select
+                    key={field.value} // workaround: force reset UI
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >

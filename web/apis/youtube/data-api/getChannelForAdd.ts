@@ -1,5 +1,7 @@
 'use server'
 
+import { CACHE_12H } from 'lib/fetchAPI'
+
 /** チャンネル申請用 */
 export type ChannelInfo = {
   title: string
@@ -25,7 +27,8 @@ export async function getChannelForAdd(
 
     // チャンネル基本情報と登録者数を取得
     const channelResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`,
+      { next: { revalidate: CACHE_12H } }
     )
     if (!channelResponse.ok) {
       throw new Error('YouTube APIからのレスポンスが正常ではありません')
@@ -48,7 +51,8 @@ export async function getChannelForAdd(
 
     // 直近30日間のライブ配信を検索
     const searchResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=completed&publishedAfter=${thirtyDaysAgoISOString}&maxResults=50&key=${API_KEY}`
+      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=completed&publishedAfter=${thirtyDaysAgoISOString}&maxResults=50&key=${API_KEY}`,
+      { next: { revalidate: CACHE_12H } }
     )
     if (!searchResponse.ok) {
       throw new Error('YouTube 検索APIからのレスポンスが正常ではありません')
