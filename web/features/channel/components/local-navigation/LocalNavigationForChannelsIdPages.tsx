@@ -24,28 +24,23 @@ export default function LocalNavigationForChannelsIdPages({
         { name: t('overview.nav'), href: basePath, prefetch: true },
         {
           name: t('superChat.nav'),
-          href: `${basePath}/super-chat`,
-          prefetch: true
+          href: `${basePath}/super-chat`
         },
         {
           name: t('live.nav'),
-          href: [`${basePath}/live`, `${basePath}/asmr`],
-          prefetch: true
+          href: [`${basePath}/live`, `${basePath}/asmr`]
         },
         {
           name: t('concurrentViewers.nav'),
-          href: `${basePath}/concurrent-viewers`,
-          prefetch: true
+          href: `${basePath}/concurrent-viewers`
         },
         {
           name: t('comments.nav'),
-          href: [`${basePath}/comments`],
-          prefetch: true
+          href: [`${basePath}/comments`]
         },
         {
           name: t('streamTimes.nav'),
-          href: `${basePath}/stream-times`,
-          prefetch: true
+          href: `${basePath}/stream-times`
         },
         hasFAQ(channelId)
           ? {

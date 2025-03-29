@@ -2,7 +2,7 @@ import {
   SupersRankingHistoriesSchema,
   responseHistoriesSchema
 } from 'apis/youtube/schema/supersRankingSchema'
-import { CACHE_10M, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_10M, CACHE_12H, fetchAPI } from 'lib/fetchAPI'
 import { Period } from 'types/period'
 import { RankingType } from 'types/supers-ranking'
 
@@ -36,9 +36,16 @@ export async function getSupersRankingHistories({
     ...(limit !== undefined && { limit: String(limit) })
   })
 
+  // last24Hoursの場合は古い値が見えることが多いのでキャッシュしない
+  // （バックエンドのControllerでキャッシュしている）
+  const cache: RequestInit =
+    period === 'last24Hours'
+      ? { cache: 'no-store' }
+      : { next: { revalidate: CACHE_12H } }
+
   const res = await fetchAPI(
     `/api/supers-rankings/histories?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_10M } }
+    cache
   )
 
   if (!res.ok) {

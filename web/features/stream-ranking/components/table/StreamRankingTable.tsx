@@ -75,7 +75,7 @@ export default async function StreamRankingTable({
             <LinkToChannelCell
               channelId={channelId}
               group={channel.peakX.group}
-              prefetch={i < 5}
+              prefetch={false} // before: i < 5
               {...props}
             />
           )

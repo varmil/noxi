@@ -69,7 +69,7 @@ export default function BottomNavigation({ className }: Props) {
                   'bg-accent text-accent-foreground font-bold'
               )}
             >
-              <Link href={item.pathname + (item.query || '')} prefetch={true}>
+              <Link href={item.pathname + (item.query || '')} prefetch={false}>
                 <Icon className={`size-5`} />
                 <span className="text-xs">{item.label}</span>
               </Link>
