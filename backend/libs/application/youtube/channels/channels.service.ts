@@ -28,8 +28,10 @@ export class ChannelsService {
     return await this.channelRepository.findById(args)
   }
 
-  async save(args: Parameters<ChannelRepository['save']>[0]): Promise<void> {
-    await this.channelRepository.save(args)
+  async bulkCreate(
+    args: Parameters<ChannelRepository['bulkCreate']>[0]
+  ): Promise<void> {
+    await this.channelRepository.bulkCreate(args)
   }
 
   async bulkUpdate(

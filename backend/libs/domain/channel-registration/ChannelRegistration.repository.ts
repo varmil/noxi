@@ -3,7 +3,7 @@ import {
   ChannelRegistrations,
   Status
 } from '@domain/channel-registration'
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface ChannelRegistrationRepository {
   findAll: (args: {
@@ -20,4 +20,14 @@ export interface ChannelRegistrationRepository {
   findById: (channelId: ChannelId) => Promise<ChannelRegistration | null>
 
   save: (args: ChannelRegistration) => Promise<void>
+
+  updateMany: (args: {
+    where: {
+      channelIds: ChannelIds
+      status?: Status
+    }
+    data: {
+      status: Status
+    }
+  }) => Promise<void>
 }
