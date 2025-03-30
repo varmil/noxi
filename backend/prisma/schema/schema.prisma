@@ -73,7 +73,6 @@ model YoutubeStream {
   publishedAt              DateTime  @db.Timestamptz(3)
   channelId                String
   title                    String
-  description              String?
   /// [Thumbnails]
   thumbnails               Json
   tags                     String[]
