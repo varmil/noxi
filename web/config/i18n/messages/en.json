@@ -365,13 +365,14 @@
         "chart": {
           "cumulative": {
             "title": "Super Chat amount - This Month",
-            "description": "Check the monthly cumulative amount (line chart) and daily Super Chat (bar chart).",
+            "description": "Check the cumulative amount this month.",
             "daily": "Daily",
             "monthly": "This Month"
           },
-          "trends": {
-            "title": "Super Chat Trends β",
-            "description": "Check the trends of Super Chat for 90 days (This is a beta version because PeakX has only recently been released)."
+          "monthly": {
+            "title": "Super Chat amount β - Past 1 Year",
+            "description": "Check the monthly Super Chat amount.",
+            "label": "Monthly Total"
           }
         }
       },
