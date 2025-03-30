@@ -6,6 +6,7 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
+import { GetSupersMonthlySummaries } from '@presentation/supers-summaries/dto/GetSupersMonthlySummaries.dto'
 import { GetSupersSummaries } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
 import { GetSupersSummaryHistories } from '@presentation/supers-summaries/dto/GetSupersSummaryHistories.dto'
 import { SupersSummariesScenario } from '@presentation/supers-summaries/supers-summaries.scenario'
@@ -77,6 +78,17 @@ export class SupersSummariesController {
         channelId: new ChannelId(id),
         createdAt: { gte: dto.toCreatedAfter(), lte: dto.toCreatedBefore() }
       },
+      limit: dto.toLimit(),
+      offset: dto.toOffset()
+    })
+    return summaries
+  }
+
+  /** Retuen monthly summaries of a channel */
+  @Get('/monthly')
+  async getSupersMonthlySummaries(@Query() dto: GetSupersMonthlySummaries) {
+    const summaries = await this.supersSummariesService.findAllMonthly({
+      where: { channelId: dto.toChannelId() },
       limit: dto.toLimit(),
       offset: dto.toOffset()
     })
