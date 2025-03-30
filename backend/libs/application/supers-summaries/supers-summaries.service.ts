@@ -1,9 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { SupersSummaryRepository } from '@domain/supers-summary'
+import { SupersMonthlySummaryRepository } from '@domain/supers-summary'
 
 @Injectable()
 export class SupersSummariesService {
   constructor(
+    @Inject('SupersMonthlySummaryRepository')
+    private readonly supersMonthlySummaryRepository: SupersMonthlySummaryRepository,
     @Inject('SupersSummaryRepository')
     private readonly supersSummaryRepository: SupersSummaryRepository
   ) {}
@@ -28,5 +31,11 @@ export class SupersSummariesService {
 
   async create(args: Parameters<SupersSummaryRepository['create']>[0]) {
     await this.supersSummaryRepository.create(args)
+  }
+
+  async findAllMonthly(
+    args: Parameters<SupersMonthlySummaryRepository['findAll']>[0]
+  ) {
+    return await this.supersMonthlySummaryRepository.findAll(args)
   }
 }
