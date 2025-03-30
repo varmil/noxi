@@ -19,7 +19,6 @@ const stream = new Stream({
     publishedAt: new PublishedAt(new Date()),
     channelId: new ChannelId('1'),
     title: new VideoTitle('test'),
-    description: 'test',
     thumbnails: {
       default: {
         url: 'test'

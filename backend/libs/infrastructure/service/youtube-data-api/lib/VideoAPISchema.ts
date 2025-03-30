@@ -7,10 +7,6 @@ export const videoAPISchema = z.object({
     publishedAt: z.string().datetime(),
     channelId: z.string(),
     title: z.string(),
-    /**
-     * ここが割とnullable/undefinedになる
-     */
-    description: z.string(),
     thumbnails: z.record(
       z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
       z.object({
