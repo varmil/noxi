@@ -35,7 +35,7 @@ export default function SupersCumulativeChart({
 
   return (
     <ChartCard>
-      <ChartCardHeader>
+      <ChartCardHeader className="px-0">
         <ChartCardTitle>{feat('cumulative.title')}</ChartCardTitle>
         <CardDescription>{feat('cumulative.description')}</CardDescription>
       </ChartCardHeader>

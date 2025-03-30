@@ -6,7 +6,7 @@ export function Sections({
 }: PropsWithChildren<{ className?: string }>) {
   return (
     <div
-      className={`grid grid-cols-1 gap-x-1 lg:gap-x-8 gap-y-8 ${
+      className={`grid grid-cols-1 gap-x-1 lg:gap-x-8 gap-y-12 ${
         className ?? ''
       }`}
     >
@@ -27,13 +27,13 @@ export function Section({
   title?: string
   tabs?: React.ReactNode
 }>) {
+  const PaddingClass = title ? 'pb-6' : ''
+
   return (
     <section className={`${className ?? ''}`}>
-      <div className="flex items-center justify-between pb-6">
+      <div className={`flex items-center justify-between ${PaddingClass}`}>
         {title && (
-          <h2 className="text-base font-bold tracking-tight border-b-4 border-dotted border-border-variant">
-            {title}
-          </h2>
+          <h2 className="text-base font-bold tracking-tight">{title}</h2>
         )}
         {tabs && <div>{tabs}</div>}
       </div>

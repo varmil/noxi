@@ -64,7 +64,7 @@ export default function Chart({
 
   return (
     <ChartCard className={className}>
-      <ChartCardHeader>
+      <ChartCardHeader className="px-0">
         <ChartCardTitle>{t('peakConcurrentViewers')}</ChartCardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </ChartCardHeader>
