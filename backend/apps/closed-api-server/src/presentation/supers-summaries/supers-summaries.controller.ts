@@ -53,6 +53,17 @@ export class SupersSummariesController {
     })
   }
 
+  /** Retuen monthly summaries of a channel */
+  @Get('/monthly')
+  async getSupersMonthlySummaries(@Query() dto: GetSupersMonthlySummaries) {
+    const summaries = await this.supersSummariesService.findAllMonthly({
+      where: { channelId: dto.toChannelId() },
+      limit: dto.toLimit(),
+      offset: dto.toOffset()
+    })
+    return summaries
+  }
+
   /** Retuen a latest summary */
   @Get(':id')
   async getSupersSummary(@Param('id') id: string) {
@@ -78,17 +89,6 @@ export class SupersSummariesController {
         channelId: new ChannelId(id),
         createdAt: { gte: dto.toCreatedAfter(), lte: dto.toCreatedBefore() }
       },
-      limit: dto.toLimit(),
-      offset: dto.toOffset()
-    })
-    return summaries
-  }
-
-  /** Retuen monthly summaries of a channel */
-  @Get('/monthly')
-  async getSupersMonthlySummaries(@Query() dto: GetSupersMonthlySummaries) {
-    const summaries = await this.supersSummariesService.findAllMonthly({
-      where: { channelId: dto.toChannelId() },
       limit: dto.toLimit(),
       offset: dto.toOffset()
     })

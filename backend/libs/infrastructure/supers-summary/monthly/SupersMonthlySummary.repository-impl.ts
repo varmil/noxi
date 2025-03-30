@@ -28,12 +28,12 @@ export class SupersMonthlySummaryRepositoryImpl
     let rows = await this.prismaInfraService.$queryRaw<Row[]>`
       WITH MonthlyMax AS (
         SELECT
-          channelId,
+          "channelId",
           DATE_TRUNC('month', "createdAt") AS month,
           MAX("createdAt") AS max_date
         FROM "YoutubeStreamSupersSummary"
-        WHERE channelId = ${where.channelId.get()}
-        GROUP BY channelId, month
+        WHERE "channelId" = ${where.channelId.get()}
+        GROUP BY "channelId", month
         ORDER BY month DESC
         LIMIT ${limit}
         OFFSET ${offset}
@@ -41,7 +41,7 @@ export class SupersMonthlySummaryRepositoryImpl
       SELECT y."channelId", y."createdAt", y."thisMonth"
       FROM "YoutubeStreamSupersSummary" y
       INNER JOIN MonthlyMax m
-      ON y.channelId = m.channelId AND y."createdAt" = m.max_date
+      ON y."channelId" = m."channelId" AND y."createdAt" = m.max_date
       ORDER BY y."createdAt" DESC;
     `
 
