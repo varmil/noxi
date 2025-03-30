@@ -30,7 +30,6 @@ export class StreamTranslator {
         publishedAt: new PublishedAt(row.publishedAt),
         channelId: new ChannelId(row.channelId),
         title: new VideoTitle(row.title),
-        description: row.description ?? '',
         thumbnails: row.thumbnails,
         tags: row.tags,
         categoryId: row.categoryId,

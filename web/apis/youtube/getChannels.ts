@@ -41,9 +41,7 @@ export async function getChannels({
 
   const res = await fetchAPI(
     `/api/youtube/channels?${searchParams.toString()}`,
-    {
-      next: { revalidate: CACHE_12H }
-    }
+    { next: { revalidate: CACHE_1D } }
   )
 
   if (!res.ok) {

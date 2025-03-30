@@ -9,7 +9,6 @@ export class VideoSnippet {
   public readonly channelId: ChannelId
   @Transform(({ value }: { value: VideoTitle }) => value.get())
   public readonly title: VideoTitle
-  public readonly description: string
   public readonly thumbnails: Thumbnails
   @Exclude()
   public readonly tags: string[]
@@ -22,7 +21,6 @@ export class VideoSnippet {
     publishedAt: PublishedAt
     channelId: ChannelId
     title: VideoTitle
-    description: string
     thumbnails: Thumbnails
     tags?: string[] | null
     categoryId: number
@@ -31,7 +29,6 @@ export class VideoSnippet {
     this.publishedAt = args.publishedAt
     this.channelId = args.channelId
     this.title = args.title
-    this.description = args.description
     this.thumbnails = args.thumbnails
     this.tags = args.tags ?? []
     this.categoryId = args.categoryId

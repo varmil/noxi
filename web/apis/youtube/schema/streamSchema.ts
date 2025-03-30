@@ -8,7 +8,6 @@ export const responseSchema = z.object({
     publishedAt: z.string().datetime(),
     channelId: z.string(),
     title: z.string(),
-    description: z.string(),
     thumbnails: z.record(
       z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
       z.object({
