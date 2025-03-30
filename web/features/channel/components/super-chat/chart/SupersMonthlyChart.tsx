@@ -44,7 +44,7 @@ export default function SupersMonthlyChart({ supersMonthlySummaries }: Props) {
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart data={data} margin={{ top: 10 }}>
+          <BarChart data={data} margin={{ top: 10, right: 24 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="date"
