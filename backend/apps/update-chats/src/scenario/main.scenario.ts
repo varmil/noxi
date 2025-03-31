@@ -37,10 +37,13 @@ export class MainScenario {
         offset += this.CHUNK_SIZE
 
         const promises = streams.map(async stream => {
-          const { videoId, group } = stream
+          const { videoId, title, group } = stream
           const promises: Promise<void>[] = []
 
-          const res = await this.mainService.fetchNewMessages(stream)
+          const res = await this.mainService.fetchNewMessages({
+            videoId,
+            title
+          })
           if (!res) return
           const { newMessages, nextContinuation } = res
 

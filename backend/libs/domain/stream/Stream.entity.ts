@@ -1,7 +1,13 @@
-import { Expose, Transform } from 'class-transformer'
+import { Exclude, Expose, Transform } from 'class-transformer'
 import type { Group } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
-import { VideoId, Duration, VideoSnippet, UpdatedAt } from '@domain/youtube'
+import {
+  VideoId,
+  Duration,
+  VideoSnippet,
+  UpdatedAt,
+  VideoTitle
+} from '@domain/youtube'
 
 export class Stream {
   @Transform(({ value }: { value: VideoId }) => value.get())
@@ -43,14 +49,19 @@ export class Stream {
     return this.streamTimes.streamStatus
   }
 
-  /** 簡易的に
-   * * viewsがundefined = メンバー限定
-   * * タイトルに特定の文字列がある = メンバー限定
+  /**
+   * 簡易的に
+   * - viewsがundefined = メンバー限定
+   * - タイトルに特定の文字列がある = メンバー限定
    */
   @Expose()
   get membersOnly() {
     if (this.metrics.membersOnly()) return true
+    return Stream.isMembersOnly(this.snippet.title)
+  }
 
+  @Exclude()
+  static isMembersOnly(target: VideoTitle) {
     const TITLES = [
       'members only',
       'member stream',
@@ -59,11 +70,7 @@ export class Stream {
       'メン限'
     ]
     return TITLES.some(title =>
-      this.snippet.title
-        .get()
-        .toLowerCase()
-        .replaceAll('-', ' ')
-        .includes(title)
+      target.get().toLowerCase().replaceAll('-', ' ').includes(title)
     )
   }
 }

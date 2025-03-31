@@ -14,6 +14,14 @@ export class StreamsService {
     return await this.streamRepository.findAll(args)
   }
 
+  /**
+   * 軽量版
+   * メンバー限定のものは取得しない
+   */
+  findAllLight: StreamRepository['findAllLight'] = async args => {
+    return await this.streamRepository.findAllLight(args)
+  }
+
   async count(args: Parameters<StreamRepository['count']>[0]): Promise<number> {
     return await this.streamRepository.count(args)
   }

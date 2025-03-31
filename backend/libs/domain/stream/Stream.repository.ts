@@ -15,7 +15,7 @@ import {
   VideoIds,
   VideoTitle
 } from '@domain/youtube'
-import type { Prisma } from '@prisma/client'
+import type { Prisma, YoutubeStream } from '@prisma/client'
 
 export interface StreamFindAllWhere {
   /** LIKE 検索 */
@@ -48,6 +48,17 @@ export interface StreamRepository {
     limit?: number
     offset?: number
   }) => Promise<Streams>
+
+  /**
+   * 軽量版
+   * メンバー限定のものは取得しない
+   */
+  findAllLight: (args: {
+    where: StreamFindAllWhere
+    orderBy?: Partial<Record<'scheduledStartTime', 'asc' | 'desc'>>[]
+    limit?: number
+    offset?: number
+  }) => Promise<{ videoId: VideoId; title: VideoTitle; group: Group }[]>
 
   count: (args: { where: StreamFindAllWhere }) => Promise<number>
 
