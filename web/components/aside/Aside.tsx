@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import { Ellipsis } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -10,17 +9,14 @@ import {
   TooltipContent
 } from '@/components/ui/tooltip'
 import AsideIcon from 'components/aside/AsideIcon'
-import AsideStreamIcons from 'components/aside/AsideStreamIcons'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import AsideSkeleton from 'components/skeleton/AsideSkeleton'
-import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
 import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default function Aside({ className }: { className?: string }) {
   const global = useTranslations('Global')
-  const comp = useTranslations('Components')
   const groups = useGroups()
 
   return (
@@ -43,16 +39,16 @@ export default function Aside({ className }: { className?: string }) {
                   <span className="sr-only">{global('title')}</span>
                 </Link>
 
-                <AsideStreamIcons />
-
+                {/* @deprecated 多分使わない（パフォーマンス） */}
+                {/* <AsideStreamIcons />
                 <AsideIcon
                   name={comp('styles.more')}
                   href={StreamRankingDefaultUrl}
                   icon={<Ellipsis className="h-6 w-6" />}
                   roundedFull
-                />
+                /> */}
 
-                <Separator orientation="horizontal" />
+                {/* <Separator orientation="horizontal" /> */}
 
                 {groups.imgs.map(group => (
                   <AsideIcon
