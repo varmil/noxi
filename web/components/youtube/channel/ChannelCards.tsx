@@ -24,7 +24,7 @@ export async function ChannelCards({ channels }: PropsWithoutRef<Props>) {
     <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
       {channels.map(channel => {
         const {
-          basicInfo: { id, title, description, thumbnails, publishedAt },
+          basicInfo: { id, title, thumbnails, publishedAt },
           statistics
         } = channel
         return (
@@ -32,7 +32,6 @@ export async function ChannelCards({ channels }: PropsWithoutRef<Props>) {
             key={id}
             id={id}
             name={title}
-            description={description}
             thumbnails={thumbnails}
             totalViewCount={statistics.viewCount}
             subscriberCount={statistics.subscriberCount}

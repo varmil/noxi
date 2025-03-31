@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
+import { VideoId, VideoTitle } from '@domain'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { StreamsService } from '@app/streams/streams.service'
-import { StreamStatus, Stream } from '@domain/stream'
+import { StreamStatus } from '@domain/stream'
 import { ChatCount } from '@domain/stream-stats'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
@@ -23,47 +24,52 @@ export class MainService {
    * * メンバー限定配信は省く
    */
   async fetchLives({ limit, offset }: { limit?: number; offset?: number }) {
-    return (
-      await this.streamsService.findAll({
-        where: {
-          OR: [
-            {
-              status: new StreamStatus('scheduled'),
-              scheduledStartTime: { lte: dayjs().toDate() }
-            },
-            {
-              status: new StreamStatus('live')
-            },
-            {
-              status: new StreamStatus('ended'),
-              actualEndTime: { gte: dayjs().subtract(2, 'minute').toDate() }
-            }
-          ]
-        },
-        orderBy: [{ scheduledStartTime: 'asc' }],
-        limit,
-        offset
-      })
-    ).filter(stream => !stream.membersOnly)
+    return await this.streamsService.findAllLight({
+      where: {
+        OR: [
+          {
+            status: new StreamStatus('scheduled'),
+            scheduledStartTime: { lte: dayjs().toDate() }
+          },
+          {
+            status: new StreamStatus('live')
+          },
+          {
+            status: new StreamStatus('ended'),
+            actualEndTime: { gte: dayjs().subtract(2, 'minute').toDate() }
+          }
+        ]
+      },
+      orderBy: [{ scheduledStartTime: 'asc' }],
+      limit,
+      offset
+    })
   }
 
   /**
    * Youtubei から新しいメッセージを取得
    * continuationがFreshなものが必要なのでメッセージがゼロ件でもINSERTする
    */
-  async fetchNewMessages(stream: Stream) {
-    const videoId = stream.videoId
-
+  async fetchNewMessages({
+    videoId,
+    title
+  }: {
+    videoId: VideoId
+    title: VideoTitle
+  }) {
     // 前回の結果を取得
     const latestChatCount = await this.chatCountsService.findLatest({
       where: { videoId }
     })
 
-    const continuation = await this.getContinuation(stream, latestChatCount)
+    const continuation = await this.getContinuation(
+      { videoId, title },
+      latestChatCount
+    )
     if (!continuation) {
       this.logger.warn({
         message: `${videoId.get()} continuation is undefined`,
-        title: stream.snippet.title.get(),
+        title: title.get(),
         cause: `
         * Maybe the Live Stream is already ended.
         * Maybe the stream is member only.`
@@ -75,11 +81,9 @@ export class MainService {
       await this.youtubeiLiveChatInfraService.list({
         continuation
       })
-
     const newMessages = items.selectNewerThan(
       latestChatCount?.latestPublishedAt
     )
-
     return {
       newMessages,
       nextContinuation
@@ -92,14 +96,9 @@ export class MainService {
    * messages がゼロ件でもINSERTするので↑のケースは無いはずだが．．．
    */
   private async getContinuation(
-    stream: Stream,
+    { videoId, title }: { videoId: VideoId; title: VideoTitle },
     latestChatCount: ChatCount | null
   ) {
-    const {
-      videoId,
-      snippet: { title }
-    } = stream
-
     const isContinuationFresh =
       latestChatCount?.createdAt &&
       dayjs().diff(latestChatCount?.createdAt, 'minute') < 1

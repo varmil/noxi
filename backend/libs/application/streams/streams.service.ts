@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
+import { Group } from '@domain/group'
 import { Stream, StreamRepository, Streams } from '@domain/stream'
+import { VideoId, VideoTitle } from '@domain/youtube'
 
 @Injectable()
 export class StreamsService {
@@ -12,6 +14,16 @@ export class StreamsService {
     args: Parameters<StreamRepository['findAll']>[0]
   ): Promise<Streams> {
     return await this.streamRepository.findAll(args)
+  }
+
+  /**
+   * 軽量版
+   * メンバー限定のものは取得しない
+   */
+  async findAllLight(
+    args: Parameters<StreamRepository['findAllLight']>[0]
+  ): Promise<{ videoId: VideoId; title: VideoTitle; group: Group }[]> {
+    return await this.streamRepository.findAllLight(args)
   }
 
   async count(args: Parameters<StreamRepository['count']>[0]): Promise<number> {

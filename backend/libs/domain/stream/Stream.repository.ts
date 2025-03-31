@@ -49,6 +49,17 @@ export interface StreamRepository {
     offset?: number
   }) => Promise<Streams>
 
+  /**
+   * 軽量版
+   * メンバー限定のものは取得しない
+   */
+  findAllLight: (args: {
+    where: StreamFindAllWhere
+    orderBy?: Partial<Record<'scheduledStartTime', 'asc' | 'desc'>>[]
+    limit?: number
+    offset?: number
+  }) => Promise<{ videoId: VideoId; title: VideoTitle; group: Group }[]>
+
   count: (args: { where: StreamFindAllWhere }) => Promise<number>
 
   findOne: (args: { where: { videoId: VideoId } }) => Promise<Stream | null>

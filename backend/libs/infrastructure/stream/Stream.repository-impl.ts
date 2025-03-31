@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
-import { StreamFindAllWhere, StreamRepository, Streams } from '@domain/stream'
-import { Thumbnails, VideoId } from '@domain/youtube'
+import { Group } from '@domain'
+import {
+  Stream,
+  StreamFindAllWhere,
+  StreamRepository,
+  Streams
+} from '@domain/stream'
+import { Thumbnails, VideoId, VideoTitle } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { StreamTranslator } from '@infra/stream/StreamTranslator'
 import { UpsertYoutubeStream } from '@infra/stream/UpsertYoutubeStream'
@@ -51,6 +57,37 @@ export class StreamRepositoryImpl implements StreamRepository {
     })
 
     return new Streams(rows.map(row => new StreamTranslator(row).translate()))
+  }
+
+  findAllLight: StreamRepository['findAllLight'] = async ({
+    where,
+    orderBy,
+    limit,
+    offset
+  }) => {
+    const rows = await this.prismaInfraService.youtubeStream.findMany({
+      select: {
+        videoId: true,
+        title: true,
+        group: true
+      },
+      // Remove members only rows (views != null)
+      where: {
+        ...toPrismaWhere(where),
+        views: { not: null }
+      },
+      orderBy,
+      take: limit,
+      skip: offset
+    })
+    // Remove members only rows (title)
+    return rows
+      .filter(row => !Stream.isMembersOnly(new VideoTitle(row.title)))
+      .map(row => ({
+        videoId: new VideoId(row.videoId),
+        title: new VideoTitle(row.title),
+        group: new Group(row.group)
+      }))
   }
 
   count: StreamRepository['count'] = async ({ where }) => {

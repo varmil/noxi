@@ -3,7 +3,7 @@ import {
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
 import { GroupString } from 'config/constants/Group'
-import { CACHE_12H, CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
 type Params = {
