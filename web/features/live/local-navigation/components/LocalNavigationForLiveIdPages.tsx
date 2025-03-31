@@ -20,21 +20,18 @@ export default function LocalNavigationForLiveIdPages({
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), href: basePath, prefetch: true },
+        { name: t('overview.nav'), href: basePath },
         {
           name: t('earnings.nav'),
-          href: `${basePath}/earnings`,
-          prefetch: true
+          href: `${basePath}/earnings`
         },
         {
           name: commentsTab, // Server Component の結果を挿入,
-          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`],
-          prefetch: true
+          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`]
         },
         {
           name: t('relatedVideos.nav'),
-          href: `${basePath}/related-videos`,
-          prefetch: true
+          href: `${basePath}/related-videos`
         }
       ].filter(e => !!e)}
       className="w-full border-b mb-8"
