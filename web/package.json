@@ -61,7 +61,7 @@
     "@tailwindcss/postcss": "^4.0.17",
     "@types/node": "20.17.28",
     "@types/react": "19.0.1",
-    "@typescript-eslint/parser": "^8.28.0",
+    "@typescript-eslint/parser": "^8.29.0",
     "eslint": "^9.23.0",
     "eslint-config-next": "15.2.4",
     "eslint-plugin-import-x": "^4.9.4",
