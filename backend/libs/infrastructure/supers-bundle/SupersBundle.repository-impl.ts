@@ -14,7 +14,8 @@ import {
   SupersBundleSum,
   VideoRanks,
   Rank,
-  VideoRank
+  VideoRank,
+  TopPercentage
 } from '@domain/supers-bundle'
 import {
   ActualEndTime,
@@ -109,16 +110,29 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     where: { videoId }
   }) => {
     const result = await this.prismaInfraService.$queryRaw<
-      { videoId: string; rank: number }[]
+      { videoId: string; rank: number; topPercentage: number }[]
     >`
+      WITH "Ranked" AS (
+          SELECT 
+              "videoId",
+              RANK() OVER (ORDER BY amountMicros DESC) AS rank,
+              COUNT(*) OVER () AS total_count
+          FROM "YoutubeStreamSupersBundle"
+          WHERE amountMicros > 0
+      )
       SELECT 
-        videoId, 
-        RANK() OVER (ORDER BY amountMicros DESC) AS rank
-      FROM "YoutubeStreamSupersBundle"
-      WHERE amountMicros > 0 AND videoId = ${videoId.get()}
+          "videoId",
+          rank,
+          (rank * 100.0 / total_count) AS "topPercentage"
+      FROM "Ranked"
+      WHERE "videoId" = ${videoId.get()};
     `
     if (!result[0]) return null
-    return new VideoRank({ videoId, rank: new Rank(result[0].rank) })
+    return new VideoRank({
+      videoId,
+      rank: new Rank(result[0].rank),
+      topPercentage: new TopPercentage(result[0].topPercentage)
+    })
   }
 
   findRanks: SupersBundleRepository['findRanks'] = async ({
@@ -127,20 +141,30 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     if (!videoIds.length) return new VideoRanks([])
 
     const result = await this.prismaInfraService.$queryRaw<
-      { videoId: string; rank: number }[]
+      { videoId: string; rank: number; topPercentage: number }[]
     >`
+      WITH "Ranked" AS (
+          SELECT 
+              "videoId",
+              RANK() OVER (ORDER BY amountMicros DESC) AS rank,
+              COUNT(*) OVER () AS total_count
+          FROM "YoutubeStreamSupersBundle"
+          WHERE amountMicros > 0
+      )
       SELECT 
-        videoId, 
-        RANK() OVER (ORDER BY amountMicros DESC) AS rank
-      FROM "YoutubeStreamSupersBundle"
-      WHERE amountMicros > 0 AND videoId IN (${videoIds.map(e => e.get()).join(',')})
+          "videoId",
+          rank,
+          (rank * 100.0 / total_count) AS "topPercentage"
+      FROM "Ranked"
+      WHERE "videoId" IN (${videoIds.map(e => e.get()).join(',')});
     `
     return new VideoRanks(
       result.map(
         e =>
           new VideoRank({
             videoId: new VideoId(e.videoId),
-            rank: new Rank(e.rank)
+            rank: new Rank(e.rank),
+            topPercentage: new TopPercentage(e.topPercentage)
           })
       )
     )
