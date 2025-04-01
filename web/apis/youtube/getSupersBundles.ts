@@ -3,7 +3,7 @@ import {
   responseSchema
 } from 'apis/youtube/schema/supersBundleSchema'
 import { GroupString } from 'config/constants/Group'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
 type Params = {
@@ -29,7 +29,7 @@ type Params = {
   offset?: number
 }
 
-export async function getSupersBundles({
+const createSearchParams = ({
   videoIds,
   channelId,
   amountMicros,
@@ -42,7 +42,7 @@ export async function getSupersBundles({
   orderBy,
   limit,
   offset
-}: Params): Promise<SupersBundlesSchema> {
+}: Params) => {
   const searchParams = new URLSearchParams({
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(channelId && { channelId }),
@@ -69,12 +69,31 @@ export async function getSupersBundles({
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
 
-  const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`)
+  return searchParams
+}
 
+export async function getSupersBundles(
+  params: Params
+): Promise<SupersBundlesSchema> {
+  const searchParams = createSearchParams(params)
+  const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`)
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
-
   const data = responseSchema.parse(await res.json())
   return data.list
+}
+
+export async function getSupersBundlesCount({
+  ...params
+}: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
+  const searchParams = createSearchParams(params)
+  const res = await fetchAPI(
+    `/api/supers-bundles/count?${searchParams.toString()}`,
+    { next: { revalidate: CACHE_1D } }
+  )
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${await res.text()}`)
+  }
+  return await res.json()
 }
