@@ -25,6 +25,7 @@ export class SupersBundlesController {
       where: {
         videoIds: dto.toVideoIds(),
         channelId: dto.toChannelId(),
+        amountMicros: dto.toAmountMicros(),
         group: dto.toGroup(),
         gender: dto.toGender(),
         actualEndTime: dto.toActualEndTime(),

@@ -9,6 +9,7 @@ export default function createGetSupersBundlesParams({
   group,
   gender,
   country,
+  page,
   compact
 }: StreamRankingGalleryProps): Parameters<typeof getSupersBundles>[0] {
   let result = {}
@@ -42,11 +43,8 @@ export default function createGetSupersBundlesParams({
 
   result = {
     ...result,
-    limit: compact
-      ? StreamRankingPagination.COMPACT_PAGE_SIZE
-      : period === 'realtime'
-      ? 100
-      : 30
+    limit: StreamRankingPagination.getLimit(compact),
+    offset: StreamRankingPagination.getOffset(page)
   }
 
   return result

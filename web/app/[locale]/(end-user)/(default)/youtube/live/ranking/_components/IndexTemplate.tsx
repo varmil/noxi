@@ -16,6 +16,8 @@ export default async function IndexTemplate({
   searchParams
 }: PropsWithoutRef<Props>) {
   const { dimension } = searchParams
+
+  // TODO: count when dimension is 'super-chat'
   const count =
     dimension === 'concurrent-viewer'
       ? await getStreamsCount(createGetStreamsParams(searchParams))
@@ -29,12 +31,9 @@ export default async function IndexTemplate({
 
       <section className={`${PageSMPX} space-y-6`}>
         <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
-        {/* とりあえずViewerのときのみ表示 */}
-        {searchParams.dimension === 'concurrent-viewer' && (
-          <ResponsivePagination
-            totalPages={StreamRankingPagination.getTotalPages(count)}
-          />
-        )}
+        <ResponsivePagination
+          totalPages={StreamRankingPagination.getTotalPages(count)}
+        />
       </section>
     </section>
   )
