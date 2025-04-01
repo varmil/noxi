@@ -35,6 +35,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       | Prisma.BigIntFilter<'YoutubeStreamSupersBundle'>
       | undefined
     for (const [key, value] of Object.entries(where?.amountMicros || {})) {
+      if (value === undefined) continue // value is optional
       amountMicros = amountMicros
         ? { ...amountMicros, [key]: value.toBigInt() }
         : { [key]: value.toBigInt() }
@@ -62,6 +63,32 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       })
 
     return new SupersBundles(rows.map(row => this.toDomain(row)))
+  }
+
+  count: SupersBundleRepository['count'] = async ({ where }) => {
+    let amountMicros:
+      | Prisma.BigIntFilter<'YoutubeStreamSupersBundle'>
+      | undefined
+    for (const [key, value] of Object.entries(where?.amountMicros || {})) {
+      if (value === undefined) continue // value is optional
+      amountMicros = amountMicros
+        ? { ...amountMicros, [key]: value.toBigInt() }
+        : { [key]: value.toBigInt() }
+    }
+
+    return await this.prismaInfraService.youtubeStreamSupersBundle.count({
+      where: where
+        ? {
+            videoId: { in: where.videoIds?.map(e => e.get()) },
+            channelId: where.channelId?.get(),
+            amountMicros,
+            group: where.group?.get(),
+            actualEndTime: where.actualEndTime,
+            createdAt: where.createdAt,
+            channel: { gender: where.gender?.get() }
+          }
+        : undefined
+    })
   }
 
   findOne: (args: {

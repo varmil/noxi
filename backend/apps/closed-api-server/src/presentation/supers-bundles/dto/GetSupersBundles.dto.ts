@@ -20,25 +20,25 @@ import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
 export class AmountMicrosDto {
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new AmountMicros(value) : undefined
+    value !== undefined ? new AmountMicros(value || 0) : undefined
   )
   gt?: AmountMicros
 
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new AmountMicros(value) : undefined
+    value !== undefined ? new AmountMicros(value || 0) : undefined
   )
   gte?: AmountMicros
 
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new AmountMicros(value) : undefined
+    value !== undefined ? new AmountMicros(value || 0) : undefined
   )
   lt?: AmountMicros
 
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new AmountMicros(value) : undefined
+    value !== undefined ? new AmountMicros(value || 0) : undefined
   )
   lte?: AmountMicros
 }

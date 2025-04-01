@@ -19,25 +19,25 @@ import { ChannelId, ChannelIds } from '@domain/youtube'
 export class CountDto {
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new Count(Number(value)) : undefined
+    value !== undefined ? new Count(Number(value)) : undefined
   )
   gt?: Count
 
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new Count(Number(value)) : undefined
+    value !== undefined ? new Count(Number(value)) : undefined
   )
   gte?: Count
 
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new Count(Number(value)) : undefined
+    value !== undefined ? new Count(Number(value)) : undefined
   )
   lt?: Count
 
   @IsOptional()
   @Transform(({ value }: { value?: string }) =>
-    value ? new Count(Number(value)) : undefined
+    value !== undefined ? new Count(Number(value)) : undefined
   )
   lte?: Count
 }

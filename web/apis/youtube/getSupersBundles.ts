@@ -57,10 +57,11 @@ export async function getSupersBundles({
   })
 
   if (amountMicros) {
-    searchParams.append('amountMicros[gt]', String(amountMicros.gt))
-    searchParams.append('amountMicros[gte]', String(amountMicros.gte))
-    searchParams.append('amountMicros[lt]', String(amountMicros.lt))
-    searchParams.append('amountMicros[lte]', String(amountMicros.lte))
+    const { gt, gte, lt, lte } = amountMicros
+    gt && searchParams.append('amountMicros[gt]', String(gt))
+    gte && searchParams.append('amountMicros[gte]', String(gte))
+    lt && searchParams.append('amountMicros[lt]', String(lt))
+    lte && searchParams.append('amountMicros[lte]', String(lte))
   }
 
   orderBy?.forEach((orderBy, index) => {
