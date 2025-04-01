@@ -7,6 +7,7 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
+import { GetSupersBundleRanks } from '@presentation/supers-bundles/dto/GetSupersBundleRanks.dto'
 import { GetSupersBundles } from '@presentation/supers-bundles/dto/GetSupersBundles.dto'
 import { GetSupersBundlesSum } from '@presentation/supers-bundles/dto/GetSupersBundlesSum.dto'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
@@ -52,6 +53,13 @@ export class SupersBundlesController {
     })
   }
 
+  @Get('/ranks')
+  async getSupersBundlesRanks(@Query() dto: GetSupersBundleRanks) {
+    return await this.supersBundlesService.findRanks({
+      where: { videoIds: dto.toVideoIds() }
+    })
+  }
+
   /** last 24 hours の「チャンネルごと」集計 */
   @Get('sum')
   async getSupersBundleSum(
@@ -76,14 +84,14 @@ export class SupersBundlesController {
     return sum
   }
 
-  @Get(':id')
-  async getSupersBundle(@Param('id') id: string) {
-    const supersBundle = await this.supersBundlesService.findOne({
+  @Get(':id/rank')
+  async getSupersBundleRank(@Param('id') id: string) {
+    const rank = await this.supersBundlesService.findRank({
       where: { videoId: new VideoId(id) }
     })
-    if (!supersBundle) {
-      throw new NotFoundException(`supersBundle not found for ${id}`)
+    if (!rank) {
+      throw new NotFoundException(`bundle-rank not found for ${id}`)
     }
-    return supersBundle
+    return rank
   }
 }

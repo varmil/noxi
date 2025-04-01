@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { ChannelIds } from '@domain'
 import { SupersRankingsService } from '@app/supers-rankings/supers-rankings.service'
 import { Now } from '@domain/lib'
 import { SupersRankings } from '@domain/supers-ranking'
+import { ChannelIds } from '@domain/youtube'
 
 @Injectable()
 export class SupersRankingsScenario {

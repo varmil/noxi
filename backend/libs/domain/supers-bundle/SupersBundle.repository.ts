@@ -4,7 +4,9 @@ import { AmountMicros } from '@domain/lib/currency'
 import {
   SupersBundle,
   SupersBundles,
-  SupersBundleSums
+  SupersBundleSums,
+  VideoRank,
+  VideoRanks
 } from '@domain/supers-bundle'
 import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
 
@@ -55,6 +57,10 @@ export interface SupersBundleRepository {
   findOne: (args: {
     where: { videoId: VideoId }
   }) => Promise<SupersBundle | null>
+
+  findRank: (args: { where: { videoId: VideoId } }) => Promise<VideoRank | null>
+
+  findRanks: (args: { where: { videoIds: VideoIds } }) => Promise<VideoRanks>
 
   save: (args: { data: SupersBundle }) => Promise<void>
 

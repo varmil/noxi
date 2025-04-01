@@ -1,10 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { VideoId, VideoTitle } from '@domain'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { StreamStatus } from '@domain/stream'
 import { ChatCount } from '@domain/stream-stats'
+import { VideoId, VideoTitle } from '@domain/youtube'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
 

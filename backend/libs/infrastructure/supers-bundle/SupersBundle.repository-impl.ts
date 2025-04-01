@@ -11,7 +11,11 @@ import {
   SupersBundle,
   SupersCount,
   SupersBundleSums,
-  SupersBundleSum
+  SupersBundleSum,
+  VideoRanks,
+  Rank,
+  VideoRank,
+  TopPercentage
 } from '@domain/supers-bundle'
 import {
   ActualEndTime,
@@ -102,7 +106,71 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     return this.toDomain(row)
   }
 
-  async save({ data }: Parameters<SupersBundleRepository['save']>[0]) {
+  findRank: SupersBundleRepository['findRank'] = async ({
+    where: { videoId }
+  }) => {
+    const result = await this.prismaInfraService.$queryRaw<
+      { videoId: string; rank: number; topPercentage: number }[]
+    >`
+      WITH "Ranked" AS (
+          SELECT 
+              "videoId",
+              RANK() OVER (ORDER BY "amountMicros" DESC) AS rank,
+              COUNT(*) OVER () AS "totalCount"
+          FROM "YoutubeStreamSupersBundle"
+          WHERE "amountMicros" > 0
+      )
+      SELECT 
+          "videoId",
+          rank,
+          (rank * 100.0 / "totalCount") AS "topPercentage"
+      FROM "Ranked"
+      WHERE "videoId" = ${videoId.get()};
+    `
+    if (!result[0]) return null
+    return new VideoRank({
+      videoId,
+      rank: new Rank(result[0].rank),
+      topPercentage: new TopPercentage(result[0].topPercentage)
+    })
+  }
+
+  findRanks: SupersBundleRepository['findRanks'] = async ({
+    where: { videoIds }
+  }) => {
+    if (!videoIds.length) return new VideoRanks([])
+
+    const result = await this.prismaInfraService.$queryRaw<
+      { videoId: string; rank: number; topPercentage: number }[]
+    >`
+      WITH "Ranked" AS (
+          SELECT 
+              "videoId",
+              RANK() OVER (ORDER BY "amountMicros" DESC) AS rank,
+              COUNT(*) OVER () AS "totalCount"
+          FROM "YoutubeStreamSupersBundle"
+          WHERE "amountMicros" > 0
+      )
+      SELECT 
+          "videoId",
+          rank,
+          (rank * 100.0 / "totalCount") AS "topPercentage"
+      FROM "Ranked"
+      WHERE "videoId" IN (${videoIds.map(e => e.get()).join(',')});
+    `
+    return new VideoRanks(
+      result.map(
+        e =>
+          new VideoRank({
+            videoId: new VideoId(e.videoId),
+            rank: new Rank(e.rank),
+            topPercentage: new TopPercentage(e.topPercentage)
+          })
+      )
+    )
+  }
+
+  save: SupersBundleRepository['save'] = async ({ data }) => {
     const {
       videoId,
       channelId,

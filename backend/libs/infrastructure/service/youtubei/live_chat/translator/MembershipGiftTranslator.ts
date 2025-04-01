@@ -1,6 +1,6 @@
 import { z } from 'zod'
-import { PublishedAt } from '@domain'
 import { Count, IsGift } from '@domain/membership'
+import { PublishedAt } from '@domain/youtube/datetime'
 import {
   LiveChatMessage,
   MembershipDetails,
