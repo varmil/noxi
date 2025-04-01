@@ -31,6 +31,12 @@ export interface SupersBundleRepository {
     where?: {
       videoIds?: VideoIds
       channelId?: ChannelId
+      amountMicros?: {
+        gt?: AmountMicros
+        gte?: AmountMicros
+        lt?: AmountMicros
+        lte?: AmountMicros
+      }
       group?: Group
       gender?: Gender
       // NULL means "live now"

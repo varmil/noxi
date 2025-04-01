@@ -9,6 +9,12 @@ import { Gender } from 'types/gender'
 type Params = {
   videoIds?: string[]
   channelId?: string
+  amountMicros?: {
+    gt?: bigint
+    gte?: bigint
+    lt?: bigint
+    lte?: bigint
+  }
   group?: GroupString
   gender?: Gender
   actualEndTimeGTE?: null
@@ -26,6 +32,7 @@ type Params = {
 export async function getSupersBundles({
   videoIds,
   channelId,
+  amountMicros,
   group,
   gender,
   actualEndTimeGTE,
@@ -48,6 +55,13 @@ export async function getSupersBundles({
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
+
+  if (amountMicros) {
+    searchParams.append('amountMicros[gt]', String(amountMicros.gt))
+    searchParams.append('amountMicros[gte]', String(amountMicros.gte))
+    searchParams.append('amountMicros[lt]', String(amountMicros.lt))
+    searchParams.append('amountMicros[lte]', String(amountMicros.lte))
+  }
 
   orderBy?.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)

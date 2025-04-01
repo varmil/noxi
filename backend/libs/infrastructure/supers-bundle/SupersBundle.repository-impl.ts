@@ -31,11 +31,21 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     limit,
     offset
   }: Parameters<SupersBundleRepository['findAll']>[0]) {
+    let amountMicros:
+      | Prisma.BigIntFilter<'YoutubeStreamSupersBundle'>
+      | undefined
+    for (const [key, value] of Object.entries(where?.amountMicros || {})) {
+      amountMicros = amountMicros
+        ? { ...amountMicros, [key]: value.toBigInt() }
+        : { [key]: value.toBigInt() }
+    }
+
     const whereQuery: Prisma.YoutubeStreamSupersBundleWhereInput | undefined =
       where
         ? {
             videoId: { in: where.videoIds?.map(e => e.get()) },
             channelId: where.channelId?.get(),
+            amountMicros,
             group: where.group?.get(),
             actualEndTime: where.actualEndTime,
             createdAt: where.createdAt,

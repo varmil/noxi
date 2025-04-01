@@ -11,9 +11,37 @@ import {
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { Group, GroupString, GroupStrings } from '@domain/group'
+import { AmountMicros } from '@domain/lib/currency'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { SupersBundleRepository } from '@domain/supers-bundle'
 import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
+
+/** 金額による絞り込み */
+export class AmountMicrosDto {
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new AmountMicros(value) : undefined
+  )
+  gt?: AmountMicros
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new AmountMicros(value) : undefined
+  )
+  gte?: AmountMicros
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new AmountMicros(value) : undefined
+  )
+  lt?: AmountMicros
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value ? new AmountMicros(value) : undefined
+  )
+  lte?: AmountMicros
+}
 
 export class GetSupersBundles {
   @IsOptional()
@@ -27,6 +55,10 @@ export class GetSupersBundles {
   @IsOptional()
   @IsString()
   channelId?: string
+
+  @IsOptional()
+  @Type(() => AmountMicrosDto)
+  amountMicros?: AmountMicrosDto
 
   @IsIn(GroupStrings)
   @IsOptional()
@@ -85,6 +117,18 @@ export class GetSupersBundles {
 
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined
+
+  toAmountMicros = () => {
+    if (!this.amountMicros) {
+      return undefined
+    }
+    return {
+      gt: this.amountMicros.gt,
+      gte: this.amountMicros.gte,
+      lt: this.amountMicros.lt,
+      lte: this.amountMicros.lte
+    }
+  }
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 

@@ -10,15 +10,12 @@ export type Period =
   | 'thisWeek'
   | 'thisMonth'
   | 'thisYear'
+  | 'all'
 
 /**
  * スパチャランキング or チャンネル登録者数ランキング
- *
- * 「all」が追加される
- * スパチャランキングでは使わないが同じコンポーネントを利用しているので
- * ここの型定義には含めている
  **/
-export type ChannelsRankingPeriod = 'all' | Period
+export type ChannelsRankingPeriod = Period
 
 /**
  * 同接数ランキング
