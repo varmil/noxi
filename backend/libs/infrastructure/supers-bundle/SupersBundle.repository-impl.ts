@@ -11,7 +11,10 @@ import {
   SupersBundle,
   SupersCount,
   SupersBundleSums,
-  SupersBundleSum
+  SupersBundleSum,
+  VideoRanks,
+  Rank,
+  VideoRank
 } from '@domain/supers-bundle'
 import {
   ActualEndTime,
@@ -102,7 +105,48 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
     return this.toDomain(row)
   }
 
-  async save({ data }: Parameters<SupersBundleRepository['save']>[0]) {
+  findRank: SupersBundleRepository['findRank'] = async ({
+    where: { videoId }
+  }) => {
+    const result = await this.prismaInfraService.$queryRaw<
+      { videoId: string; rank: number }[]
+    >`
+      SELECT 
+        videoId, 
+        RANK() OVER (ORDER BY amountMicros DESC) AS rank
+      FROM "YoutubeStreamSupersBundle"
+      WHERE amountMicros > 0 AND videoId = ${videoId.get()}
+    `
+    if (!result[0]) return null
+    return new VideoRank({ videoId, rank: new Rank(result[0].rank) })
+  }
+
+  findRanks: SupersBundleRepository['findRanks'] = async ({
+    where: { videoIds }
+  }) => {
+    if (!videoIds.length) return new VideoRanks([])
+
+    const result = await this.prismaInfraService.$queryRaw<
+      { videoId: string; rank: number }[]
+    >`
+      SELECT 
+        videoId, 
+        RANK() OVER (ORDER BY amountMicros DESC) AS rank
+      FROM "YoutubeStreamSupersBundle"
+      WHERE amountMicros > 0 AND videoId IN (${videoIds.map(e => e.get()).join(',')})
+    `
+    return new VideoRanks(
+      result.map(
+        e =>
+          new VideoRank({
+            videoId: new VideoId(e.videoId),
+            rank: new Rank(e.rank)
+          })
+      )
+    )
+  }
+
+  save: SupersBundleRepository['save'] = async ({ data }) => {
     const {
       videoId,
       channelId,

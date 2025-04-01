@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common'
-import { SupersBundleSumWhere, SupersSummaryFindAllWhere } from '@domain'
 import { AmountMicrosDto } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
 import { Group } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { PeriodString } from '@domain/lib/period'
+import { SupersBundleSumWhere } from '@domain/supers-bundle'
+import { SupersSummaryFindAllWhere } from '@domain/supers-summary'
 import { ActualEndTime, ChannelIds } from '@domain/youtube'
 
 interface WHERE {

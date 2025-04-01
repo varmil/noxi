@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
-import { Group } from '@domain'
+import { Group } from '@domain/group'
 import {
   Stream,
   StreamFindAllWhere,

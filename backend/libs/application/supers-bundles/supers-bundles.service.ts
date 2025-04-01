@@ -20,6 +20,14 @@ export class SupersBundlesService {
     return await this.supersBundleRepository.findOne(args)
   }
 
+  async findRank(args: Parameters<SupersBundleRepository['findRank']>[0]) {
+    return await this.supersBundleRepository.findRank(args)
+  }
+
+  async findRanks(args: Parameters<SupersBundleRepository['findRanks']>[0]) {
+    return await this.supersBundleRepository.findRanks(args)
+  }
+
   async save(args: Parameters<SupersBundleRepository['save']>[0]) {
     await this.supersBundleRepository.save(args)
   }

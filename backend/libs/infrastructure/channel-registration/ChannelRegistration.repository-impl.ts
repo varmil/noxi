@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { CountryCode, LanguageTag, Group } from '@domain'
 import {
   AppliedAt,
   ChannelRegistration,
@@ -7,6 +6,8 @@ import {
   ChannelRegistrations,
   Status
 } from '@domain/channel-registration'
+import { CountryCode, LanguageTag } from '@domain/country'
+import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   ChannelId,

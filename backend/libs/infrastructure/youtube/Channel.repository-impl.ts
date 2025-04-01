@@ -1,7 +1,8 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
-import { Gender, Group } from '@domain'
 import { CountryCode, LanguageTag } from '@domain/country'
+import { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 import {
   ChannelId,
   Channel,

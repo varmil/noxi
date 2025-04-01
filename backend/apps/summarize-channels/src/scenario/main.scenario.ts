@@ -1,8 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { SupersRanking } from '@domain'
 import { CreateMembershipSummariesService } from 'apps/summarize-channels/src/service/create-membership-summaries.service'
 import { SupersRankingsService } from '@app/supers-rankings/supers-rankings.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
+import { SupersRanking } from '@domain/supers-ranking'
 import { CreateSupersSummariesService } from '../service/create-supers-summaries.service'
 
 @Injectable()

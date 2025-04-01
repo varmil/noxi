@@ -9,11 +9,11 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
-import { ChannelId } from '@domain'
 import { GetChannelRegistrations } from '@presentation/channel-registrations/dto/GetChannelRegistrations.dto'
 import { PostChannelRegistration } from '@presentation/channel-registrations/dto/PostChannelRegistration.dto'
 import { ChannelRegistrationsService } from '@app/channel-registrations/channel-registrations.service'
 import { ChannelRegistration } from '@domain/channel-registration'
+import { ChannelId } from '@domain/youtube'
 
 @Controller('channel-registrations')
 @UseInterceptors(ClassSerializerInterceptor)

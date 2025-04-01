@@ -6,8 +6,8 @@ import {
   IsString,
   ValidateNested
 } from 'class-validator'
-import { SuperStickerRepository } from '@domain'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
+import { SuperStickerRepository } from '@domain/supers'
 import { ChannelId, VideoId } from '@domain/youtube'
 
 export class GetSuperStickers {
