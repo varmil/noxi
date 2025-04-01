@@ -115,15 +115,15 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       WITH "Ranked" AS (
           SELECT 
               "videoId",
-              RANK() OVER (ORDER BY amountMicros DESC) AS rank,
-              COUNT(*) OVER () AS total_count
+              RANK() OVER (ORDER BY "amountMicros" DESC) AS rank,
+              COUNT(*) OVER () AS "totalCount"
           FROM "YoutubeStreamSupersBundle"
-          WHERE amountMicros > 0
+          WHERE "amountMicros" > 0
       )
       SELECT 
           "videoId",
           rank,
-          (rank * 100.0 / total_count) AS "topPercentage"
+          (rank * 100.0 / "totalCount") AS "topPercentage"
       FROM "Ranked"
       WHERE "videoId" = ${videoId.get()};
     `
@@ -146,15 +146,15 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       WITH "Ranked" AS (
           SELECT 
               "videoId",
-              RANK() OVER (ORDER BY amountMicros DESC) AS rank,
-              COUNT(*) OVER () AS total_count
+              RANK() OVER (ORDER BY "amountMicros" DESC) AS rank,
+              COUNT(*) OVER () AS "totalCount"
           FROM "YoutubeStreamSupersBundle"
-          WHERE amountMicros > 0
+          WHERE "amountMicros" > 0
       )
       SELECT 
           "videoId",
           rank,
-          (rank * 100.0 / total_count) AS "topPercentage"
+          (rank * 100.0 / "totalCount") AS "topPercentage"
       FROM "Ranked"
       WHERE "videoId" IN (${videoIds.map(e => e.get()).join(',')});
     `
