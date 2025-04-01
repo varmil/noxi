@@ -3,6 +3,7 @@ import { getStartOf } from 'utils/period/ranking'
 import type { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
+/** This is used only when dimension is 'super-chat' */
 export default function createGetSupersBundlesParams({
   period,
   dimension,
@@ -22,11 +23,15 @@ export default function createGetSupersBundlesParams({
     result = { ...result, createdAtGTE: getStartOf(period).toDate() }
   }
 
-  if (dimension === 'super-chat') {
+  {
     result = {
       ...result,
       orderBy: [{ field: 'amountMicros', order: 'desc' }]
     }
+  }
+
+  {
+    result = { ...result, amountMicros: { gt: 1 } }
   }
 
   if (group) {

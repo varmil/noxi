@@ -12,6 +12,10 @@ export class SupersBundlesService {
     return await this.supersBundleRepository.findAll(args)
   }
 
+  async count(args: Parameters<SupersBundleRepository['count']>[0]) {
+    return await this.supersBundleRepository.count(args)
+  }
+
   async findOne(args: Parameters<SupersBundleRepository['findOne']>[0]) {
     return await this.supersBundleRepository.findOne(args)
   }

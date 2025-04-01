@@ -8,6 +8,22 @@ import {
 } from '@domain/supers-bundle'
 import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
 
+interface SupersBundleFindAllWhere {
+  videoIds?: VideoIds
+  channelId?: ChannelId
+  amountMicros?: {
+    gt?: AmountMicros
+    gte?: AmountMicros
+    lt?: AmountMicros
+    lte?: AmountMicros
+  }
+  group?: Group
+  gender?: Gender
+  // NULL means "live now"
+  actualEndTime?: null
+  createdAt?: { gte?: Date; lte?: Date }
+}
+
 export interface AmountMicrosSum {
   channelId: ChannelId
   amountMicros: AmountMicros
@@ -28,25 +44,13 @@ export interface SupersBundleSumWhere {
 
 export interface SupersBundleRepository {
   findAll: (args: {
-    where?: {
-      videoIds?: VideoIds
-      channelId?: ChannelId
-      amountMicros?: {
-        gt?: AmountMicros
-        gte?: AmountMicros
-        lt?: AmountMicros
-        lte?: AmountMicros
-      }
-      group?: Group
-      gender?: Gender
-      // NULL means "live now"
-      actualEndTime?: null
-      createdAt?: { gte?: Date; lte?: Date }
-    }
+    where?: SupersBundleFindAllWhere
     orderBy?: Partial<Record<'amountMicros', 'asc' | 'desc'>>[]
     limit?: number
     offset?: number
   }) => Promise<SupersBundles>
+
+  count: (args: { where?: SupersBundleFindAllWhere }) => Promise<number>
 
   findOne: (args: {
     where: { videoId: VideoId }

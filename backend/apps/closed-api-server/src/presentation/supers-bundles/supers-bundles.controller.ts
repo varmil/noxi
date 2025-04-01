@@ -37,6 +37,21 @@ export class SupersBundlesController {
     })
   }
 
+  @Get('/count')
+  async getSupersBundlesCount(@Query() dto: GetSupersBundles) {
+    return await this.supersBundlesService.count({
+      where: {
+        videoIds: dto.toVideoIds(),
+        channelId: dto.toChannelId(),
+        amountMicros: dto.toAmountMicros(),
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        actualEndTime: dto.toActualEndTime(),
+        createdAt: dto.toCreatedAt()
+      }
+    })
+  }
+
   /** last 24 hours の「チャンネルごと」集計 */
   @Get('sum')
   async getSupersBundleSum(
