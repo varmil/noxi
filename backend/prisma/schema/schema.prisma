@@ -44,8 +44,10 @@ model Channel {
   membershipSummaries      ChannelMembershipSummary[]
   membershipSummaryLatests ChannelMembershipSummaryLatest[]
 
+  @@index([group, id])
   @@index([group, subscriberCount])
   @@index([gender])
+  @@index([gender, id])
   @@index([publishedAt])
 }
 

@@ -9,10 +9,10 @@ import {
 } from 'class-validator'
 import { PeriodStrings, PeriodString, Period } from '@domain/lib/period'
 import {
-  RankingTypeStrings,
+  RankingType,
   RankingTypeString,
-  RankingType
-} from '@domain/supers-ranking'
+  RankingTypeStrings
+} from '@domain/ranking'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export class GetSupersRankingHistories {

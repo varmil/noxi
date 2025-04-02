@@ -1,6 +1,7 @@
 import { Exclude, Transform } from 'class-transformer'
 import { Period, PeriodStrings } from '@domain/lib/period'
-import { Rank, RankingType, RankingTypeStrings } from '@domain/supers-ranking'
+import { RankingType, RankingTypeStrings } from '@domain/ranking'
+import { Rank } from '@domain/supers-ranking'
 import { ChannelId } from '@domain/youtube'
 
 export class SupersRanking {

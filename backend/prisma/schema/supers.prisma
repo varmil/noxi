@@ -62,6 +62,7 @@ model YoutubeStreamSupersBundle {
     @@index([amountMicros(sort: Desc), videoId])
     @@index([actualStartTime, amountMicros])
     @@index([actualEndTime, amountMicros])
+    @@index([channelId, amountMicros(sort: Desc)])
     @@index([channelId, actualStartTime, amountMicros])
     @@index([channelId, actualEndTime, amountMicros])
     @@index([group, actualStartTime, amountMicros])
