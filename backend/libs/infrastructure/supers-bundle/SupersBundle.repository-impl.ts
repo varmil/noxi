@@ -5,6 +5,7 @@ import {
 } from '@prisma/client'
 import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
+import { RankingType } from '@domain/ranking'
 import {
   SupersBundleRepository,
   SupersBundles,
@@ -24,6 +25,32 @@ import {
   VideoId
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+
+/** rank: 順位, totalCount: ランキング対象の数 */
+const queryRankOver = (rankingType: RankingType) => {
+  let rankOver = ''
+  switch (true) {
+    case rankingType.isOverall():
+      rankOver = `
+                RANK() OVER (ORDER BY ysb."amountMicros" DESC) AS "rank",
+                COUNT(*) OVER () AS "totalCount"
+            `
+      break
+    case rankingType.isGender():
+      rankOver = `
+                RANK() OVER (PARTITION BY c."gender" ORDER BY ysb."amountMicros" DESC) AS "rank",
+                COUNT(*) OVER (PARTITION BY c."gender") AS "totalCount"
+            `
+      break
+    case rankingType.isGroup():
+      rankOver = `
+                RANK() OVER (PARTITION BY c."group" ORDER BY ysb."amountMicros" DESC) AS "rank",
+                COUNT(*) OVER (PARTITION BY c."group") AS "totalCount"
+            `
+      break
+  }
+  return rankOver
+}
 
 @Injectable()
 export class SupersBundleRepositoryImpl implements SupersBundleRepository {
@@ -107,7 +134,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   }
 
   findRank: SupersBundleRepository['findRank'] = async ({
-    where: { videoId }
+    where: { videoId, rankingType }
   }) => {
     const result = await this.prismaInfraService.$queryRaw<
       { videoId: string; rank: number; topPercentage: number }[]
@@ -115,10 +142,10 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       WITH "Ranked" AS (
           SELECT 
               "videoId",
-              RANK() OVER (ORDER BY "amountMicros" DESC) AS rank,
-              COUNT(*) OVER () AS "totalCount"
-          FROM "YoutubeStreamSupersBundle"
-          WHERE "amountMicros" > 0
+              ${queryRankOver(rankingType)}
+          FROM "YoutubeStreamSupersBundle" ysb
+          JOIN "Channel" c ON ysb."channelId" = c."id"
+          WHERE ysb."amountMicros" > 0
       )
       SELECT 
           "videoId",
@@ -136,7 +163,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   }
 
   findRanks: SupersBundleRepository['findRanks'] = async ({
-    where: { videoIds }
+    where: { videoIds, rankingType }
   }) => {
     if (!videoIds.length) return new VideoRanks([])
 
@@ -146,9 +173,9 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       WITH "Ranked" AS (
           SELECT 
               "videoId",
-              RANK() OVER (ORDER BY "amountMicros" DESC) AS rank,
-              COUNT(*) OVER () AS "totalCount"
-          FROM "YoutubeStreamSupersBundle"
+              ${queryRankOver(rankingType)}
+          FROM "YoutubeStreamSupersBundle" ysb
+          JOIN "Channel" c ON ysb."channelId" = c."id"
           WHERE "amountMicros" > 0
       )
       SELECT 

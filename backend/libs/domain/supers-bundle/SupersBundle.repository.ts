@@ -63,7 +63,9 @@ export interface SupersBundleRepository {
     where: { videoId: VideoId; rankingType: RankingType }
   }) => Promise<VideoRank | null>
 
-  findRanks: (args: { where: { videoIds: VideoIds } }) => Promise<VideoRanks>
+  findRanks: (args: {
+    where: { videoIds: VideoIds; rankingType: RankingType }
+  }) => Promise<VideoRanks>
 
   save: (args: { data: SupersBundle }) => Promise<void>
 

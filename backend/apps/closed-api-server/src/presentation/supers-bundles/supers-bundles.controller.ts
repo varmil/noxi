@@ -7,6 +7,7 @@ import {
   Query,
   UseInterceptors
 } from '@nestjs/common'
+import { GetSupersBundleRank } from '@presentation/supers-bundles/dto/GetSupersBundleRank.dto'
 import { GetSupersBundleRanks } from '@presentation/supers-bundles/dto/GetSupersBundleRanks.dto'
 import { GetSupersBundles } from '@presentation/supers-bundles/dto/GetSupersBundles.dto'
 import { GetSupersBundlesSum } from '@presentation/supers-bundles/dto/GetSupersBundlesSum.dto'
@@ -56,7 +57,7 @@ export class SupersBundlesController {
   @Get('/ranks')
   async getSupersBundlesRanks(@Query() dto: GetSupersBundleRanks) {
     return await this.supersBundlesService.findRanks({
-      where: { videoIds: dto.toVideoIds() }
+      where: { videoIds: dto.toVideoIds(), rankingType: dto.toRankingType() }
     })
   }
 
@@ -85,9 +86,12 @@ export class SupersBundlesController {
   }
 
   @Get(':id/rank')
-  async getSupersBundleRank(@Param('id') id: string) {
+  async getSupersBundleRank(
+    @Param('id') id: string,
+    @Query() dto: GetSupersBundleRank
+  ) {
     const rank = await this.supersBundlesService.findRank({
-      where: { videoId: new VideoId(id) }
+      where: { videoId: new VideoId(id), rankingType: dto.toRankingType() }
     })
     if (!rank) {
       throw new NotFoundException(`bundle-rank not found for ${id}`)

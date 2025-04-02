@@ -1,5 +1,10 @@
 import { Transform } from 'class-transformer'
-import { IsArray, IsString } from 'class-validator'
+import { IsArray, IsIn, IsString } from 'class-validator'
+import {
+  RankingTypeStrings,
+  RankingTypeString,
+  RankingType
+} from '@domain/ranking'
 import { VideoId, VideoIds } from '@domain/youtube'
 
 export class GetSupersBundleRanks {
@@ -10,5 +15,10 @@ export class GetSupersBundleRanks {
   )
   videoIds: string[]
 
+  @IsIn(RankingTypeStrings)
+  rankingType: RankingTypeString
+
   toVideoIds = () => new VideoIds(this.videoIds.map(id => new VideoId(id)))
+
+  toRankingType = () => new RankingType(this.rankingType)
 }
