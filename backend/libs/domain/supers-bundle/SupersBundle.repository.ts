@@ -1,6 +1,7 @@
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { AmountMicros } from '@domain/lib/currency'
+import { RankingType } from '@domain/ranking'
 import {
   SupersBundle,
   SupersBundles,
@@ -58,7 +59,9 @@ export interface SupersBundleRepository {
     where: { videoId: VideoId }
   }) => Promise<SupersBundle | null>
 
-  findRank: (args: { where: { videoId: VideoId } }) => Promise<VideoRank | null>
+  findRank: (args: {
+    where: { videoId: VideoId; rankingType: RankingType }
+  }) => Promise<VideoRank | null>
 
   findRanks: (args: { where: { videoIds: VideoIds } }) => Promise<VideoRanks>
 

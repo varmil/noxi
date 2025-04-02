@@ -4,7 +4,7 @@ import {
 } from 'apis/youtube/schema/supersRankingSchema'
 import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
 import { Period } from 'types/period'
-import { RankingType } from 'types/supers-ranking'
+import { RankingType } from 'types/ranking'
 
 type Params = {
   channelId: string

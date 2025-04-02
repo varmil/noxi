@@ -2,7 +2,7 @@ import { GroupString } from 'config/constants/Group'
 import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
-import { RankingType } from 'types/supers-ranking'
+import { RankingType } from 'types/ranking'
 
 export const createSearchParams = (params: {
   period: ChannelsRankingPeriod

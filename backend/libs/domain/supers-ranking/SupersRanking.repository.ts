@@ -1,9 +1,6 @@
 import { Period } from '@domain/lib/period'
-import {
-  RankingType,
-  SupersRanking,
-  SupersRankings
-} from '@domain/supers-ranking'
+import { RankingType } from '@domain/ranking'
+import { SupersRanking, SupersRankings } from '@domain/supers-ranking'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface SupersRankingRepository {

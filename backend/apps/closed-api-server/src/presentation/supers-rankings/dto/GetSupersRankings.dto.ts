@@ -4,7 +4,7 @@ import {
   RankingType,
   RankingTypeString,
   RankingTypeStrings
-} from '@domain/supers-ranking'
+} from '@domain/ranking'
 import { ChannelId } from '@domain/youtube'
 
 export class GetSupersRankings {

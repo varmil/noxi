@@ -31,7 +31,7 @@ import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCel
 import { getGroup } from 'lib/server-only-context/cache'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
-import { RankingType } from 'types/supers-ranking'
+import { RankingType } from 'types/ranking'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
 import { getUpdatedAt } from 'utils/period/ranking'
 import ComparedToPreviousPeriod from './ComparedToPreviousPeriod'
