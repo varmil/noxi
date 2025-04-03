@@ -1,9 +1,11 @@
 import { Suspense } from 'react'
-import { getStatistics } from 'apis/youtube/data-api/getStatistics'
+import { getMembershipBundle } from 'apis/youtube/getMembershipBundle'
 import { getSupersBundle } from 'apis/youtube/getSupersBundle'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
-import StatsViewsCard from 'features/youtube-stats/components/simple-card/StatsViewsCard'
+import StatsAvgConcurrentCard from 'features/youtube-stats/components/simple-card/video/StatsAvgConcurrentCard'
+import StatsMembershipAmountCard from 'features/youtube-stats/components/simple-card/video/StatsMembershipAmountCard'
+import StatsMembershipCountCard from 'features/youtube-stats/components/simple-card/video/StatsMembershipCountCard'
 import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/video/StatsPeakConcurrentCard'
 import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/simple-card/video/StatsSuperChatTotalAmountCard'
 import MaximizeButton from '../button/MaximizeButton'
@@ -17,25 +19,32 @@ export default async function VideoStatsSection({
 }: {
   stream: StreamSchema
 }) {
-  const [bundle, [stats = undefined]] = await Promise.all([
-    getSupersBundle(stream.videoId),
-    getStatistics({
-      videoIds: [stream.videoId]
-    })
+  const {
+    videoId,
+    metrics: { peakConcurrentViewers, avgConcurrentViewers }
+  } = stream
+
+  const [supersBundle, membershipBundle] = await Promise.all([
+    getSupersBundle(videoId),
+    getMembershipBundle(videoId)
   ])
 
   return (
     <div className="hidden @4xl:pt-2 @4xl:flex @4xl:flex-col @4xl:gap-y-4">
-      <div className="flex items-center gap-x-2">
+      <div className="flex items-center gap-x-2 pb-4">
         <OpenChatButton className="flex-1" />
         <MaximizeButton />
       </div>
       <Suspense fallback={<RelatedVideosSkeleton />}>
-        {stats?.statistics.viewCount ? (
-          <StatsViewsCard count={BigInt(stats.statistics.viewCount)} />
-        ) : null}
-        <StatsSuperChatTotalAmountCard amountMicros={bundle?.amountMicros} />
-        <StatsPeakConcurrentCard count={stream.metrics.peakConcurrentViewers} />
+        <StatsSuperChatTotalAmountCard
+          amountMicros={supersBundle?.amountMicros}
+        />
+        <StatsMembershipAmountCard
+          amountMicros={membershipBundle?.amountMicros}
+        />
+        <StatsMembershipCountCard count={membershipBundle?.count ?? 0} />
+        <StatsPeakConcurrentCard count={peakConcurrentViewers} />
+        <StatsAvgConcurrentCard count={avgConcurrentViewers} />
       </Suspense>
     </div>
   )

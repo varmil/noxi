@@ -554,9 +554,12 @@
         "card": {
           "chatRate": "Number of messages sent in live chat per minute.",
           "peakConcurrent": "Highest number of viewers during a live stream",
+          "avgConcurrent": "Average number of viewers during a live stream",
           "totalViews": "Total views",
           "totalSubscribers": "Total subscribers",
-          "totalSuperChats": "Total amount of Super Chat"
+          "totalSuperChats": "Total amount of Super Chat",
+          "membershipCount": "New membership during a live stream",
+          "membershipAmount": "New membership earnings during a live stream"
         },
         "totalVideos": "Total number of videos uploaded",
         "joinedDescription": "Date the channel was registered"

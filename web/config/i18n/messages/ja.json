@@ -554,9 +554,12 @@
         "card": {
           "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
           "peakConcurrent": "最大同時視聴者数",
+          "avgConcurrent": "平均同時視聴者数",
           "totalViews": "動画の再生回数",
           "totalSubscribers": "チャンネル登録者数",
-          "totalSuperChats": "スパチャ合計金額"
+          "totalSuperChats": "スパチャ合計金額",
+          "membershipCount": "ライブ中のメンバーシップ加入数",
+          "membershipAmount": "このライブで発生したメンバーシップ収益"
         },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日"
