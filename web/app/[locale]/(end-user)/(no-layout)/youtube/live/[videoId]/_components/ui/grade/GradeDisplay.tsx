@@ -13,40 +13,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { getSupersBundleRank } from 'apis/youtube/getSupersBundleRank'
-
-// グレードの計算関数
-const calculateGrade = (percentage?: number): string | undefined => {
-  if (percentage === undefined) return 'E'
-  if (percentage <= 0.1) return 'SS+'
-  if (percentage <= 1) return 'SS'
-  if (percentage <= 5) return 'S+'
-  if (percentage <= 10) return 'S'
-  if (percentage <= 25) return 'A'
-  if (percentage <= 50) return 'B'
-  return 'C'
-}
-
-// グレードの色を決定する関数
-const getGradeColor = (grade?: string): string => {
-  switch (grade) {
-    case 'SS+':
-      return 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-    case 'SS':
-      return 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-    case 'S+':
-      return 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white'
-    case 'S':
-      return 'bg-blue-600 text-white'
-    case 'A':
-      return 'bg-green-600 text-white'
-    case 'B':
-      return 'bg-yellow-600 text-white'
-    case 'C':
-      return 'bg-gray-600 text-white'
-    default:
-      return 'bg-gray-600 text-white'
-  }
-}
+import { GradeString } from 'features/grade/types/grade'
+import { calculateGrade, getGradeColor } from 'features/grade/utils/grade'
 
 // グレード範囲の定義
 const GRADE_RANGES = [
@@ -57,7 +25,7 @@ const GRADE_RANGES = [
   { grade: 'A', min: '10.0', max: '25.0' },
   { grade: 'B', min: '25.0', max: '50.0' },
   { grade: 'C', min: '50.0', max: '100.0' }
-]
+] satisfies { grade: GradeString; min: string; max: string }[]
 
 export default async function GradeDisplay({
   videoId,
@@ -68,6 +36,7 @@ export default async function GradeDisplay({
 }) {
   const [
     global,
+    comp,
     feat,
     stream,
     supersBundleOverallRank,
@@ -75,6 +44,7 @@ export default async function GradeDisplay({
     supersBundleGroupRank
   ] = await Promise.all([
     getTranslations('Global'),
+    getTranslations('Components.ranking.base'),
     getTranslations('Features.grade'),
     getStream(videoId),
     getSupersBundleRank({
@@ -100,7 +70,7 @@ export default async function GradeDisplay({
     videoId,
     rankings: [
       {
-        category: '総合',
+        category: comp('overall'),
         rank: supersBundleOverallRank?.rank,
         percentage: supersBundleOverallRank?.topPercentage
       },
@@ -128,7 +98,7 @@ export default async function GradeDisplay({
         <div className="flex flex-col items-center justify-center h-full gap-4">
           <div className="text-center">
             <h2 className="text-lg lg:text-xl font-bold mb-4">
-              スパチャグレード
+              {feat('supersGrade')}
             </h2>
             <div
               className={`text-box-trim text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight py-6 px-18 rounded-lg ${gradeColor}`}
@@ -141,21 +111,25 @@ export default async function GradeDisplay({
               </p>
             ) : null}
             <div className="mt-4 text-xs text-muted-foreground max-w-xs mx-auto">
-              <p>PeakX AIによる参考値です</p>
+              <p>{feat('notice1')}</p>
             </div>
           </div>
 
           <Tabs defaultValue="rankings" className="w-full mt-4">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="rankings">ランキング</TabsTrigger>
-              <TabsTrigger value="grades">グレード表</TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="rankings">
+                {comp('name')}
+              </TabsTrigger>
+              <TabsTrigger className="cursor-pointer" value="grades">
+                {feat('gradesTable')}
+              </TabsTrigger>
             </TabsList>
             <TabsContent value="rankings" className="mt-2">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>カテゴリ</TableHead>
-                    <TableHead className="text-right">順位</TableHead>
+                    <TableHead>{comp('rankingType')}</TableHead>
+                    <TableHead className="text-right">{comp('rank')}</TableHead>
                     <TableHead className="text-right">
                       {feat('top')} X%
                     </TableHead>
@@ -170,11 +144,13 @@ export default async function GradeDisplay({
                           <>
                             {item.rank.toLocaleString()}
                             <span className="text-xs text-muted-foreground">
-                              位
+                              {global(`ranking.place`, { rank: item.rank })}
                             </span>
                           </>
                         ) : (
-                          <span className="text-muted-foreground">圏外</span>
+                          <span className="text-muted-foreground">
+                            {comp('unranked')}
+                          </span>
                         )}
                       </TableCell>
                       <TableCell className="text-right">
@@ -200,9 +176,9 @@ export default async function GradeDisplay({
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>グレード</TableHead>
+                    <TableHead>{feat('name')}</TableHead>
                     <TableHead className="text-right">
-                      パーセンテージ範囲
+                      {feat('percentageRange')}
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -224,12 +200,8 @@ export default async function GradeDisplay({
               </Table>
 
               <div className="mt-4 space-y-2 text-sm text-muted-foreground pt-4">
-                <p>
-                  この評価はPeakX独自のアルゴリズムによる参考値であり、チャンネルの絶対的な価値や収益性を保証するものではありません。
-                </p>
-                <p>
-                  ライブ中のスーパーチャット、スーパーステッカーの合計金額をもとに算出しています。
-                </p>
+                <p>{feat('notice2')}</p>
+                <p>{feat('supers.notice1')}</p>
               </div>
             </TabsContent>
           </Tabs>

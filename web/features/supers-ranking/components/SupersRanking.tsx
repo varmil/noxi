@@ -60,6 +60,7 @@ export default async function SupersRanking({
   const [
     format,
     global,
+    comp,
     feat,
     overallRanking,
     genderRanking,
@@ -71,6 +72,7 @@ export default async function SupersRanking({
   ] = await Promise.all([
     getFormatter(),
     getTranslations('Global'),
+    getTranslations('Components.ranking.base'),
     getTranslations('Features.supersRanking'),
     getSupersRankings(currentParams('overall')),
     getSupersRankings(currentParams('gender')),
@@ -124,8 +126,8 @@ export default async function SupersRanking({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>{feat('rankingType')}</TableHead>
-                <TableHead className="text-center">{feat('rank')}</TableHead>
+                <TableHead>{comp('rankingType')}</TableHead>
+                <TableHead className="text-center">{comp('rank')}</TableHead>
                 <TableHead className="text-right">
                   {feat('comparedToPreviousPeriod')}
                 </TableHead>
@@ -138,7 +140,7 @@ export default async function SupersRanking({
               {/* OVERALL: period */}
               <TableRow>
                 <LinkCell className="font-medium" period={period}>
-                  <Underline>{feat('overall')}</Underline>
+                  <Underline>{comp('overall')}</Underline>
                 </LinkCell>
                 <RankCell
                   rank={overallRanking?.rank}

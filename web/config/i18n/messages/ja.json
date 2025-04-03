@@ -322,6 +322,14 @@
       "page": "ページ"
     },
     "ranking": {
+      "base": {
+        "name": "ランキング",
+        "rankingType": "カテゴリ",
+        "rank": "順位",
+        "overall": "総合",
+        "unranked": "圏外",
+        "counting": "集計中"
+      },
       "hoverCard": {
         "title": "期間の詳細",
         "period": "集計期間",
@@ -404,7 +412,16 @@
       }
     },
     "grade": {
-      "top": "上位"
+      "name": "グレード",
+      "supersGrade": "スパチャグレード",
+      "top": "上位",
+      "gradesTable": "グレード表",
+      "percentageRange": "パーセンテージ範囲",
+      "notice1": "PeakX AIによる参考値です",
+      "notice2": "この評価はPeakX独自のアルゴリズムによる参考値であり、チャンネルの絶対的な価値や収益性を保証するものではありません。",
+      "supers": {
+        "notice1": "ライブ中のスーパーチャット、スーパーステッカーの合計金額をもとに算出しています。"
+      }
     },
     "group": {
       "overview": {
@@ -510,12 +527,7 @@
     "supersRanking": {
       "title": "{period}のランキング",
       "description": "スパチャ + スーパーステッカー合計の順位。「総合」「性別」「所属事務所」の3種類です。",
-      "rankingType": "カテゴリ",
-      "rank": "順位",
       "comparedToPreviousPeriod": "前期間比",
-      "overall": "総合",
-      "unranked": "圏外",
-      "counting": "集計中",
       "more": "Top20を見る"
     },
 
