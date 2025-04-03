@@ -30,9 +30,9 @@ export const getGradeColor = (grade?: GradeString): string => {
     case 'S':
       return 'bg-blue-600 text-white'
     case 'A':
-      return 'bg-green-600 text-white'
+      return 'bg-green-700 text-white'
     case 'B':
-      return 'bg-yellow-600 text-white'
+      return 'bg-yellow-700 text-white'
     case 'C':
       return 'bg-gray-600 text-white'
     default:
