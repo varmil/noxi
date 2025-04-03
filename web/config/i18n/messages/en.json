@@ -246,10 +246,10 @@
               "description": "Check out user comments on this live stream! Don't miss out on the popular moments on {channel}."
             }
           },
-          "relatedVideos": {
+          "concurrentViewers": {
             "metadata": {
-              "title": "{channel} {title} - Related Videos",
-              "description": "Discover related YouTube videos for {channel}'s {title}. Explore more VTuber live streams and trending video insights."
+              "title": "{channel} {title} - Concurrent Viewers",
+              "description": "Check the number of concurrent viewers for {channel}'s {title}."
             }
           },
           "button": {
@@ -459,9 +459,9 @@
         "title": "List of comments posted on the video",
         "notice": "Once the live stream ends, it will begin tallying user comments."
       },
-      "relatedVideos": {
-        "nav": "Related videos",
-        "title": "List of related videos"
+      "concurrentViewers": {
+        "nav": "Concurrent viewers",
+        "title": "Concurrent viewers"
       }
     },
 

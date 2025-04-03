@@ -3,24 +3,24 @@ import LiveIdBasePage, {
   generateBaseMetadata,
   LiveIdBasePageProps
 } from '../_components/page/LiveIdBasePage'
-import { LiveIdRelatedVideosTemplate } from './_components/LiveIdRelatedVideosTemplate'
+import { LiveIdConcurrentViewersTemplate } from './_components/LiveIdConcurrentViewersTemplate'
 
 type Props = LiveIdBasePageProps
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateBaseMetadata({
     ...props,
-    namespace: 'Page.youtube.live.id.relatedVideos.metadata'
+    namespace: 'Page.youtube.live.id.concurrentViewers.metadata'
   })
 }
 
-export default async function YoutubeLiveIdRelatedVideosPage(
+export default async function YoutubeLiveIdConcurrentViewersPage(
   props: LiveIdBasePageProps
 ) {
   const { videoId } = await props.params
   return (
     <LiveIdBasePage {...props}>
-      <LiveIdRelatedVideosTemplate videoId={videoId} />
+      <LiveIdConcurrentViewersTemplate videoId={videoId} />
     </LiveIdBasePage>
   )
 }

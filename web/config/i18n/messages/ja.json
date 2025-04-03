@@ -246,10 +246,10 @@
               "description": "このライブ配信のユーザーコメントをチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
             }
           },
-          "relatedVideos": {
+          "concurrentViewers": {
             "metadata": {
-              "title": "{channel} {title}の関連動画一覧",
-              "description": "{channel} {title}に関連するYouTube動画を一覧で紹介。さらに多くのVTuberライブ配信や注目の動画情報をチェックできます。"
+              "title": "{channel} {title}の同接数",
+              "description": "このライブ配信の同接数をチェック！{channel} {title}"
             }
           },
           "button": {
@@ -459,9 +459,9 @@
         "title": "動画に投稿されたコメント一覧",
         "notice": "ライブが終了するとユーザーコメントの集計が開始されます"
       },
-      "relatedVideos": {
-        "nav": "関連動画",
-        "title": "関連動画一覧"
+      "concurrentViewers": {
+        "nav": "同接数",
+        "title": "同接数"
       }
     },
 

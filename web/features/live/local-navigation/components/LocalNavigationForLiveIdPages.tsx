@@ -26,12 +26,12 @@ export default function LocalNavigationForLiveIdPages({
           href: `${basePath}/earnings`
         },
         {
-          name: commentsTab, // Server Component の結果を挿入,
-          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`]
+          name: t('concurrentViewers.nav'),
+          href: `${basePath}/concurrent-viewers`
         },
         {
-          name: t('relatedVideos.nav'),
-          href: `${basePath}/related-videos`
+          name: commentsTab, // Server Component の結果を挿入,
+          href: [`${basePath}/super-chat/comments`, `${basePath}/comments`]
         }
       ].filter(e => !!e)}
       className="w-full border-b mb-8"
