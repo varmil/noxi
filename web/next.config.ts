@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // 2025/04/03 Delete Related Videos
+      {
+        source: '/:locale/youtube/live/:id/related-videos',
+        destination: '/:locale/youtube/live/:id',
+        permanent: true
+      },
       // 2025/02/02 Super Chat --> Earnings (/live/:id/super-chat)
       {
         source: '/:locale/youtube/live/:id/super-chat',
