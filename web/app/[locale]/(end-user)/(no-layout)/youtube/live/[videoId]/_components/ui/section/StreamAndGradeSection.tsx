@@ -18,7 +18,7 @@ export default function StreamAndGradeSection({
       </div>
 
       <div className="hidden lg:flex lg:basis-[350px] xl:basis-[400px]">
-        <GradeDisplay className="w-full" />
+        <GradeDisplay videoId={videoId} className="w-full" />
       </div>
     </section>
   )

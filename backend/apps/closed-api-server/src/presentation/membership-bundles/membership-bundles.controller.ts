@@ -2,7 +2,6 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  NotFoundException,
   Param,
   Query,
   UseInterceptors

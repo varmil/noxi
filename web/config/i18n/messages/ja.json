@@ -403,6 +403,9 @@
         "nav": "FAQ"
       }
     },
+    "grade": {
+      "top": "上位"
+    },
     "group": {
       "overview": {
         "nav": "概要"

@@ -97,12 +97,8 @@ export class SupersBundlesController {
     @Param('id') id: string,
     @Query() dto: GetSupersBundleRank
   ) {
-    const rank = await this.supersBundlesService.findRank({
+    return await this.supersBundlesService.findRank({
       where: { videoId: new VideoId(id), rankingType: dto.toRankingType() }
     })
-    if (!rank) {
-      throw new NotFoundException(`bundle-rank not found for ${id}`)
-    }
-    return rank
   }
 }

@@ -27,7 +27,7 @@ async function Overview({
   return (
     <section className={`${className ?? ''}`}>
       <div className="lg:hidden">
-        <GradeDisplay />
+        <GradeDisplay videoId={videoId} />
       </div>
 
       <StreamBasicInfo stream={stream} />

@@ -403,6 +403,9 @@
         "nav": "FAQ"
       }
     },
+    "grade": {
+      "top": "Top"
+    },
     "group": {
       "overview": {
         "nav": "Overview"

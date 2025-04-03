@@ -1,6 +1,4 @@
-'use client'
-
-import { useState } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import {
@@ -12,9 +10,13 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { getChannel } from 'apis/youtube/getChannel'
+import { getStream } from 'apis/youtube/getStream'
+import { getSupersBundleRank } from 'apis/youtube/getSupersBundleRank'
 
 // グレードの計算関数
-const calculateGrade = (percentage: number): string => {
+const calculateGrade = (percentage?: number): string | undefined => {
+  if (percentage === undefined) return 'E'
   if (percentage <= 0.1) return 'SS+'
   if (percentage <= 1) return 'SS'
   if (percentage <= 5) return 'S+'
@@ -25,7 +27,7 @@ const calculateGrade = (percentage: number): string => {
 }
 
 // グレードの色を決定する関数
-const getGradeColor = (grade: string): string => {
+const getGradeColor = (grade?: string): string => {
   switch (grade) {
     case 'SS+':
       return 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
@@ -57,20 +59,63 @@ const GRADE_RANGES = [
   { grade: 'C', min: '50.0', max: '100.0' }
 ]
 
-// サンプルデータ
-const sampleData = {
-  videoId: 'g8ixGHBy9ls',
-  title: '【雑談】今日も元気にお話しましょう！',
-  thumbnail: '/placeholder.svg?height=720&width=1280',
-  rankings: [
-    { category: '総合', rank: 1234, percentage: 0.06 },
-    { category: '男性', rank: 634, percentage: 12.6 },
-    { category: 'にじさんじ', rank: 234, percentage: 1.6 }
-  ]
-}
+export default async function GradeDisplay({
+  videoId,
+  className
+}: {
+  videoId: string
+  className?: string
+}) {
+  const [
+    global,
+    feat,
+    stream,
+    supersBundleOverallRank,
+    supersBundleGenderRank,
+    supersBundleGroupRank
+  ] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Features.grade'),
+    getStream(videoId),
+    getSupersBundleRank({
+      videoId,
+      rankingType: 'overall'
+    }),
+    getSupersBundleRank({
+      videoId,
+      rankingType: 'gender'
+    }),
+    getSupersBundleRank({
+      videoId,
+      rankingType: 'group'
+    })
+  ])
 
-export default function GradeDisplay({ className }: { className?: string }) {
-  const [data] = useState(sampleData)
+  const {
+    snippet: { channelId }
+  } = stream
+  const { peakX } = await getChannel(channelId)
+
+  const data = {
+    videoId,
+    rankings: [
+      {
+        category: '総合',
+        rank: supersBundleOverallRank?.rank,
+        percentage: supersBundleOverallRank?.topPercentage
+      },
+      {
+        category: global(`gender.${peakX.gender}`),
+        rank: supersBundleGenderRank?.rank,
+        percentage: supersBundleGenderRank?.topPercentage
+      },
+      {
+        category: global(`group.${peakX.group}`),
+        rank: supersBundleGroupRank?.rank,
+        percentage: supersBundleGroupRank?.topPercentage
+      }
+    ]
+  }
 
   // メインのパーセンテージ（総合カテゴリを使用）
   const mainPercentage = data.rankings[0].percentage
@@ -90,7 +135,11 @@ export default function GradeDisplay({ className }: { className?: string }) {
             >
               {grade}
             </div>
-            <p className="mt-2 text-lg">Top {mainPercentage}%</p>
+            {mainPercentage ? (
+              <p className="mt-2 text-lg">
+                {feat('top')} {mainPercentage.toFixed(1)}%
+              </p>
+            ) : null}
             <div className="mt-4 text-xs text-muted-foreground max-w-xs mx-auto">
               <p>PeakX AIによる参考値です</p>
             </div>
@@ -107,7 +156,9 @@ export default function GradeDisplay({ className }: { className?: string }) {
                   <TableRow>
                     <TableHead>カテゴリ</TableHead>
                     <TableHead className="text-right">順位</TableHead>
-                    <TableHead className="text-right">Top X%</TableHead>
+                    <TableHead className="text-right">
+                      {feat('top')} X%
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -115,17 +166,30 @@ export default function GradeDisplay({ className }: { className?: string }) {
                     <TableRow key={index}>
                       <TableCell>{item.category}</TableCell>
                       <TableCell className="text-right">
-                        {item.rank.toLocaleString()}位
+                        {item.rank ? (
+                          <>
+                            {item.rank.toLocaleString()}
+                            <span className="text-xs text-muted-foreground">
+                              位
+                            </span>
+                          </>
+                        ) : (
+                          <span className="text-muted-foreground">圏外</span>
+                        )}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Badge
-                          variant="outline"
-                          className={getGradeColor(
-                            calculateGrade(item.percentage)
-                          )}
-                        >
-                          {item.percentage}%
-                        </Badge>
+                        {item.percentage ? (
+                          <Badge
+                            variant="outline"
+                            className={getGradeColor(
+                              calculateGrade(item.percentage)
+                            )}
+                          >
+                            {item.percentage.toFixed(1)}%
+                          </Badge>
+                        ) : (
+                          <span className="text-muted-foreground">---</span>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}
