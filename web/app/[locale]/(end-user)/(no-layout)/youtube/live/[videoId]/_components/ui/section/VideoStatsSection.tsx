@@ -43,12 +43,19 @@ export default async function VideoStatsSection({
         <StatsSuperChatTotalAmountCard
           amountMicros={supersBundle?.amountMicros}
         />
+
         <StatsMembershipAmountCard
           amountMicros={membershipBundle?.amountMicros}
         />
+
         <StatsMembershipCountCard count={membershipBundle?.count ?? 0} />
+
         <StatsPeakConcurrentCard count={peakConcurrentViewers} />
-        <StatsAvgConcurrentCard count={avgConcurrentViewers} />
+
+        {/* ライブ中は常に０で、終了後にバッチで計算するため */}
+        {avgConcurrentViewers > 0 ? (
+          <StatsAvgConcurrentCard count={avgConcurrentViewers} />
+        ) : null}
       </Suspense>
     </div>
   )
