@@ -322,6 +322,14 @@
       "page": "Page"
     },
     "ranking": {
+      "base": {
+        "name": "Ranking",
+        "rankingType": "Category",
+        "rank": "Rank",
+        "overall": "Overall",
+        "unranked": "Unranked",
+        "counting": "counting"
+      },
       "hoverCard": {
         "title": "Period details",
         "period": "Collection period",
@@ -404,7 +412,16 @@
       }
     },
     "grade": {
-      "top": "Top"
+      "name": "Grade",
+      "supersGrade": "Super Chat Grade",
+      "top": "Top",
+      "gradesTable": "Grades Table",
+      "percentageRange": "Percentage Range",
+      "notice1": "Reference value based on PeakX AI",
+      "notice2": "This rating is a reference value based on PeakX's proprietary algorithm, and does not guarantee the absolute value or profitability of the channel.",
+      "supers": {
+        "notice1": "Calculated based on the total amount of Super Chats and Super Stickers during the live stream."
+      }
     },
     "group": {
       "overview": {
@@ -510,12 +527,7 @@
     "supersRanking": {
       "title": "{period} Ranking",
       "description": "Ranking based on total amount of Super Chat & Sticker. All VTubers are ranked in 3 categories: \"Overall\", \"Gender\", and \"Group\".",
-      "rankingType": "Category",
-      "rank": "Rank",
       "comparedToPreviousPeriod": "vs. Previous Period",
-      "overall": "Overall",
-      "unranked": "Unranked",
-      "counting": "counting",
       "more": "See Top 20"
     },
 

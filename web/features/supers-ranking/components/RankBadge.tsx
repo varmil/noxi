@@ -53,10 +53,10 @@ export default function RankBadge({ rank }: Props) {
 }
 
 function UnrankedBadge() {
-  const feat = useTranslations('Features.supersRanking')
+  const comp = useTranslations('Components.ranking.base')
   return (
     <div className="flex w-16 h-16 items-center justify-center text-muted-foreground">
-      {feat('unranked')}
+      {comp('unranked')}
     </div>
   )
 }
