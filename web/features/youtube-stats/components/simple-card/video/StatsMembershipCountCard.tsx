@@ -7,20 +7,21 @@ import {
 } from 'components/styles/card/StatsCard'
 
 type Props = {
-  count: number | string
+  count: number
   className?: string
 }
 
-export default function StatsChatRateCard({
+export default function StatsMembershipCountCard({
   count,
   className
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.card')
-  const c = typeof count === 'number' ? count.toFixed(1) : count
   return (
     <StatsCard className={className}>
-      <StatsCardHeader>Chat Rate</StatsCardHeader>
-      <StatsCardContent subText={t('chatRate')}>{c}</StatsCardContent>
+      <StatsCardHeader>Membership Count</StatsCardHeader>
+      <StatsCardContent subText={t('membershipCount')}>
+        {count.toLocaleString()}
+      </StatsCardContent>
     </StatsCard>
   )
 }

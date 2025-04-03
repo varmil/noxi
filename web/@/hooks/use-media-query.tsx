@@ -17,3 +17,23 @@ export function useMediaQuery(query: string) {
 
   return value
 }
+
+export function useIsXS() {
+  return useMediaQuery('(max-width: 639px)')
+}
+
+export function useIsSM() {
+  return useMediaQuery('(min-width: 640px)')
+}
+
+export function useIsMD() {
+  return useMediaQuery('(min-width: 768px)')
+}
+
+export function useIsLG() {
+  return useMediaQuery('(min-width: 1024px)')
+}
+
+export function useIsXL() {
+  return useMediaQuery('(min-width: 1280px)')
+}

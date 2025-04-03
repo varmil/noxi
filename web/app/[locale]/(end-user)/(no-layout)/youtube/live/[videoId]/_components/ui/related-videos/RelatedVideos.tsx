@@ -1,5 +1,4 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
 import Bullet from 'components/styles/Bullet'
 import LiveBadge from 'components/styles/badge/LiveBadge'

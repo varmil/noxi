@@ -54,10 +54,6 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
               </span>
             </div>
           )}
-          {/* <div className="flex items-center gap-x-2">
-            <BottomBarIcon Icon={MessageSquare} />
-            <span>{chatMessages ? chatMessages.toLocaleString() : '--'}</span>
-          </div> */}
           <div className="flex-1" />
           <BottomBarIcon className="sm:hidden" Icon={Rotate180Button} />
           <BottomBarIcon Icon={MinimizeButton} />

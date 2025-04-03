@@ -27,7 +27,7 @@ export async function generateBaseMetadata(
       | 'Page.youtube.live.id.earnings.metadata'
       | 'Page.youtube.live.id.superChat.comments.metadata'
       | 'Page.youtube.live.id.comments.metadata'
-      | 'Page.youtube.live.id.relatedVideos.metadata'
+      | 'Page.youtube.live.id.concurrentViewers.metadata'
   }
 ): Promise<Metadata> {
   const { locale, videoId } = await props.params

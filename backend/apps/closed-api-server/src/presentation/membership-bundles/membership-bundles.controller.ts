@@ -2,7 +2,6 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  NotFoundException,
   Param,
   Query,
   UseInterceptors
@@ -37,12 +36,8 @@ export class MembershipBundlesController {
 
   @Get(':id')
   async getMembershipBundle(@Param('id') id: string) {
-    const membershipBundle = await this.membershipBundlesService.findOne({
+    return await this.membershipBundlesService.findOne({
       where: { videoId: new VideoId(id) }
     })
-    if (!membershipBundle) {
-      throw new NotFoundException(`membershipBundle not found for ${id}`)
-    }
-    return membershipBundle
   }
 }

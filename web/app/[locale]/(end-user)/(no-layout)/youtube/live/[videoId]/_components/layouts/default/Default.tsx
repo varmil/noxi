@@ -1,8 +1,8 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import { useGlobalOpenLiveChat } from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_hooks/youtubeLiveStates'
-import { PageXSMX } from 'components/page'
+import { useIsLG } from '@/hooks/use-media-query'
+import { useGlobalOpenLiveChat } from '../../../_hooks/youtubeLiveStates'
 
 /** xs:メインコンテナ, lg:左コンテナ */
 export function MainContainer({ children }: PropsWithChildren) {
@@ -16,12 +16,16 @@ export function MainContainer({ children }: PropsWithChildren) {
 /** xs:チャットコンテナ, lg:hidden */
 export function XSChatContainer({ children }: PropsWithChildren) {
   const { isOpenLiveChat } = useGlobalOpenLiveChat()
+  const isLG = useIsLG()
+
+  if (isLG) {
+    return null
+  }
+
   if (isOpenLiveChat) {
     return (
       // Override space-y-4 with mt-0 here
-      <section
-        className={`relative lg:hidden min-h-80 h-[calc(100vh-26rem)] ${PageXSMX} mt-0!`}
-      >
+      <section className={`relative min-h-80 h-[calc(100vh-26rem)] mt-0!`}>
         {children}
       </section>
     )
@@ -33,12 +37,16 @@ export function XSChatContainer({ children }: PropsWithChildren) {
 /** xs:hidden, lg:チャットコンテナ */
 export function LgChatContainer({ children }: PropsWithChildren) {
   const { isOpenLiveChat } = useGlobalOpenLiveChat()
+  const isLG = useIsLG()
+
+  if (!isLG) {
+    return null
+  }
+
   if (isOpenLiveChat) {
     return (
-      <section className="hidden lg:block lg:relative lg:w-[400px] lg:h-screen lg:px-0">
-        <div className="lg:fixed lg:w-[400px] lg:h-full lg:top-0 lg:bottom-0">
-          {children}
-        </div>
+      <section className="relative w-[400px] h-screen px-0">
+        <div className="fixed w-[400px] h-full top-0 bottom-0">{children}</div>
       </section>
     )
   } else {

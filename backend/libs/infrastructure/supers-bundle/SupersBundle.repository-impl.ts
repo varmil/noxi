@@ -136,9 +136,9 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   findRank: SupersBundleRepository['findRank'] = async ({
     where: { videoId, rankingType }
   }) => {
-    const result = await this.prismaInfraService.$queryRaw<
-      { videoId: string; rank: number; topPercentage: number }[]
-    >`
+    const result = await this.prismaInfraService.$queryRawUnsafe<
+      { videoId: string; rank: number; topPercentage: object }[]
+    >(`
       WITH "Ranked" AS (
           SELECT 
               "videoId",
@@ -149,16 +149,16 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       )
       SELECT 
           "videoId",
-          rank,
+          rank::int,
           (rank * 100.0 / "totalCount") AS "topPercentage"
       FROM "Ranked"
-      WHERE "videoId" = ${videoId.get()};
-    `
+      WHERE "videoId" = '${videoId.get()}';
+    `)
     if (!result[0]) return null
     return new VideoRank({
       videoId,
       rank: new Rank(result[0].rank),
-      topPercentage: new TopPercentage(result[0].topPercentage)
+      topPercentage: new TopPercentage(Number(result[0].topPercentage))
     })
   }
 
@@ -167,31 +167,31 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   }) => {
     if (!videoIds.length) return new VideoRanks([])
 
-    const result = await this.prismaInfraService.$queryRaw<
-      { videoId: string; rank: number; topPercentage: number }[]
-    >`
+    const result = await this.prismaInfraService.$queryRawUnsafe<
+      { videoId: string; rank: number; topPercentage: object }[]
+    >(`
       WITH "Ranked" AS (
           SELECT 
               "videoId",
               ${queryRankOver(rankingType)}
           FROM "YoutubeStreamSupersBundle" ysb
           JOIN "Channel" c ON ysb."channelId" = c."id"
-          WHERE "amountMicros" > 0
+          WHERE ysb."amountMicros" > 0
       )
       SELECT 
           "videoId",
-          rank,
+          rank::int,
           (rank * 100.0 / "totalCount") AS "topPercentage"
       FROM "Ranked"
-      WHERE "videoId" IN (${videoIds.map(e => e.get()).join(',')});
-    `
+      WHERE "videoId" IN (${videoIds.map(e => `'${e.get()}'`).join(',')});
+    `)
     return new VideoRanks(
       result.map(
         e =>
           new VideoRank({
             videoId: new VideoId(e.videoId),
             rank: new Rank(e.rank),
-            topPercentage: new TopPercentage(e.topPercentage)
+            topPercentage: new TopPercentage(Number(e.topPercentage))
           })
       )
     )

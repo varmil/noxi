@@ -1,6 +1,6 @@
 import {
   SupersBundlesSchema,
-  responseSchema
+  listSchema
 } from 'apis/youtube/schema/supersBundleSchema'
 import { GroupString } from 'config/constants/Group'
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
@@ -80,7 +80,7 @@ export async function getSupersBundles(
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
-  const data = responseSchema.parse(await res.json())
+  const data = listSchema.parse(await res.json())
   return data.list
 }
 

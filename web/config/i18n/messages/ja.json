@@ -246,10 +246,10 @@
               "description": "このライブ配信のユーザーコメントをチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
             }
           },
-          "relatedVideos": {
+          "concurrentViewers": {
             "metadata": {
-              "title": "{channel} {title}の関連動画一覧",
-              "description": "{channel} {title}に関連するYouTube動画を一覧で紹介。さらに多くのVTuberライブ配信や注目の動画情報をチェックできます。"
+              "title": "{channel} {title}の同接数",
+              "description": "このライブ配信の同接数をチェック！{channel} {title}"
             }
           },
           "button": {
@@ -403,6 +403,9 @@
         "nav": "FAQ"
       }
     },
+    "grade": {
+      "top": "上位"
+    },
     "group": {
       "overview": {
         "nav": "概要"
@@ -459,9 +462,9 @@
         "title": "動画に投稿されたコメント一覧",
         "notice": "ライブが終了するとユーザーコメントの集計が開始されます"
       },
-      "relatedVideos": {
-        "nav": "関連動画",
-        "title": "関連動画一覧"
+      "concurrentViewers": {
+        "nav": "同接数",
+        "title": "同接数"
       }
     },
 
@@ -554,9 +557,12 @@
         "card": {
           "chatRate": "チャットで送信された 1 分あたりのメッセージ数",
           "peakConcurrent": "最大同時視聴者数",
+          "avgConcurrent": "平均同時視聴者数",
           "totalViews": "動画の再生回数",
           "totalSubscribers": "チャンネル登録者数",
-          "totalSuperChats": "スパチャ合計金額"
+          "totalSuperChats": "スパチャ合計金額",
+          "membershipCount": "ライブ中のメンバーシップ加入数",
+          "membershipAmount": "このライブで発生したメンバーシップ収益"
         },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日"

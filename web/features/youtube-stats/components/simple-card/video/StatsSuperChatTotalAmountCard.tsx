@@ -1,31 +1,26 @@
 import { PropsWithoutRef } from 'react'
 import { JapaneseYen } from 'lucide-react'
-import { getFormatter, getTranslations } from 'next-intl/server'
-import { getSuperChats } from 'apis/youtube/getSuperChats'
-import { SuperChatsSchema } from 'apis/youtube/schema/superChatSchema'
+import { getTranslations } from 'next-intl/server'
 import {
   StatsCardHeader,
   StatsCardContent,
   StatsCard
 } from 'components/styles/card/StatsCard'
-import { calculateTotalInJPY } from '../../../../utils/exchange-rates'
+import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 type Props = {
-  data: SuperChatsSchema
+  amountMicros?: bigint
   className?: string
 }
 
 export default async function StatsSuperChatTotalAmountCard({
-  data,
+  amountMicros,
   className
 }: PropsWithoutRef<Props>) {
-  const [t, formatter] = await Promise.all([
-    getTranslations('Features.youtube.stats.card'),
-    getFormatter()
+  const [t] = await Promise.all([
+    getTranslations('Features.youtube.stats.card')
   ])
-  const total = formatter.number(
-    BigInt((await calculateTotalInJPY(data)).toFixed(0))
-  )
+  const total = formatMicrosAsRoundedAmount(amountMicros ?? BigInt(0))
 
   return (
     <StatsCard className={className}>

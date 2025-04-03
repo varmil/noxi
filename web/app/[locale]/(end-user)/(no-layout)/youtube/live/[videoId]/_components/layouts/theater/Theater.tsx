@@ -28,7 +28,7 @@ export function Theater({
 
   const cClass = `flex ${rotateClass} \
        w-[100vh] h-[100vw] transform-gpu \
-       sm:w-full sm:h-screen sm:transform-none sm:mt-0 sm:ml-0`
+       sm:rotate-0 sm:w-full sm:h-screen sm:transform-none sm:mt-0 sm:ml-0`
 
   return (
     <ResizablePanelGroup {...props}>
