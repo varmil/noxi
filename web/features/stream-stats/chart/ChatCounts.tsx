@@ -38,6 +38,7 @@ const chartConfig = {
   }
 } satisfies ChartConfig
 
+/** @deprecated delete me */
 export default function ChatCounts({
   chatCounts,
   stream

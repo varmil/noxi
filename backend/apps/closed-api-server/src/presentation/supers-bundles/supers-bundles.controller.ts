@@ -85,6 +85,13 @@ export class SupersBundlesController {
     return sum
   }
 
+  @Get(':id')
+  async getSupersBundle(@Param('id') id: string) {
+    return await this.supersBundlesService.findOne({
+      where: { videoId: new VideoId(id) }
+    })
+  }
+
   @Get(':id/rank')
   async getSupersBundleRank(
     @Param('id') id: string,

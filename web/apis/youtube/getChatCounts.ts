@@ -8,6 +8,7 @@ type Params = {
   videoId: string
 }
 
+/** @deprecated delete me */
 export async function getChatCounts({
   videoId
 }: Params): Promise<ChatCountsSchema> {

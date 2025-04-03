@@ -12,7 +12,7 @@ export const schema = z.object({
   actualEndTime: z.coerce.date().optional(),
   group: z.enum(GroupStrings)
 })
-export const responseSchema = z.object({
+export const listSchema = z.object({
   list: z.array(schema)
 })
 

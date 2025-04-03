@@ -10,8 +10,8 @@ import {
   LgChatContainer,
   XSChatContainer
 } from '../layouts/default/Default'
-import RelatedVideosSection from '../ui/section/RelatedVideosSection'
 import StreamAndGradeSection from '../ui/section/StreamAndGradeSection'
+import VideoStatsSection from '../ui/section/VideoStatsSection'
 import EmbedLiveChat from '../ui/stream/EmbedLiveChat'
 
 type Props = {
@@ -54,8 +54,8 @@ export default async function DefaultModeTemplate({
           </XSChatContainer>
 
           {/* max-w-[1536px] */}
-          <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 gap-x-6 @4xl:grid-cols-5">
-            <div className="@xs:col-span-full @4xl:col-span-3">
+          <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 gap-x-6 @4xl:grid-cols-[1fr_350px] @6xl:grid-cols-[1fr_400px]">
+            <div className="">
               <LocalNavigationForLiveIdPages
                 videoId={videoId}
                 commentsTab={<LocalNavCommentsTab videoId={videoId} />}
@@ -67,7 +67,7 @@ export default async function DefaultModeTemplate({
             </div>
 
             {/* lg+ */}
-            <RelatedVideosSection channelId={channelId} />
+            <VideoStatsSection stream={stream} />
           </section>
         </Page>
       </MainContainer>

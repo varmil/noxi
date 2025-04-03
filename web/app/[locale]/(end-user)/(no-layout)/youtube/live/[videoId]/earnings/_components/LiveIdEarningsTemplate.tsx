@@ -3,9 +3,10 @@ import { getTranslations } from 'next-intl/server'
 import { ChartConfig } from '@/components/ui/chart'
 import { getStream } from 'apis/youtube/getStream'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
+import { getSupersBundle } from 'apis/youtube/getSupersBundle'
 import { LiveSuperChatChart } from 'features/live/earnings/components/LiveSuperChatChart'
 import { prepareChartData } from 'features/live/earnings/utils/super-chat-chart'
-import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/simple-card/StatsSuperChatTotalAmountCard'
+import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/simple-card/video/StatsSuperChatTotalAmountCard'
 
 type Props = { videoId: string }
 
@@ -19,14 +20,15 @@ export async function LiveIdEarningsTemplate({
 }
 
 async function Earnings({ videoId }: { videoId: string }) {
-  const [feat, stream, chats] = await Promise.all([
+  const [feat, stream, chats, bundle] = await Promise.all([
     getTranslations('Features.live.earnings'),
     getStream(videoId),
     getSuperChats({
       videoId,
       orderBy: [{ field: 'amountMicros', order: 'desc' }],
       limit: 2000
-    })
+    }),
+    getSupersBundle(videoId)
   ])
 
   const {
@@ -59,7 +61,10 @@ async function Earnings({ videoId }: { videoId: string }) {
 
   return (
     <section className="flex flex-col gap-8">
-      <StatsSuperChatTotalAmountCard data={chats} className="flex-1 grow" />
+      <StatsSuperChatTotalAmountCard
+        amountMicros={bundle?.amountMicros}
+        className="flex-1 grow"
+      />
       <LiveSuperChatChart data={chartData} config={chartConfig} />
     </section>
   )

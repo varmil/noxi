@@ -3,7 +3,7 @@ import { getStream } from 'apis/youtube/getStream'
 import { getViewerCounts } from 'apis/youtube/getViewerCounts'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import ViewerCounts from 'features/stream-stats/chart/ViewerCounts'
-import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/StatsPeakConcurrentCard'
+import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/video/StatsPeakConcurrentCard'
 
 type Props = { videoId: string }
 
