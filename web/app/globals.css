@@ -115,6 +115,10 @@
   content-visibility: visible;
 }
 
+@utility text-box-trim {
+  text-box: trim-both cap alphabetic;
+}
+
 @layer base {
   :root {
     --s-surface: 0%;
