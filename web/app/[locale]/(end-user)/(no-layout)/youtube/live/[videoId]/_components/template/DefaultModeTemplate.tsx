@@ -10,6 +10,8 @@ import {
   LgChatContainer,
   XSChatContainer
 } from '../layouts/default/Default'
+import MaximizeButton from '../ui/button/MaximizeButton'
+import OpenChatButton from '../ui/button/OpenChatButton'
 import StreamAndGradeSection from '../ui/section/StreamAndGradeSection'
 import VideoStatsSection from '../ui/section/VideoStatsSection'
 import EmbedLiveChat from '../ui/stream/EmbedLiveChat'
@@ -55,7 +57,7 @@ export default async function DefaultModeTemplate({
 
           {/* max-w-[1536px] */}
           <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 gap-x-6 @4xl:grid-cols-[1fr_350px] @6xl:grid-cols-[1fr_400px]">
-            <div className="">
+            <div>
               <LocalNavigationForLiveIdPages
                 videoId={videoId}
                 commentsTab={<LocalNavCommentsTab videoId={videoId} />}
@@ -67,7 +69,13 @@ export default async function DefaultModeTemplate({
             </div>
 
             {/* lg+ */}
-            <VideoStatsSection stream={stream} />
+            <div className="hidden @4xl:pt-3 @4xl:block">
+              <div className="flex items-center gap-x-2 pb-10">
+                <OpenChatButton className="flex-1" />
+                <MaximizeButton />
+              </div>
+              <VideoStatsSection stream={stream} />
+            </div>
           </section>
         </Page>
       </MainContainer>

@@ -1,6 +1,8 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, Suspense } from 'react'
 import { JapaneseYen } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import { getMembershipBundle } from 'apis/youtube/getMembershipBundle'
+import StatsCardSkeleton from 'components/skeleton/StatsCardSkeleton'
 import {
   StatsCardHeader,
   StatsCardContent,
@@ -9,16 +11,27 @@ import {
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 type Props = {
-  amountMicros?: bigint
+  videoId: string
   className?: string
 }
 
 export default function StatsMembershipAmountCard({
-  amountMicros,
+  videoId,
   className
 }: PropsWithoutRef<Props>) {
-  const t = useTranslations('Features.youtube.stats.card')
-  const total = formatMicrosAsRoundedAmount(amountMicros ?? BigInt(0))
+  return (
+    <Suspense fallback={<StatsCardSkeleton />}>
+      <Contents videoId={videoId} className={className} />
+    </Suspense>
+  )
+}
+
+async function Contents({ videoId, className }: PropsWithoutRef<Props>) {
+  const t = await getTranslations('Features.youtube.stats.card')
+  const membershipBundle = await getMembershipBundle(videoId)
+  const total = formatMicrosAsRoundedAmount(
+    membershipBundle?.amountMicros ?? BigInt(0)
+  )
 
   return (
     <StatsCard className={className}>

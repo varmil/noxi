@@ -1,5 +1,7 @@
-import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { PropsWithoutRef, Suspense } from 'react'
+import { getTranslations } from 'next-intl/server'
+import { getMembershipBundle } from 'apis/youtube/getMembershipBundle'
+import StatsCardSkeleton from 'components/skeleton/StatsCardSkeleton'
 import {
   StatsCardHeader,
   StatsCardContent,
@@ -7,15 +9,26 @@ import {
 } from 'components/styles/card/StatsCard'
 
 type Props = {
-  count: number
+  videoId: string
   className?: string
 }
 
 export default function StatsMembershipCountCard({
-  count,
+  videoId,
   className
 }: PropsWithoutRef<Props>) {
-  const t = useTranslations('Features.youtube.stats.card')
+  return (
+    <Suspense fallback={<StatsCardSkeleton />}>
+      <Contents videoId={videoId} className={className} />
+    </Suspense>
+  )
+}
+
+async function Contents({ videoId, className }: PropsWithoutRef<Props>) {
+  const t = await getTranslations('Features.youtube.stats.card')
+  const membershipBundle = await getMembershipBundle(videoId)
+  const count = membershipBundle?.count ?? 0
+
   return (
     <StatsCard className={className}>
       <StatsCardHeader>Membership Count</StatsCardHeader>

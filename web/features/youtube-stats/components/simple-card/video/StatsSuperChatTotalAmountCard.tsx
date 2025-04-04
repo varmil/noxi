@@ -1,6 +1,8 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, Suspense } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { getSupersBundle } from 'apis/youtube/getSupersBundle'
+import StatsCardSkeleton from 'components/skeleton/StatsCardSkeleton'
 import {
   StatsCardHeader,
   StatsCardContent,
@@ -9,19 +11,29 @@ import {
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 type Props = {
-  amountMicros?: bigint
+  videoId: string
   className?: string
 }
 
-export default async function StatsSuperChatTotalAmountCard({
-  amountMicros,
+export default function StatsSuperChatTotalAmountCard({
+  videoId,
   className
 }: PropsWithoutRef<Props>) {
-  const [t] = await Promise.all([
-    getTranslations('Features.youtube.stats.card')
-  ])
-  const total = formatMicrosAsRoundedAmount(amountMicros ?? BigInt(0))
+  return (
+    <Suspense fallback={<StatsCardSkeleton />}>
+      <Contents videoId={videoId} className={className} />
+    </Suspense>
+  )
+}
 
+async function Contents({ videoId, className }: PropsWithoutRef<Props>) {
+  const [t, supersBundle] = await Promise.all([
+    getTranslations('Features.youtube.stats.card'),
+    getSupersBundle(videoId)
+  ])
+  const total = formatMicrosAsRoundedAmount(
+    supersBundle?.amountMicros ?? BigInt(0)
+  )
   return (
     <StatsCard className={className}>
       <StatsCardHeader>Super Chat</StatsCardHeader>
