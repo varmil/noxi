@@ -94,14 +94,14 @@ export default async function GradeDisplay({
 
   return (
     <Card className={className}>
-      <CardContent className="p-6">
+      <CardContent className="py-4 px-6">
         <div className="flex flex-col items-center justify-center h-full gap-4">
           <div className="text-center">
             <h2 className="text-lg lg:text-xl font-bold mb-4">
               {feat('supersGrade')}
             </h2>
             <div
-              className={`text-box-trim text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight py-6 px-18 rounded-lg ${gradeColor}`}
+              className={`text-box-trim text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight py-6 px-14 lg:px-18 rounded-lg ${gradeColor}`}
             >
               {grade}
             </div>

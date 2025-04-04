@@ -27,17 +27,17 @@ export default function ChannelData({ channel }: { channel: ChannelSchema }) {
         date={new Date(basicInfo?.publishedAt).toISOString() ?? 'N/A'}
       />
 
-      <div className="col-span-2 flex items-center justify-center lg:hidden">
-        {isOpen ? null : (
+      {isOpen ? null : (
+        <div className="col-span-2 flex items-center justify-center lg:hidden">
           <Button
             variant="ghost"
             onClick={() => setIsOpen(true)}
             aria-label="Show more"
           >
-            <ChevronDown className="h-4 w-4" />
+            <ChevronDown className="size-4" />
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </>
   )
 }

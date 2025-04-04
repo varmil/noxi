@@ -20,15 +20,14 @@ export async function LiveIdEarningsTemplate({
 }
 
 async function Earnings({ videoId }: { videoId: string }) {
-  const [feat, stream, chats, bundle] = await Promise.all([
+  const [feat, stream, chats] = await Promise.all([
     getTranslations('Features.live.earnings'),
     getStream(videoId),
     getSuperChats({
       videoId,
       orderBy: [{ field: 'amountMicros', order: 'desc' }],
       limit: 2000
-    }),
-    getSupersBundle(videoId)
+    })
   ])
 
   const {
@@ -62,7 +61,7 @@ async function Earnings({ videoId }: { videoId: string }) {
   return (
     <section className="flex flex-col gap-8">
       <StatsSuperChatTotalAmountCard
-        amountMicros={bundle?.amountMicros}
+        videoId={videoId}
         className="flex-1 grow"
       />
       <LiveSuperChatChart data={chartData} config={chartConfig} />

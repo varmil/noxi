@@ -1,54 +1,40 @@
-import { Suspense } from 'react'
-import { Separator } from '@/components/ui/separator'
-import { getMembershipBundle } from 'apis/youtube/getMembershipBundle'
-import { getSupersBundle } from 'apis/youtube/getSupersBundle'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import RelatedVideosSkeleton from 'components/skeleton/RelatedVideosSkeleton'
+import ReadMore from 'app/[locale]/(end-user)/(no-layout)/youtube/live/[videoId]/_components/ui/section/ReadMore'
 import StatsAvgConcurrentCard from 'features/youtube-stats/components/simple-card/video/StatsAvgConcurrentCard'
 import StatsMembershipAmountCard from 'features/youtube-stats/components/simple-card/video/StatsMembershipAmountCard'
 import StatsMembershipCountCard from 'features/youtube-stats/components/simple-card/video/StatsMembershipCountCard'
 import StatsPeakConcurrentCard from 'features/youtube-stats/components/simple-card/video/StatsPeakConcurrentCard'
 import StatsSuperChatTotalAmountCard from 'features/youtube-stats/components/simple-card/video/StatsSuperChatTotalAmountCard'
-import MaximizeButton from '../button/MaximizeButton'
-import OpenChatButton from '../button/OpenChatButton'
 
-/**
- * LG 以上で表示
- *
- * TODO: Suspenseをこのファイル内で別コンポーネントに
- */
-export default async function VideoStatsSection({
+export default function VideoStatsSection({
   stream
 }: {
   stream: StreamSchema
 }) {
+  return (
+    <section className="flex flex-col gap-2">
+      <Sections stream={stream} />
+    </section>
+  )
+}
+
+function Sections({ stream }: { stream: StreamSchema }) {
   const {
     videoId,
     metrics: { peakConcurrentViewers, avgConcurrentViewers }
   } = stream
 
-  const [supersBundle, membershipBundle] = await Promise.all([
-    getSupersBundle(videoId),
-    getMembershipBundle(videoId)
-  ])
-
   return (
-    <div className="hidden @4xl:pt-2 @4xl:flex @4xl:flex-col @4xl:gap-y-4">
-      <div className="flex items-center gap-x-2 pb-7">
-        <OpenChatButton className="flex-1" />
-        <MaximizeButton />
-      </div>
+    <>
+      <StatsSuperChatTotalAmountCard
+        videoId={videoId}
+        className="col-span-full"
+      />
 
-      <Suspense fallback={<RelatedVideosSkeleton />}>
-        <StatsSuperChatTotalAmountCard
-          amountMicros={supersBundle?.amountMicros}
-        />
+      <ReadMore>
+        <StatsMembershipAmountCard videoId={videoId} />
 
-        <StatsMembershipAmountCard
-          amountMicros={membershipBundle?.amountMicros}
-        />
-
-        <StatsMembershipCountCard count={membershipBundle?.count ?? 0} />
+        <StatsMembershipCountCard videoId={videoId} />
 
         <StatsPeakConcurrentCard count={peakConcurrentViewers} />
 
@@ -56,7 +42,7 @@ export default async function VideoStatsSection({
         {avgConcurrentViewers > 0 ? (
           <StatsAvgConcurrentCard count={avgConcurrentViewers} />
         ) : null}
-      </Suspense>
-    </div>
+      </ReadMore>
+    </>
   )
 }
