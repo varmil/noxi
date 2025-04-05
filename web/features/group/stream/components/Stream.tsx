@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { getTranslations } from 'next-intl/server'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
 import { StatisticsSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
@@ -46,6 +47,9 @@ export default async function Stream({
   statistics,
   supersBundle
 }: PropsWithoutRef<Props>) {
+  const supersTrans = await getTranslations('Features.supers')
+  const streamTrans = await getTranslations('Features.stream')
+
   const {
     streamTimes,
     metrics: { peakConcurrentViewers }
@@ -85,7 +89,9 @@ export default async function Stream({
       </StreamContent>
       <StreamFooter className="flex justify-between">
         <div>
-          <div className="text-xs text-muted-foreground">最大同接数</div>
+          <div className="text-xs text-muted-foreground">
+            {streamTrans('viewersLabel')}
+          </div>
           <span className="text-base">
             {peakConcurrentViewers > 0
               ? peakConcurrentViewers.toLocaleString()
@@ -93,7 +99,9 @@ export default async function Stream({
           </span>
         </div>
         <div className="">
-          <div className="text-xs text-muted-foreground">スパチャ金額</div>
+          <div className="text-xs text-muted-foreground">
+            {supersTrans('label')}
+          </div>
           <StreamTextOfEarnings
             className="flex justify-end"
             supersBundle={supersBundle}

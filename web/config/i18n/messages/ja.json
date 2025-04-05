@@ -495,7 +495,6 @@
       "viewAll": "すべて見る",
       "channel": "チャンネル",
       "group": "グループ",
-      "supers": "スパチャ金額",
       "subscribers": "チャンネル登録者数",
       "viewers": "同接数",
       "country": "国"
@@ -512,13 +511,13 @@
       "channel": "チャンネル",
       "group": "グループ",
       "streamTitle": "タイトル",
-      "supers": "スパチャ金額",
       "viewers": "同接数",
       "country": "国",
       "date": "日付"
     },
 
     "supers": {
+      "label": "スパチャ金額",
       "amount": "金額",
       "chat": { "count": "{count} 件のスーパーチャット" },
       "sticker": { "count": "{count} 件のスーパーステッカー" }
@@ -586,7 +585,8 @@
       "noEnded": "ライブはまだありません。",
       "likes": "高評価",
       "scheduledLabel": "配信予定",
-      "earningsLabel": "スパチャ収益（円）"
+      "earningsLabel": "スパチャ収益（円）",
+      "viewersLabel": "同接数"
     },
     "streamStats": {
       "srChatCountsChart": "{dateRange}におけるライブのチャット数推移を面グラフで示しています。現在のチャット総数は{total}件です。",

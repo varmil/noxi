@@ -8,6 +8,7 @@ type Props = PropsWithoutRef<{
 }>
 
 export default async function StreamRankingTableHeader({ dimension }: Props) {
+  const supers = await getTranslations('Features.supers')
   const stream = await getTranslations('Features.streamRanking')
   const channels = await getTranslations('Features.channelsRanking')
 
@@ -30,7 +31,9 @@ export default async function StreamRankingTableHeader({ dimension }: Props) {
 
         {/*  xs- md: Supers */}
         {dimension === 'super-chat' && (
-          <TableHead className="text-nowrap">{stream('supers')}</TableHead>
+          <TableHead className="text-nowrap text-right">
+            {supers('label')}
+          </TableHead>
         )}
 
         {/* Stream Thumbnail */}
