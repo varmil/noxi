@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
-import { Link } from 'lib/navigation'
 
 export default function StreamImg({
   stream,
@@ -13,11 +12,9 @@ export default function StreamImg({
   } = stream
 
   return (
-    <div className="relative w-32 aspect-video rounded overflow-hidden">
-      <Link href={`/youtube/live/${videoId}`}>
-        <VideoThumbnail size="default" title={title} thumbnails={thumbnails} />
-        {children}
-      </Link>
+    <div className="relative w-33 aspect-video rounded overflow-hidden">
+      <VideoThumbnail size="default" title={title} thumbnails={thumbnails} />
+      {children}
     </div>
   )
 }

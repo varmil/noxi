@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
+import { Separator } from '@/components/ui/separator'
 import { LiveStreamingDetailsSchema } from 'apis/youtube/data-api/schema/liveStreamingDetailsSchema'
 import { StatisticsSchema } from 'apis/youtube/data-api/schema/statisticsSchema'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
@@ -88,8 +89,8 @@ export default async function Stream({
           </StreamTextContainer>
         </StreamInfo>
       </StreamContent>
-      <StreamFooter className="flex justify-between">
-        <div>
+      <StreamFooter className="flex justify-end gap-4">
+        <div className="flex flex-col items-end">
           <div className="text-xs text-muted-foreground">
             {streamTrans('viewersLabel')}
           </div>
@@ -99,14 +100,12 @@ export default async function Stream({
               : '---'}
           </span>
         </div>
-        <div className="">
-          <div className="text-xs text-muted-foreground text-right">
+        <Separator orientation="vertical" />
+        <div className="flex flex-col items-end">
+          <div className="text-xs text-muted-foreground">
             {supersTrans('label')}
           </div>
-          <StreamTextOfEarnings
-            className="flex justify-end"
-            supersBundle={supersBundle}
-          />
+          <StreamTextOfEarnings supersBundle={supersBundle} />
         </div>
       </StreamFooter>
     </StreamContainer>

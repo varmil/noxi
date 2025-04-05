@@ -18,7 +18,7 @@ export default async function StreamTextOfEarnings({
   const t = await getTranslations('Features.stream')
   const { amountMicros } = supersBundle
   return (
-    <div className={`flex items-center gap-0.5 ${className || ''}`}>
+    <div className={`flex items-baseline gap-0.5 ${className || ''}`}>
       <JapaneseYen className="size-3" />
       <span className="text-base font-bold" aria-label={t('earningsLabel')}>
         {formatMicrosAsRoundedAmount(amountMicros)}
