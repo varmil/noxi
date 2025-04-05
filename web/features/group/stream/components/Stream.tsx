@@ -23,12 +23,6 @@ import StreamTextOfLive from 'features/group/stream/components/stream/text/Strea
 import StreamTextOfScheduled from 'features/group/stream/components/stream/text/StreamTextOfScheduled'
 import dayjs from 'lib/dayjs'
 
-// const SmallLiveBadge = () => (
-//   <div className="relative text-xs text-white bg-red-600 py-0.5 px-1 rounded -mt-1">
-//     LIVE
-//   </div>
-// )
-
 type Props = {
   stream: StreamSchema
   /** Batch取得したもの */
@@ -75,9 +69,6 @@ export default async function Stream({
           )}
         </StreamImg>
         <StreamInfo>
-          {/* <StreamAvatarContainer stream={stream} channel={channel}>
-          {isLive && <SmallLiveBadge />}
-        </StreamAvatarContainer> */}
           <StreamTextContainer stream={stream} channel={channel}>
             {isLive && (
               <StreamTextOfLive liveStreamingDetails={liveStreamingDetails} />

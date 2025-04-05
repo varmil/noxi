@@ -1,5 +1,4 @@
-import { count } from 'console'
-import { useFormatter, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 
 type Props = {
@@ -17,7 +16,7 @@ export default function Watching({ count, compact }: Props) {
   }
 
   return (
-    <>
+    <span className="line-clamp-1 break-all">
       {count ? (
         compact ? (
           <IntlNumberFormat>{count}</IntlNumberFormat>
@@ -28,6 +27,6 @@ export default function Watching({ count, compact }: Props) {
         '--'
       )}{' '}
       {t('watching')}
-    </>
+    </span>
   )
 }
