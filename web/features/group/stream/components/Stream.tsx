@@ -100,7 +100,7 @@ export default async function Stream({
           </span>
         </div>
         <div className="">
-          <div className="text-xs text-muted-foreground">
+          <div className="text-xs text-muted-foreground text-right">
             {supersTrans('label')}
           </div>
           <StreamTextOfEarnings
