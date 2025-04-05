@@ -94,7 +94,7 @@ export default async function Stream({
           <div className="text-xs text-muted-foreground">
             {streamTrans('viewersLabel')}
           </div>
-          <span className="text-base">
+          <span className="text-sm">
             {peakConcurrentViewers > 0
               ? peakConcurrentViewers.toLocaleString()
               : '---'}

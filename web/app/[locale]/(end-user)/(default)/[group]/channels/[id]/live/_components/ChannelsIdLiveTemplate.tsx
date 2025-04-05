@@ -4,10 +4,7 @@ import { getStreamsCount } from 'apis/youtube/getStreams'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import {
-  ChannelsRankingPagination,
-  StreamGalleryPagination
-} from 'config/constants/Pagination'
+import { StreamGalleryPagination } from 'config/constants/Pagination'
 import {
   Section,
   Sections
@@ -60,12 +57,14 @@ export async function ChannelsIdLiveTemplate({
               showHeader
               where={{ group, channelId: id }}
               limit={1}
+              nullIfNoLive
             />
             <ScheduledStreamGallery
               className="flex-1"
               showHeader
               where={{ group, channelId: id }}
               limit={1}
+              nullIfNoLive
             />
           </div>
         )}
