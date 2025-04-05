@@ -1,13 +1,12 @@
 import { PropsWithoutRef } from 'react'
 import { CalendarCheck } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Group'
+import { StreamGalleryPagination } from 'config/constants/Pagination'
 import ScheduledStreamGalleryContent from 'features/group/scheduled/components/ScheduledStreamGalleryContent'
 import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
 import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
-import { STREAM_GALLERY_LIMIT } from 'features/group/types/stream-gallery'
 
 type Props = {
   compact?: boolean
@@ -35,12 +34,13 @@ export default async function ScheduledStreamGallery({
       // +48 hours from now
       scheduledBefore: new Date(new Date().getTime() + 48 * 60 * 60 * 1000),
       orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
-      limit: limit ?? STREAM_GALLERY_LIMIT
+      limit: StreamGalleryPagination.getLimit(compact),
+      offset: StreamGalleryPagination.getOffset()
     })
   ])
 
   return (
-    <Card className={className ?? ''}>
+    <section className={`py-6 ${className ?? ''}`}>
       {showHeader ? (
         <StreamListHeader
           titleIcon={
@@ -60,6 +60,6 @@ export default async function ScheduledStreamGallery({
 
       <ScheduledStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/scheduled`} />}
-    </Card>
+    </section>
   )
 }

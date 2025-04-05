@@ -1,7 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { History } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
@@ -37,10 +36,10 @@ export default async function EndedStreamGallery({
   const t = await getTranslations('Features.group.ended')
 
   return (
-    <Card>
+    <section className="py-6">
       {showHeader ? (
         <StreamListHeader
-          titleIcon={<History className="w-6 h-6 text-muted-foreground" />}
+          titleIcon={<History className="size-6 text-muted-foreground" />}
           title={t('title')}
           description={
             group
@@ -56,6 +55,6 @@ export default async function EndedStreamGallery({
       <EndedStreamGalleryContent streams={streams} />
 
       {compact && group && <StreamListFooter href={`/${group}/ended`} />}
-    </Card>
+    </section>
   )
 }

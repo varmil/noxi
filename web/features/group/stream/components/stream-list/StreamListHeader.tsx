@@ -1,6 +1,6 @@
 import React, { PropsWithoutRef } from 'react'
 import { Badge } from '@/components/ui/badge'
-import { CardHeader, CardTitle } from '@/components/ui/card'
+import { CardTitle } from '@/components/ui/card'
 
 type Props = {
   titleIcon: React.ReactNode
@@ -16,17 +16,20 @@ export default function StreamListHeader({
   badgeText
 }: PropsWithoutRef<Props>) {
   return (
-    <CardHeader>
+    <section className="px-0 pb-6">
       <CardTitle className="flex items-center justify-between">
         <span className="flex items-center gap-2">
           {titleIcon}
           <span className="inline">{title}</span>
           <span className="sr-only">{description}</span>
         </span>
-        <Badge variant="secondary" className="flex items-center gap-1">
+        <Badge
+          variant="secondary"
+          className="sm:hidden flex items-center gap-1"
+        >
           {badgeText}
         </Badge>
       </CardTitle>
-    </CardHeader>
+    </section>
   )
 }

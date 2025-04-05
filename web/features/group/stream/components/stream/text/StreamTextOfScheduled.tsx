@@ -18,13 +18,14 @@ export default async function StreamTextOfScheduled({
   } = stream
   const t = await getTranslations('Features.stream')
   return (
-    <div>
-      <div className="line-clamp-1 break-all">
+    <div className="line-clamp-1 break-all">
+      <span>
         <IntlNumberFormat>{likes}</IntlNumberFormat> {t('likes')}
-      </div>
-      <div className="line-clamp-1 break-all">
+      </span>
+      <Bullet />
+      <span>
         <ScheduledFor date={scheduledStartTime} />
-      </div>
+      </span>
     </div>
   )
 }

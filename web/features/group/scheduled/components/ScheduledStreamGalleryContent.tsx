@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { getFormatter, getTranslations } from 'next-intl/server'
-import { CardContent } from '@/components/ui/card'
 import { getChannels } from 'apis/youtube/getChannels'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
@@ -29,35 +28,33 @@ export default async function ScheduledStreamGalleryContent({
     : await getGroupedStreams({ streams })
 
   return (
-    <CardContent>
-      <GridCardGalleryContainer>
-        {streams.length === 0 && (
-          <p className="text-muted-foreground">{t('noScheduled')}</p>
-        )}
-        <section className="grid gap-y-10 sm:gap-y-16">
-          {/* Loop by date */}
-          {Object.entries(groupedStreams).map(([date, events]) => {
-            return (
-              <GridCardGalleryContent key={date}>
-                {events.map(stream => {
-                  const channel = channels.find(
-                    channel => channel.basicInfo.id === stream.snippet.channelId
-                  )
-                  if (!channel) return null
-                  return (
-                    <Stream
-                      key={stream.videoId}
-                      stream={stream}
-                      channel={channel}
-                    />
-                  )
-                })}
-              </GridCardGalleryContent>
-            )
-          })}
-        </section>
-      </GridCardGalleryContainer>
-    </CardContent>
+    <GridCardGalleryContainer>
+      {streams.length === 0 && (
+        <p className="text-muted-foreground">{t('noScheduled')}</p>
+      )}
+      <section className="grid gap-y-10 sm:gap-y-16">
+        {/* Loop by date */}
+        {Object.entries(groupedStreams).map(([date, events]) => {
+          return (
+            <GridCardGalleryContent key={date}>
+              {events.map(stream => {
+                const channel = channels.find(
+                  channel => channel.basicInfo.id === stream.snippet.channelId
+                )
+                if (!channel) return null
+                return (
+                  <Stream
+                    key={stream.videoId}
+                    stream={stream}
+                    channel={channel}
+                  />
+                )
+              })}
+            </GridCardGalleryContent>
+          )
+        })}
+      </section>
+    </GridCardGalleryContainer>
   )
 }
 

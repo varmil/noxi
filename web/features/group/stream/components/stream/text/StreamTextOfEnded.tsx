@@ -22,7 +22,7 @@ export default async function StreamTextOfEnded({
   const { viewCount } = statistics
 
   return (
-    <>
+    <span className="line-clamp-1 break-all">
       {actualEndTime && (
         <div>
           {!!viewCount && (
@@ -34,6 +34,6 @@ export default async function StreamTextOfEnded({
           <StreamedLive date={actualEndTime} />
         </div>
       )}
-    </>
+    </span>
   )
 }

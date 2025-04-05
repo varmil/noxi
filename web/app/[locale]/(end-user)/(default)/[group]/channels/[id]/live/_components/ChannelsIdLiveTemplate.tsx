@@ -54,7 +54,7 @@ export async function ChannelsIdLiveTemplate({
         }
       >
         {Number(searchParams.page || 1) === 1 && (
-          <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
+          <div className="flex flex-col gap-1 lg:gap-2">
             <LiveStreamGallery
               className="flex-1"
               showHeader
