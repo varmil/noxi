@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 import {
   Table,
   TableBody,
@@ -15,6 +14,7 @@ import { getStream } from 'apis/youtube/getStream'
 import { getSupersBundleRank } from 'apis/youtube/getSupersBundleRank'
 import { GradeString } from 'features/grade/types/grade'
 import { calculateGrade, getGradeColor } from 'features/grade/utils/grade'
+import GradeDisplayCard from './GradeDisplayCard'
 
 // グレード範囲の定義
 const GRADE_RANGES = [
@@ -93,120 +93,116 @@ export default async function GradeDisplay({
   const gradeColor = getGradeColor(grade)
 
   return (
-    <Card className={className}>
-      <CardContent className="py-4 px-6">
-        <div className="flex flex-col items-center justify-center h-full gap-4">
-          <div className="text-center">
-            <h2 className="text-lg lg:text-xl font-bold mb-4">
-              {feat('supersGrade')}
-            </h2>
-            <div
-              className={`text-box-trim text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight py-6 px-14 lg:px-18 rounded-lg ${gradeColor}`}
-            >
-              {grade}
-            </div>
-            {mainPercentage ? (
-              <p className="mt-2 text-lg">
-                {feat('top')} {mainPercentage.toFixed(1)}%
-              </p>
-            ) : null}
-            <div className="mt-4 text-xs text-muted-foreground max-w-xs mx-auto">
-              <p>{feat('notice1')}</p>
-            </div>
+    <GradeDisplayCard className={className}>
+      <div className="flex flex-col items-center justify-center h-full gap-4">
+        <div className="text-center">
+          <h2 className="text-lg lg:text-xl font-bold mb-4">
+            {feat('supersGrade')}
+          </h2>
+          <div
+            className={`text-box-trim text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight py-6 px-14 lg:px-18 rounded-lg ${gradeColor}`}
+          >
+            {grade}
           </div>
-
-          <Tabs defaultValue="rankings" className="w-full mt-4">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger className="cursor-pointer" value="rankings">
-                {comp('name')}
-              </TabsTrigger>
-              <TabsTrigger className="cursor-pointer" value="grades">
-                {feat('gradesTable')}
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="rankings" className="mt-2">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{comp('rankingType')}</TableHead>
-                    <TableHead className="text-right">{comp('rank')}</TableHead>
-                    <TableHead className="text-right">
-                      {feat('top')} X%
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data.rankings.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{item.category}</TableCell>
-                      <TableCell className="text-right">
-                        {item.rank ? (
-                          <>
-                            {item.rank.toLocaleString()}
-                            <span className="text-xs text-muted-foreground">
-                              {global(`ranking.place`, { rank: item.rank })}
-                            </span>
-                          </>
-                        ) : (
-                          <span className="text-muted-foreground">
-                            {comp('unranked')}
-                          </span>
-                        )}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {item.percentage ? (
-                          <Badge
-                            variant="outline"
-                            className={getGradeColor(
-                              calculateGrade(item.percentage)
-                            )}
-                          >
-                            {item.percentage.toFixed(1)}%
-                          </Badge>
-                        ) : (
-                          <span className="text-muted-foreground">---</span>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TabsContent>
-            <TabsContent value="grades" className="mt-2">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{feat('name')}</TableHead>
-                    <TableHead className="text-right">
-                      {feat('percentageRange')}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {GRADE_RANGES.map(item => (
-                    <TableRow key={item.grade}>
-                      <TableCell>
-                        <Badge className={`${getGradeColor(item.grade)}`}>
-                          {item.grade}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="text-right tabular-nums whitespace-nowrap">
-                        {item.max.padStart(5, ' ')}% -{' '}
-                        {item.min.padStart(5, ' ')}%
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-
-              <div className="mt-4 space-y-2 text-sm text-muted-foreground pt-4">
-                <p>{feat('notice2')}</p>
-                <p>{feat('supers.notice1')}</p>
-              </div>
-            </TabsContent>
-          </Tabs>
+          {mainPercentage ? (
+            <p className="mt-2 text-lg">
+              {feat('top')} {mainPercentage.toFixed(1)}%
+            </p>
+          ) : null}
+          <div className="mt-4 text-xs text-muted-foreground max-w-xs mx-auto">
+            <p>{feat('notice1')}</p>
+          </div>
         </div>
-      </CardContent>
-    </Card>
+
+        <Tabs defaultValue="rankings" className="w-full mt-4">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger className="cursor-pointer" value="rankings">
+              {comp('name')}
+            </TabsTrigger>
+            <TabsTrigger className="cursor-pointer" value="grades">
+              {feat('gradesTable')}
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="rankings" className="mt-2">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{comp('rankingType')}</TableHead>
+                  <TableHead className="text-right">{comp('rank')}</TableHead>
+                  <TableHead className="text-right">{feat('top')} X%</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.rankings.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{item.category}</TableCell>
+                    <TableCell className="text-right">
+                      {item.rank ? (
+                        <>
+                          {item.rank.toLocaleString()}
+                          <span className="text-xs text-muted-foreground">
+                            {global(`ranking.place`, { rank: item.rank })}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="text-muted-foreground">
+                          {comp('unranked')}
+                        </span>
+                      )}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      {item.percentage ? (
+                        <Badge
+                          variant="outline"
+                          className={getGradeColor(
+                            calculateGrade(item.percentage)
+                          )}
+                        >
+                          {item.percentage.toFixed(1)}%
+                        </Badge>
+                      ) : (
+                        <span className="text-muted-foreground">---</span>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TabsContent>
+          <TabsContent value="grades" className="mt-2">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{feat('name')}</TableHead>
+                  <TableHead className="text-right">
+                    {feat('percentageRange')}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {GRADE_RANGES.map(item => (
+                  <TableRow key={item.grade}>
+                    <TableCell>
+                      <Badge className={`${getGradeColor(item.grade)}`}>
+                        {item.grade}
+                      </Badge>
+                    </TableCell>
+                    <TableCell className="text-right tabular-nums whitespace-nowrap">
+                      {item.max.padStart(5, ' ')}% - {item.min.padStart(5, ' ')}
+                      %
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+
+            <div className="mt-4 space-y-2 text-sm text-muted-foreground pt-4">
+              <p>{feat('notice2')}</p>
+              <p>{feat('supers.notice1')}</p>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </GradeDisplayCard>
   )
 }
