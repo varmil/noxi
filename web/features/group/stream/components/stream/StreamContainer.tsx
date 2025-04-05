@@ -8,7 +8,7 @@ export const StreamContainer = ({
   videoId,
   children
 }: PropsWithChildren<{ videoId: string }>) => (
-  <Card className="gap-4 cursor-pointer hover:bg-accent">
+  <Card className="pb-4 gap-4 cursor-pointer hover:bg-accent/50">
     <Link className="contents" href={`/youtube/live/${videoId}`}>
       {children}
     </Link>
