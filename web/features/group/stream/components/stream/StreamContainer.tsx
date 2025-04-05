@@ -5,7 +5,7 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { Link } from 'lib/navigation'
 
 export const StreamContainer = ({ children }: PropsWithChildren) => (
-  <Card className="gap-3">{children}</Card>
+  <Card className="gap-4">{children}</Card>
 )
 
 export const StreamContent = ({ children }: PropsWithChildren) => (
@@ -20,7 +20,7 @@ export const StreamFooter = ({
   children,
   className
 }: PropsWithChildren<{ className?: string }>) => (
-  <CardFooter className={`border-t pt-3! ${className ?? ''}`}>
+  <CardFooter className={`border-t pt-4! ${className ?? ''}`}>
     {children}
   </CardFooter>
 )

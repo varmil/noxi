@@ -20,7 +20,7 @@ export default async function StreamTextOfEarnings({
   return (
     <div className={`flex items-center gap-0.5 ${className || ''}`}>
       <JapaneseYen className="size-3" />
-      <span className="font-bold" aria-label={t('earningsLabel')}>
+      <span className="text-base font-bold" aria-label={t('earningsLabel')}>
         {formatMicrosAsRoundedAmount(amountMicros)}
       </span>
     </div>

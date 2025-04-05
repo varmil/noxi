@@ -86,7 +86,7 @@ export default async function Stream({
       <StreamFooter className="flex justify-between">
         <div>
           <div className="text-xs text-muted-foreground">最大同接数</div>
-          <span>
+          <span className="text-base">
             {peakConcurrentViewers > 0
               ? peakConcurrentViewers.toLocaleString()
               : '---'}
