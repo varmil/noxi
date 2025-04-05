@@ -51,6 +51,7 @@ export default async function Stream({
   const streamTrans = await getTranslations('Features.stream')
 
   const {
+    videoId,
     streamTimes,
     metrics: { peakConcurrentViewers }
   } = stream
@@ -59,10 +60,10 @@ export default async function Stream({
   const isEnded = stream.status === 'ended'
 
   return (
-    <StreamContainer>
+    <StreamContainer videoId={videoId}>
       <StreamContent>
         <StreamImg stream={stream}>
-          {isLive && <LiveBadge className="absolute bottom-1 left-1" />}
+          {isLive && <LiveBadge className="absolute bottom-0 left-0" />}
           {isScheduled && <UpcomingBadge />}
           {isLive && (
             <DurationBadge

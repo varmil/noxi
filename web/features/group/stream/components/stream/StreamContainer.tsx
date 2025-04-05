@@ -4,8 +4,15 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import { Link } from 'lib/navigation'
 
-export const StreamContainer = ({ children }: PropsWithChildren) => (
-  <Card className="gap-4">{children}</Card>
+export const StreamContainer = ({
+  videoId,
+  children
+}: PropsWithChildren<{ videoId: string }>) => (
+  <Card className="gap-4 cursor-pointer hover:bg-accent">
+    <Link className="contents" href={`/youtube/live/${videoId}`}>
+      {children}
+    </Link>
+  </Card>
 )
 
 export const StreamContent = ({ children }: PropsWithChildren) => (
