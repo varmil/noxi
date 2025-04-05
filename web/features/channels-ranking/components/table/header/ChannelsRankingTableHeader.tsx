@@ -8,7 +8,8 @@ type Props = PropsWithoutRef<{
 }>
 
 export default async function ChannelsRankingTableHeader({ dimension }: Props) {
-  const t = await getTranslations('Features.channelsRanking')
+  const supers = await getTranslations('Features.supers')
+  const channels = await getTranslations('Features.channelsRanking')
 
   return (
     <TableHeader>
@@ -20,30 +21,30 @@ export default async function ChannelsRankingTableHeader({ dimension }: Props) {
         <TableHead className="text-center" />
 
         {/* Channel Title */}
-        <TableHead className="">{t('channel')} </TableHead>
+        <TableHead className="">{channels('channel')} </TableHead>
 
         {/* Supers */}
         {dimension === 'super-chat' && (
           <TableHead className="text-nowrap text-right">
-            {t('supers')}
+            {supers('label')}
           </TableHead>
         )}
 
         {/* Subscribers */}
         {dimension === 'subscriber' && (
           <TableHead className="text-nowrap text-right">
-            {t('subscribers')}
+            {channels('subscribers')}
           </TableHead>
         )}
 
         {/* 3xl-: Group */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
-          {t('group')}
+          {channels('group')}
         </TableHead>
 
         {/* 3xl-: Country */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
-          {t('country')}
+          {channels('country')}
         </TableHead>
 
         {/* Link Icon */}

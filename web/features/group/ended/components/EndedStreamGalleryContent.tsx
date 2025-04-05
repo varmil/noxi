@@ -14,15 +14,13 @@ export default async function EndedStreamGalleryContent({ streams }: Props) {
   const [t] = await Promise.all([getTranslations('Features.stream')])
 
   return (
-    <CardContent>
-      <GridCardGalleryContainer>
-        {streams.length === 0 && (
-          <p className="text-muted-foreground">{t('noEnded')}</p>
-        )}
-        <GridCardGalleryContent>
-          <EndedStreams streams={streams} />
-        </GridCardGalleryContent>
-      </GridCardGalleryContainer>
-    </CardContent>
+    <GridCardGalleryContainer>
+      {streams.length === 0 && (
+        <p className="text-muted-foreground">{t('noEnded')}</p>
+      )}
+      <GridCardGalleryContent>
+        <EndedStreams streams={streams} />
+      </GridCardGalleryContent>
+    </GridCardGalleryContainer>
   )
 }

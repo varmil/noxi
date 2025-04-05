@@ -6,19 +6,21 @@ import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 type Props = {
   supersBundle?: SupersBundleSchema
+  className?: string
 }
 
 export default async function StreamTextOfEarnings({
-  supersBundle
+  supersBundle,
+  className
 }: PropsWithoutRef<Props>) {
-  if (!supersBundle) return null
+  if (!supersBundle) return <span className={className}>---</span>
 
   const t = await getTranslations('Features.stream')
   const { amountMicros } = supersBundle
   return (
-    <div className="flex items-center gap-0.5">
-      <JapaneseYen className="w-3 h-3" />
-      <span className="font-medium" aria-label={t('earningsLabel')}>
+    <div className={`flex items-center gap-0.5 ${className || ''}`}>
+      <JapaneseYen className="size-3" />
+      <span className="text-base font-bold" aria-label={t('earningsLabel')}>
         {formatMicrosAsRoundedAmount(amountMicros)}
       </span>
     </div>

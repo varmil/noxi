@@ -21,7 +21,7 @@ export default function DurationBadge({
   }, [elapsedTime])
 
   return (
-    <div className="absolute bottom-2 right-2 bg-black/50 px-2 py-0.5 rounded text-white text-xs">
+    <div className="absolute bottom-0 right-0 bg-black/50 px-2 py-0.5 rounded text-white text-xs">
       <span>{humanizeDuration(elapsedTime)}</span>
     </div>
   )

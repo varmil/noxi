@@ -495,7 +495,6 @@
       "viewAll": "View All",
       "channel": "Channel",
       "group": "Group",
-      "supers": "Supers",
       "subscribers": "Subscribers",
       "viewers": "Viewers",
       "country": "Country"
@@ -512,13 +511,13 @@
       "channel": "Channel",
       "group": "Group",
       "streamTitle": "Title",
-      "supers": "Supers",
       "viewers": "Viewers",
       "country": "Country",
       "date": "Date"
     },
 
     "supers": {
+      "label": "Super Chat",
       "amount": "Amount",
       "chat": { "count": "{count} Super Chats" },
       "sticker": { "count": "{count} Super Stickers" }
@@ -586,7 +585,8 @@
       "noEnded": "There are no live streams at the moment.",
       "likes": "Likes",
       "scheduledLabel": "UPCOMING",
-      "earningsLabel": "Super Chat Earnings (Yen)"
+      "earningsLabel": "Super Chat Earnings (Yen)",
+      "viewersLabel": "Viewers"
     },
     "streamStats": {
       "srChatCountsChart": "The area graph shows the trend in the number of live chats during {dateRange}. The current total number of chats is {total}.",
