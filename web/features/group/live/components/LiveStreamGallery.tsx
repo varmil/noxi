@@ -15,6 +15,8 @@ type Props = {
   where?: { title?: string; channelId?: string; group?: GroupString }
   limit?: number
   className?: string
+  /** Streamが１本もない場合nullを返す */
+  nullIfNoLive?: boolean
 }
 
 export default async function LiveStreamGallery({
@@ -22,7 +24,8 @@ export default async function LiveStreamGallery({
   showHeader,
   where,
   limit,
-  className
+  className,
+  nullIfNoLive
 }: PropsWithoutRef<Props>) {
   const { title, channelId, group } = where || {}
   const [t, streams] = await Promise.all([
@@ -37,6 +40,10 @@ export default async function LiveStreamGallery({
       offset: StreamGalleryPagination.getOffset()
     })
   ])
+
+  if (nullIfNoLive && streams.length === 0) {
+    return null
+  }
 
   return (
     <section className={`py-6 ${className ?? ''}`}>
