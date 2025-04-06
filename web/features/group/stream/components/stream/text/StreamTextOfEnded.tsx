@@ -22,18 +22,20 @@ export default async function StreamTextOfEnded({
   const { viewCount } = statistics
 
   return (
-    <span className="line-clamp-1 break-all">
+    <>
       {actualEndTime && (
-        <div>
+        <div className="flex flex-row sm:flex-col">
           {!!viewCount && (
-            <>
+            <div className="line-clamp-1 break-all">
               <Views views={viewCount} />
-              <Bullet />
-            </>
+              <Bullet className="sm:hidden" />
+            </div>
           )}
-          <StreamedLive date={actualEndTime} />
+          <div className="flex-1 line-clamp-1 break-all">
+            <StreamedLive date={actualEndTime} />
+          </div>
         </div>
       )}
-    </span>
+    </>
   )
 }

@@ -1,14 +1,9 @@
 import { PropsWithChildren } from 'react'
 
-type Props = PropsWithChildren<{
-  className?: string
-}>
-
 const gridGapYClasses = 'gap-y-2'
 
-const getGridClasses = (className?: string) => {
-  return `grid gap-x-2 ${gridGapYClasses} \
-         ${className ?? 'grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3'}`
+const getGridClasses = () => {
+  return `grid gap-x-2 ${gridGapYClasses} grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4`
 }
 
 /**
@@ -20,7 +15,21 @@ export function GridCardGalleryContainer({ children }: PropsWithChildren) {
 
 /**
  * @usage GridCardGalleryContainer > GridCardGalleryContent
+ * force1Row: true でラップトップ以上の場合、２行に膨らまないようにする
  */
-export function GridCardGalleryContent({ className, children }: Props) {
-  return <section className={getGridClasses(className)}>{children}</section>
+export function GridCardGalleryContent({
+  force1Row,
+  children
+}: PropsWithChildren<{
+  force1Row?: boolean
+}>) {
+  return (
+    <section
+      className={`${getGridClasses()} ${
+        force1Row ? '@4xl:grid-rows-[1fr_0] @4xl:overflow-hidden' : ''
+      }`}
+    >
+      {children}
+    </section>
+  )
 }

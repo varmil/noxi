@@ -46,7 +46,7 @@ export default async function LiveStreamGalleryContent({
         <p className="text-muted-foreground">{t('noLive')}</p>
       )}
 
-      <GridCardGalleryContent>
+      <GridCardGalleryContent force1Row={compact}>
         {displayedStreams.map(stream => {
           const channel = channels.find(
             channel => channel.basicInfo.id === stream.snippet.channelId

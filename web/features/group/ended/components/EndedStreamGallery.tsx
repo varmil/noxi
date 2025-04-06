@@ -52,7 +52,7 @@ export default async function EndedStreamGallery({
         />
       ) : null}
 
-      <EndedStreamGalleryContent streams={streams} />
+      <EndedStreamGalleryContent streams={streams} compact={compact} />
 
       {compact && group && <StreamListFooter href={`/${group}/ended`} />}
     </section>

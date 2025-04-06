@@ -35,7 +35,7 @@ export default async function ScheduledStreamGalleryContent({
       {/* Loop by date */}
       {Object.entries(groupedStreams).map(([date, events]) => {
         return (
-          <GridCardGalleryContent key={date}>
+          <GridCardGalleryContent key={date} force1Row={compact}>
             {events.map(stream => {
               const channel = channels.find(
                 channel => channel.basicInfo.id === stream.snippet.channelId

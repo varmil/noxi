@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { CardContent } from '@/components/ui/card'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
   GridCardGalleryContainer,
@@ -8,9 +7,12 @@ import {
 } from 'components/styles/GridCardContainer'
 import EndedStreams from 'features/group/ended/components/EndedStreams'
 
-type Props = PropsWithoutRef<{ streams: StreamsSchema }>
+type Props = PropsWithoutRef<{ streams: StreamsSchema; compact?: boolean }>
 
-export default async function EndedStreamGalleryContent({ streams }: Props) {
+export default async function EndedStreamGalleryContent({
+  streams,
+  compact
+}: Props) {
   const [t] = await Promise.all([getTranslations('Features.stream')])
 
   return (
@@ -18,7 +20,7 @@ export default async function EndedStreamGalleryContent({ streams }: Props) {
       {streams.length === 0 && (
         <p className="text-muted-foreground">{t('noEnded')}</p>
       )}
-      <GridCardGalleryContent>
+      <GridCardGalleryContent force1Row={compact}>
         <EndedStreams streams={streams} />
       </GridCardGalleryContent>
     </GridCardGalleryContainer>
