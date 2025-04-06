@@ -57,7 +57,7 @@ export default async function Stream({
   return (
     <StreamContainer videoId={videoId}>
       <StreamContent>
-        <StreamImg stream={stream}>
+        <StreamImg className="w-[clamp(200px,60%,400px)]" stream={stream}>
           {isLive && <LiveBadge className="absolute bottom-0 left-0" />}
           {isScheduled && <UpcomingBadge />}
           {isLive && (
@@ -85,7 +85,7 @@ export default async function Stream({
           <div className="text-xs text-muted-foreground">
             {streamTrans('viewersLabel')}
           </div>
-          <span className="text-sm">
+          <span className="text-base">
             {peakConcurrentViewers > 0
               ? peakConcurrentViewers.toLocaleString()
               : '---'}

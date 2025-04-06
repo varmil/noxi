@@ -64,12 +64,11 @@ export const StreamTextContainer = ({
   channel: ChannelSchema
 }>) => {
   const {
-    snippet: { title, channelId },
-    group
+    snippet: { title }
   } = stream
   return (
     <div>
-      <h3 className="text-sm tracking-tight max-w-[330px] line-clamp-2 break-anywhere mb-1">
+      <h3 className="text-sm tracking-tight max-w-[330px] line-clamp-2 break-anywhere mb-2">
         {title}
       </h3>
       <div className="col-start-2 flex items-center gap-1">
