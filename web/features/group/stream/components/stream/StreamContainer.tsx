@@ -27,33 +27,10 @@ export const StreamFooter = ({
   children,
   className
 }: PropsWithChildren<{ className?: string }>) => (
-  <CardFooter className={`border-t pt-4! ${className ?? ''}`}>
+  <CardFooter className={`flex-1 pl-2 pr-4 border-t pt-4! ${className ?? ''}`}>
     {children}
   </CardFooter>
 )
-
-// export const StreamAvatarContainer = ({
-//   stream,
-//   channel,
-//   children
-// }: PropsWithChildren<{
-//   stream: StreamSchema
-//   channel: ChannelSchema
-// }>) => {
-//   return (
-//     <div className="items-center text-center">
-//       <Link href={`/${stream.group}/channels/${channel.basicInfo.id}`}>
-//         <Avatar className="w-9 h-9 transition-all hover:scale-105">
-//           <AvatarImage
-//             alt={channel.basicInfo.title}
-//             src={channel.basicInfo.thumbnails['medium']?.url}
-//           />
-//         </Avatar>
-//       </Link>
-//       {children}
-//     </div>
-//   )
-// }
 
 export const StreamTextContainer = ({
   stream,

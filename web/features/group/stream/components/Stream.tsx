@@ -17,6 +17,7 @@ import {
   StreamContent
 } from 'features/group/stream/components/stream/StreamContainer'
 import StreamImg from 'features/group/stream/components/stream/StreamImg'
+import StreamPickupComment from 'features/group/stream/components/stream/comment/StreamPickupComment'
 import StreamTextOfEarnings from 'features/group/stream/components/stream/text/StreamTextOfEarnings'
 import StreamTextOfEnded from 'features/group/stream/components/stream/text/StreamTextOfEnded'
 import StreamTextOfLive from 'features/group/stream/components/stream/text/StreamTextOfLive'
@@ -43,13 +44,8 @@ export default async function Stream({
   supersBundle
 }: PropsWithoutRef<Props>) {
   const supersTrans = await getTranslations('Features.supers')
-  const streamTrans = await getTranslations('Features.stream')
 
-  const {
-    videoId,
-    streamTimes,
-    metrics: { peakConcurrentViewers }
-  } = stream
+  const { videoId, streamTimes } = stream
   const isLive = stream.status === 'live'
   const isScheduled = stream.status === 'scheduled'
   const isEnded = stream.status === 'ended'
@@ -80,17 +76,8 @@ export default async function Stream({
           </StreamTextContainer>
         </StreamInfo>
       </StreamContent>
-      <StreamFooter className="flex justify-end gap-4">
-        <div className="flex flex-col items-end">
-          <span className="text-base">
-            {peakConcurrentViewers > 0
-              ? peakConcurrentViewers.toLocaleString()
-              : '---'}
-          </span>
-          <div className="text-xs text-muted-foreground">
-            {streamTrans('viewersLabel')}
-          </div>
-        </div>
+      <StreamFooter className="flex justify-between gap-4">
+        <StreamPickupComment className="flex-1" videoId={videoId} />
         <Separator orientation="vertical" />
         <div className="flex flex-col items-end">
           <StreamTextOfEarnings supersBundle={supersBundle} />
