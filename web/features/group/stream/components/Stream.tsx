@@ -82,21 +82,21 @@ export default async function Stream({
       </StreamContent>
       <StreamFooter className="flex justify-end gap-4">
         <div className="flex flex-col items-end">
-          <div className="text-xs text-muted-foreground">
-            {streamTrans('viewersLabel')}
-          </div>
           <span className="text-base">
             {peakConcurrentViewers > 0
               ? peakConcurrentViewers.toLocaleString()
               : '---'}
           </span>
+          <div className="text-xs text-muted-foreground">
+            {streamTrans('viewersLabel')}
+          </div>
         </div>
         <Separator orientation="vertical" />
         <div className="flex flex-col items-end">
+          <StreamTextOfEarnings supersBundle={supersBundle} />
           <div className="text-xs text-muted-foreground">
             {supersTrans('label')}
           </div>
-          <StreamTextOfEarnings supersBundle={supersBundle} />
         </div>
       </StreamFooter>
     </StreamContainer>

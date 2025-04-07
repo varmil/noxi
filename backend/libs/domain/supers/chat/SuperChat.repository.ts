@@ -7,6 +7,7 @@ export interface SuperChatRepository {
     where: {
       videoId?: VideoId
       channelId?: ChannelId
+      userComment?: { not: null }
       group?: Group
       createdBefore?: Date
       createdAfter?: Date
@@ -24,6 +25,7 @@ export interface SuperChatRepository {
     where: {
       videoId?: VideoId
       channelId?: ChannelId
+      userComment?: { not: null }
       group?: Group
       createdBefore?: Date
       createdAfter?: Date

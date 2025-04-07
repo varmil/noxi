@@ -1,6 +1,7 @@
 import { Type } from 'class-transformer'
 import {
   IsArray,
+  IsBoolean,
   IsInt,
   IsOptional,
   IsRFC3339,
@@ -19,6 +20,11 @@ export class GetSuperChats {
   @IsOptional()
   @IsString()
   channelId?: string
+
+  @IsOptional()
+  @IsBoolean()
+  @Type(() => Boolean)
+  userCommentNotNull?: boolean
 
   @IsOptional()
   @IsRFC3339()
