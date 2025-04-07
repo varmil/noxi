@@ -22,7 +22,7 @@ export class SuperChatTranslator {
       amountMicros: new AmountMicros(row.amountMicros),
       currency: new Currency(row.currency),
       amountDisplayString: new AmountDisplayString(row.amountDisplayString),
-      userComment: new UserComment(row.userComment),
+      userComment: new UserComment(row.userComment ?? ''),
 
       author: new Author({
         channelId: new ChannelId(row.authorChannelId),
