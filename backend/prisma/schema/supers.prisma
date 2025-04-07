@@ -1,9 +1,9 @@
 model YoutubeStreamSuperChat {
-    id                  String @id
+    id                  String  @id
     amountMicros        BigInt
     currency            String
     amountDisplayString String
-    userComment         String
+    userComment         String?
 
     // author
     authorChannelId       String
