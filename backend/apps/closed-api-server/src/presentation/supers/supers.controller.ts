@@ -24,6 +24,7 @@ export class SupersController {
       where: {
         videoId: dto.toVideoId(),
         channelId: dto.toChannelId(),
+        userComment: dto.toUserComment(),
         createdBefore: dto.toCreatedBefore(),
         createdAfter: dto.toCreatedAfter()
       },
@@ -38,6 +39,7 @@ export class SupersController {
       where: {
         videoId: dto.toVideoId(),
         channelId: dto.toChannelId(),
+        userComment: dto.toUserComment(),
         createdBefore: dto.toCreatedBefore(),
         createdAfter: dto.toCreatedAfter()
       }

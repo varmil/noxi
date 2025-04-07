@@ -7,6 +7,7 @@ import { fetchAPI } from 'lib/fetchAPI'
 type Params = {
   videoId?: string
   channelId?: string
+  userCommentNotNull?: boolean
   createdBefore?: Date
   createdAfter?: Date
   orderBy: {
@@ -19,6 +20,7 @@ type Params = {
 const createSearchParams = ({
   videoId,
   channelId,
+  userCommentNotNull,
   createdBefore,
   createdAfter,
   orderBy,
@@ -28,6 +30,9 @@ const createSearchParams = ({
     ...(limit !== undefined && { limit: String(limit) }),
     ...(videoId && { videoId }),
     ...(channelId && { channelId }),
+    ...(userCommentNotNull && {
+      userCommentNotNull: String(userCommentNotNull)
+    }),
     ...(createdBefore && { createdBefore: createdBefore.toISOString() }),
     ...(createdAfter && { createdAfter: createdAfter.toISOString() })
   })

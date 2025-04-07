@@ -23,15 +23,7 @@ type Props = PropsWithoutRef<{
 }>
 
 export default async function SuperChat({ chat, stream }: Props) {
-  const {
-    amountMicros,
-    currency,
-    amountDisplayString,
-    userComment,
-    author,
-    createdAt
-  } = chat
-
+  const { amountDisplayString, userComment, author, createdAt } = chat
   const format = await getFormatter()
   const t = await getTranslations('Features.supers')
 
@@ -58,7 +50,7 @@ export default async function SuperChat({ chat, stream }: Props) {
             </CommentHeaderWeakLine>
           </CommentHeaderItem>
           <CommentHeaderItem className="gap-x-1 font-bold tabular-nums">
-            {/* TODO: 色実装するまでコメントアウト（DBに色コードを直接保存） */}
+            {/* 色実装するまでコメントアウト（DBに色コードを直接保存） */}
             {/* <SuperTierIcon tier={tier} /> */}
             <span className="sr-only">{t('amount')}</span>
             {amountDisplayString}

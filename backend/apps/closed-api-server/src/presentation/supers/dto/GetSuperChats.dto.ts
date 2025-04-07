@@ -52,6 +52,8 @@ export class GetSuperChats {
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined
 
+  toUserComment = () => (this.userCommentNotNull ? { not: null } : undefined)
+
   toCreatedBefore = () => {
     return this.createdBefore ? new Date(this.createdBefore) : undefined
   }
