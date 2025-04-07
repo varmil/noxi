@@ -1,13 +1,13 @@
 import { PropsWithoutRef } from 'react'
 import { Radio } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Card } from '@/components/ui/card'
 import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import LiveStreamGalleryContent from 'features/group/live/components/LiveStreamGalleryContent'
-import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
-import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
+import StreamGallery from 'features/group/stream/components/gallery/StreamGallery'
+import StreamListFooter from 'features/group/stream/components/gallery/StreamListFooter'
+import StreamListHeader from 'features/group/stream/components/gallery/StreamListHeader'
 
 type Props = {
   compact?: boolean
@@ -46,7 +46,7 @@ export default async function LiveStreamGallery({
   }
 
   return (
-    <section className={`py-6 ${className ?? ''}`}>
+    <StreamGallery className={className}>
       {showHeader ? (
         <StreamListHeader
           titleIcon={<Radio className="w-6 h-6 text-red-400" />}
@@ -64,6 +64,6 @@ export default async function LiveStreamGallery({
 
       <LiveStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/live`} />}
-    </section>
+    </StreamGallery>
   )
 }

@@ -16,7 +16,7 @@ export default function StreamListHeader({
   badgeText
 }: PropsWithoutRef<Props>) {
   return (
-    <section className="px-0 pb-6">
+    <section className="px-0 pb-2">
       <CardTitle className="flex items-center justify-between">
         <span className="flex items-center gap-2">
           {titleIcon}

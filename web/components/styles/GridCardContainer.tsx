@@ -26,7 +26,9 @@ export function GridCardGalleryContent({
   return (
     <section
       className={`${getGridClasses()} ${
-        force1Row ? '@4xl:grid-rows-[1fr_0] @4xl:overflow-hidden' : ''
+        force1Row
+          ? '@4xl:grid-rows-[1fr_0] @4xl:overflow-hidden @4xl:gap-y-0'
+          : ''
       }`}
     >
       {children}

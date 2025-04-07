@@ -5,8 +5,9 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import EndedStreamGalleryContent from 'features/group/ended/components/EndedStreamGalleryContent'
-import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
-import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
+import StreamGallery from 'features/group/stream/components/gallery/StreamGallery'
+import StreamListFooter from 'features/group/stream/components/gallery/StreamListFooter'
+import StreamListHeader from 'features/group/stream/components/gallery/StreamListHeader'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
 import { CACHE_1H } from 'lib/fetchAPI'
 
@@ -36,7 +37,7 @@ export default async function EndedStreamGallery({
   const t = await getTranslations('Features.group.ended')
 
   return (
-    <section className="py-6">
+    <StreamGallery>
       {showHeader ? (
         <StreamListHeader
           titleIcon={<History className="size-6 text-muted-foreground" />}
@@ -55,6 +56,6 @@ export default async function EndedStreamGallery({
       <EndedStreamGalleryContent streams={streams} compact={compact} />
 
       {compact && group && <StreamListFooter href={`/${group}/ended`} />}
-    </section>
+    </StreamGallery>
   )
 }
