@@ -2,7 +2,7 @@ import {
   responseSchema,
   SuperChatsSchema
 } from 'apis/youtube/schema/superChatSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   videoId?: string
@@ -47,7 +47,9 @@ const createSearchParams = ({
 
 export async function getSuperChats(params: Params): Promise<SuperChatsSchema> {
   const searchParams = createSearchParams(params)
-  const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`)
+  const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`, {
+    next: { revalidate: CACHE_1H }
+  })
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
@@ -60,7 +62,8 @@ export async function getSuperChatsCount(
 ): Promise<number> {
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
-    `/api/supers/chats/count?${searchParams.toString()}`
+    `/api/supers/chats/count?${searchParams.toString()}`,
+    { next: { revalidate: CACHE_1H } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
