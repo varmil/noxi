@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react'
 
-const gridGapYClasses = 'gap-y-2'
+const gridGapYClasses = 'gap-y-4'
 
 const getGridClasses = () => {
-  return `grid gap-x-2 ${gridGapYClasses} grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4`
+  return `grid gap-x-4 ${gridGapYClasses} grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4`
 }
 
 /**

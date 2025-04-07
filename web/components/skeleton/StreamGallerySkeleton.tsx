@@ -1,5 +1,10 @@
-import { Card, CardHeader, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
+import {
+  GridCardGalleryContainer,
+  GridCardGalleryContent
+} from 'components/styles/GridCardContainer'
 
 export default function StreamGallerySkeleton({
   className
@@ -7,29 +12,42 @@ export default function StreamGallerySkeleton({
   className?: string
 }) {
   return (
-    <Card className={`w-full ${className}`}>
-      <CardHeader className="flex flex-row items-center justify-between mb-1.5">
-        <div className="flex items-center gap-2">
-          <Skeleton className="h-6 w-6" /> {/* アイコン用のSkeleton */}
-          <Skeleton className="h-6 w-32" /> {/* タイトル用のSkeleton */}
-        </div>
-        <Skeleton className="h-6 w-20" /> {/* Badge用のSkeleton */}
-      </CardHeader>
-      <CardContent className="grid gap-x-2 sm:gap-x-4 gap-y-6 sm:gap-y-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        {[1, 2, 3, 4].map((_, index) => (
-          <div key={index} className="grid gap-2">
-            <Skeleton className="aspect-video w-full rounded-xl" />
-            <div className="flex gap-x-3">
-              <Skeleton className="h-9 w-9 rounded-full" />
-              <div className="flex-1 space-y-2">
-                <Skeleton className="h-8 sm:h-10 w-full" />
-                <Skeleton className="h-4 w-4/5" />
-                <Skeleton className="h-4 w-4/5" />
-              </div>
-            </div>
+    <section className={`py-6 ${className}`}>
+      <section className="px-0 pb-6">
+        <CardTitle className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Skeleton className="h-6 w-6" /> {/* アイコン用のSkeleton */}
+            <Skeleton className="h-6 w-32" /> {/* タイトル用のSkeleton */}
           </div>
-        ))}
-      </CardContent>
-    </Card>
+          <Skeleton className="sm:hidden h-6 w-14" /> {/* Badge用のSkeleton */}
+        </CardTitle>
+      </section>
+      <GridCardGalleryContainer>
+        <GridCardGalleryContent force1Row={true}>
+          {[1, 2, 3, 4].map((_, index) => (
+            <Card
+              key={index}
+              className="pt-0 pb-4 gap-0 cursor-pointer hover:bg-accent/50"
+            >
+              <CardContent className="pl-0 pr-4 flex gap-2">
+                <Skeleton className="w-[clamp(200px,60%,400px)] aspect-video rounded-tl-xl overflow-hidden" />
+                <div className="flex-1 pt-2">
+                  <Skeleton className="h-10 w-full mb-2" /> {/* Title */}
+                  <Skeleton className="h-4 w-[80%] mb-0.5" /> {/* Channel */}
+                  <Skeleton className="h-4 w-[80%]" /> {/* Watching */}
+                </div>
+              </CardContent>
+              <CardFooter
+                className={`flex-1 pl-2 pr-4 border-t pt-4! flex justify-between gap-4`}
+              >
+                <Skeleton className="h-full flex-1" /> {/* Comment */}
+                <Separator orientation="vertical" />
+                <Skeleton className="h-10 w-[72px]" /> {/* Super Chat */}
+              </CardFooter>
+            </Card>
+          ))}
+        </GridCardGalleryContent>
+      </GridCardGalleryContainer>
+    </section>
   )
 }

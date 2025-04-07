@@ -1,5 +1,6 @@
 import { Skeleton } from '@/components/ui/skeleton'
 
+/** @deprecated delete me */
 export default function RelatedVideosSkeleton() {
   return (
     <>
