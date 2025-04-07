@@ -1,5 +1,7 @@
+import { Suspense } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
+import StreamPickupCommentSkeleton from './StreamPickupCommentSkeleton'
 
 export default async function StreamPickupComment({
   videoId,
@@ -8,6 +10,16 @@ export default async function StreamPickupComment({
   videoId: string
   className?: string
 }) {
+  return (
+    <div className={`flex gap-x-2 ${className ?? ''}`}>
+      <Suspense fallback={<StreamPickupCommentSkeleton />}>
+        <Content videoId={videoId} />
+      </Suspense>
+    </div>
+  )
+}
+
+async function Content({ videoId }: { videoId: string }) {
   const [superChat = undefined] = await getSuperChats({
     videoId,
     userCommentNotNull: true,
@@ -17,8 +29,7 @@ export default async function StreamPickupComment({
     ],
     limit: 1
   })
-
-  if (!superChat) return <div className={className} />
+  if (!superChat) return null
 
   const {
     amountDisplayString,
@@ -27,7 +38,7 @@ export default async function StreamPickupComment({
   } = superChat
 
   return (
-    <div className={`flex gap-x-2 ${className ?? ''}`}>
+    <>
       <Avatar className="size-4">
         <AvatarImage src={profileImageUrl} alt={displayName} />
         <AvatarFallback>{displayName.slice(0, 2)}</AvatarFallback>
@@ -39,7 +50,7 @@ export default async function StreamPickupComment({
         </div>
         <span className="line-clamp-2 break-anywhere">{userComment}</span>
       </div>
-    </div>
+    </>
   )
 }
 
