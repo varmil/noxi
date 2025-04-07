@@ -5,8 +5,9 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import ScheduledStreamGalleryContent from 'features/group/scheduled/components/ScheduledStreamGalleryContent'
-import StreamListFooter from 'features/group/stream/components/stream-list/StreamListFooter'
-import StreamListHeader from 'features/group/stream/components/stream-list/StreamListHeader'
+import StreamGallery from 'features/group/stream/components/gallery/StreamGallery'
+import StreamListFooter from 'features/group/stream/components/gallery/StreamListFooter'
+import StreamListHeader from 'features/group/stream/components/gallery/StreamListHeader'
 
 type Props = {
   compact?: boolean
@@ -47,7 +48,7 @@ export default async function ScheduledStreamGallery({
   }
 
   return (
-    <section className={`py-6 ${className ?? ''}`}>
+    <StreamGallery className={className}>
       {showHeader ? (
         <StreamListHeader
           titleIcon={
@@ -67,6 +68,6 @@ export default async function ScheduledStreamGallery({
 
       <ScheduledStreamGalleryContent streams={streams} compact={compact} />
       {compact && <StreamListFooter href={`/${group}/scheduled`} />}
-    </section>
+    </StreamGallery>
   )
 }
