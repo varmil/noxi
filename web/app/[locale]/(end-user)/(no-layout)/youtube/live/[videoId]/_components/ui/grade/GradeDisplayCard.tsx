@@ -16,7 +16,7 @@ export default function GradeDisplay({
   return (
     <Card
       className={`${className} ${
-        isOpen ? 'relative flex lg:w-[350px] xl:w-[400px]' : 'hidden'
+        isOpen ? 'relative flex lg:w-[330px] xl:w-[400px]' : 'hidden'
       }`}
     >
       <Button
