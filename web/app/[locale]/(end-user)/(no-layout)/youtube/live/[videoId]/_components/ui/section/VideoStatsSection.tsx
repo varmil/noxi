@@ -12,7 +12,8 @@ export default function VideoStatsSection({
   stream: StreamSchema
 }) {
   return (
-    <section className="flex flex-col gap-2">
+    // navbar が h-14 + p-6 相当 = 20
+    <section className="flex flex-col gap-2 lg:sticky lg:top-20">
       <Sections stream={stream} />
     </section>
   )
