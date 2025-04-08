@@ -1,6 +1,8 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, Suspense } from 'react'
 import { getStream } from 'apis/youtube/getStream'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
+import StreamGallerySkeleton from 'components/skeleton/StreamGallerySkeleton'
+import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import GradeDisplay from '../ui/grade/GradeDisplay'
 import VideoStatsSection from '../ui/section/VideoStatsSection'
 import StreamBasicInfo from '../ui/stream/StreamBasicInfo'
@@ -20,8 +22,10 @@ async function Overview({
   stream: StreamSchema
   className?: string
 }) {
-  const { videoId } = stream
-  // const [chatCounts] = await Promise.all([getChatCounts({ videoId })])
+  const {
+    videoId,
+    snippet: { channelId }
+  } = stream
 
   return (
     <section className={`${className ?? ''}`}>
@@ -34,7 +38,11 @@ async function Overview({
         <VideoStatsSection stream={stream} />
       </div>
 
-      <div>HELLo</div>
+      <div>
+        <Suspense fallback={<StreamGallerySkeleton />}>
+          <EndedStreamGallery where={{ channelId }} showHeader />
+        </Suspense>
+      </div>
     </section>
   )
 }
