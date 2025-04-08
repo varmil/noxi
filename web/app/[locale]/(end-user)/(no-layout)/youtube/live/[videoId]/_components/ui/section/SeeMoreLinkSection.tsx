@@ -16,10 +16,15 @@ export default async function SeeMoreLinkSection({
 }) {
   const [
     global,
+    page,
     {
       basicInfo: { title }
     }
-  ] = await Promise.all([getTranslations('Global'), getChannel(channelId)])
+  ] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Page.youtube.live.id.button'),
+    getChannel(channelId)
+  ])
 
   return (
     <div className="border-t border-border pt-6">
@@ -28,7 +33,7 @@ export default async function SeeMoreLinkSection({
           <TitleSpan>{title}</TitleSpan>
           <Description>
             <span className="line-clamp-1 break-all">
-              チャンネルの動画をさらに見る
+              {page('seeMoreVideos')}
             </span>
             <ChevronRight className="size-4 transition-transform group-hover:translate-x-1 relative top-[1.5px]" />
           </Description>
@@ -45,9 +50,7 @@ export default async function SeeMoreLinkSection({
             {global(`group.${group}`)}
           </TitleSpan>
           <Description>
-            <span className="line-clamp-1 break-all">
-              動画ランキングTop20を見る
-            </span>
+            <span className="line-clamp-1 break-all">{page('seeTop20')}</span>
             <ChevronRight className="size-4 transition-transform group-hover:translate-x-1 relative top-[1.5px]" />
           </Description>
         </SeeMoreLinkButton>

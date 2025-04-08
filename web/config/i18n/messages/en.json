@@ -255,7 +255,9 @@
           "button": {
             "label": "Other operations",
             "theaterMode": "Theater Mode",
-            "openChat": "Open Live Chat"
+            "openChat": "Open Live Chat",
+            "seeMoreVideos": "See More Videos",
+            "seeTop20": "See Weekly Top 20"
           }
         },
         "ranking": {

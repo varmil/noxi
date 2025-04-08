@@ -3,7 +3,7 @@ import { PropsWithChildren } from 'react'
 const gridGapYClasses = 'gap-y-4'
 
 const getGridClasses = () => {
-  return `grid gap-x-4 ${gridGapYClasses} grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4`
+  return `grid gap-x-4 ${gridGapYClasses} grid-cols-1 @lg:grid-cols-2 @4xl:grid-cols-3 @6xl:grid-cols-4`
 }
 
 /**
@@ -27,7 +27,7 @@ export function GridCardGalleryContent({
     <section
       className={`${getGridClasses()} ${
         force1Row
-          ? '@4xl:grid-rows-[1fr_0] @4xl:overflow-hidden @4xl:gap-y-0'
+          ? '@xl @4xl:grid-rows-[1fr_0] @4xl:overflow-hidden @4xl:gap-y-0'
           : ''
       }`}
     >
