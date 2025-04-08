@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { SuperAdminDashboard } from 'features/super-admin/components/SuperAdminDashboard'
 
 type Props = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 export async function generateMetadata({}: Props): Promise<Metadata> {

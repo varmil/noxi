@@ -1,5 +1,6 @@
 import { use } from 'react'
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import dayjs from 'lib/dayjs'
@@ -8,7 +9,7 @@ import { getWebUrl } from 'utils/web-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
   searchParams: Promise<{ date?: string }>
 }
 

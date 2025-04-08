@@ -1,11 +1,12 @@
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
 
 type Args = {
-  locale: string
+  locale: Locale
   pageNamespace: 'Page.youtube.channels.ranking' | 'Page.youtube.live.ranking'
   featNamespace:
     | 'Features.channelsRanking.ranking.dimension'

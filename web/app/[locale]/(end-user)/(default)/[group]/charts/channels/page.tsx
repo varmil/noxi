@@ -1,6 +1,6 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
+import { Locale, useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Group'
@@ -10,7 +10,7 @@ import { setGroup } from 'lib/server-only-context/cache'
 import { ChartTemplate } from './_components/ChartTemplate'
 
 type Props = {
-  params: Promise<{ locale: string; group: GroupString }>
+  params: Promise<{ locale: Locale; group: GroupString }>
   searchParams: Promise<ChannelGallerySearchParams>
 }
 

@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { Locale } from 'next-intl'
 import { routing } from 'config/i18n/routing'
 
 /**
@@ -39,6 +40,6 @@ export function getEntry({
   }
 }
 
-function getUrl(pathname: string, locale: string) {
+function getUrl(pathname: string, locale: Locale) {
   return `${host}/${locale}${pathname === '/' ? '' : pathname}`
 }

@@ -1,12 +1,12 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
+import { Locale, useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 
 type Props = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

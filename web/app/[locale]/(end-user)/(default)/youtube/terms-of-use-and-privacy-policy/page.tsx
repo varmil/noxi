@@ -1,12 +1,12 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
+import { Locale, useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import TermsOfUseAndPrivacyPolicy from 'features/terms-of-use-and-privacy-policy/terms-of-use-and-privacy-policy'
 
 type Props = {
-  params: Promise<{ locale: string; name: string }>
+  params: Promise<{ locale: Locale; name: string }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

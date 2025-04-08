@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
@@ -15,7 +16,7 @@ import TheaterModeTemplate from '../template/TheaterModeTemplate'
 const TITLE_MAX_LENGTH = 22
 
 export type LiveIdBasePageProps = {
-  params: Promise<{ locale: string; videoId: string }>
+  params: Promise<{ locale: Locale; videoId: string }>
   searchParams?: Promise<{ theater?: '1' }>
 }
 type Props = LiveIdBasePageProps

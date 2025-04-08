@@ -1,5 +1,6 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { Page } from 'components/page'
@@ -10,7 +11,7 @@ import { setGroup } from 'lib/server-only-context/cache'
 import { ChannelProfile } from '../ui/profile/ChannelProfile'
 
 export type ChannelsIdBasePageProps = {
-  params: Promise<{ locale: string; group: GroupString; id: string }>
+  params: Promise<{ locale: Locale; group: GroupString; id: string }>
 }
 type Props = ChannelsIdBasePageProps
 

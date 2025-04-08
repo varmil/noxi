@@ -19,7 +19,7 @@ export default function ComparedToPreviousPeriod({
   counting,
   className
 }: Props) {
-  const feat = useTranslations('Features.supersRanking')
+  const feat = useTranslations('Components.ranking.base')
   if (counting) {
     return (
       <span className="text-xs text-muted-foreground">{feat('counting')}</span>

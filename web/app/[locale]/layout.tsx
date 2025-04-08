@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import { hasLocale, NextIntlClientProvider } from 'next-intl'
+import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
@@ -12,7 +12,7 @@ import { routing } from 'config/i18n/routing'
 
 type Props = {
   children: ReactNode
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 const notoSansJP = Noto_Sans_JP({
