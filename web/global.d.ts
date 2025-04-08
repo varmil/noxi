@@ -1,10 +1,11 @@
 import en from './config/i18n/messages/en.json'
+import { routing } from './config/i18n/routing'
 
-type Messages = typeof en
-
-declare global {
-  // Use type safe message keys with `next-intl`
-  interface IntlMessages extends Messages {}
+declare module 'next-intl' {
+  interface AppConfig {
+    Messages: typeof en
+    Locale: (typeof routing.locales)[number]
+  }
 }
 
 declare global {

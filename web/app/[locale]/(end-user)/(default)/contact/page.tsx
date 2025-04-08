@@ -1,10 +1,11 @@
 import { Contact } from 'lucide-react'
 import { Metadata } from 'next'
+import { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 
 type Props = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

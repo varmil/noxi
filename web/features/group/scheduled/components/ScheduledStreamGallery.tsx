@@ -6,8 +6,8 @@ import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import ScheduledStreamGalleryContent from 'features/group/scheduled/components/ScheduledStreamGalleryContent'
 import StreamGallery from 'features/group/stream/components/gallery/StreamGallery'
-import StreamListFooter from 'features/group/stream/components/gallery/StreamListFooter'
-import StreamListHeader from 'features/group/stream/components/gallery/StreamListHeader'
+import StreamGalleryFooter from 'features/group/stream/components/gallery/StreamGalleryFooter'
+import StreamGalleryHeader from 'features/group/stream/components/gallery/StreamGalleryHeader'
 
 type Props = {
   compact?: boolean
@@ -50,7 +50,7 @@ export default async function ScheduledStreamGallery({
   return (
     <StreamGallery className={className}>
       {showHeader ? (
-        <StreamListHeader
+        <StreamGalleryHeader
           titleIcon={
             <CalendarCheck className="w-6 h-6 text-muted-foreground" />
           }
@@ -67,7 +67,7 @@ export default async function ScheduledStreamGallery({
       ) : null}
 
       <ScheduledStreamGalleryContent streams={streams} compact={compact} />
-      {compact && <StreamListFooter href={`/${group}/scheduled`} />}
+      {compact && <StreamGalleryFooter href={`/${group}/scheduled`} />}
     </StreamGallery>
   )
 }

@@ -1,6 +1,6 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
+import { Locale, useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
@@ -11,7 +11,7 @@ import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: Locale }>
   searchParams: Promise<StreamRankingSearchParams>
 }
 

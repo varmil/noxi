@@ -1,6 +1,6 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
+import { Locale, useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/live/_components/IndexTemplate'
 import { Page } from 'components/page'
@@ -9,7 +9,7 @@ import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalN
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  params: Promise<{ locale: string; group: GroupString }>
+  params: Promise<{ locale: Locale; group: GroupString }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {

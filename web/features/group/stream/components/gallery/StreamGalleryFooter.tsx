@@ -3,7 +3,7 @@ import { List } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Link } from 'lib/navigation'
 
-export default function StreamListFooter({
+export default function StreamGalleryFooter({
   href
 }: PropsWithoutRef<{ href: string }>) {
   return (

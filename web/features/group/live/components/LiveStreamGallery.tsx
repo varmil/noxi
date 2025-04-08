@@ -6,8 +6,8 @@ import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import LiveStreamGalleryContent from 'features/group/live/components/LiveStreamGalleryContent'
 import StreamGallery from 'features/group/stream/components/gallery/StreamGallery'
-import StreamListFooter from 'features/group/stream/components/gallery/StreamListFooter'
-import StreamListHeader from 'features/group/stream/components/gallery/StreamListHeader'
+import StreamGalleryFooter from 'features/group/stream/components/gallery/StreamGalleryFooter'
+import StreamGalleryHeader from 'features/group/stream/components/gallery/StreamGalleryHeader'
 
 type Props = {
   compact?: boolean
@@ -48,7 +48,7 @@ export default async function LiveStreamGallery({
   return (
     <StreamGallery className={className}>
       {showHeader ? (
-        <StreamListHeader
+        <StreamGalleryHeader
           titleIcon={<Radio className="w-6 h-6 text-red-400" />}
           title={t('live.title')}
           description={
@@ -63,7 +63,7 @@ export default async function LiveStreamGallery({
       ) : null}
 
       <LiveStreamGalleryContent streams={streams} compact={compact} />
-      {compact && <StreamListFooter href={`/${group}/live`} />}
+      {compact && <StreamGalleryFooter href={`/${group}/live`} />}
     </StreamGallery>
   )
 }
