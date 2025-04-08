@@ -9,7 +9,7 @@ type Props = {
   badgeText: string
 }
 
-export default function StreamListHeader({
+export default function StreamGalleryHeader({
   titleIcon,
   title,
   description,
