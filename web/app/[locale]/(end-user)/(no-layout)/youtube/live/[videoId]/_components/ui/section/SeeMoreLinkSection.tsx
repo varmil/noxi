@@ -29,7 +29,7 @@ export default async function SeeMoreLinkSection({
   return (
     <div className="border-t border-border pt-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
-        <SeeMoreLinkButton href={`/${group}/channels/${channelId}/live?page=2`}>
+        <SeeMoreLinkButton href={`/${group}/channels/${channelId}/live`}>
           <TitleSpan>{title}</TitleSpan>
           <Description>
             <span className="line-clamp-1 break-all">
