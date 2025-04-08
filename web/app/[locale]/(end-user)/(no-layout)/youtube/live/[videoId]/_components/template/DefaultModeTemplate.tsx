@@ -56,7 +56,7 @@ export default async function DefaultModeTemplate({
           </XSChatContainer>
 
           {/* max-w-[1536px] */}
-          <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 gap-x-6 @4xl:grid-cols-[1fr_350px] @6xl:grid-cols-[1fr_400px]">
+          <section className="grid max-w-(--breakpoint-2xl) mx-auto gap-y-4 gap-x-6 @4xl:grid-cols-[1fr_330px] @6xl:grid-cols-[1fr_400px]">
             <div>
               <LocalNavigationForLiveIdPages
                 videoId={videoId}

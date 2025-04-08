@@ -4,6 +4,7 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import StreamGallerySkeleton from 'components/skeleton/StreamGallerySkeleton'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import GradeDisplay from '../ui/grade/GradeDisplay'
+import SeeMoreLinkSection from '../ui/section/SeeMoreLinkSection'
 import VideoStatsSection from '../ui/section/VideoStatsSection'
 import StreamBasicInfo from '../ui/stream/StreamBasicInfo'
 
@@ -41,6 +42,7 @@ async function Overview({
       <div>
         <Suspense fallback={<StreamGallerySkeleton />}>
           <EndedStreamGallery where={{ channelId }} showHeader />
+          <SeeMoreLinkSection channelId={channelId} group={stream.group} />
         </Suspense>
       </div>
     </section>
