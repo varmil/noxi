@@ -5,6 +5,7 @@ import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 export const GroupStrings = [
   '774inc',
+  'dotlive',
   'hololive',
   'hololive-english',
   'hololive-indonesia',
