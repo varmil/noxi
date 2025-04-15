@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // 2025/04/12：神楽すず を dotlive に移動
+      {
+        source: '/:locale/independent/channels/UCUZ5AlC3rTlM-rA2cj5RP6w',
+        destination: '/:locale/dotlive/channels/UCUZ5AlC3rTlM-rA2cj5RP6w',
+        permanent: true
+      },
       // 2025/04/03 Delete Related Videos
       {
         source: '/:locale/youtube/live/:id/related-videos',
