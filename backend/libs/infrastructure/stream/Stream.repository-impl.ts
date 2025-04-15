@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
 import { Prisma } from '@prisma/generated/client'
 import { Group } from '@domain/group'
 import {
@@ -149,7 +148,7 @@ export class StreamRepositoryImpl implements StreamRepository {
         }
       })
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
         // An operation failed because it depends on one or more records
         // that were required but not found.
         if (error.code === 'P2025') {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
+import { Prisma } from '@prisma/generated/client'
 import { MembershipRepository, Memberships } from '@domain/membership'
 import { MembershipTranslator } from '@infra/membership/MembershipTranslator'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -65,7 +65,7 @@ export class MembershipRepositoryImpl implements MembershipRepository {
         update: {}
       })
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           // UNIQUE制約違反が普通に出るので握りつぶす
           return
