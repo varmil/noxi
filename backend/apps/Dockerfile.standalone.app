@@ -18,7 +18,6 @@ WORKDIR /app/backend
 COPY ./package*.json ./
 COPY ./prisma/schema ./prisma/schema
 RUN npm i --production=false
-RUN npm run prisma:generate
 
 
 # build the app
