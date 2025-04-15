@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library'
+import { Prisma } from '@prisma/generated/client'
 import { SuperChatRepository, SuperChats } from '@domain/supers/chat'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { SuperChatTranslator } from '@infra/super-chat/SuperChatTranslator'
@@ -102,7 +102,7 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
         update: {}
       })
     } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
         if (error.code === 'P2002') {
           // UNIQUE制約違反が普通に出るので握りつぶす
           return
