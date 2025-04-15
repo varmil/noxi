@@ -12,7 +12,7 @@ import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import type {
   Prisma,
   YoutubeStreamSupersSummary as PrismaYoutubeStreamSupersSummary
-} from '@prisma/client'
+} from '@prisma/generated/client'
 
 const toPrismaWhere = (
   where?: SupersSummaryFindAllWhere

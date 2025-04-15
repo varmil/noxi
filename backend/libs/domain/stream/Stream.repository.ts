@@ -15,7 +15,7 @@ import {
   VideoIds,
   VideoTitle
 } from '@domain/youtube'
-import type { Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/generated/client'
 
 export interface StreamFindAllWhere {
   /** LIKE 検索 */

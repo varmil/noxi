@@ -8,7 +8,8 @@
       "@domain": ["libs/domain"],
       "@domain/*": ["libs/domain/*"],
       "@infra": ["libs/infrastructure"],
-      "@infra/*": ["libs/infrastructure/*"]
+      "@infra/*": ["libs/infrastructure/*"],
+      "@prisma/generated/client": ["prisma/generated/client"]
     },
     "module": "commonjs",
     "declaration": true,

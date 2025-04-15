@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import {
   Prisma,
   YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
-} from '@prisma/client'
+} from '@prisma/generated/client'
 import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { RankingType } from '@domain/ranking'

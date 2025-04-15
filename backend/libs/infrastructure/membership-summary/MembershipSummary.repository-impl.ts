@@ -13,7 +13,7 @@ import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import type {
   Prisma,
   ChannelMembershipSummary as PrismaChannelMembershipSummary
-} from '@prisma/client'
+} from '@prisma/generated/client'
 
 const toPrismaWhere = (
   where?: MembershipSummaryFindAllWhere
