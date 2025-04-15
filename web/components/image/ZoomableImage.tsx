@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, ImgHTMLAttributes } from 'react'
+import { ComponentProps, DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import {
   Dialog,
@@ -16,6 +16,7 @@ export default function ZoomableImage({
   height,
   className
 }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
+  src: ComponentProps<typeof Image>['src']
   width: number
   height: number
 }) {
