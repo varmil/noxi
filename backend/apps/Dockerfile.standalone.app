@@ -27,6 +27,7 @@ RUN apt-get update -y && apt-get install -y openssl
 WORKDIR /app/backend
 COPY . .
 COPY --from=deps /app/backend/node_modules ./node_modules
+COPY --from=deps /app/backend/prisma/generated/client ./prisma/generated/client
 RUN $BUILD_CMD && npm prune --production
 
 
@@ -43,5 +44,6 @@ WORKDIR /app/backend
 COPY --from=builder /app/backend/scripts ./scripts
 COPY --from=builder /app/backend/dist ./dist
 COPY --from=builder /app/backend/node_modules ./node_modules
+COPY --from=builder /app/backend/prisma/generated/client ./prisma/generated/client
 COPY --from=builder /app/backend/package.json ./package.json
 ENTRYPOINT ["sh", "-c", "cd /app/backend && $ENV_START_CMD"]
