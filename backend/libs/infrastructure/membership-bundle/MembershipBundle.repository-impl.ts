@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import {
   Prisma,
   StreamMembershipBundle as PrismaStreamMembershipBundle
-} from '@prisma/client'
+} from '@prisma/generated/client'
 import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { Count } from '@domain/membership'

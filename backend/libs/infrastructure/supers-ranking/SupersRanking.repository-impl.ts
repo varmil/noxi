@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { type ChannelSupersRanking as PrismaChannelSupersRanking } from '@prisma/client'
+import { type ChannelSupersRanking as PrismaChannelSupersRanking } from '@prisma/generated/client'
 import { Period } from '@domain/lib/period'
 import { RankingType } from '@domain/ranking'
 import {

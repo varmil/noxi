@@ -9,7 +9,7 @@ import { AmountMicros, Currency } from '@domain/lib/currency'
 import { SuperChat, AmountDisplayString, UserComment } from '@domain/supers'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
-import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/client'
+import type { YoutubeStreamSuperChat as PrismaSuperChat } from '@prisma/generated/client'
 
 export class SuperChatTranslator {
   constructor(private readonly row: PrismaSuperChat) {}

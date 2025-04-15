@@ -9,7 +9,7 @@ import { AmountMicros, Currency } from '@domain/lib/currency'
 import { SuperSticker, AmountDisplayString } from '@domain/supers'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
-import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/client'
+import type { YoutubeStreamSuperSticker as PrismaSuperSticker } from '@prisma/generated/client'
 
 export class SuperStickerTranslator {
   constructor(private readonly row: PrismaSuperSticker) {}

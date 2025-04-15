@@ -8,7 +8,7 @@ import { Group } from '@domain/group'
 import { Count, IsGift, Membership } from '@domain/membership'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
-import type { StreamMembership as PrismaMembership } from '@prisma/client'
+import type { StreamMembership as PrismaMembership } from '@prisma/generated/client'
 
 export class MembershipTranslator {
   constructor(private readonly row: PrismaMembership) {}

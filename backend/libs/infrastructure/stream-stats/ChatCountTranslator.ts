@@ -1,7 +1,7 @@
 import { ChatCount, Count } from '@domain/stream-stats'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { Continuation } from '@domain/youtubei/live-chat'
-import type { YoutubeStreamChatCount as PrismaChatCount } from '@prisma/client'
+import type { YoutubeStreamChatCount as PrismaChatCount } from '@prisma/generated/client'
 
 export class ChatCountTranslator {
   constructor(private readonly row: PrismaChatCount) {}

@@ -111,7 +111,8 @@
       "^@presentation(|/.*)$": "<rootDir>/apps/closed-api-server/src/presentation/$1",
       "^@app(|/.*)$": "<rootDir>/libs/application/$1",
       "^@domain(|/.*)$": "<rootDir>/libs/domain/$1",
-      "^@infra(|/.*)$": "<rootDir>/libs/infrastructure/$1"
+      "^@infra(|/.*)$": "<rootDir>/libs/infrastructure/$1",
+      "^@prisma/generated/client$": "<rootDir>/prisma/generated/client"
     }
   }
 }

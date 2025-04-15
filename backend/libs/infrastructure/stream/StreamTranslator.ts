@@ -12,7 +12,7 @@ import {
   UpdatedAt,
   VideoTitle
 } from '@domain/youtube'
-import type { YoutubeStream as PrismaYoutubeStream } from '@prisma/client'
+import type { YoutubeStream as PrismaYoutubeStream } from '@prisma/generated/client'
 
 export class StreamTranslator {
   constructor(private readonly row: PrismaYoutubeStream) {}

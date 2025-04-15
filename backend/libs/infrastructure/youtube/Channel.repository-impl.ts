@@ -1,5 +1,5 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/generated/client'
 import { CountryCode, LanguageTag } from '@domain/country'
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
@@ -17,7 +17,7 @@ import {
   PeakXChannelProps
 } from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import type { Channel as PrismaChannel } from '@prisma/client'
+import type { Channel as PrismaChannel } from '@prisma/generated/client'
 
 @Injectable()
 export class ChannelRepositoryImpl implements ChannelRepository {
