@@ -36,6 +36,7 @@ jobs:
         with:
           node-version-file: .node-version
       - run: npm i
+      - run: npm run prisma:generate
       - run: npm run lint
       - run: npm run type-check
       - run: npm run build
@@ -64,6 +65,7 @@ jobs:
         with:
           node-version-file: .node-version
       - run: npm i
+      - run: npm run prisma:generate
       - name: Build ${{ matrix.service_name }}
         run: npm run app -- ${{ matrix.service_name }} build
 
