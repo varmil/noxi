@@ -7,6 +7,7 @@ import { GroupStrings } from 'config/constants/Group'
 const counts = {
   '774inc': { val: 24, isAll: true },
   dotlive: { val: 1, isAll: false },
+  'first-stage': { val: 3, isAll: false },
   hololive: { val: 43, isAll: true },
   'hololive-english': { val: 18, isAll: true },
   'hololive-indonesia': { val: 9, isAll: true },
@@ -20,8 +21,11 @@ const counts = {
   specialite: { val: 21, isAll: true },
   mixstgirls: { val: 8, isAll: true },
   'idol-corp': { val: 13, isAll: true },
-  independent: { val: 123, isAll: false },
-  'independent-irl': { val: 15, isAll: false }
+  utatane: { val: 1, isAll: false },
+  varium: { val: 1, isAll: false },
+  voms: { val: 6, isAll: true },
+  independent: { val: 150, isAll: false },
+  'independent-irl': { val: 20, isAll: false }
 }
 
 type Count = {
