@@ -40,9 +40,9 @@ export default function HeaderNavigationMenu() {
 
         <NavigationMenuItem>
           <NavigationMenuTrigger>{comp('talents')}</NavigationMenuTrigger>
-          <NavigationMenuContent>
+          <NavigationMenuContent className="md:max-h-[80vh] md:overflow-y-auto">
             <GroupGallery
-              className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]"
+              className="grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[808px] lg:grid-cols-3"
               useNavigationMenuLink
             />
           </NavigationMenuContent>
