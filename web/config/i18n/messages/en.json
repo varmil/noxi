@@ -427,7 +427,7 @@
       "notice1": "Reference value based on PeakX AI",
       "notice2": "This rating is a reference value based on PeakX's proprietary algorithm, and does not guarantee the absolute value or profitability of the channel.",
       "supers": {
-        "notice1": "Calculated based on the total amount of Super Chats and Super Stickers during the live stream."
+        "notice1": "Calculated based on the amount of Super Chats and Super Stickers during the live stream."
       }
     },
     "group": {
