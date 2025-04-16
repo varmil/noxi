@@ -30,7 +30,7 @@ export default async function sitemap({
       return getEntry({
         pathname: `/youtube/live/${videoId}`,
         // NOTE: googlebotが正しい更新を終えたらコメントアウトする
-        lastModified: new Date('2025-04-06T18:33:00+09:00')
+        lastModified: new Date('2025-04-16T18:33:00+09:00')
       })
     })
     .filter(e => !!e)
