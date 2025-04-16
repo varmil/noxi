@@ -17,6 +17,7 @@
     "group": {
       "774inc": "774 Inc.",
       "dotlive": ".LIVE",
+      "first-stage": "FIRST STAGE PRODUCTION",
       "hololive": "Hololive",
       "hololive-english": "Hololive English",
       "hololive-indonesia": "Hololive Indonesia",
@@ -30,6 +31,9 @@
       "specialite": "Specialite",
       "mixstgirls": "Mixstgirls",
       "idol-corp": "idol Corp",
+      "utatane": "Utatane Production",
+      "varium": "Varium",
+      "voms": "VOMS",
       "independent": "Independent VTubers",
       "independent-irl": "Independent Streamers (IRL)"
     },
