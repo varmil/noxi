@@ -1,10 +1,10 @@
 {
-  "moduleFileExtensions": ["js", "json", "ts"],
+  "moduleFileExtensions": ["ts", "js", "json"],
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
   "transform": {
-    "^.+\\.(t|j)s?$": ["@swc/jest"]
+    "^.+\\.ts?$": ["@swc/jest"]
   },
   "moduleNameMapper": {
     "^@presentation(|/.*)$": "<rootDir>/../../../../apps/closed-api-server/src/presentation/$1",
