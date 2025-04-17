@@ -596,7 +596,6 @@
       "viewersLabel": "Viewers"
     },
     "streamStats": {
-      "srChatCountsChart": "The area graph shows the trend in the number of live chats during {dateRange}. The current total number of chats is {total}.",
       "srViewerCountsChart": "The area graph shows the number of concurrent viewers over the course of {dateRange}. The maximum number of concurrent viewers at the peak was {peak}."
     }
   }

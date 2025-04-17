@@ -47,16 +47,18 @@ export class MainScenario {
           if (!res) return
           const { newMessages, nextContinuation } = res
 
-          // chat-counts
-          {
-            promises.push(
-              this.saveChatCounts({
+          // next-continuation
+          promises.push(
+            this.nextContinuationsService.save({
+              data: {
                 videoId,
-                newMessages,
-                nextContinuation
-              })
-            )
-          }
+                nextContinuation,
+                latestPublishedAt:
+                  newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
+                createdAt: new Date()
+              }
+            })
+          )
 
           // super-chats, super-stickers
           {
@@ -96,25 +98,5 @@ export class MainScenario {
         this.logger.error(`Error in chunk: ${index(offset)}:`, e)
       }
     }
-  }
-
-  private async saveChatCounts({
-    videoId,
-    newMessages,
-    nextContinuation
-  }: {
-    videoId: VideoId
-    newMessages: LiveChatMessages
-    nextContinuation?: Continuation
-  }) {
-    await this.nextContinuationsService.save({
-      data: {
-        videoId,
-        nextContinuation,
-        latestPublishedAt:
-          newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
-        createdAt: new Date()
-      }
-    })
   }
 }
