@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
@@ -13,7 +13,7 @@ import { Video, VideoIds } from '@domain/youtube'
 export class EndLivesScenario {
   constructor(
     private readonly promiseService: PromiseService,
-    private readonly chatBundleQueuesService: ChatBundleQueuesService,
+    private readonly chatDeletingQueuesService: ChatDeletingQueuesService,
     private readonly streamsService: StreamsService,
     private readonly streamStatsService: StreamStatsService,
     private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService,
@@ -58,7 +58,7 @@ export class EndLivesScenario {
           // update metrics
           this.updateMetrics(video),
           // Queue chat bundle
-          this.chatBundleQueuesService.save({
+          this.chatDeletingQueuesService.save({
             where: { videoId: video.id },
             data: { status: QueueStatusUnprocessed }
           }),

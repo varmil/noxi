@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/delete-chats/src/main.module'
 import { MainScenario } from 'apps/delete-chats/src/scenario/main.scenario'
-import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
-import { ChatBundleQueue } from '@domain/chat-bundle-queue/ChatBundleQueue.entity'
-import { ChatBundleQueues } from '@domain/chat-bundle-queue/ChatBundleQueues.collection'
+import { ChatDeletingQueue } from '@domain/chat-deleting-queue/ChatDeletingQueue.entity'
+import { ChatDeletingQueues } from '@domain/chat-deleting-queue/ChatDeletingQueues.collection'
 import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 
@@ -26,8 +26,8 @@ describe('Delete Chats > MainScenario', () => {
   describe('execute()', () => {
     it('should return void 0', async () => {
       jest
-        .spyOn(ChatBundleQueuesService.prototype, 'findAll')
-        .mockResolvedValueOnce(new ChatBundleQueues([queue]))
+        .spyOn(ChatDeletingQueuesService.prototype, 'findAll')
+        .mockResolvedValueOnce(new ChatDeletingQueues([queue]))
 
       jest
         .spyOn(ChatCountsService.prototype, 'delete')
@@ -39,7 +39,7 @@ describe('Delete Chats > MainScenario', () => {
   })
 })
 
-const queue = new ChatBundleQueue({
+const queue = new ChatDeletingQueue({
   status: new QueueStatus('unprocessed'),
   videoId: new VideoId('ky_EP0NHH0A'),
   createdAt: new Date()

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { QueueStatusInProgress } from '@domain/queue'
@@ -9,14 +9,14 @@ export class MainScenario {
   constructor(
     private readonly promiseService: PromiseService,
     private readonly chatCountsService: ChatCountsService,
-    private readonly chatBundleQueuesService: ChatBundleQueuesService
+    private readonly chatDeletingQueuesService: ChatDeletingQueuesService
   ) {}
 
   async execute(): Promise<void> {
     const tasks = await this.fetchTasks()
     const promises = tasks.map(async ({ videoId }) => {
       // タスクを処理中に更新
-      await this.chatBundleQueuesService.save({
+      await this.chatDeletingQueuesService.save({
         where: { videoId },
         data: { status: QueueStatusInProgress }
       })
@@ -29,7 +29,7 @@ export class MainScenario {
       // TODO: removeする処理にしてjobの名前もremove-chatsにする
 
       // queueからタスクを削除
-      await this.chatBundleQueuesService.delete({
+      await this.chatDeletingQueuesService.delete({
         where: { videoId }
       })
     })
@@ -38,7 +38,7 @@ export class MainScenario {
   }
 
   private async fetchTasks() {
-    return await this.chatBundleQueuesService.findAll({
+    return await this.chatDeletingQueuesService.findAll({
       limit: 300
     })
   }

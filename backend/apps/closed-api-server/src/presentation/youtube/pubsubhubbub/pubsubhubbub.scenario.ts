@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
-import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
+import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
@@ -26,7 +26,7 @@ export class PubsubhubbubScenario {
     private readonly groupsService: GroupsService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService,
-    private readonly chatBundleQueuesService: ChatBundleQueuesService,
+    private readonly chatDeletingQueuesService: ChatDeletingQueuesService,
     private readonly chatEventsBundleQueuesService: ChatEventsBundleQueuesService
   ) {}
 
@@ -79,7 +79,7 @@ export class PubsubhubbubScenario {
           where: { videoId },
           data: streamTimes.end()
         }),
-        this.chatBundleQueuesService.save({
+        this.chatDeletingQueuesService.save({
           where: { videoId },
           data: { status: QueueStatusUnprocessed }
         }),

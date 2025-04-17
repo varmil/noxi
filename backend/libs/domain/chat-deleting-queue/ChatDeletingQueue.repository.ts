@@ -1,9 +1,9 @@
-import { ChatBundleQueues } from '@domain/chat-bundle-queue/ChatBundleQueues.collection'
+import { ChatDeletingQueues } from '@domain/chat-deleting-queue'
 import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 
-export interface ChatBundleQueueRepository {
-  findAll: (args: { limit?: number }) => Promise<ChatBundleQueues>
+export interface ChatDeletingQueueRepository {
+  findAll: (args: { limit?: number }) => Promise<ChatDeletingQueues>
 
   save: (args: {
     where: { videoId: VideoId }

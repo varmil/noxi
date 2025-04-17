@@ -20,7 +20,7 @@ model YoutubeStreamChatCount {
   @@index([videoId, all, createdAt])
 }
 
-model YoutubeStreamChatBundleQueue {
+model StreamChatDeletingQueue {
   id        Int      @id @default(autoincrement())
   status    String
   videoId   String   @unique
