@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
-import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
+import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
 import { QueueStatusInProgress } from '@domain/queue'
 
 @Injectable()
 export class MainScenario {
   constructor(
     private readonly promiseService: PromiseService,
-    private readonly chatCountsService: ChatCountsService,
+    private readonly nextContinuationsService: NextContinuationsService,
     private readonly chatDeletingQueuesService: ChatDeletingQueuesService
   ) {}
 
@@ -21,12 +21,9 @@ export class MainScenario {
         data: { status: QueueStatusInProgress }
       })
 
-      // @deprecated bundle
-      // await this.chatCountsService.bundle({
-      //   where: { videoId }
-      // })
-
-      // TODO: removeする処理にしてjobの名前もremove-chatsにする
+      await this.nextContinuationsService.delete({
+        where: { videoId }
+      })
 
       // queueからタスクを削除
       await this.chatDeletingQueuesService.delete({

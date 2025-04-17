@@ -41,7 +41,6 @@
     "/backend/libs/domain/youtube/datetime",
     "/backend/libs/domain/group",
     "/backend/libs/domain/stream-stats/viewer",
-    "/backend/libs/domain/stream-stats/chat",
     "/backend/libs/domain/stream-stats/count",
     "/backend/libs/domain/youtube/api",
     "/backend/libs/domain/youtube/live-chat-message",

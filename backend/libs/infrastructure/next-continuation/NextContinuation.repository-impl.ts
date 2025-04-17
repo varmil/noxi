@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common'
-import { ChatCountRepository } from '@domain/stream-stats/chat'
+import { NextContinuationRepository } from '@domain/next-continuation'
+import { NextContinuationTranslator } from '@infra/next-continuation/NextContinuationTranslator'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
-import { ChatCountTranslator } from '@infra/stream-stats/ChatCountTranslator'
 
 @Injectable()
-export class ChatCountRepositoryImpl implements ChatCountRepository {
+export class NextContinuationRepositoryImpl
+  implements NextContinuationRepository
+{
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  findOne: ChatCountRepository['findOne'] = async ({
+  findOne: NextContinuationRepository['findOne'] = async ({
     where: { videoId },
     orderBy
   }) => {
@@ -16,12 +18,12 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
       orderBy
     })
     if (!row) return null
-    return new ChatCountTranslator(row).translate()
+    return new NextContinuationTranslator(row).translate()
   }
 
   async save({
     data: { videoId, nextContinuation, latestPublishedAt, createdAt }
-  }: Parameters<ChatCountRepository['save']>[0]) {
+  }: Parameters<NextContinuationRepository['save']>[0]) {
     await this.prismaInfraService.nextContinuation.create({
       data: {
         videoId: videoId.get(),
@@ -35,7 +37,7 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
 
   async delete({
     where: { videoId }
-  }: Parameters<ChatCountRepository['delete']>[0]) {
+  }: Parameters<NextContinuationRepository['delete']>[0]) {
     await this.prismaInfraService.nextContinuation.deleteMany({
       where: { videoId: videoId.get() }
     })

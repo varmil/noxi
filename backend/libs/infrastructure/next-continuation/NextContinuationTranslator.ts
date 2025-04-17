@@ -1,15 +1,15 @@
-import { ChatCount } from '@domain/stream-stats'
+import { NextContinuation } from '@domain/next-continuation'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { Continuation } from '@domain/youtubei/live-chat'
-import type { NextContinuation } from '@prisma/generated/client'
+import type { NextContinuation as NextContinuationRow } from '@prisma/generated/client'
 
-export class ChatCountTranslator {
-  constructor(private readonly row: NextContinuation) {}
+export class NextContinuationTranslator {
+  constructor(private readonly row: NextContinuationRow) {}
 
-  translate(): ChatCount {
+  translate(): NextContinuation {
     const row = this.row
 
-    return new ChatCount({
+    return new NextContinuation({
       videoId: new VideoId(row.videoId),
       nextContinuation: row.nextContinuation
         ? new Continuation(row.nextContinuation)

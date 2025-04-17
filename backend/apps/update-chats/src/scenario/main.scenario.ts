@@ -4,7 +4,7 @@ import { SaveMembershipsService } from 'apps/update-chats/src/service/save-membe
 import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-chats.service'
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
-import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
+import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
 import { Continuation } from '@domain/youtubei/live-chat'
@@ -17,7 +17,7 @@ export class MainScenario {
   constructor(
     private readonly promiseService: PromiseService,
     private readonly mainService: MainService,
-    private readonly chatCountsService: ChatCountsService,
+    private readonly nextContinuationsService: NextContinuationsService,
     private readonly saveMembershipsService: SaveMembershipsService,
     private readonly saveSuperChatsService: SaveSuperChatsService,
     private readonly saveSuperStickersService: SaveSuperStickersService
@@ -107,7 +107,7 @@ export class MainScenario {
     newMessages: LiveChatMessages
     nextContinuation?: Continuation
   }) {
-    await this.chatCountsService.save({
+    await this.nextContinuationsService.save({
       data: {
         videoId,
         nextContinuation,

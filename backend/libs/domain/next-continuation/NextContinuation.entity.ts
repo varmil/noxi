@@ -2,7 +2,7 @@ import { Exclude } from 'class-transformer'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { Continuation } from '@domain/youtubei/live-chat/Continuation.vo'
 
-export class ChatCount {
+export class NextContinuation {
   @Exclude()
   public readonly videoId: VideoId
   @Exclude()

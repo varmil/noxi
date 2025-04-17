@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
-import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
+import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
 import { StreamsService } from '@app/streams/streams.service'
+import { NextContinuation } from '@domain/next-continuation'
 import { StreamStatus } from '@domain/stream'
-import { ChatCount } from '@domain/stream-stats'
 import { VideoId, VideoTitle } from '@domain/youtube'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
@@ -14,7 +14,7 @@ export class MainService {
 
   constructor(
     private readonly youtubeiLiveChatInfraService: YoutubeiLiveChatInfraService,
-    private readonly chatCountsService: ChatCountsService,
+    private readonly nextContinuationsService: NextContinuationsService,
     private readonly streamsService: StreamsService
   ) {}
 
@@ -58,7 +58,7 @@ export class MainService {
     title: VideoTitle
   }) {
     // 前回の結果を取得
-    const latestChatCount = await this.chatCountsService.findLatest({
+    const latestChatCount = await this.nextContinuationsService.findLatest({
       where: { videoId }
     })
 
@@ -97,7 +97,7 @@ export class MainService {
    */
   private async getContinuation(
     { videoId, title }: { videoId: VideoId; title: VideoTitle },
-    latestChatCount: ChatCount | null
+    latestChatCount: NextContinuation | null
   ) {
     const isContinuationFresh =
       latestChatCount?.createdAt &&
