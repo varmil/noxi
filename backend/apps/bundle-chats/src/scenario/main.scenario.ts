@@ -21,10 +21,12 @@ export class MainScenario {
         data: { status: QueueStatusInProgress }
       })
 
-      // bundle
-      await this.chatCountsService.bundle({
-        where: { videoId }
-      })
+      // @deprecated bundle
+      // await this.chatCountsService.bundle({
+      //   where: { videoId }
+      // })
+
+      // TODO: removeする処理にしてjobの名前もremove-chatsにする
 
       // queueからタスクを削除
       await this.chatBundleQueuesService.delete({
