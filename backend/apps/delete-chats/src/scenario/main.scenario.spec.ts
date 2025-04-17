@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { MainModule } from 'apps/bundle-chats/src/main.module'
-import { MainScenario } from 'apps/bundle-chats/src/scenario/main.scenario'
+import { MainModule } from 'apps/delete-chats/src/main.module'
+import { MainScenario } from 'apps/delete-chats/src/scenario/main.scenario'
 import { ChatBundleQueuesService } from '@app/chat-bundle-queues/chat-bundle-queues.service'
 import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { ChatBundleQueue } from '@domain/chat-bundle-queue/ChatBundleQueue.entity'
@@ -8,7 +8,7 @@ import { ChatBundleQueues } from '@domain/chat-bundle-queue/ChatBundleQueues.col
 import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 
-describe('Bundle Chats > MainScenario', () => {
+describe('Delete Chats > MainScenario', () => {
   let scenario: MainScenario
 
   beforeEach(async () => {
