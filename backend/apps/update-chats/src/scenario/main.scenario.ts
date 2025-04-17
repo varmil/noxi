@@ -5,9 +5,7 @@ import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
-import { PublishedAt, VideoId } from '@domain/youtube'
-import { LiveChatMessages } from '@domain/youtube/live-chat-message'
-import { Continuation } from '@domain/youtubei/live-chat'
+import { PublishedAt } from '@domain/youtube'
 
 @Injectable()
 export class MainScenario {
