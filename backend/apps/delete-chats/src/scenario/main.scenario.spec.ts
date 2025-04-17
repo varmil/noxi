@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { MainModule } from 'apps/delete-chats/src/main.module'
 import { MainScenario } from 'apps/delete-chats/src/scenario/main.scenario'
 import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
-import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
+import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
 import { ChatDeletingQueue } from '@domain/chat-deleting-queue/ChatDeletingQueue.entity'
 import { ChatDeletingQueues } from '@domain/chat-deleting-queue/ChatDeletingQueues.collection'
 import { QueueStatus } from '@domain/queue'
@@ -30,7 +30,7 @@ describe('Delete Chats > MainScenario', () => {
         .mockResolvedValueOnce(new ChatDeletingQueues([queue]))
 
       jest
-        .spyOn(ChatCountsService.prototype, 'delete')
+        .spyOn(NextContinuationsService.prototype, 'delete')
         .mockResolvedValueOnce(void 0)
 
       const result = await scenario.execute()

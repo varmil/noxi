@@ -596,7 +596,6 @@
       "viewersLabel": "同接数"
     },
     "streamStats": {
-      "srChatCountsChart": "{dateRange}におけるライブのチャット数推移を面グラフで示しています。現在のチャット総数は{total}件です。",
       "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
     }
   }
