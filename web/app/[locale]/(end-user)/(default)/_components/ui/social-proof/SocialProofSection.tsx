@@ -1,5 +1,11 @@
 import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
+import Underline from 'components/styles/string/Underline'
+import {
+  ChannelsRankingDefaultUrl,
+  StreamRankingDefaultUrl
+} from 'config/constants/RankingRoute'
+import { Link } from 'lib/navigation'
 import { HeroH3 } from '../../styles/HeroTitles'
 
 export default function SocialProofSection() {
@@ -14,23 +20,17 @@ export default function SocialProofSection() {
         </p>
 
         <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
-          <Item>
-            <NumberText>500+</NumberText>
-            <span className="text-lg text-muted-foreground">
-              {t('channels')}
-            </span>
+          <Item href={ChannelsRankingDefaultUrl}>
+            <NumberText>600+</NumberText>
+            <Text>{t('channels')}</Text>
           </Item>
-          <Item>
-            <NumberText>22K+</NumberText>
-            <span className="text-lg text-muted-foreground">
-              {t('liveStreams')}
-            </span>
+          <Item href={StreamRankingDefaultUrl}>
+            <NumberText>53K+</NumberText>
+            <Text>{t('liveStreams')}</Text>
           </Item>
-          <Item>
-            <NumberText>6+</NumberText>
-            <span className="text-lg text-muted-foreground">
-              {t('countries')}
-            </span>
+          <Item href="/groups">
+            <NumberText>20+</NumberText>
+            <Text>{t('groups')}</Text>
           </Item>
         </div>
       </div>
@@ -42,6 +42,24 @@ const NumberText = ({ children }: PropsWithChildren<{}>) => (
   <span className="text-4xl font-bold md:text-5xl lg:text-6xl">{children}</span>
 )
 
-const Item = ({ children }: PropsWithChildren<{}>) => (
-  <div className="flex flex-col items-center space-y-2">{children}</div>
+type ItemProps = PropsWithChildren<{ href?: string }>
+
+const Item = ({ children, href }: ItemProps) =>
+  href ? (
+    <div className="group">
+      <Link
+        href={href}
+        className="flex flex-col items-center space-y-2 transition-transform duration-75 group-hover:scale-110"
+      >
+        {children}
+      </Link>
+    </div>
+  ) : (
+    <div className="flex flex-col items-center space-y-2">{children}</div>
+  )
+
+const Text = ({ children }: PropsWithChildren<{}>) => (
+  <Underline className="text-base md:text-lg text-muted-foreground group-hover:scale-110">
+    {children}
+  </Underline>
 )
