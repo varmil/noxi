@@ -110,8 +110,6 @@ export class MainScenario {
     await this.chatCountsService.save({
       data: {
         videoId,
-        all: newMessages.all,
-        member: newMessages.member,
         nextContinuation,
         latestPublishedAt:
           newMessages.latestPublishedAt ?? new PublishedAt(new Date()),

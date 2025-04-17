@@ -6,7 +6,6 @@ import { ChatCountsService } from '@app/stream-stats/chat-counts.service'
 import { ChatBundleQueue } from '@domain/chat-bundle-queue/ChatBundleQueue.entity'
 import { ChatBundleQueues } from '@domain/chat-bundle-queue/ChatBundleQueues.collection'
 import { QueueStatus } from '@domain/queue'
-import { ChatCountsFixture } from '@domain/stream-stats'
 import { VideoId } from '@domain/youtube'
 
 describe('Bundle Chats > MainScenario', () => {
@@ -31,8 +30,8 @@ describe('Bundle Chats > MainScenario', () => {
         .mockResolvedValueOnce(new ChatBundleQueues([queue]))
 
       jest
-        .spyOn(ChatCountsService.prototype, 'findAll')
-        .mockResolvedValueOnce(ChatCountsFixture)
+        .spyOn(ChatCountsService.prototype, 'delete')
+        .mockResolvedValueOnce(void 0)
 
       const result = await scenario.execute()
       expect(result).toEqual(void 0)
