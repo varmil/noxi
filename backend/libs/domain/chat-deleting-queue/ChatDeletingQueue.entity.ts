@@ -2,7 +2,7 @@ import { Exclude } from 'class-transformer'
 import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 
-export class ChatBundleQueue {
+export class ChatDeletingQueue {
   @Exclude()
   public readonly status: QueueStatus
   @Exclude()
