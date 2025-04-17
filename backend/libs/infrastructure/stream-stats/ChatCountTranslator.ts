@@ -1,15 +1,11 @@
 import { ChatCount } from '@domain/stream-stats'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { Continuation } from '@domain/youtubei/live-chat'
-import type { YoutubeStreamChatCount as PrismaChatCount } from '@prisma/generated/client'
+import type { NextContinuation } from '@prisma/generated/client'
 
 export class ChatCountTranslator {
-  constructor(private readonly row: PrismaChatCount) {}
+  constructor(private readonly row: NextContinuation) {}
 
-  /**
-   * Translate PrismaChatCount to Stream
-   * @returns
-   */
   translate(): ChatCount {
     const row = this.row
 

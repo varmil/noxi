@@ -11,7 +11,7 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
     where: { videoId },
     orderBy
   }) => {
-    const row = await this.prismaInfraService.youtubeStreamChatCount.findFirst({
+    const row = await this.prismaInfraService.nextContinuation.findFirst({
       where: { videoId: videoId.get() },
       orderBy
     })
@@ -22,7 +22,7 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
   async save({
     data: { videoId, nextContinuation, latestPublishedAt, createdAt }
   }: Parameters<ChatCountRepository['save']>[0]) {
-    await this.prismaInfraService.youtubeStreamChatCount.create({
+    await this.prismaInfraService.nextContinuation.create({
       data: {
         videoId: videoId.get(),
         // 終了を考えて、nullを入れる
@@ -36,7 +36,7 @@ export class ChatCountRepositoryImpl implements ChatCountRepository {
   async delete({
     where: { videoId }
   }: Parameters<ChatCountRepository['delete']>[0]) {
-    await this.prismaInfraService.youtubeStreamChatCount.deleteMany({
+    await this.prismaInfraService.nextContinuation.deleteMany({
       where: { videoId: videoId.get() }
     })
   }

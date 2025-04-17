@@ -7,7 +7,7 @@ model YoutubeStreamViewerCount {
   @@index([videoId, createdAt])
 }
 
-model YoutubeStreamChatCount {
+model NextContinuation {
   id                BigInt   @id @default(autoincrement())
   videoId           String
   nextContinuation  String?
