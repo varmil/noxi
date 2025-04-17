@@ -4,7 +4,7 @@ const rootDir = process.cwd()
 
 const AppNames = [
   'closed-api-server',
-  'bundle-chats',
+  'delete-chats',
   'bundle-chat-events',
   'groups/update-channels',
   'pubsubhubbub',

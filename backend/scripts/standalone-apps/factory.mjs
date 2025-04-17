@@ -9,7 +9,7 @@ import { $, argv } from 'zx'
 // $.verbose = true
 
 const schema0 = z.union([
-  z.literal('bundle-chats'),
+  z.literal('delete-chats'),
   z.literal('bundle-chat-events'),
   z.literal('groups/update-channels'),
   z.literal('pubsubhubbub'),
