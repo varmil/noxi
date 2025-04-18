@@ -57,12 +57,12 @@ export class EndLivesScenario {
           }),
           // update metrics
           this.updateMetrics(video),
-          // Queue chat bundle
+          // Queue chat deleting
           this.chatDeletingQueuesService.save({
             where: { videoId: video.id },
             data: { status: QueueStatusUnprocessed }
           }),
-          // Queue chat events bundle
+          // Queue chat events bundle (supers)
           this.chatEventsBundleQueuesService.save({
             where: { videoId: video.id },
             data: { status: QueueStatusUnprocessed }

@@ -15,10 +15,12 @@ export class ChatEventsBundleQueueRepositoryImpl
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
+    where,
     limit
   }: Parameters<ChatEventsBundleQueueRepository['findAll']>[0]) {
     const rows =
       await this.prismaInfraService.streamChatEventsBundleQueue.findMany({
+        where,
         take: limit
       })
 

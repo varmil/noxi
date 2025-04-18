@@ -3,7 +3,10 @@ import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 
 export interface ChatEventsBundleQueueRepository {
-  findAll: (args: { limit?: number }) => Promise<ChatEventsBundleQueues>
+  findAll: (args: {
+    where?: { createdAt?: { gte?: Date; lte: Date } }
+    limit?: number
+  }) => Promise<ChatEventsBundleQueues>
 
   save: (args: {
     where: { videoId: VideoId }

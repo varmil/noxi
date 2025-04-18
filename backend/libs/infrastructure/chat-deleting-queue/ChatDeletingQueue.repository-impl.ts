@@ -13,10 +13,11 @@ export class ChatDeletingQueueRepositoryImpl
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
+    where,
     limit
   }: Parameters<ChatDeletingQueueRepository['findAll']>[0]) {
     const rows = await this.prismaInfraService.streamChatDeletingQueue.findMany(
-      { take: limit }
+      { where, take: limit }
     )
     return new ChatDeletingQueues(
       rows.map(
