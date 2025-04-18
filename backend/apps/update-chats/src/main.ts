@@ -9,10 +9,11 @@ import { MainScenario } from './scenario/main.scenario'
  */
 const INTERVAL_MS = 4500
 /**
- * 1時間+1分の間、INTERVAL_MS間隔で実行する
- * 1分はバッファで敢えて次の実行と被せる。Cloud Schedulerは1時間間隔。
+ * 1時間、INTERVAL_MS間隔で実行する
+ * Cloud Schedulerは1時間間隔。ここに「処理時間」が加わるので実際には
+ * 10分程度の被り（マージン）がある。
  */
-const EXECUTE_COUNT = (3663 * 1000) / INTERVAL_MS
+const EXECUTE_COUNT = (3600 * 1000) / INTERVAL_MS
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
