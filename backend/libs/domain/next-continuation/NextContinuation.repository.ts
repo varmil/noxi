@@ -14,5 +14,7 @@ export interface NextContinuationRepository {
     data: NextContinuation
   }) => Promise<void>
 
-  delete: (args: { where: { videoId: VideoId } }) => Promise<void>
+  delete: (args: {
+    where: { videoId?: VideoId; createdAt?: { lte: Date } }
+  }) => Promise<void>
 }

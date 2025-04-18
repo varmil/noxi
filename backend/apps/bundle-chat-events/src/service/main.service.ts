@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common'
+import dayjs from 'dayjs'
 import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { Streams, StreamStatus } from '@domain/stream'
@@ -29,9 +30,14 @@ export class MainService {
     })
   }
 
-  /**  queue */
+  /**
+   * queue
+   * チャットは終了後2分間まで取得しているので、
+   * ここでは+1分して、3分以上経っているものを取得
+   */
   async fetchQueues() {
     return await this.chatEventsBundleQueuesService.findAll({
+      where: { createdAt: { lte: dayjs().subtract(3, 'minute').toDate() } },
       limit: 100
     })
   }

@@ -3,7 +3,10 @@ import { QueueStatus } from '@domain/queue'
 import { VideoId } from '@domain/youtube'
 
 export interface ChatDeletingQueueRepository {
-  findAll: (args: { limit?: number }) => Promise<ChatDeletingQueues>
+  findAll: (args: {
+    where?: { createdAt?: { gte?: Date; lte: Date } }
+    limit?: number
+  }) => Promise<ChatDeletingQueues>
 
   save: (args: {
     where: { videoId: VideoId }

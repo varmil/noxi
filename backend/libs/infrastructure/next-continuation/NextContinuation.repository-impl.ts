@@ -36,10 +36,10 @@ export class NextContinuationRepositoryImpl
   }
 
   async delete({
-    where: { videoId }
+    where: { videoId, createdAt }
   }: Parameters<NextContinuationRepository['delete']>[0]) {
     await this.prismaInfraService.nextContinuation.deleteMany({
-      where: { videoId: videoId.get() }
+      where: { videoId: videoId?.get(), createdAt }
     })
   }
 }

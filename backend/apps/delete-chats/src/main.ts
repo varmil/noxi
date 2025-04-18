@@ -9,6 +9,7 @@ async function bootstrap() {
   useLogger(app)
   const main = app.select(MainModule).get(MainScenario)
   await main.execute()
+  await main.cleanOldRecords()
   await app.close()
 }
 
