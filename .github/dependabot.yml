@@ -40,6 +40,3 @@ updates:
       opentelemetry:
         patterns:
           - '@opentelemetry/*'
-    ignore:
-      - dependency-name: '@types/node'
-        versions: ['22.x.x', '21.x.x']
