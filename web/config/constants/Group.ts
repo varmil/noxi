@@ -2,7 +2,6 @@ export const GroupStrings = [
   'hololive',
   'nijisanji',
   'vspo',
-  'independent',
   'mixstgirls',
   'neo-porte',
   'dotlive',
@@ -21,6 +20,7 @@ export const GroupStrings = [
   'nijisanji-en',
   'idol-corp',
   'kizuna-ai',
+  'independent',
   'independent-irl'
 ] as const
 
