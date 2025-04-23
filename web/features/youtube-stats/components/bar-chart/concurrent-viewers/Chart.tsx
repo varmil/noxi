@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef, useCallback } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
+import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import {
   Bar,
   BarChart,
@@ -24,7 +24,6 @@ import {
   ChartCardHeader,
   ChartCardTitle
 } from 'components/styles/card/ChartCard'
-import { useRouter } from 'lib/navigation'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
 import type { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart'
 
@@ -41,7 +40,7 @@ export default function Chart({
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
-  const router = useRouter()
+  const locale = useLocale()
 
   const data = streams
     .map(stream => ({
@@ -74,9 +73,12 @@ export default function Chart({
       }
       e.preventDefault()
       e.stopPropagation()
-      router.push(`/youtube/live/${entry.activePayload?.[0].payload?.videoId}`)
+      window.open(
+        `/${locale}/youtube/live/${entry.activePayload?.[0].payload?.videoId}`,
+        '_blank'
+      )
     },
-    [router]
+    [locale]
   )
 
   return (
