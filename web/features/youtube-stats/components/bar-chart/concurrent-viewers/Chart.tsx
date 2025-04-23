@@ -1,7 +1,7 @@
 'use client'
 
-import { PropsWithoutRef } from 'react'
-import { useFormatter, useTranslations } from 'next-intl'
+import { PropsWithoutRef, useCallback } from 'react'
+import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import {
   Bar,
   BarChart,
@@ -25,6 +25,7 @@ import {
   ChartCardTitle
 } from 'components/styles/card/ChartCard'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
+import type { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart'
 
 type Props = {
   streams: StreamsSchema
@@ -39,9 +40,11 @@ export default function Chart({
 }: PropsWithoutRef<Props>) {
   const t = useTranslations('Features.youtube.stats.chart')
   const format = useFormatter()
+  const locale = useLocale()
 
   const data = streams
     .map(stream => ({
+      videoId: stream.videoId,
       title: stream.snippet.title,
       date: stream.snippet.publishedAt,
       peakConcurrentViewers: stream.metrics.peakConcurrentViewers,
@@ -62,6 +65,22 @@ export default function Chart({
     })
   ]
 
+  const handleClick: CategoricalChartFunc = useCallback(
+    (entry, e) => {
+      // if it's a touch device, do nothing
+      if (window.matchMedia('(pointer: coarse)').matches) {
+        return
+      }
+      e.preventDefault()
+      e.stopPropagation()
+      window.open(
+        `/${locale}/youtube/live/${entry.activePayload?.[0].payload?.videoId}`,
+        '_blank'
+      )
+    },
+    [locale]
+  )
+
   return (
     <ChartCard className={className}>
       <ChartCardHeader className="px-0">
@@ -70,7 +89,12 @@ export default function Chart({
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={data} margin={{ top: 10 }}>
+          <BarChart
+            data={data}
+            margin={{ top: 10 }}
+            onClick={handleClick}
+            style={{ cursor: 'pointer' }}
+          >
             <CartesianGrid strokeDasharray={'3 3'} />
             <XAxis
               dataKey="date"
@@ -96,6 +120,7 @@ export default function Chart({
             <ChartTooltip
               allowEscapeViewBox={{ x: false, y: true }}
               content={<ThumbnailTooltip />}
+              wrapperStyle={{ pointerEvents: 'auto' }} // be clickable
             />
             <Bar
               dataKey="peakConcurrentViewers"

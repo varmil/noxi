@@ -49,7 +49,7 @@ export function Page({
 
       <main
         role="main"
-        className={`relative z-0 ${containerClass} min-h-[80vh] ${padding} ${
+        className={`relative z-0 ${containerClass} min-h-[70vh] ${padding} ${
           className ?? ''
         }`}
       >
