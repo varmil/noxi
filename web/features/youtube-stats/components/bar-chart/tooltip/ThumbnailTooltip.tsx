@@ -5,8 +5,10 @@ import { useFormatter } from 'next-intl'
 import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
+import { Link } from 'lib/navigation'
 
 type TooltipProps = {
+  videoId: string
   title: string
   date: string
   thumbnail: string | undefined
@@ -23,11 +25,15 @@ type Props = {
 export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
   const data = payload?.at(0)?.payload
   const format = useFormatter()
+
   if (!data) return null
   const { title, thumbnail, date, views, peakConcurrentViewers } = data
-
   return (
-    <section className="grid h-auto w-40 sm:w-48 grid-cols-3 p-2 gap-2 bg-popover rounded-lg border text-muted-foreground shadow-xl">
+    <Link
+      className="grid h-auto w-40 sm:w-48 grid-cols-3 p-2 gap-2 bg-popover rounded-lg border text-muted-foreground shadow-xl"
+      href={`/youtube/live/${data?.videoId}`}
+      prefetch={false}
+    >
       <section className="col-span-full">
         <div className="aspect-video overflow-hidden rounded-sm">
           <Image
@@ -64,6 +70,6 @@ export default function ThumbnailTooltip({ payload }: PropsWithoutRef<Props>) {
           })}
         </div>
       </section>
-    </section>
+    </Link>
   )
 }
