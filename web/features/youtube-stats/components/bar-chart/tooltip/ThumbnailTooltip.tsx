@@ -6,7 +6,6 @@ import { useFormatter, useLocale } from 'next-intl'
 import Bullet from 'components/styles/Bullet'
 import Image from 'components/styles/Image'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
-import { Link } from 'lib/navigation'
 
 type TooltipProps = {
   videoId: string
