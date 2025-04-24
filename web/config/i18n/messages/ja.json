@@ -560,7 +560,10 @@
       },
 
       "stats": {
-        "annotation": "弊サービス独自指標です",
+        "button": {
+          "previous": "前の30件",
+          "next": "次の30件"
+        },
         "chart": {
           "peakConcurrentViewers": "同接数の推移・人気の配信を見つける",
           "avgConcurrentViewers": "平均同接数",
