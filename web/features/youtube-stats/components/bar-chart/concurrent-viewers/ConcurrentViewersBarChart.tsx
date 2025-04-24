@@ -2,7 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
 import { getStreamsCount } from 'apis/youtube/getStreams'
 import ChartPaginationButtons from 'features/youtube-stats/components/pagination/ChartPaginationButtons'
-import { getLast50Streams, PAGE_SIZE } from 'utils/stream/getLast50Streams'
+import { getLast30Streams, PAGE_SIZE } from 'utils/stream/getLast30Streams'
 import Chart from './Chart'
 
 const chartConfig = {
@@ -24,7 +24,7 @@ export default async function ConcurrentViewersBarChart({
   className
 }: PropsWithoutRef<Props>) {
   const [streams, count] = await Promise.all([
-    getLast50Streams({ channelId, page }),
+    getLast30Streams({ channelId, page }),
     getStreamsCount({
       channelId,
       status: 'ended',

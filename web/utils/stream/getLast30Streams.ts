@@ -2,13 +2,13 @@ import { getStreams } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 
 /** Last 50 Streams pagination */
-export const PAGE_SIZE = 50
+export const PAGE_SIZE = 30
 
 /**
- * 直近50件 (終了したStream) && avgConcurrentViewers > 0
+ * 直近X件 (終了したStream) && avgConcurrentViewers > 0
  * 古いデータは結構avgConcurrentViewersが抜けてるので、filterしておく
  */
-export const getLast50Streams = async ({
+export const getLast30Streams = async ({
   channelId,
   page
 }: {

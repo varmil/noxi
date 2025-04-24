@@ -5,7 +5,7 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import VideoThumbnail from 'components/youtube/video/VideoThumbnail'
 import StreamTrendsTableHeader from 'features/channel/components/stream-trends/StreamTrendsTableHeader'
 import { Link } from 'lib/navigation'
-import { getLast50Streams } from 'utils/stream/getLast50Streams'
+import { getLast30Streams } from 'utils/stream/getLast30Streams'
 
 type Props = PropsWithoutRef<{
   channel: ChannelSchema
@@ -16,7 +16,7 @@ type Props = PropsWithoutRef<{
 export default async function StreamTrendsTable({ channel, className }: Props) {
   const [format, streams] = await Promise.all([
     getFormatter(),
-    getLast50Streams({ channelId: channel.basicInfo.id })
+    getLast30Streams({ channelId: channel.basicInfo.id })
   ])
   // top 3 peakConcurrentViewers
   const top3 = streams
