@@ -23,9 +23,9 @@ export const channelAPISchema = z.object({
   }),
 
   statistics: z.object({
-    viewCount: z.string().min(0),
-    subscriberCount: z.string().min(0),
-    videoCount: z.string().min(0)
+    viewCount: z.string().optional(),
+    subscriberCount: z.string().optional(),
+    videoCount: z.string().optional()
   }),
 
   brandingSettings: z.object({
