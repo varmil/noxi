@@ -3,9 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Difference from 'components/styles/string/Difference'
 import { Period } from 'types/period'
 
-export function StatsCards({ children }: PropsWithChildren<{}>) {
+export function StatsCards({
+  children,
+  className
+}: PropsWithChildren<{ className?: string }>) {
   return (
-    <section className={'grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4'}>
+    <section
+      className={`grid grid-cols-1 lg:grid-cols-3 gap-2 lg:gap-4 ${
+        className || ''
+      }`}
+    >
       {children}
     </section>
   )

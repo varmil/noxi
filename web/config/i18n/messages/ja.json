@@ -395,7 +395,10 @@
       },
       "asmr": { "nav": "ASMR" },
       "live": { "nav": "ライブ" },
-      "concurrentViewers": { "nav": "同接数" },
+      "concurrentViewers": {
+        "nav": "同接数",
+        "card": { "min": "最小同接数", "max": "最大同接数", "median": "中央値" }
+      },
       "comments": { "nav": "コメント" },
       "streamTimes": {
         "nav": "配信時間",

@@ -395,7 +395,10 @@
       },
       "asmr": { "nav": "ASMR" },
       "live": { "nav": "Live" },
-      "concurrentViewers": { "nav": "Concurrent" },
+      "concurrentViewers": {
+        "nav": "Concurrent",
+        "card": { "min": "Min", "max": "Max", "median": "Median" }
+      },
       "comments": { "nav": "Comments" },
       "streamTimes": {
         "nav": "Stream Times",
