@@ -48,7 +48,9 @@ export class StreamsController {
         gender: dto.toGender(),
         channelId: dto.toChannelId(),
         scheduledStartTime: dto.toScheduledStartTime(),
-        actualEndTime: dto.toActualEndTime()
+        actualEndTime: dto.toActualEndTime(),
+        peakConcurrentViewers: dto.toPeakConcurrentViewers(),
+        avgConcurrentViewers: dto.toAvgConcurrentViewers()
       }
     })
   }
