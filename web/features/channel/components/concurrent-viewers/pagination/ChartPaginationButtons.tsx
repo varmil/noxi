@@ -34,6 +34,7 @@ export default function ChartPaginationButtons({
             Math.min(total, current + 1).toString()
           )}`}
           className={current === total ? 'pointer-events-none opacity-50' : ''}
+          scroll={false}
         >
           <ChevronLeft className="mr-2 size-4 relative top-[1px]" />
           {feat('previous')}
@@ -48,6 +49,7 @@ export default function ChartPaginationButtons({
               : Math.max(1, current - 1).toString()
           )}`}
           className={current === 1 ? 'pointer-events-none opacity-50' : ''}
+          scroll={false}
         >
           {feat('next')}
           <ChevronRight className="ml-2 size-4 relative top-[1px]" />
