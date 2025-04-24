@@ -121,6 +121,7 @@ export default function Chart({
               allowEscapeViewBox={{ x: false, y: true }}
               content={<ThumbnailTooltip />}
               wrapperStyle={{ pointerEvents: 'auto' }} // be clickable
+              position={{ y: -90 }}
             />
             <Bar
               dataKey="peakConcurrentViewers"

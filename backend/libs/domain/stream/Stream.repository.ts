@@ -27,6 +27,8 @@ export interface StreamFindAllWhere {
   channelId?: ChannelId
   scheduledStartTime?: { gte?: Date; lte?: Date } | null
   actualEndTime?: { gte?: Date; lte?: Date } | null
+  peakConcurrentViewers?: { gte?: number; lte?: number }
+  avgConcurrentViewers?: { gte?: number; lte?: number }
   OR?: (Omit<Prisma.YoutubeStreamWhereInput, 'status'> & {
     status: StreamStatus
   })[]
