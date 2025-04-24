@@ -3,7 +3,7 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
-import ConcurrentViewersBarChart from 'features/youtube-stats/components/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
+import ConcurrentViewersBarChart from 'features/channel/components/concurrent-viewers/bar-chart/concurrent-viewers/ConcurrentViewersBarChart'
 
 type Props = { id: string; page?: number }
 

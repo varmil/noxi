@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { ChartConfig } from '@/components/ui/chart'
 import { getStreamsCount } from 'apis/youtube/getStreams'
-import ChartPaginationButtons from 'features/youtube-stats/components/pagination/ChartPaginationButtons'
+import ChartPaginationButtons from 'features/channel/components/concurrent-viewers/pagination/ChartPaginationButtons'
 import { getLast30Streams, PAGE_SIZE } from 'utils/stream/getLast30Streams'
 import Chart from './Chart'
 
