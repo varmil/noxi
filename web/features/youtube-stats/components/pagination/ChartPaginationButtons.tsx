@@ -2,6 +2,7 @@
 
 import { PropsWithoutRef } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import useQueryString from 'hooks/useQueryString'
 import { Link, usePathname } from 'lib/navigation'
@@ -18,6 +19,7 @@ export default function ChartPaginationButtons({
   totalPages,
   className
 }: PropsWithoutRef<Props>) {
+  const feat = useTranslations('Features.youtube.stats.button')
   const pathname = usePathname()
   const { get, createQueryString } = useQueryString()
   const total = Math.max(1, totalPages) // min 1
@@ -34,7 +36,7 @@ export default function ChartPaginationButtons({
           className={current === total ? 'pointer-events-none opacity-50' : ''}
         >
           <ChevronLeft className="mr-2 size-4 relative top-[1px]" />
-          前の50件
+          {feat('previous')}
         </Link>
       </Button>
       <Button variant="outline" className="w-[120px]" asChild>
@@ -47,7 +49,7 @@ export default function ChartPaginationButtons({
           )}`}
           className={current === 1 ? 'pointer-events-none opacity-50' : ''}
         >
-          次の50件
+          {feat('next')}
           <ChevronRight className="ml-2 size-4 relative top-[1px]" />
         </Link>
       </Button>
