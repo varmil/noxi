@@ -25,7 +25,11 @@ export default async function ConcurrentViewersBarChart({
 }: PropsWithoutRef<Props>) {
   const [streams, count] = await Promise.all([
     getLast50Streams({ channelId, page }),
-    getStreamsCount({ channelId, status: 'ended' })
+    getStreamsCount({
+      channelId,
+      status: 'ended',
+      avgConcurrentViewers: { gte: 1 }
+    })
   ])
 
   if (count === 0) {
