@@ -24,6 +24,7 @@ import {
   ChartCardHeader,
   ChartCardTitle
 } from 'components/styles/card/ChartCard'
+import ChannelConcurrentViewersCards from 'features/channel/components/concurrent-viewers/card/ChannelConcurrentViewersCards'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
 import type { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart'
 
@@ -87,7 +88,9 @@ export default function Chart({
         <ChartCardTitle>{t('peakConcurrentViewers')}</ChartCardTitle>
         <CardDescription>{dateRange.join(' ')}</CardDescription>
       </ChartCardHeader>
-      <ChartCardContent>
+      <ChartCardContent className="space-y-2">
+        <ChannelConcurrentViewersCards streams={streams} />
+
         <ChartContainer config={chartConfig}>
           <BarChart
             data={data}
