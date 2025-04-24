@@ -17,6 +17,8 @@ type Params = {
   scheduledAfter?: Date | null
   endedBefore?: Date | null
   endedAfter?: Date | null
+  peakConcurrentViewers?: { gte?: number; lte?: number }
+  avgConcurrentViewers?: { gte?: number; lte?: number }
   orderBy?: {
     field:
       | 'videoId'
@@ -43,6 +45,8 @@ const createSearchParams = ({
   scheduledAfter,
   endedBefore,
   endedAfter,
+  peakConcurrentViewers,
+  avgConcurrentViewers,
   orderBy,
   limit,
   offset
@@ -69,6 +73,18 @@ const createSearchParams = ({
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
+
+  if (peakConcurrentViewers) {
+    const { gte, lte } = peakConcurrentViewers
+    gte && searchParams.append('peakConcurrentViewers[gte]', String(gte))
+    lte && searchParams.append('peakConcurrentViewers[lte]', String(lte))
+  }
+
+  if (avgConcurrentViewers) {
+    const { gte, lte } = avgConcurrentViewers
+    gte && searchParams.append('avgConcurrentViewers[gte]', String(gte))
+    lte && searchParams.append('avgConcurrentViewers[lte]', String(lte))
+  }
 
   orderBy?.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)

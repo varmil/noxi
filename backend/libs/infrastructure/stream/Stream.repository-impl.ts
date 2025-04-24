@@ -23,6 +23,8 @@ const toPrismaWhere = (
     channelId,
     scheduledStartTime,
     actualEndTime,
+    peakConcurrentViewers,
+    avgConcurrentViewers,
     OR
   } = where
   return {
@@ -34,6 +36,8 @@ const toPrismaWhere = (
     channel: { gender: where.gender?.get() },
     scheduledStartTime,
     actualEndTime,
+    maxViewerCount: peakConcurrentViewers,
+    averageConcurrentViewers: avgConcurrentViewers,
     OR: OR?.map(e => ({ ...e, status: e.status.get() }))
   }
 }

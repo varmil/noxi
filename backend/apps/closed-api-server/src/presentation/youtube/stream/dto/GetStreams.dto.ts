@@ -16,6 +16,21 @@ import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { StreamStatus, StreamRepository } from '@domain/stream'
 import { ChannelId, VideoId, VideoIds, VideoTitle } from '@domain/youtube'
 
+/** 視聴者数による絞り込み */
+class ViewersDto {
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value !== undefined ? Number(value || 0) : undefined
+  )
+  gte?: number
+
+  @IsOptional()
+  @Transform(({ value }: { value?: string }) =>
+    value !== undefined ? Number(value || 0) : undefined
+  )
+  lte?: number
+}
+
 export class GetStreamsDto {
   @IsOptional()
   @IsString()
@@ -41,6 +56,10 @@ export class GetStreamsDto {
   @IsIn(GenderStrings)
   @IsOptional()
   gender?: GenderString
+
+  @IsOptional()
+  @IsString()
+  channelId?: string
 
   @IsOptional()
   @IsRFC3339()
@@ -75,8 +94,12 @@ export class GetStreamsDto {
   endedAfter?: string
 
   @IsOptional()
-  @IsString()
-  channelId?: string
+  @Type(() => ViewersDto)
+  peakConcurrentViewers?: ViewersDto
+
+  @IsOptional()
+  @Type(() => ViewersDto)
+  avgConcurrentViewers?: ViewersDto
 
   @IsOptional()
   @IsArray()
@@ -112,6 +135,9 @@ export class GetStreamsDto {
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
+
+  toChannelId = () =>
+    this.channelId ? new ChannelId(this.channelId) : undefined
 
   /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
   toScheduledStartTime = () => {
@@ -151,8 +177,25 @@ export class GetStreamsDto {
     }
   }
 
-  toChannelId = () =>
-    this.channelId ? new ChannelId(this.channelId) : undefined
+  toPeakConcurrentViewers = () => {
+    if (!this.peakConcurrentViewers) {
+      return undefined
+    }
+    return {
+      gte: this.peakConcurrentViewers.gte,
+      lte: this.peakConcurrentViewers.lte
+    }
+  }
+
+  toAvgConcurrentViewers = () => {
+    if (!this.avgConcurrentViewers) {
+      return undefined
+    }
+    return {
+      gte: this.avgConcurrentViewers.gte,
+      lte: this.avgConcurrentViewers.lte
+    }
+  }
 
   toOrderBy = () => {
     return (
