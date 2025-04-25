@@ -10,7 +10,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function Home() {
+export default function ChannelsAddPage() {
   return (
     <Page
       breadcrumb={[{ href: `/channels/add`, name: 'VTuberチャンネル登録申請' }]}
