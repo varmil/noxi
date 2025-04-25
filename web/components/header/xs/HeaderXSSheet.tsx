@@ -1,6 +1,7 @@
-import { PanelLeftIcon } from 'lucide-react'
+import { Ellipsis, MailIcon, PanelLeftIcon, UserRoundPlus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetTrigger,
@@ -17,7 +18,7 @@ import { Link } from 'lib/navigation'
 import Logo from '../../Logo'
 
 export default function HeaderXSSheet() {
-  const t = useTranslations('Global')
+  const comp = useTranslations('Components')
   const groups = useGroups()
 
   return (
@@ -36,11 +37,11 @@ export default function HeaderXSSheet() {
         <nav className="h-full flex flex-col font-medium">
           <section className="grid gap-6 overflow-y-scroll">
             <Link href="/" className="h-10 w-10">
-              <Logo className="h-8 w-8" />
+              <Logo className="size-7" />
               <span className="sr-only">PeakX</span>
             </Link>
 
-            {groups.imgs.map(group => (
+            {groups.imgs.slice(0, 4).map(group => (
               <HeaderLink
                 key={group.id}
                 name={group.name}
@@ -50,7 +51,7 @@ export default function HeaderXSSheet() {
                     alt={group.name}
                     width={100}
                     height={100}
-                    className="h-8 w-8 rounded-full"
+                    className="size-7 rounded-full"
                   />
                 }
                 href={`/${group.id}`}
@@ -58,26 +59,42 @@ export default function HeaderXSSheet() {
               />
             ))}
 
-            {groups.icons.map(group => (
+            {groups.icons.slice(0, 1).map(group => (
               <HeaderLink
                 key={group.id}
                 name={group.name}
-                icon={<group.icon className="h-8 w-8 rounded-full" />}
+                icon={<group.icon className="size-7 rounded-full" />}
                 href={`/${group.id}`}
                 active
               />
             ))}
 
-            {/* 
             <HeaderLink
-              name="Settings"
-              icon={<SettingsIcon className="h-6 w-6" />}
-              href="#"
-            /> */}
+              name={comp('styles.more')}
+              icon={<Ellipsis className="size-7" />}
+              href="/groups"
+              active
+            />
+
+            <Separator orientation="horizontal" />
 
             <HeaderLink
-              name="Terms of Use and Privacy Policy"
-              icon={<PrivacyPolicyIcon className="h-6 w-6" />}
+              name={comp('contact.title')}
+              icon={<MailIcon className="size-7" />}
+              href="/contact"
+              active
+            />
+
+            <HeaderLink
+              name={comp('channelsAdd.title')}
+              icon={<UserRoundPlus className="size-7" />}
+              href="/channels/add"
+              active
+            />
+
+            <HeaderLink
+              name="Terms of Use and PP"
+              icon={<PrivacyPolicyIcon className="size-6.5" />}
               href="/youtube/terms-of-use-and-privacy-policy"
             />
           </section>

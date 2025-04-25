@@ -312,6 +312,7 @@
       "channels": "Super Chat",
       "groups": "Talents"
     },
+    "channelsAdd": { "title": "Add your channel to PeakX" },
     "contact": { "title": "Contact" },
     "group": {
       "listing": "Listing {count} talents.",

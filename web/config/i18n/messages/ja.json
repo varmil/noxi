@@ -312,6 +312,7 @@
       "channels": "スパチャ金額",
       "groups": "タレント一覧"
     },
+    "channelsAdd": { "title": "PeakXにチャンネルを載せる" },
     "contact": { "title": "お問い合わせ" },
     "group": {
       "listing": "{count}人のタレントを掲載中",
