@@ -15,6 +15,7 @@ const groupEntries = GroupStrings.flatMap(group => {
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     getEntry({ pathname: '/' }),
+    getEntry({ pathname: '/channels/add' }),
     getEntry({ pathname: '/contact' }),
     getEntry({ pathname: '/terms-of-use-and-privacy-policy' })
   ].concat(groupEntries)
