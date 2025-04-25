@@ -312,6 +312,7 @@
       "channels": "Super Chat",
       "groups": "Talents"
     },
+    "channelsAdd": { "title": "Channel Registration Application" },
     "contact": { "title": "Contact" },
     "group": {
       "listing": "Listing {count} talents.",
