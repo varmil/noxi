@@ -1,6 +1,8 @@
+import { Lightbulb, Sun } from 'lucide-react'
 import { Metadata } from 'next'
 import { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Page } from 'components/page'
 
 type Props = {
@@ -28,10 +30,25 @@ export default async function ContactPage(props: Props) {
   return (
     <Page
       breadcrumb={[{ href: `/contact`, name: page('title') }]}
-      className="flex flex-col items-center justify-center mx-auto gap-y-10"
+      className="flex flex-col items-center justify-center mx-auto gap-y-8"
       noPadding
     >
       <h1 className="sr-only">{page('title')}</h1>
+
+      <section className="mx-4 hidden dark:block">
+        <Alert>
+          <Lightbulb className="h-4 w-4" />
+          <AlertTitle>見やすくするには...</AlertTitle>
+          <AlertDescription>
+            <span>
+              ページ右上の
+              <Sun className="size-4 inline relative top-[-1px] mx-1" />
+              をタップしてライトモードに切り替えることをおすすめします
+            </span>
+          </AlertDescription>
+        </Alert>
+      </section>
+
       <iframe
         className="h-[1440px] sm:h-[1150px] md:h-[1100px]"
         src="https://docs.google.com/forms/d/e/1FAIpQLSepa1SF-AMhezTuYF0hnpdi-5rQzfTe9_aO_nestdBP1vqrjA/viewform?embedded=true"
