@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { Ellipsis, MailIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -17,6 +18,7 @@ import Logo from '../Logo'
 
 export default function Aside({ className }: { className?: string }) {
   const global = useTranslations('Global')
+  const comp = useTranslations('Components')
   const groups = useGroups()
 
   return (
@@ -44,13 +46,13 @@ export default function Aside({ className }: { className?: string }) {
                 <AsideIcon
                   name={comp('styles.more')}
                   href={StreamRankingDefaultUrl}
-                  icon={<Ellipsis className="h-6 w-6" />}
+                  icon={<Ellipsis className="size-6" />}
                   roundedFull
                 /> */}
 
                 {/* <Separator orientation="horizontal" /> */}
 
-                {groups.imgs.map(group => (
+                {groups.imgs.slice(0, 4).map(group => (
                   <AsideIcon
                     key={group.id}
                     name={group.name}
@@ -65,10 +67,17 @@ export default function Aside({ className }: { className?: string }) {
                     key={group.id}
                     name={group.name}
                     href={`/${group.id}`}
-                    icon={<group.icon className="h-6 w-6" />}
+                    icon={<group.icon className="size-6" />}
                     roundedFull
                   />
                 ))}
+
+                <AsideIcon
+                  name={comp('styles.more')}
+                  href={'/groups'}
+                  icon={<Ellipsis className="size-6" />}
+                  roundedFull
+                />
               </TooltipProvider>
             </nav>
 
@@ -77,18 +86,36 @@ export default function Aside({ className }: { className?: string }) {
             <nav className="flex flex-col items-center gap-3">
               <TooltipProvider delayDuration={0}>
                 {/* <Tooltip>
-            <TooltipTrigger>
-              <Link
-                href="#"
-                className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-                prefetch={false}
-              >
-                <SettingsIcon className="h-6 w-6" />
-                <span className="sr-only">Settings</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent side="right">Settings</TooltipContent>
-          </Tooltip> */}
+                      <TooltipTrigger>
+                        <Link
+                          href="#"
+                          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+                          prefetch={false}
+                        >
+                          <SettingsIcon className="size-6" />
+                          <span className="sr-only">Settings</span>
+                        </Link>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">Settings</TooltipContent>
+                    </Tooltip> 
+                */}
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link
+                      href="/contact"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg"
+                      prefetch={false}
+                    >
+                      <MailIcon className="size-6" />
+                      <span className="sr-only">{comp('contact.title')}</span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    {comp('contact.title')}
+                  </TooltipContent>
+                </Tooltip>
+
                 <Tooltip>
                   <TooltipTrigger>
                     <Link
@@ -96,7 +123,7 @@ export default function Aside({ className }: { className?: string }) {
                       className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
                       prefetch={false}
                     >
-                      <PrivacyPolicyIcon className="h-5 w-5" />
+                      <PrivacyPolicyIcon className="size-5.5" />
                       <span className="sr-only">
                         Terms of Use and Privacy Policy
                       </span>
