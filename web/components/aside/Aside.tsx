@@ -62,7 +62,7 @@ export default function Aside({ className }: { className?: string }) {
                   />
                 ))}
 
-                {groups.icons.map(group => (
+                {groups.icons.slice(0, 1).map(group => (
                   <AsideIcon
                     key={group.id}
                     name={group.name}
