@@ -1,5 +1,5 @@
 import React from 'react'
-import { LucideProps, UserCircle, Webcam } from 'lucide-react'
+import { LucideProps, MicVocal, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { GroupStrings } from 'config/constants/Group'
 
@@ -27,7 +27,8 @@ const counts = {
   varium: { val: 1, isAll: false },
   voms: { val: 6, isAll: true },
   independent: { val: 150, isAll: false },
-  'independent-irl': { val: 20, isAll: false }
+  'independent-irl': { val: 20, isAll: false },
+  artist: { val: 1, isAll: false }
 }
 
 type Count = {
@@ -53,7 +54,7 @@ type Icon = {
 
 type Group = Img | Icon
 
-const IconGroups = ['independent', 'independent-irl']
+const IconGroups = ['independent', 'independent-irl', 'artist']
 
 export default function useGroups() {
   const t = useTranslations('Global.group')
@@ -85,6 +86,13 @@ export default function useGroups() {
           id: group,
           name: t(`${group}`),
           icon: Webcam,
+          count: counts[group]
+        }
+      case 'artist':
+        return {
+          id: group,
+          name: t(`${group}`),
+          icon: MicVocal,
           count: counts[group]
         }
       default:

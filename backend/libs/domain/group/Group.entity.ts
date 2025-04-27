@@ -26,7 +26,8 @@ export const GroupStrings = [
   'varium',
   'voms',
   'independent',
-  'independent-irl'
+  'independent-irl',
+  'artist'
 ] as const
 
 export type GroupString = (typeof GroupStrings)[number]
