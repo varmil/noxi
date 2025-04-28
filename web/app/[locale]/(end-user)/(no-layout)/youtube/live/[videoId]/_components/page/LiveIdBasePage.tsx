@@ -31,7 +31,8 @@ export async function generateBaseMetadata(
   const { locale, videoId } = await props.params
   const {
     metrics: { peakConcurrentViewers },
-    snippet: { title, channelId }
+    snippet: { title, channelId },
+    membersOnly
   } = await getStream(videoId)
 
   const [t, { basicInfo }, bundle, superChats] = await Promise.all([
@@ -57,7 +58,9 @@ export async function generateBaseMetadata(
       ? title.slice(0, TITLE_MAX_LENGTH - 1) + '…'
       : title
 
-  const comment = superChats.map(s => s.userComment).join(', ')
+  const comment = membersOnly
+    ? t('commentForMembersOnly')
+    : superChats.map(s => s.userComment).join(', ')
 
   return {
     title: `${t('title', { title: slicedTitle, channel: basicInfo.title })}`,

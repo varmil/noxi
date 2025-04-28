@@ -236,7 +236,8 @@
           "index": {
             "metadata": {
               "title": "{channel} {title} - Stats",
-              "description": "Super Chat: {superChat} Yen, Concurrent Viewers: {concurrentViewers}. {comment}"
+              "description": "Super Chat: {superChat} Yen, Concurrent Viewers: {concurrentViewers}. {comment}",
+              "commentForMembersOnly": "Member-only live stream, no data available"
             }
           },
           "button": {
