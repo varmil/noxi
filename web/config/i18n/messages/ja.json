@@ -253,8 +253,8 @@
             "title": "VTuber",
             "description": {
               "dimension": {
-                "concurrent-viewer": "YouTubeライブ配信の{period}の同接数を集計。ランキング形式で同接数を比較し、人気ライブをチェックしよう。",
-                "super-chat": "YouTubeライブ配信の{period}のスーパーチャット総額を集計。リアルタイム収益や配信パフォーマンスを比較し、人気ライブをチェックできるPeakXのランキングページです。"
+                "concurrent-viewer": "{group}{gender}の同接数ランキング（{period}）。人気ライブをチェックしよう。",
+                "super-chat": "{group}{gender}の【ライブ別】スパチャランキング（{period}）。人気ライブをチェックしよう。"
               }
             }
           }
@@ -266,8 +266,8 @@
             "title": "VTuber",
             "description": {
               "dimension": {
-                "super-chat": "{period}における{group}{gender}のスーパーチャット収益を集計。所属事務所や性別別の比較情報も提供。人気VTuberの収益パフォーマンスを確認できます。",
-                "subscriber": "{group}{gender}のチャンネル登録者数ランキングページです。ランキング形式でVTuberを比較し、推しの活躍をチェックしよう。"
+                "super-chat": "{group}{gender}のスパチャランキング（{period}）。推しのVTuberを比較しよう。",
+                "subscriber": "{group}{gender}のチャンネル登録者数ランキング。推しの成長をチェックしよう。"
               }
             }
           }
