@@ -121,7 +121,9 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <div>
               1.1 We may collect information in the following ways:
               <ul>
-                <li>- Information you provide to us directly</li>
+                <li>
+                  - Information you provide to us directly (e.g., contact form)
+                </li>
                 <li>
                   - Information we collect automatically when you use the
                   Service (e.g., usage data, device information)
@@ -165,6 +167,43 @@ export default function TermsOfUseAndPrivacyPolicy() {
                 Based on these statistics, API data is used for purposes such as
                 organizing and displaying channels and videos.
               </p>
+            </div>
+
+            <div>
+              1.3 About ad serving:
+              <ul>
+                <li>
+                  - Third-party vendors, such as Google, use cookies to serve
+                  ads based on the user&apos;s past visits to that website and
+                  other websites.
+                </li>
+                <li>
+                  - Google&apos;s use of advertising cookies enables Google and
+                  its partners to show appropriate ads to users based on
+                  information about the user&apos;s visits to that site and
+                  other sites.
+                </li>
+                <li>
+                  - Users can opt out of personalized ads in{' '}
+                  <a
+                    href="https://www.google.com/settings/ads"
+                    target="_blank"
+                    className="underline"
+                  >
+                    Ads Settings
+                  </a>{' '}
+                  (or opt out of third-party vendor cookies used for
+                  personalized ads by visiting{' '}
+                  <a
+                    href="https://www.aboutads.info"
+                    target="_blank"
+                    className="underline"
+                  >
+                    www.aboutads.info
+                  </a>
+                  ).
+                </li>
+              </ul>
             </div>
 
             <h3 className="text-l font-bold">2. Use of Information</h3>
