@@ -12,9 +12,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
 import { getSupersBundleRank } from 'apis/youtube/getSupersBundleRank'
+import Underline from 'components/styles/string/Underline'
+import { StreamRankingPagination } from 'config/constants/Pagination'
 import { GradeString } from 'features/grade/types/grade'
 import { calculateGrade, getGradeColor } from 'features/grade/utils/grade'
 import GradeDisplayCard from './GradeDisplayCard'
+import LinkCell from './LinkCell'
 
 // グレード範囲の定義
 const GRADE_RANGES = [
@@ -71,16 +74,19 @@ export default async function GradeDisplay({
     rankings: [
       {
         category: comp('overall'),
+        asPath: '/youtube/live/ranking?dimension=super-chat&period=all',
         rank: supersBundleOverallRank?.rank,
         percentage: supersBundleOverallRank?.topPercentage
       },
       {
         category: global(`gender.${peakX.gender}`),
+        asPath: `/youtube/live/ranking?dimension=super-chat&gender=${peakX.gender}&period=all`,
         rank: supersBundleGenderRank?.rank,
         percentage: supersBundleGenderRank?.topPercentage
       },
       {
         category: global(`group.${peakX.group}`),
+        asPath: `/youtube/live/ranking?dimension=super-chat&group=${peakX.group}&period=all`,
         rank: supersBundleGroupRank?.rank,
         percentage: supersBundleGroupRank?.topPercentage
       }
@@ -135,21 +141,29 @@ export default async function GradeDisplay({
               <TableBody>
                 {data.rankings.map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell>{item.category}</TableCell>
-                    <TableCell className="text-right">
-                      {item.rank ? (
-                        <>
+                    <LinkCell href={item.asPath}>
+                      <Underline>{item.category}</Underline>
+                    </LinkCell>
+                    {item.rank ? (
+                      <LinkCell
+                        href={item.asPath}
+                        page={StreamRankingPagination.getPageFromRank(
+                          item.rank
+                        )}
+                        className="text-right"
+                      >
+                        <Underline>
                           {item.rank.toLocaleString()}
                           <span className="text-xs text-muted-foreground">
                             {global(`ranking.place`, { rank: item.rank })}
                           </span>
-                        </>
-                      ) : (
-                        <span className="text-muted-foreground">
-                          {comp('unranked')}
-                        </span>
-                      )}
-                    </TableCell>
+                        </Underline>
+                      </LinkCell>
+                    ) : (
+                      <TableCell className="text-right text-muted-foreground">
+                        {comp('unranked')}
+                      </TableCell>
+                    )}
                     <TableCell className="text-right">
                       {item.percentage ? (
                         <Badge
