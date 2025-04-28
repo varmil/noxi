@@ -90,11 +90,11 @@
   "Page": {
     "index": {
       "metadata": {
-        "title": "VTuberスパチャランキング",
-        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるPeakXでは、人気VTuberの最新情報、スーパーチャット額の統計を網羅。同接ランキング、スパチャランキングを用いてお気に入りのVTuberを瞬時に見つけよう。今、注目の配信を見逃さない。過去の人気ライブも一瞬で見つかる。PeakXは便利な情報をお届けします。"
+        "title": "VTuberランキング",
+        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるPeakXでは、人気VTuberの最新情報、統計データを網羅。同接数、スーパーチャットを用いてお気に入りのVTuberを瞬時に見つけよう。"
       },
-      "title": "世界最大の\nVTuberスパチャ\nランキングDB",
-      "description": "にじさんじ、ホロライブ、個人勢すべてを即座に確認。YouTubeライブのスパチャ、同接数をランキングでチェック",
+      "title": "世界最大級の\nVTuberランキング\nデータベース",
+      "description": "にじさんじ、ホロライブ、個人勢すべてを即座に確認。人気ライブの統計データをランキング形式でチェック",
       "section": {
         "hero": { "more": "ランキングを確認" },
         "socialProof": {
@@ -295,8 +295,8 @@
       "listingAll": "{count}人全員を掲載中!"
     },
     "header": {
-      "liveRanking": "同接ランキング",
-      "channelsRanking": "スパチャランキング",
+      "liveRanking": "同接数ランキング",
+      "channelsRanking": "チャンネルランキング",
       "talents": "タレント一覧"
     },
     "pagination": {
