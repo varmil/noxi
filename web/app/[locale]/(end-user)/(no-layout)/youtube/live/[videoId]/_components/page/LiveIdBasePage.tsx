@@ -4,11 +4,15 @@ import { Locale } from 'next-intl'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
+import { getSuperChats } from 'apis/youtube/getSuperChats'
+import { getSupersBundle } from 'apis/youtube/getSupersBundle'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
 import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
+import { formatMicrosAsRoundedAmount } from 'utils/amount'
+import { getWebUrl } from 'utils/web-url'
 import LayoutFactory from '../layouts/LayoutFactory'
 import DefaultModeTemplate from '../template/DefaultModeTemplate'
 import TheaterModeTemplate from '../template/TheaterModeTemplate'
@@ -22,39 +26,52 @@ export type LiveIdBasePageProps = {
 type Props = LiveIdBasePageProps
 
 export async function generateBaseMetadata(
-  props: Props & {
-    namespace:
-      | 'Page.youtube.live.id.index.metadata'
-      | 'Page.youtube.live.id.earnings.metadata'
-      | 'Page.youtube.live.id.superChat.comments.metadata'
-      | 'Page.youtube.live.id.comments.metadata'
-      | 'Page.youtube.live.id.concurrentViewers.metadata'
-  }
+  props: Props & { namespace: 'Page.youtube.live.id.index.metadata' }
 ): Promise<Metadata> {
   const { locale, videoId } = await props.params
-  const t = await getTranslations({
-    locale,
-    namespace: props.namespace
-  })
   const {
-    snippet: { title, channelId }
+    metrics: { peakConcurrentViewers },
+    snippet: { title, channelId },
+    membersOnly
   } = await getStream(videoId)
-  const { basicInfo } = await getChannel(channelId)
+
+  const [t, { basicInfo }, bundle, superChats] = await Promise.all([
+    getTranslations({
+      locale,
+      namespace: props.namespace
+    }),
+    getChannel(channelId),
+    getSupersBundle(videoId),
+    getSuperChats({
+      videoId,
+      userCommentNotNull: true,
+      orderBy: [
+        { field: 'amountMicros', order: 'desc' },
+        { field: 'createdAt', order: 'desc' }
+      ],
+      limit: 2
+    })
+  ])
 
   const slicedTitle =
     title.length > TITLE_MAX_LENGTH
       ? title.slice(0, TITLE_MAX_LENGTH - 1) + '…'
       : title
 
+  const comment = membersOnly
+    ? t('commentForMembersOnly')
+    : superChats.map(s => s.userComment).join(', ')
+
   return {
-    title: `${t('title', {
-      title: slicedTitle,
-      channel: basicInfo.title
-    })}`,
+    title: `${t('title', { title: slicedTitle, channel: basicInfo.title })}`,
     description: `${t('description', {
-      title: slicedTitle,
-      channel: basicInfo.title
-    })}`
+      superChat: formatMicrosAsRoundedAmount(bundle?.amountMicros ?? BigInt(0)),
+      concurrentViewers: peakConcurrentViewers.toLocaleString(),
+      comment: comment
+    })}`,
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/youtube/live/${videoId}`
+    }
   }
 }
 

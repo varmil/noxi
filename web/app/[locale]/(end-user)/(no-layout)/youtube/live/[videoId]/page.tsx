@@ -8,7 +8,7 @@ import { LiveIdTemplate } from './_components/template/LiveIdTemplate'
 type Props = LiveIdBasePageProps
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  return generateBaseMetadata({
+  return await generateBaseMetadata({
     ...props,
     namespace: 'Page.youtube.live.id.index.metadata'
   })
