@@ -32,6 +32,12 @@ class StreamRankingSingleton {
     return index + 1 + (page - 1) * this.PAGE_SIZE
   }
 
+  /** 順位からページ番号を取得する */
+  getPageFromRank = (rank?: number) => {
+    if (!rank) return undefined
+    return Math.ceil(rank / this.PAGE_SIZE)
+  }
+
   getLimit = (compact?: boolean) =>
     compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
 
