@@ -12,7 +12,7 @@ type Props = LiveIdBasePageProps
 export async function generateMetadata(props: Props): Promise<Metadata> {
   return generateBaseMetadata({
     ...props,
-    namespace: 'Page.youtube.live.id.comments.metadata'
+    namespace: 'Page.youtube.live.id.index.metadata'
   })
 }
 

@@ -235,34 +235,8 @@
         "id": {
           "index": {
             "metadata": {
-              "title": "{channel} {title} - ライブ概要",
-              "description": "YouTubeライブを視聴！{channel}のスパチャ金額や同接数をチェックし人気の瞬間を見逃さず確認しよう。PeakXではなんとスパチャコメントもすべて掲載！"
-            }
-          },
-          "earnings": {
-            "metadata": {
-              "title": "{channel} {title}のスパチャ金額",
-              "description": "このライブ配信のスパチャ金額をチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
-            }
-          },
-          "superChat": {
-            "comments": {
-              "metadata": {
-                "title": "{channel} {title}のスパチャコメント",
-                "description": "このライブ配信のスパチャコメントをチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
-              }
-            }
-          },
-          "comments": {
-            "metadata": {
-              "title": "{channel} {title}のコメント",
-              "description": "このライブ配信のユーザーコメントをチェック！{channel}の人気の瞬間を見逃さず確認しよう。VTuberファン必見の情報をお届けします。"
-            }
-          },
-          "concurrentViewers": {
-            "metadata": {
-              "title": "{channel} {title}の同接数",
-              "description": "このライブ配信の同接数をチェック！{channel} {title}"
+              "title": "{channel} {title} - ライブ分析",
+              "description": "スパチャ{superChat}円、同接数{concurrentViewers}人。{comment}"
             }
           },
           "button": {
