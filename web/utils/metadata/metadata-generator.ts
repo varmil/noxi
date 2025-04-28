@@ -47,7 +47,7 @@ export const generateTitleAndDescription = async ({
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')
-      .trim()}${pageNumber} - ${global('title')}`,
+      .trim()}${pageNumber}`,
 
     description: `${pageT(`metadata.description.dimension.${dimension}`, {
       period: global(`period.${period}`),

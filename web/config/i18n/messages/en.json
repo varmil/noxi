@@ -90,10 +90,10 @@
   "Page": {
     "index": {
       "metadata": {
-        "title": "The VTuber Super Chat Ranking",
+        "title": "The VTuber Ranking",
         "description": "Explore PeakX for realtime VTuber Live Streams on YouTube. Stay updated on trends and find your favorite VTuber contents effortlessly."
       },
-      "title": "The VTuber Super Chat Ranking",
+      "title": "The Largest\nVTuber Ranking\nDatabase",
       "description": "We organize VTubers from all over the world. We will summarize the Super Chat earnings of VTubers like Hololive, Nijisanji, Independent VTubers and more.",
       "section": {
         "hero": { "more": "Most Watched right now" },
@@ -253,8 +253,8 @@
             "title": "VTuber - ",
             "description": {
               "dimension": {
-                "concurrent-viewer": "Counts concurrent viewers for each YouTube live stream in {period}. Compare concurrent viewers in a ranking format and check out popular live streams.",
-                "super-chat": "Explore the super chat revenue ranking for YouTube live streams over the {period}. Compare real-time earnings and performance metrics on PeakX's detailed live ranking page."
+                "concurrent-viewer": "Concurrent Viewer Ranking from each {group}{gender} channel in {period}.",
+                "super-chat": "Super Chat Ranking from each {group}{gender} live stream in {period}."
               }
             }
           }
@@ -266,8 +266,8 @@
             "title": "VTuber",
             "description": {
               "dimension": {
-                "super-chat": "Aggregates Super Chat revenues from each {group}{gender} channel in {period}. Compare VTubers by group and gender, so you can check the revenue performance of popular VTubers.",
-                "subscriber": "Ranking of {group}{gender} channel subscribers. Compare VTubers in the ranking format and check the performance of your favorites."
+                "super-chat": "Super Chat Ranking from each {group}{gender} channel in {period}.",
+                "subscriber": "Ranking of {group}{gender} channel subscribers."
               }
             }
           }
