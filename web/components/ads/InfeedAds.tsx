@@ -18,7 +18,7 @@ const InfeedAds = () => {
   }, [pathname])
 
   return (
-    <div>
+    <div className="text-center">
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}

@@ -19,7 +19,7 @@ const DisplaySquareAds = () => {
   }, [pathname, searchParams])
 
   return (
-    <div key={pathname + searchParams.toString()}>
+    <div className="text-center" key={pathname + searchParams.toString()}>
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
