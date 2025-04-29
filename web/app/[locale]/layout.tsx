@@ -60,12 +60,14 @@ export default async function LocaleLayout(props: Props) {
         </ThemeProvider>
 
         {/* Google AdSense */}
-        <Script
-          strategy="beforeInteractive"
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4929947179869258"
-          crossOrigin="anonymous"
-        />
+        {process.env.ENV_NAME === 'production' && (
+          <Script
+            strategy="beforeInteractive"
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4929947179869258"
+            crossOrigin="anonymous"
+          />
+        )}
       </body>
     </html>
   )

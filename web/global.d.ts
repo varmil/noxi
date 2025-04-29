@@ -15,7 +15,7 @@ declare global {
       readonly NODE_ENV: 'development' | 'production' | 'test'
 
       /** shows which environment we are on */
-      readonly ENV_NAME: 'develop' | 'production'
+      readonly ENV_NAME?: 'develop' | 'production'
 
       /** http(s)://... */
       readonly BASE_URL: string
