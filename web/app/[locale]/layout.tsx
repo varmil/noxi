@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
@@ -57,6 +58,14 @@ export default async function LocaleLayout(props: Props) {
             <Toaster richColors />
           </NextIntlClientProvider>
         </ThemeProvider>
+
+        {/* Google AdSense */}
+        <Script
+          strategy="beforeInteractive"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4929947179869258"
+          crossOrigin="anonymous"
+        />
       </body>
     </html>
   )
