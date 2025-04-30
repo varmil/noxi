@@ -22,7 +22,7 @@ const DisplayLandscapeAds = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={`text-center w-full max-w-6xl mx-auto ${className || ''}`}
+      className={`text-center w-full max-w-[728px] ${className || ''}`}
       key={pathname + searchParams.toString()}
     >
       <ins
