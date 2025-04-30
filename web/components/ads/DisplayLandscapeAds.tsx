@@ -4,9 +4,9 @@ import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { usePathname } from 'lib/navigation'
 
-const SLOT = '4056949447'
+const SLOT = '1985028297'
 
-const DisplaySquareAds = () => {
+const DisplayLandscapeAds = ({ className }: { className?: string }) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -21,18 +21,20 @@ const DisplaySquareAds = () => {
   }, [pathname, searchParams])
 
   return (
-    <div className="text-center" key={pathname + searchParams.toString()}>
+    <div
+      className={`text-center h-[90px] ${className || ''}`}
+      key={pathname + searchParams.toString()}
+    >
       <ins
         className="adsbygoogle"
-        style={{ display: 'block' }}
+        style={{ display: 'inline-block', width: '100%', height: '90px' }}
         data-adtest={process.env.ENV_NAME !== 'production' ? 'on' : 'off'}
         data-ad-client="ca-pub-4929947179869258"
         data-ad-slot={SLOT}
-        data-ad-format="auto"
-        data-full-width-responsive="false"
+        data-full-width-responsive="true"
       />
     </div>
   )
 }
 
-export default DisplaySquareAds
+export default DisplayLandscapeAds

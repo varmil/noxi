@@ -60,7 +60,7 @@ export default async function LocaleLayout(props: Props) {
         </ThemeProvider>
 
         {/* Google AdSense */}
-        {process.env.ENV_NAME === 'production' && (
+        {process.env.ENV_NAME !== 'production' && (
           <Script
             strategy="beforeInteractive"
             async

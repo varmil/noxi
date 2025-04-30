@@ -86,6 +86,7 @@ export default function YoutubeChannelsRankingPage(props: Props) {
       ]}
       noPadding
       fullWidth
+      ads
     >
       <RankHighlighter>
         <IndexTemplate searchParams={searchParams} />

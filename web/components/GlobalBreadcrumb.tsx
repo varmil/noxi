@@ -13,6 +13,7 @@ import { Link } from 'lib/navigation'
 
 type Props = {
   items: Item[]
+  className?: string
 }
 
 type Item = {
@@ -21,10 +22,13 @@ type Item = {
 }
 
 export default function GlobalBreadcrumb({
-  items = []
+  items = [],
+  className
 }: PropsWithoutRef<Props>) {
   return (
-    <ScrollArea className={`whitespace-nowrap ${PageXSPX} ${PageSMPX}`}>
+    <ScrollArea
+      className={`whitespace-nowrap ${PageXSPX} ${PageSMPX} ${className}`}
+    >
       <div className="w-max overflow-hidden">
         <Breadcrumb>
           <BreadcrumbList>
