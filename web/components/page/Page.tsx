@@ -1,5 +1,6 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
+import DisplayLandscapeAds from 'components/ads/DisplayLandscapeAds'
 import Header from 'components/header/Header'
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
   noPadding?: boolean
   /** If true, the width will not be limited */
   fullWidth?: boolean
+  /** If true, the ads will be displayed */
+  ads?: boolean
 }
 
 /** Page > XS > Xパディング値 */
@@ -28,20 +31,23 @@ export function Page({
   className,
   children,
   noPadding,
-  fullWidth
+  fullWidth,
+  ads
 }: PropsWithChildren<Props>) {
   const padding = noPadding ? 'px-0' : `${PageXSPX} ${PageSMPX}`
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <section className="space-y-4">
-      <Header className="z-30" />
+    <section>
+      <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
 
-      {breadcrumb && <GlobalBreadcrumb items={breadcrumb} />}
+      {ads && <DisplayLandscapeAds className="mb-4" />}
+
+      {breadcrumb && <GlobalBreadcrumb items={breadcrumb} className="mb-4" />}
 
       {h1 && (
         <div
-          className={`z-0 text-xl bg-muted text-muted-foreground py-6 ${padding}`}
+          className={`z-0 text-xl bg-muted text-muted-foreground py-6 ${padding} mb-4`}
         >
           <h1 className="font-bold">{h1}</h1>
         </div>

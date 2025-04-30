@@ -69,6 +69,7 @@ export default function YoutubeLiveRankingPage(props: Props) {
       ]}
       noPadding
       fullWidth
+      ads
     >
       <IndexTemplate searchParams={searchParams} />
     </Page>
