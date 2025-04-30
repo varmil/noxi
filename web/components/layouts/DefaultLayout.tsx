@@ -12,7 +12,9 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
       {/* bottom navigation = h-14.5 なので 20.5 は pb-6 相当 */}
       <section className="z-0 relative space-y-6 pb-20.5 md:pb-8 sm:pl-14">
         {children}
-        <DisplaySquareAds />
+        <div className="px-6">
+          <DisplaySquareAds />
+        </div>
       </section>
       {/* <CookieAgreeBanner className="z-30" /> */}
       <BottomNavigation className="z-20" />

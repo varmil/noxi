@@ -27,7 +27,7 @@ const DisplaySquareAds = () => {
         data-ad-client="ca-pub-4929947179869258"
         data-ad-slot="4056949447"
         data-ad-format="auto"
-        data-full-width-responsive="true"
+        data-full-width-responsive="false"
       />
     </div>
   )
