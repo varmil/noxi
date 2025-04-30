@@ -22,12 +22,12 @@ const DisplayLandscapeAds = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={`text-center h-[90px] ${className || ''}`}
+      className={`text-center w-full max-w-6xl mx-auto ${className || ''}`}
       key={pathname + searchParams.toString()}
     >
       <ins
-        className="adsbygoogle"
-        style={{ display: 'inline-block', width: '100%', height: '90px' }}
+        className="adsbygoogle h-[80px] lg:h-[90px]"
+        style={{ display: 'inline-block', width: '100%' }}
         data-adtest={process.env.ENV_NAME !== 'production' ? 'on' : 'off'}
         data-ad-client="ca-pub-4929947179869258"
         data-ad-slot={SLOT}
