@@ -42,7 +42,7 @@ export function Page({
       <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
 
       {ads && (
-        <div className="flex justify-center h-[100px] lg:h-[100px]">
+        <div className="flex justify-center h-[100px] md:h-[90px]">
           <DisplayLandscapeAds />
           <DisplayLandscapeAds className="hidden 2xl:block" />
         </div>
