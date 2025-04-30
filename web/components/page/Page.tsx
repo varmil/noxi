@@ -41,9 +41,16 @@ export function Page({
     <section>
       <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
 
-      {ads && <DisplayLandscapeAds className="mb-4" />}
+      {ads && (
+        <div className="flex h-[80px] lg:h-[90px]">
+          <DisplayLandscapeAds />
+          <DisplayLandscapeAds className="hidden 2xl:block" />
+        </div>
+      )}
 
-      {breadcrumb && <GlobalBreadcrumb items={breadcrumb} className="mb-4" />}
+      {!ads && breadcrumb && (
+        <GlobalBreadcrumb items={breadcrumb} className="mb-4" />
+      )}
 
       {h1 && (
         <div
