@@ -26,7 +26,7 @@ const DisplayLandscapeAds = ({ className }: { className?: string }) => {
       key={pathname + searchParams.toString()}
     >
       <ins
-        className="adsbygoogle h-[80px] lg:h-[90px]"
+        className="adsbygoogle h-[100px] lg:h-[100px]"
         style={{ display: 'inline-block', width: '100%' }}
         data-adtest={process.env.ENV_NAME !== 'production' ? 'on' : 'off'}
         data-ad-client="ca-pub-4929947179869258"
