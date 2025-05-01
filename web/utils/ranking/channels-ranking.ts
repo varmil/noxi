@@ -5,8 +5,8 @@ import { ChannelsRankingPeriod } from 'types/period'
 import { RankingType } from 'types/ranking'
 
 export const createSearchParams = (params: {
-  period: ChannelsRankingPeriod
   dimension: Dimension
+  period: ChannelsRankingPeriod
   group?: GroupString
   gender?: Gender
   page?: number
