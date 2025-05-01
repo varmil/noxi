@@ -5,7 +5,6 @@ import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import groupUsingGender from 'utils/ranking/groupUsingGender'
 import { createSearchParams } from 'utils/ranking/stream-ranking'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
@@ -29,14 +28,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
+    /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
       canonical: `${getWebUrl()}/${locale}/youtube/live/ranking?${createSearchParams(
         {
-          period,
+          period: 'realtime', // 2025/05/01：固定
           dimension,
-          group,
-          ...(groupUsingGender(group) && { gender }),
-          ...(page && { page: Number(page) })
+          group
+          // ...(groupUsingGender(group) && { gender }),
+          // ...(page && { page: Number(page) })
         }
       ).toString()}`
     }

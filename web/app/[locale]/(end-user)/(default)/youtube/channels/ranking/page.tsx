@@ -9,7 +9,6 @@ import dayjs from 'lib/dayjs'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
 import { createSearchParams } from 'utils/ranking/channels-ranking'
-import groupUsingGender from 'utils/ranking/groupUsingGender'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
@@ -46,14 +45,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         }
       ]
     },
+    /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
       canonical: `${getWebUrl()}/${locale}/youtube/channels/ranking?${createSearchParams(
         {
-          period,
+          period: dimension === 'subscriber' ? 'all' : 'last24Hours', // 2025/05/01：固定
           dimension,
-          group,
-          ...(groupUsingGender(group) && { gender }),
-          ...(page && { page: Number(page) })
+          group
+          // ...(groupUsingGender(group) && { gender }),
+          // ...(page && { page: Number(page) })
         }
       ).toString()}`
     }
