@@ -1,9 +1,6 @@
 import './globals.css'
 import { ReactNode } from 'react'
 
-// export const fetchCache = 'default-cache'
-// export const runtime = 'edge'
-
 type Props = {
   children: ReactNode
 }
