@@ -2,12 +2,13 @@ import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
-import Script from 'next/script'
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
+import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
+import { SWGScript } from 'components/script/SWGScript'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
 
@@ -60,14 +61,9 @@ export default async function LocaleLayout(props: Props) {
         </ThemeProvider>
 
         {/* Google AdSense */}
-        {process.env.ENV_NAME === 'production' && (
-          <Script
-            strategy="beforeInteractive"
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4929947179869258"
-            crossOrigin="anonymous"
-          />
-        )}
+        <AdsByGoogleScript strategy="beforeInteractive" />
+        {/* Subscribe with Google */}
+        <SWGScript strategy="beforeInteractive" />
       </body>
     </html>
   )
