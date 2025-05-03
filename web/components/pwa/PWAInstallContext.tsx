@@ -8,6 +8,8 @@ import React, {
   ReactNode,
   FC
 } from 'react'
+import { Lightbulb, Share } from 'lucide-react'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 
 // BeforeInstallPromptEvent の型定義
@@ -54,19 +56,49 @@ const usePWAInstallPrompt = () => useContext(PWAInstallContext)
 // インストールボタンコンポーネント
 export const PWAInstallButton: FC = () => {
   const deferredPrompt = usePWAInstallPrompt()
-  if (!deferredPrompt) return null
+  const [isIOSSafari, setIsIOSSafari] = useState(false)
+
+  useEffect(() => {
+    const ua = window.navigator.userAgent
+    const isIOS = /iPad|iPhone|iPod/.test(ua)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(ua)
+    const standalone =
+      'standalone' in window.navigator && (window.navigator as any).standalone
+    setIsIOSSafari(isIOS && isSafari && !standalone)
+  }, [])
+
+  // PWAインストール不可能 and iOS Safari の案内が必要ない場合は何も表示しない
+  if (!deferredPrompt && !isIOSSafari) return null
 
   const handleClick = async () => {
+    if (!deferredPrompt) return
     deferredPrompt.prompt()
     const { outcome } = await deferredPrompt.userChoice
     console.log('PWA install choice:', outcome)
-    // 一度使ったらクリア
     // 追加のロジックがあればここで行う
   }
 
   return (
-    <Button onClick={handleClick} className="">
-      ホーム画面に追加
-    </Button>
+    <>
+      {deferredPrompt && (
+        <Button onClick={handleClick} className="">
+          アプリをホーム画面に追加
+        </Button>
+      )}
+      {isIOSSafari && (
+        <Alert>
+          <Lightbulb className="size-4" />
+          <AlertTitle>アプリでもっと快適に！</AlertTitle>
+          <AlertDescription>
+            <span>
+              Safariの共有ボタン
+              <Share className="size-4 inline relative top-[-1px] mx-1" />
+              をタップし<strong>「ホーム画面に追加」</strong>
+              を選択してください
+            </span>
+          </AlertDescription>
+        </Alert>
+      )}
+    </>
   )
 }

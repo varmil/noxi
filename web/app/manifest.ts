@@ -4,8 +4,8 @@ export const dynamic = 'force-dynamic'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    theme_color: '#ffffff',
-    background_color: '#ffffff',
+    theme_color: '#0c0b09',
+    background_color: '#0c0b09',
     icons: [
       {
         purpose: 'maskable',
