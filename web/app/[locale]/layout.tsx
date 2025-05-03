@@ -11,6 +11,7 @@ import { ClarityScript } from 'components/script/ClarityScript'
 import { SWGScript } from 'components/script/SWGScript'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
+import type { Viewport } from 'next'
 
 type Props = {
   children: ReactNode
@@ -24,6 +25,14 @@ const notoSansJP = Noto_Sans_JP({
 
 export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
+}
+
+/** for PWA. see https://web.dev/articles/add-manifest?hl=ja */
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f2f2f2' },
+    { media: '(prefers-color-scheme: dark)', color: '#0c0b09' }
+  ]
 }
 
 export default async function LocaleLayout(props: Props) {
