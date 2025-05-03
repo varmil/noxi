@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes'
 
 export const SWGScript: React.FC<ScriptProps> = (props: ScriptProps) => {
   const { theme } = useTheme()
+  if (process.env.ENV_NAME !== 'production') return null
   return (
     <>
       <Script
