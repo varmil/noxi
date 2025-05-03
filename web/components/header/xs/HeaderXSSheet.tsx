@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/sheet'
 import HeaderLink from 'components/header/HeaderLink'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
+import { PWAInstallButton } from 'components/pwa/PWAInstallContext'
 import Image from 'components/styles/Image'
 import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
@@ -97,6 +98,10 @@ export default function HeaderXSSheet() {
               icon={<PrivacyPolicyIcon className="size-6.5" />}
               href="/youtube/terms-of-use-and-privacy-policy"
             />
+
+            <Separator orientation="horizontal" />
+
+            <PWAInstallButton />
           </section>
         </nav>
       </SheetContent>
