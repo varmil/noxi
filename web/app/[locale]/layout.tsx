@@ -6,6 +6,7 @@ import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
+import { PWAInstallProvider } from 'components/pwa/PWAInstallContext'
 import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
 import { SWGScript } from 'components/script/SWGScript'
@@ -64,7 +65,7 @@ export default async function LocaleLayout(props: Props) {
         >
           <NextTopLoader color="var(--primary)" showSpinner={false} />
           <NextIntlClientProvider>
-            {children}
+            <PWAInstallProvider>{children}</PWAInstallProvider>
             <Toaster richColors />
           </NextIntlClientProvider>
         </ThemeProvider>
