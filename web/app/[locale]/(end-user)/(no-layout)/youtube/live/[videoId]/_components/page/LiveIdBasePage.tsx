@@ -69,9 +69,10 @@ export async function generateBaseMetadata(
       concurrentViewers: peakConcurrentViewers.toLocaleString(),
       comment: comment
     })}`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/youtube/live/${videoId}`
-    }
+    // alternates: {
+    //   canonical: `${getWebUrl()}/${locale}/youtube/live/${videoId}`
+    // }
+    robots: { index: false } // 2025/05/04 noindexを試す
   }
 }
 
