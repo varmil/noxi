@@ -37,24 +37,10 @@ export default function manifest(): MetadataRoute.Manifest {
         label: 'ホーム画面'
       },
       {
-        src: '/pwa/screenshots/1.png',
-        sizes: '645x1398',
-        type: 'image/png',
-        form_factor: 'wide',
-        label: 'ホーム画面'
-      },
-      {
         src: '/pwa/screenshots/2.png',
         sizes: '645x1398',
         type: 'image/png',
         form_factor: 'narrow',
-        label: 'スパチャランキング画面'
-      },
-      {
-        src: '/pwa/screenshots/2.png',
-        sizes: '645x1398',
-        type: 'image/png',
-        form_factor: 'wide',
         label: 'スパチャランキング画面'
       },
       {
@@ -65,24 +51,10 @@ export default function manifest(): MetadataRoute.Manifest {
         label: 'さくらみこさんの同接数を表示する画面'
       },
       {
-        src: '/pwa/screenshots/3.png',
-        sizes: '645x1398',
-        type: 'image/png',
-        form_factor: 'wide',
-        label: 'さくらみこさんの同接数を表示する画面'
-      },
-      {
         src: '/pwa/screenshots/4.png',
         sizes: '645x1398',
         type: 'image/png',
         form_factor: 'narrow',
-        label: 'グループ一覧画面'
-      },
-      {
-        src: '/pwa/screenshots/4.png',
-        sizes: '645x1398',
-        type: 'image/png',
-        form_factor: 'wide',
         label: 'グループ一覧画面'
       },
       {
@@ -93,9 +65,9 @@ export default function manifest(): MetadataRoute.Manifest {
         label: 'ホーム画面への追加を促す画像'
       },
       {
-        src: '/pwa/screenshots/5.png',
-        sizes: '645x1398',
-        type: 'image/png',
+        src: '/pwa/screenshots/6.jpg',
+        sizes: '1920x832',
+        type: 'image/jpeg',
         form_factor: 'wide',
         label: 'ホーム画面への追加を促す画像'
       }
