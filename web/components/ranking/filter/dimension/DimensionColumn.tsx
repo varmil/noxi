@@ -48,7 +48,7 @@ export default function DimensionColumn({ className }: Props) {
         {STREAM_KEYS.map(key => (
           <SelectButton
             key={key}
-            pathname={'/youtube/live/ranking'}
+            pathname={'/ranking/live'}
             qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
           >
             {tg(`dimension.${key}`)}

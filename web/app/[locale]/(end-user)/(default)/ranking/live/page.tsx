@@ -30,20 +30,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     })),
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/youtube/live/ranking?${createSearchParams(
-        {
-          period: 'realtime', // 2025/05/01：固定
-          dimension,
-          group
-          // ...(groupUsingGender(group) && { gender }),
-          // ...(page && { page: Number(page) })
-        }
-      ).toString()}`
+      canonical: `${getWebUrl()}/${locale}/ranking/live?${createSearchParams({
+        period: 'realtime', // 2025/05/01：固定
+        dimension,
+        group
+        // ...(groupUsingGender(group) && { gender }),
+        // ...(page && { page: Number(page) })
+      }).toString()}`
     }
   }
 }
 
-export default function YoutubeLiveRankingPage(props: Props) {
+export default function RankingLivePage(props: Props) {
   const { locale } = use(props.params)
   const searchParams = use(props.searchParams)
   const { period, dimension, group, gender } = searchParams

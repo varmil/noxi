@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         destination: '/:locale/ranking/channels',
         permanent: true
       },
+      // 2025/05/05 Live ランキングを移動
+      {
+        source: '/:locale/youtube/live/ranking',
+        destination: '/:locale/ranking/live',
+        permanent: true
+      },
       // 2025/04/12：神楽すず を dotlive に移動
       {
         source: '/:locale/independent/channels/UCUZ5AlC3rTlM-rA2cj5RP6w',
@@ -27,12 +33,6 @@ const nextConfig: NextConfig = {
       {
         source: '/:locale/youtube/live/:id/super-chat',
         destination: '/:locale/youtube/live/:id/earnings',
-        permanent: true
-      },
-      // 2024/11/30：Youtube Live ランキングを移動
-      {
-        source: '/:locale/youtube/ranking/live',
-        destination: '/:locale/youtube/live/ranking',
         permanent: true
       },
       // 2024/11/21：Youtube Live ランキングを移動

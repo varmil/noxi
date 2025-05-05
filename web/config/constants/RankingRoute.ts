@@ -26,9 +26,9 @@ export const ChannelsRankingDefaultUrl = `/ranking/channels?${createSearchParams
 ).toString()}`
 
 /**
- * Default URL with query string for `/youtube/live/ranking`
+ * Default URL with query string for `/ranking/live`
  */
-export const StreamRankingDefaultUrl = `/youtube/live/ranking?${createSearchParamsForStream(
+export const StreamRankingDefaultUrl = `/ranking/live?${createSearchParamsForStream(
   {
     dimension: 'concurrent-viewer',
     period: DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'
