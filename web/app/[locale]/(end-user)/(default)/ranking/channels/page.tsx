@@ -47,7 +47,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     },
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/youtube/channels/ranking?${createSearchParams(
+      canonical: `${getWebUrl()}/${locale}/ranking/channels?${createSearchParams(
         {
           period: dimension === 'subscriber' ? 'all' : 'last24Hours', // 2025/05/01：固定
           dimension,
@@ -60,7 +60,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function YoutubeChannelsRankingPage(props: Props) {
+export default function RankingChannelsPage(props: Props) {
   const { locale } = use(props.params)
   const searchParams = use(props.searchParams)
   const { period, dimension, group, gender } = searchParams

@@ -12,7 +12,7 @@ const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
     dimension: 'concurrent-viewer',
     period: DefaultPeriodByDimension['concurrent-viewer']
   },
-  '/youtube/channels/ranking': {
+  '/ranking/channels': {
     dimension: 'super-chat',
     period: DefaultPeriodByDimension['super-chat']
   }

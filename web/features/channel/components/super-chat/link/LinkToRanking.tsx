@@ -31,7 +31,7 @@ export default function LinkToRanking({
   })
   return (
     <Link
-      href={`/youtube/channels/ranking?${searchParams.toString()}`}
+      href={`/ranking/channels?${searchParams.toString()}`}
       prefetch={false}
       onClick={() => {
         if (channelId) {

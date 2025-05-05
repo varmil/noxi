@@ -16,9 +16,9 @@ export const DefaultPeriodByDimension: Record<
 }
 
 /**
- * Default URL with query string for `/youtube/channels/ranking`
+ * Default URL with query string for `/ranking/channels`
  */
-export const ChannelsRankingDefaultUrl = `/youtube/channels/ranking?${createSearchParamsForChannels(
+export const ChannelsRankingDefaultUrl = `/ranking/channels?${createSearchParamsForChannels(
   {
     dimension: 'super-chat',
     period: DefaultPeriodByDimension['super-chat'] as 'last24Hours'

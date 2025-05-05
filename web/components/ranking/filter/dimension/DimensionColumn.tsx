@@ -37,7 +37,7 @@ export default function DimensionColumn({ className }: Props) {
         {CHANNELS_KEYS.map(key => (
           <SelectButton
             key={key}
-            pathname={'/youtube/channels/ranking'}
+            pathname={'/ranking/channels'}
             qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
           >
             {tg(`dimension.${key}`)}

@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // 2025/05/05 Channels ランキングを移動
+      {
+        source: '/:locale/youtube/channels/ranking',
+        destination: '/:locale/ranking/channels',
+        permanent: true
+      },
       // 2025/04/12：神楽すず を dotlive に移動
       {
         source: '/:locale/independent/channels/UCUZ5AlC3rTlM-rA2cj5RP6w',
@@ -21,12 +27,6 @@ const nextConfig: NextConfig = {
       {
         source: '/:locale/youtube/live/:id/super-chat',
         destination: '/:locale/youtube/live/:id/earnings',
-        permanent: true
-      },
-      // 2024/11/30 Super Chat ランキングを移動
-      {
-        source: '/:locale/youtube/super-chat/ranking',
-        destination: '/:locale/youtube/channels/ranking',
         permanent: true
       },
       // 2024/11/30：Youtube Live ランキングを移動
