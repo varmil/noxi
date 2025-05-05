@@ -24,13 +24,13 @@ export default function BottomNavigation({ className }: Props) {
       icon: Home
     },
     {
-      pathname: '/youtube/live/ranking',
+      pathname: '/ranking/live',
       query: '?dimension=concurrent-viewer&period=realtime',
       label: t('live'),
       icon: Radio
     },
     {
-      pathname: '/youtube/channels/ranking',
+      pathname: '/ranking/channels',
       query: '?dimension=super-chat&period=last24Hours',
       label: t('channels'),
       icon: CircleDollarSign

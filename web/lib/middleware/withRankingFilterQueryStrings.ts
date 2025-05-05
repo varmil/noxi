@@ -8,11 +8,11 @@ import { normalizePathname } from 'lib/pathname'
  * Default query parameters for each page and dimension
  */
 const QUERY_STRING_RULES: Record<string, Record<string, string>> = {
-  '/youtube/live/ranking': {
+  '/ranking/live': {
     dimension: 'concurrent-viewer',
     period: DefaultPeriodByDimension['concurrent-viewer']
   },
-  '/youtube/channels/ranking': {
+  '/ranking/channels': {
     dimension: 'super-chat',
     period: DefaultPeriodByDimension['super-chat']
   }

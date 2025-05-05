@@ -29,7 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const overallSuperChatEntries = [
     getEntry({
       lastModified: new Date(),
-      pathname: `/youtube/channels/ranking?${createSearchParams({
+      pathname: `/ranking/channels?${createSearchParams({
         dimension: 'super-chat',
         period: 'last24Hours'
       })
@@ -48,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/youtube/channels/ranking?${searchParams
+        pathname: `/ranking/channels?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })
@@ -64,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/youtube/channels/ranking?${searchParams
+      pathname: `/ranking/channels?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })
@@ -79,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/youtube/channels/ranking?${searchParams
+      pathname: `/ranking/channels?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })

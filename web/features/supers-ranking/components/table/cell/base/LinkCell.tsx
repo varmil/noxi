@@ -41,7 +41,7 @@ export default function LinkCell({
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
       <Link
-        href={`/youtube/channels/ranking?${searchParams.toString()}`}
+        href={`/ranking/channels?${searchParams.toString()}`}
         prefetch={false}
         onClick={() => {
           if (channelId) {

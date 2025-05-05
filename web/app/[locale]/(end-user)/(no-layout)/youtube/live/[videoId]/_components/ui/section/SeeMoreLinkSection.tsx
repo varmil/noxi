@@ -40,7 +40,7 @@ export default async function SeeMoreLinkSection({
         </SeeMoreLinkButton>
 
         <SeeMoreLinkButton
-          href={`/youtube/live/ranking?dimension=super-chat&period=last7Days&group=${group}`}
+          href={`/ranking/live?dimension=super-chat&period=last7Days&group=${group}`}
         >
           <TitleSpan className="flex items-center justify-center gap-1">
             <GroupImageOrIcon

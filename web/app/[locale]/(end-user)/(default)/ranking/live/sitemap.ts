@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/youtube/live/ranking?${searchParams
+      pathname: `/ranking/live?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })
@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/youtube/live/ranking?${searchParams
+        pathname: `/ranking/live?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })
@@ -62,7 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/youtube/live/ranking?${searchParams
+      pathname: `/ranking/live?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })
@@ -78,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/youtube/live/ranking?${searchParams
+        pathname: `/ranking/live?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })

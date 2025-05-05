@@ -16,9 +16,9 @@ export const DefaultPeriodByDimension: Record<
 }
 
 /**
- * Default URL with query string for `/youtube/channels/ranking`
+ * Default URL with query string for `/ranking/channels`
  */
-export const ChannelsRankingDefaultUrl = `/youtube/channels/ranking?${createSearchParamsForChannels(
+export const ChannelsRankingDefaultUrl = `/ranking/channels?${createSearchParamsForChannels(
   {
     dimension: 'super-chat',
     period: DefaultPeriodByDimension['super-chat'] as 'last24Hours'
@@ -26,9 +26,9 @@ export const ChannelsRankingDefaultUrl = `/youtube/channels/ranking?${createSear
 ).toString()}`
 
 /**
- * Default URL with query string for `/youtube/live/ranking`
+ * Default URL with query string for `/ranking/live`
  */
-export const StreamRankingDefaultUrl = `/youtube/live/ranking?${createSearchParamsForStream(
+export const StreamRankingDefaultUrl = `/ranking/live?${createSearchParamsForStream(
   {
     dimension: 'concurrent-viewer',
     period: DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'
