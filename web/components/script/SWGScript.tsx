@@ -3,6 +3,7 @@
 import Script, { type ScriptProps } from 'next/script'
 import { useTheme } from 'next-themes'
 
+/** @deprecated SwGは使わない見通しなのでいずれ削除する */
 export const SWGScript: React.FC<ScriptProps> = (props: ScriptProps) => {
   const { theme } = useTheme()
   if (process.env.ENV_NAME !== 'production') return null

@@ -9,7 +9,6 @@ import { Toaster } from '@/components/ui/sonner'
 import { PWAInstallProvider } from 'components/pwa/PWAInstallContext'
 import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
-import { SWGScript } from 'components/script/SWGScript'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
 import type { Viewport } from 'next'
@@ -72,8 +71,6 @@ export default async function LocaleLayout(props: Props) {
 
         {/* Google AdSense */}
         <AdsByGoogleScript strategy="beforeInteractive" />
-        {/* Subscribe with Google */}
-        <SWGScript strategy="beforeInteractive" />
       </body>
     </html>
   )
