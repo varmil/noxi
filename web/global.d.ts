@@ -49,6 +49,9 @@ declare global {
 
       /** 本番でのみ定義 */
       readonly CLARITY_CODE?: string
+
+      readonly STRIPE_SECRET_KEY: string
+      readonly NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string
     }
   }
 }
