@@ -12,13 +12,16 @@ import {
 import { Request, Response } from 'express'
 import Stripe from 'stripe'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-04-30.basil'
-})
-
 @Controller('webhooks/stripe')
 export class WebhooksStripeController {
   private readonly logger = new Logger(WebhooksStripeController.name)
+  private stripe: Stripe
+
+  constructor() {
+    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+      apiVersion: '2025-04-30.basil'
+    })
+  }
 
   @Post()
   handleStripeWebhook(
@@ -34,7 +37,7 @@ export class WebhooksStripeController {
     let event: Stripe.Event
 
     try {
-      event = stripe.webhooks.constructEvent(
+      event = this.stripe.webhooks.constructEvent(
         payload,
         sig,
         process.env.STRIPE_WEBHOOK_SECRET || ''
