@@ -5,10 +5,9 @@
 
 // eslint-disable-next-line no-restricted-imports
 import Link from 'next/link'
-// eslint-disable-next-line no-restricted-imports
-import { usePathname, useSearchParams } from 'next/navigation'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { useNewPathForLanguage } from 'components/language-switcher/utils/language-switcher'
 
 export default function LanguageSwitcher() {
   return (
@@ -28,18 +27,8 @@ const LanguageButton = ({
   locale: 'ja' | 'en'
 }) => {
   const currentLocale = useLocale()
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
   const isActive = currentLocale === locale
-
-  const createPathForLanguage = (newLocale: string) => {
-    // パスの最初の言語部分を新しい言語に置き換え
-    const newPath = pathname.replace(/^\/[^/]+/, `/${newLocale}`)
-    // 現在のクエリパラメータを取得
-    const currentQuery = searchParams.toString()
-    // クエリパラメータがある場合は、新しいパスに追加
-    return currentQuery ? `${newPath}?${currentQuery}` : newPath
-  }
+  const href = useNewPathForLanguage(locale)
 
   return (
     <Button
@@ -50,7 +39,7 @@ const LanguageButton = ({
         isActive ? 'font-semibold border-b-2 border-primary rounded-none' : ''
       }`}
     >
-      <Link href={createPathForLanguage(locale)} prefetch={false}>
+      <Link href={href} prefetch={false}>
         {children}
       </Link>
     </Button>

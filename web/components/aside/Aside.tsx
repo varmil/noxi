@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Ellipsis, MailIcon, UserRoundPlus } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -10,16 +10,23 @@ import {
   TooltipContent
 } from '@/components/ui/tooltip'
 import AsideIcon from 'components/aside/AsideIcon'
+import { SettingsDropdown } from 'components/aside/SettingsDropdown'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import AsideSkeleton from 'components/skeleton/AsideSkeleton'
-import useGroups from 'hooks/useGroups'
+import { getGroups } from 'hooks/useGroups'
+import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
-export default function Aside({ className }: { className?: string }) {
-  const global = useTranslations('Global')
-  const comp = useTranslations('Components')
-  const groups = useGroups()
+export default async function Aside({ className }: { className?: string }) {
+  const [session, global, comp, groups] = await Promise.all([
+    auth(),
+    getTranslations('Global'),
+    getTranslations('Components'),
+    getGroups()
+  ])
+
+  console.log(session)
 
   return (
     <aside
@@ -85,26 +92,11 @@ export default function Aside({ className }: { className?: string }) {
 
             <nav className="flex flex-col items-center gap-3">
               <TooltipProvider delayDuration={0}>
-                {/* <Tooltip>
-                      <TooltipTrigger>
-                        <Link
-                          href="#"
-                          className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
-                          prefetch={false}
-                        >
-                          <SettingsIcon className="size-6" />
-                          <span className="sr-only">Settings</span>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent side="right">Settings</TooltipContent>
-                    </Tooltip> 
-                */}
-
                 <Tooltip>
                   <TooltipTrigger>
                     <Link
                       href="/contact"
-                      className="flex h-8 w-8 items-center justify-center rounded-lg"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
                       prefetch={false}
                     >
                       <MailIcon className="size-6" />
@@ -120,7 +112,7 @@ export default function Aside({ className }: { className?: string }) {
                   <TooltipTrigger>
                     <Link
                       href="/channels/add"
-                      className="flex h-8 w-8 items-center justify-center rounded-lg"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
                       prefetch={false}
                     >
                       <UserRoundPlus className="size-6" />
@@ -152,6 +144,8 @@ export default function Aside({ className }: { className?: string }) {
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
+
+              <SettingsDropdown session={session} />
             </nav>
           </section>
         </ScrollArea>

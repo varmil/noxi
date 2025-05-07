@@ -281,6 +281,10 @@
   },
 
   "Components": {
+    "auth": {
+      "signIn": "ログイン",
+      "signOut": "ログアウト"
+    },
     "bottomNavigation": {
       "home": "ホーム",
       "live": "同接数",

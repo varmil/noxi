@@ -1,5 +1,11 @@
-import { Ellipsis, MailIcon, PanelLeftIcon, UserRoundPlus } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import {
+  Ellipsis,
+  LogOut,
+  MailIcon,
+  PanelLeftIcon,
+  UserRoundPlus
+} from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -10,17 +16,22 @@ import {
   SheetDescription,
   SheetTitle
 } from '@/components/ui/sheet'
+import { ModeToggle } from 'components/ModeToggle'
 import HeaderLink from 'components/header/HeaderLink'
+import { SignOutInSheet } from 'components/header/xs/HeaderItem'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
+import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
 import { PWAInstallButton } from 'components/pwa/PWAInstallContext'
 import Image from 'components/styles/Image'
-import useGroups from 'hooks/useGroups'
-import { Link } from 'lib/navigation'
-import Logo from '../../Logo'
+import { getGroups } from 'hooks/useGroups'
+import { auth, signOut } from 'lib/auth'
 
-export default function HeaderXSSheet() {
-  const comp = useTranslations('Components')
-  const groups = useGroups()
+export default async function HeaderXSSheet() {
+  const [session, comp, groups] = await Promise.all([
+    auth(),
+    getTranslations('Components'),
+    getGroups()
+  ])
 
   return (
     <Sheet>
@@ -37,10 +48,10 @@ export default function HeaderXSSheet() {
         </SheetHeader>
         <nav className="h-full flex flex-col font-medium">
           <section className="grid gap-6 overflow-y-scroll">
-            <Link href="/" className="h-10 w-10">
-              <Logo className="size-7" />
-              <span className="sr-only">PeakX</span>
-            </Link>
+            <div className="relative flex items-center ml-1 gap-4">
+              <LanguageSwitcher />
+              <ModeToggle />
+            </div>
 
             {groups.imgs.slice(0, 4).map(group => (
               <HeaderLink
@@ -83,14 +94,12 @@ export default function HeaderXSSheet() {
               name={comp('contact.title')}
               icon={<MailIcon className="size-7" />}
               href="/contact"
-              active
             />
 
             <HeaderLink
               name={comp('channelsAdd.title')}
               icon={<UserRoundPlus className="size-7" />}
               href="/channels/add"
-              active
             />
 
             <HeaderLink
@@ -98,6 +107,13 @@ export default function HeaderXSSheet() {
               icon={<PrivacyPolicyIcon className="size-6.5" />}
               href="/youtube/terms-of-use-and-privacy-policy"
             />
+
+            {session ? (
+              <SignOutInSheet
+                name={comp('auth.signOut')}
+                icon={<LogOut className="size-7" />}
+              />
+            ) : null}
 
             <Separator orientation="horizontal" />
 
