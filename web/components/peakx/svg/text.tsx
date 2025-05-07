@@ -1,15 +1,12 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { useTheme } from 'next-themes'
 
 type Props = {
   className?: string
 }
 
 export default function PeakXText({ className }: PropsWithoutRef<Props>) {
-  const { theme } = useTheme()
-  const color = theme === 'dark' ? '#fff' : '#000'
   return (
     <svg
       version="1.0"
@@ -18,11 +15,10 @@ export default function PeakXText({ className }: PropsWithoutRef<Props>) {
       height="151.000000pt"
       viewBox="0 0 441.000000 151.000000"
       preserveAspectRatio="xMidYMid meet"
-      className={`${className || ''}`}
+      className={`${className || ''} fill-[#000] dark:fill-[#fff]`}
     >
       <g
         transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)"
-        fill={color}
         stroke={'none'}
       >
         <path d="M2700 755 l0 -755 125 0 125 0 0 755 0 755 -125 0 -125 0 0 -755z" />
