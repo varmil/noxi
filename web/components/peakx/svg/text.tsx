@@ -1,12 +1,15 @@
-import { PropsWithoutRef } from 'react'
+'use client'
 
-const COLOR = '#FC2F00'
+import { PropsWithoutRef } from 'react'
+import { useTheme } from 'next-themes'
 
 type Props = {
   className?: string
 }
 
 export default function PeakXText({ className }: PropsWithoutRef<Props>) {
+  const { theme } = useTheme()
+  const color = theme === 'dark' ? '#fff' : '#000'
   return (
     <svg
       version="1.0"
@@ -19,8 +22,8 @@ export default function PeakXText({ className }: PropsWithoutRef<Props>) {
     >
       <g
         transform="translate(0.000000,151.000000) scale(0.100000,-0.100000)"
-        fill={COLOR}
-        stroke="none"
+        fill={color}
+        stroke={'none'}
       >
         <path d="M2700 755 l0 -755 125 0 125 0 0 755 0 755 -125 0 -125 0 0 -755z" />
         <path
