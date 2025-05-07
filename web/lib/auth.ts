@@ -2,14 +2,16 @@ import { Provider } from '@auth/core/providers'
 import Credentials from '@auth/core/providers/credentials'
 import NeonAdapter from '@auth/neon-adapter'
 import { Pool } from '@neondatabase/serverless'
-import NextAuth from 'next-auth'
-import Resend from 'next-auth/providers/resend'
+import NextAuth, { NextAuthConfig } from 'next-auth'
+import Google from 'next-auth/providers/google'
+// import Resend from 'next-auth/providers/resend'
 
 const providers: Provider[] = [
-  {
-    ...Resend({ from: 'PeakX.net <verify@peakx.net>' }),
-    name: 'Email'
-  }
+  Google
+  // {
+  //   ...Resend({ from: 'PeakX.net <verify@peakx.net>' }),
+  //   name: 'Email'
+  // }
 ]
 
 if (process.env.NODE_ENV === 'development') {
@@ -47,7 +49,33 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
     adapter: NeonAdapter(pool),
     providers,
     session: {
-      strategy: 'jwt'
-    }
+      strategy: 'jwt',
+      maxAge: 60 // TODO: 本番では変える
+    },
+    callbacks
   }
 })
+
+const REFRESH_INTERVAL = 10 // TODO: 本番では変える
+
+const callbacks: NextAuthConfig['callbacks'] = {
+  async jwt({ token, user, account }) {
+    const now = Math.floor(Date.now() / 1000)
+
+    // 初回ログイン時（userがいる）
+    if (user || account) {
+      return {
+        ...token,
+        lastUsed: now
+      }
+    }
+
+    // トークンの使用履歴が古いなら延長（再発行）
+    const lastUsed = (token.lastUsed as number) ?? now
+    if (now - lastUsed > REFRESH_INTERVAL) {
+      token.lastUsed = now
+    }
+
+    return token
+  }
+}
