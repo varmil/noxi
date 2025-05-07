@@ -50,13 +50,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
     providers,
     session: {
       strategy: 'jwt',
-      maxAge: 60 // TODO: 本番では変える
+      maxAge: 3600 // TODO: 本番では変える
     },
     callbacks
   }
 })
 
-const REFRESH_INTERVAL = 10 // TODO: 本番では変える
+const REFRESH_INTERVAL = 300 // TODO: 本番では変える
 
 const callbacks: NextAuthConfig['callbacks'] = {
   async jwt({ token, user, account }) {
