@@ -1,6 +1,7 @@
 import React from 'react'
 import { LucideProps, MicVocal, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { GroupStrings } from 'config/constants/Group'
 
 // 通信で取るかも
@@ -58,7 +59,15 @@ const IconGroups = ['independent', 'independent-irl', 'artist']
 
 export default function useGroups() {
   const t = useTranslations('Global.group')
+  return func(t)
+}
 
+export const getGroups = async () => {
+  const t = await getTranslations('Global.group')
+  return func(t)
+}
+
+const func = (t: ReturnType<typeof useTranslations<'Global.group'>>) => {
   const imgs = GroupStrings.filter(
     group => !IconGroups.includes(group)
   ).map<Img>(group => {

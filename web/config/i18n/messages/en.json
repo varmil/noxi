@@ -281,6 +281,10 @@
   },
 
   "Components": {
+    "auth": {
+      "signIn": "Sign In",
+      "signOut": "Sign Out"
+    },
     "bottomNavigation": {
       "home": "Home",
       "live": "Live",
