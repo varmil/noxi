@@ -29,6 +29,9 @@ declare namespace NodeJS {
 
     /** XへPOSTする際に用いる勘合符 */
     readonly X_POST_KEY: string
+
+    readonly STRIPE_SECRET_KEY: string
+    readonly STRIPE_WEBHOOK_SECRET: string
   }
 }
 

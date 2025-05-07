@@ -12,6 +12,7 @@ import { SupersPresentationModule } from '@presentation/supers/supers.presentati
 import { SupersBundlesPresentationModule } from '@presentation/supers-bundles/supers-bundles.presentation.module'
 import { SupersRankingsPresentationModule } from '@presentation/supers-rankings/supers-rankings.presentation.module'
 import { SupersSummariesPresentationModule } from '@presentation/supers-summaries/supers-summaries.presentation.module'
+import { WebhooksStripePresentationModule } from '@presentation/webhooks/stripe/webhooks-stripe.presentation.module'
 import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
@@ -32,6 +33,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     SupersBundlesPresentationModule,
     SupersRankingsPresentationModule,
     SupersSummariesPresentationModule,
+    WebhooksStripePresentationModule,
     YoutubePresentationModule,
     XPresentationModule
   ],
