@@ -5,7 +5,8 @@ import { registerGlobals } from './registerGlobals'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(
-    ClosedApiServerModule
+    ClosedApiServerModule,
+    { rawBody: true }
   )
   registerGlobals(app)
 
