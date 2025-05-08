@@ -21,7 +21,7 @@ export default function SignIn(props: Props) {
         return null
       case 'OAuthSignin':
         return page('oAuthSignin')
-      case 'OAuthCallback ':
+      case 'OAuthCallback':
         return page('oAuthCallback')
       case 'OAuthCreateAccount':
       case 'EmailCreateAccount':
