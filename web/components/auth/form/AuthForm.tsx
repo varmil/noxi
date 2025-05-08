@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import AppleIcon from 'components/auth/icon/AppleIcon'
 import GoogleIcon from 'components/auth/icon/GoogleIcon'
+import { Link } from 'lib/navigation'
 
 interface AuthFormProps {
   redirectTo?: string
@@ -81,7 +82,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
         onClick={handleAppleSignIn}
         disabled={isLoading}
       >
-        <AppleIcon className="size-6" />
+        <AppleIcon className="size-6 dark:fill-white" />
         <span className="text-left w-[160px]">Continue with Apple</span>
       </Button>
       <div className="relative my-2">
@@ -115,6 +116,29 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
           {comp('magicLink')}
         </Button>
       </form>
+
+      <div className="mt-6 text-center text-xs text-muted-foreground">
+        <p>
+          {comp.rich('terms', {
+            terms: node => (
+              <Link
+                href="/terms-of-use-and-privacy-policy"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                {node}
+              </Link>
+            ),
+            pp: node => (
+              <Link
+                href="/terms-of-use-and-privacy-policy"
+                className="underline underline-offset-4 hover:text-primary"
+              >
+                {node}
+              </Link>
+            )
+          })}
+        </p>
+      </div>
     </div>
   )
 }

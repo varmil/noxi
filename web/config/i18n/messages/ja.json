@@ -320,7 +320,8 @@
       "selectMethod": "以下の方法でログイン / サインアップする",
       "or": "または",
       "email": "メールアドレス",
-      "magicLink": "マジックリンクを送信"
+      "magicLink": "マジックリンクを送信",
+      "terms": "続行することで、PeakXの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。"
     },
     "bottomNavigation": {
       "home": "ホーム",
