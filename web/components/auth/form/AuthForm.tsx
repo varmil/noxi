@@ -12,11 +12,10 @@ import AppleIcon from 'components/auth/icon/AppleIcon'
 import GoogleIcon from 'components/auth/icon/GoogleIcon'
 
 interface AuthFormProps {
-  onSuccess?: () => void
-  onError?: (error: Error) => void
+  redirectTo?: string
 }
 
-export default function AuthForm({}: AuthFormProps) {
+export default function AuthForm({ redirectTo }: AuthFormProps) {
   const comp = useTranslations('Components.auth')
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -24,7 +23,7 @@ export default function AuthForm({}: AuthFormProps) {
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
     try {
-      await signIn('google')
+      await signIn('google', { redirectTo })
     } catch (error) {
       console.error(error)
       toast.error('エラーが発生しました', {
@@ -37,7 +36,7 @@ export default function AuthForm({}: AuthFormProps) {
   const handleAppleSignIn = async () => {
     setIsLoading(true)
     try {
-      await signIn('apple')
+      await signIn('apple', { redirectTo })
     } catch (error) {
       toast.error('エラーが発生しました', {
         description: 'ログインに失敗しました。もう一度お試しください。'

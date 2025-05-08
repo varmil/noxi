@@ -22,7 +22,7 @@ export function AuthCard() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <AuthForm />
+        <AuthForm redirectTo="/" />
       </CardContent>
     </Card>
   )
