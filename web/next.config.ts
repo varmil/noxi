@@ -5,6 +5,12 @@ const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // 2025/05/08 Terms of Use and Privacy Policy を移動
+      {
+        source: '/:locale/youtube/terms-of-use-and-privacy-policy',
+        destination: '/:locale/terms-of-use-and-privacy-policy',
+        permanent: true
+      },
       // 2025/05/05 Channels ランキングを移動
       {
         source: '/:locale/youtube/channels/ranking',

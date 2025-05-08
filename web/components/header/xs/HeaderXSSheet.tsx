@@ -105,7 +105,7 @@ export default async function HeaderXSSheet() {
             <HeaderLink
               name="Terms of Use and PP"
               icon={<PrivacyPolicyIcon className="size-6.5" />}
-              href="/youtube/terms-of-use-and-privacy-policy"
+              href="/terms-of-use-and-privacy-policy"
             />
 
             {session ? (

@@ -44,9 +44,19 @@ export default function TermsOfUseAndPrivacyPolicy() {
               Terms.
             </p>
 
-            <h3 className="text-l font-bold">1. Conditions of Use</h3>
+            <h3 className="text-l font-bold">1. Application</h3>
             <p>
-              1.1 Users agree to comply with the YouTube Terms of Service (
+              These terms and conditions apply to all relationships between
+              users and the use of the service. In addition to these terms and
+              conditions, the service may have various rules for use
+              (hereinafter referred to as &quot;individual provisions&quot;).
+              Regardless of their name, these individual provisions shall
+              constitute part of these terms and conditions.
+            </p>
+
+            <h3 className="text-l font-bold">2. Conditions of Use</h3>
+            <p>
+              2.1 Users agree to comply with the YouTube Terms of Service (
               <a
                 href="https://www.youtube.com/t/terms"
                 target="_blank"
@@ -57,7 +67,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
               ) when using the Service.
             </p>
             <p>
-              1.2 The Service uses the YouTube Data API to provide information.
+              2.2 The Service uses the YouTube Data API to provide information.
               Information obtained through the YouTube Data API is subject to
               YouTube&apos;s Privacy Policy (
               <a
@@ -70,9 +80,9 @@ export default function TermsOfUseAndPrivacyPolicy() {
               ).
             </p>
 
-            <h3 className="text-l font-bold">2. Privacy</h3>
+            <h3 className="text-l font-bold">3. Privacy</h3>
             <p>
-              2.1 Our Privacy Policy (
+              3.1 Our Privacy Policy (
               <Link
                 href="#privacy-policy"
                 className="hover:underline"
@@ -84,17 +94,35 @@ export default function TermsOfUseAndPrivacyPolicy() {
               using the Service, Users agree to our Privacy Policy.
             </p>
 
-            <h3 className="text-l font-bold">3. Disclaimer</h3>
+            <h3 className="text-l font-bold">4. Registration</h3>
             <p>
-              3.1 The Service is provided &quot;as is&quot; without warranties
+              4.1 Registering for the service is completed when a person who
+              wishes to register agrees to these terms and conditions, applies
+              for registration in a manner specified by the Company, and the
+              Company approves the application.
+            </p>
+            <p>
+              4.2 When registering, users must provide accurate and complete
+              information. Users are responsible for maintaining the
+              confidentiality of their account and are fully responsible for all
+              activities that occur under their account. Users agree to notify
+              us immediately of any unauthorized use of their account or any
+              other breaches of security. We reserve the right to refuse
+              service, to terminate accounts, and to remove or edit content or
+              information at our sole discretion.
+            </p>
+
+            <h3 className="text-l font-bold">5. Disclaimer</h3>
+            <p>
+              5.1 The Service is provided &quot;as is&quot; without warranties
               of any kind, whether express or implied, including but not limited
               to implied warranties of merchantability, fitness for a particular
               purpose, and non-infringement.
             </p>
 
-            <h3 className="text-l font-bold">4. Contact Information</h3>
+            <h3 className="text-l font-bold">6. Contact Information</h3>
             <p>
-              4.1 If you have any questions about these Terms, please contact us
+              6.1 If you have any questions about these Terms, please contact us
               here:{' '}
               <a
                 href="https://forms.gle/AtHChW8N4R2NRDbu5"
@@ -121,6 +149,10 @@ export default function TermsOfUseAndPrivacyPolicy() {
             <div>
               1.1 We may collect information in the following ways:
               <ul>
+                <li>
+                  - Contact information such as name, email address, and phone
+                  number
+                </li>
                 <li>
                   - Information you provide to us directly (e.g., contact form)
                 </li>
@@ -213,6 +245,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
                 <li>- To provide and improve the Service</li>
                 <li>- To provide user support</li>
                 <li>- To comply with legal obligations</li>
+                <li>- To detect and prevent fraudulent use</li>
               </ul>
             </div>
 
@@ -228,6 +261,20 @@ export default function TermsOfUseAndPrivacyPolicy() {
                 <li>
                   - As necessary to provide the Service (e.g., with third-party
                   advertising partners)
+                </li>
+                <li>
+                  - We may collaborate with and share user data with our
+                  business partners for the purpose of improving our services,
+                  personalizing our services, or for commercial purposes such as
+                  advertising and marketing. The information shared includes
+                  statistical data and attribute information that cannot
+                  directly identify a specific individual (e.g., age group,
+                  interest categories, usage trends, etc.). When providing
+                  personally identifiable information to our business partners,
+                  we do so with the user&apos;s consent. Based on our contracts
+                  with our business partners, we are obligated to manage the
+                  information appropriately and prohibit its use for purposes
+                  other than those stated.
                 </li>
               </ul>
             </div>
@@ -258,11 +305,10 @@ export default function TermsOfUseAndPrivacyPolicy() {
 
             <h3 className="text-l font-bold">6. User Rights</h3>
             <p>
-              6.1 The Service does not store any of your Authorized Information.
-              However, if you believe the Service has accessed your Authorized
-              Data, you have the right to request to review, correct, or delete
-              your Personal Information. You can revoke these requests by
-              visiting the Google Security Settings page here:{' '}
+              6.1 If you believe the Service has accessed your Authorized Data,
+              you have the right to request to review, correct, or delete your
+              Personal Information. You can revoke these requests by visiting
+              the Google Security Settings page here:{' '}
               <a
                 href="https://security.google.com/settings/security/permissions"
                 target="_blank"

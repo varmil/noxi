@@ -129,7 +129,7 @@ export default async function Aside({ className }: { className?: string }) {
                 <Tooltip>
                   <TooltipTrigger>
                     <Link
-                      href="/youtube/terms-of-use-and-privacy-policy"
+                      href="/terms-of-use-and-privacy-policy"
                       className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
                       prefetch={false}
                     >

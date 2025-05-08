@@ -1,6 +1,7 @@
 import { LogIn } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
+import AuthModal from 'components/auth/dialog/AuthModal'
 import UserDropdown from 'components/header/UserDropdown'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
@@ -45,10 +46,14 @@ export default async function Header({ className }: { className?: string }) {
         {session ? (
           <UserDropdown session={session} />
         ) : (
-          <Button variant="outline" disabled>
-            <LogIn className="mr-2 size-4" />
-            <span>Sign in (coming soon)</span>
-          </Button>
+          <AuthModal
+            trigger={
+              <Button variant="outline">
+                <LogIn className="mr-2 size-4" />
+                <span>Sign in (coming soon)</span>
+              </Button>
+            }
+          />
         )}
       </div>
     </header>

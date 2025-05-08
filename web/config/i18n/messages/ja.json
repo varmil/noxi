@@ -106,6 +106,38 @@
       }
     },
 
+    "auth": {
+      "error": {
+        "title": "エラーが発生しました",
+        "backToSignIn": "ログインページに戻る",
+        "configuration": "サーバーの設定に問題があります。オプションを確認してください。",
+        "accessDenied": "通常、signInコールバックまたはredirectコールバックを通じてアクセスを制限したときに発生します。",
+        "verification": "メールプロバイダーに関連しています。トークンが期限切れまたは既に使用されています。",
+        "default": "認証中にエラーが発生しました。"
+      },
+      "signin": {
+        "error": {
+          "title": "エラーが発生しました",
+          "message": "解決しない場合はお手数ですが上記のcodeをお控えの上<contact>お問い合わせ</contact>までご連絡ください",
+          "oAuthSignin": "認証URLの構築中にエラーが発生しました。",
+          "oAuthCallback": "OAuthプロバイダーからの応答の処理中にエラーが発生しました。",
+          "oAuthCreateAccount": "データベースにユーザーを作成できませんでした。",
+          "callback": "コールバック処理中にエラーが発生しました。",
+          "oAuthAccountNotLinked": "アカウントのメールがすでにリンクされているが、このOAuthアカウントにはリンクされていないようです。",
+          "emailSignin": "認証情報が正しくありません。",
+          "credentialsSignin": "認証情報が正しくありません。",
+          "accessDenied": "アクセスが拒否されました。",
+          "configuration": "サーバーの設定に問題があります。オプションを確認してください。",
+          "default": "認証中にエラーが発生しました。"
+        }
+      },
+      "verifyRequest": {
+        "title": "メールをご確認ください",
+        "description": "ログインリンクを送信しました",
+        "content": "メールをご確認いただき、リンクをクリックしてログインしてください。はじめてログインを行うとアカウント登録も同時に完了します。"
+      }
+    },
+
     "contact": {
       "title": "お問い合わせ",
       "description": "PeakXに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
@@ -283,7 +315,12 @@
   "Components": {
     "auth": {
       "signIn": "ログイン",
-      "signOut": "ログアウト"
+      "signOut": "ログアウト",
+      "getStarted": "PeakXをはじめる",
+      "selectMethod": "以下の方法でログイン / サインアップする",
+      "or": "または",
+      "email": "メールアドレス",
+      "magicLink": "マジックリンクを送信"
     },
     "bottomNavigation": {
       "home": "ホーム",
