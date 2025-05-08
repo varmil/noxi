@@ -28,7 +28,7 @@ export function SignOutInSheet({
       } hover:text-foreground`}
       onClick={async () => {
         setLoading(true)
-        await signOut()
+        await signOut({ redirectTo: '/auth/signin' })
       }}
     >
       <IconWrapper>{icon}</IconWrapper>

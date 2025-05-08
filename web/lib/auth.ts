@@ -3,15 +3,14 @@ import Credentials from '@auth/core/providers/credentials'
 import NeonAdapter from '@auth/neon-adapter'
 import { Pool } from '@neondatabase/serverless'
 import NextAuth, { NextAuthConfig } from 'next-auth'
+import Apple from 'next-auth/providers/apple'
 import Google from 'next-auth/providers/google'
-// import Resend from 'next-auth/providers/resend'
+import Resend from 'next-auth/providers/resend'
 
 const providers: Provider[] = [
-  Google
-  // {
-  //   ...Resend({ from: 'PeakX.net <verify@peakx.net>' }),
-  //   name: 'Email'
-  // }
+  Google,
+  Apple,
+  Resend({ from: 'PeakX.net <verify@peakx.net>' })
 ]
 
 if (process.env.NODE_ENV === 'development') {
@@ -48,6 +47,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
     },
     adapter: NeonAdapter(pool),
     providers,
+    pages: {
+      signIn: '/auth/signin',
+      verifyRequest: '/auth/verify-request',
+      error: '/auth/error'
+    },
     session: {
       strategy: 'jwt',
       maxAge: 3600 // TODO: 本番では変える

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { Globe, Moon, Settings } from 'lucide-react'
 import { Session } from 'next-auth'
-import { signOut, signIn } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { useLocale } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
@@ -22,7 +22,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import SignIn from 'components/auth/SignInButton'
 import SignOut from 'components/auth/SignOutButton'
 import LanguageLink from 'components/language-switcher/components/LanguageLink'
 
@@ -95,13 +94,17 @@ export function SettingsDropdown({ session }: { session: Session | null }) {
             </Button>
           </div>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onClick={() => (session ? signOut() : signIn())}
-        >
-          {session ? <SignOut /> : <SignIn />}
-        </DropdownMenuItem>
+        {session ? (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className="cursor-pointer"
+              onClick={() => signOut({ redirectTo: '/auth/signin' })}
+            >
+              <SignOut />
+            </DropdownMenuItem>
+          </>
+        ) : null}
       </DropdownMenuContent>
     </DropdownMenu>
   )

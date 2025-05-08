@@ -106,6 +106,38 @@
       }
     },
 
+    "auth": {
+      "error": {
+        "title": "An error has occurred",
+        "backToSignIn": "Back to Sign In page",
+        "configuration": "There is a problem with the server configuration. Check if your options are correct.",
+        "accessDenied": "Usually occurs, when you restricted access through the signIn callback, or redirect callback.",
+        "verification": "Related to the Email provider. The token has expired or has already been used.",
+        "default": "An error occurred during authentication."
+      },
+      "signin": {
+        "error": {
+          "title": "An error has occurred",
+          "message": "If the problem persists, please write down the code above and contact us at <contact>here</contact>",
+          "oAuthSignin": "An error occurred while building the authentication URL.",
+          "oAuthCallback": "An error occurred while processing the response from the OAuth provider.",
+          "oAuthCreateAccount": "Failed to create a user in the database.",
+          "callback": "An error occurred while processing the callback.",
+          "oAuthAccountNotLinked": "The email of the account is already linked, but this OAuth account is not linked.",
+          "emailSignin": "The authentication information is incorrect.",
+          "credentialsSignin": "The authentication information is incorrect.",
+          "accessDenied": "Access was denied.",
+          "configuration": "There is a problem with the server configuration. Check if your options are correct.",
+          "default": "An error occurred during authentication."
+        }
+      },
+      "verifyRequest": {
+        "title": "Verify your email",
+        "description": "Sign in link has been sent to the email",
+        "content": "Please check your email and click the link to sign in. If this is your first sign in, your account will be created at the same time."
+      }
+    },
+
     "contact": {
       "title": "Contact",
       "description": "Contact us about feature requests, advertising inquiries, bug reports, or any questions regarding PeakX."
@@ -283,7 +315,13 @@
   "Components": {
     "auth": {
       "signIn": "Sign In",
-      "signOut": "Sign Out"
+      "signOut": "Sign Out",
+      "getStarted": "Get started with PeakX",
+      "selectMethod": "Select a method to sign in / sign up",
+      "or": "or",
+      "email": "Email",
+      "magicLink": "Continue with Email",
+      "terms": "By continuing, you agree to PeakX's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>."
     },
     "bottomNavigation": {
       "home": "Home",

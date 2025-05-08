@@ -37,7 +37,7 @@ export function CookieAgreeBanner({ className }: { className?: string }) {
               This site uses cookies to ensure we give you the best experience
               on our website. By continuing to use our website, you agree to our{' '}
               <Link
-                href="/youtube/terms-of-use-and-privacy-policy"
+                href="/terms-of-use-and-privacy-policy"
                 className="hover:underline"
                 prefetch={false}
               >
