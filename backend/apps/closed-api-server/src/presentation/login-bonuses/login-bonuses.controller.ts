@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common'
 import { PostDailyLoginBonus } from '@presentation/login-bonuses/dto/PostDailyLoginBonus.dto'
 import { LoginBonusesService } from '@app/login-bonuses/login-bonuses.service'
+import type { LoginBonusResult } from '@domain/login-bonus'
 
 @Controller('login-bonuses')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -16,8 +17,8 @@ export class LoginBonusesController {
   @Post('/daily')
   async claimDailyLoginBonus(
     @Body() dto: PostDailyLoginBonus
-  ): Promise<boolean> {
-    return await this.loginBonusesService.claimDailyIfEligible({
+  ): Promise<LoginBonusResult> {
+    return this.loginBonusesService.claimDailyIfEligible({
       userId: dto.toUserId()
     })
   }

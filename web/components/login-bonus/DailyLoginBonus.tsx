@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Gift } from 'lucide-react'
 import { Session } from 'next-auth'
 import { toast } from 'sonner'
@@ -12,42 +12,27 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
+import { postDailyLoginBonus } from 'apis/youtube/postDailyLoginBonus'
+import { DailyLoginBonusSchema } from 'apis/youtube/schema/dailyLoginBonusSchema'
 
 export function DailyLoginBonus({ session }: { session: Session | null }) {
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-  const [bonusData, setBonusData] = useState<{
-    eligible: boolean
-    ticketsAwarded: number
-    totalTickets: number
-  } | null>(null)
+  const [bonusData, setBonusData] = useState<DailyLoginBonusSchema | null>(null)
 
-  useEffect(() => {
-    // ユーザーがログインしている場合のみチェック
-    if (session?.user) {
-      checkDailyBonus()
-    }
-  }, [session?.user])
-
-  const checkDailyBonus = async () => {
+  const checkDailyBonus = useCallback(async () => {
     setIsLoading(true)
     try {
-      // 実際の実装ではAPIエンドポイントを呼び出す
-      // このエンドポイントは、ユーザーがボーナス対象かどうかをチェックし、
-      // 対象であれば応援チケットを付与する
-      const response = await fetch('/api/daily-bonus', {
-        method: 'POST'
-      })
-
-      if (!response.ok) {
-        throw new Error('Failed to check daily bonus')
+      if (!session?.user?.id) {
+        return
       }
-
-      const data = await response.json()
-      setBonusData(data)
+      const result = await postDailyLoginBonus({
+        userId: Number(session.user.id)
+      })
+      setBonusData(result)
 
       // ボーナス対象の場合はダイアログを表示
-      if (data.eligible) {
+      if (result.eligible) {
         setOpen(true)
       }
     } catch (error) {
@@ -55,7 +40,14 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [session])
+
+  useEffect(() => {
+    // ユーザーがログインしている場合のみチェック
+    if (session?.user) {
+      checkDailyBonus()
+    }
+  }, [checkDailyBonus, session])
 
   const handleClose = () => {
     setOpen(false)
@@ -80,7 +72,7 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
             デイリーログインボーナス！
           </DialogTitle>
           <DialogDescription className="text-center">
-            本日のログインボーナスとして応援チケットを獲得しました
+            本日のログイン分として応援チケットを獲得
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center justify-center py-6 space-y-4">
@@ -100,12 +92,16 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
           </div>
           <div className="text-center text-sm text-muted-foreground max-w-xs">
             <p>
-              応援チケットはVTuberに使うことができます。毎日ログインして応援チケットを集めましょう！
+              応援チケットをVTuberに使うことで応援ランキングに貢献できます。毎日ログインしてチケットを集め、どんどん使ってみましょう！
             </p>
           </div>
         </div>
         <div className="flex justify-center">
-          <Button onClick={handleClose} className="w-full sm:w-auto">
+          <Button
+            variant="secondary"
+            onClick={handleClose}
+            className="w-full sm:w-auto"
+          >
             閉じる
           </Button>
         </div>
