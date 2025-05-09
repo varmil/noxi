@@ -26,8 +26,6 @@ export default async function Aside({ className }: { className?: string }) {
     getGroups()
   ])
 
-  console.log(session)
-
   return (
     <aside
       className={`fixed inset-y-0 left-0 hidden sm:flex w-14 flex-col border-r bg-background ${

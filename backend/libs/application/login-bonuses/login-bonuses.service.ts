@@ -11,6 +11,6 @@ export class LoginBonusesService {
   async claimDailyIfEligible(
     args: Parameters<LoginBonusRepository['claimDailyIfEligible']>[0]
   ) {
-    return await this.loginBonusRepository.claimDailyIfEligible(args)
+    return this.loginBonusRepository.claimDailyIfEligible(args)
   }
 }

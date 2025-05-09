@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
 import {
+  Awarded,
   LastClaimedAt,
   LoginBonus,
-  LoginBonusRepository
+  LoginBonusRepository,
+  LoginBonusResult,
+  TotalCount
 } from '@domain/login-bonus'
 import { UserId } from '@domain/user'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -20,60 +23,83 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
   claimDailyIfEligible: LoginBonusRepository['claimDailyIfEligible'] =
     async data => {
       const userId = data.userId.get()
+      const AWARD = 1
 
-      const claimed = await this.prismaInfraService.$transaction(async tx => {
-        const lockedTicket = await tx.$queryRawUnsafe<
-          { userId: string; totalCount: number; lastClaimedAt: Date }[]
-        >(`SELECT * FROM "CheerTicket" WHERE "userId" = $1 FOR UPDATE`, userId)
+      return await this.prismaInfraService.$transaction(
+        async tx => {
+          const lockedTicket = await tx.$queryRawUnsafe<
+            { userId: string; totalCount: number; lastClaimedAt: Date }[]
+          >(
+            `SELECT * FROM "CheerTicket" WHERE "userId" = $1 FOR UPDATE`,
+            userId
+          )
 
-        const now = new Date()
+          let result: LoginBonusResult
+          const now = new Date()
 
-        // 登録後初回など存在しなければ insert
-        if (lockedTicket.length === 0) {
-          await tx.cheerTicket.create({
-            data: {
-              userId,
-              totalCount: 1,
-              lastClaimedAt: now
-            }
-          })
-        } else {
-          const { lastClaimedAt } = lockedTicket[0]
-          const loginBonus = new LoginBonus({
-            userId: new UserId(userId),
-            lastClaimedAt: new LastClaimedAt(lastClaimedAt)
-          })
-          if (loginBonus.canClaimDaily()) {
-            await tx.cheerTicket.update({
-              where: { userId },
+          // 登録後初回など存在しなければ insert
+          if (lockedTicket.length === 0) {
+            await tx.cheerTicket.create({
               data: {
-                totalCount: { increment: 1 },
+                userId,
+                totalCount: AWARD,
                 lastClaimedAt: now
               }
             })
-          } else {
-            this.logger.debug('まだ受け取れません', {
-              userId,
-              lastClaimedAt,
-              now
+            result = new LoginBonusResult({
+              eligible: true,
+              ticketsAwarded: new Awarded(AWARD),
+              totalTickets: new TotalCount(AWARD)
             })
-            return false
+          } else {
+            const { totalCount, lastClaimedAt } = lockedTicket[0]
+            const loginBonus = new LoginBonus({
+              userId: new UserId(userId),
+              lastClaimedAt: new LastClaimedAt(lastClaimedAt)
+            })
+            if (loginBonus.canClaimDaily()) {
+              await tx.cheerTicket.update({
+                where: { userId },
+                data: {
+                  totalCount: { increment: AWARD },
+                  lastClaimedAt: now
+                }
+              })
+              result = new LoginBonusResult({
+                eligible: true,
+                ticketsAwarded: new Awarded(AWARD),
+                totalTickets: new TotalCount(totalCount + AWARD)
+              })
+            } else {
+              this.logger.debug('Daily login bonus not yet available: insufficient time since last claim.', {
+                userId,
+                lastClaimedAt,
+                now
+              })
+              return new LoginBonusResult({
+                eligible: false,
+                ticketsAwarded: new Awarded(0),
+                totalTickets: new TotalCount(totalCount)
+              })
+            }
           }
+
+          // ログ記録
+          await tx.cheerTicketLog.create({
+            data: {
+              userId,
+              count: AWARD,
+              type: 'dailyLoginBonus',
+              claimedAt: now
+            }
+          })
+
+          return result
+        },
+        {
+          maxWait: 5000,
+          timeout: 10000
         }
-
-        // ログ記録
-        await tx.cheerTicketLog.create({
-          data: {
-            userId,
-            count: 1,
-            type: 'dailyLoginBonus',
-            claimedAt: now
-          }
-        })
-
-        return true
-      })
-
-      return claimed
+      )
     }
 }

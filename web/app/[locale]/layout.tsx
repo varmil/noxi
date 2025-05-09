@@ -38,9 +38,8 @@ export const viewport: Viewport = {
 }
 
 export default async function LocaleLayout(props: Props) {
-  const { locale } = await props.params
+  const [{ locale }, session] = await Promise.all([props.params, auth()])
   const { children } = props
-  const session = await auth()
 
   // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) {

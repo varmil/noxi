@@ -70,6 +70,7 @@ const callbacks: NextAuthConfig['callbacks'] = {
     if (user || account) {
       return {
         ...token,
+        id: user?.id,
         lastUsed: now
       }
     }
@@ -81,5 +82,11 @@ const callbacks: NextAuthConfig['callbacks'] = {
     }
 
     return token
+  },
+  session({ session, token }) {
+    // id は int だが、Auth.jsの定義が間違っているため
+    // 仕方なくアサーションしている
+    session.user.id = token.id as string
+    return session
   }
 }
