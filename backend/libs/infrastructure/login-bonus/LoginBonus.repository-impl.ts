@@ -21,7 +21,7 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
     async data => {
       const userId = data.userId.get()
 
-      await this.prismaInfraService.$transaction(async tx => {
+      const claimed = await this.prismaInfraService.$transaction(async tx => {
         const lockedTicket = await tx.$queryRawUnsafe<
           { userId: string; totalCount: number; lastClaimedAt: Date }[]
         >(`SELECT * FROM "CheerTicket" WHERE "userId" = $1 FOR UPDATE`, userId)
@@ -70,8 +70,10 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
             claimedAt: now
           }
         })
+
+        return true
       })
 
-      return true
+      return claimed
     }
 }
