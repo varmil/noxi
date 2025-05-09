@@ -71,7 +71,7 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
                 totalTickets: new TotalCount(totalCount + AWARD)
               })
             } else {
-              this.logger.debug('ログボはまだ受け取れません', {
+              this.logger.debug('Daily login bonus not yet available: insufficient time since last claim.', {
                 userId,
                 lastClaimedAt,
                 now
