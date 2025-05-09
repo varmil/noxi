@@ -15,27 +15,22 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const { date } = await props.searchParams
-  const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'Page.index' })
-
+  const [{ date }, global, page] = await Promise.all([
+    props.searchParams,
+    getTranslations({ locale, namespace: 'Global' }),
+    getTranslations({ locale, namespace: 'Page.index' })
+  ])
   const searchParams = new URLSearchParams({
     ...(date && { date: dayjs(date).toISOString() })
   })
 
   return {
-    title: `${t('metadata.title')} - ${tg('title')}`,
-    description: `${t('metadata.description')}`,
+    title: `${page('metadata.title')} - ${global('title')}`,
+    description: `${page('metadata.description')}`,
     openGraph: {
-      images: [
-        {
-          url: getOgUrl(`/daily-ranking?${searchParams.toString()}`)
-        }
-      ]
+      images: [{ url: getOgUrl(`/daily-ranking?${searchParams.toString()}`) }]
     },
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}`
-    }
+    alternates: { canonical: `${getWebUrl()}/${locale}` }
   }
 }
 
