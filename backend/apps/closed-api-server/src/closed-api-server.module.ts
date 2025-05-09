@@ -6,6 +6,7 @@ import { CloudSchedulersPresentationModule } from '@presentation/cloud-scheduler
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { LoginBonusesPresentationModule } from '@presentation/login-bonuses/login-bonuses.presentation.module'
 import { MembershipBundlesPresentationModule } from '@presentation/membership-bundles/membership-bundles.presentation.module'
 import { MembershipSummariesPresentationModule } from '@presentation/membership-summaries/membership-summaries.presentation.module'
 import { SupersPresentationModule } from '@presentation/supers/supers.presentation.module'
@@ -27,6 +28,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     CloudSchedulersPresentationModule,
     ExchangeRatesPresentationModule,
     GroupsPresentationModule,
+    LoginBonusesPresentationModule,
     MembershipBundlesPresentationModule,
     MembershipSummariesPresentationModule,
     SupersPresentationModule,

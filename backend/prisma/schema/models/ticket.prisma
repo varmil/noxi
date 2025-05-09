@@ -1,0 +1,17 @@
+model CheerTicket {
+    userId        Int      @id
+    totalCount    Int
+    lastClaimedAt DateTime @db.Timestamptz(3)
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CheerTicketLog {
+    id        BigInt   @id @default(autoincrement())
+    userId    Int
+    count     Int
+    type      String
+    claimedAt DateTime @db.Timestamptz(3)
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
