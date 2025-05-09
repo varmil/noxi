@@ -50,7 +50,7 @@ export default async function Header({ className }: { className?: string }) {
             trigger={
               <Button variant="outline" disabled>
                 <LogIn className="mr-2 size-4" />
-                <span>Sign in (coming soon)</span>
+                <span>Sign in (up next)</span>
               </Button>
             }
           />
