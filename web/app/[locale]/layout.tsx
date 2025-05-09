@@ -6,11 +6,13 @@ import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
+import { DailyLoginBonus } from 'components/login-bonus/DailyLoginBonus'
 import { PWAInstallProvider } from 'components/pwa/PWAInstallContext'
 import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
+import { auth } from 'lib/auth'
 import type { Viewport } from 'next'
 
 type Props = {
@@ -38,6 +40,7 @@ export const viewport: Viewport = {
 export default async function LocaleLayout(props: Props) {
   const { locale } = await props.params
   const { children } = props
+  const session = await auth()
 
   // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) {
@@ -67,6 +70,7 @@ export default async function LocaleLayout(props: Props) {
             <PWAInstallProvider>{children}</PWAInstallProvider>
             <Toaster richColors />
           </NextIntlClientProvider>
+          <DailyLoginBonus session={session} />
         </ThemeProvider>
 
         {/* Google AdSense */}
