@@ -108,6 +108,16 @@ export class CheerTicketUsageRepositoryImpl
         conditions.push(`"usedAt" <= $${index++}`)
         values.push(where.usedAt.lte)
       }
+      let limitClause = ''
+      if (typeof limit === 'number') {
+        limitClause = `LIMIT $${index++}`
+        values.push(limit)
+      }
+      let offsetClause = ''
+      if (typeof offset === 'number') {
+        offsetClause = `OFFSET $${index++}`
+        values.push(offset)
+      }
 
       const rankings = await this.prismaInfraService.$queryRawUnsafe<
         { channelId: string; totalUsed: number }[]
@@ -120,8 +130,8 @@ export class CheerTicketUsageRepositoryImpl
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "channelId"
         ORDER BY "totalUsed" DESC
-        LIMIT ${limit}
-        OFFSET ${offset}
+        ${limitClause}
+        ${offsetClause}
         `,
         ...values
       )
@@ -161,6 +171,16 @@ export class CheerTicketUsageRepositoryImpl
       conditions.push(`"usedAt" <= $${index++}`)
       values.push(where.usedAt.lte)
     }
+    let limitClause = ''
+    if (typeof limit === 'number') {
+      limitClause = `LIMIT $${index++}`
+      values.push(limit)
+    }
+    let offsetClause = ''
+    if (typeof offset === 'number') {
+      offsetClause = `OFFSET $${index++}`
+      values.push(offset)
+    }
 
     const rankings = await this.prismaInfraService.$queryRawUnsafe<
       { userId: number; totalUsed: number }[]
@@ -173,8 +193,8 @@ export class CheerTicketUsageRepositoryImpl
       WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
       GROUP BY "userId"
       ORDER BY "totalUsed" DESC
-      LIMIT ${limit}
-      OFFSET ${offset}
+      ${limitClause}
+      ${offsetClause}
       `,
       ...values
     )
