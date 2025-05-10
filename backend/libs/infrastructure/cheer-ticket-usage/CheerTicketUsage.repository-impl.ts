@@ -8,6 +8,7 @@ import {
   CheerTicketUsages,
   FanUsage,
   FanUsages,
+  Rank,
   UsedAt,
   UsedCount
 } from '@domain/cheer-ticket-usage'
@@ -112,10 +113,7 @@ export class CheerTicketUsageRepositoryImpl
       }
 
       const rankings = await this.prismaInfraService.$queryRawUnsafe<
-        {
-          channelId: string
-          totalUsed: number
-        }[]
+        { channelId: string; totalUsed: number }[]
       >(
         `
         SELECT
@@ -130,7 +128,6 @@ export class CheerTicketUsageRepositoryImpl
         `,
         ...values
       )
-
       return new CheeredUsages(
         rankings.map(
           row =>
@@ -155,6 +152,10 @@ export class CheerTicketUsageRepositoryImpl
       conditions.push(`"group" = $${index++}`)
       values.push(where.group.get())
     }
+    if (where.channelId) {
+      conditions.push(`"channelId" = $${index++}`)
+      values.push(where.channelId.get())
+    }
     if (where.usedAt?.gte) {
       conditions.push(`"usedAt" >= $${index++}`)
       values.push(where.usedAt.gte)
@@ -165,10 +166,7 @@ export class CheerTicketUsageRepositoryImpl
     }
 
     const rankings = await this.prismaInfraService.$queryRawUnsafe<
-      {
-        userId: number
-        totalUsed: number
-      }[]
+      { userId: number; totalUsed: number }[]
     >(
       `
       SELECT
@@ -183,7 +181,6 @@ export class CheerTicketUsageRepositoryImpl
       `,
       ...values
     )
-
     return new FanUsages(
       rankings.map(
         row =>
@@ -193,5 +190,93 @@ export class CheerTicketUsageRepositoryImpl
           })
       )
     )
+  }
+
+  findCheeredRank: CheerTicketUsageRepository['findCheeredRank'] = async ({
+    where
+  }) => {
+    const conditions: string[] = []
+    const values: (string | number | Date)[] = []
+    let index = 1
+
+    if (where.group) {
+      conditions.push(`"group" = $${index++}`)
+      values.push(where.group.get())
+    }
+    if (where.usedAt?.gte) {
+      conditions.push(`"usedAt" >= $${index++}`)
+      values.push(where.usedAt.gte)
+    }
+    if (where.usedAt?.lte) {
+      conditions.push(`"usedAt" <= $${index++}`)
+      values.push(where.usedAt.lte)
+    }
+    values.push(where.channelId.get()) // 最後に channelId
+    const channelIdIndex = index++
+
+    const result = await this.prismaInfraService.$queryRawUnsafe<
+      { rank: number }[]
+    >(
+      `
+      SELECT "rank"::int
+      FROM (
+        SELECT
+          RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
+        FROM "CheerTicketUsage"
+        WHERE ${conditions.join(' AND ')}
+        GROUP BY "channelId"
+      ) ranked
+      WHERE "channelId" = $${channelIdIndex}
+    `,
+      ...values
+    )
+
+    return result[0]?.rank ? new Rank(result[0].rank) : null
+  }
+
+  findFanRank: CheerTicketUsageRepository['findFanRank'] = async ({
+    where
+  }) => {
+    const conditions: string[] = []
+    const values: (string | number | Date)[] = []
+    let index = 1
+
+    if (where.group) {
+      conditions.push(`"group" = $${index++}`)
+      values.push(where.group.get())
+    }
+    if (where.channelId) {
+      conditions.push(`"channelId" = $${index++}`)
+      values.push(where.channelId.get())
+    }
+    if (where.usedAt?.gte) {
+      conditions.push(`"usedAt" >= $${index++}`)
+      values.push(where.usedAt.gte)
+    }
+    if (where.usedAt?.lte) {
+      conditions.push(`"usedAt" <= $${index++}`)
+      values.push(where.usedAt.lte)
+    }
+    values.push(where.userId.get()) // 最後に userId
+    const userIdIndex = index++
+
+    const result = await this.prismaInfraService.$queryRawUnsafe<
+      { rank: number }[]
+    >(
+      `
+      SELECT "rank"::int
+      FROM (
+        SELECT
+          RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
+        FROM "CheerTicketUsage"
+        WHERE ${conditions.join(' AND ')}
+        GROUP BY "userId"
+      ) ranked
+      WHERE "userId" = $${userIdIndex}
+    `,
+      ...values
+    )
+
+    return result[0]?.rank ? new Rank(result[0].rank) : null
   }
 }
