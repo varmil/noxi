@@ -27,7 +27,7 @@ export interface CheerTicketUsageRepository {
   findAll: (args: {
     where: FindAllWhere
     orderBy?: Partial<Record<'usedAt' | 'usedCount', 'asc' | 'desc'>>[]
-    limit?: number
+    limit: number
     offset?: number
   }) => Promise<CheerTicketUsages>
 

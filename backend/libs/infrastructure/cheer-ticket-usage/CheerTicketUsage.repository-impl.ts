@@ -25,7 +25,7 @@ export class CheerTicketUsageRepositoryImpl
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   consume: CheerTicketUsageRepository['consume'] = async ({ data }) => {
-    const { userId, channelId, usedCount } = data
+    const { userId, channelId, usedCount, group, usedAt } = data
     const usedCountNumber = usedCount.get()
     if (usedCountNumber < 1) {
       throw new UnprocessableEntityException('1枚以上消費してください')
@@ -54,9 +54,9 @@ export class CheerTicketUsageRepositoryImpl
         data: {
           userId: userId.get(),
           channelId: channelId.get(),
-          group: data.group.get(),
+          group: group.get(),
           usedCount: usedCountNumber,
-          usedAt: new Date()
+          usedAt: usedAt.get()
         }
       })
     })
