@@ -27,9 +27,6 @@ export class CheerTicketUsageRepositoryImpl
   consume: CheerTicketUsageRepository['consume'] = async ({ data }) => {
     const { userId, channelId, usedCount, group, usedAt } = data
     const usedCountNumber = usedCount.get()
-    if (usedCountNumber < 1) {
-      throw new UnprocessableEntityException('1枚以上消費してください')
-    }
 
     await this.prismaInfraService.$transaction(async tx => {
       // SELECT FOR UPDATE でロック
@@ -120,7 +117,7 @@ export class CheerTicketUsageRepositoryImpl
           "channelId",
           SUM("usedCount") AS "totalUsed"
         FROM "CheerTicketUsage"
-        WHERE ${conditions.join(' AND ')}
+        WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "channelId"
         ORDER BY "totalUsed" DESC
         LIMIT ${limit}
@@ -173,7 +170,7 @@ export class CheerTicketUsageRepositoryImpl
         "userId",
         SUM("usedCount") AS "totalUsed"
       FROM "CheerTicketUsage"
-      WHERE ${conditions.join(' AND ')}
+      WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
       GROUP BY "userId"
       ORDER BY "totalUsed" DESC
       LIMIT ${limit}
@@ -223,7 +220,7 @@ export class CheerTicketUsageRepositoryImpl
         SELECT
           RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
         FROM "CheerTicketUsage"
-        WHERE ${conditions.join(' AND ')}
+        WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "channelId"
       ) ranked
       WHERE "channelId" = $${channelIdIndex}
@@ -269,7 +266,7 @@ export class CheerTicketUsageRepositoryImpl
         SELECT
           RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
         FROM "CheerTicketUsage"
-        WHERE ${conditions.join(' AND ')}
+        WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "userId"
       ) ranked
       WHERE "userId" = $${userIdIndex}

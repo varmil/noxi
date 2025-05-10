@@ -4,7 +4,7 @@ import { NumberValueObject } from '@domain/lib'
 export class UsedCount extends NumberValueObject {
   @IsNotEmpty()
   @IsInt()
-  @Min(0)
+  @Min(1)
   protected readonly val: number
 
   constructor(val: number) {
