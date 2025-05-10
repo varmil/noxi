@@ -44,10 +44,11 @@ model User {
     emailVerified DateTime? @map("emailVerified")
     image         String?
 
-    accounts       Account[]
-    sessions       Session[]
-    CheerTicket    CheerTicket?
-    CheerTicketLog CheerTicketLog[]
+    accounts         Account[]
+    sessions         Session[]
+    CheerTicket      CheerTicket?
+    CheerTicketLog   CheerTicketLog[]
+    CheerTicketUsage CheerTicketUsage[]
 
     @@map("users")
 }

@@ -15,3 +15,17 @@ model CheerTicketLog {
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+/**
+ * User -> VTuberへのチケット使用履歴
+ */
+model CheerTicketUsage {
+    id        String   @id @default(uuid())
+    userId    Int
+    channelId String
+    group     String
+    usedCount Int
+    usedAt    DateTime
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
