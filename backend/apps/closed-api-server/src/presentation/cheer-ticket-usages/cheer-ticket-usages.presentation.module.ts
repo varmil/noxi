@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common'
-import { ChannelRegistrationsController } from '@presentation/channel-registrations/channel-registrations.controller'
-import { ChannelRegistrationsAppModule } from '@app/channel-registrations/channel-registrations.app.module'
+import { CheerTicketUsagesController } from '@presentation/cheer-ticket-usages/cheer-ticket-usages.controller'
+import { CheerTicketUsagesAppModule } from '@app/cheer-ticket-usages/cheer-ticket-usages.app.module'
 
 @Module({
-  imports: [ChannelRegistrationsAppModule],
-  controllers: [ChannelRegistrationsController],
+  imports: [CheerTicketUsagesAppModule],
+  controllers: [CheerTicketUsagesController],
   providers: []
 })
-export class ChannelRegistrationsPresentationModule {}
+export class CheerTicketUsagesPresentationModule {}
