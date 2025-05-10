@@ -35,7 +35,7 @@
     "fast-xml-parser": "^5.2.2",
     "firebase-admin": "^13.3.0",
     "keyv": "^5.3.3",
-    "prisma-json-types-generator": "^3.3.1",
+    "prisma-json-types-generator": "^3.4.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.2",
     "stripe": "^18.1.0",
