@@ -12,16 +12,10 @@ type Props = ChannelsIdBasePageProps & {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, group, id } = await props.params
-  return {
-    ...(await generateBaseMetadata({
-      ...props,
-      namespace: 'Page.group.channelsId.index.metadata'
-    })),
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}`
-    }
-  }
+  return generateBaseMetadata({
+    ...props,
+    namespace: 'Page.group.channelsId.index.metadata'
+  })
 }
 
 export default async function GroupChannelsIdPage(props: Props) {
