@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { getWebUrl } from 'utils/web-url'
 import ChannelsIdBasePage, {
   ChannelsIdBasePageProps,
   generateBaseMetadata
@@ -13,16 +12,10 @@ type Props = ChannelsIdBasePageProps & {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, group, id } = await props.params
-  return {
-    ...(await generateBaseMetadata({
-      ...props,
-      namespace: 'Page.group.channelsId.concurrentViewers.metadata'
-    })),
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}/concurrent-viewers`
-    }
-  }
+  return generateBaseMetadata({
+    ...props,
+    namespace: 'Page.group.channelsId.concurrentViewers.metadata'
+  })
 }
 
 export default async function GroupChannelsIdConcurrentViewersPage(
