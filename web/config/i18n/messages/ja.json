@@ -168,8 +168,8 @@
       "channelsId": {
         "index": {
           "metadata": {
-            "title": "{channel} 概要",
-            "description": "{channel}のスパチャランキング、統計データ、最新の配信情報を網羅的にチェック。同接数が多かったライブ配信、スパチャが多かったライブ配信を瞬時に見つけよう。人気の瞬間や収益データも把握し、VTuber・配信者ファン必見の情報を見逃さない。"
+            "title": "{channel} 概要 - スパチャ、ライブ、同接数、コメント、配信時間",
+            "description": "{channel}の人気、スパチャ金額、ライブ分析、同接数推移、配信時間を網羅的にチェック。人気の瞬間や収益データも把握し、ファン必見の情報を見逃さない。"
           },
           "section": {
             "ranking": { "title": "人気・統計" },
@@ -291,7 +291,7 @@
         "id": {
           "index": {
             "metadata": {
-              "title": "{channel} {title} - ライブ分析",
+              "title": "{title} - スパチャ金額、メンバーシップ加入数、同接数、コメント",
               "description": "スパチャ{superChat}円、同接数{concurrentViewers}人。{comment}",
               "commentForMembersOnly": "メンバー限定ライブ配信のためデータがありません"
             }

@@ -10,18 +10,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const promises = groups.flatMap(async group => {
     const channels = await getChannels({ group: group.val })
-
     return channels.flatMap(channel => {
       const path = `/${group.val}/channels/${channel.basicInfo.id}`
-      return [
-        getEntry({ pathname: path, lastModified: new Date() }),
-        getEntry({ pathname: `${path}/super-chat`, lastModified: new Date() }),
-        getEntry({ pathname: `${path}/live`, lastModified: new Date() }),
-        getEntry({
-          pathname: `${path}/concurrent-viewers`,
-          lastModified: new Date()
-        })
-      ]
+      return [getEntry({ pathname: path, lastModified: new Date() })]
     })
   })
 

@@ -8,6 +8,7 @@ import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemp
 import { GroupString } from 'config/constants/Group'
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
+import { getWebUrl } from 'utils/web-url'
 import { ChannelProfile } from '../ui/profile/ChannelProfile'
 
 export type ChannelsIdBasePageProps = {
@@ -39,7 +40,10 @@ export async function generateBaseMetadata(
     description: `${t('description', {
       channel: basicInfo.title,
       group: tg(`group.${group}`)
-    })}`
+    })}`,
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}`
+    }
   }
 }
 

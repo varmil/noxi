@@ -168,8 +168,8 @@
       "channelsId": {
         "index": {
           "metadata": {
-            "title": "{channel} Overview",
-            "description": "Discover detailed stats, rankings, and live updates for {group} VTuber {channel} on PeakX, and never miss her latest content."
+            "title": "{channel} Overview - Super Chat, Live, Concurrent Viewers, Comments and Stream Times",
+            "description": "Discover detailed stats, rankings, and live updates for {channel} on PeakX."
           },
           "section": {
             "ranking": { "title": "Ranking & Stats" },
@@ -291,7 +291,7 @@
         "id": {
           "index": {
             "metadata": {
-              "title": "{channel} {title} - Stats",
+              "title": "{title} - Earnings, Membership count, Concurrent viewers, Comments",
               "description": "Super Chat: {superChat} Yen, Concurrent Viewers: {concurrentViewers}. {comment}",
               "commentForMembersOnly": "Member-only live stream, no data available"
             }
