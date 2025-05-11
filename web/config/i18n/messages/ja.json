@@ -65,6 +65,8 @@
       "dimension": {
         "concurrent-viewer": "同接数",
         "super-chat": "スパチャ金額",
+        "most-cheered": "最も応援された",
+        "top-fans": "トップファン",
         "subscriber": "チャンネル登録者数"
       },
       "group": { "all": "すべて" },
@@ -257,6 +259,29 @@
         "metadata": {
           "title": "{group} 過去のライブ",
           "description": "{group}の終了したライブ配信をまとめて確認。見逃した配信も簡単にチェックして、過去のアーカイブを楽しもう。"
+        }
+      }
+    },
+
+    "ranking": {
+      "most-cheered": {
+        "metadata": {
+          "title": "VTuber",
+          "description": {
+            "dimension": {
+              "most-cheered": "{group}{gender}の最も応援されたタレントのランキング（{period}）。推しのVTuberを応援しよう！"
+            }
+          }
+        }
+      },
+      "top-fans": {
+        "metadata": {
+          "title": "VTuber",
+          "description": {
+            "dimension": {
+              "top-fans": "{group}{gender}を最も支援しているファンランキング（{period}）。推しのVTuberを応援しよう！"
+            }
+          }
         }
       }
     },
@@ -513,6 +538,26 @@
         "nav": "同接数",
         "title": "同接数"
       }
+    },
+
+    "mostCheered": {
+      "dimension": {
+        "most-cheered": "{group} {gender} 最多応援ランキング - {period}"
+      },
+      "viewAll": "すべて見る",
+      "channel": "チャンネル",
+      "group": "グループ",
+      "usedCount": "応援された数"
+    },
+
+    "topFans": {
+      "dimension": {
+        "top-fans": "{group} {gender} ファンランキング - {period}"
+      },
+      "viewAll": "すべて見る",
+      "channel": "チャンネル",
+      "group": "グループ",
+      "usedCount": "応援した数"
     },
 
     "channelsRanking": {

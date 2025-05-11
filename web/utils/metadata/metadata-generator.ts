@@ -2,17 +2,33 @@ import { Metadata } from 'next'
 import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { GroupString } from 'config/constants/Group'
+import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
-import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
+import {
+  ChannelsRankingPeriod,
+  MostCheeredPeriod,
+  StreamRankingPeriod,
+  TopFansPeriod
+} from 'types/period'
 
 type Args = {
   locale: Locale
-  pageNamespace: 'Page.youtube.channels.ranking' | 'Page.youtube.live.ranking'
+  pageNamespace:
+    | 'Page.ranking.most-cheered'
+    | 'Page.ranking.top-fans'
+    | 'Page.youtube.channels.ranking'
+    | 'Page.youtube.live.ranking'
   featNamespace:
+    | 'Features.mostCheered.dimension'
+    | 'Features.topFans.dimension'
     | 'Features.channelsRanking.ranking.dimension'
     | 'Features.streamRanking.ranking.dimension'
-  dimension: 'super-chat' | 'subscriber' | 'concurrent-viewer'
-  period: ChannelsRankingPeriod | StreamRankingPeriod
+  dimension: Dimension
+  period:
+    | MostCheeredPeriod
+    | TopFansPeriod
+    | ChannelsRankingPeriod
+    | StreamRankingPeriod
   group?: GroupString
   gender?: Gender
   page?: string

@@ -64,6 +64,8 @@
       },
       "dimension": {
         "concurrent-viewer": "Most Live Viewers",
+        "most-cheered": "Most Cheered",
+        "top-fans": "Top Fans",
         "super-chat": "Most Super Chatted",
         "subscriber": "Most Subscribed"
       },
@@ -257,6 +259,29 @@
         "metadata": {
           "title": "{group}'s Past Live Streams",
           "description": "Explore past {group} live streams on PeakX! Watch replays and highlights of your favorite streams, ensuring you never miss out on the fun and entertainment from beloved talents."
+        }
+      }
+    },
+
+    "ranking": {
+      "most-cheered": {
+        "metadata": {
+          "title": "VTuber",
+          "description": {
+            "dimension": {
+              "most-cheered": "Most Cheered from each {group}{gender} channel in {period}."
+            }
+          }
+        }
+      },
+      "top-fans": {
+        "metadata": {
+          "title": "VTuber",
+          "description": {
+            "dimension": {
+              "top-fans": "Top Fans for {group}{gender} in {period}."
+            }
+          }
         }
       }
     },
@@ -513,6 +538,26 @@
         "nav": "Concurrent viewers",
         "title": "Concurrent viewers"
       }
+    },
+
+    "mostCheered": {
+      "dimension": {
+        "most-cheered": "{group} {gender} Most cheered - {period}"
+      },
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Group",
+      "usedCount": "Ticket count"
+    },
+
+    "topFans": {
+      "dimension": {
+        "top-fans": "{group} {gender} Top fans - {period}"
+      },
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Group",
+      "usedCount": "Ticket count"
     },
 
     "channelsRanking": {

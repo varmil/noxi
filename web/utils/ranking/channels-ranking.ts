@@ -1,11 +1,11 @@
 import { GroupString } from 'config/constants/Group'
-import { Dimension } from 'types/dimension'
+import { ChannelsRankingDimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
 import { RankingType } from 'types/ranking'
 
 export const createSearchParams = (params: {
-  dimension: Dimension
+  dimension: ChannelsRankingDimension
   period: ChannelsRankingPeriod
   group?: GroupString
   gender?: Gender
@@ -25,7 +25,7 @@ export const createSearchParams = (params: {
 }
 
 export const hasSupersRanking = (params: {
-  dimension: Dimension
+  dimension: ChannelsRankingDimension
   group?: GroupString
   gender?: Gender
 }) => {

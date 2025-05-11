@@ -24,6 +24,7 @@ const RESET_KEYS = (dimension: Keys) => ({
   page: null
 })
 
+const CHEER_KEYS = ['most-cheered', 'top-fans'] as const
 const CHANNELS_KEYS = ['super-chat', 'subscriber'] as const
 const STREAM_KEYS = ['concurrent-viewer', 'super-chat'] as const
 
@@ -33,6 +34,17 @@ export default function DimensionColumn({ className }: Props) {
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
+        <Label label="Cheer" className="mb-1.5" />
+        {CHEER_KEYS.map(key => (
+          <SelectButton
+            key={key}
+            pathname={`/ranking/${key}`}
+            qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
+          >
+            {tg(`dimension.${key}`)}
+          </SelectButton>
+        ))}
+
         <Label label="Channels" className="mb-1.5" />
         {CHANNELS_KEYS.map(key => (
           <SelectButton

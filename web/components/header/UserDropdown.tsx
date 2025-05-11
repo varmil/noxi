@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { Link } from 'lib/navigation'
 
 export default function UserDropdown({ session }: { session: Session }) {
   const { user } = session
@@ -35,7 +36,9 @@ export default function UserDropdown({ session }: { session: Session }) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Dashboard</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/dashboard">Dashboard</Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Logout</DropdownMenuItem>
       </DropdownMenuContent>
