@@ -7,7 +7,8 @@ import { GroupStrings } from 'config/constants/Group'
 // 通信で取るかも
 const counts = {
   '774inc': { val: 24, isAll: true },
-  dotlive: { val: 1, isAll: false },
+  atatakakunaru: { val: 1, isAll: false },
+  dotlive: { val: 19, isAll: false },
   'first-stage': { val: 3, isAll: false },
   hololive: { val: 43, isAll: true },
   'hololive-english': { val: 18, isAll: true },
@@ -25,7 +26,8 @@ const counts = {
   'idol-corp': { val: 13, isAll: true },
   trillionstage: { val: 3, isAll: false },
   utatane: { val: 1, isAll: false },
-  varium: { val: 1, isAll: false },
+  varium: { val: 2, isAll: false },
+  vividv: { val: 1, isAll: false },
   voms: { val: 6, isAll: true },
   independent: { val: 150, isAll: false },
   'independent-irl': { val: 20, isAll: false },
