@@ -150,7 +150,7 @@ export function ChannelCheerHistory({ fullPage = false }: Props) {
 
             <div className="flex gap-2">
               <Select defaultValue="all">
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="flex-1 w-[140px]">
                   <Filter className="mr-2 h-4 w-4" />
                   <SelectValue placeholder={t('filter')} />
                 </SelectTrigger>
@@ -163,7 +163,7 @@ export function ChannelCheerHistory({ fullPage = false }: Props) {
               </Select>
 
               <Select defaultValue="recent">
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="flex-1 w-[140px]">
                   <Calendar className="mr-2 h-4 w-4" />
                   <SelectValue placeholder={t('period')} />
                 </SelectTrigger>

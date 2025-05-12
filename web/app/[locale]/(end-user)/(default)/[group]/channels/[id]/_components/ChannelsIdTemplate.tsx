@@ -37,7 +37,10 @@ export async function ChannelsIdTemplate({ id, period }: Props) {
         <ChannelData channel={channel} />
       </Section>
 
-      <Section className="lg:col-span-full lg:order-last">
+      <Section
+        className="lg:col-span-full lg:order-last"
+        gridClassName="gap-2 lg:gap-4"
+      >
         <ChannelCheerStats />
         <ChannelCheerTopFans />
         <ChannelCheerHistory />
