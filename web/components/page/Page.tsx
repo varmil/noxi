@@ -1,6 +1,5 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import DisplayLandscapeAds from 'components/ads/DisplayLandscapeAds'
 import Header from 'components/header/Header'
 
 type Props = {
@@ -41,12 +40,13 @@ export function Page({
     <section>
       <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
 
-      {ads && (
+      {/* EPMが低すぎるのでコメントアウト */}
+      {/* {ads && (
         <div className="flex justify-center h-[100px] md:h-[90px]">
           <DisplayLandscapeAds />
           <DisplayLandscapeAds className="hidden 2xl:block" />
         </div>
-      )}
+      )} */}
 
       {!ads && breadcrumb && (
         <GlobalBreadcrumb items={breadcrumb} className="mb-4" />
