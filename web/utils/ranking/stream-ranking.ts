@@ -1,11 +1,11 @@
 import { GroupString } from 'config/constants/Group'
-import { Dimension } from 'types/dimension'
+import { StreamRankingDimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'
 
 export const createSearchParams = (params: {
   period: StreamRankingPeriod
-  dimension: Dimension
+  dimension: StreamRankingDimension
   group?: GroupString
   gender?: Gender
   page?: number

@@ -2,17 +2,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 
 export default function ChannelThumbnail({
-  className,
-  channel
+  channel,
+  className
 }: {
-  className?: string
   channel: ChannelSchema
+  className?: string
 }) {
   return (
     <Avatar
-      className={`size-10 @lg:size-10 transition-all hover:scale-105 ${
-        className || ''
-      }`}
+      className={`size-10 transition-all hover:scale-105 ${className || ''}`}
     >
       <AvatarImage
         src={channel.basicInfo.thumbnails.medium?.url}

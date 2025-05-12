@@ -32,6 +32,8 @@ declare namespace NodeJS {
 
     readonly STRIPE_SECRET_KEY: string
     readonly STRIPE_WEBHOOK_SECRET: string
+
+    readonly AUTH_SECRET: string
   }
 }
 

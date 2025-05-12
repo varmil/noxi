@@ -13,8 +13,18 @@ export type Period =
   | 'all'
 
 /**
+ * 応援される側のランキング
+ */
+export type MostCheeredPeriod = 'last7Days' | 'last30Days' | 'all'
+
+/**
+ * ファンランキング
+ */
+export type TopFansPeriod = 'last7Days' | 'last30Days' | 'all'
+
+/**
  * スパチャランキング or チャンネル登録者数ランキング
- **/
+ */
 export type ChannelsRankingPeriod = Period
 
 /**

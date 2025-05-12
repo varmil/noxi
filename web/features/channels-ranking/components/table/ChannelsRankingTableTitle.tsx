@@ -1,9 +1,12 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import { ChartNoAxesColumnIncreasing } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
+import {
+  RankingTableTitleContainer,
+  RankingTableTitleH1
+} from 'components/ranking/table/title/RankingTableTitle'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
 import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
@@ -41,30 +44,18 @@ export default function ChannelsRankingTableTitle({
   const pathname = usePathname()
   const { createQueryString } = useQueryString()
   return (
-    <section className={`flex ${className || ''}`}>
-      <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between sm:items-center">
-        <h1
-          title={title}
-          className="flex items-center text-lg sm:text-xl font-bold"
-          aria-label={title}
-        >
-          <div className="flex gap-x-1 sm:gap-x-2 items-center">
-            <span className="tracking-tighter line-clamp-1 break-all">
-              {title}
-            </span>
-          </div>
-        </h1>
+    <RankingTableTitleContainer className={className}>
+      <RankingTableTitleH1 title={title} />
 
-        <div className="flex items-baseline gap-x-3">
-          <PeriodHoverCardFactory period={period} date={date} />
-          {period === 'last24Hours' && (
-            <RealtimeStatusBadge
-              href={`${pathname}${createQueryString('date', null)}`}
-              date={date}
-            />
-          )}
-        </div>
+      <div className="flex items-baseline gap-x-3">
+        <PeriodHoverCardFactory period={period} date={date} />
+        {period === 'last24Hours' && (
+          <RealtimeStatusBadge
+            href={`${pathname}${createQueryString('date', null)}`}
+            date={date}
+          />
+        )}
       </div>
-    </section>
+    </RankingTableTitleContainer>
   )
 }

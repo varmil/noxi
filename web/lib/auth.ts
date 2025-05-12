@@ -1,3 +1,4 @@
+import { randomUUID } from 'crypto'
 import { Provider } from '@auth/core/providers'
 import Credentials from '@auth/core/providers/credentials'
 import NeonAdapter from '@auth/neon-adapter'
@@ -6,6 +7,7 @@ import NextAuth, { NextAuthConfig } from 'next-auth'
 import Apple from 'next-auth/providers/apple'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
+import { getWebUrl } from 'utils/web-url'
 
 const providers: Provider[] = [
   Google,
@@ -56,7 +58,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
       strategy: 'jwt',
       maxAge: 3600 // TODO: 本番では変える
     },
-    callbacks
+    callbacks,
+
+    events: {
+      async createUser(message) {
+        const { id, email, image, name } = message.user
+
+        const fallbackName = name || `User_${randomUUID().slice(0, 8)}`
+        const fallbackImage = image || `${getWebUrl()}/placeholder-user.jpg`
+
+        await pool.query(
+          'UPDATE users SET name = $1, image = $2 WHERE id = $3',
+          [fallbackName, fallbackImage, id]
+        )
+      }
+    }
   }
 })
 
@@ -70,6 +86,7 @@ const callbacks: NextAuthConfig['callbacks'] = {
     if (user || account) {
       return {
         ...token,
+        sub: user.id, // 入っているけど一応。NestJSでのユーザー識別に使う
         id: user?.id,
         lastUsed: now
       }

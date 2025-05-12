@@ -76,7 +76,7 @@ export default function TicketsPage() {
             <div className="flex items-center">
               <Tickets className="h-8 w-8 text-primary mr-4" />
               <div>
-                <p className="text-sm font-medium">残りチケット</p>
+                <p className="text-sm font-medium">保有チケット</p>
                 <p className="text-2xl font-bold">{remainingTickets}枚</p>
               </div>
             </div>

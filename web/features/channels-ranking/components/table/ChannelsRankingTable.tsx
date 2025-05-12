@@ -138,10 +138,7 @@ export default async function ChannelsRankingTable({
 
               {/* Channel Title */}
               <LinkCell>
-                <ChannelTitle
-                  channel={channel}
-                  group={!group ? channel.peakX.group : undefined}
-                />
+                <ChannelTitle channel={channel} />
               </LinkCell>
 
               {/* Supers */}

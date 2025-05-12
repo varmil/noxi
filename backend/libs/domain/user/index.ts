@@ -1,1 +1,6 @@
-export * from './UserId.vo'
+export * from './id/UserId.vo'
+export * from './id/UserIds.collection'
+export * from './Email.vo'
+export * from './User.entity'
+export * from './Users.collection'
+export * from './User.repository'

@@ -60,10 +60,13 @@
         "dimension": "Dimension",
         "group": "Group",
         "gender": "Gender",
-        "country": "Country"
+        "country": "Country",
+        "season": "Season"
       },
       "dimension": {
         "concurrent-viewer": "Most Live Viewers",
+        "most-cheered": "Most Cheered",
+        "top-fans": "Top Fans",
         "super-chat": "Most Super Chatted",
         "subscriber": "Most Subscribed"
       },
@@ -261,6 +264,27 @@
       }
     },
 
+    "ranking": {
+      "most-cheered": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "most-cheered": "Most Cheered from each {group}{gender} channel this season ({period})."
+            }
+          }
+        }
+      },
+      "top-fans": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "top-fans": "Top Fans for {group}{gender} this season ({period})."
+            }
+          }
+        }
+      }
+    },
+
     "youtube": {
       "live": {
         "id": {
@@ -356,6 +380,11 @@
         "overall": "Overall",
         "unranked": "Unranked",
         "counting": "counting"
+      },
+      "filter": {
+        "season": {
+          "test001": "Season 1 (β)"
+        }
       },
       "hoverCard": {
         "title": "Period details",
@@ -513,6 +542,27 @@
         "nav": "Concurrent viewers",
         "title": "Concurrent viewers"
       }
+    },
+
+    "mostCheered": {
+      "dimension": {
+        "most-cheered": "{group} {gender} Most Cheered - {period}"
+      },
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Group",
+      "usedCount": "Ticket count",
+      "country": "Country"
+    },
+
+    "topFans": {
+      "dimension": {
+        "top-fans": "{group} {gender} Top Fans - {period}"
+      },
+      "viewAll": "View All",
+      "channel": "Channel",
+      "group": "Group",
+      "usedCount": "Ticket count"
     },
 
     "channelsRanking": {

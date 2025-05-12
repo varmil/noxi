@@ -60,11 +60,14 @@
         "dimension": "ディメンション",
         "group": "グループ",
         "gender": "性別",
-        "country": "国"
+        "country": "国",
+        "season": "シーズン"
       },
       "dimension": {
         "concurrent-viewer": "同接数",
         "super-chat": "スパチャ金額",
+        "most-cheered": "最も応援された",
+        "top-fans": "トップファン",
         "subscriber": "チャンネル登録者数"
       },
       "group": { "all": "すべて" },
@@ -261,6 +264,27 @@
       }
     },
 
+    "ranking": {
+      "most-cheered": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "most-cheered": "今シーズンの{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
+            }
+          }
+        }
+      },
+      "top-fans": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "top-fans": "今シーズン、{group}{gender}を最も応援しているトップファン（{period}）あなたも推しを応援しよう！"
+            }
+          }
+        }
+      }
+    },
+
     "youtube": {
       "live": {
         "id": {
@@ -356,6 +380,11 @@
         "overall": "総合",
         "unranked": "圏外",
         "counting": "集計中"
+      },
+      "filter": {
+        "season": {
+          "test001": "Season 1 (β)"
+        }
       },
       "hoverCard": {
         "title": "期間の詳細",
@@ -513,6 +542,27 @@
         "nav": "同接数",
         "title": "同接数"
       }
+    },
+
+    "mostCheered": {
+      "dimension": {
+        "most-cheered": "{group} {gender} 最多応援ランキング - {period}"
+      },
+      "viewAll": "すべて見る",
+      "channel": "チャンネル",
+      "group": "グループ",
+      "usedCount": "応援された数",
+      "country": "国"
+    },
+
+    "topFans": {
+      "dimension": {
+        "top-fans": "{group} {gender} ファンランキング - {period}"
+      },
+      "viewAll": "すべて見る",
+      "channel": "チャンネル",
+      "group": "グループ",
+      "usedCount": "応援した数"
     },
 
     "channelsRanking": {
