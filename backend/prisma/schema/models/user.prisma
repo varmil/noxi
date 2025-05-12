@@ -46,9 +46,10 @@ model User {
 
     accounts         Account[]
     sessions         Session[]
-    CheerTicket      CheerTicket?
-    CheerTicketLog   CheerTicketLog[]
-    CheerTicketUsage CheerTicketUsage[]
+    cheerTicket      CheerTicket?
+    cheerTicketLog   CheerTicketLog[]
+    cheerTicketUsage CheerTicketUsage[]
+    userProfile      UserProfile?
 
     @@map("users")
 }
