@@ -5,6 +5,9 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
+import { ChannelCheerHistory } from 'features/cheer-channel/history/ChannelCheerHistory'
+import { ChannelCheerStats } from 'features/cheer-channel/stats/ChannelCheerStats'
+import { ChannelCheerTopFans } from 'features/cheer-channel/top-fans/ChannelCheerTopFans'
 import SupersRanking from 'features/supers-ranking/components/SupersRanking'
 import { Period } from 'types/period'
 import ChannelData from './ui/channel-data/ChannelData'
@@ -32,6 +35,12 @@ export async function ChannelsIdTemplate({ id, period }: Props) {
         title={page('data.title')}
       >
         <ChannelData channel={channel} />
+      </Section>
+
+      <Section className="lg:col-span-full lg:order-last">
+        <ChannelCheerStats />
+        <ChannelCheerTopFans />
+        <ChannelCheerHistory />
       </Section>
     </Sections>
   )

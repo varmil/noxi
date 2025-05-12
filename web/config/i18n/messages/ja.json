@@ -472,6 +472,59 @@
         "nav": "FAQ"
       }
     },
+
+    "cheerChannel": {
+      "profile": {
+        "cheerTicket": "応援チケットを使う",
+        "past30Days": "過去30日間の応援",
+        "cheerRanking": "応援ランキング",
+        "cheerCount": "{count}回",
+        "rank": "{rank}位"
+      },
+      "stats": {
+        "title": "応援統計",
+        "past30Days": "過去30日間の応援",
+        "seasonTotal": "今シーズン累計",
+        "cheerRanking": "応援ランキング",
+        "userCount": "応援者数"
+      },
+      "topFans": {
+        "title": "トップファン",
+        "description": "過去30日間で最も多くの応援チケットを使ったファン",
+        "tickets": "{count}枚"
+      },
+      "history": {
+        "title": "応援履歴",
+        "description": "{channel}への応援履歴を表示しています",
+        "searchPlaceholder": "ユーザー名やメッセージで検索",
+        "filter": "フィルター",
+        "period": "期間",
+        "all": "すべて",
+        "high": "5枚以上",
+        "medium": "2〜4枚",
+        "low": "1枚",
+        "recent": "最近",
+        "week": "1週間",
+        "month": "1ヶ月",
+        "user": "ユーザー",
+        "tickets": "チケット",
+        "message": "メッセージ",
+        "date": "日時",
+        "noResults": "検索結果がありません"
+      },
+      "dialog": {
+        "title": "{channel}を応援する",
+        "description": "応援チケットを使って{channel}さんを応援しましょう。一度に複数枚のチケットを使うこともできます。",
+        "tickets": "チケット",
+        "messageLabel": "応援メッセージ (任意)",
+        "messagePlaceholder": "応援メッセージを入力してください",
+        "currentTickets": "現在の保有チケット:",
+        "remainingTickets": "使用後の残りチケット:",
+        "cancel": "キャンセル",
+        "consume": "応援する"
+      }
+    },
+
     "grade": {
       "name": "グレード",
       "supersGrade": "スパチャグレード",

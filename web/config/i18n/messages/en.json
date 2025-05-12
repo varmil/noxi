@@ -472,6 +472,59 @@
         "nav": "FAQ"
       }
     },
+
+    "cheerChannel": {
+      "profile": {
+        "cheerTicket": "Use Cheer Tickets",
+        "past30Days": "Past 30 Days",
+        "cheerRanking": "Cheer Ranking",
+        "cheerCount": "{count} times",
+        "rank": "{rank} place"
+      },
+      "stats": {
+        "title": "Cheer Statistics",
+        "past30Days": "Past 30 Days Cheer",
+        "seasonTotal": "Season Total",
+        "cheerRanking": "Cheer Ranking",
+        "userCount": "Cheerer Count"
+      },
+      "topFans": {
+        "title": "Top Fans",
+        "description": "Fans who used the most cheer tickets in the past 30 days",
+        "tickets": "{count} tickets"
+      },
+      "history": {
+        "title": "Cheer History",
+        "description": "Showing cheer history for {channel}",
+        "searchPlaceholder": "Search by username or message",
+        "filter": "Filter",
+        "period": "Period",
+        "all": "All",
+        "high": "5+ tickets",
+        "medium": "2-4 tickets",
+        "low": "1 ticket",
+        "recent": "Recent",
+        "week": "1 Week",
+        "month": "1 Month",
+        "user": "User",
+        "tickets": "Tickets",
+        "message": "Message",
+        "date": "Date",
+        "noResults": "No results found"
+      },
+      "dialog": {
+        "title": "Cheer {channel}",
+        "description": "Use cheer tickets to cheer {channel}. You can use multiple tickets at once.",
+        "tickets": "tickets",
+        "messageLabel": "Cheer Message (optional)",
+        "messagePlaceholder": "Enter your cheer message",
+        "currentTickets": "Current tickets:",
+        "remainingTickets": "Remaining tickets:",
+        "cancel": "Cancel",
+        "consume": "Cheer"
+      }
+    },
+
     "grade": {
       "name": "Grade",
       "supersGrade": "Super Chat Grade",
