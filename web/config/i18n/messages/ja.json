@@ -514,7 +514,7 @@
       },
       "dialog": {
         "title": "{channel}を応援する",
-        "description": "応援チケットを使って{channel}さんを応援しましょう。一度に複数枚のチケットを使うこともできます。",
+        "description": "応援チケットを使って{channel}さんを応援します。一度に複数枚を使うこともできます。",
         "tickets": "チケット",
         "messageLabel": "応援メッセージ (任意)",
         "messagePlaceholder": "応援メッセージを入力してください",

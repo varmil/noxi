@@ -13,7 +13,11 @@ export async function ChannelProfile({
   group
 }: PropsWithoutRef<Props>) {
   return (
-    <ChannelProfileContent basicInfo={basicInfo} group={group}>
+    <ChannelProfileContent
+      className="pt-4 pb-12 px-4 md:px-0"
+      basicInfo={basicInfo}
+      group={group}
+    >
       <div className="text-sm text-muted-foreground">
         {basicInfo.description}
       </div>

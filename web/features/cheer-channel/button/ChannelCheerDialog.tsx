@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Ticket, Plus, Minus, Send } from 'lucide-react'
+import { Plus, Minus, Send, Tickets } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,9 +12,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
-import { Label } from '@/components/ui/label'
 import { Slider } from '@/components/ui/slider'
-import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -24,7 +22,6 @@ interface Props {
 
 export function ChannelCheerDialog({ open, onOpenChange }: Props) {
   const [ticketCount, setTicketCount] = useState(1)
-  const [message, setMessage] = useState('')
   const maxTickets = 10 // 所持チケット数
   const feat = useTranslations('Features.cheerChannel.dialog')
 
@@ -46,10 +43,9 @@ export function ChannelCheerDialog({ open, onOpenChange }: Props) {
 
   const handleConsume = () => {
     // 応援処理を実行
-    console.log(`${ticketCount}枚のチケットで応援しました: ${message}`)
+    console.log(`${ticketCount}枚のチケットで応援しました`)
     onOpenChange(false)
     setTicketCount(1)
-    setMessage('')
   }
 
   return (
@@ -57,9 +53,11 @@ export function ChannelCheerDialog({ open, onOpenChange }: Props) {
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle className="flex items-center text-xl">
-            <Ticket className="mr-2 h-5 w-5 text-pink-500" />
+            <Tickets className="mr-2 size-5 text-pink-700 dark:text-pink-500" />
             {/* TODO: channel */}
-            {feat('title', { channel: '天音かなた' })}
+            <span className="flex-1 text-left">
+              {feat('title', { channel: '天音かなた' })}
+            </span>
           </DialogTitle>
           <DialogDescription>
             {/* TODO: channel */}
@@ -121,17 +119,6 @@ export function ChannelCheerDialog({ open, onOpenChange }: Props) {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="message">{feat('messageLabel')}</Label>
-            <Textarea
-              id="message"
-              placeholder={feat('messagePlaceholder')}
-              value={message}
-              onChange={e => setMessage(e.target.value)}
-              className="min-h-[100px] resize-none"
-            />
-          </div>
-
           <div className="rounded-lg bg-muted p-4 text-sm">
             <div className="mb-2 flex justify-between">
               <span>{feat('currentTickets')}</span>
@@ -142,7 +129,9 @@ export function ChannelCheerDialog({ open, onOpenChange }: Props) {
               <span
                 className={cn(
                   'font-bold',
-                  maxTickets - ticketCount < 3 ? 'text-orange-500' : ''
+                  maxTickets - ticketCount < 1
+                    ? 'text-orange-700 dark:text-orange-500'
+                    : ''
                 )}
               >
                 {maxTickets - ticketCount}枚
