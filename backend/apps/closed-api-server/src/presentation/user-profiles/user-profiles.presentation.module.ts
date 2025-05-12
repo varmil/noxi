@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common'
 import { AuthModule } from '@presentation/nestjs/guard/auth/auth.module'
-import { UsersController } from '@presentation/users/users.controller'
-import { UsersAppModule } from '@app/users/users.app.module'
+import { UserProfilesController } from '@presentation/user-profiles/user-profiles.controller'
+import { UserProfilesAppModule } from '@app/user-profiles/user-profiles.app.module'
 
 @Module({
-  imports: [AuthModule, UsersAppModule],
-  controllers: [UsersController],
+  imports: [AuthModule, UserProfilesAppModule],
+  controllers: [UserProfilesController],
   providers: []
 })
-export class UsersPresentationModule {}
+export class UserProfilesPresentationModule {}

@@ -108,10 +108,7 @@ export default async function MostCheeredTable({
 
               {/* Channel Title */}
               <LinkCell>
-                <ChannelTitle
-                  channel={channel}
-                  group={!group ? channel.peakX.group : undefined}
-                />
+                <ChannelTitle channel={channel} />
               </LinkCell>
 
               {/* Used Count */}

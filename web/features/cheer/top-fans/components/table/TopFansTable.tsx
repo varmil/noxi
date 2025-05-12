@@ -2,13 +2,12 @@ import { ComponentProps, PropsWithChildren, PropsWithoutRef } from 'react'
 import { ChevronRight, Tickets } from 'lucide-react'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { FanUsagesSchema } from 'apis/cheer-ticket-usages/cheerTicketUsageSchema'
-import { getChannels } from 'apis/youtube/getChannels'
+import { getUserProfiles } from 'apis/user-profiles/getUserProfiles'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
-import GroupCell from 'components/ranking/table/cell/GroupCell'
-import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
-import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
-import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
+import LinkToUserCell from 'components/ranking/table/cell/LinkToUserCell'
 import Dimension from 'components/ranking/table/styles/Dimension'
+import UserName from 'components/ranking/table/styles/UserName'
+import UserThumbnail from 'components/ranking/table/styles/UserThumbnail'
 import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination as Pagination } from 'config/constants/Pagination'
 import TopFansTableHeader from 'features/cheer/top-fans/components/table/header/TopFansTableHeader'
@@ -33,9 +32,8 @@ export default async function TopFansTable({
   page = 1
 }: Props) {
   const userIds = fanUsages.map(e => e.userId)
-  const [channels] = await Promise.all([
-    // FIXME: getUsers
-    getChannels({ ids: userIds, limit: userIds.length })
+  const [profiles] = await Promise.all([
+    getUserProfiles({ userIds: userIds, limit: userIds.length })
     //   hasRank({ group, gender })
     //     ? getSupersRankingHistories({
     //         channelIds,
@@ -56,27 +54,14 @@ export default async function TopFansTable({
       <TopFansTableHeader />
       <TableBody>
         {fanUsages.map(({ userId, usedCount }, i) => {
-          const channel = channels.find(
-            channel => channel.basicInfo.id === channelId
-          )
-          if (!channel) return null
+          const profile = profiles.find(profile => profile.userId === userId)
+          if (!profile) return null
 
-          /** prefetch=false */
+          /** TODO: ユーザーのマイページへのリンク？専用ページを作るか */
           const LinkCell = (
             props: PropsWithChildren &
-              Omit<
-                ComponentProps<typeof LinkToChannelCell>,
-                'channelId' | 'group'
-              >
-          ) => (
-            /** TODO: ユーザーのマイページへのリンク？専用ページを作るか */
-            <LinkToChannelCell
-              channelId={channelId}
-              group={channel.peakX.group}
-              prefetch={false} // before: i < 5
-              {...props}
-            />
-          )
+              Omit<ComponentProps<typeof LinkToUserCell>, 'userId'>
+          ) => <LinkToUserCell userId={userId} prefetch={false} {...props} />
 
           return (
             <TableRow
@@ -102,17 +87,14 @@ export default async function TopFansTable({
                 </div>
               </TableCell>
 
-              {/* Channel Thumbnail */}
+              {/* User Thumbnail */}
               <LinkCell align="center">
-                <ChannelThumbnail channel={channel} />
+                <UserThumbnail profile={profile} />
               </LinkCell>
 
-              {/* Channel Title */}
+              {/* User Name */}
               <LinkCell>
-                <ChannelTitle
-                  channel={channel}
-                  group={!group ? channel.peakX.group : undefined}
-                />
+                <UserName name={profile.name} />
               </LinkCell>
 
               {/* Used Count */}
@@ -124,9 +106,6 @@ export default async function TopFansTable({
                   rtl
                 />
               </LinkCell>
-
-              {/* 3xl-: Group */}
-              <GroupCell groupId={channel.peakX.group} />
 
               {/* xs - 2xl: Link Icon */}
               <LinkCell className="min-w-[32px] @3xl:hidden">

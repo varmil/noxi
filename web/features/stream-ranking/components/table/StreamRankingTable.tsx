@@ -102,10 +102,7 @@ export default async function StreamRankingTable({
 
               {/* Channel Title */}
               <ChannelLinkCell width={400} className="min-w-[152px]">
-                <ChannelTitle
-                  channel={channel}
-                  group={!group ? channel.peakX.group : undefined}
-                />
+                <ChannelTitle channel={channel} />
               </ChannelLinkCell>
 
               {/* xs- md: Concurrent Viewers */}

@@ -1,15 +1,13 @@
-import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-
 interface Props {
-  channel: ChannelSchema
+  name: string
   className?: string
 }
 
-export default function ChannelTitle({ channel, className }: Props) {
+export default function UserName({ name, className }: Props) {
   return (
     <div className={`group ${className || ''}`}>
       <span className="line-clamp-1 break-all group-hover:underline">
-        {channel.basicInfo.title}
+        {name}
       </span>
     </div>
   )
