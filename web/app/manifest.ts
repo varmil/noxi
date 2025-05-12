@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'auto'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
