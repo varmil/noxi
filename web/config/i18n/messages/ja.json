@@ -60,7 +60,8 @@
         "dimension": "ディメンション",
         "group": "グループ",
         "gender": "性別",
-        "country": "国"
+        "country": "国",
+        "season": "シーズン"
       },
       "dimension": {
         "concurrent-viewer": "同接数",
@@ -266,20 +267,18 @@
     "ranking": {
       "most-cheered": {
         "metadata": {
-          "title": "VTuber",
           "description": {
             "dimension": {
-              "most-cheered": "{group}{gender}の最も応援されたタレントのランキング（{period}）。推しのVTuberを応援しよう！"
+              "most-cheered": "今シーズンの{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }
       },
       "top-fans": {
         "metadata": {
-          "title": "VTuber",
           "description": {
             "dimension": {
-              "top-fans": "{group}{gender}を最も支援しているファンランキング（{period}）。推しのVTuberを応援しよう！"
+              "top-fans": "今シーズン、{group}{gender}を最も応援しているトップファン（{period}）あなたも推しを応援しよう！"
             }
           }
         }
@@ -381,6 +380,11 @@
         "overall": "総合",
         "unranked": "圏外",
         "counting": "集計中"
+      },
+      "filter": {
+        "season": {
+          "test001": "Season 1 (β)"
+        }
       },
       "hoverCard": {
         "title": "期間の詳細",
@@ -547,7 +551,8 @@
       "viewAll": "すべて見る",
       "channel": "チャンネル",
       "group": "グループ",
-      "usedCount": "応援された数"
+      "usedCount": "応援された数",
+      "country": "国"
     },
 
     "topFans": {

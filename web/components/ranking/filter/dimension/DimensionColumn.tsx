@@ -45,7 +45,7 @@ export default function DimensionColumn({ className }: Props) {
           </SelectButton>
         ))}
 
-        <Label label="Channels" className="mb-1.5" />
+        <Label label="Channels" className="my-1.5" />
         {CHANNELS_KEYS.map(key => (
           <SelectButton
             key={key}

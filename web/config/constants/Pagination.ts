@@ -1,101 +1,55 @@
-class MostCheeredSingleton {
-  readonly PAGE_SIZE = 20
-  readonly COMPACT_PAGE_SIZE = 7
+abstract class PaginationBase {
+  abstract readonly PAGE_SIZE: number
+  abstract readonly COMPACT_PAGE_SIZE: number
 
-  getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
+  getTotalPages = (itemCount: number): number =>
+    Math.ceil(itemCount / this.PAGE_SIZE)
 
-  /** ページ番号+ページ内インデックス番号から順位を取得する */
-  getRankFromPage = (page: number, index: number) => {
-    return index + 1 + (page - 1) * this.PAGE_SIZE
-  }
+  getRankFromPage = (page: number, index: number): number =>
+    index + 1 + (page - 1) * this.PAGE_SIZE
 
-  /** 順位からページ番号を取得する */
-  getPageFromRank = (rank?: number) => {
-    if (!rank) return undefined
-    return Math.ceil(rank / this.PAGE_SIZE)
-  }
+  getPageFromRank = (rank?: number): number | undefined =>
+    rank ? Math.ceil(rank / this.PAGE_SIZE) : undefined
 
-  getLimit = (compact?: boolean) =>
+  getLimit = (compact?: boolean): number =>
     compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
 
-  getOffset = (page?: string) =>
+  getOffset = (page?: string): number =>
     Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
 }
 
-class ChannelsRankingSingleton {
+class MostCheeredSingleton extends PaginationBase {
   readonly PAGE_SIZE = 20
   readonly COMPACT_PAGE_SIZE = 7
-
-  getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
-
-  /** ページ番号+ページ内インデックス番号から順位を取得する */
-  getRankFromPage = (page: number, index: number) => {
-    return index + 1 + (page - 1) * this.PAGE_SIZE
-  }
-
-  /** 順位からページ番号を取得する */
-  getPageFromRank = (rank?: number) => {
-    if (!rank) return undefined
-    return Math.ceil(rank / this.PAGE_SIZE)
-  }
-
-  getLimit = (compact?: boolean) =>
-    compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
-
-  getOffset = (page?: string) =>
-    Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
 }
 
-class StreamRankingSingleton {
+class TopFansSingleton extends PaginationBase {
+  readonly PAGE_SIZE = 20
+  readonly COMPACT_PAGE_SIZE = 7
+}
+
+class ChannelsRankingSingleton extends PaginationBase {
+  readonly PAGE_SIZE = 20
+  readonly COMPACT_PAGE_SIZE = 7
+}
+
+class StreamRankingSingleton extends PaginationBase {
   readonly PAGE_SIZE = 20
   readonly COMPACT_PAGE_SIZE = 5
-
-  getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
-
-  getRankFromPage = (page: number, index: number) => {
-    return index + 1 + (page - 1) * this.PAGE_SIZE
-  }
-
-  /** 順位からページ番号を取得する */
-  getPageFromRank = (rank?: number) => {
-    if (!rank) return undefined
-    return Math.ceil(rank / this.PAGE_SIZE)
-  }
-
-  getLimit = (compact?: boolean) =>
-    compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
-
-  getOffset = (page?: string) =>
-    Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
 }
 
-class ChannelGallerySingleton {
-  readonly PAGE_SIZE = 24 // 1,2,3の公倍数
+class ChannelGallerySingleton extends PaginationBase {
+  readonly PAGE_SIZE = 24
   readonly COMPACT_PAGE_SIZE = 6
-
-  getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
-
-  getLimit = (compact?: boolean) =>
-    compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
-
-  getOffset = (page?: string) =>
-    Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
 }
 
-class StreamGallerySingleton {
+class StreamGallerySingleton extends PaginationBase {
   readonly PAGE_SIZE = 12
   readonly COMPACT_PAGE_SIZE = 4
-
-  getTotalPages = (itemCount: number) => Math.ceil(itemCount / this.PAGE_SIZE)
-
-  getLimit = (compact?: boolean) =>
-    compact ? this.COMPACT_PAGE_SIZE : this.PAGE_SIZE
-
-  getOffset = (page?: string) =>
-    Math.max((Number(page) || 1) - 1, 0) * this.PAGE_SIZE
 }
 
 export const MostCheeredPagination = new MostCheeredSingleton()
+export const TopFansPagination = new TopFansSingleton()
 export const ChannelsRankingPagination = new ChannelsRankingSingleton()
 export const StreamRankingPagination = new StreamRankingSingleton()
 export const ChannelGalleryPagination = new ChannelGallerySingleton()

@@ -60,7 +60,8 @@
         "dimension": "Dimension",
         "group": "Group",
         "gender": "Gender",
-        "country": "Country"
+        "country": "Country",
+        "season": "Season"
       },
       "dimension": {
         "concurrent-viewer": "Most Live Viewers",
@@ -266,20 +267,18 @@
     "ranking": {
       "most-cheered": {
         "metadata": {
-          "title": "VTuber",
           "description": {
             "dimension": {
-              "most-cheered": "Most Cheered from each {group}{gender} channel in {period}."
+              "most-cheered": "Most Cheered from each {group}{gender} channel this season ({period})."
             }
           }
         }
       },
       "top-fans": {
         "metadata": {
-          "title": "VTuber",
           "description": {
             "dimension": {
-              "top-fans": "Top Fans for {group}{gender} in {period}."
+              "top-fans": "Top Fans for {group}{gender} this season ({period})."
             }
           }
         }
@@ -381,6 +380,11 @@
         "overall": "Overall",
         "unranked": "Unranked",
         "counting": "counting"
+      },
+      "filter": {
+        "season": {
+          "test001": "Season 1 (β)"
+        }
       },
       "hoverCard": {
         "title": "Period details",
@@ -542,17 +546,18 @@
 
     "mostCheered": {
       "dimension": {
-        "most-cheered": "{group} {gender} Most cheered - {period}"
+        "most-cheered": "{group} {gender} Most Cheered - {period}"
       },
       "viewAll": "View All",
       "channel": "Channel",
       "group": "Group",
-      "usedCount": "Ticket count"
+      "usedCount": "Ticket count",
+      "country": "Country"
     },
 
     "topFans": {
       "dimension": {
-        "top-fans": "{group} {gender} Top fans - {period}"
+        "top-fans": "{group} {gender} Top Fans - {period}"
       },
       "viewAll": "View All",
       "channel": "Channel",

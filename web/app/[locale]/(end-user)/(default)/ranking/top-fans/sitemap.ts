@@ -1,12 +1,12 @@
 import { MetadataRoute } from 'next'
 import { getGroups } from 'apis/youtube/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
-import { MostCheeredPeriod } from 'types/period'
+import { TopFansPeriod } from 'types/period'
 import { createSearchParams } from 'utils/ranking/most-cheered'
 
 export const dynamic = 'force-dynamic'
 
-const periods: MostCheeredPeriod[] = ['last30Days']
+const periods: TopFansPeriod[] = ['last30Days']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const overallEntries = [
     getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/most-cheered?${createSearchParams({
+      pathname: `/ranking/top-fans?${createSearchParams({
         period: 'last30Days'
       })
         .toString()
@@ -32,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/most-cheered?${searchParams
+        pathname: `/ranking/top-fans?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })

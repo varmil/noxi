@@ -13,10 +13,12 @@ export default function PeriodHoverCardFactory({ period, date }: Props) {
   if (period === 'all' || period === 'realtime') return null
 
   return (
-    <PeriodHoverCard
-      start={getStartOf(period, date)}
-      end={getEndOf(period, date)}
-      updatedAt={getUpdatedAt(period, date)}
-    />
+    <div className="flex items-baseline gap-x-3">
+      <PeriodHoverCard
+        start={getStartOf(period, date)}
+        end={getEndOf(period, date)}
+        updatedAt={getUpdatedAt(period, date)}
+      />
+    </div>
   )
 }

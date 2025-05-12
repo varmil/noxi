@@ -39,7 +39,7 @@ export default function PeriodHoverCard({ start, end, updatedAt }: Props) {
           </div>
         )}
       </PopoverTrigger>
-      <PopoverContent className="space-y-4 font-normal">
+      <PopoverContent className="text-sm space-y-4 font-normal">
         <Title>{t('title')}</Title>
 
         <Items>

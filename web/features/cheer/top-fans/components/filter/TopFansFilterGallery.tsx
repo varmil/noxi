@@ -11,7 +11,7 @@ type Props = PropsWithoutRef<{
   className?: string
 }>
 
-export default function MostCheeredFilterGallery({ className }: Props) {
+export default function TopFansFilterGallery({ className }: Props) {
   return (
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">

@@ -8,17 +8,17 @@ import {
 } from 'components/ranking/table/title/RankingTableTitle'
 import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
-import { MostCheeredPeriod } from 'types/period'
+import { TopFansPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
-  period: MostCheeredPeriod
+  period: TopFansPeriod
   group?: GroupString
   gender?: Gender
   date?: Date
   className?: string
 }>
 
-export default function MostCheeredTableTitle({
+export default function TopFansTableTitle({
   period,
   group,
   gender,
@@ -26,15 +26,12 @@ export default function MostCheeredTableTitle({
   className
 }: Props) {
   const global = useTranslations('Global')
-  const page = useTranslations('Page.ranking.most-cheered')
-  const title = useTranslations('Features.mostCheered.dimension')(
-    `most-cheered`,
-    {
-      period: global(`period.${period}`),
-      group: '',
-      gender: ''
-    }
-  )
+  const page = useTranslations('Page.ranking.top-fans')
+  const title = useTranslations('Features.topFans.dimension')(`top-fans`, {
+    period: global(`period.${period}`),
+    group: '',
+    gender: ''
+  })
     .replace(/\s+/g, ' ')
     .trim()
   return (
@@ -42,7 +39,7 @@ export default function MostCheeredTableTitle({
       <section className="space-y-2">
         <RankingTableTitleH1 title={title} />
         <RankingTableTitleDescription>
-          {page('metadata.description.dimension.most-cheered', {
+          {page('metadata.description.dimension.top-fans', {
             period: global(`period.${period}`),
             group: group ? global(`group.${group}`) : 'VTuber',
             gender: gender ? global(`gender.${gender}`) : ''

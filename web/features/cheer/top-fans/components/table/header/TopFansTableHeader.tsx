@@ -4,8 +4,8 @@ import { TableHeader, TableRow, TableHead } from '@/components/ui/table'
 
 type Props = PropsWithoutRef<{}>
 
-export default async function MostCheeredTableHeader({}: Props) {
-  const feat = await getTranslations('Features.mostCheered')
+export default async function TopFansTableHeader({}: Props) {
+  const feat = await getTranslations('Features.topFans')
 
   return (
     <TableHeader>
@@ -27,11 +27,6 @@ export default async function MostCheeredTableHeader({}: Props) {
         {/* 3xl-: Group */}
         <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
           {feat('group')}
-        </TableHead>
-
-        {/* 3xl-: Country */}
-        <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
-          {feat('country')}
         </TableHead>
 
         {/* Link Icon */}

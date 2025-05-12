@@ -1,10 +1,9 @@
 import { ComponentProps, PropsWithChildren, PropsWithoutRef } from 'react'
 import { ChevronRight, Tickets } from 'lucide-react'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
-import { CheeredUsagesSchema } from 'apis/cheer-ticket-usages/cheerTicketUsageSchema'
+import { FanUsagesSchema } from 'apis/cheer-ticket-usages/cheerTicketUsageSchema'
 import { getChannels } from 'apis/youtube/getChannels'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
-import CountryCell from 'components/ranking/table/cell/CountryCell'
 import GroupCell from 'components/ranking/table/cell/GroupCell'
 import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
 import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
@@ -12,12 +11,12 @@ import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination as Pagination } from 'config/constants/Pagination'
+import TopFansTableHeader from 'features/cheer/top-fans/components/table/header/TopFansTableHeader'
 import { Gender } from 'types/gender'
 import { MostCheeredPeriod } from 'types/period'
-import MostCheeredTableHeader from './header/MostCheeredTableHeader'
 
 type Props = PropsWithoutRef<{
-  cheeredUsages: CheeredUsagesSchema
+  fanUsages: FanUsagesSchema
   period: MostCheeredPeriod
   group?: GroupString
   gender?: Gender
@@ -25,17 +24,18 @@ type Props = PropsWithoutRef<{
   page?: number
 }>
 
-export default async function MostCheeredTable({
-  cheeredUsages,
+export default async function TopFansTable({
+  fanUsages,
   period,
   group,
   gender,
   date,
   page = 1
 }: Props) {
-  const channelIds = cheeredUsages.map(e => e.channelId)
+  const userIds = fanUsages.map(e => e.userId)
   const [channels] = await Promise.all([
-    getChannels({ ids: channelIds, limit: channelIds.length })
+    // FIXME: getUsers
+    getChannels({ ids: userIds, limit: userIds.length })
     //   hasRank({ group, gender })
     //     ? getSupersRankingHistories({
     //         channelIds,
@@ -49,13 +49,13 @@ export default async function MostCheeredTable({
   ])
 
   /** Progress.valueで使用する */
-  const topUsedCount = cheeredUsages[0]?.usedCount ?? 0
+  const topUsedCount = fanUsages[0]?.usedCount ?? 0
 
   return (
     <Table>
-      <MostCheeredTableHeader />
+      <TopFansTableHeader />
       <TableBody>
-        {cheeredUsages.map(({ channelId, usedCount }, i) => {
+        {fanUsages.map(({ userId, usedCount }, i) => {
           const channel = channels.find(
             channel => channel.basicInfo.id === channelId
           )
@@ -69,6 +69,7 @@ export default async function MostCheeredTable({
                 'channelId' | 'group'
               >
           ) => (
+            /** TODO: ユーザーのマイページへのリンク？専用ページを作るか */
             <LinkToChannelCell
               channelId={channelId}
               group={channel.peakX.group}
@@ -79,8 +80,8 @@ export default async function MostCheeredTable({
 
           return (
             <TableRow
-              key={`${channelId}-${i}`}
-              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${channelId}`} // For Highlighter
+              key={`${userId}-${i}`}
+              id={`${RANK_HIGHLIGHTER_ID_PREFIX}${userId}`} // For Highlighter
             >
               {/* Rank */}
               <TableCell className="min-w-2 max-w-16 py-1">
@@ -126,9 +127,6 @@ export default async function MostCheeredTable({
 
               {/* 3xl-: Group */}
               <GroupCell groupId={channel.peakX.group} />
-
-              {/* 3xl-: Country */}
-              <CountryCell countryCode={channel.peakX.country} />
 
               {/* xs - 2xl: Link Icon */}
               <LinkCell className="min-w-[32px] @3xl:hidden">

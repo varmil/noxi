@@ -1,9 +1,9 @@
 import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
-import { MostCheeredPeriod } from 'types/period'
+import { TopFansPeriod } from 'types/period'
 
-export type MostCheeredSearchParams = {
-  period: MostCheeredPeriod
+export type TopFansSearchParams = {
+  period: TopFansPeriod
   group?: GroupString
   gender?: Gender
   /** For OG */
