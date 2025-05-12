@@ -5,6 +5,7 @@ import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
 export const GroupStrings = [
   '774inc',
+  'atatakakunaru',
   'dotlive',
   'first-stage',
   'hololive',
@@ -24,6 +25,7 @@ export const GroupStrings = [
   'trillionstage',
   'utatane',
   'varium',
+  'vividv',
   'voms',
   'independent',
   'independent-irl',
