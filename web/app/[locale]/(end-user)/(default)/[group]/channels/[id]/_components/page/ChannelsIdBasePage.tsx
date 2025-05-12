@@ -56,7 +56,7 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale)
   setGroup(group)
 
-  const [{ basicInfo }, tg, t] = await Promise.all([
+  const [{ basicInfo, peakX }, tg, t] = await Promise.all([
     getChannel(id),
     getTranslations('Global'),
     getTranslations('Breadcrumb')
@@ -73,7 +73,7 @@ export default async function ChannelsIdBasePage(
       ]}
     >
       <section className="flex flex-col">
-        <ChannelProfile basicInfo={basicInfo} />
+        <ChannelProfile basicInfo={basicInfo} group={peakX.group} />
         <section>
           <LocalNavigationForChannelsIdPages channelId={id} group={group} />
         </section>

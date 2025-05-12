@@ -2,21 +2,27 @@
 
 import { PropsWithChildren, useState } from 'react'
 import { ChevronUp, ChevronDown } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { GroupString } from 'config/constants/Group'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
+  group: GroupString
   defaultOpen?: boolean
 }
 
 export function ChannelProfileContent({
   basicInfo,
+  group,
   defaultOpen = false,
   children
 }: PropsWithChildren<Props>) {
   const { title: name, thumbnails } = basicInfo
+  const global = useTranslations('Global')
   const [isExpanded, setIsExpanded] = useState(defaultOpen)
   const avatarIsHidden = isExpanded ? 'hidden sm:flex' : ''
 
@@ -37,6 +43,9 @@ export function ChannelProfileContent({
             )}
             <h1 className="text-xl font-bold">{name}</h1>
           </div>
+          <Badge className="max-w-[200px] whitespace-nowrap bg-gradient-to-r from-blue-500 to-violet-500 text-white">
+            {global(`group.${group}`)}
+          </Badge>
           <div className="max-w-xl break-anywhere whitespace-normal">
             <div
               className={`overflow-hidden transition-all duration-300 ${
