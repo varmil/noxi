@@ -1,5 +1,5 @@
 import { PropsWithoutRef } from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -7,6 +7,7 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import { DefaultPeriodByDimension } from 'config/constants/RankingRoute'
+import { auth } from 'lib/auth'
 import { Dimension } from 'types/dimension'
 
 const QS_KEY = 'dimension'
@@ -28,24 +29,31 @@ const CHEER_KEYS = ['most-cheered', 'top-fans'] as const
 const CHANNELS_KEYS = ['super-chat', 'subscriber'] as const
 const STREAM_KEYS = ['concurrent-viewer', 'super-chat'] as const
 
-export default function DimensionColumn({ className }: Props) {
-  const tg = useTranslations('Global.ranking')
+export default async function DimensionColumn({ className }: Props) {
+  const tg = await getTranslations('Global.ranking')
+  const session = await auth()
   return (
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
-        <Label label="Cheer" className="mb-1.5" />
-        {CHEER_KEYS.map(key => (
-          <SelectButton
-            key={key}
-            pathname={`/ranking/${key}`}
-            qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
-          >
-            {tg(`dimension.${key}`)}
-          </SelectButton>
-        ))}
+        {/* NOTE: リリース時は条件削除 */}
+        {session ? (
+          <>
+            <Label label="Cheer" className="mb-1.5" />
+            {CHEER_KEYS.map(key => (
+              <SelectButton
+                key={key}
+                pathname={`/ranking/${key}`}
+                qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
+              >
+                {tg(`dimension.${key}`)}
+              </SelectButton>
+            ))}
+          </>
+        ) : null}
 
-        <Label label="Channels" className="my-1.5" />
+        {/* NOTE: リリース時はmy-1.5 */}
+        <Label label="Channels" className="mb-1.5" />
         {CHANNELS_KEYS.map(key => (
           <SelectButton
             key={key}
