@@ -1,7 +1,6 @@
 'use client'
 
 import type React from 'react'
-import { PropsWithChildren, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import {
   Dialog,
@@ -13,16 +12,18 @@ import {
 } from '@/components/ui/dialog'
 import AuthForm from 'components/auth/form/AuthForm'
 
-export default function AuthModal({
-  trigger,
-  defaultOpen
-}: PropsWithChildren<{ trigger: React.ReactNode; defaultOpen?: boolean }>) {
+interface Props {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  trigger?: React.ReactNode
+}
+
+export default function AuthModal({ open, onOpenChange, trigger }: Props) {
   const comp = useTranslations('Components.auth')
-  const [open, setOpen] = useState(defaultOpen ?? false)
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>{trigger}</DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {trigger}
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl">

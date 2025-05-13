@@ -12,18 +12,16 @@ import { GroupString } from 'config/constants/Group'
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
   group: GroupString
-  defaultOpen?: boolean
 }
 
 /* Avatar, Name, Group, Description */
 export function ChannelProfileSection({
   basicInfo,
   group,
-  defaultOpen = false,
   children
 }: PropsWithChildren<Props>) {
   const global = useTranslations('Global')
-  const [isExpanded, setIsExpanded] = useState(defaultOpen)
+  const [isExpanded, setIsExpanded] = useState(false)
   const avatarIsHidden = isExpanded ? 'hidden sm:flex' : ''
   const { title: name, thumbnails } = basicInfo
 

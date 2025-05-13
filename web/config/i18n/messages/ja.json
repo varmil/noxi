@@ -516,12 +516,26 @@
         "title": "{channel}を応援する",
         "description": "応援チケットを使って{channel}さんを応援します。一度に複数枚を使うこともできます。",
         "tickets": "チケット",
+        "consumeCount": "{count}枚",
         "messageLabel": "応援メッセージ (任意)",
         "messagePlaceholder": "応援メッセージを入力してください",
         "currentTickets": "現在の保有チケット:",
         "remainingTickets": "使用後の残りチケット:",
         "cancel": "キャンセル",
-        "consume": "応援する"
+        "consume": "応援する",
+        "submitting": "応援中...",
+        "noTickets": {
+          "title": "応援チケットが足りません",
+          "description": "最低1枚必要です。毎日ログインしてチケットを獲得しましょう"
+        },
+        "success": {
+          "title": "応援成功！",
+          "description": "応援ありがとうございます！"
+        },
+        "error": {
+          "title": "応援に失敗しました",
+          "description": "応援処理中にエラーが発生しました。後でもう一度お試しください。"
+        }
       }
     },
 

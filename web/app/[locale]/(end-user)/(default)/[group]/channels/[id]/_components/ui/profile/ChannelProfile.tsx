@@ -3,34 +3,31 @@ import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { GroupString } from 'config/constants/Group'
 import { ChannelCheerButton } from 'features/cheer-channel/button/ChannelCheerButton'
+import { auth } from 'lib/auth'
 import { ChannelProfileSection } from './ChannelProfileSection'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
   group: GroupString
-  defaultOpen?: boolean
   className?: string
 }
 
 export async function ChannelProfile({
   basicInfo,
   group,
-  defaultOpen = false,
   children,
   className
 }: PropsWithChildren<Props>) {
-  const [cheerTicket] = await Promise.all([getCheerTicket()])
-  console.log(cheerTicket)
+  const session = await auth()
+  const [cheerTicket] = await Promise.all([
+    session ? getCheerTicket() : undefined
+  ])
 
   return (
     <div className={className}>
       <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
         {/* Avatar, Name, Group, Description */}
-        <ChannelProfileSection
-          basicInfo={basicInfo}
-          group={group}
-          defaultOpen={defaultOpen}
-        >
+        <ChannelProfileSection basicInfo={basicInfo} group={group}>
           {children}
         </ChannelProfileSection>
 
@@ -51,7 +48,18 @@ export async function ChannelProfile({
             </div>
           </div>
 
-          <ChannelCheerButton />
+          <ChannelCheerButton
+            session={session}
+            cheerTicket={cheerTicket}
+            channelId={basicInfo.id}
+            channelTitle={basicInfo.title}
+            group={group}
+          />
+          {!session && (
+            <p className="text-xs text-muted-foreground">
+              無料の新規登録でチケットを獲得できます
+            </p>
+          )}
         </div>
       </div>
     </div>

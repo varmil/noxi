@@ -83,14 +83,8 @@ const callbacks: NextAuthConfig['callbacks'] = {
   async jwt({ token, user }) {
     const now = Math.floor(Date.now() / 1000)
 
-    // 初回ログイン時（userがいる）
+    // ログイン時
     if (user) {
-      console.log(
-        jwt.sign(
-          { sub: user.id, email: user.email, name: user.name },
-          process.env.AUTH_SECRET
-        )
-      )
       return {
         ...token,
         jwtForNestJS: jwt.sign(

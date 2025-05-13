@@ -1,7 +1,5 @@
-import { LogIn } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
-import AuthModal from 'components/auth/dialog/AuthModal'
+import AuthModalWithButton from 'components/auth/dialog/AuthModalWithButton'
 import UserDropdown from 'components/header/UserDropdown'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
@@ -43,18 +41,7 @@ export default async function Header({ className }: { className?: string }) {
       </div>
 
       <div className="relative ml-auto">
-        {session ? (
-          <UserDropdown session={session} />
-        ) : (
-          <AuthModal
-            trigger={
-              <Button variant="outline">
-                <LogIn className="mr-2 size-4" />
-                <span>Sign in (up next)</span>
-              </Button>
-            }
-          />
-        )}
+        {session ? <UserDropdown session={session} /> : <AuthModalWithButton />}
       </div>
     </header>
   )
