@@ -3,6 +3,7 @@ import { Provider } from '@auth/core/providers'
 import Credentials from '@auth/core/providers/credentials'
 import NeonAdapter from '@auth/neon-adapter'
 import { Pool } from '@neondatabase/serverless'
+import jwt from 'jsonwebtoken'
 import NextAuth, { NextAuthConfig } from 'next-auth'
 import Apple from 'next-auth/providers/apple'
 import Google from 'next-auth/providers/google'
@@ -79,14 +80,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
 const REFRESH_INTERVAL = 300 // TODO: 本番では変える
 
 const callbacks: NextAuthConfig['callbacks'] = {
-  async jwt({ token, user, account }) {
+  async jwt({ token, user }) {
     const now = Math.floor(Date.now() / 1000)
 
     // 初回ログイン時（userがいる）
-    if (user || account) {
+    if (user) {
+      console.log(
+        jwt.sign(
+          { sub: user.id, email: user.email, name: user.name },
+          process.env.AUTH_SECRET
+        )
+      )
       return {
         ...token,
-        sub: user.id, // 入っているけど一応。NestJSでのユーザー識別に使う
+        jwtForNestJS: jwt.sign(
+          { sub: user.id, email: user.email, name: user.name },
+          process.env.AUTH_SECRET
+        ),
         id: user?.id,
         lastUsed: now
       }
@@ -104,6 +114,7 @@ const callbacks: NextAuthConfig['callbacks'] = {
     // id は int だが、Auth.jsの定義が間違っているため
     // 仕方なくアサーションしている
     session.user.id = token.id as string
+    session.user.jwtForNestJS = token.jwtForNestJS
     return session
   }
 }
