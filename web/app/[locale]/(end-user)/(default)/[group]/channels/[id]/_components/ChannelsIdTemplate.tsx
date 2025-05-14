@@ -15,8 +15,9 @@ import ChannelData from './ui/channel-data/ChannelData'
 type Props = PropsWithoutRef<{ id: string; period: Period }>
 
 export async function ChannelsIdTemplate({ id, period }: Props) {
-  const [page, channel] = await Promise.all([
+  const [page, featCheer, channel] = await Promise.all([
     getTranslations('Page.group.channelsId.index.section'),
+    getTranslations('Features.cheerChannel.stats'),
     getChannel(id)
   ])
 
@@ -37,13 +38,17 @@ export async function ChannelsIdTemplate({ id, period }: Props) {
         <ChannelData channel={channel} />
       </Section>
 
-      <Section
-        className="lg:col-span-full lg:order-last"
-        gridClassName="gap-2 lg:gap-4"
-      >
+      <Section className="lg:col-span-1 lg:order-3" title={featCheer('title')}>
         <ChannelCheerStats />
+      </Section>
+
+      <Section
+        className="lg:col-span-3 lg:order-4"
+        gridClassName="gap-2 lg:gap-4"
+        title={featCheer('fansLog')}
+      >
         <ChannelCheerTopFans />
-        <ChannelCheerHistory />
+        <ChannelCheerHistory channel={channel} />
       </Section>
     </Sections>
   )

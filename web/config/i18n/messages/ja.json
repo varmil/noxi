@@ -474,6 +474,12 @@
     },
 
     "cheerChannel": {
+      "alert": {
+        "firstCheer": {
+          "title": "あなたが初めて応援しませんか？",
+          "description": "最近、{channel}さんは応援されていません。あなたが応援してトップファンになるチャンスです！"
+        }
+      },
       "profile": {
         "cheerTicket": "応援チケットを使う",
         "past30Days": "過去30日間の応援",
@@ -483,10 +489,11 @@
       },
       "stats": {
         "title": "応援統計",
+        "fansLog": "ファンの活動ログ",
         "past30Days": "過去30日間の応援",
+        "cheerRank": "過去30日間の順位",
         "seasonTotal": "今シーズン累計",
-        "cheerRanking": "応援ランキング",
-        "userCount": "応援者数"
+        "seasonRank": "今シーズン順位"
       },
       "topFans": {
         "title": "トップファン",
@@ -495,8 +502,7 @@
       },
       "history": {
         "title": "応援履歴",
-        "description": "{channel}への応援履歴を表示しています",
-        "searchPlaceholder": "ユーザー名やメッセージで検索",
+        "description": "{channel}さんへの最近の応援を表示しています",
         "filter": "フィルター",
         "period": "期間",
         "all": "すべて",
@@ -508,9 +514,7 @@
         "month": "1ヶ月",
         "user": "ユーザー",
         "tickets": "チケット",
-        "message": "メッセージ",
-        "date": "日時",
-        "noResults": "検索結果がありません"
+        "date": "日時"
       },
       "dialog": {
         "title": "{channel}を応援する",

@@ -474,6 +474,12 @@
     },
 
     "cheerChannel": {
+      "alert": {
+        "firstCheer": {
+          "title": "You haven't cheered yet!",
+          "description": "{channel} hasn't been getting any fan cheer recently. Here's your chance to support {channel} and become the top fan!"
+        }
+      },
       "profile": {
         "cheerTicket": "Use Cheer Tickets",
         "past30Days": "Past 30 Days",
@@ -483,10 +489,11 @@
       },
       "stats": {
         "title": "Cheer Statistics",
+        "fansLog": "Fans Log",
         "past30Days": "Past 30 Days Cheer",
+        "cheerRank": "Cheer Rank (Past 30 Days)",
         "seasonTotal": "Season Total",
-        "cheerRanking": "Cheer Ranking",
-        "userCount": "Cheerer Count"
+        "seasonRank": "Cheer Rank (Season)"
       },
       "topFans": {
         "title": "Top Fans",
@@ -495,8 +502,7 @@
       },
       "history": {
         "title": "Cheer History",
-        "description": "Showing cheer history for {channel}",
-        "searchPlaceholder": "Search by username or message",
+        "description": "Showing recent cheer history for {channel}",
         "filter": "Filter",
         "period": "Period",
         "all": "All",
@@ -508,9 +514,7 @@
         "month": "1 Month",
         "user": "User",
         "tickets": "Tickets",
-        "message": "Message",
-        "date": "Date",
-        "noResults": "No results found"
+        "date": "Date"
       },
       "dialog": {
         "title": "Cheer {channel}",
