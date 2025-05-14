@@ -14,6 +14,7 @@ import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import { getChannels } from 'apis/youtube/getChannels'
 import DashboardTicketsPreview from 'features/dashboard/ticket/Preview'
 import { auth } from 'lib/auth'
+import { Link } from 'lib/navigation'
 
 export default async function TicketsPage() {
   const session = await auth()
@@ -93,7 +94,10 @@ export default async function TicketsPage() {
                     key={item.usedAt.toISOString()}
                     className="flex items-center justify-between gap-x-4 border-b pb-3"
                   >
-                    <div className="flex-1 flex items-center">
+                    <Link
+                      href={`/${channel.peakX.group}/channels/${channel.basicInfo.id}`}
+                      className="flex-1 flex items-center"
+                    >
                       <Avatar className="h-10 w-10 mr-3">
                         <AvatarImage
                           src={
@@ -115,7 +119,7 @@ export default async function TicketsPage() {
                           {new Date(item.usedAt).toLocaleDateString('ja-JP')}
                         </div>
                       </div>
-                    </div>
+                    </Link>
                     <div className="flex items-center">
                       <Send className="h-4 w-4 text-primary mr-1" />
                       <span className="font-medium">{item.usedCount}枚</span>

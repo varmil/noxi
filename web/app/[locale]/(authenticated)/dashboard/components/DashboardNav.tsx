@@ -1,6 +1,12 @@
 'use client'
 
-import { CreditCard, MessageSquare, Settings, Ticket, User } from 'lucide-react'
+import {
+  CreditCard,
+  MessageSquare,
+  Settings,
+  Tickets,
+  User
+} from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
@@ -14,7 +20,7 @@ const navItems = [
   {
     title: '応援チケット',
     href: '/dashboard/tickets',
-    icon: Ticket
+    icon: Tickets
   },
   {
     title: 'コメント履歴',
