@@ -39,7 +39,7 @@ export async function ChannelsIdTemplate({ id, period }: Props) {
       </Section>
 
       <Section className="lg:col-span-1 lg:order-3" title={featCheer('title')}>
-        <ChannelCheerStats />
+        <ChannelCheerStats channel={channel} />
       </Section>
 
       <Section

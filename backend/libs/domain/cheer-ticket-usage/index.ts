@@ -1,5 +1,7 @@
+export * from './ranking/CheeredRank.entity'
 export * from './ranking/CheeredUsage.entity'
 export * from './ranking/CheeredUsages.collection'
+export * from './ranking/FanRank.entity'
 export * from './ranking/FanUsage.entity'
 export * from './ranking/FanUsages.collection'
 export * from './ranking/Rank.vo'

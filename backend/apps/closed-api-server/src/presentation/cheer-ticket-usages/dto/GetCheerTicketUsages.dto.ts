@@ -1,3 +1,4 @@
+import { OmitType, PickType } from '@nestjs/mapped-types'
 import { Type } from 'class-transformer'
 import {
   IsArray,
@@ -77,14 +78,20 @@ export class GetCheerTicketUsages {
   toOffset = () => this.offset
 }
 
-export class GetCheerTicketUsagesRanksCheered extends GetCheerTicketUsages {
+export class GetCheerTicketUsagesRanksCheered extends OmitType(
+  GetCheerTicketUsages,
+  ['userId', 'orderBy', 'limit', 'offset'] as const
+) {
   @IsString()
   channelId: string
 
   toChannelId = () => new ChannelId(this.channelId)
 }
 
-export class GetCheerTicketUsagesRanksFan extends GetCheerTicketUsages {
+export class GetCheerTicketUsagesRanksFan extends OmitType(
+  GetCheerTicketUsages,
+  ['orderBy', 'limit', 'offset'] as const
+) {
   @Type(() => Number)
   userId: number
 
