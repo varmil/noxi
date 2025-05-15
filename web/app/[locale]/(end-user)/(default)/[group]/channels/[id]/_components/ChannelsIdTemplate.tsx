@@ -47,7 +47,7 @@ export async function ChannelsIdTemplate({ id, period }: Props) {
         gridClassName="gap-2 lg:gap-4"
         title={featCheer('fansLog')}
       >
-        <ChannelCheerTopFans />
+        <ChannelCheerTopFans channel={channel} />
         <ChannelCheerHistory channel={channel} />
       </Section>
     </Sections>

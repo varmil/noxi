@@ -125,7 +125,7 @@ export class CheerTicketUsageRepositoryImpl
         `
         SELECT
           "channelId",
-          SUM("usedCount") AS "totalUsed"
+          SUM("usedCount")::int AS "totalUsed"
         FROM "CheerTicketUsage"
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "channelId"
@@ -188,7 +188,7 @@ export class CheerTicketUsageRepositoryImpl
       `
       SELECT
         "userId",
-        SUM("usedCount") AS "totalUsed"
+        SUM("usedCount")::int AS "totalUsed"
       FROM "CheerTicketUsage"
       WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
       GROUP BY "userId"

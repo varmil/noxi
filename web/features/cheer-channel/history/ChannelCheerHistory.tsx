@@ -63,78 +63,78 @@ export async function ChannelCheerHistory({ channel }: Props) {
         </CardHeader>
 
         <CardContent>
-          <div className="">
-            {usages.length > 0 ? (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t('user')}</TableHead>
-                    <TableHead className="text-right">{t('tickets')}</TableHead>
-                    <TableHead className="text-right">{t('date')}</TableHead>
-                    <TableHead className="hidden md:table-cell"></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {usages.map(item => {
-                    const profile = profiles.find(
-                      profile => profile.userId === item.userId
-                    )
-                    return (
-                      <TableRow key={item.usedAt.toISOString()}>
-                        <TableCell width={500}>
-                          <div className="flex items-center gap-4">
-                            <Avatar className="size-8">
-                              <AvatarImage
-                                src={profile?.image || '/placeholder.svg'}
-                                alt={profile?.name}
-                              />
-                              <AvatarFallback>
-                                {profile?.name.substring(0, 2)}
-                              </AvatarFallback>
-                            </Avatar>
-                            <span className="font-medium">{profile?.name}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell
-                          align="right"
-                          className="min-w-[80px] max-w-[100px]"
+          {usages.length > 0 ? (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>{t('user')}</TableHead>
+                  <TableHead className="text-right">{t('tickets')}</TableHead>
+                  <TableHead className="text-right">{t('date')}</TableHead>
+                  <TableHead className="hidden md:table-cell"></TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {usages.map(item => {
+                  const profile = profiles.find(
+                    profile => profile.userId === item.userId
+                  )
+                  return (
+                    <TableRow key={item.usedAt.toISOString()}>
+                      <TableCell width={500}>
+                        <div className="flex items-center gap-4">
+                          <Avatar className="size-8">
+                            <AvatarImage
+                              src={profile?.image || '/placeholder.svg'}
+                              alt={profile?.name}
+                            />
+                            <AvatarFallback>
+                              {profile?.name.substring(0, 2)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <span className="font-medium line-clamp-1 break-all">
+                            {profile?.name}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className="min-w-[80px] max-w-[100px]"
+                      >
+                        <Badge
+                          variant="outline"
+                          className={`flex w-full items-center justify-between ${
+                            item.usedCount >= 5
+                              ? 'border-pink-200 bg-pink-100/50 dark:border-pink-800 dark:bg-pink-950/50'
+                              : ''
+                          }`}
                         >
-                          <Badge
-                            variant="outline"
-                            className={`flex w-full items-center justify-between ${
-                              item.usedCount >= 5
-                                ? 'border-pink-200 bg-pink-100/50 dark:border-pink-800 dark:bg-pink-950/50'
-                                : ''
-                            }`}
-                          >
-                            <Tickets className="mr-1 size-3 text-pink-700 dark:text-pink-500" />
-                            <span className="flex-1">{item.usedCount}枚</span>
-                          </Badge>
-                        </TableCell>
-                        <TableCell
-                          align="right"
-                          className="min-w-[80px] max-w-[100px] whitespace-nowrap text-muted-foreground"
-                        >
-                          {format.relativeTime(new Date(item.usedAt))}
-                        </TableCell>
-                        <TableCell
-                          align="right"
-                          className="hidden md:table-cell md:w-[150px]"
-                        >
-                          <Button variant="outline" className="cursor-pointer">
-                            {'See More'}
-                            <ArrowUpRight className="ml-1 size-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            ) : (
-              <FirstCheerAlert channelTitle={channel.basicInfo.title} />
-            )}
-          </div>
+                          <Tickets className="mr-1 size-3 text-pink-700 dark:text-pink-500" />
+                          <span className="flex-1">{item.usedCount}枚</span>
+                        </Badge>
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className="text-xs min-w-[60px] max-w-[100px] whitespace-nowrap text-muted-foreground"
+                      >
+                        {format.relativeTime(new Date(item.usedAt))}
+                      </TableCell>
+                      <TableCell
+                        align="right"
+                        className="hidden md:table-cell md:w-[150px]"
+                      >
+                        <Button variant="outline" className="cursor-pointer">
+                          {'See More'}
+                          <ArrowUpRight className="ml-1 size-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          ) : (
+            <FirstCheerAlert channelTitle={channel.basicInfo.title} />
+          )}
         </CardContent>
       </Card>
     </div>

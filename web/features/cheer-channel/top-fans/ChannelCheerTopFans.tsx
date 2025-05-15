@@ -1,7 +1,5 @@
-'use client'
-
-import { Crown, Ticket, Tickets } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { Crown, Tickets } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -11,48 +9,31 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { getFanRanking } from 'apis/cheer-ticket-usages/getFanRanking'
+import { getUserProfiles } from 'apis/user-profiles/getUserProfiles'
+import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import FirstCheerAlert from 'features/cheer-channel/alert/FirstCheerAlert'
+import dayjs from 'lib/dayjs'
 
-export function ChannelCheerTopFans() {
-  const feat = useTranslations('Features.cheerChannel.topFans')
-
-  // トップファンのデータ
-  const topFans = [
-    {
-      id: 1,
-      name: 'ゆきみ',
-      avatar: '/placeholder.svg?height=80&width=80',
-      tickets: 120,
-      rank: 1
-    },
-    {
-      id: 2,
-      name: 'そらまめ',
-      avatar: '/placeholder.svg?height=80&width=80',
-      tickets: 95,
-      rank: 2
-    },
-    {
-      id: 3,
-      name: 'ねこまる',
-      avatar: '/placeholder.svg?height=80&width=80',
-      tickets: 87,
-      rank: 3
-    },
-    {
-      id: 4,
-      name: 'あめつち',
-      avatar: '/placeholder.svg?height=80&width=80',
-      tickets: 76,
-      rank: 4
-    },
-    {
-      id: 5,
-      name: 'ほしぞら',
-      avatar: '/placeholder.svg?height=80&width=80',
-      tickets: 65,
-      rank: 5
-    }
-  ]
+export async function ChannelCheerTopFans({
+  channel
+}: {
+  channel: ChannelSchema
+}) {
+  const [feat, topFans] = await Promise.all([
+    getTranslations('Features.cheerChannel.topFans'),
+    getFanRanking({
+      channelId: channel.basicInfo.id,
+      usedAt: { gte: dayjs().subtract(30, 'day').toDate() },
+      limit: 5
+    })
+  ])
+  const [profiles] = await Promise.all([
+    getUserProfiles({
+      userIds: topFans.map(usage => usage.userId),
+      limit: topFans.length
+    })
+  ])
 
   return (
     <Card>
@@ -66,59 +47,71 @@ export function ChannelCheerTopFans() {
         <CardDescription>{feat('description')}</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-          {topFans.map(fan => (
-            <div
-              key={fan.id}
-              className={`relative flex flex-col items-center rounded-lg p-4 text-center transition-all hover:bg-muted/50 ${
-                fan.rank === 1
-                  ? 'bg-gradient-to-b from-amber-50 to-transparent dark:from-amber-950/30'
-                  : ''
-              }`}
-            >
-              <div className="relative mb-3">
-                <Avatar className="h-16 w-16 border-2 border-background">
-                  <AvatarImage
-                    src={fan.avatar || '/placeholder.svg'}
-                    alt={fan.name}
-                  />
-                  <AvatarFallback>{fan.name.substring(0, 2)}</AvatarFallback>
-                </Avatar>
-
-                {fan.rank === 1 && (
-                  <div className="absolute -left-1 -top-1 rounded-full bg-amber-500 p-1 text-white">
-                    <Crown className="h-3 w-3" />
-                  </div>
-                )}
-
-                {fan.rank === 2 && (
-                  <div className="absolute -left-1 -top-1 rounded-full bg-slate-400 p-1 text-white">
-                    <Crown className="h-3 w-3" />
-                  </div>
-                )}
-
-                {fan.rank === 3 && (
-                  <div className="absolute -left-1 -top-1 rounded-full bg-amber-700 p-1 text-white">
-                    <Crown className="h-3 w-3" />
-                  </div>
-                )}
-              </div>
-
-              <div className="font-medium">{fan.name}</div>
-
-              <Badge
-                variant="outline"
-                className={`mt-1 ${
-                  fan.rank === 1
-                    ? 'border-amber-200 bg-amber-100/50 dark:border-amber-800 dark:bg-amber-950/50'
+        {topFans.length === 0 && (
+          <FirstCheerAlert channelTitle={channel.basicInfo.title} />
+        )}
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+          {topFans.map((fan, index) => {
+            const profile = profiles.find(
+              profile => profile.userId === fan.userId
+            )
+            return (
+              <div
+                key={fan.userId}
+                className={`relative flex flex-col items-center rounded-xl p-4 text-center transition-all hover:bg-muted/50 ${
+                  index === 0
+                    ? 'col-span-full md:col-span-1 bg-gradient-to-b from-amber-50 to-transparent dark:from-yellow-700/30'
                     : ''
                 }`}
               >
-                <Tickets className="mr-1 size-3 text-pink-700 dark:text-pink-500" />
-                {feat('tickets', { count: fan.tickets })}
-              </Badge>
-            </div>
-          ))}
+                <div className="relative mb-2">
+                  <Avatar className="h-16 w-16 border-2 border-background">
+                    <AvatarImage
+                      src={profile?.image || '/placeholder.svg'}
+                      alt={profile?.name}
+                    />
+                    <AvatarFallback>
+                      {profile?.name.substring(0, 2)}
+                    </AvatarFallback>
+                  </Avatar>
+
+                  {index === 0 && (
+                    <div className="absolute -left-1 -top-1 rounded-full bg-amber-500 p-1 text-white">
+                      <Crown className="size-3" />
+                    </div>
+                  )}
+
+                  {index === 1 && (
+                    <div className="absolute -left-1 -top-1 rounded-full bg-slate-400 p-1 text-white">
+                      <Crown className="size-3" />
+                    </div>
+                  )}
+
+                  {index === 2 && (
+                    <div className="absolute -left-1 -top-1 rounded-full bg-amber-700 p-1 text-white">
+                      <Crown className="size-3" />
+                    </div>
+                  )}
+                </div>
+
+                <div className="text-sm font-medium line-clamp-1 break-all">
+                  {profile?.name}
+                </div>
+
+                <Badge
+                  variant="outline"
+                  className={`mt-1 ${
+                    index === 0
+                      ? 'border-amber-200 bg-amber-100/50 dark:border-amber-800 dark:bg-amber-950/50'
+                      : ''
+                  }`}
+                >
+                  <Tickets className="mr-1 size-3 text-pink-700 dark:text-pink-500" />
+                  {feat('tickets', { count: fan.usedCount })}
+                </Badge>
+              </div>
+            )
+          })}
         </div>
       </CardContent>
     </Card>
