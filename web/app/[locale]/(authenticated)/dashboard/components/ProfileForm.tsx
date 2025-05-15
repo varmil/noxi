@@ -2,7 +2,10 @@
 
 import type React from 'react'
 import { useState } from 'react'
-import { Loader2 } from 'lucide-react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { ArrowRight, Loader2 } from 'lucide-react'
+import { Session } from 'next-auth'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -10,91 +13,154 @@ import { CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
+import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
+import {
+  MAX_BIO_LENGTH,
+  MAX_USERNAME_LENGTH,
+  ProfileFormSchema,
+  useProfileFormSchema
+} from 'features/dashboard/profile/hooks/useProfileSchema'
+import { useUploadThing } from 'utils/uploadthing'
 
-export default function ProfileForm() {
+type NewAvatarState = {
+  compressedFile: File | null
+  previewUrl: string | null
+}
+
+export default function NewAvatarProfileForm({
+  session,
+  userProfile
+}: {
+  session: Session
+  userProfile?: UserProfileSchema
+}) {
+  const { startUpload } = useUploadThing('imageUploader')
+  const profileFormSchema = useProfileFormSchema()
   const [isLoading, setIsLoading] = useState(false)
-  const [profile, setProfile] = useState({
-    username: 'ユーザー123',
-    bio: 'PeakXでVTuberを応援しています！',
-    avatarUrl: '/placeholder.svg?height=100&width=100'
+  const [newAvatar, setNewAvatar] = useState<NewAvatarState>({
+    compressedFile: null,
+    previewUrl: null
   })
+  const currentAvatar =
+    session.user?.image || '/placeholder.svg?height=100&width=100'
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<ProfileFormSchema>({
+    resolver: zodResolver(profileFormSchema),
+    defaultValues: {
+      username: session.user?.name || 'User (Preview)',
+      bio: userProfile?.description || ''
+    }
+  })
+  const username = watch('username')
+
+  const onSubmit = async (data: ProfileFormSchema) => {
     setIsLoading(true)
+    const { compressedFile } = newAvatar
+
+    // 画像をアップロード（指定されていれば）
+    {
+      if (compressedFile) {
+        const result = await startUpload([compressedFile])
+        console.log({
+          user: result?.[0].serverData.uploadedBy,
+          url: result?.[0].ufsUrl
+        })
+        console.log('アップロード完了！')
+      }
+    }
 
     // プロフィール更新のシミュレーション
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    {
+      console.log({
+        username: data.username,
+        bio: data.bio
+      })
+      await new Promise(resolve => setTimeout(resolve, 1000))
+    }
 
     setIsLoading(false)
-    toast('プロフィールを更新しました', {
+    toast.success('プロフィールを更新しました', {
       description: '変更内容が保存されました。'
     })
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      // 実際の実装ではファイルアップロード処理を行う
-      const reader = new FileReader()
-      reader.onload = event => {
-        if (event.target?.result) {
-          setProfile({
-            ...profile,
-            avatarUrl: event.target.result as string
-          })
-        }
-      }
-      reader.readAsDataURL(file)
-    }
+  const handleCropConfirm = ({
+    compressedFile,
+    previewUrl
+  }: {
+    compressedFile: File
+    previewUrl: string
+  }) => {
+    setNewAvatar({ compressedFile, previewUrl })
   }
 
   return (
-    <form className="contents" onSubmit={handleSubmit}>
+    <form className="contents" onSubmit={handleSubmit(onSubmit)}>
       <CardContent className="space-y-6">
         <div className="flex flex-col items-center space-y-4">
-          <Avatar className="h-24 w-24">
-            <AvatarImage
-              src={profile.avatarUrl || '/placeholder.svg'}
-              alt={profile.username}
-            />
-            <AvatarFallback>{profile.username.slice(0, 2)}</AvatarFallback>
-          </Avatar>
           <div className="flex items-center gap-2">
-            <Label
-              htmlFor="avatar"
-              className="cursor-pointer bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80"
-            >
-              画像を変更
-            </Label>
-            <Input
-              id="avatar"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleFileChange}
-            />
+            <Avatar className="size-24">
+              <AvatarImage src={currentAvatar} alt={username} />
+              <AvatarFallback>{username.slice(0, 2)}</AvatarFallback>
+            </Avatar>
+            {newAvatar.previewUrl && (
+              <>
+                <ArrowRight className="size-5" />
+                <Avatar className="size-24">
+                  <AvatarImage src={newAvatar.previewUrl} alt={username} />
+                  <AvatarFallback>{username.slice(0, 2)}</AvatarFallback>
+                </Avatar>
+              </>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            <ProfileImageUploader onCropConfirm={handleCropConfirm} />
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="username">表示名</Label>
+          <Label htmlFor="username">
+            <div className="w-full flex items-center justify-between">
+              <span>表示名</span>
+              <span className="text-sm text-muted-foreground">
+                {username.length} / {MAX_USERNAME_LENGTH}
+              </span>
+            </div>
+          </Label>
           <Input
             id="username"
-            value={profile.username}
-            onChange={e => setProfile({ ...profile, username: e.target.value })}
+            {...register('username')}
+            maxLength={MAX_USERNAME_LENGTH}
           />
+          {errors.username && (
+            <p className="text-sm text-destructive">
+              {errors.username.message}
+            </p>
+          )}
         </div>
         <div className="space-y-2">
-          <Label htmlFor="bio">自己紹介</Label>
+          <Label htmlFor="bio">
+            <div className="w-full flex items-center justify-between">
+              <span>自己紹介</span>
+              <span className="text-sm text-muted-foreground">
+                {watch('bio').length} / {MAX_BIO_LENGTH}
+              </span>
+            </div>
+          </Label>
           <Textarea
             id="bio"
-            value={profile.bio}
-            onChange={e => setProfile({ ...profile, bio: e.target.value })}
+            {...register('bio')}
             rows={4}
+            maxLength={MAX_BIO_LENGTH}
           />
-          <p className="text-xs text-muted-foreground">
-            最大200文字まで入力できます。現在: {profile.bio.length}文字
-          </p>
+          {errors.bio && (
+            <p className="text-sm text-destructive">{errors.bio.message}</p>
+          )}
         </div>
       </CardContent>
       <CardFooter>

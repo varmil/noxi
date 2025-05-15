@@ -344,6 +344,7 @@
       "signOut": "Sign Out",
       "getStarted": "Get started with PeakX",
       "selectMethod": "Select a method to sign in / sign up",
+      "noExtraInput": "No extra input is required.",
       "or": "or",
       "email": "Email",
       "magicLink": "Continue with Email",

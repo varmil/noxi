@@ -19,10 +19,12 @@ export function AuthCard() {
         </CardTitle>
         <CardDescription className="text-center">
           {comp('selectMethod')}
+          <br />
+          {comp('noExtraInput')}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <AuthForm redirectTo="/" />
+        <AuthForm redirectTo="/dashboard" />
       </CardContent>
     </Card>
   )

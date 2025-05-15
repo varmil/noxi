@@ -62,7 +62,7 @@ export default async function TicketsPage() {
                 </p>
               </div>
             </div>
-            <Badge variant="outline" className="text-xs">
+            <Badge variant="outline" className="">
               ログインで獲得
             </Badge>
           </div>

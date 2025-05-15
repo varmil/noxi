@@ -31,6 +31,8 @@ export default function AuthModal({ open, onOpenChange, trigger }: Props) {
           </DialogTitle>
           <DialogDescription className="text-center">
             {comp('selectMethod')}
+            <br />
+            {comp('noExtraInput')}
           </DialogDescription>
         </DialogHeader>
         <AuthForm />
