@@ -38,7 +38,8 @@ const createSearchParams = ({
 export async function getFanRanking(params: Params): Promise<FanUsagesSchema> {
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
-    `/api/cheer-ticket-usages/rankings/fan?${searchParams.toString()}`
+    `/api/cheer-ticket-usages/rankings/fan?${searchParams.toString()}`,
+    { cache: 'no-store' }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

@@ -17,7 +17,7 @@ export default async function TopFansTableHeader({}: Props) {
         <TableHead className="text-center" />
 
         {/* Channel Title */}
-        <TableHead className="">{feat('channel')} </TableHead>
+        <TableHead className="">{feat('fan')} </TableHead>
 
         {/* dimension */}
         <TableHead className="text-nowrap text-right">

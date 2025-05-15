@@ -55,7 +55,8 @@ export async function getCheerTicketUsages(
 ): Promise<CheerTicketUsagesSchema> {
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
-    `/api/cheer-ticket-usages?${searchParams.toString()}`
+    `/api/cheer-ticket-usages?${searchParams.toString()}`,
+    { cache: 'no-store' }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

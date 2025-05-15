@@ -98,7 +98,7 @@ export default async function TopFansTable({
               </LinkCell>
 
               {/* Used Count */}
-              <LinkCell className="min-w-[98px] max-w-[180px]">
+              <LinkCell align="right" className="min-w-[98px] max-w-[180px]">
                 <Dimension
                   dividend={usedCount}
                   divisor={topUsedCount}

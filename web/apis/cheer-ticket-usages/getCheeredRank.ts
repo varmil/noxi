@@ -33,7 +33,8 @@ export async function getCheeredRank({
   }
 
   const res = await fetchAPI(
-    `/api/cheer-ticket-usages/ranks/cheered?${searchParams.toString()}`
+    `/api/cheer-ticket-usages/ranks/cheered?${searchParams.toString()}`,
+    { cache: 'no-store' }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${res.statusText}`)

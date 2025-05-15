@@ -633,7 +633,7 @@
         "top-fans": "{group} {gender} Top Fans - {period}"
       },
       "viewAll": "View All",
-      "channel": "Channel",
+      "fan": "User",
       "group": "Group",
       "usedCount": "Ticket count"
     },

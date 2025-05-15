@@ -271,7 +271,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "most-cheered": "今シーズンの{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
+              "most-cheered": "今シーズン、{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }
@@ -633,7 +633,7 @@
         "top-fans": "{group} {gender} ファンランキング - {period}"
       },
       "viewAll": "すべて見る",
-      "channel": "チャンネル",
+      "fan": "ユーザー",
       "group": "グループ",
       "usedCount": "応援した数"
     },

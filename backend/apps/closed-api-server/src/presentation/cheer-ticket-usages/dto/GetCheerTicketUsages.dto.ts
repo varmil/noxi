@@ -1,4 +1,4 @@
-import { OmitType, PickType } from '@nestjs/mapped-types'
+import { OmitType } from '@nestjs/mapped-types'
 import { Type } from 'class-transformer'
 import {
   IsArray,
