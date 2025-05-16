@@ -14,6 +14,7 @@ import { CardContent, CardFooter } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { saveUserProfile } from 'apis/user-profiles/saveUserProfile'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
 import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
 import {
@@ -22,6 +23,7 @@ import {
   ProfileFormSchema,
   useProfileFormSchema
 } from 'features/dashboard/profile/hooks/useProfileSchema'
+import { useRouter } from 'lib/navigation'
 import { useUploadThing } from 'utils/uploadthing'
 
 type NewAvatarState = {
@@ -29,13 +31,14 @@ type NewAvatarState = {
   previewUrl: string | null
 }
 
-export default function NewAvatarProfileForm({
+export default function ProfileForm({
   session,
   userProfile
 }: {
   session: Session
   userProfile?: UserProfileSchema
 }) {
+  const router = useRouter()
   const { startUpload } = useUploadThing('imageUploader')
   const feat = useTranslations('Features.dashboard.profile.form')
   const profileFormSchema = useProfileFormSchema()
@@ -67,6 +70,7 @@ export default function NewAvatarProfileForm({
 
     try {
       // 画像をアップロード（指定されていれば）
+      let image: string | undefined = undefined
       {
         if (compressedFile) {
           const result = await startUpload([compressedFile])
@@ -74,24 +78,27 @@ export default function NewAvatarProfileForm({
             user: result?.[0].serverData.uploadedBy,
             url: result?.[0].ufsUrl
           })
-          console.log('アップロード完了！')
+          image = result?.[0].ufsUrl
         }
       }
 
-      // プロフィール更新のシミュレーション
+      // プロフィール更新
       {
-        console.log({
-          username: data.username,
-          bio: data.bio
+        await saveUserProfile({
+          name: data.username,
+          image,
+          description: data.bio
         })
-        await new Promise(resolve => setTimeout(resolve, 1000))
       }
 
-      setIsLoading(false)
       toast.success(feat('success.title'), {
         description: feat('success.description')
       })
+      router.refresh()
+      setIsLoading(false)
+      setNewAvatar({ compressedFile: null, previewUrl: null })
     } catch (error) {
+      console.error(error)
       setIsLoading(false)
       toast.error(feat('error.title'), {
         description: feat('error.description')
@@ -129,7 +136,10 @@ export default function NewAvatarProfileForm({
             )}
           </div>
           <div className="flex items-center gap-2">
-            <ProfileImageUploader onCropConfirm={handleCropConfirm} />
+            <ProfileImageUploader
+              uploadedBy={Number(session.user.id)}
+              onCropConfirm={handleCropConfirm}
+            />
           </div>
         </div>
         <div className="space-y-2">

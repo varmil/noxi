@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label'
 import { getCroppedImg } from '../utils/cropImage'
 
 type Props = {
+  uploadedBy: number
   onCropConfirm: ({
     compressedFile,
     previewUrl
@@ -26,7 +27,12 @@ type Props = {
   }) => void
 }
 
-export function ProfileImageUploader({ onCropConfirm }: Props) {
+const getFilename = (uploadedBy: number) => {
+  const env = process.env.ENV_NAME ?? 'local'
+  return `${env}-user-${uploadedBy}-profile.png`
+}
+
+export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
   const feat = useTranslations('Features.dashboard.profile.imageUploader')
   const [dialogOpen, setDialogOpen] = useState(false)
   const [imageSrc, setImageSrc] = useState<string | null>(null)
@@ -58,7 +64,7 @@ export function ProfileImageUploader({ onCropConfirm }: Props) {
 
     // crop + resize
     const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels)
-    const croppedFile = new File([croppedBlob], 'cropped.png', {
+    const croppedFile = new File([croppedBlob], getFilename(uploadedBy), {
       type: 'image/png'
     })
 
@@ -94,7 +100,7 @@ export function ProfileImageUploader({ onCropConfirm }: Props) {
       <p className="text-xs text-center text-muted-foreground mt-1">Max 1MB</p>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="max-w-md w-full">
+        <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>{feat('title')}</DialogTitle>
             <DialogDescription className="hidden">
