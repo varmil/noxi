@@ -6,7 +6,7 @@ import { getUserProfiles } from 'apis/user-profiles/getUserProfiles'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
 import LinkToUserCell from 'components/ranking/table/cell/LinkToUserCell'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import UserName from 'components/ranking/table/styles/UserName'
+import DisplayName from 'components/ranking/table/styles/DisplayName'
 import UserThumbnail from 'components/ranking/table/styles/UserThumbnail'
 import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination as Pagination } from 'config/constants/Pagination'
@@ -92,9 +92,9 @@ export default async function TopFansTable({
                 <UserThumbnail profile={profile} />
               </LinkCell>
 
-              {/* User Name */}
+              {/* Display Name */}
               <LinkCell>
-                <UserName name={profile.name} />
+                <DisplayName name={profile.name} />
               </LinkCell>
 
               {/* Used Count */}

@@ -19,7 +19,7 @@ import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
 import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
 import {
   MAX_BIO_LENGTH,
-  MAX_USERNAME_LENGTH,
+  MAX_NAME_LENGTH,
   ProfileFormSchema,
   useProfileFormSchema
 } from 'features/dashboard/profile/hooks/useProfileSchema'
@@ -58,11 +58,11 @@ export default function ProfileForm({
   } = useForm<ProfileFormSchema>({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
-      username: session.user?.name || 'User (Preview)',
+      name: session.user?.name || 'User (Preview)',
       bio: userProfile?.description || ''
     }
   })
-  const username = watch('username')
+  const name = watch('name')
 
   const onSubmit = async (data: ProfileFormSchema) => {
     setIsLoading(true)
@@ -85,7 +85,7 @@ export default function ProfileForm({
       // プロフィール更新
       {
         await saveUserProfile({
-          name: data.username,
+          name: data.name,
           image,
           description: data.bio
         })
@@ -122,15 +122,15 @@ export default function ProfileForm({
         <div className="flex flex-col items-center space-y-4">
           <div className="flex items-center gap-2">
             <Avatar className="size-24">
-              <AvatarImage src={currentAvatar} alt={username} />
-              <AvatarFallback>{username.slice(0, 2)}</AvatarFallback>
+              <AvatarImage src={currentAvatar} alt={name} />
+              <AvatarFallback>{name.slice(0, 2)}</AvatarFallback>
             </Avatar>
             {newAvatar.previewUrl && (
               <>
                 <ArrowRight className="size-5" />
                 <Avatar className="size-24">
-                  <AvatarImage src={newAvatar.previewUrl} alt={username} />
-                  <AvatarFallback>{username.slice(0, 2)}</AvatarFallback>
+                  <AvatarImage src={newAvatar.previewUrl} alt={name} />
+                  <AvatarFallback>{name.slice(0, 2)}</AvatarFallback>
                 </Avatar>
               </>
             )}
@@ -143,23 +143,17 @@ export default function ProfileForm({
           </div>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="username">
+          <Label htmlFor="name">
             <div className="w-full flex items-center justify-between">
-              <span>{feat('username')}</span>
+              <span>{feat('name')}</span>
               <span className="text-sm text-muted-foreground">
-                {username.length} / {MAX_USERNAME_LENGTH}
+                {name.length} / {MAX_NAME_LENGTH}
               </span>
             </div>
           </Label>
-          <Input
-            id="username"
-            {...register('username')}
-            maxLength={MAX_USERNAME_LENGTH}
-          />
-          {errors.username && (
-            <p className="text-sm text-destructive">
-              {errors.username.message}
-            </p>
+          <Input id="name" {...register('name')} maxLength={MAX_NAME_LENGTH} />
+          {errors.name && (
+            <p className="text-sm text-destructive">{errors.name.message}</p>
           )}
         </div>
         <div className="space-y-2">

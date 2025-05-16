@@ -25,17 +25,20 @@ const navItems = [
   {
     title: 'コメント履歴',
     href: '/dashboard/comments',
-    icon: MessageSquare
+    icon: MessageSquare,
+    disabled: true
   },
   {
     title: 'サブスクリプション',
     href: '/dashboard/subscription',
-    icon: CreditCard
+    icon: CreditCard,
+    disabled: true
   },
   {
-    title: '設定',
+    title: '通知設定',
     href: '/dashboard/settings',
-    icon: Settings
+    icon: Settings,
+    disabled: true
   }
 ]
 
@@ -54,12 +57,20 @@ export default function DashboardNav() {
               ? 'bg-primary text-primary-foreground'
               : 'hover:bg-muted'
           )}
-          asChild
+          disabled={item.disabled}
+          asChild={!item.disabled}
         >
-          <Link href={item.href} prefetch={false}>
-            <item.icon className="mr-2 h-4 w-4" />
-            {item.title}
-          </Link>
+          {item.disabled ? (
+            <>
+              <item.icon className="mr-2 h-4 w-4" />
+              {item.title}
+            </>
+          ) : (
+            <Link href={item.href} prefetch={false}>
+              <item.icon className="mr-2 h-4 w-4" />
+              {item.title}
+            </Link>
+          )}
         </Button>
       ))}
     </nav>

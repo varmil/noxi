@@ -1,20 +1,20 @@
 import { useTranslations } from 'next-intl'
 import { z } from 'zod'
 
-export const MAX_USERNAME_LENGTH = 25
+export const MAX_NAME_LENGTH = 25
 export const MAX_BIO_LENGTH = 160
 
 export const useProfileFormSchema = () => {
   const feat = useTranslations('Features.dashboard.profile.form')
   const ProfileFormSchema = z.object({
-    username: z
+    name: z
       .string()
-      .min(1, feat('required', { type: feat('username') }))
+      .min(1, feat('required', { type: feat('name') }))
       .max(
-        MAX_USERNAME_LENGTH,
+        MAX_NAME_LENGTH,
         feat('maxLength', {
-          type: feat('username'),
-          length: MAX_USERNAME_LENGTH
+          type: feat('name'),
+          length: MAX_NAME_LENGTH
         })
       ),
     bio: z

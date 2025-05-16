@@ -554,7 +554,7 @@
     "dashboard": {
       "profile": {
         "form": {
-          "username": "Display name",
+          "name": "Display name",
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",
