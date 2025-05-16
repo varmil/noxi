@@ -65,7 +65,7 @@
     "@eslint/compat": "^1.2.9",
     "@eslint/eslintrc": "^3.3.0",
     "@eslint/js": "^9.26.0",
-    "@tailwindcss/postcss": "^4.1.6",
+    "@tailwindcss/postcss": "^4.1.7",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^22.14.1",
     "@types/react": "19.1.2",
