@@ -148,6 +148,13 @@
       "description": "Contact us about feature requests, advertising inquiries, bug reports, or any questions regarding PeakX."
     },
 
+    "dashboard": {
+      "profile": {
+        "title": "Profile",
+        "description": "Manage your profile information. This is what other fans can see."
+      }
+    },
+
     "groups": {
       "metadata": {
         "title": "Groups",
@@ -540,6 +547,34 @@
         "error": {
           "title": "Cheer Failed",
           "description": "There was an error processing your cheer. Please try again later."
+        }
+      }
+    },
+
+    "dashboard": {
+      "profile": {
+        "form": {
+          "username": "Display name",
+          "bio": "Bio introduction",
+          "save": "Save changes",
+          "loading": "Saving...",
+          "required": "{type} is required",
+          "maxLength": "{type} can be up to {length} characters",
+          "success": {
+            "title": "Updated",
+            "description": "Changes have been saved."
+          },
+          "error": {
+            "title": "Update failed",
+            "description": "Changes have not been saved."
+          }
+        },
+        "imageUploader": {
+          "input": "Browse for image",
+          "title": "Crop image",
+          "description": "Crop your profile picture to a square",
+          "cancel": "Cancel",
+          "apply": "Apply"
         }
       }
     },

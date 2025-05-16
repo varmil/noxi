@@ -148,6 +148,13 @@
       "description": "PeakXに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
     },
 
+    "dashboard": {
+      "profile": {
+        "title": "プロフィール",
+        "description": "あなたのプロフィール情報を管理します。他のファンに表示される情報です。"
+      }
+    },
+
     "groups": {
       "metadata": {
         "title": "グループ一覧",
@@ -540,6 +547,34 @@
         "error": {
           "title": "応援に失敗しました",
           "description": "応援処理中にエラーが発生しました。後でもう一度お試しください。"
+        }
+      }
+    },
+
+    "dashboard": {
+      "profile": {
+        "form": {
+          "username": "表示名",
+          "bio": "自己紹介",
+          "save": "変更を保存",
+          "loading": "保存中...",
+          "required": "{type}は必須です",
+          "maxLength": "{type}は{length}文字まで入力できます",
+          "success": {
+            "title": "更新しました",
+            "description": "変更内容が保存されました。"
+          },
+          "error": {
+            "title": "更新できませんでした",
+            "description": "変更内容が保存できませんでした。"
+          }
+        },
+        "imageUploader": {
+          "input": "画像を参照",
+          "title": "画像をトリミング",
+          "description": "プロフィール画像を正方形にトリミングします",
+          "cancel": "キャンセル",
+          "apply": "適用"
         }
       }
     },

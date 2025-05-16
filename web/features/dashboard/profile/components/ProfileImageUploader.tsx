@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react'
 import imageCompression from 'browser-image-compression'
+import { useTranslations } from 'next-intl'
 import Cropper, { Area } from 'react-easy-crop'
 import { Button } from '@/components/ui/button'
 import {
@@ -26,6 +27,7 @@ type Props = {
 }
 
 export function ProfileImageUploader({ onCropConfirm }: Props) {
+  const feat = useTranslations('Features.dashboard.profile.imageUploader')
   const [dialogOpen, setDialogOpen] = useState(false)
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
@@ -40,7 +42,7 @@ export function ProfileImageUploader({ onCropConfirm }: Props) {
     const file = e.target.files?.[0]
     if (!file) return
 
-    // ✅ 同じファイルでも再選択できるように value をリセット
+    // 同じファイルでも再選択できるように value をリセット
     e.target.value = ''
 
     const reader = new FileReader()
@@ -80,7 +82,7 @@ export function ProfileImageUploader({ onCropConfirm }: Props) {
         htmlFor="avatar"
         className="cursor-pointer bg-secondary text-secondary-foreground px-4 py-2 rounded-md hover:bg-secondary/80"
       >
-        画像を参照
+        {feat('input')}
       </Label>
       <Input
         id="avatar"
@@ -89,13 +91,14 @@ export function ProfileImageUploader({ onCropConfirm }: Props) {
         accept="image/*"
         onChange={handleFileChange}
       />
+      <p className="text-xs text-center text-muted-foreground mt-1">Max 1MB</p>
 
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-md w-full">
           <DialogHeader>
-            <DialogTitle>画像をトリミング</DialogTitle>
+            <DialogTitle>{feat('title')}</DialogTitle>
             <DialogDescription className="hidden">
-              プロフィール画像を正方形にトリミングします
+              {feat('description')}
             </DialogDescription>
           </DialogHeader>
 
@@ -115,9 +118,9 @@ export function ProfileImageUploader({ onCropConfirm }: Props) {
 
           <div className="flex justify-end space-x-2 pt-4">
             <Button variant="outline" onClick={() => setDialogOpen(false)}>
-              キャンセル
+              {feat('cancel')}
             </Button>
-            <Button onClick={handleCropConfirm}>適用</Button>
+            <Button onClick={handleCropConfirm}>{feat('apply')}</Button>
           </div>
         </DialogContent>
       </Dialog>

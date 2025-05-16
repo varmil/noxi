@@ -1,5 +1,6 @@
 import type React from 'react'
 import { Locale } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import {
   Card,
   CardDescription,
@@ -7,9 +8,9 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { getUserProfile } from 'apis/user-profiles/getUserProfile'
+import ProfileForm from 'features/dashboard/profile/components/ProfileForm'
 import { auth } from 'lib/auth'
 import { redirect } from 'lib/navigation'
-import ProfileForm from './components/ProfileForm'
 
 type Props = {
   params: Promise<{ locale: Locale }>
@@ -19,6 +20,8 @@ type Props = {
 export default async function ProfilePage(props: Props) {
   const session = await auth()
   const locale = (await props.params).locale
+  const page = await getTranslations('Page.dashboard.profile')
+
   if (!session) {
     redirect({ href: '/auth/signin', locale })
     return
@@ -29,10 +32,8 @@ export default async function ProfilePage(props: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>プロフィール</CardTitle>
-        <CardDescription>
-          あなたのプロフィール情報を管理します。他のファンに表示される情報です。
-        </CardDescription>
+        <CardTitle>{page('title')}</CardTitle>
+        <CardDescription>{page('description')}</CardDescription>
       </CardHeader>
       <ProfileForm session={session} userProfile={profile} />
     </Card>

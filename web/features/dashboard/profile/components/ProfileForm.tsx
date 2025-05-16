@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Loader2 } from 'lucide-react'
 import { Session } from 'next-auth'
+import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -36,6 +37,7 @@ export default function NewAvatarProfileForm({
   userProfile?: UserProfileSchema
 }) {
   const { startUpload } = useUploadThing('imageUploader')
+  const feat = useTranslations('Features.dashboard.profile.form')
   const profileFormSchema = useProfileFormSchema()
   const [isLoading, setIsLoading] = useState(false)
   const [newAvatar, setNewAvatar] = useState<NewAvatarState>({
@@ -63,31 +65,38 @@ export default function NewAvatarProfileForm({
     setIsLoading(true)
     const { compressedFile } = newAvatar
 
-    // 画像をアップロード（指定されていれば）
-    {
-      if (compressedFile) {
-        const result = await startUpload([compressedFile])
-        console.log({
-          user: result?.[0].serverData.uploadedBy,
-          url: result?.[0].ufsUrl
-        })
-        console.log('アップロード完了！')
+    try {
+      // 画像をアップロード（指定されていれば）
+      {
+        if (compressedFile) {
+          const result = await startUpload([compressedFile])
+          console.log({
+            user: result?.[0].serverData.uploadedBy,
+            url: result?.[0].ufsUrl
+          })
+          console.log('アップロード完了！')
+        }
       }
-    }
 
-    // プロフィール更新のシミュレーション
-    {
-      console.log({
-        username: data.username,
-        bio: data.bio
+      // プロフィール更新のシミュレーション
+      {
+        console.log({
+          username: data.username,
+          bio: data.bio
+        })
+        await new Promise(resolve => setTimeout(resolve, 1000))
+      }
+
+      setIsLoading(false)
+      toast.success(feat('success.title'), {
+        description: feat('success.description')
       })
-      await new Promise(resolve => setTimeout(resolve, 1000))
+    } catch (error) {
+      setIsLoading(false)
+      toast.error(feat('error.title'), {
+        description: feat('error.description')
+      })
     }
-
-    setIsLoading(false)
-    toast.success('プロフィールを更新しました', {
-      description: '変更内容が保存されました。'
-    })
   }
 
   const handleCropConfirm = ({
@@ -126,7 +135,7 @@ export default function NewAvatarProfileForm({
         <div className="space-y-2">
           <Label htmlFor="username">
             <div className="w-full flex items-center justify-between">
-              <span>表示名</span>
+              <span>{feat('username')}</span>
               <span className="text-sm text-muted-foreground">
                 {username.length} / {MAX_USERNAME_LENGTH}
               </span>
@@ -146,7 +155,7 @@ export default function NewAvatarProfileForm({
         <div className="space-y-2">
           <Label htmlFor="bio">
             <div className="w-full flex items-center justify-between">
-              <span>自己紹介</span>
+              <span>{feat('bio')}</span>
               <span className="text-sm text-muted-foreground">
                 {watch('bio').length} / {MAX_BIO_LENGTH}
               </span>
@@ -168,10 +177,10 @@ export default function NewAvatarProfileForm({
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              保存中...
+              {feat('loading')}
             </>
           ) : (
-            '変更を保存'
+            <>{feat('save')}</>
           )}
         </Button>
       </CardFooter>
