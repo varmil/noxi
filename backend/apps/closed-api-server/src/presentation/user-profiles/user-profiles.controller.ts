@@ -44,6 +44,7 @@ export class UserProfilesController {
     return await this.userProfilesService.save({
       data: {
         name: dto.toName(),
+        username: dto.toUsername(),
         image: dto.toImage(),
         description: dto.toDescription()
       },

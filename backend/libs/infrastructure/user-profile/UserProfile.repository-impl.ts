@@ -6,7 +6,8 @@ import {
   Image,
   UserProfile,
   UserProfileRepository,
-  UserProfiles
+  UserProfiles,
+  Username
 } from '@domain/user-profile'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
@@ -36,6 +37,7 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
         return new UserProfile({
           userId: new UserId(user.id),
           name: new Name(user.name ?? 'No name'),
+          username: new Username(profile?.username ?? 'ERROR'), // 右辺はありえない
           image: new Image(user.image ?? 'No image'),
           description: new Description(profile?.description ?? '')
         })
@@ -54,6 +56,7 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
     return new UserProfile({
       userId: new UserId(user.id),
       name: new Name(user.name ?? 'No name'),
+      username: new Username(profile?.username ?? 'ERROR'), // 右辺はありえない
       image: new Image(user.image ?? 'No image'),
       description: new Description(profile?.description ?? '')
     })
@@ -72,9 +75,11 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
         where: { userId: where.userId.get() },
         create: {
           userId: where.userId.get(),
+          username: data.username?.get() ?? 'ERROR', // 右辺はありえない
           description: data.description?.get() ?? ''
         },
         update: {
+          username: data.username?.get() ?? undefined,
           description: data.description?.get() ?? ''
         }
       })

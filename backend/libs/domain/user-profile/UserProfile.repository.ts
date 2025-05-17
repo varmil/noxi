@@ -3,6 +3,7 @@ import {
   Description,
   Image,
   Name,
+  Username,
   UserProfile,
   UserProfiles
 } from '@domain/user-profile'
@@ -24,6 +25,7 @@ export interface UserProfileRepository {
   save: (args: {
     data: {
       name?: Name
+      username?: Username
       image?: Image
       description?: Description
     }
