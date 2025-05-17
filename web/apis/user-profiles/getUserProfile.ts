@@ -1,11 +1,12 @@
 'use server'
 
+import { Session } from 'next-auth'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 import { schema } from './userProfileSchema'
 
 export async function getUserProfile(
-  userId: number
+  userId: Session['user']['id']
 ): Promise<UserProfileSchema | undefined> {
   const res = await fetchAPI(`/api/user-profiles/${userId}`, {
     cache: 'no-store'

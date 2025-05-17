@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
+import { LastClaimedAt, TotalCount } from '@domain/cheer-ticket'
 import {
   Awarded,
-  LastClaimedAt,
   LoginBonus,
   LoginBonusRepository,
   LoginBonusResult,
-  TotalCount
 } from '@domain/login-bonus'
 import { UserId } from '@domain/user'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'

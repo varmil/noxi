@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer'
-import { Awarded, TotalCount } from '@domain/login-bonus'
+import { TotalCount } from '@domain/cheer-ticket'
+import { Awarded } from '@domain/login-bonus'
 
 export class LoginBonusResult {
   public readonly eligible: boolean

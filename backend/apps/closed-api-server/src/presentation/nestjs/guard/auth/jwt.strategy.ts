@@ -5,7 +5,7 @@ import { UsersService } from '@app/users/users.service'
 import { User, UserId } from '@domain/user'
 
 interface JwtPayload {
-  sub: string // Auth.jsのJWTでは `sub` がユーザーIDとして使われる
+  sub: string // `sub` がユーザーIDとして使われる
   email?: string
   name?: string
 }
@@ -24,7 +24,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user) {
       throw new UnauthorizedException('User not found')
     }
-    console.log(user)
     return user
   }
 }

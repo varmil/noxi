@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
 import { CheerTicketUsagesPresentationModule } from '@presentation/cheer-ticket-usages/cheer-ticket-usages.presentation.module'
+import { CheerTicketsPresentationModule } from '@presentation/cheer-tickets/cheer-tickets.presentation.module'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
@@ -29,6 +30,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     LibAppModule,
     ChannelRegistrationsPresentationModule,
     CheerTicketUsagesPresentationModule,
+    CheerTicketsPresentationModule,
     CloudSchedulersPresentationModule,
     ExchangeRatesPresentationModule,
     GroupsPresentationModule,

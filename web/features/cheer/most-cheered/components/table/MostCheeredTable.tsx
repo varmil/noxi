@@ -112,7 +112,7 @@ export default async function MostCheeredTable({
               </LinkCell>
 
               {/* Used Count */}
-              <LinkCell className="min-w-[98px] max-w-[180px]">
+              <LinkCell className="min-w-[98px] max-w-[180px]" align="right">
                 <Dimension
                   dividend={usedCount}
                   divisor={topUsedCount}

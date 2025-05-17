@@ -1,5 +1,6 @@
 model UserProfile {
     userId      Int    @id @default(autoincrement())
+    username    String @unique
     description String
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -1,9 +1,10 @@
 import {
   CheeredUsages,
+  FanRank,
   CheerTicketUsage,
   CheerTicketUsages,
   FanUsages,
-  Rank
+  CheeredRank
 } from '@domain/cheer-ticket-usage'
 import { Group } from '@domain/group'
 import { UserId } from '@domain/user'
@@ -52,7 +53,7 @@ export interface CheerTicketUsageRepository {
   /** 指定された集合の中での特定のChannelの順位を取得 */
   findCheeredRank: (args: {
     where: RankingWhere & { channelId: ChannelId }
-  }) => Promise<Rank | null>
+  }) => Promise<CheeredRank | null>
 
   /** 指定された集合の中での特定のFan（User）の順位を取得 */
   findFanRank: (args: {
@@ -61,5 +62,5 @@ export interface CheerTicketUsageRepository {
      * channelId指定：特定のChannelに対する貢献量
      */
     where: RankingWhere & { userId: UserId; channelId?: ChannelId }
-  }) => Promise<Rank | null>
+  }) => Promise<FanRank | null>
 }

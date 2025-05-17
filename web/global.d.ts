@@ -52,6 +52,14 @@ declare global {
 
       readonly STRIPE_SECRET_KEY: string
       readonly NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: string
+
+      readonly AUTH_SECRET: string
+      readonly AUTH_RESEND_KEY: string
+      readonly AUTH_GOOGLE_ID: string
+      readonly AUTH_GOOGLE_SECRET: string
+      readonly AUTH_APPLE_ID: string
+      readonly AUTH_APPLE_SECRET: string
+      readonly DATABASE_URL: string
     }
   }
 }

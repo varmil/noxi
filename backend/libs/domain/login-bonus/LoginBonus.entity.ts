@@ -1,5 +1,5 @@
 import { Exclude, Transform } from 'class-transformer'
-import { LastClaimedAt } from '@domain/login-bonus'
+import { LastClaimedAt } from '@domain/cheer-ticket'
 import { UserId } from '@domain/user'
 
 export class LoginBonus {

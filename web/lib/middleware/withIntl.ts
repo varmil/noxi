@@ -37,7 +37,8 @@ export const withIntl: MiddlewareFactory = next => {
     if (
       pathname === '/auth/signin' ||
       pathname === '/auth/error' ||
-      pathname === '/auth/verify-request'
+      pathname === '/auth/verify-request' ||
+      pathname === '/dashboard'
     ) {
       const locale = getLocale(request)
       const url = request.nextUrl.clone()

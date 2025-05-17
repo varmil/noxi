@@ -3,7 +3,7 @@ interface Props {
   className?: string
 }
 
-export default function UserName({ name, className }: Props) {
+export default function DisplayName({ name, className }: Props) {
   return (
     <div className={`group ${className || ''}`}>
       <span className="line-clamp-1 break-all group-hover:underline">

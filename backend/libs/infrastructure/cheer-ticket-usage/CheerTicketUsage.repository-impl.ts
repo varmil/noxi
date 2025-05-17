@@ -1,6 +1,7 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
 import {
+  CheeredRank,
   CheeredUsage,
   CheeredUsages,
   CheerTicketUsage,
@@ -12,6 +13,7 @@ import {
   UsedAt,
   UsedCount
 } from '@domain/cheer-ticket-usage'
+import { FanRank } from '@domain/cheer-ticket-usage/ranking/FanRank.entity'
 import { Group } from '@domain/group'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -125,7 +127,7 @@ export class CheerTicketUsageRepositoryImpl
         `
         SELECT
           "channelId",
-          SUM("usedCount") AS "totalUsed"
+          SUM("usedCount")::int AS "totalUsed"
         FROM "CheerTicketUsage"
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "channelId"
@@ -188,7 +190,7 @@ export class CheerTicketUsageRepositoryImpl
       `
       SELECT
         "userId",
-        SUM("usedCount") AS "totalUsed"
+        SUM("usedCount")::int AS "totalUsed"
       FROM "CheerTicketUsage"
       WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
       GROUP BY "userId"
@@ -232,12 +234,14 @@ export class CheerTicketUsageRepositoryImpl
     const channelIdIndex = index++
 
     const result = await this.prismaInfraService.$queryRawUnsafe<
-      { rank: number }[]
+      { rank: number; totalCount: number }[]
     >(
       `
-      SELECT "rank"::int
+      SELECT "rank"::int, "totalCount"::int
       FROM (
         SELECT
+          "channelId",
+          SUM("usedCount") AS "totalCount",
           RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
         FROM "CheerTicketUsage"
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
@@ -248,7 +252,13 @@ export class CheerTicketUsageRepositoryImpl
       ...values
     )
 
-    return result[0]?.rank ? new Rank(result[0].rank) : null
+    return result[0]?.rank
+      ? new CheeredRank({
+          channelId: where.channelId,
+          rank: new Rank(result[0].rank),
+          usedCount: new UsedCount(result[0].totalCount)
+        })
+      : null
   }
 
   findFanRank: CheerTicketUsageRepository['findFanRank'] = async ({
@@ -278,12 +288,14 @@ export class CheerTicketUsageRepositoryImpl
     const userIdIndex = index++
 
     const result = await this.prismaInfraService.$queryRawUnsafe<
-      { rank: number }[]
+      { rank: number; totalCount: number }[]
     >(
       `
-      SELECT "rank"::int
+      SELECT "rank"::int, "totalCount"::int
       FROM (
         SELECT
+          "userId",
+          SUM("usedCount") AS "totalCount",
           RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
         FROM "CheerTicketUsage"
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
@@ -294,6 +306,12 @@ export class CheerTicketUsageRepositoryImpl
       ...values
     )
 
-    return result[0]?.rank ? new Rank(result[0].rank) : null
+    return result[0]?.rank
+      ? new FanRank({
+          userId: where.userId,
+          rank: new Rank(result[0].rank),
+          usedCount: new UsedCount(result[0].totalCount)
+        })
+      : null
   }
 }

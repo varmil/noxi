@@ -5,6 +5,8 @@ import {
   Get,
   Post,
   Query,
+  Req,
+  UseGuards,
   UseInterceptors
 } from '@nestjs/common'
 import {
@@ -13,8 +15,10 @@ import {
   GetCheerTicketUsagesRanksFan
 } from '@presentation/cheer-ticket-usages/dto/GetCheerTicketUsages.dto'
 import { PostCheerTicketUsagesConsume } from '@presentation/cheer-ticket-usages/dto/PostCheerTicketUsagesConsume.dto'
+import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
 import { CheerTicketUsagesService } from '@app/cheer-ticket-usages/cheer-ticket-usages.service'
 import { CheerTicketUsage } from '@domain/cheer-ticket-usage'
+import { User } from '@domain/user'
 
 @Controller('cheer-ticket-usages')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -87,10 +91,14 @@ export class CheerTicketUsagesController {
   }
 
   @Post('/consume')
-  async consume(@Body() dto: PostCheerTicketUsagesConsume) {
+  @UseGuards(JwtAuthGuard)
+  async consume(
+    @Req() req: { user: User },
+    @Body() dto: PostCheerTicketUsagesConsume
+  ) {
     return await this.cheerTicketUsagesService.consume({
       data: new CheerTicketUsage({
-        userId: dto.toUserId(),
+        userId: req.user.id,
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
         usedCount: dto.toUsedCount(),
