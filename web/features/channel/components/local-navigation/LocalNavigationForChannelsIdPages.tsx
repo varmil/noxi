@@ -21,7 +21,7 @@ export default function LocalNavigationForChannelsIdPages({
   return (
     <LocalNavigation
       items={[
-        { name: t('overview.nav'), href: basePath, prefetch: true },
+        { name: t('overview.nav'), href: basePath },
         {
           name: t('superChat.nav'),
           href: `${basePath}/super-chat`

@@ -25,7 +25,7 @@ export class SupersSummariesScenario {
   ) {}
 
   /**
-   * Retuen latest summaries
+   * Return latest summaries
    * １円以上のみSELECTするので /channels/ranking ページ専用
    *
    * 過去24時間：
@@ -77,7 +77,7 @@ export class SupersSummariesScenario {
   }
 
   /**
-   * Retuen latest summaries "COUNT"
+   * Return latest summaries "COUNT"
    * １円以上のみCOUNTするので /channels/ranking ページ専用
    **/
   async countSupersSummaries(args: {

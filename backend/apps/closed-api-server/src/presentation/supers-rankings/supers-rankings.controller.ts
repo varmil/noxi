@@ -16,14 +16,14 @@ import { SupersRankingsScenario } from '@presentation/supers-rankings/supers-ran
  **/
 @Controller('supers-rankings')
 @UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
-@CacheTTL(120 * 1000)
+@CacheTTL(300 * 1000)
 export class SupersRankingsController {
   constructor(
     private readonly supersRankingsScenario: SupersRankingsScenario
   ) {}
 
   /**
-   * Retuen a latest ranking
+   * Return a latest ranking
    * @returns SupersRanking
    * @returns NULL ランキング圏外。つまり配信していない、スパチャ額がゼロ、登録したばかりで集計前など
    *
@@ -42,7 +42,7 @@ export class SupersRankingsController {
   }
 
   /**
-   * Retuen histories of a channel
+   * Return histories of a channel
    * @returns SupersRankings ランキング圏外の日はデータが歯抜けになるので留意
    **/
   @Get('/histories')

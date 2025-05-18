@@ -10,6 +10,7 @@ export const CACHE_10M = 600
 export const CACHE_1H = 3600
 export const CACHE_12H = 3600 * 12
 export const CACHE_1D = 86400
+export const CACHE_1W = 86400 * 7
 
 export const fetchAPI = async (
   input: string | URL | Request,

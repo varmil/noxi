@@ -1,13 +1,12 @@
-// Server Actionsとして扱うためにこのディレクティブが必須
 'use server'
 
 import { notFound } from 'next/navigation'
 import { ChannelSchema, schema } from 'apis/youtube/schema/channelSchema'
-import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 export async function getChannel(id: string): Promise<ChannelSchema> {
   const res = await fetchAPI(`/api/youtube/channels/${id}`, {
-    next: { revalidate: CACHE_12H }
+    next: { revalidate: CACHE_1D }
   })
 
   if (!res.ok) {
@@ -27,7 +26,7 @@ export async function getChannel(id: string): Promise<ChannelSchema> {
 /** 指定したチャンネルIDのチャンネルが存在するかどうかを判定 */
 export async function existsChannel(id: string): Promise<boolean> {
   const res = await fetchAPI(`/api/youtube/channels/${id}`, {
-    next: { revalidate: CACHE_12H }
+    next: { revalidate: CACHE_1D }
   })
   if (!res.ok) {
     if (res.status === 404) {

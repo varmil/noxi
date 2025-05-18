@@ -69,7 +69,7 @@ const SeeMoreLinkButton = ({
       className="flex h-full py-4 group whitespace-normal"
       asChild
     >
-      <Link href={href} prefetch={true}>
+      <Link href={href} prefetch={false}>
         <div className="flex flex-col items-center w-full">{children}</div>
       </Link>
     </Button>

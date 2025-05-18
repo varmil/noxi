@@ -83,7 +83,7 @@ const ListItem = React.forwardRef<
             'block select-none space-y-1 rounded p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
             className
           )}
-          prefetch={true}
+          prefetch={false}
         >
           <div className="flex items-center gap-x-4">
             <div className="w-6 h-6 ">{icon}</div>
