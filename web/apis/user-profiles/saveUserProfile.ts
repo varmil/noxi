@@ -5,6 +5,7 @@ import { fetchAPI } from 'lib/fetchAPI'
 
 type Data = {
   name: string
+  username: string
   image?: string
   description: string
 }

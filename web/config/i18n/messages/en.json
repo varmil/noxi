@@ -555,11 +555,15 @@
       "profile": {
         "form": {
           "name": "Display name",
+          "username": "Username",
+          "yourURL": "Mypage URL {url}",
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",
           "required": "{type} is required",
+          "minLength": "{type} must be at least {length} characters",
           "maxLength": "{type} can be up to {length} characters",
+          "usernameRegex": "Username must be alphanumeric and can only contain underscores (_)",
           "success": {
             "title": "Updated",
             "description": "Changes have been saved."
