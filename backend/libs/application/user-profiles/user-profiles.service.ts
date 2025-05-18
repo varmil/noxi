@@ -12,6 +12,12 @@ export class UserProfilesService {
     return await this.userProfileRepository.findAll(args)
   }
 
+  async findByUsername(
+    args: Parameters<UserProfileRepository['findByUsername']>[0]
+  ) {
+    return await this.userProfileRepository.findByUsername(args)
+  }
+
   async findById(args: Parameters<UserProfileRepository['findById']>[0]) {
     return await this.userProfileRepository.findById(args)
   }

@@ -556,7 +556,7 @@
         "form": {
           "name": "Display name",
           "username": "Username",
-          "yourURL": "Mypage URL {url}",
+          "yourURL": "Mypage {url}",
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",

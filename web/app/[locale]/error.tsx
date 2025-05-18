@@ -1,7 +1,7 @@
 'use client' // Error boundaries must be Client Components
 
 import { useEffect } from 'react'
-import { AlertCircle, Frown } from 'lucide-react'
+import { Frown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Card,

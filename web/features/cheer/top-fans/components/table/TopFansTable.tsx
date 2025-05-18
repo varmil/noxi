@@ -57,11 +57,16 @@ export default async function TopFansTable({
           const profile = profiles.find(profile => profile.userId === userId)
           if (!profile) return null
 
-          /** TODO: ユーザーのマイページへのリンク？専用ページを作るか */
           const LinkCell = (
             props: PropsWithChildren &
-              Omit<ComponentProps<typeof LinkToUserCell>, 'userId'>
-          ) => <LinkToUserCell userId={userId} prefetch={false} {...props} />
+              Omit<ComponentProps<typeof LinkToUserCell>, 'username'>
+          ) => (
+            <LinkToUserCell
+              username={profile.username}
+              prefetch={false}
+              {...props}
+            />
+          )
 
           return (
             <TableRow

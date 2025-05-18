@@ -18,17 +18,21 @@ export class UserProfile {
   @Transform(({ value }: { value: Description }) => value.get())
   public readonly description: Description
 
+  public readonly createdAt: Date
+
   constructor(args: {
     userId: UserId
     name: Name
     username: Username
     image: Image
     description: Description
+    createdAt: Date
   }) {
     this.userId = args.userId
     this.name = args.name
     this.username = args.username
     this.image = args.image
     this.description = args.description
+    this.createdAt = args.createdAt
   }
 }

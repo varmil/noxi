@@ -126,7 +126,7 @@ export function UsernameInput() {
                 }`}
               />
             </FormControl>
-            <FormDescription>
+            <FormDescription className="break-anywhere">
               {feat('yourURL', {
                 url: `${getWebUrl()}/${locale}/users/${field.value}`
               })}

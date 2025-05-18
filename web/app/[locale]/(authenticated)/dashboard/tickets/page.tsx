@@ -1,6 +1,5 @@
-import { CalendarIcon, Lightbulb, Send, Tickets } from 'lucide-react'
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Lightbulb, Tickets } from 'lucide-react'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import {
   Card,
@@ -11,10 +10,9 @@ import {
 } from '@/components/ui/card'
 import { getCheerTicketUsages } from 'apis/cheer-ticket-usages/getCheerTicketUsages'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
-import { getChannels } from 'apis/youtube/getChannels'
+import CheerTicketUsages from 'features/cheer-ticket-usage/components/CheerTicketUsages'
 import DashboardTicketsPreview from 'features/dashboard/ticket/Preview'
 import { auth } from 'lib/auth'
-import { Link } from 'lib/navigation'
 
 export default async function TicketsPage() {
   const session = await auth()
@@ -33,12 +31,6 @@ export default async function TicketsPage() {
         }
       ],
       limit: 30
-    })
-  ])
-  const [channels] = await Promise.all([
-    getChannels({
-      ids: usages.map(usage => usage.channelId),
-      limit: usages.length
     })
   ])
 
@@ -72,62 +64,16 @@ export default async function TicketsPage() {
             <p className="text-xs text-muted-foreground mb-4">
               反映に５分程度かかることがあります
             </p>
-            <div className="space-y-4">
-              {usages.length === 0 ? (
-                <Alert>
-                  <Lightbulb className="size-5" />
-                  <AlertTitle>まだ応援したことがありません</AlertTitle>
-                  <AlertDescription>
-                    推しのページに行って「応援チケットを使う」ボタンから応援を行うことができます。応援すればするほど、あなたも推しもランキングに載りやすくなります。
-                  </AlertDescription>
-                </Alert>
-              ) : null}
-              {usages.map(item => {
-                const channel = channels.find(
-                  channel => channel.basicInfo.id === item.channelId
-                )
-                if (!channel) {
-                  return null
-                }
-                return (
-                  <div
-                    key={item.usedAt.toISOString()}
-                    className="flex items-center justify-between gap-x-4 border-b pb-3"
-                  >
-                    <Link
-                      href={`/${channel.peakX.group}/channels/${channel.basicInfo.id}`}
-                      className="flex-1 flex items-center"
-                    >
-                      <Avatar className="h-10 w-10 mr-3">
-                        <AvatarImage
-                          src={
-                            channel.basicInfo.thumbnails.medium?.url ||
-                            '/placeholder.svg'
-                          }
-                          alt={channel.basicInfo.title}
-                        />
-                        <AvatarFallback>
-                          {channel.basicInfo.title.slice(0, 2)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium line-clamp-1 break-all">
-                          {channel.basicInfo.title}
-                        </p>
-                        <div className="flex items-center text-xs text-muted-foreground">
-                          <CalendarIcon className="h-3 w-3 mr-1" />
-                          {new Date(item.usedAt).toLocaleDateString('ja-JP')}
-                        </div>
-                      </div>
-                    </Link>
-                    <div className="flex items-center">
-                      <Send className="h-4 w-4 text-primary mr-1" />
-                      <span className="font-medium">{item.usedCount}枚</span>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+            {usages.length === 0 ? (
+              <Alert>
+                <Lightbulb className="size-5" />
+                <AlertTitle>まだ応援したことがありません</AlertTitle>
+                <AlertDescription>
+                  推しのページに行って「応援チケットを使う」ボタンから応援を行うことができます。応援すればするほど、あなたも推しもランキングに載りやすくなります。
+                </AlertDescription>
+              </Alert>
+            ) : null}
+            <CheerTicketUsages usages={usages} />
           </div>
         </CardContent>
       </Card>

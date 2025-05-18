@@ -20,6 +20,8 @@ export interface UserProfileRepository {
     offset?: number
   }) => Promise<UserProfiles>
 
+  findByUsername: (username: Username) => Promise<UserProfile | null>
+
   findById: (userId: UserId) => Promise<UserProfile | null>
 
   save: (args: {

@@ -22,5 +22,5 @@ async function randomUsername(pool: Pool) {
     }
   }
   // 10回失敗したらUUID fallback
-  return `user_${randomUUID().slice(0, 8)}`
+  return `user_${randomUUID().slice(0, 8).replace(/-/g, '_')}`
 }

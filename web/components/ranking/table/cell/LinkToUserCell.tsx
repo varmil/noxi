@@ -2,15 +2,15 @@ import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
 import { Link } from 'lib/navigation'
 
-export default function LinkToChannelCell({
-  userId,
+export default function LinkToUserCell({
+  username,
   align,
   className,
   width,
   prefetch = false,
   children
 }: PropsWithChildren<{
-  userId: number
+  username: string
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   prefetch?: boolean
@@ -18,7 +18,7 @@ export default function LinkToChannelCell({
 }>) {
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
-      <Link href={`/users/${userId}`} prefetch={prefetch}>
+      <Link href={`/users/${username}`} prefetch={prefetch}>
         {children}
       </Link>
     </TableCell>

@@ -351,7 +351,7 @@
       "signOut": "ログアウト",
       "getStarted": "PeakXをはじめる",
       "selectMethod": "以下の方法でログイン / サインアップする。",
-      "noExtraInput": "面倒な登録作業は一切ありません",
+      "noExtraInput": "登録は10秒で完了",
       "or": "または",
       "email": "メールアドレス",
       "magicLink": "マジックリンクを送信",
@@ -556,7 +556,7 @@
         "form": {
           "name": "表示名",
           "username": "ユーザーネーム",
-          "yourURL": "マイページURL {url}",
+          "yourURL": "マイページ {url}",
           "bio": "自己紹介",
           "save": "変更を保存",
           "loading": "保存中...",

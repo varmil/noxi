@@ -22,3 +22,19 @@ export async function getUserProfile(
     return schema.parse(JSON.parse(text))
   }
 }
+
+export async function getUserProfileByUsername(
+  username: string
+): Promise<UserProfileSchema | undefined> {
+  const res = await fetchAPI(`/api/user-profiles/by-username/${username}`)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch data: ${res.statusText}`)
+  }
+
+  const text = await res.text()
+  if (!text) {
+    return undefined
+  } else {
+    return schema.parse(JSON.parse(text))
+  }
+}
