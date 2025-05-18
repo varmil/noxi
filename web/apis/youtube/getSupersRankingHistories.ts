@@ -2,7 +2,7 @@ import {
   SupersRankingHistoriesSchema,
   responseHistoriesSchema
 } from 'apis/youtube/schema/supersRankingSchema'
-import { CACHE_12H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Period } from 'types/period'
 import { RankingType } from 'types/ranking'
 
@@ -41,7 +41,7 @@ export async function getSupersRankingHistories({
   const cache: RequestInit =
     period === 'last24Hours'
       ? { cache: 'no-store' }
-      : { next: { revalidate: CACHE_12H } }
+      : { next: { revalidate: CACHE_1D } }
 
   const res = await fetchAPI(
     `/api/supers-rankings/histories?${searchParams.toString()}`,
