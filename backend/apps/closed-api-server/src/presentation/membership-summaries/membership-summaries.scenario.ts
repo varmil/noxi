@@ -8,7 +8,7 @@ export class MembershipSummariesScenario {
   ) {}
 
   /**
-   * Retuen latest summaries
+   * Return latest summaries
    * １円以上のみSELECTするので /channels/ranking ページ専用
    **/
   getMembershipSummaries: MembershipSummariesService['findAll'] = args => {
@@ -16,7 +16,7 @@ export class MembershipSummariesScenario {
   }
 
   /**
-   * Retuen latest summaries "COUNT"
+   * Return latest summaries "COUNT"
    * １円以上のみCOUNTするので /channels/ranking ページ専用
    **/
   countMembershipSummaries: MembershipSummariesService['count'] = args => {

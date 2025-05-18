@@ -22,7 +22,7 @@ export class SupersSummariesController {
     private readonly supersSummariesService: SupersSummariesService
   ) {}
 
-  /** Retuen latest summaries */
+  /** Return latest summaries */
   @Get()
   async getSupersSummaries(@Query() dto: GetSupersSummaries) {
     return await this.supersSummariesScenario.getSupersSummaries({
@@ -53,7 +53,7 @@ export class SupersSummariesController {
     })
   }
 
-  /** Retuen monthly summaries of a channel */
+  /** Return monthly summaries of a channel */
   @Get('/monthly')
   async getSupersMonthlySummaries(@Query() dto: GetSupersMonthlySummaries) {
     const summaries = await this.supersSummariesService.findAllMonthly({
@@ -64,7 +64,7 @@ export class SupersSummariesController {
     return summaries
   }
 
-  /** Retuen a latest summary */
+  /** Return a latest summary */
   @Get(':id')
   async getSupersSummary(@Param('id') id: string) {
     const summary = await this.supersSummariesService.findOne({
@@ -78,7 +78,7 @@ export class SupersSummariesController {
     return summary
   }
 
-  /** Retuen histories of a channel */
+  /** Return histories of a channel */
   @Get(':id/histories')
   async getSupersSummaryHistories(
     @Param('id') id: string,

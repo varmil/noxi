@@ -51,7 +51,7 @@ export class MembershipSummariesController {
   }
 
   /**
-   * Retuen a latest summary
+   * Return a latest summary
    * channelId + period = Unique
    */
   @Get('summary')
@@ -68,7 +68,7 @@ export class MembershipSummariesController {
   }
 
   /**
-   * Retuen histories of a channel
+   * Return histories of a channel
    * channelId + period = Unique
    */
   @Get('/histories')
