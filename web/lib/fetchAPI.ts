@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { auth } from 'lib/auth'
 import dayjs from 'lib/dayjs'
 
 // ISO 8601 = datetime
@@ -14,6 +15,7 @@ export const fetchAPI = async (
   input: string | URL | Request,
   init?: RequestInit
 ): Promise<Response> => {
+  const session = await auth()
   const url = roundDate(input)
 
   // In local, no-store
@@ -30,7 +32,17 @@ export const fetchAPI = async (
     init.next.revalidate = CACHE_1M
   }
 
-  return await fetch(url.toString(), init)
+  return await fetch(url.toString(), {
+    ...init,
+    ...(session
+      ? {
+          headers: {
+            ...init?.headers,
+            Authorization: `Bearer ${session?.user.jwtForNestJS}`
+          }
+        }
+      : {})
+  })
 }
 
 /**

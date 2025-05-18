@@ -3,8 +3,10 @@ import { z } from 'zod'
 export const schema = z.object({
   userId: z.number(),
   name: z.string(),
+  username: z.string(),
   image: z.string(),
-  description: z.string()
+  description: z.string(),
+  createdAt: z.coerce.date()
 })
 export const responseListSchema = z.object({
   list: z.array(schema)

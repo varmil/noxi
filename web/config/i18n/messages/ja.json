@@ -148,6 +148,13 @@
       "description": "PeakXに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
     },
 
+    "dashboard": {
+      "profile": {
+        "title": "プロフィール",
+        "description": "あなたのプロフィール情報を管理します。他のファンに表示される情報です。"
+      }
+    },
+
     "groups": {
       "metadata": {
         "title": "グループ一覧",
@@ -271,7 +278,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "most-cheered": "今シーズンの{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
+              "most-cheered": "今シーズン、{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }
@@ -343,7 +350,8 @@
       "signIn": "ログイン",
       "signOut": "ログアウト",
       "getStarted": "PeakXをはじめる",
-      "selectMethod": "以下の方法でログイン / サインアップする",
+      "selectMethod": "以下の方法でログイン / サインアップする。",
+      "noExtraInput": "登録は10秒で完了",
       "or": "または",
       "email": "メールアドレス",
       "magicLink": "マジックリンクを送信",
@@ -472,6 +480,109 @@
         "nav": "FAQ"
       }
     },
+
+    "cheerChannel": {
+      "alert": {
+        "firstCheer": {
+          "title": "あなたが初めて応援しませんか？",
+          "description": "最近、{channel}さんは応援されていません。あなたが応援してトップファンになるチャンスです！"
+        }
+      },
+      "profile": {
+        "cheerTicket": "応援チケットを使う",
+        "past30Days": "過去30日間の応援",
+        "cheerRanking": "応援ランキング",
+        "cheerCount": "{count}回",
+        "rank": "{rank}位"
+      },
+      "stats": {
+        "title": "応援統計",
+        "fansLog": "ファンの活動ログ",
+        "past30Days": "過去30日間の応援",
+        "cheerRank": "過去30日間の順位",
+        "seasonTotal": "今シーズン累計",
+        "seasonRank": "今シーズン順位"
+      },
+      "topFans": {
+        "title": "トップファン",
+        "description": "過去30日間で最も多くの応援チケットを使ったファン",
+        "tickets": "{count}枚"
+      },
+      "history": {
+        "title": "応援履歴",
+        "description": "{channel}さんへの最近の応援を表示しています",
+        "filter": "フィルター",
+        "period": "期間",
+        "all": "すべて",
+        "high": "5枚以上",
+        "medium": "2〜4枚",
+        "low": "1枚",
+        "recent": "最近",
+        "week": "1週間",
+        "month": "1ヶ月",
+        "user": "ユーザー",
+        "tickets": "チケット",
+        "date": "日時"
+      },
+      "dialog": {
+        "title": "{channel}を応援する",
+        "description": "応援チケットを使って{channel}さんを応援します。一度に複数枚を使うこともできます。",
+        "tickets": "チケット",
+        "consumeCount": "{count}枚",
+        "messageLabel": "応援メッセージ (任意)",
+        "messagePlaceholder": "応援メッセージを入力してください",
+        "currentTickets": "現在の保有チケット:",
+        "remainingTickets": "使用後の残りチケット:",
+        "cancel": "キャンセル",
+        "consume": "応援する",
+        "submitting": "応援中...",
+        "noTickets": {
+          "title": "応援チケットが足りません",
+          "description": "最低1枚必要です。毎日ログインしてチケットを獲得しましょう"
+        },
+        "success": {
+          "title": "応援成功！",
+          "description": "応援ありがとうございます！"
+        },
+        "error": {
+          "title": "応援に失敗しました",
+          "description": "応援処理中にエラーが発生しました。後でもう一度お試しください。"
+        }
+      }
+    },
+
+    "dashboard": {
+      "profile": {
+        "form": {
+          "name": "表示名",
+          "username": "ユーザーネーム",
+          "yourURL": "マイページ {url}",
+          "bio": "自己紹介",
+          "save": "変更を保存",
+          "loading": "保存中...",
+          "required": "{type}は必須です",
+          "minLength": "{type}は{length}文字以上で入力してください",
+          "maxLength": "{type}は{length}文字まで入力できます",
+          "usernameRegex": "ユーザー名は英数字とアンダースコア(_)のみ使用できます",
+          "success": {
+            "title": "更新しました",
+            "description": "変更内容が保存されました。"
+          },
+          "error": {
+            "title": "更新できませんでした",
+            "description": "変更内容が保存できませんでした。"
+          }
+        },
+        "imageUploader": {
+          "input": "画像を参照",
+          "title": "画像をトリミング",
+          "description": "プロフィール画像を正方形にトリミングします",
+          "cancel": "キャンセル",
+          "apply": "適用"
+        }
+      }
+    },
+
     "grade": {
       "name": "グレード",
       "supersGrade": "スパチャグレード",
@@ -562,7 +673,7 @@
         "top-fans": "{group} {gender} ファンランキング - {period}"
       },
       "viewAll": "すべて見る",
-      "channel": "チャンネル",
+      "fan": "ユーザー",
       "group": "グループ",
       "usedCount": "応援した数"
     },

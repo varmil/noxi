@@ -42,3 +42,18 @@ export type FanUsagesSchema = FanUsageSchema[]
 
 // =======================================
 // =======================================
+
+export const cheeredRankSchema = z.object({
+  rank: z.number(),
+  usedCount: z.number()
+})
+export type CheeredRankSchema = z.infer<typeof cheeredRankSchema>
+
+// =======================================
+// =======================================
+
+export const fanRankSchema = z.object({
+  rank: z.number(),
+  usedCount: z.number()
+})
+export type FanRankSchema = z.infer<typeof fanRankSchema>

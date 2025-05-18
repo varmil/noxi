@@ -1,13 +1,15 @@
 import {
-  Body,
   ClassSerializerInterceptor,
   Controller,
   Post,
+  Req,
+  UseGuards,
   UseInterceptors
 } from '@nestjs/common'
-import { PostDailyLoginBonus } from '@presentation/login-bonuses/dto/PostDailyLoginBonus.dto'
+import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
 import { LoginBonusesService } from '@app/login-bonuses/login-bonuses.service'
 import type { LoginBonusResult } from '@domain/login-bonus'
+import { User } from '@domain/user'
 
 @Controller('login-bonuses')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -15,11 +17,12 @@ export class LoginBonusesController {
   constructor(private readonly loginBonusesService: LoginBonusesService) {}
 
   @Post('/daily')
+  @UseGuards(JwtAuthGuard)
   async claimDailyLoginBonus(
-    @Body() dto: PostDailyLoginBonus
+    @Req() req: { user: User }
   ): Promise<LoginBonusResult> {
     return this.loginBonusesService.claimDailyIfEligible({
-      userId: dto.toUserId()
+      userId: req.user.id
     })
   }
 }

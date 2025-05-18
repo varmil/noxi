@@ -14,7 +14,7 @@ export class GetAllProfiles {
 
   @IsOptional()
   @Type(() => OrderByDto)
-  orderBy: OrderByDto<'id'>
+  orderBy?: OrderByDto<'id'>
 
   @IsOptional()
   @IsInt()
@@ -31,7 +31,7 @@ export class GetAllProfiles {
       ? new UserIds(this.userIds.map(id => new UserId(id)))
       : undefined
 
-  toOrderBy = () => ({ id: this.orderBy?.order })
+  toOrderBy = () => (this.orderBy ? { id: this.orderBy.order } : undefined)
 
   toLimit = () => this.limit
 

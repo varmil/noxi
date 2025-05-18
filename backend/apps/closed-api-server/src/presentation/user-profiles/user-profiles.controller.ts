@@ -15,6 +15,7 @@ import { GetAllProfiles } from '@presentation/user-profiles/dto/GetAllProfiles.d
 import { PutProfile } from '@presentation/user-profiles/dto/PutProfile.dto'
 import { UserProfilesService } from '@app/user-profiles/user-profiles.service'
 import { User, UserId } from '@domain/user'
+import { Username } from '@domain/user-profile'
 
 @Controller('user-profiles')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -33,6 +34,11 @@ export class UserProfilesController {
     })
   }
 
+  @Get('/by-username/:username')
+  async getByUsername(@Param('username') username: string) {
+    return await this.userProfilesService.findByUsername(new Username(username))
+  }
+
   @Get(':userId')
   async getById(@Param('userId') userId: string) {
     return await this.userProfilesService.findById(new UserId(userId))
@@ -44,6 +50,7 @@ export class UserProfilesController {
     return await this.userProfilesService.save({
       data: {
         name: dto.toName(),
+        username: dto.toUsername(),
         image: dto.toImage(),
         description: dto.toDescription()
       },

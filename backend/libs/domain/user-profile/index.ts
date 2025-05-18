@@ -1,6 +1,7 @@
 export * from './Description.vo'
 export * from './Image.vo'
 export * from './Name.vo'
+export * from './Username.vo'
 export * from './UserProfile.entity'
 export * from './UserProfiles.collection'
 export * from './UserProfile.repository'

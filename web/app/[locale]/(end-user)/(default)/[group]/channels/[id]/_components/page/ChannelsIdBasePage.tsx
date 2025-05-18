@@ -9,7 +9,7 @@ import { GroupString } from 'config/constants/Group'
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
 import { getWebUrl } from 'utils/web-url'
-import { ChannelProfile } from '../ui/profile/ChannelProfile'
+import { ChannelProfileTemplate } from '../ui/profile/ChannelProfileTemplate'
 
 export type ChannelsIdBasePageProps = {
   params: Promise<{ locale: Locale; group: GroupString; id: string }>
@@ -56,7 +56,7 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale)
   setGroup(group)
 
-  const [{ basicInfo }, tg, t] = await Promise.all([
+  const [{ basicInfo, peakX }, tg, t] = await Promise.all([
     getChannel(id),
     getTranslations('Global'),
     getTranslations('Breadcrumb')
@@ -73,7 +73,7 @@ export default async function ChannelsIdBasePage(
       ]}
     >
       <section className="flex flex-col">
-        <ChannelProfile basicInfo={basicInfo} />
+        <ChannelProfileTemplate basicInfo={basicInfo} group={peakX.group} />
         <section>
           <LocalNavigationForChannelsIdPages channelId={id} group={group} />
         </section>
