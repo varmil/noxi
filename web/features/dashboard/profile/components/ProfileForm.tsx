@@ -3,11 +3,12 @@
 import type React from 'react'
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowRight, Loader2 } from 'lucide-react'
+import { AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
 import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
@@ -22,6 +23,7 @@ import {
   useProfileFormSchema
 } from 'features/dashboard/profile/hooks/useProfileSchema'
 import { useRouter } from 'lib/navigation'
+import { checkModeration } from 'utils/input/moderation'
 import { useUploadThing } from 'utils/uploadthing'
 
 type NewAvatarState = {
@@ -45,6 +47,7 @@ export default function ProfileForm({
     compressedFile: null,
     previewUrl: null
   })
+  const [isModerationOk, setIsModerationOk] = useState(true)
   const [formKey, setFormKey] = useState(0)
 
   const displayName = session.user?.name || 'User (Preview)'
@@ -66,6 +69,23 @@ export default function ProfileForm({
     setIsLoading(true)
     const { compressedFile } = newAvatar
     try {
+      // Moderation API
+      {
+        const name = data.name
+        const username = data.username
+        const bio = data.bio
+        const [isNameOk, isUsernameOk, isBioOk] = await Promise.all([
+          checkModeration(name),
+          checkModeration(username),
+          checkModeration(bio)
+        ])
+        if (!isNameOk || !isUsernameOk || !isBioOk) {
+          setIsModerationOk(false)
+          setIsLoading(false)
+          return
+        }
+      }
+
       // 画像をアップロード（指定されていれば）
       let image: string | undefined = undefined
       {
@@ -91,6 +111,7 @@ export default function ProfileForm({
       setFormKey(prev => prev + 1)
       setIsLoading(false)
       setNewAvatar({ compressedFile: null, previewUrl: null })
+      setIsModerationOk(true)
     } catch (error) {
       console.error(error)
       setIsLoading(false)
@@ -144,12 +165,19 @@ export default function ProfileForm({
           <NameInput />
           <UsernameInput />
           <BioTextarea />
+          {!isModerationOk && (
+            <Alert variant="destructive">
+              <AlertCircle className="size-4" />
+              <AlertTitle>{feat('error.title')}</AlertTitle>
+              <AlertDescription>{feat('moderationFailed')}</AlertDescription>
+            </Alert>
+          )}
         </CardContent>
         <CardFooter>
           <Button type="submit" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 size-4 animate-spin" />
                 {feat('loading')}
               </>
             ) : (

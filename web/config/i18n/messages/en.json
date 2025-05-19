@@ -575,7 +575,8 @@
           "profanity": {
             "title": "Profanity detected: {words}"
           },
-          "usernameReserved": "This username is not available"
+          "usernameReserved": "This username is not available",
+          "moderationFailed": "AI moderation failed. Please check the content you entered."
         },
         "imageUploader": {
           "input": "Browse for image",

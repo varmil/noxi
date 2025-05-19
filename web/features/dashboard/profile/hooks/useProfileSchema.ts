@@ -38,6 +38,7 @@ export const useProfileFormSchema = () => {
         })
       })
     )
+
   const usernameSchema = z
     .string()
     .min(MIN_USERNAME_LENGTH, {
@@ -68,6 +69,7 @@ export const useProfileFormSchema = () => {
       })
     )
     .refine(val => !isUsernameReserved(val), feat('usernameReserved'))
+
   const bioSchema = z
     .string()
     .max(

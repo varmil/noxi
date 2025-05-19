@@ -575,7 +575,8 @@
           "profanity": {
             "title": "不適切な言葉が含まれます: {words}"
           },
-          "usernameReserved": "このユーザーネームは使用できません"
+          "usernameReserved": "このユーザーネームは使用できません",
+          "moderationFailed": "AIによるチェックに合格しませんでした。変更した項目に不適切な内容が含まれていないかご確認ください。"
         },
         "imageUploader": {
           "input": "画像を参照",

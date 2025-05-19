@@ -2,9 +2,6 @@
 
 import { neon } from '@neondatabase/serverless'
 
-// 既存のユーザー名のリスト（実際の実装ではデータベースから取得）
-const EXISTING_USERNAMES = ['john', 'jane', 'user123', 'admin123']
-
 export async function checkUsername(
   username: string
 ): Promise<{ available: boolean; message: string }> {
@@ -19,8 +16,6 @@ export async function checkUsername(
       message: 'このユーザー名は既に使用されています'
     }
   }
-
-  console.log('Username is available:', username)
 
   // すべてのチェックをパスした場合
   return {
