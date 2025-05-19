@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
 import { saveUserProfile } from 'apis/user-profiles/saveUserProfile'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
+import { deleteOldImage } from 'features/dashboard/profile/actions/deleteOldImageActions'
 import { BioTextarea } from 'features/dashboard/profile/components/BioTextarea'
 import { NameInput } from 'features/dashboard/profile/components/NameInput'
 import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
@@ -86,9 +87,7 @@ export default function ProfileForm({
         }
       }
       // 画像をアップロード（指定されていれば）
-      // やや手遅れだがパブリックURLが取得できてから
-      // Moderationを叩いて、画像が適切か確認する
-      // TODO ここでFailしたらuploadthingから不適切画像を消したい
+      // パブリックURLを用いて画像が適切か確認する
       let image: string | undefined = undefined
       {
         if (compressedFile) {
@@ -96,6 +95,7 @@ export default function ProfileForm({
           image = result?.[0].ufsUrl
 
           if (!(await checkImageModeration(image))) {
+            await deleteOldImage(image)
             setIsModerationOk(false)
             setIsLoading(false)
             return
@@ -111,24 +111,35 @@ export default function ProfileForm({
           description: data.bio
         })
       }
-      toast.success(feat('success.title'), {
-        description: feat('success.description')
-      })
-      router.refresh()
-      methods.reset(data)
-      setFormKey(prev => prev + 1)
-      setIsLoading(false)
-      setNewAvatar({ compressedFile: null, previewUrl: null })
-      setIsModerationOk(true)
+      // 後処理 (古い画像を削除)
+      if (image) {
+        await deleteOldImage(userProfile?.image)
+      }
+
+      onSuccess()
     } catch (error) {
-      console.error(error)
-      setIsLoading(false)
-      toast.error(feat('error.title'), {
-        description: feat('error.description')
-      })
+      onError(error)
     }
   }
 
+  const onSuccess = () => {
+    toast.success(feat('success.title'), {
+      description: feat('success.description')
+    })
+    router.refresh()
+    methods.reset()
+    setFormKey(prev => prev + 1)
+    setIsLoading(false)
+    setNewAvatar({ compressedFile: null, previewUrl: null })
+    setIsModerationOk(true)
+  }
+  const onError = (e: unknown) => {
+    toast.error(feat('error.title'), {
+      description: feat('error.description')
+    })
+    console.error(e)
+    setIsLoading(false)
+  }
   const handleCropConfirm = ({
     compressedFile,
     previewUrl
