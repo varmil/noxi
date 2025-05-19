@@ -57,7 +57,8 @@ export default function ProfileForm({
       name: displayName,
       username: userProfile?.username || '',
       bio: userProfile?.description || ''
-    }
+    },
+    mode: 'onChange'
   })
   const { handleSubmit } = methods
 

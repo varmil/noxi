@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { CheckCircle2, XCircle, Loader2 } from 'lucide-react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useFormContext } from 'react-hook-form'
 import { useDebouncedCallback } from 'use-debounce'
 import {
@@ -19,7 +19,6 @@ import {
   MAX_USERNAME_LENGTH,
   MIN_USERNAME_LENGTH
 } from 'features/dashboard/profile/hooks/useProfileSchema'
-import { getWebUrl } from 'utils/web-url'
 
 export function UsernameInput() {
   const {
@@ -28,7 +27,6 @@ export function UsernameInput() {
     formState: { dirtyFields, errors }
   } = useFormContext()
 
-  const locale = useLocale()
   const feat = useTranslations('Features.dashboard.profile.form')
   const username = watch('username')
   const [isChecking, setIsChecking] = useState(false)
@@ -87,16 +85,6 @@ export function UsernameInput() {
     }
   }, [username, debouncedCheck, errors.username, dirtyFields.username])
 
-  // ヘルパーメッセージを追加
-  // 全角文字や特殊文字のチェック
-  const getHelperMessage = (value: string) => {
-    if (!value) return null
-    if (!/^[a-zA-Z0-9_]*$/.test(value)) {
-      return feat('usernameRegex')
-    }
-    return null
-  }
-
   return (
     <FormField
       control={control}
@@ -127,9 +115,7 @@ export function UsernameInput() {
               />
             </FormControl>
             <FormDescription className="break-anywhere">
-              {feat('yourURL', {
-                url: `${getWebUrl()}/${locale}/users/${field.value}`
-              })}
+              {feat('yourURL')}
             </FormDescription>
             {isChecking && (
               <div className="absolute right-3 top-3 text-muted-foreground">
@@ -148,14 +134,9 @@ export function UsernameInput() {
             )}
           </div>
           <FormMessage />
-          {/* ヘルパーメッセージを表示 */}
-          {!errors.username && getHelperMessage(username) && (
-            <p className="text-amber-500 text-sm">
-              {getHelperMessage(username)}
-            </p>
-          )}
+
           {/* サーバーからのメッセージを表示 */}
-          {!errors.username && !getHelperMessage(username) && serverMessage && (
+          {!errors.username && serverMessage && (
             <p
               className={
                 isAvailable ? 'text-green-500 text-sm' : 'text-red-500 text-sm'

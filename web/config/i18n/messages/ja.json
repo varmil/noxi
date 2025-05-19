@@ -556,7 +556,7 @@
         "form": {
           "name": "表示名",
           "username": "ユーザーネーム",
-          "yourURL": "マイページ {url}",
+          "yourURL": "マイページURLの一部として使用されます",
           "bio": "自己紹介",
           "save": "変更を保存",
           "loading": "保存中...",
@@ -571,7 +571,11 @@
           "error": {
             "title": "更新できませんでした",
             "description": "変更内容が保存できませんでした。"
-          }
+          },
+          "profanity": {
+            "title": "不適切な言葉が含まれます: {words}"
+          },
+          "usernameReserved": "このユーザーネームは使用できません"
         },
         "imageUploader": {
           "input": "画像を参照",

@@ -556,7 +556,7 @@
         "form": {
           "name": "Display name",
           "username": "Username",
-          "yourURL": "Mypage {url}",
+          "yourURL": "Used as your Mypage URL",
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",
@@ -571,7 +571,11 @@
           "error": {
             "title": "Update failed",
             "description": "Changes have not been saved."
-          }
+          },
+          "profanity": {
+            "title": "Profanity detected: {words}"
+          },
+          "usernameReserved": "This username is not available"
         },
         "imageUploader": {
           "input": "Browse for image",
