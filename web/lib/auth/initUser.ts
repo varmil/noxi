@@ -2,6 +2,10 @@ import { randomUUID } from 'crypto'
 import { Pool } from '@neondatabase/serverless'
 import { getWebUrl } from 'utils/web-url'
 
+/**
+ * Initialize user
+ * @returns generated name and image
+ */
 export async function initUser(
   pool: Pool,
   id: string,
@@ -15,4 +19,8 @@ export async function initUser(
     fallbackImage,
     id
   ])
+  return {
+    name: fallbackName,
+    image: fallbackImage
+  }
 }

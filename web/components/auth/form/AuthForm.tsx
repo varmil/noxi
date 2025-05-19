@@ -52,7 +52,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
 
     setIsLoading(true)
     try {
-      await signIn('resend', { email })
+      await signIn('resend', { email, redirectTo })
       toast.success('メールを送信しました', {
         description: 'ログインリンクをメールで確認してください。'
       })
