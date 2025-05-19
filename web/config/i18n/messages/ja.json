@@ -564,6 +564,9 @@
           "minLength": "{type}は{length}文字以上で入力してください",
           "maxLength": "{type}は{length}文字まで入力できます",
           "usernameRegex": "ユーザー名は英数字とアンダースコア(_)のみ使用できます",
+          "usernameReserved": "このユーザーネームは使用できません",
+          "usernameAvailable": "このユーザーネームは使用可能です",
+          "usernameAlreadyExists": "このユーザーネームは既に使用されています",
           "success": {
             "title": "更新しました",
             "description": "変更内容が保存されました。"
@@ -575,7 +578,6 @@
           "profanity": {
             "title": "不適切な言葉が含まれます: {words}"
           },
-          "usernameReserved": "このユーザーネームは使用できません",
           "moderationFailed": "AIによるチェックに合格しませんでした。変更した項目に不適切な内容が含まれていないかご確認ください。"
         },
         "imageUploader": {

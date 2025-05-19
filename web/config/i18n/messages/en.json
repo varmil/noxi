@@ -564,6 +564,9 @@
           "minLength": "{type} must be at least {length} characters",
           "maxLength": "{type} can be up to {length} characters",
           "usernameRegex": "Username must be alphanumeric and can only contain underscores (_)",
+          "usernameReserved": "This username is not available",
+          "usernameAvailable": "This username is available",
+          "usernameAlreadyExists": "This username already exists",
           "success": {
             "title": "Updated",
             "description": "Changes have been saved."
@@ -575,7 +578,6 @@
           "profanity": {
             "title": "Profanity detected: {words}"
           },
-          "usernameReserved": "This username is not available",
           "moderationFailed": "AI moderation failed. Please check the content you entered."
         },
         "imageUploader": {
