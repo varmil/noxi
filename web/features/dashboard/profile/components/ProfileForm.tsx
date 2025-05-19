@@ -23,7 +23,7 @@ import {
   useProfileFormSchema
 } from 'features/dashboard/profile/hooks/useProfileSchema'
 import { useRouter } from 'lib/navigation'
-import { checkModeration } from 'utils/input/moderation'
+import { checkImageModeration, checkModeration } from 'utils/input/moderation'
 import { useUploadThing } from 'utils/uploadthing'
 
 type NewAvatarState = {
@@ -39,9 +39,9 @@ export default function ProfileForm({
   userProfile?: UserProfileSchema
 }) {
   const router = useRouter()
-  const { startUpload } = useUploadThing('imageUploader')
-  const feat = useTranslations('Features.dashboard.profile.form')
   const profileFormSchema = useProfileFormSchema()
+  const feat = useTranslations('Features.dashboard.profile.form')
+  const { startUpload } = useUploadThing('imageUploader')
   const [isLoading, setIsLoading] = useState(false)
   const [newAvatar, setNewAvatar] = useState<NewAvatarState>({
     compressedFile: null,
@@ -85,13 +85,21 @@ export default function ProfileForm({
           return
         }
       }
-
       // 画像をアップロード（指定されていれば）
+      // やや手遅れだがパブリックURLが取得できてから
+      // Moderationを叩いて、画像が適切か確認する
+      // TODO ここでFailしたらuploadthingから不適切画像を消したい
       let image: string | undefined = undefined
       {
         if (compressedFile) {
           const result = await startUpload([compressedFile])
           image = result?.[0].ufsUrl
+
+          if (!(await checkImageModeration(image))) {
+            setIsModerationOk(false)
+            setIsLoading(false)
+            return
+          }
         }
       }
       // プロフィール更新
