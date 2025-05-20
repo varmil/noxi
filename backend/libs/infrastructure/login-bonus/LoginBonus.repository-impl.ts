@@ -5,7 +5,7 @@ import {
   Awarded,
   LoginBonus,
   LoginBonusRepository,
-  LoginBonusResult,
+  LoginBonusResult
 } from '@domain/login-bonus'
 import { UserId } from '@domain/user'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -70,11 +70,13 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
                 totalTickets: new TotalCount(totalCount + AWARD)
               })
             } else {
-              this.logger.debug('Daily login bonus not yet available: insufficient time since last claim.', {
-                userId,
-                lastClaimedAt,
-                now
-              })
+              this.logger.debug(
+                'Daily login bonus not yet available: insufficient time since last claim.',
+                {
+                  userId,
+                  lastClaimedAt
+                }
+              )
               return new LoginBonusResult({
                 eligible: false,
                 ticketsAwarded: new Awarded(0),

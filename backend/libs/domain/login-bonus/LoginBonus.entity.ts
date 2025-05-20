@@ -16,11 +16,29 @@ export class LoginBonus {
   /** 20時間経っていればtrue */
   @Exclude()
   canClaimDaily(): boolean {
-    const hoursSinceLastClaim =
-      (new Date().getTime() - this.lastClaimedAt.get().getTime()) /
-      1000 /
-      60 /
-      60
-    return hoursSinceLastClaim >= 20
+    const JST_OFFSET_MINUTES = 9 * 60 // JSTはUTC+9
+    const now = new Date()
+    const claimedAt = this.lastClaimedAt.get()
+
+    // JSTでの「基準日（朝5時境目）」を算出するための関数
+    const toJST5amBoundary = (date: Date): string => {
+      const jstDate = new Date(date.getTime() + JST_OFFSET_MINUTES * 60 * 1000)
+      const year = jstDate.getFullYear()
+      const month = jstDate.getMonth()
+      const day = jstDate.getDate()
+
+      // JSTのその日 5時の UTC 時刻を求める（＝JST日付の日付5時 → UTCに戻す）
+      const jst5am = new Date(Date.UTC(year, month, day, 5, 0, 0))
+      return jst5am.toISOString()
+    }
+
+    const nowBoundaryKey = toJST5amBoundary(now)
+    const claimedBoundaryKey = toJST5amBoundary(claimedAt)
+
+    console.log({
+      nowBoundaryKey,
+      claimedBoundaryKey
+    })
+    return nowBoundaryKey !== claimedBoundaryKey
   }
 }
