@@ -374,6 +374,15 @@
       "channelsRanking": "チャンネルランキング",
       "talents": "タレント一覧"
     },
+    "loginBonus": {
+      "title": "デイリーログインボーナス！",
+      "description": "本日のログイン分として応援チケットを獲得",
+      "awarded": "応援チケット {count}枚を獲得しました！",
+      "current": "現在の所持数: {count}枚",
+      "tips": "応援チケットをタレントに使うことでランキングが上昇します。毎日ログインしてチケットを集め、どんどん使ってみましょう！",
+      "close": "閉じる",
+      "toastTitle": "応援チケットを獲得しました"
+    },
     "pagination": {
       "first": "最初のページへ",
       "previous": "前へ",

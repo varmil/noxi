@@ -68,8 +68,8 @@ export default async function LocaleLayout(props: Props) {
           <NextIntlClientProvider>
             <PWAInstallProvider>{children}</PWAInstallProvider>
             <Toaster richColors />
+            <DailyLoginBonus session={session} />
           </NextIntlClientProvider>
-          <DailyLoginBonus session={session} />
         </ThemeProvider>
 
         {/* Google AdSense */}
