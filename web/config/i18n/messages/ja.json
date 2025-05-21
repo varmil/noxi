@@ -493,14 +493,14 @@
         "past30Days": "過去30日間の応援",
         "cheerRanking": "応援ランキング",
         "cheerCount": "{count}回",
-        "rank": "{rank}位"
+        "signUpForTicket": "無料の新規登録でチケットを獲得できます"
       },
       "stats": {
         "title": "応援統計",
         "fansLog": "ファンの活動ログ",
         "past30Days": "過去30日間の応援",
         "cheerRank": "過去30日間の順位",
-        "seasonTotal": "今シーズン累計",
+        "seasonTotal": "今シーズン応援数",
         "seasonRank": "今シーズン順位"
       },
       "topFans": {

@@ -1,8 +1,11 @@
 import { PropsWithChildren } from 'react'
+import { getTranslations } from 'next-intl/server'
+import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { ChannelCheerButton } from 'features/cheer-channel/button/ChannelCheerButton'
 import { auth } from 'lib/auth'
+import dayjs from 'lib/dayjs'
 import { ChannelProfileSection } from './ChannelProfileSection'
 
 type Props = {
@@ -16,7 +19,13 @@ export async function ChannelProfile({
   className
 }: PropsWithChildren<Props>) {
   const session = await auth()
-  const [cheerTicket] = await Promise.all([
+  const [global, feat, rank, cheerTicket] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Features.cheerChannel'),
+    getCheeredRank({
+      channelId: channel.basicInfo.id,
+      usedAt: { gte: dayjs().subtract(365, 'days').toDate() } // 便宜的に１年にしておく
+    }),
     session ? getCheerTicket() : undefined
   ])
   const {
@@ -37,17 +46,27 @@ export async function ChannelProfile({
         {session ? (
           <div className="flex flex-col items-center gap-3 md:mt-2 lg:mt-4">
             <div className="grid grid-cols-2 gap-3 text-center">
-              <div className="rounded-lg bg-muted p-3">
+              <div className="min-w-[120px] rounded-lg bg-muted p-3">
                 <p className="text-xs text-muted-foreground pb-1.5">
-                  過去30日間の応援
+                  {feat('stats.seasonTotal')}
                 </p>
-                <p className="text-xl font-bold">1,245回</p>
+                <p className="text-xl font-bold">
+                  {feat('profile.cheerCount', {
+                    count: rank?.usedCount.toLocaleString() ?? 0
+                  })}
+                </p>
               </div>
-              <div className="rounded-lg bg-muted p-3">
+              <div className="min-w-[120px] rounded-lg bg-muted p-3">
                 <p className="text-xs text-muted-foreground pb-1.5">
-                  応援ランキング
+                  {feat('stats.seasonRank')}
                 </p>
-                <p className="text-xl font-bold">3位</p>
+                <p className="text-xl font-bold">
+                  {rank
+                    ? `${rank.rank}${global('ranking.place', {
+                        rank: rank.rank
+                      })}`
+                    : '--'}
+                </p>
               </div>
             </div>
 
@@ -61,7 +80,7 @@ export async function ChannelProfile({
             />
             {!session && (
               <p className="text-xs text-muted-foreground">
-                無料の新規登録でチケットを獲得できます
+                {feat('profile.signUpForTicket')}
               </p>
             )}
           </div>
