@@ -1,20 +1,17 @@
 import { PropsWithChildren } from 'react'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { GroupString } from 'config/constants/Group'
 import { ChannelCheerButton } from 'features/cheer-channel/button/ChannelCheerButton'
 import { auth } from 'lib/auth'
 import { ChannelProfileSection } from './ChannelProfileSection'
 
 type Props = {
-  basicInfo: ChannelSchema['basicInfo']
-  group: GroupString
+  channel: ChannelSchema
   className?: string
 }
 
 export async function ChannelProfile({
-  basicInfo,
-  group,
+  channel,
   children,
   className
 }: PropsWithChildren<Props>) {
@@ -22,6 +19,10 @@ export async function ChannelProfile({
   const [cheerTicket] = await Promise.all([
     session ? getCheerTicket() : undefined
   ])
+  const {
+    basicInfo,
+    peakX: { group, gender }
+  } = channel
 
   return (
     <div className={className}>
@@ -56,6 +57,7 @@ export async function ChannelProfile({
               channelId={basicInfo.id}
               channelTitle={basicInfo.title}
               group={group}
+              gender={gender}
             />
             {!session && (
               <p className="text-xs text-muted-foreground">

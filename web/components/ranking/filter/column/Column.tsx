@@ -4,7 +4,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 
 export const Column = ({ children }: PropsWithChildren) => (
   <div className="flex-1 py-0 min-w-[136px]">
-    <ScrollArea className="h-[200px] sm:h-[224px] px-4 overflow-hidden">
+    <ScrollArea className="h-[216px] sm:h-[240px] px-4 overflow-hidden">
       {children}
     </ScrollArea>
   </div>

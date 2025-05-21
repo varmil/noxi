@@ -4,22 +4,16 @@ import { GroupString } from 'config/constants/Group'
 import { ChannelProfile } from './ChannelProfile'
 
 type Props = {
-  basicInfo: ChannelSchema['basicInfo']
-  group: GroupString
+  channel: ChannelSchema
 }
 
 export async function ChannelProfileTemplate({
-  basicInfo,
-  group
+  channel
 }: PropsWithoutRef<Props>) {
   return (
-    <ChannelProfile
-      className="pt-4 pb-12 px-4 md:px-0"
-      basicInfo={basicInfo}
-      group={group}
-    >
+    <ChannelProfile className="pt-4 pb-12 px-4 md:px-0" channel={channel}>
       <div className="text-sm text-muted-foreground">
-        {basicInfo.description}
+        {channel.basicInfo.description}
       </div>
     </ChannelProfile>
   )

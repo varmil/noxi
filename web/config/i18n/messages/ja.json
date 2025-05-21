@@ -61,7 +61,7 @@
         "period": "集計期間",
         "dimension": "ディメンション",
         "group": "グループ",
-        "gender": "性別",
+        "gender": "タレントの性別",
         "country": "国",
         "season": "シーズン"
       },
@@ -278,7 +278,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "most-cheered": "今シーズン、{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
+              "most-cheered": "今シーズン、{group}{gender}の最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }

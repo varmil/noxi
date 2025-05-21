@@ -21,6 +21,7 @@ import { CheerTicketSchema } from 'apis/cheer-tickets/cheerTicketSchema'
 import { GroupString } from 'config/constants/Group'
 import { SuccessEffect } from 'features/cheer-channel/button/SuccessEffect'
 import { useRouter } from 'lib/navigation'
+import { Gender } from 'types/gender'
 
 interface Props {
   open: boolean
@@ -29,6 +30,7 @@ interface Props {
   channelId: string
   channelTitle: string
   group: GroupString
+  gender: Gender
 }
 
 export function ChannelCheerDialog({
@@ -37,7 +39,8 @@ export function ChannelCheerDialog({
   cheerTicket,
   channelId,
   channelTitle,
-  group
+  group,
+  gender
 }: Props) {
   const router = useRouter()
   const feat = useTranslations('Features.cheerChannel.dialog')
@@ -71,6 +74,7 @@ export function ChannelCheerDialog({
       await consumeCheerTickets({
         channelId,
         group,
+        gender,
         usedCount: ticketCount,
         usedAt: new Date()
       })
@@ -95,7 +99,7 @@ export function ChannelCheerDialog({
         description: feat('error.description')
       })
     }
-  }, [ticketCount, channelId, group, feat, onOpenChange, router])
+  }, [ticketCount, channelId, group, gender, feat, onOpenChange, router])
 
   return (
     <>
