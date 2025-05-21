@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
 import { LastClaimedAt, TotalCount } from '@domain/cheer-ticket'
 import {
+  AWARD,
   Awarded,
   LoginBonus,
   LoginBonusRepository,
-  LoginBonusResult
+  LoginBonusResult,
+  TICKET_TYPE
 } from '@domain/login-bonus'
 import { UserId } from '@domain/user'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -16,13 +18,12 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   /**
-   * 20時間経っていれば応援チケットを[1]枚付与
+   * AM 5:00 JST境界を見て応援チケットを[AWARD]枚付与
    * SELECT FOR UPDATE で行ロックをかける
    */
   claimDailyIfEligible: LoginBonusRepository['claimDailyIfEligible'] =
     async data => {
       const userId = data.userId.get()
-      const AWARD = 1
 
       return await this.prismaInfraService.$transaction(
         async tx => {
@@ -90,7 +91,7 @@ export class LoginBonusRepositoryImpl implements LoginBonusRepository {
             data: {
               userId,
               count: AWARD,
-              type: 'dailyLoginBonus',
+              type: TICKET_TYPE,
               claimedAt: now
             }
           })

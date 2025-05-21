@@ -84,7 +84,7 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
           </div>
           <div className="text-center space-y-2">
             <p className="text-lg font-medium">
-              応援チケット {bonusData?.ticketsAwarded || 1}枚を獲得しました！
+              応援チケット {bonusData?.ticketsAwarded || 0}枚を獲得しました！
             </p>
             <p className="text-sm text-muted-foreground">
               現在の所持数: {bonusData?.totalTickets || 0}枚

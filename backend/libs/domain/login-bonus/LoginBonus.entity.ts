@@ -2,6 +2,11 @@ import { Exclude, Transform } from 'class-transformer'
 import { LastClaimedAt } from '@domain/cheer-ticket'
 import { UserId } from '@domain/user'
 
+/** ログインボーナスのチケットタイプ */
+export const TICKET_TYPE = 'dailyLoginBonus'
+/** デイリーログインボーナスのチケット数 */
+export const AWARD = 3
+
 export class LoginBonus {
   @Transform(({ value }: { value: UserId }) => value.get())
   public readonly userId: UserId

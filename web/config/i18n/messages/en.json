@@ -499,9 +499,9 @@
         "title": "Cheer Statistics",
         "fansLog": "Fans Log",
         "past30Days": "Past 30 Days Cheer",
-        "cheerRank": "Cheer Rank (Past 30 Days)",
-        "seasonTotal": "Season Total",
-        "seasonRank": "Cheer Rank (Season)"
+        "cheerRank": "Past 30 Days Rank",
+        "seasonTotal": "Season Cheer",
+        "seasonRank": "Season Rank"
       },
       "topFans": {
         "title": "Top Fans",
