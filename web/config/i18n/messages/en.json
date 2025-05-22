@@ -182,8 +182,7 @@
             "description": "Discover detailed stats, rankings, and live updates for {channel} on PeakX."
           },
           "section": {
-            "ranking": { "title": "Ranking & Stats" },
-            "data": { "title": "Data" }
+            "data": { "title": "YouTube Data" }
           }
         },
         "superChat": {
@@ -193,7 +192,8 @@
           },
           "section": {
             "card": { "title": "Super Chat Summary (includes Sticker)" },
-            "chart": {}
+            "chart": {},
+            "ranking": { "title": "Ranking & Stats" }
           }
         },
         "asmr": {
@@ -370,6 +370,7 @@
       "listingAll": "All {count} talents are listed."
     },
     "header": {
+      "dashboard": "Dashboard",
       "liveRanking": "Live Ranking",
       "channelsRanking": "Channels Ranking",
       "talents": "Talents"
@@ -505,7 +506,7 @@
         "signUpForTicket": "Sign-up for free and get cheer tickets"
       },
       "stats": {
-        "title": "Cheer Statistics",
+        "title": "Cheer Ranking",
         "fansLog": "Fans Log",
         "past30Days": "Past 30 Days Cheer",
         "cheerRank": "Past 30 Days Rank",

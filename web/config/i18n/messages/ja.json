@@ -182,8 +182,7 @@
             "description": "{channel}の人気、スパチャ金額、ライブ分析、同接数推移、配信時間を網羅的にチェック。人気の瞬間や収益データも把握し、ファン必見の情報を見逃さない。"
           },
           "section": {
-            "ranking": { "title": "人気・統計" },
-            "data": { "title": "基本データ" }
+            "data": { "title": "YouTube上のデータ" }
           }
         },
         "superChat": {
@@ -193,7 +192,8 @@
           },
           "section": {
             "card": { "title": "スパチャ収入（ステッカー含む）" },
-            "chart": {}
+            "chart": {},
+            "ranking": { "title": "人気・統計" }
           }
         },
         "asmr": {
@@ -370,6 +370,7 @@
       "listingAll": "{count}人全員を掲載中!"
     },
     "header": {
+      "dashboard": "ダッシュボード",
       "liveRanking": "同接数ランキング",
       "channelsRanking": "チャンネルランキング",
       "talents": "タレント一覧"
@@ -417,7 +418,7 @@
     },
     "styles": {
       "badge": {
-        "realtime": "リアルタイム",
+        "realtime": "現在",
         "past": "過去データ",
         "labelForRealtime": "最新のデータを表示"
       },
@@ -505,7 +506,7 @@
         "signUpForTicket": "無料の新規登録でチケットを獲得できます"
       },
       "stats": {
-        "title": "応援統計",
+        "title": "応援ランキング",
         "fansLog": "ファンの活動ログ",
         "past30Days": "過去30日間の応援",
         "cheerRank": "過去30日間の順位",
