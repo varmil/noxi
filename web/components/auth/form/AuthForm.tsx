@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import AppleIcon from 'components/auth/icon/AppleIcon'
 import GoogleIcon from 'components/auth/icon/GoogleIcon'
 import { Link } from 'lib/navigation'
 
@@ -34,17 +33,17 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
     }
   }
 
-  const handleAppleSignIn = async () => {
-    setIsLoading(true)
-    try {
-      await signIn('apple', { redirectTo })
-    } catch (error) {
-      toast.error('エラーが発生しました', {
-        description: 'ログインに失敗しました。もう一度お試しください。'
-      })
-      setIsLoading(false)
-    }
-  }
+  // const handleAppleSignIn = async () => {
+  //   setIsLoading(true)
+  //   try {
+  //     await signIn('apple', { redirectTo })
+  //   } catch (error) {
+  //     toast.error('エラーが発生しました', {
+  //       description: 'ログインに失敗しました。もう一度お試しください。'
+  //     })
+  //     setIsLoading(false)
+  //   }
+  // }
 
   const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -66,7 +65,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4 py-4">
+    <div className="flex flex-col gap-6 py-4">
       <Button
         variant="outline"
         className="flex items-center justify-center gap-4 h-12 px-4 border-2"
@@ -76,7 +75,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
         <GoogleIcon className="size-6" />
         <span className="text-left w-[160px]">Continue with Google</span>
       </Button>
-      <Button
+      {/* <Button
         variant="outline"
         className="flex items-center justify-center gap-4 h-12 px-4 border-2"
         onClick={handleAppleSignIn}
@@ -84,7 +83,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
       >
         <AppleIcon className="size-6 dark:fill-white" />
         <span className="text-left w-[160px]">Continue with Apple</span>
-      </Button>
+      </Button> */}
       <div className="relative my-2">
         <div className="absolute inset-0 flex items-center">
           <Separator className="w-full" />
