@@ -532,7 +532,8 @@
         "month": "1 Month",
         "user": "User",
         "tickets": "Tickets",
-        "date": "Date"
+        "date": "Date",
+        "count": "{count}"
       },
       "dialog": {
         "title": "Cheer {channel}",

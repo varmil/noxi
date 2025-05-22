@@ -22,13 +22,14 @@ import { getCheerTicketUsages } from 'apis/cheer-ticket-usages/getCheerTicketUsa
 import { getUserProfiles } from 'apis/user-profiles/getUserProfiles'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import FirstCheerAlert from 'features/cheer-channel/alert/FirstCheerAlert'
+import { Link } from 'lib/navigation'
 
 interface Props {
   channel: ChannelSchema
 }
 
 export async function ChannelCheerHistory({ channel }: Props) {
-  const [format, t, usages] = await Promise.all([
+  const [format, feat, usages] = await Promise.all([
     getFormatter(),
     getTranslations('Features.cheerChannel.history'),
     getCheerTicketUsages({
@@ -55,10 +56,10 @@ export async function ChannelCheerHistory({ channel }: Props) {
         <CardHeader>
           <CardTitle className="flex items-center text-xl">
             <Tickets className="mr-2 h-5 w-5 text-pink-700 dark:text-pink-500" />
-            {t('title')}
+            {feat('title')}
           </CardTitle>
           <CardDescription>
-            {t('description', { channel: channel.basicInfo.title })}
+            {feat('description', { channel: channel.basicInfo.title })}
           </CardDescription>
         </CardHeader>
 
@@ -67,9 +68,11 @@ export async function ChannelCheerHistory({ channel }: Props) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{t('user')}</TableHead>
-                  <TableHead className="text-right">{t('tickets')}</TableHead>
-                  <TableHead className="text-right">{t('date')}</TableHead>
+                  <TableHead>{feat('user')}</TableHead>
+                  <TableHead className="text-right">
+                    {feat('tickets')}
+                  </TableHead>
+                  <TableHead className="text-right">{feat('date')}</TableHead>
                   <TableHead className="hidden md:table-cell"></TableHead>
                 </TableRow>
               </TableHeader>
@@ -78,23 +81,29 @@ export async function ChannelCheerHistory({ channel }: Props) {
                   const profile = profiles.find(
                     profile => profile.userId === item.userId
                   )
+                  if (!profile) return null
                   return (
                     <TableRow key={item.usedAt.toISOString()}>
                       <TableCell width={500}>
-                        <div className="flex items-center gap-4">
-                          <Avatar className="size-8">
-                            <AvatarImage
-                              src={profile?.image || '/placeholder.svg'}
-                              alt={profile?.name}
-                            />
-                            <AvatarFallback>
-                              {profile?.name.substring(0, 2)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <span className="font-medium line-clamp-1 break-all">
-                            {profile?.name}
-                          </span>
-                        </div>
+                        <Link
+                          href={`/users/${profile.username}`}
+                          prefetch={false}
+                        >
+                          <div className="flex items-center gap-4">
+                            <Avatar className="size-8">
+                              <AvatarImage
+                                src={profile.image || '/placeholder.svg'}
+                                alt={profile.name}
+                              />
+                              <AvatarFallback>
+                                {profile.name.substring(0, 2)}
+                              </AvatarFallback>
+                            </Avatar>
+                            <span className="font-medium line-clamp-1 break-all">
+                              {profile.name}
+                            </span>
+                          </div>
+                        </Link>
                       </TableCell>
                       <TableCell
                         align="right"
@@ -109,7 +118,9 @@ export async function ChannelCheerHistory({ channel }: Props) {
                           }`}
                         >
                           <Tickets className="mr-1 size-3 text-pink-700 dark:text-pink-500" />
-                          <span className="flex-1">{item.usedCount}枚</span>
+                          <span className="flex-1">
+                            {feat('count', { count: item.usedCount })}
+                          </span>
                         </Badge>
                       </TableCell>
                       <TableCell
@@ -122,9 +133,18 @@ export async function ChannelCheerHistory({ channel }: Props) {
                         align="right"
                         className="hidden md:table-cell md:w-[150px]"
                       >
-                        <Button variant="outline" className="cursor-pointer">
-                          {'See More'}
-                          <ArrowUpRight className="ml-1 size-4" />
+                        <Button
+                          variant="outline"
+                          className="cursor-pointer"
+                          asChild
+                        >
+                          <Link
+                            href={`/users/${profile.username}`}
+                            prefetch={false}
+                          >
+                            {'See More'}
+                            <ArrowUpRight className="ml-1 size-4" />
+                          </Link>
                         </Button>
                       </TableCell>
                     </TableRow>

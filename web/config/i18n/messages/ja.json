@@ -532,7 +532,8 @@
         "month": "1ヶ月",
         "user": "ユーザー",
         "tickets": "チケット",
-        "date": "日時"
+        "date": "日時",
+        "count": "{count}枚"
       },
       "dialog": {
         "title": "{channel}を応援する",

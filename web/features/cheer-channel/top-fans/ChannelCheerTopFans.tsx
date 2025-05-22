@@ -14,6 +14,7 @@ import { getUserProfiles } from 'apis/user-profiles/getUserProfiles'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import FirstCheerAlert from 'features/cheer-channel/alert/FirstCheerAlert'
 import dayjs from 'lib/dayjs'
+import { Link } from 'lib/navigation'
 
 export async function ChannelCheerTopFans({
   channel
@@ -55,8 +56,10 @@ export async function ChannelCheerTopFans({
             const profile = profiles.find(
               profile => profile.userId === fan.userId
             )
+            if (!profile) return null
             return (
-              <div
+              <Link
+                href={`/users/${profile.username}`}
                 key={fan.userId}
                 className={`relative flex flex-col items-center rounded-xl p-4 text-center transition-all hover:bg-muted/50 ${
                   index === 0
@@ -67,11 +70,11 @@ export async function ChannelCheerTopFans({
                 <div className="relative mb-2">
                   <Avatar className="h-16 w-16 border-2 border-background">
                     <AvatarImage
-                      src={profile?.image || '/placeholder.svg'}
-                      alt={profile?.name}
+                      src={profile.image || '/placeholder.svg'}
+                      alt={profile.name}
                     />
                     <AvatarFallback>
-                      {profile?.name.substring(0, 2)}
+                      {profile.name.substring(0, 2)}
                     </AvatarFallback>
                   </Avatar>
 
@@ -95,7 +98,7 @@ export async function ChannelCheerTopFans({
                 </div>
 
                 <div className="text-sm font-medium line-clamp-1 break-all">
-                  {profile?.name}
+                  {profile.name}
                 </div>
 
                 <Badge
@@ -109,7 +112,7 @@ export async function ChannelCheerTopFans({
                   <Tickets className="mr-1 size-3 text-pink-700 dark:text-pink-500" />
                   {feat('tickets', { count: fan.usedCount })}
                 </Badge>
-              </div>
+              </Link>
             )
           })}
         </div>
