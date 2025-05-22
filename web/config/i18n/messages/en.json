@@ -359,8 +359,8 @@
     },
     "bottomNavigation": {
       "home": "Home",
-      "live": "Live",
-      "channels": "Super Chat",
+      "mostCheered": "Most Cheered",
+      "topFans": "Top Fans",
       "groups": "Talents"
     },
     "channelsAdd": { "title": "Add your channel to PeakX" },

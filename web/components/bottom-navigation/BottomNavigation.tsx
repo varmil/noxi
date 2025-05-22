@@ -1,7 +1,15 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { CircleDollarSign, Home, Radio, Users } from 'lucide-react'
+import {
+  Activity,
+  CircleDollarSign,
+  Home,
+  Radio,
+  TrendingUp,
+  Trophy,
+  Users
+} from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -24,16 +32,16 @@ export default function BottomNavigation({ className }: Props) {
       icon: Home
     },
     {
-      pathname: '/ranking/live',
-      query: '?dimension=concurrent-viewer&period=realtime',
-      label: t('live'),
-      icon: Radio
+      pathname: '/ranking/most-cheered',
+      query: '?period=last30Days',
+      label: t('mostCheered'),
+      icon: Trophy
     },
     {
-      pathname: '/ranking/channels',
-      query: '?dimension=super-chat&period=last24Hours',
-      label: t('channels'),
-      icon: CircleDollarSign
+      pathname: '/ranking/top-fans',
+      query: '?period=last30Days',
+      label: t('topFans'),
+      icon: Activity
     },
     {
       pathname: '/groups',

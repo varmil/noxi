@@ -359,8 +359,8 @@
     },
     "bottomNavigation": {
       "home": "ホーム",
-      "live": "同接数",
-      "channels": "スパチャ金額",
+      "mostCheered": "応援ランキング",
+      "topFans": "トップファン",
       "groups": "タレント一覧"
     },
     "channelsAdd": { "title": "PeakXにチャンネルを載せる" },
