@@ -379,7 +379,7 @@
       "description": "Earn cheer tickets for logging in today",
       "awarded": "Earned {count} cheer tickets!",
       "current": "Current number: {count}",
-      "tips": "Using cheer tickets for talents will increase your ranking. Log in every day to collect tickets and use them as much as you can!",
+      "tips": "Using tickets for talents will increase your ranking. Log in every day to collect tickets and use them as much as you can!",
       "close": "Close",
       "toastTitle": "Earned cheer tickets"
     },
