@@ -508,8 +508,9 @@
       "stats": {
         "title": "応援ランキング",
         "fansLog": "ファンの活動ログ",
+        "past7Days": "過去7日間の応援",
         "past30Days": "過去30日間の応援",
-        "cheerRank": "過去30日間の順位",
+        "cheerRank": "過去7日間の順位",
         "seasonTotal": "今シーズン応援数",
         "seasonRank": "今シーズン順位"
       },

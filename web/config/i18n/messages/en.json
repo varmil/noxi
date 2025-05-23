@@ -508,8 +508,9 @@
       "stats": {
         "title": "Cheer Ranking",
         "fansLog": "Fans Log",
+        "past7Days": "Past 7 Days Cheer",
         "past30Days": "Past 30 Days Cheer",
-        "cheerRank": "Past 30 Days Rank",
+        "cheerRank": "Past 7 Days Rank",
         "seasonTotal": "Season Cheer",
         "seasonRank": "Season Rank"
       },

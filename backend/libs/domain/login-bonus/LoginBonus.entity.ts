@@ -5,7 +5,7 @@ import { UserId } from '@domain/user'
 /** ログインボーナスのチケットタイプ */
 export const TICKET_TYPE = 'dailyLoginBonus'
 /** デイリーログインボーナスのチケット数 */
-export const AWARD = 3
+export const AWARD = 4
 
 export class LoginBonus {
   @Transform(({ value }: { value: UserId }) => value.get())
