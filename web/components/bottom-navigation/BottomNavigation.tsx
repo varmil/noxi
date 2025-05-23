@@ -1,15 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import {
-  Activity,
-  CircleDollarSign,
-  Home,
-  Radio,
-  TrendingUp,
-  Trophy,
-  Users
-} from 'lucide-react'
+import { Activity, Home, Search, Trophy } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -46,7 +38,7 @@ export default function BottomNavigation({ className }: Props) {
     {
       pathname: '/groups',
       label: t('groups'),
-      icon: Users,
+      icon: Search,
       isActive: !!params['group']
     }
   ]
