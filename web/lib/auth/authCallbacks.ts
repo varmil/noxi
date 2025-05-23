@@ -1,9 +1,7 @@
 import { Pool } from '@neondatabase/serverless'
 import jwt from 'jsonwebtoken'
-import { NextAuthConfig, User } from 'next-auth'
-import { initCheerTicket } from 'lib/auth/initCheerTicket'
-import { initUser } from 'lib/auth/initUser'
-import { initUsername } from 'lib/auth/initUsername'
+import { NextAuthConfig } from 'next-auth'
+import { onSignUp } from 'lib/auth/onSignUp'
 
 const REFRESH_INTERVAL = 300 // TODO: 本番では変える
 
@@ -50,21 +48,6 @@ const callbacks = (pool: Pool): NextAuthConfig['callbacks'] => {
       session.user.jwtForNestJS = token.jwtForNestJS
       return session
     }
-  }
-}
-
-const onSignUp = async (pool: Pool, user: User) => {
-  const { id } = user
-  if (!id) {
-    throw new Error('User ID is missing')
-  }
-
-  const { name, image } = await initUser(pool, id, user.name, user.image)
-  await Promise.all([initUsername(pool, id), initCheerTicket(pool, id)])
-
-  return {
-    name,
-    image
   }
 }
 
