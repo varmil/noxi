@@ -1,6 +1,7 @@
 import { Pool } from '@neondatabase/serverless'
 import jwt from 'jsonwebtoken'
 import { NextAuthConfig, User } from 'next-auth'
+import { initCheerTicket } from 'lib/auth/initCheerTicket'
 import { initUser } from 'lib/auth/initUser'
 import { initUsername } from 'lib/auth/initUsername'
 
@@ -59,7 +60,7 @@ const onSignUp = async (pool: Pool, user: User) => {
   }
 
   const { name, image } = await initUser(pool, id, user.name, user.image)
-  await initUsername(pool, id)
+  await Promise.all([initUsername(pool, id), initCheerTicket(pool, id)])
 
   return {
     name,
