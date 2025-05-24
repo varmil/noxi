@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { NextAuthConfig } from 'next-auth'
 import { onSignUp } from 'lib/auth/onSignUp'
 
-const REFRESH_INTERVAL = 10 // TODO: 本番では変える
+const REFRESH_INTERVAL = 24 * 3600 // 1日
 
 const callbacks = (pool: Pool): NextAuthConfig['callbacks'] => {
   return {
