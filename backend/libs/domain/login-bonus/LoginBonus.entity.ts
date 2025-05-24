@@ -39,11 +39,6 @@ export class LoginBonus {
 
     const nowBoundaryKey = toJST5amBoundary(now)
     const claimedBoundaryKey = toJST5amBoundary(claimedAt)
-
-    console.log({
-      nowBoundaryKey,
-      claimedBoundaryKey
-    })
     return nowBoundaryKey !== claimedBoundaryKey
   }
 }

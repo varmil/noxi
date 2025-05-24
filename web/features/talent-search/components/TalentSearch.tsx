@@ -100,11 +100,11 @@ const Item = ({ talent }: { talent: ChannelsSchema[number] }) => {
     <CommandItem
       key={id}
       value={id}
-      className="flex items-center gap-2 py-3 cursor-pointer"
+      className="flex items-center gap-2 py-2 cursor-pointer"
       asChild
     >
       <Link href={`/${peakX.group}/channels/${id}`}>
-        <Avatar className="h-8 w-8">
+        <Avatar className="size-7">
           <AvatarImage
             src={thumbnails?.default?.url || '/placeholder.svg'}
             alt={title}
@@ -112,7 +112,9 @@ const Item = ({ talent }: { talent: ChannelsSchema[number] }) => {
           <AvatarFallback>{title.slice(0, 2)}</AvatarFallback>
         </Avatar>
         <div className="flex flex-col">
-          <span className="font-medium line-clamp-1 break-all">{title}</span>
+          <span className="text-xs font-medium line-clamp-1 break-all">
+            {title}
+          </span>
           <span className="text-xs text-muted-foreground">{peakX.group}</span>
         </div>
       </Link>

@@ -4,7 +4,7 @@ import NextAuth from 'next-auth'
 import providers from 'lib/auth/authProviders'
 import callbacks from './auth/authCallbacks'
 
-const SESSION_MAX_AGE = 3600 // TODO: 本番では変える
+const SESSION_MAX_AGE = 300 // TODO: 本番では変える
 
 export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth(
   () => {
