@@ -127,7 +127,7 @@ export function ChannelCheerDialog({
                   size="icon"
                   onClick={decreaseCount}
                   disabled={ticketCount <= 1}
-                  className="size-10 rounded-full"
+                  className="size-10 rounded-full touch-none"
                 >
                   <Minus className="size-4" />
                 </Button>
@@ -149,7 +149,7 @@ export function ChannelCheerDialog({
                   size="icon"
                   onClick={increaseCount}
                   disabled={ticketCount >= maxTickets}
-                  className="size-10 rounded-full"
+                  className="size-10 rounded-full touch-none"
                 >
                   <Plus className="size-4" />
                 </Button>
