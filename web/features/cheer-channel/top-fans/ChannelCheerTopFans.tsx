@@ -1,4 +1,4 @@
-import { Crown, Tickets } from 'lucide-react'
+import { Activity, Crown, Tickets } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -41,7 +41,7 @@ export async function ChannelCheerTopFans({
       <CardHeader>
         <CardTitle className="text-xl">
           <span className="flex items-center">
-            <Crown className="mr-2 h-5 w-5 text-amber-700 dark:text-amber-500" />
+            <Activity className="mr-2 h-5 w-5 text-amber-700 dark:text-amber-500" />
             {feat('title')}
           </span>
         </CardTitle>

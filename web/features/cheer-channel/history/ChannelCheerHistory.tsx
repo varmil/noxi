@@ -1,4 +1,4 @@
-import { ArrowUpRight, Tickets } from 'lucide-react'
+import { ArrowUpRight, History, Tickets } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
@@ -55,7 +55,7 @@ export async function ChannelCheerHistory({ channel }: Props) {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center text-xl">
-            <Tickets className="mr-2 h-5 w-5 text-pink-700 dark:text-pink-500" />
+            <History className="mr-2 h-5 w-5 text-orange-700 dark:text-orange-500" />
             {feat('title')}
           </CardTitle>
           <CardDescription>
@@ -84,7 +84,7 @@ export async function ChannelCheerHistory({ channel }: Props) {
                   if (!profile) return null
                   return (
                     <TableRow key={item.usedAt.toISOString()}>
-                      <TableCell width={500}>
+                      <TableCell width={800}>
                         <Link
                           href={`/users/${profile.username}`}
                           prefetch={false}
@@ -131,7 +131,7 @@ export async function ChannelCheerHistory({ channel }: Props) {
                       </TableCell>
                       <TableCell
                         align="right"
-                        className="hidden md:table-cell md:w-[150px]"
+                        className="hidden md:table-cell md:w-[150px] lg:w-[200px]"
                       >
                         <Button
                           variant="outline"
