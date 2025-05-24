@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getChannels } from 'apis/youtube/getChannels'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
-import { TalentSearch } from 'features/talent-search/components/TalentSearch'
+import { TalentSearch } from 'components/talent-search/components/TalentSearch'
 
 type Props = {
   params: Promise<{ locale: Locale }>
