@@ -371,8 +371,8 @@
     },
     "header": {
       "dashboard": "Dashboard",
-      "liveRanking": "Live Ranking",
-      "channelsRanking": "Channels Ranking",
+      "mostCheered": "Most Cheered",
+      "topFans": "Top Fans",
       "talents": "Talents"
     },
     "loginBonus": {

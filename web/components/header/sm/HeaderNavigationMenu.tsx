@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import { Activity, Trophy } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   NavigationMenu,
@@ -13,8 +14,8 @@ import {
 } from '@/components/ui/navigation-menu'
 import GroupGallery from 'components/group/GroupGallery'
 import {
-  ChannelsRankingDefaultUrl,
-  StreamRankingDefaultUrl
+  MostCheeredDefaultUrl,
+  TopFansDefaultUrl
 } from 'config/constants/RankingRoute'
 import { Link } from 'lib/navigation'
 
@@ -26,14 +27,22 @@ export default function HeaderNavigationMenu() {
         <NavigationMenuItem>
           {/* https://github.com/amannn/next-intl/issues/1271 */}
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href={StreamRankingDefaultUrl}>{comp('liveRanking')}</Link>
+            <Link href={MostCheeredDefaultUrl}>
+              <div className="flex items-center gap-1">
+                <Trophy className="size-4" />
+                <span>{comp('mostCheered')}</span>
+              </div>
+            </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href={ChannelsRankingDefaultUrl}>
-              {comp('channelsRanking')}
+            <Link href={TopFansDefaultUrl}>
+              <div className="flex items-center gap-1">
+                <Activity className="size-4" />
+                <span>{comp('topFans')}</span>
+              </div>
             </Link>
           </NavigationMenuLink>
         </NavigationMenuItem>
