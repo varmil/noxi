@@ -8,6 +8,7 @@ import { Gender } from 'types/gender'
 
 type Params = {
   ids?: string[]
+  title?: string
   group?: GroupString
   gender?: Gender
   orderBy?: {
@@ -20,6 +21,7 @@ type Params = {
 
 export async function getChannels({
   ids,
+  title,
   group,
   gender,
   orderBy,
@@ -28,6 +30,7 @@ export async function getChannels({
 }: Params): Promise<ChannelsSchema> {
   const searchParams = new URLSearchParams({
     ...(ids && { ids: [...new Set(ids)].join(',') }),
+    ...(title && { title }),
     ...(group && { group }),
     ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),

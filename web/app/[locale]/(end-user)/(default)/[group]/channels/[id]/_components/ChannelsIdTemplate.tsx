@@ -25,41 +25,26 @@ export async function ChannelsIdTemplate({ id, period }: Props) {
 
   return (
     <Sections className={`lg:grid-cols-4`}>
-      <Section
-        className="lg:col-span-3 lg:order-2"
-        title={page('ranking.title')}
-      >
-        <SupersRanking channelId={id} period={period} />
+      <Section className="lg:col-span-1 lg:order-1" title={featCheer('title')}>
+        <ChannelCheerStats channel={channel} />
       </Section>
 
       <Section
-        gridClassName={'grid-cols-2 lg:grid-cols-1'}
-        className="lg:col-span-1 lg:order-1"
+        className="lg:col-span-3 lg:order-2"
+        gridClassName="gap-2 lg:gap-4"
+        title={featCheer('fansLog')}
+      >
+        <ChannelCheerTopFans channel={channel} />
+        <ChannelCheerHistory channel={channel} />
+      </Section>
+
+      <Section
+        className="col-span-full lg:order-3"
+        gridClassName={'grid-cols-2 lg:grid-cols-4'}
         title={page('data.title')}
       >
         <ChannelData channel={channel} />
       </Section>
-
-      {/* NOTE: リリース時は条件削除 */}
-      {session ? (
-        <>
-          <Section
-            className="lg:col-span-1 lg:order-3"
-            title={featCheer('title')}
-          >
-            <ChannelCheerStats channel={channel} />
-          </Section>
-
-          <Section
-            className="lg:col-span-3 lg:order-4"
-            gridClassName="gap-2 lg:gap-4"
-            title={featCheer('fansLog')}
-          >
-            <ChannelCheerTopFans channel={channel} />
-            <ChannelCheerHistory channel={channel} />
-          </Section>
-        </>
-      ) : null}
     </Sections>
   )
 }

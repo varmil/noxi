@@ -56,7 +56,7 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale)
   setGroup(group)
 
-  const [{ basicInfo, peakX }, tg, t] = await Promise.all([
+  const [channel, tg, t] = await Promise.all([
     getChannel(id),
     getTranslations('Global'),
     getTranslations('Breadcrumb')
@@ -69,11 +69,11 @@ export default async function ChannelsIdBasePage(
           href: `/${group}/charts/channels`,
           name: t('group', { group: tg(`group.${group}`) })
         },
-        { href: `/${group}/channels/${id}`, name: basicInfo.title }
+        { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
       ]}
     >
       <section className="flex flex-col">
-        <ChannelProfileTemplate basicInfo={basicInfo} group={peakX.group} />
+        <ChannelProfileTemplate channel={channel} />
         <section>
           <LocalNavigationForChannelsIdPages channelId={id} group={group} />
         </section>

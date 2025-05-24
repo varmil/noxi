@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
-import { Badge } from '@/components/ui/badge'
 import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
 import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
@@ -10,8 +9,7 @@ import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge
 import {
   StatsCard,
   StatsCardContent,
-  StatsCardHeader,
-  StatsCards
+  StatsCardHeader
 } from 'components/styles/card/StatsCard'
 import { Period } from 'types/period'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
@@ -67,7 +65,7 @@ export default async function ChannelSupersCards({
   ])
 
   return (
-    <StatsCards>
+    <>
       <StatsCard>
         <StatsCardHeader>
           <span>{global('period.last24Hours')}</span>
@@ -146,6 +144,6 @@ export default async function ChannelSupersCards({
           </LinkToRanking>
         </StatsCardContent>
       </StatsCard>
-    </StatsCards>
+    </>
   )
 }

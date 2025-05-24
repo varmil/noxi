@@ -37,9 +37,7 @@ export function Section({
         )}
         {tabs && <div>{tabs}</div>}
       </div>
-      <div className={`grid gap-1 lg:gap-2 ${gridClassName ?? ''}`}>
-        {children}
-      </div>
+      <div className={`grid gap-2 ${gridClassName ?? ''}`}>{children}</div>
     </section>
   )
 }

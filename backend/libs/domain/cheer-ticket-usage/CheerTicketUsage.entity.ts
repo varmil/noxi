@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer'
 import { UsedAt, UsedCount } from '@domain/cheer-ticket-usage'
 import { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
@@ -11,6 +12,8 @@ export class CheerTicketUsage {
   public readonly channelId: ChannelId
   @Transform(({ value }: { value: Group }) => value.get())
   public readonly group: Group
+  @Transform(({ value }: { value: Gender }) => value.get())
+  public readonly gender: Gender
   @Transform(({ value }: { value: UsedCount }) => value.get())
   public readonly usedCount: UsedCount
   @Transform(({ value }: { value: UsedAt }) => value.get())
@@ -20,12 +23,14 @@ export class CheerTicketUsage {
     userId: UserId
     channelId: ChannelId
     group: Group
+    gender: Gender
     usedCount: UsedCount
     usedAt: UsedAt
   }) {
     this.userId = args.userId
     this.channelId = args.channelId
     this.group = args.group
+    this.gender = args.gender
     this.usedCount = args.usedCount
     this.usedAt = args.usedAt
   }

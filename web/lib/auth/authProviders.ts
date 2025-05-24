@@ -1,12 +1,10 @@
 import { Provider } from '@auth/core/providers'
 import Credentials from '@auth/core/providers/credentials'
-import Apple from 'next-auth/providers/apple'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
 
 const providers: Provider[] = [
   Google,
-  Apple,
   Resend({ from: 'PeakX.net <verify@peakx.net>' })
 ]
 

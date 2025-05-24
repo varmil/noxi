@@ -100,15 +100,15 @@ export default async function SupersRanking({
         tabs={[
           {
             label: global('period.last24Hours'),
-            href: `/${group}/channels/${channelId}`
+            href: `/${group}/channels/${channelId}/super-chat`
           },
           {
             label: global('period.last7Days'),
-            href: `/${group}/channels/${channelId}?period=last7Days`
+            href: `/${group}/channels/${channelId}/super-chat?period=last7Days`
           },
           {
             label: global('period.last30Days'),
-            href: `/${group}/channels/${channelId}?period=last30Days`
+            href: `/${group}/channels/${channelId}/super-chat?period=last30Days`
           }
         ]}
       />

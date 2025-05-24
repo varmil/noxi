@@ -1,10 +1,12 @@
 import { PropsWithoutRef } from 'react'
+import { getFanRankingCount } from 'apis/cheer-ticket-usages/getFanRanking'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import { TopFansPagination } from 'config/constants/Pagination'
 import TopFansFilterGallery from 'features/cheer/top-fans/components/filter/TopFansFilterGallery'
 import TopFansGallery from 'features/cheer/top-fans/components/gallery/TopFansGallery'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
+import { getStartOf } from 'utils/period/ranking'
 
 type Props = {
   searchParams: TopFansSearchParams
@@ -13,8 +15,12 @@ type Props = {
 export default async function IndexTemplate({
   searchParams
 }: PropsWithoutRef<Props>) {
-  // TODO: 通信で取る
-  const count = 100
+  const { period, group, gender } = searchParams
+  const count = await getFanRankingCount({
+    group,
+    gender,
+    usedAt: { gte: getStartOf(period).toDate() }
+  })
 
   return (
     <section className={`space-y-4`}>

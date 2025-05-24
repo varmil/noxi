@@ -9,8 +9,8 @@ import { TopFansDefaultUrl } from 'config/constants/RankingRoute'
 import TopFansTable from 'features/cheer/top-fans/components/table/TopFansTable'
 import TopFansTableTitle from 'features/cheer/top-fans/components/table/TopFansTableTitle'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
-import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
+import { getStartOf } from 'utils/period/ranking'
 
 export type TopFansGalleryProps = TopFansSearchParams & {
   compact?: boolean
@@ -30,25 +30,10 @@ export default async function TopFansGallery(
   const feat = await getTranslations('Features.topFans')
   const { period, group, gender, date, page, compact, className } = props
 
-  // Period --> usedAt.gte
-  let gte: Date
-  switch (period) {
-    case 'last7Days':
-      gte = dayjs().subtract(7, 'days').toDate()
-      break
-    case 'last30Days':
-      gte = dayjs().subtract(30, 'days').toDate()
-      break
-    case 'all':
-      gte = dayjs().startOf('year').toDate() // 便宜的にシーズンの始まり（01/01 09:00 JST）
-      break
-    default:
-      throw new Error('Invalid period')
-  }
-
   const fanUsages = await getFanRanking({
     group,
-    usedAt: { gte },
+    gender,
+    usedAt: { gte: getStartOf(period).toDate() },
     limit: TopFansPagination.getLimit(),
     offset: TopFansPagination.getOffset(page)
   })

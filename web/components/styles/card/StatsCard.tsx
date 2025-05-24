@@ -25,10 +25,17 @@ export function StatsCard({
   return <Card className={`gap-2 ${className}`}>{children}</Card>
 }
 
-export function StatsCardHeader({ children }: PropsWithChildren) {
+export function StatsCardHeader({
+  children,
+  className
+}: PropsWithChildren<{ className?: string }>) {
   return (
-    <CardHeader className="gap-0">
-      <CardTitle className="text-sm flex justify-between items-center w-full font-medium">
+    <CardHeader className={`gap-0`}>
+      <CardTitle
+        className={`text-sm flex justify-between items-center w-full font-medium ${
+          className ?? ''
+        }`}
+      >
         {children}
       </CardTitle>
     </CardHeader>

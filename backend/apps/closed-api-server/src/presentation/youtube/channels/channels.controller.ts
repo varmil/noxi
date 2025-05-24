@@ -19,7 +19,12 @@ export class ChannelsController {
   @Get()
   async getChannels(@Query() dto: GetChannelsDto) {
     return await this.channelsService.findAll({
-      where: { id: dto.toIds(), group: dto.toGroup(), gender: dto.toGender() },
+      where: {
+        id: dto.toIds(),
+        title: dto.toTitle(),
+        group: dto.toGroup(),
+        gender: dto.toGender()
+      },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
       offset: dto.toOffset()

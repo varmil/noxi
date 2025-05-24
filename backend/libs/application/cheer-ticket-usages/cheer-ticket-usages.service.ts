@@ -1,9 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { CheerTicketUsageRepository } from '@domain/cheer-ticket-usage'
+import { CheerRankingRepository } from '@domain/cheer-ticket-usage/CheerRanking.repository'
 
 @Injectable()
 export class CheerTicketUsagesService {
   constructor(
+    @Inject('CheerRankingRepository')
+    private readonly cheerRankingRepository: CheerRankingRepository,
     @Inject('CheerTicketUsageRepository')
     private readonly cheerTicketUsageRepository: CheerTicketUsageRepository
   ) {}
@@ -17,15 +20,27 @@ export class CheerTicketUsagesService {
   }
 
   async findCheeredRanking(
-    args: Parameters<CheerTicketUsageRepository['findCheeredRanking']>[0]
+    args: Parameters<CheerRankingRepository['findCheeredRanking']>[0]
   ) {
-    return this.cheerTicketUsageRepository.findCheeredRanking(args)
+    return this.cheerRankingRepository.findCheeredRanking(args)
   }
 
   async findFanRanking(
-    args: Parameters<CheerTicketUsageRepository['findFanRanking']>[0]
+    args: Parameters<CheerRankingRepository['findFanRanking']>[0]
   ) {
-    return this.cheerTicketUsageRepository.findFanRanking(args)
+    return this.cheerRankingRepository.findFanRanking(args)
+  }
+
+  async countCheeredRanking(
+    args: Parameters<CheerRankingRepository['countCheeredRanking']>[0]
+  ) {
+    return this.cheerRankingRepository.countCheeredRanking(args)
+  }
+
+  async countFanRanking(
+    args: Parameters<CheerRankingRepository['countFanRanking']>[0]
+  ) {
+    return this.cheerRankingRepository.countFanRanking(args)
   }
 
   async findCheeredRank(

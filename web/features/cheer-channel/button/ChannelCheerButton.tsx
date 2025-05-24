@@ -9,19 +9,22 @@ import { CheerTicketSchema } from 'apis/cheer-tickets/cheerTicketSchema'
 import AuthModal from 'components/auth/dialog/AuthModal'
 import { GroupString } from 'config/constants/Group'
 import { ChannelCheerDialog } from 'features/cheer-channel/button/ChannelCheerDialog'
+import { Gender } from 'types/gender'
 
 export function ChannelCheerButton({
   session,
   cheerTicket,
   channelId,
   channelTitle,
-  group
+  group,
+  gender
 }: {
   session: Session | null
   cheerTicket?: CheerTicketSchema
   channelId: string
   channelTitle: string
   group: GroupString
+  gender: Gender
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const t = useTranslations('Features.cheerChannel')
@@ -44,6 +47,7 @@ export function ChannelCheerButton({
           channelId={channelId}
           channelTitle={channelTitle}
           group={group}
+          gender={gender}
         />
       ) : (
         <AuthModal open={isDialogOpen} onOpenChange={setIsDialogOpen} />

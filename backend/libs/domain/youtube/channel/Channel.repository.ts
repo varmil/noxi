@@ -1,12 +1,19 @@
 import { CountryCode } from '@domain/country'
 import { Group } from '@domain/group'
 import { Gender } from '@domain/lib'
-import { Channel, Channels, ChannelId, ChannelIds } from '@domain/youtube/'
+import {
+  Channel,
+  Channels,
+  ChannelId,
+  ChannelIds,
+  ChannelTitle
+} from '@domain/youtube/'
 
 export interface ChannelRepository {
   findAll: (args: {
     where?: {
       id?: ChannelIds
+      title?: ChannelTitle
       group?: Group
       gender?: Gender
       country?: CountryCode

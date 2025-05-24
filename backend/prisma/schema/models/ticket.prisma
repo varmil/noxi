@@ -24,6 +24,7 @@ model CheerTicketUsage {
     userId    Int
     channelId String
     group     String
+    gender    String
     usedCount Int
     usedAt    DateTime
 

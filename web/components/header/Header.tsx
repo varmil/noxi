@@ -41,11 +41,7 @@ export default async function Header({ className }: { className?: string }) {
       </div>
 
       <div className="relative ml-auto">
-        {session ? (
-          <UserDropdown session={session} />
-        ) : (
-          <AuthModalWithButton disabled />
-        )}
+        {session ? <UserDropdown session={session} /> : <AuthModalWithButton />}
       </div>
     </header>
   )

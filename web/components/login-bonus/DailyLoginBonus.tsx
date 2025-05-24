@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Gift } from 'lucide-react'
 import { Session } from 'next-auth'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import {
@@ -16,6 +17,7 @@ import { postDailyLoginBonus } from 'apis/youtube/postDailyLoginBonus'
 import { DailyLoginBonusSchema } from 'apis/youtube/schema/dailyLoginBonusSchema'
 
 export function DailyLoginBonus({ session }: { session: Session | null }) {
+  const comp = useTranslations('Components.loginBonus')
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [bonusData, setBonusData] = useState<DailyLoginBonusSchema | null>(null)
@@ -53,8 +55,10 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
     setOpen(false)
     // ダイアログを閉じた後にトーストで通知
     if (bonusData?.eligible) {
-      toast('応援チケットを獲得しました', {
-        description: `現在の所持数: ${bonusData.totalTickets}枚`
+      toast(comp('toastTitle'), {
+        description: comp('current', {
+          count: bonusData.totalTickets
+        })
       })
     }
   }
@@ -69,10 +73,10 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl">
-            デイリーログインボーナス！
+            {comp('title')}
           </DialogTitle>
           <DialogDescription className="text-center">
-            本日のログイン分として応援チケットを獲得
+            {comp('description')}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center justify-center py-6 space-y-4">
@@ -84,16 +88,18 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
           </div>
           <div className="text-center space-y-2">
             <p className="text-lg font-medium">
-              応援チケット {bonusData?.ticketsAwarded || 1}枚を獲得しました！
+              {comp('awarded', {
+                count: bonusData?.ticketsAwarded || 0
+              })}
             </p>
             <p className="text-sm text-muted-foreground">
-              現在の所持数: {bonusData?.totalTickets || 0}枚
+              {comp('current', {
+                count: bonusData?.totalTickets || 0
+              })}
             </p>
           </div>
           <div className="text-center text-sm text-muted-foreground max-w-xs">
-            <p>
-              応援チケットをVTuberに使うことで応援ランキングに貢献できます。毎日ログインしてチケットを集め、どんどん使ってみましょう！
-            </p>
+            <p>{comp('tips')}</p>
           </div>
         </div>
         <div className="flex justify-center">
@@ -102,7 +108,7 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
             onClick={handleClose}
             className="w-full sm:w-auto"
           >
-            閉じる
+            {comp('close')}
           </Button>
         </div>
       </DialogContent>

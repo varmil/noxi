@@ -1,10 +1,12 @@
 import { GroupString } from 'config/constants/Group'
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { Gender } from 'types/gender'
 import { FanUsagesSchema, fanUsageListSchema } from './cheerTicketUsageSchema'
 
 type Params = {
   channelId?: string
   group?: GroupString
+  gender?: Gender
   usedAt?: {
     gte: Date
     lte?: Date
@@ -16,6 +18,7 @@ type Params = {
 const createSearchParams = ({
   channelId,
   group,
+  gender,
   usedAt,
   limit,
   offset
@@ -23,6 +26,7 @@ const createSearchParams = ({
   const searchParams = new URLSearchParams({
     ...(channelId && { channelId }),
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })

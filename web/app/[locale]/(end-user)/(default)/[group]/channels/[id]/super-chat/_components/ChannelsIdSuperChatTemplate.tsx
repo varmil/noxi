@@ -9,13 +9,16 @@ import {
 import ChannelSupersCards from 'features/channel/components/super-chat/ChannelSupersCards'
 import SupersCumulativeChart from 'features/channel/components/super-chat/chart/SupersCumulativeChart'
 import SupersMonthlyChart from 'features/channel/components/super-chat/chart/SupersMonthlyChart'
+import SupersRanking from 'features/supers-ranking/components/SupersRanking'
 import dayjs from 'lib/dayjs'
+import { Period } from 'types/period'
 import type { ChartConfig } from '@/components/ui/chart'
 
-type Props = { id: string }
+type Props = { id: string; period: Period }
 
 export async function ChannelsIdSuperChatTemplate({
-  id
+  id,
+  period
 }: PropsWithoutRef<Props>) {
   const [page, feat, historiesThisMonth, monthlySummaries] = await Promise.all([
     getTranslations('Page.group.channelsId.superChat'),
@@ -45,19 +48,27 @@ export async function ChannelsIdSuperChatTemplate({
   } satisfies ChartConfig
 
   return (
-    <Sections>
-      <Section title={page('section.card.title')}>
+    <Sections className={`lg:grid-cols-10`}>
+      <Section
+        className="lg:col-span-3"
+        gridClassName={'grid-cols-1 md:grid-cols-3 lg:grid-cols-1'}
+        title={page('section.card.title')}
+      >
         <ChannelSupersCards channelId={id} />
       </Section>
 
-      <Section>
+      <Section className="lg:col-span-7" title={page('section.ranking.title')}>
+        <SupersRanking channelId={id} period={period} />
+      </Section>
+
+      <Section className="lg:col-span-full">
         <SupersCumulativeChart
           supersSummaryHistories={historiesThisMonth}
           config={cumulativeChartConfig}
         />
       </Section>
 
-      <Section>
+      <Section className="lg:col-span-full">
         <SupersMonthlyChart supersMonthlySummaries={monthlySummaries} />
       </Section>
     </Sections>

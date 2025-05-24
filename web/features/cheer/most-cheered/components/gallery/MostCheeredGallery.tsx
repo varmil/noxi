@@ -9,8 +9,8 @@ import { MostCheeredDefaultUrl } from 'config/constants/RankingRoute'
 import MostCheeredTable from 'features/cheer/most-cheered/components/table/MostCheeredTable'
 import MostCheeredTableTitle from 'features/cheer/most-cheered/components/table/MostCheeredTableTitle'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
-import dayjs from 'lib/dayjs'
 import { Link } from 'lib/navigation'
+import { getStartOf } from 'utils/period/ranking'
 
 export type MostCheeredGalleryProps = MostCheeredSearchParams & {
   compact?: boolean
@@ -30,25 +30,10 @@ export default async function MostCheeredGallery(
   const feat = await getTranslations('Features.mostCheered')
   const { period, group, gender, date, page, compact, className } = props
 
-  // Period --> usedAt.gte
-  let gte: Date
-  switch (period) {
-    case 'last7Days':
-      gte = dayjs().subtract(7, 'days').toDate()
-      break
-    case 'last30Days':
-      gte = dayjs().subtract(30, 'days').toDate()
-      break
-    case 'all':
-      gte = dayjs().startOf('year').toDate() // 便宜的にシーズンの始まり（01/01 09:00 JST）
-      break
-    default:
-      throw new Error('Invalid period')
-  }
-
   const cheeredUsages = await getCheeredRanking({
     group,
-    usedAt: { gte },
+    gender,
+    usedAt: { gte: getStartOf(period).toDate() },
     limit: MostCheeredPagination.getLimit(),
     offset: MostCheeredPagination.getOffset(page)
   })

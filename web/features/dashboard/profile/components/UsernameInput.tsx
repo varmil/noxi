@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { CheckCircle2, XCircle, Loader2 } from 'lucide-react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { useFormContext } from 'react-hook-form'
 import { useDebouncedCallback } from 'use-debounce'
 import {
@@ -19,7 +19,6 @@ import {
   MAX_USERNAME_LENGTH,
   MIN_USERNAME_LENGTH
 } from 'features/dashboard/profile/hooks/useProfileSchema'
-import { getWebUrl } from 'utils/web-url'
 
 export function UsernameInput() {
   const {
@@ -28,12 +27,10 @@ export function UsernameInput() {
     formState: { dirtyFields, errors }
   } = useFormContext()
 
-  const locale = useLocale()
   const feat = useTranslations('Features.dashboard.profile.form')
   const username = watch('username')
   const [isChecking, setIsChecking] = useState(false)
   const [isAvailable, setIsAvailable] = useState<boolean | null>(null)
-  const [serverMessage, setServerMessage] = useState('')
 
   // hooksを持ってくると無限に通信ループに入っちゃうので仕方なく重複コードを使う
   const isValid = (username: string) => {
@@ -48,7 +45,6 @@ export function UsernameInput() {
   const debouncedCheck = useDebouncedCallback(async (value: string) => {
     if (!isValid(value)) {
       setIsAvailable(null)
-      setServerMessage('')
       return
     }
 
@@ -58,12 +54,10 @@ export function UsernameInput() {
       // 通信が終わるまでにユーザー名が変更されなかった場合に限りOK/NG表示
       if (value === username) {
         setIsAvailable(result.available)
-        setServerMessage(result.message)
       }
     } catch (error) {
       console.error(error)
       setIsAvailable(false)
-      setServerMessage('エラーが発生しました。後でもう一度お試しください。')
     } finally {
       setIsChecking(false)
     }
@@ -73,7 +67,6 @@ export function UsernameInput() {
   useEffect(() => {
     if (errors.username) {
       setIsAvailable(null)
-      setServerMessage('')
       return
     }
     if (!dirtyFields.username) {
@@ -83,19 +76,8 @@ export function UsernameInput() {
       debouncedCheck(username)
     } else {
       setIsAvailable(null)
-      setServerMessage('')
     }
   }, [username, debouncedCheck, errors.username, dirtyFields.username])
-
-  // ヘルパーメッセージを追加
-  // 全角文字や特殊文字のチェック
-  const getHelperMessage = (value: string) => {
-    if (!value) return null
-    if (!/^[a-zA-Z0-9_]*$/.test(value)) {
-      return feat('usernameRegex')
-    }
-    return null
-  }
 
   return (
     <FormField
@@ -127,42 +109,40 @@ export function UsernameInput() {
               />
             </FormControl>
             <FormDescription className="break-anywhere">
-              {feat('yourURL', {
-                url: `${getWebUrl()}/${locale}/users/${field.value}`
-              })}
+              {feat('yourURL')}
             </FormDescription>
             {isChecking && (
               <div className="absolute right-3 top-3 text-muted-foreground">
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="size-4 animate-spin" />
               </div>
             )}
             {!isChecking && isAvailable === true && (
               <div className="absolute right-3 top-3 text-green-500">
-                <CheckCircle2 className="h-4 w-4" />
+                <CheckCircle2 className="size-4" />
               </div>
             )}
             {!isChecking && isAvailable === false && (
               <div className="absolute right-3 top-3 text-red-500">
-                <XCircle className="h-4 w-4" />
+                <XCircle className="size-4" />
               </div>
             )}
           </div>
           <FormMessage />
-          {/* ヘルパーメッセージを表示 */}
-          {!errors.username && getHelperMessage(username) && (
-            <p className="text-amber-500 text-sm">
-              {getHelperMessage(username)}
-            </p>
-          )}
+
           {/* サーバーからのメッセージを表示 */}
-          {!errors.username && !getHelperMessage(username) && serverMessage && (
-            <p
-              className={
-                isAvailable ? 'text-green-500 text-sm' : 'text-red-500 text-sm'
-              }
-            >
-              {serverMessage}
-            </p>
+          {!errors.username && (
+            <>
+              {isAvailable === true && (
+                <p className={'text-green-500 text-sm'}>
+                  {feat('usernameAvailable')}
+                </p>
+              )}
+              {isAvailable === false && (
+                <p className={'text-red-500 text-sm'}>
+                  {feat('usernameAlreadyExists')}
+                </p>
+              )}
+            </>
           )}
         </FormItem>
       )}

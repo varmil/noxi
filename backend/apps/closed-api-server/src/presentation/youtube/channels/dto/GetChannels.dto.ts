@@ -10,7 +10,12 @@ import {
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { GroupStrings, GroupString, Group } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
-import { ChannelId, ChannelIds, ChannelRepository } from '@domain/youtube'
+import {
+  ChannelId,
+  ChannelIds,
+  ChannelRepository,
+  ChannelTitle
+} from '@domain/youtube'
 
 export class GetChannelsDto {
   @IsOptional()
@@ -20,6 +25,10 @@ export class GetChannelsDto {
     value ? value.split(',') : undefined
   )
   ids?: string[]
+
+  @IsOptional()
+  @IsString()
+  title?: string
 
   @IsIn(GroupStrings)
   @IsOptional()
@@ -49,6 +58,8 @@ export class GetChannelsDto {
     this.ids
       ? new ChannelIds(this.ids?.map(id => new ChannelId(id)))
       : undefined
+
+  toTitle = () => (this.title ? new ChannelTitle(this.title) : undefined)
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 

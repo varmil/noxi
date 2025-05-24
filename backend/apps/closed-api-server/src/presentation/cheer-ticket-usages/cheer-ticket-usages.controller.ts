@@ -12,7 +12,8 @@ import {
 import {
   GetCheerTicketUsages,
   GetCheerTicketUsagesRanksCheered,
-  GetCheerTicketUsagesRanksFan
+  GetCheerTicketUsagesRanksFan,
+  GetCheerTicketUsagesWithoutLimitOffset
 } from '@presentation/cheer-ticket-usages/dto/GetCheerTicketUsages.dto'
 import { PostCheerTicketUsagesConsume } from '@presentation/cheer-ticket-usages/dto/PostCheerTicketUsagesConsume.dto'
 import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
@@ -34,6 +35,7 @@ export class CheerTicketUsagesController {
         userId: dto.toUserId(),
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
+        gender: dto.toGender(),
         usedAt: dto.toUsedAt()
       },
       orderBy: dto.toOrderBy(),
@@ -47,10 +49,24 @@ export class CheerTicketUsagesController {
     return await this.cheerTicketUsagesService.findCheeredRanking({
       where: {
         group: dto.toGroup(),
+        gender: dto.toGender(),
         usedAt: dto.toUsedAt()
       },
       limit: dto.toLimit(),
       offset: dto.toOffset()
+    })
+  }
+
+  @Get('/rankings/cheered/count')
+  async getCheeredRankingCount(
+    @Query() dto: GetCheerTicketUsagesWithoutLimitOffset
+  ) {
+    return await this.cheerTicketUsagesService.countCheeredRanking({
+      where: {
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        usedAt: dto.toUsedAt()
+      }
     })
   }
 
@@ -60,10 +76,25 @@ export class CheerTicketUsagesController {
       where: {
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
+        gender: dto.toGender(),
         usedAt: dto.toUsedAt()
       },
       limit: dto.toLimit(),
       offset: dto.toOffset()
+    })
+  }
+
+  @Get('/rankings/fan/count')
+  async getFanRankingCount(
+    @Query() dto: GetCheerTicketUsagesWithoutLimitOffset
+  ) {
+    return await this.cheerTicketUsagesService.countFanRanking({
+      where: {
+        channelId: dto.toChannelId(),
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        usedAt: dto.toUsedAt()
+      }
     })
   }
 
@@ -101,6 +132,7 @@ export class CheerTicketUsagesController {
         userId: req.user.id,
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
+        gender: dto.toGender(),
         usedCount: dto.toUsedCount(),
         usedAt: dto.toUsedAt()
       })

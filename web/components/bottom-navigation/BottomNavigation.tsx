@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { CircleDollarSign, Home, Radio, Users } from 'lucide-react'
+import { Activity, Home, Search, Trophy } from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -24,28 +24,28 @@ export default function BottomNavigation({ className }: Props) {
       icon: Home
     },
     {
-      pathname: '/ranking/live',
-      query: '?dimension=concurrent-viewer&period=realtime',
-      label: t('live'),
-      icon: Radio
+      pathname: '/ranking/most-cheered',
+      query: '?period=last30Days',
+      label: t('mostCheered'),
+      icon: Trophy
     },
     {
-      pathname: '/ranking/channels',
-      query: '?dimension=super-chat&period=last24Hours',
-      label: t('channels'),
-      icon: CircleDollarSign
+      pathname: '/ranking/top-fans',
+      query: '?period=last30Days',
+      label: t('topFans'),
+      icon: Activity
     },
     {
       pathname: '/groups',
       label: t('groups'),
-      icon: Users,
+      icon: Search,
       isActive: !!params['group']
     }
   ]
 
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full h-14.5 bg-background md:hidden ${
+      className={`fixed bottom-0 left-0 w-full h-14.5 bg-background lg:hidden ${
         className ?? ''
       }`}
     >

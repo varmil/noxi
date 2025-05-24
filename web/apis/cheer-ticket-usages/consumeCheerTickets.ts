@@ -5,6 +5,7 @@ import { fetchAPI } from 'lib/fetchAPI'
 type Data = {
   channelId: string
   group: string
+  gender: string
   usedCount: number
   usedAt: Date
 }

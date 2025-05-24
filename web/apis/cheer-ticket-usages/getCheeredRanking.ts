@@ -1,5 +1,6 @@
 import { GroupString } from 'config/constants/Group'
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { Gender } from 'types/gender'
 import {
   CheeredUsagesSchema,
   cheeredUsageListSchema
@@ -7,6 +8,7 @@ import {
 
 type Params = {
   group?: GroupString
+  gender?: Gender
   usedAt?: {
     gte: Date
     lte?: Date
@@ -15,9 +17,16 @@ type Params = {
   offset?: number
 }
 
-const createSearchParams = ({ group, usedAt, limit, offset }: Params) => {
+const createSearchParams = ({
+  group,
+  gender,
+  usedAt,
+  limit,
+  offset
+}: Params) => {
   const searchParams = new URLSearchParams({
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
