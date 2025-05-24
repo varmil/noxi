@@ -97,15 +97,25 @@ export default function TermsOfUseAndPrivacyPolicy() {
               自動化ツールなどを使用して複数のアカウントを作成することは禁止されています。このような行為が発見された場合、関係するすべてのアカウントを事前の通知なく停止（BAN）することがあります。
             </p>
 
-            <h3 className="text-l font-bold">5. 免責事項</h3>
+            <h3 className="text-l font-bold">5. 応援チケットの有効期限</h3>
             <p>
               5.1
+              ユーザーが本サービスを通じて購入または取得した応援チケットの有効期限は、購入日（もしくは付与日）から起算して3年間とします。
+            </p>
+            <p>
+              5.2
+              有効期限を過ぎた応援チケットは無効となり、いかなる理由によっても再発行・返金は行われません。
+            </p>
+
+            <h3 className="text-l font-bold">6. 免責事項</h3>
+            <p>
+              6.1
               本サービスは「現状有姿」で提供されており、商品性、特定目的への適合性、および非侵害についての黙示的な保証を含む一切の保証を行いません。
             </p>
 
-            <h3 className="text-l font-bold">6. お問い合わせ</h3>
+            <h3 className="text-l font-bold">7. お問い合わせ</h3>
             <p>
-              6.1
+              7.1
               本規約に関するお問い合わせは以下のフォームからお願いいたします：{' '}
               <a
                 href="https://forms.gle/AtHChW8N4R2NRDbu5"

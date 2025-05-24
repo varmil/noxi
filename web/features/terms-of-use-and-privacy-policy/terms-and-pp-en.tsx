@@ -118,17 +118,30 @@ export default function TermsAndPPEn() {
               without prior notice.
             </p>
 
-            <h3 className="text-l font-bold">5. Disclaimer</h3>
+            <h3 className="text-l font-bold">
+              5. Validity Period of Cheer Tickets
+            </h3>
             <p>
-              5.1 The Service is provided &quot;as is&quot; without warranties
+              5.1 The validity period of cheer tickets purchased or obtained
+              through the service is from the purchase date (or issue date) to
+              three years from the purchase date (or issue date).
+            </p>
+            <p>
+              5.2 Cheer tickets that have expired are invalid, and no reissuance
+              or refund will be made for any reason.
+            </p>
+
+            <h3 className="text-l font-bold">6. Disclaimer</h3>
+            <p>
+              6.1 The Service is provided &quot;as is&quot; without warranties
               of any kind, whether express or implied, including but not limited
               to implied warranties of merchantability, fitness for a particular
               purpose, and non-infringement.
             </p>
 
-            <h3 className="text-l font-bold">6. Contact Information</h3>
+            <h3 className="text-l font-bold">7. Contact Information</h3>
             <p>
-              6.1 If you have any questions about these Terms, please contact us
+              7.1 If you have any questions about these Terms, please contact us
               here:{' '}
               <a
                 href="https://forms.gle/AtHChW8N4R2NRDbu5"
