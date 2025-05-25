@@ -62,7 +62,7 @@ export default function MonthlyPassPage() {
                 <li className="flex items-start">
                   <X className="mr-2 h-5 w-5 text-red-500 shrink-0" />
                   <span className="text-muted-foreground">
-                    コメント投稿不可
+                    購入&継続時のボーナスなし
                   </span>
                 </li>
               </ul>
@@ -107,13 +107,13 @@ export default function MonthlyPassPage() {
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
                   <span className="font-medium">
-                    ログインで毎日10枚の応援チケット
+                    ログインで毎日計10枚の応援チケット
                   </span>
                 </li>
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
                   <span className="font-medium">
-                    コメント投稿でVTuberを応援
+                    購入&継続時に21枚の応援チケット
                   </span>
                 </li>
               </ul>

@@ -1,4 +1,4 @@
-import { BadgeCheck, MessageSquare, Tickets } from 'lucide-react'
+import { BadgeCheck, Gift, MessageSquare, Tickets } from 'lucide-react'
 
 export function MonthlyPassFeatures() {
   return (
@@ -11,25 +11,27 @@ export function MonthlyPassFeatures() {
           </div>
           <h3 className="text-xl font-medium mb-2">認証バッジ</h3>
           <p className="text-muted-foreground">
-            認証バッジを獲得できます。認証バッジを表示することで信頼性を高め、VTuberの応援に熱心であることが伝わります。
+            認証バッジを獲得できます。認証バッジを表示することで信頼性を高め、VTuberの推し活に熱心であることが伝わります。
+          </p>
+        </div>
+        <div className="flex flex-col items-center text-center p-4">
+          <div className="bg-primary/10 dark:bg-muted p-3 rounded-full mb-4">
+            <Gift className="size-8 text-primary" />
+          </div>
+          <h3 className="text-xl font-medium mb-2">ログインボーナスの強化</h3>
+          <p className="text-muted-foreground">
+            通常の4枚に加えてさらに6枚の応援チケットを獲得できます。より多くのチケット使用が可能になり効果的にランキング上位を狙えます。
           </p>
         </div>
         <div className="flex flex-col items-center text-center p-4">
           <div className="bg-primary/10 dark:bg-muted p-3 rounded-full mb-4">
             <Tickets className="size-8 text-primary" />
           </div>
-          <h3 className="text-xl font-medium mb-2">応援チケット</h3>
+          <h3 className="text-xl font-medium mb-2">
+            月額パス加入・継続ボーナス
+          </h3>
           <p className="text-muted-foreground">
-            ログインで毎日追加の応援チケットを獲得できます。より多くの応援チケットの使用が可能になり効果的にランキング上位を狙えます。
-          </p>
-        </div>
-        <div className="flex flex-col items-center text-center p-4">
-          <div className="bg-primary/10 dark:bg-muted p-3 rounded-full mb-4">
-            <MessageSquare className="size-8 text-primary" />
-          </div>
-          <h3 className="text-xl font-medium mb-2">コメント</h3>
-          <p className="text-muted-foreground">
-            VTuberページにコメント可能になります。運営から優良コメントとして選ばれると、より目立つ位置にあなたが表示されます。
+            加入完了で21枚の応援チケットを獲得できます。その後も毎月のサブスクリプションが継続されるたびに21枚の応援チケットを獲得できます。
           </p>
         </div>
       </div>

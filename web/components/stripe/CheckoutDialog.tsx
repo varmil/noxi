@@ -7,10 +7,8 @@ import {
 import { X } from 'lucide-react'
 import {
   AlertDialog,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
@@ -53,10 +51,6 @@ export default function CheckoutDialog({ open, onOpenChange }: Props) {
               <EmbeddedCheckout />
             </EmbeddedCheckoutProvider>
           </div>
-
-          {/* <AlertDialogFooter className="mt-6 px-6">
-            <AlertDialogCancel>キャンセル</AlertDialogCancel>
-          </AlertDialogFooter> */}
         </ScrollArea>
       </AlertDialogContent>
     </AlertDialog>
