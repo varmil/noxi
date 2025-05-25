@@ -5,6 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2025-04-30.basil'
 })
 
+/** @deprecated Stripeへ移動させたい場合はこれを使う */
 export async function POST(req: NextRequest) {
   try {
     const origin = req.headers.get('origin') || 'http://localhost:3000'

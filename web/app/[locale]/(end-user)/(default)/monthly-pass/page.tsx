@@ -9,7 +9,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Link } from 'lib/navigation'
-import { CheckoutButton } from './components/CheckoutButton'
+import { CheckoutButtonUsingDialog } from './components/CheckoutButtonUsingDialog'
 import { MonthlyPassFeatures } from './components/MonthlyPassFeatures'
 import type { Metadata } from 'next'
 
@@ -119,7 +119,7 @@ export default function MonthlyPassPage() {
               </ul>
             </CardContent>
             <CardFooter>
-              <CheckoutButton />
+              <CheckoutButtonUsingDialog />
             </CardFooter>
           </Card>
         </div>
