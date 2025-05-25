@@ -9,7 +9,7 @@ export async function fetchClientSecret() {
 
   // Create Checkout Sessions from body params.
   const session = await stripe.checkout.sessions.create({
-    ui_mode: 'embedded',
+    customer_email: 'fkmks247@gmail.com', // TODO: use from parameter
     line_items: [
       {
         price: 'price_1RLHc904jYHRbdyomhjz46MR',
@@ -17,7 +17,8 @@ export async function fetchClientSecret() {
       }
     ],
     mode: 'subscription',
-    return_url: `${origin}/monthly-pass/success?sessionId={CHECKOUT_SESSION_ID}`
+    return_url: `${origin}/monthly-pass/success?sessionId={CHECKOUT_SESSION_ID}`,
+    ui_mode: 'embedded'
   })
 
   if (!session.client_secret) {
