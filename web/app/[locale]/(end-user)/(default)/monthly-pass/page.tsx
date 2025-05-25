@@ -8,22 +8,20 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Link } from 'lib/navigation'
 import { CheckoutButton } from './components/CheckoutButton'
-import { LegalInformation } from './components/LegalInformation'
 import { MonthlyPassFeatures } from './components/MonthlyPassFeatures'
-import { TermsOfService } from './components/TermsOfService'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: '月額パス - PeakX',
   description:
-    'PeakXの月額パスに加入して、広告なしの体験や応援チケットなどの特典をお楽しみください。'
+    'PeakXの月額パスに加入して、認証バッジの獲得や追加の応援チケットなどの特典をお楽しみください。'
 }
 
 export default function MonthlyPassPage() {
   return (
-    <div className="container mx-auto px-4 py-8 md:py-12">
+    <div className="container mx-auto px-4 pt-8 md:pt-12">
       <div className="mx-auto max-w-5xl space-y-8">
         <div className="text-center space-y-4">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
@@ -53,12 +51,12 @@ export default function MonthlyPassPage() {
                 </li>
                 <li className="flex items-start">
                   <X className="mr-2 h-5 w-5 text-red-500 shrink-0" />
-                  <span className="text-muted-foreground">広告あり</span>
+                  <span className="text-muted-foreground">認証バッジなし</span>
                 </li>
                 <li className="flex items-start">
                   <X className="mr-2 h-5 w-5 text-red-500 shrink-0" />
                   <span className="text-muted-foreground">
-                    応援チケットなし
+                    少数の応援チケット
                   </span>
                 </li>
                 <li className="flex items-start">
@@ -104,7 +102,7 @@ export default function MonthlyPassPage() {
                 </li>
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
-                  <span className="font-medium">広告なし</span>
+                  <span className="font-medium">認証バッジあり</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
@@ -128,20 +126,23 @@ export default function MonthlyPassPage() {
 
         <MonthlyPassFeatures />
 
-        <Tabs defaultValue="legal" className="w-full mt-16">
-          <TabsList className="grid w-full grid-cols-3 mb-2">
-            <TabsTrigger value="legal" className="col-span-2">
-              特定商取引法に基づく表記
-            </TabsTrigger>
-            <TabsTrigger value="terms">利用規約</TabsTrigger>
-          </TabsList>
-          <TabsContent value="legal">
-            <LegalInformation />
-          </TabsContent>
-          <TabsContent value="terms">
-            <TermsOfService />
-          </TabsContent>
-        </Tabs>
+        <section className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm text-muted-foreground">
+          <Link
+            href="/legal/tokushoho"
+            className="hover:underline"
+            prefetch={false}
+          >
+            特定商取引法に基づく表記
+          </Link>
+          <span className="hidden sm:inline text-sm">｜</span>
+          <Link
+            href="/terms-of-use-and-privacy-policy"
+            className="hover:underline"
+            prefetch={false}
+          >
+            利用規約・プライバシーポリシー
+          </Link>
+        </section>
       </div>
     </div>
   )
