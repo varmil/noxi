@@ -502,7 +502,7 @@
         "cheerTicket": "応援チケットを使う",
         "past30Days": "過去30日間の応援",
         "cheerRanking": "応援ランキング",
-        "cheerCount": "{count}回",
+        "cheerCount": "回",
         "signUpForTicket": "無料の新規登録でチケットを獲得できます"
       },
       "stats": {

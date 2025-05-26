@@ -1,5 +1,6 @@
+import { AFTER_CONSUME_CHEER_TICKETS } from 'apis/tags/revalidate-tags'
 import { GroupString } from 'config/constants/Group'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import {
   cheerTicketUsageListSchema,
   CheerTicketUsagesSchema
@@ -56,7 +57,7 @@ export async function getCheerTicketUsages(
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/cheer-ticket-usages?${searchParams.toString()}`,
-    { cache: 'no-store' }
+    { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

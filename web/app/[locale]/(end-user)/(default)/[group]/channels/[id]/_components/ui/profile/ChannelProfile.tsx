@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import CountMotion from 'components/styles/number/CountMotion'
 import { ChannelCheerButton } from 'features/cheer-channel/button/ChannelCheerButton'
 import { auth } from 'lib/auth'
 import dayjs from 'lib/dayjs'
@@ -51,9 +52,9 @@ export async function ChannelProfile({
                   {feat('stats.seasonTotal')}
                 </p>
                 <p className="text-xl font-bold">
-                  {feat('profile.cheerCount', {
-                    count: rank?.usedCount.toLocaleString() ?? 0
-                  })}
+                  <CountMotion value={rank?.usedCount ?? 0}>
+                    {feat('profile.cheerCount')}
+                  </CountMotion>
                 </p>
               </div>
               <div className="min-w-[120px] rounded-lg bg-muted p-3">
@@ -61,11 +62,13 @@ export async function ChannelProfile({
                   {feat('stats.seasonRank')}
                 </p>
                 <p className="text-xl font-bold">
-                  {rank
-                    ? `${rank.rank}${global('ranking.place', {
-                        rank: rank.rank
-                      })}`
-                    : '--'}
+                  {rank ? (
+                    <CountMotion value={rank.rank}>
+                      {global('ranking.place', { rank: rank.rank })}
+                    </CountMotion>
+                  ) : (
+                    '--'
+                  )}
                 </p>
               </div>
             </div>

@@ -502,7 +502,7 @@
         "cheerTicket": "Use Cheer Tickets",
         "past30Days": "Past 30 Days",
         "cheerRanking": "Cheer Ranking",
-        "cheerCount": "{count}",
+        "cheerCount": "",
         "signUpForTicket": "Sign-up for free and get cheer tickets"
       },
       "stats": {

@@ -7,6 +7,7 @@ import {
   StatsCardContent,
   StatsCardHeader
 } from 'components/styles/card/StatsCard'
+import CountMotion from 'components/styles/number/CountMotion'
 import dayjs from 'lib/dayjs'
 
 export async function ChannelCheerStats({
@@ -34,9 +35,10 @@ export async function ChannelCheerStats({
           <StatsCardContent>
             <div className="flex items-baseline">
               <Flame className="mr-2 size-5 text-violet-700 dark:text-violet-500" />
-              <span className="text-2xl font-bold">
-                {rankForLast7Days?.usedCount.toLocaleString() ?? 0}
-              </span>
+              <CountMotion
+                className="text-2xl font-bold"
+                value={rankForLast7Days?.usedCount ?? 0}
+              />
             </div>
           </StatsCardContent>
         </StatsCard>
@@ -47,7 +49,11 @@ export async function ChannelCheerStats({
             <div className="flex items-baseline">
               <TrendingUp className="mr-2 size-5 text-blue-700 dark:text-blue-500" />
               <span className="text-2xl font-bold">
-                {rankForLast7Days ? <>{rankForLast7Days.rank}位</> : '--'}
+                {rankForLast7Days ? (
+                  <CountMotion value={rankForLast7Days.rank}>位</CountMotion>
+                ) : (
+                  '--'
+                )}
               </span>
             </div>
           </StatsCardContent>
@@ -58,9 +64,10 @@ export async function ChannelCheerStats({
           <StatsCardContent>
             <div className="flex items-baseline">
               <Tickets className="mr-2 size-5 text-pink-700 dark:text-pink-500" />
-              <span className="text-2xl font-bold">
-                {rankForSeason?.usedCount.toLocaleString() ?? 0}
-              </span>
+              <CountMotion
+                className="text-2xl font-bold"
+                value={rankForSeason?.usedCount ?? 0}
+              />
             </div>
           </StatsCardContent>
         </StatsCard>
@@ -71,7 +78,11 @@ export async function ChannelCheerStats({
             <div className="flex items-baseline">
               <Trophy className="mr-2 size-5 text-emerald-700 dark:text-emerald-500" />
               <span className="text-2xl font-bold">
-                {rankForSeason ? <>{rankForSeason.rank}位</> : '--'}
+                {rankForSeason ? (
+                  <CountMotion value={rankForSeason.rank}>位</CountMotion>
+                ) : (
+                  '--'
+                )}
               </span>
             </div>
           </StatsCardContent>
