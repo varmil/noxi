@@ -278,7 +278,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "most-cheered": "今シーズン、{group}{gender}の最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
+              "most-cheered": "今シーズン、{group}{gender}の最も応援されたタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }
@@ -412,7 +412,11 @@
         "start": "開始",
         "end": "終了",
         "criteria": "集計条件",
-        "criteriaDescription": "対象期間に配信を「開始した」",
+        "criteriaDescription": {
+          "channels": "対象期間に配信を「開始した」",
+          "mostCheered": "対象期間に応援された",
+          "topFans": "対象期間に応援をした"
+        },
         "updatedAt": "更新日時"
       }
     },

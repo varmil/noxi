@@ -49,7 +49,7 @@ export default function MostCheeredTableTitle({
           })}
         </RankingTableTitleDescription>
       </section>
-      <PeriodHoverCardFactory period={period} date={date} />
+      <PeriodHoverCardFactory type="mostCheered" period={period} date={date} />
     </RankingTableTitleContainer>
   )
 }

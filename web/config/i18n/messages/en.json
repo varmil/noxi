@@ -412,7 +412,11 @@
         "start": "Start",
         "end": "End",
         "criteria": "Criteria",
-        "criteriaDescription": "Live started during the period",
+        "criteriaDescription": {
+          "channels": "Live started during the period",
+          "mostCheered": "Cheered during the period",
+          "topFans": "Use cheer tickets during the period"
+        },
         "updatedAt": "Updated At"
       }
     },

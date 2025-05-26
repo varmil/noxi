@@ -46,7 +46,7 @@ export default function TopFansTableTitle({
           })}
         </RankingTableTitleDescription>
       </section>
-      <PeriodHoverCardFactory period={period} date={date} />
+      <PeriodHoverCardFactory type="topFans" period={period} date={date} />
     </RankingTableTitleContainer>
   )
 }
