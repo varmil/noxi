@@ -18,27 +18,33 @@ export class LoginBonus {
     this.lastClaimedAt = args.lastClaimedAt
   }
 
-  /** 20時間経っていればtrue */
   @Exclude()
   canClaimDaily(): boolean {
     const JST_OFFSET_MINUTES = 9 * 60 // JSTはUTC+9
     const now = new Date()
     const claimedAt = this.lastClaimedAt.get()
 
-    // JSTでの「基準日（朝5時境目）」を算出するための関数
-    const toJST5amBoundary = (date: Date): string => {
-      const jstDate = new Date(date.getTime() + JST_OFFSET_MINUTES * 60 * 1000)
-      const year = jstDate.getFullYear()
-      const month = jstDate.getMonth()
-      const day = jstDate.getDate()
+    // JSTの朝5時を基準にした日付キー（yyyy-mm-dd）を返す
+    const getJst5amDayKey = (date: Date): string => {
+      // JST時刻を生成
+      const jstTime = new Date(date.getTime() + JST_OFFSET_MINUTES * 60 * 1000)
 
-      // JSTのその日 5時の UTC 時刻を求める（＝JST日付の日付5時 → UTCに戻す）
-      const jst5am = new Date(Date.UTC(year, month, day, 5, 0, 0))
-      return jst5am.toISOString()
+      // JSTでの "基準日" を出す。朝5時未満なら「前日」とする
+      const year = jstTime.getFullYear()
+      const month = jstTime.getMonth()
+      const day = jstTime.getDate()
+      const hour = jstTime.getHours()
+
+      const adjustedDate =
+        hour < 5
+          ? new Date(Date.UTC(year, month, day - 1, 0, 0, 0))
+          : new Date(Date.UTC(year, month, day, 0, 0, 0))
+
+      return adjustedDate.toISOString().split('T')[0] // yyyy-mm-dd 形式
     }
 
-    const nowBoundaryKey = toJST5amBoundary(now)
-    const claimedBoundaryKey = toJST5amBoundary(claimedAt)
-    return nowBoundaryKey !== claimedBoundaryKey
+    const nowKey = getJst5amDayKey(now)
+    const claimedKey = getJst5amDayKey(claimedAt)
+    return nowKey !== claimedKey
   }
 }
