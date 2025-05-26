@@ -21,7 +21,6 @@ import { revalidateAfterConsumeCheetTickets } from 'apis/cheer-ticket-usages/rev
 import { CheerTicketSchema } from 'apis/cheer-tickets/cheerTicketSchema'
 import { GroupString } from 'config/constants/Group'
 import { SuccessEffect } from 'features/cheer-channel/button/SuccessEffect'
-import { useRouter } from 'lib/navigation'
 import { Gender } from 'types/gender'
 
 interface Props {
@@ -46,7 +45,6 @@ export function ChannelCheerDialog({
   const maxTickets = cheerTicket?.totalCount ?? 0 // 所持チケット数
   const defaultTicketCount = Math.ceil(maxTickets / 2) // 初期値
 
-  const router = useRouter()
   const feat = useTranslations('Features.cheerChannel.dialog')
   const [ticketCount, setTicketCount] = useState(defaultTicketCount)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -114,7 +112,7 @@ export function ChannelCheerDialog({
         description: feat('error.description')
       })
     }
-  }, [channelId, group, gender, ticketCount, feat, onOpenChange, router])
+  }, [channelId, group, gender, ticketCount, feat, onOpenChange])
 
   return (
     <>
