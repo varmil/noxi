@@ -116,18 +116,18 @@ export default function ProfileForm({
         await deleteOldImage(userProfile?.image)
       }
 
-      onSuccess()
+      onSuccess(data)
     } catch (error) {
       onError(error)
     }
   }
 
-  const onSuccess = () => {
+  const onSuccess = (data: ProfileFormSchema) => {
     toast.success(feat('success.title'), {
       description: feat('success.description')
     })
     router.refresh()
-    methods.reset()
+    methods.reset(data)
     setFormKey(prev => prev + 1)
     setIsLoading(false)
     setNewAvatar({ compressedFile: null, previewUrl: null })
