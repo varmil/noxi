@@ -3,6 +3,22 @@ import createNextIntlPlugin from 'next-intl/plugin'
 const withNextIntl = createNextIntlPlugin('./config/i18n/request.ts')
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      // workaround: browser --> PWA google auth causes error
+      // https://intercom.help/progressier/en/articles/9519381-google-oauth2-is-not-working-in-my-pwa-on-ios-why
+      // https://stackoverflow.com/questions/62127764/google-oauth2-invalid-token-format-error-on-redirecting-to-pwa
+      {
+        source: '/api/auth/callback/google',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=300, immutable'
+          }
+        ]
+      }
+    ]
+  },
   async redirects() {
     return [
       // 2025/05/08 Terms of Use and Privacy Policy を移動

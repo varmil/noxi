@@ -115,7 +115,7 @@
       "error": {
         "title": "An error has occurred",
         "backToSignIn": "Back to Sign In page",
-        "configuration": "There is a problem with the server configuration. Check if your options are correct.",
+        "configuration": "There is a problem with the server configuration.",
         "accessDenied": "Usually occurs, when you restricted access through the signIn callback, or redirect callback.",
         "verification": "Related to the Email provider. The token has expired or has already been used.",
         "default": "An error occurred during authentication."
