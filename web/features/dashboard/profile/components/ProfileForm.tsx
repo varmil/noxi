@@ -113,7 +113,7 @@ export default function ProfileForm({
       }
       // 後処理 (古い画像を削除)
       if (image) {
-        await deleteOldImage(userProfile?.image)
+        deleteOldImage(userProfile?.image).catch(console.error)
       }
 
       onSuccess(data)

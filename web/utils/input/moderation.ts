@@ -3,6 +3,9 @@
 import { openai } from 'lib/openai'
 
 export async function checkModeration(text: string): Promise<boolean> {
+  if (!text) return true
+
+  console.time(`checkModeration:${text}`)
   try {
     const result = await openai.moderations.create({
       model: 'omni-moderation-latest',
@@ -14,6 +17,8 @@ export async function checkModeration(text: string): Promise<boolean> {
   } catch (err) {
     console.error('Moderation API Error:', err)
     return true // エラー時は通過扱い
+  } finally {
+    console.timeEnd(`checkModeration:${text}`)
   }
 }
 
@@ -21,6 +26,8 @@ export async function checkImageModeration(
   url?: string | null
 ): Promise<boolean> {
   if (!url) return true
+
+  console.time(`checkImageModeration:${url}`)
   try {
     const result = await openai.moderations.create({
       model: 'omni-moderation-latest',
@@ -32,5 +39,7 @@ export async function checkImageModeration(
   } catch (err) {
     console.error('Moderation API Error:', err)
     return true // エラー時は通過扱い
+  } finally {
+    console.timeEnd(`checkImageModeration:${url}`)
   }
 }
