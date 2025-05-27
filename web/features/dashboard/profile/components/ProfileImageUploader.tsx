@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import imageCompression from 'browser-image-compression'
 import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Skeleton } from '@/components/ui/skeleton'
 import { getCroppedImg } from '../utils/cropImage'
 
 type Props = {
@@ -36,11 +37,18 @@ const getFilename = (uploadedBy: number) => {
 export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
   const feat = useTranslations('Features.dashboard.profile.imageUploader')
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [showCropper, setShowCropper] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [imageSrc, setImageSrc] = useState<string | null>(null)
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+
+  useEffect(() => {
+    if (!dialogOpen) {
+      setShowCropper(false)
+    }
+  }, [dialogOpen])
 
   const onCropComplete = useCallback((_, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
@@ -57,6 +65,11 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
     reader.onload = () => {
       setImageSrc(reader.result as string)
       setDialogOpen(true)
+
+      // Dialog 開いたあと少し遅らせて Cropper を描画（サイズ安定後）
+      setTimeout(() => {
+        setShowCropper(true)
+      }, 150) // 150ms 程度で十分（環境による）
     }
     reader.readAsDataURL(file)
   }
@@ -112,7 +125,7 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
             </DialogDescription>
           </DialogHeader>
 
-          {imageSrc && (
+          {imageSrc && showCropper ? (
             <div className="relative w-full aspect-square">
               <Cropper
                 image={imageSrc}
@@ -124,6 +137,8 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
                 onCropComplete={onCropComplete}
               />
             </div>
+          ) : (
+            <Skeleton className="relative w-full aspect-square" />
           )}
 
           <div className="flex justify-end space-x-2 pt-4">
