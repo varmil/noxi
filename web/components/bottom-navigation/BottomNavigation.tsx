@@ -1,7 +1,14 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Activity, Home, Search, Trophy } from 'lucide-react'
+import {
+  Activity,
+  CircleDollarSign,
+  Home,
+  Radio,
+  Search,
+  Trophy
+} from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -24,17 +31,30 @@ export default function BottomNavigation({ className }: Props) {
       icon: Home
     },
     {
-      pathname: '/ranking/most-cheered',
-      query: '?period=last30Days',
-      label: t('mostCheered'),
-      icon: Trophy
+      pathname: '/ranking/live',
+      query: '?dimension=concurrent-viewer&period=realtime',
+      label: t('live'),
+      icon: Radio
     },
     {
-      pathname: '/ranking/top-fans',
-      query: '?period=last30Days',
-      label: t('topFans'),
-      icon: Activity
+      pathname: '/ranking/channels',
+      query: '?dimension=super-chat&period=last24Hours',
+      label: t('channels'),
+      icon: CircleDollarSign
     },
+    // TODO: 06/01に差し替え
+    // {
+    //   pathname: '/ranking/most-cheered',
+    //   query: '?period=last30Days',
+    //   label: t('mostCheered'),
+    //   icon: Trophy
+    // },
+    // {
+    //   pathname: '/ranking/top-fans',
+    //   query: '?period=last30Days',
+    //   label: t('topFans'),
+    //   icon: Activity
+    // },
     {
       pathname: '/groups',
       label: t('groups'),

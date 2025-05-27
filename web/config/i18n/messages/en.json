@@ -359,6 +359,8 @@
     },
     "bottomNavigation": {
       "home": "Home",
+      "live": "Live",
+      "channels": "Channels",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
       "groups": "Talents"
@@ -371,6 +373,8 @@
     },
     "header": {
       "dashboard": "Dashboard",
+      "liveRanking": "Live Ranking",
+      "channelsRanking": "Channels Ranking",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
       "talents": "Talents"
@@ -507,7 +511,8 @@
         "past30Days": "Past 30 Days",
         "cheerRanking": "Cheer Ranking",
         "cheerCount": "",
-        "signUpForTicket": "Sign-up for free and get cheer tickets"
+        "signUpForTicket": "Sign-up for free and get cheer tickets",
+        "cheerEnabledAt": "2025/06/01 (Sun) 14:00~ Cheer available"
       },
       "stats": {
         "title": "Cheer Ranking",

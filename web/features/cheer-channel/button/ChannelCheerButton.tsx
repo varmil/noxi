@@ -17,7 +17,8 @@ export function ChannelCheerButton({
   channelId,
   channelTitle,
   group,
-  gender
+  gender,
+  disabled
 }: {
   session: Session | null
   cheerTicket?: CheerTicketSchema
@@ -25,6 +26,7 @@ export function ChannelCheerButton({
   channelTitle: string
   group: GroupString
   gender: Gender
+  disabled?: boolean
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const t = useTranslations('Features.cheerChannel')
@@ -34,6 +36,7 @@ export function ChannelCheerButton({
       <Button
         onClick={() => setIsDialogOpen(true)}
         className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600"
+        disabled={disabled}
       >
         <Tickets className="mr-2 h-4 w-4" />
         {t('profile.cheerTicket')}

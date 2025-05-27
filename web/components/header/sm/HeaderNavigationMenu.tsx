@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-import { Activity, Trophy } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   NavigationMenu,
@@ -12,8 +11,8 @@ import {
 } from '@/components/ui/navigation-menu'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
 import {
-  MostCheeredDefaultUrl,
-  TopFansDefaultUrl
+  ChannelsRankingDefaultUrl,
+  StreamRankingDefaultUrl
 } from 'config/constants/RankingRoute'
 import { Link } from 'lib/navigation'
 
@@ -22,8 +21,23 @@ export default function HeaderNavigationMenu() {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem className="hidden lg:block">
+        <NavigationMenuItem>
           {/* https://github.com/amannn/next-intl/issues/1271 */}
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href={StreamRankingDefaultUrl}>{comp('liveRanking')}</Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href={ChannelsRankingDefaultUrl}>
+              {comp('channelsRanking')}
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
+        {/* TODO: 06/01に差し替え */}
+        {/* <NavigationMenuItem className="hidden lg:block">
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
             <Link href={MostCheeredDefaultUrl}>
               <div className="flex items-center gap-1">
@@ -43,7 +57,7 @@ export default function HeaderNavigationMenu() {
               </div>
             </Link>
           </NavigationMenuLink>
-        </NavigationMenuItem>
+        </NavigationMenuItem> */}
 
         {/* <NavigationMenuItem>
           <NavigationMenuTrigger>{comp('talents')}</NavigationMenuTrigger>

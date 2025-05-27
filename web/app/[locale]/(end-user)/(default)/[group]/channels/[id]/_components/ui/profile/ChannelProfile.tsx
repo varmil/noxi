@@ -43,51 +43,52 @@ export async function ChannelProfile({
         </ChannelProfileSection>
 
         {/* Cheer Button Section */}
-        {/* NOTE: リリース時は条件削除 */}
-        {session ? (
-          <div className="flex flex-col items-center gap-3 md:mt-2 lg:mt-4">
-            <div className="grid grid-cols-2 gap-3 text-center">
-              <div className="min-w-[120px] rounded-lg bg-muted p-3">
-                <p className="text-xs text-muted-foreground pb-1.5">
-                  {feat('stats.seasonTotal')}
-                </p>
-                <p className="text-xl font-bold">
-                  <CountMotion value={rank?.usedCount ?? 0}>
-                    {feat('profile.cheerCount')}
-                  </CountMotion>
-                </p>
-              </div>
-              <div className="min-w-[120px] rounded-lg bg-muted p-3">
-                <p className="text-xs text-muted-foreground pb-1.5">
-                  {feat('stats.seasonRank')}
-                </p>
-                <p className="text-xl font-bold">
-                  {rank ? (
-                    <CountMotion value={rank.rank}>
-                      {global('ranking.place', { rank: rank.rank })}
-                    </CountMotion>
-                  ) : (
-                    '--'
-                  )}
-                </p>
-              </div>
-            </div>
-
-            <ChannelCheerButton
-              session={session}
-              cheerTicket={cheerTicket}
-              channelId={basicInfo.id}
-              channelTitle={basicInfo.title}
-              group={group}
-              gender={gender}
-            />
-            {!session && (
-              <p className="text-xs text-muted-foreground">
-                {feat('profile.signUpForTicket')}
+        <div className="flex flex-col items-center gap-3 md:mt-2 lg:mt-4">
+          <div className="grid grid-cols-2 gap-3 text-center">
+            <div className="min-w-[120px] rounded-lg bg-muted p-3">
+              <p className="text-xs text-muted-foreground pb-1.5">
+                {feat('stats.seasonTotal')}
               </p>
-            )}
+              <p className="text-xl font-bold">
+                <CountMotion value={rank?.usedCount ?? 0}>
+                  {feat('profile.cheerCount')}
+                </CountMotion>
+              </p>
+            </div>
+            <div className="min-w-[120px] rounded-lg bg-muted p-3">
+              <p className="text-xs text-muted-foreground pb-1.5">
+                {feat('stats.seasonRank')}
+              </p>
+              <p className="text-xl font-bold">
+                {rank ? (
+                  <CountMotion value={rank.rank}>
+                    {global('ranking.place', { rank: rank.rank })}
+                  </CountMotion>
+                ) : (
+                  '--'
+                )}
+              </p>
+            </div>
           </div>
-        ) : null}
+
+          {/* NOTE: リリース時はdisabled条件削除 */}
+          <ChannelCheerButton
+            session={session}
+            cheerTicket={cheerTicket}
+            channelId={basicInfo.id}
+            channelTitle={basicInfo.title}
+            group={group}
+            gender={gender}
+            disabled={!session}
+          />
+          {!session && (
+            <p className="text-xs text-muted-foreground">
+              {/* TODO: 文言修正：0601 */}
+              {/* {feat('profile.signUpForTicket')} */}
+              {feat('profile.cheerEnabledAt')}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   )

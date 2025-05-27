@@ -359,6 +359,8 @@
     },
     "bottomNavigation": {
       "home": "ホーム",
+      "live": "同接数",
+      "channels": "スパチャ金額",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
       "groups": "タレント検索"
@@ -371,6 +373,8 @@
     },
     "header": {
       "dashboard": "ダッシュボード",
+      "liveRanking": "同接数ランキング",
+      "channelsRanking": "チャンネルランキング",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
       "talents": "タレント一覧"
@@ -507,7 +511,8 @@
         "past30Days": "過去30日間の応援",
         "cheerRanking": "応援ランキング",
         "cheerCount": "回",
-        "signUpForTicket": "無料の新規登録でチケットを獲得できます"
+        "signUpForTicket": "無料の新規登録でチケットを獲得できます",
+        "cheerEnabledAt": "2025/06/01（日）14:00~ 応援可能"
       },
       "stats": {
         "title": "応援ランキング",
