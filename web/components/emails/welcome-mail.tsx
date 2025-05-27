@@ -29,7 +29,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
       <Body style={main}>
         <Container style={container}>
           <Img
-            src={`${baseUrl}/peakx/icon.webp`}
+            src={`${baseUrl}/peakx/icon.png`}
             width="48"
             height="48"
             alt="PeakX"

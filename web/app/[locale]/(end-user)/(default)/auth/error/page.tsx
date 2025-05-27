@@ -1,6 +1,13 @@
 import { use } from 'react'
 import { Locale, useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { Page } from 'components/page'
 import { Link } from 'lib/navigation'
 
@@ -27,16 +34,26 @@ export default function ErrorPage({ searchParams }: Props) {
   return (
     <Page>
       <div className="flex min-h-[70vh] flex-col items-center justify-center">
-        <h1 className="text-2xl font-bold mb-4">{page('title')}</h1>
-        <div className="flex flex-col gap-2 text-center max-w-md mb-6">
-          <p>{errorMessage}</p>
-          <p>
-            code: <code>{error}</code>
-          </p>
-        </div>
-        <Button asChild>
-          <Link href="/auth/signin">{page('backToSignIn')}</Link>
-        </Button>
+        <Card className="min-w-[330px]">
+          <CardHeader>
+            <CardTitle>
+              <h1 className="text-2xl font-bold">{page('title')}</h1>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-2 max-w-md">
+              <p>{errorMessage}</p>
+              <p>
+                code: <code>{error}</code>
+              </p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button className="w-full" asChild>
+              <Link href="/auth/signin">{page('backToSignIn')}</Link>
+            </Button>
+          </CardFooter>
+        </Card>
       </div>
     </Page>
   )
