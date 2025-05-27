@@ -94,8 +94,8 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
     const previewUrl = URL.createObjectURL(compressedFile)
 
     // ダイアログを閉じる
-    setDialogOpen(false)
     onCropConfirm({ compressedFile, previewUrl })
+    setDialogOpen(false)
     setIsLoading(false)
   }
 

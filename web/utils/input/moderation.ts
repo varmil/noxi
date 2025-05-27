@@ -1,5 +1,6 @@
 'use server'
 
+import { randomUUID } from 'crypto'
 import { openai } from 'lib/openai'
 
 export async function checkModeration(text: string): Promise<boolean> {
@@ -27,7 +28,8 @@ export async function checkImageModeration(
 ): Promise<boolean> {
   if (!url) return true
 
-  console.time(`checkImageModeration:${url}`)
+  const uuid = randomUUID().slice(0, 8)
+  console.time(`checkImageModeration:${uuid}`)
   try {
     const result = await openai.moderations.create({
       model: 'omni-moderation-latest',
@@ -40,6 +42,6 @@ export async function checkImageModeration(
     console.error('Moderation API Error:', err)
     return true // エラー時は通過扱い
   } finally {
-    console.timeEnd(`checkImageModeration:${url}`)
+    console.timeEnd(`checkImageModeration:${uuid}`)
   }
 }

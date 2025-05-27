@@ -48,8 +48,8 @@ export default function ProfileForm({
     compressedFile: null,
     previewUrl: null
   })
+  const [isImageModerationOk, setIsImageModerationOk] = useState(true)
   const [isModerationOk, setIsModerationOk] = useState(true)
-  const [formKey, setFormKey] = useState(0)
 
   const displayName = session.user?.name || 'User (Preview)'
   const currentAvatar =
@@ -87,19 +87,11 @@ export default function ProfileForm({
         }
       }
       // 画像をアップロード（指定されていれば）
-      // パブリックURLを用いて画像が適切か確認する
       let image: string | undefined = undefined
       {
         if (compressedFile) {
           const result = await startUpload([compressedFile])
           image = result?.[0].ufsUrl
-
-          if (!(await checkImageModeration(image))) {
-            await deleteOldImage(image)
-            setIsModerationOk(false)
-            setIsLoading(false)
-            return
-          }
         }
       }
       // プロフィール更新
@@ -128,16 +120,15 @@ export default function ProfileForm({
     })
     router.refresh()
     methods.reset(data)
-    setFormKey(prev => prev + 1)
     setIsLoading(false)
     setNewAvatar({ compressedFile: null, previewUrl: null })
     setIsModerationOk(true)
   }
   const onError = (e: unknown) => {
+    console.error(e)
     toast.error(feat('error.title'), {
       description: feat('error.description')
     })
-    console.error(e)
     setIsLoading(false)
   }
   const handleCropConfirm = ({
@@ -147,16 +138,19 @@ export default function ProfileForm({
     compressedFile: File
     previewUrl: string
   }) => {
-    setNewAvatar({ compressedFile, previewUrl })
+    const reader = new FileReader()
+    reader.onload = async () => {
+      // 先にUI反映
+      setNewAvatar({ compressedFile, previewUrl })
+      const base64 = reader.result as string
+      setIsImageModerationOk(await checkImageModeration(base64))
+    }
+    reader.readAsDataURL(compressedFile)
   }
 
   return (
     <FormProvider {...methods}>
-      <form
-        className="contents"
-        onSubmit={handleSubmit(onSubmit)}
-        key={formKey}
-      >
+      <form className="contents" onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="space-y-6">
           <div className="flex flex-col items-center space-y-4">
             <div className="flex items-center gap-2">
@@ -184,7 +178,7 @@ export default function ProfileForm({
           <NameInput />
           <UsernameInput />
           <BioTextarea />
-          {!isModerationOk && (
+          {(!isImageModerationOk || !isModerationOk) && (
             <Alert variant="destructive">
               <AlertCircle className="size-4" />
               <AlertTitle>{feat('error.title')}</AlertTitle>
@@ -194,7 +188,7 @@ export default function ProfileForm({
         </CardContent>
         <CardFooter>
           <div className="flex flex-col items-start gap-2">
-            <Button type="submit" disabled={isLoading}>
+            <Button type="submit" disabled={isLoading || !isImageModerationOk}>
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 size-4 animate-spin" />
