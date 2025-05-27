@@ -6,8 +6,6 @@ import { User, UserId } from '@domain/user'
 
 interface JwtPayload {
   sub: string // `sub` がユーザーIDとして使われる
-  email?: string
-  name?: string
 }
 
 @Injectable()

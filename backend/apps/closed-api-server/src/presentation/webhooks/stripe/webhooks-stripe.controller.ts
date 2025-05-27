@@ -48,18 +48,33 @@ export class WebhooksStripeController {
     }
 
     switch (event.type) {
+      // 初回の Checkout セッション完了時（ユーザーが決済成功）。2回目以降は呼ばれない
       case 'checkout.session.completed': {
         const session = event.data.object
         this.logger.log(`Checkout session completed:`, session)
         break
       }
-      case 'customer.subscription.updated': {
-        const subscription = event.data.object
+      // 初回も2ヶ月目以降も請求が成功したときに呼ばれる
+      case 'invoice.paid': {
+        const invoice = event.data.object
+        const subscriptionId = invoice.lines.data[0].subscription as string
+        const customerId = invoice.customer as string
         this.logger.log(
-          `Subscription updated: ${subscription.customer as string}`
+          `Invoice paid: customer=${customerId}, subscription=${subscriptionId}`
         )
+        // チケット20枚を付与（あなたのロジックをここに）
+        // await this.ticketService.grantSupportTickets(customerId, 20)
         break
       }
+      // サブスク情報が何らか更新された
+      // case 'customer.subscription.updated': {
+      //   const subscription = event.data.object
+      //   this.logger.log(
+      //     `Subscription updated: ${subscription.customer as string}`
+      //   )
+      //   break
+      // }
+      // 管理画面からキャンセル / API経由でキャンセル / 支払い失敗による自動キャンセル
       case 'customer.subscription.deleted': {
         const subscription = event.data.object
         this.logger.log(

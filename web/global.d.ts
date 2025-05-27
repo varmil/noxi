@@ -20,10 +20,6 @@ declare global {
       /** http(s)://... */
       readonly BASE_URL: string
 
-      readonly YOUTUBE_DATA_API_KEY: string
-
-      readonly EXCHANGE_RATE_API_KEY: string
-
       /**
        * The domain name of the generated Git branch URL.
        * Example: *-git-*.vercel.app.
@@ -47,6 +43,10 @@ declare global {
 
       readonly VERCEL_ENV?: 'production' | 'preview' | 'development'
 
+      readonly YOUTUBE_DATA_API_KEY: string
+
+      readonly EXCHANGE_RATE_API_KEY: string
+
       /** 本番でのみ定義 */
       readonly CLARITY_CODE?: string
 
@@ -60,6 +60,8 @@ declare global {
       readonly AUTH_APPLE_ID: string
       readonly AUTH_APPLE_SECRET: string
       readonly DATABASE_URL: string
+
+      readonly OPENAI_API_KEY: string
     }
   }
 }

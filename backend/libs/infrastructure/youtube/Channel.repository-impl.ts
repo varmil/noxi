@@ -29,10 +29,11 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     limit,
     offset
   }: Parameters<ChannelRepository['findAll']>[0]): Promise<Channels> {
-    const { id, group, gender, country } = where || {}
+    const { id, title, group, gender, country } = where || {}
     const channels = await this.prismaInfraService.channel.findMany({
       where: {
         id: { in: id?.map(e => e.get()) },
+        title: { contains: title?.get(), mode: 'insensitive' },
         group: group?.get(),
         gender: gender?.get(),
         country: country?.get()

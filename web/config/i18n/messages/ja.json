@@ -61,7 +61,7 @@
         "period": "集計期間",
         "dimension": "ディメンション",
         "group": "グループ",
-        "gender": "性別",
+        "gender": "タレントの性別",
         "country": "国",
         "season": "シーズン"
       },
@@ -182,8 +182,7 @@
             "description": "{channel}の人気、スパチャ金額、ライブ分析、同接数推移、配信時間を網羅的にチェック。人気の瞬間や収益データも把握し、ファン必見の情報を見逃さない。"
           },
           "section": {
-            "ranking": { "title": "人気・統計" },
-            "data": { "title": "基本データ" }
+            "data": { "title": "YouTube上のデータ" }
           }
         },
         "superChat": {
@@ -193,7 +192,8 @@
           },
           "section": {
             "card": { "title": "スパチャ収入（ステッカー含む）" },
-            "chart": {}
+            "chart": {},
+            "ranking": { "title": "人気・統計" }
           }
         },
         "asmr": {
@@ -278,7 +278,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "most-cheered": "今シーズン、{group}{gender}における最も応援されたトップタレント（{period}）あなたも推しを応援しよう！"
+              "most-cheered": "今シーズン、{group}{gender}の最も応援されたタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }
@@ -361,7 +361,9 @@
       "home": "ホーム",
       "live": "同接数",
       "channels": "スパチャ金額",
-      "groups": "タレント一覧"
+      "mostCheered": "応援ランキング",
+      "topFans": "トップファン",
+      "groups": "タレント検索"
     },
     "channelsAdd": { "title": "PeakXにチャンネルを載せる" },
     "contact": { "title": "お問い合わせ" },
@@ -370,9 +372,21 @@
       "listingAll": "{count}人全員を掲載中!"
     },
     "header": {
+      "dashboard": "ダッシュボード",
       "liveRanking": "同接数ランキング",
       "channelsRanking": "チャンネルランキング",
+      "mostCheered": "応援ランキング",
+      "topFans": "トップファン",
       "talents": "タレント一覧"
+    },
+    "loginBonus": {
+      "title": "デイリーログインボーナス！",
+      "description": "本日のログイン分として応援チケットを獲得",
+      "awarded": "応援チケット {count}枚を獲得しました！",
+      "current": "現在の所持数: {count}枚",
+      "tips": "チケットをタレントに使うことでランキングが上昇します。毎日ログインしてチケットを集め、どんどん使ってみましょう！",
+      "close": "閉じる",
+      "toastTitle": "応援チケットを獲得しました"
     },
     "pagination": {
       "first": "最初のページへ",
@@ -402,13 +416,17 @@
         "start": "開始",
         "end": "終了",
         "criteria": "集計条件",
-        "criteriaDescription": "対象期間に配信を「開始した」",
+        "criteriaDescription": {
+          "channels": "対象期間に配信を「開始した」",
+          "mostCheered": "対象期間に応援された",
+          "topFans": "対象期間に応援をした"
+        },
         "updatedAt": "更新日時"
       }
     },
     "styles": {
       "badge": {
-        "realtime": "リアルタイム",
+        "realtime": "現在",
         "past": "過去データ",
         "labelForRealtime": "最新のデータを表示"
       },
@@ -492,15 +510,17 @@
         "cheerTicket": "応援チケットを使う",
         "past30Days": "過去30日間の応援",
         "cheerRanking": "応援ランキング",
-        "cheerCount": "{count}回",
-        "rank": "{rank}位"
+        "cheerCount": "回",
+        "signUpForTicket": "無料の新規登録でチケットを獲得できます",
+        "cheerEnabledAt": "2025/06/01（日）14:00~ 応援可能"
       },
       "stats": {
-        "title": "応援統計",
+        "title": "応援ランキング",
         "fansLog": "ファンの活動ログ",
+        "past7Days": "過去7日間の応援",
         "past30Days": "過去30日間の応援",
-        "cheerRank": "過去30日間の順位",
-        "seasonTotal": "今シーズン累計",
+        "cheerRank": "過去7日間の順位",
+        "seasonTotal": "今シーズン応援数",
         "seasonRank": "今シーズン順位"
       },
       "topFans": {
@@ -522,7 +542,8 @@
         "month": "1ヶ月",
         "user": "ユーザー",
         "tickets": "チケット",
-        "date": "日時"
+        "date": "日時",
+        "count": "{count}枚"
       },
       "dialog": {
         "title": "{channel}を応援する",
@@ -556,7 +577,7 @@
         "form": {
           "name": "表示名",
           "username": "ユーザーネーム",
-          "yourURL": "マイページ {url}",
+          "yourURL": "マイページURLの一部として使用されます",
           "bio": "自己紹介",
           "save": "変更を保存",
           "loading": "保存中...",
@@ -564,6 +585,9 @@
           "minLength": "{type}は{length}文字以上で入力してください",
           "maxLength": "{type}は{length}文字まで入力できます",
           "usernameRegex": "ユーザー名は英数字とアンダースコア(_)のみ使用できます",
+          "usernameReserved": "このユーザーネームは使用できません",
+          "usernameAvailable": "このユーザーネームは使用可能です",
+          "usernameAlreadyExists": "このユーザーネームは既に使用されています",
           "success": {
             "title": "更新しました",
             "description": "変更内容が保存されました。"
@@ -571,7 +595,11 @@
           "error": {
             "title": "更新できませんでした",
             "description": "変更内容が保存できませんでした。"
-          }
+          },
+          "profanity": {
+            "title": "不適切な言葉が含まれます: {words}"
+          },
+          "moderationFailed": "AIによるチェックに合格しませんでした。変更した項目に不適切な内容が含まれていないかご確認ください。"
         },
         "imageUploader": {
           "input": "画像を参照",

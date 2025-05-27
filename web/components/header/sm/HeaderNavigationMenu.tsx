@@ -4,14 +4,12 @@ import * as React from 'react'
 import { useTranslations } from 'next-intl'
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
-import GroupGallery from 'components/group/GroupGallery'
+import { TalentSearch } from 'components/talent-search/components/TalentSearch'
 import {
   ChannelsRankingDefaultUrl,
   StreamRankingDefaultUrl
@@ -38,7 +36,30 @@ export default function HeaderNavigationMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
 
-        <NavigationMenuItem>
+        {/* TODO: 06/01に差し替え */}
+        {/* <NavigationMenuItem className="hidden lg:block">
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href={MostCheeredDefaultUrl}>
+              <div className="flex items-center gap-1">
+                <Trophy className="size-4" />
+                <span>{comp('mostCheered')}</span>
+              </div>
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem className="hidden lg:block">
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href={TopFansDefaultUrl}>
+              <div className="flex items-center gap-1">
+                <Activity className="size-4" />
+                <span>{comp('topFans')}</span>
+              </div>
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem> */}
+
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger>{comp('talents')}</NavigationMenuTrigger>
           <NavigationMenuContent className="md:max-h-[80vh] md:overflow-y-auto">
             <GroupGallery
@@ -46,6 +67,12 @@ export default function HeaderNavigationMenu() {
               useNavigationMenuLink
             />
           </NavigationMenuContent>
+        </NavigationMenuItem> */}
+
+        <NavigationMenuItem className="ml-4 md:w-[50vw] lg:w-[360px] xl:w-[min(40vw,600px)]">
+          <div className="absolute -top-[20px] left-0 right-0">
+            <TalentSearch className="shadow-none" />
+          </div>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

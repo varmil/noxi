@@ -1,4 +1,5 @@
 'use client'
+
 import { useTranslations } from 'next-intl'
 import { useFormContext } from 'react-hook-form'
 import {
@@ -23,22 +24,24 @@ export const NameInput = () => {
     <FormField
       control={control}
       name="name"
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel>
-            <div className="w-full flex items-center justify-between">
-              <span>{feat('name')}</span>
-              <span className="text-sm text-muted-foreground">
-                {name.length} / {MAX_NAME_LENGTH}
-              </span>
-            </div>
-          </FormLabel>
-          <FormControl>
-            <Input id="name" {...field} maxLength={MAX_NAME_LENGTH} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
+      render={({ field }) => {
+        return (
+          <FormItem>
+            <FormLabel>
+              <div className="w-full flex items-center justify-between">
+                <span>{feat('name')}</span>
+                <span className="text-sm text-muted-foreground">
+                  {name.length} / {MAX_NAME_LENGTH}
+                </span>
+              </div>
+            </FormLabel>
+            <FormControl>
+              <Input id="name" {...field} maxLength={MAX_NAME_LENGTH} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )
+      }}
     />
   )
 }

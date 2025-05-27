@@ -2,6 +2,7 @@ import { Type } from 'class-transformer'
 import { IsIn, IsInt, IsString } from 'class-validator'
 import { UsedAt, UsedCount } from '@domain/cheer-ticket-usage'
 import { GroupStrings, GroupString, Group } from '@domain/group'
+import { GenderStrings, GenderString, Gender } from '@domain/lib'
 import { ChannelId } from '@domain/youtube'
 
 export class PostCheerTicketUsagesConsume {
@@ -10,6 +11,9 @@ export class PostCheerTicketUsagesConsume {
 
   @IsIn(GroupStrings)
   group: GroupString
+
+  @IsIn(GenderStrings)
+  gender: GenderString
 
   @IsInt()
   @Type(() => Number)
@@ -20,6 +24,8 @@ export class PostCheerTicketUsagesConsume {
   toUsedCount = () => new UsedCount(this.usedCount)
 
   toGroup = () => new Group(this.group)
+
+  toGender = () => new Gender(this.gender)
 
   toUsedAt = () => new UsedAt(new Date())
 }

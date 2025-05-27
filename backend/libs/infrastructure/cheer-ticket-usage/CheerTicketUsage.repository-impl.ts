@@ -2,19 +2,16 @@ import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { Logger } from '@nestjs/common'
 import {
   CheeredRank,
-  CheeredUsage,
-  CheeredUsages,
   CheerTicketUsage,
   CheerTicketUsageRepository,
   CheerTicketUsages,
-  FanUsage,
-  FanUsages,
   Rank,
   UsedAt,
   UsedCount
 } from '@domain/cheer-ticket-usage'
 import { FanRank } from '@domain/cheer-ticket-usage/ranking/FanRank.entity'
 import { Group } from '@domain/group'
+import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -27,7 +24,7 @@ export class CheerTicketUsageRepositoryImpl
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   consume: CheerTicketUsageRepository['consume'] = async ({ data }) => {
-    const { userId, channelId, usedCount, group, usedAt } = data
+    const { userId, channelId, usedCount, group, gender, usedAt } = data
     const usedCountNumber = usedCount.get()
 
     await this.prismaInfraService.$transaction(async tx => {
@@ -54,6 +51,7 @@ export class CheerTicketUsageRepositoryImpl
           userId: userId.get(),
           channelId: channelId.get(),
           group: group.get(),
+          gender: gender.get(),
           usedCount: usedCountNumber,
           usedAt: usedAt.get()
         }
@@ -72,6 +70,7 @@ export class CheerTicketUsageRepositoryImpl
         userId: where.userId?.get(),
         channelId: where.channelId?.get(),
         group: where.group?.get(),
+        gender: where.gender?.get(),
         usedAt: where.usedAt
       },
       orderBy,
@@ -85,127 +84,9 @@ export class CheerTicketUsageRepositoryImpl
             userId: new UserId(row.userId),
             channelId: new ChannelId(row.channelId),
             group: new Group(row.group),
+            gender: new Gender(row.gender),
             usedCount: new UsedCount(row.usedCount),
             usedAt: new UsedAt(row.usedAt)
-          })
-      )
-    )
-  }
-
-  findCheeredRanking: CheerTicketUsageRepository['findCheeredRanking'] =
-    async ({ where, limit, offset }) => {
-      const conditions: string[] = []
-      const values: (string | number | Date)[] = []
-      let index = 1
-
-      if (where.group) {
-        conditions.push(`"group" = $${index++}`)
-        values.push(where.group.get())
-      }
-      if (where.usedAt?.gte) {
-        conditions.push(`"usedAt" >= $${index++}`)
-        values.push(where.usedAt.gte)
-      }
-      if (where.usedAt?.lte) {
-        conditions.push(`"usedAt" <= $${index++}`)
-        values.push(where.usedAt.lte)
-      }
-      let limitClause = ''
-      if (typeof limit === 'number') {
-        limitClause = `LIMIT $${index++}`
-        values.push(limit)
-      }
-      let offsetClause = ''
-      if (typeof offset === 'number') {
-        offsetClause = `OFFSET $${index++}`
-        values.push(offset)
-      }
-
-      const rankings = await this.prismaInfraService.$queryRawUnsafe<
-        { channelId: string; totalUsed: number }[]
-      >(
-        `
-        SELECT
-          "channelId",
-          SUM("usedCount")::int AS "totalUsed"
-        FROM "CheerTicketUsage"
-        WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
-        GROUP BY "channelId"
-        ORDER BY "totalUsed" DESC
-        ${limitClause}
-        ${offsetClause}
-        `,
-        ...values
-      )
-      return new CheeredUsages(
-        rankings.map(
-          row =>
-            new CheeredUsage({
-              channelId: new ChannelId(row.channelId),
-              usedCount: new UsedCount(row.totalUsed)
-            })
-        )
-      )
-    }
-
-  findFanRanking: CheerTicketUsageRepository['findFanRanking'] = async ({
-    where,
-    limit,
-    offset
-  }) => {
-    const conditions: string[] = []
-    const values: (string | number | Date)[] = []
-    let index = 1
-
-    if (where.group) {
-      conditions.push(`"group" = $${index++}`)
-      values.push(where.group.get())
-    }
-    if (where.channelId) {
-      conditions.push(`"channelId" = $${index++}`)
-      values.push(where.channelId.get())
-    }
-    if (where.usedAt?.gte) {
-      conditions.push(`"usedAt" >= $${index++}`)
-      values.push(where.usedAt.gte)
-    }
-    if (where.usedAt?.lte) {
-      conditions.push(`"usedAt" <= $${index++}`)
-      values.push(where.usedAt.lte)
-    }
-    let limitClause = ''
-    if (typeof limit === 'number') {
-      limitClause = `LIMIT $${index++}`
-      values.push(limit)
-    }
-    let offsetClause = ''
-    if (typeof offset === 'number') {
-      offsetClause = `OFFSET $${index++}`
-      values.push(offset)
-    }
-
-    const rankings = await this.prismaInfraService.$queryRawUnsafe<
-      { userId: number; totalUsed: number }[]
-    >(
-      `
-      SELECT
-        "userId",
-        SUM("usedCount")::int AS "totalUsed"
-      FROM "CheerTicketUsage"
-      WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
-      GROUP BY "userId"
-      ORDER BY "totalUsed" DESC
-      ${limitClause}
-      ${offsetClause}
-      `,
-      ...values
-    )
-    return new FanUsages(
-      rankings.map(
-        row =>
-          new FanUsage({
-            userId: new UserId(row.userId),
-            usedCount: new UsedCount(row.totalUsed)
           })
       )
     )

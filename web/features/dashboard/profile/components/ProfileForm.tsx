@@ -3,16 +3,18 @@
 import type React from 'react'
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ArrowRight, Loader2 } from 'lucide-react'
+import { AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
 import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import { CardContent, CardFooter } from '@/components/ui/card'
 import { saveUserProfile } from 'apis/user-profiles/saveUserProfile'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
+import { deleteOldImage } from 'features/dashboard/profile/actions/deleteOldImageActions'
 import { BioTextarea } from 'features/dashboard/profile/components/BioTextarea'
 import { NameInput } from 'features/dashboard/profile/components/NameInput'
 import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
@@ -22,6 +24,7 @@ import {
   useProfileFormSchema
 } from 'features/dashboard/profile/hooks/useProfileSchema'
 import { useRouter } from 'lib/navigation'
+import { checkImageModeration, checkModeration } from 'utils/input/moderation'
 import { useUploadThing } from 'utils/uploadthing'
 
 type NewAvatarState = {
@@ -37,14 +40,15 @@ export default function ProfileForm({
   userProfile?: UserProfileSchema
 }) {
   const router = useRouter()
-  const { startUpload } = useUploadThing('imageUploader')
-  const feat = useTranslations('Features.dashboard.profile.form')
   const profileFormSchema = useProfileFormSchema()
+  const feat = useTranslations('Features.dashboard.profile.form')
+  const { startUpload } = useUploadThing('imageUploader')
   const [isLoading, setIsLoading] = useState(false)
   const [newAvatar, setNewAvatar] = useState<NewAvatarState>({
     compressedFile: null,
     previewUrl: null
   })
+  const [isModerationOk, setIsModerationOk] = useState(true)
   const [formKey, setFormKey] = useState(0)
 
   const displayName = session.user?.name || 'User (Preview)'
@@ -57,7 +61,8 @@ export default function ProfileForm({
       name: displayName,
       username: userProfile?.username || '',
       bio: userProfile?.description || ''
-    }
+    },
+    mode: 'onChange'
   })
   const { handleSubmit } = methods
 
@@ -65,12 +70,36 @@ export default function ProfileForm({
     setIsLoading(true)
     const { compressedFile } = newAvatar
     try {
+      // Moderation API
+      {
+        const name = data.name
+        const username = data.username
+        const bio = data.bio
+        const [isNameOk, isUsernameOk, isBioOk] = await Promise.all([
+          checkModeration(name),
+          checkModeration(username),
+          checkModeration(bio)
+        ])
+        if (!isNameOk || !isUsernameOk || !isBioOk) {
+          setIsModerationOk(false)
+          setIsLoading(false)
+          return
+        }
+      }
       // 画像をアップロード（指定されていれば）
+      // パブリックURLを用いて画像が適切か確認する
       let image: string | undefined = undefined
       {
         if (compressedFile) {
           const result = await startUpload([compressedFile])
           image = result?.[0].ufsUrl
+
+          if (!(await checkImageModeration(image))) {
+            await deleteOldImage(image)
+            setIsModerationOk(false)
+            setIsLoading(false)
+            return
+          }
         }
       }
       // プロフィール更新
@@ -82,23 +111,35 @@ export default function ProfileForm({
           description: data.bio
         })
       }
-      toast.success(feat('success.title'), {
-        description: feat('success.description')
-      })
-      router.refresh()
-      methods.reset(data)
-      setFormKey(prev => prev + 1)
-      setIsLoading(false)
-      setNewAvatar({ compressedFile: null, previewUrl: null })
+      // 後処理 (古い画像を削除)
+      if (image) {
+        await deleteOldImage(userProfile?.image)
+      }
+
+      onSuccess(data)
     } catch (error) {
-      console.error(error)
-      setIsLoading(false)
-      toast.error(feat('error.title'), {
-        description: feat('error.description')
-      })
+      onError(error)
     }
   }
 
+  const onSuccess = (data: ProfileFormSchema) => {
+    toast.success(feat('success.title'), {
+      description: feat('success.description')
+    })
+    router.refresh()
+    methods.reset(data)
+    setFormKey(prev => prev + 1)
+    setIsLoading(false)
+    setNewAvatar({ compressedFile: null, previewUrl: null })
+    setIsModerationOk(true)
+  }
+  const onError = (e: unknown) => {
+    toast.error(feat('error.title'), {
+      description: feat('error.description')
+    })
+    console.error(e)
+    setIsLoading(false)
+  }
   const handleCropConfirm = ({
     compressedFile,
     previewUrl
@@ -143,12 +184,19 @@ export default function ProfileForm({
           <NameInput />
           <UsernameInput />
           <BioTextarea />
+          {!isModerationOk && (
+            <Alert variant="destructive">
+              <AlertCircle className="size-4" />
+              <AlertTitle>{feat('error.title')}</AlertTitle>
+              <AlertDescription>{feat('moderationFailed')}</AlertDescription>
+            </Alert>
+          )}
         </CardContent>
         <CardFooter>
           <Button type="submit" disabled={isLoading}>
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 size-4 animate-spin" />
                 {feat('loading')}
               </>
             ) : (

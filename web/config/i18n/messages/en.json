@@ -182,8 +182,7 @@
             "description": "Discover detailed stats, rankings, and live updates for {channel} on PeakX."
           },
           "section": {
-            "ranking": { "title": "Ranking & Stats" },
-            "data": { "title": "Data" }
+            "data": { "title": "YouTube Data" }
           }
         },
         "superChat": {
@@ -193,7 +192,8 @@
           },
           "section": {
             "card": { "title": "Super Chat Summary (includes Sticker)" },
-            "chart": {}
+            "chart": {},
+            "ranking": { "title": "Ranking & Stats" }
           }
         },
         "asmr": {
@@ -360,7 +360,9 @@
     "bottomNavigation": {
       "home": "Home",
       "live": "Live",
-      "channels": "Super Chat",
+      "channels": "Channels",
+      "mostCheered": "Most Cheered",
+      "topFans": "Top Fans",
       "groups": "Talents"
     },
     "channelsAdd": { "title": "Add your channel to PeakX" },
@@ -370,9 +372,21 @@
       "listingAll": "All {count} talents are listed."
     },
     "header": {
+      "dashboard": "Dashboard",
       "liveRanking": "Live Ranking",
       "channelsRanking": "Channels Ranking",
+      "mostCheered": "Most Cheered",
+      "topFans": "Top Fans",
       "talents": "Talents"
+    },
+    "loginBonus": {
+      "title": "Daily login bonus!",
+      "description": "Earn cheer tickets for logging in today",
+      "awarded": "Earned {count} cheer tickets!",
+      "current": "Current number: {count}",
+      "tips": "Using tickets for talents will increase your ranking. Log in every day to collect tickets and use them as much as you can!",
+      "close": "Close",
+      "toastTitle": "Earned cheer tickets"
     },
     "pagination": {
       "first": "First page",
@@ -402,7 +416,11 @@
         "start": "Start",
         "end": "End",
         "criteria": "Criteria",
-        "criteriaDescription": "Live started during the period",
+        "criteriaDescription": {
+          "channels": "Live started during the period",
+          "mostCheered": "Cheered during the period",
+          "topFans": "Use cheer tickets during the period"
+        },
         "updatedAt": "Updated At"
       }
     },
@@ -492,16 +510,18 @@
         "cheerTicket": "Use Cheer Tickets",
         "past30Days": "Past 30 Days",
         "cheerRanking": "Cheer Ranking",
-        "cheerCount": "{count} times",
-        "rank": "{rank} place"
+        "cheerCount": "",
+        "signUpForTicket": "Sign-up for free and get cheer tickets",
+        "cheerEnabledAt": "2025/06/01 (Sun) 14:00~ Cheer available"
       },
       "stats": {
-        "title": "Cheer Statistics",
+        "title": "Cheer Ranking",
         "fansLog": "Fans Log",
+        "past7Days": "Past 7 Days Cheer",
         "past30Days": "Past 30 Days Cheer",
-        "cheerRank": "Cheer Rank (Past 30 Days)",
-        "seasonTotal": "Season Total",
-        "seasonRank": "Cheer Rank (Season)"
+        "cheerRank": "Past 7 Days Rank",
+        "seasonTotal": "Season Cheer",
+        "seasonRank": "Season Rank"
       },
       "topFans": {
         "title": "Top Fans",
@@ -522,7 +542,8 @@
         "month": "1 Month",
         "user": "User",
         "tickets": "Tickets",
-        "date": "Date"
+        "date": "Date",
+        "count": "{count}"
       },
       "dialog": {
         "title": "Cheer {channel}",
@@ -556,7 +577,7 @@
         "form": {
           "name": "Display name",
           "username": "Username",
-          "yourURL": "Mypage {url}",
+          "yourURL": "Used as your Mypage URL",
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",
@@ -564,6 +585,9 @@
           "minLength": "{type} must be at least {length} characters",
           "maxLength": "{type} can be up to {length} characters",
           "usernameRegex": "Username must be alphanumeric and can only contain underscores (_)",
+          "usernameReserved": "This username is not available",
+          "usernameAvailable": "This username is available",
+          "usernameAlreadyExists": "This username already exists",
           "success": {
             "title": "Updated",
             "description": "Changes have been saved."
@@ -571,7 +595,11 @@
           "error": {
             "title": "Update failed",
             "description": "Changes have not been saved."
-          }
+          },
+          "profanity": {
+            "title": "Profanity detected: {words}"
+          },
+          "moderationFailed": "AI moderation failed. Please check the content you entered."
         },
         "imageUploader": {
           "input": "Browse for image",

@@ -1,9 +1,10 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { Locale, useTranslations } from 'next-intl'
+import { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getChannels } from 'apis/youtube/getChannels'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
+import { TalentSearch } from 'components/talent-search/components/TalentSearch'
 
 type Props = {
   params: Promise<{ locale: Locale }>
@@ -22,18 +23,26 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function GroupsPage(props: Props) {
-  const params = use(props.params)
-
+export default async function GroupsPage(props: Props) {
+  const params = await props.params
   const { locale } = params
 
   // Enable static rendering
   setRequestLocale(locale)
-  const t = useTranslations('Page.groups.metadata')
+  const t = await getTranslations('Page.groups.metadata')
+
+  // 適当におすすめをとる
+  const channels = await getChannels({
+    group: 'nijisanji',
+    limit: 3
+  })
 
   return (
     <Page breadcrumb={[{ href: `/groups`, name: t('title') }]}>
-      <GroupGallery className="grid w-full px-4 gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-2 text-sm" />
+      <section className="flex flex-col gap-y-6 px-4 pt-4">
+        <TalentSearch suggestions={channels} />
+        <GroupGallery className="grid w-full gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-2 text-sm" />
+      </section>
     </Page>
   )
 }

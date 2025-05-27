@@ -1,7 +1,14 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { CircleDollarSign, Home, Radio, Users } from 'lucide-react'
+import {
+  Activity,
+  CircleDollarSign,
+  Home,
+  Radio,
+  Search,
+  Trophy
+} from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -35,17 +42,30 @@ export default function BottomNavigation({ className }: Props) {
       label: t('channels'),
       icon: CircleDollarSign
     },
+    // TODO: 06/01に差し替え
+    // {
+    //   pathname: '/ranking/most-cheered',
+    //   query: '?period=last30Days',
+    //   label: t('mostCheered'),
+    //   icon: Trophy
+    // },
+    // {
+    //   pathname: '/ranking/top-fans',
+    //   query: '?period=last30Days',
+    //   label: t('topFans'),
+    //   icon: Activity
+    // },
     {
       pathname: '/groups',
       label: t('groups'),
-      icon: Users,
+      icon: Search,
       isActive: !!params['group']
     }
   ]
 
   return (
     <div
-      className={`fixed bottom-0 left-0 w-full h-14.5 bg-background md:hidden ${
+      className={`fixed bottom-0 left-0 w-full h-14.5 bg-background lg:hidden ${
         className ?? ''
       }`}
     >

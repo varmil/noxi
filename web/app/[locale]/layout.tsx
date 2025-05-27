@@ -2,10 +2,12 @@ import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
+import { SessionProvider } from 'next-auth/react'
 import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
+import { SessionKeepAlive } from 'components/auth/session/SessionKeepAlive'
 import { DailyLoginBonus } from 'components/login-bonus/DailyLoginBonus'
 import { PWAInstallProvider } from 'components/pwa/PWAInstallContext'
 import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
@@ -64,12 +66,15 @@ export default async function LocaleLayout(props: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <NextTopLoader color="var(--primary)" showSpinner={false} />
-          <NextIntlClientProvider>
-            <PWAInstallProvider>{children}</PWAInstallProvider>
-            <Toaster richColors />
-          </NextIntlClientProvider>
-          <DailyLoginBonus session={session} />
+          <SessionProvider session={session}>
+            <NextTopLoader color="var(--primary)" showSpinner={false} />
+            <NextIntlClientProvider>
+              <PWAInstallProvider>{children}</PWAInstallProvider>
+              <Toaster richColors />
+              <DailyLoginBonus session={session} />
+            </NextIntlClientProvider>
+            <SessionKeepAlive />
+          </SessionProvider>
         </ThemeProvider>
 
         {/* Google AdSense */}

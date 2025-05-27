@@ -1,10 +1,13 @@
+import { AFTER_CONSUME_CHEER_TICKETS } from 'apis/tags/revalidate-tags'
 import { GroupString } from 'config/constants/Group'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { Gender } from 'types/gender'
 import { FanUsagesSchema, fanUsageListSchema } from './cheerTicketUsageSchema'
 
 type Params = {
   channelId?: string
   group?: GroupString
+  gender?: Gender
   usedAt?: {
     gte: Date
     lte?: Date
@@ -16,6 +19,7 @@ type Params = {
 const createSearchParams = ({
   channelId,
   group,
+  gender,
   usedAt,
   limit,
   offset
@@ -23,6 +27,7 @@ const createSearchParams = ({
   const searchParams = new URLSearchParams({
     ...(channelId && { channelId }),
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
@@ -39,7 +44,7 @@ export async function getFanRanking(params: Params): Promise<FanUsagesSchema> {
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/cheer-ticket-usages/rankings/fan?${searchParams.toString()}`,
-    { cache: 'no-store' }
+    { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -54,7 +59,7 @@ export async function getFanRankingCount(
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/cheer-ticket-usages/rankings/fan/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1H } }
+    { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

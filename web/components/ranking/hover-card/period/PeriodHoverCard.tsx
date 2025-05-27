@@ -19,10 +19,16 @@ import dayjs from 'lib/dayjs'
 type Props = {
   start: dayjs.ConfigType
   end: dayjs.ConfigType
-  updatedAt: dayjs.ConfigType
+  updatedAt?: dayjs.ConfigType
+  criteriaDescription: string
 }
 
-export default function PeriodHoverCard({ start, end, updatedAt }: Props) {
+export default function PeriodHoverCard({
+  start,
+  end,
+  updatedAt,
+  criteriaDescription
+}: Props) {
   const t = useTranslations('Components.ranking.hoverCard')
 
   return (
@@ -53,16 +59,18 @@ export default function PeriodHoverCard({ start, end, updatedAt }: Props) {
             </DatetimeContainer>
           </Item>
 
-          <Item>
-            <ItemTitle>{t('updatedAt')}</ItemTitle>
-            <ItemDescription>
-              <Datetime date={dayjs(updatedAt).toDate()} />
-            </ItemDescription>
-          </Item>
+          {updatedAt ? (
+            <Item>
+              <ItemTitle>{t('updatedAt')}</ItemTitle>
+              <ItemDescription>
+                <Datetime date={dayjs(updatedAt).toDate()} />
+              </ItemDescription>
+            </Item>
+          ) : null}
 
           <Item>
             <ItemTitle>{t('criteria')}</ItemTitle>
-            <ItemDescription>{t('criteriaDescription')}</ItemDescription>
+            <ItemDescription>{criteriaDescription}</ItemDescription>
           </Item>
         </Items>
       </PopoverContent>

@@ -24,11 +24,6 @@ export default async function TopFansTableHeader({}: Props) {
           {feat('usedCount')}
         </TableHead>
 
-        {/* 3xl-: Group */}
-        <TableHead className="hidden @3xl:table-cell text-nowrap text-center">
-          {feat('group')}
-        </TableHead>
-
         {/* Link Icon */}
         <TableHead className="@3xl:hidden" />
       </TableRow>

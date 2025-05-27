@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Plus, Minus, Send, Tickets, Loader2, AlertCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
@@ -17,10 +17,11 @@ import {
 import { Slider } from '@/components/ui/slider'
 import { cn } from '@/lib/utils'
 import { consumeCheerTickets } from 'apis/cheer-ticket-usages/consumeCheerTickets'
+import { revalidateAfterConsumeCheetTickets } from 'apis/cheer-ticket-usages/revalidateAfterConsumeCheetTickets'
 import { CheerTicketSchema } from 'apis/cheer-tickets/cheerTicketSchema'
 import { GroupString } from 'config/constants/Group'
 import { SuccessEffect } from 'features/cheer-channel/button/SuccessEffect'
-import { useRouter } from 'lib/navigation'
+import { Gender } from 'types/gender'
 
 interface Props {
   open: boolean
@@ -29,6 +30,7 @@ interface Props {
   channelId: string
   channelTitle: string
   group: GroupString
+  gender: Gender
 }
 
 export function ChannelCheerDialog({
@@ -37,19 +39,31 @@ export function ChannelCheerDialog({
   cheerTicket,
   channelId,
   channelTitle,
-  group
+  group,
+  gender
 }: Props) {
-  const router = useRouter()
+  const maxTickets = cheerTicket?.totalCount ?? 0 // 所持チケット数
+  const defaultTicketCount = Math.ceil(maxTickets / 2) // 初期値
+
   const feat = useTranslations('Features.cheerChannel.dialog')
-  const [ticketCount, setTicketCount] = useState(1)
+  const [ticketCount, setTicketCount] = useState(defaultTicketCount)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccessEffect, setShowSuccessEffect] = useState(false)
-  const maxTickets = cheerTicket?.totalCount ?? 0 // 所持チケット数
   const isSubmittable =
     ticketCount > 0 &&
     ticketCount <= maxTickets &&
     !isSubmitting &&
     !showSuccessEffect
+
+  // ダイアログの開閉に応じた初期化処理
+  // アニメーションの最中は再レンダリングを防ぐために何もしない
+  useEffect(() => {
+    if (!showSuccessEffect) {
+      if (open) {
+        setTicketCount(defaultTicketCount)
+      }
+    }
+  }, [showSuccessEffect, defaultTicketCount, open])
 
   const handleTicketChange = (value: number[]) => {
     setTicketCount(value[0])
@@ -71,31 +85,34 @@ export function ChannelCheerDialog({
       await consumeCheerTickets({
         channelId,
         group,
+        gender,
         usedCount: ticketCount,
         usedAt: new Date()
       })
 
       setShowSuccessEffect(true)
       setIsSubmitting(false)
-      // 更新するためにリロード
-      router.refresh()
       toast.success(feat('success.title'), {
         description: feat('success.description')
       })
 
       // 成功エフェクトを表示した後にダイアログを閉じる
       setTimeout(() => {
-        onOpenChange(false)
-        setTicketCount(1)
         setShowSuccessEffect(false)
+        onOpenChange(false)
       }, 2500)
+
+      // 一番最後にリロードする
+      setTimeout(async () => {
+        await revalidateAfterConsumeCheetTickets()
+      }, 3000)
     } catch (error) {
       setIsSubmitting(false)
       toast.error(feat('error.title'), {
         description: feat('error.description')
       })
     }
-  }, [ticketCount, channelId, group, feat, onOpenChange, router])
+  }, [channelId, group, gender, ticketCount, feat, onOpenChange])
 
   return (
     <>
@@ -123,7 +140,7 @@ export function ChannelCheerDialog({
                   size="icon"
                   onClick={decreaseCount}
                   disabled={ticketCount <= 1}
-                  className="size-10 rounded-full"
+                  className="size-10 rounded-full touch-none"
                 >
                   <Minus className="size-4" />
                 </Button>
@@ -145,7 +162,7 @@ export function ChannelCheerDialog({
                   size="icon"
                   onClick={increaseCount}
                   disabled={ticketCount >= maxTickets}
-                  className="size-10 rounded-full"
+                  className="size-10 rounded-full touch-none"
                 >
                   <Plus className="size-4" />
                 </Button>

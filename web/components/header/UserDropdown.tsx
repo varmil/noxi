@@ -1,4 +1,5 @@
 import { Session } from 'next-auth'
+import { useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -11,6 +12,7 @@ import {
 import { Link } from 'lib/navigation'
 
 export default function UserDropdown({ session }: { session: Session }) {
+  const comp = useTranslations('Components.header')
   const { user } = session
   return (
     <DropdownMenu>
@@ -37,10 +39,8 @@ export default function UserDropdown({ session }: { session: Session }) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href="/dashboard">Dashboard</Link>
+          <Link href="/dashboard">{comp('dashboard')}</Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

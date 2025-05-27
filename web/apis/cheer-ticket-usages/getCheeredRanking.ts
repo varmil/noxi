@@ -1,5 +1,7 @@
+import { AFTER_CONSUME_CHEER_TICKETS } from 'apis/tags/revalidate-tags'
 import { GroupString } from 'config/constants/Group'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { Gender } from 'types/gender'
 import {
   CheeredUsagesSchema,
   cheeredUsageListSchema
@@ -7,6 +9,7 @@ import {
 
 type Params = {
   group?: GroupString
+  gender?: Gender
   usedAt?: {
     gte: Date
     lte?: Date
@@ -15,9 +18,16 @@ type Params = {
   offset?: number
 }
 
-const createSearchParams = ({ group, usedAt, limit, offset }: Params) => {
+const createSearchParams = ({
+  group,
+  gender,
+  usedAt,
+  limit,
+  offset
+}: Params) => {
   const searchParams = new URLSearchParams({
     ...(group && { group }),
+    ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })
@@ -35,7 +45,8 @@ export async function getCheeredRanking(
 ): Promise<CheeredUsagesSchema> {
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
-    `/api/cheer-ticket-usages/rankings/cheered?${searchParams.toString()}`
+    `/api/cheer-ticket-usages/rankings/cheered?${searchParams.toString()}`,
+    { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -50,7 +61,7 @@ export async function getCheeredRankingCount(
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/cheer-ticket-usages/rankings/cheered/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1H } }
+    { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

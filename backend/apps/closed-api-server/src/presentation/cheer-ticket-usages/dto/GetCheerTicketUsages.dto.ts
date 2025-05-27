@@ -12,6 +12,7 @@ import { UsedAtDto } from '@presentation/cheer-ticket-usages/dto/UsedAt.dto'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { CheerTicketUsageRepository } from '@domain/cheer-ticket-usage'
 import { GroupStrings, GroupString, Group } from '@domain/group'
+import { GenderStrings, GenderString, Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
@@ -27,6 +28,10 @@ export class GetCheerTicketUsages {
   @IsOptional()
   @IsIn(GroupStrings)
   group?: GroupString
+
+  @IsOptional()
+  @IsIn(GenderStrings)
+  gender?: GenderString
 
   @IsOptional()
   @Type(() => UsedAtDto)
@@ -54,6 +59,8 @@ export class GetCheerTicketUsages {
 
   toGroup = () => (this.group ? new Group(this.group) : undefined)
 
+  toGender = () => (this.gender ? new Gender(this.gender) : undefined)
+
   toUsedAt = () => {
     if (!this.usedAt) {
       return undefined
@@ -78,9 +85,14 @@ export class GetCheerTicketUsages {
   toOffset = () => this.offset
 }
 
+export class GetCheerTicketUsagesWithoutLimitOffset extends OmitType(
+  GetCheerTicketUsages,
+  ['limit', 'offset'] as const
+) {}
+
 export class GetCheerTicketUsagesRanksCheered extends OmitType(
   GetCheerTicketUsages,
-  ['userId', 'orderBy', 'limit', 'offset'] as const
+  ['userId', 'gender', 'orderBy', 'limit', 'offset'] as const
 ) {
   @IsString()
   channelId: string
@@ -90,7 +102,7 @@ export class GetCheerTicketUsagesRanksCheered extends OmitType(
 
 export class GetCheerTicketUsagesRanksFan extends OmitType(
   GetCheerTicketUsages,
-  ['orderBy', 'limit', 'offset'] as const
+  ['gender', 'orderBy', 'limit', 'offset'] as const
 ) {
   @Type(() => Number)
   userId: number

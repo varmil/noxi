@@ -4,7 +4,7 @@ import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 /** URL */
 export class Image extends StringValueObject {
   @IsNotEmpty()
-  @IsUrl()
+  @IsUrl({ require_tld: false })
   protected readonly val: string
 
   constructor(val: string) {

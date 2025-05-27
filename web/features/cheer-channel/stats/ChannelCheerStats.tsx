@@ -1,4 +1,4 @@
-import { TrendingUp, Tickets, ChartColumnIncreasing } from 'lucide-react'
+import { TrendingUp, Tickets, Trophy, Flame } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
@@ -7,6 +7,7 @@ import {
   StatsCardContent,
   StatsCardHeader
 } from 'components/styles/card/StatsCard'
+import CountMotion from 'components/styles/number/CountMotion'
 import dayjs from 'lib/dayjs'
 
 export async function ChannelCheerStats({
@@ -14,11 +15,11 @@ export async function ChannelCheerStats({
 }: {
   channel: ChannelSchema
 }) {
-  const [feat, rankForLast30Days, rankForSeason] = await Promise.all([
+  const [feat, rankForLast7Days, rankForSeason] = await Promise.all([
     getTranslations('Features.cheerChannel.stats'),
     getCheeredRank({
       channelId: channel.basicInfo.id,
-      usedAt: { gte: dayjs().subtract(30, 'days').toDate() }
+      usedAt: { gte: dayjs().subtract(7, 'days').toDate() }
     }),
     getCheeredRank({
       channelId: channel.basicInfo.id,
@@ -30,13 +31,14 @@ export async function ChannelCheerStats({
     <div className="space-y-4">
       <div className="grid grid-cols-2 gap-2 lg:gap-4 lg:grid-cols-1">
         <StatsCard>
-          <StatsCardHeader>{feat('past30Days')}</StatsCardHeader>
+          <StatsCardHeader>{feat('past7Days')}</StatsCardHeader>
           <StatsCardContent>
             <div className="flex items-baseline">
-              <Tickets className="mr-2 size-5 text-pink-700 dark:text-pink-500" />
-              <span className="text-2xl font-bold">
-                {rankForLast30Days?.usedCount.toLocaleString() ?? 0}
-              </span>
+              <Flame className="mr-2 size-5 text-violet-700 dark:text-violet-500" />
+              <CountMotion
+                className="text-2xl font-bold"
+                value={rankForLast7Days?.usedCount ?? 0}
+              />
             </div>
           </StatsCardContent>
         </StatsCard>
@@ -47,7 +49,11 @@ export async function ChannelCheerStats({
             <div className="flex items-baseline">
               <TrendingUp className="mr-2 size-5 text-blue-700 dark:text-blue-500" />
               <span className="text-2xl font-bold">
-                {rankForLast30Days ? <>{rankForLast30Days.rank}位</> : '--'}
+                {rankForLast7Days ? (
+                  <CountMotion value={rankForLast7Days.rank}>位</CountMotion>
+                ) : (
+                  '--'
+                )}
               </span>
             </div>
           </StatsCardContent>
@@ -57,10 +63,11 @@ export async function ChannelCheerStats({
           <StatsCardHeader>{feat('seasonTotal')}</StatsCardHeader>
           <StatsCardContent>
             <div className="flex items-baseline">
-              <ChartColumnIncreasing className="mr-2 size-5 text-violet-700 dark:text-violet-500" />
-              <span className="text-2xl font-bold">
-                {rankForSeason?.usedCount.toLocaleString() ?? 0}
-              </span>
+              <Tickets className="mr-2 size-5 text-pink-700 dark:text-pink-500" />
+              <CountMotion
+                className="text-2xl font-bold"
+                value={rankForSeason?.usedCount ?? 0}
+              />
             </div>
           </StatsCardContent>
         </StatsCard>
@@ -69,9 +76,13 @@ export async function ChannelCheerStats({
           <StatsCardHeader>{feat('seasonRank')}</StatsCardHeader>
           <StatsCardContent>
             <div className="flex items-baseline">
-              <TrendingUp className="mr-2 size-5 text-emerald-700 dark:text-emerald-500" />
+              <Trophy className="mr-2 size-5 text-emerald-700 dark:text-emerald-500" />
               <span className="text-2xl font-bold">
-                {rankForSeason ? <>{rankForSeason.rank}位</> : '--'}
+                {rankForSeason ? (
+                  <CountMotion value={rankForSeason.rank}>位</CountMotion>
+                ) : (
+                  '--'
+                )}
               </span>
             </div>
           </StatsCardContent>

@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   RankingTableTitleContainer,
@@ -7,6 +7,7 @@ import {
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
 import { GroupString } from 'config/constants/Group'
+import { auth } from 'lib/auth'
 import { Gender } from 'types/gender'
 import { TopFansPeriod } from 'types/period'
 
@@ -18,20 +19,24 @@ type Props = PropsWithChildren<{
   className?: string
 }>
 
-export default function TopFansTableTitle({
+export default async function TopFansTableTitle({
   period,
   group,
   gender,
   date,
   className
 }: Props) {
-  const global = useTranslations('Global')
-  const page = useTranslations('Page.ranking.top-fans')
-  const title = useTranslations('Features.topFans.dimension')(`top-fans`, {
-    period: global(`period.${period}`),
-    group: '',
-    gender: ''
-  })
+  const session = await auth()
+  const global = await getTranslations('Global')
+  const page = await getTranslations('Page.ranking.top-fans')
+  const title = (await getTranslations('Features.topFans.dimension'))(
+    `top-fans`,
+    {
+      period: global(`period.${period}`),
+      group: '',
+      gender: ''
+    }
+  )
     .replace(/\s+/g, ' ')
     .trim()
   return (
@@ -39,14 +44,21 @@ export default function TopFansTableTitle({
       <section className="space-y-2">
         <RankingTableTitleH1 title={title} />
         <RankingTableTitleDescription>
-          {page('metadata.description.dimension.top-fans', {
-            period: global(`period.${period}`),
-            group: group ? global(`group.${group}`) : 'VTuber',
-            gender: gender ? global(`gender.${gender}`) : ''
-          })}
+          <div>
+            {page('metadata.description.dimension.top-fans', {
+              period: global(`period.${period}`),
+              group: group ? global(`group.${group}`) : 'VTuber',
+              gender: gender ? global(`gender.${gender}`) : ''
+            })}
+          </div>
         </RankingTableTitleDescription>
+        {session ? null : (
+          <div className="text-sm underline pb-4 sm:pb-0">
+            新規登録 / ログインはこちらから
+          </div>
+        )}
       </section>
-      <PeriodHoverCardFactory period={period} date={date} />
+      <PeriodHoverCardFactory type="topFans" period={period} date={date} />
     </RankingTableTitleContainer>
   )
 }
