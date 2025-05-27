@@ -581,6 +581,7 @@
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",
+          "saveTips": "Please note that it may take a long time to save due to the AI ​​check that automatically verifies the appropriateness of the expression.",
           "required": "{type} is required",
           "minLength": "{type} must be at least {length} characters",
           "maxLength": "{type} can be up to {length} characters",
@@ -606,7 +607,8 @@
           "title": "Crop image",
           "description": "Crop your profile picture to a square",
           "cancel": "Cancel",
-          "apply": "Apply"
+          "apply": "Apply",
+          "loading": "Processing..."
         }
       }
     },

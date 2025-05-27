@@ -42,6 +42,7 @@ declare global {
       readonly NEXT_PUBLIC_GA_ID?: string
 
       readonly VERCEL_ENV?: 'production' | 'preview' | 'development'
+      readonly NEXT_PUBLIC_VERCEL_ENV?: 'production' | 'preview' | 'development'
 
       readonly YOUTUBE_DATA_API_KEY: string
 
