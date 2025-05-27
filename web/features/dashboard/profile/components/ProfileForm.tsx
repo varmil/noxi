@@ -193,16 +193,21 @@ export default function ProfileForm({
           )}
         </CardContent>
         <CardFooter>
-          <Button type="submit" disabled={isLoading}>
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 size-4 animate-spin" />
-                {feat('loading')}
-              </>
-            ) : (
-              <>{feat('save')}</>
-            )}
-          </Button>
+          <div className="flex flex-col items-start gap-2">
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 size-4 animate-spin" />
+                  {feat('loading')}
+                </>
+              ) : (
+                <>{feat('save')}</>
+              )}
+            </Button>
+            <div className="text-xs text-muted-foreground">
+              {feat('saveTips')}
+            </div>
+          </div>
         </CardFooter>
       </form>
     </FormProvider>

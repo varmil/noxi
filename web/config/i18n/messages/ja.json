@@ -581,6 +581,7 @@
           "bio": "自己紹介",
           "save": "変更を保存",
           "loading": "保存中...",
+          "saveTips": "表現の適切さを自動で確認するAIチェックにより保存に長い時間がかかります。何卒ご了承ください。",
           "required": "{type}は必須です",
           "minLength": "{type}は{length}文字以上で入力してください",
           "maxLength": "{type}は{length}文字まで入力できます",
@@ -606,7 +607,8 @@
           "title": "画像をトリミング",
           "description": "プロフィール画像を正方形にトリミングします",
           "cancel": "キャンセル",
-          "apply": "適用"
+          "apply": "適用",
+          "loading": "最適化中..."
         }
       }
     },
