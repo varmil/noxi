@@ -15,6 +15,7 @@ import { CardContent, CardFooter } from '@/components/ui/card'
 import { saveUserProfile } from 'apis/user-profiles/saveUserProfile'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
 import { deleteOldImage } from 'features/dashboard/profile/actions/deleteOldImageActions'
+import { uploadAvatarActions } from 'features/dashboard/profile/actions/uploadAvatarActions'
 import { BioTextarea } from 'features/dashboard/profile/components/BioTextarea'
 import { NameInput } from 'features/dashboard/profile/components/NameInput'
 import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
@@ -90,8 +91,11 @@ export default function ProfileForm({
       let image: string | undefined = undefined
       {
         if (compressedFile) {
-          const result = await startUpload([compressedFile])
-          image = result?.[0].ufsUrl
+          const formData = new FormData()
+          formData.append('file', compressedFile, compressedFile.name)
+          const data = await uploadAvatarActions(formData)
+          if (!data) throw new Error('Failed to upload image')
+          image = data.ufsUrl
         }
       }
       // プロフィール更新
