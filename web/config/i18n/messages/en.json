@@ -350,12 +350,13 @@
       "signIn": "Sign In",
       "signOut": "Sign Out",
       "getStarted": "Get started with PeakX",
-      "selectMethod": "Select a method to sign in / sign up",
+      "selectMethod": "Select a method to sign-in / sign-up",
       "noExtraInput": "No extra input is required.",
       "or": "or",
       "email": "Email",
       "magicLink": "Continue with Email",
-      "terms": "By continuing, you agree to PeakX's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>."
+      "terms": "By continuing, you agree to PeakX's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>.",
+      "linkText": "Sign-up / Sign-in here"
     },
     "bottomNavigation": {
       "home": "Home",

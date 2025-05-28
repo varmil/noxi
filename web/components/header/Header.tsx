@@ -44,7 +44,7 @@ export default async function Header({ className }: { className?: string }) {
         {session ? (
           <UserDropdown session={session} />
         ) : (
-          <AuthModalWithButton disabled={true} />
+          <AuthModalWithButton disabled />
         )}
       </div>
     </header>
