@@ -26,7 +26,6 @@ import {
 } from 'features/dashboard/profile/hooks/useProfileSchema'
 import { useRouter } from 'lib/navigation'
 import { checkImageModeration, checkModeration } from 'utils/input/moderation'
-import { useUploadThing } from 'utils/uploadthing'
 
 type NewAvatarState = {
   compressedFile: File | null
@@ -43,7 +42,6 @@ export default function ProfileForm({
   const router = useRouter()
   const profileFormSchema = useProfileFormSchema()
   const feat = useTranslations('Features.dashboard.profile.form')
-  const { startUpload } = useUploadThing('imageUploader')
   const [isLoading, setIsLoading] = useState(false)
   const [newAvatar, setNewAvatar] = useState<NewAvatarState>({
     compressedFile: null,
@@ -65,7 +63,10 @@ export default function ProfileForm({
     },
     mode: 'onChange'
   })
-  const { handleSubmit } = methods
+  const {
+    handleSubmit,
+    formState: { isDirty }
+  } = methods
 
   const onSubmit = async (data: ProfileFormSchema) => {
     setIsLoading(true)
@@ -192,7 +193,17 @@ export default function ProfileForm({
         </CardContent>
         <CardFooter>
           <div className="flex flex-col items-start gap-2">
-            <Button type="submit" disabled={isLoading || !isImageModerationOk}>
+            <Button
+              type="submit"
+              disabled={
+                // 何も変更していない
+                !(isDirty || newAvatar.compressedFile) ||
+                // 送信中
+                isLoading ||
+                // 画像のモデレーションNG
+                !isImageModerationOk
+              }
+            >
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 size-4 animate-spin" />
