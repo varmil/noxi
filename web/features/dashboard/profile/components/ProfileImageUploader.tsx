@@ -31,7 +31,7 @@ type Props = {
 
 const getFilename = (uploadedBy: number) => {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local'
-  return `${env}-user-${uploadedBy}-profile.png`
+  return `${env}-user-${uploadedBy}-profile.jpg`
 }
 
 export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
@@ -81,13 +81,13 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
     // crop + resize
     const croppedBlob = await getCroppedImg(imageSrc, croppedAreaPixels)
     const croppedFile = new File([croppedBlob], getFilename(uploadedBy), {
-      type: 'image/png'
+      type: 'image/jpeg'
     })
 
     // 圧縮
     const compressedFile = await imageCompression(croppedFile, {
       maxWidthOrHeight: 400,
-      maxSizeMB: 0.2
+      maxSizeMB: 0.08
     })
 
     // プレビュー表示用に変換
