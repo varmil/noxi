@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
+import AuthModalWithText from 'components/auth/dialog/AuthModalWithText'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   RankingTableTitleContainer,
@@ -52,11 +53,7 @@ export default async function TopFansTableTitle({
             })}
           </div>
         </RankingTableTitleDescription>
-        {session ? null : (
-          <div className="text-sm underline pb-4 sm:pb-0">
-            新規登録 / ログインはこちらから
-          </div>
-        )}
+        {session ? null : <AuthModalWithText className="pb-4 sm:pb-0" />}
       </section>
       <PeriodHoverCardFactory type="topFans" period={period} date={date} />
     </RankingTableTitleContainer>

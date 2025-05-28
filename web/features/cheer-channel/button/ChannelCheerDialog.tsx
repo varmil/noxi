@@ -145,12 +145,10 @@ export function ChannelCheerDialog({
                   <Minus className="size-4" />
                 </Button>
 
-                <div className="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-r from-pink-100 to-rose-100 dark:from-pink-950 dark:to-rose-950">
+                <div className="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-t from-pink-100 to-amber-100 dark:from-pink-900 dark:to-background">
                   <div className="absolute inset-0.5 rounded-full bg-card"></div>
                   <div className="relative z-10 text-center">
-                    <span className="text-3xl font-bold text-pink-500">
-                      {ticketCount}
-                    </span>
+                    <span className="text-3xl font-bold">{ticketCount}</span>
                     <p className="text-xs text-muted-foreground">
                       {feat('tickets')}
                     </p>
@@ -177,6 +175,7 @@ export function ChannelCheerDialog({
                   step={1}
                   onValueChange={handleTicketChange}
                   className="py-4"
+                  rangeClassName="bg-gradient-to-r from-pink-600 to-amber-300 dark:from-pink-500 dark:to-amber-200"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
                   <span>
@@ -205,14 +204,7 @@ export function ChannelCheerDialog({
                 </div>
                 <div className="flex justify-between">
                   <span>{feat('remainingTickets')}</span>
-                  <span
-                    className={cn(
-                      'font-bold',
-                      maxTickets - ticketCount < 1
-                        ? 'text-orange-700 dark:text-orange-500'
-                        : ''
-                    )}
-                  >
+                  <span className={cn('font-bold')}>
                     {feat('consumeCount', {
                       count: Math.max(0, maxTickets - ticketCount)
                     })}

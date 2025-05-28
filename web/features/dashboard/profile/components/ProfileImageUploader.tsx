@@ -87,7 +87,7 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
     // 圧縮
     const compressedFile = await imageCompression(croppedFile, {
       maxWidthOrHeight: 400,
-      maxSizeMB: 0.08
+      maxSizeMB: 0.05
     })
 
     // プレビュー表示用に変換

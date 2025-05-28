@@ -350,12 +350,13 @@
       "signIn": "ログイン",
       "signOut": "ログアウト",
       "getStarted": "PeakXをはじめる",
-      "selectMethod": "以下の方法でログイン / サインアップする。",
+      "selectMethod": "以下の方法でログイン / 新規登録する。",
       "noExtraInput": "登録は10秒で完了",
       "or": "または",
       "email": "メールアドレス",
       "magicLink": "マジックリンクを送信",
-      "terms": "続行することで、PeakXの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。"
+      "terms": "続行することで、PeakXの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。",
+      "linkText": "新規登録 / ログインはこちらから"
     },
     "bottomNavigation": {
       "home": "ホーム",

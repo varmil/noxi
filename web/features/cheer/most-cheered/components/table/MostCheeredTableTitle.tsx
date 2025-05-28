@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
+import AuthModalWithText from 'components/auth/dialog/AuthModalWithText'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   RankingTableTitleContainer,
@@ -7,6 +8,7 @@ import {
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
 import { GroupString } from 'config/constants/Group'
+import { auth } from 'lib/auth'
 import { Gender } from 'types/gender'
 import { MostCheeredPeriod } from 'types/period'
 
@@ -18,16 +20,17 @@ type Props = PropsWithChildren<{
   className?: string
 }>
 
-export default function MostCheeredTableTitle({
+export default async function MostCheeredTableTitle({
   period,
   group,
   gender,
   date,
   className
 }: Props) {
-  const global = useTranslations('Global')
-  const page = useTranslations('Page.ranking.most-cheered')
-  const title = useTranslations('Features.mostCheered.dimension')(
+  const session = await auth()
+  const global = await getTranslations('Global')
+  const page = await getTranslations('Page.ranking.most-cheered')
+  const title = (await getTranslations('Features.mostCheered.dimension'))(
     `most-cheered`,
     {
       period: global(`period.${period}`),
@@ -48,6 +51,7 @@ export default function MostCheeredTableTitle({
             gender: gender ? global(`gender.${gender}`) : ''
           })}
         </RankingTableTitleDescription>
+        {session ? null : <AuthModalWithText className="pb-4 sm:pb-0" />}
       </section>
       <PeriodHoverCardFactory type="mostCheered" period={period} date={date} />
     </RankingTableTitleContainer>

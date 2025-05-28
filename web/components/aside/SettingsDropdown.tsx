@@ -47,15 +47,15 @@ export function SettingsDropdown({ session }: { session: Session | null }) {
             </div>
             <button
               onClick={() =>
-                setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                setTheme(resolvedTheme === 'light' ? 'dark' : 'light')
               }
               className={`relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
-                resolvedTheme === 'dark' ? 'bg-primary' : 'bg-gray-200'
+                resolvedTheme === 'light' ? 'bg-gray-200' : 'bg-primary'
               }`}
             >
               <span
                 className={`pointer-events-none relative inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                  resolvedTheme === 'dark' ? 'translate-x-5' : 'translate-x-0'
+                  resolvedTheme === 'light' ? 'translate-x-0' : 'translate-x-5'
                 }`}
               />
             </button>
