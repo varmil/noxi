@@ -1,7 +1,8 @@
+import Linkify from 'linkify-react'
 import { CalendarDays } from 'lucide-react'
 import { useFormatter } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Card, CardContent } from '@/components/ui/card'
+import { CardContent } from '@/components/ui/card'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
 
 interface ProfileHeaderProps {
@@ -46,7 +47,16 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                 自己紹介
               </h2>
               <p className="text-sm whitespace-pre-line">
-                {profile.description}
+                <Linkify
+                  options={{
+                    target: '_blank',
+                    rel: 'noopener noreferrer',
+                    defaultProtocol: 'https',
+                    className: 'underline text-blue-700 dark:text-blue-400'
+                  }}
+                >
+                  {profile.description}
+                </Linkify>
               </p>
             </div>
           </div>
