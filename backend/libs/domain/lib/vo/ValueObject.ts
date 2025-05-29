@@ -9,7 +9,9 @@ export abstract class ValueObject<T> {
   }
 
   constructor(protected readonly val: T) {
-    const errors = validateSync(this)
+    const errors = validateSync(this, {
+      forbidUnknownValues: false
+    })
     if (errors.length) {
       throw new TypeError(
         JSON.stringify(
