@@ -62,18 +62,15 @@ export class WebhooksStripeController {
         this.logger.log(
           `Invoice paid: customer=${customerId}, subscription=${subscriptionId}`
         )
+        // Example: 2回目以降の支払い（更新）に対する処理
+        // if (invoice.billing_reason === 'subscription_cycle') {
+        //   await this.ticketService.grantSupportTickets(invoice.customer as string, 20)
+        // }
+
         // チケット20枚を付与（あなたのロジックをここに）
         // await this.ticketService.grantSupportTickets(customerId, 20)
         break
       }
-      // サブスク情報が何らか更新された
-      // case 'customer.subscription.updated': {
-      //   const subscription = event.data.object
-      //   this.logger.log(
-      //     `Subscription updated: ${subscription.customer as string}`
-      //   )
-      //   break
-      // }
       // 管理画面からキャンセル / API経由でキャンセル / 支払い失敗による自動キャンセル
       case 'customer.subscription.deleted': {
         const subscription = event.data.object
