@@ -49,6 +49,7 @@ export default function ProfileForm({
   })
   const [isImageModerationOk, setIsImageModerationOk] = useState(true)
   const [isModerationOk, setIsModerationOk] = useState(true)
+  const [submitCount, setSubmitCount] = useState(0)
 
   const displayName = session.user?.name || 'User (Preview)'
   const currentAvatar =
@@ -128,6 +129,7 @@ export default function ProfileForm({
     setIsLoading(false)
     setNewAvatar({ compressedFile: null, previewUrl: null })
     setIsModerationOk(true)
+    setSubmitCount(prev => prev + 1)
   }
   const onError = (e: unknown) => {
     console.error(e)
@@ -181,7 +183,7 @@ export default function ProfileForm({
             </div>
           </div>
           <NameInput />
-          <UsernameInput />
+          <UsernameInput key={submitCount} />
           <BioTextarea />
           {(!isImageModerationOk || !isModerationOk) && (
             <Alert variant="destructive">

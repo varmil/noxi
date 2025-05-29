@@ -152,6 +152,10 @@
       "profile": {
         "title": "Profile",
         "description": "Manage your profile information. This is what other fans can see."
+      },
+      "mypage": {
+        "title": "Your Public Profile URL",
+        "description": "Access this URL to view your profile."
       }
     },
 
@@ -408,7 +412,7 @@
       },
       "filter": {
         "season": {
-          "test001": "Season 1 (β)"
+          "test001": "Season β"
         }
       },
       "hoverCard": {
@@ -578,7 +582,6 @@
         "form": {
           "name": "Display name",
           "username": "Username",
-          "yourURL": "Used as your Mypage URL",
           "bio": "Bio introduction",
           "save": "Save changes",
           "loading": "Saving...",

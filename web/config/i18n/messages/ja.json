@@ -152,6 +152,10 @@
       "profile": {
         "title": "プロフィール",
         "description": "あなたのプロフィール情報を管理します。他のファンに表示される情報です。"
+      },
+      "mypage": {
+        "title": "公開プロフィールURL",
+        "description": "他ユーザーから見たあなたのプロフィールの見え方を確認できます。"
       }
     },
 
@@ -408,7 +412,7 @@
       },
       "filter": {
         "season": {
-          "test001": "Season 1 (β)"
+          "test001": "Season β"
         }
       },
       "hoverCard": {
@@ -578,7 +582,6 @@
         "form": {
           "name": "表示名",
           "username": "ユーザーネーム",
-          "yourURL": "マイページURLの一部として使用されます",
           "bio": "自己紹介",
           "save": "変更を保存",
           "loading": "保存中...",

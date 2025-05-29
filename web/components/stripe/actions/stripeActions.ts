@@ -2,14 +2,25 @@
 
 import { headers } from 'next/headers'
 
+import { auth } from 'lib/auth'
 import { stripe } from 'lib/stripe'
 
 export async function fetchClientSecret() {
   const origin = (await headers()).get('origin') || 'http://localhost:3000'
+  const authSession = await auth()
+
+  if (!authSession?.user) {
+    throw new Error('User not authenticated')
+  }
+
+  // Stripe Customer を作成（すでにあれば再利用）
+  // let customerId = await getOrCreateStripeCustomer(user.id)
 
   // Create Checkout Sessions from body params.
   const session = await stripe.checkout.sessions.create({
-    customer_email: 'fkmks247@gmail.com', // TODO: use from parameter
+    // TODO:
+    // customer: customerId
+    customer_email: authSession.user.email ?? undefined,
     line_items: [
       {
         price: 'price_1RLHc904jYHRbdyomhjz46MR',
