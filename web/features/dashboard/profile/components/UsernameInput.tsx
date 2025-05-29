@@ -103,14 +103,12 @@ export function UsernameInput() {
                   isAvailable === true
                     ? 'border-green-500 focus-visible:ring-green-500'
                     : isAvailable === false
-                    ? 'border-red-500 focus-visible:ring-red-500'
-                    : ''
+                      ? 'border-red-500 focus-visible:ring-red-500'
+                      : ''
                 }`}
               />
             </FormControl>
-            <FormDescription className="break-anywhere">
-              {feat('yourURL')}
-            </FormDescription>
+
             {isChecking && (
               <div className="absolute right-3 top-3 text-muted-foreground">
                 <Loader2 className="size-4 animate-spin" />
