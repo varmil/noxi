@@ -387,6 +387,7 @@
     "loginBonus": {
       "title": "Daily login bonus!",
       "description": "Earn cheer tickets for logging in today",
+      "switch": "Switches at 5am JST",
       "awarded": "Earned {count} cheer tickets!",
       "current": "Current number: {count}",
       "tips": "Using tickets for talents will increase your ranking. Log in every day to collect tickets and use them as much as you can!",
