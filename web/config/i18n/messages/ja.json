@@ -121,6 +121,10 @@
         "default": "認証中にエラーが発生しました。"
       },
       "signin": {
+        "metadata": {
+          "title": "ログイン",
+          "description": "PeakXにログインして推しを応援しよう"
+        },
         "error": {
           "title": "エラーが発生しました",
           "message": "解決しない場合はお手数ですが上記のcodeをお控えの上<contact>お問い合わせ</contact>までご連絡ください",

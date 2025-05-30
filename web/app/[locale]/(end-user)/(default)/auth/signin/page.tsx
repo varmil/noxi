@@ -1,14 +1,32 @@
 import { use } from 'react'
 import { AlertCircle } from 'lucide-react'
+import { Metadata } from 'next'
 import { Locale, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AuthCard } from 'components/auth/card/AuthCard'
 import { Page } from 'components/page'
 import { Link } from 'lib/navigation'
+import { getOgUrl } from 'utils/og-url'
+import { getWebUrl } from 'utils/web-url'
 
 type Props = {
   params: Promise<{ locale: Locale }>
   searchParams: Promise<{ error: string }>
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale } = await props.params
+  const [global, page] = await Promise.all([
+    getTranslations({ locale, namespace: 'Global' }),
+    getTranslations({ locale, namespace: 'Page.auth.signin' })
+  ])
+
+  return {
+    title: `${page('metadata.title')} - ${global('title')}`,
+    description: `${page('metadata.description')}`,
+    alternates: { canonical: `${getWebUrl()}/${locale}/auth/signin` }
+  }
 }
 
 export default function SignIn(props: Props) {

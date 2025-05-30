@@ -1,5 +1,7 @@
 import { Check } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { Metadata } from 'next'
+import { Locale, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import {
   Card,
   CardContent,
@@ -8,6 +10,25 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Page } from 'components/page'
+
+type Props = {
+  params: Promise<{ locale: Locale }>
+  searchParams: Promise<{}>
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale } = await props.params
+  const [global, page] = await Promise.all([
+    getTranslations({ locale, namespace: 'Global' }),
+    getTranslations({ locale, namespace: 'Page.auth.verifyRequest' })
+  ])
+
+  return {
+    title: `${page('title')} - ${global('title')}`,
+    description: `${page('description')}`,
+    robots: { index: false }
+  }
+}
 
 export default function VerifyRequest() {
   const page = useTranslations('Page.auth.verifyRequest')
