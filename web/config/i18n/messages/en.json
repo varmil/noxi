@@ -121,6 +121,10 @@
         "default": "An error occurred during authentication."
       },
       "signin": {
+        "metadata": {
+          "title": "Sign in",
+          "description": "Sign in to PeakX and support your favorite talents!"
+        },
         "error": {
           "title": "An error has occurred",
           "message": "If the problem persists, please write down the code above and contact us at <contact>here</contact>",

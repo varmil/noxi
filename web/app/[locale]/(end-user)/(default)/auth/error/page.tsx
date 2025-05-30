@@ -1,5 +1,7 @@
 import { use } from 'react'
+import { Metadata } from 'next'
 import { Locale, useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -14,6 +16,18 @@ import { Link } from 'lib/navigation'
 type Props = {
   params: Promise<{ locale: Locale }>
   searchParams: Promise<{ error: string }>
+}
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { locale } = await props.params
+  const [global, page] = await Promise.all([
+    getTranslations({ locale, namespace: 'Global' }),
+    getTranslations({ locale, namespace: 'Page.auth.error' })
+  ])
+  return {
+    title: `${page('title')} - ${global('title')}`,
+    robots: { index: false }
+  }
 }
 
 export default function ErrorPage({ searchParams }: Props) {
