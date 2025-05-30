@@ -33,7 +33,7 @@ export default async function ProfilePage(props: Props) {
 
   return (
     <section className="flex flex-col items-center justify-center gap-y-6">
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>{page('profile.title')}</CardTitle>
           <CardDescription>{page('profile.description')}</CardDescription>

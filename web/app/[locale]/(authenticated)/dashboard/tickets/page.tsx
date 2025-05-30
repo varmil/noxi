@@ -36,7 +36,7 @@ export default async function TicketsPage() {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>応援チケット</CardTitle>
           <CardDescription>
