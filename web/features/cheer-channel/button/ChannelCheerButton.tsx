@@ -35,7 +35,7 @@ export function ChannelCheerButton({
     <>
       <Button
         onClick={() => setIsDialogOpen(true)}
-        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600"
+        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-colors"
         disabled={disabled}
       >
         <Tickets className="mr-2 h-4 w-4" />
