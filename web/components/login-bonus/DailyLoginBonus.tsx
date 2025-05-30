@@ -76,7 +76,8 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
             {comp('title')}
           </DialogTitle>
           <DialogDescription className="text-center">
-            {comp('description')}
+            <div>{comp('description')}</div>
+            <div>{comp('switch')}</div>
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center justify-center py-6 space-y-4">
