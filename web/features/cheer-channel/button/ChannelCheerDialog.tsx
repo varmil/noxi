@@ -225,7 +225,8 @@ export function ChannelCheerDialog({
             <Button
               disabled={!isSubmittable}
               onClick={handleConsume}
-              className="bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600"
+              // transition-none is for Safari workaround
+              className="bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
             >
               {isSubmitting ? (
                 <div className="flex items-center">
