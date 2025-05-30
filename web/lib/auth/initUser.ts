@@ -14,7 +14,7 @@ export async function initUser(
   image?: string | null
 ) {
   const fallbackName =
-    name?.trim().slice(0, MAX_NAME_LENGTH - 1) ||
+    name?.trim().slice(0, MAX_NAME_LENGTH - 3) ||
     `User_${randomUUID().slice(0, 8)}`
   const fallbackImage = image || `${getWebUrl()}/placeholder-user.jpg`
   await pool.query('UPDATE users SET name = $1, image = $2 WHERE id = $3', [
