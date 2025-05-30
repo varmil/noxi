@@ -35,7 +35,8 @@ export function ChannelCheerButton({
     <>
       <Button
         onClick={() => setIsDialogOpen(true)}
-        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-colors"
+        // transition-none is for Safari workaround
+        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
         disabled={disabled}
       >
         <Tickets className="mr-2 h-4 w-4" />
