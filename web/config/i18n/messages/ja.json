@@ -698,7 +698,7 @@
 
     "mostCheered": {
       "dimension": {
-        "most-cheered": "{group} {gender} 最多応援ランキング - {period}"
+        "most-cheered": "{group} {gender} 応援ランキング - {period}"
       },
       "viewAll": "すべて見る",
       "channel": "チャンネル",
