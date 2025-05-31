@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/card'
 import { getCheerTicketUsages } from 'apis/cheer-ticket-usages/getCheerTicketUsages'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
-import CheerTicketUsages from 'features/cheer-ticket-usage/components/CheerTicketUsages'
 import DashboardTicketsPreview from 'features/dashboard/ticket/Preview'
+import CheerTicketUsages from 'features/user-public-profile/components/CheerTicketUsages'
 import { auth } from 'lib/auth'
 
 export default async function TicketsPage() {

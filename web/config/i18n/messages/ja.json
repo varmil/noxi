@@ -698,7 +698,7 @@
 
     "mostCheered": {
       "dimension": {
-        "most-cheered": "{group} {gender} 最多応援ランキング - {period}"
+        "most-cheered": "{group} {gender} 応援ランキング - {period}"
       },
       "viewAll": "すべて見る",
       "channel": "チャンネル",
@@ -812,6 +812,13 @@
         },
         "totalVideos": "動画のアップロード数",
         "joinedDescription": "Youtubeを始めた日"
+      }
+    },
+    "userPublicProfile": {
+      "overview": {
+        "thisSeason": "今シーズンの応援状況",
+        "consumeCount": "チケット使用数",
+        "rank": "ファン順位"
       }
     },
     "stream": {
