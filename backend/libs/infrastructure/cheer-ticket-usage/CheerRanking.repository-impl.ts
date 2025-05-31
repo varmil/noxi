@@ -97,7 +97,7 @@ export class CheerRankingRepositoryImpl implements CheerRankingRepository {
       FROM "CheerTicketUsage"
       WHERE ${whereClause.text}
       GROUP BY ${groupBy}
-      ORDER BY "totalUsed" DESC
+      ORDER BY "totalUsed" DESC, MIN("usedAt") ASC
       ${limitOffsetClause.text}
     `
 

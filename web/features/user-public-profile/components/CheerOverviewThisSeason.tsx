@@ -4,6 +4,7 @@ import { getFanRank } from 'apis/cheer-ticket-usages/getFanRank'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
 import { MutedCheerStat } from 'components/cheer-stats/MutedCheerStat'
 import dayjs from 'lib/dayjs'
+import { CheerOverviewPastSeason } from './CheerOverviewPastSeason'
 
 type Props = {
   profile: UserProfileSchema
@@ -26,9 +27,9 @@ export async function CheerOverviewThisSeason({ profile }: Props) {
   return (
     <Card className="w-full">
       <CardHeader>
-        <CardTitle>{featUserPublicProfile('overview.thisSeason')}</CardTitle>
+        <CardTitle>{featUserPublicProfile('overview.title')}</CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-4">
         <div className="flex md:flex-col lg:flex-row gap-2">
           <MutedCheerStat
             title={featUserPublicProfile('overview.consumeCount')}
@@ -60,6 +61,8 @@ export async function CheerOverviewThisSeason({ profile }: Props) {
             className="flex-1"
           />
         </div>
+
+        <CheerOverviewPastSeason profile={profile} />
       </CardContent>
     </Card>
   )
