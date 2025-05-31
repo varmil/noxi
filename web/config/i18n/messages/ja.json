@@ -814,6 +814,13 @@
         "joinedDescription": "Youtubeを始めた日"
       }
     },
+    "userPublicProfile": {
+      "overview": {
+        "thisSeason": "今シーズンの応援状況",
+        "consumeCount": "チケット使用数",
+        "rank": "ファン順位"
+      }
+    },
     "stream": {
       "noLive": "現在配信中のライブはありません。",
       "noScheduled": "予定はありません。",

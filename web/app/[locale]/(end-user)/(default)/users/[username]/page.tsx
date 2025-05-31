@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 import { Locale } from 'next-intl'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Separator } from '@/components/ui/separator'
 import { getUserProfileByUsername } from 'apis/user-profiles/getUserProfile'
 import { Page } from 'components/page'
-import { CheerHistory } from './components/CheerHistory'
-import { CommentHistory } from './components/CommentHistory'
+import { CheerHistoryTabs } from 'features/user-public-profile/components/CheerHistoryTabs'
+import { CheerOverviewThisSeason } from 'features/user-public-profile/components/CheerOverviewThisSeason'
 import { ProfileHeader } from './components/ProfileHeader'
 
 type Props = {
@@ -22,24 +22,16 @@ export default async function UserProfilePage({ params }: Props) {
 
   return (
     <Page>
-      <div className="mx-auto py-4">
-        <div className="max-w-4xl mx-auto">
-          <ProfileHeader profile={profile} />
+      <div className="max-w-4xl mx-auto">
+        <ProfileHeader profile={profile} />
+        <Separator />
 
-          <Tabs defaultValue="support" className="mt-8">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="support">応援履歴</TabsTrigger>
-              <TabsTrigger value="comments" disabled>
-                コメント (up next)
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="support" className="mt-4">
-              <CheerHistory profile={profile} />
-            </TabsContent>
-            <TabsContent value="comments" className="mt-4">
-              <CommentHistory username={profile.username} />
-            </TabsContent>
-          </Tabs>
+        <div className="flex flex-col gap-y-8 md:flex-row md:gap-4 lg:gap-6 mt-8">
+          <div className="min-w-[215px]">
+            <CheerOverviewThisSeason profile={profile} />
+          </div>
+
+          <CheerHistoryTabs profile={profile} className="flex-1" />
         </div>
       </div>
     </Page>

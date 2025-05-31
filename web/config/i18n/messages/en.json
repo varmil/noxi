@@ -814,6 +814,13 @@
         "joinedDescription": "Date the channel was registered"
       }
     },
+    "userPublicProfile": {
+      "overview": {
+        "thisSeason": "Cheer stats this season",
+        "consumeCount": "Tickets used",
+        "rank": "Fan ranking"
+      }
+    },
     "stream": {
       "noLive": "There are no live streams at the moment.",
       "noScheduled": "There are no scheduled streams at the moment.",

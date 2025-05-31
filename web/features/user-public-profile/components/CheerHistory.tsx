@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/card'
 import { getCheerTicketUsages } from 'apis/cheer-ticket-usages/getCheerTicketUsages'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
-import CheerTicketUsages from 'features/cheer-ticket-usage/components/CheerTicketUsages'
+import CheerTicketUsages from 'features/user-public-profile/components/CheerTicketUsages'
 
 interface CheerHistoryProps {
   profile: UserProfileSchema

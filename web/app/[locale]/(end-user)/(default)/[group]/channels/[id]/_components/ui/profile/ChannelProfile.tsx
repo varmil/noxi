@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { MutedCheerStat } from 'components/cheer-stats/MutedCheerStat'
 import CountMotion from 'components/styles/number/CountMotion'
 import { ChannelCheerButton } from 'features/cheer-channel/button/ChannelCheerButton'
 import { auth } from 'lib/auth'
@@ -45,30 +46,26 @@ export async function ChannelProfile({
         {/* Cheer Button Section */}
         <div className="flex flex-col items-center gap-3 md:mt-2 lg:mt-4">
           <div className="grid grid-cols-2 gap-3 text-center">
-            <div className="min-w-[120px] rounded-lg bg-muted p-3">
-              <p className="text-xs text-muted-foreground pb-1.5">
-                {feat('stats.seasonTotal')}
-              </p>
-              <p className="text-xl font-bold">
+            <MutedCheerStat
+              title={feat('stats.seasonTotal')}
+              description={
                 <CountMotion value={rank?.usedCount ?? 0}>
                   {feat('profile.cheerCount')}
                 </CountMotion>
-              </p>
-            </div>
-            <div className="min-w-[120px] rounded-lg bg-muted p-3">
-              <p className="text-xs text-muted-foreground pb-1.5">
-                {feat('stats.seasonRank')}
-              </p>
-              <p className="text-xl font-bold">
-                {rank ? (
+              }
+            />
+            <MutedCheerStat
+              title={feat('stats.seasonRank')}
+              description={
+                rank ? (
                   <CountMotion value={rank.rank}>
                     {global('ranking.place', { rank: rank.rank })}
                   </CountMotion>
                 ) : (
                   '--'
-                )}
-              </p>
-            </div>
+                )
+              }
+            />
           </div>
 
           {/* NOTE: リリース時はdisabled条件削除 */}
