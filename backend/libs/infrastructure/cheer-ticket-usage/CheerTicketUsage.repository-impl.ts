@@ -123,7 +123,7 @@ export class CheerTicketUsageRepositoryImpl
         SELECT
           "channelId",
           SUM("usedCount") AS "totalCount",
-          RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
+          RANK() OVER (ORDER BY SUM("usedCount") DESC, MIN("usedAt") ASC) AS "rank"
         FROM "CheerTicketUsage"
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "channelId"
@@ -177,7 +177,7 @@ export class CheerTicketUsageRepositoryImpl
         SELECT
           "userId",
           SUM("usedCount") AS "totalCount",
-          RANK() OVER (ORDER BY SUM("usedCount") DESC) AS "rank"
+          RANK() OVER (ORDER BY SUM("usedCount") DESC, MIN("usedAt") ASC) AS "rank"
         FROM "CheerTicketUsage"
         WHERE ${conditions.length ? conditions.join(' AND ') : '1=1'}
         GROUP BY "userId"

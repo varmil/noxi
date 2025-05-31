@@ -21,15 +21,15 @@ export default function SocialProofSection() {
 
         <div className="grid w-full grid-cols-1 gap-8 md:grid-cols-3 md:gap-12">
           <Item href={ChannelsRankingDefaultUrl}>
-            <NumberText>600+</NumberText>
+            <NumberText>650+</NumberText>
             <Text>{t('channels')}</Text>
           </Item>
           <Item href={StreamRankingDefaultUrl}>
-            <NumberText>53K+</NumberText>
+            <NumberText>80K+</NumberText>
             <Text>{t('liveStreams')}</Text>
           </Item>
           <Item href="/groups">
-            <NumberText>20+</NumberText>
+            <NumberText>25+</NumberText>
             <Text>{t('groups')}</Text>
           </Item>
         </div>
