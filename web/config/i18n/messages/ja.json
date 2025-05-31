@@ -816,7 +816,7 @@
     },
     "userPublicProfile": {
       "overview": {
-        "thisSeason": "今シーズンの応援状況",
+        "title": "応援スタッツ",
         "consumeCount": "チケット使用数",
         "rank": "ファン順位"
       }

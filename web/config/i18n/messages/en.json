@@ -816,7 +816,7 @@
     },
     "userPublicProfile": {
       "overview": {
-        "thisSeason": "Cheer stats this season",
+        "title": "Cheer Stats",
         "consumeCount": "Tickets used",
         "rank": "Fan ranking"
       }
