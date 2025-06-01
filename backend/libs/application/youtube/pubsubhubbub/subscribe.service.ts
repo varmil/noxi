@@ -46,7 +46,7 @@ export class SubscribeService {
   private async subscribe(channelIds: ChannelIds): Promise<void> {
     for (const channelId of channelIds.get()) {
       await this.send({ channelId })
-      await this.sleep(1200)
+      await this.sleep(1400)
     }
   }
 
