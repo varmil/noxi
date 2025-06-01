@@ -18,9 +18,11 @@ type Props = PropsWithoutRef<{
   className?: string
 }>
 
-// Dimensionを変えたらPeriodも追加でリセット
+// Dimensionを変えたらすべて（period, group, gender）も追加でリセット
 const RESET_KEYS = (dimension: Keys) => ({
   period: DefaultPeriodByDimension[dimension],
+  group: null,
+  gender: null,
   date: null,
   page: null
 })
