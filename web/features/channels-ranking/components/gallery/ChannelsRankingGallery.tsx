@@ -4,11 +4,13 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
+import SignupBanner from 'components/banners/SignupBanner'
 import { PageXSPX } from 'components/page'
 import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
 import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
+import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
 import {
   getChannelsParams,
@@ -31,6 +33,8 @@ export default async function ChannelsRankingGallery(
   props: PropsWithoutRef<ChannelsRankingGalleryProps>
 ) {
   let channelIds: string[] = []
+
+  const session = await auth()
   const t = await getTranslations('Features.channelsRanking')
   const { period, dimension, group, gender, date, page, compact, className } =
     props
@@ -57,6 +61,12 @@ export default async function ChannelsRankingGallery(
         date={date ? new Date(date) : undefined}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
+
+      {!session ? (
+        <div className={`${!compact ? PageXSPX : ''} sm:px-0`}>
+          <SignupBanner />
+        </div>
+      ) : null}
 
       <ChannelsRankingTable
         channelIds={channelIds}
