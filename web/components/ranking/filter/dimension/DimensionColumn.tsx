@@ -36,24 +36,18 @@ export default async function DimensionColumn({ className }: Props) {
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
-        {/* NOTE: リリース時は条件削除 */}
-        {session ? (
-          <>
-            <Label label="Cheer" className="mb-1.5" />
-            {CHEER_KEYS.map(key => (
-              <SelectButton
-                key={key}
-                pathname={`/ranking/${key}`}
-                qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
-              >
-                {tg(`dimension.${key}`)}
-              </SelectButton>
-            ))}
-          </>
-        ) : null}
+        <Label label="Cheer" className="mb-1.5" />
+        {CHEER_KEYS.map(key => (
+          <SelectButton
+            key={key}
+            pathname={`/ranking/${key}`}
+            qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
+          >
+            {tg(`dimension.${key}`)}
+          </SelectButton>
+        ))}
 
-        {/* NOTE: リリース時はmy-1.5 */}
-        <Label label="Channels" className="mb-1.5" />
+        <Label label="Channels" className="my-1.5" />
         {CHANNELS_KEYS.map(key => (
           <SelectButton
             key={key}

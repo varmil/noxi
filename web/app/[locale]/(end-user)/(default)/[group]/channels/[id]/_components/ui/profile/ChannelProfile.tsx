@@ -68,7 +68,6 @@ export async function ChannelProfile({
             />
           </div>
 
-          {/* NOTE: リリース時はdisabled条件削除 */}
           <ChannelCheerButton
             session={session}
             cheerTicket={cheerTicket}
@@ -76,13 +75,10 @@ export async function ChannelProfile({
             channelTitle={basicInfo.title}
             group={group}
             gender={gender}
-            disabled={!session}
           />
           {!session && (
             <p className="text-xs text-muted-foreground">
-              {/* TODO: 文言修正：0601 */}
-              {/* {feat('profile.signUpForTicket')} */}
-              {feat('profile.cheerEnabledAt')}
+              {feat('profile.signUpForTicket')}
             </p>
           )}
         </div>
