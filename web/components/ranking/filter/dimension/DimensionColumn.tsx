@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
+import { Badge } from '@/components/ui/badge'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -7,7 +8,6 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import { DefaultPeriodByDimension } from 'config/constants/RankingRoute'
-import { auth } from 'lib/auth'
 import { Dimension } from 'types/dimension'
 
 const QS_KEY = 'dimension'
@@ -31,7 +31,6 @@ const STREAM_KEYS = ['concurrent-viewer', 'super-chat'] as const
 
 export default async function DimensionColumn({ className }: Props) {
   const tg = await getTranslations('Global.ranking')
-  const session = await auth()
   return (
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
@@ -42,8 +41,14 @@ export default async function DimensionColumn({ className }: Props) {
             key={key}
             pathname={`/ranking/${key}`}
             qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
+            activeVariant="secondary"
           >
-            {tg(`dimension.${key}`)}
+            <div>
+              <span>{tg(`dimension.${key}`)}</span>
+              <Badge className="ml-0.5 px-1.5 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-bold">
+                β
+              </Badge>
+            </div>
           </SelectButton>
         ))}
 
@@ -53,6 +58,7 @@ export default async function DimensionColumn({ className }: Props) {
             key={key}
             pathname={'/ranking/channels'}
             qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
+            activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}
           </SelectButton>
@@ -64,6 +70,7 @@ export default async function DimensionColumn({ className }: Props) {
             key={key}
             pathname={'/ranking/live'}
             qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
+            activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}
           </SelectButton>
