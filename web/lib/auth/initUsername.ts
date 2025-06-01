@@ -12,7 +12,8 @@ export async function initUsername(pool: Pool, userId: string) {
 
 async function randomUsername(pool: Pool) {
   for (let i = 0; i < 10; i++) {
-    const candidate = generateUsername('_', 3, 18)
+    // generateUsernameのadjectivesはハイフンが含まれるので強制的に削除
+    const candidate = generateUsername('_', 3, 18).replace(/[^a-zA-Z0-9_]/g, '')
     const { rowCount } = await pool.query(
       'SELECT 1 FROM "UserProfile" WHERE "username" = $1',
       [candidate]
