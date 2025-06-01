@@ -42,6 +42,7 @@ export default function PeriodColumn({ keys, className }: Props) {
             key={key}
             qs={{ [QS_KEY]: key, ...RESET_KEYS }}
             prefetch={PREFETCH_KEYS.includes(key)}
+            activeVariant="secondary"
           >
             {tg(`period.${key}`)}
           </SelectButton>
