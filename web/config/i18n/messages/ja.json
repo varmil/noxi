@@ -286,7 +286,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "most-cheered": "今シーズン、{group}{gender}の最も応援されたタレント（{period}）あなたも推しを応援しよう！"
+              "most-cheered": "今シーズン、{group}{gender}で最も応援されたタレント（{period}）あなたも推しを応援しよう！"
             }
           }
         }
@@ -364,6 +364,7 @@
       "email": "メールアドレス",
       "magicLink": "マジックリンクを送信",
       "terms": "続行することで、PeakXの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。",
+      "buttonText": "新規登録 / ログイン",
       "linkText": "新規登録 / ログインはこちらから"
     },
     "bottomNavigation": {
