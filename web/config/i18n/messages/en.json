@@ -281,6 +281,13 @@
       }
     },
 
+    "howToPlay": {
+      "metadata": {
+        "title": "How to play / FAQ",
+        "description": "Detailed explanation of how to cheer talents and frequently asked questions."
+      }
+    },
+
     "ranking": {
       "most-cheered": {
         "metadata": {

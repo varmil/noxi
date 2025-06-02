@@ -281,6 +281,13 @@
       }
     },
 
+    "howToPlay": {
+      "metadata": {
+        "title": "遊び方・FAQ",
+        "description": "タレントの応援方法や、よくある質問を詳しく説明します。"
+      }
+    },
+
     "ranking": {
       "most-cheered": {
         "metadata": {
