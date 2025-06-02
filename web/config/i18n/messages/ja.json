@@ -380,7 +380,8 @@
       "channels": "スパチャ金額",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
-      "groups": "タレント検索"
+      "groups": "タレント検索",
+      "howToPlay": "遊び方"
     },
     "channelsAdd": { "title": "PeakXにチャンネルを載せる" },
     "contact": { "title": "お問い合わせ" },
@@ -394,7 +395,8 @@
       "channelsRanking": "チャンネルランキング",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
-      "talents": "タレント一覧"
+      "talents": "タレント一覧",
+      "howToPlay": "遊び方"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",

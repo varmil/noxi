@@ -380,7 +380,8 @@
       "channels": "Channels",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
-      "groups": "Talents"
+      "groups": "Talents",
+      "howToPlay": "How To Play"
     },
     "channelsAdd": { "title": "Add your channel to PeakX" },
     "contact": { "title": "Contact" },
@@ -394,7 +395,8 @@
       "channelsRanking": "Channels Ranking",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
-      "talents": "Talents"
+      "talents": "Talents",
+      "howToPlay": "How To Play"
     },
     "loginBonus": {
       "title": "Daily login bonus!",

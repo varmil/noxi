@@ -1,7 +1,13 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Activity, Home, Search, Trophy } from 'lucide-react'
+import {
+  Activity,
+  Home,
+  MessageCircleQuestion,
+  Search,
+  Trophy
+} from 'lucide-react'
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -19,11 +25,6 @@ export default function BottomNavigation({ className }: Props) {
 
   const navigation = [
     {
-      pathname: '/',
-      label: t('home'),
-      icon: Home
-    },
-    {
       pathname: '/ranking/most-cheered',
       query: '?period=last30Days',
       label: t('mostCheered'),
@@ -40,6 +41,11 @@ export default function BottomNavigation({ className }: Props) {
       label: t('groups'),
       icon: Search,
       isActive: !!params['group']
+    },
+    {
+      pathname: '/how-to-play',
+      label: t('howToPlay'),
+      icon: MessageCircleQuestion
     }
   ]
 
