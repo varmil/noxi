@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Trophy, Activity } from 'lucide-react'
+import { Trophy, Activity, MessageCircleQuestion } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   NavigationMenu,
@@ -44,6 +44,17 @@ export default function HeaderNavigationMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
 
+        <NavigationMenuItem className="hidden lg:block">
+          <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+            <Link href="/how-to-play">
+              <div className="flex items-center gap-1">
+                <MessageCircleQuestion className="size-4" />
+                <span>{comp('howToPlay')}</span>
+              </div>
+            </Link>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+
         {/* <NavigationMenuItem>
           <NavigationMenuTrigger>{comp('talents')}</NavigationMenuTrigger>
           <NavigationMenuContent className="md:max-h-[80vh] md:overflow-y-auto">
@@ -54,7 +65,7 @@ export default function HeaderNavigationMenu() {
           </NavigationMenuContent>
         </NavigationMenuItem> */}
 
-        <NavigationMenuItem className="ml-4 md:w-[36vw] lg:w-[300px] xl:w-[min(40vw,600px)]">
+        <NavigationMenuItem className="ml-4 md:w-[36vw] lg:w-[max(20vw,200px)] xl:w-[min(35vw,600px)]">
           <div className="absolute -top-[20px] left-0 right-0">
             <TalentSearch className="shadow-none" />
           </div>
