@@ -18,7 +18,7 @@ import {
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import AuthModalWithText from 'components/auth/dialog/AuthModalWithText'
-import Image from 'components/styles/Image'
+import ZoomableImage from 'components/image/ZoomableImage'
 import { Link } from 'lib/navigation'
 
 export default async function HowToPlayTemplate() {
@@ -55,7 +55,7 @@ export default async function HowToPlayTemplate() {
 
         {/* ステップ画像 */}
         <div className="mb-12 flex justify-center">
-          <Image
+          <ZoomableImage
             src="/how-to-play/how-to-play-steps.png"
             alt="PeakX 3ステップの説明図"
             width={800}
