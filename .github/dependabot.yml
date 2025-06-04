@@ -40,3 +40,7 @@ updates:
       opentelemetry:
         patterns:
           - '@opentelemetry/*'
+      prisma:
+        patterns:
+          - 'prisma'
+          - '@prisma/*'
