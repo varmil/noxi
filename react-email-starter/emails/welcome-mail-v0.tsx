@@ -77,14 +77,14 @@ export const WelcomeEmail = ({
             <Text style={footer}>support@peakx.net</Text>
             <Text style={footer}>
               <Link
-                href="https://www.peakx.net/ja/terms-of-use-and-privacy-policy"
+                href="https://www.vcharts.net/ja/terms-of-use-and-privacy-policy"
                 style={link}
               >
                 プライバシーポリシー
               </Link>{' '}
               ・
               <Link
-                href="https://www.peakx.net/ja/terms-of-use-and-privacy-policy"
+                href="https://www.vcharts.net/ja/terms-of-use-and-privacy-policy"
                 style={link}
               >
                 利用規約
