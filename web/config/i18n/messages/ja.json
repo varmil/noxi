@@ -1,7 +1,6 @@
 {
   "Global": {
-    "title": "PeakX",
-    "headerTitle": "PeakX | ピークX",
+    "title": "VCharts",
 
     "datetime": {
       "updatedAt": "最終更新: {updatedAt}"
@@ -95,15 +94,15 @@
     "index": {
       "metadata": {
         "title": "VTuberランキング",
-        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるPeakXでは、人気VTuberの最新情報、統計データを網羅。同接数、スーパーチャットを用いてお気に入りのVTuberを瞬時に見つけよう。"
+        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるVChartsでは人気VTuberの最新情報、統計データを網羅。同接数、スーパーチャットを用いてお気に入りのVTuberを瞬時に見つけよう。"
       },
-      "title": "世界最大級の\nVTuberランキング\nデータベース",
-      "description": "にじさんじ、ホロライブ、個人勢すべてを即座に確認。人気ライブの統計データをランキングでチェック",
+      "title": "世界最大級の\nVTuberチャート",
+      "description": "にじさんじ、ホロライブ、個人勢すべてを即座に確認。最新統計データをランキングでチェック",
       "section": {
         "hero": { "more": "ランキングを確認" },
         "socialProof": {
           "title": "あらゆるファンが推しを応援できる",
-          "description": "忙しい社会人にぴったり。切り抜きやまとめを見るだけになっていませんか。PeakXは毎日１分でしっかり応援できる新しいカタチの推し方を提供します。",
+          "description": "忙しい社会人にぴったり。切り抜きやまとめを見るだけになっていませんかVChartsは毎日１分でしっかり応援できる新しいカタチの推し方を提供します。",
           "channels": "チャンネル",
           "liveStreams": "ライブ配信",
           "groups": "事務所/グループ"
@@ -123,7 +122,7 @@
       "signin": {
         "metadata": {
           "title": "ログイン",
-          "description": "PeakXにログインして推しを応援しよう"
+          "description": "VChartsにログインして推しを応援しよう"
         },
         "error": {
           "title": "エラーが発生しました",
@@ -149,7 +148,7 @@
 
     "contact": {
       "title": "お問い合わせ",
-      "description": "PeakXに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
+      "description": "VChartsに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
     },
 
     "dashboard": {
@@ -174,7 +173,7 @@
       "index": {
         "metadata": {
           "title": "{group}概要 - タレントとライブ配信",
-          "description": "{group}の最新人気ランキング、同接数、スパチャ金額をPeakXで確認！推しVTuberの人気動向や配信時間帯、注目の配信を見逃さないための完全ガイド。"
+          "description": "{group}の最新人気ランキング、同接数、スパチャ金額をVChartsで確認！推しVTuberの人気動向や配信時間帯、注目の配信を見逃さないための完全ガイド。"
         }
       },
       "charts": {
@@ -253,7 +252,7 @@
         "faq": {
           "metadata": {
             "title": "{channel} FAQ - よくある質問と回答",
-            "description": "{channel}のよくある質問ページです。中の人、前世、経歴など活動内容に関する疑問にお答えします。詳細はPeakXでご確認ください。"
+            "description": "{channel}のよくある質問ページです。中の人、前世、経歴など活動内容に関する疑問にお答えします。詳細はVChartsでご確認ください。"
           },
           "section": {
             "title": "FAQ - よくある質問と回答",
@@ -264,7 +263,7 @@
       "live": {
         "metadata": {
           "title": "{group} ライブ - 同時視聴者数ランキング",
-          "description": "{group}の最新ライブ配信をリアルタイムでチェック。PeakXで人気VTuberのライブを見逃さずに楽しもう。"
+          "description": "{group}の最新ライブ配信をリアルタイムでチェック。VChartsで人気VTuberのライブを見逃さずに楽しもう。"
         }
       },
       "scheduled": {
@@ -364,13 +363,13 @@
     "auth": {
       "signIn": "ログイン",
       "signOut": "ログアウト",
-      "getStarted": "PeakXをはじめる",
+      "getStarted": "VChartsをはじめる",
       "selectMethod": "以下の方法でログイン / 新規登録する。",
       "noExtraInput": "登録は10秒で完了",
       "or": "または",
       "email": "メールアドレス",
       "magicLink": "マジックリンクを送信",
-      "terms": "続行することで、PeakXの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。",
+      "terms": "続行することで、VChartsの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。",
       "buttonText": "新規登録 / ログイン",
       "linkText": "新規登録 / ログインはこちらから"
     },
@@ -383,7 +382,7 @@
       "groups": "タレント検索",
       "howToPlay": "遊び方"
     },
-    "channelsAdd": { "title": "PeakXにチャンネルを載せる" },
+    "channelsAdd": { "title": "チャンネルを載せたい" },
     "contact": { "title": "お問い合わせ" },
     "group": {
       "listing": "{count}人のタレントを掲載中",
@@ -638,8 +637,8 @@
       "top": "上位",
       "gradesTable": "グレード表",
       "percentageRange": "パーセンテージ範囲",
-      "notice1": "PeakX AIによる参考値です",
-      "notice2": "この評価はPeakX独自のアルゴリズムによる参考値であり、チャンネルの絶対的な価値や収益性を保証するものではありません。",
+      "notice1": "VCharts AIによる参考値です",
+      "notice2": "この評価はVCharts独自のアルゴリズムによる参考値であり、チャンネルの絶対的な価値や収益性を保証するものではありません。",
       "supers": {
         "notice1": "ライブ中のスーパーチャット、スーパーステッカーの金額をもとに算出しています。"
       }

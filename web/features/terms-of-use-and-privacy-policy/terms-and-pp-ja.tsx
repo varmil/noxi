@@ -36,7 +36,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
           </h2>
           <div className="mt-4 space-y-4">
             <p>
-              本利用規約（以下「本規約」といいます）は、PeakX（以下「本サービス」といいます）の利用に関する条件を定めるものです。ユーザー（以下「ユーザー」）は、本サービスを利用することにより、本規約に同意したものとみなされます。
+              本利用規約（以下「本規約」といいます）は、VCharts（以下「本サービス」といいます）の利用に関する条件を定めるものです。ユーザー（以下「ユーザー」）は、本サービスを利用することにより、本規約に同意したものとみなされます。
             </p>
 
             <h3 className="text-l font-bold">1. 適用範囲</h3>
@@ -133,7 +133,7 @@ export default function TermsOfUseAndPrivacyPolicy() {
           </h2>
           <div className="mt-4 space-y-4">
             <p>
-              PeakX（以下「本サービス」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めています。本ポリシーでは、情報の収集、使用、および共有の方法について説明します。
+              VCharts（以下「本サービス」）は、ユーザーのプライバシーを尊重し、個人情報の保護に努めています。本ポリシーでは、情報の収集、使用、および共有の方法について説明します。
             </p>
 
             <h3 className="text-l font-bold">1. 情報の収集</h3>

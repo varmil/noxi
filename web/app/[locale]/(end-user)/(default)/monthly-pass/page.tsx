@@ -14,9 +14,9 @@ import { MonthlyPassFeatures } from './components/MonthlyPassFeatures'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: '月額パス - PeakX',
+  title: '月額パス - VCharts',
   description:
-    'PeakXの月額パスに加入して、認証バッジの獲得や追加の応援チケットなどの特典をお楽しみください。'
+    'VChartsの月額パスに加入して、認証バッジの獲得や追加の応援チケットなどの特典をお楽しみください。'
 }
 
 export default function MonthlyPassPage() {
@@ -25,7 +25,7 @@ export default function MonthlyPassPage() {
       <div className="mx-auto max-w-5xl space-y-8">
         <div className="text-center space-y-4">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            PeakX 月額パス
+            VCharts 月額パス
           </h1>
           <p className="text-xl text-muted-foreground">
             あなたの応援をもっと価値あるものに

@@ -12,7 +12,7 @@ export function TermsOfService() {
           <div className="space-y-2">
             <h4 className="font-medium">1. サービス内容</h4>
             <p>
-              月額パス（以下「本サービス」）は、PeakX（以下「当社」）が提供する有料サブスクリプションサービスです。
+              月額パス（以下「本サービス」）は、VCharts（以下「当社」）が提供する有料サブスクリプションサービスです。
               本サービスは、広告非表示やユーザー参加型の限定機能の特典を提供します。
             </p>
           </div>

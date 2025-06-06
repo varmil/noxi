@@ -6,7 +6,7 @@ type Props = {
   className?: string
 }
 
-export default function PeakxIcon({ className }: PropsWithoutRef<Props>) {
+export default function VChartsIcon({ className }: PropsWithoutRef<Props>) {
   return (
     <svg
       version="1.0"

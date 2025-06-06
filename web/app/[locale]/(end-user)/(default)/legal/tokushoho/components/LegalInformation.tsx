@@ -34,12 +34,12 @@ export function LegalInformation() {
             <div className="font-medium">販売URL</div>
             <div className="md:col-span-2">
               <a
-                href="https://www.peakx.net"
+                href="https://www.vcharts.net"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline"
               >
-                https://www.peakx.net
+                https://www.vcharts.net
               </a>
             </div>
           </Item>

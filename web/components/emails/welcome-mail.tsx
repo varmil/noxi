@@ -25,21 +25,21 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
   return (
     <Html>
       <Head />
-      <Preview>PeakXへようこそ！新規登録が完了しました。</Preview>
+      <Preview>VChartsへようこそ！新規登録が完了しました。</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
             src={`${baseUrl}/peakx/icon.png`}
             width="48"
             height="48"
-            alt="PeakX"
+            alt="VCharts"
             style={logo}
           />
-          <Heading style={heading}>PeakXへようこそ！</Heading>
+          <Heading style={heading}>VChartsへようこそ！</Heading>
           <Section style={section}>
             <Text style={text}>{username}様、</Text>
             <Text style={text}>
-              PeakXへのご登録ありがとうございます。あなたのアカウントが正常に作成されました。
+              VChartsへのご登録ありがとうございます。あなたのアカウントが正常に作成されました。
               あなたの応援をより価値あるものに、そして応援の力によってタレントの成長を加速します。
             </Text>
             {userEmail && (
@@ -55,7 +55,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
             </Button>
           </Section>
           <Section style={section}>
-            <Text style={text}>PeakXでは以下のことができます：</Text>
+            <Text style={text}>VChartsでは以下のことができます：</Text>
             <ul style={list}>
               <li style={listItem}>応援チケットを獲得する</li>
               <li style={listItem}>応援チケットを購入する（年内予定）</li>
@@ -68,19 +68,21 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
           </Section>
           <Hr style={hr} />
           <Section>
-            <Text style={footer}>© 2025 PeakX, Inc. All rights reserved.</Text>
+            <Text style={footer}>
+              © 2025 VCharts, Inc. All rights reserved.
+            </Text>
             {/* <Text style={footer}>〒100-0001 東京都千代田区1-1-1</Text> */}
             <Text style={footer}>support@peakx.net</Text>
             <Text style={footer}>
               <Link
-                href="https://www.peakx.net/ja/terms-of-use-and-privacy-policy"
+                href="https://www.vcharts.net/ja/terms-of-use-and-privacy-policy"
                 style={link}
               >
                 プライバシーポリシー
               </Link>{' '}
               ・
               <Link
-                href="https://www.peakx.net/ja/terms-of-use-and-privacy-policy"
+                href="https://www.vcharts.net/ja/terms-of-use-and-privacy-policy"
                 style={link}
               >
                 利用規約

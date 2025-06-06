@@ -24,6 +24,8 @@ export const ReservedUsernames: Set<string> = new Set([
   'peak',
   'peakx',
   'vrank',
+  'vchart',
+  'vcharts',
   'superchat',
   'super-chat',
 

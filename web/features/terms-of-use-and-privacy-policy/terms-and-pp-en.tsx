@@ -39,8 +39,8 @@ export default function TermsAndPPEn() {
           <div className="mt-4 space-y-4">
             <p>
               These Terms of Use (the &quot;Terms&quot;) set forth the terms and
-              conditions for using PeakX (the &quot;Service&quot;). By using the
-              Service, users (&quot;Users&quot;) agree to be bound by these
+              conditions for using VCharts (the &quot;Service&quot;). By using
+              the Service, users (&quot;Users&quot;) agree to be bound by these
               Terms.
             </p>
 
@@ -159,7 +159,7 @@ export default function TermsAndPPEn() {
           </h2>
           <div className="mt-4 space-y-4">
             <p>
-              PeakX (the &quot;Service&quot;) respects your privacy and is
+              VCharts (the &quot;Service&quot;) respects your privacy and is
               committed to protecting your personal information. This Privacy
               Policy explains how we collect, use, and share your information.
             </p>

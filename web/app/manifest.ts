@@ -25,8 +25,8 @@ export default function manifest(): MetadataRoute.Manifest {
     dir: 'auto',
     description: '最新ランキングをホーム画面からワンタップでチェック！',
     lang: 'ja-JP',
-    name: 'PeakX',
-    short_name: 'PeakX',
+    name: 'VCharts',
+    short_name: 'VCharts',
     start_url: '/',
     screenshots: [
       {

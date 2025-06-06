@@ -1,7 +1,6 @@
 {
   "Global": {
-    "title": "PeakX",
-    "headerTitle": "PeakX",
+    "title": "VCharts",
 
     "datetime": {
       "updatedAt": "Last updated: {updatedAt}"
@@ -95,7 +94,7 @@
     "index": {
       "metadata": {
         "title": "The VTuber Ranking",
-        "description": "Explore PeakX for realtime VTuber Live Streams on YouTube. Stay updated on trends and find your favorite VTuber contents effortlessly."
+        "description": "Explore VCharts for realtime VTuber Live Streams on YouTube. Stay updated on trends and find your favorite VTuber contents effortlessly."
       },
       "title": "The Largest\nVTuber Ranking\nDatabase",
       "description": "We organize VTubers from all over the world. We will summarize the Super Chat earnings of VTubers like Hololive, Nijisanji, Independent VTubers and more.",
@@ -103,7 +102,7 @@
         "hero": { "more": "Most Watched right now" },
         "socialProof": {
           "title": "All fans can support their favorite VTuber",
-          "description": "Perfect for busy working people. Are you just looking at clippings? PeakX offers a new way to support your favorite talents in just one minute every day.",
+          "description": "Perfect for busy working people. Are you just looking at clippings? VCharts offers a new way to support your favorite talents in just one minute every day.",
           "channels": "Channels",
           "liveStreams": "Live Streams",
           "groups": "Agencies"
@@ -123,7 +122,7 @@
       "signin": {
         "metadata": {
           "title": "Sign in",
-          "description": "Sign in to PeakX and support your favorite talents!"
+          "description": "Sign in to VCharts and support your favorite talents!"
         },
         "error": {
           "title": "An error has occurred",
@@ -149,7 +148,7 @@
 
     "contact": {
       "title": "Contact",
-      "description": "Contact us about feature requests, advertising inquiries, bug reports, or any questions regarding PeakX."
+      "description": "Contact us about feature requests, advertising inquiries, bug reports, or any questions regarding VCharts."
     },
 
     "dashboard": {
@@ -174,20 +173,20 @@
       "index": {
         "metadata": {
           "title": "{group} Overview - Talents and Live Streams",
-          "description": "Discover the latest {group} streams, channel statistics, and upcoming events on PeakX. Stay connected with your favorite VTubers and never miss a moment of their live broadcasts!"
+          "description": "Discover the latest {group} streams, channel statistics, and upcoming events on VCharts. Stay connected with your favorite VTubers and never miss a moment of their live broadcasts!"
         }
       },
       "charts": {
         "metadata": {
           "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
-          "description": "Explore comprehensive statistics on {group} channels with PeakX. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
+          "description": "Explore comprehensive statistics on {group} channels with VCharts. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
         }
       },
       "channelsId": {
         "index": {
           "metadata": {
             "title": "{channel} Overview - Super Chat, Live, Concurrent Viewers, Comments and Stream Times",
-            "description": "Discover detailed stats, rankings, and live updates for {channel} on PeakX."
+            "description": "Discover detailed stats, rankings, and live updates for {channel} on VCharts."
           },
           "section": {
             "data": { "title": "YouTube Data" }
@@ -253,7 +252,7 @@
         "faq": {
           "metadata": {
             "title": "{channel} FAQ",
-            "description": "The FAQ page for {channel}. Find answers to questions about the person behind the channel, their content and activities. Explore more on PeakX."
+            "description": "The FAQ page for {channel}. Find answers to questions about the person behind the channel, their content and activities. Explore more on VCharts."
           },
           "section": {
             "title": "FAQ - Frequently Asked Questions",
@@ -264,19 +263,19 @@
       "live": {
         "metadata": {
           "title": "{group} Live Streams",
-          "description": "Discover live streams from {group} talents on PeakX! Stay updated with current broadcasts, interact with your favorite streamers, and find all past streams in one place. Join the {group} community today!"
+          "description": "Discover live streams from {group} talents on VCharts! Stay updated with current broadcasts, interact with your favorite streamers, and find all past streams in one place. Join the {group} community today!"
         }
       },
       "scheduled": {
         "metadata": {
           "title": "{group} Schedule",
-          "description": "Check the schedule for upcoming {group} live streams on PeakX! Never miss a broadcast from your favorite talents. Plan your viewing ahead and enjoy interactive content in realtime!"
+          "description": "Check the schedule for upcoming {group} live streams on VCharts! Never miss a broadcast from your favorite talents. Plan your viewing ahead and enjoy interactive content in realtime!"
         }
       },
       "ended": {
         "metadata": {
           "title": "{group}'s Past Live Streams",
-          "description": "Explore past {group} live streams on PeakX! Watch replays and highlights of your favorite streams, ensuring you never miss out on the fun and entertainment from beloved talents."
+          "description": "Explore past {group} live streams on VCharts! Watch replays and highlights of your favorite streams, ensuring you never miss out on the fun and entertainment from beloved talents."
         }
       }
     },
@@ -364,13 +363,13 @@
     "auth": {
       "signIn": "Sign In",
       "signOut": "Sign Out",
-      "getStarted": "Get started with PeakX",
+      "getStarted": "Get started with VCharts",
       "selectMethod": "Select a method to sign-in / sign-up",
       "noExtraInput": "No extra input is required.",
       "or": "or",
       "email": "Email",
       "magicLink": "Continue with Email",
-      "terms": "By continuing, you agree to PeakX's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>.",
+      "terms": "By continuing, you agree to VCharts's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>.",
       "buttonText": "Sign-up / Sign-in",
       "linkText": "Sign-up / Sign-in here"
     },
@@ -383,7 +382,7 @@
       "groups": "Talents",
       "howToPlay": "How To Play"
     },
-    "channelsAdd": { "title": "Add your channel to PeakX" },
+    "channelsAdd": { "title": "Add your channel to VCharts" },
     "contact": { "title": "Contact" },
     "group": {
       "listing": "Listing {count} talents.",
@@ -638,8 +637,8 @@
       "top": "Top",
       "gradesTable": "Grades Table",
       "percentageRange": "Percentage Range",
-      "notice1": "Reference value based on PeakX AI",
-      "notice2": "This rating is a reference value based on PeakX's proprietary algorithm, and does not guarantee the absolute value or profitability of the channel.",
+      "notice1": "Reference value based on VCharts AI",
+      "notice2": "This rating is a reference value based on VCharts's proprietary algorithm, and does not guarantee the absolute value or profitability of the channel.",
       "supers": {
         "notice1": "Calculated based on the amount of Super Chats and Super Stickers during the live stream."
       }

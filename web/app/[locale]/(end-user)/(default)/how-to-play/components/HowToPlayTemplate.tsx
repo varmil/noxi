@@ -57,7 +57,7 @@ export default async function HowToPlayTemplate() {
         <div className="mb-12 flex justify-center">
           <ZoomableImage
             src="/how-to-play/how-to-play-steps.png"
-            alt="PeakX 3ステップの説明図"
+            alt="3ステップの説明図"
             width={800}
             height={400}
             className="rounded-lg shadow-lg max-w-full h-auto"
@@ -110,7 +110,7 @@ export default async function HowToPlayTemplate() {
                   2
                 </Badge>
               </div>
-              <CardTitle className="text-xl">応援チケットをつかう</CardTitle>
+              <CardTitle className="text-xl">推しのページへ行く</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <CardDescription className="text-base">

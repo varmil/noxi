@@ -43,7 +43,7 @@ export default async function HeaderXSSheet() {
       </SheetTrigger>
       <SheetContent side="left" className="p-6 sm:max-w-xs">
         <SheetHeader hidden>
-          <SheetTitle hidden>PeakX</SheetTitle>
+          <SheetTitle hidden>VCharts</SheetTitle>
           <SheetDescription hidden></SheetDescription>
         </SheetHeader>
         <nav className="h-full flex flex-col font-medium">
