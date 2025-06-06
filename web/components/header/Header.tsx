@@ -4,7 +4,7 @@ import UserDropdown from 'components/header/UserDropdown'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
 import { PageSMPX } from 'components/page'
-import PeakXText from 'components/peakx/svg/text'
+import VChartsText from 'components/vcharts/svg/text'
 import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
@@ -28,11 +28,11 @@ export default async function Header({ className }: { className?: string }) {
 
       <Link
         href="/"
-        className="flex items-center gap-2.5 transition-all hover:scale-105"
+        className="flex items-center gap-1 transition-all hover:scale-105"
         prefetch={false}
       >
-        <Logo className="w-6 h-6" />
-        <PeakXText className="w-[49.64px] h-[17px]" />
+        <Logo className="size-6" />
+        <VChartsText className="" />
         <div className="sr-only">{global('headerTitle')}</div>
       </Link>
 
