@@ -5,7 +5,7 @@ import { HistoryList } from './_components/history/HistoryList'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'VTuberチャンネル登録申請 - PeakX',
+    title: 'VTuberチャンネル登録申請',
     description: 'VTuberのYouTubeチャンネルを登録するための申請フォーム'
   }
 }

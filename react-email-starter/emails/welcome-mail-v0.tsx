@@ -29,21 +29,21 @@ export const WelcomeEmail = ({
   return (
     <Html>
       <Head />
-      <Preview>PeakXへようこそ！アカウント登録が完了しました。</Preview>
+      <Preview>VChartsへようこそ！アカウント登録が完了しました。</Preview>
       <Body style={main}>
         <Container style={container}>
           <Img
-            src={`${baseUrl}/static/peakx-logo.png`}
+            src={`${baseUrl}/static/vcharts-logo.png`}
             width="48"
             height="48"
-            alt="PeakX"
+            alt="VCharts"
             style={logo}
           />
-          <Heading style={heading}>PeakXへようこそ！</Heading>
+          <Heading style={heading}>VChartsへようこそ！</Heading>
           <Section style={section}>
             <Text style={text}>{username}様、</Text>
             <Text style={text}>
-              PeakXへのご登録ありがとうございます。あなたのアカウントが正常に作成されました。
+              VChartsへのご登録ありがとうございます。あなたのアカウントが正常に作成されました。
               あなたの応援をより価値あるものに、そして応援の力によってタレントの成長を加速します。
             </Text>
             {userEmail && (
@@ -59,7 +59,7 @@ export const WelcomeEmail = ({
             </Button>
           </Section>
           <Section style={section}>
-            <Text style={text}>PeakXでは以下のことができます：</Text>
+            <Text style={text}>VChartsでは以下のことができます：</Text>
             <ul style={list}>
               <li style={listItem}>応援チケットを獲得する</li>
               <li style={listItem}>応援チケットを購入する（年内予定）</li>
@@ -72,7 +72,9 @@ export const WelcomeEmail = ({
           </Section>
           <Hr style={hr} />
           <Section>
-            <Text style={footer}>© 2025 PeakX, Inc. All rights reserved.</Text>
+            <Text style={footer}>
+              © 2025 VCharts, Inc. All rights reserved.
+            </Text>
             {/* <Text style={footer}>〒100-0001 東京都千代田区1-1-1</Text> */}
             <Text style={footer}>support@peakx.net</Text>
             <Text style={footer}>

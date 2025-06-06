@@ -43,11 +43,11 @@ export default async function SuccessPage({ searchParams, params }: Props) {
             </div>
             <CardTitle className="text-2xl">ありがとうございます！</CardTitle>
             <CardDescription>
-              PeakX 月額パスへのご加入が完了しました
+              VCharts 月額パスへのご加入が完了しました
             </CardDescription>
           </CardHeader>
           <CardContent className="text-center space-y-2">
-            <p>PeakXのすべての特典をお楽しみください：</p>
+            <p>VChartsのすべての特典をお楽しみください：</p>
             <div className="flex flex-col justify-center items-center">
               <ul className="w-[244px] text-sm text-muted-foreground text-nowrap space-y-1 text-left">
                 <li>・認証バッジの表示</li>

@@ -26,19 +26,16 @@ export class MainScenario {
     )
     if (channelRegistrations.length === 0) return
 
-    // Fetch from API, then fill the PeakX specific properties
     const channels = (
       await this.channelsInfraService.list({
         where: { channelIds: channelRegistrations.ids() }
       })
     ).merge(channelRegistrations)
 
-    // Create channels
     await this.channelsService.bulkCreate({
       data: channels
     })
 
-    // Update status to completed
     await this.channelRegistrationsService.updateMany({
       where: { channelIds: channels.ids() },
       data: { status: new Status('done') }

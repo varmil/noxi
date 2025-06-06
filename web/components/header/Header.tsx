@@ -32,8 +32,8 @@ export default async function Header({ className }: { className?: string }) {
         prefetch={false}
       >
         <Logo className="size-6" />
-        <VChartsText className="" />
-        <div className="sr-only">{global('headerTitle')}</div>
+        <VChartsText />
+        <div className="sr-only">{global('title')}</div>
       </Link>
 
       <div className="hidden md:block">

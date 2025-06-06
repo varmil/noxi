@@ -145,7 +145,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       subscriberCount,
       videoCount,
       keywords: keywords.map(k => k.get()),
-      // PeakX defines
+      // VCharts defines
       // * group
       // * country code
       // * defaultLanguage
