@@ -110,7 +110,7 @@ export default async function HowToPlayTemplate() {
                   2
                 </Badge>
               </div>
-              <CardTitle className="text-xl">応援チケットをつかう</CardTitle>
+              <CardTitle className="text-xl">推しのページへ行く</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               <CardDescription className="text-base">

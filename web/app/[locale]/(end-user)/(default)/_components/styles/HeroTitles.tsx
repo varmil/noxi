@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 
 export function HeroH2({ children }: PropsWithChildren<{}>) {
   return (
-    <h2 className="font-bold tracking-tight text-pretty text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl/none">
+    <h2 className="font-bold tracking-tight text-pretty text-4xl lg:text-[45px] 2xl:text-6xl/none">
       {children}
     </h2>
   )
