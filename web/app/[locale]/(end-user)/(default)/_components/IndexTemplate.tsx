@@ -45,7 +45,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
             </Button>
           </div>
           <ChannelsRankingGallery
-            period="last24Hours"
+            period="last30Days"
             dimension="super-chat"
             group="all"
             compact

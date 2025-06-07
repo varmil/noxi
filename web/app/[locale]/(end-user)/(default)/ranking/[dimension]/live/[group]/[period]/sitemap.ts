@@ -10,10 +10,10 @@ import { StreamRankingPeriod } from 'types/period'
 export const dynamic = 'force-dynamic'
 
 const periods: StreamRankingPeriod[] = [
-  'realtime'
+  // 'realtime'
   // 'last24Hours',
   // 'last7Days',
-  // 'last30Days',
+  'last30Days'
   // 'last1Year'
 ]
 

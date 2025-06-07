@@ -22,7 +22,7 @@ export default function StreamRankingFilterGallery({ className }: Props) {
               'last24Hours',
               'last7Days',
               'last30Days',
-              'last1Year',
+              // 'last1Year',
               'all'
             ]}
           />

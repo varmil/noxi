@@ -55,7 +55,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     },
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${group}/${dimension === 'subscriber' ? 'all' : 'last24Hours'}`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${group}/${dimension === 'subscriber' ? 'all' : 'last30Days'}`
     }
   }
 }

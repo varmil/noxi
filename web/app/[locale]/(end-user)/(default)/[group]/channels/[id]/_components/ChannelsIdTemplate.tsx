@@ -8,15 +8,11 @@ import {
 import { ChannelCheerHistory } from 'features/cheer-channel/history/ChannelCheerHistory'
 import { ChannelCheerStats } from 'features/cheer-channel/stats/ChannelCheerStats'
 import { ChannelCheerTopFans } from 'features/cheer-channel/top-fans/ChannelCheerTopFans'
-import SupersRanking from 'features/supers-ranking/components/SupersRanking'
-import { auth } from 'lib/auth'
-import { Period } from 'types/period'
 import ChannelData from './ui/channel-data/ChannelData'
 
-type Props = PropsWithoutRef<{ id: string; period: Period }>
+type Props = PropsWithoutRef<{ id: string }>
 
-export async function ChannelsIdTemplate({ id, period }: Props) {
-  const session = await auth()
+export async function ChannelsIdTemplate({ id }: Props) {
   const [page, featCheer, channel] = await Promise.all([
     getTranslations('Page.group.channelsId.index.section'),
     getTranslations('Features.cheerChannel.stats'),

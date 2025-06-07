@@ -22,7 +22,7 @@ export default async function GroupChannelsIdSuperChatPage(props: Props) {
   const { period } = await props.searchParams
   return (
     <ChannelsIdBasePage {...props}>
-      <ChannelsIdSuperChatTemplate id={id} period={period || 'last24Hours'} />
+      <ChannelsIdSuperChatTemplate id={id} period={period || 'last30Days'} />
     </ChannelsIdBasePage>
   )
 }
