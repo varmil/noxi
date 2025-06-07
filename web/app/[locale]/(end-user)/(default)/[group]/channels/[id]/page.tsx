@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import { Period } from 'types/period'
-import { getWebUrl } from 'utils/web-url'
 import { ChannelsIdTemplate } from './_components/ChannelsIdTemplate'
 import ChannelsIdBasePage, {
   ChannelsIdBasePageProps,
@@ -20,10 +19,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function GroupChannelsIdPage(props: Props) {
   const { id } = await props.params
-  const { period } = await props.searchParams
   return (
     <ChannelsIdBasePage {...props}>
-      <ChannelsIdTemplate id={id} period={period || 'last24Hours'} />
+      <ChannelsIdTemplate id={id} />
     </ChannelsIdBasePage>
   )
 }

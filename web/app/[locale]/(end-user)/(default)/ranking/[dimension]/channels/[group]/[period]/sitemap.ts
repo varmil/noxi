@@ -10,9 +10,9 @@ import { Period } from 'types/period'
 export const dynamic = 'force-dynamic'
 
 const periods: Period[] = [
-  'last24Hours'
+  // 'last24Hours'
   // 'last7Days',
-  // 'last30Days',
+  'last30Days'
   // 'last1Year',
   // 'thisWeek',
   // 'thisMonth',
@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const overallSuperChatEntries = [
     getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/super-chat/channels/all/last24Hours`
+      pathname: `/ranking/super-chat/channels/all/last30Days`
     })
   ]
 

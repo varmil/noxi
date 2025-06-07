@@ -17,14 +17,7 @@ export default function StreamRankingFilterGallery({ className }: Props) {
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
         <div className="flex divide-x divide-border-variant">
           <PeriodColumn
-            keys={[
-              'realtime',
-              'last24Hours',
-              'last7Days',
-              'last30Days',
-              'last1Year',
-              'all'
-            ]}
+            keys={['realtime', 'last24Hours', 'last7Days', 'last30Days', 'all']}
           />
           <DimensionColumn />
           <GroupColumn />
