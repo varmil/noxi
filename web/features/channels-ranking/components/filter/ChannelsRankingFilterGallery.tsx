@@ -29,8 +29,9 @@ export default function ChannelsRankingFilterGallery({
                     'last24Hours',
                     'last7Days',
                     'last30Days',
-                    'thisWeek',
-                    'thisMonth',
+                    // 'last1Year',
+                    // 'thisWeek',
+                    // 'thisMonth',
                     'thisYear'
                   ]
             }
