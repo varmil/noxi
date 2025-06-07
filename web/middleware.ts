@@ -1,8 +1,13 @@
+import { fromQueryStringsToPathParameters } from 'lib/middleware/fromQueryStringsToPathParameters'
 import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
 import { withIntl } from 'lib/middleware/withIntl'
 import { withRemoveQueryStrings } from 'lib/middleware/withRemoveQueryStrings'
 
-const middlewares = [withRemoveQueryStrings, withIntl]
+const middlewares = [
+  fromQueryStringsToPathParameters,
+  withRemoveQueryStrings,
+  withIntl
+]
 
 export default stackMiddlewares(middlewares)
 
