@@ -25,13 +25,12 @@ export default function LinkToRanking({
 
   const page = ChannelsRankingPagination.getPageFromRank(rank)
   const searchParams = createSearchParams({
-    dimension: 'super-chat',
     period,
     page
   })
   return (
     <Link
-      href={`/ranking/channels?${searchParams.toString()}`}
+      href={`/ranking/super-chat/channels?${searchParams.toString()}`}
       prefetch={false}
       onClick={() => {
         if (channelId) {

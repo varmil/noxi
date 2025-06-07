@@ -139,11 +139,12 @@ export default async function SupersRanking({
             <TableBody>
               {/* OVERALL: period */}
               <TableRow>
-                <LinkCell className="font-medium" period={period}>
+                <LinkCell className="font-medium" group="all" period={period}>
                   <Underline>{comp('overall')}</Underline>
                 </LinkCell>
                 <RankCell
                   rank={overallRanking?.rank}
+                  group="all"
                   period={period}
                   channelId={channelId}
                 />
@@ -155,13 +156,14 @@ export default async function SupersRanking({
                     totalNumber={overallChannelsCount}
                   />
                 </TableCell>
-                <SeeMoreCell period={period} />
+                <SeeMoreCell group="all" period={period} />
               </TableRow>
 
               {/* GENDER: period + gender */}
               <TableRow>
                 <LinkCell
                   className="font-medium"
+                  group="all"
                   period={period}
                   gender={channel.peakX.gender}
                 >
@@ -171,6 +173,7 @@ export default async function SupersRanking({
                 </LinkCell>
                 <RankCell
                   rank={genderRanking?.rank}
+                  group="all"
                   period={period}
                   gender={channel.peakX.gender}
                   channelId={channelId}
@@ -183,15 +186,19 @@ export default async function SupersRanking({
                     totalNumber={genderChannelsCount}
                   />
                 </TableCell>
-                <SeeMoreCell period={period} gender={channel.peakX.gender} />
+                <SeeMoreCell
+                  group="all"
+                  period={period}
+                  gender={channel.peakX.gender}
+                />
               </TableRow>
 
               {/* GROUP: period + group */}
               <TableRow>
                 <LinkCell
                   className="font-medium"
-                  period={period}
                   group={channel.peakX.group}
+                  period={period}
                 >
                   <Underline>
                     {global(`group.${channel.peakX.group}`)}
@@ -199,8 +206,8 @@ export default async function SupersRanking({
                 </LinkCell>
                 <RankCell
                   rank={groupRanking?.rank}
-                  period={period}
                   group={channel.peakX.group}
+                  period={period}
                   channelId={channelId}
                 />
                 <TableCell align="right">
@@ -211,7 +218,7 @@ export default async function SupersRanking({
                     totalNumber={groupChannelsCount}
                   />
                 </TableCell>
-                <SeeMoreCell period={period} group={channel.peakX.group} />
+                <SeeMoreCell group={channel.peakX.group} period={period} />
               </TableRow>
             </TableBody>
           </Table>
@@ -233,7 +240,7 @@ function RankCell({
 }: {
   rank?: number
   period: Period
-  group?: GroupString
+  group: GroupString
   gender?: Gender
   channelId?: string
 }) {
@@ -257,13 +264,13 @@ function SeeMoreCell({
   gender
 }: {
   period: Period
-  group?: GroupString
+  group: GroupString
   gender?: Gender
 }) {
   const feat = useTranslations('Features.supersRanking')
   return (
     <LinkCell
-      className="hidden @2xl:table-cell"
+      className="hidden @xl:table-cell"
       align="right"
       width={250}
       period={period}

@@ -15,7 +15,7 @@ export async function getDailySupersRanking({
   date,
   limit
 }: {
-  group?: GroupString
+  group: GroupString
   gender?: Gender
   date?: dayjs.ConfigType
   limit?: number

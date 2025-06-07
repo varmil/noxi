@@ -5,7 +5,6 @@ import { ChannelsRankingPeriod } from 'types/period'
 import { RankingType } from 'types/ranking'
 
 export const createSearchParams = (params: {
-  dimension: ChannelsRankingDimension
   period: ChannelsRankingPeriod
   group?: GroupString
   gender?: Gender
@@ -13,9 +12,8 @@ export const createSearchParams = (params: {
   /** for OG image */
   date?: string
 }) => {
-  /** dimension, group, periodの順番（SEO） */
+  /** periodの順番（SEO） */
   return new URLSearchParams({
-    dimension: params.dimension,
     ...(params.group && { group: params.group }),
     ...(params.gender && { gender: params.gender }),
     period: params.period,

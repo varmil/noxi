@@ -18,7 +18,7 @@ export default function MostCheeredFilterGallery({ className }: Props) {
         <div className="flex divide-x divide-border-variant">
           <PeriodColumn keys={['last7Days', 'last30Days', 'all']} />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn pathname="/ranking/most-cheered" />
           <GenderColumn />
           <SeasonColumn />
         </div>

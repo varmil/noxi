@@ -29,8 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const overallSuperChatEntries = [
     getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/channels?${createSearchParams({
-        dimension: 'super-chat',
+      pathname: `/ranking/super-chat/channels/all?${createSearchParams({
         period: 'last24Hours'
       })
         .toString()
@@ -42,13 +41,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groupSuperChatEntries = groups.flatMap(group => {
     return periods.map(period => {
       const searchParams = createSearchParams({
-        dimension: 'super-chat',
-        period,
-        group: group.val
+        period
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/channels?${searchParams
+        pathname: `/ranking/super-chat/channels/${group.val}?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })
@@ -58,13 +55,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // subscriber x overall x gender
   const overallSubscriberEntries = genders.flatMap(gender => {
     const searchParams = createSearchParams({
-      dimension: 'subscriber',
       period: 'all',
       ...(gender && { gender })
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/channels?${searchParams
+      pathname: `/ranking/subscriber/channels?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })
@@ -73,13 +69,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // subscriber x group
   const groupSubscriberEntries = groups.map(group => {
     const searchParams = createSearchParams({
-      dimension: 'subscriber',
-      period: 'all',
-      group: group.val
+      period: 'all'
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/channels?${searchParams
+      pathname: `/ranking/subscriber/channels/${group.val}?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })

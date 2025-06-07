@@ -4,7 +4,7 @@ import { withRankingFilterQueryStrings } from 'lib/middleware/withRankingFilterQ
 import { withRemoveQueryStrings } from 'lib/middleware/withRemoveQueryStrings'
 
 const middlewares = [
-  withRankingFilterQueryStrings,
+  // withRankingFilterQueryStrings,
   withRemoveQueryStrings,
   withIntl
 ]

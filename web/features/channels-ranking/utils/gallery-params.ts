@@ -12,7 +12,7 @@ export function getSupersSummariesParams({
   date,
   compact,
   page
-}: ChannelsRankingGalleryProps): GetSupersSummaries {
+}: Omit<ChannelsRankingGalleryProps, 'dimension'>): GetSupersSummaries {
   let result: GetSupersSummaries = {}
   let orderBy: GetSupersSummaries['orderBy']
 
@@ -69,7 +69,7 @@ export function getChannelsParams({
   group,
   gender,
   page
-}: ChannelsRankingGalleryProps): GetChannels {
+}: Omit<ChannelsRankingGalleryProps, 'dimension'>): GetChannels {
   return {
     group,
     gender,

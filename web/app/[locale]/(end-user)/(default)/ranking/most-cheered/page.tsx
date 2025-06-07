@@ -29,19 +29,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    // openGraph: {
-    //   images: [
-    //     {
-    //       url: getOgUrl(
-    //         `/daily-ranking?${new URLSearchParams({
-    //           ...(group && { group }),
-    //           ...(gender && { gender }),
-    //           ...(date && { date: dayjs(date).toISOString() })
-    //         }).toString()}`
-    //       )
-    //     }
-    //   ]
-    // },
     alternates: {
       canonical: `${getWebUrl()}/${locale}/ranking/most-cheered?${createSearchParams(
         {

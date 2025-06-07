@@ -48,9 +48,8 @@ export const TopFansDefaultUrl = `/ranking/top-fans?${createSearchParamsForTopFa
 /**
  * Default URL with query string for `/ranking/channels`
  */
-export const ChannelsRankingDefaultUrl = `/ranking/channels?${createSearchParamsForChannels(
+export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels?${createSearchParamsForChannels(
   {
-    dimension: 'super-chat',
     period: DefaultPeriodByDimension['super-chat'] as 'last24Hours'
   }
 ).toString()}`

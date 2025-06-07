@@ -37,7 +37,7 @@ export default function ChannelsRankingFilterGallery({
             }
           />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn pathname="/ranking/channels" />
           <GenderColumn />
           <CountryColumn />
         </div>

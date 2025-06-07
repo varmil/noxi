@@ -6,7 +6,6 @@ import type { StreamRankingGalleryProps } from 'features/stream-ranking/componen
 /** This is used only when dimension is 'super-chat' */
 export default function createGetSupersBundlesParams({
   period,
-  dimension,
   group,
   gender,
   country,

@@ -31,7 +31,7 @@ export async function getChannels({
   const searchParams = new URLSearchParams({
     ...(ids && { ids: [...new Set(ids)].join(',') }),
     ...(title && { title }),
-    ...(group && { group }),
+    ...(group && group !== 'all' && { group }),
     ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
@@ -60,7 +60,7 @@ export async function getChannelsCount({
   gender
 }: Omit<Params, 'ids' | 'limit' | 'offset' | 'orderBy'>): Promise<number> {
   const searchParams = new URLSearchParams({
-    ...(group && { group }),
+    ...(group && group !== 'all' && { group }),
     ...(gender && { gender })
   })
   const res = await fetchAPI(

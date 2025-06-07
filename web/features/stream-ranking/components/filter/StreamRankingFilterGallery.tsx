@@ -27,7 +27,7 @@ export default function StreamRankingFilterGallery({ className }: Props) {
             ]}
           />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn pathname="/ranking/live" />
           <GenderColumn />
           <CountryColumn />
         </div>

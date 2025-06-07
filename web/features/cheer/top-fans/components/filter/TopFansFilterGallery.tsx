@@ -18,7 +18,7 @@ export default function TopFansFilterGallery({ className }: Props) {
         <div className="flex divide-x divide-border-variant">
           <PeriodColumn keys={['last7Days', 'last30Days', 'all']} />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn pathname="/ranking/top-fans" />
           <GenderColumn />
           <SeasonColumn />
         </div>
