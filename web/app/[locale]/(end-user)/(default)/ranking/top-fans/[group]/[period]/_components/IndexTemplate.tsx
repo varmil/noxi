@@ -2,20 +2,26 @@ import { PropsWithoutRef } from 'react'
 import { getFanRankingCount } from 'apis/cheer-ticket-usages/getFanRanking'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { GroupString } from 'config/constants/Group'
 import { TopFansPagination } from 'config/constants/Pagination'
 import TopFansFilterGallery from 'features/cheer/top-fans/components/filter/TopFansFilterGallery'
 import TopFansGallery from 'features/cheer/top-fans/components/gallery/TopFansGallery'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
+import { TopFansPeriod } from 'types/period'
 import { getStartOf } from 'utils/period/ranking'
 
 type Props = {
+  period: TopFansPeriod
+  group: GroupString
   searchParams: TopFansSearchParams
 }
 
 export default async function IndexTemplate({
+  period,
+  group,
   searchParams
 }: PropsWithoutRef<Props>) {
-  const { period, group, gender } = searchParams
+  const { gender } = searchParams
   const count = await getFanRankingCount({
     group,
     gender,
@@ -29,7 +35,12 @@ export default async function IndexTemplate({
       </section>
 
       <section className={`${PageSMPX} space-y-6`}>
-        <TopFansGallery className="max-w-6xl mx-auto" {...searchParams} />
+        <TopFansGallery
+          className="max-w-6xl mx-auto"
+          period={period}
+          group={group}
+          {...searchParams}
+        />
         <ResponsivePagination
           totalPages={TopFansPagination.getTotalPages(count)}
         />

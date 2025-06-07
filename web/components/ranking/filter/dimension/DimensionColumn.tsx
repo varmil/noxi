@@ -1,5 +1,8 @@
+'use client'
+
 import { PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
@@ -8,9 +11,8 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import { DefaultPeriodByDimension } from 'config/constants/RankingRoute'
+import { usePathname } from 'lib/navigation'
 import { Dimension } from 'types/dimension'
-
-const QS_KEY = 'dimension'
 
 type Keys = Dimension
 
@@ -20,19 +22,27 @@ type Props = PropsWithoutRef<{
 
 // Dimensionを変えたらすべて（period, group, gender）も追加でリセット
 const RESET_KEYS = (dimension: Keys) => ({
-  period: DefaultPeriodByDimension[dimension],
-  group: null,
   gender: null,
   date: null,
   page: null
 })
 
+const resetGroup = (dimension: Keys) => {
+  return 'all'
+}
+
+const resetPeriod = (dimension: Keys) => {
+  return DefaultPeriodByDimension[dimension]
+}
+
 const CHEER_KEYS = ['most-cheered', 'top-fans'] as const
 const CHANNELS_KEYS = ['super-chat', 'subscriber'] as const
 const STREAM_KEYS = ['concurrent-viewer', 'super-chat'] as const
 
-export default async function DimensionColumn({ className }: Props) {
-  const tg = await getTranslations('Global.ranking')
+export default function DimensionColumn({}: Props) {
+  const { dimension } = useParams()
+  const pathname = usePathname()
+  const tg = useTranslations('Global.ranking')
   return (
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
@@ -41,8 +51,9 @@ export default async function DimensionColumn({ className }: Props) {
         {CHEER_KEYS.map(key => (
           <SelectButton
             key={key}
-            pathname={`/ranking/${key}`}
-            qs={{ [QS_KEY]: null, ...RESET_KEYS(key) }}
+            pathname={`/ranking/${key}/${resetGroup(key)}/${resetPeriod(key)}`}
+            qs={{ ...RESET_KEYS(key) }}
+            isActive={() => pathname.includes(`/ranking/${key}/`)}
             activeVariant="secondary"
           >
             <div>
@@ -58,8 +69,9 @@ export default async function DimensionColumn({ className }: Props) {
         {CHANNELS_KEYS.map(key => (
           <SelectButton
             key={key}
-            pathname={'/ranking/channels'}
-            qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
+            pathname={`/ranking/${key}/channels/${resetGroup(key)}/${resetPeriod(key)}`}
+            qs={{ ...RESET_KEYS(key) }}
+            isActive={() => pathname.includes('channels') && key === dimension}
             activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}
@@ -70,8 +82,9 @@ export default async function DimensionColumn({ className }: Props) {
         {STREAM_KEYS.map(key => (
           <SelectButton
             key={key}
-            pathname={'/ranking/live'}
-            qs={{ [QS_KEY]: key, ...RESET_KEYS(key) }}
+            pathname={`/ranking/${key}/live/${resetGroup(key)}/${resetPeriod(key)}`}
+            qs={{ ...RESET_KEYS(key) }}
+            isActive={() => pathname.includes('live') && key === dimension}
             activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}

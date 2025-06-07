@@ -4,20 +4,25 @@ import { Locale, useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
+import { GroupString } from 'config/constants/Group'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
+import { MostCheeredPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { createSearchParams } from 'utils/ranking/most-cheered'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
+  params: Promise<{
+    locale: Locale
+    period: MostCheeredPeriod
+    group: GroupString
+  }>
   searchParams: Promise<MostCheeredSearchParams>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale } = await props.params
-  const { period, group, gender, date, page } = await props.searchParams
+  const { locale, period, group } = await props.params
+  const { gender, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
       locale,
@@ -29,34 +34,16 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    // openGraph: {
-    //   images: [
-    //     {
-    //       url: getOgUrl(
-    //         `/daily-ranking?${new URLSearchParams({
-    //           ...(group && { group }),
-    //           ...(gender && { gender }),
-    //           ...(date && { date: dayjs(date).toISOString() })
-    //         }).toString()}`
-    //       )
-    //     }
-    //   ]
-    // },
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/most-cheered?${createSearchParams(
-        {
-          period: 'last30Days',
-          group
-        }
-      ).toString()}`
+      canonical: `${getWebUrl()}/${locale}/ranking/most-cheered/${group}/last30Days`
     }
   }
 }
 
 export default function RankingMostCheeredPage(props: Props) {
-  const { locale } = use(props.params)
+  const { locale, period, group } = use(props.params)
   const searchParams = use(props.searchParams)
-  const { period, group, gender } = searchParams
+  const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -82,7 +69,11 @@ export default function RankingMostCheeredPage(props: Props) {
       ads
     >
       <RankHighlighter>
-        <IndexTemplate searchParams={searchParams} />
+        <IndexTemplate
+          period={period}
+          group={group}
+          searchParams={searchParams}
+        />
       </RankHighlighter>
     </Page>
   )

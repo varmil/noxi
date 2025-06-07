@@ -33,11 +33,6 @@ function truncateTitle(
 @Injectable()
 export class XScenario {
   private readonly logger = new Logger(XScenario.name)
-  // private readonly formatter = Intl.DateTimeFormat('ja-JP', {
-  //   month: '2-digit',
-  //   day: '2-digit',
-  //   weekday: 'short'
-  // })
   private readonly xClient: TwitterApi
 
   constructor(
@@ -72,10 +67,9 @@ export class XScenario {
         id: new ChannelIds(sums.map(s => s.channelId))
       }
     })
+    const groupSlug = group ? `/${group.get()}` : '/all'
+    const periodSlug = '/last24Hours'
     const searchParams = new URLSearchParams({
-      dimension: 'super-chat',
-      period: 'last24Hours',
-      ...(group && { group: group.get() }),
       ...(gender && { gender: gender.get() }),
       date: new Date().toISOString()
     })
@@ -93,7 +87,7 @@ export class XScenario {
       })
       .join('\n')
     const message3 = `リアルタイム集計。タップですべて表示`
-    const message4 = `https://www.peakx.net/ja/ranking/channels?${searchParams.toString()}`
+    const message4 = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
     const content = `${message1}\n\n${message2}\n\n${message3}\n${message4}`
     const tweet = await this.xClient.v2.tweet(content)
 

@@ -3,30 +3,41 @@ import { getStreamsCount } from 'apis/youtube/getStreams'
 import { getSupersBundlesCount } from 'apis/youtube/getSupersBundles'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { GroupString } from 'config/constants/Group'
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
-import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
+import {
+  StreamRankingDimension,
+  StreamRankingSearchParams
+} from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
+import { StreamRankingPeriod } from 'types/period'
 
 type Props = {
+  period: StreamRankingPeriod
+  dimension: StreamRankingDimension
+  group: GroupString
   searchParams: StreamRankingSearchParams
 }
 
 export default async function IndexTemplate({
+  period,
+  dimension,
+  group,
   searchParams
 }: PropsWithoutRef<Props>) {
-  const { dimension } = searchParams
-
   let count = 0
   switch (dimension) {
     case 'concurrent-viewer':
-      count = await getStreamsCount(createGetStreamsParams(searchParams))
+      count = await getStreamsCount(
+        createGetStreamsParams({ period, dimension, group, ...searchParams })
+      )
       break
     case 'super-chat':
       count = await getSupersBundlesCount(
-        createGetSupersBundlesParams(searchParams)
+        createGetSupersBundlesParams({ period, group, ...searchParams })
       )
       break
     default:
@@ -40,7 +51,13 @@ export default async function IndexTemplate({
       </section>
 
       <section className={`${PageSMPX} space-y-6`}>
-        <StreamRankingGallery className="max-w-6xl mx-auto" {...searchParams} />
+        <StreamRankingGallery
+          className="max-w-6xl mx-auto"
+          period={period}
+          dimension={dimension}
+          group={group}
+          {...searchParams}
+        />
         <ResponsivePagination
           totalPages={StreamRankingPagination.getTotalPages(count)}
         />

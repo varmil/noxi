@@ -46,7 +46,7 @@ const createSearchParams = ({
   const searchParams = new URLSearchParams({
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
     ...(channelId && { channelId }),
-    ...(group && { group }),
+    ...(group && group !== 'all' && { group }),
     ...(gender && { gender }),
     ...(actualEndTimeGTE === null && { actualEndTimeGTE: 'null' }),
     ...(actualEndTimeLTE === null && { actualEndTimeLTE: 'null' }),

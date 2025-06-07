@@ -6,7 +6,6 @@ import { MetadataRoute } from 'next'
 import { getGroups } from 'apis/youtube/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 import { Period } from 'types/period'
-import { createSearchParams } from 'utils/ranking/channels-ranking'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,8 +19,6 @@ const periods: Period[] = [
   // 'thisYear'
 ]
 
-const genders = [undefined, 'male', 'female'] as const
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
 
@@ -29,59 +26,33 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const overallSuperChatEntries = [
     getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/channels?${createSearchParams({
-        dimension: 'super-chat',
-        period: 'last24Hours'
-      })
-        .toString()
-        .replaceAll('&', '&amp;')}`
+      pathname: `/ranking/super-chat/channels/all/last24Hours`
     })
   ]
 
   // super-chat x group
   const groupSuperChatEntries = groups.flatMap(group => {
     return periods.map(period => {
-      const searchParams = createSearchParams({
-        dimension: 'super-chat',
-        period,
-        group: group.val
-      })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/channels?${searchParams
-          .toString()
-          .replaceAll('&', '&amp;')}`
+        pathname: `/ranking/super-chat/channels/${group.val}/${period}`
       })
     })
   })
 
-  // subscriber x overall x gender
-  const overallSubscriberEntries = genders.flatMap(gender => {
-    const searchParams = createSearchParams({
-      dimension: 'subscriber',
-      period: 'all',
-      ...(gender && { gender })
-    })
-    return getEntry({
+  // subscriber x overall
+  const overallSubscriberEntries = [
+    getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/channels?${searchParams
-        .toString()
-        .replaceAll('&', '&amp;')}`
+      pathname: `/ranking/subscriber/channels/all/all`
     })
-  })
+  ]
 
   // subscriber x group
   const groupSubscriberEntries = groups.map(group => {
-    const searchParams = createSearchParams({
-      dimension: 'subscriber',
-      period: 'all',
-      group: group.val
-    })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/channels?${searchParams
-        .toString()
-        .replaceAll('&', '&amp;')}`
+      pathname: `/ranking/subscriber/channels/${group.val}/all`
     })
   })
 

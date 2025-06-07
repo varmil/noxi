@@ -4,15 +4,19 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getFanRanking } from 'apis/cheer-ticket-usages/getFanRanking'
 import { PageXSPX } from 'components/page'
+import { GroupString } from 'config/constants/Group'
 import { TopFansPagination } from 'config/constants/Pagination'
 import { TopFansDefaultUrl } from 'config/constants/RankingRoute'
 import TopFansTable from 'features/cheer/top-fans/components/table/TopFansTable'
 import TopFansTableTitle from 'features/cheer/top-fans/components/table/TopFansTableTitle'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
 import { Link } from 'lib/navigation'
+import { TopFansPeriod } from 'types/period'
 import { getStartOf } from 'utils/period/ranking'
 
-export type TopFansGalleryProps = TopFansSearchParams & {
+type TopFansGalleryProps = TopFansSearchParams & {
+  period: TopFansPeriod
+  group: GroupString
   compact?: boolean
   className?: string
 }

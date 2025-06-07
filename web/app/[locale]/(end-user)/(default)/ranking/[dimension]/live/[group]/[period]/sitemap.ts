@@ -6,7 +6,6 @@ import { MetadataRoute } from 'next'
 import { getGroups } from 'apis/youtube/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 import { StreamRankingPeriod } from 'types/period'
-import { createSearchParams } from 'utils/ranking/stream-ranking'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,69 +17,41 @@ const periods: StreamRankingPeriod[] = [
   // 'last1Year'
 ]
 
-// const genders = [undefined, 'male', 'female'] as const
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
 
   // concurrent-viewer x overall
   const overallConcurrentViewerEntries = periods.map(period => {
-    const searchParams = createSearchParams({
-      dimension: 'concurrent-viewer',
-      period
-    })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/live?${searchParams
-        .toString()
-        .replaceAll('&', '&amp;')}`
+      pathname: `/ranking/concurrent-viewer/live/all/${period}`
     })
   })
 
   // concurrent-viewer x group
   const groupConcurrentViewerEntries = groups.flatMap(group => {
     return periods.map(period => {
-      const searchParams = createSearchParams({
-        dimension: 'concurrent-viewer',
-        period,
-        group: group.val
-      })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/live?${searchParams
-          .toString()
-          .replaceAll('&', '&amp;')}`
+        pathname: `/ranking/concurrent-viewer/live/${group.val}/${period}`
       })
     })
   })
 
   // super-chat x overall
   const overallSuperChatEntries = periods.map(period => {
-    const searchParams = createSearchParams({
-      dimension: 'super-chat',
-      period
-    })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/live?${searchParams
-        .toString()
-        .replaceAll('&', '&amp;')}`
+      pathname: `/ranking/super-chat/live/all/${period}`
     })
   })
 
   // super-chat x group
   const groupSuperChatEntries = groups.flatMap(group => {
     return periods.map(period => {
-      const searchParams = createSearchParams({
-        dimension: 'super-chat',
-        period,
-        group: group.val
-      })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/live?${searchParams
-          .toString()
-          .replaceAll('&', '&amp;')}`
+        pathname: `/ranking/super-chat/live/${group.val}/${period}`
       })
     })
   })

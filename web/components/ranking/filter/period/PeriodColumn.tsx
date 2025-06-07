@@ -1,4 +1,7 @@
+'use client'
+
 import { PropsWithoutRef } from 'react'
+import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
@@ -6,9 +9,8 @@ import {
   ColumnHeader,
   ColumnContent
 } from 'components/ranking/filter/column/Column'
+import { usePathname } from 'lib/navigation'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
-
-const QS_KEY = 'period'
 
 const RESET_KEYS = {
   date: null,
@@ -27,10 +29,11 @@ type Keys = ChannelsRankingPeriod | StreamRankingPeriod
 
 type Props = PropsWithoutRef<{
   keys: Keys[]
-  className?: string
 }>
 
-export default function PeriodColumn({ keys, className }: Props) {
+export default function PeriodColumn({ keys }: Props) {
+  const { period } = useParams()
+  const pathname = usePathname()
   const tg = useTranslations('Global')
 
   return (
@@ -40,8 +43,10 @@ export default function PeriodColumn({ keys, className }: Props) {
         {keys.map(key => (
           <SelectButton
             key={key}
-            qs={{ [QS_KEY]: key, ...RESET_KEYS }}
+            qs={{ ...RESET_KEYS }}
+            pathname={pathname.replace(period as string, key)}
             prefetch={PREFETCH_KEYS.includes(key)}
+            isActive={() => period === key}
             activeVariant="secondary"
           >
             {tg(`period.${key}`)}

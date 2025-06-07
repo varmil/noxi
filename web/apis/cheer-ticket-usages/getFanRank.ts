@@ -27,7 +27,7 @@ export async function getFanRank({
   const searchParams = new URLSearchParams({
     ...(userId && { userId: String(userId) }),
     ...(channelId && { channelId }),
-    ...(group && { group })
+    ...(group && group !== 'all' && { group })
   })
   if (usedAt?.gte) {
     searchParams.append('usedAt[gte]', usedAt.gte.toISOString())

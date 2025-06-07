@@ -6,18 +6,26 @@ import { getChannels } from 'apis/youtube/getChannels'
 import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import SignupBanner from 'components/banners/SignupBanner'
 import { PageXSPX } from 'components/page'
+import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
-import { ChannelsRankingSearchParams } from 'features/channels-ranking/types/channels-ranking.type'
+import {
+  ChannelsRankingDimension,
+  ChannelsRankingSearchParams
+} from 'features/channels-ranking/types/channels-ranking.type'
 import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
+import { ChannelsRankingPeriod } from 'types/period'
 import {
   getChannelsParams,
   getSupersSummariesParams
 } from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
+  period: ChannelsRankingPeriod
+  dimension: ChannelsRankingDimension
+  group: GroupString
   compact?: boolean
   className?: string
 }

@@ -5,10 +5,6 @@ import {
   StreamRankingPeriod,
   TopFansPeriod
 } from 'types/period'
-import { createSearchParams as createSearchParamsForChannels } from 'utils/ranking/channels-ranking'
-import { createSearchParams as createSearchParamsForMostCheered } from 'utils/ranking/most-cheered'
-import { createSearchParams as createSearchParamsForStream } from 'utils/ranking/stream-ranking'
-import { createSearchParams as createSearchParamsForTopFans } from 'utils/ranking/top-fans'
 
 /**
  * Default Period for each Dimension
@@ -28,39 +24,21 @@ export const DefaultPeriodByDimension: Record<
 }
 
 /**
- * Default URL with query string for `/ranking/most-cheered`
+ * Default URL for `/ranking/most-cheered`
  */
-export const MostCheeredDefaultUrl = `/ranking/most-cheered?${createSearchParamsForMostCheered(
-  {
-    period: 'last30Days'
-  }
-).toString()}`
+export const MostCheeredDefaultUrl = `/ranking/most-cheered/all/last30Days`
 
 /**
- * Default URL with query string for `/ranking/top-fans`
+ * Default URL for `/ranking/top-fans`
  */
-export const TopFansDefaultUrl = `/ranking/top-fans?${createSearchParamsForTopFans(
-  {
-    period: 'last30Days'
-  }
-).toString()}`
+export const TopFansDefaultUrl = `/ranking/top-fans/all/last30Days`
 
 /**
- * Default URL with query string for `/ranking/channels`
+ * Default URL for `/ranking/super-chat/channels`
  */
-export const ChannelsRankingDefaultUrl = `/ranking/channels?${createSearchParamsForChannels(
-  {
-    dimension: 'super-chat',
-    period: DefaultPeriodByDimension['super-chat'] as 'last24Hours'
-  }
-).toString()}`
+export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels/all/${DefaultPeriodByDimension['super-chat'] as 'last24Hours'}`
 
 /**
- * Default URL with query string for `/ranking/live`
+ * Default URL for `/ranking/concurrent-viewer/live`
  */
-export const StreamRankingDefaultUrl = `/ranking/live?${createSearchParamsForStream(
-  {
-    dimension: 'concurrent-viewer',
-    period: DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'
-  }
-).toString()}`
+export const StreamRankingDefaultUrl = `/ranking/concurrent-viewer/live/all/${DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'}`

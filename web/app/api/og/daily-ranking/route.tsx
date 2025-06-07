@@ -19,7 +19,7 @@ const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
  **/
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const group = searchParams.get('group') as GroupString | undefined
+  const group = searchParams.get('group') as GroupString
   const gender = searchParams.get('gender') as Gender | undefined
 
   const ranking = await getDailySupersRanking({

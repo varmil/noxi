@@ -2,7 +2,6 @@ import { PropsWithChildren } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
-import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { getSupersSummary } from 'apis/youtube/getSupersSummary'
 import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistories'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
@@ -16,7 +15,6 @@ import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { calcPercentageChange } from 'utils/math/math'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
 import { getStartOf } from 'utils/period/ranking'
-import LinkToRanking from './link/LinkToRanking'
 
 /**
  * SupersSummaryをまとめて表示するコンポーネント
@@ -24,11 +22,6 @@ import LinkToRanking from './link/LinkToRanking'
 export default async function ChannelSupersCards({
   channelId
 }: PropsWithChildren<{ channelId: string; className?: string }>) {
-  const rankingsParams = (period: Period) => ({
-    channelId,
-    period,
-    rankingType: 'overall' as const
-  })
   const historiesParams = (period: Period) => ({
     channelId,
     createdAfter: rangeDatetimeForPreviousPeriod(period).gte,
@@ -38,9 +31,6 @@ export default async function ChannelSupersCards({
   const [
     format,
     global,
-    last24HoursRank,
-    last7DaysRank,
-    last30DaysRank,
     sum,
     summary,
     // ↓ Previous Priod Data
@@ -50,9 +40,6 @@ export default async function ChannelSupersCards({
   ] = await Promise.all([
     getFormatter(),
     getTranslations('Global'),
-    getSupersRankings(rankingsParams('last24Hours')),
-    getSupersRankings(rankingsParams('last7Days')),
-    getSupersRankings(rankingsParams('last30Days')),
     getSupersBundleSum({
       channelId,
       createdAfter: getStartOf('last24Hours').toDate()
@@ -81,13 +68,7 @@ export default async function ChannelSupersCards({
           period="last24Hours"
         >
           <JapaneseYen className="w-4 h-4" />
-          <LinkToRanking
-            period="last24Hours"
-            rank={last24HoursRank?.rank}
-            highlightedChannelId={channelId}
-          >
-            {formatMicrosAsRoundedAmount(sum.amountMicros)}
-          </LinkToRanking>
+          {formatMicrosAsRoundedAmount(sum.amountMicros)}
         </StatsCardContent>
       </StatsCard>
 
@@ -108,13 +89,7 @@ export default async function ChannelSupersCards({
           period="last7Days"
         >
           <JapaneseYen className="w-4 h-4" />
-          <LinkToRanking
-            period="last7Days"
-            rank={last7DaysRank?.rank}
-            highlightedChannelId={channelId}
-          >
-            {formatMicrosAsRoundedAmount(summary.last7Days)}
-          </LinkToRanking>
+          {formatMicrosAsRoundedAmount(summary.last7Days)}
         </StatsCardContent>
       </StatsCard>
 
@@ -135,13 +110,7 @@ export default async function ChannelSupersCards({
           period="last30Days"
         >
           <JapaneseYen className="w-4 h-4" />
-          <LinkToRanking
-            period="last30Days"
-            rank={last30DaysRank?.rank}
-            highlightedChannelId={channelId}
-          >
-            {formatMicrosAsRoundedAmount(summary.last30Days)}
-          </LinkToRanking>
+          {formatMicrosAsRoundedAmount(summary.last30Days)}
         </StatsCardContent>
       </StatsCard>
     </>

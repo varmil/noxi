@@ -11,31 +11,39 @@ import { Link, usePathname } from 'lib/navigation'
  */
 export default function SelectButton({
   qs,
+  isActive,
   activeVariant,
   pathname,
+  pathnameMatchMode = 'includes',
   prefetch = true,
   className,
   children,
   ...rest
 }: ComponentProps<typeof Button> & {
   qs: Record<string, string | null>
+  isActive?: () => boolean
   activeVariant?: 'default' | 'secondary'
   pathname?: string
+  pathnameMatchMode?: 'exact' | 'includes'
   prefetch?: boolean | null
 }) {
   const currentPathname = usePathname()
   const { has, createQueryStrings } = useQueryString()
   const [key, val] = Object.entries(qs)[0]
   const active =
-    ((val !== null && has(key, val)) || (val === null && !has(key))) &&
-    (!pathname || pathname === currentPathname)
+    isActive?.() ||
+    (((val !== null && has(key, val)) || (val === null && !has(key))) &&
+      (!pathname ||
+        (pathnameMatchMode === 'exact'
+          ? currentPathname === pathname
+          : currentPathname.includes(pathname))))
 
   return (
     <Button
       className={`w-full font-normal justify-start ${className || ''}`}
       {...rest}
       asChild
-      variant={active ? activeVariant ?? 'default' : 'ghost'}
+      variant={active ? (activeVariant ?? 'default') : 'ghost'}
     >
       <Link
         href={`${pathname ?? currentPathname}${createQueryStrings(qs)}`}

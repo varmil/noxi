@@ -1,10 +1,10 @@
+import { fromQueryStringsToPathParameters } from 'lib/middleware/fromQueryStringsToPathParameters'
 import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
 import { withIntl } from 'lib/middleware/withIntl'
-import { withRankingFilterQueryStrings } from 'lib/middleware/withRankingFilterQueryStrings'
 import { withRemoveQueryStrings } from 'lib/middleware/withRemoveQueryStrings'
 
 const middlewares = [
-  withRankingFilterQueryStrings,
+  fromQueryStringsToPathParameters,
   withRemoveQueryStrings,
   withIntl
 ]

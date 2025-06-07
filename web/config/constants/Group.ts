@@ -27,4 +27,4 @@ export const GroupStrings = [
   'artist'
 ] as const
 
-export type GroupString = (typeof GroupStrings)[number]
+export type GroupString = (typeof GroupStrings)[number] | 'all'

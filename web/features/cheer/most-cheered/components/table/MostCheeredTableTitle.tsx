@@ -14,7 +14,7 @@ import { MostCheeredPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
   period: MostCheeredPeriod
-  group?: GroupString
+  group: GroupString
   gender?: Gender
   date?: Date
   className?: string
@@ -47,7 +47,7 @@ export default async function MostCheeredTableTitle({
         <RankingTableTitleDescription>
           {page('metadata.description.dimension.most-cheered', {
             period: global(`period.${period}`),
-            group: group ? global(`group.${group}`) : 'VTuber',
+            group: global(`group.${group}`),
             gender: gender ? global(`gender.${gender}`) : ''
           })}
         </RankingTableTitleDescription>

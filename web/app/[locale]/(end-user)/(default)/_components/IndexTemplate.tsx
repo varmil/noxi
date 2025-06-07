@@ -47,6 +47,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           <ChannelsRankingGallery
             period="last24Hours"
             dimension="super-chat"
+            group="all"
             compact
           />
         </HeroSectionContainer>

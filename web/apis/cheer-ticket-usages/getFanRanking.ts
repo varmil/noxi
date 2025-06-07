@@ -26,7 +26,7 @@ const createSearchParams = ({
 }: Params) => {
   const searchParams = new URLSearchParams({
     ...(channelId && { channelId }),
-    ...(group && { group }),
+    ...(group && group !== 'all' && { group }),
     ...(gender && { gender }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })

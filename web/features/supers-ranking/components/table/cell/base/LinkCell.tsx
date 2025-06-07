@@ -21,7 +21,7 @@ export default function LinkCell({
   children
 }: PropsWithChildren<{
   period: Period
-  group?: GroupString
+  group: GroupString
   gender?: Gender
   /** min 1 */
   page?: number
@@ -31,17 +31,13 @@ export default function LinkCell({
   width?: number
 }>) {
   const searchParams = createSearchParams({
-    dimension: 'super-chat',
-    period,
-    group,
     gender,
     page
   })
-
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
       <Link
-        href={`/ranking/channels?${searchParams.toString()}`}
+        href={`/ranking/super-chat/channels/${group}/${period}${searchParams.size ? `?${searchParams.toString()}` : ''}`}
         prefetch={false}
         onClick={() => {
           if (channelId) {

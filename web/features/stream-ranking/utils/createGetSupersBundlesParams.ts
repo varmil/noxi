@@ -6,13 +6,14 @@ import type { StreamRankingGalleryProps } from 'features/stream-ranking/componen
 /** This is used only when dimension is 'super-chat' */
 export default function createGetSupersBundlesParams({
   period,
-  dimension,
   group,
   gender,
   country,
   page,
   compact
-}: StreamRankingGalleryProps): Parameters<typeof getSupersBundles>[0] {
+}: Omit<StreamRankingGalleryProps, 'dimension'>): Parameters<
+  typeof getSupersBundles
+>[0] {
   let result = {}
 
   if (period === 'realtime') {
