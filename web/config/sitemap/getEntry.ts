@@ -13,7 +13,7 @@ type Video = {
   thumbnail_loc: string // 'https://example.com/image.jpg'
 }
 
-const host = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+const host = `https://www.vcharts.net`
 
 export function getEntry({
   pathname,
