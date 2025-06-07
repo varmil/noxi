@@ -34,11 +34,10 @@ export default function LinkCell({
     gender,
     page
   })
-
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
       <Link
-        href={`/ranking/super-chat/channels/${group}/${period}?${searchParams.toString()}`}
+        href={`/ranking/super-chat/channels/${group}/${period}${searchParams.size ? `?${searchParams.toString()}` : ''}`}
         prefetch={false}
         onClick={() => {
           if (channelId) {
