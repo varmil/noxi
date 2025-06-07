@@ -4,15 +4,19 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getCheeredRanking } from 'apis/cheer-ticket-usages/getCheeredRanking'
 import { PageXSPX } from 'components/page'
+import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination } from 'config/constants/Pagination'
 import { MostCheeredDefaultUrl } from 'config/constants/RankingRoute'
 import MostCheeredTable from 'features/cheer/most-cheered/components/table/MostCheeredTable'
 import MostCheeredTableTitle from 'features/cheer/most-cheered/components/table/MostCheeredTableTitle'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
 import { Link } from 'lib/navigation'
+import { MostCheeredPeriod } from 'types/period'
 import { getStartOf } from 'utils/period/ranking'
 
-export type MostCheeredGalleryProps = MostCheeredSearchParams & {
+type MostCheeredGalleryProps = MostCheeredSearchParams & {
+  period: MostCheeredPeriod
+  group: GroupString
   compact?: boolean
   className?: string
 }

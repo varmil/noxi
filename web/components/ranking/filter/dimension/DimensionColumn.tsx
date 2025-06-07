@@ -53,7 +53,7 @@ export default function DimensionColumn({}: Props) {
             key={key}
             pathname={`/ranking/${key}/${resetGroup(key)}/${resetPeriod(key)}`}
             qs={{ ...RESET_KEYS(key) }}
-            isActive={() => key === dimension}
+            isActive={() => pathname.includes(`/ranking/${key}/`)}
             activeVariant="secondary"
           >
             <div>

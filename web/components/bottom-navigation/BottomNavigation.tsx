@@ -25,14 +25,12 @@ export default function BottomNavigation({ className }: Props) {
 
   const navigation = [
     {
-      pathname: '/ranking/most-cheered',
-      query: '?period=last30Days',
+      pathname: '/ranking/most-cheered/all/last30Days',
       label: t('mostCheered'),
       icon: Trophy
     },
     {
-      pathname: '/ranking/top-fans',
-      query: '?period=last30Days',
+      pathname: '/ranking/top-fans/all/last30Days',
       label: t('topFans'),
       icon: Activity
     },
@@ -75,7 +73,7 @@ export default function BottomNavigation({ className }: Props) {
                   'bg-accent text-accent-foreground font-bold'
               )}
             >
-              <Link href={item.pathname + (item.query || '')} prefetch={false}>
+              <Link href={item.pathname} prefetch={false}>
                 <Icon className={`size-5`} />
                 <span className="text-xs">{item.label}</span>
               </Link>

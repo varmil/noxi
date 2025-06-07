@@ -4,58 +4,58 @@ import { Locale, useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
+import { GroupString } from 'config/constants/Group'
+import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
+import { MostCheeredPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { createSearchParams } from 'utils/ranking/top-fans'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
-  searchParams: Promise<TopFansSearchParams>
+  params: Promise<{
+    locale: Locale
+    period: MostCheeredPeriod
+    group: GroupString
+  }>
+  searchParams: Promise<MostCheeredSearchParams>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale } = await props.params
-  const { period, group, gender, date, page } = await props.searchParams
+  const { locale, period, group } = await props.params
+  const { gender, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
       locale,
-      pageNamespace: 'Page.ranking.top-fans',
-      featNamespace: 'Features.topFans.dimension',
+      pageNamespace: 'Page.ranking.most-cheered',
+      featNamespace: 'Features.mostCheered.dimension',
       period,
-      dimension: 'top-fans',
+      dimension: 'most-cheered',
       group,
       gender,
       page
     })),
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/top-fans?${createSearchParams(
-        {
-          period: 'last30Days',
-          group
-        }
-      ).toString()}`
+      canonical: `${getWebUrl()}/${locale}/ranking/most-cheered/${group}/last30Days`
     }
   }
 }
 
-export default function RankingTopFansPage(props: Props) {
-  const { locale } = use(props.params)
+export default function RankingMostCheeredPage(props: Props) {
+  const { locale, period, group } = use(props.params)
   const searchParams = use(props.searchParams)
-  const { period, group, gender } = searchParams
+  const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale)
   const global = useTranslations('Global')
-  const feat = useTranslations('Features.topFans.dimension')
+  const feat = useTranslations('Features.mostCheered.dimension')
 
   return (
     <Page
       breadcrumb={[
         {
           href: `#`,
-          name: feat('top-fans', {
+          name: feat('most-cheered', {
             period: global(`period.${period}`),
             group: group ? global(`group.${group}`) : '',
             gender: gender ? global(`gender.${gender}`) : ''
@@ -69,7 +69,11 @@ export default function RankingTopFansPage(props: Props) {
       ads
     >
       <RankHighlighter>
-        <IndexTemplate searchParams={searchParams} />
+        <IndexTemplate
+          period={period}
+          group={group}
+          searchParams={searchParams}
+        />
       </RankHighlighter>
     </Page>
   )

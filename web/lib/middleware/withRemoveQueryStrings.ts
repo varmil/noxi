@@ -3,7 +3,12 @@ import { NextFetchEvent } from 'next/server'
 import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
 import { normalizePathname } from 'lib/pathname'
 
-const TARGET_PATHNAMES = ['/ranking/channels', '/ranking/live']
+const TARGET_PATHNAMES = [
+  '/ranking/super-chat/channels',
+  '/ranking/subscriber/channels',
+  '/ranking/super-chat/live',
+  '/ranking/concurrent-viewer/live'
+]
 
 /**
  * 主にSEO対策用
