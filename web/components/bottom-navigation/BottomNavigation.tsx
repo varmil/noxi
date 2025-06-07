@@ -1,14 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import {
-  Activity,
-  Home,
-  MessageCircleQuestion,
-  Search,
-  Trophy
-} from 'lucide-react'
-import { useParams } from 'next/navigation'
+import { Activity, MessageCircleQuestion, Search, Trophy } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -21,24 +14,24 @@ type Props = PropsWithoutRef<{
 export default function BottomNavigation({ className }: Props) {
   const t = useTranslations('Components.bottomNavigation')
   const pathname = usePathname()
-  const params = useParams()
 
   const navigation = [
     {
       pathname: '/ranking/most-cheered/all/last30Days',
+      isActive: pathname.startsWith('/ranking/most-cheered'),
       label: t('mostCheered'),
       icon: Trophy
     },
     {
       pathname: '/ranking/top-fans/all/last30Days',
+      isActive: pathname.startsWith('/ranking/top-fans'),
       label: t('topFans'),
       icon: Activity
     },
     {
       pathname: '/groups',
       label: t('groups'),
-      icon: Search,
-      isActive: !!params['group']
+      icon: Search
     },
     {
       pathname: '/how-to-play',

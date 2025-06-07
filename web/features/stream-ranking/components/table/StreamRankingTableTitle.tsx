@@ -8,7 +8,7 @@ import { StreamRankingPeriod } from 'types/period'
 type Props = PropsWithChildren<{
   dimension: StreamRankingDimension
   period: StreamRankingPeriod
-  group?: GroupString
+  group: GroupString
   gender?: Gender
   className?: string
 }>
@@ -24,7 +24,7 @@ export default function StreamRankingTableTitle({
   const feat = useTranslations('Features.streamRanking')
   const title = feat(`ranking.dimension.${dimension}`, {
     period: global(`period.${period}`),
-    group: group ? global(`group.${group}`) : 'VTuber',
+    group: global(`group.${group}`),
     gender: gender ? global(`gender.${gender}`) : ''
   })
     .replace(/\s+/g, ' ')

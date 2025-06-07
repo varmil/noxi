@@ -16,9 +16,9 @@ import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
-  dimension: ChannelsRankingDimension
   period: ChannelsRankingPeriod
-  group?: GroupString
+  dimension: ChannelsRankingDimension
+  group: GroupString
   gender?: Gender
   date?: Date
   className?: string
@@ -36,7 +36,7 @@ export default function ChannelsRankingTableTitle({
   const feat = useTranslations('Features.channelsRanking')
   const title = feat(`ranking.dimension.${dimension}`, {
     period: global(`period.${period}`),
-    group: group ? global(`group.${group}`) : 'VTuber',
+    group: global(`group.${group}`),
     gender: gender ? global(`gender.${gender}`) : ''
   })
     .replace(/\s+/g, ' ')
