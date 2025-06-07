@@ -1,12 +1,9 @@
 import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingDimension } from 'types/dimension'
 import { Gender } from 'types/gender'
-import { ChannelsRankingPeriod } from 'types/period'
 import { RankingType } from 'types/ranking'
 
 export const createSearchParams = (params: {
-  period: ChannelsRankingPeriod
-  group?: GroupString
   gender?: Gender
   page?: number
   /** for OG image */
@@ -14,9 +11,7 @@ export const createSearchParams = (params: {
 }) => {
   /** periodの順番（SEO） */
   return new URLSearchParams({
-    ...(params.group && { group: params.group }),
     ...(params.gender && { gender: params.gender }),
-    period: params.period,
     ...(params.page && params.page >= 2 && { page: params.page.toString() }),
     ...(params.date && { date: params.date })
   })

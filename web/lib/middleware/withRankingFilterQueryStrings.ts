@@ -55,6 +55,7 @@ function resolveQueryValue(
 }
 
 /**
+ * @deprecated 2025/06/07 クエリストリングは使わずパスパラメータに統合した
  * Add query strings dynamically for paths matching the rules in QUERY_STRING_RULES
  */
 export const withRankingFilterQueryStrings: MiddlewareFactory = next => {

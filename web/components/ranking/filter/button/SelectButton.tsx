@@ -11,6 +11,7 @@ import { Link, usePathname } from 'lib/navigation'
  */
 export default function SelectButton({
   qs,
+  isActive,
   activeVariant,
   pathname,
   pathnameMatchMode = 'includes',
@@ -20,6 +21,7 @@ export default function SelectButton({
   ...rest
 }: ComponentProps<typeof Button> & {
   qs: Record<string, string | null>
+  isActive?: () => boolean
   activeVariant?: 'default' | 'secondary'
   pathname?: string
   pathnameMatchMode?: 'exact' | 'includes'
@@ -29,11 +31,12 @@ export default function SelectButton({
   const { has, createQueryStrings } = useQueryString()
   const [key, val] = Object.entries(qs)[0]
   const active =
-    ((val !== null && has(key, val)) || (val === null && !has(key))) &&
-    (!pathname ||
-      (pathnameMatchMode === 'exact'
-        ? currentPathname === pathname
-        : currentPathname.includes(pathname)))
+    isActive?.() ||
+    (((val !== null && has(key, val)) || (val === null && !has(key))) &&
+      (!pathname ||
+        (pathnameMatchMode === 'exact'
+          ? currentPathname === pathname
+          : currentPathname.includes(pathname))))
 
   return (
     <Button

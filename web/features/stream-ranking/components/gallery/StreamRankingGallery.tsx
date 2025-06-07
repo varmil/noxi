@@ -20,8 +20,10 @@ import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGe
 import { auth } from 'lib/auth'
 import { CACHE_10M } from 'lib/fetchAPI'
 import { Link } from 'lib/navigation'
+import { StreamRankingPeriod } from 'types/period'
 
 export type StreamRankingGalleryProps = StreamRankingSearchParams & {
+  period: StreamRankingPeriod
   dimension: StreamRankingDimension
   group: GroupString
   compact?: boolean

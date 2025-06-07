@@ -16,14 +16,16 @@ import {
 } from 'features/channels-ranking/types/channels-ranking.type'
 import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
+import { ChannelsRankingPeriod } from 'types/period'
 import {
   getChannelsParams,
   getSupersSummariesParams
 } from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
+  period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  group?: GroupString
+  group: GroupString
   compact?: boolean
   className?: string
 }

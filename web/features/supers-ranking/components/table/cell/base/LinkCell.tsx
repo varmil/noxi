@@ -31,7 +31,6 @@ export default function LinkCell({
   width?: number
 }>) {
   const searchParams = createSearchParams({
-    period,
     gender,
     page
   })
@@ -39,7 +38,7 @@ export default function LinkCell({
   return (
     <TableCell width={width} className={className ?? ''} align={align}>
       <Link
-        href={`/ranking/super-chat/channels/${group}?${searchParams.toString()}`}
+        href={`/ranking/super-chat/channels/${group}/${period}?${searchParams.toString()}`}
         prefetch={false}
         onClick={() => {
           if (channelId) {

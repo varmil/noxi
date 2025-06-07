@@ -10,15 +10,16 @@ import {
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
+import { ChannelsRankingPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
-import { createSearchParams } from 'utils/ranking/channels-ranking'
 import { getWebUrl } from 'utils/web-url'
-import IndexTemplate from '../_components/IndexTemplate'
+import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{
     locale: Locale
+    period: ChannelsRankingPeriod
     dimension: ChannelsRankingDimension
     group: GroupString
   }>
@@ -26,8 +27,8 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, dimension, group } = await props.params
-  const { period, gender, date, page } = await props.searchParams
+  const { locale, dimension, group, period } = await props.params
+  const { gender, date, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
       locale,
@@ -54,19 +55,15 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     },
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${group}?${createSearchParams(
-        {
-          period: dimension === 'subscriber' ? 'all' : 'last24Hours' // 2025/05/01：固定
-        }
-      ).toString()}`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${group}/${dimension === 'subscriber' ? 'all' : 'last24Hours'}`
     }
   }
 }
 
 export default function RankingChannelsPage(props: Props) {
-  const { locale, dimension, group } = use(props.params)
+  const { locale, dimension, group, period } = use(props.params)
   const searchParams = use(props.searchParams)
-  const { period, gender } = searchParams
+  const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -93,6 +90,7 @@ export default function RankingChannelsPage(props: Props) {
     >
       <RankHighlighter>
         <IndexTemplate
+          period={period}
           dimension={dimension}
           group={group}
           searchParams={searchParams}

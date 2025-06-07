@@ -5,9 +5,7 @@ import {
   StreamRankingPeriod,
   TopFansPeriod
 } from 'types/period'
-import { createSearchParams as createSearchParamsForChannels } from 'utils/ranking/channels-ranking'
 import { createSearchParams as createSearchParamsForMostCheered } from 'utils/ranking/most-cheered'
-import { createSearchParams as createSearchParamsForStream } from 'utils/ranking/stream-ranking'
 import { createSearchParams as createSearchParamsForTopFans } from 'utils/ranking/top-fans'
 
 /**
@@ -46,19 +44,11 @@ export const TopFansDefaultUrl = `/ranking/top-fans?${createSearchParamsForTopFa
 ).toString()}`
 
 /**
- * Default URL with query string for `/ranking/channels`
+ * Default URL for `/ranking/channels`
  */
-export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels/all?${createSearchParamsForChannels(
-  {
-    period: DefaultPeriodByDimension['super-chat'] as 'last24Hours'
-  }
-).toString()}`
+export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels/all/${DefaultPeriodByDimension['super-chat'] as 'last24Hours'}`
 
 /**
- * Default URL with query string for `/ranking/live`
+ * Default URL for `/ranking/live`
  */
-export const StreamRankingDefaultUrl = `/ranking/concurrent-viewer/live/all?${createSearchParamsForStream(
-  {
-    period: DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'
-  }
-).toString()}`
+export const StreamRankingDefaultUrl = `/ranking/concurrent-viewer/live/all/${DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'}`

@@ -8,14 +8,15 @@ import {
   StreamRankingDimension,
   StreamRankingSearchParams
 } from 'features/stream-ranking/types/stream-ranking.type'
+import { StreamRankingPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { createSearchParams } from 'utils/ranking/stream-ranking'
 import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{
     locale: Locale
+    period: StreamRankingPeriod
     dimension: StreamRankingDimension
     group: GroupString
   }>
@@ -23,8 +24,8 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, dimension, group } = await props.params
-  const { period, gender, page } = await props.searchParams
+  const { locale, dimension, group, period } = await props.params
+  const { gender, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
       locale,
@@ -36,21 +37,16 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${group}?${createSearchParams(
-        {
-          period: 'realtime' // 2025/05/01：固定
-        }
-      ).toString()}`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${group}/realtime`
     }
   }
 }
 
 export default function RankingLivePage(props: Props) {
-  const { locale, dimension, group } = use(props.params)
+  const { locale, dimension, group, period } = use(props.params)
   const searchParams = use(props.searchParams)
-  const { period, gender } = searchParams
+  const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale)
@@ -76,6 +72,7 @@ export default function RankingLivePage(props: Props) {
       ads
     >
       <IndexTemplate
+        period={period}
         dimension={dimension}
         group={group}
         searchParams={searchParams}

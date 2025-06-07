@@ -15,22 +15,29 @@ import {
   getChannelsParams,
   getSupersSummariesParams
 } from 'features/channels-ranking/utils/gallery-params'
+import { ChannelsRankingPeriod } from 'types/period'
 
 type Props = {
+  period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  group?: GroupString
+  group: GroupString
   searchParams: ChannelsRankingSearchParams
 }
 
 export default async function IndexTemplate({
+  period,
   dimension,
-  searchParams,
-  group
+  group,
+  searchParams
 }: PropsWithoutRef<Props>) {
   const count =
     dimension === 'super-chat'
-      ? await getSupersSummariesCount(getSupersSummariesParams(searchParams))
-      : await getChannelsCount(getChannelsParams(searchParams))
+      ? await getSupersSummariesCount(
+          getSupersSummariesParams({ period, group, ...searchParams })
+        )
+      : await getChannelsCount(
+          getChannelsParams({ period, group, ...searchParams })
+        )
 
   return (
     <section className={`space-y-4`}>
@@ -44,6 +51,7 @@ export default async function IndexTemplate({
       <section className={`${PageSMPX} space-y-6`}>
         <ChannelsRankingGallery
           className="max-w-6xl mx-auto"
+          period={period}
           dimension={dimension}
           group={group}
           {...searchParams}

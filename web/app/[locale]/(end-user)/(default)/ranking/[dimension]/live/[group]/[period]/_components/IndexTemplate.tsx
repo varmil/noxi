@@ -13,14 +13,17 @@ import {
 } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
+import { StreamRankingPeriod } from 'types/period'
 
 type Props = {
-  searchParams: StreamRankingSearchParams
-  group: GroupString
+  period: StreamRankingPeriod
   dimension: StreamRankingDimension
+  group: GroupString
+  searchParams: StreamRankingSearchParams
 }
 
 export default async function IndexTemplate({
+  period,
   dimension,
   group,
   searchParams
@@ -29,12 +32,12 @@ export default async function IndexTemplate({
   switch (dimension) {
     case 'concurrent-viewer':
       count = await getStreamsCount(
-        createGetStreamsParams({ dimension, group, ...searchParams })
+        createGetStreamsParams({ period, dimension, group, ...searchParams })
       )
       break
     case 'super-chat':
       count = await getSupersBundlesCount(
-        createGetSupersBundlesParams({ group, ...searchParams })
+        createGetSupersBundlesParams({ period, group, ...searchParams })
       )
       break
     default:
@@ -50,6 +53,7 @@ export default async function IndexTemplate({
       <section className={`${PageSMPX} space-y-6`}>
         <StreamRankingGallery
           className="max-w-6xl mx-auto"
+          period={period}
           dimension={dimension}
           group={group}
           {...searchParams}

@@ -16,9 +16,7 @@ const RESET_KEYS = {
   page: null
 }
 
-type Props = {
-  pathname: string
-}
+type Props = {}
 
 export default function GroupColumn({}: Props) {
   const groups = useGroups()
