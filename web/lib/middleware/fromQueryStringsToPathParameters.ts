@@ -6,10 +6,10 @@ export const fromQueryStringsToPathParameters: MiddlewareFactory = next => {
     const { pathname, searchParams } = request.nextUrl
 
     // 対象の type パス（channels または live）
-    const typeMatch = pathname.match(/^\/(ja\/)?ranking\/(channels|live)$/)
+    const typeMatch = pathname.match(/^\/(ja|en)?\/?ranking\/(channels|live)$/)
     if (!typeMatch) return next(request, _next)
 
-    const localePrefix = typeMatch[1] ? '/ja' : '/en'
+    const localePrefix = typeMatch[1] || '/ja' // 'ja' or 'en'
     const type = typeMatch[2] // 'channels' or 'live'
 
     // クエリパラメータ取得
@@ -33,7 +33,7 @@ export const fromQueryStringsToPathParameters: MiddlewareFactory = next => {
     })
 
     // クエリをつけたURLを構築
-    const finalURL = new URL(basePath, request.url)
+    const finalURL = new URL(basePath, request.nextUrl.origin)
     if ([...retainedParams].length > 0) {
       finalURL.search = retainedParams.toString()
     }
