@@ -55,7 +55,7 @@ const createSearchParams = ({
     ...(title && { title }),
     ...(status && { status }),
     ...(videoIds && { videoIds: [...new Set(videoIds)].join(',') }),
-    ...(group && { group }),
+    ...(group && group !== 'all' && { group }),
     ...(gender && { gender }),
     ...(channelId && { channelId }),
     ...(scheduledBefore !== undefined && {

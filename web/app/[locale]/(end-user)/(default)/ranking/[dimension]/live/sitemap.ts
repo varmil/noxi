@@ -26,12 +26,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // concurrent-viewer x overall
   const overallConcurrentViewerEntries = periods.map(period => {
     const searchParams = createSearchParams({
-      dimension: 'concurrent-viewer',
       period
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/live?${searchParams
+      pathname: `/ranking/concurrent-viewer/live/all?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })
@@ -41,13 +40,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groupConcurrentViewerEntries = groups.flatMap(group => {
     return periods.map(period => {
       const searchParams = createSearchParams({
-        dimension: 'concurrent-viewer',
-        period,
-        group: group.val
+        period
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/live?${searchParams
+        pathname: `/ranking/concurrent-viewer/live/${group.val}?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })
@@ -57,12 +54,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // super-chat x overall
   const overallSuperChatEntries = periods.map(period => {
     const searchParams = createSearchParams({
-      dimension: 'super-chat',
       period
     })
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/live?${searchParams
+      pathname: `/ranking/super-chat/live/all?${searchParams
         .toString()
         .replaceAll('&', '&amp;')}`
     })
@@ -72,13 +68,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groupSuperChatEntries = groups.flatMap(group => {
     return periods.map(period => {
       const searchParams = createSearchParams({
-        dimension: 'super-chat',
-        period,
-        group: group.val
+        period
       })
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/live?${searchParams
+        pathname: `/ranking/super-chat/live/${group.val}?${searchParams
           .toString()
           .replaceAll('&', '&amp;')}`
       })

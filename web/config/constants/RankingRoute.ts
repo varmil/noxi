@@ -48,7 +48,7 @@ export const TopFansDefaultUrl = `/ranking/top-fans?${createSearchParamsForTopFa
 /**
  * Default URL with query string for `/ranking/channels`
  */
-export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels?${createSearchParamsForChannels(
+export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels/all?${createSearchParamsForChannels(
   {
     period: DefaultPeriodByDimension['super-chat'] as 'last24Hours'
   }
@@ -57,9 +57,8 @@ export const ChannelsRankingDefaultUrl = `/ranking/super-chat/channels?${createS
 /**
  * Default URL with query string for `/ranking/live`
  */
-export const StreamRankingDefaultUrl = `/ranking/live?${createSearchParamsForStream(
+export const StreamRankingDefaultUrl = `/ranking/concurrent-viewer/live/all?${createSearchParamsForStream(
   {
-    dimension: 'concurrent-viewer',
     period: DefaultPeriodByDimension['concurrent-viewer'] as 'realtime'
   }
 ).toString()}`

@@ -7,10 +7,14 @@ import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import SignupBanner from 'components/banners/SignupBanner'
 import { PageXSPX } from 'components/page'
+import { GroupString } from 'config/constants/Group'
 import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
-import { StreamRankingSearchParams } from 'features/stream-ranking/types/stream-ranking.type'
+import {
+  StreamRankingDimension,
+  StreamRankingSearchParams
+} from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
 import { auth } from 'lib/auth'
@@ -18,6 +22,8 @@ import { CACHE_10M } from 'lib/fetchAPI'
 import { Link } from 'lib/navigation'
 
 export type StreamRankingGalleryProps = StreamRankingSearchParams & {
+  dimension: StreamRankingDimension
+  group: GroupString
   compact?: boolean
   className?: string
 }

@@ -94,8 +94,8 @@ export default function RankingChannelsPage(props: Props) {
       <RankHighlighter>
         <IndexTemplate
           dimension={dimension}
-          searchParams={searchParams}
           group={group}
+          searchParams={searchParams}
         />
       </RankHighlighter>
     </Page>

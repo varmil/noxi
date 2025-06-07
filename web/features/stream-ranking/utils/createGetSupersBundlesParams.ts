@@ -11,7 +11,9 @@ export default function createGetSupersBundlesParams({
   country,
   page,
   compact
-}: StreamRankingGalleryProps): Parameters<typeof getSupersBundles>[0] {
+}: Omit<StreamRankingGalleryProps, 'dimension'>): Parameters<
+  typeof getSupersBundles
+>[0] {
   let result = {}
 
   if (period === 'realtime') {
