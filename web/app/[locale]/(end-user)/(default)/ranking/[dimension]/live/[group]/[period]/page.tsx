@@ -38,7 +38,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       page
     })),
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${group}/realtime`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${group}/last30Days`
     }
   }
 }
