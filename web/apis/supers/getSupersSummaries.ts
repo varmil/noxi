@@ -1,10 +1,13 @@
-import { SUPERS_SUMMARIES } from 'apis/tags/revalidate-tags'
+import {
+  SUPERS_SUMMARIES,
+  SUPERS_SUMMARIES_HALF_HOURLY
+} from 'apis/tags/revalidate-tags'
 import {
   SupersSummariesSchema,
   responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
 import { GroupString } from 'config/constants/Group'
-import { CACHE_1H, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_12H, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
 
@@ -67,7 +70,7 @@ export async function getSupersSummaries(
   const cacheOption = params.orderBy?.some(
     orderBy => orderBy.field === 'last24Hours'
   )
-    ? {}
+    ? { next: { revalidate: CACHE_12H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
     : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
 
   const res = await fetchAPI(
@@ -92,7 +95,7 @@ export async function getSupersSummariesCount(
   const cacheOption = params.orderBy?.some(
     orderBy => orderBy.field === 'last24Hours'
   )
-    ? { next: { revalidate: CACHE_1H } }
+    ? { next: { revalidate: CACHE_12H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
     : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
 
   const res = await fetchAPI(

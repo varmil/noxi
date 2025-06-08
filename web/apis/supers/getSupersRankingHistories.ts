@@ -1,9 +1,12 @@
-import { SUPERS_RANKINGS } from 'apis/tags/revalidate-tags'
+import {
+  SUPERS_RANKINGS,
+  SUPERS_RANKINGS_HALF_HOURLY
+} from 'apis/tags/revalidate-tags'
 import {
   SupersRankingHistoriesSchema,
   responseHistoriesSchema
 } from 'apis/youtube/schema/supersRankingSchema'
-import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_12H, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Period } from 'types/period'
 import { RankingType } from 'types/ranking'
 
@@ -37,11 +40,11 @@ export async function getSupersRankingHistories({
     ...(limit !== undefined && { limit: String(limit) })
   })
 
-  // last24Hoursの場合は古い値が見えることが多いのでキャッシュしない
-  // （バックエンドのControllerでキャッシュしている）
+  // last24HoursはバックエンドのControllerで
+  // キャッシュしているが消してもいいかもしれない
   const cache: RequestInit =
     period === 'last24Hours'
-      ? { cache: 'no-store' }
+      ? { next: { revalidate: CACHE_12H, tags: [SUPERS_RANKINGS_HALF_HOURLY] } }
       : { next: { revalidate: CACHE_1W, tags: [SUPERS_RANKINGS] } }
 
   const res = await fetchAPI(

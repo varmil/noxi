@@ -1,10 +1,13 @@
 import { revalidateTag } from 'next/cache'
-import { SUPERS_RANKINGS, SUPERS_SUMMARIES } from 'apis/tags/revalidate-tags'
+import {
+  SUPERS_RANKINGS_HALF_HOURLY,
+  SUPERS_SUMMARIES_HALF_HOURLY
+} from 'apis/tags/revalidate-tags'
 import type { NextRequest } from 'next/server'
 
 /**
- * スパチャ金額集計のrevalidateを行う
- * １日に１回 18:00 JST のスケジューラが完了したあとを狙う
+ * 過去２４時間用のキャッシュをクリアする
+ * 毎時 05,35 分のスケジューラが完了したあとを狙う
  */
 export function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization')
@@ -14,8 +17,8 @@ export function GET(request: NextRequest) {
     })
   }
 
-  revalidateTag(SUPERS_RANKINGS)
-  revalidateTag(SUPERS_SUMMARIES)
+  revalidateTag(SUPERS_RANKINGS_HALF_HOURLY)
+  revalidateTag(SUPERS_SUMMARIES_HALF_HOURLY)
 
   return Response.json({ success: true })
 }
