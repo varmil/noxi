@@ -39,6 +39,8 @@ declare global {
        */
       readonly VERCEL_PROJECT_PRODUCTION_URL?: string
 
+      readonly CRON_SECRET: string
+
       readonly NEXT_PUBLIC_GA_ID?: string
 
       readonly VERCEL_ENV?: 'production' | 'preview' | 'development'
