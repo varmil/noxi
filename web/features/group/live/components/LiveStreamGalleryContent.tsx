@@ -1,8 +1,8 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
+import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getLiveStreamingDetails } from 'apis/youtube/data-api/getLiveStreamingDetails'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
   GridCardGalleryContainer,
