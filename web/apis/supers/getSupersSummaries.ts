@@ -1,9 +1,10 @@
+import { SUPERS_SUMMARIES } from 'apis/tags/revalidate-tags'
 import {
   SupersSummariesSchema,
   responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
 import { GroupString } from 'config/constants/Group'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
 
@@ -17,7 +18,6 @@ type Params = {
     value: number
   }
   date?: Date
-
   orderBy?: {
     field: Period
     order: 'asc' | 'desc'
@@ -44,26 +44,36 @@ const createSearchParams = ({
     ...(offset !== undefined && { offset: String(offset) }),
     ...(date && { date: date.toISOString() })
   })
-
   if (amountMicros) {
     searchParams.append('amountMicros[period]', amountMicros.period)
     searchParams.append('amountMicros[operator]', amountMicros.operator)
     searchParams.append('amountMicros[value]', String(amountMicros.value))
   }
-
   orderBy?.forEach((orderBy, index) => {
     searchParams.append(`orderBy[${index}][field]`, orderBy.field)
     searchParams.append(`orderBy[${index}][order]`, orderBy.order)
   })
-
   return searchParams
 }
 
+/**
+ * orderByにperiodが入っており、last24Hours or それ以外
+ * でロジックが異なる。キャッシュ期間も変える
+ */
 export async function getSupersSummaries(
   params: Params
 ): Promise<SupersSummariesSchema> {
   const searchParams = createSearchParams(params)
-  const res = await fetchAPI(`/api/supers-summaries?${searchParams.toString()}`)
+  const cacheOption = params.orderBy?.some(
+    orderBy => orderBy.field === 'last24Hours'
+  )
+    ? {}
+    : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
+
+  const res = await fetchAPI(
+    `/api/supers-summaries?${searchParams.toString()}`,
+    cacheOption
+  )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
@@ -73,15 +83,21 @@ export async function getSupersSummaries(
 
 /**
  * orderByにperiodが入っており、last24Hours or それ以外
- * でcountロジックが異なるため、サーバーに渡す必要がある
+ * でロジックが異なる。キャッシュ期間も変える
  */
 export async function getSupersSummariesCount(
   params: Omit<Params, 'limit' | 'offset'>
 ): Promise<number> {
   const searchParams = createSearchParams(params)
+  const cacheOption = params.orderBy?.some(
+    orderBy => orderBy.field === 'last24Hours'
+  )
+    ? { next: { revalidate: CACHE_1H } }
+    : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
+
   const res = await fetchAPI(
     `/api/supers-summaries/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1H } }
+    cacheOption
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

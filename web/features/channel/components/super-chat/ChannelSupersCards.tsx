@@ -1,9 +1,9 @@
 import { PropsWithChildren } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
-import { getSupersBundleSum } from 'apis/youtube/getSupersBundleSum'
-import { getSupersSummary } from 'apis/youtube/getSupersSummary'
-import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistories'
+import { getSupersBundleSum } from 'apis/supers/getSupersBundleSum'
+import { getSupersSummary } from 'apis/supers/getSupersSummary'
+import { getSupersSummaryHistories } from 'apis/supers/getSupersSummaryHistories'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
 import {
   StatsCard,

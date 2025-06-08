@@ -1,8 +1,9 @@
+import { SUPERS_SUMMARIES } from 'apis/tags/revalidate-tags'
 import {
   listSchema,
   SupersMonthlySummariesSchema
 } from 'apis/youtube/schema/supersMonthlySummarySchema'
-import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelId: string
@@ -23,7 +24,7 @@ export async function getSupersMonthlySummaries({
 
   const res = await fetchAPI(
     `/api/supers-summaries/monthly?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D } }
+    { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
   )
 
   if (!res.ok) {

@@ -11,7 +11,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
-import { getSupersBundleRank } from 'apis/youtube/getSupersBundleRank'
+import { getSupersBundleRank } from 'apis/supers/getSupersBundleRank'
 import Underline from 'components/styles/string/Underline'
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import { GradeString } from 'features/grade/types/grade'

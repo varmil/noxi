@@ -1,6 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getChannelsCount } from 'apis/youtube/getChannels'
-import { getSupersSummariesCount } from 'apis/youtube/getSupersSummaries'
+import { getSupersSummariesCount } from 'apis/supers/getSupersSummaries'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import { GroupString } from 'config/constants/Group'

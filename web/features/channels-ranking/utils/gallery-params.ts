@@ -1,7 +1,7 @@
 import { getChannels } from 'apis/youtube/getChannels'
 import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { ChannelsRankingGalleryProps } from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
-import type { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
+import type { getSupersSummaries } from 'apis/supers/getSupersSummaries'
 
 type GetSupersSummaries = Parameters<typeof getSupersSummaries>[0]
 export function getSupersSummariesParams({
