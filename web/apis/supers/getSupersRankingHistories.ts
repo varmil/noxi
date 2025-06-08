@@ -1,8 +1,9 @@
+import { SUPERS_RANKINGS } from 'apis/tags/revalidate-tags'
 import {
   SupersRankingHistoriesSchema,
   responseHistoriesSchema
 } from 'apis/youtube/schema/supersRankingSchema'
-import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Period } from 'types/period'
 import { RankingType } from 'types/ranking'
 
@@ -41,13 +42,12 @@ export async function getSupersRankingHistories({
   const cache: RequestInit =
     period === 'last24Hours'
       ? { cache: 'no-store' }
-      : { next: { revalidate: CACHE_1D } }
+      : { next: { revalidate: CACHE_1W, tags: [SUPERS_RANKINGS] } }
 
   const res = await fetchAPI(
     `/api/supers-rankings/histories?${searchParams.toString()}`,
     cache
   )
-
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
   }
