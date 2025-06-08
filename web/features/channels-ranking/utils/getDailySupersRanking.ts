@@ -1,5 +1,5 @@
+import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getSupersSummaries } from 'apis/youtube/getSupersSummaries'
 import { GroupString } from 'config/constants/Group'
 import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'

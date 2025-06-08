@@ -1,7 +1,7 @@
 import { PropsWithoutRef, Suspense } from 'react'
 import { JapaneseYen } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { getSupersBundle } from 'apis/youtube/getSupersBundle'
+import { getSupersBundle } from 'apis/supers/getSupersBundle'
 import StatsCardSkeleton from 'components/skeleton/StatsCardSkeleton'
 import {
   StatsCardHeader,

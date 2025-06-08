@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { getSupersMonthlySummaries } from 'apis/youtube/getSupersMonthlySummaries'
-import { getSupersSummaryHistories } from 'apis/youtube/getSupersSummaryHistories'
+import { getSupersMonthlySummaries } from 'apis/supers/getSupersMonthlySummaries'
+import { getSupersSummaryHistories } from 'apis/supers/getSupersSummaryHistories'
 import {
   Section,
   Sections

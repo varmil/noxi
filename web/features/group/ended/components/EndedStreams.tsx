@@ -1,6 +1,6 @@
+import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStatistics } from 'apis/youtube/data-api/getStatistics'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getSupersBundles } from 'apis/youtube/getSupersBundles'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import Stream from 'features/group/stream/components/Stream'
 

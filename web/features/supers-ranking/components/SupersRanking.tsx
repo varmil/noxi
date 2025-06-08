@@ -18,10 +18,10 @@ import {
   TableCell,
   Table
 } from '@/components/ui/table'
+import { getSupersRankingHistories } from 'apis/supers/getSupersRankingHistories'
+import { getSupersRankings } from 'apis/supers/getSupersRankings'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getChannelsCount } from 'apis/youtube/getChannels'
-import { getSupersRankingHistories } from 'apis/youtube/getSupersRankingHistories'
-import { getSupersRankings } from 'apis/youtube/getSupersRankings'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
 import Underline from 'components/styles/string/Underline'
 import { GroupString } from 'config/constants/Group'

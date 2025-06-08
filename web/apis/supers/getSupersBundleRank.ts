@@ -1,8 +1,9 @@
+import { SUPERS_BUNDLES } from 'apis/tags/revalidate-tags'
 import {
   SupersBundleRankSchema,
   schema
 } from 'apis/youtube/schema/supersBundleRankSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { RankingType } from 'types/ranking'
 
 type Params = {
@@ -15,7 +16,8 @@ export async function getSupersBundleRank({
   rankingType
 }: Params): Promise<SupersBundleRankSchema | undefined> {
   const res = await fetchAPI(
-    `/api/supers-bundles/${videoId}/rank?rankingType=${rankingType}`
+    `/api/supers-bundles/${videoId}/rank?rankingType=${rankingType}`,
+    { next: { revalidate: CACHE_1W, tags: [SUPERS_BUNDLES] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

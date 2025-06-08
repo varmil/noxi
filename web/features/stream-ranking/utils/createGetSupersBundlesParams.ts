@@ -1,6 +1,6 @@
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import { getStartOf } from 'utils/period/ranking'
-import type { getSupersBundles } from 'apis/youtube/getSupersBundles'
+import type { getSupersBundles } from 'apis/supers/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
 /** This is used only when dimension is 'super-chat' */
