@@ -6,7 +6,7 @@ import {
 import type { NextRequest } from 'next/server'
 
 /**
- * 過去２４時間用のキャッシュをクリアする
+ * Last 24 Hours のキャッシュをクリアする
  * 毎時 05,35 分のスケジューラが完了したあとを狙う
  */
 export function GET(request: NextRequest) {
