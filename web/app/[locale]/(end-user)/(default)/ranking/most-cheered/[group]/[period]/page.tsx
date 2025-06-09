@@ -8,7 +8,6 @@ import { GroupString } from 'config/constants/Group'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
 import { MostCheeredPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
@@ -34,9 +33,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/most-cheered/${group}/last30Days`
-    }
+    // alternates: {
+    //   canonical: `${getWebUrl()}/${locale}/ranking/most-cheered/${group}/last30Days`
+    // }
+    robots: { index: false }
   }
 }
 

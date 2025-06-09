@@ -8,7 +8,6 @@ import { GroupString } from 'config/constants/Group'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
 import { TopFansPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
@@ -30,9 +29,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/top-fans/${group}/${period}`
-    }
+    // alternates: {
+    //   canonical: `${getWebUrl()}/${locale}/ranking/top-fans/${group}/${period}`
+    // }
+    robots: { index: false }
   }
 }
 
