@@ -1,6 +1,5 @@
 import { Gender } from 'types/gender'
 
-/** @deprecated */
 export const createSearchParams = (params: {
   gender?: Gender
   page?: number
