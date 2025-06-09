@@ -12,6 +12,7 @@ import TheaterLayout from 'components/layouts/TheaterLayout'
 import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
+import { getWebUrl } from 'utils/web-url'
 import LayoutFactory from '../layouts/LayoutFactory'
 import DefaultModeTemplate from '../template/DefaultModeTemplate'
 import TheaterModeTemplate from '../template/TheaterModeTemplate'
@@ -61,6 +62,16 @@ export async function generateBaseMetadata(
     ? t('commentForMembersOnly')
     : superChats.map(s => s.userComment).join(', ')
 
+  // 300万円以上であればindex, それ未満ならnoindex
+  const indexOption =
+    bundle?.amountMicros && bundle.amountMicros >= BigInt(3_000_000 * 1_000_000)
+      ? {
+          alternates: {
+            canonical: `${getWebUrl()}/${locale}/youtube/live/${videoId}`
+          }
+        }
+      : { robots: { index: false } }
+
   return {
     title: `${t('title', { title: slicedTitle, channel: basicInfo.title })}`,
     description: `${t('description', {
@@ -68,10 +79,7 @@ export async function generateBaseMetadata(
       concurrentViewers: peakConcurrentViewers.toLocaleString(),
       comment: comment
     })}`,
-    // alternates: {
-    //   canonical: `${getWebUrl()}/${locale}/youtube/live/${videoId}`
-    // }
-    robots: { index: false } // 2025/05/04 noindexを試す
+    ...indexOption
   }
 }
 
