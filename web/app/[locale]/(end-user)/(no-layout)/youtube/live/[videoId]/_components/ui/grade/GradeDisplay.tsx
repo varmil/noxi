@@ -74,19 +74,20 @@ export default async function GradeDisplay({
     rankings: [
       {
         category: comp('overall'),
-        asPath: '/ranking/super-chat/live/all/all',
+        pathname: '/ranking/super-chat/live/all/all',
         rank: supersBundleOverallRank?.rank,
         percentage: supersBundleOverallRank?.topPercentage
       },
       {
         category: global(`gender.${peakX.gender}`),
-        asPath: `/ranking/super-chat/live/all/all?gender=${peakX.gender}`,
+        pathname: `/ranking/super-chat/live/all/all`,
+        gender: peakX.gender,
         rank: supersBundleGenderRank?.rank,
         percentage: supersBundleGenderRank?.topPercentage
       },
       {
         category: global(`group.${peakX.group}`),
-        asPath: `/ranking/super-chat/live/${peakX.group}/all`,
+        pathname: `/ranking/super-chat/live/${peakX.group}/all`,
         rank: supersBundleGroupRank?.rank,
         percentage: supersBundleGroupRank?.topPercentage
       }
@@ -141,12 +142,13 @@ export default async function GradeDisplay({
               <TableBody>
                 {data.rankings.map((item, index) => (
                   <TableRow key={index}>
-                    <LinkCell href={item.asPath}>
+                    <LinkCell pathname={item.pathname} gender={item.gender}>
                       <Underline>{item.category}</Underline>
                     </LinkCell>
                     {item.rank ? (
                       <LinkCell
-                        href={item.asPath}
+                        pathname={item.pathname}
+                        gender={item.gender}
                         page={StreamRankingPagination.getPageFromRank(
                           item.rank
                         )}
