@@ -33,7 +33,7 @@ export const getStartOf = (period: Period, date?: dayjs.ConfigType) => {
     case 'thisYear':
       start = day.startOf('year')
       break
-    case 'all':
+    case 'wholePeriod':
       start = dayjs(new Date(2020, 0, 1)) // 適当に固定値
       break
     default:

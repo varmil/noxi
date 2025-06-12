@@ -24,7 +24,7 @@ export default function ChannelsRankingFilterGallery({
           <PeriodColumn
             keys={
               dimension === 'subscriber'
-                ? ['all']
+                ? ['wholePeriod']
                 : [
                     'last24Hours',
                     'last7Days',

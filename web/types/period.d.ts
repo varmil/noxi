@@ -10,17 +10,17 @@ export type Period =
   | 'thisWeek'
   | 'thisMonth'
   | 'thisYear'
-  | 'all'
+  | 'wholePeriod'
 
 /**
  * 応援される側のランキング
  */
-export type MostCheeredPeriod = 'last7Days' | 'last30Days' | 'all'
+export type MostCheeredPeriod = 'last7Days' | 'last30Days' | 'wholePeriod'
 
 /**
  * ファンランキング
  */
-export type TopFansPeriod = 'last7Days' | 'last30Days' | 'all'
+export type TopFansPeriod = 'last7Days' | 'last30Days' | 'wholePeriod'
 
 /**
  * スパチャランキング or チャンネル登録者数ランキング

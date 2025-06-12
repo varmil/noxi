@@ -74,20 +74,20 @@ export default async function GradeDisplay({
     rankings: [
       {
         category: comp('overall'),
-        pathname: '/ranking/super-chat/live/all/all',
+        pathname: '/ranking/super-chat/live/all/wholePeriod',
         rank: supersBundleOverallRank?.rank,
         percentage: supersBundleOverallRank?.topPercentage
       },
       {
         category: global(`gender.${peakX.gender}`),
-        pathname: `/ranking/super-chat/live/all/all`,
+        pathname: `/ranking/super-chat/live/all/wholePeriod`,
         gender: peakX.gender,
         rank: supersBundleGenderRank?.rank,
         percentage: supersBundleGenderRank?.topPercentage
       },
       {
         category: global(`group.${peakX.group}`),
-        pathname: `/ranking/super-chat/live/${peakX.group}/all`,
+        pathname: `/ranking/super-chat/live/${peakX.group}/wholePeriod`,
         rank: supersBundleGroupRank?.rank,
         percentage: supersBundleGroupRank?.topPercentage
       }

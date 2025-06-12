@@ -21,6 +21,41 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 2025/06/12: Modify period 'all' to 'wholePeriod'
+      {
+        source: '/:locale/ranking/:dimension/live/:group/all',
+        destination: '/:locale/ranking/:dimension/live/:group/wholePeriod',
+        permanent: true
+      },
+      {
+        source: '/:locale/ranking/:dimension/channels/:group/all',
+        destination: '/:locale/ranking/:dimension/channels/:group/wholePeriod',
+        permanent: true
+      },
+      {
+        source: '/:locale/ranking/most-cheered/:group/all',
+        destination: '/:locale/ranking/most-cheered/:group/wholePeriod',
+        permanent: true
+      },
+      {
+        source: '/:locale/ranking/top-fans/:group/all',
+        destination: '/:locale/ranking/top-fans/:group/wholePeriod',
+        permanent: true
+      },
+      // 2025/06/12: Fix Live Ranking wrong pagination
+      {
+        source: '/:locale/ranking/super-chat/live/:group/:period&page=:page',
+        destination:
+          '/:locale/ranking/super-chat/live/:group/:period?page=:page',
+        permanent: true
+      },
+      {
+        source: '/:locale/ranking/super-chat/live/:group/:period',
+        has: [{ type: 'query', key: 'page', value: 'page=(?<page>\\d+)' }],
+        destination:
+          '/:locale/ranking/super-chat/live/:group/:period?page=:page',
+        permanent: true
+      },
       // 2025/05/08 Terms of Use and Privacy Policy を移動
       {
         source: '/:locale/youtube/terms-of-use-and-privacy-policy',
