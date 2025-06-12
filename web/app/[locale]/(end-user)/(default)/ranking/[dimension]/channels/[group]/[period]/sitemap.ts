@@ -44,7 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const overallSubscriberEntries = [
     getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/subscriber/channels/all/all`
+      pathname: `/ranking/subscriber/channels/all/wholePeriod`
     })
   ]
 
@@ -52,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groupSubscriberEntries = groups.map(group => {
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/subscriber/channels/${group.val}/all`
+      pathname: `/ranking/subscriber/channels/${group.val}/wholePeriod`
     })
   })
 
