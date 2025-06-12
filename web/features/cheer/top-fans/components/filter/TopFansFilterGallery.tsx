@@ -16,7 +16,7 @@ export default function TopFansFilterGallery({ className }: Props) {
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
         <div className="flex divide-x divide-border-variant">
-          <PeriodColumn keys={['last7Days', 'last30Days', 'all']} />
+          <PeriodColumn keys={['last7Days', 'last30Days', 'wholePeriod']} />
           <DimensionColumn />
           <GroupColumn />
           <GenderColumn />

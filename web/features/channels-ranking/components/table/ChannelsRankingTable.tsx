@@ -44,7 +44,7 @@ export default async function ChannelsRankingTable({
   date,
   page = 1
 }: Props) {
-  const isSuperChat = dimension === 'super-chat' && period !== 'all'
+  const isSuperChat = dimension === 'super-chat' && period !== 'wholePeriod'
   const [channels, supersSummaries, supersRankingHistories] = await Promise.all(
     [
       getChannels({ ids: channelIds, limit: channelIds.length }),

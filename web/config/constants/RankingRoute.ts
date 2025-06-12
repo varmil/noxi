@@ -20,7 +20,7 @@ export const DefaultPeriodByDimension: Record<
   'most-cheered': 'last30Days',
   'top-fans': 'last30Days',
   'super-chat': 'last30Days',
-  subscriber: 'all'
+  subscriber: 'wholePeriod'
 }
 
 /**

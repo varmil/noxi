@@ -15,7 +15,7 @@ type Props = PropsWithChildren<{
 export default function PeriodHoverCardFactory({ type, period, date }: Props) {
   const comp = useTranslations('Components.ranking.hoverCard')
 
-  if (period === 'all' || period === 'realtime') return null
+  if (period === 'wholePeriod' || period === 'realtime') return null
 
   let updatedAt: dayjs.Dayjs | undefined
   let criteriaDescription = ''
