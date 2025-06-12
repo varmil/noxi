@@ -21,6 +21,18 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 2025/06/12: Fix Live Ranking wrong pagination
+      {
+        source: '/:locale/ranking/super-chat/live/:group/all&page=:page',
+        destination: '/:locale/ranking/super-chat/live/:group/all?page=:page',
+        permanent: true
+      },
+      {
+        source: '/:locale/ranking/super-chat/live/:group/all',
+        has: [{ type: 'query', key: 'page', value: 'page=(?<page>\\d+)' }],
+        destination: '/:locale/ranking/super-chat/live/:group/all?page=:page',
+        permanent: true
+      },
       // 2025/05/08 Terms of Use and Privacy Policy を移動
       {
         source: '/:locale/youtube/terms-of-use-and-privacy-policy',
