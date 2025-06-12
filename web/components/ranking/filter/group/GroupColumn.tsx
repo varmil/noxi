@@ -35,6 +35,7 @@ export default function GroupColumn({}: Props) {
         <SelectButton
           qs={{ ...RESET_KEYS }}
           pathname={`${pathname.replace(groupParam as string, 'all')}`}
+          isActive={() => groupParam === 'all'}
           activeVariant="secondary"
         >
           {tg('group.all')}
@@ -46,6 +47,7 @@ export default function GroupColumn({}: Props) {
             className="gap-x-2"
             qs={{ ...RESET_KEYS }}
             pathname={`${pathname.replace(groupParam as string, group.id)}`}
+            isActive={() => groupParam === group.id}
             activeVariant="secondary"
           >
             <Image
@@ -65,6 +67,7 @@ export default function GroupColumn({}: Props) {
             className="gap-x-2"
             qs={{ ...RESET_KEYS }}
             pathname={`${pathname.replace(groupParam as string, group.id)}`}
+            isActive={() => groupParam === group.id}
             activeVariant="secondary"
           >
             <group.icon className="h-4 w-4 rounded-full" />
