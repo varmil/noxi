@@ -1,36 +1,24 @@
 import { Module } from '@nestjs/common'
+import { ChannelStatisticsSummaryRepositoryImpl } from '@infra/channel-statistics-summary/ChannelStatisticsSummary.repository-impl'
 import { PrismaInfraModule } from '@infra/service/prisma/prisma.infra.module'
-import { SupersSummaryRepositoryImpl } from '@infra/supers-summary/SupersSummary.repository-impl'
-import { SupersMonthlySummaryRepositoryImpl } from '@infra/supers-summary/monthly/SupersMonthlySummary.repository-impl'
 
 @Module({
   imports: [PrismaInfraModule],
   providers: [
-    SupersMonthlySummaryRepositoryImpl,
+    ChannelStatisticsSummaryRepositoryImpl,
     {
-      provide: 'SupersMonthlySummaryRepository',
-      useClass: SupersMonthlySummaryRepositoryImpl
-    },
-    SupersSummaryRepositoryImpl,
-    {
-      provide: 'SupersSummaryRepository',
-      useClass: SupersSummaryRepositoryImpl
+      provide: 'ChannelStatisticsSummaryRepository',
+      useClass: ChannelStatisticsSummaryRepositoryImpl
     }
   ],
   exports: [
     PrismaInfraModule,
 
-    SupersMonthlySummaryRepositoryImpl,
+    ChannelStatisticsSummaryRepositoryImpl,
     {
-      provide: 'SupersMonthlySummaryRepository',
-      useClass: SupersMonthlySummaryRepositoryImpl
-    },
-
-    SupersSummaryRepositoryImpl,
-    {
-      provide: 'SupersSummaryRepository',
-      useClass: SupersSummaryRepositoryImpl
+      provide: 'ChannelStatisticsSummaryRepository',
+      useClass: ChannelStatisticsSummaryRepositoryImpl
     }
   ]
 })
-export class SupersSummaryInfraModule {}
+export class ChannelStatisticsSummaryInfraModule {}

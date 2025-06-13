@@ -1,5 +1,5 @@
 model ChannelSubscriberCountSummary {
-    id        BigInt   @id
+    id        BigInt   @id @default(autoincrement())
     channelId String
     count     Int
     createdAt DateTime @default(now()) @db.Timestamptz(3)
@@ -9,7 +9,7 @@ model ChannelSubscriberCountSummary {
 }
 
 model ChannelVideoCountSummary {
-    id        BigInt   @id
+    id        BigInt   @id @default(autoincrement())
     channelId String
     count     Int
     createdAt DateTime @default(now()) @db.Timestamptz(3)
@@ -19,7 +19,7 @@ model ChannelVideoCountSummary {
 }
 
 model ChannelViewCountSummary {
-    id        BigInt   @id
+    id        BigInt   @id @default(autoincrement())
     channelId String
     count     BigInt
     createdAt DateTime @default(now()) @db.Timestamptz(3)

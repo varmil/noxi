@@ -3,7 +3,7 @@ import {
   VideoCountSummaries,
   ViewCountSummaries
 } from '@domain/channel-statistics-summary'
-import { ChannelId } from '@domain/youtube'
+import { ChannelId, Channels } from '@domain/youtube'
 
 interface WHERE {
   channelId: ChannelId
@@ -11,6 +11,9 @@ interface WHERE {
 }
 
 export interface ChannelStatisticsSummaryRepository {
+  /** SubscriberCount, VideoCount, ViewCountを一括で保存 */
+  bulkCreate: (args: { data: Channels }) => Promise<void>
+
   /** 特定のチャンネルのサブスクライブ数の履歴を取得 */
   findSubscriberCountHistories: (args: {
     where: WHERE
