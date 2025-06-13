@@ -44,6 +44,9 @@ model Channel {
   membershipBundles        StreamMembershipBundle[]
   membershipSummaries      ChannelMembershipSummary[]
   membershipSummaryLatests ChannelMembershipSummaryLatest[]
+  subscriberCountSummary   ChannelSubscriberCountSummary[]
+  videoCountSummary        ChannelVideoCountSummary[]
+  viewCountSummary         ChannelViewCountSummary[]
 
   @@index([group, id])
   @@index([group, subscriberCount])

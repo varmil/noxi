@@ -15,7 +15,7 @@ export class MembershipSummary {
   @Transform(({ value }: { value: Count }) => value.get())
   public readonly count: Count
 
-  readonly createdAt: Date
+  public readonly createdAt: Date
 
   constructor(args: {
     channelId: ChannelId

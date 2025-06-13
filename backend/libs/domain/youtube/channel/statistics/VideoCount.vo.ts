@@ -1,7 +1,10 @@
 import { IsInt, IsNotEmpty, Min } from 'class-validator'
 import { NumberValueObject } from '@domain/lib/vo/NumberValueObject'
 
-export class SubscriberCount extends NumberValueObject {
+/**
+ * すべてのアップロードの数
+ */
+export class VideoCount extends NumberValueObject {
   @IsNotEmpty()
   @IsInt()
   @Min(0)
