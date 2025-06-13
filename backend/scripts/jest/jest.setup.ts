@@ -1,17 +1,11 @@
-import { mockDeep } from 'jest-mock-extended'
-import type {
-  PrismaClient as OriginalPrismaClient,
-  Prisma as OriginalPrisma
-} from '@prisma/generated/client'
-
 // see: https://github.com/prisma/prisma/discussions/4655#discussioncomment-1414231
 jest.mock('@prisma/generated/client', () => ({
   PrismaClient: function () {
-    return mockDeep<OriginalPrismaClient>()
+    return { $executeRawUnsafe: jest.fn() }
   },
   Prisma: {
     sql: function () {
-      return mockDeep<OriginalPrisma.Sql>()
+      return jest.fn()
     }
   }
 }))

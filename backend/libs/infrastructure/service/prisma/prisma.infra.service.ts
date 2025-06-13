@@ -10,11 +10,9 @@ export class PrismaInfraService extends PrismaClient {}
 //   implements OnModuleInit
 // {
 //   private readonly logger = new Logger(PrismaInfraService.name)
-
 //   constructor() {
 //     super({ log: [{ emit: 'event', level: 'query' }] })
 //   }
-
 //   async onModuleInit() {
 //     this.$on('query', event => {
 //       this.logger.log(
