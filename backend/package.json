@@ -68,7 +68,7 @@
     "eslint-import-resolver-typescript": "^4.4.3",
     "eslint-plugin-import-x": "^4.15.2",
     "eslint-plugin-prettier": "^5.4.1",
-    "jest": "^30.0.0",
+    "jest": "^30.0.1",
     "prettier": "^3.5.3",
     "prisma": "^6.9.0",
     "source-map-support": "^0.5.21",
