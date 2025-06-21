@@ -13,7 +13,7 @@ export const fromQueryStringsToPathParameters: MiddlewareFactory = next => {
     const type = typeMatch[2] // 'channels' or 'live'
 
     // クエリパラメータ取得
-    const period = searchParams.get('period')
+    const period = searchParams.get('period') || 'last30Days'
     const dimension = searchParams.get('dimension')
     const group = searchParams.get('group') || 'all'
 
