@@ -35,7 +35,7 @@
     "@radix-ui/react-toast": "^1.2.14",
     "@radix-ui/react-tooltip": "^1.2.7",
     "@radix-ui/react-visually-hidden": "^1.2.3",
-    "@react-email/components": "^0.0.42",
+    "@react-email/components": "^0.1.0",
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.3.1",
     "@tailwindcss/container-queries": "^0.1.1",
