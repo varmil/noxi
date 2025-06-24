@@ -39,7 +39,7 @@
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.3.1",
     "@tailwindcss/container-queries": "^0.1.1",
-    "@uploadthing/react": "^7.3.1",
+    "@uploadthing/react": "^7.3.2",
     "axios": "^1.10.0",
     "bignumber.js": "^9.3.0",
     "browser-image-compression": "^2.0.2",
