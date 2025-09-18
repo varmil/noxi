@@ -41,7 +41,7 @@
     "prisma-json-types-generator": "^3.5.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.2",
-    "stripe": "^18.2.1",
+    "stripe": "^18.5.0",
     "twitter-api-v2": "^1.23.2",
     "xss": "^1.0.15",
     "zod": "^3.25.67",
