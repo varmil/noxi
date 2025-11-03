@@ -165,7 +165,7 @@ export default async function HowToPlayTemplate() {
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Season βは~2025/08/31までを予定
+                Season βは~2026/03/31までを予定
               </p>
             </CardContent>
           </Card>
