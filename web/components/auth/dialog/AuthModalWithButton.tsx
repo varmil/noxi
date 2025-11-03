@@ -21,7 +21,7 @@ export default function AuthModalWithButton({ disabled }: Props) {
       onOpenChange={setOpen}
       trigger={
         <DialogTrigger asChild>
-          <Button variant="default" disabled={disabled}>
+          <Button variant="outline" disabled={disabled}>
             <LogIn className="mr-2 size-4" />
             <span>{comp('buttonText')}</span>
           </Button>

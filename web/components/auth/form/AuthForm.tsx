@@ -5,9 +5,6 @@ import { signIn } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Separator } from '@/components/ui/separator'
 import GoogleIcon from 'components/auth/icon/GoogleIcon'
 import { Link } from 'lib/navigation'
 
@@ -17,8 +14,8 @@ interface AuthFormProps {
 
 export default function AuthForm({ redirectTo }: AuthFormProps) {
   const comp = useTranslations('Components.auth')
-  const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  // const [email, setEmail] = useState('')
 
   const handleGoogleSignIn = async () => {
     setIsLoading(true)
@@ -33,36 +30,24 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
     }
   }
 
-  // const handleAppleSignIn = async () => {
+  // const handleEmailSignIn = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   if (!email) return
+
   //   setIsLoading(true)
   //   try {
-  //     await signIn('apple', { redirectTo })
+  //     await signIn('resend', { email, redirectTo })
+  //     toast.success('メールを送信しました', {
+  //       description: 'ログインリンクをメールで確認してください。'
+  //     })
   //   } catch (error) {
+  //     console.error(error)
   //     toast.error('エラーが発生しました', {
-  //       description: 'ログインに失敗しました。もう一度お試しください。'
+  //       description: 'メール送信に失敗しました。もう一度お試しください。'
   //     })
   //     setIsLoading(false)
   //   }
   // }
-
-  const handleEmailSignIn = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setIsLoading(true)
-    try {
-      await signIn('resend', { email, redirectTo })
-      toast.success('メールを送信しました', {
-        description: 'ログインリンクをメールで確認してください。'
-      })
-    } catch (error) {
-      console.error(error)
-      toast.error('エラーが発生しました', {
-        description: 'メール送信に失敗しました。もう一度お試しください。'
-      })
-      setIsLoading(false)
-    }
-  }
 
   return (
     <div className="flex flex-col gap-6 py-4">
@@ -75,16 +60,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
         <GoogleIcon className="size-6" />
         <span className="text-left w-[160px]">Continue with Google</span>
       </Button>
-      {/* <Button
-        variant="outline"
-        className="flex items-center justify-center gap-4 h-12 px-4 border-2"
-        onClick={handleAppleSignIn}
-        disabled={isLoading}
-      >
-        <AppleIcon className="size-6 dark:fill-white" />
-        <span className="text-left w-[160px]">Continue with Apple</span>
-      </Button> */}
-      <div className="relative my-2">
+      {/* <div className="relative my-2">
         <div className="absolute inset-0 flex items-center">
           <Separator className="w-full" />
         </div>
@@ -93,8 +69,8 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
             {comp('or')}
           </span>
         </div>
-      </div>
-      <form onSubmit={handleEmailSignIn} className="space-y-4">
+      </div> */}
+      {/* <form onSubmit={handleEmailSignIn} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">{comp('email')}</Label>
           <Input
@@ -114,7 +90,7 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
         >
           {comp('magicLink')}
         </Button>
-      </form>
+      </form> */}
 
       <div className="mt-6 text-center text-xs text-muted-foreground">
         <p>
