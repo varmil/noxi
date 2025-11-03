@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Activity, MessageCircleQuestion, Search, Trophy } from 'lucide-react'
+import { Activity, DollarSign, MessageCircleQuestion, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -17,15 +17,15 @@ export default function BottomNavigation({ className }: Props) {
 
   const navigation = [
     {
-      pathname: '/ranking/most-cheered/all/last30Days',
-      isActive: pathname.startsWith('/ranking/most-cheered'),
-      label: t('mostCheered'),
-      icon: Trophy
+      pathname: '/ranking/super-chat/channels/all/last30Days',
+      isActive: pathname.startsWith('/ranking/super-chat'),
+      label: t('channels'),
+      icon: DollarSign
     },
     {
-      pathname: '/ranking/top-fans/all/last30Days',
-      isActive: pathname.startsWith('/ranking/top-fans'),
-      label: t('topFans'),
+      pathname: '/ranking/concurrent-viewer/live/all/last30Days',
+      isActive: pathname.startsWith('/ranking/concurrent-viewer'),
+      label: t('live'),
       icon: Activity
     },
     {

@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import SignupBanner from 'components/banners/SignupBanner'
 import { PageXSPX } from 'components/page'
 import { GroupString } from 'config/constants/Group'
 import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
@@ -17,7 +16,6 @@ import {
 } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
-import { auth } from 'lib/auth'
 import { CACHE_10M } from 'lib/fetchAPI'
 import { Link } from 'lib/navigation'
 import { StreamRankingPeriod } from 'types/period'
@@ -33,7 +31,6 @@ export type StreamRankingGalleryProps = StreamRankingSearchParams & {
 export default async function StreamRankingGallery(
   props: PropsWithoutRef<StreamRankingGalleryProps>
 ) {
-  const session = await auth()
   const t = await getTranslations('Features.streamRanking')
 
   let streams: StreamsSchema = []
@@ -73,12 +70,6 @@ export default async function StreamRankingGallery(
         gender={gender}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />
-
-      {!session ? (
-        <div className={`${!compact ? PageXSPX : ''} sm:px-0`}>
-          <SignupBanner />
-        </div>
-      ) : null}
 
       <StreamRankingTable
         dimension={dimension}

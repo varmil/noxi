@@ -39,11 +39,6 @@ export function Page({
 
   return (
     <section>
-      <div className="bg-accent flex items-center py-2 px-3.5 sm:px-4 text-sm">
-        <Info className="mr-1 size-4" />
-        PeakXは「VCharts」へ。名前が変わりました
-      </div>
-
       <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
 
       {/* EPMが低すぎるのでコメントアウト */}
