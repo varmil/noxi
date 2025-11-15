@@ -20,7 +20,7 @@ export const ReservedUsernames: Set<string> = new Set([
   'api',
   'auth',
 
-  // PeakX関連・ブランド名保護
+  // VCharts関連・ブランド名保護
   'peak',
   'peakx',
   'vrank',
