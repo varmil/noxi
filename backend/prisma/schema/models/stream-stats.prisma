@@ -1,3 +1,4 @@
+/// ライブの同時接続数（数分おきにINSERT）
 model YoutubeStreamViewerCount {
   id        Int      @id @default(autoincrement())
   videoId   String
