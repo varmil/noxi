@@ -87,7 +87,7 @@ export class XScenario {
       })
       .join('\n')
     const message3 = `リアルタイム集計。タップですべて表示`
-    const message4 = `https://www.peakx.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
+    const message4 = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
     const content = `${message1}\n\n${message2}\n\n${message3}\n${message4}`
     const tweet = await this.xClient.v2.tweet(content)
 

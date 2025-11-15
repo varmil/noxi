@@ -37,7 +37,7 @@ export default async function HowToPlayTemplate() {
           <p className="text-muted-foreground">
             忙しい社会人にぴったり。切り抜きやまとめを見るだけになっていませんか。
             <br />
-            PeakXは推しを広告で支えることができる新しい推し方を提供します。
+            VChartsは推しを広告で支えることができる新しい推し方を提供します。
           </p>
         </div>
       </div>

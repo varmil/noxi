@@ -41,7 +41,7 @@ export function useRegistrationForm() {
   const [channelInfo, setChannelInfo] = useState<ChannelInfo | null>(null)
   /** チャンネル情報をData API & Closed API Serverから取得中 */
   const [isLoading, setIsLoading] = useState(false)
-  /** すでにPeakXに当該チャンネルが登録されている */
+  /** すでに当該チャンネルが登録されている */
   const [isRegistered, setIsRegistered] = useState(false)
   /** すでに申請が存在し、approved or done になっている */
   const [isAlreadyApproved, setIsAlreadyApproved] = useState(false)
@@ -159,7 +159,7 @@ export function useRegistrationForm() {
    * - チャンネル情報の取得が完了
    * - チャンネルの条件を満たしている
    * - まだ承認されていない
-   * - まだPeakXに登録されていない
+   * - まだVchartsに登録されていない
    * - 却下済みのチャンネルの場合、1ヶ月以上経過している
    */
   const isSubmitEnabled = useMemo(() => {

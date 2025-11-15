@@ -25,7 +25,7 @@ export class Channels extends Collection<Channel> {
 
   /**
    * merge with channel registrations
-   * これによってPeakX独自のプロパティが埋まる
+   * これによってVCharts独自のプロパティが埋まる
    * @param other channel registrations
    * @returns merged channels
    */

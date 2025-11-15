@@ -25,7 +25,7 @@ export const onSignUp = async (pool: Pool, user: User) => {
       resend.emails.send({
         from: 'PeakX.net <noreply@peakx.net>',
         to: [email],
-        subject: 'PeakXへようこそ！',
+        subject: 'VChartsへようこそ！',
         react: WelcomeEmail({ username: name, userEmail: email })
       })
   ])
