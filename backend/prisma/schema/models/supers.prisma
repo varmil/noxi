@@ -1,3 +1,4 @@
+/// スーパーチャットイベント
 model YoutubeStreamSuperChat {
     id                  String  @id
     amountMicros        BigInt
@@ -23,6 +24,7 @@ model YoutubeStreamSuperChat {
     @@index([group, amountMicros, createdAt])
 }
 
+/// スーパーステッカーイベント
 model YoutubeStreamSuperSticker {
     id                  String @id
     amountMicros        BigInt
@@ -46,6 +48,7 @@ model YoutubeStreamSuperSticker {
     @@index([group, amountMicros, createdAt])
 }
 
+/// 1ライブで発生したスーパーチャットイベントの集計
 model YoutubeStreamSupersBundle {
     videoId         String    @id
     channelId       String
@@ -70,7 +73,7 @@ model YoutubeStreamSupersBundle {
     @@index([createdAt, group])
 }
 
-// JPY amountMicros
+/// スーパーチャットの期間別集計。日次更新。(JPY amountMicros)
 model YoutubeStreamSupersSummary {
     id        Int    @id @default(autoincrement())
     channelId String
@@ -95,6 +98,7 @@ model YoutubeStreamSupersSummary {
     @@index([channelId, createdAt, thisYear])
 }
 
+/// YoutubeStreamSupersSummaryの各チャンネルの最新1レコードのみ保持
 model YoutubeStreamSupersSummaryLatest {
     channelId String @id
 

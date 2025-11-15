@@ -1,3 +1,4 @@
+/// スーパーチャット金額のランキング。日次で毎日INSERTされる。
 model ChannelSupersRanking {
   id          BigInt   @id @default(autoincrement())
   channelId   String

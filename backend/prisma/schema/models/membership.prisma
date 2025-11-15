@@ -1,3 +1,4 @@
+/// ライブ中に発生したメンバーシップ加入の集計。日次で毎日INSERTされる。
 model ChannelMembershipSummary {
   id           BigInt   @id @default(autoincrement())
   channelId    String
@@ -11,6 +12,7 @@ model ChannelMembershipSummary {
   @@index([period, createdAt])
 }
 
+/// ChannelMembershipSummaryを各チャンネルごとに最新の1レコードのみ保持する
 model ChannelMembershipSummaryLatest {
   channelId    String
   period       String // 'last7Days', 'last30Days', etc.
@@ -24,6 +26,7 @@ model ChannelMembershipSummaryLatest {
   @@index([period, count])
 }
 
+/// ライブ（videoId）ごとに発生したメンバーシップ加入
 model StreamMembership {
   id     String  @id
   count  Int
