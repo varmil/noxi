@@ -190,7 +190,10 @@
             "description": "{channel}の人気、スパチャ金額、ライブ分析、同接数推移、配信時間を網羅的にチェック。人気の瞬間や収益データも把握し、ファン必見の情報を見逃さない。"
           },
           "section": {
-            "data": { "title": "YouTube上のデータ" }
+            "data": { "title": "YouTube上のデータ" },
+            "stats": { "title": "過去30日間の統計" },
+            "topLives": { "title": "人気ライブTop3（過去30日間）" },
+            "topSuperChats": { "title": "上位スーパーチャット（過去30日間）" }
           }
         },
         "superChat": {
@@ -470,7 +473,22 @@
   "Features": {
     "channel": {
       "overview": {
-        "nav": "概要"
+        "nav": "概要",
+        "stats": {
+          "superChatRevenue": "スパチャ収入",
+          "medianViewers": "同時接続数中央値",
+          "totalStreamTime": "合計配信時間",
+          "noData": "データがありません"
+        },
+        "topLives": {
+          "rank": "#{rank}",
+          "maxViewers": "最大{count}人",
+          "noLives": "配信がありません"
+        },
+        "topSuperChats": {
+          "rank": "#{rank}",
+          "noComments": "コメントがありません"
+        }
       },
       "superChat": {
         "nav": "スパチャ",

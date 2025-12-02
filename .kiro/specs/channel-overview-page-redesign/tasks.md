@@ -1,19 +1,19 @@
 # Implementation Plan
 
-- [ ] 1. i18n翻訳キーの追加
+- [x] 1. i18n翻訳キーの追加
   - ja.jsonとen.jsonに新しいセクションの翻訳キーを追加
   - Page.group.channelsId.index.section配下に新しいキーを追加
   - Features.channel.overview配下に新しいキーを追加
   - _Requirements: 8.2, 8.3, 8.4_
 
-- [ ] 2. ユーティリティ関数のリファクタリングと実装
-  - [ ] 2.1 既存の統計計算関数を共通化
+- [x] 2. ユーティリティ関数のリファクタリングと実装
+  - [x] 2.1 既存の統計計算関数を共通化
     - `web/features/channel/components/concurrent-viewers/card/ChannelConcurrentViewersCards.tsx`のmedian関数を抽出
     - `web/utils/stream/calculateStreamStats.ts`を作成
     - median、max、min関数を共通ユーティリティとして実装
     - avgConcurrentViewersとpeakConcurrentViewersの両方に対応
     - _Requirements: 4.3_
-  - [ ] 2.2 既存の配信時間計算関数を再利用
+  - [x] 2.2 既存の配信時間計算関数を再利用
     - `web/features/channel/components/stream-times/utils/getTotalAndAvarageDuration.ts`を使用
     - 必要に応じてリファクタリング（共通化）
     - _Requirements: 6.3_
