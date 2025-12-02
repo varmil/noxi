@@ -30,7 +30,7 @@ export default async function TopLiveStreamsGallery({ channelId }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-2">
+    <div className="grid grid-cols-1 gap-4">
       {streams.map((stream, index) => (
         <TopLiveStreamCard
           key={stream.videoId}

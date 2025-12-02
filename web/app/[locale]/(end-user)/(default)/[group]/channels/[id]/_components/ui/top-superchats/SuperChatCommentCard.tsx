@@ -2,6 +2,7 @@ import { getFormatter, getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { SuperChatSchema } from 'apis/youtube/schema/superChatSchema'
+import CommentAvatar from 'components/comment/comment/CommentAvatar'
 
 type Props = {
   superChat: SuperChatSchema
@@ -46,6 +47,10 @@ export default async function SuperChatCommentCard({
       <CardFooter className="pt-0">
         {/* 投稿者名 */}
         <div className="flex items-center gap-2 w-full">
+          <CommentAvatar
+            profileImageUrl={author.profileImageUrl}
+            displayName={author.displayName}
+          />
           <div className="text-xs text-muted-foreground truncate">
             {author.displayName}
           </div>

@@ -31,22 +31,22 @@ export default async function TopLiveStreamCard({ stream, rank }: Props) {
     : ''
 
   return (
-    <Card className="cursor-pointer hover:bg-accent/50">
+    <div className="cursor-pointer hover:bg-accent/50">
       <Link href={`/youtube/live/${videoId}`}>
-        <CardContent className="p-3 flex gap-3">
+        <div className="flex gap-3">
           {/* サムネイル */}
-          <div className="relative shrink-0 w-32 h-18 overflow-hidden rounded">
+          <div className="relative shrink-0 w-32 h-18 rounded">
             <Image
               src={thumbnailUrl}
               alt={snippet.title}
               width={320}
               height={180}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-full rounded"
             />
             {/* ランクバッジ */}
             <Badge
               variant="default"
-              className="absolute top-1 left-1 text-xs font-bold"
+              className="absolute -top-2 left-0 text-xs font-bold"
             >
               {feat('rank', { rank })}
             </Badge>
@@ -55,20 +55,20 @@ export default async function TopLiveStreamCard({ stream, rank }: Props) {
           {/* コンテンツ */}
           <div className="flex-1 min-w-0 flex flex-col justify-between">
             {/* タイトル */}
-            <h3 className="text-sm font-medium line-clamp-2 break-anywhere">
+            <h3 className="text-sm font-medium line-clamp-2 break-anywhere mb-1">
               {snippet.title}
             </h3>
 
             {/* 統計情報 */}
-            <div className="flex flex-col gap-1 text-xs text-muted-foreground">
-              <div className="font-semibold">
+            <div className="flex flex-col gap-0.5 text-xs text-muted-foreground">
+              <div>
                 {feat('maxViewers', { count: format.number(maxViewers) })}
               </div>
               <div>{streamDate}</div>
             </div>
           </div>
-        </CardContent>
+        </div>
       </Link>
-    </Card>
+    </div>
   )
 }

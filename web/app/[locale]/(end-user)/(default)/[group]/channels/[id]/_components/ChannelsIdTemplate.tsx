@@ -32,7 +32,7 @@ export async function ChannelsIdTemplate({ id }: Props) {
       {/* 統計カード */}
       <Section
         className="lg:col-span-3 lg:order-2"
-        gridClassName="grid-cols-1 md:grid-cols-3"
+        gridClassName="grid-cols-1"
         title={page('stats.title')}
       >
         <ChannelOverviewStatsCards channelId={id} />
