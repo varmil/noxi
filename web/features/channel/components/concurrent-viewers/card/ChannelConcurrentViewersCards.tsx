@@ -7,6 +7,11 @@ import {
   StatsCardHeader,
   StatsCards
 } from 'components/styles/card/StatsCard'
+import {
+  calculateMedian,
+  calculateMax,
+  calculateMin
+} from 'utils/stream/calculateStreamStats'
 
 export default function ChannelConcurrentViewersCards({
   streams
@@ -18,51 +23,26 @@ export default function ChannelConcurrentViewersCards({
       <StatsCard className="col-span-full sm:col-span-1">
         <StatsCardHeader>{feat('median')}</StatsCardHeader>
         <StatsCardContent>
-          {median(streams)?.toLocaleString() ?? '---'}
+          {calculateMedian(streams, 'peakConcurrentViewers')?.toLocaleString() ??
+            '---'}
         </StatsCardContent>
       </StatsCard>
 
       <StatsCard className="col-span-1">
         <StatsCardHeader>{feat('max')}</StatsCardHeader>
         <StatsCardContent>
-          {max(streams)?.toLocaleString() ?? '---'}
+          {calculateMax(streams, 'peakConcurrentViewers')?.toLocaleString() ??
+            '---'}
         </StatsCardContent>
       </StatsCard>
 
       <StatsCard className="col-span-1">
         <StatsCardHeader>{feat('min')}</StatsCardHeader>
         <StatsCardContent>
-          {min(streams)?.toLocaleString() ?? '---'}
+          {calculateMin(streams, 'peakConcurrentViewers')?.toLocaleString() ??
+            '---'}
         </StatsCardContent>
       </StatsCard>
     </StatsCards>
   )
-}
-
-const median = (streams: StreamsSchema) => {
-  const viewers = streams
-    .map(s => s.metrics.peakConcurrentViewers)
-    .filter(v => typeof v === 'number')
-  if (viewers.length === 0) return undefined
-  viewers.sort((a, b) => a - b)
-  const mid = Math.floor(viewers.length / 2)
-  return viewers.length % 2 !== 0
-    ? viewers[mid]
-    : (viewers[mid - 1] + viewers[mid]) / 2
-}
-
-const max = (streams: StreamsSchema) => {
-  const viewers = streams
-    .map(s => s.metrics.peakConcurrentViewers)
-    .filter(v => typeof v === 'number')
-  if (viewers.length === 0) return undefined
-  return Math.max(...viewers)
-}
-
-const min = (streams: StreamsSchema) => {
-  const viewers = streams
-    .map(s => s.metrics.peakConcurrentViewers)
-    .filter(v => typeof v === 'number')
-  if (viewers.length === 0) return undefined
-  return Math.min(...viewers)
 }

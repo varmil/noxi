@@ -1,10 +1,12 @@
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import dayjs from 'lib/dayjs'
 
-export const getTotalAndAvarageDuration = (streams: StreamsSchema) => {
-  // 合計配信時間と配信数を計算
-  let totalDuration = dayjs.duration(0) // 合計時間
-  let validStreams = 0 // 有効な配信数
+/**
+ * 配信データから合計配信時間と平均配信時間を計算
+ */
+export const getTotalAndAverageDuration = (streams: StreamsSchema) => {
+  let totalDuration = dayjs.duration(0)
+  let validStreams = 0
 
   streams.forEach(stream => {
     const {
@@ -28,7 +30,6 @@ export const getTotalAndAvarageDuration = (streams: StreamsSchema) => {
     }
   })
 
-  // 平均配信時間を計算
   const averageDuration =
     validStreams > 0
       ? dayjs.duration(totalDuration.clone().asMilliseconds() / validStreams)

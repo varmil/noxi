@@ -7,7 +7,7 @@ import {
   StatsCardHeader,
   StatsCards
 } from 'components/styles/card/StatsCard'
-import { getTotalAndAvarageDuration } from 'features/channel/components/stream-times/utils/getTotalAndAvarageDuration'
+import { getTotalAndAverageDuration } from 'utils/stream/calculateStreamDuration'
 
 /**
  * 配信回数や合計配信時間をまとめて表示するコンポーネント
@@ -17,7 +17,7 @@ export default async function ChannelStreamTimesCards({
   className
 }: PropsWithChildren<{ streams: StreamsSchema; className?: string }>) {
   const feat = await getTranslations('Features.channel.streamTimes.card')
-  const { totalDuration, averageDuration } = getTotalAndAvarageDuration(streams)
+  const { totalDuration, averageDuration } = getTotalAndAverageDuration(streams)
   const totalHours = Math.floor(totalDuration.asHours())
   const totalMinutes = totalDuration.minutes()
 

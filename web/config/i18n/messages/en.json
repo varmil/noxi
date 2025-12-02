@@ -190,7 +190,10 @@
             "description": "Discover detailed stats, rankings, and live updates for {channel} on VCharts."
           },
           "section": {
-            "data": { "title": "YouTube Data" }
+            "data": { "title": "YouTube Data" },
+            "stats": { "title": "Last 30 Days Statistics" },
+            "topLives": { "title": "Top 3 Popular Streams (Last 30 Days)" },
+            "topSuperChats": { "title": "Top Super Chats (Last 30 Days)" }
           }
         },
         "superChat": {
@@ -470,7 +473,23 @@
   "Features": {
     "channel": {
       "overview": {
-        "nav": "Overview"
+        "nav": "Overview",
+        "stats": {
+          "superChatRevenue": "Super Chat Revenue",
+          "medianViewers": "Median Concurrent Viewers",
+          "totalStreamTime": "Total Stream Time",
+          "noData": "No data available"
+        },
+        "topLives": {
+          "rank": "#{rank}",
+          "maxViewers": "Max {count} viewers",
+          "noLives": "No streams available"
+        },
+        "topSuperChats": {
+          "rank": "#{rank}",
+          "noComments": "No comments available",
+          "noMessage": "No message"
+        }
       },
       "superChat": {
         "nav": "Super Chat",
