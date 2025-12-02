@@ -7,7 +7,7 @@ type MetricKey = 'peakConcurrentViewers' | 'avgConcurrentViewers'
  */
 export const calculateMedian = (
   streams: StreamsSchema,
-  metricKey: MetricKey = 'avgConcurrentViewers'
+  metricKey: MetricKey = 'peakConcurrentViewers'
 ): number | undefined => {
   const values = streams
     .map(s => s.metrics[metricKey])
@@ -28,7 +28,7 @@ export const calculateMedian = (
  */
 export const calculateMax = (
   streams: StreamsSchema,
-  metricKey: MetricKey = 'avgConcurrentViewers'
+  metricKey: MetricKey = 'peakConcurrentViewers'
 ): number | undefined => {
   const values = streams
     .map(s => s.metrics[metricKey])
@@ -44,7 +44,7 @@ export const calculateMax = (
  */
 export const calculateMin = (
   streams: StreamsSchema,
-  metricKey: MetricKey = 'avgConcurrentViewers'
+  metricKey: MetricKey = 'peakConcurrentViewers'
 ): number | undefined => {
   const values = streams
     .map(s => s.metrics[metricKey])

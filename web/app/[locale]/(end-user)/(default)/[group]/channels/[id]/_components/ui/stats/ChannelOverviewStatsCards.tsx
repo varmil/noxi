@@ -7,9 +7,9 @@ import {
   StatsCardHeader
 } from 'components/styles/card/StatsCard'
 import dayjs from 'lib/dayjs'
+import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { getTotalAndAverageDuration } from 'utils/stream/calculateStreamDuration'
 import { calculateMedian } from 'utils/stream/calculateStreamStats'
-import { formatMicrosAsRoundedAmount } from 'utils/amount'
 
 type Props = {
   channelId: string
