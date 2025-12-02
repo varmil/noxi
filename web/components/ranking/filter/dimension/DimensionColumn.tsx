@@ -47,23 +47,6 @@ export default function DimensionColumn({}: Props) {
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
-        <Label label="Cheer" className="mb-1.5" />
-        {CHEER_KEYS.map(key => (
-          <SelectButton
-            key={key}
-            pathname={`/ranking/${key}/${resetGroup(key)}/${resetPeriod(key)}`}
-            qs={{ ...RESET_KEYS(key) }}
-            isActive={() => pathname.includes(`/ranking/${key}/`)}
-            activeVariant="secondary"
-          >
-            <div>
-              <span>{tg(`dimension.${key}`)}</span>
-              <Badge className="ml-0.5 px-1.5 bg-gradient-to-r from-blue-500 to-violet-500 text-white font-bold">
-                β
-              </Badge>
-            </div>
-          </SelectButton>
-        ))}
 
         <Label label="Channels" className="my-1.5" />
         {CHANNELS_KEYS.map(key => (
@@ -90,6 +73,25 @@ export default function DimensionColumn({}: Props) {
             {tg(`dimension.${key}`)}
           </SelectButton>
         ))}
+
+        <Label label="Cheer" className="mb-1.5" />
+        {CHEER_KEYS.map(key => (
+          <SelectButton
+            key={key}
+            pathname={`/ranking/${key}/${resetGroup(key)}/${resetPeriod(key)}`}
+            qs={{ ...RESET_KEYS(key) }}
+            isActive={() => pathname.includes(`/ranking/${key}/`)}
+            activeVariant="secondary"
+          >
+            <div>
+              <span>{tg(`dimension.${key}`)}</span>
+              <Badge className="ml-0.5 px-1.5 bg-linear-to-r from-blue-500 to-violet-500 text-white font-bold">
+                β
+              </Badge>
+            </div>
+          </SelectButton>
+        ))}
+
       </ColumnContent>
     </Column>
   )
