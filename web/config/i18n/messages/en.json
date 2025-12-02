@@ -487,7 +487,8 @@
         },
         "topSuperChats": {
           "rank": "#{rank}",
-          "noComments": "No comments available"
+          "noComments": "No comments available",
+          "noMessage": "No message"
         }
       },
       "superChat": {

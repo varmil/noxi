@@ -46,20 +46,20 @@
     - レスポンシブデザイン対応
     - _Requirements: 3.3, 3.4, 3.5_
 
-- [ ] 5. 上位スーパーチャットコメントコンポーネントの実装
-  - [ ] 5.1 TopSuperChatCommentsコンポーネントを作成
+- [x] 5. 上位スーパーチャットコメントコンポーネントの実装
+  - [x] 5.1 TopSuperChatCommentsコンポーネントを作成
     - `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/top-superchats/TopSuperChatComments.tsx`を作成
     - Server Componentとして実装
     - getSupersBundlesを呼び出してamountMicros降順でTop3を取得
     - _Requirements: 5.1, 5.2_
-  - [ ] 5.2 SuperChatCommentCardコンポーネントを作成
+  - [x] 5.2 SuperChatCommentCardコンポーネントを作成
     - 金額、メッセージ、投稿者名を表示
     - ランクバッジを表示
     - shadcnのCard、Badge、CardFooterを使用
     - レスポンシブデザイン対応
     - _Requirements: 5.3, 5.4, 5.5, 5.6_
 
-- [ ] 6. ChannelsIdTemplateの更新
+- [-] 6. ChannelsIdTemplateの更新
   - 既存のChannelCheerStats、ChannelCheerTopFans、ChannelCheerHistoryのセクションを削除
   - ChannelDataセクションを残す（レイアウト調整）
   - 新しい統計カードセクションを追加

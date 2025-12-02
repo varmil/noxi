@@ -487,7 +487,8 @@
         },
         "topSuperChats": {
           "rank": "#{rank}",
-          "noComments": "コメントがありません"
+          "noComments": "コメントがありません",
+          "noMessage": "メッセージなし"
         }
       },
       "superChat": {
