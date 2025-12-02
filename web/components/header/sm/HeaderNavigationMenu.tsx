@@ -11,13 +11,13 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
+import GroupGallery from 'components/group/GroupGallery'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
 import {
   ChannelsRankingDefaultUrl,
   StreamRankingDefaultUrl,
 } from 'config/constants/RankingRoute'
 import { Link } from 'lib/navigation'
-import GroupGallery from 'components/group/GroupGallery'
 
 export default function HeaderNavigationMenu() {
   const comp = useTranslations('Components.header')
