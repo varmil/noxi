@@ -18,14 +18,14 @@
     - 必要に応じてリファクタリング（共通化）
     - _Requirements: 6.3_
 
-- [ ] 3. 統計カードコンポーネントの実装
-  - [ ] 3.1 ChannelOverviewStatsCardsコンポーネントを作成
+- [x] 3. 統計カードコンポーネントの実装
+  - [x] 3.1 ChannelOverviewStatsCardsコンポーネントを作成
     - `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/stats/ChannelOverviewStatsCards.tsx`を作成
     - Server Componentとして実装
     - getSupersBundleSumとgetRecentEndedStreamsを並列で呼び出し
     - 3つの統計カード（スパチャ収入、中央値、配信時間）を表示
     - _Requirements: 2.1, 2.2, 4.1, 6.1_
-  - [ ] 3.2 個別の統計カードコンポーネントを作成
+  - [x] 3.2 個別の統計カードコンポーネントを作成
     - SuperChatRevenueCard: スパチャ収入を表示
     - MedianConcurrentViewersCard: 同時接続数中央値を表示
     - TotalStreamTimeCard: 合計配信時間を表示
@@ -33,13 +33,13 @@
     - レスポンシブデザイン対応
     - _Requirements: 2.3, 2.4, 2.5, 4.4, 4.5, 4.6, 6.4, 6.5, 6.6_
 
-- [ ] 4. 人気ライブTop3コンポーネントの実装
-  - [ ] 4.1 TopLiveStreamsGalleryコンポーネントを作成
+- [x] 4. 人気ライブTop3コンポーネントの実装
+  - [x] 4.1 TopLiveStreamsGalleryコンポーネントを作成
     - `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/top-lives/TopLiveStreamsGallery.tsx`を作成
     - Server Componentとして実装
     - getStreamsを呼び出してmaxViewerCount降順でTop3を取得
     - _Requirements: 3.1, 3.2_
-  - [ ] 4.2 TopLiveStreamCardコンポーネントを作成
+  - [x] 4.2 TopLiveStreamCardコンポーネントを作成
     - サムネイル、タイトル、最大同時接続数、配信日時を表示
     - ランクバッジを表示
     - shadcnのCard、Badgeを使用
