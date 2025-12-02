@@ -59,7 +59,7 @@
     - レスポンシブデザイン対応
     - _Requirements: 5.3, 5.4, 5.5, 5.6_
 
-- [-] 6. ChannelsIdTemplateの更新
+- [x] 6. ChannelsIdTemplateの更新
   - 既存のChannelCheerStats、ChannelCheerTopFans、ChannelCheerHistoryのセクションを削除
   - ChannelDataセクションを残す（レイアウト調整）
   - 新しい統計カードセクションを追加
@@ -68,7 +68,7 @@
   - レスポンシブグリッドレイアウト（lg:grid-cols-6）を適用
   - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-- [ ] 7. 未使用コンポーネントのクリーンアップ
+- [x] 7. 未使用コンポーネントのクリーンアップ
   - ChannelCheerStatsコンポーネントへの参照を確認
   - ChannelCheerTopFansコンポーネントへの参照を確認
   - ChannelCheerHistoryコンポーネントへの参照を確認
