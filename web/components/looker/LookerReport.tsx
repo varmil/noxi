@@ -40,16 +40,36 @@ export const LookerReport: React.FC<Props> = ({
       )}
     >
       {!shouldLoad && (
-        <div className="w-full h-full flex items-center justify-center bg-gray-50 rounded-lg">
-          <Skeleton className="w-full h-full" />
+        <div className="w-full h-full flex flex-col gap-3 p-4 bg-background rounded-lg border">
+          {/* ヘッダー部分のスケルトン */}
+          <div className="flex items-center justify-between">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-4 w-16" />
+          </div>
+          {/* メインコンテンツのスケルトン */}
+          <div className="flex-1 flex flex-col gap-2">
+            <Skeleton className="h-6 w-3/4" />
+            <Skeleton className="h-4 w-1/2" />
+            <Skeleton className="flex-1 w-full" />
+          </div>
         </div>
       )}
 
       {shouldLoad && (
         <>
           {!isLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-gray-50 rounded-lg z-10">
-              <Skeleton className="w-full h-full" />
+            <div className="absolute inset-0 flex flex-col gap-3 p-4 bg-background rounded-lg border z-10">
+              {/* ヘッダー部分のスケルトン */}
+              <div className="flex items-center justify-between">
+                <Skeleton className="h-4 w-32" />
+                <Skeleton className="h-4 w-16" />
+              </div>
+              {/* メインコンテンツのスケルトン */}
+              <div className="flex-1 flex flex-col gap-2">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="flex-1 w-full" />
+              </div>
             </div>
           )}
           <iframe
@@ -58,7 +78,6 @@ export const LookerReport: React.FC<Props> = ({
             width="100%"
             height="100%"
             style={{ border: 'none', overflowY: 'hidden' }}
-            scrolling="no"
             onLoad={handleLoad}
             sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
             className="w-full h-full"
