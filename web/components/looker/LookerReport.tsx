@@ -5,6 +5,26 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { useIntersectionObserver } from '../../hooks/use-intersection-observer'
 
+const LookerReportSkeleton = ({ className }: { className?: string }) => {
+  return (
+    <div
+      className={`flex flex-col gap-3 p-4 bg-background rounded-lg border ${className}`}
+    >
+      {/* ヘッダー部分のスケルトン */}
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-4 w-16" />
+      </div>
+      {/* コンテンツ部分のスケルトン */}
+      <div className="flex-1 flex flex-col gap-2">
+        <Skeleton className="h-6 w-3/4" />
+        <Skeleton className="h-4 w-1/2" />
+        <Skeleton className="flex-1 w-full" />
+      </div>
+    </div>
+  )
+}
+
 type Props = {
   reportUrl: string
   title?: string
@@ -39,48 +59,22 @@ export const LookerReport: React.FC<Props> = ({
         className
       )}
     >
-      {!shouldLoad && (
-        <div className="w-full h-full flex flex-col gap-3 p-4 bg-background rounded-lg border">
-          {/* ヘッダー部分のスケルトン */}
-          <div className="flex items-center justify-between">
-            <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-4 w-16" />
-          </div>
-          {/* メインコンテンツのスケルトン */}
-          <div className="flex-1 flex flex-col gap-2">
-            <Skeleton className="h-6 w-3/4" />
-            <Skeleton className="h-4 w-1/2" />
-            <Skeleton className="flex-1 w-full" />
-          </div>
-        </div>
-      )}
+      {!shouldLoad && <LookerReportSkeleton className="w-full h-full" />}
 
       {shouldLoad && (
         <>
-          {!isLoaded && (
-            <div className="absolute inset-0 flex flex-col gap-3 p-4 bg-background rounded-lg border z-10">
-              {/* ヘッダー部分のスケルトン */}
-              <div className="flex items-center justify-between">
-                <Skeleton className="h-4 w-32" />
-                <Skeleton className="h-4 w-16" />
-              </div>
-              {/* メインコンテンツのスケルトン */}
-              <div className="flex-1 flex flex-col gap-2">
-                <Skeleton className="h-6 w-3/4" />
-                <Skeleton className="h-4 w-1/2" />
-                <Skeleton className="flex-1 w-full" />
-              </div>
-            </div>
-          )}
+          {!isLoaded && <LookerReportSkeleton className="absolute inset-0" />}
           <iframe
             src={reportUrl}
             title={title}
             width="100%"
             height="100%"
+            // DO NOT DELETE THIS: This is MUST for disable scroll
+            scrolling="no"
             style={{ border: 'none', overflowY: 'hidden' }}
             onLoad={handleLoad}
             sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-            className="w-full h-full"
+            // className={className}
           />
         </>
       )}
