@@ -3,7 +3,7 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import { SessionProvider } from 'next-auth/react'
-import { hasLocale, Locale, NextIntlClientProvider } from 'next-intl'
+import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
@@ -19,7 +19,7 @@ import type { Viewport } from 'next'
 
 type Props = {
   children: ReactNode
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
 }
 
 const notoSansJP = Noto_Sans_JP({
@@ -49,7 +49,7 @@ export default async function LocaleLayout(props: Props) {
   }
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
 
   return (
     <html
@@ -57,6 +57,11 @@ export default async function LocaleLayout(props: Props) {
       className={`${notoSansJP.className}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Looker Studio ドメインへの事前接続でパフォーマンス向上 */}
+        <link rel="preconnect" href="https://lookerstudio.google.com" />
+        <link rel="dns-prefetch" href="https://lookerstudio.google.com" />
+      </head>
       <ClarityScript />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
       <body className="text-sm sm:text-base" suppressHydrationWarning>

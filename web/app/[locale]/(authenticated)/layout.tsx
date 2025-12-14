@@ -1,18 +1,16 @@
-import { PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 import { Metadata } from 'next'
-import { Locale } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import DashboardNav from 'app/[locale]/(authenticated)/dashboard/components/DashboardNav'
 import Header from 'components/header/Header'
 import DefaultLayout from 'components/layouts/DefaultLayout'
+import { routing } from 'config/i18n/routing'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  // const { locale } = await props.params
-  // const global = await getTranslations({ locale, namespace: 'Global' })
+export async function generateMetadata(): Promise<Metadata> {
   return {
     robots: { index: false }
   }
@@ -21,8 +19,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function AuthenticatedLayout({
   children,
   params
-}: PropsWithChildren<Props>) {
-  setRequestLocale((await params).locale)
+}: {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+
+  // Validate that the locale is supported
+  if (!routing.locales.includes(locale as any)) {
+    throw new Error(`Unsupported locale: ${locale}`)
+  }
+
+  setRequestLocale(locale as 'ja' | 'en')
 
   return (
     <DefaultLayout>

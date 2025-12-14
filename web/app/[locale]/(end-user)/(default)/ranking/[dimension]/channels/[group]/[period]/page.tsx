@@ -1,10 +1,11 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
 import { GroupString } from 'config/constants/Group'
+import { routing } from 'config/i18n/routing'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
@@ -18,7 +19,7 @@ import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{
-    locale: Locale
+    locale: string
     period: ChannelsRankingPeriod
     dimension: ChannelsRankingDimension
     group: GroupString
@@ -31,7 +32,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { gender, date, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
-      locale,
+      locale: locale as 'ja' | 'en',
       pageNamespace: 'Page.youtube.channels.ranking',
       featNamespace: 'Features.channelsRanking.ranking.dimension',
       period,
@@ -66,7 +67,7 @@ export default function RankingChannelsPage(props: Props) {
   const { gender } = searchParams
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   const global = useTranslations('Global')
   const feat = useTranslations('Features.channelsRanking.ranking.dimension')
 

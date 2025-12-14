@@ -1,10 +1,11 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
 import { GroupString } from 'config/constants/Group'
+import { routing } from 'config/i18n/routing'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
 import { MostCheeredPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -12,7 +13,7 @@ import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{
-    locale: Locale
+    locale: string
     period: MostCheeredPeriod
     group: GroupString
   }>
@@ -24,7 +25,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { gender, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
-      locale,
+      locale: locale as 'ja' | 'en',
       pageNamespace: 'Page.ranking.most-cheered',
       featNamespace: 'Features.mostCheered.dimension',
       period,
@@ -46,7 +47,7 @@ export default function RankingMostCheeredPage(props: Props) {
   const { gender } = searchParams
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   const global = useTranslations('Global')
   const feat = useTranslations('Features.mostCheered.dimension')
 

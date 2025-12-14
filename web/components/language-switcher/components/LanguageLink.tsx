@@ -7,13 +7,14 @@
 // eslint-disable-next-line no-restricted-imports
 import Link from 'next/link'
 import { useNewPathForLanguage } from 'components/language-switcher/utils/language-switcher'
+import type { routing } from 'config/i18n/routing'
 
 export default function LanguageLink({
   children,
   locale
 }: {
   children: React.ReactNode
-  locale: 'ja' | 'en'
+  locale: string
 }) {
   return (
     <Link href={useNewPathForLanguage(locale)} prefetch={false}>

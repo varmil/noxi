@@ -94,7 +94,7 @@ export default function ViewerCounts({
       <div className="sr-only">
         {t('srViewerCountsChart', {
           dateRange: dateRange.join(''),
-          peak: stream.metrics.peakConcurrentViewers
+          peak: stream.metrics.peakConcurrentViewers.toString()
         })}
       </div>
     </ChartCard>

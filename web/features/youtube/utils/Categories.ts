@@ -1,3 +1,5 @@
+import type { routing } from 'config/i18n/routing'
+
 const categories = [
   {
     id: 1,
@@ -193,7 +195,7 @@ const categories = [
   }
 ]
 
-type Locale = 'ja' | 'en'
+type Locale = (typeof routing.locales)[number]
 
 class Category {
   public readonly id: number

@@ -37,7 +37,7 @@ export default function GroupGallery({
           useNavigationMenuLink={useNavigationMenuLink}
         >
           {t(group.count.isAll ? 'listingAll' : 'listing', {
-            count: group.count.val
+            count: group.count.val.toString()
           })}
         </ListItem>
       ))}
@@ -51,7 +51,7 @@ export default function GroupGallery({
           useNavigationMenuLink={useNavigationMenuLink}
         >
           {t(group.count.isAll ? 'listingAll' : 'listing', {
-            count: group.count.val
+            count: group.count.val.toString()
           })}
         </ListItem>
       ))}

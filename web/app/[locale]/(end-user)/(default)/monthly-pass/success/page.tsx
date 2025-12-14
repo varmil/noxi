@@ -1,5 +1,4 @@
 import { CheckCircle } from 'lucide-react'
-import { Locale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -10,11 +9,12 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Page } from 'components/page'
+import { routing } from 'config/i18n/routing'
 import { Link, redirect } from 'lib/navigation'
 import { stripe } from 'lib/stripe'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
   searchParams: Promise<{ sessionId: string }>
 }
 
@@ -30,7 +30,7 @@ export default async function SuccessPage({ searchParams, params }: Props) {
 
   if (status === 'open') {
     console.log('Checkout session is not complete')
-    return redirect({ href: `/monthly-pass`, locale })
+    return redirect({ href: `/monthly-pass`, locale: locale as 'ja' | 'en' })
   }
 
   return (
