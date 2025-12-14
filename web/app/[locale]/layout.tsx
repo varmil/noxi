@@ -57,6 +57,11 @@ export default async function LocaleLayout(props: Props) {
       className={`${notoSansJP.className}`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Looker Studio ドメインへの事前接続でパフォーマンス向上 */}
+        <link rel="preconnect" href="https://lookerstudio.google.com" />
+        <link rel="dns-prefetch" href="https://lookerstudio.google.com" />
+      </head>
       <ClarityScript />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
       <body className="text-sm sm:text-base" suppressHydrationWarning>

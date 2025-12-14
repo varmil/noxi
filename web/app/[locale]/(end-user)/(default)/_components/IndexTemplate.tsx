@@ -40,37 +40,63 @@ const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
 }
 
 export async function IndexTemplate({}: PropsWithoutRef<Props>) {
-  const t = await getTranslations('Page.index')
   return (
     <>
       <Container className="flex flex-col gap-6">
+        {/* 最初の2つは即座に読み込み（Above the fold） */}
         <FlexSection className="flex-row gap-2 md:gap-6">
           <div className="flex-1 w-full">
-            <LookerReport reportUrl={LIVE_COUNT_URL} className="h-[120px]" />
+            <LookerReport
+              reportUrl={LIVE_COUNT_URL}
+              className="h-[120px]"
+              lazy={false}
+            />
           </div>
           <div className="flex-1 w-full">
-            <LookerReport reportUrl={VIEWER_URL} className="h-[120px]" />
+            <LookerReport
+              reportUrl={VIEWER_URL}
+              className="h-[120px]"
+              lazy={false}
+            />
           </div>
         </FlexSection>
 
+        {/* 以下は遅延読み込み */}
         <FlexSection className="gap-6">
           <div className="flex-1 w-full">
-            <LookerReport reportUrl={CHART_1_URL} className="h-[350px]" />
+            <LookerReport
+              reportUrl={CHART_1_URL}
+              className="h-[350px]"
+              lazy={true}
+            />
           </div>
           <div className="flex-1 w-full">
-            <LookerReport reportUrl={CHART_2_URL} className="h-[350px]" />
+            <LookerReport
+              reportUrl={CHART_2_URL}
+              className="h-[350px]"
+              lazy={true}
+            />
           </div>
         </FlexSection>
 
         <FlexSection className="items-start gap-6">
-          <LookerReport reportUrl={WEEKNUM_URL} className="h-[410px]" />
-          <LookerReport reportUrl={GOLDENTIME_URL} className="h-[568px]" />
+          <LookerReport
+            reportUrl={WEEKNUM_URL}
+            className="h-[410px]"
+            lazy={true}
+          />
+          <LookerReport
+            reportUrl={GOLDENTIME_URL}
+            className="h-[568px]"
+            lazy={true}
+          />
         </FlexSection>
 
         <div>
           <LookerReport
             reportUrl={CHANNEL_RANKING_URL}
             className="h-[400px] xl:h-[490px]"
+            lazy={true}
           />
         </div>
 
@@ -78,6 +104,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           <LookerReport
             reportUrl={SCATTER_URL}
             className="h-[480px] xl:h-[500px] 2xl:h-[530px]"
+            lazy={true}
           />
         </div>
       </Container>
