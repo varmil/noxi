@@ -284,13 +284,6 @@
       }
     },
 
-    "howToPlay": {
-      "metadata": {
-        "title": "遊び方・FAQ",
-        "description": "タレントの応援方法や、よくある質問を詳しく説明します。"
-      }
-    },
-
     "ranking": {
       "most-cheered": {
         "metadata": {
@@ -383,8 +376,7 @@
       "channels": "スパチャ金額",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
-      "groups": "タレント検索",
-      "howToPlay": "遊び方"
+      "groups": "タレント検索"
     },
     "channelsAdd": { "title": "チャンネルを載せたい" },
     "contact": { "title": "お問い合わせ" },
@@ -398,8 +390,7 @@
       "channelsRanking": "チャンネルランキング",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
-      "talents": "タレント一覧",
-      "howToPlay": "遊び方"
+      "talents": "タレント一覧"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",

@@ -284,13 +284,6 @@
       }
     },
 
-    "howToPlay": {
-      "metadata": {
-        "title": "How to play / FAQ",
-        "description": "Detailed explanation of how to cheer talents and frequently asked questions."
-      }
-    },
-
     "ranking": {
       "most-cheered": {
         "metadata": {
@@ -383,8 +376,7 @@
       "channels": "Channels",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
-      "groups": "Talents",
-      "howToPlay": "How To Play"
+      "groups": "Talents"
     },
     "channelsAdd": { "title": "Add your channel to VCharts" },
     "contact": { "title": "Contact" },
@@ -398,8 +390,7 @@
       "channelsRanking": "Channels Ranking",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
-      "talents": "Talents",
-      "howToPlay": "How To Play"
+      "talents": "Talents"
     },
     "loginBonus": {
       "title": "Daily login bonus!",
