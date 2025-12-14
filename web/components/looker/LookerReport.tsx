@@ -40,7 +40,7 @@ export const LookerReport: React.FC<Props> = ({
 }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const { elementRef, isIntersecting } = useIntersectionObserver({
-    threshold: 0.1,
+    threshold: 0.5,
     rootMargin: '100px', // 100px手前から読み込み開始
     triggerOnce: true
   })
