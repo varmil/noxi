@@ -16,9 +16,7 @@ export default async function TopLiveStreamCard({ stream, rank }: Props) {
 
   const { videoId, snippet, metrics, streamTimes } = stream
   const thumbnailUrl =
-    snippet.thumbnails.medium?.url ||
-    snippet.thumbnails.default?.url ||
-    ''
+    snippet.thumbnails.medium?.url || snippet.thumbnails.default?.url || ''
   const maxViewers = metrics.peakConcurrentViewers
 
   // 配信日時をフォーマット
@@ -48,7 +46,7 @@ export default async function TopLiveStreamCard({ stream, rank }: Props) {
               variant="default"
               className="absolute -top-2 left-0 text-xs font-bold"
             >
-              {feat('rank', { rank })}
+              {feat('rank', { rank: rank.toString() })}
             </Badge>
           </div>
 

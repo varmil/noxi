@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react'
 import { Metadata } from 'next'
-import { Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import {
   Card,
@@ -10,17 +10,18 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Page } from 'components/page'
+import { routing } from 'config/i18n/routing'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
   searchParams: Promise<{}>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
   const [global, page] = await Promise.all([
-    getTranslations({ locale, namespace: 'Global' }),
-    getTranslations({ locale, namespace: 'Page.auth.verifyRequest' })
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.auth.verifyRequest' })
   ])
 
   return {

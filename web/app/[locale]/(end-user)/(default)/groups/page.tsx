@@ -1,13 +1,13 @@
 import { Metadata } from 'next'
-import { Locale } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getChannels } from 'apis/youtube/getChannels'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
+import { routing } from 'config/i18n/routing'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -15,8 +15,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const { locale } = params
 
-  const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({ locale, namespace: 'Page.groups.metadata' })
+  const tg = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+  const t = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.groups.metadata' })
   return {
     title: `${t('title')} - ${tg('title')}`,
     description: `${t('description')}`
@@ -28,7 +28,7 @@ export default async function GroupsPage(props: Props) {
   const { locale } = params
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   const t = await getTranslations('Page.groups.metadata')
 
   // 適当におすすめをとる

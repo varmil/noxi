@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react'
 import { Metadata } from 'next'
-import { Locale } from 'next-intl'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getSupersBundle } from 'apis/supers/getSupersBundle'
 import { getChannel } from 'apis/youtube/getChannel'
@@ -10,6 +9,7 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
 import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
+import { routing } from 'config/i18n/routing'
 import { setGroup } from 'lib/server-only-context/cache'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { getWebUrl } from 'utils/web-url'
@@ -20,7 +20,7 @@ import TheaterModeTemplate from '../template/TheaterModeTemplate'
 const TITLE_MAX_LENGTH = 22
 
 export type LiveIdBasePageProps = {
-  params: Promise<{ locale: Locale; videoId: string }>
+  params: Promise<{ locale: string; videoId: string }>
   searchParams?: Promise<{ theater?: '1' }>
 }
 type Props = LiveIdBasePageProps
@@ -37,7 +37,7 @@ export async function generateBaseMetadata(
 
   const [t, { basicInfo }, bundle, superChats] = await Promise.all([
     getTranslations({
-      locale,
+      locale: locale as 'ja' | 'en',
       namespace: props.namespace
     }),
     getChannel(channelId),
@@ -73,7 +73,7 @@ export async function generateBaseMetadata(
       : { robots: { index: false } }
 
   return {
-    title: `${t('title', { title: slicedTitle, channel: basicInfo.title })}`,
+    title: `${t('title', { title: slicedTitle })}`,
     description: `${t('description', {
       superChat: formatMicrosAsRoundedAmount(bundle?.amountMicros ?? BigInt(0)),
       concurrentViewers: peakConcurrentViewers.toLocaleString(),
@@ -88,7 +88,7 @@ export default async function LiveIdBasePage(props: PropsWithChildren<Props>) {
   const { group, status } = await getStream(videoId)
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   setGroup(group)
 
   return (

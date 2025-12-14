@@ -38,7 +38,7 @@ export async function ChannelGallery({
       <CardHeader>
         <CardTitle className="text-base flex items-center gap-2">
           <Users className="w-6 h-6 text-muted-foreground" />
-          {t('title', { group })}
+          {t('title')}
         </CardTitle>
       </CardHeader>
       <CardContent>

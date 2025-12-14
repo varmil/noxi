@@ -1,9 +1,10 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Group'
+import { routing } from 'config/i18n/routing'
 import {
   StreamRankingDimension,
   StreamRankingSearchParams
@@ -15,7 +16,7 @@ import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{
-    locale: Locale
+    locale: string
     period: StreamRankingPeriod
     dimension: StreamRankingDimension
     group: GroupString
@@ -28,7 +29,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { gender, page } = await props.searchParams
   return {
     ...(await generateTitleAndDescription({
-      locale,
+      locale: locale as 'ja' | 'en',
       pageNamespace: 'Page.youtube.live.ranking',
       featNamespace: 'Features.streamRanking.ranking.dimension',
       period,
@@ -49,7 +50,7 @@ export default function RankingLivePage(props: Props) {
   const { gender } = searchParams
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   const global = useTranslations('Global')
   const feat = useTranslations('Features.streamRanking.ranking.dimension')
 

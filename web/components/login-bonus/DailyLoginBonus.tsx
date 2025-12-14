@@ -57,7 +57,7 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
     if (bonusData?.eligible) {
       toast(comp('toastTitle'), {
         description: comp('current', {
-          count: bonusData.totalTickets
+          count: bonusData.totalTickets.toString()
         })
       })
     }
@@ -90,12 +90,12 @@ export function DailyLoginBonus({ session }: { session: Session | null }) {
           <div className="text-center space-y-2">
             <p className="text-lg font-medium">
               {comp('awarded', {
-                count: bonusData?.ticketsAwarded || 0
+                count: (bonusData?.ticketsAwarded || 0).toString()
               })}
             </p>
             <p className="text-sm text-muted-foreground">
               {comp('current', {
-                count: bonusData?.totalTickets || 0
+                count: (bonusData?.totalTickets || 0).toString()
               })}
             </p>
           </div>

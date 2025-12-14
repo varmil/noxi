@@ -1,22 +1,25 @@
 import { use } from 'react'
 import { Metadata } from 'next'
-import { Locale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/scheduled/_components/IndexTemplate'
 import { Page } from 'components/page'
 import { GroupString } from 'config/constants/Group'
+import { routing } from 'config/i18n/routing'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {
-  params: Promise<{ locale: Locale; group: GroupString }>
+  params: Promise<{
+    locale: string
+    group: GroupString
+  }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, group } = await props.params
-  const tg = await getTranslations({ locale, namespace: 'Global' })
-  const t = await getTranslations({
-    locale,
+  const tg = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+  const t = await getTranslations({ locale: locale as 'ja' | 'en',
     namespace: 'Page.group.scheduled.metadata'
   })
   const groupName = tg(`group.${group}`)
@@ -31,7 +34,7 @@ export default function GroupScheduledPage(props: Props) {
   const { locale, group } = use(props.params)
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   setGroup(group)
 
   const t = useTranslations('Breadcrumb')

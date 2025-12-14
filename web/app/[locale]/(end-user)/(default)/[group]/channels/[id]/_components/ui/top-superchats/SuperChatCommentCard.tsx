@@ -9,10 +9,7 @@ type Props = {
   rank: number
 }
 
-export default async function SuperChatCommentCard({
-  superChat,
-  rank
-}: Props) {
+export default async function SuperChatCommentCard({ superChat, rank }: Props) {
   const feat = await getTranslations('Features.channel.overview.topSuperChats')
   const format = await getFormatter()
 
@@ -24,7 +21,7 @@ export default async function SuperChatCommentCard({
         <div className="flex items-center justify-between">
           {/* ランクバッジ */}
           <Badge variant="default" className="text-xs font-bold">
-            {feat('rank', { rank })}
+            {feat('rank', { rank: rank.toString() })}
           </Badge>
           {/* 金額 */}
           <div className="text-lg font-bold tabular-nums">

@@ -1,18 +1,22 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { Metadata } from 'next'
-import { Locale } from 'next-intl'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { Page } from 'components/page'
 import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemplateSkeleton'
 import { GroupString } from 'config/constants/Group'
+import { routing } from 'config/i18n/routing'
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
 import { getWebUrl } from 'utils/web-url'
 import { ChannelProfileTemplate } from '../ui/profile/ChannelProfileTemplate'
 
 export type ChannelsIdBasePageProps = {
-  params: Promise<{ locale: Locale; group: GroupString; id: string }>
+  params: Promise<{
+    locale: string
+    group: GroupString
+    id: string
+  }>
 }
 type Props = ChannelsIdBasePageProps
 
@@ -32,14 +36,16 @@ export async function generateBaseMetadata(
   const { locale, group, id } = await props.params
   const [{ basicInfo }, tg, t] = await Promise.all([
     getChannel(id),
-    getTranslations({ locale, namespace: 'Global' }),
-    getTranslations({ locale, namespace: props.namespace })
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: props.namespace
+    })
   ])
   return {
     title: `${t('title', { channel: basicInfo.title })} - ${tg('title')}`,
     description: `${t('description', {
-      channel: basicInfo.title,
-      group: tg(`group.${group}`)
+      channel: basicInfo.title
     })}`,
     alternates: {
       canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}`
@@ -54,7 +60,7 @@ export default async function ChannelsIdBasePage(
   const { locale, group, id } = await props.params
 
   // Enable static rendering
-  setRequestLocale(locale)
+  setRequestLocale(locale as 'ja' | 'en')
   setGroup(group)
 
   const [channel, tg, t] = await Promise.all([

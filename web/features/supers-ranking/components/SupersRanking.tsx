@@ -224,7 +224,7 @@ export default async function SupersRanking({
           </Table>
         </CardContent>
         <CardFooter className="text-sm text-muted-foreground">
-          {feat('description', { channel: channel.basicInfo.title })}
+          {feat('description')}
         </CardFooter>
       </Card>
     </div>

@@ -1,14 +1,17 @@
 import { notFound } from 'next/navigation'
-import { Locale } from 'next-intl'
 import { Separator } from '@/components/ui/separator'
 import { getUserProfileByUsername } from 'apis/user-profiles/getUserProfile'
 import { Page } from 'components/page'
+import { routing } from 'config/i18n/routing'
 import { CheerHistoryTabs } from 'features/user-public-profile/components/CheerHistoryTabs'
 import { CheerOverviewThisSeason } from 'features/user-public-profile/components/CheerOverviewThisSeason'
 import { ProfileHeader } from './components/ProfileHeader'
 
 type Props = {
-  params: Promise<{ locale: Locale; username: string }>
+  params: Promise<{
+    locale: string
+    username: string
+  }>
 }
 
 export default async function UserProfilePage({ params }: Props) {

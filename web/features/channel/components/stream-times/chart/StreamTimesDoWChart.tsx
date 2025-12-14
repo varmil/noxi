@@ -67,7 +67,7 @@ export default function StreamTimesDoWChart({
         {t('srOnly')}
         {data.map(dayData =>
           t('srOnlyLoop', {
-            count: dayData.count,
+            count: dayData.count.toString(),
             DoW: dayData.dayOfWeek
           })
         )}

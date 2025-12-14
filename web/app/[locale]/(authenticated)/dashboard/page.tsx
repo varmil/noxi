@@ -1,5 +1,4 @@
 import type React from 'react'
-import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import {
   Card,
@@ -9,13 +8,14 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { getUserProfile } from 'apis/user-profiles/getUserProfile'
+import { routing } from 'config/i18n/routing'
 import ProfileForm from 'features/dashboard/profile/components/ProfileForm'
 import { auth } from 'lib/auth'
 import { Link, redirect } from 'lib/navigation'
 import { getWebUrl } from 'utils/web-url'
 
 type Props = {
-  params: Promise<{ locale: Locale }>
+  params: Promise<{ locale: string }>
   searchParams: Promise<{}>
 }
 
@@ -25,7 +25,7 @@ export default async function ProfilePage(props: Props) {
   const page = await getTranslations('Page.dashboard')
 
   if (!session) {
-    redirect({ href: '/auth/signin', locale })
+    redirect({ href: '/auth/signin', locale: locale as 'ja' | 'en' })
     return
   }
 

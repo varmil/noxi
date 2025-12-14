@@ -151,7 +151,7 @@ export default function Chart({
       <div className="sr-only">
         {t('srPeakConcurrentViewersChart', {
           dateRange: dateRange.join(''),
-          viewers: average(streams)
+          viewers: average(streams).toString()
         })}
       </div>
     </ChartCard>

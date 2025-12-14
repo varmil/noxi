@@ -8,6 +8,7 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { useNewPathForLanguage } from 'components/language-switcher/utils/language-switcher'
+import type { routing } from 'config/i18n/routing'
 
 export default function LanguageSwitcher() {
   return (
@@ -24,7 +25,7 @@ const LanguageButton = ({
   locale
 }: {
   children: React.ReactNode
-  locale: 'ja' | 'en'
+  locale: string
 }) => {
   const currentLocale = useLocale()
   const isActive = currentLocale === locale
@@ -35,7 +36,7 @@ const LanguageButton = ({
       asChild
       size="sm"
       variant="ghost"
-      className={`!h-auto px-1 py-0.5 font-light ${
+      className={`h-auto! px-1 py-0.5 font-light ${
         isActive ? 'font-semibold border-b-2 border-primary rounded-none' : ''
       }`}
     >

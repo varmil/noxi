@@ -24,7 +24,7 @@ export const useProfileFormSchema = () => {
       MAX_NAME_LENGTH,
       feat('maxLength', {
         type: feat('name'),
-        length: MAX_NAME_LENGTH
+        length: MAX_NAME_LENGTH.toString()
       })
     )
     .refine(
@@ -44,14 +44,14 @@ export const useProfileFormSchema = () => {
     .min(MIN_USERNAME_LENGTH, {
       message: feat('minLength', {
         type: feat('username'),
-        length: MIN_USERNAME_LENGTH
+        length: MIN_USERNAME_LENGTH.toString()
       })
     })
     .max(
       MAX_USERNAME_LENGTH,
       feat('maxLength', {
         type: feat('username'),
-        length: MAX_USERNAME_LENGTH
+        length: MAX_USERNAME_LENGTH.toString()
       })
     )
     .regex(/^[a-zA-Z0-9_]+$/, {
@@ -74,7 +74,10 @@ export const useProfileFormSchema = () => {
     .string()
     .max(
       MAX_BIO_LENGTH,
-      feat('maxLength', { type: feat('bio'), length: MAX_BIO_LENGTH })
+      feat('maxLength', {
+        type: feat('bio'),
+        length: MAX_BIO_LENGTH.toString()
+      })
     )
     .refine(
       val => {
