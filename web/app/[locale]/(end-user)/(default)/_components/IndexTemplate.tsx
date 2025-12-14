@@ -1,5 +1,4 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { getTranslations } from 'next-intl/server'
 import { LookerReport } from 'components/looker/LookerReport'
 
 const LIVE_COUNT_URL =
