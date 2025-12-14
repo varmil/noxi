@@ -1,26 +1,39 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
-import { ArrowRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
-import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
-import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
-import { Link } from 'lib/navigation'
-import { HeroH2 } from './styles/HeroTitles'
-import SocialProofSection from './ui/social-proof/SocialProofSection'
+import { LookerReport } from 'components/looker/LookerReport'
+
+const LIVE_COUNT_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_mmo7wnz0yd'
+const VIEWER_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_d54aooz0yd'
+const CHART_1_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_kzw7z6x0yd'
+const CHART_2_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_7lmqygy0yd'
+const WEEKNUM_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_guu27y80yd'
+const GOLDENTIME_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_orwwr0z0yd'
+const CHANNEL_RANKING_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_2haikz50yd'
+const SCATTER_URL =
+  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_iyv78oa1yd'
 
 type Props = {}
 
-const Container = (props: PropsWithChildren<{}>) => {
+const Container = (props: PropsWithChildren<{ className?: string }>) => {
   return (
-    <div className="container px-0 py-8 space-y-16 md:px-4 md:py-24 lg:space-y-36">
+    <div className={`container px-0 py-2 md:px-4 md:py-4 ${props.className}`}>
       {props.children}
     </div>
   )
 }
 
-const HeroSectionContainer = (props: PropsWithChildren<{}>) => {
+const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
   return (
-    <div className="grid gap-12 lg:grid-cols-[1fr_480px] xl:grid-cols-[1fr_640px] 2xl:grid-cols-[1fr_700px]">
+    <div
+      className={`w-full flex flex-col md:flex-row items-center justify-center ${props.className}`}
+    >
       {props.children}
     </div>
   )
@@ -30,29 +43,43 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   const t = await getTranslations('Page.index')
   return (
     <>
-      <Container>
-        <HeroSectionContainer>
-          <div className="flex flex-col justify-center gap-y-8 whitespace-pre-wrap">
-            <HeroH2>{t('title')}</HeroH2>
-            <p className="max-w-[600px] text-muted-foreground text-lg md:text-xl">
-              {t('description')}
-            </p>
-            <Button className="hidden lg:inline-flex w-fit" asChild>
-              <Link href={ChannelsRankingDefaultUrl}>
-                {t('section.hero.more')}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+      <Container className="flex flex-col gap-6">
+        <FlexSection className="flex-row gap-2 md:gap-6">
+          <div className="flex-1 w-full">
+            <LookerReport reportUrl={LIVE_COUNT_URL} className="h-[120px]" />
           </div>
-          <ChannelsRankingGallery
-            period="last30Days"
-            dimension="super-chat"
-            group="all"
-            compact
-          />
-        </HeroSectionContainer>
+          <div className="flex-1 w-full">
+            <LookerReport reportUrl={VIEWER_URL} className="h-[120px]" />
+          </div>
+        </FlexSection>
 
-        <SocialProofSection />
+        <FlexSection className="gap-6">
+          <div className="flex-1 w-full">
+            <LookerReport reportUrl={CHART_1_URL} className="h-[350px]" />
+          </div>
+          <div className="flex-1 w-full">
+            <LookerReport reportUrl={CHART_2_URL} className="h-[350px]" />
+          </div>
+        </FlexSection>
+
+        <FlexSection className="items-start gap-6">
+          <LookerReport reportUrl={WEEKNUM_URL} className="h-[410px]" />
+          <LookerReport reportUrl={GOLDENTIME_URL} className="h-[568px]" />
+        </FlexSection>
+
+        <div>
+          <LookerReport
+            reportUrl={CHANNEL_RANKING_URL}
+            className="h-[400px] xl:h-[490px]"
+          />
+        </div>
+
+        <div>
+          <LookerReport
+            reportUrl={SCATTER_URL}
+            className="h-[480px] xl:h-[500px] 2xl:h-[530px]"
+          />
+        </div>
       </Container>
     </>
   )
