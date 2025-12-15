@@ -18,8 +18,8 @@ export class GroupsService {
     return await this.groupRepository.findAll()
   }
 
-  async findById(id: string): Promise<Group | null> {
-    return await this.groupRepository.findById(new GroupId(id))
+  async findById(id: GroupId): Promise<Group | null> {
+    return await this.groupRepository.findById(id)
   }
 
   async create(group: Group): Promise<void> {
@@ -27,17 +27,13 @@ export class GroupsService {
   }
 
   async update(
-    id: string,
-    group: Partial<{ name: string; iconSrc: string }>
+    id: GroupId,
+    group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
   ): Promise<void> {
-    const updateData: Partial<{ name: GroupName; iconSrc: GroupIconSrc }> = {}
-    if (group.name) updateData.name = new GroupName(group.name)
-    if (group.iconSrc) updateData.iconSrc = new GroupIconSrc(group.iconSrc)
-
-    await this.groupRepository.update(new GroupId(id), updateData)
+    await this.groupRepository.update(id, group)
   }
 
-  async delete(id: string): Promise<void> {
-    await this.groupRepository.delete(new GroupId(id))
+  async delete(id: GroupId): Promise<void> {
+    await this.groupRepository.delete(id)
   }
 }

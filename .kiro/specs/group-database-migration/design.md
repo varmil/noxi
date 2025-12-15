@@ -197,10 +197,10 @@ export interface GroupRegistrationRepository {
 @Injectable()
 export class GroupService {
   async findAll(): Promise<Group[]>
-  async findById(id: string): Promise<Group>
+  async findById(id: GroupId): Promise<Group>
   async create(createGroupDto: CreateGroupDto): Promise<void>
-  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<void>
-  async delete(id: string): Promise<void>
+  async update(id: GroupId, updateGroupDto: UpdateGroupDto): Promise<void>
+  async delete(id: GroupId): Promise<void>
 }
 
 @Injectable()
@@ -209,7 +209,7 @@ export class GroupRegistrationService {
     GroupRegistration[]
   >
   async create(createDto: CreateGroupRegistrationDto): Promise<void>
-  async updateStatus(id: number, status: string): Promise<void>
+  async updateStatus(id: number, status: GroupRegistrationStatus): Promise<void>
 }
 ```
 
