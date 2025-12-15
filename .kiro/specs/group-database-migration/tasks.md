@@ -31,27 +31,27 @@
     - **プロパティ 1: Group ID 一意性と形式検証**
     - **検証対象: 要件 1.5, 3.2, 3.3, 4.2**
 
-- [ ] 3. バックエンド Group インフラストラクチャレイヤーの実装
+- [x] 3. バックエンド Group インフラストラクチャレイヤーの実装
 
-  - [ ] 3.1 Group Repository Interface の定義
+  - [x] 3.1 Group Repository Interface の定義
 
     - GroupRepository インターフェースを作成
     - GroupRegistrationRepository インターフェースを作成
     - _要件: 3.1_
 
-  - [ ] 3.2 Group Repository 実装クラスの作成
+  - [x] 3.2 Group Repository 実装クラスの作成
 
     - GroupRepositoryImpl クラスを実装
     - Prisma を使用したデータベース操作
     - _要件: 3.1, 3.4_
 
-  - [ ] 3.3 GroupRegistration Repository 実装クラスの作成
+  - [x] 3.3 GroupRegistration Repository 実装クラスの作成
 
     - GroupRegistrationRepositoryImpl クラスを実装
     - 申請履歴の取得と保存機能
     - _要件: 4.5, 5.1_
 
-  - [ ] 3.4 マイグレーションデータ完全性のプロパティテスト
+  - [x] 3.4 マイグレーションデータ完全性のプロパティテスト
     - **プロパティ 2: マイグレーションデータ完全性**
     - **検証対象: 要件 1.2, 1.3**
 

@@ -1,30 +1,85 @@
 import { Injectable } from '@nestjs/common'
-import { Group, GroupRepository } from '@domain/group'
+import {
+  Group,
+  GroupRepository,
+  GroupId,
+  GroupName,
+  GroupIconSrc
+} from '@domain/group'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
 export class GroupRepositoryImpl implements GroupRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  async findOne({
-    where: { channelId, videoId }
-  }: Parameters<GroupRepository['findOne']>[0]) {
-    if (channelId) {
-      const row = await this.prismaInfraService.channel.findFirst({
-        where: { id: channelId.get() }
-      })
-      if (!row) return null
-      return new Group(row.group)
-    }
+  async findAll(): Promise<Group[]> {
+    const rows = await this.prismaInfraService.group.findMany({
+      orderBy: { createdAt: 'asc' }
+    })
 
-    if (videoId) {
-      const row = await this.prismaInfraService.youtubeStream.findUnique({
-        where: { videoId: videoId.get() }
-      })
-      if (!row) return null
-      return new Group(row.group)
-    }
+    return rows.map(
+      row =>
+        new Group({
+          id: new GroupId(row.id),
+          name: new GroupName(row.name),
+          iconSrc: new GroupIconSrc(row.iconSrc)
+        })
+    )
+  }
 
-    return null
+  async findById(id: GroupId): Promise<Group | null> {
+    const row = await this.prismaInfraService.group.findUnique({
+      where: { id: id.get() }
+    })
+
+    if (!row) return null
+
+    return new Group({
+      id: new GroupId(row.id),
+      name: new GroupName(row.name),
+      iconSrc: new GroupIconSrc(row.iconSrc)
+    })
+  }
+
+  async create(group: Group): Promise<Group> {
+    const row = await this.prismaInfraService.group.create({
+      data: {
+        id: group.id.get(),
+        name: group.name.get(),
+        iconSrc: group.iconSrc.get()
+      }
+    })
+
+    return new Group({
+      id: new GroupId(row.id),
+      name: new GroupName(row.name),
+      iconSrc: new GroupIconSrc(row.iconSrc)
+    })
+  }
+
+  async update(
+    id: GroupId,
+    group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
+  ): Promise<Group> {
+    const updateData: { name?: string; iconSrc?: string } = {}
+    if (group.name) updateData.name = group.name.get()
+    if (group.iconSrc) updateData.iconSrc = group.iconSrc.get()
+
+    const row = await this.prismaInfraService.group.update({
+      where: { id: id.get() },
+      data: updateData
+    })
+
+    return new Group({
+      id: new GroupId(row.id),
+      name: new GroupName(row.name),
+      iconSrc: new GroupIconSrc(row.iconSrc)
+    })
+  }
+
+  async delete(id: GroupId): Promise<void> {
+    await this.prismaInfraService.group.delete({
+      where: { id: id.get() }
+    })
   }
 }

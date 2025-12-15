@@ -1,11 +1,15 @@
-import { Group } from '@domain/group'
-import { ChannelId, VideoId } from '@domain/youtube'
+import { Group } from './Group.entity'
+import { GroupIconSrc } from './GroupIconSrc.vo'
+import { GroupId } from './GroupId.vo'
+import { GroupName } from './GroupName.vo'
 
 export interface GroupRepository {
-  findOne: (args: {
-    where: {
-      channelId?: ChannelId
-      videoId?: VideoId
-    }
-  }) => Promise<Group | null>
+  findAll(): Promise<Group[]>
+  findById(id: GroupId): Promise<Group | null>
+  create(group: Group): Promise<Group>
+  update(
+    id: GroupId,
+    group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
+  ): Promise<Group>
+  delete(id: GroupId): Promise<void>
 }
