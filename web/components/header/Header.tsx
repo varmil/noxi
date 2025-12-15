@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server'
+import { getGroups } from 'apis/groups'
 import AuthModalWithButton from 'components/auth/dialog/AuthModalWithButton'
 import UserDropdown from 'components/header/UserDropdown'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
@@ -10,9 +11,10 @@ import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default async function Header({ className }: { className?: string }) {
-  const [session, global] = await Promise.all([
+  const [session, global, groups] = await Promise.all([
     auth(),
-    getTranslations('Global')
+    getTranslations('Global'),
+    await getGroups()
   ])
 
   const bgFilter = 'backdrop-blur-sm supports-backdrop-filter:bg-background/70'
@@ -37,7 +39,7 @@ export default async function Header({ className }: { className?: string }) {
       </Link>
 
       <div className="hidden md:block">
-        <HeaderNavigationMenu />
+        <HeaderNavigationMenu groups={groups} />
       </div>
 
       <div className="relative ml-auto">
