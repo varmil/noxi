@@ -2,7 +2,6 @@ import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getGroups } from 'apis/groups'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -17,18 +16,18 @@ type Props = {
 }
 
 /**
- * The Root of the Group Page
+ * 2025/12/15: header使ってる判定になってエラーになってしまうので、いったんコメントアウト
  */
-export async function generateStaticParams(): Promise<{ group: string }[]> {
-  try {
-    const groups = await getGroups()
-    return groups.map(group => ({ group: group.id }))
-  } catch (error) {
-    console.error('Failed to fetch groups for static params:', error)
-    // フォールバック: 空の配列を返すか、最小限のグループを返す
-    return []
-  }
-}
+// export async function generateStaticParams(): Promise<{ group: string }[]> {
+//   try {
+//     const groups = await getGroups()
+//     return groups.map(group => ({ group: group.id }))
+//   } catch (error) {
+//     console.error('Failed to fetch groups for static params:', error)
+//     // フォールバック: 空の配列を返すか、最小限のグループを返す
+//     return []
+//   }
+// }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, group } = await props.params

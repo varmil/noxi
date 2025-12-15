@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { MembershipBundlesService } from '@app/membership-bundles/membership-bundles.service'
 import { MembershipPricesService } from '@app/membership-prices/membership-prices.service'
 import { MembershipsService } from '@app/memberships/memberships.service'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { MembershipBundle } from '@domain/membership-bundle'
 import { PriceMicros } from '@domain/membership-price'
@@ -32,7 +32,7 @@ export class SaveMembershipBundleService {
     actualStartTime?: ActualStartTime
     actualEndTime?: ActualEndTime
     channelId: ChannelId
-    group: Group
+    group: GroupName
   }) {
     if (!actualStartTime) {
       throw new Error(`actualStartTime not found for ${videoId.get()}`)
