@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common'
+import { GroupId, GroupName, GroupIconSrc } from '@domain/group'
 import {
   GroupRegistration,
   GroupRegistrationRepository,
   GroupRegistrationId,
   GroupRegistrationStatus,
-  GroupId,
-  GroupName,
-  GroupIconSrc,
   GroupRegistrationAppliedAt
-} from '@domain/group'
+} from '@domain/group-registration'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()

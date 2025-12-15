@@ -55,21 +55,21 @@
     - **プロパティ 2: マイグレーションデータ完全性**
     - **検証対象: 要件 1.2, 1.3**
 
-- [ ] 4. バックエンド Group アプリケーションレイヤーの実装
+- [x] 4. バックエンド Group アプリケーションレイヤーの実装
 
-  - [ ] 4.1 Group Service クラスの実装
+  - [x] 4.1 Group Service クラスの実装
 
     - GroupService クラスを作成
     - CRUD 操作のビジネスロジック実装
     - _要件: 3.1, 3.4_
 
-  - [ ] 4.2 GroupRegistration Service クラスの実装
+  - [x] 4.2 GroupRegistration Service クラスの実装
 
     - GroupRegistrationService クラスを作成
     - 申請処理のビジネスロジック実装
     - _要件: 4.4, 7.5_
 
-  - [ ] 4.3 Group データ検証と応答形式のプロパティテスト
+  - [x] 4.3 Group データ検証と応答形式のプロパティテスト
     - **プロパティ 4: Group データ検証と応答形式**
     - **検証対象: 要件 2.5, 3.4**
 
@@ -195,5 +195,31 @@
     - Group 参照の正常動作確認
     - _要件: 2.3, 2.4_
 
-- [ ] 11. 最終チェックポイント - すべてのテストが通ることを確認
+- [x] 11. ドメインリファクタリング - group-registration の分離
+
+  - [x] 11.1 group-registration ドメインディレクトリの作成
+
+    - `backend/libs/domain/group-registration/` ディレクトリを作成
+    - GroupRegistration 関連ファイルを移動
+    - 新しい index.ts ファイルを作成
+
+  - [x] 11.2 group ドメインから group-registration 関連の削除
+
+    - `backend/libs/domain/group/index.ts` から GroupRegistration 関連のエクスポートを削除
+    - group ドメインを group 固有のファイルのみに整理
+
+  - [x] 11.3 インフラ層の分離
+
+    - `backend/libs/infrastructure/group-registration/` ディレクトリを作成
+    - GroupRegistration.repository-impl.ts を移動
+    - 新しい group-registration.infra.module.ts を作成
+    - group.infra.module.ts から GroupRegistration 関連を削除
+
+  - [x] 11.4 インポートパスの修正
+    - アプリケーション層の group-registrations.service.ts のインポートを修正
+    - インフラ層の GroupRegistration.repository-impl.ts のインポートを修正
+    - GroupRegistration.entity.ts のインポートを修正
+    - group-registrations.app.module.ts で GroupRegistrationInfraModule をインポート
+
+- [ ] 12. 最終チェックポイント - すべてのテストが通ることを確認
   - すべてのテストが通ることを確認し、質問があればユーザーに尋ねる

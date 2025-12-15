@@ -1,7 +1,5 @@
 import { Transform, Exclude } from 'class-transformer'
-import { GroupIconSrc } from './GroupIconSrc.vo'
-import { GroupId } from './GroupId.vo'
-import { GroupName } from './GroupName.vo'
+import { GroupId, GroupName, GroupIconSrc } from '@domain/group'
 import { GroupRegistrationAppliedAt } from './GroupRegistrationAppliedAt.vo'
 import { GroupRegistrationId } from './GroupRegistrationId.vo'
 import { GroupRegistrationStatus } from './GroupRegistrationStatus.vo'
