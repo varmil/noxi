@@ -1,7 +1,4 @@
----
-inclusion: fileMatch
-fileMatchPattern: 'backend/**/*'
----
+このステアリングは `/backend` 配下のファイルに適用してください
 
 # レイヤードアーキテクチャとドメイン駆動設計
 

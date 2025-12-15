@@ -4,8 +4,7 @@ import {
   GroupRepository,
   GroupId,
   GroupName,
-  GroupIconSrc,
-  GroupName
+  GroupIconSrc
 } from '@domain/group'
 
 @Injectable()

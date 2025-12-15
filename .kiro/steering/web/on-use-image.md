@@ -1,7 +1,4 @@
----
-inclusion: fileMatch
-fileMatchPattern: 'web/**/*'
----
+このステアリングは `/web` 配下のファイルに適用してください
 
 # 画像コンポーネント使用ルール
 

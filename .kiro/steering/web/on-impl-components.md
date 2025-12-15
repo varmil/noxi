@@ -1,7 +1,4 @@
----
-inclusion: fileMatch
-fileMatchPattern: 'web/**/*'
----
+このステアリングは `/web` 配下のファイルに適用してください
 
 # UI Component 実装ルール
 
