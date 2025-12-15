@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import { routing } from 'config/i18n/routing'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -12,8 +11,14 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const { locale } = params
 
-  const tg = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
-  const t = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'AboutUs' })
+  const tg = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
+  const t = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'AboutUs'
+  })
 
   return {
     title: `${t('title')} | ${tg('title')}`,

@@ -22,7 +22,7 @@ export async function requestFromSuperAdmin({
     })
 
     return res.data
-  } catch (error) {
+  } catch {
     // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to retuest')
   }

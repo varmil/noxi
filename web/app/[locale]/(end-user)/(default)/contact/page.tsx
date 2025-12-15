@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Page } from 'components/page'
-import { routing } from 'config/i18n/routing'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -11,8 +10,14 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const global = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
-  const page = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.contact' })
+  const global = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
+  const page = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Page.contact'
+  })
 
   return {
     title: `${page('title')} - ${global('title')}`,
@@ -22,7 +27,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function ContactPage(props: Props) {
   const { locale } = await props.params
-  const page = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.contact' })
+  const page = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Page.contact'
+  })
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')

@@ -17,26 +17,7 @@ export default async function ChannelsAddPage() {
   try {
     groups = await getGroups()
   } catch (error) {
-    console.warn('Failed to fetch groups, using fallback:', error)
-    // フォールバック用の基本的なグループ
-    groups = [
-      {
-        id: 'hololive',
-        name: 'ホロライブ',
-        iconSrc: '/group/hololive/logo.png'
-      },
-      {
-        id: 'nijisanji',
-        name: 'にじさんじ',
-        iconSrc: '/group/nijisanji/logo.png'
-      },
-      { id: 'vspo', name: 'ぶいすぽっ！', iconSrc: '/group/vspo/logo.png' },
-      {
-        id: 'independent',
-        name: '個人勢',
-        iconSrc: '/group/independent/logo.png'
-      }
-    ]
+    console.error('Failed to fetch groups', error)
   }
 
   return (

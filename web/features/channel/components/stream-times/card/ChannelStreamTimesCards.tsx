@@ -1,5 +1,5 @@
 import { PropsWithChildren } from 'react'
-import { getFormatter, getTranslations } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import {
   StatsCard,
@@ -13,8 +13,7 @@ import { getTotalAndAverageDuration } from 'utils/stream/calculateStreamDuration
  * 配信回数や合計配信時間をまとめて表示するコンポーネント
  */
 export default async function ChannelStreamTimesCards({
-  streams,
-  className
+  streams
 }: PropsWithChildren<{ streams: StreamsSchema; className?: string }>) {
   const feat = await getTranslations('Features.channel.streamTimes.card')
   const { totalDuration, averageDuration } = getTotalAndAverageDuration(streams)

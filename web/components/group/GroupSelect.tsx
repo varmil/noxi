@@ -1,6 +1,5 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import {
   Select,
   SelectContent,
@@ -23,8 +22,6 @@ export function GroupSelect({
   placeholder,
   groups
 }: GroupSelectProps) {
-  const t = useTranslations('Global.group')
-
   return (
     <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger>

@@ -66,13 +66,3 @@ export default function PeriodTabs({
     </Tabs>
   )
 }
-
-function DateRangeContent({ start, end }: { start: Date; end: Date }) {
-  return (
-    <div className="flex justify-between items-center">
-      <span>{dayjs(start).format('YYYY/MM/DD')}</span>
-      <span className="mx-2">-</span>
-      <span>{dayjs(end).format('YYYY/MM/DD')}</span>
-    </div>
-  )
-}

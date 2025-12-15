@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import { routing } from 'config/i18n/routing'
 import {
   StreamRankingDimension,
   StreamRankingSearchParams
@@ -60,7 +59,7 @@ export default function RankingLivePage(props: Props) {
           href: `#`,
           name: feat(dimension, {
             period: global(`period.${period}`),
-            group: ((global as any)(`group.${group}`)),
+            group: (global as any)(`group.${group}`),
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')

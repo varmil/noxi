@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { GroupSelect } from 'components/group/GroupSelect'
+
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
 import {
   countrySelects,

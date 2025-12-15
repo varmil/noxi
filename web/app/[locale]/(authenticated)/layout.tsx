@@ -6,10 +6,6 @@ import Header from 'components/header/Header'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import { routing } from 'config/i18n/routing'
 
-type Props = {
-  params: Promise<{ locale: string }>
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   return {
     robots: { index: false }
@@ -26,7 +22,7 @@ export default async function AuthenticatedLayout({
   const { locale } = await params
 
   // Validate that the locale is supported
-  if (!routing.locales.includes(locale as any)) {
+  if (!routing.locales.includes(locale as 'ja' | 'en')) {
     throw new Error(`Unsupported locale: ${locale}`)
   }
 

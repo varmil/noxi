@@ -1,6 +1,6 @@
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
-import { NextRequest, NextFetchEvent, NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 import { routing } from 'config/i18n/routing'
 import { MiddlewareFactory } from 'lib/middleware/MiddlewareFactory'
@@ -29,8 +29,8 @@ function getLocale(request: NextRequest): string {
   return matchLocale(languages, locales, defaultLocale)
 }
 
-export const withIntl: MiddlewareFactory = next => {
-  return async (request: NextRequest, _next: NextFetchEvent) => {
+export const withIntl: MiddlewareFactory = () => {
+  return async (request: NextRequest) => {
     const { pathname } = request.nextUrl
 
     // ロケール無しの /auth/* をリダイレクト

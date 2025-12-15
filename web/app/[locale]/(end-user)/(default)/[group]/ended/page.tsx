@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import { routing } from 'config/i18n/routing'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -19,11 +18,15 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, group } = await props.params
-  const tg = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
-  const t = await getTranslations({ locale: locale as 'ja' | 'en',
+  const tg = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
+  const t = await getTranslations({
+    locale: locale as 'ja' | 'en',
     namespace: 'Page.group.ended.metadata'
   })
-  const groupName = ((tg as any)(`group.${group}`))
+  const groupName = (tg as any)(`group.${group}`)
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
@@ -41,7 +44,7 @@ export default function GroupEndedPage(props: Props) {
 
   const t = useTranslations('Breadcrumb')
   const groupName = t('group', {
-    group: ((useTranslations('Global') as any)(`group.${group}`))
+    group: (useTranslations('Global') as any)(`group.${group}`)
   })
 
   return (

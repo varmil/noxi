@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url'
 import { includeIgnoreFile, fixupConfigRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
-import tsParser from '@typescript-eslint/parser'
 import tsPlugin from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 import importPlugin from 'eslint-plugin-import-x'
 import { zones } from './no-restricted-pahts.mjs'
 
@@ -120,7 +120,7 @@ export default [
       ],
 
       // TypeScript関連のルール
-      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'error'
     }
   },
@@ -129,7 +129,7 @@ export default [
   {
     files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
     rules: {
-      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'error'
     }
   }

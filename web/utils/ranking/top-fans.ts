@@ -15,6 +15,6 @@ export const createSearchParams = (params: {
 }
 
 /** TODO: 順位変動を表示する場合TRUE */
-export const hasRank = (params: { group?: string; gender?: Gender }) => {
+export const hasRank = () => {
   return false
 }

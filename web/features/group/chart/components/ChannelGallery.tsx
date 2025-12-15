@@ -24,9 +24,6 @@ export async function ChannelGallery({
   page,
   compact
 }: PropsWithoutRef<Props>) {
-  const group = ((await getTranslations('Global.group')) as any)(
-    `${getGroup()}`
-  )
   const t = await getTranslations('Features.group.talents')
   const channels = await getChannels({
     group: getGroup(),

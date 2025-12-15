@@ -9,7 +9,6 @@ import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import DefaultLayout from 'components/layouts/DefaultLayout'
 import TheaterLayout from 'components/layouts/TheaterLayout'
 import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
-import { routing } from 'config/i18n/routing'
 import { setGroup } from 'lib/server-only-context/cache'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { getWebUrl } from 'utils/web-url'
@@ -35,7 +34,7 @@ export async function generateBaseMetadata(
     membersOnly
   } = await getStream(videoId)
 
-  const [t, { basicInfo }, bundle, superChats] = await Promise.all([
+  const [t, , bundle, superChats] = await Promise.all([
     getTranslations({
       locale: locale as 'ja' | 'en',
       namespace: props.namespace

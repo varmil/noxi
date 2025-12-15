@@ -1,4 +1,4 @@
-import { getFormatter, getTranslations } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { SuperChatSchema } from 'apis/youtube/schema/superChatSchema'
@@ -11,7 +11,6 @@ type Props = {
 
 export default async function SuperChatCommentCard({ superChat, rank }: Props) {
   const feat = await getTranslations('Features.channel.overview.topSuperChats')
-  const format = await getFormatter()
 
   const { amountDisplayString, userComment, author } = superChat
 

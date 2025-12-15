@@ -26,7 +26,6 @@ type Props = PropsWithoutRef<{
 
 export default async function StreamRankingTable({
   dimension,
-  group,
   page,
   streams
 }: Props) {

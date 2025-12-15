@@ -62,7 +62,7 @@ export function SuperAdminRequestForm() {
           </pre>
         )
       })
-    } catch (error) {
+    } catch {
       toast.error('Uh oh! Something went wrong.', {
         description: 'There was a problem with your request.'
       })

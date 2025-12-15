@@ -26,10 +26,6 @@ type Props = PropsWithoutRef<{
 
 export default async function MostCheeredTable({
   cheeredUsages,
-  period,
-  group,
-  gender,
-  date,
   page = 1
 }: Props) {
   const channelIds = cheeredUsages.map(e => e.channelId)

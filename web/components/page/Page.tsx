@@ -1,5 +1,4 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
-import { Info } from 'lucide-react'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
 import Header from 'components/header/Header'
 

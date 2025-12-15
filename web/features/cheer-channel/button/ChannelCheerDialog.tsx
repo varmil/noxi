@@ -105,7 +105,7 @@ export function ChannelCheerDialog({
       setTimeout(async () => {
         await revalidateAfterConsumeCheetTickets()
       }, 3000)
-    } catch (error) {
+    } catch {
       setIsSubmitting(false)
       toast.error(feat('error.title'), {
         description: feat('error.description')

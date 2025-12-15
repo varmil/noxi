@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { routing } from 'config/i18n/routing'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
@@ -76,7 +75,7 @@ export default function RankingChannelsPage(props: Props) {
         {
           href: `#`,
           name: feat(dimension, {
-            group: ((global as any)(`group.${group}`)),
+            group: (global as any)(`group.${group}`),
             period: global(`period.${period}`),
             gender: gender ? global(`gender.${gender}`) : ''
           })

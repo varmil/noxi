@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { routing } from 'config/i18n/routing'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
 import { TopFansPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -57,7 +56,7 @@ export default function RankingTopFansPage(props: Props) {
           href: `#`,
           name: feat('top-fans', {
             period: global(`period.${period}`),
-            group: group ? ((global as any)(`group.${group}`)) : '',
+            group: group ? (global as any)(`group.${group}`) : '',
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')

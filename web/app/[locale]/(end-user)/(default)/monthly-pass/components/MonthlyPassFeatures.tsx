@@ -1,4 +1,4 @@
-import { BadgeCheck, Gift, MessageSquare, Tickets } from 'lucide-react'
+import { BadgeCheck, Gift, Tickets } from 'lucide-react'
 
 export function MonthlyPassFeatures() {
   return (

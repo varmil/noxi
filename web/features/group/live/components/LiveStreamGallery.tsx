@@ -22,7 +22,6 @@ export default async function LiveStreamGallery({
   compact,
   showHeader,
   where,
-  limit,
   className,
   nullIfNoLive
 }: PropsWithoutRef<Props>) {
@@ -53,7 +52,9 @@ export default async function LiveStreamGallery({
           description={
             group
               ? t('live.description', {
-                  group: ((await getTranslations('Global.group')) as any)(`${group}`)
+                  group: ((await getTranslations('Global.group')) as any)(
+                    `${group}`
+                  )
                 })
               : ''
           }

@@ -22,14 +22,7 @@ type Props = PropsWithoutRef<{
   page?: number
 }>
 
-export default async function TopFansTable({
-  fanUsages,
-  period,
-  group,
-  gender,
-  date,
-  page = 1
-}: Props) {
+export default async function TopFansTable({ fanUsages, page = 1 }: Props) {
   const userIds = fanUsages.map(e => e.userId)
   const [profiles] = await Promise.all([
     getUserProfiles({ userIds: userIds, limit: userIds.length })

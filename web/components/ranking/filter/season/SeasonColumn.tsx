@@ -1,4 +1,3 @@
-import { PropsWithoutRef } from 'react'
 import { useTranslations } from 'next-intl'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
@@ -13,11 +12,7 @@ const RESET_KEYS = {
   page: null
 }
 
-type Props = PropsWithoutRef<{
-  className?: string
-}>
-
-export default function SeasonColumn({ className }: Props) {
+export default function SeasonColumn() {
   const global = useTranslations('Global.ranking')
   const comp = useTranslations('Components.ranking.filter.season')
   return (

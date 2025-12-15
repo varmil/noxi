@@ -11,8 +11,7 @@ import { getRelatedVideos } from '../../../utils/getRelatedVideos'
 
 export default async function RelatedVideos({
   type,
-  channelId,
-  className
+  channelId
 }: PropsWithoutRef<{
   type: 'live' | 'ended'
   channelId: string

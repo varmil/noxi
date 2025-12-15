@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { routing } from 'config/i18n/routing'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
 import { MostCheeredPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -57,7 +56,7 @@ export default function RankingMostCheeredPage(props: Props) {
           href: `#`,
           name: feat('most-cheered', {
             period: global(`period.${period}`),
-            group: group ? ((global as any)(`group.${group}`)) : '',
+            group: group ? (global as any)(`group.${group}`) : '',
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')

@@ -22,7 +22,7 @@ const schema2 = z.object({
 /** Find Oneの場合は`schema2 */
 export const responseSchema = schema2
 /** Find Allの場合は`schema1` `schema2` の「UNION」 */
-const unionSchema = z.union([schema1, schema2])
+export const unionSchema = z.union([schema1, schema2])
 
 export const responseListSchema = z.object({
   list: z.union([z.array(schema1), z.array(schema2)])

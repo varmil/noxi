@@ -22,7 +22,6 @@ export default async function ScheduledStreamGallery({
   compact,
   showHeader,
   where,
-  limit,
   className,
   nullIfNoLive
 }: PropsWithoutRef<Props>) {
@@ -57,7 +56,9 @@ export default async function ScheduledStreamGallery({
           description={
             group
               ? t('scheduled.description', {
-                  group: ((await getTranslations('Global.group')) as any)(`${group}`)
+                  group: ((await getTranslations('Global.group')) as any)(
+                    `${group}`
+                  )
                 })
               : ''
           }

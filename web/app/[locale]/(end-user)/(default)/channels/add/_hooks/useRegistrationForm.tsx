@@ -90,7 +90,7 @@ export function useRegistrationForm() {
             registration?.status === 'rejected' &&
               dayjs().isBefore(dayjs(registration?.appliedAt).add(30, 'day'))
           )
-        } catch (error) {
+        } catch {
           toast.error('エラー', {
             description: (
               <>

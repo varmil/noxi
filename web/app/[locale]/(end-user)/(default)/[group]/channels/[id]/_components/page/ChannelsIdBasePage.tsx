@@ -4,7 +4,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { Page } from 'components/page'
 import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemplateSkeleton'
-import { routing } from 'config/i18n/routing'
+
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
 import { getWebUrl } from 'utils/web-url'
@@ -33,14 +33,17 @@ export async function generateBaseMetadata(
   }
 ): Promise<Metadata> {
   const { locale, group, id } = await props.params
-  const [{ basicInfo }, tg, t] = await Promise.all([
+  const [{ basicInfo }, t] = await Promise.all([
     getChannel(id),
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
     getTranslations({
       locale: locale as 'ja' | 'en',
       namespace: props.namespace
     })
   ])
+  const tg = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
   return {
     title: `${t('title', { channel: basicInfo.title })} - ${tg('title')}`,
     description: `${t('description', {
@@ -62,9 +65,8 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale as 'ja' | 'en')
   setGroup(group)
 
-  const [channel, tg, t] = await Promise.all([
+  const [channel, t] = await Promise.all([
     getChannel(id),
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
     getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Breadcrumb' })
   ])
 

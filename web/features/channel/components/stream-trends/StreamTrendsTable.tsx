@@ -13,7 +13,7 @@ type Props = PropsWithoutRef<{
 }>
 
 /** @deprecated 使わないかも */
-export default async function StreamTrendsTable({ channel, className }: Props) {
+export default async function StreamTrendsTable({ channel }: Props) {
   const [format, streams] = await Promise.all([
     getFormatter(),
     getLast30Streams({ channelId: channel.basicInfo.id })

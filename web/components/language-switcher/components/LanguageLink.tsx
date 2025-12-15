@@ -7,7 +7,6 @@
 // eslint-disable-next-line no-restricted-imports
 import Link from 'next/link'
 import { useNewPathForLanguage } from 'components/language-switcher/utils/language-switcher'
-import type { routing } from 'config/i18n/routing'
 
 export default function LanguageLink({
   children,

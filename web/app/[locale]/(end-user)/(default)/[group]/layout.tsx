@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { routing } from 'config/i18n/routing'
 import { setGroup } from 'lib/server-only-context/cache'
 
 type Props = {

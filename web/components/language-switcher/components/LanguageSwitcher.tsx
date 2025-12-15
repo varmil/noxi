@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { useNewPathForLanguage } from 'components/language-switcher/utils/language-switcher'
-import type { routing } from 'config/i18n/routing'
 
 export default function LanguageSwitcher() {
   return (
