@@ -6,9 +6,9 @@ export interface GroupRegistrationRepository {
   findAll({ limit }: { limit?: number }): Promise<GroupRegistration[]>
   create(
     registration: Omit<GroupRegistration, 'id' | 'appliedAt'>
-  ): Promise<GroupRegistration>
+  ): Promise<void>
   updateStatus(
     id: GroupRegistrationId,
     status: GroupRegistrationStatus
-  ): Promise<GroupRegistration>
+  ): Promise<void>
 }

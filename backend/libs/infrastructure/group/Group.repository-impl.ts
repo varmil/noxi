@@ -41,39 +41,27 @@ export class GroupRepositoryImpl implements GroupRepository {
     })
   }
 
-  async create(group: Group): Promise<Group> {
-    const row = await this.prismaInfraService.group.create({
+  async create(group: Group): Promise<void> {
+    await this.prismaInfraService.group.create({
       data: {
         id: group.id.get(),
         name: group.name.get(),
         iconSrc: group.iconSrc.get()
       }
     })
-
-    return new Group({
-      id: new GroupId(row.id),
-      name: new GroupName(row.name),
-      iconSrc: new GroupIconSrc(row.iconSrc)
-    })
   }
 
   async update(
     id: GroupId,
     group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
-  ): Promise<Group> {
+  ): Promise<void> {
     const updateData: { name?: string; iconSrc?: string } = {}
     if (group.name) updateData.name = group.name.get()
     if (group.iconSrc) updateData.iconSrc = group.iconSrc.get()
 
-    const row = await this.prismaInfraService.group.update({
+    await this.prismaInfraService.group.update({
       where: { id: id.get() },
       data: updateData
-    })
-
-    return new Group({
-      id: new GroupId(row.id),
-      name: new GroupName(row.name),
-      iconSrc: new GroupIconSrc(row.iconSrc)
     })
   }
 

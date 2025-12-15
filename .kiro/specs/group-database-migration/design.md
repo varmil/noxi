@@ -169,11 +169,11 @@ export class GroupRegistration {
 export interface GroupRepository {
   findAll(): Promise<Group[]>
   findById(id: GroupId): Promise<Group | null>
-  create(group: Group): Promise<Group>
+  create(group: Group): Promise<void>
   update(
     id: GroupId,
     group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
-  ): Promise<Group>
+  ): Promise<void>
   delete(id: GroupId): Promise<void>
 }
 
@@ -181,11 +181,11 @@ export interface GroupRegistrationRepository {
   findAll({ limit }: { limit?: number }): Promise<GroupRegistration[]>
   create(
     registration: Omit<GroupRegistration, 'id' | 'appliedAt'>
-  ): Promise<GroupRegistration>
+  ): Promise<void>
   updateStatus(
     id: GroupRegistrationId,
     status: GroupRegistrationStatus
-  ): Promise<GroupRegistration>
+  ): Promise<void>
 }
 ```
 

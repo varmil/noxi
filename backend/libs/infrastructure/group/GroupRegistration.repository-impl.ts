@@ -42,8 +42,8 @@ export class GroupRegistrationRepositoryImpl
 
   async create(
     registration: Omit<GroupRegistration, 'id' | 'appliedAt'>
-  ): Promise<GroupRegistration> {
-    const row = await this.prismaInfraService.groupRegistration.create({
+  ): Promise<void> {
+    await this.prismaInfraService.groupRegistration.create({
       data: {
         groupId: registration.groupId.get(),
         name: registration.name.get(),
@@ -51,37 +51,15 @@ export class GroupRegistrationRepositoryImpl
         status: registration.status.get()
       }
     })
-
-    return new GroupRegistration({
-      id: new GroupRegistrationId(row.id),
-      groupId: new GroupId(row.groupId),
-      name: new GroupName(row.name),
-      iconSrc: new GroupIconSrc(row.iconSrc),
-      status: new GroupRegistrationStatus(
-        row.status as 'pending' | 'approved' | 'rejected'
-      ),
-      appliedAt: new GroupRegistrationAppliedAt(row.appliedAt)
-    })
   }
 
   async updateStatus(
     id: GroupRegistrationId,
     status: GroupRegistrationStatus
-  ): Promise<GroupRegistration> {
-    const row = await this.prismaInfraService.groupRegistration.update({
+  ): Promise<void> {
+    await this.prismaInfraService.groupRegistration.update({
       where: { id: id.get() },
       data: { status: status.get() }
-    })
-
-    return new GroupRegistration({
-      id: new GroupRegistrationId(row.id),
-      groupId: new GroupId(row.groupId),
-      name: new GroupName(row.name),
-      iconSrc: new GroupIconSrc(row.iconSrc),
-      status: new GroupRegistrationStatus(
-        row.status as 'pending' | 'approved' | 'rejected'
-      ),
-      appliedAt: new GroupRegistrationAppliedAt(row.appliedAt)
     })
   }
 }
