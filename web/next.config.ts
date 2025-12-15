@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin({
 })
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: '../',
+  outputFileTracingRoot: '/vercel/path0',
   async headers() {
     return [
       // workaround: browser --> PWA google auth causes error
