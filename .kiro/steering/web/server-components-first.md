@@ -1,6 +1,9 @@
-# これは web/ 配下のファイルに適用されるルールです
+---
+inclusion: fileMatch
+fileMatchPattern: 'web/**/*'
+---
 
-## Server Components 優先の実装方針
+# Server Components 優先の実装方針
 
 ### 基本方針
 

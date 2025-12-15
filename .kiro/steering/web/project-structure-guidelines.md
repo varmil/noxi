@@ -1,6 +1,9 @@
-# これは web/ 配下のファイルに適用されるルールです
+---
+inclusion: fileMatch
+fileMatchPattern: 'web/**/*'
+---
 
-## プロジェクト構造ガイドライン
+# プロジェクト構造ガイドライン
 
 このガイドラインは、bulletproof-react の原則に基づいて、一貫性のあるプロジェクト構造を維持するためのルールを定義します。
 working-directory は `web` です。たとえば、`src` は `web/src` とみなしてください
