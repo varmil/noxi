@@ -10,9 +10,18 @@ import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
+async function getSessionSafely() {
+  try {
+    return await auth()
+  } catch {
+    console.warn('Auth called outside request scope in Header')
+    return null
+  }
+}
+
 export default async function Header({ className }: { className?: string }) {
   const [session, global, groups] = await Promise.all([
-    auth(),
+    getSessionSafely(),
     getTranslations('Global'),
     getGroups()
   ])
