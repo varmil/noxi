@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { TwitterApi } from 'twitter-api-v2'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { GroupName, GroupName } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { ChannelIds } from '@domain/youtube'
 

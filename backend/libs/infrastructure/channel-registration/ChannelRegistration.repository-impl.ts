@@ -7,7 +7,7 @@ import {
   Status
 } from '@domain/channel-registration'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { GroupName, GroupName, GroupName } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   ChannelId,

@@ -32,6 +32,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': 'warn',
 
       'import-x/no-restricted-paths': ['error', { zones }],
+      'import-x/no-duplicates': 'error', // 重複インポートを検知
 
       'import-x/order': [
         'error',

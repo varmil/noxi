@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import * as fc from 'fast-check'
-import { Group, Group } from '@domain/group/Group.entity'
+import { Group } from '@domain/group/Group.entity'
 import { GroupId } from '@domain/group/GroupId.vo'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { GroupRepositoryImpl } from './Group.repository-impl'

@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer'
-import { GroupName, GroupName, GroupName } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { SupersCount } from '@domain/supers-bundle'
 import {

@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { SupersSummaryRepository } from '@domain/supers-summary'
-import { SupersMonthlySummaryRepository } from '@domain/supers-summary'
+import { SupersSummaryRepository, SupersMonthlySummaryRepository  } from '@domain/supers-summary'
 
 @Injectable()
 export class SupersSummariesService {

@@ -14,7 +14,7 @@ import {
 import { CreateGroupDto } from '@presentation/group/dto/CreateGroup.dto'
 import { UpdateGroupDto } from '@presentation/group/dto/UpdateGroup.dto'
 import { GroupsService } from '@app/groups/groups.service'
-import { Group, Group, GroupId } from '@domain/group'
+import { Group, GroupId } from '@domain/group'
 
 @Controller('groups')
 @UseInterceptors(ClassSerializerInterceptor)
