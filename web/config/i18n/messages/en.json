@@ -853,5 +853,39 @@
     "streamStats": {
       "srViewerCountsChart": "The area graph shows the number of concurrent viewers over the course of {dateRange}. The maximum number of concurrent viewers at the peak was {peak}."
     }
+  },
+
+  "Components": {
+    "groupRegistrationForm": {
+      "title": "New Group Application",
+      "groupIdLabel": "Group ID",
+      "groupIdPlaceholder": "e.g., my-vtuber-group",
+      "groupIdDescription": "Only lowercase alphanumeric characters and hyphens are allowed",
+      "nameLabel": "Group Name",
+      "namePlaceholder": "e.g., My VTuber Group",
+      "nameDescription": "Enter the display name for the group",
+      "iconSrcLabel": "Icon URL",
+      "iconSrcPlaceholder": "https://example.com/icon.png or /group/my-group/logo.png",
+      "iconSrcDescription": "Enter a relative path or absolute URL",
+      "submitButton": "Submit Application",
+      "submitting": "Submitting...",
+      "submitSuccess": "Group application submitted successfully",
+      "submitError": "Failed to submit application. Please try again"
+    },
+    "imagePreview": {
+      "previewLabel": "Preview",
+      "fallbackText": "No Image",
+      "errorText": "Failed to load image"
+    }
+  },
+
+  "Pages": {
+    "groupsAdd": {
+      "title": "Group Registration Application",
+      "description": "Application form for registering a new VTuber group",
+      "breadcrumb": "Group Registration Application",
+      "formPlaceholder": "Application form will be displayed here",
+      "historyPlaceholder": "Application history will be displayed here"
+    }
   }
 }

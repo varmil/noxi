@@ -853,5 +853,39 @@
     "streamStats": {
       "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
     }
+  },
+
+  "Components": {
+    "groupRegistrationForm": {
+      "title": "新しいGroup申請",
+      "groupIdLabel": "Group ID",
+      "groupIdPlaceholder": "例: my-vtuber-group",
+      "groupIdDescription": "小文字の英数字とハイフンのみ使用できます",
+      "nameLabel": "Group名",
+      "namePlaceholder": "例: マイVTuberグループ",
+      "nameDescription": "表示されるGroup名を入力してください",
+      "iconSrcLabel": "アイコンURL",
+      "iconSrcPlaceholder": "https://example.com/icon.png または /group/my-group/logo.png",
+      "iconSrcDescription": "相対パスまたは絶対URLを入力してください",
+      "submitButton": "申請する",
+      "submitting": "申請中...",
+      "submitSuccess": "Group申請が正常に送信されました",
+      "submitError": "申請の送信に失敗しました。もう一度お試しください"
+    },
+    "imagePreview": {
+      "previewLabel": "プレビュー",
+      "fallbackText": "画像なし",
+      "errorText": "画像の読み込みに失敗しました"
+    }
+  },
+
+  "Pages": {
+    "groupsAdd": {
+      "title": "Group登録申請",
+      "description": "新しいVTuberグループを登録するための申請フォーム",
+      "breadcrumb": "Group登録申請",
+      "formPlaceholder": "申請フォームはここに表示されます",
+      "historyPlaceholder": "申請履歴はここに表示されます"
+    }
   }
 }
