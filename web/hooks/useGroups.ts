@@ -2,6 +2,7 @@ import React from 'react'
 import { LucideProps, MicVocal, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
+import { getGroups as getGroupsFromAPI } from 'apis/groups'
 
 // 通信で取るかも
 const counts = {
@@ -60,12 +61,26 @@ const IconGroups = ['independent', 'independent-irl', 'artist']
 
 export default function useGroups() {
   const t = useTranslations('Global.group')
+  // Client Componentでは既存の定数を使用
+  // 将来的にはSWRやReact Queryを使ってAPIから取得することも可能
   return func(t)
 }
 
 export const getGroups = async () => {
   const t = await getTranslations('Global.group')
-  return func(t)
+
+  try {
+    // APIからGroupsを取得
+    const apiGroups = await getGroupsFromAPI()
+    return funcWithAPI(t, apiGroups)
+  } catch (error) {
+    // APIが利用できない場合は既存の定数を使用
+    console.warn(
+      'Failed to fetch groups from API, falling back to constants:',
+      error
+    )
+    return func(t)
+  }
 }
 
 // 既存のGroup定数（後でAPIから取得に変更予定）
@@ -98,6 +113,76 @@ const AllGroups = [
   'artist'
 ] as const
 
+// API連携版の関数
+const funcWithAPI = (
+  t: ReturnType<typeof useTranslations<'Global.group'>>,
+  apiGroups: Awaited<ReturnType<typeof getGroupsFromAPI>>
+) => {
+  // APIから取得したGroupsをImg形式に変換
+  const apiImgs = apiGroups
+    .filter(group => !IconGroups.includes(group.id as any))
+    .map<Img>(group => ({
+      id: group.id,
+      name: group.name,
+      src: group.iconSrc,
+      count: counts[group.id] || { val: 0, isAll: false }
+    }))
+
+  // 既存のアイコングループは定数から取得
+  const icons = AllGroups.filter(group => IconGroups.includes(group)).map<Icon>(
+    group => {
+      switch (group) {
+        case 'independent':
+          return {
+            id: group,
+            name: t(`${group}`),
+            icon: UserCircle,
+            count: counts[group]
+          }
+        case 'independent-irl':
+          return {
+            id: group,
+            name: t(`${group}`),
+            icon: Webcam,
+            count: counts[group]
+          }
+        case 'artist':
+          return {
+            id: group,
+            name: t(`${group}`),
+            icon: MicVocal,
+            count: counts[group]
+          }
+        default:
+          throw new Error('unknown group')
+      }
+    }
+  )
+
+  const findGroup = (group: string) => {
+    let result: Group | undefined
+
+    result = apiImgs.find(e => e.id === group)
+    if (result) return result
+
+    result = icons.find(e => e.id === group)
+    if (result) return result
+
+    return undefined
+  }
+
+  function isImg(arg: any): arg is Img {
+    return arg?.src !== undefined
+  }
+
+  function isIcon(arg: any): arg is Icon {
+    return arg?.icon !== undefined
+  }
+
+  return { imgs: apiImgs, icons, findGroup, isImg, isIcon }
+}
+
+// 既存の定数ベース関数（フォールバック用）
 const func = (t: ReturnType<typeof useTranslations<'Global.group'>>) => {
   const imgs = AllGroups.filter(group => !IconGroups.includes(group)).map<Img>(
     group => {

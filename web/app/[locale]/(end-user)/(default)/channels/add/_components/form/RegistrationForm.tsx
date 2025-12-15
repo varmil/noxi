@@ -26,11 +26,17 @@ import {
   countrySelects,
   languageSelects
 } from '../../_types/channel-registration'
+import type { GroupSchema } from 'apis/groups'
+import { GroupSelect } from 'components/group/GroupSelect'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
 import RegistrationFormSkeleton from './RegistrationFormSkeleton'
 
-export function RegistrationForm() {
+interface RegistrationFormProps {
+  groups: GroupSchema[]
+}
+
+export function RegistrationForm({ groups }: RegistrationFormProps) {
   const {
     form,
     channelInfo,
@@ -220,14 +226,11 @@ export function RegistrationForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {/* TODO: APIからGroupリストを取得 */}
-                      {['hololive', 'nijisanji', 'vspo', 'independent'].map(
-                        group => (
-                          <SelectItem key={group} value={group}>
-                            {((global as any)(`group.${group}`))}
-                          </SelectItem>
-                        )
-                      )}
+                      {groups.map(group => (
+                        <SelectItem key={group.id} value={group.id}>
+                          {group.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
