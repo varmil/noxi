@@ -1,4 +1,9 @@
-# これは web/ 配下のファイルに適用されるルールです
+---
+inclusion: fileMatch
+fileMatchPattern: 'web/**/*'
+---
+
+# 画像コンポーネント使用ルール
 
 - next/image は使いません
 - 代わりに `src/components/styles/image.tsx` を使います

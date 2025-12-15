@@ -1,6 +1,9 @@
-# これは web/ 配下のファイルに適用されるルールです
+---
+inclusion: fileMatch
+fileMatchPattern: 'web/**/*'
+---
 
-## next-intl を用いた i18n 実装ガイドライン
+# next-intl を用いた i18n 実装ガイドライン
 
 このプロジェクトでは、next-intl を使用して日本語と英語の 2 言語に対応しています。
 新しく機能を実装する際は、必ず i18n 対応を行ってください。
