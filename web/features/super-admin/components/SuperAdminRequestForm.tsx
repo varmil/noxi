@@ -28,7 +28,7 @@ const formSchema = z.object({
   httpMethod: z.string(),
   url: z
     .string({
-      required_error: 'Please enter url to request.'
+      message: 'Please enter url to request.'
     })
     .url(),
   body: z.string().optional(),

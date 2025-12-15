@@ -32,11 +32,9 @@ export const useProfileFormSchema = () => {
         const res = JapaneseFilter.checkProfanity(val)
         return !res.containsProfanity && res.profaneWords.length === 0
       },
-      val => ({
-        message: feat('profanity.title', {
-          words: JapaneseFilter.checkProfanity(val).profaneWords.join(', ')
-        })
-      })
+      {
+        message: feat('profanity.title', { words: '' })
+      }
     )
 
   const usernameSchema = z
@@ -62,11 +60,9 @@ export const useProfileFormSchema = () => {
         const res = EnglishFilter.checkProfanity(val)
         return !res.containsProfanity && res.profaneWords.length === 0
       },
-      val => ({
-        message: feat('profanity.title', {
-          words: EnglishFilter.checkProfanity(val).profaneWords.join(', ')
-        })
-      })
+      {
+        message: feat('profanity.title', { words: '' })
+      }
     )
     .refine(val => !isUsernameReserved(val), feat('usernameReserved'))
 
@@ -84,11 +80,9 @@ export const useProfileFormSchema = () => {
         const res = JapaneseFilter.checkProfanity(val)
         return !res.containsProfanity && res.profaneWords.length === 0
       },
-      val => ({
-        message: feat('profanity.title', {
-          words: JapaneseFilter.checkProfanity(val).profaneWords.join(', ')
-        })
-      })
+      {
+        message: feat('profanity.title', { words: '' })
+      }
     )
 
   return z.object({
