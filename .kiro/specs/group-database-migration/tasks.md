@@ -73,27 +73,27 @@
     - **プロパティ 4: Group データ検証と応答形式**
     - **検証対象: 要件 2.5, 3.4**
 
-- [ ] 5. バックエンド Group プレゼンテーションレイヤーの実装
+- [x] 5. バックエンド Group プレゼンテーションレイヤーの実装
 
-  - [ ] 5.1 Group Controller の実装
+  - [x] 5.1 Group Controller の実装
 
     - GroupController クラスを作成
     - CRUD API エンドポイントの実装
     - _要件: 3.1_
 
-  - [ ] 5.2 GroupRegistration Controller の実装
+  - [x] 5.2 GroupRegistration Controller の実装
 
     - GroupRegistrationController クラスを作成
     - 申請 API エンドポイントの実装
     - _要件: 4.4_
 
-  - [ ] 5.3 DTO クラスの実装
+  - [x] 5.3 DTO クラスの実装
 
     - CreateGroupDto、UpdateGroupDto クラスを作成
     - CreateGroupRegistrationDto、UpdateStatusDto クラスを作成
     - _要件: 3.1, 4.4_
 
-  - [ ] 5.4 フォーム送信と API 連携のプロパティテスト
+  - [x] 5.4 フォーム送信と API 連携のプロパティテスト
     - **プロパティ 7: フォーム送信と API 連携**
     - **検証対象: 要件 4.4, 7.5**
 

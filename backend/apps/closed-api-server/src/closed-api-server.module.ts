@@ -7,6 +7,7 @@ import { CheerTicketsPresentationModule } from '@presentation/cheer-tickets/chee
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
+import { GroupRegistrationsPresentationModule } from '@presentation/group-registrations/group-registrations.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
 import { LoginBonusesPresentationModule } from '@presentation/login-bonuses/login-bonuses.presentation.module'
 import { MembershipBundlesPresentationModule } from '@presentation/membership-bundles/membership-bundles.presentation.module'
@@ -34,6 +35,7 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     CloudSchedulersPresentationModule,
     ExchangeRatesPresentationModule,
     GroupsPresentationModule,
+    GroupRegistrationsPresentationModule,
     LoginBonusesPresentationModule,
     MembershipBundlesPresentationModule,
     MembershipSummariesPresentationModule,
