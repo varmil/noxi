@@ -1,5 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { AllGroups, Group, GroupRepository, Groups } from '@domain/group'
+import {
+  Group,
+  GroupRepository,
+  GroupId,
+  GroupName,
+  GroupIconSrc,
+  GroupName
+} from '@domain/group'
 
 @Injectable()
 export class GroupsService {
@@ -8,14 +15,30 @@ export class GroupsService {
     private readonly groupRepository: GroupRepository
   ) {}
 
-  /** @deprecated DBからFetchする形にしたい */
-  findAll(): Groups {
-    return AllGroups
+  async findAll(): Promise<Group[]> {
+    return await this.groupRepository.findAll()
   }
 
-  async findOne(
-    args: Parameters<GroupRepository['findOne']>[0]
-  ): Promise<Group | null> {
-    return await this.groupRepository.findOne(args)
+  async findById(id: string): Promise<Group | null> {
+    return await this.groupRepository.findById(new GroupId(id))
+  }
+
+  async create(group: Group): Promise<void> {
+    await this.groupRepository.create(group)
+  }
+
+  async update(
+    id: string,
+    group: Partial<{ name: string; iconSrc: string }>
+  ): Promise<void> {
+    const updateData: Partial<{ name: GroupName; iconSrc: GroupIconSrc }> = {}
+    if (group.name) updateData.name = new GroupName(group.name)
+    if (group.iconSrc) updateData.iconSrc = new GroupIconSrc(group.iconSrc)
+
+    await this.groupRepository.update(new GroupId(id), updateData)
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.groupRepository.delete(new GroupId(id))
   }
 }

@@ -198,8 +198,8 @@ export interface GroupRegistrationRepository {
 export class GroupService {
   async findAll(): Promise<Group[]>
   async findById(id: string): Promise<Group>
-  async create(createGroupDto: CreateGroupDto): Promise<Group>
-  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<Group>
+  async create(createGroupDto: CreateGroupDto): Promise<void>
+  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<void>
   async delete(id: string): Promise<void>
 }
 
@@ -208,10 +208,8 @@ export class GroupRegistrationService {
   async findAll({ limit = 30 }: { limit?: number } = {}): Promise<
     GroupRegistration[]
   >
-  async create(
-    createDto: CreateGroupRegistrationDto
-  ): Promise<GroupRegistration>
-  async updateStatus(id: number, status: string): Promise<GroupRegistration>
+  async create(createDto: CreateGroupRegistrationDto): Promise<void>
+  async updateStatus(id: number, status: string): Promise<void>
 }
 ```
 
