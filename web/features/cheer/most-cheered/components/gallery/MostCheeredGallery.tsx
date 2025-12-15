@@ -4,7 +4,6 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getCheeredRanking } from 'apis/cheer-ticket-usages/getCheeredRanking'
 import { PageXSPX } from 'components/page'
-import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination } from 'config/constants/Pagination'
 import { MostCheeredDefaultUrl } from 'config/constants/RankingRoute'
 import MostCheeredTable from 'features/cheer/most-cheered/components/table/MostCheeredTable'
@@ -16,7 +15,7 @@ import { getStartOf } from 'utils/period/ranking'
 
 type MostCheeredGalleryProps = MostCheeredSearchParams & {
   period: MostCheeredPeriod
-  group: GroupString
+  group: string
   compact?: boolean
   className?: string
 }

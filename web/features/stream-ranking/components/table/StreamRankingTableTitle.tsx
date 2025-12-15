@@ -1,6 +1,5 @@
 import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
-import { GroupString } from 'config/constants/Group'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'
@@ -8,7 +7,7 @@ import { StreamRankingPeriod } from 'types/period'
 type Props = PropsWithChildren<{
   dimension: StreamRankingDimension
   period: StreamRankingPeriod
-  group: GroupString
+  group: string
   gender?: Gender
   className?: string
 }>
@@ -24,7 +23,7 @@ export default function StreamRankingTableTitle({
   const feat = useTranslations('Features.streamRanking')
   const title = feat(`ranking.dimension.${dimension}`, {
     period: global(`period.${period}`),
-    group: global(`group.${group}`),
+    group: ((global as any)(`group.${group}`)),
     gender: gender ? global(`gender.${gender}`) : ''
   })
     .replace(/\s+/g, ' ')

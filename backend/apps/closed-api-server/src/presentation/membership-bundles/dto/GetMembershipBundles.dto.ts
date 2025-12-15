@@ -10,7 +10,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group, GroupString, GroupStrings } from '@domain/group'
+import { Group } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { MembershipBundleRepository } from '@domain/membership-bundle'
 import { ChannelId, VideoId, VideoIds } from '@domain/youtube'
@@ -28,9 +28,9 @@ export class GetMembershipBundles {
   @IsString()
   channelId?: string
 
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

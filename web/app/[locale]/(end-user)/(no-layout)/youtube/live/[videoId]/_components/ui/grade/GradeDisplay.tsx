@@ -86,7 +86,7 @@ export default async function GradeDisplay({
         percentage: supersBundleGenderRank?.topPercentage
       },
       {
-        category: global(`group.${peakX.group}`),
+        category: (global as any)(`group.${peakX.group}`),
         pathname: `/ranking/super-chat/live/${peakX.group}/wholePeriod`,
         rank: supersBundleGroupRank?.rank,
         percentage: supersBundleGroupRank?.topPercentage

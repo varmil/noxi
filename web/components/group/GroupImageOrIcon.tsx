@@ -1,12 +1,12 @@
 import Image from 'components/styles/Image'
-import { GroupString } from 'config/constants/Group'
+
 import useGroups from 'hooks/useGroups'
 
 export default function GroupImageOrIcon({
   groupId,
   className
 }: {
-  groupId: GroupString
+  groupId: string
   className?: string
 }) {
   const { findGroup, isImg, isIcon } = useGroups()

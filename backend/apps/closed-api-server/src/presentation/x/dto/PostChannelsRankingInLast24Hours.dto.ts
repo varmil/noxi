@@ -1,11 +1,11 @@
-import { IsIn, IsOptional } from 'class-validator'
-import { GroupStrings, GroupString, Group } from '@domain/group'
+import { IsIn, IsOptional, IsString } from 'class-validator'
+import { Group } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 
 export class PostChannelsRankingInLast24Hours {
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

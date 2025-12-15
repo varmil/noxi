@@ -1,6 +1,4 @@
-import { GroupString } from 'config/constants/Group'
-
-const GROUPS_USING_GENDER: GroupString[] = [
+const GROUPS_USING_GENDER: string[] = [
   'nijisanji',
   'neo-porte',
   'nijisanji-en',
@@ -14,7 +12,7 @@ const GROUPS_USING_GENDER: GroupString[] = [
  *
  * @returns { boolean } そのグループが男女両方を含む場合はtrue
  */
-export default function groupUsingGender(group?: GroupString): boolean {
+export default function groupUsingGender(group?: string): boolean {
   if (!group) return true
   return GROUPS_USING_GENDER.includes(group)
 }

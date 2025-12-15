@@ -6,14 +6,13 @@
 
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-import { GroupString } from 'config/constants/Group'
 
 export default function LocalNavigationForChannelsIdPages({
   channelId,
   group
 }: {
   channelId: string
-  group: GroupString
+  group: string
 }) {
   const t = useTranslations('Features.channel')
   const basePath = `/${group}/channels/${channelId}`

@@ -2,7 +2,6 @@ import React from 'react'
 import { LucideProps, MicVocal, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { GroupStrings } from 'config/constants/Group'
 
 // 通信で取るかも
 const counts = {
@@ -69,47 +68,77 @@ export const getGroups = async () => {
   return func(t)
 }
 
-const func = (t: ReturnType<typeof useTranslations<'Global.group'>>) => {
-  const imgs = GroupStrings.filter(
-    group => !IconGroups.includes(group)
-  ).map<Img>(group => {
-    return {
-      id: group,
-      name: t(`${group}`),
-      src: `/group/${group}/logo.png`,
-      count: counts[group]
-    }
-  })
+// 既存のGroup定数（後でAPIから取得に変更予定）
+const AllGroups = [
+  'hololive',
+  'nijisanji',
+  'vspo',
+  'mixstgirls',
+  'neo-porte',
+  'dotlive',
+  'first-stage',
+  'varium',
+  'voms',
+  'utatane',
+  'holostars',
+  'noripro',
+  'trillionstage',
+  'aogiri-high-school',
+  '774inc',
+  'atatakakunaru',
+  'specialite',
+  'vividv',
+  'hololive-english',
+  'hololive-indonesia',
+  'nijisanji-en',
+  'idol-corp',
+  'kizuna-ai',
+  'independent',
+  'independent-irl',
+  'artist'
+] as const
 
-  const icons = GroupStrings.filter(group =>
-    IconGroups.includes(group)
-  ).map<Icon>(group => {
-    switch (group) {
-      case 'independent':
-        return {
-          id: group,
-          name: t(`${group}`),
-          icon: UserCircle,
-          count: counts[group]
-        }
-      case 'independent-irl':
-        return {
-          id: group,
-          name: t(`${group}`),
-          icon: Webcam,
-          count: counts[group]
-        }
-      case 'artist':
-        return {
-          id: group,
-          name: t(`${group}`),
-          icon: MicVocal,
-          count: counts[group]
-        }
-      default:
-        throw new Error('unknown group')
+const func = (t: ReturnType<typeof useTranslations<'Global.group'>>) => {
+  const imgs = AllGroups.filter(group => !IconGroups.includes(group)).map<Img>(
+    group => {
+      return {
+        id: group,
+        name: t(`${group}`),
+        src: `/group/${group}/logo.png`,
+        count: counts[group]
+      }
     }
-  })
+  )
+
+  const icons = AllGroups.filter(group => IconGroups.includes(group)).map<Icon>(
+    group => {
+      switch (group) {
+        case 'independent':
+          return {
+            id: group,
+            name: t(`${group}`),
+            icon: UserCircle,
+            count: counts[group]
+          }
+        case 'independent-irl':
+          return {
+            id: group,
+            name: t(`${group}`),
+            icon: Webcam,
+            count: counts[group]
+          }
+        case 'artist':
+          return {
+            id: group,
+            name: t(`${group}`),
+            icon: MicVocal,
+            count: counts[group]
+          }
+        default:
+          throw new Error('unknown group')
+      }
+    }
+  )
 
   const findGroup = (group: string) => {
     let result: Group | undefined

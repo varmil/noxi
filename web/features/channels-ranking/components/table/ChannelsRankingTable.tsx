@@ -11,7 +11,6 @@ import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
 import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
 import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
 import { Gender } from 'types/gender'
@@ -29,7 +28,7 @@ type Props = PropsWithoutRef<{
   channelIds: string[]
   dimension: ChannelsRankingDimension
   period: ChannelsRankingPeriod
-  group?: GroupString
+  group?: string
   gender?: Gender
   date?: Date
   page?: number

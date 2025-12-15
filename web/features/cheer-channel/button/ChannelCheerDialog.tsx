@@ -19,7 +19,6 @@ import { cn } from '@/lib/utils'
 import { consumeCheerTickets } from 'apis/cheer-ticket-usages/consumeCheerTickets'
 import { revalidateAfterConsumeCheetTickets } from 'apis/cheer-ticket-usages/revalidateAfterConsumeCheetTickets'
 import { CheerTicketSchema } from 'apis/cheer-tickets/cheerTicketSchema'
-import { GroupString } from 'config/constants/Group'
 import { SuccessEffect } from 'features/cheer-channel/button/SuccessEffect'
 import { Gender } from 'types/gender'
 
@@ -29,7 +28,7 @@ interface Props {
   cheerTicket?: CheerTicketSchema
   channelId: string
   channelTitle: string
-  group: GroupString
+  group: string
   gender: Gender
 }
 

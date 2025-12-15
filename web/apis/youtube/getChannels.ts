@@ -2,14 +2,14 @@ import {
   ChannelsSchema,
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
-import { GroupString } from 'config/constants/Group'
+
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
 type Params = {
   ids?: string[]
   title?: string
-  group?: GroupString
+  group?: string
   gender?: Gender
   orderBy?: {
     field: 'subscriberCount' | 'viewCount'

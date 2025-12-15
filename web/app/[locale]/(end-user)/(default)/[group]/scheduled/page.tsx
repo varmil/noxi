@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/scheduled/_components/IndexTemplate'
 import { Page } from 'components/page'
-import { GroupString } from 'config/constants/Group'
 import { routing } from 'config/i18n/routing'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -12,7 +11,7 @@ import { setGroup } from 'lib/server-only-context/cache'
 type Props = {
   params: Promise<{
     locale: string
-    group: GroupString
+    group: string
   }>
 }
 
@@ -22,7 +21,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const t = await getTranslations({ locale: locale as 'ja' | 'en',
     namespace: 'Page.group.scheduled.metadata'
   })
-  const groupName = tg(`group.${group}`)
+  const groupName = ((tg as any)(`group.${group}`))
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
@@ -39,7 +38,7 @@ export default function GroupScheduledPage(props: Props) {
 
   const t = useTranslations('Breadcrumb')
   const groupName = t('group', {
-    group: useTranslations('Global')(`group.${group}`)
+    group: ((useTranslations('Global') as any)(`group.${group}`))
   })
 
   return (

@@ -2,7 +2,6 @@ import { PropsWithoutRef } from 'react'
 import { getCheeredRankingCount } from 'apis/cheer-ticket-usages/getCheeredRanking'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination } from 'config/constants/Pagination'
 import MostCheeredFilterGallery from 'features/cheer/most-cheered/components/filter/MostCheeredFilterGallery'
 import MostCheeredGallery from 'features/cheer/most-cheered/components/gallery/MostCheeredGallery'
@@ -12,7 +11,7 @@ import { getStartOf } from 'utils/period/ranking'
 
 type Props = {
   period: MostCheeredPeriod
-  group: GroupString
+  group: string
   searchParams: MostCheeredSearchParams
 }
 

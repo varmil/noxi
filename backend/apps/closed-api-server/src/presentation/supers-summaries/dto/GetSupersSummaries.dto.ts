@@ -9,7 +9,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group, GroupString, GroupStrings } from '@domain/group'
+import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { PeriodString, PeriodStrings } from '@domain/lib/period'
@@ -36,9 +36,9 @@ export class GetSupersSummaries {
   )
   channelIds?: string[]
 
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { GroupStrings } from 'config/constants/Group'
 
 export const schema = z.object({
   channelId: z.string(),
@@ -7,7 +6,7 @@ export const schema = z.object({
   country: z.string(),
   defaultLanguage: z.string(),
   gender: z.enum(['male', 'female', 'nonbinary']),
-  group: z.enum(GroupStrings),
+  group: z.string(),
   subscriberCount: z.number().min(0),
   liveStreamCount: z.number().min(0),
   status: z.enum(['pending', 'approved', 'rejected', 'done']),

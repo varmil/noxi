@@ -5,12 +5,12 @@ import {
   cheeredRankSchema
 } from 'apis/cheer-ticket-usages/cheerTicketUsageSchema'
 import { AFTER_CONSUME_CHEER_TICKETS } from 'apis/tags/revalidate-tags'
-import { GroupString } from 'config/constants/Group'
+
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelId?: string
-  group?: GroupString
+  group?: string
   usedAt: {
     gte: Date
     lte?: Date

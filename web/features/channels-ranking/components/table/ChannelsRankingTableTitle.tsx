@@ -8,7 +8,6 @@ import {
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
-import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
 import useQueryString from 'hooks/useQueryString'
 import { usePathname } from 'lib/navigation'
@@ -18,7 +17,7 @@ import { ChannelsRankingPeriod } from 'types/period'
 type Props = PropsWithChildren<{
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  group: GroupString
+  group: string
   gender?: Gender
   date?: Date
   className?: string
@@ -36,7 +35,7 @@ export default function ChannelsRankingTableTitle({
   const feat = useTranslations('Features.channelsRanking')
   const title = feat(`ranking.dimension.${dimension}`, {
     period: global(`period.${period}`),
-    group: global(`group.${group}`),
+    group: ((global as any)(`group.${group}`)),
     gender: gender ? global(`gender.${gender}`) : ''
   })
     .replace(/\s+/g, ' ')

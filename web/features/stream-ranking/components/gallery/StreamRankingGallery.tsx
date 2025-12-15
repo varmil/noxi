@@ -6,7 +6,6 @@ import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
-import { GroupString } from 'config/constants/Group'
 import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
@@ -23,7 +22,7 @@ import { StreamRankingPeriod } from 'types/period'
 export type StreamRankingGalleryProps = StreamRankingSearchParams & {
   period: StreamRankingPeriod
   dimension: StreamRankingDimension
-  group: GroupString
+  group: string
   compact?: boolean
   className?: string
 }

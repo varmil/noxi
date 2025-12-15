@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { GroupString } from 'config/constants/Group'
 import { routing } from 'config/i18n/routing'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -18,6 +17,6 @@ export default async function GroupLayout(props: Props) {
 
   const { children } = props
 
-  setGroup(group as GroupString)
+  setGroup(group as string)
   return children
 }

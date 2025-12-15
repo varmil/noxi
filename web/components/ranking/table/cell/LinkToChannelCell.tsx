@@ -1,6 +1,5 @@
 import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
-import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 
 export default function LinkToChannelCell({
@@ -13,7 +12,7 @@ export default function LinkToChannelCell({
   children
 }: PropsWithChildren<{
   channelId: string
-  group: GroupString
+  group: string
   align?: TdHTMLAttributes<unknown>['align']
   className?: string
   prefetch?: boolean

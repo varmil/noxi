@@ -10,7 +10,6 @@ import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
 import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
 import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination as Pagination } from 'config/constants/Pagination'
 import { Gender } from 'types/gender'
 import { MostCheeredPeriod } from 'types/period'
@@ -19,7 +18,7 @@ import MostCheeredTableHeader from './header/MostCheeredTableHeader'
 type Props = PropsWithoutRef<{
   cheeredUsages: CheeredUsagesSchema
   period: MostCheeredPeriod
-  group?: GroupString
+  group?: string
   gender?: Gender
   date?: Date
   page?: number

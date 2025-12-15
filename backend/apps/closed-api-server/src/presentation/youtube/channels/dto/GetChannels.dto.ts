@@ -8,7 +8,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { GroupStrings, GroupString, Group } from '@domain/group'
+import { Group } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import {
   ChannelId,
@@ -30,9 +30,9 @@ export class GetChannelsDto {
   @IsString()
   title?: string
 
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

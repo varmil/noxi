@@ -39,9 +39,8 @@ export class PubsubhubbubScenario {
       return
     }
 
-    const group = await this.groupsService.findOne({
-      where: { channelId: channel.basicInfo.id }
-    })
+    // ChannelからGroupを取得
+    const group = channel.peakX?.group
     if (!group) {
       this.logger.warn('hUC group not found:', entry.toJSON())
       return

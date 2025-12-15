@@ -11,7 +11,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group, GroupString, GroupStrings } from '@domain/group'
+import { Group } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { StreamStatus, StreamRepository } from '@domain/stream'
 import { ChannelId, VideoId, VideoIds, VideoTitle } from '@domain/youtube'
@@ -49,9 +49,9 @@ export class GetStreamsDto {
   )
   videoIds?: string[]
 
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

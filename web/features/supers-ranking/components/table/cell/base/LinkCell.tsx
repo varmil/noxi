@@ -3,7 +3,6 @@
 import { PropsWithChildren, TdHTMLAttributes } from 'react'
 import { TableCell } from '@/components/ui/table'
 import { RANK_HIGHLIGHTER_STORAGE_KEY } from 'components/ranking/highlighter/rank-highlighter'
-import { GroupString } from 'config/constants/Group'
 import { Link } from 'lib/navigation'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
@@ -21,7 +20,7 @@ export default function LinkCell({
   children
 }: PropsWithChildren<{
   period: Period
-  group: GroupString
+  group: string
   gender?: Gender
   /** min 1 */
   page?: number

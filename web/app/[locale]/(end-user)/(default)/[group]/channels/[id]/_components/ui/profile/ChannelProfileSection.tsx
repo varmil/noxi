@@ -7,11 +7,10 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { GroupString } from 'config/constants/Group'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
-  group: GroupString
+  group: string
 }
 
 /* Avatar, Name, Group, Description */
@@ -43,8 +42,8 @@ export function ChannelProfileSection({
           )}
           <h1 className="text-xl font-bold">{name}</h1>
         </div>
-        <Badge className="max-w-[200px] whitespace-nowrap bg-gradient-to-r from-blue-500 to-violet-500 text-white">
-          {global(`group.${group}`)}
+        <Badge className="max-w-[200px] whitespace-nowrap bg-linear-to-r from-blue-500 to-violet-500 text-white">
+          {(global as any)(`group.${group}`)}
         </Badge>
         <div className="max-w-xl break-anywhere whitespace-normal">
           <div

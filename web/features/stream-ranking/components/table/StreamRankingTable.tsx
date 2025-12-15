@@ -10,7 +10,6 @@ import LinkToChannelCell from 'components/ranking/table/cell/LinkToChannelCell'
 import ChannelThumbnail from 'components/ranking/table/styles/ChannelThumbnail'
 import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
-import { GroupString } from 'config/constants/Group'
 import { StreamRankingPagination as Pagination } from 'config/constants/Pagination'
 import StreamThumbnailCell from 'features/stream-ranking/components/table/cell/StreamThumbnailCell'
 import StreamLinkCell from 'features/stream-ranking/components/table/cell/base/LinkCell'
@@ -21,7 +20,7 @@ import { convertMicrosToAmount } from 'utils/amount'
 type Props = PropsWithoutRef<{
   streams: StreamsSchema
   dimension: StreamRankingDimension
-  group?: GroupString
+  group?: string
   page: number
 }>
 

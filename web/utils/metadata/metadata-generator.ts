@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { GroupString } from 'config/constants/Group'
+
 import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import {
@@ -29,7 +29,7 @@ type Args = {
     | TopFansPeriod
     | ChannelsRankingPeriod
     | StreamRankingPeriod
-  group: GroupString
+  group: string
   gender?: Gender
   page?: string
 }
@@ -59,7 +59,7 @@ export const generateTitleAndDescription = async ({
   return {
     title: `${feat(dimension, {
       period: global(`period.${period}`),
-      group: global(`group.${group}`),
+      group: ((global as any)(`group.${group}`)),
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')
@@ -67,7 +67,7 @@ export const generateTitleAndDescription = async ({
 
     description: `${pageT(`metadata.description.dimension.${dimension}`, {
       period: global(`period.${period}`),
-      group: global(`group.${group}`),
+      group: ((global as any)(`group.${group}`)),
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')

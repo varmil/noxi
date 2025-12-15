@@ -9,7 +9,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group, GroupString, GroupStrings } from '@domain/group'
+import { Group } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { PeriodStrings, PeriodString, Period } from '@domain/lib/period'
 import { Count } from '@domain/membership'
@@ -54,9 +54,9 @@ export class GetMembershipSummaries {
   )
   channelIds?: string[]
 
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

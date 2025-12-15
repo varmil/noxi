@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button'
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
 import { getChannels } from 'apis/youtube/getChannels'
 import { PageXSPX } from 'components/page'
-import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
@@ -23,7 +22,7 @@ import {
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  group: GroupString
+  group: string
   compact?: boolean
   className?: string
 }

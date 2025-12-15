@@ -1,9 +1,8 @@
 import { ComponentProps } from 'react'
 import { TableCell } from '@/components/ui/table'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
-import { GroupString } from 'config/constants/Group'
 
-export default function GroupCell({ groupId }: { groupId: GroupString }) {
+export default function GroupCell({ groupId }: { groupId: string }) {
   return (
     <Cell className="hidden @3xl:table-cell" width={100}>
       <GroupImageOrIcon className="size-7 m-auto" groupId={groupId} />

@@ -1,4 +1,3 @@
-import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
 
 export type ChannelsRankingDimension = 'super-chat' | 'subscriber'
@@ -20,5 +19,5 @@ export type ChannelsRanking = {
   channelTitle: string
   channelThumbnails: string | undefined
   amount: string
-  group: GroupString
+  group: string
 }

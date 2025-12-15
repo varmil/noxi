@@ -2,7 +2,6 @@ import { IsNotEmpty, IsString, Matches } from 'class-validator'
 import { GroupId, GroupName, GroupIconSrc } from '@domain/group'
 import {
   GroupRegistrationStatus,
-  GroupRegistrationAppliedAt,
   GroupRegistrationAppliedAt
 } from '@domain/group-registration'
 

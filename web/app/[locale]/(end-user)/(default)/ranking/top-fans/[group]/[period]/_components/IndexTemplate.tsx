@@ -2,7 +2,6 @@ import { PropsWithoutRef } from 'react'
 import { getFanRankingCount } from 'apis/cheer-ticket-usages/getFanRanking'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { GroupString } from 'config/constants/Group'
 import { TopFansPagination } from 'config/constants/Pagination'
 import TopFansFilterGallery from 'features/cheer/top-fans/components/filter/TopFansFilterGallery'
 import TopFansGallery from 'features/cheer/top-fans/components/gallery/TopFansGallery'
@@ -12,7 +11,7 @@ import { getStartOf } from 'utils/period/ranking'
 
 type Props = {
   period: TopFansPeriod
-  group: GroupString
+  group: string
   searchParams: TopFansSearchParams
 }
 

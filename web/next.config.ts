@@ -1,11 +1,7 @@
 import { NextConfig } from 'next'
 import createNextIntlPlugin from 'next-intl/plugin'
 const withNextIntl = createNextIntlPlugin({
-  requestConfig: './config/i18n/request.ts',
-  experimental: {
-    // Provide the path to the messages that you're using in `AppConfig`
-    createMessagesDeclaration: './config/i18n/messages/en.json'
-  }
+  requestConfig: './config/i18n/request.ts'
 })
 
 const nextConfig: NextConfig = {

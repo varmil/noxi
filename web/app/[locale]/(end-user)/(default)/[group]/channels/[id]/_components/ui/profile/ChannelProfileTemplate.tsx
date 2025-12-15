@@ -1,6 +1,5 @@
 import { PropsWithoutRef } from 'react'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { GroupString } from 'config/constants/Group'
 import { ChannelProfile } from './ChannelProfile'
 
 type Props = {

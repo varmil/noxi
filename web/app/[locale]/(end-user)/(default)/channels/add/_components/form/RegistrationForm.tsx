@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { GroupStrings } from 'config/constants/Group'
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
 import {
   countrySelects,
@@ -221,11 +220,14 @@ export function RegistrationForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {GroupStrings.map(group => (
-                        <SelectItem key={group} value={group}>
-                          {global(`group.${group}`)}
-                        </SelectItem>
-                      ))}
+                      {/* TODO: APIからGroupリストを取得 */}
+                      {['hololive', 'nijisanji', 'vspo', 'independent'].map(
+                        group => (
+                          <SelectItem key={group} value={group}>
+                            {((global as any)(`group.${group}`))}
+                          </SelectItem>
+                        )
+                      )}
                     </SelectContent>
                   </Select>
                   <FormMessage />

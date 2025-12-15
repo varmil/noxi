@@ -10,7 +10,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group, GroupString, GroupStrings } from '@domain/group'
+import { Group } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { SupersBundleRepository } from '@domain/supers-bundle'
@@ -60,9 +60,9 @@ export class GetSupersBundles {
   @Type(() => AmountMicrosDto)
   amountMicros?: AmountMicrosDto
 
-  @IsIn(GroupStrings)
   @IsOptional()
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsIn(GenderStrings)
   @IsOptional()

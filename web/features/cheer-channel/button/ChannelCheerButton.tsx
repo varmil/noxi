@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { CheerTicketSchema } from 'apis/cheer-tickets/cheerTicketSchema'
 import AuthModal from 'components/auth/dialog/AuthModal'
-import { GroupString } from 'config/constants/Group'
 import { ChannelCheerDialog } from 'features/cheer-channel/button/ChannelCheerDialog'
 import { Gender } from 'types/gender'
 
@@ -24,7 +23,7 @@ export function ChannelCheerButton({
   cheerTicket?: CheerTicketSchema
   channelId: string
   channelTitle: string
-  group: GroupString
+  group: string
   gender: Gender
   disabled?: boolean
 }) {

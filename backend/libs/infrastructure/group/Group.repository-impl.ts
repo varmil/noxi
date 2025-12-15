@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import {
-  Group,
+  GroupEntity,
   GroupRepository,
   GroupId,
   GroupName,
@@ -12,14 +12,14 @@ import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 export class GroupRepositoryImpl implements GroupRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  async findAll(): Promise<Group[]> {
+  async findAll(): Promise<GroupEntity[]> {
     const rows = await this.prismaInfraService.group.findMany({
       orderBy: { createdAt: 'asc' }
     })
 
     return rows.map(
       row =>
-        new Group({
+        new GroupEntity({
           id: new GroupId(row.id),
           name: new GroupName(row.name),
           iconSrc: new GroupIconSrc(row.iconSrc)
@@ -27,21 +27,21 @@ export class GroupRepositoryImpl implements GroupRepository {
     )
   }
 
-  async findById(id: GroupId): Promise<Group | null> {
+  async findById(id: GroupId): Promise<GroupEntity | null> {
     const row = await this.prismaInfraService.group.findUnique({
       where: { id: id.get() }
     })
 
     if (!row) return null
 
-    return new Group({
+    return new GroupEntity({
       id: new GroupId(row.id),
       name: new GroupName(row.name),
       iconSrc: new GroupIconSrc(row.iconSrc)
     })
   }
 
-  async create(group: Group): Promise<void> {
+  async create(group: GroupEntity): Promise<void> {
     await this.prismaInfraService.group.create({
       data: {
         id: group.id.get(),

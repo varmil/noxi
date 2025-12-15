@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
 import {
-  Group,
+  GroupEntity,
   GroupRepository,
   GroupId,
   GroupName,
@@ -14,15 +14,15 @@ export class GroupsService {
     private readonly groupRepository: GroupRepository
   ) {}
 
-  async findAll(): Promise<Group[]> {
+  async findAll(): Promise<GroupEntity[]> {
     return await this.groupRepository.findAll()
   }
 
-  async findById(id: GroupId): Promise<Group | null> {
+  async findById(id: GroupId): Promise<GroupEntity | null> {
     return await this.groupRepository.findById(id)
   }
 
-  async create(group: Group): Promise<void> {
+  async create(group: GroupEntity): Promise<void> {
     await this.groupRepository.create(group)
   }
 

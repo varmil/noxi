@@ -6,14 +6,14 @@ import {
   SupersSummariesSchema,
   responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
-import { GroupString } from 'config/constants/Group'
+
 import { CACHE_12H, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
 
 type Params = {
   channelIds?: string[]
-  group?: GroupString
+  group?: string
   gender?: Gender
   amountMicros?: {
     period: Period
