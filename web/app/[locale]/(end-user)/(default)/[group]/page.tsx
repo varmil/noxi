@@ -2,6 +2,7 @@ import { use } from 'react'
 import { Metadata } from 'next'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroups } from 'apis/groups'
 import { Page } from 'components/page'
 import { routing } from 'config/i18n/routing'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
@@ -19,38 +20,15 @@ type Props = {
 /**
  * The Root of the Group Page
  */
-// 既存のGroup定数（後でAPIから取得に変更予定）
-const AllGroups = [
-  'hololive',
-  'nijisanji',
-  'vspo',
-  'mixstgirls',
-  'neo-porte',
-  'dotlive',
-  'first-stage',
-  'varium',
-  'voms',
-  'utatane',
-  'holostars',
-  'noripro',
-  'trillionstage',
-  'aogiri-high-school',
-  '774inc',
-  'atatakakunaru',
-  'specialite',
-  'vividv',
-  'hololive-english',
-  'hololive-indonesia',
-  'nijisanji-en',
-  'idol-corp',
-  'kizuna-ai',
-  'independent',
-  'independent-irl',
-  'artist'
-] as const
-
-export function generateStaticParams(): { group: string }[] {
-  return AllGroups.map(group => ({ group }))
+export async function generateStaticParams(): Promise<{ group: string }[]> {
+  try {
+    const groups = await getGroups()
+    return groups.map(group => ({ group: group.id }))
+  } catch (error) {
+    console.error('Failed to fetch groups for static params:', error)
+    // フォールバック: 空の配列を返すか、最小限のグループを返す
+    return []
+  }
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -63,7 +41,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     locale: locale as 'ja' | 'en',
     namespace: 'Page.group.index.metadata'
   })
-  const groupName = ((tg as any)(`group.${group}`))
+  const groupName = (tg as any)(`group.${group}`)
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
@@ -80,7 +58,7 @@ export default function GroupPage(props: Props) {
 
   const t = useTranslations('Breadcrumb')
   const groupName = t('group', {
-    group: ((useTranslations('Global') as any)(`group.${group}`))
+    group: (useTranslations('Global') as any)(`group.${group}`)
   })
 
   return (

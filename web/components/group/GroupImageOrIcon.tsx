@@ -13,6 +13,10 @@ export default async function GroupImageOrIcon({
   const { findGroup, isImg, isIcon } = groups
   const group = findGroup(groupId)
 
+  if (!group) {
+    return null
+  }
+
   if (isImg(group)) {
     return (
       <Image

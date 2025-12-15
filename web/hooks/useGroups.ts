@@ -59,59 +59,13 @@ type Group = Img | Icon
 
 const IconGroups = ['independent', 'independent-irl', 'artist']
 
-export default function useGroups() {
-  const t = useTranslations('Global.group')
-  // Client Componentでは既存の定数を使用
-  // 将来的にはSWRやReact Queryを使ってAPIから取得することも可能
-  return func(t)
-}
-
 export const getGroups = async () => {
   const t = await getTranslations('Global.group')
 
-  try {
-    // APIからGroupsを取得
-    const apiGroups = await getGroupsFromAPI()
-    return funcWithAPI(t, apiGroups)
-  } catch (error) {
-    // APIが利用できない場合は既存の定数を使用
-    console.warn(
-      'Failed to fetch groups from API, falling back to constants:',
-      error
-    )
-    return func(t)
-  }
+  // APIからGroupsを取得
+  const apiGroups = await getGroupsFromAPI()
+  return funcWithAPI(t, apiGroups)
 }
-
-// 既存のGroup定数（後でAPIから取得に変更予定）
-const AllGroups = [
-  'hololive',
-  'nijisanji',
-  'vspo',
-  'mixstgirls',
-  'neo-porte',
-  'dotlive',
-  'first-stage',
-  'varium',
-  'voms',
-  'utatane',
-  'holostars',
-  'noripro',
-  'trillionstage',
-  'aogiri-high-school',
-  '774inc',
-  'atatakakunaru',
-  'specialite',
-  'vividv',
-  'hololive-english',
-  'hololive-indonesia',
-  'nijisanji-en',
-  'idol-corp',
-  'kizuna-ai',
-  'independent',
-  'independent-irl',
-  'artist'
-] as const
 
 // API連携版の関数
 const funcWithAPI = (
@@ -120,44 +74,53 @@ const funcWithAPI = (
 ) => {
   // APIから取得したGroupsをImg形式に変換
   const apiImgs = apiGroups
-    .filter(group => !IconGroups.includes(group.id as any))
+    .filter(group => !IconGroups.includes(group.id))
     .map<Img>(group => ({
       id: group.id,
       name: group.name,
       src: group.iconSrc,
-      count: counts[group.id] || { val: 0, isAll: false }
+      count: counts[group.id as keyof typeof counts] || { val: 0, isAll: false }
     }))
 
-  // 既存のアイコングループは定数から取得
-  const icons = AllGroups.filter(group => IconGroups.includes(group)).map<Icon>(
-    group => {
-      switch (group) {
+  // アイコングループはAPIから取得したデータを使用
+  const icons = apiGroups
+    .filter(group => IconGroups.includes(group.id))
+    .map<Icon>(group => {
+      switch (group.id) {
         case 'independent':
           return {
-            id: group,
-            name: t(`${group}`),
+            id: group.id,
+            name: t(`${group.id}`),
             icon: UserCircle,
-            count: counts[group]
+            count: counts[group.id as keyof typeof counts] || {
+              val: 0,
+              isAll: false
+            }
           }
         case 'independent-irl':
           return {
-            id: group,
-            name: t(`${group}`),
+            id: group.id,
+            name: t(`${group.id}`),
             icon: Webcam,
-            count: counts[group]
+            count: counts[group.id as keyof typeof counts] || {
+              val: 0,
+              isAll: false
+            }
           }
         case 'artist':
           return {
-            id: group,
-            name: t(`${group}`),
+            id: group.id,
+            name: t(`${group.id}`),
             icon: MicVocal,
-            count: counts[group]
+            count: counts[group.id as keyof typeof counts] || {
+              val: 0,
+              isAll: false
+            }
           }
         default:
-          throw new Error('unknown group')
+          throw new Error(`Unknown icon group: ${group.id}`)
       }
-    }
-  )
+    })
 
   const findGroup = (group: string) => {
     let result: Group | undefined
@@ -171,79 +134,13 @@ const funcWithAPI = (
     return undefined
   }
 
-  function isImg(arg: any): arg is Img {
-    return arg?.src !== undefined
+  function isImg(arg: Group): arg is Img {
+    return 'src' in arg
   }
 
-  function isIcon(arg: any): arg is Icon {
-    return arg?.icon !== undefined
+  function isIcon(arg: Group): arg is Icon {
+    return 'icon' in arg
   }
 
   return { imgs: apiImgs, icons, findGroup, isImg, isIcon }
-}
-
-// 既存の定数ベース関数（フォールバック用）
-const func = (t: ReturnType<typeof useTranslations<'Global.group'>>) => {
-  const imgs = AllGroups.filter(group => !IconGroups.includes(group)).map<Img>(
-    group => {
-      return {
-        id: group,
-        name: t(`${group}`),
-        src: `/group/${group}/logo.png`,
-        count: counts[group]
-      }
-    }
-  )
-
-  const icons = AllGroups.filter(group => IconGroups.includes(group)).map<Icon>(
-    group => {
-      switch (group) {
-        case 'independent':
-          return {
-            id: group,
-            name: t(`${group}`),
-            icon: UserCircle,
-            count: counts[group]
-          }
-        case 'independent-irl':
-          return {
-            id: group,
-            name: t(`${group}`),
-            icon: Webcam,
-            count: counts[group]
-          }
-        case 'artist':
-          return {
-            id: group,
-            name: t(`${group}`),
-            icon: MicVocal,
-            count: counts[group]
-          }
-        default:
-          throw new Error('unknown group')
-      }
-    }
-  )
-
-  const findGroup = (group: string) => {
-    let result: Group | undefined
-
-    result = imgs.find(e => e.id === group)
-    if (result) return result
-
-    result = icons.find(e => e.id === group)
-    if (result) return result
-
-    return undefined
-  }
-
-  function isImg(arg: any): arg is Img {
-    return arg.src !== undefined
-  }
-
-  function isIcon(arg: any): arg is Icon {
-    return arg.icon !== undefined
-  }
-
-  return { imgs, icons, findGroup, isImg, isIcon }
 }
