@@ -6,19 +6,21 @@ import GenderColumn from 'components/ranking/filter/gender/GenderColumn'
 import GroupColumn from 'components/ranking/filter/group/GroupColumn'
 import PeriodColumn from 'components/ranking/filter/period/PeriodColumn'
 import SeasonColumn from 'components/ranking/filter/season/SeasonColumn'
+import { getGroups } from 'hooks/useGroups'
 
 type Props = PropsWithoutRef<{
   className?: string
 }>
 
-export default function TopFansFilterGallery({ className }: Props) {
+export default async function TopFansFilterGallery({ className }: Props) {
+  const groups = await getGroups()
   return (
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
         <div className="flex divide-x divide-border-variant">
           <PeriodColumn keys={['last7Days', 'last30Days', 'wholePeriod']} />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn groups={groups} />
           <GenderColumn />
           <SeasonColumn />
         </div>

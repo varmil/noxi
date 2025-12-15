@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
-import { Page } from 'components/page'
 import { getGroups } from 'apis/groups'
+import { Page } from 'components/page'
 import { RegistrationForm } from './_components/form/RegistrationForm'
 import { HistoryList } from './_components/history/HistoryList'
 

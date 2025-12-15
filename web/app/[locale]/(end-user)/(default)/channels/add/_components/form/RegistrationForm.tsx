@@ -21,16 +21,16 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { GroupSelect } from 'components/group/GroupSelect'
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
 import {
   countrySelects,
   languageSelects
 } from '../../_types/channel-registration'
-import type { GroupSchema } from 'apis/groups'
-import { GroupSelect } from 'components/group/GroupSelect'
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
 import RegistrationFormSkeleton from './RegistrationFormSkeleton'
+import type { GroupSchema } from 'apis/groups'
 
 interface RegistrationFormProps {
   groups: GroupSchema[]

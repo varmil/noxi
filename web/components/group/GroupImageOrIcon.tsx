@@ -1,15 +1,16 @@
 import Image from 'components/styles/Image'
 
-import useGroups from 'hooks/useGroups'
+import { getGroups } from 'hooks/useGroups'
 
-export default function GroupImageOrIcon({
+export default async function GroupImageOrIcon({
   groupId,
   className
 }: {
   groupId: string
   className?: string
 }) {
-  const { findGroup, isImg, isIcon } = useGroups()
+  const groups = await getGroups()
+  const { findGroup, isImg, isIcon } = groups
   const group = findGroup(groupId)
 
   if (isImg(group)) {

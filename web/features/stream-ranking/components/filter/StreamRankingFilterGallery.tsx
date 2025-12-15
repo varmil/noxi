@@ -6,12 +6,14 @@ import GalleryContainer from 'components/ranking/filter/gallery/GalleryContainer
 import GenderColumn from 'components/ranking/filter/gender/GenderColumn'
 import GroupColumn from 'components/ranking/filter/group/GroupColumn'
 import PeriodColumn from 'components/ranking/filter/period/PeriodColumn'
+import { getGroups } from 'hooks/useGroups'
 
 type Props = PropsWithoutRef<{
   className?: string
 }>
 
-export default function StreamRankingFilterGallery({ className }: Props) {
+export default async function StreamRankingFilterGallery({ className }: Props) {
+  const groups = await getGroups()
   return (
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
@@ -27,7 +29,7 @@ export default function StreamRankingFilterGallery({ className }: Props) {
             ]}
           />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn groups={groups} />
           <GenderColumn />
           <CountryColumn />
         </div>

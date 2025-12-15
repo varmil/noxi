@@ -24,7 +24,7 @@ import LanguageSwitcher from 'components/language-switcher/components/LanguageSw
 import { PWAInstallButton } from 'components/pwa/PWAInstallContext'
 import Image from 'components/styles/Image'
 import { getGroups } from 'hooks/useGroups'
-import { auth, signOut } from 'lib/auth'
+import { auth } from 'lib/auth'
 
 export default async function HeaderXSSheet() {
   const [session, comp, groups] = await Promise.all([

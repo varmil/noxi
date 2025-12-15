@@ -9,17 +9,18 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import Image from 'components/styles/Image'
-import useGroups from 'hooks/useGroups'
+import { getGroups } from 'hooks/useGroups'
 import { usePathname } from 'lib/navigation'
 
 const RESET_KEYS = {
   page: null
 }
 
-type Props = {}
+type Props = {
+  groups: Awaited<ReturnType<typeof getGroups>>
+}
 
-export default function GroupColumn({}: Props) {
-  const groups = useGroups()
+export default function GroupColumn({ groups }: Props) {
   const pathname = usePathname()
   const { group: groupParam } = useParams()
   const tg = useTranslations('Global.ranking')

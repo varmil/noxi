@@ -1,5 +1,5 @@
-import Image from 'components/styles/Image'
 import { GroupSchema } from 'apis/groups'
+import Image from 'components/styles/Image'
 
 interface GroupImageOrIconWithAPIProps {
   groupId: string

@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
 import Image from 'components/styles/Image'
-import useGroups from 'hooks/useGroups'
+import { getGroups } from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -11,12 +11,12 @@ type Props = {
   useNavigationMenuLink?: boolean
 }
 
-export default function GroupGallery({
+export default async function GroupGallery({
   className,
   useNavigationMenuLink = false
 }: Props) {
-  const t = useTranslations('Components.group')
-  const groups = useGroups()
+  const t = await getTranslations('Components.group')
+  const groups = await getGroups()
 
   return (
     <ul className={`${className || ''}`}>

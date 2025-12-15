@@ -2,8 +2,8 @@ import * as React from 'react'
 import { useTranslations } from 'next-intl'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
-import Image from 'components/styles/Image'
 import { GroupSchema } from 'apis/groups'
+import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 
 type Props = {
