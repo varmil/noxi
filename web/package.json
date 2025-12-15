@@ -54,7 +54,7 @@
     "jsonwebtoken": "^9.0.2",
     "linkify-react": "^4.3.1",
     "linkifyjs": "^4.3.1",
-    "lucide-react": "^0.555.0",
+    "lucide-react": "^0.561.0",
     "next": "15.5.9",
     "next-auth": "^5.0.0-beta.29",
     "next-intl": "^4.6.0",
