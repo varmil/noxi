@@ -4,6 +4,9 @@ import { Page } from 'components/page'
 import { RegistrationForm } from './_components/form/RegistrationForm'
 import { HistoryList } from './_components/history/HistoryList'
 
+// このページは認証が必要なため動的レンダリングを強制
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'VTuberチャンネル登録申請',
