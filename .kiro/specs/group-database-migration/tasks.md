@@ -7,27 +7,27 @@
   - マイグレーション実行とテーブル作成の確認
   - _要件: 1.1, 1.2, 1.3, 1.5_
 
-- [ ] 2. バックエンド Group ドメインレイヤーの実装
+- [x] 2. バックエンド Group ドメインレイヤーの実装
 
-  - [ ] 2.1 Group Value Object クラスの実装
+  - [x] 2.1 Group Value Object クラスの実装
 
     - GroupId、GroupName、GroupIconSrc Value Object を作成
     - class-validator デコレータによるバリデーション実装
     - _要件: 3.2_
 
-  - [ ] 2.2 GroupRegistration Value Object クラスの実装
+  - [x] 2.2 GroupRegistration Value Object クラスの実装
 
     - GroupRegistrationId、GroupRegistrationStatus、AppliedAt Value Object を作成
     - ChannelRegistration パターンに従った実装
     - _要件: 7.1, 7.2_
 
-  - [ ] 2.3 Group Entity クラスの実装
+  - [x] 2.3 Group Entity クラスの実装
 
     - Group エンティティクラスを作成
     - GroupRegistration エンティティクラスを作成
     - _要件: 3.1_
 
-  - [ ] 2.4 Group ID 一意性と形式検証のプロパティテスト
+  - [x] 2.4 Group ID 一意性と形式検証のプロパティテスト
     - **プロパティ 1: Group ID 一意性と形式検証**
     - **検証対象: 要件 1.5, 3.2, 3.3, 4.2**
 
