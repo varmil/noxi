@@ -11,7 +11,6 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Page } from 'components/page'
-import { routing } from 'config/i18n/routing'
 import { Link } from 'lib/navigation'
 
 type Props = {
@@ -23,7 +22,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
   const [global, page] = await Promise.all([
     getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.auth.error' })
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Page.auth.error'
+    })
   ])
   return {
     title: `${page('title')} - ${global('title')}`,
