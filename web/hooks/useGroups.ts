@@ -61,14 +61,11 @@ const IconGroups = ['independent', 'independent-irl', 'artist']
 
 export const getGroups = async () => {
   const t = await getTranslations('Global.group')
-
-  // APIからGroupsを取得
   const apiGroups = await getGroupsFromAPI()
-  return funcWithAPI(t, apiGroups)
+  return map(t, apiGroups)
 }
 
-// API連携版の関数
-const funcWithAPI = (
+const map = (
   t: ReturnType<typeof useTranslations<'Global.group'>>,
   apiGroups: Awaited<ReturnType<typeof getGroupsFromAPI>>
 ) => {
