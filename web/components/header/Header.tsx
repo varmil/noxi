@@ -14,7 +14,7 @@ export default async function Header({ className }: { className?: string }) {
   const [session, global, groups] = await Promise.all([
     auth(),
     getTranslations('Global'),
-    await getGroups()
+    getGroups()
   ])
 
   const bgFilter = 'backdrop-blur-sm supports-backdrop-filter:bg-background/70'

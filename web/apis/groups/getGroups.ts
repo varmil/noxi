@@ -1,11 +1,11 @@
 'use server'
 
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { groupsResponseSchema, GroupsSchema } from './groupSchema'
 
 export async function getGroups(): Promise<GroupsSchema> {
   const res = await fetchAPI('/api/groups', {
-    cache: 'force-cache' // Groupsは頻繁に変更されないのでキャッシュを使用
+    next: { revalidate: CACHE_1D }
   })
 
   if (!res.ok) {
