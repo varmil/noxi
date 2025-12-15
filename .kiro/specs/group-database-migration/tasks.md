@@ -221,5 +221,5 @@
     - GroupRegistration.entity.ts のインポートを修正
     - group-registrations.app.module.ts で GroupRegistrationInfraModule をインポート
 
-- [ ] 12. 最終チェックポイント - すべてのテストが通ることを確認
+- [x] 12. 最終チェックポイント - すべてのテストが通ることを確認
   - すべてのテストが通ることを確認し、質問があればユーザーに尋ねる

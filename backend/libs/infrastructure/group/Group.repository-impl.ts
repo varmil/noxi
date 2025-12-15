@@ -4,8 +4,7 @@ import {
   GroupRepository,
   GroupId,
   GroupName,
-  GroupIconSrc,
-  Group
+  GroupIconSrc
 } from '@domain/group'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 

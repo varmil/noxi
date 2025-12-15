@@ -9,7 +9,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { PeriodString, PeriodStrings } from '@domain/lib/period'
@@ -77,7 +77,7 @@ export class GetSupersSummaries {
       ? new ChannelIds(this.channelIds.map(id => new ChannelId(id)))
       : undefined
 
-  toGroup = () => (this.group ? new Group(this.group) : undefined)
+  toGroup = () => (this.group ? new GroupName(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 

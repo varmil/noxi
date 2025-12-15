@@ -8,7 +8,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import {
   ChannelId,
@@ -61,7 +61,7 @@ export class GetChannelsDto {
 
   toTitle = () => (this.title ? new ChannelTitle(this.title) : undefined)
 
-  toGroup = () => (this.group ? new Group(this.group) : undefined)
+  toGroup = () => (this.group ? new GroupName(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
