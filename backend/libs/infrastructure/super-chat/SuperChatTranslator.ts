@@ -4,7 +4,7 @@ import {
   ProfileImageUrl,
   IsChatSponsor
 } from '@domain/author'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { AmountMicros, Currency } from '@domain/lib/currency'
 import { SuperChat, AmountDisplayString, UserComment } from '@domain/supers'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
@@ -32,7 +32,7 @@ export class SuperChatTranslator {
       }),
 
       videoId: new VideoId(row.videoId),
-      group: new Group(row.group),
+      group: new GroupName(row.group),
       createdAt: new PublishedAt(row.createdAt)
     })
   }

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import * as fc from 'fast-check'
-import { GroupEntity } from '@domain/group/GroupEntity'
+import { Group, Group } from '@domain/group/Group.entity'
 import { GroupId } from '@domain/group/GroupId.vo'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { GroupRepositoryImpl } from './Group.repository-impl'
@@ -102,7 +102,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
 
             // Test repository functionality - string-based group ID should work
             const foundGroup = allGroups.find(
-              (g: GroupEntity) => g.id.get() === groupId
+              (g: Group) => g.id.get() === groupId
             )
             expect(foundGroup).toBeDefined()
             expect(foundGroup!.id.get()).toBe(groupId)

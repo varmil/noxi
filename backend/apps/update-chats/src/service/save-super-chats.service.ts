@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { PromiseService } from '@app/lib/promise-service'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { SuperChat } from '@domain/supers'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
@@ -22,7 +22,7 @@ export class SaveSuperChatsService {
   }: {
     videoId: VideoId
     newMessages: LiveChatMessages
-    group: Group
+    group: GroupName
   }) {
     const promises = newMessages.map(async message => {
       if (!message.isSuperChat || !message.snippet.superChatDetails) return

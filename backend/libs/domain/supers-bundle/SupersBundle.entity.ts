@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer'
-import { Group } from '@domain/group'
+import { GroupName, GroupName, GroupName } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { SupersCount } from '@domain/supers-bundle'
 import {
@@ -24,8 +24,8 @@ export class SupersBundle {
   /** ライブ中の場合はundefined, ライブ終了後の場合は終了時刻 */
   @Transform(({ value }: { value?: ActualEndTime }) => value?.get())
   public readonly actualEndTime?: ActualEndTime
-  @Transform(({ value }: { value: Group }) => value.get())
-  public readonly group: Group
+  @Transform(({ value }: { value: GroupName }) => value.get())
+  public readonly group: GroupName
 
   constructor(args: {
     videoId: VideoId
@@ -34,7 +34,7 @@ export class SupersBundle {
     count: SupersCount
     actualStartTime: ActualStartTime
     actualEndTime?: ActualEndTime
-    group: Group
+    group: GroupName
   }) {
     this.videoId = args.videoId
     this.channelId = args.channelId

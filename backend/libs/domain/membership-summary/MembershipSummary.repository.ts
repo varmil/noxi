@@ -1,4 +1,4 @@
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { Period } from '@domain/lib/period'
 import { Count } from '@domain/membership'
@@ -11,7 +11,7 @@ import { ChannelId, ChannelIds } from '@domain/youtube'
 export interface MembershipSummaryFindAllWhere {
   period: Period
   channelIds?: ChannelIds
-  group?: Group
+  group?: GroupName
   gender?: Gender
   count?: {
     gt?: Count

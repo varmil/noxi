@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common'
 import {
-  GroupEntity,
+  Group,
   GroupRepository,
   GroupId,
   GroupName,
-  GroupIconSrc
+  GroupIconSrc,
+  Group
 } from '@domain/group'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
@@ -12,14 +13,14 @@ import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 export class GroupRepositoryImpl implements GroupRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
-  async findAll(): Promise<GroupEntity[]> {
+  async findAll(): Promise<Group[]> {
     const rows = await this.prismaInfraService.group.findMany({
       orderBy: { createdAt: 'asc' }
     })
 
     return rows.map(
       row =>
-        new GroupEntity({
+        new Group({
           id: new GroupId(row.id),
           name: new GroupName(row.name),
           iconSrc: new GroupIconSrc(row.iconSrc)
@@ -27,21 +28,21 @@ export class GroupRepositoryImpl implements GroupRepository {
     )
   }
 
-  async findById(id: GroupId): Promise<GroupEntity | null> {
+  async findById(id: GroupId): Promise<Group | null> {
     const row = await this.prismaInfraService.group.findUnique({
       where: { id: id.get() }
     })
 
     if (!row) return null
 
-    return new GroupEntity({
+    return new Group({
       id: new GroupId(row.id),
       name: new GroupName(row.name),
       iconSrc: new GroupIconSrc(row.iconSrc)
     })
   }
 
-  async create(group: GroupEntity): Promise<void> {
+  async create(group: Group): Promise<void> {
     await this.prismaInfraService.group.create({
       data: {
         id: group.id.get(),

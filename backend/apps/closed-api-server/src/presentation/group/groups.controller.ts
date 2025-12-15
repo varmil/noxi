@@ -14,7 +14,7 @@ import {
 import { CreateGroupDto } from '@presentation/group/dto/CreateGroup.dto'
 import { UpdateGroupDto } from '@presentation/group/dto/UpdateGroup.dto'
 import { GroupsService } from '@app/groups/groups.service'
-import { GroupEntity, GroupId } from '@domain/group'
+import { Group, Group, GroupId } from '@domain/group'
 
 @Controller('groups')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -45,7 +45,7 @@ export class GroupsController {
       )
     }
 
-    const group = new GroupEntity({
+    const group = new Group({
       id: dto.toGroupId(),
       name: dto.toGroupName(),
       iconSrc: dto.toGroupIconSrc()

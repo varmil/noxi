@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer'
 import { UsedAt, UsedCount } from '@domain/cheer-ticket-usage'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -10,8 +10,8 @@ export class CheerTicketUsage {
   public readonly userId: UserId
   @Transform(({ value }: { value: ChannelId }) => value.get())
   public readonly channelId: ChannelId
-  @Transform(({ value }: { value: Group }) => value.get())
-  public readonly group: Group
+  @Transform(({ value }: { value: GroupName }) => value.get())
+  public readonly group: GroupName
   @Transform(({ value }: { value: Gender }) => value.get())
   public readonly gender: Gender
   @Transform(({ value }: { value: UsedCount }) => value.get())
@@ -22,7 +22,7 @@ export class CheerTicketUsage {
   constructor(args: {
     userId: UserId
     channelId: ChannelId
-    group: Group
+    group: GroupName
     gender: Gender
     usedCount: UsedCount
     usedAt: UsedAt

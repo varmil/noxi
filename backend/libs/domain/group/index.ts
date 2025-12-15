@@ -1,6 +1,5 @@
 export * from './Group.entity'
 export * from './Group.repository'
-export * from './GroupEntity'
 export * from './GroupIconSrc.vo'
 export * from './GroupId.vo'
 export * from './GroupName.vo'

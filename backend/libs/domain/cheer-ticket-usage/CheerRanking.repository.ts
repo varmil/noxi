@@ -1,11 +1,11 @@
 import { CheeredUsages, FanUsages } from '@domain/cheer-ticket-usage'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { ChannelId } from '@domain/youtube'
 
 /** For Cheer Ranking */
 export interface RankingWhere {
-  group?: Group
+  group?: GroupName
   gender?: Gender
   usedAt?: {
     gte: Date

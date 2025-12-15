@@ -1,10 +1,10 @@
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { SuperSticker, SuperStickers } from '@domain/supers'
 import { ChannelId, VideoId } from '@domain/youtube'
 
 export interface SuperStickerRepository {
   findAll: (args: {
-    where: { videoId?: VideoId; channelId?: ChannelId; group?: Group }
+    where: { videoId?: VideoId; channelId?: ChannelId; group?: GroupName }
     orderBy?: Partial<
       Record<
         'commentLength' | 'amountMicros' | 'currency' | 'createdAt',

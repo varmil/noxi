@@ -1,9 +1,9 @@
 import { Exclude } from 'class-transformer'
 import { Collection } from '@domain/lib/Collection'
-import { Group } from './Group.entity'
+import { GroupName, GroupName } from './GroupName.vo'
 
-export class Groups extends Collection<Group> {
-  constructor(protected readonly list: Group[]) {
+export class Groups extends Collection<GroupName> {
+  constructor(protected readonly list: GroupName[]) {
     super(list)
   }
 

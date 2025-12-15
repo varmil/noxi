@@ -10,7 +10,7 @@ import {
   UsedCount
 } from '@domain/cheer-ticket-usage'
 import { FanRank } from '@domain/cheer-ticket-usage/ranking/FanRank.entity'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -83,7 +83,7 @@ export class CheerTicketUsageRepositoryImpl
           new CheerTicketUsage({
             userId: new UserId(row.userId),
             channelId: new ChannelId(row.channelId),
-            group: new Group(row.group),
+            group: new GroupName(row.group),
             gender: new Gender(row.gender),
             usedCount: new UsedCount(row.usedCount),
             usedAt: new UsedAt(row.usedAt)

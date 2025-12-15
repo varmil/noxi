@@ -1,5 +1,5 @@
 import { Exclude, Expose, Transform } from 'class-transformer'
-import type { Group } from '@domain/group'
+import type { GroupName } from '@domain/group'
 import { StreamStatus, StreamTimes, Metrics } from '@domain/stream'
 import {
   VideoId,
@@ -20,8 +20,8 @@ export class Stream {
   public readonly duration?: Duration
   public readonly streamTimes: StreamTimes
   public readonly metrics: Metrics
-  @Transform(({ value }: { value: Group }) => value.get())
-  public readonly group: Group
+  @Transform(({ value }: { value: GroupName }) => value.get())
+  public readonly group: GroupName
   @Transform(({ value }: { value: UpdatedAt }) => value.get())
   public readonly updatedAt: UpdatedAt
 
@@ -31,7 +31,7 @@ export class Stream {
     duration?: Duration
     streamTimes: StreamTimes
     metrics: Metrics
-    group: Group
+    group: GroupName
     updatedAt: UpdatedAt
   }) {
     this.videoId = args.videoId

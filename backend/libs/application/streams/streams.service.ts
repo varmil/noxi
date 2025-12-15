@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Stream, StreamRepository, Streams } from '@domain/stream'
 import { VideoId, VideoTitle } from '@domain/youtube'
 
@@ -22,7 +22,7 @@ export class StreamsService {
    */
   async findAllLight(
     args: Parameters<StreamRepository['findAllLight']>[0]
-  ): Promise<{ videoId: VideoId; title: VideoTitle; group: Group }[]> {
+  ): Promise<{ videoId: VideoId; title: VideoTitle; group: GroupName }[]> {
     return await this.streamRepository.findAllLight(args)
   }
 

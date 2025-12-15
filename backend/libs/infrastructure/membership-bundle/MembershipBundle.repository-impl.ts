@@ -3,7 +3,7 @@ import {
   Prisma,
   StreamMembershipBundle as PrismaStreamMembershipBundle
 } from '@prisma/generated/client'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { Count } from '@domain/membership'
 import {
@@ -137,7 +137,7 @@ export class MembershipBundleRepositoryImpl
       actualEndTime: row.actualEndTime
         ? new ActualEndTime(row.actualEndTime)
         : undefined,
-      group: new Group(row.group)
+      group: new GroupName(row.group)
     })
   }
 }

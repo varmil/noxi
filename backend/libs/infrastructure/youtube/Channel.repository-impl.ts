@@ -1,7 +1,7 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { Prisma } from '@prisma/generated/client'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { Group } from '@domain/group'
+import { GroupName, GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   ChannelId,
@@ -193,7 +193,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
         keywords: new Keywords(keywords.map(k => new Keyword(k)))
       }),
       peakX: new PeakXChannelProps({
-        group: new Group(row.group),
+        group: new GroupName(row.group),
         country: new CountryCode(country),
         defaultLanguage: defaultLanguage
           ? new LanguageTag(defaultLanguage)

@@ -7,7 +7,7 @@ import {
   Status
 } from '@domain/channel-registration'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { Group } from '@domain/group'
+import { GroupName, GroupName, GroupName } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   ChannelId,
@@ -44,7 +44,7 @@ export class ChannelRegistrationRepositoryImpl
             country: new CountryCode(e.country),
             defaultLanguage: new LanguageTag(e.defaultLanguage),
             gender: new Gender(e.gender),
-            group: new Group(e.group),
+            group: new GroupName(e.group),
             subscriberCount: new SubscriberCount(e.subscriberCount),
             liveStreamCount: new LiveStreamCount(e.liveStreamCount),
             status: new Status(e.status),
@@ -65,7 +65,7 @@ export class ChannelRegistrationRepositoryImpl
       country: new CountryCode(row.country),
       defaultLanguage: new LanguageTag(row.defaultLanguage),
       gender: new Gender(row.gender),
-      group: new Group(row.group),
+      group: new GroupName(row.group),
       subscriberCount: new SubscriberCount(row.subscriberCount),
       liveStreamCount: new LiveStreamCount(row.liveStreamCount),
       status: new Status(row.status),

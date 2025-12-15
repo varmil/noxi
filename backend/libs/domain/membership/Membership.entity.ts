@@ -1,7 +1,7 @@
 import { Exclude } from 'class-transformer'
 import { Transform } from 'class-transformer'
 import { Author } from '@domain/author'
-import { Group } from '@domain/group'
+import { GroupName } from '@domain/group'
 import { Count, IsGift } from '@domain/membership'
 import { LiveChatMessageId, VideoId, PublishedAt } from '@domain/youtube'
 
@@ -18,7 +18,7 @@ export class Membership {
   @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly videoId: VideoId
   @Exclude()
-  public readonly group: Group
+  public readonly group: GroupName
   @Transform(({ value }: { value: PublishedAt }) => value.get())
   public readonly createdAt: PublishedAt
 
@@ -28,7 +28,7 @@ export class Membership {
     isGift: IsGift
     author: Author
     videoId: VideoId
-    group: Group
+    group: GroupName
     createdAt: PublishedAt
   }) {
     this.id = args.id
