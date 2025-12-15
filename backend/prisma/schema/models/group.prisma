@@ -1,0 +1,20 @@
+model Group {
+    id        String   @id
+    name      String
+    iconSrc   String
+    createdAt DateTime @default(now()) @db.Timestamptz(3)
+    updatedAt DateTime @updatedAt @db.Timestamptz(3)
+}
+
+model GroupRegistration {
+    id        Int      @id @default(autoincrement())
+    groupId   String
+    name      String
+    iconSrc   String
+    status    String   @default("pending")
+    appliedAt DateTime @default(now()) @db.Timestamptz(3)
+    updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+    @@index([status, appliedAt])
+    @@index([appliedAt])
+}
