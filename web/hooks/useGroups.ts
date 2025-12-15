@@ -55,10 +55,9 @@ type Icon = {
   count: Count
 }
 
-type Group = Img | Icon
-
 const IconGroups = ['independent', 'independent-irl', 'artist']
 
+/** @deprecated use 'apis/groups' > getGroups instead */
 export const getGroups = async () => {
   const t = await getTranslations('Global.group')
   const apiGroups = await getGroupsFromAPI()
@@ -119,25 +118,5 @@ const map = (
       }
     })
 
-  const findGroup = (group: string) => {
-    let result: Group | undefined
-
-    result = apiImgs.find(e => e.id === group)
-    if (result) return result
-
-    result = icons.find(e => e.id === group)
-    if (result) return result
-
-    return undefined
-  }
-
-  function isImg(arg: Group): arg is Img {
-    return 'src' in arg
-  }
-
-  function isIcon(arg: Group): arg is Icon {
-    return 'icon' in arg
-  }
-
-  return { imgs: apiImgs, icons, findGroup, isImg, isIcon }
+  return { imgs: apiImgs, icons }
 }
