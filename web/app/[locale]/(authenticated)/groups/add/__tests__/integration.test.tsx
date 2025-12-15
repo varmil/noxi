@@ -5,9 +5,9 @@
  * **検証対象: 要件 4.1, 4.2, 4.3, 4.4**
  */
 
-import { render } from '@testing-library/react'
-import { screen, fireEvent, waitFor } from '@testing-library/dom'
 import { act } from 'react'
+import { screen, fireEvent, waitFor } from '@testing-library/dom'
+import { render } from '@testing-library/react'
 import { toast } from 'sonner'
 import { GroupRegistrationForm } from '../_components/GroupRegistrationForm'
 
