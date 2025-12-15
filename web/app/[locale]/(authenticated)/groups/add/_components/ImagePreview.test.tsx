@@ -23,7 +23,19 @@ jest.mock('next-intl', () => ({
 
 // Mock the Image component
 jest.mock('components/styles/Image', () => {
-  return function MockImage({ src, alt, onLoad, onError, ...props }: any) {
+  return function MockImage({
+    src,
+    alt,
+    onLoad,
+    onError,
+    ...props
+  }: {
+    src: string
+    alt: string
+    onLoad?: () => void
+    onError?: () => void
+    [key: string]: unknown
+  }) {
     return (
       <img src={src} alt={alt} onLoad={onLoad} onError={onError} {...props} />
     )

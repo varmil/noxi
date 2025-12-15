@@ -1,5 +1,6 @@
 import en from './config/i18n/messages/en.json'
 import { routing } from './config/i18n/routing'
+import '@testing-library/jest-dom'
 
 declare module 'next-intl' {
   interface AppConfig {

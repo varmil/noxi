@@ -4,10 +4,12 @@
   "scripts": {
     "lint": "eslint --fix './*.{ts,tsx}' './**/*.{ts,tsx}'",
     "type-check": "tsc --noEmit --pretty --project tsconfig.watch.json",
+    "type-check:test": "tsc --noEmit --pretty --project tsconfig.test.json",
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:type-check": "npm run type-check:test && npm run test"
   },
   "dependencies": {
     "@auth/neon-adapter": "^1.9.1",

@@ -5,6 +5,7 @@ import { includeIgnoreFile, fixupConfigRules } from '@eslint/compat'
 import { FlatCompat } from '@eslint/eslintrc'
 import js from '@eslint/js'
 import tsParser from '@typescript-eslint/parser'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
 import importPlugin from 'eslint-plugin-import-x'
 import { zones } from './no-restricted-pahts.mjs'
 
@@ -29,7 +30,8 @@ export default [
   {
     plugins: {
       //   'unused-imports': unusedImports,
-      'import-x': importPlugin
+      'import-x': importPlugin,
+      '@typescript-eslint': tsPlugin
     },
 
     languageOptions: {
@@ -115,7 +117,20 @@ export default [
           importNames: ['useRouter'],
           message: 'Please import from `lib/navigation` instead.'
         }
-      ]
+      ],
+
+      // TypeScript関連のルール
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': 'error'
+    }
+  },
+
+  // テストファイル専用の設定
+  {
+    files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': 'error'
     }
   }
 ]
