@@ -9,6 +9,16 @@ import { render } from '@testing-library/react'
 import * as fc from 'fast-check'
 import { ImagePreview } from './ImagePreview'
 
+// Mock console.error to suppress warnings during tests
+const originalConsoleError = console.error
+beforeAll(() => {
+  console.error = jest.fn()
+})
+
+afterAll(() => {
+  console.error = originalConsoleError
+})
+
 // Mock next-intl
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => {
