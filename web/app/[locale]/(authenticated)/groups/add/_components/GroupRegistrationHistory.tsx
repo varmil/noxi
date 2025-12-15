@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getGroupRegistrations } from 'apis/groups'
 import { GroupRegistrationsSchema } from 'apis/groups/groupSchema'
-import Image from '@/components/styles/Image'
+import Image from 'components/styles/Image'
 
 const statusConfig = {
   pending: {
@@ -136,14 +136,14 @@ export function GroupRegistrationHistory() {
               className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors"
             >
               {/* Group Icon */}
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <Image
                   src={registration.iconSrc}
                   alt={registration.name}
                   width={40}
                   height={40}
                   className="rounded-full object-cover"
-                  onError={e => {
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                     const target = e.target as HTMLImageElement
                     target.src = '/placeholder.svg'
                   }}
@@ -173,13 +173,17 @@ export function GroupRegistrationHistory() {
               </div>
 
               {/* Status Badge */}
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <Badge
                   variant={config.variant}
                   className={`flex items-center space-x-1 ${config.className}`}
                 >
                   <StatusIcon className="h-3 w-3" />
-                  <span>{t(`status.${config.label}`)}</span>
+                  <span>
+                    {config.label === 'pending' && t('status.pending')}
+                    {config.label === 'approved' && t('status.approved')}
+                    {config.label === 'rejected' && t('status.rejected')}
+                  </span>
                 </Badge>
               </div>
             </div>

@@ -458,6 +458,38 @@
       "watching": "人が視聴中",
       "watched": "同接{count}人",
       "streamedLive": "{datetime}"
+    },
+    "groupRegistrationForm": {
+      "title": "新しいGroup申請",
+      "groupIdLabel": "Group ID",
+      "groupIdPlaceholder": "例: my-vtuber-group",
+      "groupIdDescription": "小文字の英数字とハイフンのみ使用できます",
+      "nameLabel": "Group名",
+      "namePlaceholder": "例: マイVTuberグループ",
+      "nameDescription": "表示されるGroup名を入力してください",
+      "iconSrcLabel": "アイコンURL",
+      "iconSrcPlaceholder": "https://example.com/icon.png または /group/my-group/logo.png",
+      "iconSrcDescription": "相対パスまたは絶対URLを入力してください",
+      "submitButton": "申請する",
+      "submitting": "申請中...",
+      "submitSuccess": "Group申請が正常に送信されました",
+      "submitError": "申請の送信に失敗しました。もう一度お試しください"
+    },
+    "imagePreview": {
+      "previewLabel": "プレビュー",
+      "fallbackText": "画像なし",
+      "errorText": "画像の読み込みに失敗しました"
+    },
+    "groupRegistrationHistory": {
+      "title": "申請履歴",
+      "description": "最新{count}件の申請履歴",
+      "emptyState": "申請履歴がありません",
+      "fetchError": "申請履歴の取得に失敗しました",
+      "status": {
+        "pending": "審査中",
+        "approved": "承認済み",
+        "rejected": "却下"
+      }
     }
   },
 
@@ -852,30 +884,6 @@
     },
     "streamStats": {
       "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
-    }
-  },
-
-  "Components": {
-    "groupRegistrationForm": {
-      "title": "新しいGroup申請",
-      "groupIdLabel": "Group ID",
-      "groupIdPlaceholder": "例: my-vtuber-group",
-      "groupIdDescription": "小文字の英数字とハイフンのみ使用できます",
-      "nameLabel": "Group名",
-      "namePlaceholder": "例: マイVTuberグループ",
-      "nameDescription": "表示されるGroup名を入力してください",
-      "iconSrcLabel": "アイコンURL",
-      "iconSrcPlaceholder": "https://example.com/icon.png または /group/my-group/logo.png",
-      "iconSrcDescription": "相対パスまたは絶対URLを入力してください",
-      "submitButton": "申請する",
-      "submitting": "申請中...",
-      "submitSuccess": "Group申請が正常に送信されました",
-      "submitError": "申請の送信に失敗しました。もう一度お試しください"
-    },
-    "imagePreview": {
-      "previewLabel": "プレビュー",
-      "fallbackText": "画像なし",
-      "errorText": "画像の読み込みに失敗しました"
     }
   },
 
