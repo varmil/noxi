@@ -5,7 +5,7 @@ import { groupsResponseSchema, GroupsSchema } from './groupSchema'
 
 export async function getGroups(): Promise<GroupsSchema> {
   const res = await fetchAPI('/api/groups', {
-    cache: 'no-cache'
+    next: { revalidate: 86400 } // 1日キャッシュ
   })
 
   if (!res.ok) {
