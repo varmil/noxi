@@ -1,66 +1,19 @@
-import { BadRequestException } from '@nestjs/common'
-import { Exclude } from 'class-transformer'
-import { IsIn, IsNotEmpty } from 'class-validator'
-import { StringValueObject } from '@domain/lib/vo/StringValueObject'
+import { Transform } from 'class-transformer'
+import { GroupIconSrc } from './GroupIconSrc.vo'
+import { GroupId } from './GroupId.vo'
+import { GroupName } from './GroupName.vo'
 
-export const GroupStrings = [
-  '774inc',
-  'atatakakunaru',
-  'dotlive',
-  'first-stage',
-  'hololive',
-  'hololive-english',
-  'hololive-indonesia',
-  'holostars',
-  'nijisanji',
-  'nijisanji-en',
-  'noripro',
-  'vspo',
-  'kizuna-ai',
-  'neo-porte',
-  'aogiri-high-school',
-  'specialite',
-  'mixstgirls',
-  'idol-corp',
-  'trillionstage',
-  'utatane',
-  'varium',
-  'vividv',
-  'voms',
-  'independent',
-  'independent-irl',
-  'artist'
-] as const
+export class Group {
+  @Transform(({ value }: { value: GroupId }) => value.get())
+  public readonly id: GroupId
+  @Transform(({ value }: { value: GroupName }) => value.get())
+  public readonly name: GroupName
+  @Transform(({ value }: { value: GroupIconSrc }) => value.get())
+  public readonly iconSrc: GroupIconSrc
 
-export type GroupString = (typeof GroupStrings)[number]
-
-export class Group extends StringValueObject<GroupString> {
-  @IsNotEmpty({ message: 'Group cannot be empty' })
-  @IsIn(GroupStrings)
-  protected readonly val: GroupString
-
-  constructor(val: string) {
-    super(val as GroupString)
-    this.val = val as GroupString
-  }
-
-  @Exclude()
-  toJP() {
-    switch (this.val) {
-      case 'hololive':
-        return 'ホロライブ'
-      case 'nijisanji':
-        return 'にじさんじ'
-      case 'vspo':
-        return 'ぶいすぽっ'
-      case 'kizuna-ai':
-        return 'Kizuna AI'
-      case 'independent':
-        return '個人勢VTuber'
-      default:
-        throw new BadRequestException(
-          'Unsupported group to translate into Japanese'
-        )
-    }
+  constructor(args: { id: GroupId; name: GroupName; iconSrc: GroupIconSrc }) {
+    this.id = args.id
+    this.name = args.name
+    this.iconSrc = args.iconSrc
   }
 }

@@ -1,5 +1,8 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common'
-import { Logger } from '@nestjs/common'
+import {
+  Injectable,
+  UnprocessableEntityException,
+  Logger
+} from '@nestjs/common'
 import {
   CheeredRank,
   CheerTicketUsage,
@@ -10,16 +13,14 @@ import {
   UsedCount
 } from '@domain/cheer-ticket-usage'
 import { FanRank } from '@domain/cheer-ticket-usage/ranking/FanRank.entity'
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
-export class CheerTicketUsageRepositoryImpl
-  implements CheerTicketUsageRepository
-{
+export class CheerTicketUsageRepositoryImpl implements CheerTicketUsageRepository {
   private readonly logger = new Logger(CheerTicketUsageRepositoryImpl.name)
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
@@ -83,7 +84,7 @@ export class CheerTicketUsageRepositoryImpl
           new CheerTicketUsage({
             userId: new UserId(row.userId),
             channelId: new ChannelId(row.channelId),
-            group: new Group(row.group),
+            group: new GroupId(row.group),
             gender: new Gender(row.gender),
             usedCount: new UsedCount(row.usedCount),
             usedAt: new UsedAt(row.usedAt)

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { setRequestLocale } from 'next-intl/server'
-import { GroupString } from 'config/constants/Group'
 import { routing } from 'config/i18n/routing'
 import { setGroup } from 'lib/server-only-context/cache'
 
@@ -29,7 +28,7 @@ export default async function NoLayout(props: Props) {
 
   // Set group only if it exists
   if (group) {
-    setGroup(group as GroupString)
+    setGroup(group as string)
   }
 
   return <>{children}</>

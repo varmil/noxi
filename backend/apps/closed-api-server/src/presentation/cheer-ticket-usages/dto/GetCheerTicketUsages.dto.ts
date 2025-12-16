@@ -11,7 +11,7 @@ import {
 import { UsedAtDto } from '@presentation/cheer-ticket-usages/dto/UsedAt.dto'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { CheerTicketUsageRepository } from '@domain/cheer-ticket-usage'
-import { GroupStrings, GroupString, Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -26,8 +26,8 @@ export class GetCheerTicketUsages {
   channelId?: string
 
   @IsOptional()
-  @IsIn(GroupStrings)
-  group?: GroupString
+  @IsString()
+  group?: string
 
   @IsOptional()
   @IsIn(GenderStrings)
@@ -57,7 +57,7 @@ export class GetCheerTicketUsages {
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined
 
-  toGroup = () => (this.group ? new Group(this.group) : undefined)
+  toGroup = () => (this.group ? new GroupId(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 

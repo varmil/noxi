@@ -11,15 +11,20 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu'
+import { GroupsSchema } from 'apis/groups'
 import GroupGallery from 'components/group/GroupGallery'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
 import {
   ChannelsRankingDefaultUrl,
-  StreamRankingDefaultUrl,
+  StreamRankingDefaultUrl
 } from 'config/constants/RankingRoute'
 import { Link } from 'lib/navigation'
 
-export default function HeaderNavigationMenu() {
+export default function HeaderNavigationMenu({
+  groups
+}: {
+  groups: GroupsSchema
+}) {
   const comp = useTranslations('Components.header')
   return (
     <NavigationMenu>
@@ -49,6 +54,7 @@ export default function HeaderNavigationMenu() {
           <NavigationMenuContent className="md:max-h-[80vh] md:overflow-y-auto">
             <GroupGallery
               className="grid gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[808px] lg:grid-cols-3"
+              groups={groups}
               useNavigationMenuLink
             />
           </NavigationMenuContent>

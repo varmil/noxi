@@ -1,4 +1,3 @@
-import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingDimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import { RankingType } from 'types/ranking'
@@ -19,7 +18,7 @@ export const createSearchParams = (params: {
 
 export const hasSupersRanking = (params: {
   dimension: ChannelsRankingDimension
-  group?: GroupString
+  group?: string
   gender?: Gender
 }) => {
   const { dimension, group, gender } = params
@@ -34,7 +33,7 @@ export const hasSupersRanking = (params: {
 
 /** group > gender > overall の優先度 */
 export const getSupersRankingType = (params: {
-  group?: GroupString
+  group?: string
   gender?: Gender
 }): RankingType => {
   const { group, gender } = params

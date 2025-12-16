@@ -9,7 +9,6 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Page } from 'components/page'
-import { routing } from 'config/i18n/routing'
 import { Link, redirect } from 'lib/navigation'
 import { stripe } from 'lib/stripe'
 

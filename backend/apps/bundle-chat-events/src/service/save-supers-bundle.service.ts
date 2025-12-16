@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { SupersBundle, SupersCount } from '@domain/supers-bundle'
 import {
   ActualEndTime,
@@ -30,7 +30,7 @@ export class SaveSupersBundleService {
     actualStartTime?: ActualStartTime
     actualEndTime?: ActualEndTime
     channelId: ChannelId
-    group: Group
+    group: GroupId
   }) {
     if (!actualStartTime) {
       throw new Error(`actualStartTime not found for ${videoId.get()}`)

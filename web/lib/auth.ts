@@ -33,7 +33,8 @@ export const { handlers, signIn, signOut, auth, unstable_update } = NextAuth(
         maxAge: SESSION_MAX_AGE
       },
 
-      callbacks: callbacks(pool)
+      callbacks: callbacks(pool),
+      trustHost: true // for [auth][error] UntrustedHost: Host must be trusted.
     }
   }
 )

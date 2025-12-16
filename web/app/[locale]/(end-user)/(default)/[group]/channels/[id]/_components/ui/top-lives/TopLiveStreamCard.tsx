@@ -1,6 +1,5 @@
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'

@@ -1,18 +1,18 @@
+import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
-import AuthModalWithButton from 'components/auth/dialog/AuthModalWithButton'
-import UserDropdown from 'components/header/UserDropdown'
+import { getGroups } from 'apis/groups'
+import HeaderAuth from 'components/header/HeaderAuth'
 import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
 import { PageSMPX } from 'components/page'
 import VChartsText from 'components/vcharts/svg/text'
-import { auth } from 'lib/auth'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default async function Header({ className }: { className?: string }) {
-  const [session, global] = await Promise.all([
-    auth(),
-    getTranslations('Global')
+  const [global, groups] = await Promise.all([
+    getTranslations('Global'),
+    getGroups()
   ])
 
   const bgFilter = 'backdrop-blur-sm supports-backdrop-filter:bg-background/70'
@@ -37,12 +37,12 @@ export default async function Header({ className }: { className?: string }) {
       </Link>
 
       <div className="hidden md:block">
-        <HeaderNavigationMenu />
+        <HeaderNavigationMenu groups={groups} />
       </div>
 
-      <div className="relative ml-auto">
-        {session ? <UserDropdown session={session} /> : <AuthModalWithButton />}
-      </div>
+      <Suspense fallback={<div className="sr-only">Loading...</div>}>
+        <HeaderAuth />
+      </Suspense>
     </header>
   )
 }

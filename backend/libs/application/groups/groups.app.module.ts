@@ -7,17 +7,12 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
 @Module({
   imports: [
-    ChannelStatisticsSummaryInfraModule,
     GroupInfraModule,
-    YoutubeInfraModule
+    YoutubeInfraModule,
+    ChannelStatisticsSummaryInfraModule
   ],
   controllers: [],
   providers: [ChannelsService, GroupsService],
-  exports: [
-    ChannelStatisticsSummaryInfraModule,
-    GroupInfraModule,
-    YoutubeInfraModule,
-    GroupsService
-  ]
+  exports: [GroupInfraModule, YoutubeInfraModule, GroupsService]
 })
 export class GroupsAppModule {}

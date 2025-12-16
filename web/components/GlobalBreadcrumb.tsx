@@ -40,7 +40,7 @@ export default function GlobalBreadcrumb({
               </BreadcrumbLink>
             </BreadcrumbItem>
 
-            {items.map((item, i) => (
+            {items.map(item => (
               <React.Fragment key={item.name + item.href}>
                 {<BreadcrumbSeparator />}
                 <BreadcrumbItem>

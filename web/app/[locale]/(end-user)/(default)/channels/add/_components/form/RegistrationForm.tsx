@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { GroupStrings } from 'config/constants/Group'
+
 import { useRegistrationForm } from '../../_hooks/useRegistrationForm'
 import {
   countrySelects,
@@ -30,8 +30,13 @@ import {
 import HowToCheckChannelIdPopover from './HowToCheckChannelIdPopover'
 import RegistrationFormChannelInfo from './RegistrationFormChannelInfo'
 import RegistrationFormSkeleton from './RegistrationFormSkeleton'
+import type { GroupSchema } from 'apis/groups'
 
-export function RegistrationForm() {
+interface RegistrationFormProps {
+  groups: GroupSchema[]
+}
+
+export function RegistrationForm({ groups }: RegistrationFormProps) {
   const {
     form,
     channelInfo,
@@ -221,9 +226,9 @@ export function RegistrationForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {GroupStrings.map(group => (
-                        <SelectItem key={group} value={group}>
-                          {global(`group.${group}`)}
+                      {groups.map(group => (
+                        <SelectItem key={group.id} value={group.id}>
+                          {group.name}
                         </SelectItem>
                       ))}
                     </SelectContent>

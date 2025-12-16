@@ -38,7 +38,7 @@ const importFAQs = async (channelId: string) => {
       `features/faq/assets/${group}/${channelId}`
     )) as { faqs: FAQs }
     return faqs
-  } catch (error) {
+  } catch {
     return undefined
   }
 }

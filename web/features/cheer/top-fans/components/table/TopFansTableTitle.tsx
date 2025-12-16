@@ -6,13 +6,12 @@ import {
   RankingTableTitleDescription,
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
-import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
 import { TopFansPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
   period: TopFansPeriod
-  group: GroupString
+  group: string
   gender?: Gender
   date?: Date
   className?: string
@@ -45,7 +44,7 @@ export default async function TopFansTableTitle({
           <div>
             {page('metadata.description.dimension.top-fans', {
               period: global(`period.${period}`),
-              group: global(`group.${group}`),
+              group: ((global as any)(`group.${group}`)),
               gender: gender ? global(`gender.${gender}`) : ''
             })}
           </div>

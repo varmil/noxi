@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { GroupStrings } from 'config/constants/Group'
 
 export const schema = z.object({
   basicInfo: z.object({
@@ -22,7 +21,7 @@ export const schema = z.object({
     videoCount: z.number().min(0)
   }),
   peakX: z.object({
-    group: z.enum(GroupStrings),
+    group: z.string(),
     country: z.string(),
     defaultLanguage: z.string().optional(),
     gender: z.enum(['male', 'female', 'nonbinary'])

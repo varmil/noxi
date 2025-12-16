@@ -1,7 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
-import Bullet from 'components/styles/Bullet'
 import ScheduledFor from 'components/styles/date/ScheduledFor'
 import IntlNumberFormat from 'components/styles/number/IntlNumberFormat'
 

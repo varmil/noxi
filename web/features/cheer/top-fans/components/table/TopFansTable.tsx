@@ -8,7 +8,6 @@ import LinkToUserCell from 'components/ranking/table/cell/LinkToUserCell'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import DisplayName from 'components/ranking/table/styles/DisplayName'
 import UserThumbnail from 'components/ranking/table/styles/UserThumbnail'
-import { GroupString } from 'config/constants/Group'
 import { MostCheeredPagination as Pagination } from 'config/constants/Pagination'
 import TopFansTableHeader from 'features/cheer/top-fans/components/table/header/TopFansTableHeader'
 import { Gender } from 'types/gender'
@@ -17,20 +16,13 @@ import { MostCheeredPeriod } from 'types/period'
 type Props = PropsWithoutRef<{
   fanUsages: FanUsagesSchema
   period: MostCheeredPeriod
-  group?: GroupString
+  group?: string
   gender?: Gender
   date?: Date
   page?: number
 }>
 
-export default async function TopFansTable({
-  fanUsages,
-  period,
-  group,
-  gender,
-  date,
-  page = 1
-}: Props) {
+export default async function TopFansTable({ fanUsages, page = 1 }: Props) {
   const userIds = fanUsages.map(e => e.userId)
   const [profiles] = await Promise.all([
     getUserProfiles({ userIds: userIds, limit: userIds.length })

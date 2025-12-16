@@ -1,10 +1,10 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroups } from 'apis/groups'
 import { getChannels } from 'apis/youtube/getChannels'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
-import { routing } from 'config/i18n/routing'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -12,11 +12,16 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
-
   const { locale } = params
 
-  const tg = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
-  const t = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.groups.metadata' })
+  const tg = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
+  const t = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Page.groups.metadata'
+  })
   return {
     title: `${t('title')} - ${tg('title')}`,
     description: `${t('description')}`
@@ -37,11 +42,17 @@ export default async function GroupsPage(props: Props) {
     limit: 3
   })
 
+  // groups
+  const groups = await getGroups()
+
   return (
     <Page breadcrumb={[{ href: `/groups`, name: t('title') }]}>
       <section className="flex flex-col gap-y-6 px-4 pt-4">
         <TalentSearch suggestions={channels} />
-        <GroupGallery className="grid w-full gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-2 text-sm" />
+        <GroupGallery
+          className="grid w-full gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-2 text-sm"
+          groups={groups}
+        />
       </section>
     </Page>
   )

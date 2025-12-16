@@ -1,5 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { AllGroups, Group, GroupRepository, Groups } from '@domain/group'
+import {
+  Group,
+  GroupRepository,
+  GroupId,
+  GroupName,
+  GroupIconSrc
+} from '@domain/group'
 
 @Injectable()
 export class GroupsService {
@@ -8,14 +14,26 @@ export class GroupsService {
     private readonly groupRepository: GroupRepository
   ) {}
 
-  /** @deprecated DBからFetchする形にしたい */
-  findAll(): Groups {
-    return AllGroups
+  async findAll(): Promise<Group[]> {
+    return await this.groupRepository.findAll()
   }
 
-  async findOne(
-    args: Parameters<GroupRepository['findOne']>[0]
-  ): Promise<Group | null> {
-    return await this.groupRepository.findOne(args)
+  async findById(id: GroupId): Promise<Group | null> {
+    return await this.groupRepository.findById(id)
+  }
+
+  async create(group: Group): Promise<void> {
+    await this.groupRepository.create(group)
+  }
+
+  async update(
+    id: GroupId,
+    group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
+  ): Promise<void> {
+    await this.groupRepository.update(id, group)
+  }
+
+  async delete(id: GroupId): Promise<void> {
+    await this.groupRepository.delete(id)
   }
 }

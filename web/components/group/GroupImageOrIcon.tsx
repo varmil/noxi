@@ -1,32 +1,31 @@
+import { getGroup } from 'apis/groups'
 import Image from 'components/styles/Image'
-import { GroupString } from 'config/constants/Group'
-import useGroups from 'hooks/useGroups'
+import { isIcon, getIcon } from 'utils/group'
 
-export default function GroupImageOrIcon({
+export default async function GroupImageOrIcon({
   groupId,
   className
 }: {
-  groupId: GroupString
+  groupId: string
   className?: string
 }) {
-  const { findGroup, isImg, isIcon } = useGroups()
-  const group = findGroup(groupId)
-
-  if (isImg(group)) {
-    return (
-      <Image
-        src={group.src}
-        alt={`${group.name} icon`}
-        width={20}
-        height={20}
-        className={`rounded-full ${className || ''}`}
-      />
-    )
+  const group = await getGroup(groupId)
+  if (!group) {
+    return null
   }
 
   if (isIcon(group)) {
-    return <group.icon className={`rounded-full ${className || ''}`} />
+    const Icon = getIcon(group)
+    return <Icon className={`rounded-full ${className || ''}`} />
   }
 
-  return null
+  return (
+    <Image
+      src={group.iconSrc}
+      alt={`${group.name} icon`}
+      width={20}
+      height={20}
+      className={`rounded-full ${className || ''}`}
+    />
+  )
 }

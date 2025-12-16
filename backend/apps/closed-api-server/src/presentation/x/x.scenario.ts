@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { TwitterApi } from 'twitter-api-v2'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { ChannelIds } from '@domain/youtube'
 
@@ -55,7 +55,7 @@ export class XScenario {
   async postChannelsRankingInLast24Hours({
     where: { group, gender }
   }: {
-    where: { group?: Group; gender?: Gender }
+    where: { group?: GroupId; gender?: Gender }
   }) {
     const sums = await this.supersBundlesService.sum({
       where: { group, gender, createdAt: { gte: new Now().xDaysAgo(1) } },

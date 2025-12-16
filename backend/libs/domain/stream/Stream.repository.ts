@@ -1,4 +1,4 @@
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   Metrics,
@@ -22,7 +22,7 @@ export interface StreamFindAllWhere {
   title?: VideoTitle
   status?: StreamStatus
   videoIds?: VideoIds
-  group?: Group
+  group?: GroupId
   gender?: Gender
   channelId?: ChannelId
   scheduledStartTime?: { gte?: Date; lte?: Date } | null
@@ -60,7 +60,7 @@ export interface StreamRepository {
     orderBy?: Partial<Record<'scheduledStartTime', 'asc' | 'desc'>>[]
     limit?: number
     offset?: number
-  }) => Promise<{ videoId: VideoId; title: VideoTitle; group: Group }[]>
+  }) => Promise<{ videoId: VideoId; title: VideoTitle; group: GroupId }[]>
 
   count: (args: { where: StreamFindAllWhere }) => Promise<number>
 

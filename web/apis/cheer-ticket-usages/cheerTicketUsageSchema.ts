@@ -1,10 +1,9 @@
 import { z } from 'zod'
-import { GroupStrings } from 'config/constants/Group'
 
 export const cheerTicketUsageSchema = z.object({
   userId: z.number(),
   channelId: z.string(),
-  group: z.enum(GroupStrings),
+  group: z.string(),
   usedCount: z.number(),
   usedAt: z.coerce.date()
 })

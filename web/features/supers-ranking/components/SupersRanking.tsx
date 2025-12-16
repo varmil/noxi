@@ -24,7 +24,6 @@ import { getChannel } from 'apis/youtube/getChannel'
 import { getChannelsCount } from 'apis/youtube/getChannels'
 import { LinkTabs } from 'components/link-tabs/LinkTabs'
 import Underline from 'components/styles/string/Underline'
-import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import RankBadge from 'features/supers-ranking/components/RankBadge'
 import LinkCell from 'features/supers-ranking/components/table/cell/base/LinkCell'
@@ -201,7 +200,7 @@ export default async function SupersRanking({
                   period={period}
                 >
                   <Underline>
-                    {global(`group.${channel.peakX.group}`)}
+                    {(global as any)(`group.${channel.peakX.group}`)}
                   </Underline>
                 </LinkCell>
                 <RankCell
@@ -240,7 +239,7 @@ function RankCell({
 }: {
   rank?: number
   period: Period
-  group: GroupString
+  group: string
   gender?: Gender
   channelId?: string
 }) {
@@ -264,7 +263,7 @@ function SeeMoreCell({
   gender
 }: {
   period: Period
-  group: GroupString
+  group: string
   gender?: Gender
 }) {
   const feat = useTranslations('Features.supersRanking')

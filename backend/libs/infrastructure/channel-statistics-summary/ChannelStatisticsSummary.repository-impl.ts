@@ -4,9 +4,8 @@ import {
   VideoCountSummaries,
   VideoCountSummary,
   ViewCountSummaries,
-  ViewCountSummary
+  ViewCountSummary, SubscriberCountSummaries 
 } from '@domain/channel-statistics-summary'
-import { SubscriberCountSummaries } from '@domain/channel-statistics-summary'
 import { ChannelStatisticsSummaryRepository } from '@domain/channel-statistics-summary/ChannelStatisticsSummary.repository'
 import {
   ChannelId,

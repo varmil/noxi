@@ -379,6 +379,7 @@
       "groups": "タレント検索"
     },
     "channelsAdd": { "title": "チャンネルを載せたい" },
+    "groupsAdd": { "title": "グループを登録したい" },
     "contact": { "title": "お問い合わせ" },
     "group": {
       "listing": "{count}人のタレントを掲載中",
@@ -458,6 +459,37 @@
       "watching": "人が視聴中",
       "watched": "同接{count}人",
       "streamedLive": "{datetime}"
+    },
+    "groupRegistrationForm": {
+      "groupIdLabel": "Group ID",
+      "groupIdPlaceholder": "例: hololive, nijisanji, 774inc",
+      "groupIdDescription": "小文字の英数字とハイフンのみ",
+      "nameLabel": "Group名",
+      "namePlaceholder": "例: ホロライブ, にじさんじ, 774inc",
+      "nameDescription": "グループ名を入力してください",
+      "iconSrcLabel": "アイコンURL",
+      "iconSrcPlaceholder": "https://example.com/icon.png または /group/my-group/logo.png",
+      "iconSrcDescription": "推奨：公式XのアイコンURL",
+      "submitButton": "申請する",
+      "submitting": "申請中...",
+      "submitSuccess": "Group申請が正常に送信されました",
+      "submitError": "申請の送信に失敗しました。もう一度お試しください"
+    },
+    "imagePreview": {
+      "previewLabel": "プレビュー",
+      "fallbackText": "画像なし",
+      "errorText": "画像の読み込みに失敗しました"
+    },
+    "groupRegistrationHistory": {
+      "title": "申請履歴",
+      "description": "最新{count}件の申請履歴",
+      "emptyState": "申請履歴がありません",
+      "fetchError": "申請履歴の取得に失敗しました",
+      "status": {
+        "pending": "審査中",
+        "approved": "承認済み",
+        "rejected": "却下"
+      }
     }
   },
 
@@ -852,6 +884,16 @@
     },
     "streamStats": {
       "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
+    }
+  },
+
+  "Pages": {
+    "groupsAdd": {
+      "title": "Group登録申請",
+      "description": "新しいVTuberグループを登録するための申請フォーム",
+      "breadcrumb": "Group登録申請",
+      "formPlaceholder": "申請フォームはここに表示されます",
+      "historyPlaceholder": "申請履歴はここに表示されます"
     }
   }
 }

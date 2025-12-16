@@ -1,8 +1,37 @@
 import { MetadataRoute } from 'next'
-import { GroupStrings } from 'config/constants/Group'
 import { getEntry } from 'config/sitemap/getEntry'
 
-const groupEntries = GroupStrings.flatMap(group => {
+// 既存のGroup定数（後でAPIから取得に変更予定）
+const AllGroups = [
+  'hololive',
+  'nijisanji',
+  'vspo',
+  'mixstgirls',
+  'neo-porte',
+  'dotlive',
+  'first-stage',
+  'varium',
+  'voms',
+  'utatane',
+  'holostars',
+  'noripro',
+  'trillionstage',
+  'aogiri-high-school',
+  '774inc',
+  'atatakakunaru',
+  'specialite',
+  'vividv',
+  'hololive-english',
+  'hololive-indonesia',
+  'nijisanji-en',
+  'idol-corp',
+  'kizuna-ai',
+  'independent',
+  'independent-irl',
+  'artist'
+] as const
+
+const groupEntries = AllGroups.flatMap(group => {
   return [
     getEntry({ pathname: `/${group}` }),
     getEntry({ pathname: `/${group}/live` }),

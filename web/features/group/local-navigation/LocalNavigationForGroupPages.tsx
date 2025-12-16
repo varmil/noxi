@@ -6,12 +6,11 @@
 
 import { useTranslations } from 'next-intl'
 import LocalNavigation from 'components/local-navigation/LocalNavigation'
-import { GroupString } from 'config/constants/Group'
 
 export default function LocalNavigationForGroupPages({
   group
 }: {
-  group: GroupString
+  group: string
 }) {
   const t = useTranslations('Features.group')
   const basePath = `/${group}`

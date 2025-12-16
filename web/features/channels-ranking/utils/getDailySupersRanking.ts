@@ -1,6 +1,6 @@
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
 import { getChannels } from 'apis/youtube/getChannels'
-import { GroupString } from 'config/constants/Group'
+
 import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
 import dayjs from 'lib/dayjs'
 import { Gender } from 'types/gender'
@@ -15,7 +15,7 @@ export async function getDailySupersRanking({
   date,
   limit
 }: {
-  group: GroupString
+  group: string
   gender?: Gender
   date?: dayjs.ConfigType
   limit?: number

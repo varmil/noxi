@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { Ellipsis, MailIcon, UserRoundPlus } from 'lucide-react'
+import { Ellipsis, MailIcon, UserRoundPlus, UsersRound } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -121,6 +121,22 @@ export default async function Aside({ className }: { className?: string }) {
                   </TooltipTrigger>
                   <TooltipContent side="right">
                     {comp('channelsAdd.title')}
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link
+                      href="/groups/add"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+                      prefetch={false}
+                    >
+                      <UsersRound className="size-6" />
+                      <span className="sr-only">{comp('groupsAdd.title')}</span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    {comp('groupsAdd.title')}
                   </TooltipContent>
                 </Tooltip>
 

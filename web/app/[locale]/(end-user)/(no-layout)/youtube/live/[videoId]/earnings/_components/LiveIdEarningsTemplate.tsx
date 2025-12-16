@@ -1,7 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { ChartConfig } from '@/components/ui/chart'
-import { getSupersBundle } from 'apis/supers/getSupersBundle'
+
 import { getStream } from 'apis/youtube/getStream'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
 import { LiveSuperChatChart } from 'features/live/earnings/components/LiveSuperChatChart'

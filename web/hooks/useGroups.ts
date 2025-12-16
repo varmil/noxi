@@ -2,7 +2,7 @@ import React from 'react'
 import { LucideProps, MicVocal, UserCircle, Webcam } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { GroupStrings } from 'config/constants/Group'
+import { getGroups as getGroupsFromAPI } from 'apis/groups'
 
 // 通信で取るかも
 const counts = {
@@ -55,81 +55,68 @@ type Icon = {
   count: Count
 }
 
-type Group = Img | Icon
-
 const IconGroups = ['independent', 'independent-irl', 'artist']
 
-export default function useGroups() {
-  const t = useTranslations('Global.group')
-  return func(t)
-}
-
+/** @deprecated use 'apis/groups' > getGroups instead */
 export const getGroups = async () => {
   const t = await getTranslations('Global.group')
-  return func(t)
+  const apiGroups = await getGroupsFromAPI()
+  return map(t, apiGroups)
 }
 
-const func = (t: ReturnType<typeof useTranslations<'Global.group'>>) => {
-  const imgs = GroupStrings.filter(
-    group => !IconGroups.includes(group)
-  ).map<Img>(group => {
-    return {
-      id: group,
-      name: t(`${group}`),
-      src: `/group/${group}/logo.png`,
-      count: counts[group]
-    }
-  })
+const map = (
+  t: ReturnType<typeof useTranslations<'Global.group'>>,
+  apiGroups: Awaited<ReturnType<typeof getGroupsFromAPI>>
+) => {
+  // APIから取得したGroupsをImg形式に変換
+  const apiImgs = apiGroups
+    .filter(group => !IconGroups.includes(group.id))
+    .map<Img>(group => ({
+      id: group.id,
+      name: group.name,
+      src: group.iconSrc,
+      count: counts[group.id as keyof typeof counts] || { val: 0, isAll: false }
+    }))
 
-  const icons = GroupStrings.filter(group =>
-    IconGroups.includes(group)
-  ).map<Icon>(group => {
-    switch (group) {
-      case 'independent':
-        return {
-          id: group,
-          name: t(`${group}`),
-          icon: UserCircle,
-          count: counts[group]
-        }
-      case 'independent-irl':
-        return {
-          id: group,
-          name: t(`${group}`),
-          icon: Webcam,
-          count: counts[group]
-        }
-      case 'artist':
-        return {
-          id: group,
-          name: t(`${group}`),
-          icon: MicVocal,
-          count: counts[group]
-        }
-      default:
-        throw new Error('unknown group')
-    }
-  })
+  // アイコングループはAPIから取得したデータを使用
+  const icons = apiGroups
+    .filter(group => IconGroups.includes(group.id))
+    .map<Icon>(group => {
+      switch (group.id) {
+        case 'independent':
+          return {
+            id: group.id,
+            name: t(`${group.id}`),
+            icon: UserCircle,
+            count: counts[group.id as keyof typeof counts] || {
+              val: 0,
+              isAll: false
+            }
+          }
+        case 'independent-irl':
+          return {
+            id: group.id,
+            name: t(`${group.id}`),
+            icon: Webcam,
+            count: counts[group.id as keyof typeof counts] || {
+              val: 0,
+              isAll: false
+            }
+          }
+        case 'artist':
+          return {
+            id: group.id,
+            name: t(`${group.id}`),
+            icon: MicVocal,
+            count: counts[group.id as keyof typeof counts] || {
+              val: 0,
+              isAll: false
+            }
+          }
+        default:
+          throw new Error(`Unknown icon group: ${group.id}`)
+      }
+    })
 
-  const findGroup = (group: string) => {
-    let result: Group | undefined
-
-    result = imgs.find(e => e.id === group)
-    if (result) return result
-
-    result = icons.find(e => e.id === group)
-    if (result) return result
-
-    return undefined
-  }
-
-  function isImg(arg: any): arg is Img {
-    return arg.src !== undefined
-  }
-
-  function isIcon(arg: any): arg is Icon {
-    return arg.icon !== undefined
-  }
-
-  return { imgs, icons, findGroup, isImg, isIcon }
+  return { imgs: apiImgs, icons }
 }

@@ -1,5 +1,4 @@
-import { Injectable } from '@nestjs/common'
-import { Logger } from '@nestjs/common'
+import { Injectable, Logger  } from '@nestjs/common'
 import { LastClaimedAt, TotalCount } from '@domain/cheer-ticket'
 import {
   AWARD,

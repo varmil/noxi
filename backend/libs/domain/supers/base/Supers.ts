@@ -1,7 +1,7 @@
 import { Exclude, Transform } from 'class-transformer'
 import { Author } from '@domain/author'
 import { ExchangeRates } from '@domain/exchange-rate'
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
@@ -23,7 +23,7 @@ export class Supers {
   @Transform(({ value }: { value: VideoId }) => value.get())
   public readonly videoId: VideoId
   @Exclude()
-  public readonly group: Group
+  public readonly group: GroupId
   @Transform(({ value }: { value: PublishedAt }) => value.get())
   public readonly createdAt: PublishedAt
 
@@ -34,7 +34,7 @@ export class Supers {
     amountDisplayString: AmountDisplayString
     author: Author
     videoId: VideoId
-    group: Group
+    group: GroupId
     createdAt: PublishedAt
   }) {
     this.id = args.id

@@ -4,8 +4,6 @@ import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { GroupString } from 'config/constants/Group'
-import { routing } from 'config/i18n/routing'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
 import { TopFansPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -15,7 +13,7 @@ type Props = {
   params: Promise<{
     locale: string
     period: TopFansPeriod
-    group: GroupString
+    group: string
   }>
   searchParams: Promise<TopFansSearchParams>
 }
@@ -58,7 +56,7 @@ export default function RankingTopFansPage(props: Props) {
           href: `#`,
           name: feat('top-fans', {
             period: global(`period.${period}`),
-            group: group ? global(`group.${group}`) : '',
+            group: group ? (global as any)(`group.${group}`) : '',
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')

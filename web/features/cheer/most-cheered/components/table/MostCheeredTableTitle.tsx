@@ -6,13 +6,12 @@ import {
   RankingTableTitleDescription,
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
-import { GroupString } from 'config/constants/Group'
 import { Gender } from 'types/gender'
 import { MostCheeredPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
   period: MostCheeredPeriod
-  group: GroupString
+  group: string
   gender?: Gender
   date?: Date
   className?: string
@@ -44,7 +43,7 @@ export default async function MostCheeredTableTitle({
         <RankingTableTitleDescription>
           {page('metadata.description.dimension.most-cheered', {
             period: global(`period.${period}`),
-            group: global(`group.${group}`),
+            group: ((global as any)(`group.${group}`)),
             gender: gender ? global(`gender.${gender}`) : ''
           })}
         </RankingTableTitleDescription>

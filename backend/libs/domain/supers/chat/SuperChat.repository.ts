@@ -1,4 +1,4 @@
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { SuperChat, SuperChats } from '@domain/supers'
 import { ChannelId, VideoId } from '@domain/youtube'
 
@@ -8,7 +8,7 @@ export interface SuperChatRepository {
       videoId?: VideoId
       channelId?: ChannelId
       userComment?: { not: null }
-      group?: Group
+      group?: GroupId
       createdBefore?: Date
       createdAfter?: Date
     }
@@ -26,7 +26,7 @@ export interface SuperChatRepository {
       videoId?: VideoId
       channelId?: ChannelId
       userComment?: { not: null }
-      group?: Group
+      group?: GroupId
       createdBefore?: Date
       createdAfter?: Date
     }

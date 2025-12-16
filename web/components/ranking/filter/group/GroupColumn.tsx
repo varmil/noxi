@@ -2,6 +2,7 @@
 
 import { notFound, useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { GroupsSchema } from 'apis/groups'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -9,17 +10,18 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import Image from 'components/styles/Image'
-import useGroups from 'hooks/useGroups'
 import { usePathname } from 'lib/navigation'
+import { getIcon, isIcon } from 'utils/group'
 
 const RESET_KEYS = {
   page: null
 }
 
-type Props = {}
+type Props = {
+  groups: GroupsSchema
+}
 
-export default function GroupColumn({}: Props) {
-  const groups = useGroups()
+export default function GroupColumn({ groups }: Props) {
   const pathname = usePathname()
   const { group: groupParam } = useParams()
   const tg = useTranslations('Global.ranking')
@@ -41,7 +43,7 @@ export default function GroupColumn({}: Props) {
           {tg('group.all')}
         </SelectButton>
 
-        {groups.imgs.map(group => (
+        {groups.map(group => (
           <SelectButton
             key={group.id}
             className="gap-x-2"
@@ -50,27 +52,20 @@ export default function GroupColumn({}: Props) {
             isActive={() => groupParam === group.id}
             activeVariant="secondary"
           >
-            <Image
-              src={group.src}
-              alt={''}
-              width={100}
-              height={100}
-              className="h-4 w-4 rounded-full"
-            />
-            <span className="">{group.name}</span>
-          </SelectButton>
-        ))}
-
-        {groups.icons.map(group => (
-          <SelectButton
-            key={group.id}
-            className="gap-x-2"
-            qs={{ ...RESET_KEYS }}
-            pathname={`${pathname.replace(groupParam as string, group.id)}`}
-            isActive={() => groupParam === group.id}
-            activeVariant="secondary"
-          >
-            <group.icon className="h-4 w-4 rounded-full" />
+            {isIcon(group) ? (
+              (() => {
+                const Icon = getIcon(group)
+                return <Icon className="h-4 w-4 rounded-full" />
+              })()
+            ) : (
+              <Image
+                src={group.iconSrc}
+                alt={''}
+                width={100}
+                height={100}
+                className="h-4 w-4 rounded-full"
+              />
+            )}
             <span className="">{group.name}</span>
           </SelectButton>
         ))}

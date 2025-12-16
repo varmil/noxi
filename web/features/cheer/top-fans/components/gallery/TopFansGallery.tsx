@@ -4,7 +4,6 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getFanRanking } from 'apis/cheer-ticket-usages/getFanRanking'
 import { PageXSPX } from 'components/page'
-import { GroupString } from 'config/constants/Group'
 import { TopFansPagination } from 'config/constants/Pagination'
 import { TopFansDefaultUrl } from 'config/constants/RankingRoute'
 import TopFansTable from 'features/cheer/top-fans/components/table/TopFansTable'
@@ -16,7 +15,7 @@ import { getStartOf } from 'utils/period/ranking'
 
 type TopFansGalleryProps = TopFansSearchParams & {
   period: TopFansPeriod
-  group: GroupString
+  group: string
   compact?: boolean
   className?: string
 }

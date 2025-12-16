@@ -169,11 +169,11 @@ export class GroupRegistration {
 export interface GroupRepository {
   findAll(): Promise<Group[]>
   findById(id: GroupId): Promise<Group | null>
-  create(group: Group): Promise<Group>
+  create(group: Group): Promise<void>
   update(
     id: GroupId,
     group: Partial<{ name: GroupName; iconSrc: GroupIconSrc }>
-  ): Promise<Group>
+  ): Promise<void>
   delete(id: GroupId): Promise<void>
 }
 
@@ -181,11 +181,11 @@ export interface GroupRegistrationRepository {
   findAll({ limit }: { limit?: number }): Promise<GroupRegistration[]>
   create(
     registration: Omit<GroupRegistration, 'id' | 'appliedAt'>
-  ): Promise<GroupRegistration>
+  ): Promise<void>
   updateStatus(
     id: GroupRegistrationId,
     status: GroupRegistrationStatus
-  ): Promise<GroupRegistration>
+  ): Promise<void>
 }
 ```
 
@@ -197,10 +197,10 @@ export interface GroupRegistrationRepository {
 @Injectable()
 export class GroupService {
   async findAll(): Promise<Group[]>
-  async findById(id: string): Promise<Group>
-  async create(createGroupDto: CreateGroupDto): Promise<Group>
-  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<Group>
-  async delete(id: string): Promise<void>
+  async findById(id: GroupId): Promise<Group>
+  async create(createGroupDto: CreateGroupDto): Promise<void>
+  async update(id: GroupId, updateGroupDto: UpdateGroupDto): Promise<void>
+  async delete(id: GroupId): Promise<void>
 }
 
 @Injectable()
@@ -208,10 +208,8 @@ export class GroupRegistrationService {
   async findAll({ limit = 30 }: { limit?: number } = {}): Promise<
     GroupRegistration[]
   >
-  async create(
-    createDto: CreateGroupRegistrationDto
-  ): Promise<GroupRegistration>
-  async updateStatus(id: number, status: string): Promise<GroupRegistration>
+  async create(createDto: CreateGroupRegistrationDto): Promise<void>
+  async updateStatus(id: number, status: GroupRegistrationStatus): Promise<void>
 }
 ```
 

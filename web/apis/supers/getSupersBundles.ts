@@ -2,7 +2,7 @@ import {
   SupersBundlesSchema,
   listSchema
 } from 'apis/youtube/schema/supersBundleSchema'
-import { GroupString } from 'config/constants/Group'
+
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
@@ -15,7 +15,7 @@ type Params = {
     lt?: bigint
     lte?: bigint
   }
-  group?: GroupString
+  group?: string
   gender?: Gender
   actualEndTimeGTE?: null
   actualEndTimeLTE?: null

@@ -4,8 +4,6 @@ import { useTranslations } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { GroupString } from 'config/constants/Group'
-import { routing } from 'config/i18n/routing'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
@@ -22,7 +20,7 @@ type Props = {
     locale: string
     period: ChannelsRankingPeriod
     dimension: ChannelsRankingDimension
-    group: GroupString
+    group: string
   }>
   searchParams: Promise<ChannelsRankingSearchParams>
 }
@@ -77,7 +75,7 @@ export default function RankingChannelsPage(props: Props) {
         {
           href: `#`,
           name: feat(dimension, {
-            group: global(`group.${group}`),
+            group: (global as any)(`group.${group}`),
             period: global(`period.${period}`),
             gender: gender ? global(`gender.${gender}`) : ''
           })

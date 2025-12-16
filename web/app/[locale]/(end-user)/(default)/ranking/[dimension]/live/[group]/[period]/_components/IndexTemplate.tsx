@@ -3,7 +3,6 @@ import { getSupersBundlesCount } from 'apis/supers/getSupersBundles'
 import { getStreamsCount } from 'apis/youtube/getStreams'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { GroupString } from 'config/constants/Group'
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
@@ -18,7 +17,7 @@ import { StreamRankingPeriod } from 'types/period'
 type Props = {
   period: StreamRankingPeriod
   dimension: StreamRankingDimension
-  group: GroupString
+  group: string
   searchParams: StreamRankingSearchParams
 }
 

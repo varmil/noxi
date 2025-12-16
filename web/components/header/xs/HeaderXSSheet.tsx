@@ -3,7 +3,8 @@ import {
   LogOut,
   MailIcon,
   PanelLeftIcon,
-  UserRoundPlus
+  UserRoundPlus,
+  UsersRound
 } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
@@ -24,7 +25,7 @@ import LanguageSwitcher from 'components/language-switcher/components/LanguageSw
 import { PWAInstallButton } from 'components/pwa/PWAInstallContext'
 import Image from 'components/styles/Image'
 import { getGroups } from 'hooks/useGroups'
-import { auth, signOut } from 'lib/auth'
+import { auth } from 'lib/auth'
 
 export default async function HeaderXSSheet() {
   const [session, comp, groups] = await Promise.all([
@@ -100,6 +101,12 @@ export default async function HeaderXSSheet() {
               name={comp('channelsAdd.title')}
               icon={<UserRoundPlus className="size-7" />}
               href="/channels/add"
+            />
+
+            <HeaderLink
+              name={comp('groupsAdd.title')}
+              icon={<UsersRound className="size-7" />}
+              href="/groups/add"
             />
 
             <HeaderLink

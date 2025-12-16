@@ -22,7 +22,7 @@ const formSchema = z.object({
   country: z.string().min(1, { message: '国を選択してください' }),
   language: z.string().min(1, { message: '言語を選択してください' }),
   gender: z.enum(['male', 'female'], {
-    required_error: '性別を選択してください'
+    message: '性別を選択してください'
   }),
   group: z.string().min(1, { message: '所属事務所を選択してください' })
 })
@@ -90,7 +90,7 @@ export function useRegistrationForm() {
             registration?.status === 'rejected' &&
               dayjs().isBefore(dayjs(registration?.appliedAt).add(30, 'day'))
           )
-        } catch (error) {
+        } catch {
           toast.error('エラー', {
             description: (
               <>

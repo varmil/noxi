@@ -2,7 +2,6 @@ import { PropsWithoutRef } from 'react'
 import { History } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getStreams } from 'apis/youtube/getStreams'
-import { GroupString } from 'config/constants/Group'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import EndedStreamGalleryContent from 'features/group/ended/components/EndedStreamGalleryContent'
 import StreamGallery from 'features/group/stream/components/gallery/StreamGallery'
@@ -14,7 +13,7 @@ import { CACHE_1H } from 'lib/fetchAPI'
 type Props = StreamGallerySearchParams & {
   compact?: boolean
   showHeader?: boolean
-  where?: { title?: string; channelId?: string; group?: GroupString }
+  where?: { title?: string; channelId?: string; group?: string }
 }
 
 export default async function EndedStreamGallery({
@@ -45,7 +44,9 @@ export default async function EndedStreamGallery({
           description={
             group
               ? t('description', {
-                  group: (await getTranslations('Global.group'))(`${group}`)
+                  group: ((await getTranslations('Global.group')) as any)(
+                    `${group}`
+                  )
                 })
               : ''
           }

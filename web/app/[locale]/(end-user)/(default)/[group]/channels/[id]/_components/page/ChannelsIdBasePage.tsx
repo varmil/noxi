@@ -4,8 +4,7 @@ import { setRequestLocale, getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import { Page } from 'components/page'
 import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemplateSkeleton'
-import { GroupString } from 'config/constants/Group'
-import { routing } from 'config/i18n/routing'
+
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
 import { getWebUrl } from 'utils/web-url'
@@ -14,7 +13,7 @@ import { ChannelProfileTemplate } from '../ui/profile/ChannelProfileTemplate'
 export type ChannelsIdBasePageProps = {
   params: Promise<{
     locale: string
-    group: GroupString
+    group: string
     id: string
   }>
 }
@@ -34,14 +33,17 @@ export async function generateBaseMetadata(
   }
 ): Promise<Metadata> {
   const { locale, group, id } = await props.params
-  const [{ basicInfo }, tg, t] = await Promise.all([
+  const [{ basicInfo }, t] = await Promise.all([
     getChannel(id),
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
     getTranslations({
       locale: locale as 'ja' | 'en',
       namespace: props.namespace
     })
   ])
+  const tg = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
   return {
     title: `${t('title', { channel: basicInfo.title })} - ${tg('title')}`,
     description: `${t('description', {
@@ -63,10 +65,9 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale as 'ja' | 'en')
   setGroup(group)
 
-  const [channel, tg, t] = await Promise.all([
+  const [channel, t] = await Promise.all([
     getChannel(id),
-    getTranslations('Global'),
-    getTranslations('Breadcrumb')
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Breadcrumb' })
   ])
 
   return (
@@ -74,7 +75,7 @@ export default async function ChannelsIdBasePage(
       breadcrumb={[
         {
           href: `/${group}/charts/channels`,
-          name: t('group', { group: tg(`group.${group}`) })
+          name: t('group', { group: group })
         },
         { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
       ]}

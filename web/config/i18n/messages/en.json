@@ -379,6 +379,7 @@
       "groups": "Talents"
     },
     "channelsAdd": { "title": "Add your channel to VCharts" },
+    "groupsAdd": { "title": "Add your group to VCharts" },
     "contact": { "title": "Contact" },
     "group": {
       "listing": "Listing {count} talents.",
@@ -458,6 +459,37 @@
       "watching": "watching",
       "watched": "{count} viewers",
       "streamedLive": "{datetime}"
+    },
+    "groupRegistrationForm": {
+      "groupIdLabel": "Group ID",
+      "groupIdPlaceholder": "e.g., hololive, nijisanji, 774inc",
+      "groupIdDescription": "Only lowercase alphanumeric characters and hyphens are allowed",
+      "nameLabel": "Group Name",
+      "namePlaceholder": "e.g., Hololive, Nijisanji, 774inc.",
+      "nameDescription": "Enter the display name for the group",
+      "iconSrcLabel": "Icon URL",
+      "iconSrcPlaceholder": "https://example.com/icon.png or /group/my-group/logo.png",
+      "iconSrcDescription": "Recommended: Official X icon URL",
+      "submitButton": "Submit Application",
+      "submitting": "Submitting...",
+      "submitSuccess": "Group application submitted successfully",
+      "submitError": "Failed to submit application. Please try again"
+    },
+    "imagePreview": {
+      "previewLabel": "Preview",
+      "fallbackText": "No Image",
+      "errorText": "Failed to load image"
+    },
+    "groupRegistrationHistory": {
+      "title": "Application History",
+      "description": "Latest {count} applications",
+      "emptyState": "No application history",
+      "fetchError": "Failed to fetch application history",
+      "status": {
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      }
     }
   },
 
@@ -852,6 +884,16 @@
     },
     "streamStats": {
       "srViewerCountsChart": "The area graph shows the number of concurrent viewers over the course of {dateRange}. The maximum number of concurrent viewers at the peak was {peak}."
+    }
+  },
+
+  "Pages": {
+    "groupsAdd": {
+      "title": "Group Registration Application",
+      "description": "Application form for registering a new VTuber group",
+      "breadcrumb": "Group Registration Application",
+      "formPlaceholder": "Application form will be displayed here",
+      "historyPlaceholder": "Application history will be displayed here"
     }
   }
 }

@@ -8,7 +8,6 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { getUserProfile } from 'apis/user-profiles/getUserProfile'
-import { routing } from 'config/i18n/routing'
 import ProfileForm from 'features/dashboard/profile/components/ProfileForm'
 import { auth } from 'lib/auth'
 import { Link, redirect } from 'lib/navigation'

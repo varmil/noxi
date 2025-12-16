@@ -1,7 +1,11 @@
 import { Metadata } from 'next'
+import { getGroups } from 'apis/groups'
 import { Page } from 'components/page'
 import { RegistrationForm } from './_components/form/RegistrationForm'
 import { HistoryList } from './_components/history/HistoryList'
+
+// このページは認証が必要なため動的レンダリングを強制
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -10,7 +14,15 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default function ChannelsAddPage() {
+export default async function ChannelsAddPage() {
+  let groups: Array<{ id: string; name: string; iconSrc: string }> = []
+
+  try {
+    groups = await getGroups()
+  } catch (error) {
+    console.error('Failed to fetch groups', error)
+  }
+
   return (
     <Page
       breadcrumb={[{ href: `/channels/add`, name: 'VTuberチャンネル登録申請' }]}
@@ -21,7 +33,7 @@ export default function ChannelsAddPage() {
       </h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2">
-          <RegistrationForm />
+          <RegistrationForm groups={groups} />
         </div>
         <div className="lg:col-span-1">
           <HistoryList />

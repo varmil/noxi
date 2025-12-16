@@ -13,7 +13,6 @@ import { PrismaInfraModule } from '@infra/service/prisma/prisma.infra.module'
   ],
   exports: [
     PrismaInfraModule,
-
     GroupRepositoryImpl,
     {
       provide: 'GroupRepository',

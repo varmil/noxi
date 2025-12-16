@@ -128,7 +128,7 @@ export function RegistrationHistory({
             <dd>{global(`gender.${registration.gender}`)}</dd>
 
             <dt className="text-muted-foreground">所属事務所:</dt>
-            <dd>{global(`group.${registration.group}`)}</dd>
+            <dd>{((global as any)(`group.${registration.group}`))}</dd>
 
             <dt className="text-muted-foreground">登録者数:</dt>
             <dd>{registration.subscriberCount.toLocaleString()}人</dd>

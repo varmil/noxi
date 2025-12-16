@@ -3,58 +3,61 @@ import { useTranslations } from 'next-intl'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
 import Image from 'components/styles/Image'
-import useGroups from 'hooks/useGroups'
 import { Link } from 'lib/navigation'
+import { getIcon, isIcon } from 'utils/group'
+import type { GroupsSchema } from 'apis/groups'
 
 type Props = {
   className?: string
+  groups: GroupsSchema
   useNavigationMenuLink?: boolean
 }
 
 export default function GroupGallery({
   className,
+  groups,
   useNavigationMenuLink = false
 }: Props) {
   const t = useTranslations('Components.group')
-  const groups = useGroups()
 
   return (
     <ul className={`${className || ''}`}>
-      {groups.imgs.map(group => (
-        <ListItem
-          key={group.id}
-          title={group.name}
-          href={`/${group.id}`}
-          icon={
-            <Image
-              src={group.src}
-              alt={`${group.name} icon`}
-              width={100}
-              height={100}
-              className={`rounded-full`}
-            />
-          }
-          useNavigationMenuLink={useNavigationMenuLink}
-        >
-          {t(group.count.isAll ? 'listingAll' : 'listing', {
-            count: group.count.val.toString()
-          })}
-        </ListItem>
-      ))}
-
-      {groups.icons.map(group => (
-        <ListItem
-          key={group.id}
-          title={group.name}
-          href={`/${group.id}`}
-          icon={<group.icon className="size-6 text-foreground" />}
-          useNavigationMenuLink={useNavigationMenuLink}
-        >
-          {t(group.count.isAll ? 'listingAll' : 'listing', {
-            count: group.count.val.toString()
-          })}
-        </ListItem>
-      ))}
+      {groups.map(group =>
+        !isIcon(group) ? (
+          <ListItem
+            key={group.id}
+            title={group.name}
+            href={`/${group.id}`}
+            icon={
+              <Image
+                src={group.iconSrc}
+                alt={`${group.name} icon`}
+                width={100}
+                height={100}
+                className={`rounded-full`}
+              />
+            }
+            useNavigationMenuLink={useNavigationMenuLink}
+          >
+            {t('listing', { count: '---' })}
+          </ListItem>
+        ) : (
+          (() => {
+            const Icon = getIcon(group)
+            return (
+              <ListItem
+                key={group.id}
+                title={group.name}
+                href={`/${group.id}`}
+                icon={<Icon className="size-6 text-foreground" />}
+                useNavigationMenuLink={useNavigationMenuLink}
+              >
+                {t('listing', { count: '---' })}
+              </ListItem>
+            )
+          })()
+        )
+      )}
     </ul>
   )
 }

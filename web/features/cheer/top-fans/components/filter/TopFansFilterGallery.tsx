@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { getGroups } from 'apis/groups'
 import DimensionColumn from 'components/ranking/filter/dimension/DimensionColumn'
 import GalleryContainer from 'components/ranking/filter/gallery/GalleryContainer'
 import GenderColumn from 'components/ranking/filter/gender/GenderColumn'
@@ -11,14 +12,15 @@ type Props = PropsWithoutRef<{
   className?: string
 }>
 
-export default function TopFansFilterGallery({ className }: Props) {
+export default async function TopFansFilterGallery({ className }: Props) {
+  const groups = await getGroups()
   return (
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
         <div className="flex divide-x divide-border-variant">
           <PeriodColumn keys={['last7Days', 'last30Days', 'wholePeriod']} />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn groups={groups} />
           <GenderColumn />
           <SeasonColumn />
         </div>

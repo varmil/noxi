@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
+import { getGroups } from 'apis/groups'
 import CountryColumn from 'components/ranking/filter/country/CountryColumn'
 import DimensionColumn from 'components/ranking/filter/dimension/DimensionColumn'
 import GalleryContainer from 'components/ranking/filter/gallery/GalleryContainer'
@@ -13,10 +14,11 @@ type Props = PropsWithoutRef<{
   className?: string
 }>
 
-export default function ChannelsRankingFilterGallery({
+export default async function ChannelsRankingFilterGallery({
   dimension,
   className
 }: Props) {
+  const groups = await getGroups()
   return (
     <GalleryContainer className={className}>
       <ScrollArea className="w-full whitespace-nowrap border border-border-variant">
@@ -37,7 +39,7 @@ export default function ChannelsRankingFilterGallery({
             }
           />
           <DimensionColumn />
-          <GroupColumn />
+          <GroupColumn groups={groups} />
           <GenderColumn />
           <CountryColumn />
         </div>

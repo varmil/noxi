@@ -1,5 +1,5 @@
 import { CountryCode } from '@domain/country'
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   Channel,
@@ -14,7 +14,7 @@ export interface ChannelRepository {
     where?: {
       id?: ChannelIds
       title?: ChannelTitle
-      group?: Group
+      group?: GroupId
       gender?: Gender
       country?: CountryCode
     }
@@ -27,7 +27,7 @@ export interface ChannelRepository {
 
   count: (args: {
     where?: {
-      group?: Group
+      group?: GroupId
       gender?: Gender
       country?: CountryCode
     }

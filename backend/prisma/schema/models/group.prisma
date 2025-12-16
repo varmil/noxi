@@ -2,8 +2,11 @@ model Group {
     id        String   @id
     name      String
     iconSrc   String
+    order     Int      @default(1)
     createdAt DateTime @default(now()) @db.Timestamptz(3)
     updatedAt DateTime @updatedAt @db.Timestamptz(3)
+
+    @@index([order])
 }
 
 model GroupRegistration {

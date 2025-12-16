@@ -3,7 +3,6 @@ import { getSupersSummariesCount } from 'apis/supers/getSupersSummaries'
 import { getChannelsCount } from 'apis/youtube/getChannels'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { GroupString } from 'config/constants/Group'
 import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import ChannelsRankingFilterGallery from 'features/channels-ranking/components/filter/ChannelsRankingFilterGallery'
 import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
@@ -20,7 +19,7 @@ import { ChannelsRankingPeriod } from 'types/period'
 type Props = {
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
-  group: GroupString
+  group: string
   searchParams: ChannelsRankingSearchParams
 }
 

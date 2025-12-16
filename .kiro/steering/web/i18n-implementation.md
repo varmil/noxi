@@ -1,7 +1,4 @@
----
-inclusion: fileMatch
-fileMatchPattern: 'web/**/*'
----
+このステアリングは `/web` 配下のファイルに適用してください
 
 # next-intl を用いた i18n 実装ガイドライン
 

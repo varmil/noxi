@@ -28,7 +28,7 @@ const formSchema = z.object({
   httpMethod: z.string(),
   url: z
     .string({
-      required_error: 'Please enter url to request.'
+      message: 'Please enter url to request.'
     })
     .url(),
   body: z.string().optional(),
@@ -62,7 +62,7 @@ export function SuperAdminRequestForm() {
           </pre>
         )
       })
-    } catch (error) {
+    } catch {
       toast.error('Uh oh! Something went wrong.', {
         description: 'There was a problem with your request.'
       })

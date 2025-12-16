@@ -1,4 +1,4 @@
-import { Group } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { AmountMicros } from '@domain/lib/currency'
 import { RankingType } from '@domain/ranking'
@@ -20,7 +20,7 @@ interface SupersBundleFindAllWhere {
     lt?: AmountMicros
     lte?: AmountMicros
   }
-  group?: Group
+  group?: GroupId
   gender?: Gender
   // NULL means "live now"
   actualEndTime?: null
@@ -34,7 +34,7 @@ export interface AmountMicrosSum {
 
 export interface SupersBundleSumWhere {
   createdAt: { gte: Date; lte?: Date }
-  group?: Group
+  group?: GroupId
   channelIds?: ChannelIds
   gender?: Gender
   amountMicros?: {

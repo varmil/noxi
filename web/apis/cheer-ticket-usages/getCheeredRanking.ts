@@ -1,5 +1,4 @@
 import { AFTER_CONSUME_CHEER_TICKETS } from 'apis/tags/revalidate-tags'
-import { GroupString } from 'config/constants/Group'
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import {
@@ -8,7 +7,7 @@ import {
 } from './cheerTicketUsageSchema'
 
 type Params = {
-  group?: GroupString
+  group?: string
   gender?: Gender
   usedAt?: {
     gte: Date
