@@ -51,18 +51,16 @@ export default async function GroupLivePage(props: Props) {
   const t = await getTranslations('Breadcrumb')
   const global = await getTranslations('Global')
 
-  let groupDisplayName: string
+  let groupName: string
   if (groupId === 'all') {
-    groupDisplayName = global('group.all')
+    groupName = global('group.all')
   } else {
     const group = await getGroup(groupId)
     if (!group) {
       throw new Error('Group not found for live page')
     }
-    groupDisplayName = group.name
+    groupName = group.name
   }
-
-  const groupName = t('group', { group: groupDisplayName })
 
   return (
     <Page
