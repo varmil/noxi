@@ -75,20 +75,20 @@ jest.mock('sonner', () => ({
   }
 }))
 
-// Mock console.log to capture API call simulation
-const mockConsoleLog = jest.spyOn(console, 'log').mockImplementation()
+// Mock createGroupRegistration API
+const mockCreateGroupRegistration = jest.fn()
+jest.mock('apis/groups', () => ({
+  createGroupRegistration: (...args: unknown[]) =>
+    mockCreateGroupRegistration(...args)
+}))
 
 describe('Group申請フロー統合テスト', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-  })
-
-  afterEach(() => {
-    mockConsoleLog.mockClear()
-  })
-
-  afterAll(() => {
-    mockConsoleLog.mockRestore()
+    // 少し遅延を入れてローディング状態をテスト可能にする
+    mockCreateGroupRegistration.mockImplementation(
+      () => new Promise(resolve => setTimeout(resolve, 100))
+    )
   })
 
   it('ハッピーパス: 正常なGroup申請フローが完了する', async () => {
@@ -161,9 +161,9 @@ describe('Group申請フロー統合テスト', () => {
       expect(submitButton).toBeDisabled()
     })
 
-    // API呼び出しが実行されることを確認（console.logをモック）
+    // API呼び出しが実行されることを確認
     await waitFor(() => {
-      expect(mockConsoleLog).toHaveBeenCalledWith('Group registration data:', {
+      expect(mockCreateGroupRegistration).toHaveBeenCalledWith({
         groupId: 'test-vtuber-group',
         name: 'テストVTuberグループ',
         iconSrc: 'https://example.com/test-icon.png'
@@ -209,7 +209,7 @@ describe('Group申請フロー統合テスト', () => {
     })
 
     // API呼び出しが実行されないことを確認
-    expect(mockConsoleLog).not.toHaveBeenCalled()
+    expect(mockCreateGroupRegistration).not.toHaveBeenCalled()
     expect(toast.success).not.toHaveBeenCalled()
   })
 
@@ -242,7 +242,7 @@ describe('Group申請フロー統合テスト', () => {
     })
 
     // API呼び出しが実行されないことを確認
-    expect(mockConsoleLog).not.toHaveBeenCalled()
+    expect(mockCreateGroupRegistration).not.toHaveBeenCalled()
     expect(toast.success).not.toHaveBeenCalled()
   })
 
