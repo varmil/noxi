@@ -33,16 +33,14 @@ export async function ChannelProfile({
   ])
   const {
     basicInfo,
-    peakX: { group, gender }
+    peakX: { group: groupId, gender }
   } = channel
 
-  let groupName: string
-  if (group === 'all') {
-    groupName = global('group.all')
-  } else {
-    const groupData = await getGroup(group)
-    groupName = groupData?.name ?? group
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for channel profile')
   }
+  const groupName = group.name
 
   return (
     <div className={className}>
@@ -82,7 +80,7 @@ export async function ChannelProfile({
             cheerTicket={cheerTicket}
             channelId={basicInfo.id}
             channelTitle={basicInfo.title}
-            group={group}
+            groupId={groupId}
             gender={gender}
           />
           {!session && (

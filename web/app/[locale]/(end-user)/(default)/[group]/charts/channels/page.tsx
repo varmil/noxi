@@ -25,21 +25,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     locale: locale as 'ja' | 'en',
     namespace: 'Page.group.charts'
   })
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = tg('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for charts page (metadata)')
-    }
-    groupName = group.name
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for charts page (metadata)')
   }
-
   return {
-    title: `${t('metadata.title', { group: groupName })} - ${tg('title')}`,
-    description: `${t('metadata.description', { group: groupName })}`
+    title: `${t('metadata.title', { group: group.name })} - ${tg('title')}`,
+    description: `${t('metadata.description', { group: group.name })}`
   }
 }
 
@@ -52,28 +44,18 @@ export default async function GroupChartsPage(props: Props) {
   setGroup(groupId)
 
   const t = await getTranslations('Breadcrumb')
-  const global = await getTranslations('Global')
-
-  let groupDisplayName: string
-  if (groupId === 'all') {
-    groupDisplayName = global('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for charts page')
-    }
-    groupDisplayName = group.name
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for charts page')
   }
-
-  const groupName = t('group', { group: groupDisplayName })
 
   return (
     <Page
       breadcrumb={[
-        { href: `/${groupId}`, name: groupName },
+        { href: `/${groupId}`, name: group.name },
         { href: `/${groupId}/charts/channels`, name: t('channels') }
       ]}
-      h1={`${groupName} ${t('channels')}`}
+      h1={`${group.name} ${t('channels')}`}
     >
       <LocalNavigationForGroupPages group={groupId} />
       <ChartTemplate searchParams={searchParams} />

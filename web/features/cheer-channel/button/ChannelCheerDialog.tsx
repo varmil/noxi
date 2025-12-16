@@ -28,7 +28,7 @@ interface Props {
   cheerTicket?: CheerTicketSchema
   channelId: string
   channelTitle: string
-  group: string
+  groupId: string
   gender: Gender
 }
 
@@ -38,7 +38,7 @@ export function ChannelCheerDialog({
   cheerTicket,
   channelId,
   channelTitle,
-  group,
+  groupId,
   gender
 }: Props) {
   const maxTickets = cheerTicket?.totalCount ?? 0 // 所持チケット数
@@ -83,7 +83,7 @@ export function ChannelCheerDialog({
     try {
       await consumeCheerTickets({
         channelId,
-        group,
+        group: groupId,
         gender,
         usedCount: ticketCount,
         usedAt: new Date()
@@ -111,7 +111,7 @@ export function ChannelCheerDialog({
         description: feat('error.description')
       })
     }
-  }, [channelId, group, gender, ticketCount, feat, onOpenChange])
+  }, [channelId, groupId, gender, ticketCount, feat, onOpenChange])
 
   return (
     <>
@@ -144,7 +144,7 @@ export function ChannelCheerDialog({
                   <Minus className="size-4" />
                 </Button>
 
-                <div className="relative flex size-24 items-center justify-center rounded-full bg-gradient-to-t from-pink-100 to-amber-100 dark:from-pink-900 dark:to-background">
+                <div className="relative flex size-24 items-center justify-center rounded-full bg-linear-to-t from-pink-100 to-amber-100 dark:from-pink-900 dark:to-background">
                   <div className="absolute inset-0.5 rounded-full bg-card"></div>
                   <div className="relative z-10 text-center">
                     <span className="text-3xl font-bold">{ticketCount}</span>
@@ -174,7 +174,7 @@ export function ChannelCheerDialog({
                   step={1}
                   onValueChange={handleTicketChange}
                   className="py-4"
-                  rangeClassName="bg-gradient-to-r from-pink-600 to-amber-300 dark:from-pink-500 dark:to-amber-200"
+                  rangeClassName="bg-linear-to-r from-pink-600 to-amber-300 dark:from-pink-500 dark:to-amber-200"
                 />
                 <div className="flex justify-between text-xs text-muted-foreground">
                   <span>
@@ -225,7 +225,7 @@ export function ChannelCheerDialog({
               disabled={!isSubmittable}
               onClick={handleConsume}
               // transition-none is for Safari workaround
-              className="bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
+              className="bg-linear-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
             >
               {isSubmitting ? (
                 <div className="flex items-center">
