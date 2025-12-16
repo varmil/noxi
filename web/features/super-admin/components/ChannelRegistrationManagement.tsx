@@ -1,7 +1,14 @@
 'use client'
 
 import { useState } from 'react'
-import { Clock, CheckCircle, XCircle, AlertCircle, Check } from 'lucide-react'
+import {
+  Clock,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Check,
+  ExternalLink
+} from 'lucide-react'
 import { toast } from 'sonner'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
@@ -13,6 +20,14 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
+import { GroupsSchema } from 'apis/groups/groupSchema'
 import { ChannelRegistrationsSchema } from 'apis/youtube/schema/channelRegistrationSchema'
 import { updateChannelRegistrationStatus } from 'apis/youtube/updateChannelRegistrationStatus'
 import { useRouter } from 'lib/navigation'
@@ -46,16 +61,21 @@ const statusConfig = {
 
 type Props = {
   initialRegistrations: ChannelRegistrationsSchema
+  groups: GroupsSchema
 }
 
 export function ChannelRegistrationManagement({
-  initialRegistrations
+  initialRegistrations,
+  groups
 }: Props) {
   const router = useRouter()
   const [registrations, setRegistrations] =
     useState<ChannelRegistrationsSchema>(initialRegistrations)
   const [processingId, setProcessingId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [selectedGroups, setSelectedGroups] = useState<Record<string, string>>(
+    {}
+  )
 
   const pendingRegistrations = registrations.filter(r => r.status === 'pending')
   const pastRegistrations = registrations.filter(r => r.status !== 'pending')
@@ -63,9 +83,13 @@ export function ChannelRegistrationManagement({
   const handleApprove = async (
     registration: ChannelRegistrationsSchema[number]
   ) => {
-    const confirmed = window.confirm(
-      `「${registration.title}」を承認します。よろしいですか？`
-    )
+    const selectedGroup =
+      selectedGroups[registration.channelId] || registration.group
+    const groupChanged = selectedGroup !== registration.group
+    const message = groupChanged
+      ? `「${registration.title}」をグループ「${selectedGroup}」で承認します。よろしいですか？`
+      : `「${registration.title}」を承認します。よろしいですか？`
+    const confirmed = window.confirm(message)
     if (!confirmed) return
 
     setProcessingId(registration.channelId)
@@ -73,13 +97,14 @@ export function ChannelRegistrationManagement({
 
     try {
       await updateChannelRegistrationStatus(registration.channelId, {
-        status: 'approved'
+        status: 'approved',
+        ...(groupChanged && { group: selectedGroup })
       })
 
       setRegistrations(prev =>
         prev.map(r =>
           r.channelId === registration.channelId
-            ? { ...r, status: 'approved' as const }
+            ? { ...r, status: 'approved' as const, group: selectedGroup }
             : r
         )
       )
@@ -177,16 +202,51 @@ export function ChannelRegistrationManagement({
                   <div className="flex items-center gap-3">
                     {/* Channel Details */}
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{registration.title}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="font-medium truncate">{registration.title}</p>
+                        <a
+                          href={`https://www.youtube.com/channel/${registration.channelId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-foreground shrink-0"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </a>
+                      </div>
                       <p className="text-sm text-muted-foreground truncate">
                         ID: {registration.channelId}
                       </p>
-                      <div className="flex gap-2 text-xs text-muted-foreground mt-1">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
                         <span>登録者: {formatNumber(registration.subscriberCount)}</span>
                         <span>•</span>
                         <span>配信数: {formatNumber(registration.liveStreamCount)}</span>
                         <span>•</span>
-                        <span>Group: {registration.group}</span>
+                        <span className="flex items-center gap-1">
+                          Group:
+                          <Select
+                            value={
+                              selectedGroups[registration.channelId] ||
+                              registration.group
+                            }
+                            onValueChange={value =>
+                              setSelectedGroups(prev => ({
+                                ...prev,
+                                [registration.channelId]: value
+                              }))
+                            }
+                          >
+                            <SelectTrigger size="sm" className="h-6 text-xs">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {groups.map(group => (
+                                <SelectItem key={group.id} value={group.id}>
+                                  {group.id}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </span>
                       </div>
                       <p className="text-xs text-muted-foreground">
                         {formatDate(registration.appliedAt)}
@@ -248,9 +308,19 @@ export function ChannelRegistrationManagement({
                   >
                     {/* Channel Details */}
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate text-sm">
-                        {registration.title}
-                      </p>
+                      <div className="flex items-center gap-2">
+                        <p className="font-medium truncate text-sm">
+                          {registration.title}
+                        </p>
+                        <a
+                          href={`https://www.youtube.com/channel/${registration.channelId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-muted-foreground hover:text-foreground shrink-0"
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
                       <p className="text-xs text-muted-foreground truncate">
                         ID: {registration.channelId}
                       </p>

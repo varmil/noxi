@@ -109,7 +109,10 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
         channelId: { in: where.channelIds.map(c => c.get()) },
         status: where.status?.get()
       },
-      data: { status: data.status.get() }
+      data: {
+        status: data.status.get(),
+        ...(data.group && { group: data.group.get() })
+      }
     })
   }
 }

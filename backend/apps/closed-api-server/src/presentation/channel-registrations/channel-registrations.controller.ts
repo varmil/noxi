@@ -75,10 +75,11 @@ export class ChannelRegistrationsController {
     @Param('channelId') channelId: string,
     @Body() dto: UpdateStatusDto
   ) {
-    await this.channelRegistrationsService.updateStatus(
-      new ChannelId(channelId),
-      dto.toStatus()
-    )
+    await this.channelRegistrationsService.updateStatus({
+      channelId: new ChannelId(channelId),
+      status: dto.toStatus(),
+      group: dto.toGroup()
+    })
     return { message: 'Status updated successfully' }
   }
 }

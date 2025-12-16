@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
+import { Clock, CheckCircle, XCircle, AlertCircle, Pencil } from 'lucide-react'
 import { toast } from 'sonner'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
@@ -13,10 +13,18 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { createGroup, updateGroupRegistrationStatus } from 'apis/groups'
 import { GroupRegistrationsSchema } from 'apis/groups/groupSchema'
 import Image from 'components/styles/Image'
 import { useRouter } from 'lib/navigation'
+
+type EditableFields = {
+  groupId: string
+  name: string
+  iconSrc: string
+}
 
 const statusConfig = {
   pending: {
@@ -49,27 +57,80 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
     useState<GroupRegistrationsSchema>(initialRegistrations)
   const [processingId, setProcessingId] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [editingId, setEditingId] = useState<number | null>(null)
+  const [editedFields, setEditedFields] = useState<Record<number, EditableFields>>(
+    {}
+  )
 
   const pendingRegistrations = registrations.filter(r => r.status === 'pending')
   const pastRegistrations = registrations.filter(r => r.status !== 'pending')
 
+  const getEditedValues = (registration: GroupRegistrationsSchema[number]) => {
+    return (
+      editedFields[registration.id] || {
+        groupId: registration.groupId,
+        name: registration.name,
+        iconSrc: registration.iconSrc
+      }
+    )
+  }
+
+  const handleEditToggle = (registration: GroupRegistrationsSchema[number]) => {
+    if (editingId === registration.id) {
+      setEditingId(null)
+    } else {
+      setEditingId(registration.id)
+      if (!editedFields[registration.id]) {
+        setEditedFields(prev => ({
+          ...prev,
+          [registration.id]: {
+            groupId: registration.groupId,
+            name: registration.name,
+            iconSrc: registration.iconSrc
+          }
+        }))
+      }
+    }
+  }
+
+  const handleFieldChange = (
+    registrationId: number,
+    field: keyof EditableFields,
+    value: string
+  ) => {
+    setEditedFields(prev => ({
+      ...prev,
+      [registrationId]: {
+        ...prev[registrationId],
+        [field]: value
+      }
+    }))
+  }
+
   const handleApprove = async (
     registration: GroupRegistrationsSchema[number]
   ) => {
-    const confirmed = window.confirm(
-      `「${registration.name}」をGroupとして登録します。よろしいですか？`
-    )
+    const values = getEditedValues(registration)
+    const hasChanges =
+      values.groupId !== registration.groupId ||
+      values.name !== registration.name ||
+      values.iconSrc !== registration.iconSrc
+
+    const message = hasChanges
+      ? `以下の内容でGroupとして登録します。よろしいですか？\n\nID: ${values.groupId}\n名前: ${values.name}`
+      : `「${registration.name}」をGroupとして登録します。よろしいですか？`
+    const confirmed = window.confirm(message)
     if (!confirmed) return
 
     setProcessingId(registration.id)
     setError(null)
 
     try {
-      // 1. Group作成
+      // 1. Group作成（編集後の値を使用）
       await createGroup({
-        id: registration.groupId,
-        name: registration.name,
-        iconSrc: registration.iconSrc
+        id: values.groupId,
+        name: values.name,
+        iconSrc: values.iconSrc
       })
 
       // 2. ステータス更新
@@ -80,10 +141,19 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
       // ローカル状態更新
       setRegistrations(prev =>
         prev.map(r =>
-          r.id === registration.id ? { ...r, status: 'approved' as const } : r
+          r.id === registration.id
+            ? {
+                ...r,
+                status: 'approved' as const,
+                groupId: values.groupId,
+                name: values.name,
+                iconSrc: values.iconSrc
+              }
+            : r
         )
       )
 
+      setEditingId(null)
       toast.success('申請を承認しました')
       router.refresh()
     } catch (err) {
@@ -162,6 +232,8 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
               const config = statusConfig[registration.status]
               const StatusIcon = config.icon
               const isProcessing = processingId === registration.id
+              const isEditing = editingId === registration.id
+              const values = getEditedValues(registration)
 
               return (
                 <div
@@ -172,8 +244,8 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
                     {/* Group Icon */}
                     <div className="shrink-0">
                       <Image
-                        src={registration.iconSrc}
-                        alt={registration.name}
+                        src={isEditing ? values.iconSrc : registration.iconSrc}
+                        alt={isEditing ? values.name : registration.name}
                         width={48}
                         height={48}
                         className="rounded-full object-cover"
@@ -186,9 +258,11 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
 
                     {/* Group Details */}
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{registration.name}</p>
+                      <p className="font-medium truncate">
+                        {isEditing ? values.name : registration.name}
+                      </p>
                       <p className="text-sm text-muted-foreground truncate">
-                        ID: {registration.groupId}
+                        ID: {isEditing ? values.groupId : registration.groupId}
                       </p>
                       <p className="text-xs text-muted-foreground">
                         {formatDate(registration.appliedAt)}
@@ -205,8 +279,69 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
                     </Badge>
                   </div>
 
+                  {/* Edit Form */}
+                  {isEditing && (
+                    <div className="space-y-3 p-3 bg-muted/50 rounded-lg">
+                      <div className="grid gap-2">
+                        <Label htmlFor={`groupId-${registration.id}`}>
+                          Group ID
+                        </Label>
+                        <Input
+                          id={`groupId-${registration.id}`}
+                          value={values.groupId}
+                          onChange={e =>
+                            handleFieldChange(
+                              registration.id,
+                              'groupId',
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor={`name-${registration.id}`}>名前</Label>
+                        <Input
+                          id={`name-${registration.id}`}
+                          value={values.name}
+                          onChange={e =>
+                            handleFieldChange(
+                              registration.id,
+                              'name',
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <Label htmlFor={`iconSrc-${registration.id}`}>
+                          アイコンURL
+                        </Label>
+                        <Input
+                          id={`iconSrc-${registration.id}`}
+                          value={values.iconSrc}
+                          onChange={e =>
+                            handleFieldChange(
+                              registration.id,
+                              'iconSrc',
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   {/* Action Buttons */}
                   <div className="flex justify-end gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={isProcessing}
+                      onClick={() => handleEditToggle(registration)}
+                    >
+                      <Pencil className="h-3 w-3 mr-1" />
+                      {isEditing ? '編集終了' : '編集'}
+                    </Button>
                     <Button
                       variant="default"
                       size="sm"

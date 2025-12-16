@@ -6,7 +6,7 @@ type Status = 'pending' | 'approved' | 'rejected'
 
 export async function updateChannelRegistrationStatus(
   channelId: string,
-  data: { status: Status }
+  data: { status: Status; group?: string }
 ): Promise<void> {
   const res = await fetchAPI(`/api/channel-registrations/${channelId}/status`, {
     method: 'PUT',
