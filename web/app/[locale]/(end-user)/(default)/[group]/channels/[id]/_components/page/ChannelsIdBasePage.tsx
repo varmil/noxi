@@ -51,8 +51,7 @@ export async function generateBaseMetadata(
     })}`,
     alternates: {
       canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}`
-    },
-    robots: { index: false, follow: true }
+    }
   }
 }
 
