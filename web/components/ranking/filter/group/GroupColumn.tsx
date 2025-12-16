@@ -52,21 +52,23 @@ export default function GroupColumn({ groups }: Props) {
             isActive={() => groupParam === group.id}
             activeVariant="secondary"
           >
-            {isIcon(group) ? (
-              (() => {
-                const Icon = getIcon(group)
-                return <Icon className="h-4 w-4 rounded-full" />
-              })()
-            ) : (
-              <Image
-                src={group.iconSrc}
-                alt={''}
-                width={100}
-                height={100}
-                className="h-4 w-4 rounded-full"
-              />
-            )}
-            <span className="">{group.name}</span>
+            <span className="flex size-4 shrink-0 items-center justify-center">
+              {isIcon(group) ? (
+                (() => {
+                  const Icon = getIcon(group)
+                  return <Icon className="size-4" />
+                })()
+              ) : (
+                <Image
+                  src={group.iconSrc}
+                  alt={''}
+                  width={100}
+                  height={100}
+                  className="size-4 rounded-full"
+                />
+              )}
+            </span>
+            <span>{group.name}</span>
           </SelectButton>
         ))}
       </ColumnContent>
