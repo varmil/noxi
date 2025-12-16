@@ -11,7 +11,7 @@ import { TopFansPeriod } from 'types/period'
 
 type Props = PropsWithChildren<{
   period: TopFansPeriod
-  group: string
+  groupName: string
   gender?: Gender
   date?: Date
   className?: string
@@ -19,7 +19,7 @@ type Props = PropsWithChildren<{
 
 export default async function TopFansTableTitle({
   period,
-  group,
+  groupName,
   gender,
   date,
   className
@@ -44,7 +44,7 @@ export default async function TopFansTableTitle({
           <div>
             {page('metadata.description.dimension.top-fans', {
               period: global(`period.${period}`),
-              group: ((global as any)(`group.${group}`)),
+              group: groupName,
               gender: gender ? global(`gender.${gender}`) : ''
             })}
           </div>

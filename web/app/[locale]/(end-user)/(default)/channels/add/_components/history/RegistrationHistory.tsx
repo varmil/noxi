@@ -12,9 +12,11 @@ import {
 import { ChannelRegistrationSchema } from 'apis/youtube/schema/channelRegistrationSchema'
 
 export function RegistrationHistory({
-  registration
+  registration,
+  groupName
 }: {
   registration: ChannelRegistrationSchema
+  groupName: string
 }) {
   const locale = useLocale()
   const format = useFormatter()
@@ -128,7 +130,7 @@ export function RegistrationHistory({
             <dd>{global(`gender.${registration.gender}`)}</dd>
 
             <dt className="text-muted-foreground">所属事務所:</dt>
-            <dd>{((global as any)(`group.${registration.group}`))}</dd>
+            <dd>{groupName}</dd>
 
             <dt className="text-muted-foreground">登録者数:</dt>
             <dd>{registration.subscriberCount.toLocaleString()}人</dd>

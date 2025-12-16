@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
 import {
@@ -26,8 +25,12 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, dimension, group, period } = await props.params
+  const { locale, dimension, group: groupId, period } = await props.params
   const { gender, date, page } = await props.searchParams
+  const groupName = await getGroupName(groupId, {
+    errorContext: 'channels ranking page (metadata)'
+  })
+
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
@@ -35,7 +38,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.channelsRanking.ranking.dimension',
       period,
       dimension,
-      group,
+      groupName,
       gender,
       page
     })),
@@ -44,7 +47,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         {
           url: getOgUrl(
             `/daily-ranking?${new URLSearchParams({
-              group,
+              group: groupId,
               ...(gender && { gender }),
               ...(date && { date: dayjs(date).toISOString() })
             }).toString()}`
@@ -54,20 +57,23 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     },
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${group}/${dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'}`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${groupId}/${dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'}`
     }
   }
 }
 
-export default function RankingChannelsPage(props: Props) {
-  const { locale, dimension, group, period } = use(props.params)
-  const searchParams = use(props.searchParams)
+export default async function RankingChannelsPage(props: Props) {
+  const { locale, dimension, group: groupId, period } = await props.params
+  const searchParams = await props.searchParams
   const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const global = useTranslations('Global')
-  const feat = useTranslations('Features.channelsRanking.ranking.dimension')
+  const [global, feat, groupName] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Features.channelsRanking.ranking.dimension'),
+    getGroupName(groupId, { errorContext: 'channels ranking page' })
+  ])
 
   return (
     <Page
@@ -75,7 +81,7 @@ export default function RankingChannelsPage(props: Props) {
         {
           href: `#`,
           name: feat(dimension, {
-            group: (global as any)(`group.${group}`),
+            group: groupName,
             period: global(`period.${period}`),
             gender: gender ? global(`gender.${gender}`) : ''
           })
@@ -91,7 +97,7 @@ export default function RankingChannelsPage(props: Props) {
         <IndexTemplate
           period={period}
           dimension={dimension}
-          group={group}
+          group={groupId}
           searchParams={searchParams}
         />
       </RankHighlighter>

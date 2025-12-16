@@ -15,7 +15,7 @@ export function ChannelCheerButton({
   cheerTicket,
   channelId,
   channelTitle,
-  group,
+  groupId,
   gender,
   disabled
 }: {
@@ -23,7 +23,7 @@ export function ChannelCheerButton({
   cheerTicket?: CheerTicketSchema
   channelId: string
   channelTitle: string
-  group: string
+  groupId: string
   gender: Gender
   disabled?: boolean
 }) {
@@ -35,7 +35,7 @@ export function ChannelCheerButton({
       <Button
         onClick={() => setIsDialogOpen(true)}
         // transition-none is for Safari workaround
-        className="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
+        className="w-full bg-linear-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
         disabled={disabled}
       >
         <Tickets className="mr-2 h-4 w-4" />
@@ -49,7 +49,7 @@ export function ChannelCheerButton({
           cheerTicket={cheerTicket}
           channelId={channelId}
           channelTitle={channelTitle}
-          group={group}
+          groupId={groupId}
           gender={gender}
         />
       ) : (

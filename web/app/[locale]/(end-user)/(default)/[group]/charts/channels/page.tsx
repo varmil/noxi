@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { ChannelGallerySearchParams } from 'features/group/types/channel-gallery'
@@ -17,16 +16,12 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, group } = await props.params
-  const tg = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Global'
-  })
-  const t = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Page.group.charts'
-  })
-  const groupName = (tg as any)(`group.${group}`)
+  const { locale, group: groupId } = await props.params
+  const [tg, t, groupName] = await Promise.all([
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.group.charts' }),
+    getGroupName(groupId, { errorContext: 'charts page (metadata)' })
+  ])
 
   return {
     title: `${t('metadata.title', { group: groupName })} - ${tg('title')}`,
@@ -34,28 +29,28 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function GroupChartsPage(props: Props) {
-  const { locale, group } = use(props.params)
-  const searchParams = use(props.searchParams)
+export default async function GroupChartsPage(props: Props) {
+  const { locale, group: groupId } = await props.params
+  const searchParams = await props.searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  setGroup(group)
+  setGroup(groupId)
 
-  const t = useTranslations('Breadcrumb')
-  const groupName = t('group', {
-    group: (useTranslations('Global') as any)(`group.${group}`)
-  })
+  const [t, groupName] = await Promise.all([
+    getTranslations('Breadcrumb'),
+    getGroupName(groupId, { errorContext: 'charts page' })
+  ])
 
   return (
     <Page
       breadcrumb={[
-        { href: `/${group}`, name: groupName },
-        { href: `/${group}/charts/channels`, name: t('channels') }
+        { href: `/${groupId}`, name: groupName },
+        { href: `/${groupId}/charts/channels`, name: t('channels') }
       ]}
       h1={`${groupName} ${t('channels')}`}
     >
-      <LocalNavigationForGroupPages group={group} />
+      <LocalNavigationForGroupPages group={groupId} />
       <ChartTemplate searchParams={searchParams} />
     </Page>
   )

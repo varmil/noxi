@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
+import { getGroup } from 'apis/groups'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { MutedCheerStat } from 'components/cheer-stats/MutedCheerStat'
 import CountMotion from 'components/styles/number/CountMotion'
@@ -32,14 +33,20 @@ export async function ChannelProfile({
   ])
   const {
     basicInfo,
-    peakX: { group, gender }
+    peakX: { group: groupId, gender }
   } = channel
+
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for channel profile')
+  }
+  const groupName = group.name
 
   return (
     <div className={className}>
       <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
         {/* Avatar, Name, Group, Description */}
-        <ChannelProfileSection basicInfo={basicInfo} group={group}>
+        <ChannelProfileSection basicInfo={basicInfo} groupName={groupName}>
           {children}
         </ChannelProfileSection>
 
@@ -73,7 +80,7 @@ export async function ChannelProfile({
             cheerTicket={cheerTicket}
             channelId={basicInfo.id}
             channelTitle={basicInfo.title}
-            group={group}
+            groupId={groupId}
             gender={gender}
           />
           {!session && (

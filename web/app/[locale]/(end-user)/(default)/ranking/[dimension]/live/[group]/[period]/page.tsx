@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import {
   StreamRankingDimension,
@@ -23,8 +22,12 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, dimension, group, period } = await props.params
+  const { locale, dimension, group: groupId, period } = await props.params
   const { gender, page } = await props.searchParams
+  const groupName = await getGroupName(groupId, {
+    errorContext: 'live ranking page (metadata)'
+  })
+
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
@@ -32,25 +35,28 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.streamRanking.ranking.dimension',
       period,
       dimension,
-      group,
+      groupName,
       gender,
       page
     })),
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${group}/last30Days`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${groupId}/last30Days`
     }
   }
 }
 
-export default function RankingLivePage(props: Props) {
-  const { locale, dimension, group, period } = use(props.params)
-  const searchParams = use(props.searchParams)
+export default async function RankingLivePage(props: Props) {
+  const { locale, dimension, group: groupId, period } = await props.params
+  const searchParams = await props.searchParams
   const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const global = useTranslations('Global')
-  const feat = useTranslations('Features.streamRanking.ranking.dimension')
+  const [global, feat, groupName] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Features.streamRanking.ranking.dimension'),
+    getGroupName(groupId, { errorContext: 'live ranking page' })
+  ])
 
   return (
     <Page
@@ -59,7 +65,7 @@ export default function RankingLivePage(props: Props) {
           href: `#`,
           name: feat(dimension, {
             period: global(`period.${period}`),
-            group: (global as any)(`group.${group}`),
+            group: groupName,
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')
@@ -73,7 +79,7 @@ export default function RankingLivePage(props: Props) {
       <IndexTemplate
         period={period}
         dimension={dimension}
-        group={group}
+        group={groupId}
         searchParams={searchParams}
       />
     </Page>

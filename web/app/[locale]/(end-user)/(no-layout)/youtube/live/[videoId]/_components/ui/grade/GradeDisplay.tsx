@@ -9,6 +9,7 @@ import {
   TableRow
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { getGroupName } from 'apis/groups'
 import { getSupersBundleRank } from 'apis/supers/getSupersBundleRank'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getStream } from 'apis/youtube/getStream'
@@ -68,6 +69,9 @@ export default async function GradeDisplay({
     snippet: { channelId }
   } = stream
   const { peakX } = await getChannel(channelId)
+  const groupName = await getGroupName(peakX.group, {
+    errorContext: 'grade display'
+  })
 
   const data = {
     videoId,
@@ -86,7 +90,7 @@ export default async function GradeDisplay({
         percentage: supersBundleGenderRank?.topPercentage
       },
       {
-        category: (global as any)(`group.${peakX.group}`),
+        category: groupName,
         pathname: `/ranking/super-chat/live/${peakX.group}/wholePeriod`,
         rank: supersBundleGroupRank?.rank,
         percentage: supersBundleGroupRank?.topPercentage

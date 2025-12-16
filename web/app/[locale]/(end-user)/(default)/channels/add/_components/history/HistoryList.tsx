@@ -5,14 +5,20 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { getGroups } from 'apis/groups'
 import { getChannelRegistrations } from 'apis/youtube/getChannelRegistrations'
 import { RegistrationHistory } from './RegistrationHistory'
 
 export async function HistoryList() {
-  const registrations = await getChannelRegistrations({
-    orderBy: { field: 'appliedAt', order: 'desc' },
-    limit: 30
-  })
+  const [registrations, groups] = await Promise.all([
+    getChannelRegistrations({
+      orderBy: { field: 'appliedAt', order: 'desc' },
+      limit: 30
+    }),
+    getGroups()
+  ])
+
+  const groupNameMap = new Map(groups.map(g => [g.id, g.name]))
 
   return (
     <Card>
@@ -33,6 +39,7 @@ export async function HistoryList() {
               <RegistrationHistory
                 key={registration.channelId}
                 registration={registration}
+                groupName={groupNameMap.get(registration.group) ?? ''}
               />
             ))}
           </div>

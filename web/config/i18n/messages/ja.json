@@ -1,48 +1,18 @@
 {
   "Global": {
     "title": "VCharts",
-
     "datetime": {
       "updatedAt": "最終更新: {updatedAt}"
     },
-
     "gender": {
       "all": "すべて",
       "male": "男性",
       "female": "女性",
       "nonbinary": "ノンバイナリー"
     },
-
     "group": {
-      "all": "VTuber総合",
-      "774inc": "ななしいんく",
-      "atatakakunaru": "あたたかくなる",
-      "dotlive": ".LIVE",
-      "first-stage": "FIRST STAGE PRODUCTION",
-      "hololive": "ホロライブ",
-      "hololive-english": "ホロライブEnglish",
-      "hololive-indonesia": "ホロライブIndonesia",
-      "holostars": "ホロスターズ",
-      "nijisanji": "にじさんじ",
-      "nijisanji-en": "NIJISANJI EN",
-      "noripro": "のりプロ",
-      "vspo": "ぶいすぽっ",
-      "kizuna-ai": "Kizuna AI Inc.",
-      "neo-porte": "ネオポルテ",
-      "aogiri-high-school": "あおぎり高校",
-      "specialite": "すぺしゃりて",
-      "mixstgirls": "ミクストガールズ",
-      "idol-corp": "idol Corp",
-      "trillionstage": "TRILLIONSTAGE",
-      "utatane": "うたたねプロダクション",
-      "varium": "ぶいありうむ",
-      "vividv": "Vivid V",
-      "voms": "VOMS",
-      "independent": "個人勢VTuber",
-      "independent-irl": "個人勢顔出し",
-      "artist": "アーティスト/芸能人/歌手"
+      "all": "VTuber総合"
     },
-
     "period": {
       "realtime": "リアルタイム",
       "last24Hours": "過去24時間",
@@ -55,7 +25,6 @@
       "thisYear": "今年",
       "wholePeriod": "全期間"
     },
-
     "ranking": {
       "filter": {
         "period": "集計期間",
@@ -72,16 +41,18 @@
         "top-fans": "トップファン",
         "subscriber": "チャンネル登録者数"
       },
-      "group": { "all": "すべて" },
-      "country": { "all": "全世界" },
+      "group": {
+        "all": "すべて"
+      },
+      "country": {
+        "all": "全世界"
+      },
       "place": "位"
     },
-
     "pagination": {
       "page": "ページ"
     }
   },
-
   "Breadcrumb": {
     "group": "{group}",
     "channels": "タレント一覧",
@@ -90,7 +61,6 @@
     "ended": "過去のライブ配信",
     "channelsRanking": "VTuber"
   },
-
   "Page": {
     "index": {
       "metadata": {
@@ -100,7 +70,9 @@
       "title": "世界最大級の\nVTuberチャート",
       "description": "にじさんじ、ホロライブ、個人勢すべてを即座に確認。最新統計データをランキングでチェック",
       "section": {
-        "hero": { "more": "ランキングを確認" },
+        "hero": {
+          "more": "ランキングを確認"
+        },
         "socialProof": {
           "title": "あらゆるファンが推しを広告できる",
           "description": "忙しい社会人にぴったり。切り抜きやまとめを見るだけになっていませんかVChartsは広告で推しを支える新しい推し方を提供します。",
@@ -115,7 +87,6 @@
         }
       }
     },
-
     "auth": {
       "error": {
         "title": "エラーが発生しました",
@@ -151,12 +122,10 @@
         "content": "メールをご確認いただき、リンクをクリックしてログインしてください。はじめてログインを行うとアカウント登録も同時に完了します。"
       }
     },
-
     "contact": {
       "title": "お問い合わせ",
       "description": "VChartsに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
     },
-
     "dashboard": {
       "profile": {
         "title": "プロフィール",
@@ -167,14 +136,12 @@
         "description": "他ユーザーから見たあなたのプロフィールの見え方を確認できます。"
       }
     },
-
     "groups": {
       "metadata": {
         "title": "グループ一覧",
         "description": "VTuberを一瞬で探そう。所属会社や個人勢といったグループからお気に入りのVTuberを見つけよう。"
       }
     },
-
     "group": {
       "index": {
         "metadata": {
@@ -195,10 +162,18 @@
             "description": "{channel}の人気、スパチャ金額、ライブ分析、同接数推移、配信時間を網羅的にチェック。人気の瞬間や収益データも把握し、ファン必見の情報を見逃さない。"
           },
           "section": {
-            "data": { "title": "YouTube上のデータ" },
-            "stats": { "title": "過去30日間の統計" },
-            "topLives": { "title": "人気ライブTop3（過去30日間）" },
-            "topSuperChats": { "title": "上位スーパーチャット（過去30日間）" }
+            "data": {
+              "title": "YouTube上のデータ"
+            },
+            "stats": {
+              "title": "過去30日間の統計"
+            },
+            "topLives": {
+              "title": "人気ライブTop3（過去30日間）"
+            },
+            "topSuperChats": {
+              "title": "上位スーパーチャット（過去30日間）"
+            }
           }
         },
         "superChat": {
@@ -207,9 +182,13 @@
             "description": "「{channel}」のスーパーチャット収入を徹底分析！過去X日間のスパチャ収益合計やランキング情報を詳しく掲載。推しの支援状況を簡単に確認できます。"
           },
           "section": {
-            "card": { "title": "スパチャ収入（ステッカー含む）" },
+            "card": {
+              "title": "スパチャ収入（ステッカー含む）"
+            },
             "chart": {},
-            "ranking": { "title": "人気・統計" }
+            "ranking": {
+              "title": "人気・統計"
+            }
           }
         },
         "asmr": {
@@ -254,8 +233,12 @@
             "description": "「{channel}」の配信時間帯、配信時間、配信曜日を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
           },
           "section": {
-            "card": { "title": "ライブ頻度・時間 - 過去30日間" },
-            "chart": { "title": "配信時間帯・曜日" }
+            "card": {
+              "title": "ライブ頻度・時間 - 過去30日間"
+            },
+            "chart": {
+              "title": "配信時間帯・曜日"
+            }
           }
         },
         "faq": {
@@ -288,7 +271,6 @@
         }
       }
     },
-
     "ranking": {
       "most-cheered": {
         "metadata": {
@@ -309,7 +291,6 @@
         }
       }
     },
-
     "youtube": {
       "live": {
         "id": {
@@ -355,12 +336,10 @@
       }
     }
   },
-
   "AboutUs": {
     "title": "私たちに関して",
     "description": "わたしたちのサービス、信念についてご説明します。"
   },
-
   "Components": {
     "auth": {
       "signIn": "ログイン",
@@ -383,9 +362,15 @@
       "topFans": "トップファン",
       "groups": "タレント検索"
     },
-    "channelsAdd": { "title": "チャンネルを載せたい" },
-    "groupsAdd": { "title": "グループを登録したい" },
-    "contact": { "title": "お問い合わせ" },
+    "channelsAdd": {
+      "title": "チャンネルを載せたい"
+    },
+    "groupsAdd": {
+      "title": "グループを登録したい"
+    },
+    "contact": {
+      "title": "お問い合わせ"
+    },
     "group": {
       "listing": "{count}人のタレントを掲載中",
       "listingAll": "{count}人全員を掲載中!"
@@ -497,7 +482,6 @@
       }
     }
   },
-
   "Features": {
     "channel": {
       "overview": {
@@ -535,13 +519,23 @@
           }
         }
       },
-      "asmr": { "nav": "ASMR" },
-      "live": { "nav": "ライブ" },
+      "asmr": {
+        "nav": "ASMR"
+      },
+      "live": {
+        "nav": "ライブ"
+      },
       "concurrentViewers": {
         "nav": "同接数",
-        "card": { "min": "最小同接数", "max": "最大同接数", "median": "中央値" }
+        "card": {
+          "min": "最小同接数",
+          "max": "最大同接数",
+          "median": "中央値"
+        }
       },
-      "comments": { "nav": "コメント" },
+      "comments": {
+        "nav": "コメント"
+      },
       "streamTimes": {
         "nav": "配信時間",
         "card": {
@@ -565,7 +559,6 @@
         "nav": "FAQ"
       }
     },
-
     "cheerChannel": {
       "alert": {
         "firstCheer": {
@@ -638,7 +631,6 @@
         }
       }
     },
-
     "dashboard": {
       "profile": {
         "form": {
@@ -678,7 +670,6 @@
         }
       }
     },
-
     "grade": {
       "name": "グレード",
       "supersGrade": "スパチャグレード",
@@ -716,7 +707,6 @@
         "description": "{group}の過去のYouTubeライブ配信一覧です"
       }
     },
-
     "live": {
       "overview": {
         "nav": "概要",
@@ -752,7 +742,6 @@
         "title": "同接数"
       }
     },
-
     "mostCheered": {
       "dimension": {
         "most-cheered": "{group} {gender} 応援ランキング - {period}"
@@ -763,7 +752,6 @@
       "usedCount": "応援された数",
       "country": "国"
     },
-
     "topFans": {
       "dimension": {
         "top-fans": "{group} {gender} ファンランキング - {period}"
@@ -773,7 +761,6 @@
       "group": "グループ",
       "usedCount": "応援した数"
     },
-
     "channelsRanking": {
       "ranking": {
         "dimension": {
@@ -788,7 +775,6 @@
       "viewers": "同接数",
       "country": "国"
     },
-
     "streamRanking": {
       "ranking": {
         "dimension": {
@@ -804,21 +790,22 @@
       "country": "国",
       "date": "日付"
     },
-
     "supers": {
       "label": "スパチャ金額",
       "amount": "金額",
-      "chat": { "count": "上位 {count} 件のスーパーチャット" },
-      "sticker": { "count": "{count} 件のスーパーステッカー" }
+      "chat": {
+        "count": "上位 {count} 件のスーパーチャット"
+      },
+      "sticker": {
+        "count": "{count} 件のスーパーステッカー"
+      }
     },
-
     "supersRanking": {
       "title": "{period}のランキング",
       "description": "スパチャ + スーパーステッカー合計の順位。「総合」「性別」「所属事務所」の3種類です。",
       "comparedToPreviousPeriod": "前期間比",
       "more": "Top20を見る"
     },
-
     "youtube": {
       "channel": {
         "channel": "チャンネル",
@@ -838,7 +825,6 @@
         "description": "{group}の最新切り抜き動画集です！",
         "shorts": "ショート"
       },
-
       "stats": {
         "button": {
           "previous": "前の30件",
@@ -891,7 +877,6 @@
       "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
     }
   },
-
   "Pages": {
     "groupsAdd": {
       "title": "Group登録申請",

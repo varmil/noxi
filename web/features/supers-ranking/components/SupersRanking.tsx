@@ -18,6 +18,7 @@ import {
   TableCell,
   Table
 } from '@/components/ui/table'
+import { getGroupName } from 'apis/groups'
 import { getSupersRankingHistories } from 'apis/supers/getSupersRankingHistories'
 import { getSupersRankings } from 'apis/supers/getSupersRankings'
 import { getChannel } from 'apis/youtube/getChannel'
@@ -81,12 +82,17 @@ export default async function SupersRanking({
     getSupersRankingHistories(historiesParams('group')),
     getChannel(channelId)
   ])
-  const [overallChannelsCount, genderChannelsCount, groupChannelsCount] =
-    await Promise.all([
-      getChannelsCount({}),
-      getChannelsCount({ gender: channel.peakX.gender }),
-      getChannelsCount({ group: channel.peakX.group })
-    ])
+  const [
+    overallChannelsCount,
+    genderChannelsCount,
+    groupChannelsCount,
+    channelGroupName
+  ] = await Promise.all([
+    getChannelsCount({}),
+    getChannelsCount({ gender: channel.peakX.gender }),
+    getChannelsCount({ group: channel.peakX.group }),
+    getGroupName(channel.peakX.group, { errorContext: 'supers ranking' })
+  ])
 
   const updatedAt = format.relativeTime(
     getUpdatedAt(period, new Date()).toDate()
@@ -199,9 +205,7 @@ export default async function SupersRanking({
                   group={channel.peakX.group}
                   period={period}
                 >
-                  <Underline>
-                    {(global as any)(`group.${channel.peakX.group}`)}
-                  </Underline>
+                  <Underline>{channelGroupName}</Underline>
                 </LinkCell>
                 <RankCell
                   rank={groupRanking?.rank}

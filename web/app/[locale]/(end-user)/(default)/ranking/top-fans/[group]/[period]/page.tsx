@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
@@ -19,8 +18,12 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, period, group } = await props.params
+  const { locale, period, group: groupId } = await props.params
   const { gender, page } = await props.searchParams
+  const groupName = await getGroupName(groupId, {
+    errorContext: 'top-fans page (metadata)'
+  })
+
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
@@ -28,26 +31,26 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.topFans.dimension',
       period,
       dimension: 'top-fans',
-      group,
+      groupName,
       gender,
       page
     })),
-    // alternates: {
-    //   canonical: `${getWebUrl()}/${locale}/ranking/top-fans/${group}/${period}`
-    // }
     robots: { index: false }
   }
 }
 
-export default function RankingTopFansPage(props: Props) {
-  const { locale, period, group } = use(props.params)
-  const searchParams = use(props.searchParams)
+export default async function RankingTopFansPage(props: Props) {
+  const { locale, period, group: groupId } = await props.params
+  const searchParams = await props.searchParams
   const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const global = useTranslations('Global')
-  const feat = useTranslations('Features.topFans.dimension')
+  const [global, feat, groupName] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Features.topFans.dimension'),
+    getGroupName(groupId, { errorContext: 'top-fans page' })
+  ])
 
   return (
     <Page
@@ -56,7 +59,7 @@ export default function RankingTopFansPage(props: Props) {
           href: `#`,
           name: feat('top-fans', {
             period: global(`period.${period}`),
-            group: group ? (global as any)(`group.${group}`) : '',
+            group: groupName,
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')
@@ -70,7 +73,7 @@ export default function RankingTopFansPage(props: Props) {
       <RankHighlighter>
         <IndexTemplate
           period={period}
-          group={group}
+          group={groupId}
           searchParams={searchParams}
         />
       </RankHighlighter>

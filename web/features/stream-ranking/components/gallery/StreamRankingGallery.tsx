@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
+import { getGroupName } from 'apis/groups'
 import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
@@ -30,10 +31,14 @@ export type StreamRankingGalleryProps = StreamRankingSearchParams & {
 export default async function StreamRankingGallery(
   props: PropsWithoutRef<StreamRankingGalleryProps>
 ) {
-  const t = await getTranslations('Features.streamRanking')
+  const { period, dimension, group, gender, page, compact, className } = props
+
+  const [t, groupName] = await Promise.all([
+    getTranslations('Features.streamRanking'),
+    getGroupName(group, { errorContext: 'stream ranking gallery' })
+  ])
 
   let streams: StreamsSchema = []
-  const { period, dimension, group, gender, page, compact, className } = props
 
   if (dimension === 'super-chat') {
     /**
@@ -65,7 +70,7 @@ export default async function StreamRankingGallery(
       <StreamRankingTableTitle
         period={period}
         dimension={dimension}
-        group={group}
+        groupName={groupName}
         gender={gender}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}
       />

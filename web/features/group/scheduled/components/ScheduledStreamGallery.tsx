@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { CalendarCheck } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import ScheduledStreamGalleryContent from 'features/group/scheduled/components/ScheduledStreamGalleryContent'
@@ -26,7 +27,7 @@ export default async function ScheduledStreamGallery({
   nullIfNoLive
 }: PropsWithoutRef<Props>) {
   const { title, channelId, group } = where || {}
-  const [t, streams] = await Promise.all([
+  const [t, streams, groupName] = await Promise.all([
     getTranslations('Features.group'),
     getStreams({
       title,
@@ -38,7 +39,10 @@ export default async function ScheduledStreamGallery({
       orderBy: [{ field: 'scheduledStartTime', order: 'asc' }],
       limit: StreamGalleryPagination.getLimit(compact),
       offset: StreamGalleryPagination.getOffset()
-    })
+    }),
+    group
+      ? getGroupName(group, { errorContext: 'scheduled stream gallery' })
+      : Promise.resolve('')
   ])
 
   if (nullIfNoLive && streams.length === 0) {
@@ -54,13 +58,7 @@ export default async function ScheduledStreamGallery({
           }
           title={t('scheduled.title')}
           description={
-            group
-              ? t('scheduled.description', {
-                  group: ((await getTranslations('Global.group')) as any)(
-                    `${group}`
-                  )
-                })
-              : ''
+            groupName ? t('scheduled.description', { group: groupName }) : ''
           }
           badgeText="Scheduled"
         />

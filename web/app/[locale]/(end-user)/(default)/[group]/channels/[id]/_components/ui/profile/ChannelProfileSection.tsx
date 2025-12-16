@@ -2,7 +2,6 @@
 
 import { PropsWithChildren, useState } from 'react'
 import { ChevronUp, ChevronDown } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -10,16 +9,15 @@ import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
-  group: string
+  groupName: string
 }
 
 /* Avatar, Name, Group, Description */
 export function ChannelProfileSection({
   basicInfo,
-  group,
+  groupName,
   children
 }: PropsWithChildren<Props>) {
-  const global = useTranslations('Global')
   const [isExpanded, setIsExpanded] = useState(false)
   const avatarIsHidden = isExpanded ? 'hidden sm:flex' : ''
   const { title: name, thumbnails } = basicInfo
@@ -43,7 +41,7 @@ export function ChannelProfileSection({
           <h1 className="text-xl font-bold">{name}</h1>
         </div>
         <Badge className="max-w-[200px] whitespace-nowrap bg-linear-to-r from-blue-500 to-violet-500 text-white">
-          {(global as any)(`group.${group}`)}
+          {groupName}
         </Badge>
         <div className="max-w-xl break-anywhere whitespace-normal">
           <div

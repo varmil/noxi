@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { History } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import EndedStreamGalleryContent from 'features/group/ended/components/EndedStreamGalleryContent'
@@ -23,17 +24,22 @@ export default async function EndedStreamGallery({
   where
 }: PropsWithoutRef<Props>) {
   const { title, channelId, group } = where || {}
-  const streams = await getStreams({
-    title,
-    status: 'ended',
-    group,
-    channelId,
-    orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-    limit: StreamGalleryPagination.getLimit(compact),
-    offset: StreamGalleryPagination.getOffset(page),
-    revalidate: CACHE_1H
-  })
-  const t = await getTranslations('Features.group.ended')
+  const [streams, t, groupName] = await Promise.all([
+    getStreams({
+      title,
+      status: 'ended',
+      group,
+      channelId,
+      orderBy: [{ field: 'actualEndTime', order: 'desc' }],
+      limit: StreamGalleryPagination.getLimit(compact),
+      offset: StreamGalleryPagination.getOffset(page),
+      revalidate: CACHE_1H
+    }),
+    getTranslations('Features.group.ended'),
+    group
+      ? getGroupName(group, { errorContext: 'ended stream gallery' })
+      : Promise.resolve('')
+  ])
 
   return (
     <StreamGallery>
@@ -41,15 +47,7 @@ export default async function EndedStreamGallery({
         <StreamGalleryHeader
           titleIcon={<History className="size-6 text-muted-foreground" />}
           title={t('title')}
-          description={
-            group
-              ? t('description', {
-                  group: ((await getTranslations('Global.group')) as any)(
-                    `${group}`
-                  )
-                })
-              : ''
-          }
+          description={groupName ? t('description', { group: groupName }) : ''}
           badgeText="Archive"
         />
       ) : null}

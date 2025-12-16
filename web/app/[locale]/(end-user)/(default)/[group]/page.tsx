@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
@@ -15,31 +14,16 @@ type Props = {
   searchParams?: Promise<ConstructorParameters<typeof URLSearchParams>[0]>
 }
 
-/**
- * 2025/12/15: header使ってる判定になってエラーになってしまうので、いったんコメントアウト
- */
-// export async function generateStaticParams(): Promise<{ group: string }[]> {
-//   try {
-//     const groups = await getGroups()
-//     return groups.map(group => ({ group: group.id }))
-//   } catch (error) {
-//     console.error('Failed to fetch groups for static params:', error)
-//     // フォールバック: 空の配列を返すか、最小限のグループを返す
-//     return []
-//   }
-// }
-
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, group } = await props.params
-  const tg = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Global'
-  })
-  const t = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Page.group.index.metadata'
-  })
-  const groupName = (tg as any)(`group.${group}`)
+  const { locale, group: groupId } = await props.params
+  const [tg, t, groupName] = await Promise.all([
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Page.group.index.metadata'
+    }),
+    getGroupName(groupId, { errorContext: 'group page (metadata)' })
+  ])
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
@@ -47,24 +31,24 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function GroupPage(props: Props) {
-  const { locale, group } = use(props.params)
+export default async function GroupPage(props: Props) {
+  const { locale, group: groupId } = await props.params
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  setGroup(group)
+  setGroup(groupId)
 
-  const t = useTranslations('Breadcrumb')
-  const groupName = t('group', {
-    group: (useTranslations('Global') as any)(`group.${group}`)
-  })
+  const [feat, groupName] = await Promise.all([
+    getTranslations('Features.group'),
+    getGroupName(groupId, { errorContext: 'group page' })
+  ])
 
   return (
     <Page
-      breadcrumb={[{ href: `/${group}`, name: groupName }]}
-      h1={`${groupName} ${useTranslations('Features.group')('overview.nav')}`}
+      breadcrumb={[{ href: `/${groupId}`, name: groupName }]}
+      h1={`${groupName} ${feat('overview.nav')}`}
     >
-      <LocalNavigationForGroupPages group={group} />
+      <LocalNavigationForGroupPages group={groupId} />
       <IndexTemplate />
     </Page>
   )
