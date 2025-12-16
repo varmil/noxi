@@ -223,3 +223,32 @@
 
 - [x] 12. 最終チェックポイント - すべてのテストが通ることを確認
   - すべてのテストが通ることを確認し、質問があればユーザーに尋ねる
+
+## 追加修正タスク
+
+- [ ] 13. GroupName → GroupId 型修正の一括対応
+
+  - [ ] 13.1 バックエンドでの GroupName → GroupId 型修正
+
+    - `group?: GroupName` → `group?: GroupId` への変更
+    - `group: GroupName` → `group: GroupId` への変更
+    - `group?: new GroupName(...` → `group?: new GroupId(...` への変更
+    - `group: new GroupName(...` → `group: new GroupId(...` への変更
+    - `Groups extends Collection<GroupName>` → `Groups extends Collection<GroupId>` への変更
+    - その他怪しい個所を検索し、必要に応じて修正。
+    - _要件: 3.2, 3.3_
+
+  - [ ] 13.2 フロントエンドでの GroupName → GroupId 型修正
+    - 同様の型修正をフロントエンド側でも実施
+    - 既存機能の動作確認
+    - _要件: 2.2, 2.4_
+
+- [ ] 14. ImagePreview バグ修正
+
+  - [ ] 14.1 ImagePreview コンポーネントのローディング状態修正
+    - URL 入力後の永続的ローディング状態を修正
+    - 適切なエラーハンドリングとタイムアウト処理を追加
+    - _要件: 4.3, 6.4_
+
+- [ ] 15. 最終チェックポイント - 追加修正後のテスト確認
+  - すべてのテストが通ることを確認し、質問があればユーザーに尋ねる
