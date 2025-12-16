@@ -14,33 +14,7 @@
     },
 
     "group": {
-      "all": "VTuber",
-      "774inc": "774 Inc.",
-      "atatakakunaru": "ATANARU",
-      "dotlive": ".LIVE",
-      "first-stage": "FIRST STAGE PRODUCTION",
-      "hololive": "Hololive",
-      "hololive-english": "Hololive English",
-      "hololive-indonesia": "Hololive Indonesia",
-      "holostars": "HOLOSTARS",
-      "nijisanji": "NIJISANJI",
-      "nijisanji-en": "NIJISANJI EN",
-      "noripro": "Noripro",
-      "vspo": "Virtual eSports Project",
-      "kizuna-ai": "Kizuna AI Inc.",
-      "neo-porte": "Neo-Porte",
-      "aogiri-high-school": "Aogiri High School",
-      "specialite": "Specialite",
-      "mixstgirls": "Mixstgirls",
-      "idol-corp": "idol Corp",
-      "trillionstage": "TRILLIONSTAGE",
-      "utatane": "Utatane Production",
-      "varium": "Varium",
-      "vividv": "Vivid V",
-      "voms": "VOMS",
-      "independent": "Independent VTubers",
-      "independent-irl": "Independent Streamers (IRL)",
-      "artist": "Artist / Singer"
+      "all": "VTuber"
     },
 
     "period": {
