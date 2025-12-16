@@ -107,6 +107,11 @@
           "channels": "Channels",
           "liveStreams": "Live Streams",
           "groups": "Agencies"
+        },
+        "liveStats": {
+          "liveCount": "Live Now",
+          "totalViewers": "Total Viewers",
+          "medianViewers": "Median Viewers"
         }
       }
     },

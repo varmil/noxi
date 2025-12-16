@@ -107,6 +107,11 @@
           "channels": "チャンネル",
           "liveStreams": "ライブ配信",
           "groups": "事務所/グループ"
+        },
+        "liveStats": {
+          "liveCount": "ライブ中",
+          "totalViewers": "総同時接続数",
+          "medianViewers": "同接数（中央値）"
         }
       }
     },

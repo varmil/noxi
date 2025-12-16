@@ -1,10 +1,7 @@
 import { PropsWithChildren, PropsWithoutRef } from 'react'
 import { LookerReport } from 'components/looker/LookerReport'
+import LiveStatsCards from './ui/live-stats/LiveStatsCards'
 
-const LIVE_COUNT_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_mmo7wnz0yd'
-const VIEWER_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_d54aooz0yd'
 const CHART_1_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_kzw7z6x0yd'
 const CHART_2_URL =
@@ -42,23 +39,8 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
   return (
     <>
       <Container className="flex flex-col gap-6">
-        {/* 最初の2つは即座に読み込み（Above the fold） */}
-        <FlexSection className="flex-row gap-2 md:gap-6">
-          <div className="flex-1 w-full">
-            <LookerReport
-              reportUrl={LIVE_COUNT_URL}
-              className="h-[120px]"
-              lazy={false}
-            />
-          </div>
-          <div className="flex-1 w-full">
-            <LookerReport
-              reportUrl={VIEWER_URL}
-              className="h-[120px]"
-              lazy={false}
-            />
-          </div>
-        </FlexSection>
+        {/* ライブ統計カード（Above the fold） */}
+        <LiveStatsCards />
 
         {/* 以下は遅延読み込み */}
         <FlexSection className="gap-6">
