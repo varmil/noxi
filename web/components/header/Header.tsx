@@ -1,8 +1,9 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
-import { getGroups } from 'apis/groups'
 import HeaderAuth from 'components/header/HeaderAuth'
-import HeaderNavigationMenu from 'components/header/sm/HeaderNavigationMenu'
+import HeaderAuthSkeleton from 'components/header/HeaderAuthSkeleton'
+import HeaderNavigationMenuSkeleton from 'components/header/sm/HeaderNavigationMenuSkeleton'
+import HeaderNavigationMenuWrapper from 'components/header/sm/HeaderNavigationMenuWrapper'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
 import { PageSMPX } from 'components/page'
 import VChartsText from 'components/vcharts/svg/text'
@@ -10,10 +11,7 @@ import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
 export default async function Header({ className }: { className?: string }) {
-  const [global, groups] = await Promise.all([
-    getTranslations('Global'),
-    getGroups()
-  ])
+  const global = await getTranslations('Global')
 
   const bgFilter = 'backdrop-blur-sm supports-backdrop-filter:bg-background/70'
   const sm = `${PageSMPX}`
@@ -36,11 +34,11 @@ export default async function Header({ className }: { className?: string }) {
         <div className="sr-only">{global('title')}</div>
       </Link>
 
-      <div className="hidden md:block">
-        <HeaderNavigationMenu groups={groups} />
-      </div>
+      <Suspense fallback={<HeaderNavigationMenuSkeleton />}>
+        <HeaderNavigationMenuWrapper />
+      </Suspense>
 
-      <Suspense fallback={<div className="sr-only">Loading...</div>}>
+      <Suspense fallback={<HeaderAuthSkeleton />}>
         <HeaderAuth />
       </Suspense>
     </header>
