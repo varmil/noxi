@@ -3,6 +3,7 @@ import {
   ChannelRegistrations,
   Status
 } from '@domain/channel-registration'
+import { GroupId } from '@domain/group'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface ChannelRegistrationRepository {
@@ -28,6 +29,7 @@ export interface ChannelRegistrationRepository {
     }
     data: {
       status: Status
+      group?: GroupId
     }
   }) => Promise<void>
 }

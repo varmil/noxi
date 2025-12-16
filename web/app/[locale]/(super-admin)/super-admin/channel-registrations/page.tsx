@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { setRequestLocale } from 'next-intl/server'
+import { getGroups } from 'apis/groups'
 import { getChannelRegistrations } from 'apis/youtube/getChannelRegistrations'
 import { routing } from 'config/i18n/routing'
 import { ChannelRegistrationManagement } from 'features/super-admin/components/ChannelRegistrationManagement'
@@ -23,10 +24,13 @@ export default async function ChannelRegistrationsPage(props: Props) {
 
   setRequestLocale(locale as 'ja' | 'en')
 
-  const registrations = await getChannelRegistrations({
-    orderBy: { field: 'appliedAt', order: 'desc' },
-    limit: 100
-  })
+  const [registrations, groups] = await Promise.all([
+    getChannelRegistrations({
+      orderBy: { field: 'appliedAt', order: 'desc' },
+      limit: 100
+    }),
+    getGroups()
+  ])
 
   return (
     <div className="flex min-h-screen w-full">
@@ -36,7 +40,10 @@ export default async function ChannelRegistrationsPage(props: Props) {
           <h1 className="text-lg font-semibold">Channel申請管理</h1>
         </header>
         <main className="flex-1 p-6">
-          <ChannelRegistrationManagement initialRegistrations={registrations} />
+          <ChannelRegistrationManagement
+            initialRegistrations={registrations}
+            groups={groups}
+          />
         </main>
       </div>
     </div>
