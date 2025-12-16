@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { ChannelRegistrationRepository } from '@domain/channel-registration'
-import { ChannelId } from '@domain/youtube'
+import { ChannelRegistrationRepository, Status } from '@domain/channel-registration'
+import { ChannelId, ChannelIds } from '@domain/youtube'
 
 @Injectable()
 export class ChannelRegistrationsService {
@@ -25,5 +25,12 @@ export class ChannelRegistrationsService {
     args: Parameters<ChannelRegistrationRepository['updateMany']>[0]
   ) {
     await this.channelRegistrationRepository.updateMany(args)
+  }
+
+  async updateStatus(channelId: ChannelId, status: Status) {
+    await this.channelRegistrationRepository.updateMany({
+      where: { channelIds: new ChannelIds([channelId]) },
+      data: { status }
+    })
   }
 }
