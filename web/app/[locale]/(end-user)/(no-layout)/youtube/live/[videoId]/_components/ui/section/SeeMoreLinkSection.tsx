@@ -9,35 +9,31 @@ import { Link } from 'lib/navigation'
 
 export default async function SeeMoreLinkSection({
   channelId,
-  group
+  groupId
 }: {
   channelId: string
-  group: string
+  groupId: string
 }) {
   const [
     page,
-    global,
     {
       basicInfo: { title }
     }
   ] = await Promise.all([
     getTranslations('Page.youtube.live.id.button'),
-    getTranslations('Global'),
     getChannel(channelId)
   ])
 
-  let groupName: string
-  if (group === 'all') {
-    groupName = global('group.all')
-  } else {
-    const groupData = await getGroup(group)
-    groupName = groupData?.name ?? group
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for see more link section')
   }
+  const groupName = group.name
 
   return (
     <div className="border-t border-border pt-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
-        <SeeMoreLinkButton href={`/${group}/channels/${channelId}/live`}>
+        <SeeMoreLinkButton href={`/${groupId}/channels/${channelId}/live`}>
           <TitleSpan>{title}</TitleSpan>
           <Description>
             <span className="line-clamp-1 break-all">
@@ -48,11 +44,11 @@ export default async function SeeMoreLinkSection({
         </SeeMoreLinkButton>
 
         <SeeMoreLinkButton
-          href={`/ranking/live?dimension=super-chat&period=last7Days&group=${group}`}
+          href={`/ranking/live?dimension=super-chat&period=last7Days&group=${groupId}`}
         >
           <TitleSpan className="flex items-center justify-center gap-1">
             <GroupImageOrIcon
-              groupId={group}
+              groupId={groupId}
               className="size-3.5 relative top-[0.5px]"
             />
             {groupName}
