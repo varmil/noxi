@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "uvx",
+      "args": ["mcp-server-fetch"],
+      "env": {},
+      "disabled": true,
+      "autoApprove": []
+    },
+    "next-devtools": {
+      "command": "npx",
+      "args": ["-y", "next-devtools-mcp@latest"],
+      "disabled": false,
+      "autoApprove": ["upgrade_nextjs_16", "browser_eval"]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": ["shadcn@latest", "mcp"],
+      "autoApprove": [
+        "get_project_registries",
+        "search_items_in_registries",
+        "view_items_in_registries",
+        "get_add_command_for_items"
+      ]
+    },
+    "v0": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.v0.dev",
+        "--header",
+        "Authorization: Bearer ${V0_API_TOKEN}"
+      ]
+    }
+  }
+}
