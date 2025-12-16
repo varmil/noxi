@@ -50,7 +50,7 @@ export default async function ContactPage(props: Props) {
           <AlertDescription>
             <span>
               ページ右上の
-              <Sun className="size-4 inline relative top-[-1px] mx-1" />
+              <Sun className="size-4 inline relative -top-px mx-1" />
               をタップしてライトモードに切り替えることをおすすめします
             </span>
           </AlertDescription>
