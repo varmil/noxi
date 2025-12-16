@@ -136,13 +136,13 @@ export function GroupRegistrationHistory() {
               className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors"
             >
               {/* Group Icon */}
-              <div className="shrink-0">
+              <div className="shrink-0 aspect-square">
                 <Image
                   src={registration.iconSrc}
                   alt={registration.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full object-cover"
+                  width={36}
+                  height={36}
+                  className="aspect-square rounded-full object-cover"
                   onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                     const target = e.target as HTMLImageElement
                     target.src = '/placeholder.svg'
@@ -157,9 +157,8 @@ export function GroupRegistrationHistory() {
                     {registration.name}
                   </p>
                 </div>
-                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                <div className="flex flex-col items-start gap-x-2 text-xs text-muted-foreground">
                   <span>ID: {registration.groupId}</span>
-                  <span>•</span>
                   <span>
                     {format.dateTime(registration.appliedAt, {
                       year: 'numeric',
