@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/generated/client'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import {
   Stream,
   StreamFindAllWhere,
@@ -89,7 +89,7 @@ export class StreamRepositoryImpl implements StreamRepository {
       .map(row => ({
         videoId: new VideoId(row.videoId),
         title: new VideoTitle(row.title),
-        group: new GroupName(row.group)
+        group: new GroupId(row.group)
       }))
   }
 

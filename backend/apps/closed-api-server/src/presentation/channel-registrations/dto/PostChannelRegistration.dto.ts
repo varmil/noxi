@@ -9,7 +9,7 @@ import {
 } from 'class-validator'
 import { AppliedAt, Status } from '@domain/channel-registration'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import {
   ChannelId,
@@ -61,7 +61,7 @@ export class PostChannelRegistration {
 
   toGender = () => new Gender(this.gender)
 
-  toGroup = () => new GroupName(this.group)
+  toGroup = () => new GroupId(this.group)
 
   toSubscriberCount = () => new SubscriberCount(this.subscriberCount)
 

@@ -9,7 +9,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { PeriodStrings, PeriodString, Period } from '@domain/lib/period'
 import { Count } from '@domain/membership'
@@ -97,7 +97,7 @@ export class GetMembershipSummaries {
       ? new ChannelIds(this.channelIds.map(id => new ChannelId(id)))
       : undefined
 
-  toGroup = () => (this.group ? new GroupName(this.group) : undefined)
+  toGroup = () => (this.group ? new GroupId(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 

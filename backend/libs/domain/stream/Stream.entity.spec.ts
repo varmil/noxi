@@ -1,4 +1,4 @@
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Metrics } from '@domain/stream/Metrics'
 import { StreamTimes } from '@domain/stream/StreamTimes'
 import {
@@ -40,7 +40,7 @@ const stream = new Stream({
     views: 0,
     likes: 0
   }),
-  group: new GroupName('hololive'),
+  group: new GroupId('hololive'),
   updatedAt: new UpdatedAt(new Date())
 })
 

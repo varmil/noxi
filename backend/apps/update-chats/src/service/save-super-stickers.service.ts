@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { PromiseService } from '@app/lib/promise-service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { SuperSticker } from '@domain/supers'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
@@ -22,7 +22,7 @@ export class SaveSuperStickersService {
   }: {
     videoId: VideoId
     newMessages: LiveChatMessages
-    group: GroupName
+    group: GroupId
   }) {
     const promises = newMessages.map(async message => {
       if (!message.isSuperSticker || !message.snippet.superStickerDetails)

@@ -10,7 +10,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { SupersBundleRepository } from '@domain/supers-bundle'
@@ -130,7 +130,7 @@ export class GetSupersBundles {
     }
   }
 
-  toGroup = () => (this.group ? new GroupName(this.group) : undefined)
+  toGroup = () => (this.group ? new GroupId(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 

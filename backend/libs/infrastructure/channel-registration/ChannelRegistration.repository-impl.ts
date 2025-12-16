@@ -7,7 +7,7 @@ import {
   Status
 } from '@domain/channel-registration'
 import { CountryCode, LanguageTag } from '@domain/country'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
   ChannelId,
@@ -18,9 +18,7 @@ import {
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
-export class ChannelRegistrationRepositoryImpl
-  implements ChannelRegistrationRepository
-{
+export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   findAll: ChannelRegistrationRepository['findAll'] = async ({
@@ -44,7 +42,7 @@ export class ChannelRegistrationRepositoryImpl
             country: new CountryCode(e.country),
             defaultLanguage: new LanguageTag(e.defaultLanguage),
             gender: new Gender(e.gender),
-            group: new GroupName(e.group),
+            group: new GroupId(e.group),
             subscriberCount: new SubscriberCount(e.subscriberCount),
             liveStreamCount: new LiveStreamCount(e.liveStreamCount),
             status: new Status(e.status),
@@ -65,7 +63,7 @@ export class ChannelRegistrationRepositoryImpl
       country: new CountryCode(row.country),
       defaultLanguage: new LanguageTag(row.defaultLanguage),
       gender: new Gender(row.gender),
-      group: new GroupName(row.group),
+      group: new GroupId(row.group),
       subscriberCount: new SubscriberCount(row.subscriberCount),
       liveStreamCount: new LiveStreamCount(row.liveStreamCount),
       status: new Status(row.status),

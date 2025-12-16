@@ -1,5 +1,5 @@
 import { LanguageTag } from '@domain/country'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Metrics, Stream, StreamTimes } from '@domain/stream'
 import {
   ActualEndTime,
@@ -58,7 +58,7 @@ export class StreamTranslator {
         likes: row.likeCount
       }),
 
-      group: new GroupName(row.group),
+      group: new GroupId(row.group),
       updatedAt: new UpdatedAt(row.updatedAt)
     })
   }

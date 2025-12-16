@@ -3,7 +3,7 @@ import {
   Prisma,
   YoutubeStreamSupersBundle as PrismaYoutubeStreamSupersBundle
 } from '@prisma/generated/client'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { RankingType } from '@domain/ranking'
 import {
@@ -302,7 +302,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       actualEndTime: row.actualEndTime
         ? new ActualEndTime(row.actualEndTime)
         : undefined,
-      group: new GroupName(row.group)
+      group: new GroupId(row.group)
     })
   }
 }

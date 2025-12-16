@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { PromiseService } from '@app/lib/promise-service'
 import { MembershipsService } from '@app/memberships/memberships.service'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Membership } from '@domain/membership'
 import { VideoId } from '@domain/youtube'
 import { LiveChatMessages } from '@domain/youtube/live-chat-message'
@@ -22,7 +22,7 @@ export class SaveMembershipsService {
   }: {
     videoId: VideoId
     newMessages: LiveChatMessages
-    group: GroupName
+    group: GroupId
   }) {
     const promises = newMessages.map(async message => {
       if (!message.isMembership || !message.snippet.membershipDetails) return

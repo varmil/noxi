@@ -4,7 +4,7 @@ import {
   ProfileImageUrl,
   IsChatSponsor
 } from '@domain/author'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Count, IsGift, Membership } from '@domain/membership'
 import { ChannelId, PublishedAt, VideoId } from '@domain/youtube'
 import { LiveChatMessageId } from '@domain/youtube/live-chat-message'
@@ -29,7 +29,7 @@ export class MembershipTranslator {
       }),
 
       videoId: new VideoId(row.videoId),
-      group: new GroupName(row.group),
+      group: new GroupId(row.group),
       createdAt: new PublishedAt(row.createdAt)
     })
   }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
 
@@ -12,7 +12,7 @@ interface ImagePreviewProps {
 
 export function ImagePreview({ src, alt, size = 80 }: ImagePreviewProps) {
   const [imageError, setImageError] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const t = useTranslations('Components.imagePreview')
 
   // Handle relative vs absolute URL
@@ -44,6 +44,25 @@ export function ImagePreview({ src, alt, size = 80 }: ImagePreviewProps) {
   }
 
   const imageSrc = getImageSrc(src)
+
+  // Reset loading state when src changes and add timeout
+  useEffect(() => {
+    if (imageSrc) {
+      setIsLoading(true)
+      setImageError(false)
+
+      // Set timeout to prevent infinite loading
+      const timeoutId = setTimeout(() => {
+        setIsLoading(false)
+        setImageError(true)
+      }, 10000) // 10 seconds timeout
+
+      return () => clearTimeout(timeoutId)
+    } else {
+      setIsLoading(false)
+      setImageError(false)
+    }
+  }, [imageSrc])
 
   return (
     <div className="flex flex-col items-center space-y-2">

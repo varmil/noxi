@@ -72,7 +72,7 @@ export function GroupRegistrationForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle> </CardTitle>
+        <CardTitle>{t('title')}</CardTitle>
       </CardHeader>
       <CardContent>
         <Form {...form}>

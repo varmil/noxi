@@ -3,7 +3,7 @@ import {
   Prisma,
   StreamMembershipBundle as PrismaStreamMembershipBundle
 } from '@prisma/generated/client'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { AmountMicros } from '@domain/lib/currency'
 import { Count } from '@domain/membership'
 import {
@@ -22,9 +22,7 @@ import {
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 @Injectable()
-export class MembershipBundleRepositoryImpl
-  implements MembershipBundleRepository
-{
+export class MembershipBundleRepositoryImpl implements MembershipBundleRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
@@ -137,7 +135,7 @@ export class MembershipBundleRepositoryImpl
       actualEndTime: row.actualEndTime
         ? new ActualEndTime(row.actualEndTime)
         : undefined,
-      group: new GroupName(row.group)
+      group: new GroupId(row.group)
     })
   }
 }

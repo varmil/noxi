@@ -1,4 +1,4 @@
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Membership, Memberships } from '@domain/membership'
 import { VideoId } from '@domain/youtube'
 
@@ -6,7 +6,7 @@ export interface MembershipRepository {
   findAll: (args: {
     where: {
       videoId?: VideoId
-      group?: GroupName
+      group?: GroupId
       createdBefore?: Date
       createdAfter?: Date
     }
@@ -16,7 +16,7 @@ export interface MembershipRepository {
   count: (args: {
     where: {
       videoId?: VideoId
-      group?: GroupName
+      group?: GroupId
       createdBefore?: Date
       createdAfter?: Date
     }

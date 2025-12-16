@@ -1,4 +1,4 @@
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import { Count } from '@domain/membership'
 import {
@@ -10,7 +10,7 @@ import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
 
 export interface MembershipBundleSumWhere {
   createdAt: { gte: Date; lte?: Date }
-  group?: GroupName
+  group?: GroupId
   channelIds?: ChannelIds
   gender?: Gender
   count?: {
@@ -26,7 +26,7 @@ export interface MembershipBundleRepository {
     where?: {
       videoIds?: VideoIds
       channelId?: ChannelId
-      group?: GroupName
+      group?: GroupId
       gender?: Gender
       // NULL means "live now"
       actualEndTime?: null

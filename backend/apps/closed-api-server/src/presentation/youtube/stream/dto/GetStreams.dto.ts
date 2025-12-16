@@ -11,7 +11,7 @@ import {
   ValidateNested
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
-import { GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { StreamStatus, StreamRepository } from '@domain/stream'
 import { ChannelId, VideoId, VideoIds, VideoTitle } from '@domain/youtube'
@@ -132,7 +132,7 @@ export class GetStreamsDto {
       ? new VideoIds(this.videoIds.map(id => new VideoId(id)))
       : undefined
 
-  toGroup = () => (this.group ? new GroupName(this.group) : undefined)
+  toGroup = () => (this.group ? new GroupId(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
 
