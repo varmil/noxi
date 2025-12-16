@@ -1,6 +1,7 @@
 import { PropsWithoutRef } from 'react'
 import { Radio } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import LiveStreamGalleryContent from 'features/group/live/components/LiveStreamGalleryContent'
@@ -26,7 +27,7 @@ export default async function LiveStreamGallery({
   nullIfNoLive
 }: PropsWithoutRef<Props>) {
   const { title, channelId, group } = where || {}
-  const [t, streams] = await Promise.all([
+  const [t, streams, groupName] = await Promise.all([
     getTranslations('Features.group'),
     getStreams({
       title,
@@ -36,7 +37,10 @@ export default async function LiveStreamGallery({
       orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
       limit: StreamGalleryPagination.getLimit(compact),
       offset: StreamGalleryPagination.getOffset()
-    })
+    }),
+    group
+      ? getGroupName(group, { errorContext: 'live stream gallery' })
+      : Promise.resolve('')
   ])
 
   if (nullIfNoLive && streams.length === 0) {
@@ -50,13 +54,7 @@ export default async function LiveStreamGallery({
           titleIcon={<Radio className="w-6 h-6 text-red-400" />}
           title={t('live.title')}
           description={
-            group
-              ? t('live.description', {
-                  group: ((await getTranslations('Global.group')) as any)(
-                    `${group}`
-                  )
-                })
-              : ''
+            groupName ? t('live.description', { group: groupName }) : ''
           }
           badgeText="Live"
         />

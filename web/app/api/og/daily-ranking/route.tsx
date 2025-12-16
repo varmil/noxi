@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { getGroupName } from 'apis/groups'
 import ja from 'config/i18n/messages/ja.json'
 import { getDailySupersRanking } from 'features/channels-ranking/utils/getDailySupersRanking'
 import dayjs from 'lib/dayjs'
@@ -21,12 +22,17 @@ export async function GET(request: Request) {
   const group = searchParams.get('group') as string
   const gender = searchParams.get('gender') as Gender | undefined
 
-  const ranking = await getDailySupersRanking({
-    group,
-    gender,
-    date: searchParams.get('date') ?? undefined,
-    limit: 5
-  })
+  const [ranking, groupName] = await Promise.all([
+    getDailySupersRanking({
+      group,
+      gender,
+      date: searchParams.get('date') ?? undefined,
+      limit: 5
+    }),
+    group
+      ? getGroupName(group, { errorContext: 'daily-ranking og image' })
+      : Promise.resolve('VTuber総合')
+  ])
 
   const formatter = Intl.DateTimeFormat('ja-JP', {
     year: 'numeric',
@@ -64,7 +70,7 @@ export async function GET(request: Request) {
           </div>
 
           <div tw="flex flex-col -top-12" style={{ fontSize: 80 }}>
-            <div tw="flex">{group ? ja.Global.group[group] : `VTuber総合`}</div>
+            <div tw="flex">{groupName}</div>
             <div tw="flex">{gender ? ja.Global.gender[gender] : ``}</div>
           </div>
 

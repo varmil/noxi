@@ -1,7 +1,5 @@
 import React from 'react'
 import { LucideProps, MicVocal, UserCircle, Webcam } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { getTranslations } from 'next-intl/server'
 import { getGroups as getGroupsFromAPI } from 'apis/groups'
 
 // 通信で取るかも
@@ -59,15 +57,11 @@ const IconGroups = ['independent', 'independent-irl', 'artist']
 
 /** @deprecated use 'apis/groups' > getGroups instead */
 export const getGroups = async () => {
-  const t = await getTranslations('Global.group')
   const apiGroups = await getGroupsFromAPI()
-  return map(t, apiGroups)
+  return map(apiGroups)
 }
 
-const map = (
-  t: ReturnType<typeof useTranslations<'Global.group'>>,
-  apiGroups: Awaited<ReturnType<typeof getGroupsFromAPI>>
-) => {
+const map = (apiGroups: Awaited<ReturnType<typeof getGroupsFromAPI>>) => {
   // APIから取得したGroupsをImg形式に変換
   const apiImgs = apiGroups
     .filter(group => !IconGroups.includes(group.id))
@@ -86,7 +80,7 @@ const map = (
         case 'independent':
           return {
             id: group.id,
-            name: t(`${group.id}`),
+            name: group.name,
             icon: UserCircle,
             count: counts[group.id as keyof typeof counts] || {
               val: 0,
@@ -96,7 +90,7 @@ const map = (
         case 'independent-irl':
           return {
             id: group.id,
-            name: t(`${group.id}`),
+            name: group.name,
             icon: Webcam,
             count: counts[group.id as keyof typeof counts] || {
               val: 0,
@@ -106,7 +100,7 @@ const map = (
         case 'artist':
           return {
             id: group.id,
-            name: t(`${group.id}`),
+            name: group.name,
             icon: MicVocal,
             count: counts[group.id as keyof typeof counts] || {
               val: 0,
