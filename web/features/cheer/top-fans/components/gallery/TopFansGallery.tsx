@@ -31,12 +31,19 @@ type TopFansGalleryProps = TopFansSearchParams & {
 export default async function TopFansGallery(
   props: PropsWithoutRef<TopFansGalleryProps>
 ) {
-  const [feat, groupData] = await Promise.all([
+  const [feat, global] = await Promise.all([
     getTranslations('Features.topFans'),
-    getGroup(props.group)
+    getTranslations('Global')
   ])
   const { period, group, gender, date, page, compact, className } = props
-  const groupName = groupData?.name ?? group
+
+  let groupName: string
+  if (group === 'all') {
+    groupName = global('group.all')
+  } else {
+    const groupData = await getGroup(group)
+    groupName = groupData?.name ?? group
+  }
 
   const fanUsages = await getFanRanking({
     group,

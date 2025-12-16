@@ -22,21 +22,27 @@ export async function ChannelProfile({
   className
 }: PropsWithChildren<Props>) {
   const session = await auth()
-  const [global, feat, rank, cheerTicket, groupData] = await Promise.all([
+  const [global, feat, rank, cheerTicket] = await Promise.all([
     getTranslations('Global'),
     getTranslations('Features.cheerChannel'),
     getCheeredRank({
       channelId: channel.basicInfo.id,
       usedAt: { gte: dayjs().subtract(365, 'days').toDate() } // 便宜的に１年にしておく
     }),
-    session ? getCheerTicket() : undefined,
-    getGroup(channel.peakX.group)
+    session ? getCheerTicket() : undefined
   ])
   const {
     basicInfo,
     peakX: { group, gender }
   } = channel
-  const groupName = groupData?.name ?? group
+
+  let groupName: string
+  if (group === 'all') {
+    groupName = global('group.all')
+  } else {
+    const groupData = await getGroup(group)
+    groupName = groupData?.name ?? group
+  }
 
   return (
     <div className={className}>

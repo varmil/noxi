@@ -24,14 +24,21 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     locale: locale as 'ja' | 'en',
     namespace: 'Page.group.index.metadata'
   })
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for group page (metadata)')
+
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = tg('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for group page (metadata)')
+    }
+    groupName = group.name
   }
 
   return {
-    title: `${t('title', { group: group.name })} - ${tg('title')}`,
-    description: `${t('description', { group: group.name })}`
+    title: `${t('title', { group: groupName })} - ${tg('title')}`,
+    description: `${t('description', { group: groupName })}`
   }
 }
 
@@ -44,13 +51,20 @@ export default async function GroupPage(props: Props) {
 
   const t = await getTranslations('Breadcrumb')
   const feat = await getTranslations('Features.group')
+  const global = await getTranslations('Global')
 
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for group page')
+  let groupDisplayName: string
+  if (groupId === 'all') {
+    groupDisplayName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for group page')
+    }
+    groupDisplayName = group.name
   }
 
-  const groupName = t('group', { group: group.name })
+  const groupName = t('group', { group: groupDisplayName })
 
   return (
     <Page

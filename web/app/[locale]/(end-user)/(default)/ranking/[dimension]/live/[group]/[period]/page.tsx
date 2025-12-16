@@ -24,9 +24,17 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, dimension, group: groupId, period } = await props.params
   const { gender, page } = await props.searchParams
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for live ranking page (metadata)')
+  const global = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for live ranking page (metadata)')
+    }
+    groupName = group.name
   }
 
   return {
@@ -36,12 +44,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.streamRanking.ranking.dimension',
       period,
       dimension,
-      group: group.name,
+      group: groupName,
       gender,
       page
     })),
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${group}/last30Days`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${groupId}/last30Days`
     }
   }
 }
@@ -56,9 +64,15 @@ export default async function RankingLivePage(props: Props) {
   const global = await getTranslations('Global')
   const feat = await getTranslations('Features.streamRanking.ranking.dimension')
 
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for live ranking page')
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for live ranking page')
+    }
+    groupName = group.name
   }
 
   return (
@@ -68,7 +82,7 @@ export default async function RankingLivePage(props: Props) {
           href: `#`,
           name: feat(dimension, {
             period: global(`period.${period}`),
-            group: group.name,
+            group: groupName,
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')
@@ -82,7 +96,7 @@ export default async function RankingLivePage(props: Props) {
       <IndexTemplate
         period={period}
         dimension={dimension}
-        group={group.id}
+        group={groupId}
         searchParams={searchParams}
       />
     </Page>

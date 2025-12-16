@@ -40,13 +40,20 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
 
-  const [t, groupData] = await Promise.all([
+  const [t, global] = await Promise.all([
     getTranslations('Features.channelsRanking'),
-    getGroup(props.group)
+    getTranslations('Global')
   ])
   const { period, dimension, group, gender, date, page, compact, className } =
     props
-  const groupName = groupData?.name ?? group
+
+  let groupName: string
+  if (group === 'all') {
+    groupName = global('group.all')
+  } else {
+    const groupData = await getGroup(group)
+    groupName = groupData?.name ?? group
+  }
 
   if (dimension === 'super-chat') {
     const supersSummaries = await getSupersSummaries(

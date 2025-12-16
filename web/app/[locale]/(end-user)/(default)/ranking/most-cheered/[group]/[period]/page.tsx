@@ -20,9 +20,17 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, period, group: groupId } = await props.params
   const { gender, page } = await props.searchParams
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for most-cheered page (metadata)')
+  const global = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for most-cheered page (metadata)')
+    }
+    groupName = group.name
   }
 
   return {
@@ -32,7 +40,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.mostCheered.dimension',
       period,
       dimension: 'most-cheered',
-      group: group.name,
+      group: groupName,
       gender,
       page
     })),
@@ -50,9 +58,15 @@ export default async function RankingMostCheeredPage(props: Props) {
   const global = await getTranslations('Global')
   const feat = await getTranslations('Features.mostCheered.dimension')
 
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for most-cheered page')
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for most-cheered page')
+    }
+    groupName = group.name
   }
 
   return (
@@ -62,7 +76,7 @@ export default async function RankingMostCheeredPage(props: Props) {
           href: `#`,
           name: feat('most-cheered', {
             period: global(`period.${period}`),
-            group: group.name,
+            group: groupName,
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')

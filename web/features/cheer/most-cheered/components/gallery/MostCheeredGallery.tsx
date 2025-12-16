@@ -31,12 +31,19 @@ type MostCheeredGalleryProps = MostCheeredSearchParams & {
 export default async function MostCheeredGallery(
   props: PropsWithoutRef<MostCheeredGalleryProps>
 ) {
-  const [feat, groupData] = await Promise.all([
+  const [feat, global] = await Promise.all([
     getTranslations('Features.mostCheered'),
-    getGroup(props.group)
+    getTranslations('Global')
   ])
   const { period, group, gender, date, page, compact, className } = props
-  const groupName = groupData?.name ?? group
+
+  let groupName: string
+  if (group === 'all') {
+    groupName = global('group.all')
+  } else {
+    const groupData = await getGroup(group)
+    groupName = groupData?.name ?? group
+  }
 
   const cheeredUsages = await getCheeredRanking({
     group,

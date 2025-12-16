@@ -27,9 +27,17 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, dimension, group: groupId, period } = await props.params
   const { gender, date, page } = await props.searchParams
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for channels ranking page (metadata)')
+  const global = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for channels ranking page (metadata)')
+    }
+    groupName = group.name
   }
 
   return {
@@ -39,7 +47,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.channelsRanking.ranking.dimension',
       period,
       dimension,
-      group: group.name,
+      group: groupName,
       gender,
       page
     })),
@@ -73,9 +81,15 @@ export default async function RankingChannelsPage(props: Props) {
   const global = await getTranslations('Global')
   const feat = await getTranslations('Features.channelsRanking.ranking.dimension')
 
-  const group = await getGroup(groupId)
-  if (!group) {
-    throw new Error('Group not found for channels ranking page')
+  let groupName: string
+  if (groupId === 'all') {
+    groupName = global('group.all')
+  } else {
+    const group = await getGroup(groupId)
+    if (!group) {
+      throw new Error('Group not found for channels ranking page')
+    }
+    groupName = group.name
   }
 
   return (
@@ -84,7 +98,7 @@ export default async function RankingChannelsPage(props: Props) {
         {
           href: `#`,
           name: feat(dimension, {
-            group: group.name,
+            group: groupName,
             period: global(`period.${period}`),
             gender: gender ? global(`gender.${gender}`) : ''
           })

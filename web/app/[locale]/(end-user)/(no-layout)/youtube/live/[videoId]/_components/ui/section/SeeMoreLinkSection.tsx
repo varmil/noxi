@@ -16,16 +16,23 @@ export default async function SeeMoreLinkSection({
 }) {
   const [
     page,
+    global,
     {
       basicInfo: { title }
-    },
-    groupData
+    }
   ] = await Promise.all([
     getTranslations('Page.youtube.live.id.button'),
-    getChannel(channelId),
-    getGroup(group)
+    getTranslations('Global'),
+    getChannel(channelId)
   ])
-  const groupName = groupData?.name ?? group
+
+  let groupName: string
+  if (group === 'all') {
+    groupName = global('group.all')
+  } else {
+    const groupData = await getGroup(group)
+    groupName = groupData?.name ?? group
+  }
 
   return (
     <div className="border-t border-border pt-6">
