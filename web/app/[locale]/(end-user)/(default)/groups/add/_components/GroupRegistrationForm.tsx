@@ -18,6 +18,7 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { createGroupRegistration } from 'apis/groups'
 import { ImagePreview } from './ImagePreview'
 
 // Group ID validation schema based on requirements
@@ -51,11 +52,11 @@ export function GroupRegistrationForm() {
   const onSubmit = async (data: GroupRegistrationFormData) => {
     setIsSubmitting(true)
     try {
-      // TODO: Implement API call to submit group registration
-      console.log('Group registration data:', data)
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await createGroupRegistration({
+        groupId: data.groupId,
+        name: data.name,
+        iconSrc: data.iconSrc
+      })
 
       toast.success(t('submitSuccess'))
       form.reset()
