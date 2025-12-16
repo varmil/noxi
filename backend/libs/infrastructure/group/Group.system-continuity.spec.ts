@@ -83,6 +83,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
               id: groupId,
               name: getExpectedGroupName(groupId),
               iconSrc: `/group/${groupId}/logo.png`,
+              order: 1,
               createdAt: new Date(),
               updatedAt: new Date()
             }
@@ -128,6 +129,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
               id: groupId,
               name: groupName,
               iconSrc: `/group/${groupId}/logo.png`,
+              order: 1,
               createdAt: new Date(),
               updatedAt: new Date()
             })
@@ -136,6 +138,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
               id: groupId,
               name: groupName,
               iconSrc: `/group/${groupId}/logo.png`,
+              order: 99999,
               createdAt: new Date(),
               updatedAt: new Date()
             })
@@ -167,6 +170,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
               id: groupId,
               name: getExpectedGroupName(groupId),
               iconSrc: `/group/${groupId}/logo.png`,
+              order: 1,
               createdAt: new Date(),
               updatedAt: new Date()
             }

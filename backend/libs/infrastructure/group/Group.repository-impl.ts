@@ -14,7 +14,7 @@ export class GroupRepositoryImpl implements GroupRepository {
 
   async findAll(): Promise<Group[]> {
     const rows = await this.prismaInfraService.group.findMany({
-      orderBy: { createdAt: 'asc' }
+      orderBy: { order: 'asc' }
     })
 
     return rows.map(
@@ -46,7 +46,8 @@ export class GroupRepositoryImpl implements GroupRepository {
       data: {
         id: group.id.get(),
         name: group.name.get(),
-        iconSrc: group.iconSrc.get()
+        iconSrc: group.iconSrc.get(),
+        order: 99999
       }
     })
   }

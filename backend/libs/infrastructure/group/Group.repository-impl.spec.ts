@@ -82,6 +82,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
               id: groupId,
               name: getExpectedGroupName(groupId),
               iconSrc: `/group/${groupId}/logo.png`,
+              order: 1,
               createdAt: new Date(),
               updatedAt: new Date()
             }
@@ -115,6 +116,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
         id: groupId,
         name: getExpectedGroupName(groupId),
         iconSrc: `/group/${groupId}/logo.png`,
+        order: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }))
@@ -141,6 +143,93 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
         expect(group.name.get()).toBeTruthy()
         expect(group.name.get().length).toBeGreaterThan(0)
       }
+    })
+  })
+
+  describe('Order Sorting', () => {
+    it('should return groups sorted by order in ascending order', async () => {
+      // Mock data with different order values
+      const mockGroupsData = [
+        {
+          id: 'group-c',
+          name: 'Group C',
+          iconSrc: '/group/group-c/logo.png',
+          order: 3,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 'group-a',
+          name: 'Group A',
+          iconSrc: '/group/group-a/logo.png',
+          order: 1,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          id: 'group-b',
+          name: 'Group B',
+          iconSrc: '/group/group-b/logo.png',
+          order: 2,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ]
+
+      // Simulate database returning sorted by order
+      const sortedMockData = [...mockGroupsData].sort(
+        (a, b) => a.order - b.order
+      )
+
+      jest
+        .spyOn(prismaService.group, 'findMany')
+        .mockResolvedValue(sortedMockData)
+
+      const result = await repository.findAll()
+
+      // Verify the order of results
+      expect(result[0].id.get()).toBe('group-a')
+      expect(result[1].id.get()).toBe('group-b')
+      expect(result[2].id.get()).toBe('group-c')
+
+      // Verify findMany was called with correct orderBy
+      expect(jest.spyOn(prismaService.group, 'findMany')).toHaveBeenCalledWith({
+        orderBy: { order: 'asc' }
+      })
+    })
+  })
+
+  describe('New Group Creation with Order', () => {
+    it('should create new group with order set to 99999', async () => {
+      const { Group, GroupId, GroupName, GroupIconSrc } =
+        await import('@domain/group')
+
+      const newGroup = new Group({
+        id: new GroupId('new-group'),
+        name: new GroupName('New Group'),
+        iconSrc: new GroupIconSrc('/group/new-group/logo.png')
+      })
+
+      jest.spyOn(prismaService.group, 'create').mockResolvedValue({
+        id: 'new-group',
+        name: 'New Group',
+        iconSrc: '/group/new-group/logo.png',
+        order: 99999,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
+      await repository.create(newGroup)
+
+      // Verify create was called with order: 99999
+      expect(jest.spyOn(prismaService.group, 'create')).toHaveBeenCalledWith({
+        data: {
+          id: 'new-group',
+          name: 'New Group',
+          iconSrc: '/group/new-group/logo.png',
+          order: 99999
+        }
+      })
     })
   })
 

@@ -1,22 +1,22 @@
 # 実装計画
 
-- [ ] 1. バックエンド Group テーブル order カラム拡張
+- [x] 1. バックエンド Group テーブル order カラム拡張
 
-  - [ ] 1.1 データベースマイグレーションの作成
+  - [x] 1.1 データベースマイグレーションの作成
 
     - Group テーブルに order カラム（int 型、非 UNIQUE）を追加
     - 既存レコードの order を 1 に設定するマイグレーション
     - インデックス追加（パフォーマンス向上）
     - _要件: 2.1, 2.3_
 
-  - [ ] 1.2 Group Repository の order 対応実装
+  - [x] 1.2 Group Repository の order 対応実装
 
     - GroupRepositoryImpl で findAll 時に order 昇順ソートを追加
     - save 時に新規 Group の order を 99999 に設定
     - order フィールドをインフラ層に隠蔽（ドメイン層には露出しない）
     - _要件: 2.2, 2.4, 2.5_
 
-  - [ ] 1.3 Group order 機能のユニットテスト
+  - [x] 1.3 Group order 機能のユニットテスト
     - Repository の order ソート機能テスト
     - 新規 Group 作成時の order 設定テスト
     - マイグレーション後のデータ整合性テスト
