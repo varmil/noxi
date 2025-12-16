@@ -27,7 +27,10 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, dimension, group: groupId, period } = await props.params
   const { gender, date, page } = await props.searchParams
-  const global = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+  const global = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
 
   let groupName: string
   if (groupId === 'all') {
@@ -47,7 +50,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.channelsRanking.ranking.dimension',
       period,
       dimension,
-      group: groupName,
+      groupName,
       gender,
       page
     })),
@@ -79,7 +82,9 @@ export default async function RankingChannelsPage(props: Props) {
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
   const global = await getTranslations('Global')
-  const feat = await getTranslations('Features.channelsRanking.ranking.dimension')
+  const feat = await getTranslations(
+    'Features.channelsRanking.ranking.dimension'
+  )
 
   let groupName: string
   if (groupId === 'all') {

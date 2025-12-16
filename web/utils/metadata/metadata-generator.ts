@@ -29,7 +29,8 @@ type Args = {
     | TopFansPeriod
     | ChannelsRankingPeriod
     | StreamRankingPeriod
-  group: string // It means `group.name` from database
+  /** It means `group.name` from database */
+  groupName: string
   gender?: Gender
   page?: string
 }
@@ -40,7 +41,7 @@ export const generateTitleAndDescription = async ({
   featNamespace,
   dimension,
   period,
-  group,
+  groupName: group,
   gender,
   page
 }: Args): Promise<Pick<Metadata, 'title' | 'description'>> => {

@@ -20,7 +20,10 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, period, group: groupId } = await props.params
   const { gender, page } = await props.searchParams
-  const global = await getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' })
+  const global = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Global'
+  })
 
   let groupName: string
   if (groupId === 'all') {
@@ -40,7 +43,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.topFans.dimension',
       period,
       dimension: 'top-fans',
-      group: groupName,
+      groupName,
       gender,
       page
     })),
