@@ -3,7 +3,8 @@ import {
   LogOut,
   MailIcon,
   PanelLeftIcon,
-  UserRoundPlus
+  UserRoundPlus,
+  UsersRound
 } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
@@ -100,6 +101,12 @@ export default async function HeaderXSSheet() {
               name={comp('channelsAdd.title')}
               icon={<UserRoundPlus className="size-7" />}
               href="/channels/add"
+            />
+
+            <HeaderLink
+              name={comp('groupsAdd.title')}
+              icon={<UsersRound className="size-7" />}
+              href="/groups/add"
             />
 
             <HeaderLink

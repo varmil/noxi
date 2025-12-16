@@ -379,6 +379,7 @@
       "groups": "タレント検索"
     },
     "channelsAdd": { "title": "チャンネルを載せたい" },
+    "groupsAdd": { "title": "グループを登録したい" },
     "contact": { "title": "お問い合わせ" },
     "group": {
       "listing": "{count}人のタレントを掲載中",

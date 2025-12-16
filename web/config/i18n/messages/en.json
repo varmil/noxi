@@ -379,6 +379,7 @@
       "groups": "Talents"
     },
     "channelsAdd": { "title": "Add your channel to VCharts" },
+    "groupsAdd": { "title": "Add your group to VCharts" },
     "contact": { "title": "Contact" },
     "group": {
       "listing": "Listing {count} talents.",

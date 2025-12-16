@@ -14,8 +14,15 @@ const customJestConfig = {
     '**/*.(test|spec).(js|jsx|ts|tsx)'
   ],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/$1',
-    '^components/(.*)$': '<rootDir>/components/$1'
+    '^@/(.*)$': '<rootDir>/@/$1',
+    '^components/(.*)$': '<rootDir>/components/$1',
+    '^lib/(.*)$': '<rootDir>/lib/$1',
+    '^hooks/(.*)$': '<rootDir>/hooks/$1',
+    '^apis/(.*)$': '<rootDir>/apis/$1',
+    '^config/(.*)$': '<rootDir>/config/$1',
+    '^features/(.*)$': '<rootDir>/features/$1',
+    '^types/(.*)$': '<rootDir>/types/$1',
+    '^utils/(.*)$': '<rootDir>/utils/$1'
   },
   transformIgnorePatterns: ['node_modules/(?!(next-intl|use-intl)/)'],
   // TypeScript型チェックを有効化
