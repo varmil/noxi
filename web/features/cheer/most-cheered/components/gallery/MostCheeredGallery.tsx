@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getCheeredRanking } from 'apis/cheer-ticket-usages/getCheeredRanking'
-import { getGroup } from 'apis/groups'
+import { getGroupName } from 'apis/groups'
 import { PageXSPX } from 'components/page'
 import { MostCheeredPagination } from 'config/constants/Pagination'
 import { MostCheeredDefaultUrl } from 'config/constants/RankingRoute'
@@ -31,19 +31,12 @@ type MostCheeredGalleryProps = MostCheeredSearchParams & {
 export default async function MostCheeredGallery(
   props: PropsWithoutRef<MostCheeredGalleryProps>
 ) {
-  const [feat, global] = await Promise.all([
-    getTranslations('Features.mostCheered'),
-    getTranslations('Global')
-  ])
   const { period, group, gender, date, page, compact, className } = props
 
-  let groupName: string
-  if (group === 'all') {
-    groupName = global('group.all')
-  } else {
-    const groupData = await getGroup(group)
-    groupName = groupData?.name ?? group
-  }
+  const [feat, groupName] = await Promise.all([
+    getTranslations('Features.mostCheered'),
+    getGroupName(group, { errorContext: 'most-cheered gallery' })
+  ])
 
   const cheeredUsages = await getCheeredRanking({
     group,

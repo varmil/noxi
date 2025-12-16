@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getGroup } from 'apis/groups'
+import { getGroupName } from 'apis/groups'
 import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/scheduled/_components/IndexTemplate'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
@@ -15,25 +15,14 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, group: groupId } = await props.params
-  const tg = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Global'
-  })
-  const t = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Page.group.scheduled.metadata'
-  })
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = tg('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for scheduled page (metadata)')
-    }
-    groupName = group.name
-  }
+  const [tg, t, groupName] = await Promise.all([
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Page.group.scheduled.metadata'
+    }),
+    getGroupName(groupId, { errorContext: 'scheduled page (metadata)' })
+  ])
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
@@ -48,19 +37,10 @@ export default async function GroupScheduledPage(props: Props) {
   setRequestLocale(locale as 'ja' | 'en')
   setGroup(groupId)
 
-  const t = await getTranslations('Breadcrumb')
-  const global = await getTranslations('Global')
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = global('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for scheduled page')
-    }
-    groupName = group.name
-  }
+  const [t, groupName] = await Promise.all([
+    getTranslations('Breadcrumb'),
+    getGroupName(groupId, { errorContext: 'scheduled page' })
+  ])
 
   return (
     <Page

@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getFanRanking } from 'apis/cheer-ticket-usages/getFanRanking'
-import { getGroup } from 'apis/groups'
+import { getGroupName } from 'apis/groups'
 import { PageXSPX } from 'components/page'
 import { TopFansPagination } from 'config/constants/Pagination'
 import { TopFansDefaultUrl } from 'config/constants/RankingRoute'
@@ -31,19 +31,12 @@ type TopFansGalleryProps = TopFansSearchParams & {
 export default async function TopFansGallery(
   props: PropsWithoutRef<TopFansGalleryProps>
 ) {
-  const [feat, global] = await Promise.all([
-    getTranslations('Features.topFans'),
-    getTranslations('Global')
-  ])
   const { period, group, gender, date, page, compact, className } = props
 
-  let groupName: string
-  if (group === 'all') {
-    groupName = global('group.all')
-  } else {
-    const groupData = await getGroup(group)
-    groupName = groupData?.name ?? group
-  }
+  const [feat, groupName] = await Promise.all([
+    getTranslations('Features.topFans'),
+    getGroupName(group, { errorContext: 'top-fans gallery' })
+  ])
 
   const fanUsages = await getFanRanking({
     group,

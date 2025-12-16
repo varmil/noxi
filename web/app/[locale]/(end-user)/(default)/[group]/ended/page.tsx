@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getGroup } from 'apis/groups'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
@@ -17,25 +17,14 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, group: groupId } = await props.params
-  const tg = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Global'
-  })
-  const t = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Page.group.ended.metadata'
-  })
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = tg('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for ended page (metadata)')
-    }
-    groupName = group.name
-  }
+  const [tg, t, groupName] = await Promise.all([
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Page.group.ended.metadata'
+    }),
+    getGroupName(groupId, { errorContext: 'ended page (metadata)' })
+  ])
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
@@ -51,19 +40,10 @@ export default async function GroupEndedPage(props: Props) {
   setRequestLocale(locale as 'ja' | 'en')
   setGroup(groupId)
 
-  const t = await getTranslations('Breadcrumb')
-  const global = await getTranslations('Global')
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = global('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for ended page')
-    }
-    groupName = group.name
-  }
+  const [t, groupName] = await Promise.all([
+    getTranslations('Breadcrumb'),
+    getGroupName(groupId, { errorContext: 'ended page' })
+  ])
 
   return (
     <Page

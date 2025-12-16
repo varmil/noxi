@@ -1,6 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getGroup } from 'apis/groups'
+import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
 import {
@@ -27,21 +27,9 @@ type Props = {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale, dimension, group: groupId, period } = await props.params
   const { gender, date, page } = await props.searchParams
-  const global = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Global'
+  const groupName = await getGroupName(groupId, {
+    errorContext: 'channels ranking page (metadata)'
   })
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = global('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for channels ranking page (metadata)')
-    }
-    groupName = group.name
-  }
 
   return {
     ...(await generateTitleAndDescription({
@@ -81,21 +69,11 @@ export default async function RankingChannelsPage(props: Props) {
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const global = await getTranslations('Global')
-  const feat = await getTranslations(
-    'Features.channelsRanking.ranking.dimension'
-  )
-
-  let groupName: string
-  if (groupId === 'all') {
-    groupName = global('group.all')
-  } else {
-    const group = await getGroup(groupId)
-    if (!group) {
-      throw new Error('Group not found for channels ranking page')
-    }
-    groupName = group.name
-  }
+  const [global, feat, groupName] = await Promise.all([
+    getTranslations('Global'),
+    getTranslations('Features.channelsRanking.ranking.dimension'),
+    getGroupName(groupId, { errorContext: 'channels ranking page' })
+  ])
 
   return (
     <Page
