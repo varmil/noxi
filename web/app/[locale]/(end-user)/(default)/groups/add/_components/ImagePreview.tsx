@@ -50,14 +50,6 @@ export function ImagePreview({ src, alt, size = 80 }: ImagePreviewProps) {
     if (imageSrc) {
       setIsLoading(true)
       setImageError(false)
-
-      // Set timeout to prevent infinite loading
-      const timeoutId = setTimeout(() => {
-        setIsLoading(false)
-        setImageError(true)
-      }, 10000) // 10 seconds timeout
-
-      return () => clearTimeout(timeoutId)
     } else {
       setIsLoading(false)
       setImageError(false)
