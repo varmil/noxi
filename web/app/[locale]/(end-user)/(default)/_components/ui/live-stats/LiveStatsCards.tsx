@@ -1,4 +1,5 @@
 import { Suspense } from 'react'
+import { Radio } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getStreams } from 'apis/youtube/getStreams'
 import {
@@ -33,18 +34,20 @@ async function LiveStatsCardsContent() {
   )
 
   return (
-    <StatsCards className="grid-cols-3 lg:grid-cols-3">
-      <StatsCard>
-        <StatsCardHeader>{t('liveCount')}</StatsCardHeader>
+    <StatsCards className={'grid-cols-2 sm:grid-cols-3'}>
+      <StatsCard className="col-span-full sm:col-span-1 bg-white dark:bg-gray-900 shadow-xs">
+        <StatsCardHeader className="justify-start gap-2">
+          <Radio className="stroke-red-600 animate-pulse" /> {t('liveCount')}
+        </StatsCardHeader>
         <StatsCardContent>{liveCount.toLocaleString()}</StatsCardContent>
       </StatsCard>
 
-      <StatsCard>
+      <StatsCard className="col-span-1 bg-white dark:bg-gray-900 shadow-xs">
         <StatsCardHeader>{t('totalViewers')}</StatsCardHeader>
         <StatsCardContent>{totalViewers.toLocaleString()}</StatsCardContent>
       </StatsCard>
 
-      <StatsCard>
+      <StatsCard className="col-span-1 bg-white dark:bg-gray-900 shadow-xs">
         <StatsCardHeader>{t('medianViewers')}</StatsCardHeader>
         <StatsCardContent>{medianViewers.toLocaleString()}</StatsCardContent>
       </StatsCard>
