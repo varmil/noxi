@@ -226,7 +226,7 @@
 
 ## 追加修正タスク
 
-- [ ] 13. GroupName → GroupId 型修正の一括対応
+- [x] 13. GroupName → GroupId 型修正の一括対応
 
   - [x] 13.1 バックエンドでの GroupName → GroupId 型修正
 
@@ -243,7 +243,7 @@
     - 既存機能の動作確認
     - _要件: 2.2, 2.4_
 
-- [ ] 14. ImagePreview バグ修正
+- [x] 14. ImagePreview バグ修正
 
   - [x] 14.1 ImagePreview コンポーネントのローディング状態修正
     - URL 入力後の永続的ローディング状態を修正
