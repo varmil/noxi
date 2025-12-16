@@ -6,11 +6,13 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   UseInterceptors
 } from '@nestjs/common'
 import { GetChannelRegistrations } from '@presentation/channel-registrations/dto/GetChannelRegistrations.dto'
 import { PostChannelRegistration } from '@presentation/channel-registrations/dto/PostChannelRegistration.dto'
+import { UpdateStatusDto } from '@presentation/channel-registrations/dto/UpdateStatus.dto'
 import { ChannelRegistrationsService } from '@app/channel-registrations/channel-registrations.service'
 import { ChannelRegistration } from '@domain/channel-registration'
 import { ChannelId } from '@domain/youtube'
@@ -66,5 +68,17 @@ export class ChannelRegistrationsController {
         appliedAt: dto.toAppliedAt()
       })
     )
+  }
+
+  @Put(':channelId/status')
+  async updateStatus(
+    @Param('channelId') channelId: string,
+    @Body() dto: UpdateStatusDto
+  ) {
+    await this.channelRegistrationsService.updateStatus(
+      new ChannelId(channelId),
+      dto.toStatus()
+    )
+    return { message: 'Status updated successfully' }
   }
 }
