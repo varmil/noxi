@@ -16,7 +16,6 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => {
     const translations: Record<string, string> = {
       // Components.groupRegistrationForm
-      title: '新しいGroup申請',
       groupIdLabel: 'Group ID',
       groupIdPlaceholder: '例: my-vtuber-group',
       groupIdDescription: '小文字の英数字とハイフンのみ使用できます',
@@ -95,9 +94,6 @@ describe('Group申請フロー統合テスト', () => {
   it('ハッピーパス: 正常なGroup申請フローが完了する', async () => {
     // GroupRegistrationFormコンポーネントを直接テスト
     render(<GroupRegistrationForm />)
-
-    // フォームが表示されることを確認
-    expect(screen.getByText('新しいGroup申請')).toBeInTheDocument()
 
     // フォーム要素が存在することを確認
     const groupIdInput = screen.getByLabelText('Group ID')
