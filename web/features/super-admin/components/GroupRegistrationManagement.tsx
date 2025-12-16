@@ -51,6 +51,7 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
   const [error, setError] = useState<string | null>(null)
 
   const pendingRegistrations = registrations.filter(r => r.status === 'pending')
+  const pastRegistrations = registrations.filter(r => r.status !== 'pending')
 
   const handleApprove = async (
     registration: GroupRegistrationsSchema[number]
@@ -228,6 +229,67 @@ export function GroupRegistrationManagement({ initialRegistrations }: Props) {
                 </div>
               )
             })}
+          </div>
+        )}
+
+        {/* 過去の申請一覧 */}
+        {pastRegistrations.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-sm font-medium text-muted-foreground mb-3">
+              過去の申請一覧
+            </h3>
+            <div className="space-y-2">
+              {pastRegistrations.map(registration => {
+                const config = statusConfig[registration.status]
+                const StatusIcon = config.icon
+
+                return (
+                  <div
+                    key={registration.id}
+                    className="flex items-center gap-3 p-3 border rounded-lg bg-muted/30"
+                  >
+                    {/* Group Icon */}
+                    <div className="shrink-0">
+                      <Image
+                        src={registration.iconSrc}
+                        alt={registration.name}
+                        width={36}
+                        height={36}
+                        className="rounded-full object-cover"
+                        onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                          const target = e.target as HTMLImageElement
+                          target.src = '/placeholder.svg'
+                        }}
+                      />
+                    </div>
+
+                    {/* Group Details */}
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate text-sm">
+                        {registration.name}
+                      </p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        ID: {registration.groupId}
+                      </p>
+                    </div>
+
+                    {/* Applied Date */}
+                    <p className="text-xs text-muted-foreground shrink-0">
+                      {formatDate(registration.appliedAt)}
+                    </p>
+
+                    {/* Status Badge */}
+                    <Badge
+                      variant={config.variant}
+                      className={`flex items-center gap-1 shrink-0 ${config.className}`}
+                    >
+                      <StatusIcon className="h-3 w-3" />
+                      <span>{config.label}</span>
+                    </Badge>
+                  </div>
+                )
+              })}
+            </div>
           </div>
         )}
       </CardContent>
