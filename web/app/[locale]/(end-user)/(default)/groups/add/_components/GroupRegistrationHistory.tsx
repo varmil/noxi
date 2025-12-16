@@ -5,7 +5,13 @@ import { AlertCircle, Clock, CheckCircle, XCircle } from 'lucide-react'
 import { useTranslations, useFormatter } from 'next-intl'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getGroupRegistrations } from 'apis/groups'
 import { GroupRegistrationsSchema } from 'apis/groups/groupSchema'
@@ -121,9 +127,9 @@ export function GroupRegistrationHistory() {
     <Card>
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
-        <p className="text-sm text-muted-foreground">
-          {t('description', { count: registrations.length })}
-        </p>
+        <CardDescription>
+          ステータス『完了』になると１週間程度でUI上に表示されます
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
         {registrations.map(registration => {
@@ -133,58 +139,59 @@ export function GroupRegistrationHistory() {
           return (
             <div
               key={registration.id}
-              className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+              className="flex flex-col gap-x-3 p-3 border rounded-lg"
             >
-              {/* Group Icon */}
-              <div className="shrink-0">
-                <Image
-                  src={registration.iconSrc}
-                  alt={registration.name}
-                  width={40}
-                  height={40}
-                  className="rounded-full object-cover"
-                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
-                    const target = e.target as HTMLImageElement
-                    target.src = '/placeholder.svg'
-                  }}
-                />
-              </div>
-
-              {/* Group Details */}
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center space-x-2">
-                  <p className="text-sm font-medium truncate">
-                    {registration.name}
-                  </p>
+              <div className="flex items-center space-x-3">
+                {/* Group Icon */}
+                <div className="shrink-0 aspect-square">
+                  <Image
+                    src={registration.iconSrc}
+                    alt={registration.name}
+                    width={36}
+                    height={36}
+                    className="aspect-square rounded-full object-cover"
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                      const target = e.target as HTMLImageElement
+                      target.src = '/placeholder.svg'
+                    }}
+                  />
                 </div>
-                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                  <span>ID: {registration.groupId}</span>
-                  <span>•</span>
-                  <span>
-                    {format.dateTime(registration.appliedAt, {
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}
-                  </span>
+
+                {/* Group Details */}
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center space-x-2">
+                    <p className="font-medium truncate">{registration.name}</p>
+                  </div>
+                  <div className="text-sm text-muted-foreground truncate">
+                    ID: {registration.groupId}
+                  </div>
+                </div>
+
+                {/* Status Badge */}
+                <div className="self-start shrink-0">
+                  <Badge
+                    variant={config.variant}
+                    className={`flex items-center space-x-1 ${config.className}`}
+                  >
+                    <StatusIcon className="h-3 w-3" />
+                    <span>
+                      {config.label === 'pending' && t('status.pending')}
+                      {config.label === 'approved' && t('status.approved')}
+                      {config.label === 'rejected' && t('status.rejected')}
+                    </span>
+                  </Badge>
                 </div>
               </div>
-
-              {/* Status Badge */}
-              <div className="shrink-0">
-                <Badge
-                  variant={config.variant}
-                  className={`flex items-center space-x-1 ${config.className}`}
-                >
-                  <StatusIcon className="h-3 w-3" />
-                  <span>
-                    {config.label === 'pending' && t('status.pending')}
-                    {config.label === 'approved' && t('status.approved')}
-                    {config.label === 'rejected' && t('status.rejected')}
-                  </span>
-                </Badge>
+              <div className="self-end text-xs text-muted-foreground">
+                <span>
+                  {format.dateTime(registration.appliedAt, {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                  })}
+                </span>
               </div>
             </div>
           )

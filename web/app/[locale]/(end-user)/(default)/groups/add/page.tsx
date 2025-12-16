@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Page } from 'components/page'
 import { GroupRegistrationForm } from './_components/GroupRegistrationForm'
+import { GroupRegistrationHistory } from './_components/GroupRegistrationHistory'
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('Pages.groupsAdd')
@@ -29,10 +30,7 @@ export default async function GroupsAddPage() {
           <GroupRegistrationForm />
         </div>
         <div className="lg:col-span-1">
-          {/* GroupRegistrationHistory will be implemented in later subtask */}
-          <div className="p-4 border rounded-lg">
-            <p className="text-muted-foreground">{t('historyPlaceholder')}</p>
-          </div>
+          <GroupRegistrationHistory />
         </div>
       </div>
     </Page>
