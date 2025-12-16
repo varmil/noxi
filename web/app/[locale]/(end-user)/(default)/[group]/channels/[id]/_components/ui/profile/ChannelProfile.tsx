@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
 import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
+import { getGroup } from 'apis/groups'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { MutedCheerStat } from 'components/cheer-stats/MutedCheerStat'
 import CountMotion from 'components/styles/number/CountMotion'
@@ -21,25 +22,27 @@ export async function ChannelProfile({
   className
 }: PropsWithChildren<Props>) {
   const session = await auth()
-  const [global, feat, rank, cheerTicket] = await Promise.all([
+  const [global, feat, rank, cheerTicket, groupData] = await Promise.all([
     getTranslations('Global'),
     getTranslations('Features.cheerChannel'),
     getCheeredRank({
       channelId: channel.basicInfo.id,
       usedAt: { gte: dayjs().subtract(365, 'days').toDate() } // 便宜的に１年にしておく
     }),
-    session ? getCheerTicket() : undefined
+    session ? getCheerTicket() : undefined,
+    getGroup(channel.peakX.group)
   ])
   const {
     basicInfo,
     peakX: { group, gender }
   } = channel
+  const groupName = groupData?.name ?? group
 
   return (
     <div className={className}>
       <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
         {/* Avatar, Name, Group, Description */}
-        <ChannelProfileSection basicInfo={basicInfo} group={group}>
+        <ChannelProfileSection basicInfo={basicInfo} groupName={groupName}>
           {children}
         </ChannelProfileSection>
 

@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroup } from 'apis/groups'
 import { Page } from 'components/page'
 import {
   StreamRankingDimension,
@@ -23,8 +22,13 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, dimension, group, period } = await props.params
+  const { locale, dimension, group: groupId, period } = await props.params
   const { gender, page } = await props.searchParams
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for live ranking page (metadata)')
+  }
+
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
@@ -32,7 +36,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       featNamespace: 'Features.streamRanking.ranking.dimension',
       period,
       dimension,
-      group,
+      group: group.name,
       gender,
       page
     })),
@@ -42,15 +46,20 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-export default function RankingLivePage(props: Props) {
-  const { locale, dimension, group, period } = use(props.params)
-  const searchParams = use(props.searchParams)
+export default async function RankingLivePage(props: Props) {
+  const { locale, dimension, group: groupId, period } = await props.params
+  const searchParams = await props.searchParams
   const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const global = useTranslations('Global')
-  const feat = useTranslations('Features.streamRanking.ranking.dimension')
+  const global = await getTranslations('Global')
+  const feat = await getTranslations('Features.streamRanking.ranking.dimension')
+
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for live ranking page')
+  }
 
   return (
     <Page
@@ -59,7 +68,7 @@ export default function RankingLivePage(props: Props) {
           href: `#`,
           name: feat(dimension, {
             period: global(`period.${period}`),
-            group: (global as any)(`group.${group}`),
+            group: group.name,
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')
@@ -73,7 +82,7 @@ export default function RankingLivePage(props: Props) {
       <IndexTemplate
         period={period}
         dimension={dimension}
-        group={group}
+        group={group.id}
         searchParams={searchParams}
       />
     </Page>

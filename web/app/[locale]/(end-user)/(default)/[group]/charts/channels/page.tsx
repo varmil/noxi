@@ -1,7 +1,6 @@
-import { use } from 'react'
 import { Metadata } from 'next'
-import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getGroup } from 'apis/groups'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { ChannelGallerySearchParams } from 'features/group/types/channel-gallery'
@@ -17,7 +16,7 @@ type Props = {
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, group } = await props.params
+  const { locale, group: groupId } = await props.params
   const tg = await getTranslations({
     locale: locale as 'ja' | 'en',
     namespace: 'Global'
@@ -26,36 +25,43 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     locale: locale as 'ja' | 'en',
     namespace: 'Page.group.charts'
   })
-  const groupName = (tg as any)(`group.${group}`)
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for charts page (metadata)')
+  }
 
   return {
-    title: `${t('metadata.title', { group: groupName })} - ${tg('title')}`,
-    description: `${t('metadata.description', { group: groupName })}`
+    title: `${t('metadata.title', { group: group.name })} - ${tg('title')}`,
+    description: `${t('metadata.description', { group: group.name })}`
   }
 }
 
-export default function GroupChartsPage(props: Props) {
-  const { locale, group } = use(props.params)
-  const searchParams = use(props.searchParams)
+export default async function GroupChartsPage(props: Props) {
+  const { locale, group: groupId } = await props.params
+  const searchParams = await props.searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  setGroup(group)
+  setGroup(groupId)
 
-  const t = useTranslations('Breadcrumb')
-  const groupName = t('group', {
-    group: (useTranslations('Global') as any)(`group.${group}`)
-  })
+  const t = await getTranslations('Breadcrumb')
+
+  const group = await getGroup(groupId)
+  if (!group) {
+    throw new Error('Group not found for charts page')
+  }
+
+  const groupName = t('group', { group: group.name })
 
   return (
     <Page
       breadcrumb={[
-        { href: `/${group}`, name: groupName },
-        { href: `/${group}/charts/channels`, name: t('channels') }
+        { href: `/${groupId}`, name: groupName },
+        { href: `/${groupId}/charts/channels`, name: t('channels') }
       ]}
       h1={`${groupName} ${t('channels')}`}
     >
-      <LocalNavigationForGroupPages group={group} />
+      <LocalNavigationForGroupPages group={groupId} />
       <ChartTemplate searchParams={searchParams} />
     </Page>
   )

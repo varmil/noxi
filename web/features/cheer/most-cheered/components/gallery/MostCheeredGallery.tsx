@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getCheeredRanking } from 'apis/cheer-ticket-usages/getCheeredRanking'
+import { getGroup } from 'apis/groups'
 import { PageXSPX } from 'components/page'
 import { MostCheeredPagination } from 'config/constants/Pagination'
 import { MostCheeredDefaultUrl } from 'config/constants/RankingRoute'
@@ -30,8 +31,12 @@ type MostCheeredGalleryProps = MostCheeredSearchParams & {
 export default async function MostCheeredGallery(
   props: PropsWithoutRef<MostCheeredGalleryProps>
 ) {
-  const feat = await getTranslations('Features.mostCheered')
+  const [feat, groupData] = await Promise.all([
+    getTranslations('Features.mostCheered'),
+    getGroup(props.group)
+  ])
   const { period, group, gender, date, page, compact, className } = props
+  const groupName = groupData?.name ?? group
 
   const cheeredUsages = await getCheeredRanking({
     group,
@@ -45,7 +50,7 @@ export default async function MostCheeredGallery(
     <section className={`@container space-y-4 sm:space-y-6 ${className || ''}`}>
       <MostCheeredTableTitle
         period={period}
-        group={group}
+        groupName={groupName}
         gender={gender}
         date={date ? new Date(date) : undefined}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}

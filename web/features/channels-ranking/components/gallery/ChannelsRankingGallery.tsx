@@ -2,6 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
+import { getGroup } from 'apis/groups'
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
 import { getChannels } from 'apis/youtube/getChannels'
 import { PageXSPX } from 'components/page'
@@ -39,9 +40,13 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
 
-  const t = await getTranslations('Features.channelsRanking')
+  const [t, groupData] = await Promise.all([
+    getTranslations('Features.channelsRanking'),
+    getGroup(props.group)
+  ])
   const { period, dimension, group, gender, date, page, compact, className } =
     props
+  const groupName = groupData?.name ?? group
 
   if (dimension === 'super-chat') {
     const supersSummaries = await getSupersSummaries(
@@ -60,7 +65,7 @@ export default async function ChannelsRankingGallery(
       <ChannelsRankingTableTitle
         dimension={dimension}
         period={period}
-        group={group}
+        groupName={groupName}
         gender={gender}
         date={date ? new Date(date) : undefined}
         className={`${!compact ? PageXSPX : ''} sm:px-0`}

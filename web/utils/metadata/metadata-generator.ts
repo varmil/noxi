@@ -29,7 +29,7 @@ type Args = {
     | TopFansPeriod
     | ChannelsRankingPeriod
     | StreamRankingPeriod
-  group: string
+  group: string // It means `group.name` from database
   gender?: Gender
   page?: string
 }
@@ -59,7 +59,7 @@ export const generateTitleAndDescription = async ({
   return {
     title: `${feat(dimension, {
       period: global(`period.${period}`),
-      group: ((global as any)(`group.${group}`)),
+      group,
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')
@@ -67,7 +67,7 @@ export const generateTitleAndDescription = async ({
 
     description: `${pageT(`metadata.description.dimension.${dimension}`, {
       period: global(`period.${period}`),
-      group: ((global as any)(`group.${group}`)),
+      group,
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')

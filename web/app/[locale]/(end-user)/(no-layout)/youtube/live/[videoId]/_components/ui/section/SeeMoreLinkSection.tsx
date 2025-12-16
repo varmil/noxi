@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
+import { getGroup } from 'apis/groups'
 import { getChannel } from 'apis/youtube/getChannel'
 import GroupImageOrIcon from 'components/group/GroupImageOrIcon'
 import { Link } from 'lib/navigation'
@@ -14,16 +15,17 @@ export default async function SeeMoreLinkSection({
   group: string
 }) {
   const [
-    global,
     page,
     {
       basicInfo: { title }
-    }
+    },
+    groupData
   ] = await Promise.all([
-    getTranslations('Global'),
     getTranslations('Page.youtube.live.id.button'),
-    getChannel(channelId)
+    getChannel(channelId),
+    getGroup(group)
   ])
+  const groupName = groupData?.name ?? group
 
   return (
     <div className="border-t border-border pt-6">
@@ -46,7 +48,7 @@ export default async function SeeMoreLinkSection({
               groupId={group}
               className="size-3.5 relative top-[0.5px]"
             />
-            {((global as any)(`group.${group}`))}
+            {groupName}
           </TitleSpan>
           <Description>
             <span className="line-clamp-1 break-all">{page('seeTop20')}</span>
