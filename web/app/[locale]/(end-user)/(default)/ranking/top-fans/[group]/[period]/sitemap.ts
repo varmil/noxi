@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { getGroups } from 'apis/youtube/getGroups'
+import { getGroups } from 'apis/groups/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 import { TopFansPeriod } from 'types/period'
 
@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return periods.map(period => {
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/top-fans/${group.val}/${period}`
+        pathname: `/ranking/top-fans/${group.id}/${period}`
       })
     })
   })

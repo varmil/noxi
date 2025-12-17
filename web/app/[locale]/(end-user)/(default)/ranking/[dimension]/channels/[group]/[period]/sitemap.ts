@@ -3,7 +3,7 @@
  * 2025/05/01：genderは区別しないcanonicalにしてみる
  */
 import { MetadataRoute } from 'next'
-import { getGroups } from 'apis/youtube/getGroups'
+import { getGroups } from 'apis/groups/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 import { Period } from 'types/period'
 
@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return periods.map(period => {
       return getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/super-chat/channels/${group.val}/${period}`
+        pathname: `/ranking/super-chat/channels/${group.id}/${period}`
       })
     })
   })
@@ -52,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groupSubscriberEntries = groups.map(group => {
     return getEntry({
       lastModified: new Date(),
-      pathname: `/ranking/subscriber/channels/${group.val}/wholePeriod`
+      pathname: `/ranking/subscriber/channels/${group.id}/wholePeriod`
     })
   })
 

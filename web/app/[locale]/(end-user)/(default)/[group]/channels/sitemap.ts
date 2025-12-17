@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next'
+import { getGroups } from 'apis/groups/getGroups'
 import { getChannels } from 'apis/youtube/getChannels'
-import { getGroups } from 'apis/youtube/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
 
 export const dynamic = 'force-dynamic'
@@ -9,9 +9,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
 
   const promises = groups.flatMap(async group => {
-    const channels = await getChannels({ group: group.val })
+    const channels = await getChannels({ group: group.id })
     return channels.flatMap(channel => {
-      const path = `/${group.val}/channels/${channel.basicInfo.id}`
+      const path = `/${group.id}/channels/${channel.basicInfo.id}`
       return [getEntry({ pathname: path, lastModified: new Date() })]
     })
   })
