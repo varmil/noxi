@@ -7,12 +7,13 @@
 
 import { render } from '@testing-library/react'
 import * as fc from 'fast-check'
+import { vi } from 'vitest'
 import { ImagePreview } from './ImagePreview'
 
 // Mock console.error to suppress warnings during tests
 const originalConsoleError = console.error
 beforeAll(() => {
-  console.error = jest.fn()
+  console.error = vi.fn()
 })
 
 afterAll(() => {
@@ -20,7 +21,7 @@ afterAll(() => {
 })
 
 // Mock next-intl
-jest.mock('next-intl', () => ({
+vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => {
     const translations: Record<string, string> = {
       previewLabel: 'Preview',
@@ -32,8 +33,8 @@ jest.mock('next-intl', () => ({
 }))
 
 // Mock the Image component
-jest.mock('components/styles/Image', () => {
-  return function MockImage({
+vi.mock('components/styles/Image', () => ({
+  default: function MockImage({
     src,
     alt,
     onLoad,
@@ -50,7 +51,7 @@ jest.mock('components/styles/Image', () => {
       <img src={src} alt={alt} onLoad={onLoad} onError={onError} {...props} />
     )
   }
-})
+}))
 
 // Property-based test generators
 const relativePathArbitrary = fc

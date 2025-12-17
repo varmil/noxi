@@ -9,10 +9,11 @@ import { act } from 'react'
 import { screen, fireEvent, waitFor } from '@testing-library/dom'
 import { render } from '@testing-library/react'
 import { toast } from 'sonner'
+import { vi } from 'vitest'
 import { GroupRegistrationForm } from '../_components/GroupRegistrationForm'
 
 // Mock next-intl
-jest.mock('next-intl', () => ({
+vi.mock('next-intl', () => ({
   useTranslations: () => (key: string) => {
     const translations: Record<string, string> = {
       // Components.groupRegistrationForm
@@ -40,8 +41,8 @@ jest.mock('next-intl', () => ({
 }))
 
 // Mock components/styles/Image
-jest.mock('components/styles/Image', () => {
-  return function MockImage({
+vi.mock('components/styles/Image', () => ({
+  default: function MockImage({
     src,
     alt,
     onLoad,
@@ -65,26 +66,26 @@ jest.mock('components/styles/Image', () => {
       />
     )
   }
-})
+}))
 
 // Mock sonner toast
-jest.mock('sonner', () => ({
+vi.mock('sonner', () => ({
   toast: {
-    success: jest.fn(),
-    error: jest.fn()
+    success: vi.fn(),
+    error: vi.fn()
   }
 }))
 
 // Mock createGroupRegistration API
-const mockCreateGroupRegistration = jest.fn()
-jest.mock('apis/groups', () => ({
+const mockCreateGroupRegistration = vi.fn()
+vi.mock('apis/groups', () => ({
   createGroupRegistration: (...args: unknown[]) =>
     mockCreateGroupRegistration(...args)
 }))
 
 describe('Group申請フロー統合テスト', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
     // 少し遅延を入れてローディング状態をテスト可能にする
     mockCreateGroupRegistration.mockImplementation(
       () => new Promise(resolve => setTimeout(resolve, 100))

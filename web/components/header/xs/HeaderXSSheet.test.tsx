@@ -1,20 +1,21 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
 
 // Mock all external dependencies
-jest.mock('lib/auth', () => ({
-  auth: jest.fn().mockResolvedValue(null)
+vi.mock('lib/auth', () => ({
+  auth: vi.fn().mockResolvedValue(null)
 }))
 
-jest.mock('hooks/useGroups', () => ({
-  getGroups: jest.fn().mockResolvedValue({
+vi.mock('hooks/useGroups', () => ({
+  getGroups: vi.fn().mockResolvedValue({
     imgs: [],
     icons: []
   })
 }))
 
-jest.mock('next-intl/server', () => ({
-  getTranslations: jest.fn().mockImplementation((namespace: string) => {
+vi.mock('next-intl/server', () => ({
+  getTranslations: vi.fn().mockImplementation((namespace: string) => {
     const messages: Record<string, Record<string, string>> = {
       Components: {
         'styles.more': 'More',
@@ -28,31 +29,31 @@ jest.mock('next-intl/server', () => ({
   })
 }))
 
-jest.mock('lib/navigation', () => ({
+vi.mock('lib/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
     <a href={href}>{children}</a>
   )
 }))
 
-jest.mock('components/header/xs/HeaderItem', () => ({
+vi.mock('components/header/xs/HeaderItem', () => ({
   SignOutInSheet: () => <div data-testid="sign-out" />
 }))
 
-jest.mock('components/pwa/PWAInstallContext', () => ({
+vi.mock('components/pwa/PWAInstallContext', () => ({
   PWAInstallButton: () => <div data-testid="pwa-install" />
 }))
 
-jest.mock('@/components/ui/button', () => ({
+vi.mock('@/components/ui/button', () => ({
   Button: ({ children }: { children: React.ReactNode }) => (
     <button>{children}</button>
   )
 }))
 
-jest.mock('@/components/ui/separator', () => ({
+vi.mock('@/components/ui/separator', () => ({
   Separator: () => <hr />
 }))
 
-jest.mock('@/components/ui/sheet', () => ({
+vi.mock('@/components/ui/sheet', () => ({
   Sheet: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   SheetTrigger: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
@@ -71,11 +72,11 @@ jest.mock('@/components/ui/sheet', () => ({
   )
 }))
 
-jest.mock('components/ModeToggle', () => ({
+vi.mock('components/ModeToggle', () => ({
   ModeToggle: () => <div data-testid="mode-toggle" />
 }))
 
-jest.mock('components/header/HeaderLink', () => ({
+vi.mock('components/header/HeaderLink', () => ({
   __esModule: true,
   default: ({
     name,
@@ -88,17 +89,17 @@ jest.mock('components/header/HeaderLink', () => ({
   }) => <a href={href}>{name}</a>
 }))
 
-jest.mock('components/icons/PrivacyPolicyIcon', () => ({
+vi.mock('components/icons/PrivacyPolicyIcon', () => ({
   __esModule: true,
   default: () => <div data-testid="privacy-policy-icon" />
 }))
 
-jest.mock('components/language-switcher/components/LanguageSwitcher', () => ({
+vi.mock('components/language-switcher/components/LanguageSwitcher', () => ({
   __esModule: true,
   default: () => <div data-testid="language-switcher" />
 }))
 
-jest.mock('components/styles/Image', () => ({
+vi.mock('components/styles/Image', () => ({
   __esModule: true,
   default: () => <div data-testid="image" />
 }))

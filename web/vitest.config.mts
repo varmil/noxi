@@ -1,0 +1,34 @@
+import { resolve } from 'path'
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    root: './',
+    include: ['**/*.test.{ts,tsx}', '**/__tests__/**/*.{ts,tsx}'],
+    exclude: ['node_modules/**'],
+    setupFiles: ['./vitest.setup.ts'],
+    coverage: {
+      reporter: ['text', 'json-summary', 'json'],
+      reportOnFailure: true,
+      exclude: ['node_modules/**', '**/*.d.ts']
+    }
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './@'),
+      apis: resolve(__dirname, './apis'),
+      app: resolve(__dirname, './app'),
+      config: resolve(__dirname, './config'),
+      features: resolve(__dirname, './features'),
+      components: resolve(__dirname, './components'),
+      hooks: resolve(__dirname, './hooks'),
+      lib: resolve(__dirname, './lib'),
+      types: resolve(__dirname, './types'),
+      utils: resolve(__dirname, './utils')
+    }
+  }
+})
