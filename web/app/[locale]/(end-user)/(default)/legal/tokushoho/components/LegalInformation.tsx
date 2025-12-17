@@ -9,7 +9,7 @@ export function LegalInformation() {
         <div className="space-y-4">
           <Item useGrid>
             <div className="font-medium">販売事業者名</div>
-            <div className="md:col-span-2">山本晃大（PeakX運営）</div>
+            <div className="md:col-span-2">山本晃大（VCharts運営）</div>
           </Item>
           <Item useGrid>
             <div className="font-medium">所在地</div>
@@ -24,8 +24,8 @@ export function LegalInformation() {
           <Item useGrid>
             <div className="font-medium">お問合せ先</div>
             <div className="md:col-span-2">
-              <a href="mailto:support@peakx.net" className="underline">
-                support@peakx.net
+              <a href="mailto:support@vcharts.net" className="underline">
+                support@vcharts.net
               </a>
             </div>
           </Item>

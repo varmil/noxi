@@ -128,7 +128,7 @@ export function GroupRegistrationHistory() {
       <CardHeader>
         <CardTitle>{t('title')}</CardTitle>
         <CardDescription>
-          ステータス『完了』になると１週間程度でUI上に表示されます
+          ステータス『承認済み』になると１週間程度でUI上に表示されます
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">

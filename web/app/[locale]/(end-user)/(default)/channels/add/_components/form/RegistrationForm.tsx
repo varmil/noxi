@@ -57,7 +57,7 @@ export function RegistrationForm({ groups }: RegistrationFormProps) {
     }
     if (isRegistered) {
       return (
-        <ErrorMessage message="このチャンネルはすでにPeakXに登録されています。登録後1週間程度でライブの取得が始まります" />
+        <ErrorMessage message="このチャンネルはすでに登録されています。登録後1週間程度でライブの取得が始まります" />
       )
     }
     if (isAlreadyApproved) {

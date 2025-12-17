@@ -23,7 +23,7 @@ export const onSignUp = async (pool: Pool, user: User) => {
 
     email &&
       resend.emails.send({
-        from: 'PeakX.net <noreply@peakx.net>',
+        from: 'VCharts.net <noreply@vcharts.net>',
         to: [email],
         subject: 'VChartsへようこそ！',
         react: WelcomeEmail({ username: name, userEmail: email })

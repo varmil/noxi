@@ -72,7 +72,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
               © 2025 VCharts, Inc. All rights reserved.
             </Text>
             {/* <Text style={footer}>〒100-0001 東京都千代田区1-1-1</Text> */}
-            <Text style={footer}>support@peakx.net</Text>
+            <Text style={footer}>support@vcharts.net</Text>
             <Text style={footer}>
               <Link
                 href="https://www.vcharts.net/ja/terms-of-use-and-privacy-policy"
