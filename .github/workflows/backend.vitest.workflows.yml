@@ -1,4 +1,4 @@
-name: 'backend jest coverage'
+name: 'backend vitest'
 on:
   pull_request:
     branches:
@@ -21,14 +21,22 @@ jobs:
             has-changes:
               - backend/**
 
-  coverage:
+  backend-test:
     runs-on: ubuntu-latest
     needs: paths-filter
     if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ArtiomTr/jest-coverage-report-action@v2
+      - uses: actions/setup-node@v4
         with:
-          working-directory: backend
-          test-script: npm test
-          annotations: none
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+      - name: Install dependencies
+        run: npm i
+        working-directory: backend
+      - name: 'Test'
+        run: npm test -- --coverage.enabled true
+        working-directory: backend
+      - name: 'Report Coverage'
+        uses: davelosert/vitest-coverage-report-action@v2

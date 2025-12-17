@@ -1,16 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { LibAppModule } from '@app/lib/lib.app.module'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { PubsubhubbubAppModule } from '@app/youtube/pubsubhubbub/pubsubhubbub.app.module'
 import { SubscribeService } from '@app/youtube/pubsubhubbub/subscribe.service'
 import { Channels } from '@domain/youtube'
 
 describe('SubscribeService', () => {
   let service: SubscribeService
+  let mockChannelsService: { findAll: ReturnType<typeof vi.fn> }
 
   beforeEach(async () => {
+    vi.clearAllMocks()
+
+    mockChannelsService = { findAll: vi.fn() }
+
     const module: TestingModule = await Test.createTestingModule({
-      imports: [LibAppModule, PubsubhubbubAppModule]
+      providers: [
+        SubscribeService,
+        {
+          provide: ChannelsService,
+          useValue: mockChannelsService
+        }
+      ]
     }).compile()
 
     service = module.get<SubscribeService>(SubscribeService)
@@ -18,12 +28,8 @@ describe('SubscribeService', () => {
 
   describe('execute()', () => {
     it('should return void 0', async () => {
-      jest
-        .spyOn(ChannelsService.prototype, 'findAll')
-        .mockResolvedValueOnce(new Channels([]))
-      jest
-        .spyOn(SubscribeService.prototype, 'sleep')
-        .mockResolvedValue(Promise.resolve())
+      mockChannelsService.findAll.mockResolvedValue(new Channels([]))
+      vi.spyOn(service, 'sleep').mockResolvedValue(Promise.resolve())
 
       const result = await service.execute()
       expect(result).toEqual(void 0)
