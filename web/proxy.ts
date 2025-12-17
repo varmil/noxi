@@ -1,3 +1,4 @@
+import { NextRequest } from 'next/server'
 import { fromQueryStringsToPathParameters } from 'lib/middleware/fromQueryStringsToPathParameters'
 import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
 import { withIntl } from 'lib/middleware/withIntl'
@@ -9,7 +10,11 @@ const middlewares = [
   withIntl
 ]
 
-export default stackMiddlewares(middlewares)
+const handler = stackMiddlewares(middlewares)
+
+export function proxy(request: NextRequest) {
+  return handler(request, {} as never)
+}
 
 export const config = {
   // Match all pathnames except for

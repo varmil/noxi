@@ -17,8 +17,8 @@ export function GET(request: NextRequest) {
     })
   }
 
-  revalidateTag(SUPERS_RANKINGS_HALF_HOURLY)
-  revalidateTag(SUPERS_SUMMARIES_HALF_HOURLY)
+  revalidateTag(SUPERS_RANKINGS_HALF_HOURLY, 'max')
+  revalidateTag(SUPERS_SUMMARIES_HALF_HOURLY, 'max')
 
   return Response.json({ success: true })
 }

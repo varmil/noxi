@@ -26,7 +26,7 @@ concurrently(
       cwd: path.resolve(rootDir, 'web')
     },
     {
-      command: 'npm run type-check -- --watch',
+      command: 'npm run test:watch',
       name: 'we:t',
       cwd: path.resolve(rootDir, 'web')
     }
