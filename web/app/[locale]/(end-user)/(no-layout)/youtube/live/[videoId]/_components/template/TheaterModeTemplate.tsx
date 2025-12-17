@@ -33,8 +33,8 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
   const isLive = stream.status === 'live'
 
   return (
-    <Theater direction="horizontal">
-      <TheaterContent order={1} className="flex flex-col">
+    <Theater orientation="horizontal">
+      <TheaterContent className="flex flex-col">
         {/* Stream */}
         <section className="flex-1 w-full h-full bg-black">
           <EmbedStream
@@ -63,7 +63,7 @@ export default async function TheaterModeTemplate({ videoId }: Props) {
       <ResizeHandle />
 
       {/* Chat */}
-      <TheaterContent order={2} defaultSize={29} className="flex flex-col">
+      <TheaterContent defaultSize={29} className="flex flex-col">
         <div className="flex-1">
           <EmbedLiveChat videoId={videoId} className="rounded-none" />
         </div>

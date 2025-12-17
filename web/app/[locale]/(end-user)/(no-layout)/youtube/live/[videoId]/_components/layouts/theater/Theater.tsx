@@ -47,7 +47,6 @@ export function ResizeHandle(props: ComponentProps<typeof ResizableHandle>) {
   return (
     <ResizableHandle
       withHandle
-      hitAreaMargins={{ coarse: 25, fine: 20 }}
       className="bg-gray-700 hover:bg-border"
       {...props}
     />
