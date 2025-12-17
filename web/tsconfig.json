@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,22 +17,57 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "plugins": [{ "name": "next" }],
-    "types": ["jest", "@testing-library/jest-dom"],
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "types": [
+      "jest",
+      "@testing-library/jest-dom"
+    ],
     "paths": {
-      "@/*": ["./@/*"],
-      "apis/*": ["./apis/*"],
-      "app/*": ["./app/*"],
-      "config/*": ["./config/*"],
-      "features/*": ["./features/*"],
-      "components/*": ["./components/*"],
-      "hooks/*": ["./hooks/*"],
-      "lib/*": ["./lib/*"],
-      "types/*": ["./types/*"],
-      "utils/*": ["./utils/*"]
+      "@/*": [
+        "./@/*"
+      ],
+      "apis/*": [
+        "./apis/*"
+      ],
+      "app/*": [
+        "./app/*"
+      ],
+      "config/*": [
+        "./config/*"
+      ],
+      "features/*": [
+        "./features/*"
+      ],
+      "components/*": [
+        "./components/*"
+      ],
+      "hooks/*": [
+        "./hooks/*"
+      ],
+      "lib/*": [
+        "./lib/*"
+      ],
+      "types/*": [
+        "./types/*"
+      ],
+      "utils/*": [
+        "./utils/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

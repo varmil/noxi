@@ -5,7 +5,8 @@ const withNextIntl = createNextIntlPlugin({
 })
 
 const nextConfig: NextConfig = {
-  outputFileTracingRoot: '/vercel/path0',
+  // Vercel環境でのみ設定（ローカル開発ではTurbopackと競合する）
+  ...(process.env.VERCEL && { outputFileTracingRoot: '/vercel/path0' }),
   async headers() {
     return [
       // workaround: browser --> PWA google auth causes error
