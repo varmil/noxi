@@ -7,6 +7,10 @@ const withNextIntl = createNextIntlPlugin({
 const nextConfig: NextConfig = {
   // Vercel monorepo 用の設定（ローカルでは不要）
   ...(process.env.VERCEL && { outputFileTracingRoot: '/vercel/path0' }),
+  // モノレポのルートディレクトリを指定
+  turbopack: {
+    root: '..'
+  },
   async headers() {
     return [
       // workaround: browser --> PWA google auth causes error
