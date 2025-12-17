@@ -303,7 +303,6 @@
           },
           "button": {
             "label": "その他の操作",
-            "theaterMode": "シアターモードで大きく表示",
             "openChat": "チャットを表示",
             "seeMoreVideos": "このチャンネルの動画を見る",
             "seeTop20": "週間ランキングTop20を見る"

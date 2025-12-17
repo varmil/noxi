@@ -24,7 +24,11 @@
       }
     ],
     "types": [
+<<<<<<< HEAD
       "jest",
+=======
+      "vitest/globals",
+>>>>>>> d244482a25cc8e8f43124c9daa5cbb14b1c4fc3c
       "@testing-library/jest-dom"
     ],
     "paths": {

@@ -7,20 +7,16 @@ import { getStream } from 'apis/youtube/getStream'
 import { getSuperChats } from 'apis/youtube/getSuperChats'
 import { StreamSchema } from 'apis/youtube/schema/streamSchema'
 import DefaultLayout from 'components/layouts/DefaultLayout'
-import TheaterLayout from 'components/layouts/TheaterLayout'
 import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
 import { getWebUrl } from 'utils/web-url'
-import LayoutFactory from '../layouts/LayoutFactory'
 import DefaultModeTemplate from '../template/DefaultModeTemplate'
-import TheaterModeTemplate from '../template/TheaterModeTemplate'
 
 const TITLE_MAX_LENGTH = 22
 
 export type LiveIdBasePageProps = {
   params: Promise<{ locale: string; videoId: string }>
-  searchParams?: Promise<{ theater?: '1' }>
 }
 type Props = LiveIdBasePageProps
 
@@ -92,20 +88,11 @@ export default async function LiveIdBasePage(props: PropsWithChildren<Props>) {
 
   return (
     <Container status={status}>
-      <LayoutFactory
-        DefaultLayout={
-          <DefaultLayout>
-            <DefaultModePage videoId={videoId}>
-              {props.children}
-            </DefaultModePage>
-          </DefaultLayout>
-        }
-        TheaterLayout={
-          <TheaterLayout>
-            <TheaterModePage videoId={videoId} />
-          </TheaterLayout>
-        }
-      />
+      <DefaultLayout>
+        <DefaultModeTemplate videoId={videoId}>
+          {props.children}
+        </DefaultModeTemplate>
+      </DefaultLayout>
     </Container>
   )
 }
@@ -126,15 +113,4 @@ async function Container({
   } else {
     return children
   }
-}
-
-async function DefaultModePage({
-  videoId,
-  children
-}: PropsWithChildren<{ videoId: string }>) {
-  return <DefaultModeTemplate videoId={videoId}>{children}</DefaultModeTemplate>
-}
-
-async function TheaterModePage({ videoId }: { videoId: string }) {
-  return <TheaterModeTemplate videoId={videoId} />
 }
