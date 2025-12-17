@@ -16,7 +16,7 @@ const AppNames = [
 
 export const e2e = AppNames.map(name => {
   return {
-    command: `npm run test:e2e -- --watchAll --config ./apps/${name}/test/jest-e2e.json`,
+    command: `npx vitest --config vitest.e2e.config.ts --watch apps/${name}/test/app.e2e-spec.ts`,
     name: `${name}`,
     cwd: path.resolve(rootDir, 'backend')
   }
