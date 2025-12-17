@@ -9,7 +9,7 @@
       "@domain/*": ["libs/domain/*"],
       "@infra": ["libs/infrastructure"],
       "@infra/*": ["libs/infrastructure/*"],
-      "@prisma/generated/client": ["prisma/generated/client"]
+      "@prisma/generated/client": ["prisma/generated/client/client"]
     },
     "types": ["vitest/globals"],
     "module": "commonjs",

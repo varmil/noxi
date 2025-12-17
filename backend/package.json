@@ -27,6 +27,7 @@
     "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.1.9",
+    "@prisma/adapter-pg": "^7.1.0",
     "@prisma/client": "^7.1.0",
     "@ubie/nslog": "^1.2.1",
     "axios": "^1.10.0",
@@ -40,7 +41,7 @@
     "firebase-admin": "^13.6.0",
     "keyv": "^5.5.5",
     "passport-jwt": "^4.0.1",
-    "prisma-json-types-generator": "^3.6.2",
+    "prisma-json-types-generator": "^4.0.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.2",
     "stripe": "^19.2.0",
@@ -50,6 +51,7 @@
     "zx": "^8.6.1"
   },
   "devDependencies": {
+    "dotenv": "^16.5.0",
     "@eslint/eslintrc": "^3.3.3",
     "@eslint/js": "^9.28.0",
     "@nestjs/cli": "^11.0.7",
