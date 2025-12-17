@@ -21,12 +21,15 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const group = searchParams.get('group') as string
   const gender = searchParams.get('gender') as Gender | undefined
+  const dateParam = searchParams.get('date')
+  const date =
+    dateParam && dayjs(dateParam).isValid() ? dateParam : undefined
 
   const [ranking, groupName] = await Promise.all([
     getDailySupersRanking({
       group,
       gender,
-      date: searchParams.get('date') ?? undefined,
+      date,
       limit: 5
     }),
     group
@@ -60,9 +63,7 @@ export async function GET(request: Request) {
         <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
           <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
             <div style={{ fontSize: 30 }} tw="text-neutral-500">
-              {formatter.format(
-                dayjs(searchParams.get('date') ?? undefined).toDate()
-              )}
+              {formatter.format(dayjs(date).toDate())}
             </div>
             <div tw="text-neutral-500" style={{ fontSize: 50 }}>
               過去24hランキング

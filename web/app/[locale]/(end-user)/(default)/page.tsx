@@ -20,7 +20,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.index' })
   ])
   const searchParams = new URLSearchParams({
-    ...(date && { date: dayjs(date).toISOString() })
+    ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
   })
 
   return {
