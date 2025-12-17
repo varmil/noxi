@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import * as fc from 'fast-check'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { GroupId } from '@domain/group'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import { GroupRepositoryImpl } from './Group.repository-impl'
@@ -15,7 +16,13 @@ import { GroupRepositoryImpl } from './Group.repository-impl'
 
 describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
   let repository: GroupRepositoryImpl
-  let prismaService: PrismaInfraService
+  let mockPrismaGroup: {
+    findMany: ReturnType<typeof vi.fn>
+    findUnique: ReturnType<typeof vi.fn>
+    create: ReturnType<typeof vi.fn>
+    update: ReturnType<typeof vi.fn>
+    delete: ReturnType<typeof vi.fn>
+  }
 
   // 既存のGroupStrings定数（マイグレーションファイルから取得）
   const EXISTING_GROUP_STRINGS = [
@@ -48,26 +55,29 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
   ]
 
   beforeEach(async () => {
+    vi.clearAllMocks()
+
+    mockPrismaGroup = {
+      findMany: vi.fn(),
+      findUnique: vi.fn(),
+      create: vi.fn(),
+      update: vi.fn(),
+      delete: vi.fn()
+    }
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GroupRepositoryImpl,
         {
           provide: PrismaInfraService,
           useValue: {
-            group: {
-              findMany: jest.fn(),
-              findUnique: jest.fn(),
-              create: jest.fn(),
-              update: jest.fn(),
-              delete: jest.fn()
-            }
+            group: mockPrismaGroup
           }
         }
       ]
     }).compile()
 
     repository = module.get<GroupRepositoryImpl>(GroupRepositoryImpl)
-    prismaService = module.get<PrismaInfraService>(PrismaInfraService)
   })
 
   describe('Property 2: Migration Data Integrity', () => {
@@ -87,9 +97,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
               updatedAt: new Date()
             }
 
-            jest
-              .spyOn(prismaService.group, 'findUnique')
-              .mockResolvedValue(mockGroupData)
+            mockPrismaGroup.findUnique.mockResolvedValue(mockGroupData)
 
             // Test that the group exists in the database
             const result = await repository.findById(new GroupId(groupId))
@@ -121,9 +129,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
         updatedAt: new Date()
       }))
 
-      jest
-        .spyOn(prismaService.group, 'findMany')
-        .mockResolvedValue(mockAllGroupsData)
+      mockPrismaGroup.findMany.mockResolvedValue(mockAllGroupsData)
 
       const allGroups = await repository.findAll()
 
@@ -181,9 +187,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
         (a, b) => a.order - b.order
       )
 
-      jest
-        .spyOn(prismaService.group, 'findMany')
-        .mockResolvedValue(sortedMockData)
+      mockPrismaGroup.findMany.mockResolvedValue(sortedMockData)
 
       const result = await repository.findAll()
 
@@ -193,7 +197,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
       expect(result[2].id.get()).toBe('group-c')
 
       // Verify findMany was called with correct orderBy
-      expect(jest.spyOn(prismaService.group, 'findMany')).toHaveBeenCalledWith({
+      expect(mockPrismaGroup.findMany).toHaveBeenCalledWith({
         orderBy: { order: 'asc' }
       })
     })
@@ -210,7 +214,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
         iconSrc: new GroupIconSrc('/group/new-group/logo.png')
       })
 
-      jest.spyOn(prismaService.group, 'create').mockResolvedValue({
+      mockPrismaGroup.create.mockResolvedValue({
         id: 'new-group',
         name: 'New Group',
         iconSrc: '/group/new-group/logo.png',
@@ -222,7 +226,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
       await repository.create(newGroup)
 
       // Verify create was called with order: 99999
-      expect(jest.spyOn(prismaService.group, 'create')).toHaveBeenCalledWith({
+      expect(mockPrismaGroup.create).toHaveBeenCalledWith({
         data: {
           id: 'new-group',
           name: 'New Group',

@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { CreateMembershipSummariesService } from 'apps/summarize-channels/src/service/create-membership-summaries.service'
-import { CreateSupersSummariesService } from 'apps/summarize-channels/src/service/create-supers-summaries.service'
+import { vi } from 'vitest'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
 import { MainModule } from '../main.module'
+import { CreateMembershipSummariesService } from '../service/create-membership-summaries.service'
+import { CreateSupersSummariesService } from '../service/create-supers-summaries.service'
 import { MainScenario } from './main.scenario'
 
 describe('MainScenario', () => {
@@ -19,12 +20,13 @@ describe('MainScenario', () => {
 
   describe('executeSupersSummaries()', () => {
     it('should return void 0', async () => {
-      jest
-        .spyOn(CreateSupersSummariesService.prototype, 'execute')
-        .mockResolvedValue(void 0)
-      jest
-        .spyOn(ChannelsService.prototype, 'findAll')
-        .mockResolvedValue(new Channels([]))
+      vi.spyOn(
+        CreateSupersSummariesService.prototype,
+        'execute'
+      ).mockResolvedValue(void 0)
+      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+        new Channels([])
+      )
 
       const result = await scenario.executeSupersSummaries()
       expect(result).toEqual(void 0)
@@ -33,12 +35,13 @@ describe('MainScenario', () => {
 
   describe('executeRankings()', () => {
     it('should return void 0', async () => {
-      jest
-        .spyOn(CreateSupersSummariesService.prototype, 'execute')
-        .mockResolvedValue(void 0)
-      jest
-        .spyOn(ChannelsService.prototype, 'findAll')
-        .mockResolvedValue(new Channels([]))
+      vi.spyOn(
+        CreateSupersSummariesService.prototype,
+        'execute'
+      ).mockResolvedValue(void 0)
+      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+        new Channels([])
+      )
 
       const result = await scenario.executeRankings()
       expect(result).toEqual(void 0)
@@ -47,12 +50,13 @@ describe('MainScenario', () => {
 
   describe('executeMembershipSummaries()', () => {
     it('should return void 0', async () => {
-      jest
-        .spyOn(CreateMembershipSummariesService.prototype, 'execute')
-        .mockResolvedValue(void 0)
-      jest
-        .spyOn(ChannelsService.prototype, 'findAll')
-        .mockResolvedValue(new Channels([]))
+      vi.spyOn(
+        CreateMembershipSummariesService.prototype,
+        'execute'
+      ).mockResolvedValue(void 0)
+      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+        new Channels([])
+      )
 
       const result = await scenario.executeMembershipSummaries()
       expect(result).toEqual(void 0)

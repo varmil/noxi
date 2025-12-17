@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import * as fc from 'fast-check'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Group } from '@domain/group/Group.entity'
 import { GroupId } from '@domain/group/GroupId.vo'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -16,7 +17,13 @@ import { GroupRepositoryImpl } from './Group.repository-impl'
 
 describe('GroupRepository - System Continuity Property Test', () => {
   let repository: GroupRepositoryImpl
-  let prismaService: PrismaInfraService
+  let mockPrismaGroup: {
+    findMany: ReturnType<typeof vi.fn>
+    findUnique: ReturnType<typeof vi.fn>
+    create: ReturnType<typeof vi.fn>
+    update: ReturnType<typeof vi.fn>
+    delete: ReturnType<typeof vi.fn>
+  }
 
   // 既存のGroup文字列（システム継続性テスト用）
   const EXISTING_GROUPS = [
@@ -49,26 +56,29 @@ describe('GroupRepository - System Continuity Property Test', () => {
   ]
 
   beforeEach(async () => {
+    vi.clearAllMocks()
+
+    mockPrismaGroup = {
+      findMany: vi.fn(),
+      findUnique: vi.fn(),
+      create: vi.fn(),
+      update: vi.fn(),
+      delete: vi.fn()
+    }
+
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         GroupRepositoryImpl,
         {
           provide: PrismaInfraService,
           useValue: {
-            group: {
-              findMany: jest.fn(),
-              findUnique: jest.fn(),
-              create: jest.fn(),
-              update: jest.fn(),
-              delete: jest.fn()
-            }
+            group: mockPrismaGroup
           }
         }
       ]
     }).compile()
 
     repository = module.get<GroupRepositoryImpl>(GroupRepositoryImpl)
-    prismaService = module.get<PrismaInfraService>(PrismaInfraService)
   })
 
   describe('Property 3: System Continuity', () => {
@@ -88,13 +98,8 @@ describe('GroupRepository - System Continuity Property Test', () => {
               updatedAt: new Date()
             }
 
-            jest
-              .spyOn(prismaService.group, 'findMany')
-              .mockResolvedValue([mockGroupData])
-
-            jest
-              .spyOn(prismaService.group, 'findUnique')
-              .mockResolvedValue(mockGroupData)
+            mockPrismaGroup.findMany.mockResolvedValue([mockGroupData])
+            mockPrismaGroup.findUnique.mockResolvedValue(mockGroupData)
 
             // Test repository functionality - findAll should work with string types
             const allGroups = await repository.findAll()
@@ -125,7 +130,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
           fc.string({ minLength: 1, maxLength: 50 }),
           async (groupId: string, groupName: string) => {
             // Mock successful operations
-            jest.spyOn(prismaService.group, 'findUnique').mockResolvedValue({
+            mockPrismaGroup.findUnique.mockResolvedValue({
               id: groupId,
               name: groupName,
               iconSrc: `/group/${groupId}/logo.png`,
@@ -134,7 +139,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
               updatedAt: new Date()
             })
 
-            jest.spyOn(prismaService.group, 'create').mockResolvedValue({
+            mockPrismaGroup.create.mockResolvedValue({
               id: groupId,
               name: groupName,
               iconSrc: `/group/${groupId}/logo.png`,
@@ -175,9 +180,7 @@ describe('GroupRepository - System Continuity Property Test', () => {
               updatedAt: new Date()
             }
 
-            jest
-              .spyOn(prismaService.group, 'findUnique')
-              .mockResolvedValue(mockGroupData)
+            mockPrismaGroup.findUnique.mockResolvedValue(mockGroupData)
 
             // Test that existing group references still work
             const result = await repository.findById(new GroupId(groupId))

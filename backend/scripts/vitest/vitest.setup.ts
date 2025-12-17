@@ -1,16 +1,18 @@
+import { vi } from 'vitest'
+
 // see: https://github.com/prisma/prisma/discussions/4655#discussioncomment-1414231
-jest.mock('@prisma/generated/client', () => ({
+vi.mock('@prisma/generated/client', () => ({
   PrismaClient: function () {
-    return { $executeRawUnsafe: jest.fn() }
+    return { $executeRawUnsafe: vi.fn() }
   },
   Prisma: {
     sql: function () {
-      return jest.fn()
+      return vi.fn()
     }
   }
 }))
 
-jest.mock('axios')
+vi.mock('axios')
 
 Object.assign(process.env, {
   SERVER_HOSTNAME: 'xxx',

@@ -1,8 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { MembershipBundlesAppModule } from '@app/membership-bundles/membership-bundles.module'
-import { MembershipPricesAppModule } from '@app/membership-prices/membership-prices.app.module'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { MembershipBundlesService } from '@app/membership-bundles/membership-bundles.service'
 import { MembershipPricesService } from '@app/membership-prices/membership-prices.service'
-import { MembershipsModule } from '@app/memberships/memberships.module'
 import { MembershipsService } from '@app/memberships/memberships.service'
 import { Memberships } from '@domain/membership'
 import { MembershipPrice, PriceMicros } from '@domain/membership-price'
@@ -11,24 +10,36 @@ import { SaveMembershipBundleService } from './save-membership-bundle.service'
 
 describe('SaveMembershipBundleService', () => {
   let service: SaveMembershipBundleService
-  let membershipPricesService: MembershipPricesService
-  let membershipsService: MembershipsService
+  let mockMembershipPricesService: { findById: ReturnType<typeof vi.fn> }
+  let mockMembershipsService: { findAll: ReturnType<typeof vi.fn> }
 
   beforeEach(async () => {
+    vi.clearAllMocks()
+
+    mockMembershipPricesService = { findById: vi.fn() }
+    mockMembershipsService = { findAll: vi.fn() }
+
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        MembershipBundlesAppModule,
-        MembershipPricesAppModule,
-        MembershipsModule
-      ],
-      providers: [SaveMembershipBundleService]
+      providers: [
+        SaveMembershipBundleService,
+        {
+          provide: MembershipBundlesService,
+          useValue: { save: vi.fn() }
+        },
+        {
+          provide: MembershipPricesService,
+          useValue: mockMembershipPricesService
+        },
+        {
+          provide: MembershipsService,
+          useValue: mockMembershipsService
+        }
+      ]
     }).compile()
 
     service = module.get<SaveMembershipBundleService>(
       SaveMembershipBundleService
     )
-    membershipPricesService = module.get(MembershipPricesService)
-    membershipsService = module.get(MembershipsService)
   })
 
   describe('calculateTotalInJPY', () => {
@@ -38,18 +49,14 @@ describe('SaveMembershipBundleService', () => {
     it('should calculate total with specific channel price', async () => {
       // Arrange
       const mockMemberships = new Memberships([])
-      mockMemberships.countAll = jest.fn().mockReturnValue({ get: () => 5 })
+      mockMemberships.countAll = vi.fn().mockReturnValue({ get: () => 5 })
       const mockChannelPrice = new MembershipPrice({
         channelId: mockChannelId,
         priceMicros: new PriceMicros(1000 * 1_000_000)
       })
 
-      jest
-        .spyOn(membershipsService, 'findAll')
-        .mockResolvedValue(mockMemberships)
-      jest
-        .spyOn(membershipPricesService, 'findById')
-        .mockResolvedValue(mockChannelPrice)
+      mockMembershipsService.findAll.mockResolvedValue(mockMemberships)
+      mockMembershipPricesService.findById.mockResolvedValue(mockChannelPrice)
 
       // Act
       const result = await service['calculateTotalInJPY']({
@@ -66,12 +73,10 @@ describe('SaveMembershipBundleService', () => {
     it('should use default price when no channel price exists', async () => {
       // Arrange
       const mockMemberships = new Memberships([])
-      mockMemberships.countAll = jest.fn().mockReturnValue({ get: () => 3 })
+      mockMemberships.countAll = vi.fn().mockReturnValue({ get: () => 3 })
 
-      jest
-        .spyOn(membershipsService, 'findAll')
-        .mockResolvedValue(mockMemberships)
-      jest.spyOn(membershipPricesService, 'findById').mockResolvedValue(null)
+      mockMembershipsService.findAll.mockResolvedValue(mockMemberships)
+      mockMembershipPricesService.findById.mockResolvedValue(null)
 
       // Act
       const result = await service['calculateTotalInJPY']({
@@ -88,12 +93,10 @@ describe('SaveMembershipBundleService', () => {
     it('should handle zero membership count', async () => {
       // Arrange
       const mockMemberships = new Memberships([])
-      mockMemberships.countAll = jest.fn().mockReturnValue({ get: () => 0 })
+      mockMemberships.countAll = vi.fn().mockReturnValue({ get: () => 0 })
 
-      jest
-        .spyOn(membershipsService, 'findAll')
-        .mockResolvedValue(mockMemberships)
-      jest.spyOn(membershipPricesService, 'findById').mockResolvedValue(null)
+      mockMembershipsService.findAll.mockResolvedValue(mockMemberships)
+      mockMembershipPricesService.findById.mockResolvedValue(null)
 
       // Act
       const result = await service['calculateTotalInJPY']({
