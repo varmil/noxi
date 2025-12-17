@@ -1,6 +1,6 @@
 'use client'
 
-import { EllipsisVertical, Maximize, MessagesSquare } from 'lucide-react'
+import { EllipsisVertical, MessagesSquare } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,14 +9,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import {
-  useGlobalOpenLiveChat,
-  useGlobalTheaterMode
-} from '../../../_hooks/youtubeLiveStates'
+import { useGlobalOpenLiveChat } from '../../../_hooks/youtubeLiveStates'
 
 export function LiveTitleDropdownMenu() {
   const t = useTranslations('Page.youtube.live.id.button')
-  const { setTheaterMode } = useGlobalTheaterMode()
   const { isOpenLiveChat, setOpenLiveChat } = useGlobalOpenLiveChat()
 
   return (
@@ -33,10 +29,6 @@ export function LiveTitleDropdownMenu() {
             <span>{t('openChat')}</span>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onClick={() => setTheaterMode(true)}>
-          <Maximize className="mr-2 h-4 w-4" />
-          <span>{t('theaterMode')}</span>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

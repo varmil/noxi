@@ -10,7 +10,6 @@ import {
   LgChatContainer,
   XSChatContainer
 } from '../layouts/default/Default'
-import MaximizeButton from '../ui/button/MaximizeButton'
 import OpenChatButton from '../ui/button/OpenChatButton'
 import StreamAndGradeSection from '../ui/section/StreamAndGradeSection'
 import VideoStatsSection from '../ui/section/VideoStatsSection'
@@ -72,7 +71,6 @@ export default async function DefaultModeTemplate({
             <div className="hidden @4xl:pt-3 @4xl:block">
               <div className="flex items-center gap-x-2 pb-10">
                 <OpenChatButton className="flex-1" />
-                <MaximizeButton />
               </div>
               <VideoStatsSection stream={stream} />
             </div>
