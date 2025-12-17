@@ -38,6 +38,7 @@ cd web && npm test
 
 # backend ディレクトリ
 cd backend && npm test
+cd backend && npm runt test:e2e
 ```
 
 テストが失敗した場合はエラーメッセージを確認して修正してください。
