@@ -5,7 +5,7 @@ import Resend from 'next-auth/providers/resend'
 
 const providers: Provider[] = [
   Google,
-  Resend({ from: 'PeakX.net <verify@peakx.net>' })
+  Resend({ from: 'VCharts.net <verify@vcharts.net>' })
 ]
 
 if (process.env.NODE_ENV === 'development') {
