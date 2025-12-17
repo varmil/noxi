@@ -13,7 +13,7 @@
     "prisma:dev": "prisma migrate dev --schema prisma/schema",
     "prisma:deploy": "prisma migrate deploy --schema prisma/schema",
     "test": "vitest run",
-    "test:watch": "vitest",
+    "test:watch": "vitest --watch",
     "test:e2e": "vitest run --config vitest.e2e.config.ts",
     "test:coverage": "vitest run --coverage",
     "app": "zx ./scripts/standalone-apps/factory.mjs"
