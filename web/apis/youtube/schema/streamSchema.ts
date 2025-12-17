@@ -7,14 +7,43 @@ export const responseSchema = z.object({
     publishedAt: z.string().datetime(),
     channelId: z.string(),
     title: z.string(),
-    thumbnails: z.record(
-      z.enum(['default', 'medium', 'high', 'standard', 'maxres']),
-      z.object({
-        url: z.string(),
-        width: z.number().optional(),
-        height: z.number().optional()
-      })
-    )
+    thumbnails: z.object({
+      default: z
+        .object({
+          url: z.string(),
+          width: z.number().optional(),
+          height: z.number().optional()
+        })
+        .optional(),
+      medium: z
+        .object({
+          url: z.string(),
+          width: z.number().optional(),
+          height: z.number().optional()
+        })
+        .optional(),
+      high: z
+        .object({
+          url: z.string(),
+          width: z.number().optional(),
+          height: z.number().optional()
+        })
+        .optional(),
+      standard: z
+        .object({
+          url: z.string(),
+          width: z.number().optional(),
+          height: z.number().optional()
+        })
+        .optional(),
+      maxres: z
+        .object({
+          url: z.string(),
+          width: z.number().optional(),
+          height: z.number().optional()
+        })
+        .optional()
+    })
   }),
 
   duration: z.string().duration().optional(),
