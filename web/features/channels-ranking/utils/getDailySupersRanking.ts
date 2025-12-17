@@ -20,10 +20,11 @@ export async function getDailySupersRanking({
   date?: dayjs.ConfigType
   limit?: number
 }): Promise<ChannelsRanking[]> {
+  const parsedDate = dayjs(date)
   const supersSummaries = await getSupersSummaries({
     group,
     gender,
-    date: dayjs(date).toDate(),
+    date: parsedDate.isValid() ? parsedDate.toDate() : undefined,
     orderBy: [{ field: 'last24Hours', order: 'desc' }],
     limit
   })
