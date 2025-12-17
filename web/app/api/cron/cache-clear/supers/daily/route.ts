@@ -14,8 +14,8 @@ export function GET(request: NextRequest) {
     })
   }
 
-  revalidateTag(SUPERS_RANKINGS)
-  revalidateTag(SUPERS_SUMMARIES)
+  revalidateTag(SUPERS_RANKINGS, 'max')
+  revalidateTag(SUPERS_SUMMARIES, 'max')
 
   return Response.json({ success: true })
 }

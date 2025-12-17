@@ -1,4 +1,4 @@
-import { headers, type UnsafeUnwrappedHeaders } from 'next/headers'
+import { headers } from 'next/headers'
 import { hasLocale } from 'next-intl'
 import { getRequestConfig } from 'next-intl/server'
 import { routing } from 'config/i18n/routing'
@@ -23,9 +23,5 @@ async function getTimezone() {
     return 'Asia/Tokyo'
   }
 
-  return (
-    ((await headers()) as unknown as UnsafeUnwrappedHeaders).get(
-      'x-vercel-ip-timezone'
-    ) ?? undefined
-  )
+  return (await headers()).get('x-vercel-ip-timezone') ?? undefined
 }
