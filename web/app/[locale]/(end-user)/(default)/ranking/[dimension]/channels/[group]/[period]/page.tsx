@@ -49,7 +49,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
             `/daily-ranking?${new URLSearchParams({
               group: groupId,
               ...(gender && { gender }),
-              ...(date && { date: dayjs(date).toISOString() })
+              ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
             }).toString()}`
           )
         }

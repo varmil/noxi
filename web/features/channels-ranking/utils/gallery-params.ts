@@ -52,7 +52,10 @@ export function getSupersSummariesParams({
 
   // 現状OG専用パラメタ
   if (date) {
-    result = { ...result, date: new Date(date) }
+    const parsedDate = new Date(date)
+    if (!isNaN(parsedDate.getTime())) {
+      result = { ...result, date: parsedDate }
+    }
   }
 
   result = {
