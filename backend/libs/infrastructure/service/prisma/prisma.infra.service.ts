@@ -1,35 +1,24 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common'
+import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient } from '@prisma/generated/client'
 
 @Injectable()
-export class PrismaInfraService extends PrismaClient {}
+export class PrismaInfraService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
+  constructor() {
+    const adapter = new PrismaPg({
+      connectionString: process.env.DATABASE_URL
+    })
+    super({ adapter })
+  }
 
-// @Injectable()
-// export class PrismaInfraService
-//   extends PrismaClient<Prisma.PrismaClientOptions, Prisma.LogLevel>
-//   implements OnModuleInit
-// {
-//   private readonly logger = new Logger(PrismaInfraService.name)
-//   constructor() {
-//     super({ log: [{ emit: 'event', level: 'query' }] })
-//   }
-//   async onModuleInit() {
-//     this.$on('query', event => {
-//       this.logger.log(
-//         `Query: ${event.query}`,
-//         `Params: ${event.params}`,
-//         `Duration: ${event.duration} ms`
-//       )
-//     })
-//     this.$on('info', event => {
-//       this.logger.log(`message: ${event.message}`)
-//     })
-//     this.$on('error', event => {
-//       this.logger.log(`error: ${event.message}`)
-//     })
-//     this.$on('warn', event => {
-//       this.logger.log(`warn: ${event.message}`)
-//     })
-//     await this.$connect()
-//   }
-// }
+  async onModuleInit() {
+    await this.$connect()
+  }
+
+  async onModuleDestroy() {
+    await this.$disconnect()
+  }
+}

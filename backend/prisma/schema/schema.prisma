@@ -1,7 +1,7 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = []
-  output          = "../generated/client"
+  provider     = "prisma-client"
+  output       = "../generated/client"
+  moduleFormat = "cjs"
 }
 
 /// Always after the prisma-client-js generator
@@ -14,7 +14,6 @@ generator json {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model Channel {
