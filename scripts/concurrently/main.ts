@@ -11,7 +11,6 @@ concurrently(
       name: 'be  ',
       cwd: path.resolve(rootDir, 'backend')
     },
-
     {
       command: `npm run test:watch`,
       name: 'be:u',
@@ -33,7 +32,7 @@ concurrently(
   ],
   {
     prefix: '{name}',
-    killOthers: ['failure'],
+    killOthersOn: ['failure'],
     prefixColors: [
       'bold.bgMagenta',
       'bold.bgCyan',
