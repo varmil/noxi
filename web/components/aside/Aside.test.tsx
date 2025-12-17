@@ -1,20 +1,21 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
+import { vi } from 'vitest'
 
 // Mock all external dependencies
-jest.mock('lib/auth', () => ({
-  auth: jest.fn().mockResolvedValue(null)
+vi.mock('lib/auth', () => ({
+  auth: vi.fn().mockResolvedValue(null)
 }))
 
-jest.mock('hooks/useGroups', () => ({
-  getGroups: jest.fn().mockResolvedValue({
+vi.mock('hooks/useGroups', () => ({
+  getGroups: vi.fn().mockResolvedValue({
     imgs: [],
     icons: []
   })
 }))
 
-jest.mock('next-intl/server', () => ({
-  getTranslations: jest.fn().mockImplementation((namespace: string) => {
+vi.mock('next-intl/server', () => ({
+  getTranslations: vi.fn().mockImplementation((namespace: string) => {
     const messages: Record<string, Record<string, string>> = {
       Global: { title: 'VCharts' },
       Components: {
@@ -28,27 +29,27 @@ jest.mock('next-intl/server', () => ({
   })
 }))
 
-jest.mock('lib/navigation', () => ({
+vi.mock('lib/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
     <a href={href}>{children}</a>
   )
 }))
 
-jest.mock('components/aside/SettingsDropdown', () => ({
+vi.mock('components/aside/SettingsDropdown', () => ({
   SettingsDropdown: () => <div data-testid="settings-dropdown" />
 }))
 
-jest.mock('@/components/ui/scroll-area', () => ({
+vi.mock('@/components/ui/scroll-area', () => ({
   ScrollArea: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   )
 }))
 
-jest.mock('@/components/ui/separator', () => ({
+vi.mock('@/components/ui/separator', () => ({
   Separator: () => <hr />
 }))
 
-jest.mock('@/components/ui/tooltip', () => ({
+vi.mock('@/components/ui/tooltip', () => ({
   TooltipProvider: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   ),
@@ -63,22 +64,22 @@ jest.mock('@/components/ui/tooltip', () => ({
   )
 }))
 
-jest.mock('components/aside/AsideIcon', () => ({
+vi.mock('components/aside/AsideIcon', () => ({
   __esModule: true,
   default: () => <div data-testid="aside-icon" />
 }))
 
-jest.mock('components/skeleton/AsideSkeleton', () => ({
+vi.mock('components/skeleton/AsideSkeleton', () => ({
   __esModule: true,
   default: () => <div data-testid="aside-skeleton" />
 }))
 
-jest.mock('components/icons/PrivacyPolicyIcon', () => ({
+vi.mock('components/icons/PrivacyPolicyIcon', () => ({
   __esModule: true,
   default: () => <div data-testid="privacy-policy-icon" />
 }))
 
-jest.mock('../Logo', () => ({
+vi.mock('../Logo', () => ({
   __esModule: true,
   default: () => <div data-testid="logo" />
 }))
