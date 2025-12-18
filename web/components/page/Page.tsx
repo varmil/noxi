@@ -48,9 +48,9 @@ export function Page({
         </div>
       )} */}
 
-      {!ads && breadcrumb && (
+      {!ads && breadcrumb?.length ? (
         <GlobalBreadcrumb items={breadcrumb} className="mb-4" />
-      )}
+      ) : null}
 
       {h1 && (
         <div
