@@ -359,6 +359,7 @@
     "channelsAdd": { "title": "Add your channel to VCharts" },
     "groupsAdd": { "title": "Add your group to VCharts" },
     "contact": { "title": "Contact" },
+    "aside": { "xAccount": "Official X (formerly Twitter)" },
     "group": {
       "listing": "Listing {count} talents.",
       "listingAll": "All {count} talents are listed."

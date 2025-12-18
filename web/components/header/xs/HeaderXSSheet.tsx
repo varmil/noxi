@@ -21,6 +21,7 @@ import { ModeToggle } from 'components/ModeToggle'
 import HeaderLink from 'components/header/HeaderLink'
 import { SignOutInSheet } from 'components/header/xs/HeaderItem'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
+import XIcon from 'components/icons/XIcon'
 import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
 import { PWAInstallButton } from 'components/pwa/PWAInstallContext'
 import Image from 'components/styles/Image'
@@ -108,6 +109,18 @@ export default async function HeaderXSSheet() {
               icon={<UsersRound className="size-7" />}
               href="/groups/add"
             />
+
+            <a
+              href="https://x.com/VCharts_net"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 text-muted-foreground hover:text-foreground"
+            >
+              <div className="flex justify-center items-center h-8 w-8">
+                <XIcon className="size-6" />
+              </div>
+              <span className="flex-1">{comp('aside.xAccount')}</span>
+            </a>
 
             <HeaderLink
               name="Terms of Use and PP"

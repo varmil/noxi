@@ -61,6 +61,20 @@ export default async function LocaleLayout(props: Props) {
         {/* Looker Studio ドメインへの事前接続でパフォーマンス向上 */}
         <link rel="preconnect" href="https://lookerstudio.google.com" />
         <link rel="dns-prefetch" href="https://lookerstudio.google.com" />
+        {/* 構造化データ: Organization と sameAs で公式Xアカウントとの関連を示す */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'VCharts',
+              url: 'https://www.vcharts.net',
+              logo: 'https://www.vcharts.net/icon.svg',
+              sameAs: ['https://x.com/VCharts_net']
+            })
+          }}
+        />
       </head>
       <ClarityScript />
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GA_ID as string} />
