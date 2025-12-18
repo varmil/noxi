@@ -874,6 +874,20 @@
     },
     "streamStats": {
       "srViewerCountsChart": "{dateRange}におけるライブの同時視聴者数推移を面グラフで示しています。ピーク時の最大同時視聴者数は{peak}人です。"
+    },
+    "charts": {
+      "filter": {
+        "days7": "7日",
+        "days28": "28日",
+        "days90": "90日",
+        "allGroups": "全グループ"
+      }
+    },
+    "streamVolumeTrend": {
+      "title": "ライブ配信件数と総配信時間",
+      "description": "日別の配信件数（棒）と総配信時間（線）",
+      "streamCount": "配信件数",
+      "totalDurationHours": "総配信時間 (h)"
     }
   },
   "Pages": {

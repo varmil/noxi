@@ -11,10 +11,10 @@ globs: web/**/*
 ## 画像コンポーネント
 
 - **next/image は使わない**
-- 代わりに `src/components/styles/image.tsx` を使用
+- 代わりに `components/styles/Image.tsx` を使用
 
 ```tsx
-import Image from '@/components/styles/image'
+import Image from 'components/styles/Image'
 ```
 
 ## v0 活用ルール

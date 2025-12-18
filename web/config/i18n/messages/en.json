@@ -862,6 +862,20 @@
     },
     "streamStats": {
       "srViewerCountsChart": "The area graph shows the number of concurrent viewers over the course of {dateRange}. The maximum number of concurrent viewers at the peak was {peak}."
+    },
+    "charts": {
+      "filter": {
+        "days7": "7 days",
+        "days28": "28 days",
+        "days90": "90 days",
+        "allGroups": "All Groups"
+      }
+    },
+    "streamVolumeTrend": {
+      "title": "Live Stream Count & Total Duration",
+      "description": "Daily stream count (bar) and total duration (line)",
+      "streamCount": "Stream Count",
+      "totalDurationHours": "Total Duration (h)"
     }
   },
 

@@ -22,10 +22,11 @@ globs: web/**/*
 ## ディレクトリ構造
 
 ```
-web/src/
+web/
+├── @/            # shadcn/ui コンポーネント（自動生成）
+│   └── components/ui/  # shadcn コンポーネント
 ├── apis/         # Server Components, Server Actions から呼び出す外部通信
 ├── app/          # App Router のページコンポーネント
-├── assets/       # 静的ファイル（images, fonts など）
 ├── components/   # プロジェクト全体で使用される共有コンポーネント
 ├── config/       # グローバル設定、環境変数など
 ├── features/     # 機能ベースのモジュール
@@ -38,22 +39,22 @@ web/src/
 
 ## コンポーネント配置の判断基準
 
-### 1. ページ固有 (`src/app/[route]/components/`)
+### 1. ページ固有 (`app/[route]/_components/`)
 
 - 単一ページでのみ使用される
 - ページ固有のロジック・データに依存
 
-### 2. 機能別 (`src/features/[feature-name]/components/`)
+### 2. 機能別 (`features/[feature-name]/components/`)
 
 - 複数ページで使用される
 - 特定の機能領域に属する
 - ビジネスロジックを含む
 
-### 3. 共通 UI (`src/components/`)
+### 3. 共通 UI (`components/`)
 
 - プロジェクト全体で広く使用
 - ビジネスロジック非依存
-- `src/components/ui/` は shadcn コンポーネント専用
+- `@/components/ui/` は shadcn コンポーネント専用（自動生成）
 
 ## インポートパスの規則
 
@@ -62,9 +63,10 @@ web/src/
 
 ## ファイル命名規則
 
-- **コンポーネント**: ケバブケース `component-name.tsx`
-- **ユニットテスト**: `component-name.test.tsx`（同階層）
+- **コンポーネント**: PascalCase `ComponentName.tsx`
+- **ユニットテスト**: `ComponentName.test.tsx`（同階層）
 - **Integration Test**: `__tests__/integration.test.ts`（上位位置）
+- **shadcn/ui**: ケバブケース `component-name.tsx`（shadcn の規約に従う）
 
 ## 新規コンポーネント作成時のチェックリスト
 
@@ -76,9 +78,9 @@ web/src/
 
 ### 配置場所の決定
 
-- [ ] ページ固有 → `src/app/[route]/components/`
-- [ ] 機能別 → `src/features/[feature-name]/components/`
-- [ ] 共通 UI → `src/components/ui/`
+- [ ] ページ固有 → `app/[route]/_components/`
+- [ ] 機能別 → `features/[feature-name]/components/`
+- [ ] 共通 UI → `components/`
 
 ### 作成後
 

@@ -1,9 +1,14 @@
-import { PropsWithChildren, PropsWithoutRef } from 'react'
+import { PropsWithChildren, Suspense } from 'react'
+import { getGroups } from 'apis/groups'
 import { LookerReport } from 'components/looker/LookerReport'
+import { ChartFilters } from 'features/charts/components/ChartFilters'
+import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
+import {
+  StreamVolumeTrendContainer,
+  StreamVolumeTrendSkeleton
+} from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
 
-const CHART_1_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_kzw7z6x0yd'
 const CHART_2_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_7lmqygy0yd'
 const WEEKNUM_URL =
@@ -15,7 +20,10 @@ const CHANNEL_RANKING_URL =
 const SCATTER_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_iyv78oa1yd'
 
-type Props = {}
+type Props = {
+  days?: DaysOption
+  group?: string
+}
 
 const Container = (props: PropsWithChildren<{ className?: string }>) => {
   return (
@@ -35,21 +43,23 @@ const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
   )
 }
 
-export async function IndexTemplate({}: PropsWithoutRef<Props>) {
+export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
+  const groups = await getGroups()
+
   return (
     <>
       <Container className="flex flex-col gap-6">
         {/* ライブ統計カード（Above the fold） */}
         <LiveStatsCards />
 
-        {/* 以下は遅延読み込み */}
+        {/* 共通フィルター */}
+        <ChartFilters groups={groups} />
+
         <FlexSection className="gap-6">
           <div className="flex-1 w-full">
-            <LookerReport
-              reportUrl={CHART_1_URL}
-              className="h-[350px]"
-              lazy={true}
-            />
+            <Suspense fallback={<StreamVolumeTrendSkeleton />}>
+              <StreamVolumeTrendContainer days={days} group={group} />
+            </Suspense>
           </div>
           <div className="flex-1 w-full">
             <LookerReport
@@ -60,6 +70,7 @@ export async function IndexTemplate({}: PropsWithoutRef<Props>) {
           </div>
         </FlexSection>
 
+        {/* 以下は遅延読み込み */}
         <FlexSection className="items-start gap-6">
           <LookerReport
             reportUrl={WEEKNUM_URL}
