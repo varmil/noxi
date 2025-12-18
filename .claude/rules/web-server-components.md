@@ -35,3 +35,48 @@ globs: web/**/*
 - **作成/更新/削除後**: `revalidatePath` または `redirect` を使用
 - **フォーム処理**: Server Actions を優先
 - **キャッシュ管理**: Next.js の組み込みキャッシュ機能を活用
+
+## Server → Client Component のシリアライズ制約
+
+Server Component から Client Component に props でデータを渡す際、React はデータをシリアライズします。
+**シリアライズできない値を渡すとエラーなく描画が失敗する**ため、注意が必要です。
+
+### シリアライズ可能な型
+
+- プリミティブ型: `string`, `number`, `boolean`, `null`, `undefined`
+- 配列、プレーンオブジェクト（ネストされていても可）
+- `Map`, `Set`（React 19+）
+
+### シリアライズ不可の型
+
+- **Date オブジェクト**: 渡せない。文字列（ISO 8601）で渡す
+- 関数、クラスインスタンス
+- `Symbol`
+
+### Zod スキーマでの注意点
+
+```typescript
+// ❌ Date オブジェクトを生成するため Client Component に渡せない
+const schema = z.object({
+  date: z.coerce.date()
+})
+
+// ✅ 文字列のまま渡し、Client 側で必要に応じて Date に変換
+const schema = z.object({
+  date: z.string()  // ISO 8601 形式の文字列
+})
+```
+
+### 日付の取り扱いパターン
+
+```typescript
+// Server Component: API レスポンスを文字列のまま渡す
+const data = await fetchData() // { date: "2024-12-01", ... }
+return <ClientChart data={data} />
+
+// Client Component: 必要に応じて Date に変換
+function ClientChart({ data }) {
+  const formattedDate = new Date(data.date).toLocaleDateString('ja-JP')
+  // ...
+}
+```

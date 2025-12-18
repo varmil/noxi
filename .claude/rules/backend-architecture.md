@@ -149,3 +149,56 @@ class MembershipBundlesService {
 - [ ] Repository Interface を正しく実装しているか
 - [ ] 入口でプリミティブ型からドメイン型への変換を行っているか
 - [ ] 出口でドメイン型からプリミティブ型への変換を行っているか
+
+## PostgreSQL / Prisma の注意点
+
+### 日本時間ベースの集計
+
+日付ベースの集計では `AT TIME ZONE 'Asia/Tokyo'` を使用する：
+
+```sql
+-- ✅ 日本時間で日付グルーピング
+SELECT DATE("actualStartTime" AT TIME ZONE 'Asia/Tokyo') as date
+GROUP BY DATE("actualStartTime" AT TIME ZONE 'Asia/Tokyo')
+
+-- ❌ UTC で日付グルーピング（日本時間で日付がずれる）
+SELECT DATE("actualStartTime") as date
+```
+
+日付範囲パラメータも JST 境界で計算：
+
+```typescript
+// JST 00:00:00 = UTC 前日 15:00:00
+// Date.UTC() に -9 時間を指定すると自動で前日 15:00 に変換される
+const lt = new Date(Date.UTC(year, month, day + 1, -9))
+const gte = new Date(Date.UTC(year, month, day + 1 - days, -9))
+```
+
+### Prisma Raw Query の型
+
+PostgreSQL の `SUM()` や `EXTRACT()` は高精度小数を**文字列**で返す：
+
+```typescript
+// ❌ 型が合わない（実際は string が返る）
+interface Row {
+  total_duration_hours: number | null
+}
+
+// ✅ 正しい型定義
+interface Row {
+  total_duration_hours: string | null
+}
+
+// 使用時に Number() で変換
+new DurationHours(Number(row.total_duration_hours ?? 0))
+```
+
+同様に `COUNT(*)` は `bigint` で返るため、`Number()` での変換が必要：
+
+```typescript
+interface Row {
+  stream_count: bigint  // number ではない
+}
+
+new Count(Number(row.stream_count))
+```
