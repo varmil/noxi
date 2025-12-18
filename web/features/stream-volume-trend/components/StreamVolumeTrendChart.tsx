@@ -44,11 +44,11 @@ export function StreamVolumeTrendChart({ data }: Props) {
   const chartConfig: ChartConfig = {
     streamCount: {
       label: t('streamCount'),
-      color: 'var(--chart-5)'
+      color: 'var(--chart-3)'
     },
     totalDurationHours: {
       label: t('totalDurationHours'),
-      color: 'var(--chart-2)'
+      color: 'var(--chart-1)'
     }
   }
 

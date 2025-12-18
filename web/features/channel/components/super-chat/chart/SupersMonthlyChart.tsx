@@ -32,7 +32,7 @@ export default function SupersMonthlyChart({ supersMonthlySummaries }: Props) {
   const chartConfig = {
     thisMonth: {
       label: feat('monthly.label'),
-      color: 'var(--chart-1)'
+      color: 'var(--chart-3)'
     }
   } satisfies ChartConfig
 
