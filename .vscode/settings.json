@@ -31,6 +31,10 @@
   "eslint.workingDirectories": ["./web", "./backend"],
   "eslint.useFlatConfig": true,
 
+  "accessibility.signals.terminalBell": {
+    "sound": "on"
+  },
+
   "files.associations": {
     "*.css": "tailwindcss"
   },

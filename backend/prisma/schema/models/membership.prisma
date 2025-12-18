@@ -26,7 +26,7 @@ model ChannelMembershipSummaryLatest {
   @@index([period, count])
 }
 
-/// ライブ（videoId）ごとに発生したメンバーシップ加入
+/// ライブで発生した生のメンバーシップ加入イベント
 model StreamMembership {
   id     String  @id
   count  Int
@@ -45,6 +45,7 @@ model StreamMembership {
   @@index([group, createdAt])
 }
 
+/// １ライブ単位で集計したメンバーシップ加入イベント
 model StreamMembershipBundle {
   videoId         String    @id
   channelId       String
