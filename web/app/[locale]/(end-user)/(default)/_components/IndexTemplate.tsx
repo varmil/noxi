@@ -57,7 +57,10 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
 
         <FlexSection className="gap-6">
           <div className="flex-1 w-full">
-            <Suspense fallback={<StreamVolumeTrendSkeleton />}>
+            <Suspense
+              key={`${days}-${group}`}
+              fallback={<StreamVolumeTrendSkeleton />}
+            >
               <StreamVolumeTrendContainer days={days} group={group} />
             </Suspense>
           </div>
