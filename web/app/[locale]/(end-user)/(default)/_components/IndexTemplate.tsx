@@ -1,10 +1,12 @@
 import { PropsWithChildren, Suspense } from 'react'
-import { Skeleton } from '@/components/ui/skeleton'
 import { getGroups } from 'apis/groups'
 import { LookerReport } from 'components/looker/LookerReport'
 import { ChartFilters } from 'features/charts/components/ChartFilters'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
-import { StreamVolumeTrendContainer } from 'features/stream-volume-trend'
+import {
+  StreamVolumeTrendContainer,
+  StreamVolumeTrendSkeleton
+} from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
 
 const CHART_2_URL =
@@ -55,7 +57,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
 
         <FlexSection className="gap-6">
           <div className="flex-1 w-full">
-            <Suspense fallback={<Skeleton className="h-[350px]" />}>
+            <Suspense fallback={<StreamVolumeTrendSkeleton />}>
               <StreamVolumeTrendContainer days={days} group={group} />
             </Suspense>
           </div>
