@@ -12,6 +12,7 @@ import {
 import AsideIcon from 'components/aside/AsideIcon'
 import { SettingsDropdown } from 'components/aside/SettingsDropdown'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
+import XIcon from 'components/icons/XIcon'
 import AsideSkeleton from 'components/skeleton/AsideSkeleton'
 import { getGroups } from 'hooks/useGroups'
 import { auth } from 'lib/auth'
@@ -137,6 +138,23 @@ export default async function Aside({ className }: { className?: string }) {
                   </TooltipTrigger>
                   <TooltipContent side="right">
                     {comp('groupsAdd.title')}
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <a
+                      href="https://x.com/VCharts_net"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <XIcon className="size-5" />
+                      <span className="sr-only">{comp('aside.xAccount')}</span>
+                    </a>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    {comp('aside.xAccount')}
                   </TooltipContent>
                 </Tooltip>
 
