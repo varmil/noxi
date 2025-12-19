@@ -22,7 +22,11 @@ function calculateMedian(numbers: number[]): number {
 
 async function LiveStatsCardsContent() {
   const t = await getTranslations('Page.index.section.liveStats')
-  const streams = await getStreams({ status: 'live', revalidate: 60 })
+  const streams = await getStreams({
+    status: 'live',
+    peakConcurrentViewers: { gte: 1 },
+    revalidate: 60
+  })
 
   const liveCount = streams.length
   const totalViewers = streams.reduce(

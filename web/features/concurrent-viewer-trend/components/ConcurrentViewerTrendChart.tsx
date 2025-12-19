@@ -1,7 +1,7 @@
 'use client'
 
 import { NumberFormatOptions, useFormatter, useTranslations } from 'next-intl'
-import { Bar, CartesianGrid, ComposedChart, Line, XAxis, YAxis } from 'recharts'
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
 import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
@@ -9,7 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-import { StreamVolumeTrendsSchema } from 'apis/youtube/schema/streamVolumeTrendSchema'
+import { ConcurrentViewerTrendsSchema } from 'apis/youtube/schema/concurrentViewerTrendSchema'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,
@@ -24,20 +24,16 @@ const NumberFormat: NumberFormatOptions = {
 }
 
 interface Props {
-  data: StreamVolumeTrendsSchema
+  data: ConcurrentViewerTrendsSchema
 }
 
-export function StreamVolumeTrendChart({ data }: Props) {
-  const t = useTranslations('Features.streamVolumeTrend')
+export function ConcurrentViewerTrendChart({ data }: Props) {
+  const t = useTranslations('Features.concurrentViewerTrend')
   const format = useFormatter()
 
   const chartConfig: ChartConfig = {
-    streamCount: {
-      label: t('streamCount'),
-      color: 'var(--chart-3)'
-    },
-    totalDurationHours: {
-      label: t('totalDurationHours'),
+    medianViewers: {
+      label: t('medianViewers'),
       color: 'var(--chart-1)'
     }
   }
@@ -59,7 +55,7 @@ export function StreamVolumeTrendChart({ data }: Props) {
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <ComposedChart data={data} margin={{ left: -20, top: 10, right: -5 }}>
+          <LineChart data={data} margin={{ left: -20, top: 10, right: 40 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="date"
@@ -69,18 +65,9 @@ export function StreamVolumeTrendChart({ data }: Props) {
               tickFormatter={formatDateWithWeekday}
             />
             <YAxis
-              yAxisId="left"
               tickLine={false}
               tickFormatter={(value: number) =>
                 format.number(value, NumberFormat)
-              }
-            />
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              tickLine={false}
-              tickFormatter={(value: number) =>
-                `${format.number(value, NumberFormat)}h`
               }
             />
             <ChartTooltip
@@ -98,10 +85,7 @@ export function StreamVolumeTrendChart({ data }: Props) {
                   }
                   formatter={(value, name) => {
                     const key = name as string
-                    const formattedValue =
-                      key === 'totalDurationHours'
-                        ? `${format.number(value as number, NumberFormat)}h`
-                        : format.number(value as number)
+                    const formattedValue = format.number(value as number)
                     return (
                       <ChartTooltipFormatter
                         indicatorColor={name}
@@ -113,22 +97,14 @@ export function StreamVolumeTrendChart({ data }: Props) {
                 />
               }
             />
-            <Bar
-              dataKey="streamCount"
-              yAxisId="left"
-              fill="var(--color-streamCount)"
-              // fillOpacity={0.7}
-              radius={[2, 2, 0, 0]}
-            />
             <Line
               type="linear"
-              dataKey="totalDurationHours"
-              yAxisId="right"
-              stroke="var(--color-totalDurationHours)"
+              dataKey="medianViewers"
+              stroke="var(--color-medianViewers)"
               strokeWidth={1.5}
               dot={false}
             />
-          </ComposedChart>
+          </LineChart>
         </ChartContainer>
       </ChartCardContent>
     </ChartCard>

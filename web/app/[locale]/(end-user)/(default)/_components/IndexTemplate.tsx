@@ -4,13 +4,14 @@ import { LookerReport } from 'components/looker/LookerReport'
 import { ChartFilters } from 'features/charts/components/ChartFilters'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
 import {
+  ConcurrentViewerTrendContainer,
+  ConcurrentViewerTrendSkeleton
+} from 'features/concurrent-viewer-trend'
+import {
   StreamVolumeTrendContainer,
   StreamVolumeTrendSkeleton
 } from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
-
-const CHART_2_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_7lmqygy0yd'
 const WEEKNUM_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_guu27y80yd'
 const GOLDENTIME_URL =
@@ -65,11 +66,12 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             </Suspense>
           </div>
           <div className="flex-1 w-full">
-            <LookerReport
-              reportUrl={CHART_2_URL}
-              className="h-[350px]"
-              lazy={true}
-            />
+            <Suspense
+              key={`concurrent-${days}-${group}`}
+              fallback={<ConcurrentViewerTrendSkeleton />}
+            >
+              <ConcurrentViewerTrendContainer days={days} group={group} />
+            </Suspense>
           </div>
         </FlexSection>
 

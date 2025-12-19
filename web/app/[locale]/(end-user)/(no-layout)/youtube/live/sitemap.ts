@@ -17,6 +17,7 @@ export default async function sitemap({
   id: number
 }): Promise<MetadataRoute.Sitemap> {
   const streams = await getStreams({
+    peakConcurrentViewers: { gte: 1 },
     orderBy: [{ field: 'actualEndTime', order: 'asc' }],
     limit: LIMIT,
     offset: id * LIMIT,
