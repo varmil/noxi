@@ -2,7 +2,7 @@ import {
   ViewerCountsSchema,
   responseSchema
 } from 'apis/youtube/schema/viewerCountSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   videoId: string
@@ -12,7 +12,8 @@ export async function getViewerCounts({
   videoId
 }: Params): Promise<ViewerCountsSchema> {
   const res = await fetchAPI(
-    `/api/youtube/stream-stats/viewer-counts?videoId=${videoId}`
+    `/api/youtube/stream-stats/viewer-counts?videoId=${videoId}`,
+    { next: { revalidate: CACHE_1H } }
   )
 
   if (!res.ok) {

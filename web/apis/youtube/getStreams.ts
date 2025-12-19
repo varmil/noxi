@@ -3,7 +3,7 @@ import {
   responseListSchema
 } from 'apis/youtube/schema/streamSchema'
 
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
 type Params = {
@@ -101,7 +101,7 @@ export async function getStreams({
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    { ...(revalidate && { next: { revalidate } }) }
+    { next: { revalidate: revalidate ?? CACHE_1H } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -117,7 +117,7 @@ export async function getStreamsCount({
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/youtube/streams/count?${searchParams.toString()}`,
-    { ...(revalidate && { next: { revalidate } }) }
+    { next: { revalidate: revalidate ?? CACHE_1H } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
