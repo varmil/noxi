@@ -16,14 +16,14 @@ interface DailyStatsRow {
 }
 
 @Injectable()
-export class StreamVolumeTrendRepositoryImpl
-  implements StreamVolumeTrendRepository
-{
+export class StreamVolumeTrendRepositoryImpl implements StreamVolumeTrendRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
     where: { dateRange, group }
-  }: Parameters<StreamVolumeTrendRepository['findAll']>[0]): Promise<StreamVolumeTrends> {
+  }: Parameters<
+    StreamVolumeTrendRepository['findAll']
+  >[0]): Promise<StreamVolumeTrends> {
     const groupCondition = group ? `AND "group" = $3` : ''
     const params = group
       ? [dateRange.gte, dateRange.lt, group.get()]
@@ -42,6 +42,7 @@ export class StreamVolumeTrendRepositoryImpl
         AND "actualStartTime" >= $1
         AND "actualStartTime" < $2
         AND "actualEndTime" IS NOT NULL
+        AND "maxViewerCount" > 0
         ${groupCondition}
       GROUP BY DATE("actualStartTime" AT TIME ZONE 'Asia/Tokyo')
       ORDER BY date ASC
