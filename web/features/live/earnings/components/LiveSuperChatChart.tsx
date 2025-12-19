@@ -88,10 +88,11 @@ export function LiveSuperChatChart({ data, config }: Props) {
                     format.dateTime(new Date(payload.time), TimeFormat)
                   }
                   formatter={(value, name) => {
+                    const key = name as string
                     return (
                       <ChartTooltipFormatter
                         indicatorColor={name}
-                        name={(config[name]?.label as NameType) || name}
+                        name={(config[key]?.label as NameType) || name}
                         value={format.number(value as number, CurrencyFormat)}
                       />
                     )
