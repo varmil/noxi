@@ -7,7 +7,7 @@ import { CreateSupersSummariesService } from '../service/create-supers-summaries
 
 @Injectable()
 export class MainScenario {
-  private readonly CHUNK_SIZE = 50
+  private readonly CHUNK_SIZE = 10
   private readonly logger = new Logger(MainScenario.name)
 
   constructor(

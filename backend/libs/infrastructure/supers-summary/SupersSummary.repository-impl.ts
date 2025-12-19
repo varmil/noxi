@@ -132,18 +132,24 @@ export class SupersSummaryRepositoryImpl implements SupersSummaryRepository {
       createdAt
     }
 
-    await prisma.$transaction([
-      // 最新の情報に更新する
-      prisma.youtubeStreamSupersSummaryLatest.upsert({
-        where: { channelId: channelId.get() },
-        update: prismaData,
-        create: { channelId: channelId.get(), ...prismaData }
-      }),
-      // Historyに残す（過去との差分を計算するため）
-      prisma.youtubeStreamSupersSummary.create({
-        data: { channelId: channelId.get(), ...prismaData }
-      })
-    ])
+    await prisma.$transaction(
+      async tx => {
+        // 最新の情報に更新する
+        await tx.youtubeStreamSupersSummaryLatest.upsert({
+          where: { channelId: channelId.get() },
+          update: prismaData,
+          create: { channelId: channelId.get(), ...prismaData }
+        })
+        // Historyに残す（過去との差分を計算するため）
+        await tx.youtubeStreamSupersSummary.create({
+          data: { channelId: channelId.get(), ...prismaData }
+        })
+      },
+      {
+        maxWait: 10000, // デフォルト: 2000ms
+        timeout: 30000 // デフォルト: 5000ms
+      }
+    )
   }
 
   private toDomain(row: Omit<PrismaYoutubeStreamSupersSummary, 'id'>) {
