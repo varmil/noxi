@@ -2,8 +2,14 @@
 
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
-
 import { cn } from '@/lib/utils'
+import type { Props as LegendContentProps } from 'recharts/types/component/DefaultLegendContent'
+import type {
+  NameType,
+  ValueType
+} from 'recharts/types/component/DefaultTooltipContent'
+import type { TooltipContentProps } from 'recharts/types/component/Tooltip'
+
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const
@@ -113,6 +119,17 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip
 
+export type CustomTooltipProps = Partial<
+  TooltipContentProps<ValueType, NameType>
+> &
+  React.ComponentProps<'div'> & {
+    hideLabel?: boolean
+    hideIndicator?: boolean
+    indicator?: 'line' | 'dot' | 'dashed'
+    nameKey?: string
+    labelKey?: string
+  }
+
 /**
  * @Custom
  * items-center --> items-baseline
@@ -131,14 +148,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-  React.ComponentProps<'div'> & {
-    hideLabel?: boolean
-    hideIndicator?: boolean
-    indicator?: 'line' | 'dot' | 'dashed'
-    nameKey?: string
-    labelKey?: string
-  }) {
+}: CustomTooltipProps) {
   const { config } = useChart()
 
   const tooltipLabel = React.useMemo(() => {
@@ -263,17 +273,19 @@ function ChartTooltipContent({
 
 const ChartLegend = RechartsPrimitive.Legend
 
+export type ChartLegendContentProps = React.ComponentProps<'div'> &
+  Pick<LegendContentProps, 'payload' | 'verticalAlign'> & {
+    hideIcon?: boolean
+    nameKey?: string
+  }
+
 function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
   verticalAlign = 'bottom',
   nameKey
-}: React.ComponentProps<'div'> &
-  Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
-    hideIcon?: boolean
-    nameKey?: string
-  }) {
+}: ChartLegendContentProps) {
   const { config } = useChart()
 
   if (!payload?.length) {

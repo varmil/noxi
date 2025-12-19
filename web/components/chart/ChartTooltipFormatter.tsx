@@ -7,8 +7,8 @@ export default function ChartTooltipFormatter({
   name,
   value
 }: {
-  indicatorColor: NameType
-  name: NameType
+  indicatorColor?: NameType
+  name?: NameType
   value: Value
 }) {
   return (

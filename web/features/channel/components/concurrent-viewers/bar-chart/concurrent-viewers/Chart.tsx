@@ -26,7 +26,7 @@ import {
 } from 'components/styles/card/ChartCard'
 import ChannelConcurrentViewersCards from 'features/channel/components/concurrent-viewers/card/ChannelConcurrentViewersCards'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
-import type { CategoricalChartFunc } from 'recharts/types/chart/generateCategoricalChart'
+import type { CategoricalChartFunc } from 'recharts/types/chart/types'
 
 type Props = {
   streams: StreamsSchema
@@ -72,14 +72,19 @@ export default function Chart({
       if (window.matchMedia('(pointer: coarse)').matches) {
         return
       }
+      const index = entry.activeTooltipIndex
+      if (index === undefined || typeof index !== 'number') {
+        return
+      }
+      const videoId = data[index]?.videoId
+      if (!videoId) {
+        return
+      }
       e.preventDefault()
       e.stopPropagation()
-      window.open(
-        `/${locale}/youtube/live/${entry.activePayload?.[0].payload?.videoId}`,
-        '_blank'
-      )
+      window.open(`/${locale}/youtube/live/${videoId}`, '_blank')
     },
-    [locale]
+    [locale, data]
   )
 
   return (

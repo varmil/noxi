@@ -100,14 +100,15 @@ export function StreamVolumeTrendChart({ data }: Props) {
                     })
                   }
                   formatter={(value, name) => {
+                    const key = name as string
                     const formattedValue =
-                      name === 'totalDurationHours'
+                      key === 'totalDurationHours'
                         ? `${format.number(value as number, NumberFormat)}h`
                         : format.number(value as number)
                     return (
                       <ChartTooltipFormatter
                         indicatorColor={name}
-                        name={(chartConfig[name]?.label as NameType) || name}
+                        name={(chartConfig[key]?.label as NameType) || name}
                         value={formattedValue}
                       />
                     )

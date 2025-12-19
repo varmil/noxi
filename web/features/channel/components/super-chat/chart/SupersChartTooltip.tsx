@@ -20,13 +20,16 @@ export default function SupersChartTooltip({
       content={
         <ChartTooltipContent
           className="w-[165px] sm:w-[180px]"
-          formatter={(value, name) => (
-            <ChartTooltipFormatter
-              indicatorColor={name}
-              name={(config[name]?.label as NameType) || name}
-              value={format.number(value as number, NUMBER_FORMAT)}
-            />
-          )}
+          formatter={(value, name) => {
+            const key = name as string
+            return (
+              <ChartTooltipFormatter
+                indicatorColor={name}
+                name={(config[key]?.label as NameType) || name}
+                value={format.number(value as number, NUMBER_FORMAT)}
+              />
+            )
+          }}
         />
       }
     />
