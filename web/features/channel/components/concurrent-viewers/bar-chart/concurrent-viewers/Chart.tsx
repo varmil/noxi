@@ -66,7 +66,6 @@ export default function Chart({
   ]
 
   const handleBarClick = useCallback(
-     
     (barData: any) => {
       // if it's a touch device, do nothing
       if (window.matchMedia('(pointer: coarse)').matches) {
