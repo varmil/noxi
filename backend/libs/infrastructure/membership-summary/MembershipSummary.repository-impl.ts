@@ -106,20 +106,26 @@ export class MembershipSummaryRepositoryImpl
       createdAt
     }
 
-    await prisma.$transaction([
-      // 最新の情報に更新する
-      prisma.channelMembershipSummaryLatest.upsert({
-        where: {
-          channelId_period: { channelId: channelId.get(), period: period.get() }
-        },
-        update: prismaData,
-        create: prismaData
-      }),
-      // Historyに残す（過去との差分を計算するため）
-      prisma.channelMembershipSummary.create({
-        data: prismaData
-      })
-    ])
+    await prisma.$transaction(
+      async tx => {
+        // 最新の情報に更新する
+        await tx.channelMembershipSummaryLatest.upsert({
+          where: {
+            channelId_period: { channelId: channelId.get(), period: period.get() }
+          },
+          update: prismaData,
+          create: prismaData
+        })
+        // Historyに残す（過去との差分を計算するため）
+        await tx.channelMembershipSummary.create({
+          data: prismaData
+        })
+      },
+      {
+        maxWait: 10000, // デフォルト: 2000ms
+        timeout: 30000 // デフォルト: 5000ms
+      }
+    )
   }
 
   private toDomain(row: Omit<PrismaChannelMembershipSummary, 'id'>) {
