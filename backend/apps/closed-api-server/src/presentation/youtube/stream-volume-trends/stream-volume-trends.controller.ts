@@ -17,12 +17,11 @@ export class StreamVolumeTrendsController {
 
   @Get()
   async getStreamVolumeTrends(@Query() dto: GetStreamVolumeTrendsDto) {
-    const trends = await this.streamVolumeTrendsService.findAll({
+    return await this.streamVolumeTrendsService.findAll({
       where: {
         dateRange: dto.toDateRange(),
         group: dto.toGroupId()
       }
     })
-    return { data: trends.getList() }
   }
 }

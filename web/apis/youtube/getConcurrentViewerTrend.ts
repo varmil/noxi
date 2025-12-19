@@ -31,5 +31,5 @@ export async function getConcurrentViewerTrend({
   }
 
   const data = responseSchema.parse(await res.json())
-  return data.data
+  return data.list
 }

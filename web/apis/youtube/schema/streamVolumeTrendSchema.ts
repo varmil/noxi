@@ -7,7 +7,7 @@ export const schema = z.object({
 })
 
 export const responseSchema = z.object({
-  data: z.array(schema)
+  list: z.array(schema)
 })
 
 export type StreamVolumeTrendSchema = z.infer<typeof schema>

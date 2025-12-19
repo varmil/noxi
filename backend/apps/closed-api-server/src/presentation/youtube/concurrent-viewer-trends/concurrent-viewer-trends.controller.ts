@@ -17,12 +17,11 @@ export class ConcurrentViewerTrendsController {
 
   @Get()
   async getConcurrentViewerTrends(@Query() dto: GetConcurrentViewerTrendsDto) {
-    const trends = await this.concurrentViewerTrendsService.findAll({
+    return await this.concurrentViewerTrendsService.findAll({
       where: {
         dateRange: dto.toDateRange(),
         group: dto.toGroupId()
       }
     })
-    return { data: trends.getList() }
   }
 }

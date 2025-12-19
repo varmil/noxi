@@ -31,5 +31,5 @@ export async function getStreamVolumeTrend({
   }
 
   const data = responseSchema.parse(await res.json())
-  return data.data
+  return data.list
 }

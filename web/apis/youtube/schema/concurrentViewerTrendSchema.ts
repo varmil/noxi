@@ -6,7 +6,7 @@ export const schema = z.object({
 })
 
 export const responseSchema = z.object({
-  data: z.array(schema)
+  list: z.array(schema)
 })
 
 export type ConcurrentViewerTrendSchema = z.infer<typeof schema>
