@@ -873,7 +873,7 @@
       }
     },
     "streamVolumeTrend": {
-      "title": "Live Stream Count & Total Duration",
+      "title": "Live Stream Count Trend",
       "description": "Daily stream count (bar) and total duration (line)",
       "streamCount": "Stream Count",
       "totalDurationHours": "Total Duration (h)"
