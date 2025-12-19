@@ -188,9 +188,9 @@
     --input: hsl(41 var(--s-border) 15.1%);
     --ring: hsl(41 88.7% 45.3%);
 
-    --chart-1: hsl(220 70% 50%);
+    --chart-1: hsl(220 70% 60%);
     --chart-2: hsl(160 60% 45%);
-    --chart-3: hsl(30 80% 55%);
+    --chart-3: hsl(30 80% 43%);
     --chart-4: hsl(280 65% 60%);
     --chart-5: hsl(7, 60%, 46%);
 
