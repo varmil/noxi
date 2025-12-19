@@ -65,7 +65,7 @@
     "next-intl": "^4.6.0",
     "next-themes": "^0.4.6",
     "nextjs-toploader": "^3.8.16",
-    "openai": "^5.5.0",
+    "openai": "^6.15.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-easy-crop": "^5.4.2",
@@ -110,10 +110,5 @@
     "tailwindcss": "^4.1.18",
     "typescript": "5.8.3",
     "vitest": "^4.0.16"
-  },
-  "overrides": {
-    "eslint": "$eslint",
-    "react-is": "^19.1.0",
-    "@types/react": "19.1.2"
   }
 }
