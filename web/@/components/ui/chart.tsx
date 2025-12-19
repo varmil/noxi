@@ -10,7 +10,6 @@ import type {
 } from 'recharts/types/component/DefaultTooltipContent'
 import type { TooltipContentProps } from 'recharts/types/component/Tooltip'
 
-
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const
 
@@ -78,8 +77,9 @@ function ChartContainer({
         <ChartStyle id={chartId} config={config} />
         <RechartsPrimitive.ResponsiveContainer
           className={heightWidthClasses}
-          width="100%"
-          height="100%"
+          // workaround for The width(-1) and height(-1) of chart should be greater than 0
+          // ref: https://github.com/recharts/recharts/issues/2736
+          initialDimension={{ width: 100, height: 100 }}
         >
           {children}
         </RechartsPrimitive.ResponsiveContainer>
