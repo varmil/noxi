@@ -891,6 +891,11 @@
       "description": "日別の配信件数（棒）と総配信時間（線）",
       "streamCount": "配信件数",
       "totalDurationHours": "総配信時間 (h)"
+    },
+    "concurrentViewerTrend": {
+      "title": "同時接続数トレンド",
+      "description": "日別の同時接続数（中央値）",
+      "medianViewers": "同時接続数（中央値）"
     }
   },
   "Pages": {

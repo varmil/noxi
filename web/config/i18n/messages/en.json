@@ -877,6 +877,11 @@
       "description": "Daily stream count (bar) and total duration (line)",
       "streamCount": "Stream Count",
       "totalDurationHours": "Total Duration (h)"
+    },
+    "concurrentViewerTrend": {
+      "title": "Concurrent Viewers Trend",
+      "description": "Daily concurrent viewers (median)",
+      "medianViewers": "Concurrent Viewers (Median)"
     }
   },
 
