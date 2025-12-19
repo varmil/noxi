@@ -26,7 +26,6 @@ import {
 } from 'components/styles/card/ChartCard'
 import ChannelConcurrentViewersCards from 'features/channel/components/concurrent-viewers/card/ChannelConcurrentViewersCards'
 import ThumbnailTooltip from '../tooltip/ThumbnailTooltip'
-import type { CategoricalChartFunc } from 'recharts/types/chart/types'
 
 type Props = {
   streams: StreamsSchema
@@ -66,25 +65,20 @@ export default function Chart({
     })
   ]
 
-  const handleClick: CategoricalChartFunc = useCallback(
-    (entry, e) => {
+  const handleBarClick = useCallback(
+     
+    (barData: any) => {
       // if it's a touch device, do nothing
       if (window.matchMedia('(pointer: coarse)').matches) {
         return
       }
-      const index = entry.activeTooltipIndex
-      if (index === undefined || typeof index !== 'number') {
-        return
-      }
-      const videoId = data[index]?.videoId
+      const videoId = barData?.videoId
       if (!videoId) {
         return
       }
-      e.preventDefault()
-      e.stopPropagation()
       window.open(`/${locale}/youtube/live/${videoId}`, '_blank')
     },
-    [locale, data]
+    [locale]
   )
 
   return (
@@ -97,12 +91,7 @@ export default function Chart({
         <ChannelConcurrentViewersCards streams={streams} />
 
         <ChartContainer config={chartConfig}>
-          <BarChart
-            data={data}
-            margin={{ top: 10 }}
-            onClick={handleClick}
-            style={{ cursor: 'pointer' }}
-          >
+          <BarChart data={data} margin={{ top: 10 }}>
             <CartesianGrid strokeDasharray={'3 3'} />
             <XAxis
               dataKey="date"
@@ -135,6 +124,8 @@ export default function Chart({
               dataKey="peakConcurrentViewers"
               fill="var(--color-desktop)"
               radius={2}
+              onClick={handleBarClick}
+              style={{ cursor: 'pointer' }}
             />
 
             <ReferenceLine
