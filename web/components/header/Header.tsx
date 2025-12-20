@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { useTranslations } from 'next-intl'
 import HeaderAuth from 'components/header/HeaderAuth'
 import HeaderAuthSkeleton from 'components/header/HeaderAuthSkeleton'
 import HeaderNavigationMenuSkeleton from 'components/header/sm/HeaderNavigationMenuSkeleton'
@@ -10,8 +10,8 @@ import VChartsText from 'components/vcharts/svg/text'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
 
-export default async function Header({ className }: { className?: string }) {
-  const global = await getTranslations('Global')
+export default function Header({ className }: { className?: string }) {
+  const global = useTranslations('Global')
 
   const bgFilter = 'backdrop-blur-sm supports-backdrop-filter:bg-background/70'
   const sm = `${PageSMPX}`

@@ -6,6 +6,17 @@
       "updatedAt": "Last updated: {updatedAt}"
     },
 
+    "weekday": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun",
+      "suffix": ""
+    },
+
     "gender": {
       "all": "All",
       "male": "Male",
@@ -887,6 +898,15 @@
       "medianViewers": "Concurrent Viewers (Median)",
       "table": {
         "date": "Date"
+      }
+    },
+    "dayOfWeekDistribution": {
+      "title": "Distribution by Day of Week",
+      "description": "Stream count (bars) and median concurrent viewers (line) by day of week",
+      "streamCount": "Stream Count",
+      "medianViewers": "Concurrent Viewers (Median)",
+      "table": {
+        "dayOfWeek": "Day of Week"
       }
     }
   },

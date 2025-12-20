@@ -4,6 +4,16 @@
     "datetime": {
       "updatedAt": "最終更新: {updatedAt}"
     },
+    "weekday": {
+      "mon": "月",
+      "tue": "火",
+      "wed": "水",
+      "thu": "木",
+      "fri": "金",
+      "sat": "土",
+      "sun": "日",
+      "suffix": "曜日"
+    },
     "gender": {
       "all": "すべて",
       "male": "男性",
@@ -901,6 +911,15 @@
       "medianViewers": "同時接続数（中央値）",
       "table": {
         "date": "日付"
+      }
+    },
+    "dayOfWeekDistribution": {
+      "title": "曜日別のトレンド",
+      "description": "曜日別の配信件数（棒）と同時接続数中央値（線）",
+      "streamCount": "配信件数",
+      "medianViewers": "同時接続数（中央値）",
+      "table": {
+        "dayOfWeek": "曜日"
       }
     }
   },
