@@ -876,12 +876,18 @@
       "title": "Live Stream Count Trend",
       "description": "Daily stream count (bar) and total duration (line)",
       "streamCount": "Stream Count",
-      "totalDurationHours": "Total Duration (h)"
+      "totalDurationHours": "Total Duration (h)",
+      "table": {
+        "date": "Date"
+      }
     },
     "concurrentViewerTrend": {
       "title": "Concurrent Viewers Trend",
       "description": "Daily concurrent viewers (median)",
-      "medianViewers": "Concurrent Viewers (Median)"
+      "medianViewers": "Concurrent Viewers (Median)",
+      "table": {
+        "date": "Date"
+      }
     }
   },
 

@@ -103,9 +103,28 @@ export function ConcurrentViewerTrendChart({ data }: Props) {
               stroke="var(--color-medianViewers)"
               strokeWidth={1.5}
               dot={false}
+              isAnimationActive={false}
             />
           </LineChart>
         </ChartContainer>
+        {/* SEO・アクセシビリティ用: スクリーンリーダーとGooglebot向けのデータテーブル */}
+        <table className="sr-only">
+          <caption>{t('title')}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t('table.date')}</th>
+              <th scope="col">{t('medianViewers')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(row => (
+              <tr key={row.date}>
+                <td>{row.date}</td>
+                <td>{format.number(row.medianViewers)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </ChartCardContent>
     </ChartCard>
   )

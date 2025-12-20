@@ -119,6 +119,7 @@ export function StreamVolumeTrendChart({ data }: Props) {
               fill="var(--color-streamCount)"
               // fillOpacity={0.7}
               radius={[2, 2, 0, 0]}
+              isAnimationActive={false}
             />
             <Line
               type="linear"
@@ -127,9 +128,30 @@ export function StreamVolumeTrendChart({ data }: Props) {
               stroke="var(--color-totalDurationHours)"
               strokeWidth={1.5}
               dot={false}
+              isAnimationActive={false}
             />
           </ComposedChart>
         </ChartContainer>
+        {/* SEO・アクセシビリティ用: スクリーンリーダーとGooglebot向けのデータテーブル */}
+        <table className="sr-only">
+          <caption>{t('title')}</caption>
+          <thead>
+            <tr>
+              <th scope="col">{t('table.date')}</th>
+              <th scope="col">{t('streamCount')}</th>
+              <th scope="col">{t('totalDurationHours')}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(row => (
+              <tr key={row.date}>
+                <td>{row.date}</td>
+                <td>{row.streamCount}</td>
+                <td>{row.totalDurationHours}h</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </ChartCardContent>
     </ChartCard>
   )
