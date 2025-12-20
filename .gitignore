@@ -71,3 +71,6 @@ firebase-export-*
 
 # https keys
 *.pem
+
+# tmp files
+.tmp

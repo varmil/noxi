@@ -914,7 +914,7 @@
       }
     },
     "dayOfWeekDistribution": {
-      "title": "曜日別の配信件数と同時接続数",
+      "title": "曜日別のトレンド",
       "description": "曜日別の配信件数（棒）と同時接続数中央値（線）",
       "streamCount": "配信件数",
       "medianViewers": "同時接続数（中央値）",

@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import Header from 'components/header/Header'
 
 export default function Error({
   error,
@@ -26,7 +25,6 @@ export default function Error({
 
   return (
     <>
-      <Header />
       <div className="min-h-[85svh] flex items-center justify-center bg-background p-4">
         <Card className="w-full max-w-md">
           <CardHeader>
