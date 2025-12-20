@@ -8,12 +8,14 @@ import {
   ConcurrentViewerTrendSkeleton
 } from 'features/concurrent-viewer-trend'
 import {
+  DayOfWeekDistributionContainer,
+  DayOfWeekDistributionSkeleton
+} from 'features/day-of-week-distribution'
+import {
   StreamVolumeTrendContainer,
   StreamVolumeTrendSkeleton
 } from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
-const WEEKNUM_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_guu27y80yd'
 const GOLDENTIME_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_orwwr0z0yd'
 const CHANNEL_RANKING_URL =
@@ -77,16 +79,21 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
 
         {/* 以下は遅延読み込み */}
         <FlexSection className="items-start gap-6">
-          <LookerReport
-            reportUrl={WEEKNUM_URL}
-            className="h-[410px]"
-            lazy={true}
-          />
-          <LookerReport
-            reportUrl={GOLDENTIME_URL}
-            className="h-[568px]"
-            lazy={true}
-          />
+          <div className="flex-1 w-full">
+            <Suspense
+              key={`dow-${days}-${group}`}
+              fallback={<DayOfWeekDistributionSkeleton />}
+            >
+              <DayOfWeekDistributionContainer days={days} group={group} />
+            </Suspense>
+          </div>
+          <div className="flex-1 w-full">
+            <LookerReport
+              reportUrl={GOLDENTIME_URL}
+              className="h-[568px]"
+              lazy={true}
+            />
+          </div>
         </FlexSection>
 
         <div>
