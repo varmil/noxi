@@ -1,9 +1,9 @@
-import Linkify from 'linkify-react'
 import { CalendarDays } from 'lucide-react'
 import { getFormatter } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { CardContent } from '@/components/ui/card'
 import { UserProfileSchema } from 'apis/user-profiles/userProfileSchema'
+import { LinkifyText } from './LinkifyText'
 
 interface ProfileHeaderProps {
   profile: UserProfileSchema
@@ -39,16 +39,7 @@ export async function ProfileHeader({ profile }: ProfileHeaderProps) {
               自己紹介
             </h2>
             <p className="max-w-md text-sm whitespace-pre-line">
-              <Linkify
-                options={{
-                  target: '_blank',
-                  rel: 'noopener noreferrer',
-                  defaultProtocol: 'https',
-                  className: 'underline text-blue-700 dark:text-blue-400'
-                }}
-              >
-                {profile.description}
-              </Linkify>
+              <LinkifyText text={profile.description} />
             </p>
           </div>
 
