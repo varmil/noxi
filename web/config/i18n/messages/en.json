@@ -357,7 +357,8 @@
       "magicLink": "Continue with Email",
       "terms": "By continuing, you agree to VCharts's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>.",
       "buttonText": "Sign-up / Sign-in",
-      "linkText": "Sign-up / Sign-in here"
+      "linkText": "Sign-up / Sign-in here",
+      "noGoogleAccount": "Don't have a Google account?"
     },
     "bottomNavigation": {
       "home": "Home",
