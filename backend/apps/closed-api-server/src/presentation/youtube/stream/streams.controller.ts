@@ -1,3 +1,4 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -38,6 +39,8 @@ export class StreamsController {
   }
 
   @Get('/count')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(3600 * 1000)
   async getStreamsCount(@Query() dto: GetStreamsDto) {
     return await this.streamsService.count({
       where: {
