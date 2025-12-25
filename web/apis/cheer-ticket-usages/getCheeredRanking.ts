@@ -1,6 +1,7 @@
 import { AFTER_CONSUME_CHEER_TICKETS } from 'apis/tags/revalidate-tags'
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
+import { roundDateToDay } from 'utils/date'
 import {
   CheeredUsagesSchema,
   cheeredUsageListSchema
@@ -39,10 +40,18 @@ const createSearchParams = ({
   return searchParams
 }
 
-export async function getCheeredRanking(
-  params: Params
-): Promise<CheeredUsagesSchema> {
-  const searchParams = createSearchParams(params)
+export async function getCheeredRanking({
+  usedAt,
+  ...params
+}: Params): Promise<CheeredUsagesSchema> {
+  // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
+  const searchParams = createSearchParams({
+    ...params,
+    usedAt: usedAt && {
+      gte: roundDateToDay(usedAt.gte),
+      lte: roundDateToDay(usedAt.lte)
+    }
+  })
   const res = await fetchAPI(
     `/api/cheer-ticket-usages/rankings/cheered?${searchParams.toString()}`,
     { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
@@ -54,10 +63,18 @@ export async function getCheeredRanking(
   return data.list
 }
 
-export async function getCheeredRankingCount(
-  params: Omit<Params, 'limit' | 'offset'>
-): Promise<number> {
-  const searchParams = createSearchParams(params)
+export async function getCheeredRankingCount({
+  usedAt,
+  ...params
+}: Omit<Params, 'limit' | 'offset'>): Promise<number> {
+  // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
+  const searchParams = createSearchParams({
+    ...params,
+    usedAt: usedAt && {
+      gte: roundDateToDay(usedAt.gte),
+      lte: roundDateToDay(usedAt.lte)
+    }
+  })
   const res = await fetchAPI(
     `/api/cheer-ticket-usages/rankings/cheered/count?${searchParams.toString()}`,
     { next: { revalidate: CACHE_1D, tags: [AFTER_CONSUME_CHEER_TICKETS] } }
