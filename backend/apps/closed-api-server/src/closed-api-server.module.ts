@@ -1,9 +1,6 @@
-import KeyvRedis from '@keyv/redis'
-import { CacheModule } from '@nestjs/cache-manager'
 import { ClassSerializerInterceptor, Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ConfigModule } from '@nestjs/config'
 import { APP_INTERCEPTOR } from '@nestjs/core'
-import Keyv from 'keyv'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
 import { CheerTicketUsagesPresentationModule } from '@presentation/cheer-ticket-usages/cheer-ticket-usages.presentation.module'
 import { CheerTicketsPresentationModule } from '@presentation/cheer-tickets/cheer-tickets.presentation.module'
@@ -25,63 +22,13 @@ import { WebhooksStripePresentationModule } from '@presentation/webhooks/stripe/
 import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
-
-// BigInt対応のカスタムシリアライザ
-interface DeserializedData<Value> {
-  value?: Value
-  expires?: number | undefined
-}
-
-const serialize = <Value>(data: DeserializedData<Value>): string => {
-  return JSON.stringify(data, (_key, value: unknown) =>
-    typeof value === 'bigint' ? { __bigint__: value.toString() } : value
-  )
-}
-
-const deserialize = <Value>(
-  data: string
-): DeserializedData<Value> | undefined => {
-  return JSON.parse(data, (_key, value: unknown) => {
-    if (
-      value &&
-      typeof value === 'object' &&
-      '__bigint__' in value &&
-      typeof (value as { __bigint__: unknown }).__bigint__ === 'string'
-    ) {
-      return BigInt((value as { __bigint__: string }).__bigint__)
-    }
-    return value
-  }) as DeserializedData<Value>
-}
+import { AppCacheModule } from './cache'
 
 @Module({
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
-    CacheModule.registerAsync({
-      isGlobal: true,
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const redisUrl = configService.get<string>('REDIS_URL')
-        // 本番環境: Redis を使用
-        if (redisUrl) {
-          return {
-            stores: [
-              new Keyv({
-                store: new KeyvRedis(redisUrl),
-                serialize,
-                deserialize
-              })
-            ]
-          }
-        }
-        // ローカル: インメモリキャッシュ（デフォルト）
-        return {
-          stores: [new Keyv({ serialize, deserialize })]
-        }
-      }
-    }),
+    AppCacheModule,
     LibAppModule,
     ChannelRegistrationsPresentationModule,
     CheerTicketUsagesPresentationModule,
