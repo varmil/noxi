@@ -1,6 +1,8 @@
+import KeyvRedis from '@keyv/redis'
 import { CacheModule } from '@nestjs/cache-manager'
 import { Module } from '@nestjs/common'
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import Keyv from 'keyv'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
 import { CheerTicketUsagesPresentationModule } from '@presentation/cheer-ticket-usages/cheer-ticket-usages.presentation.module'
 import { CheerTicketsPresentationModule } from '@presentation/cheer-tickets/cheer-tickets.presentation.module'
@@ -27,7 +29,23 @@ import { LibAppModule } from '@app/lib/lib.app.module'
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
-    CacheModule.register({ isGlobal: true }),
+    CacheModule.registerAsync({
+      isGlobal: true,
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => {
+        const redisUrl = configService.get<string>('REDIS_URL')
+        if (redisUrl) {
+          // 本番環境: Redis を使用
+          return {
+            stores: [new Keyv({ store: new KeyvRedis(redisUrl) })]
+          }
+        }
+        // ローカル: インメモリキャッシュ（デフォルト）
+        return {
+          stores: [new Keyv()]
+        }
+      }
+    }),
     LibAppModule,
     ChannelRegistrationsPresentationModule,
     CheerTicketUsagesPresentationModule,
