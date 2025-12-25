@@ -1,3 +1,4 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   ClassSerializerInterceptor,
   Controller,
@@ -40,6 +41,8 @@ export class SupersSummariesController {
   }
 
   @Get('/count')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(12 * 3600 * 1000)
   async getSupersSummariesCount(@Query() dto: GetSupersSummaries) {
     return await this.supersSummariesScenario.countSupersSummaries({
       where: {
