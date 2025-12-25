@@ -1,5 +1,11 @@
 import { Suspense } from 'react'
-import { Ellipsis, MailIcon, UserRoundPlus, UsersRound } from 'lucide-react'
+import {
+  Ellipsis,
+  FileChartLine,
+  MailIcon,
+  UserRoundPlus,
+  UsersRound
+} from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
@@ -155,6 +161,24 @@ export default async function Aside({ className }: { className?: string }) {
                   </TooltipTrigger>
                   <TooltipContent side="right">
                     {comp('aside.xAccount')}
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link
+                      href="/data-methodology-and-disclaimer"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+                      prefetch={false}
+                    >
+                      <FileChartLine className="size-5.5" />
+                      <span className="sr-only">
+                        Data Methodology & Disclaimer
+                      </span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    Data Methodology & Disclaimer
                   </TooltipContent>
                 </Tooltip>
 

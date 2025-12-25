@@ -925,6 +925,10 @@
     }
   },
   "Pages": {
+    "dataMethodologyAndDisclaimer": {
+      "title": "データ算出方法と免責事項",
+      "description": "VChartsが提供するデータの算出方法と注意事項について"
+    },
     "groupsAdd": {
       "title": "Group登録申請",
       "description": "新しいVTuberグループを登録するための申請フォーム",

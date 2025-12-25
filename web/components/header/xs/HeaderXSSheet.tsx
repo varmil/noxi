@@ -1,5 +1,6 @@
 import {
   Ellipsis,
+  FileChartLine,
   LogOut,
   MailIcon,
   PanelLeftIcon,
@@ -121,6 +122,12 @@ export default async function HeaderXSSheet() {
               </div>
               <span className="flex-1">{comp('aside.xAccount')}</span>
             </a>
+
+            <HeaderLink
+              name="Data Methodology"
+              icon={<FileChartLine className="size-6.5" />}
+              href="/data-methodology-and-disclaimer"
+            />
 
             <HeaderLink
               name="Terms of Use and PP"
