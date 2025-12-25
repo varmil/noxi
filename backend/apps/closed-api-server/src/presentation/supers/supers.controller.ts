@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
@@ -12,7 +12,6 @@ import { SuperChatsService } from '@app/super-chats/super-chats.service'
 import { SuperStickersService } from '@app/super-stickers/super-stickers.service'
 
 @Controller('supers')
-@UseInterceptors(ClassSerializerInterceptor)
 export class SupersController {
   constructor(
     private readonly superChatsService: SuperChatsService,

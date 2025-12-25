@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Param,
@@ -16,7 +16,6 @@ import { SupersSummary } from '@domain/supers-summary'
 import { ChannelId } from '@domain/youtube'
 
 @Controller('supers-summaries')
-@UseInterceptors(ClassSerializerInterceptor)
 export class SupersSummariesController {
   constructor(
     private readonly supersSummariesScenario: SupersSummariesScenario,

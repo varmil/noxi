@@ -1,6 +1,6 @@
-import { CacheModule } from '@nestjs/cache-manager'
-import { Module } from '@nestjs/common'
+import { ClassSerializerInterceptor, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
+import { APP_INTERCEPTOR } from '@nestjs/core'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
 import { CheerTicketUsagesPresentationModule } from '@presentation/cheer-ticket-usages/cheer-ticket-usages.presentation.module'
 import { CheerTicketsPresentationModule } from '@presentation/cheer-tickets/cheer-tickets.presentation.module'
@@ -22,12 +22,13 @@ import { WebhooksStripePresentationModule } from '@presentation/webhooks/stripe/
 import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
+import { AppCacheModule } from './cache'
 
 @Module({
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
-    CacheModule.register({ isGlobal: true }),
+    AppCacheModule,
     LibAppModule,
     ChannelRegistrationsPresentationModule,
     CheerTicketUsagesPresentationModule,
@@ -50,6 +51,11 @@ import { LibAppModule } from '@app/lib/lib.app.module'
     XPresentationModule
   ],
   controllers: [HealthController],
-  providers: []
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor
+    }
+  ]
 })
 export class ClosedApiServerModule {}

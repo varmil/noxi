@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { MembershipBundlesService } from '@app/membership-bundles/membership-bundles.service'
 import { MembershipPricesService } from '@app/membership-prices/membership-prices.service'
 import { MembershipsService } from '@app/memberships/memberships.service'
@@ -10,21 +9,21 @@ import { SaveMembershipBundleService } from './save-membership-bundle.service'
 
 describe('SaveMembershipBundleService', () => {
   let service: SaveMembershipBundleService
-  let mockMembershipPricesService: { findById: ReturnType<typeof vi.fn> }
-  let mockMembershipsService: { findAll: ReturnType<typeof vi.fn> }
+  let mockMembershipPricesService: { findById: jest.Mock }
+  let mockMembershipsService: { findAll: jest.Mock }
 
   beforeEach(async () => {
-    vi.clearAllMocks()
+    jest.clearAllMocks()
 
-    mockMembershipPricesService = { findById: vi.fn() }
-    mockMembershipsService = { findAll: vi.fn() }
+    mockMembershipPricesService = { findById: jest.fn() }
+    mockMembershipsService = { findAll: jest.fn() }
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SaveMembershipBundleService,
         {
           provide: MembershipBundlesService,
-          useValue: { save: vi.fn() }
+          useValue: { save: jest.fn() }
         },
         {
           provide: MembershipPricesService,
@@ -49,7 +48,7 @@ describe('SaveMembershipBundleService', () => {
     it('should calculate total with specific channel price', async () => {
       // Arrange
       const mockMemberships = new Memberships([])
-      mockMemberships.countAll = vi.fn().mockReturnValue({ get: () => 5 })
+      mockMemberships.countAll = jest.fn().mockReturnValue({ get: () => 5 })
       const mockChannelPrice = new MembershipPrice({
         channelId: mockChannelId,
         priceMicros: new PriceMicros(1000 * 1_000_000)
@@ -73,7 +72,7 @@ describe('SaveMembershipBundleService', () => {
     it('should use default price when no channel price exists', async () => {
       // Arrange
       const mockMemberships = new Memberships([])
-      mockMemberships.countAll = vi.fn().mockReturnValue({ get: () => 3 })
+      mockMemberships.countAll = jest.fn().mockReturnValue({ get: () => 3 })
 
       mockMembershipsService.findAll.mockResolvedValue(mockMemberships)
       mockMembershipPricesService.findById.mockResolvedValue(null)
@@ -93,7 +92,7 @@ describe('SaveMembershipBundleService', () => {
     it('should handle zero membership count', async () => {
       // Arrange
       const mockMemberships = new Memberships([])
-      mockMemberships.countAll = vi.fn().mockReturnValue({ get: () => 0 })
+      mockMemberships.countAll = jest.fn().mockReturnValue({ get: () => 0 })
 
       mockMembershipsService.findAll.mockResolvedValue(mockMemberships)
       mockMembershipPricesService.findById.mockResolvedValue(null)

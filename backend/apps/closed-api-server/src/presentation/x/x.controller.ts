@@ -1,17 +1,16 @@
 import {
   Body,
-  ClassSerializerInterceptor,
+  
   Controller,
   Post,
   UseGuards,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { PostChannelsRankingInLast24Hours } from '@presentation/x/dto/PostChannelsRankingInLast24Hours.dto'
 import { ApiKeyGuard } from '@presentation/x/guard/api-key.guard'
 import { XScenario } from '@presentation/x/x.scenario'
 
 @Controller('x')
-@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(ApiKeyGuard)
 export class XController {
   constructor(private readonly xScenario: XScenario) {}

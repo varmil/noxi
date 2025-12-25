@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
- 
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/unbound-method */
 import { Test, TestingModule } from '@nestjs/testing'
 import * as fc from 'fast-check'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { GroupRegistrationsService } from '@app/group-registrations/group-registrations.service'
 import { GroupId, GroupName, GroupIconSrc } from '@domain/group'
 import {
@@ -24,13 +23,13 @@ describe('GroupRegistrationsController', () => {
   let service: GroupRegistrationsService
 
   const mockGroupRegistrationsService = {
-    findAll: vi.fn(),
-    create: vi.fn(),
-    updateStatus: vi.fn()
+    findAll: jest.fn(),
+    create: jest.fn(),
+    updateStatus: jest.fn()
   }
 
   beforeEach(async () => {
-    vi.clearAllMocks()
+    jest.clearAllMocks()
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [GroupRegistrationsController],

@@ -1,15 +1,14 @@
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { StreamStatsService } from '@app/stream-stats/stream-stats.service'
 import { GetViewerCounts } from './dto/GetViewerCounts.dto'
 
 @Controller('youtube/stream-stats')
-@UseInterceptors(ClassSerializerInterceptor)
 export class StreamStatsController {
   constructor(private readonly streamStatsService: StreamStatsService) {}
 

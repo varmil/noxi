@@ -1,6 +1,6 @@
 import {
   Body,
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Param,
@@ -8,7 +8,7 @@ import {
   Query,
   Req,
   UseGuards,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
 import { GetAllProfiles } from '@presentation/user-profiles/dto/GetAllProfiles.dto'
@@ -18,7 +18,6 @@ import { User, UserId } from '@domain/user'
 import { Username } from '@domain/user-profile'
 
 @Controller('user-profiles')
-@UseInterceptors(ClassSerializerInterceptor)
 export class UserProfilesController {
   constructor(private readonly userProfilesService: UserProfilesService) {}
 

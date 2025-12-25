@@ -1,17 +1,16 @@
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Param,
   Query,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { GetMembershipBundles } from '@presentation/membership-bundles/dto/GetMembershipBundles.dto'
 import { MembershipBundlesService } from '@app/membership-bundles/membership-bundles.service'
 import { VideoId } from '@domain/youtube'
 
 @Controller('membership-bundles')
-@UseInterceptors(ClassSerializerInterceptor)
 export class MembershipBundlesController {
   constructor(
     private readonly membershipBundlesService: MembershipBundlesService

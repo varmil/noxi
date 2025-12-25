@@ -1,11 +1,11 @@
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
   Req,
   UseGuards,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { GetAllCheerTickets } from '@presentation/cheer-tickets/dto/GetAllCheerTickets.dto'
 import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
@@ -13,7 +13,6 @@ import { CheerTicketsService } from '@app/cheer-tickets/cheer-tickets.service'
 import { User } from '@domain/user'
 
 @Controller('cheer-tickets')
-@UseInterceptors(ClassSerializerInterceptor)
 export class CheerTicketsController {
   constructor(private readonly cheerTicketsService: CheerTicketsService) {}
 

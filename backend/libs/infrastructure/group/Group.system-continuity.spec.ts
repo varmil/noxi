@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing'
 import * as fc from 'fast-check'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Group } from '@domain/group/Group.entity'
 import { GroupId } from '@domain/group/GroupId.vo'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -18,11 +17,11 @@ import { GroupRepositoryImpl } from './Group.repository-impl'
 describe('GroupRepository - System Continuity Property Test', () => {
   let repository: GroupRepositoryImpl
   let mockPrismaGroup: {
-    findMany: ReturnType<typeof vi.fn>
-    findUnique: ReturnType<typeof vi.fn>
-    create: ReturnType<typeof vi.fn>
-    update: ReturnType<typeof vi.fn>
-    delete: ReturnType<typeof vi.fn>
+    findMany: jest.Mock
+    findUnique: jest.Mock
+    create: jest.Mock
+    update: jest.Mock
+    delete: jest.Mock
   }
 
   // 既存のGroup文字列（システム継続性テスト用）
@@ -56,14 +55,14 @@ describe('GroupRepository - System Continuity Property Test', () => {
   ]
 
   beforeEach(async () => {
-    vi.clearAllMocks()
+    jest.clearAllMocks()
 
     mockPrismaGroup = {
-      findMany: vi.fn(),
-      findUnique: vi.fn(),
-      create: vi.fn(),
-      update: vi.fn(),
-      delete: vi.fn()
+      findMany: jest.fn(),
+      findUnique: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+      delete: jest.fn()
     }
 
     const module: TestingModule = await Test.createTestingModule({

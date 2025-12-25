@@ -11,7 +11,7 @@
       "@infra/*": ["libs/infrastructure/*"],
       "@prisma/generated/client": ["prisma/generated/client/client"]
     },
-    "types": ["vitest/globals"],
+    "types": ["jest", "node"],
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,

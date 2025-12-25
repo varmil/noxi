@@ -1,6 +1,6 @@
 import {
   Body,
-  ClassSerializerInterceptor,
+  
   ConflictException,
   Controller,
   Get,
@@ -8,7 +8,7 @@ import {
   Post,
   Put,
   Query,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { GetChannelRegistrations } from '@presentation/channel-registrations/dto/GetChannelRegistrations.dto'
 import { PostChannelRegistration } from '@presentation/channel-registrations/dto/PostChannelRegistration.dto'
@@ -18,7 +18,6 @@ import { ChannelRegistration } from '@domain/channel-registration'
 import { ChannelId } from '@domain/youtube'
 
 @Controller('channel-registrations')
-@UseInterceptors(ClassSerializerInterceptor)
 export class ChannelRegistrationsController {
   constructor(
     private readonly channelRegistrationsService: ChannelRegistrationsService

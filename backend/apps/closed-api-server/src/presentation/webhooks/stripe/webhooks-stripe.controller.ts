@@ -83,6 +83,6 @@ export class WebhooksStripeController {
         this.logger.log(`Unhandled event type ${event.type}`)
     }
 
-    return res.json({ received: true })
+    res.json({ received: true })
   }
 }

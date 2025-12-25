@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { vi } from 'vitest'
 import { StreamsService } from '@app/streams/streams.service'
 import { Streams } from '@domain/stream'
 import { MainModule } from '../main.module'
@@ -18,7 +17,7 @@ describe('Update Streams > MainScenario', () => {
 
   describe('execute()', () => {
     it('should return void 0', async () => {
-      vi.spyOn(StreamsService.prototype, 'findAll').mockResolvedValue(
+      jest.spyOn(StreamsService.prototype, 'findAll').mockResolvedValue(
         new Streams([])
       )
 

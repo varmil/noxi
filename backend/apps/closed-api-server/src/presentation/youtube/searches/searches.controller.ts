@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
@@ -26,7 +26,6 @@ export class SearchesController {
   /**
    * 特定のクエリで動画を検索する
    */
-  @UseInterceptors(ClassSerializerInterceptor)
   @Get('/videos')
   async searchVideos(
     @Query() dto: SearchVideosDto

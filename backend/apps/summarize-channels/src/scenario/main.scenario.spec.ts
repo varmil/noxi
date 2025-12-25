@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { vi } from 'vitest'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
 import { MainModule } from '../main.module'
@@ -20,11 +19,11 @@ describe('MainScenario', () => {
 
   describe('executeSupersSummaries()', () => {
     it('should return void 0', async () => {
-      vi.spyOn(
+      jest.spyOn(
         CreateSupersSummariesService.prototype,
         'execute'
       ).mockResolvedValue(void 0)
-      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+      jest.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
         new Channels([])
       )
 
@@ -35,11 +34,11 @@ describe('MainScenario', () => {
 
   describe('executeRankings()', () => {
     it('should return void 0', async () => {
-      vi.spyOn(
+      jest.spyOn(
         CreateSupersSummariesService.prototype,
         'execute'
       ).mockResolvedValue(void 0)
-      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+      jest.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
         new Channels([])
       )
 
@@ -50,11 +49,11 @@ describe('MainScenario', () => {
 
   describe('executeMembershipSummaries()', () => {
     it('should return void 0', async () => {
-      vi.spyOn(
+      jest.spyOn(
         CreateMembershipSummariesService.prototype,
         'execute'
       ).mockResolvedValue(void 0)
-      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+      jest.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
         new Channels([])
       )
 

@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   NotFoundException,
@@ -13,7 +13,6 @@ import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelId } from '@domain/youtube'
 
 @Controller('youtube/channels')
-@UseInterceptors(ClassSerializerInterceptor)
 export class ChannelsController {
   constructor(private readonly channelsService: ChannelsService) {}
 
