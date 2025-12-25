@@ -913,6 +913,10 @@
   },
 
   "Pages": {
+    "dataMethodologyAndDisclaimer": {
+      "title": "Data Methodology & Disclaimer",
+      "description": "How VCharts calculates data and important notices"
+    },
     "groupsAdd": {
       "title": "Group Registration Application",
       "description": "Application form for registering a new VTuber group",
