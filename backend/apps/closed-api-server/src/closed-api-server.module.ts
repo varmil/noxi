@@ -28,14 +28,17 @@ import { LibAppModule } from '@app/lib/lib.app.module'
 @Module({
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
-    ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      ignoreEnvFile: !!process.env.ENV_NAME
+    }),
     CacheModule.registerAsync({
       isGlobal: true,
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const redisUrl = configService.get<string>('REDIS_URL')
+        // 本番環境: Redis を使用
         if (redisUrl) {
-          // 本番環境: Redis を使用
           return {
             stores: [new Keyv({ store: new KeyvRedis(redisUrl) })]
           }

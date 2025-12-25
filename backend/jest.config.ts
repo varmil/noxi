@@ -30,6 +30,7 @@ const config: Config = {
     '!**/node_modules/**'
   ],
   coverageDirectory: './coverage',
+  coverageReporters: ['json-summary', 'text', 'lcov'],
   testEnvironment: 'node',
   moduleNameMapper: {
     '^@presentation(.*)$': '<rootDir>/apps/closed-api-server/src/presentation$1',
