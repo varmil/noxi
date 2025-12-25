@@ -35,12 +35,8 @@ jobs:
       - name: Install dependencies
         run: npm i
         working-directory: backend
-      - name: 'Test with Coverage'
-        run: npm test -- --coverage
-        working-directory: backend
       - name: 'Report Coverage'
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           working-directory: backend
-          skip-step: all
-          coverage-file: ./coverage/coverage-summary.json
+          test-script: npm test --
