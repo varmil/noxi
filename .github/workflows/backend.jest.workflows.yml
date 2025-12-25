@@ -38,9 +38,16 @@ jobs:
       - name: 'Test with Coverage'
         run: npm test -- --coverage
         working-directory: backend
-      - name: 'Report Coverage'
-        uses: ArtiomTr/jest-coverage-report-action@v2
+      - name: 'Upload Coverage Report'
+        uses: actions/upload-artifact@v4
         with:
-          working-directory: backend
-          skip-step: all
-          coverage-file: ./coverage/coverage-summary.json
+          name: coverage-report
+          path: backend/coverage/
+          retention-days: 7
+      - name: 'Display Coverage Summary'
+        run: |
+          echo "## Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat coverage/coverage-summary.json | jq '.total' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        working-directory: backend
