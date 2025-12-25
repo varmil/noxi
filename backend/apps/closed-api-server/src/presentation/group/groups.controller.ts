@@ -1,7 +1,6 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
+import { CacheTTL } from '@nestjs/cache-manager'
 import {
   Body,
-  
   ConflictException,
   Controller,
   Delete,
@@ -9,8 +8,7 @@ import {
   NotFoundException,
   Param,
   Post,
-  Put,
-  UseInterceptors
+  Put
 } from '@nestjs/common'
 import { CreateGroupDto } from '@presentation/group/dto/CreateGroup.dto'
 import { UpdateGroupDto } from '@presentation/group/dto/UpdateGroup.dto'
@@ -22,14 +20,12 @@ export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
   @Get()
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(86400 * 1000)
   async findAll() {
     return await this.groupsService.findAll()
   }
 
   @Get(':id')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(86400 * 1000)
   async findById(@Param('id') id: string) {
     const group = await this.groupsService.findById(new GroupId(id))

@@ -1,11 +1,5 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
-import {
-  
-  Controller,
-  Get,
-  Query,
-  UseInterceptors
-} from '@nestjs/common'
+import { CacheTTL } from '@nestjs/cache-manager'
+import { Controller, Get, Query } from '@nestjs/common'
 import { SearchVideosDto } from '@presentation/youtube/searches/dto/SearchVideos.dto'
 import { SearchesScenario } from '@app/youtube/searches/searches.scenario'
 import { PaginationResponse } from '@domain/lib/PaginationResponse'
@@ -18,7 +12,6 @@ import { Videos } from '@domain/youtube'
  *      /youtube/searches/videos
  */
 @Controller('youtube/searches')
-@UseInterceptors(CacheInterceptor)
 @CacheTTL(600 * 1000)
 export class SearchesController {
   constructor(private readonly searchesScenario: SearchesScenario) {}

@@ -1,12 +1,5 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
-import {
-  
-  Controller,
-  Get,
-  Param,
-  Query,
-  UseInterceptors
-} from '@nestjs/common'
+import { CacheTTL } from '@nestjs/cache-manager'
+import { Controller, Get, Param, Query } from '@nestjs/common'
 import { GetSupersBundleRank } from '@presentation/supers-bundles/dto/GetSupersBundleRank.dto'
 import { GetSupersBundleRanks } from '@presentation/supers-bundles/dto/GetSupersBundleRanks.dto'
 import { GetSupersBundles } from '@presentation/supers-bundles/dto/GetSupersBundles.dto'
@@ -21,7 +14,6 @@ export class SupersBundlesController {
   constructor(private readonly supersBundlesService: SupersBundlesService) {}
 
   @Get()
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(3600 * 1000)
   async getSupersBundles(@Query() dto: GetSupersBundles) {
     return await this.supersBundlesService.findAll({
@@ -41,7 +33,6 @@ export class SupersBundlesController {
   }
 
   @Get('/count')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(24 * 3600 * 1000)
   async getSupersBundlesCount(@Query() dto: GetSupersBundles) {
     return await this.supersBundlesService.count({
