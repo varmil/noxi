@@ -25,6 +25,34 @@ import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
 
+// BigInt対応のカスタムシリアライザ
+interface DeserializedData<Value> {
+  value?: Value
+  expires?: number | undefined
+}
+
+const serialize = <Value>(data: DeserializedData<Value>): string => {
+  return JSON.stringify(data, (_key, value: unknown) =>
+    typeof value === 'bigint' ? { __bigint__: value.toString() } : value
+  )
+}
+
+const deserialize = <Value>(
+  data: string
+): DeserializedData<Value> | undefined => {
+  return JSON.parse(data, (_key, value: unknown) => {
+    if (
+      value &&
+      typeof value === 'object' &&
+      '__bigint__' in value &&
+      typeof (value as { __bigint__: unknown }).__bigint__ === 'string'
+    ) {
+      return BigInt((value as { __bigint__: string }).__bigint__)
+    }
+    return value
+  }) as DeserializedData<Value>
+}
+
 @Module({
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
@@ -38,12 +66,18 @@ import { LibAppModule } from '@app/lib/lib.app.module'
         // 本番環境: Redis を使用
         if (redisUrl) {
           return {
-            stores: [new Keyv({ store: new KeyvRedis(redisUrl) })]
+            stores: [
+              new Keyv({
+                store: new KeyvRedis(redisUrl),
+                serialize,
+                deserialize
+              })
+            ]
           }
         }
         // ローカル: インメモリキャッシュ（デフォルト）
         return {
-          stores: [new Keyv()]
+          stores: [new Keyv({ serialize, deserialize })]
         }
       }
     }),
