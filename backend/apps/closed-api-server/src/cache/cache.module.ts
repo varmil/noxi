@@ -11,12 +11,11 @@ import Keyv from 'keyv'
  *
  * 環境ごとにキーのnamespaceを分けることで、キーの重複を防ぐ
  *
- * デフォルトTTLは0（キャッシュ無効）。
  * キャッシュを有効にしたいエンドポイントでは @CacheTTL() を使用する。
+ * @CacheTTL() が指定されていないエンドポイントはキャッシュされない。
  *
  * 注: ClassSerializerInterceptor が CacheInterceptor より先に実行されるため、
  * キャッシュにはシリアライズ済み（primitive型）のデータが保存される。
- * BigInt等の特殊な型は既に string に変換済みなので、カスタムシリアライザは不要。
  */
 export const AppCacheModule = CacheModule.registerAsync({
   isGlobal: true,
@@ -28,13 +27,11 @@ export const AppCacheModule = CacheModule.registerAsync({
 
     if (redisUrl) {
       return {
-        ttl: 0,
         stores: [new Keyv({ store: new KeyvRedis(redisUrl), namespace })]
       }
     }
 
     return {
-      ttl: 0,
       stores: [new Keyv({ namespace })]
     }
   }
