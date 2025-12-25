@@ -88,13 +88,25 @@ export async function getSupersSummaries(
  * orderByにperiodが入っており、last24Hours or それ以外
  * でロジックが異なる。キャッシュ期間も変える
  */
-export async function getSupersSummariesCount(
-  params: Omit<Params, 'limit' | 'offset'>
-): Promise<number> {
-  const searchParams = createSearchParams(params)
-  const cacheOption = params.orderBy?.some(
-    orderBy => orderBy.field === 'last24Hours'
-  )
+export async function getSupersSummariesCount({
+  channelIds,
+  group,
+  gender,
+  amountMicros,
+  date,
+  orderBy
+}: Omit<Params, 'limit' | 'offset'>): Promise<number> {
+  // limit, offset は Count に不要なので明示的に除外
+  // orderBy はバックエンドで特殊な使い方をしているため残す
+  const searchParams = createSearchParams({
+    channelIds,
+    group,
+    gender,
+    amountMicros,
+    date,
+    orderBy
+  })
+  const cacheOption = orderBy?.some(o => o.field === 'last24Hours')
     ? { next: { revalidate: CACHE_12H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
     : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
 

@@ -113,19 +113,34 @@ export async function getStreams({
 
 export async function getStreamsCount({
   revalidate,
+  title,
+  status,
+  videoIds,
+  group,
+  gender,
+  channelId,
   scheduledBefore,
   scheduledAfter,
   endedBefore,
   endedAfter,
-  ...params
+  peakConcurrentViewers,
+  avgConcurrentViewers
 }: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
   // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
+  // limit, offset, orderBy は Count に不要なので明示的に除外
   const searchParams = createSearchParams({
-    ...params,
+    title,
+    status,
+    videoIds,
+    group,
+    gender,
+    channelId,
     scheduledBefore: roundDateToHour(scheduledBefore),
     scheduledAfter: roundDateToHour(scheduledAfter),
     endedBefore: roundDateToHour(endedBefore),
-    endedAfter: roundDateToHour(endedAfter)
+    endedAfter: roundDateToHour(endedAfter),
+    peakConcurrentViewers,
+    avgConcurrentViewers
   })
   const res = await fetchAPI(
     `/api/youtube/streams/count?${searchParams.toString()}`,
