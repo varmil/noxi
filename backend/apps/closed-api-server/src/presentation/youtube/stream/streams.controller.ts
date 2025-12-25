@@ -1,13 +1,5 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
-import {
-  
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  Query,
-  UseInterceptors
-} from '@nestjs/common'
+import { CacheTTL } from '@nestjs/cache-manager'
+import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common'
 import { GetStreamsDto } from '@presentation/youtube/stream/dto/GetStreams.dto'
 import { StreamsService } from '@app/streams/streams.service'
 import { VideoId } from '@domain/youtube'
@@ -38,7 +30,6 @@ export class StreamsController {
   }
 
   @Get('/count')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(3600 * 1000)
   async getStreamsCount(@Query() dto: GetStreamsDto) {
     return await this.streamsService.count({

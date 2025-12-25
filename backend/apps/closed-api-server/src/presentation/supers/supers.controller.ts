@@ -1,11 +1,5 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
-import {
-  
-  Controller,
-  Get,
-  Query,
-  UseInterceptors
-} from '@nestjs/common'
+import { CacheTTL } from '@nestjs/cache-manager'
+import { Controller, Get, Query } from '@nestjs/common'
 import { GetSuperChats } from '@presentation/supers/dto/GetSuperChats.dto'
 import { GetSuperStickers } from '@presentation/supers/dto/GetSuperStickers.dto'
 import { SuperChatsService } from '@app/super-chats/super-chats.service'
@@ -19,7 +13,6 @@ export class SupersController {
   ) {}
 
   @Get('chats')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(7 * 24 * 3600 * 1000)
   async GetSuperChats(@Query() dto: GetSuperChats) {
     return await this.superChatsService.findAll({
@@ -35,7 +28,6 @@ export class SupersController {
   }
 
   @Get('chats/count')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(7 * 24 * 3600 * 1000)
   async GetSuperChatsCount(@Query() dto: GetSuperChats) {
     return await this.superChatsService.count({

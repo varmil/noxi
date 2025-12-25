@@ -1,3 +1,4 @@
+import { CacheInterceptor } from '@nestjs/cache-manager'
 import { ClassSerializerInterceptor, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_INTERCEPTOR } from '@nestjs/core'
@@ -52,6 +53,14 @@ import { AppCacheModule } from './cache'
   ],
   controllers: [HealthController],
   providers: [
+    // インターセプターの登録順序が重要:
+    // Response path では逆順で実行される（後に登録したものが先に実行）
+    // ClassSerializerInterceptor → CacheInterceptor の順で実行させるため
+    // CacheInterceptor を先に登録する
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor
+    },
     {
       provide: APP_INTERCEPTOR,
       useClass: ClassSerializerInterceptor

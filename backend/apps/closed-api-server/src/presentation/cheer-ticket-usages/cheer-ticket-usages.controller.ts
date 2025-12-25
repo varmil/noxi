@@ -1,14 +1,12 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
+import { CacheTTL } from '@nestjs/cache-manager'
 import {
   Body,
-  
   Controller,
   Get,
   Post,
   Query,
   Req,
-  UseGuards,
-  UseInterceptors
+  UseGuards
 } from '@nestjs/common'
 import {
   GetCheerTicketUsages,
@@ -45,7 +43,6 @@ export class CheerTicketUsagesController {
   }
 
   @Get('/rankings/cheered')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(24 * 3600 * 1000)
   async getCheeredRanking(@Query() dto: GetCheerTicketUsages) {
     return await this.cheerTicketUsagesService.findCheeredRanking({
@@ -60,7 +57,6 @@ export class CheerTicketUsagesController {
   }
 
   @Get('/rankings/cheered/count')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(24 * 3600 * 1000)
   async getCheeredRankingCount(
     @Query() dto: GetCheerTicketUsagesWithoutLimitOffset

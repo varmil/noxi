@@ -1,13 +1,5 @@
-import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
-import {
-  
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  Query,
-  UseInterceptors
-} from '@nestjs/common'
+import { CacheTTL } from '@nestjs/cache-manager'
+import { Controller, Get, NotFoundException, Param, Query } from '@nestjs/common'
 import { GetChannelsDto } from '@presentation/youtube/channels/dto/GetChannels.dto'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { ChannelId } from '@domain/youtube'
@@ -17,7 +9,6 @@ export class ChannelsController {
   constructor(private readonly channelsService: ChannelsService) {}
 
   @Get()
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(86400 * 1000)
   async getChannels(@Query() dto: GetChannelsDto) {
     return await this.channelsService.findAll({
@@ -34,7 +25,6 @@ export class ChannelsController {
   }
 
   @Get('/count')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(86400 * 1000)
   async getChannelsCount(@Query() dto: GetChannelsDto) {
     return await this.channelsService.count({
@@ -43,7 +33,6 @@ export class ChannelsController {
   }
 
   @Get(':id')
-  @UseInterceptors(CacheInterceptor)
   @CacheTTL(86400 * 1000)
   async getChannel(@Param('id') id: string) {
     const channel = await this.channelsService.findById(new ChannelId(id))

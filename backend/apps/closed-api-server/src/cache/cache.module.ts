@@ -12,6 +12,9 @@ import { deserialize, serialize } from './bigint-serializer'
  *
  * BigInt値を含むデータも正しくシリアライズ/デシリアライズされる
  * 環境ごとにキーのprefixを分けることで、キーの重複を防ぐ
+ *
+ * デフォルトTTLは0（キャッシュ無効）。
+ * キャッシュを有効にしたいエンドポイントでは @CacheTTL() を使用する。
  */
 export const AppCacheModule = CacheModule.registerAsync({
   isGlobal: true,
@@ -23,6 +26,7 @@ export const AppCacheModule = CacheModule.registerAsync({
 
     if (redisUrl) {
       return {
+        ttl: 0,
         stores: [
           new Keyv({
             store: new KeyvRedis(redisUrl),
@@ -35,6 +39,7 @@ export const AppCacheModule = CacheModule.registerAsync({
     }
 
     return {
+      ttl: 0,
       stores: [new Keyv({ namespace, serialize, deserialize })]
     }
   }
