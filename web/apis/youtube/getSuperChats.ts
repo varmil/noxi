@@ -8,7 +8,6 @@ type Params = {
   videoId?: string
   channelId?: string
   userCommentNotNull?: boolean
-  createdBefore?: Date
   createdAfter?: Date
   orderBy: {
     field: 'commentLength' | 'amountMicros' | 'currency' | 'createdAt'
@@ -21,7 +20,6 @@ const createSearchParams = ({
   videoId,
   channelId,
   userCommentNotNull,
-  createdBefore,
   createdAfter,
   orderBy,
   limit
@@ -33,7 +31,6 @@ const createSearchParams = ({
     ...(userCommentNotNull && {
       userCommentNotNull: String(userCommentNotNull)
     }),
-    ...(createdBefore && { createdBefore: createdBefore.toISOString() }),
     ...(createdAfter && { createdAfter: createdAfter.toISOString() })
   })
 

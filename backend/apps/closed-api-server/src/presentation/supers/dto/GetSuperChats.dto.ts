@@ -28,10 +28,6 @@ export class GetSuperChats {
 
   @IsOptional()
   @IsRFC3339()
-  createdBefore?: string
-
-  @IsOptional()
-  @IsRFC3339()
   createdAfter?: string
 
   @IsOptional()
@@ -53,10 +49,6 @@ export class GetSuperChats {
     this.channelId ? new ChannelId(this.channelId) : undefined
 
   toUserComment = () => (this.userCommentNotNull ? { not: null } : undefined)
-
-  toCreatedBefore = () => {
-    return this.createdBefore ? new Date(this.createdBefore) : undefined
-  }
 
   toCreatedAfter = () => {
     return this.createdAfter ? new Date(this.createdAfter) : undefined

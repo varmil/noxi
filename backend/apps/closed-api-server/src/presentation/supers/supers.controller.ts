@@ -25,7 +25,6 @@ export class SupersController {
         videoId: dto.toVideoId(),
         channelId: dto.toChannelId(),
         userComment: dto.toUserComment(),
-        createdBefore: dto.toCreatedBefore(),
         createdAfter: dto.toCreatedAfter()
       },
       orderBy: dto.toOrderBy(),
@@ -40,7 +39,6 @@ export class SupersController {
         videoId: dto.toVideoId(),
         channelId: dto.toChannelId(),
         userComment: dto.toUserComment(),
-        createdBefore: dto.toCreatedBefore(),
         createdAfter: dto.toCreatedAfter()
       }
     })
