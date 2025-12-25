@@ -27,16 +27,7 @@ jobs:
     if: ${{ needs.paths-filter.outputs.has-changes == 'true' }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: 'npm'
-          cache-dependency-path: backend/package-lock.json
-      - name: Install dependencies
-        run: npm i
-        working-directory: backend
       - name: 'Report Coverage'
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           working-directory: backend
-          test-script: npm test --
