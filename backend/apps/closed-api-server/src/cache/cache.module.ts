@@ -11,6 +11,7 @@ import { deserialize, serialize } from './bigint-serializer'
  * - ローカル: インメモリキャッシュ（Keyv デフォルト）を使用
  *
  * BigInt値を含むデータも正しくシリアライズ/デシリアライズされる
+ * 環境ごとにキーのprefixを分けることで、キーの重複を防ぐ
  */
 export const AppCacheModule = CacheModule.registerAsync({
   isGlobal: true,
@@ -18,12 +19,14 @@ export const AppCacheModule = CacheModule.registerAsync({
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => {
     const redisUrl = configService.get<string>('REDIS_URL')
+    const namespace = configService.get<string>('ENV_NAME') || 'local'
 
     if (redisUrl) {
       return {
         stores: [
           new Keyv({
             store: new KeyvRedis(redisUrl),
+            namespace,
             serialize,
             deserialize
           })
@@ -32,7 +35,7 @@ export const AppCacheModule = CacheModule.registerAsync({
     }
 
     return {
-      stores: [new Keyv({ serialize, deserialize })]
+      stores: [new Keyv({ namespace, serialize, deserialize })]
     }
   }
 })
