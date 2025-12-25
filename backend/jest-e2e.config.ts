@@ -33,7 +33,7 @@ const config: Config = {
     '^apps(.*)$': '<rootDir>/apps$1',
     '^libs(.*)$': '<rootDir>/libs$1'
   },
-  testPathIgnorePatterns: ['/node_modules/', '/dist/']
+  testPathIgnorePatterns: ['/node_modules/', '/dist/', '/prisma/']
 }
 
 export default config

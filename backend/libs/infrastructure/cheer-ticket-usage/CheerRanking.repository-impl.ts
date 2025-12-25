@@ -121,9 +121,9 @@ export class CheerRankingRepositoryImpl implements CheerRankingRepository {
     `
 
     const result = await this.prismaInfraService.$queryRawUnsafe<
-      { count: number }[]
+      { count: bigint }[]
     >(sql, ...whereClause.values)
 
-    return result[0]?.count ?? 0
+    return Number(result[0]?.count ?? 0)
   }
 }
