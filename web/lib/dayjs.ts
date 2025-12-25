@@ -36,15 +36,3 @@ export const humanizeDuration = (ISO_8601: string | Duration) => {
     .format('ss')
   return [hours, minutes, seconds].filter(Boolean).join(':').trim()
 }
-
-export const asHours = (ISO_8601: string | Duration) => {
-  let d: Duration
-  if (typeof ISO_8601 === 'string') {
-    d = dayjs.duration(ISO_8601)
-  } else {
-    d = ISO_8601
-  }
-
-  const hours = d.asHours()
-  return hours
-}
