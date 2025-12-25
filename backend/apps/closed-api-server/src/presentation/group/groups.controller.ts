@@ -1,3 +1,4 @@
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   Body,
   ClassSerializerInterceptor,
@@ -22,11 +23,15 @@ export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(86400 * 1000)
   async findAll() {
     return await this.groupsService.findAll()
   }
 
   @Get(':id')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(86400 * 1000)
   async findById(@Param('id') id: string) {
     const group = await this.groupsService.findById(new GroupId(id))
     if (!group) {
