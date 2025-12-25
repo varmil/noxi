@@ -5,6 +5,7 @@ import {
 
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
+import { roundDateToHour } from 'utils/date'
 
 type Params = {
   title?: string
@@ -112,9 +113,20 @@ export async function getStreams({
 
 export async function getStreamsCount({
   revalidate,
+  scheduledBefore,
+  scheduledAfter,
+  endedBefore,
+  endedAfter,
   ...params
 }: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
-  const searchParams = createSearchParams(params)
+  // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
+  const searchParams = createSearchParams({
+    ...params,
+    scheduledBefore: roundDateToHour(scheduledBefore),
+    scheduledAfter: roundDateToHour(scheduledAfter),
+    endedBefore: roundDateToHour(endedBefore),
+    endedAfter: roundDateToHour(endedAfter)
+  })
   const res = await fetchAPI(
     `/api/youtube/streams/count?${searchParams.toString()}`,
     { next: { revalidate: revalidate ?? CACHE_1H } }
