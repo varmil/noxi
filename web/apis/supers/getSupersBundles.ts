@@ -5,6 +5,7 @@ import {
 
 import { CACHE_1D, CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
+import { roundDateToDay, roundDateToHour } from 'utils/date'
 
 type Params = {
   videoIds?: string[]
@@ -72,10 +73,17 @@ const createSearchParams = ({
   return searchParams
 }
 
-export async function getSupersBundles(
-  params: Params
-): Promise<SupersBundlesSchema> {
-  const searchParams = createSearchParams(params)
+export async function getSupersBundles({
+  createdAtGTE,
+  createdAtLTE,
+  ...params
+}: Params): Promise<SupersBundlesSchema> {
+  // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
+  const searchParams = createSearchParams({
+    ...params,
+    createdAtGTE: roundDateToHour(createdAtGTE),
+    createdAtLTE: roundDateToHour(createdAtLTE)
+  })
   const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`, {
     next: { revalidate: CACHE_1H }
   })
@@ -86,10 +94,43 @@ export async function getSupersBundles(
   return data.list
 }
 
+type CountParams = Pick<
+  Params,
+  | 'videoIds'
+  | 'channelId'
+  | 'amountMicros'
+  | 'group'
+  | 'gender'
+  | 'actualEndTimeGTE'
+  | 'actualEndTimeLTE'
+  | 'createdAtGTE'
+  | 'createdAtLTE'
+>
+
 export async function getSupersBundlesCount({
-  ...params
-}: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
-  const searchParams = createSearchParams(params)
+  videoIds,
+  channelId,
+  amountMicros,
+  group,
+  gender,
+  actualEndTimeGTE,
+  actualEndTimeLTE,
+  createdAtGTE,
+  createdAtLTE
+}: CountParams): Promise<number> {
+  // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
+  // limit, offset, orderBy は Count に不要なので明示的に除外
+  const searchParams = createSearchParams({
+    videoIds,
+    channelId,
+    amountMicros,
+    group,
+    gender,
+    actualEndTimeGTE,
+    actualEndTimeLTE,
+    createdAtGTE: roundDateToDay(createdAtGTE),
+    createdAtLTE: roundDateToDay(createdAtLTE)
+  })
   const res = await fetchAPI(
     `/api/supers-bundles/count?${searchParams.toString()}`,
     { next: { revalidate: CACHE_1D } }
