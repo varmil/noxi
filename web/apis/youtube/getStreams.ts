@@ -111,6 +111,23 @@ export async function getStreams({
   return data.list
 }
 
+type CountParams = Pick<
+  Params,
+  | 'title'
+  | 'status'
+  | 'videoIds'
+  | 'group'
+  | 'gender'
+  | 'channelId'
+  | 'scheduledBefore'
+  | 'scheduledAfter'
+  | 'endedBefore'
+  | 'endedAfter'
+  | 'peakConcurrentViewers'
+  | 'avgConcurrentViewers'
+  | 'revalidate'
+>
+
 export async function getStreamsCount({
   revalidate,
   title,
@@ -125,7 +142,7 @@ export async function getStreamsCount({
   endedAfter,
   peakConcurrentViewers,
   avgConcurrentViewers
-}: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
+}: CountParams): Promise<number> {
   // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
   // limit, offset, orderBy は Count に不要なので明示的に除外
   const searchParams = createSearchParams({

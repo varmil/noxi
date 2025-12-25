@@ -88,6 +88,11 @@ export async function getSupersSummaries(
  * orderByにperiodが入っており、last24Hours or それ以外
  * でロジックが異なる。キャッシュ期間も変える
  */
+type CountParams = Pick<
+  Params,
+  'channelIds' | 'group' | 'gender' | 'amountMicros' | 'date' | 'orderBy'
+>
+
 export async function getSupersSummariesCount({
   channelIds,
   group,
@@ -95,7 +100,7 @@ export async function getSupersSummariesCount({
   amountMicros,
   date,
   orderBy
-}: Omit<Params, 'limit' | 'offset'>): Promise<number> {
+}: CountParams): Promise<number> {
   // limit, offset は Count に不要なので明示的に除外
   // orderBy はバックエンドで特殊な使い方をしているため残す
   const searchParams = createSearchParams({

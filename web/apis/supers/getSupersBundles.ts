@@ -94,6 +94,19 @@ export async function getSupersBundles({
   return data.list
 }
 
+type CountParams = Pick<
+  Params,
+  | 'videoIds'
+  | 'channelId'
+  | 'amountMicros'
+  | 'group'
+  | 'gender'
+  | 'actualEndTimeGTE'
+  | 'actualEndTimeLTE'
+  | 'createdAtGTE'
+  | 'createdAtLTE'
+>
+
 export async function getSupersBundlesCount({
   videoIds,
   channelId,
@@ -104,7 +117,7 @@ export async function getSupersBundlesCount({
   actualEndTimeLTE,
   createdAtGTE,
   createdAtLTE
-}: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
+}: CountParams): Promise<number> {
   // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
   // limit, offset, orderBy は Count に不要なので明示的に除外
   const searchParams = createSearchParams({
