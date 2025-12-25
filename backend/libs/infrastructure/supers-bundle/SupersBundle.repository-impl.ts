@@ -275,11 +275,11 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
       amountMicros,
       gender
     } = where
-    const result = await this.prismaInfraService.$queryRaw<{ count: number }[]>`
+    const result = await this.prismaInfraService.$queryRaw<{ count: bigint }[]>`
       SELECT COUNT(DISTINCT t."channelId") AS count
       FROM "YoutubeStreamSupersBundle" t
       JOIN "Channel" c ON t."channelId" = c."id"
-      WHERE t."createdAt" >= ${gte} 
+      WHERE t."createdAt" >= ${gte}
         AND t."createdAt" <= ${lte ?? new Date()}
         ${group ? sql`AND t."group" = ${group.get()}` : empty}
         ${ids ? sql`AND t."channelId" IN (${join(ids.map(e => e.get()))})` : empty}
@@ -289,7 +289,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
         ${amountMicros?.lt ? sql`AND t."amountMicros" < ${amountMicros.lt.toBigInt()}` : empty}
         ${amountMicros?.lte ? sql`AND t."amountMicros" <= ${amountMicros.lte.toBigInt()}` : empty}
     `
-    return result[0]?.count ?? 0
+    return Number(result[0]?.count ?? 0)
   }
 
   private toDomain(row: PrismaYoutubeStreamSupersBundle) {
