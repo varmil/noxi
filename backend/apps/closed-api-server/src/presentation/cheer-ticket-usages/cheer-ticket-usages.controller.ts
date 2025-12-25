@@ -1,7 +1,7 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   Body,
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Post,
@@ -23,7 +23,6 @@ import { CheerTicketUsage } from '@domain/cheer-ticket-usage'
 import { User } from '@domain/user'
 
 @Controller('cheer-ticket-usages')
-@UseInterceptors(ClassSerializerInterceptor)
 export class CheerTicketUsagesController {
   constructor(
     private readonly cheerTicketUsagesService: CheerTicketUsagesService

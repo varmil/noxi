@@ -12,6 +12,11 @@ export function registerGlobals(app: NestExpressApplication) {
   // https://github.com/nestjs/nest/issues/14477
   app.set('query parser', 'extended')
 
+  // BigInt を JSON レスポンスでシリアライズ可能にする
+  app.set('json replacer', (_key: string, value: unknown) =>
+    typeof value === 'bigint' ? value.toString() : value
+  )
+
   app.useBodyParser('json', { limit: '10mb' })
 
   app.useBodyParser('text', { type: 'application/atom+xml' })

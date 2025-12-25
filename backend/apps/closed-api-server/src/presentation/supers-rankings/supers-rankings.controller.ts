@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
@@ -15,7 +15,7 @@ import { SupersRankingsScenario } from '@presentation/supers-rankings/supers-ran
  * 試しにバックエンドのキャッシュを使ってみる
  **/
 @Controller('supers-rankings')
-@UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
+@UseInterceptors(CacheInterceptor)
 @CacheTTL(300 * 1000)
 export class SupersRankingsController {
   constructor(

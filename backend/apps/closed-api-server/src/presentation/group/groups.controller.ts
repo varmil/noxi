@@ -1,7 +1,7 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
   Body,
-  ClassSerializerInterceptor,
+  
   ConflictException,
   Controller,
   Delete,
@@ -18,7 +18,6 @@ import { GroupsService } from '@app/groups/groups.service'
 import { Group, GroupId } from '@domain/group'
 
 @Controller('groups')
-@UseInterceptors(ClassSerializerInterceptor)
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 

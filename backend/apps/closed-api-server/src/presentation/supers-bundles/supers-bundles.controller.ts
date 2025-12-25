@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Param,
@@ -17,7 +17,6 @@ import { SupersBundleSum } from '@domain/supers-bundle'
 import { ChannelIds, VideoId } from '@domain/youtube'
 
 @Controller('supers-bundles')
-@UseInterceptors(ClassSerializerInterceptor)
 export class SupersBundlesController {
   constructor(private readonly supersBundlesService: SupersBundlesService) {}
 

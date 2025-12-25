@@ -1,6 +1,6 @@
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager'
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   NotFoundException,
@@ -13,7 +13,6 @@ import { StreamsService } from '@app/streams/streams.service'
 import { VideoId } from '@domain/youtube'
 
 @Controller('youtube/streams')
-@UseInterceptors(ClassSerializerInterceptor)
 export class StreamsController {
   constructor(private readonly streamsService: StreamsService) {}
 

@@ -1,13 +1,13 @@
 import {
   Body,
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Param,
   Post,
   Put,
   Query,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { CreateGroupRegistrationDto } from '@presentation/group-registrations/dto/CreateGroupRegistration.dto'
 import { GetGroupRegistrationsDto } from '@presentation/group-registrations/dto/GetGroupRegistrations.dto'
@@ -19,7 +19,6 @@ import {
 } from '@domain/group-registration'
 
 @Controller('group-registrations')
-@UseInterceptors(ClassSerializerInterceptor)
 export class GroupRegistrationsController {
   constructor(
     private readonly groupRegistrationsService: GroupRegistrationsService

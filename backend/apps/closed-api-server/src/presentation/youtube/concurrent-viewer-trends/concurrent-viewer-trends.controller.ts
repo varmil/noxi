@@ -1,15 +1,14 @@
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { ConcurrentViewerTrendsService } from '@app/concurrent-viewer-trends/concurrent-viewer-trends.service'
 import { GetConcurrentViewerTrendsDto } from './dto/get-concurrent-viewer-trends.dto'
 
 @Controller('youtube/concurrent-viewer-trends')
-@UseInterceptors(ClassSerializerInterceptor)
 export class ConcurrentViewerTrendsController {
   constructor(
     private readonly concurrentViewerTrendsService: ConcurrentViewerTrendsService

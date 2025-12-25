@@ -1,9 +1,9 @@
 import {
-  ClassSerializerInterceptor,
+  
   Controller,
   Get,
   Query,
-  UseInterceptors
+  
 } from '@nestjs/common'
 import { GetMembershipSummaries } from '@presentation/membership-summaries/dto/GetMembershipSummaries.dto'
 import { GetMembershipSummary } from '@presentation/membership-summaries/dto/GetMembershipSummary.dto'
@@ -13,7 +13,6 @@ import { MembershipSummariesService } from '@app/membership-summaries/membership
 import { MembershipSummary } from '@domain/membership-summary'
 
 @Controller('membership-summaries')
-@UseInterceptors(ClassSerializerInterceptor)
 export class MembershipSummariesController {
   constructor(
     private readonly membershipSummariesScenario: MembershipSummariesScenario,
