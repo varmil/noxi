@@ -16,7 +16,7 @@ const AppNames = [
 
 export const e2e = AppNames.map(name => {
   return {
-    command: `npm run test:e2e -- --watch`,
+    command: `npm run test:e2e -- --watch --testPathPatterns="apps/${name}"`,
     name: `${name}`,
     cwd: path.resolve(rootDir, 'backend')
   }
