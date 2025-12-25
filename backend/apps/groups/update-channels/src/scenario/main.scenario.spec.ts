@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { vi } from 'vitest'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Channels } from '@domain/youtube/channel'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
@@ -19,10 +18,10 @@ describe('MainScenario', () => {
 
   describe('execute()', () => {
     it('should return void 0', async () => {
-      vi.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
+      jest.spyOn(ChannelsService.prototype, 'findAll').mockResolvedValue(
         new Channels([])
       )
-      vi.spyOn(ChannelsInfraService.prototype, 'list').mockResolvedValue(
+      jest.spyOn(ChannelsInfraService.prototype, 'list').mockResolvedValue(
         new Channels([])
       )
 

@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { vi } from 'vitest'
 import { StreamsService } from '@app/streams/streams.service'
 import { MainModule } from '../main.module'
 import { MainScenario } from './main.scenario'
@@ -17,7 +16,7 @@ describe('Update Chats > MainScenario', () => {
 
   describe('execute()', () => {
     it('should return void 0', async () => {
-      vi.spyOn(StreamsService.prototype, 'findAllLight').mockResolvedValueOnce(
+      jest.spyOn(StreamsService.prototype, 'findAllLight').mockResolvedValueOnce(
         []
       )
 

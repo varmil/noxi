@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
@@ -12,24 +11,24 @@ import { MainScenario } from './main.scenario'
 describe('Delete Chats > MainScenario', () => {
   let scenario: MainScenario
   let mockChatDeletingQueuesService: {
-    findAll: ReturnType<typeof vi.fn>
-    save: ReturnType<typeof vi.fn>
-    delete: ReturnType<typeof vi.fn>
+    findAll: jest.Mock
+    save: jest.Mock
+    delete: jest.Mock
   }
   let mockNextContinuationsService: {
-    delete: ReturnType<typeof vi.fn>
+    delete: jest.Mock
   }
 
   beforeEach(async () => {
-    vi.clearAllMocks()
+    jest.clearAllMocks()
 
     mockChatDeletingQueuesService = {
-      findAll: vi.fn(),
-      save: vi.fn(),
-      delete: vi.fn()
+      findAll: jest.fn(),
+      save: jest.fn(),
+      delete: jest.fn()
     }
     mockNextContinuationsService = {
-      delete: vi.fn()
+      delete: jest.fn()
     }
 
     const module: TestingModule = await Test.createTestingModule({
@@ -38,7 +37,7 @@ describe('Delete Chats > MainScenario', () => {
         {
           provide: PromiseService,
           useValue: {
-            allSettled: vi.fn().mockImplementation((promises: Promise<void>[]) =>
+            allSettled: jest.fn().mockImplementation((promises: Promise<void>[]) =>
               Promise.allSettled(promises)
             )
           }
