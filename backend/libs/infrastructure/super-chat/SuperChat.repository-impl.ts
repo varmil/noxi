@@ -9,14 +9,7 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
-    where: {
-      channelId,
-      userComment,
-      videoId,
-      group,
-      createdBefore,
-      createdAfter
-    },
+    where: { channelId, userComment, videoId, group, createdAfter },
     orderBy,
     limit
   }: Parameters<SuperChatRepository['findAll']>[0]) {
@@ -26,8 +19,7 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
         userComment,
         group: group?.get(),
         createdAt: {
-          gte: createdAfter,
-          lte: createdBefore
+          gte: createdAfter
         },
         stream: {
           channelId: channelId?.get()
@@ -42,14 +34,7 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
   }
 
   count: SuperChatRepository['count'] = async ({
-    where: {
-      channelId,
-      userComment,
-      videoId,
-      group,
-      createdBefore,
-      createdAfter
-    }
+    where: { channelId, userComment, videoId, group, createdAfter }
   }) => {
     return await this.prismaInfraService.youtubeStreamSuperChat.count({
       where: {
@@ -57,8 +42,7 @@ export class SuperChatRepositoryImpl implements SuperChatRepository {
         userComment,
         group: group?.get(),
         createdAt: {
-          gte: createdAfter,
-          lte: createdBefore
+          gte: createdAfter
         },
         stream: {
           channelId: channelId?.get()

@@ -9,7 +9,6 @@ export interface SuperChatRepository {
       channelId?: ChannelId
       userComment?: { not: null }
       group?: GroupId
-      createdBefore?: Date
       createdAfter?: Date
     }
     orderBy?: Partial<
@@ -27,7 +26,6 @@ export interface SuperChatRepository {
       channelId?: ChannelId
       userComment?: { not: null }
       group?: GroupId
-      createdBefore?: Date
       createdAfter?: Date
     }
   }) => Promise<number>

@@ -15,7 +15,6 @@ const FIRST_VIEW_LIMIT = 30
 type Props = {
   videoId?: string
   channelId?: string
-  createdBefore?: Date
   createdAfter?: Date
   limit?: number
 
@@ -26,7 +25,6 @@ type Props = {
 export default async function SuperChatGallery({
   videoId,
   channelId,
-  createdBefore,
   createdAfter,
   limit = 2000,
   showStreamLink = false
@@ -35,7 +33,6 @@ export default async function SuperChatGallery({
     getSuperChats({
       videoId,
       channelId,
-      createdBefore,
       createdAfter,
       orderBy: [
         { field: 'amountMicros', order: 'desc' },
