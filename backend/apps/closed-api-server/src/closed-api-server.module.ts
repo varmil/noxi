@@ -1,4 +1,3 @@
-import { CacheInterceptor } from '@nestjs/cache-manager'
 import { ClassSerializerInterceptor, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_INTERCEPTOR } from '@nestjs/core'
@@ -23,7 +22,7 @@ import { WebhooksStripePresentationModule } from '@presentation/webhooks/stripe/
 import { XPresentationModule } from '@presentation/x/x.presentation.module'
 import { YoutubePresentationModule } from '@presentation/youtube/youtube.presentation.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
-import { AppCacheModule } from './cache'
+import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
 
 @Module({
   imports: [
@@ -59,7 +58,7 @@ import { AppCacheModule } from './cache'
     // CacheInterceptor を先に登録する
     {
       provide: APP_INTERCEPTOR,
-      useClass: CacheInterceptor
+      useClass: CacheTTLRequiredInterceptor
     },
     {
       provide: APP_INTERCEPTOR,
