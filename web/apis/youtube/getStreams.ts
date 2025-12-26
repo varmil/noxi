@@ -5,7 +5,7 @@ import {
 
 import { CACHE_1D, CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
-import { roundDateToHour } from 'utils/date'
+import { roundDateTo10Minutes, roundDateToHour } from 'utils/date'
 
 type Params = {
   title?: string
@@ -97,9 +97,20 @@ const createSearchParams = ({
 
 export async function getStreams({
   revalidate,
+  scheduledBefore,
+  scheduledAfter,
+  endedBefore,
+  endedAfter,
   ...params
 }: Params): Promise<StreamsSchema> {
-  const searchParams = createSearchParams(params)
+  // 日付パラメータを10分単位に丸めてキャッシュヒット率を向上
+  const searchParams = createSearchParams({
+    ...params,
+    scheduledBefore: roundDateTo10Minutes(scheduledBefore),
+    scheduledAfter: roundDateTo10Minutes(scheduledAfter),
+    endedBefore: roundDateTo10Minutes(endedBefore),
+    endedAfter: roundDateTo10Minutes(endedAfter)
+  })
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
     { next: { revalidate: revalidate ?? CACHE_1H } }
