@@ -15,15 +15,14 @@ export default function createGetStreamsParams({
   let result = {}
 
   if (period === 'realtime') {
-    result = { ...result, status: 'live' }
+    result = { ...result, status: 'live', revalidate: 600 }
   }
   // TODO: 本当はliveもふくめたい
   else {
     result = {
       ...result,
       status: 'ended',
-      endedAfter: getStartOf(period).toDate(),
-      revalidate: 600
+      endedAfter: getStartOf(period).toDate()
     }
   }
 
