@@ -12,6 +12,27 @@ function roundISOString(
 }
 
 /**
+ * 日付を10分単位に丸める（キャッシュヒット率向上のため）
+ * 例: 12:37 → 12:30, 12:43 → 12:40
+ */
+export function roundDateTo10Minutes(date: undefined): undefined
+export function roundDateTo10Minutes(date: null): null
+export function roundDateTo10Minutes(date: Date): Date
+export function roundDateTo10Minutes(date: Date | undefined): Date | undefined
+export function roundDateTo10Minutes(date: Date | null): Date | null
+export function roundDateTo10Minutes(
+  date: Date | null | undefined
+): Date | null | undefined
+export function roundDateTo10Minutes(
+  date: Date | null | undefined
+): Date | null | undefined {
+  if (date === null || date === undefined) return date
+  const ms = date.getTime()
+  const tenMinutesMs = 10 * 60 * 1000
+  return new Date(Math.floor(ms / tenMinutesMs) * tenMinutesMs)
+}
+
+/**
  * 日付を時間単位に丸める（キャッシュヒット率向上のため）
  */
 export function roundDateToHour(date: undefined): undefined

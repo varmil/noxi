@@ -9,6 +9,7 @@ export class StreamsController {
   constructor(private readonly streamsService: StreamsService) {}
 
   @Get()
+  @CacheTTL(600 * 1000)
   async getStreams(@Query() dto: GetStreamsDto) {
     return await this.streamsService.findAll({
       where: {
