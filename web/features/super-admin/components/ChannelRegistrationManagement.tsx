@@ -29,8 +29,18 @@ import {
 } from '@/components/ui/select'
 import { GroupsSchema } from 'apis/groups/groupSchema'
 import { ChannelRegistrationsSchema } from 'apis/youtube/schema/channelRegistrationSchema'
+import { updateChannelRegistrationGender } from 'apis/youtube/updateChannelRegistrationGender'
 import { updateChannelRegistrationStatus } from 'apis/youtube/updateChannelRegistrationStatus'
 import { useRouter } from 'lib/navigation'
+
+const genderConfig = {
+  male: { label: '男性' },
+  female: { label: '女性' },
+  nonbinary: { label: 'ノンバイナリー' }
+} as const
+
+type Gender = 'male' | 'female' | 'nonbinary'
+type EditableGender = 'male' | 'female'
 
 const statusConfig = {
   pending: {
@@ -76,6 +86,9 @@ export function ChannelRegistrationManagement({
   const [selectedGroups, setSelectedGroups] = useState<Record<string, string>>(
     {}
   )
+  const [selectedGenders, setSelectedGenders] = useState<
+    Record<string, EditableGender>
+  >({})
 
   const pendingRegistrations = registrations.filter(r => r.status === 'pending')
   const pastRegistrations = registrations.filter(r => r.status !== 'pending')
@@ -151,6 +164,38 @@ export function ChannelRegistrationManagement({
     }
   }
 
+  const handleGenderChange = async (
+    channelId: string,
+    newGender: EditableGender
+  ) => {
+    setProcessingId(channelId)
+    setError(null)
+
+    try {
+      await updateChannelRegistrationGender(channelId, { gender: newGender })
+
+      setRegistrations(prev =>
+        prev.map(r =>
+          r.channelId === channelId ? { ...r, gender: newGender } : r
+        )
+      )
+      setSelectedGenders(prev => {
+        const updated = { ...prev }
+        delete updated[channelId]
+        return updated
+      })
+
+      toast.success('性別を更新しました')
+      router.refresh()
+    } catch (err) {
+      console.error('Failed to update gender:', err)
+      toast.error('性別の更新に失敗しました。もう一度お試しください')
+      setError('性別の更新に失敗しました')
+    } finally {
+      setProcessingId(null)
+    }
+  }
+
   const formatDate = (dateStr: string) => {
     return new Intl.DateTimeFormat('ja-JP', {
       year: 'numeric',
@@ -216,7 +261,7 @@ export function ChannelRegistrationManagement({
                       <p className="text-sm text-muted-foreground truncate">
                         ID: {registration.channelId}
                       </p>
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1 flex-wrap">
                         <span>登録者: {formatNumber(registration.subscriberCount)}</span>
                         <span>•</span>
                         <span>配信数: {formatNumber(registration.liveStreamCount)}</span>
@@ -244,6 +289,39 @@ export function ChannelRegistrationManagement({
                                   {group.id}
                                 </SelectItem>
                               ))}
+                            </SelectContent>
+                          </Select>
+                        </span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          性別:
+                          <Select
+                            value={
+                              selectedGenders[registration.channelId] ||
+                              registration.gender
+                            }
+                            onValueChange={(value: EditableGender) => {
+                              setSelectedGenders(prev => ({
+                                ...prev,
+                                [registration.channelId]: value
+                              }))
+                              handleGenderChange(registration.channelId, value)
+                            }}
+                            disabled={isProcessing}
+                          >
+                            <SelectTrigger size="sm" className="h-6 text-xs">
+                              <SelectValue>
+                                {
+                                  genderConfig[
+                                    (selectedGenders[registration.channelId] ||
+                                      registration.gender) as Gender
+                                  ]?.label
+                                }
+                              </SelectValue>
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="male">男性</SelectItem>
+                              <SelectItem value="female">女性</SelectItem>
                             </SelectContent>
                           </Select>
                         </span>

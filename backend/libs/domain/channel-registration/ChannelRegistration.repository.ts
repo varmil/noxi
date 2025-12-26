@@ -4,6 +4,7 @@ import {
   Status
 } from '@domain/channel-registration'
 import { GroupId } from '@domain/group'
+import { Gender } from '@domain/lib'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 export interface ChannelRegistrationRepository {
@@ -28,8 +29,9 @@ export interface ChannelRegistrationRepository {
       status?: Status
     }
     data: {
-      status: Status
+      status?: Status
       group?: GroupId
+      gender?: Gender
     }
   }) => Promise<void>
 }

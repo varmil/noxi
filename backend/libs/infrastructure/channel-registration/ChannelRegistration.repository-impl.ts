@@ -110,8 +110,9 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
         status: where.status?.get()
       },
       data: {
-        status: data.status.get(),
-        ...(data.group && { group: data.group.get() })
+        ...(data.status && { status: data.status.get() }),
+        ...(data.group && { group: data.group.get() }),
+        ...(data.gender && { gender: data.gender.get() })
       }
     })
   }
