@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common'
 import { GetChannelRegistrations } from '@presentation/channel-registrations/dto/GetChannelRegistrations.dto'
 import { PostChannelRegistration } from '@presentation/channel-registrations/dto/PostChannelRegistration.dto'
+import { UpdateGenderDto } from '@presentation/channel-registrations/dto/UpdateGender.dto'
 import { UpdateStatusDto } from '@presentation/channel-registrations/dto/UpdateStatus.dto'
 import { ChannelRegistrationsService } from '@app/channel-registrations/channel-registrations.service'
 import { ChannelRegistration } from '@domain/channel-registration'
@@ -80,5 +81,17 @@ export class ChannelRegistrationsController {
       group: dto.toGroup()
     })
     return { message: 'Status updated successfully' }
+  }
+
+  @Put(':channelId/gender')
+  async updateGender(
+    @Param('channelId') channelId: string,
+    @Body() dto: UpdateGenderDto
+  ) {
+    await this.channelRegistrationsService.updateGender({
+      channelId: new ChannelId(channelId),
+      gender: dto.toGender()
+    })
+    return { message: 'Gender updated successfully' }
   }
 }

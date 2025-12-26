@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { ChannelRegistrationRepository, Status } from '@domain/channel-registration'
 import { GroupId } from '@domain/group'
+import { Gender } from '@domain/lib'
 import { ChannelId, ChannelIds } from '@domain/youtube'
 
 @Injectable()
@@ -36,6 +37,13 @@ export class ChannelRegistrationsService {
     await this.channelRegistrationRepository.updateMany({
       where: { channelIds: new ChannelIds([args.channelId]) },
       data: { status: args.status, group: args.group }
+    })
+  }
+
+  async updateGender(args: { channelId: ChannelId; gender: Gender }) {
+    await this.channelRegistrationRepository.updateMany({
+      where: { channelIds: new ChannelIds([args.channelId]) },
+      data: { gender: args.gender }
     })
   }
 }
