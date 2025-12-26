@@ -22,10 +22,11 @@ export class GetDayOfWeekDistributionDto {
     const month = jstNow.getUTCMonth()
     const day = jstNow.getUTCDate()
 
-    // JST 明日 00:00:00（今日の終わりまで含める）= UTC で -9時間
-    const lt = new Date(Date.UTC(year, month, day + 1, -9))
-    // JST (明日 - days日) 00:00:00
-    const gte = new Date(Date.UTC(year, month, day + 1 - this.days, -9))
+    // JST 今日 00:00:00（昨日の終わりまで含める = 今日を含まない）
+    // データ母集団が少ないため、今日を含むと時間帯によって変動が大きくなるため除外
+    const lt = new Date(Date.UTC(year, month, day, -9))
+    // JST (今日 - days日) 00:00:00
+    const gte = new Date(Date.UTC(year, month, day - this.days, -9))
 
     return { gte, lt }
   }
