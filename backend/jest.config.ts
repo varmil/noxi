@@ -42,7 +42,8 @@ const config: Config = {
     '^libs(.*)$': '<rootDir>/libs$1'
   },
   setupFilesAfterEnv: ['./scripts/jest/jest.setup.ts'],
-  testPathIgnorePatterns: ['/node_modules/', '/dist/']
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  watchPathIgnorePatterns: ['/node_modules/', '/dist/']
 }
 
 export default config
