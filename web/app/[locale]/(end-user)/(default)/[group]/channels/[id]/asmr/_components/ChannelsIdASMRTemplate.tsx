@@ -11,7 +11,6 @@ import {
 } from 'features/channel/components/container/ChannelSection'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
-import { CACHE_1D } from 'lib/fetchAPI'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string; searchParams: StreamGallerySearchParams }
@@ -28,8 +27,7 @@ export async function ChannelsIdASMRTemplate({
       title: 'ASMR',
       group,
       channelId: id,
-      status: 'ended',
-      revalidate: CACHE_1D
+      status: 'ended'
     })
   ])
 

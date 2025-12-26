@@ -5,7 +5,6 @@ import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import { StreamGalleryPagination } from 'config/constants/Pagination'
 import EndedStreamGallery from 'features/group/ended/components/EndedStreamGallery'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
-import { CACHE_1D } from 'lib/fetchAPI'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = {
@@ -15,8 +14,7 @@ type Props = {
 export async function IndexTemplate({ searchParams }: PropsWithoutRef<Props>) {
   const count = await getStreamsCount({
     status: 'ended',
-    group: getGroup(),
-    revalidate: CACHE_1D
+    group: getGroup()
   })
   return (
     <section className="space-y-4">

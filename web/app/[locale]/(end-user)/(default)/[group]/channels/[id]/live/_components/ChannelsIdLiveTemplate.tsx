@@ -13,7 +13,6 @@ import EndedStreamGallery from 'features/group/ended/components/EndedStreamGalle
 import LiveStreamGallery from 'features/group/live/components/LiveStreamGallery'
 import ScheduledStreamGallery from 'features/group/scheduled/components/ScheduledStreamGallery'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
-import { CACHE_1D } from 'lib/fetchAPI'
 import { getGroup } from 'lib/server-only-context/cache'
 
 type Props = { id: string; searchParams: StreamGallerySearchParams }
@@ -25,7 +24,7 @@ export async function ChannelsIdLiveTemplate({
   const [page, feat, count] = await Promise.all([
     getTranslations('Page.group.channelsId.live'),
     getTranslations('Features.channel'),
-    getStreamsCount({ channelId: id, status: 'ended', revalidate: CACHE_1D })
+    getStreamsCount({ channelId: id, status: 'ended' })
   ])
   const group = getGroup()
 

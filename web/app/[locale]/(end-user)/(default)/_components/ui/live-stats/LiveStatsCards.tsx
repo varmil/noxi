@@ -2,6 +2,7 @@ import { Suspense } from 'react'
 import { Radio } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getStreams } from 'apis/youtube/getStreams'
+import { CACHE_10M } from 'lib/fetchAPI'
 import {
   StatsCard,
   StatsCardContent,
@@ -25,7 +26,7 @@ async function LiveStatsCardsContent() {
   const streams = await getStreams({
     status: 'live',
     peakConcurrentViewers: { gte: 1 },
-    revalidate: 60
+    revalidate: CACHE_10M
   })
 
   const liveCount = streams.length
