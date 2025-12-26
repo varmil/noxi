@@ -12,6 +12,7 @@ export default defineConfig({
     exclude: ['node_modules/**'],
     setupFiles: ['./vitest.setup.ts'],
     coverage: {
+      provider: 'v8',
       reporter: ['text', 'json-summary', 'json'],
       reportOnFailure: true,
       exclude: ['node_modules/**', '**/*.d.ts']
