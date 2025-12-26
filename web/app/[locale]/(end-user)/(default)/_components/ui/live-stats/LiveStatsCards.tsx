@@ -2,13 +2,13 @@ import { Suspense } from 'react'
 import { Radio } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getStreams } from 'apis/youtube/getStreams'
-import { CACHE_10M } from 'lib/fetchAPI'
 import {
   StatsCard,
   StatsCardContent,
   StatsCardHeader,
   StatsCards
 } from 'components/styles/card/StatsCard'
+import { CACHE_10M } from 'lib/fetchAPI'
 import { LiveStatsCardsSkeleton } from './LiveStatsCardsSkeleton'
 
 function calculateMedian(numbers: number[]): number {
