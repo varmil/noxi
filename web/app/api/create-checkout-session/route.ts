@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
       cancel_url: `${origin}/monthly-pass`
     })
 
-    return NextResponse.json({ sessionId: session.id })
+    return NextResponse.json({ url: session.url })
   } catch (error) {
     console.error('Stripe checkout session creation error:', error)
     return NextResponse.json(

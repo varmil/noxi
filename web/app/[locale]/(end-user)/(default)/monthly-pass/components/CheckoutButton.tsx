@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { getStripe } from 'utils/stripe'
 
 export function CheckoutButton() {
   const [isLoading, setIsLoading] = useState(false)
@@ -19,30 +18,24 @@ export function CheckoutButton() {
         }
       })
 
-      const { sessionId, error } = await response.json()
+      const { url, error } = await response.json()
 
       if (error) {
         throw new Error(error)
       }
 
+      if (!url) {
+        throw new Error('チェックアウトURLが取得できません')
+      }
+
       // Stripeチェックアウトページにリダイレクト
-      const stripe = await getStripe()
-      if (!stripe) {
-        throw new Error('Stripeが初期化できません')
-      }
-      const { error: stripeError } = await stripe.redirectToCheckout({
-        sessionId
-      })
-      if (stripeError) {
-        throw new Error(stripeError.message)
-      }
+      window.location.href = url
     } catch (error) {
       console.error('チェックアウトエラー:', error)
       toast.error('エラーが発生しました', {
         description:
           'チェックアウトの処理中にエラーが発生しました。もう一度お試しください。'
       })
-    } finally {
       setIsLoading(false)
     }
   }
