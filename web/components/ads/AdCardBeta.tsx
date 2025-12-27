@@ -1,6 +1,7 @@
+import { MessageCircle } from 'lucide-react'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { getChannel } from 'apis/youtube/data-api/getChannel'
 import { getVideo } from 'apis/youtube/data-api/getVideo'
@@ -17,6 +18,8 @@ interface AdCardProps {
   channelUrl: string
   /** 広告のキャッチコピー */
   description: string
+  /** ファンネーム（推し広告の場合に表示） */
+  fanName?: string
   /** 追加のクラス名 */
   className?: string
 }
@@ -26,6 +29,7 @@ export async function AdCardBeta({
   videoUrl,
   channelUrl,
   description,
+  fanName,
   className
 }: AdCardProps) {
   const [video, channel] = await Promise.all([
@@ -39,6 +43,10 @@ export async function AdCardBeta({
     ? 'bg-blue-600 hover:bg-blue-700'
     : 'bg-pink-600 hover:bg-pink-700'
   const cardStyleClass = isOfficial ? 'bg-card' : 'bg-card'
+  const messageBgClass = isOfficial
+    ? 'bg-blue-50 border-blue-200 dark:bg-blue-950/50 dark:border-blue-800'
+    : 'bg-pink-50 border-pink-200 dark:bg-pink-950/50 dark:border-pink-800'
+  const messageIconClass = isOfficial ? 'text-blue-500' : 'text-pink-500'
 
   return (
     <Card
@@ -76,8 +84,8 @@ export async function AdCardBeta({
         </Badge>
       </div>
 
-      {/* 下部情報 */}
-      <CardContent className="p-3 flex items-start gap-3">
+      {/* チャンネル情報 */}
+      <CardContent className="py-2 px-3 flex items-center gap-3">
         {/* チャンネルアイコン */}
         <a
           href={channelUrl}
@@ -85,30 +93,63 @@ export async function AdCardBeta({
           rel="noopener noreferrer"
           className="shrink-0"
         >
-          <Avatar className="size-9">
+          <Avatar className="size-8 hover:scale-105">
             <AvatarImage src={channel.iconUrl} alt={channel.name} />
             <AvatarFallback>{channel.name.slice(0, 2)}</AvatarFallback>
           </Avatar>
         </a>
 
-        {/* テキスト情報 */}
+        {/* チャンネル名 */}
         <a
           href={videoUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 min-w-0 group"
         >
-          <p className="text-sm font-bold leading-tight line-clamp-2">
-            {description}
-          </p>
-          <div className="text-xs flex items-center gap-1.5 mt-1 text-muted-foreground">
-            <span className="truncate max-w-[150px]">{channel.name}</span>
-            <span className="text-[10px] border border-muted-foreground/30 px-1 rounded">
-              Ad
+          <div className="text-sm flex items-center gap-1.5 text-muted-foreground">
+            <span className="truncate block hover:underline">
+              {channel.name}
             </span>
           </div>
         </a>
+
+        <span className="text-[10px] text-muted-foreground/70 border border-muted-foreground/30 px-1.5 py-0.5 rounded">
+          PR
+        </span>
       </CardContent>
+
+      {/* 吹き出しメッセージ */}
+      <CardFooter className="mt-1 px-3 pb-2">
+        <div
+          className={cn(
+            'relative rounded-xl border px-3 py-2 w-full',
+            messageBgClass
+          )}
+        >
+          <MessageCircle
+            className={cn(
+              'absolute -top-2 -left-1 size-4 fill-current',
+              messageIconClass
+            )}
+          />
+          <a
+            href={videoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block group"
+          >
+            <p className="text-sm text-foreground font-medium line-clamp-2 group-hover:underline">
+              {description}
+            </p>
+          </a>
+          {/* 推し広告の場合のみファンネームを表示 */}
+          {!isOfficial && (
+            <p className="text-xs text-muted-foreground mt-2 text-right">
+              Presented by {fanName || 'fan'}
+            </p>
+          )}
+        </div>
+      </CardFooter>
     </Card>
   )
 }
