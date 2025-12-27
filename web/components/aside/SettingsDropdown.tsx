@@ -33,7 +33,7 @@ export function SettingsDropdown({ session }: { session: Session | null }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Settings className="size-6 text-muted-foreground" />
+          <Settings className="text-muted-foreground" />
           <span className="sr-only">Open Settings</span>
         </Button>
       </DropdownMenuTrigger>
@@ -49,7 +49,7 @@ export function SettingsDropdown({ session }: { session: Session | null }) {
               onClick={() =>
                 setTheme(resolvedTheme === 'light' ? 'dark' : 'light')
               }
-              className={`relative inline-flex h-5 w-10 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
+              className={`relative inline-flex h-5 w-10 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${
                 resolvedTheme === 'light' ? 'bg-gray-200' : 'bg-primary'
               }`}
             >
