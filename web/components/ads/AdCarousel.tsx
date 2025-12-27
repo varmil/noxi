@@ -1,12 +1,14 @@
 'use client'
 
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import Autoplay from 'embla-carousel-autoplay'
+import { Card } from '@/components/ui/card'
 import {
   Carousel,
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel'
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -17,16 +19,48 @@ interface Props {
   className?: string
 }
 
+function shuffle<T>(array: T[]): T[] {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
+function AdCarouselSkeleton() {
+  return (
+    <Card className="pt-0 pb-2 gap-0 overflow-hidden">
+      {/* サムネイル */}
+      <Skeleton className="w-full aspect-video rounded-none" />
+      {/* チャンネル情報 */}
+      <div className="py-2 px-3 flex items-center gap-3">
+        <Skeleton className="size-8 rounded-full" />
+        <Skeleton className="h-6 flex-1" />
+      </div>
+      {/* メッセージ */}
+      <div className="px-3 pb-2">
+        <Skeleton className="h-[81.5px] w-full rounded-xl" />
+      </div>
+    </Card>
+  )
+}
+
 export function AdCarousel({ randomCards, lastCard, className }: Props) {
-  // ランダム順にシャッフル（クライアント側で実行）
-  const shuffledCards = useMemo(() => {
-    const shuffled = [...randomCards]
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-    }
-    return shuffled
+  const [shuffledCards, setShuffledCards] = useState<ReactNode[] | null>(null)
+
+  useEffect(() => {
+    setShuffledCards(shuffle(randomCards))
   }, [randomCards])
+
+  // マウント前はスケルトンを表示
+  if (shuffledCards === null) {
+    return (
+      <div className={cn('w-full', className)}>
+        <AdCarouselSkeleton />
+      </div>
+    )
+  }
 
   const allCards = [...shuffledCards, lastCard]
 
