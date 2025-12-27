@@ -101,7 +101,7 @@ export async function AdCardBeta({
 
         {/* チャンネル名 */}
         <a
-          href={videoUrl}
+          href={channelUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex-1 min-w-0 group"

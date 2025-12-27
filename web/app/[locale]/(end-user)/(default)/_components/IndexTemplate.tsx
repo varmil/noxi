@@ -50,8 +50,24 @@ const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
   )
 }
 
+/** サーバー側でシャッフル（リクエストごとに1回実行） */
+function shuffle<T>(array: T[]): T[] {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   const groups = await getGroups()
+
+  // サーバー側でランダム化
+  const shuffledAdCards = shuffle([
+    <AdWantedFromTalentCardBeta key="talent" />,
+    <AdWantedFromFanCardBeta key="fan" />
+  ])
 
   return (
     <>
@@ -60,19 +76,17 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
           {/* AD Carousel */}
           <AdCarousel
             className="max-w-[350px]"
-            randomCards={[
-              <AdWantedFromTalentCardBeta key="talent" />,
-              <AdWantedFromFanCardBeta key="fan" />
-            ]}
-            lastCard={
+            cards={[
+              ...shuffledAdCards,
               <AdCardBeta
+                key="sample"
                 type="fan"
                 videoUrl="https://www.youtube.com/watch?v=NsueHCfU1Ak"
                 channelUrl="https://www.youtube.com/@ShirakamiFubuki"
                 description="【サンプル】入稿時に指定した動画、チャンネル、メッセージはこのように表示されます。"
                 fanName="ファンの方の名前"
               />
-            }
+            ]}
           />
           {/* ライブ統計カード（Above the fold） */}
           <div className="flex-1 w-full">
