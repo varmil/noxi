@@ -1,5 +1,6 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
+import { AdCardBeta } from 'components/ads/AdCardBeta'
 import { LookerReport } from 'components/looker/LookerReport'
 import { ChartFilters } from 'features/charts/components/ChartFilters'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
@@ -52,6 +53,22 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   return (
     <>
       <Container className="flex flex-col gap-6">
+        {/* Ad */}
+        <AdCardBeta
+          type="official"
+          videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
+          channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+          description="新曲リリース！ぜひ聴いてください"
+        />
+
+        {/* Ad */}
+        <AdCardBeta
+          type="fan"
+          videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
+          channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+          description="3D化おめでとう！これからも応援してます！3D化おめでとう！これからも応援してます！ "
+        />
+
         {/* ライブ統計カード（Above the fold） */}
         <LiveStatsCards />
 
