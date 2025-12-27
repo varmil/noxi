@@ -54,25 +54,36 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
     <>
       <Container className="flex flex-col gap-6">
         {/* AD */}
-        <section className="flex flex-col sm:flex-row gap-6 items-center">
+        {/* <section className="flex items-stretch flex-col sm:flex-row gap-6">
           <AdCardBeta
             type="official"
             videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
             channelUrl="https://www.youtube.com/@ShirakamiFubuki"
             description="新曲リリース！ぜひ聴いてください"
-            className="max-w-[320px]"
+            className="max-w-[320px] mx-auto"
           />
           <AdCardBeta
             type="fan"
             videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
             channelUrl="https://www.youtube.com/@ShirakamiFubuki"
             description="3D化おめでとう！これからも応援してます！3D化おめでとう！これからも応援してます！ "
-            className="max-w-[320px]"
+            className="max-w-[320px] mx-auto"
           />
-        </section>
+        </section> */}
 
         {/* ライブ統計カード（Above the fold） */}
-        <LiveStatsCards />
+        <section className="flex items-stretch flex-col md:flex-row gap-6">
+          <AdCardBeta
+            type="official"
+            videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
+            channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+            description="新曲リリース！ぜひ聴いてください"
+            className="w-[320px]"
+          />
+          <div className="flex-1 w-full h-full">
+            <LiveStatsCards />
+          </div>
+        </section>
 
         {/* 共通フィルター */}
         <ChartFilters groups={groups} />

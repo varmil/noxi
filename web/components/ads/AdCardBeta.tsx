@@ -119,10 +119,10 @@ export async function AdCardBeta({
       </CardContent>
 
       {/* 吹き出しメッセージ */}
-      <CardFooter className="mt-1 px-3 pb-2">
+      <CardFooter className="flex-1 mt-1 px-3 pb-2">
         <div
           className={cn(
-            'relative rounded-xl border px-3 py-2 w-full',
+            'relative rounded-xl border px-3 py-2 w-full h-full',
             messageBgClass
           )}
         >
