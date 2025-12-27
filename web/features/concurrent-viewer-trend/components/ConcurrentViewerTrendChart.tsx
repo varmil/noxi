@@ -55,7 +55,7 @@ export function ConcurrentViewerTrendChart({ data }: Props) {
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <LineChart data={data} margin={{ left: -20, top: 10, right: 40 }}>
+          <LineChart data={data} margin={{ left: -20, top: 10, right: 32 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="date"

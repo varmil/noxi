@@ -48,7 +48,7 @@ async function LiveStatsCardsContent() {
         </CardContent>
       </Card>
 
-      <div className="flex gap-2 lg:gap-4 w-full flex-1">
+      <div className="flex-1 flex md:flex-col lg:flex-row gap-2 lg:gap-4">
         <Card className="flex-1 justify-center gap-2 shadow-xs">
           <CardHeader className="gap-0">
             <CardTitle className="text-sm flex justify-between items-center font-medium">

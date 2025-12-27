@@ -390,11 +390,11 @@
     },
     "header": {
       "dashboard": "ダッシュボード",
-      "liveRanking": "同接数ランキング",
-      "channelsRanking": "チャンネルランキング",
+      "liveRanking": "同接数",
+      "channelsRanking": "スパチャ金額",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
-      "talents": "タレント一覧"
+      "talents": "タレント"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",

@@ -40,7 +40,7 @@ const Container = (props: PropsWithChildren<{ className?: string }>) => {
 const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
   return (
     <div
-      className={`w-full flex flex-col md:flex-row items-center justify-center ${props.className}`}
+      className={`w-full flex flex-col lg:flex-row items-center justify-center ${props.className}`}
     >
       {props.children}
     </div>
@@ -53,33 +53,16 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   return (
     <>
       <Container className="flex flex-col gap-6">
-        {/* AD */}
-        {/* <section className="flex items-stretch flex-col sm:flex-row gap-6">
-          <AdCardBeta
-            type="official"
-            videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
-            channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-            description="新曲リリース！ぜひ聴いてください"
-            className="max-w-[320px] mx-auto"
-          />
-          <AdCardBeta
-            type="fan"
-            videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
-            channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-            description="3D化おめでとう！これからも応援してます！3D化おめでとう！これからも応援してます！ "
-            className="max-w-[320px] mx-auto"
-          />
-        </section> */}
-
-        {/* ライブ統計カード（Above the fold） */}
         <section className="flex items-center md:items-stretch flex-col md:flex-row gap-4">
+          {/* AD */}
           <AdCardBeta
             type="fan"
             videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
             channelUrl="https://www.youtube.com/@ShirakamiFubuki"
             description="3D化おめでとう！めちゃくちゃかっこいいです。これからも応援してます！ "
-            className="max-w-[320px] mx-auto"
+            className="max-w-[350px]"
           />
+          {/* ライブ統計カード（Above the fold） */}
           <div className="flex-1 w-full">
             <LiveStatsCards />
           </div>
