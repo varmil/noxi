@@ -72,15 +72,15 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
         </section> */}
 
         {/* ライブ統計カード（Above the fold） */}
-        <section className="flex items-stretch flex-col md:flex-row gap-6">
+        <section className="flex items-center md:items-stretch flex-col md:flex-row gap-4">
           <AdCardBeta
             type="official"
             videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
             channelUrl="https://www.youtube.com/@ShirakamiFubuki"
             description="新曲リリース！ぜひ聴いてください"
-            className="w-[320px]"
+            className="max-w-[350px]"
           />
-          <div className="flex-1 w-full h-full">
+          <div className="flex-1 w-full">
             <LiveStatsCards />
           </div>
         </section>
