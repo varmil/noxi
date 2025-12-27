@@ -24,7 +24,7 @@ export function AdCarousel({ cards, className }: Props) {
       }}
       plugins={[
         Autoplay({
-          delay: 7000,
+          delay: 5000,
           stopOnInteraction: true,
           stopOnMouseEnter: true
         })
