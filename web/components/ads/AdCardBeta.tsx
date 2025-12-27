@@ -76,7 +76,7 @@ export async function AdCardBeta({
 
         <Badge
           className={cn(
-            'absolute top-2 left-2 z-10 text-xs font-bold border-none text-white',
+            'absolute top-2 right-2 z-10 text-xs font-bold border-none text-white',
             labelColorClass
           )}
         >
