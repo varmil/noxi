@@ -63,7 +63,10 @@ export function DayOfWeekDistributionChart({ data }: Props) {
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <ComposedChart data={data} margin={{ left: -20, top: 10, right: -5 }}>
+          <ComposedChart
+            data={data}
+            margin={{ left: -20, top: 10, right: -20 }}
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="dayOfWeek"
