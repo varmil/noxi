@@ -1,42 +1,41 @@
 import { Radio } from 'lucide-react'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import {
-  StatsCard,
-  StatsCardContent,
-  StatsCardHeader,
-  StatsCards
-} from 'components/styles/card/StatsCard'
 
 export function LiveStatsCardsSkeleton() {
   return (
-    <StatsCards className="grid-cols-2 sm:grid-cols-3">
-      <StatsCard className="col-span-full sm:col-span-1 bg-white dark:bg-gray-900 shadow-xs">
-        <StatsCardHeader className="justify-start gap-2 ">
-          <Radio className="stroke-red-600 animate-pulse" />
-          <Skeleton className="h-4 w-16" />
-        </StatsCardHeader>
-        <StatsCardContent>
+    <section className="flex flex-col gap-2 lg:gap-4 h-full">
+      <Card className="flex-1 justify-center col-span-full gap-2 shadow-xs">
+        <CardHeader className="gap-0">
+          <div className="text-sm flex justify-start items-center gap-2 font-medium">
+            <Radio className="stroke-red-600 animate-pulse" />
+            <Skeleton className="h-4 w-20" />
+          </div>
+        </CardHeader>
+        <CardContent>
           <Skeleton className="h-8 w-12" />
-        </StatsCardContent>
-      </StatsCard>
+        </CardContent>
+      </Card>
 
-      <StatsCard className="col-span-1 bg-white dark:bg-gray-900 shadow-xs">
-        <StatsCardHeader className="">
-          <Skeleton className="h-5 w-24" />
-        </StatsCardHeader>
-        <StatsCardContent>
-          <Skeleton className="h-8 w-16" />
-        </StatsCardContent>
-      </StatsCard>
+      <div className="flex-1 flex md:flex-col lg:flex-row gap-2 lg:gap-4">
+        <Card className="flex-1 justify-center gap-2 shadow-xs">
+          <CardHeader className="gap-0">
+            <Skeleton className="h-4 w-24" />
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-8 w-20" />
+          </CardContent>
+        </Card>
 
-      <StatsCard className="col-span-1 bg-white dark:bg-gray-900 shadow-xs">
-        <StatsCardHeader className="">
-          <Skeleton className="h-5 w-24" />
-        </StatsCardHeader>
-        <StatsCardContent>
-          <Skeleton className="h-8 w-16" />
-        </StatsCardContent>
-      </StatsCard>
-    </StatsCards>
+        <Card className="flex-1 justify-center gap-2 shadow-xs">
+          <CardHeader className="gap-0">
+            <Skeleton className="h-4 w-24" />
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-8 w-20" />
+          </CardContent>
+        </Card>
+      </div>
+    </section>
   )
 }

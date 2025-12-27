@@ -1,5 +1,9 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
+import { AdCardBeta } from 'components/ads/AdCardBeta'
+import { AdCarousel } from 'components/ads/AdCarousel'
+import { AdWantedFromFanCardBeta } from 'components/ads/AdWantedFromFanCardBeta'
+import { AdWantedFromTalentCardBeta } from 'components/ads/AdWantedFromTalentCardBeta'
 import { LookerReport } from 'components/looker/LookerReport'
 import { ChartFilters } from 'features/charts/components/ChartFilters'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
@@ -39,21 +43,56 @@ const Container = (props: PropsWithChildren<{ className?: string }>) => {
 const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
   return (
     <div
-      className={`w-full flex flex-col md:flex-row items-center justify-center ${props.className}`}
+      className={`w-full flex flex-col lg:flex-row items-center justify-center ${props.className}`}
     >
       {props.children}
     </div>
   )
 }
 
+/** サーバー側でシャッフル（リクエストごとに1回実行） */
+function shuffle<T>(array: T[]): T[] {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   const groups = await getGroups()
+
+  // サーバー側でランダム化
+  const shuffledAdCards = shuffle([
+    <AdWantedFromTalentCardBeta key="talent" />,
+    <AdWantedFromFanCardBeta key="fan" />
+  ])
 
   return (
     <>
       <Container className="flex flex-col gap-6">
-        {/* ライブ統計カード（Above the fold） */}
-        <LiveStatsCards />
+        <section className="flex items-center md:items-stretch flex-col md:flex-row gap-4">
+          {/* AD Carousel */}
+          <AdCarousel
+            className="max-w-[350px]"
+            cards={[
+              ...shuffledAdCards,
+              <AdCardBeta
+                key="sample"
+                type="fan"
+                videoUrl="https://www.youtube.com/watch?v=NsueHCfU1Ak"
+                channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+                description="【サンプル】入稿時に指定した動画、チャンネル、メッセージはこのように表示されます。"
+                fanName="ファンの方の名前"
+              />
+            ]}
+          />
+          {/* ライブ統計カード（Above the fold） */}
+          <div className="flex-1 w-full">
+            <LiveStatsCards />
+          </div>
+        </section>
 
         {/* 共通フィルター */}
         <ChartFilters groups={groups} />
@@ -61,7 +100,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
         <FlexSection className="gap-6">
           <div className="flex-1 w-full">
             <Suspense
-              key={`${days}-${group}`}
+              key={`stream-${days}-${group}`}
               fallback={<StreamVolumeTrendSkeleton />}
             >
               <StreamVolumeTrendContainer days={days} group={group} />
