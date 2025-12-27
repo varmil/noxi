@@ -77,7 +77,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             type="official"
             videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
             channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-            description="新曲リリース！ぜひ聴いてください"
+            description="新曲リリース！ぜひ聴いてください新曲リリース！ぜひ聴いてください"
             className="max-w-[350px]"
           />
           <div className="flex-1 w-full">

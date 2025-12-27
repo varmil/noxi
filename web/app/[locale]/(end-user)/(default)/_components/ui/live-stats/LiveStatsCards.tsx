@@ -49,7 +49,7 @@ async function LiveStatsCardsContent() {
       </Card>
 
       <div className="flex gap-2 lg:gap-4 w-full flex-1">
-        <Card className="flex-1 gap-2 shadow-xs">
+        <Card className="flex-1 justify-center gap-2 shadow-xs">
           <CardHeader className="gap-0">
             <CardTitle className="text-sm flex justify-between items-center font-medium">
               {t('totalViewers')}
@@ -62,7 +62,7 @@ async function LiveStatsCardsContent() {
           </CardContent>
         </Card>
 
-        <Card className="flex-1 gap-2 shadow-xs">
+        <Card className="flex-1 justify-center gap-2 shadow-xs">
           <CardHeader className="gap-0">
             <CardTitle className="text-sm flex justify-between items-center font-medium">
               {t('medianViewers')}
