@@ -51,7 +51,7 @@ export async function AdCardBeta({
   return (
     <Card
       className={cn(
-        'pt-0 pb-2 gap-0 overflow-hidden transition-shadow',
+        'pt-0 pb-2 gap-0 overflow-hidden',
         cardStyleClass,
         className
       )}
@@ -136,9 +136,9 @@ export async function AdCardBeta({
             href={videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block group"
+            className="block"
           >
-            <p className="text-sm text-foreground font-medium line-clamp-2 group-hover:underline">
+            <p className="text-sm text-foreground font-medium line-clamp-2">
               {description}
             </p>
           </a>

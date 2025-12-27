@@ -53,21 +53,23 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   return (
     <>
       <Container className="flex flex-col gap-6">
-        {/* Ad */}
-        <AdCardBeta
-          type="official"
-          videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
-          channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-          description="新曲リリース！ぜひ聴いてください"
-        />
-
-        {/* Ad */}
-        <AdCardBeta
-          type="fan"
-          videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
-          channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-          description="3D化おめでとう！これからも応援してます！3D化おめでとう！これからも応援してます！ "
-        />
+        {/* AD */}
+        <section className="flex flex-col sm:flex-row gap-6 items-center">
+          <AdCardBeta
+            type="official"
+            videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
+            channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+            description="新曲リリース！ぜひ聴いてください"
+            className="max-w-[320px]"
+          />
+          <AdCardBeta
+            type="fan"
+            videoUrl="https://www.youtube.com/watch?v=rKMhl43RHo0"
+            channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+            description="3D化おめでとう！これからも応援してます！3D化おめでとう！これからも応援してます！ "
+            className="max-w-[320px]"
+          />
+        </section>
 
         {/* ライブ統計カード（Above the fold） */}
         <LiveStatsCards />
