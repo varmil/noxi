@@ -33,7 +33,7 @@ export function SettingsDropdown({ session }: { session: Session | null }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Settings className="text-muted-foreground" />
+          <Settings className="size-6 text-muted-foreground" />
           <span className="sr-only">Open Settings</span>
         </Button>
       </DropdownMenuTrigger>
