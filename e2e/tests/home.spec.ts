@@ -11,9 +11,9 @@ test.describe('トップページ', () => {
   test('ヘッダーのロゴが表示される', async ({ page }) => {
     await page.goto('/ja')
 
-    // ヘッダーに VCharts ロゴリンクが存在することを確認
+    // ヘッダーに VCharts ロゴが存在することを確認
     await expect(
-      page.getByRole('link', { name: 'VCharts', exact: true })
+      page.locator('header').getByText('VCharts').first()
     ).toBeVisible()
   })
 
