@@ -7,7 +7,7 @@ import { MainScenario } from './scenario/main.scenario'
 /**
  * 実行間隔
  */
-const INTERVAL_MS = 4500
+const INTERVAL_MS = 3000
 /**
  * 1時間、INTERVAL_MS間隔で実行する
  * Cloud Schedulerは1時間間隔。ここに「処理時間」が加わるので実際には
