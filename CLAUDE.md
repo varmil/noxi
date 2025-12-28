@@ -11,10 +11,11 @@
 ```
 root
 ├── backend/    # NestJS を用いた API サーバの実装
+├── e2e/        # Playwright を用いた E2E テスト
 └── web/        # Next.js を用いたフロントエンドの実装
 ```
 
-- ルート階層にはコードを配置しない
+- ルート階層にはコードを配置しない（e2e/ はテスト基盤のため例外）
 - web, backend でコードが多少重複してもこの原則を適用する
 - lint, test はそれぞれ `web/`、`backend/` で実行する
 
@@ -31,8 +32,9 @@ root
 
 1. **型チェック**: `npm run type-check`（web/backend それぞれで実行）
 2. **Lint 修正**: `npm run lint -- --fix`
-3. **テスト実行**: `npm test`（web/backend それぞれで実行）
-4. **Git コミット**: 以下のフォーマットに従う
+3. **ユニットテスト**: `npm test`（web/backend それぞれで実行）
+4. **E2E テスト**: `cd e2e && npm test`（UI 影響がある場合のみ）
+5. **Git コミット**: 以下のフォーマットに従う
 
 ### コミットメッセージの形式
 
