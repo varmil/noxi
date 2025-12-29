@@ -263,7 +263,7 @@ describe('GroupRepositoryImpl - Migration Data Integrity Property Test', () => {
       vividv: 'ViViD',
       voms: 'VOMS',
       independent: '個人勢VTuber',
-      'independent-irl': '個人勢IRL',
+      'independent-irl': '個人勢顔出し',
       artist: 'アーティスト'
     }
 

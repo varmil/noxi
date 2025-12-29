@@ -42,7 +42,7 @@ export class GroupId extends StringValueObject {
       vividv: 'ViViD',
       voms: 'VOMS',
       independent: '個人勢VTuber',
-      'independent-irl': '個人勢IRL',
+      'independent-irl': '個人勢顔出し',
       artist: 'アーティスト',
       all: '総合'
     }
