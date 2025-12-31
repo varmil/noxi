@@ -4,6 +4,7 @@ import {
   LogOut,
   MailIcon,
   PanelLeftIcon,
+  Scale,
   UserRoundPlus,
   UsersRound
 } from 'lucide-react'
@@ -133,6 +134,12 @@ export default async function HeaderXSSheet() {
               name="Terms of Use and PP"
               icon={<PrivacyPolicyIcon className="size-6.5" />}
               href="/terms-of-use-and-privacy-policy"
+            />
+
+            <HeaderLink
+              name="特定商取引法に基づく表記"
+              icon={<Scale className="size-6.5" />}
+              href="/legal/tokushoho"
             />
 
             {session ? (

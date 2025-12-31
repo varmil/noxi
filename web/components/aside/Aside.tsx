@@ -3,6 +3,7 @@ import {
   Ellipsis,
   FileChartLine,
   MailIcon,
+  Scale,
   UserRoundPlus,
   UsersRound
 } from 'lucide-react'
@@ -197,6 +198,22 @@ export default async function Aside({ className }: { className?: string }) {
                   </TooltipTrigger>
                   <TooltipContent side="right">
                     Terms of Use and Privacy Policy
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger>
+                    <Link
+                      href="/legal/tokushoho"
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground"
+                      prefetch={false}
+                    >
+                      <Scale className="size-5.5" />
+                      <span className="sr-only">特定商取引法に基づく表記</span>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">
+                    特定商取引法に基づく表記
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
