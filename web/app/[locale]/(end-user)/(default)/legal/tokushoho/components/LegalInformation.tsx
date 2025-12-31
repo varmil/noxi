@@ -22,7 +22,7 @@ export function LegalInformation() {
       <table className="w-full text-sm text-left border-collapse">
         <tbody>
           {/* 基本情報（共通） */}
-          <TableRow label="販売業者（屋号）">VCharts 運営事務局</TableRow>
+          <TableRow label="販売業者（屋号）">VCharts</TableRow>
 
           <TableRow label="運営統括責任者">山本晃大</TableRow>
 
