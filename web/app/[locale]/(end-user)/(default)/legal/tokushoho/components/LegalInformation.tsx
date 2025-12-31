@@ -6,7 +6,7 @@ type TableRowProps = {
 function TableRow({ label, children }: TableRowProps) {
   return (
     <tr className="border-b">
-      <th className="py-4 w-1/3 font-semibold text-gray-600 text-left align-top">
+      <th className="py-4 w-1/3 font-semibold text-muted-foreground text-left align-top">
         {label}
       </th>
       <td className="py-4">{children}</td>
@@ -16,7 +16,7 @@ function TableRow({ label, children }: TableRowProps) {
 
 export function LegalInformation() {
   return (
-    <div className="max-w-3xl mx-auto p-6 md:p-12 text-gray-800">
+    <div className="max-w-3xl mx-auto p-6 md:p-12">
       <h1 className="text-2xl font-bold mb-8">特定商取引法に基づく表記</h1>
 
       <table className="w-full text-sm text-left border-collapse">
