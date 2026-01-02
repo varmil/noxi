@@ -14,7 +14,7 @@
     "test:type-check": "npm run type-check:test && npm run test"
   },
   "dependencies": {
-    "@auth/neon-adapter": "^1.9.1",
+    "@auth/neon-adapter": "^1.11.1",
     "@hookform/resolvers": "^5.2.2",
     "@neondatabase/serverless": "^1.0.2",
     "@next/third-parties": "^16.0.10",
