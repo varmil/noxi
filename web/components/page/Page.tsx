@@ -62,7 +62,7 @@ export function Page({
 
       <main
         role="main"
-        className={`relative z-0 ${containerClass} min-h-[70vh] overflow-x-hidden ${padding} ${
+        className={`relative z-0 ${containerClass} min-h-[70vh] overflow-x-clip ${padding} ${
           className ?? ''
         }`}
       >
