@@ -19,7 +19,7 @@ export interface ChannelRepository {
       country?: CountryCode
     }
     orderBy?: Partial<
-      Record<'publishedAt' | 'subscriberCount' | 'viewCount', 'asc' | 'desc'>
+      Record<'id' | 'publishedAt' | 'subscriberCount' | 'viewCount', 'asc' | 'desc'>
     >[]
     limit?: number
     offset?: number

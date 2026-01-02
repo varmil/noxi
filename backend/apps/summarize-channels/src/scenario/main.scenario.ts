@@ -25,7 +25,7 @@ export class MainScenario {
     while (true) {
       try {
         const channels = await this.channelsService.findAll({
-          orderBy: [{ subscriberCount: 'desc' }],
+          orderBy: [{ subscriberCount: 'desc' }, { id: 'asc' }],
           limit: this.CHUNK_SIZE,
           offset
         })
@@ -64,7 +64,7 @@ export class MainScenario {
     while (true) {
       try {
         const channels = await this.channelsService.findAll({
-          orderBy: [{ subscriberCount: 'desc' }],
+          orderBy: [{ subscriberCount: 'desc' }, { id: 'asc' }],
           limit: this.CHUNK_SIZE,
           offset
         })
