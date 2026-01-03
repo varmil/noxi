@@ -3,8 +3,6 @@ import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
-import dayjs from 'lib/dayjs'
-import { getOgUrl } from 'utils/og-url'
 import { getWebUrl } from 'utils/web-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
@@ -15,21 +13,14 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const [{ date }, global, page] = await Promise.all([
-    props.searchParams,
+  const [global, page] = await Promise.all([
     getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
     getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.index' })
   ])
-  const searchParams = new URLSearchParams({
-    ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
-  })
 
   return {
     title: `${page('metadata.title')} - ${global('title')}`,
     description: `${page('metadata.description')}`,
-    openGraph: {
-      images: [{ url: getOgUrl(`/daily-ranking?${searchParams.toString()}`) }]
-    },
     alternates: { canonical: `${getWebUrl()}/${locale}` }
   }
 }
