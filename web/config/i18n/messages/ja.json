@@ -930,6 +930,18 @@
       "table": {
         "hour": "時刻"
       }
+    },
+    "channelGrowthRanking": {
+      "title": "チャンネル登録者数増加ランキング",
+      "description": "指定期間内の増加数で上位20チャンネル",
+      "diff": "増加数",
+      "rate": "増加率",
+      "subscriberCount": "登録者数",
+      "table": {
+        "rank": "順位",
+        "channel": "チャンネル",
+        "group": "グループ"
+      }
     }
   },
   "Pages": {

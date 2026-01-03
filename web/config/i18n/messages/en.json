@@ -917,6 +917,18 @@
       "table": {
         "hour": "Hour"
       }
+    },
+    "channelGrowthRanking": {
+      "title": "Subscriber Growth Ranking",
+      "description": "Top 20 channels by subscriber growth in the selected period",
+      "diff": "Growth",
+      "rate": "Growth Rate",
+      "subscriberCount": "Subscribers",
+      "table": {
+        "rank": "Rank",
+        "channel": "Channel",
+        "group": "Group"
+      }
     }
   },
 

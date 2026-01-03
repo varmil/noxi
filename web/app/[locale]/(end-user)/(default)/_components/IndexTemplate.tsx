@@ -5,6 +5,10 @@ import { AdCarousel } from 'components/ads/AdCarousel'
 import { AdWantedFromFanCardBeta } from 'components/ads/AdWantedFromFanCardBeta'
 import { AdWantedFromTalentCardBeta } from 'components/ads/AdWantedFromTalentCardBeta'
 import { LookerReport } from 'components/looker/LookerReport'
+import {
+  ChannelGrowthRankingContainer,
+  ChannelGrowthRankingSkeleton
+} from 'features/channel-growth-ranking'
 import { ChartFilters } from 'features/charts/components/ChartFilters'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
 import {
@@ -24,9 +28,6 @@ import {
   StreamVolumeTrendSkeleton
 } from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
-
-const CHANNEL_RANKING_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_2haikz50yd'
 const SCATTER_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_iyv78oa1yd'
 
@@ -140,11 +141,12 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
         </FlexSection>
 
         <div>
-          <LookerReport
-            reportUrl={CHANNEL_RANKING_URL}
-            className="h-[400px] xl:h-[490px]"
-            lazy={true}
-          />
+          <Suspense
+            key={`channel-growth-${days}-${group}`}
+            fallback={<ChannelGrowthRankingSkeleton />}
+          >
+            <ChannelGrowthRankingContainer days={days} group={group} />
+          </Suspense>
         </div>
 
         <div>
