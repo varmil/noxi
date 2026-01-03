@@ -26,6 +26,31 @@ const NumberFormat: NumberFormatOptions = {
   notation: 'compact'
 }
 
+/** 偶数・奇数で上下2段に分けて表示するカスタムtick */
+function StaggeredTick({
+  x,
+  y,
+  payload
+}: {
+  x: number
+  y: number
+  payload: { value: number }
+}) {
+  const hour = payload.value
+  // 奇数時は上段（y座標を小さく）、偶数時は下段
+  const yOffset = hour % 2 === 1 ? -4 : 8
+  return (
+    <text
+      x={x}
+      y={y + yOffset}
+      textAnchor="middle"
+      className="fill-muted-foreground text-xs"
+    >
+      {hour}
+    </text>
+  )
+}
+
 // 曜日キー（月曜始まり）
 const DAY_KEYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'] as const
 type DayKey = (typeof DAY_KEYS)[number]
@@ -101,7 +126,7 @@ export function GoldenTimeChart({ data }: Props) {
     sun: { label: weekdayLabels.sun, color: 'var(--chart-1)' }
   }
 
-  const formatHour = (hour: number) => `${hour}${t('hourSuffix')}`
+  const formatHour = (hour: number) => `${hour}`
 
   return (
     <ChartCard>
@@ -116,8 +141,8 @@ export function GoldenTimeChart({ data }: Props) {
             <XAxis
               dataKey="hour"
               tickLine={false}
-              tickMargin={8}
-              tickFormatter={formatHour}
+              interval={0}
+              tick={StaggeredTick}
             />
             <YAxis
               tickLine={false}
