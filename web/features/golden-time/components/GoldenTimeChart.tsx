@@ -7,8 +7,6 @@ import { CardDescription } from '@/components/ui/card'
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
@@ -38,7 +36,7 @@ function StaggeredTick({
 }) {
   const hour = payload.value
   // 奇数時は上段（y座標を小さく）、偶数時は下段
-  const yOffset = hour % 2 === 1 ? -4 : 8
+  const yOffset = hour % 2 !== 1 ? -4 : 8
   return (
     <text
       x={x}
@@ -141,6 +139,7 @@ export function GoldenTimeChart({ data }: Props) {
             <XAxis
               dataKey="hour"
               tickLine={false}
+              tickMargin={14}
               interval={0}
               tick={StaggeredTick}
             />
@@ -173,7 +172,6 @@ export function GoldenTimeChart({ data }: Props) {
                 />
               }
             />
-            <ChartLegend content={<ChartLegendContent />} />
             {/* 月曜始まり順で積み上げ（stackId="a"で同一スタック） */}
             {DAY_KEYS.map(dayKey => (
               <Bar
