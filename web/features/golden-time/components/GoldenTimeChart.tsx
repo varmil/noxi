@@ -111,7 +111,7 @@ export function GoldenTimeChart({ data }: Props) {
       </ChartCardHeader>
       <ChartCardContent>
         <ChartContainer config={chartConfig}>
-          <BarChart data={chartData} margin={{ left: -20, top: 10, right: -20 }}>
+          <BarChart data={chartData} margin={{ left: -20, top: 10, right: 0 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis
               dataKey="hour"
@@ -127,6 +127,7 @@ export function GoldenTimeChart({ data }: Props) {
             />
             <ChartTooltip
               allowEscapeViewBox={{ x: false, y: true }}
+              wrapperStyle={{ zIndex: 10 }}
               content={
                 <ChartTooltipContent
                   className="w-[180px] sm:w-[200px]"

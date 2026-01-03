@@ -13,7 +13,7 @@ export function GoldenTimeSkeleton() {
         <Skeleton className="h-4 w-64 mt-1" />
       </ChartCardHeader>
       <ChartCardContent>
-        <Skeleton className="h-[300px] sm:h-[350px] w-full rounded-md" />
+        <Skeleton className="h-[192px] sm:h-[250px] w-full rounded-md" />
       </ChartCardContent>
     </ChartCard>
   )
