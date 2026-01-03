@@ -1,5 +1,5 @@
 import { Transform } from 'class-transformer'
-import { GroupName } from '@domain/group'
+import { GroupId, GroupName } from '@domain/group'
 import { ChannelId, ChannelTitle, SubscriberCount } from '@domain/youtube/channel'
 import { Diff } from './Diff.vo'
 import { Rank } from './Rank.vo'
@@ -20,6 +20,9 @@ export class ChannelGrowthRanking {
   @Transform(({ value }: { value: ThumbnailUrl | null }) => value?.get() ?? null)
   public readonly thumbnailUrl: ThumbnailUrl | null
 
+  @Transform(({ value }: { value: GroupId }) => value.get())
+  public readonly groupId: GroupId
+
   @Transform(({ value }: { value: GroupName }) => value.get())
   public readonly groupName: GroupName
 
@@ -37,6 +40,7 @@ export class ChannelGrowthRanking {
     channelId: ChannelId
     channelTitle: ChannelTitle
     thumbnailUrl: ThumbnailUrl | null
+    groupId: GroupId
     groupName: GroupName
     diff: Diff
     rate: Rate
@@ -46,6 +50,7 @@ export class ChannelGrowthRanking {
     this.channelId = args.channelId
     this.channelTitle = args.channelTitle
     this.thumbnailUrl = args.thumbnailUrl
+    this.groupId = args.groupId
     this.groupName = args.groupName
     this.diff = args.diff
     this.rate = args.rate

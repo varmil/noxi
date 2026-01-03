@@ -8,7 +8,7 @@ import {
   Rate,
   ThumbnailUrl
 } from '@domain/channel-growth-ranking'
-import { GroupName } from '@domain/group'
+import { GroupId, GroupName } from '@domain/group'
 import { ChannelId, ChannelTitle, SubscriberCount } from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
@@ -17,6 +17,7 @@ interface ChannelGrowthRankingRow {
   channel_id: string
   channel_title: string
   thumbnail_url: string | null
+  group_id: string
   group_name: string
   diff: bigint
   /** PostgreSQL ROUND returns string */
@@ -83,6 +84,7 @@ export class ChannelGrowthRankingRepositoryImpl
         g."channelId" as channel_id,
         c."title" as channel_title,
         (c."thumbnails"::json->'medium'->>'url') as thumbnail_url,
+        gr."id" as group_id,
         gr."name" as group_name,
         g.diff,
         g.rate,
@@ -108,6 +110,7 @@ export class ChannelGrowthRankingRepositoryImpl
             thumbnailUrl: row.thumbnail_url
               ? new ThumbnailUrl(row.thumbnail_url)
               : null,
+            groupId: new GroupId(row.group_id),
             groupName: new GroupName(row.group_name),
             diff: new Diff(row.diff),
             rate: new Rate(row.rate ?? 0),
