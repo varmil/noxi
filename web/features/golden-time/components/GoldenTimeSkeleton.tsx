@@ -1,0 +1,20 @@
+import { Skeleton } from '@/components/ui/skeleton'
+import {
+  ChartCard,
+  ChartCardContent,
+  ChartCardHeader
+} from 'components/styles/card/ChartCard'
+
+export function GoldenTimeSkeleton() {
+  return (
+    <ChartCard>
+      <ChartCardHeader>
+        <Skeleton className="h-6 w-48" />
+        <Skeleton className="h-4 w-64 mt-1" />
+      </ChartCardHeader>
+      <ChartCardContent>
+        <Skeleton className="h-[300px] sm:h-[350px] w-full rounded-md" />
+      </ChartCardContent>
+    </ChartCard>
+  )
+}

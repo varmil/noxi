@@ -909,6 +909,14 @@
       "table": {
         "dayOfWeek": "Day of Week"
       }
+    },
+    "goldenTime": {
+      "title": "Golden Time (Stream Start Time)",
+      "description": "Stream count by hour and day of week (stacked bar chart)",
+      "hourSuffix": ":00",
+      "table": {
+        "hour": "Hour"
+      }
     }
   },
 
