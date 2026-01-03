@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ChannelGrowthRankingsPresentationModule } from '@presentation/youtube/channel-growth-rankings/channel-growth-rankings.presentation.module'
 import { ChannelsPresentationModule } from '@presentation/youtube/channels/channels.presentation.module'
 import { ConcurrentViewerTrendsPresentationModule } from '@presentation/youtube/concurrent-viewer-trends/concurrent-viewer-trends.presentation.module'
 import { DayOfWeekDistributionsPresentationModule } from '@presentation/youtube/day-of-week-distributions/day-of-week-distributions.presentation.module'
@@ -14,6 +15,7 @@ import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 
 @Module({
   imports: [
+    ChannelGrowthRankingsPresentationModule,
     ChannelsPresentationModule,
     ConcurrentViewerTrendsPresentationModule,
     DayOfWeekDistributionsPresentationModule,

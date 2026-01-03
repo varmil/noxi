@@ -903,7 +903,7 @@
     },
     "dayOfWeekDistribution": {
       "title": "Distribution by Day of Week",
-      "description": "Stream count (bars) and median concurrent viewers (line) by day of week",
+      "description": "Stream count and median concurrent viewers",
       "streamCount": "Stream Count",
       "medianViewers": "Concurrent Viewers (Median)",
       "table": {
@@ -912,10 +912,22 @@
     },
     "goldenTime": {
       "title": "Golden Time (Stream Start Time)",
-      "description": "Stream count by hour and day of week (stacked bar chart)",
+      "description": "Stream count by hour and day of week",
       "hourSuffix": ":00",
       "table": {
         "hour": "Hour"
+      }
+    },
+    "channelGrowthRanking": {
+      "title": "Subscriber Growth Ranking",
+      "description": "Top 20 channels by subscriber growth in the selected period",
+      "diff": "Growth",
+      "rate": "Growth Rate",
+      "subscriberCount": "Subscribers",
+      "table": {
+        "rank": "Rank",
+        "channel": "Channel",
+        "group": "Group"
       }
     }
   },
