@@ -55,15 +55,13 @@ export function ChannelGrowthRankingChart({ data }: Props) {
 
                   {/* アバター */}
                   <div className="size-[92px] aspect-square rounded-md bg-muted">
-                    {item.thumbnailUrl && (
-                      <Image
-                        src={item.thumbnailUrl}
-                        alt={item.channelTitle}
-                        width={92}
-                        height={92}
-                        className="object-cover rounded-md"
-                      />
-                    )}
+                    <Image
+                      src={item.thumbnailUrl ?? '/placeholder-user.jpg'}
+                      alt={item.channelTitle}
+                      width={92}
+                      height={92}
+                      className="object-cover rounded-md"
+                    />
                   </div>
 
                   {/* データ表示（ラベルなし） */}
