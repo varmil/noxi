@@ -916,7 +916,7 @@
     },
     "dayOfWeekDistribution": {
       "title": "曜日別のトレンド",
-      "description": "曜日別の配信件数（棒）と同時接続数中央値（線）",
+      "description": "配信件数と同時接続数（中央値）",
       "streamCount": "配信件数",
       "medianViewers": "同時接続数（中央値）",
       "table": {
@@ -925,7 +925,7 @@
     },
     "goldenTime": {
       "title": "ゴールデンタイム（配信開始時刻）",
-      "description": "時刻×曜日別の配信件数（積み上げ棒グラフ）",
+      "description": "時刻×曜日別の配信件数",
       "hourSuffix": "時",
       "table": {
         "hour": "時刻"
