@@ -80,19 +80,9 @@
     "index": {
       "metadata": {
         "title": "VTuber Analysis Platform",
-        "description": "Explore VCharts for realtime VTuber Live Streams on YouTube. Stay updated on trends and find your favorite VTuber contents effortlessly."
+        "description": "Check Super Chat rankings and concurrent viewer rankings. VCharts covers all statistical data for Nijisanji, Hololive, and individual VTubers."
       },
-      "title": "The Largest\nVTuber Ranking\nDatabase",
-      "description": "We organize VTubers from all over the world. We will summarize the Super Chat earnings of VTubers like Hololive, Nijisanji, Independent VTubers and more.",
       "section": {
-        "hero": { "more": "Most Watched right now" },
-        "socialProof": {
-          "title": "All fans can support their favorite VTuber",
-          "description": "Perfect for busy working people. Are you just looking at clippings? VCharts offers a new way to support your favorite talents in just one minute every day.",
-          "channels": "Channels",
-          "liveStreams": "Live Streams",
-          "groups": "Agencies"
-        },
         "liveStats": {
           "liveCount": "Live Now",
           "totalViewers": "Total Viewers",
@@ -380,8 +370,6 @@
       "dashboard": "Dashboard",
       "liveRanking": "Live",
       "channelsRanking": "Channels",
-      "mostCheered": "Most Cheered",
-      "topFans": "Top Fans",
       "talents": "Talents"
     },
     "loginBonus": {

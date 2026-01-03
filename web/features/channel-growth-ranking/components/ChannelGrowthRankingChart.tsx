@@ -6,6 +6,7 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { ChannelGrowthRankingsSchema } from 'apis/youtube/schema/channelGrowthRankingSchema'
 import Image from 'components/styles/Image'
 import { ChartCard, ChartCardHeader } from 'components/styles/card/ChartCard'
+import { Link } from 'lib/navigation'
 
 interface Props {
   data: ChannelGrowthRankingsSchema
@@ -42,9 +43,9 @@ export function ChannelGrowthRankingChart({ data }: Props) {
 
             {/* カード群 */}
             {data.map(item => (
-              <a
+              <Link
                 key={item.channelId}
-                href={`/youtube/channels/${item.channelId}`}
+                href={`/${item.groupId}/channels/${item.channelId}`}
                 className="shrink-0 w-[100px] hover:opacity-80 transition-opacity"
               >
                 <div className="relative flex flex-col">
@@ -86,7 +87,7 @@ export function ChannelGrowthRankingChart({ data }: Props) {
                     </span>
                   </div>
                 </div>
-              </a>
+              </Link>
             ))}
             <div className="shrink-0 w-4" aria-hidden="true" />
           </div>

@@ -75,21 +75,9 @@
     "index": {
       "metadata": {
         "title": "VTuber分析プラットフォーム",
-        "description": "YouTubeのライブ配信ランキングを瞬時に確認できるVChartsでは人気VTuberの最新情報、統計データを網羅。同接数、スーパーチャットを用いてお気に入りのVTuberを瞬時に見つけよう。"
+        "description": "スパチャランキング、同接数ランキングを瞬時に確認。VChartsはにじさんじ、ホロライブ、個人勢すべての統計データを網羅しています。"
       },
-      "title": "世界最大級の\nVTuberチャート",
-      "description": "にじさんじ、ホロライブ、個人勢すべてを即座に確認。最新統計データをランキングでチェック",
       "section": {
-        "hero": {
-          "more": "ランキングを確認"
-        },
-        "socialProof": {
-          "title": "あらゆるファンが推しを広告できる",
-          "description": "忙しい社会人にぴったり。切り抜きやまとめを見るだけになっていませんかVChartsは広告で推しを支える新しい推し方を提供します。",
-          "channels": "チャンネル",
-          "liveStreams": "ライブ配信",
-          "groups": "事務所/グループ"
-        },
         "liveStats": {
           "liveCount": "ライブ中",
           "totalViewers": "現在の総同接数",
@@ -392,8 +380,6 @@
       "dashboard": "ダッシュボード",
       "liveRanking": "同接数",
       "channelsRanking": "スパチャ金額",
-      "mostCheered": "応援ランキング",
-      "topFans": "トップファン",
       "talents": "タレント"
     },
     "loginBonus": {

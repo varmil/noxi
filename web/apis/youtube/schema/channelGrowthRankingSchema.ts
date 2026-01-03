@@ -5,6 +5,7 @@ export const schema = z.object({
   channelId: z.string(),
   channelTitle: z.string(),
   thumbnailUrl: z.string().nullable(),
+  groupId: z.string(),
   groupName: z.string(),
   diff: z.number(),
   rate: z.number(),
