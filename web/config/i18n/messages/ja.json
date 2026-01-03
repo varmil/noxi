@@ -922,6 +922,14 @@
       "table": {
         "dayOfWeek": "曜日"
       }
+    },
+    "goldenTime": {
+      "title": "ゴールデンタイム（配信開始時刻）",
+      "description": "時刻×曜日別の配信件数（積み上げ棒グラフ）",
+      "hourSuffix": "時",
+      "table": {
+        "hour": "時刻"
+      }
     }
   },
   "Pages": {

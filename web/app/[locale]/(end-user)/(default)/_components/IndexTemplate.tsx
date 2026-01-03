@@ -16,12 +16,15 @@ import {
   DayOfWeekDistributionSkeleton
 } from 'features/day-of-week-distribution'
 import {
+  GoldenTimeContainer,
+  GoldenTimeSkeleton
+} from 'features/golden-time'
+import {
   StreamVolumeTrendContainer,
   StreamVolumeTrendSkeleton
 } from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
-const GOLDENTIME_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_orwwr0z0yd'
+
 const CHANNEL_RANKING_URL =
   'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_2haikz50yd'
 const SCATTER_URL =
@@ -127,11 +130,12 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             </Suspense>
           </div>
           <div className="flex-1 w-full">
-            <LookerReport
-              reportUrl={GOLDENTIME_URL}
-              className="h-[568px]"
-              lazy={true}
-            />
+            <Suspense
+              key={`golden-${days}-${group}`}
+              fallback={<GoldenTimeSkeleton />}
+            >
+              <GoldenTimeContainer days={days} group={group} />
+            </Suspense>
           </div>
         </FlexSection>
 
