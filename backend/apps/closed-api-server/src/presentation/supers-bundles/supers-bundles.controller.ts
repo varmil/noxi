@@ -1,7 +1,6 @@
 import { CacheTTL } from '@nestjs/cache-manager'
 import { Controller, Get, Param, Query } from '@nestjs/common'
 import { GetSupersBundleRank } from '@presentation/supers-bundles/dto/GetSupersBundleRank.dto'
-import { GetSupersBundleRanks } from '@presentation/supers-bundles/dto/GetSupersBundleRanks.dto'
 import { GetSupersBundles } from '@presentation/supers-bundles/dto/GetSupersBundles.dto'
 import { GetSupersBundlesSum } from '@presentation/supers-bundles/dto/GetSupersBundlesSum.dto'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
@@ -48,13 +47,6 @@ export class SupersBundlesController {
     })
   }
 
-  @Get('/ranks')
-  async getSupersBundlesRanks(@Query() dto: GetSupersBundleRanks) {
-    return await this.supersBundlesService.findRanks({
-      where: { videoIds: dto.toVideoIds(), rankingType: dto.toRankingType() }
-    })
-  }
-
   /** last 24 hours の「チャンネルごと」集計 */
   @Get('sum')
   async getSupersBundleSum(
@@ -87,6 +79,7 @@ export class SupersBundlesController {
   }
 
   @Get(':id/rank')
+  @CacheTTL(7 * 24 * 3600 * 1000)
   async getSupersBundleRank(
     @Param('id') id: string,
     @Query() dto: GetSupersBundleRank

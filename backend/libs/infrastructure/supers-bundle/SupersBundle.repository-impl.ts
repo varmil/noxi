@@ -13,7 +13,6 @@ import {
   SupersCount,
   SupersBundleSums,
   SupersBundleSum,
-  VideoRanks,
   Rank,
   VideoRank,
   TopPercentage
@@ -26,30 +25,19 @@ import {
 } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
-/** rank: 順位, totalCount: ランキング対象の数 */
-const queryRankOver = (rankingType: RankingType) => {
-  let rankOver = ''
-  switch (true) {
-    case rankingType.isOverall():
-      rankOver = `
-                RANK() OVER (ORDER BY ysb."amountMicros" DESC) AS "rank",
-                COUNT(*) OVER () AS "totalCount"
-            `
-      break
-    case rankingType.isGender():
-      rankOver = `
-                RANK() OVER (PARTITION BY c."gender" ORDER BY ysb."amountMicros" DESC) AS "rank",
-                COUNT(*) OVER (PARTITION BY c."gender") AS "totalCount"
-            `
-      break
-    case rankingType.isGroup():
-      rankOver = `
-                RANK() OVER (PARTITION BY c."group" ORDER BY ysb."amountMicros" DESC) AS "rank",
-                COUNT(*) OVER (PARTITION BY c."group") AS "totalCount"
-            `
-      break
+/** パーティション条件を生成 */
+const getPartitionCondition = (
+  rankingType: RankingType,
+  gender: string,
+  group: string
+) => {
+  if (rankingType.isGender()) {
+    return Prisma.sql`c."gender" = ${gender}`
   }
-  return rankOver
+  if (rankingType.isGroup()) {
+    return Prisma.sql`c."group" = ${group}`
+  }
+  return Prisma.sql`1=1`
 }
 
 @Injectable()
@@ -136,65 +124,51 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
   findRank: SupersBundleRepository['findRank'] = async ({
     where: { videoId, rankingType }
   }) => {
-    const result = await this.prismaInfraService.$queryRawUnsafe<
-      { videoId: string; rank: number; topPercentage: object }[]
-    >(`
-      WITH "Ranked" AS (
-          SELECT 
-              "videoId",
-              ${queryRankOver(rankingType)}
-          FROM "YoutubeStreamSupersBundle" ysb
-          JOIN "Channel" c ON ysb."channelId" = c."id"
-          WHERE ysb."amountMicros" > 0
-      )
-      SELECT 
-          "videoId",
-          rank::int,
-          (rank * 100.0 / "totalCount") AS "topPercentage"
-      FROM "Ranked"
-      WHERE "videoId" = '${videoId.get()}';
-    `)
-    if (!result[0]) return null
+    // 1. 対象videoIdの情報を取得
+    const target = await this.prismaInfraService.$queryRaw<
+      { amountMicros: bigint; gender: string; group: string }[]
+    >`
+      SELECT ysb."amountMicros", c."gender", c."group"
+      FROM "YoutubeStreamSupersBundle" ysb
+      JOIN "Channel" c ON ysb."channelId" = c."id"
+      WHERE ysb."videoId" = ${videoId.get()}
+        AND ysb."amountMicros" > 0
+    `
+    if (!target[0]) return null
+
+    const partitionCondition = getPartitionCondition(
+      rankingType,
+      target[0].gender,
+      target[0].group
+    )
+
+    // 2. ランクと総数を計算
+    const result = await this.prismaInfraService.$queryRaw<
+      { rank: bigint; totalCount: bigint }[]
+    >`
+      SELECT
+        (SELECT COUNT(*) + 1
+         FROM "YoutubeStreamSupersBundle" ysb
+         JOIN "Channel" c ON ysb."channelId" = c."id"
+         WHERE ${partitionCondition}
+           AND ysb."amountMicros" > ${target[0].amountMicros}
+           AND ysb."amountMicros" > 0) as rank,
+        (SELECT COUNT(*)
+         FROM "YoutubeStreamSupersBundle" ysb
+         JOIN "Channel" c ON ysb."channelId" = c."id"
+         WHERE ${partitionCondition}
+           AND ysb."amountMicros" > 0) as "totalCount"
+    `
+
+    const rank = Number(result[0].rank)
+    const totalCount = Number(result[0].totalCount)
+    const topPercentage = (rank * 100.0) / totalCount
+
     return new VideoRank({
       videoId,
-      rank: new Rank(result[0].rank),
-      topPercentage: new TopPercentage(Number(result[0].topPercentage))
+      rank: new Rank(rank),
+      topPercentage: new TopPercentage(topPercentage)
     })
-  }
-
-  findRanks: SupersBundleRepository['findRanks'] = async ({
-    where: { videoIds, rankingType }
-  }) => {
-    if (!videoIds.length) return new VideoRanks([])
-
-    const result = await this.prismaInfraService.$queryRawUnsafe<
-      { videoId: string; rank: number; topPercentage: object }[]
-    >(`
-      WITH "Ranked" AS (
-          SELECT 
-              "videoId",
-              ${queryRankOver(rankingType)}
-          FROM "YoutubeStreamSupersBundle" ysb
-          JOIN "Channel" c ON ysb."channelId" = c."id"
-          WHERE ysb."amountMicros" > 0
-      )
-      SELECT 
-          "videoId",
-          rank::int,
-          (rank * 100.0 / "totalCount") AS "topPercentage"
-      FROM "Ranked"
-      WHERE "videoId" IN (${videoIds.map(e => `'${e.get()}'`).join(',')});
-    `)
-    return new VideoRanks(
-      result.map(
-        e =>
-          new VideoRank({
-            videoId: new VideoId(e.videoId),
-            rank: new Rank(e.rank),
-            topPercentage: new TopPercentage(Number(e.topPercentage))
-          })
-      )
-    )
   }
 
   save: SupersBundleRepository['save'] = async ({ data }) => {

@@ -6,8 +6,7 @@ import {
   SupersBundle,
   SupersBundles,
   SupersBundleSums,
-  VideoRank,
-  VideoRanks
+  VideoRank
 } from '@domain/supers-bundle'
 import { ChannelId, ChannelIds, VideoId, VideoIds } from '@domain/youtube'
 
@@ -62,10 +61,6 @@ export interface SupersBundleRepository {
   findRank: (args: {
     where: { videoId: VideoId; rankingType: RankingType }
   }) => Promise<VideoRank | null>
-
-  findRanks: (args: {
-    where: { videoIds: VideoIds; rankingType: RankingType }
-  }) => Promise<VideoRanks>
 
   save: (args: { data: SupersBundle }) => Promise<void>
 
