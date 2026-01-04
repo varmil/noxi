@@ -119,15 +119,24 @@ export default function TermsAndPPEn() {
             </p>
 
             <h3 className="text-l font-bold">
-              5. Validity Period of Cheer Tickets
+              5. Validity Period and Possession Limit of Cheer Tickets
             </h3>
             <p>
-              5.1 The validity period of cheer tickets purchased or obtained
-              through the service is from the purchase date (or issue date) to
-              three years from the purchase date (or issue date).
+              5.1 Cheer tickets obtained for free through the Service will be
+              reset at the end of each season. Cheer tickets purchased through
+              the Service will be valid for one year from the purchase date (or
+              issue date).
             </p>
             <p>
-              5.2 Cheer tickets that have expired are invalid, and no reissuance
+              5.2 Free cheer tickets have a possession limit of 100 tickets.
+              When the number of tickets held reaches the limit, no new free
+              tickets (such as login bonuses) will be granted, and the right to
+              receive such tickets will be forfeited. To receive tickets again,
+              users must use their tickets to reduce the number held below the
+              limit.
+            </p>
+            <p>
+              5.3 Cheer tickets that have expired are invalid, and no reissuance
               or refund will be made for any reason.
             </p>
 
