@@ -104,6 +104,7 @@ model YoutubeStream {
   @@index([status, group])
   @@index([status, scheduledStartTime])
   @@index([status, actualStartTime])
+  @@index([status, actualEndTime])
   @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
