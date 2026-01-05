@@ -324,7 +324,7 @@
             "title": "VTuber",
             "description": {
               "dimension": {
-                "super-chat": "{group}{gender}のスパチャランキング（{period}）。推しのVTuberを比較しよう。",
+                "super-chat": "{group}{gender}のスパチャランキング - {period}。推しのVTuberを比較しよう。",
                 "subscriber": "{group}{gender}のチャンネル登録者数ランキング。推しの成長をチェックしよう。"
               }
             }
