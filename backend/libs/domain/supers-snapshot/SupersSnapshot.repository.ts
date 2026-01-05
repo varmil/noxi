@@ -20,4 +20,16 @@ export interface SupersSnapshotRepository {
     limit?: number
     offset?: number
   }) => Promise<SupersSnapshots>
+
+  /**
+   * 指定日付時点のスナップショットランキングの件数を取得
+   */
+  countRanking: (args: {
+    where: {
+      targetDate: Date
+      group?: GroupId
+      gender?: Gender
+    }
+    period: SnapshotPeriod
+  }) => Promise<number>
 }

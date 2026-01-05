@@ -25,4 +25,18 @@ export class SupersSnapshotsController {
       offset: dto.toOffset()
     })
   }
+
+  /**
+   * GET /supers-snapshots/ranking/count?period=weekly&target=2026-W01&group=hololive
+   */
+  @Get('/ranking/count')
+  @CacheTTL(24 * 3600 * 1000) // 24 hours
+  async countRanking(@Query() dto: GetSupersSnapshotRanking) {
+    return await this.supersSnapshotsScenario.countRanking({
+      targetDate: dto.toTargetDate(),
+      period: dto.period,
+      group: dto.toGroup(),
+      gender: dto.toGender()
+    })
+  }
 }

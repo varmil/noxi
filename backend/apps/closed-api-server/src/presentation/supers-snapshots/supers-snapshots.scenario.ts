@@ -35,4 +35,20 @@ export class SupersSnapshotsScenario {
       }))
     }
   }
+
+  async countRanking(args: {
+    targetDate: Date
+    period: SnapshotPeriod
+    group?: GroupId
+    gender?: Gender
+  }) {
+    const { targetDate, period, group, gender } = args
+
+    const count = await this.supersSnapshotsService.countRanking({
+      where: { targetDate, group, gender },
+      period
+    })
+
+    return { count }
+  }
 }

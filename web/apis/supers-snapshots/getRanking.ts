@@ -62,3 +62,37 @@ export async function getSupersSnapshotRanking(
   const data = responseSchema.parse(await res.json())
   return data.list
 }
+
+const countResponseSchema = z.object({
+  count: z.number()
+})
+
+/**
+ * スナップショットランキングの件数を取得
+ */
+export async function getSupersSnapshotRankingCount(
+  params: Omit<Params, 'limit' | 'offset'>
+): Promise<number> {
+  const { period, target, group, gender } = params
+
+  const searchParams = new URLSearchParams({
+    period,
+    target,
+    ...(group && group !== 'all' && { group }),
+    ...(gender && { gender })
+  })
+
+  const res = await fetchAPI(
+    `/api/supers-snapshots/ranking/count?${searchParams.toString()}`,
+    { next: { revalidate: CACHE_1W } }
+  )
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch snapshot ranking count: ${await res.text()}`
+    )
+  }
+
+  const data = countResponseSchema.parse(await res.json())
+  return data.count
+}

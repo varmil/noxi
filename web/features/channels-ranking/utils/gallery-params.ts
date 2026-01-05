@@ -3,7 +3,10 @@ import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { ChannelsRankingGalleryProps } from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 import type { getSupersSummaries } from 'apis/supers/getSupersSummaries'
-import type { getSupersSnapshotRanking } from 'apis/supers-snapshots/getRanking'
+import type {
+  getSupersSnapshotRanking,
+  getSupersSnapshotRankingCount
+} from 'apis/supers-snapshots/getRanking'
 
 /**
  * 期間がスナップショット期間（weekly-xxx or monthly-xxx）かどうかを判定
@@ -43,6 +46,24 @@ export function getSupersSnapshotParams({
     gender,
     limit: ChannelsRankingPagination.getLimit(),
     offset: ChannelsRankingPagination.getOffset(page)
+  }
+}
+
+type GetSupersSnapshotRankingCount = Parameters<
+  typeof getSupersSnapshotRankingCount
+>[0]
+export function getSupersSnapshotCountParams({
+  period,
+  group,
+  gender
+}: Omit<ChannelsRankingGalleryProps, 'dimension'> & {
+  period: SnapshotPeriod
+}): GetSupersSnapshotRankingCount {
+  const parsed = parseSnapshotPeriod(period)
+  return {
+    ...parsed,
+    group,
+    gender
   }
 }
 

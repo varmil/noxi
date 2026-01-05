@@ -13,4 +13,10 @@ export class SupersSnapshotsService {
   ) {
     return await this.supersSnapshotRepository.findRanking(args)
   }
+
+  async countRanking(
+    args: Parameters<SupersSnapshotRepository['countRanking']>[0]
+  ) {
+    return await this.supersSnapshotRepository.countRanking(args)
+  }
 }
