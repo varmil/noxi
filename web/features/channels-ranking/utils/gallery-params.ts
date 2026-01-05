@@ -32,7 +32,6 @@ export function getSupersSnapshotParams({
   period,
   group,
   gender,
-  compact,
   page
 }: Omit<ChannelsRankingGalleryProps, 'dimension'> & {
   period: SnapshotPeriod
@@ -42,7 +41,7 @@ export function getSupersSnapshotParams({
     ...parsed,
     group,
     gender,
-    limit: ChannelsRankingPagination.getLimit(compact),
+    limit: ChannelsRankingPagination.getLimit(),
     offset: ChannelsRankingPagination.getOffset(page)
   }
 }
@@ -54,7 +53,6 @@ export function getSupersSummariesParams({
   gender,
   country,
   date,
-  compact,
   page
 }: Omit<ChannelsRankingGalleryProps, 'dimension'>): GetSupersSummaries {
   let result: GetSupersSummaries = {}
@@ -104,7 +102,7 @@ export function getSupersSummariesParams({
 
   result = {
     ...result,
-    limit: ChannelsRankingPagination.getLimit(compact),
+    limit: ChannelsRankingPagination.getLimit(),
     offset: ChannelsRankingPagination.getOffset(page)
   }
 

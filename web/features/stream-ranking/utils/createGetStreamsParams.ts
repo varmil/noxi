@@ -9,8 +9,7 @@ export default function createGetStreamsParams({
   group,
   gender,
   country,
-  page,
-  compact
+  page
 }: StreamRankingGalleryProps): Parameters<typeof getStreams>[0] {
   let result = {}
 
@@ -51,7 +50,7 @@ export default function createGetStreamsParams({
   {
     result = {
       ...result,
-      limit: StreamRankingPagination.getLimit(compact),
+      limit: StreamRankingPagination.getLimit(),
       offset: StreamRankingPagination.getOffset(page)
     }
   }

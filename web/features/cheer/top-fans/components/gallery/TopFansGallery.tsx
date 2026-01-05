@@ -1,23 +1,17 @@
 import { PropsWithoutRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
 import { getFanRanking } from 'apis/cheer-ticket-usages/getFanRanking'
 import { getGroupName } from 'apis/groups'
 import { PageXSPX } from 'components/page'
 import { TopFansPagination } from 'config/constants/Pagination'
-import { TopFansDefaultUrl } from 'config/constants/RankingRoute'
 import TopFansTable from 'features/cheer/top-fans/components/table/TopFansTable'
 import TopFansTableTitle from 'features/cheer/top-fans/components/table/TopFansTableTitle'
 import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
-import { Link } from 'lib/navigation'
 import { TopFansPeriod } from 'types/period'
 import { getStartOf } from 'utils/period/ranking'
 
 type TopFansGalleryProps = TopFansSearchParams & {
   period: TopFansPeriod
   group: string
-  compact?: boolean
   className?: string
 }
 
@@ -31,12 +25,11 @@ type TopFansGalleryProps = TopFansSearchParams & {
 export default async function TopFansGallery(
   props: PropsWithoutRef<TopFansGalleryProps>
 ) {
-  const { period, group, gender, date, page, compact, className } = props
+  const { period, group, gender, date, page, className } = props
 
-  const [feat, groupName] = await Promise.all([
-    getTranslations('Features.topFans'),
-    getGroupName(group, { errorContext: 'top-fans gallery' })
-  ])
+  const groupName = await getGroupName(group, {
+    errorContext: 'top-fans gallery'
+  })
 
   const fanUsages = await getFanRanking({
     group,
@@ -53,7 +46,7 @@ export default async function TopFansGallery(
         groupName={groupName}
         gender={gender}
         date={date ? new Date(date) : undefined}
-        className={`${!compact ? PageXSPX : ''} sm:px-0`}
+        className={`${PageXSPX} sm:px-0`}
       />
 
       <TopFansTable
@@ -65,14 +58,6 @@ export default async function TopFansGallery(
         page={Number(page) || 1}
       />
 
-      {compact && (
-        <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href={TopFansDefaultUrl}>
-            {feat('viewAll')}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      )}
     </section>
   )
 }

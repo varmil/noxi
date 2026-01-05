@@ -9,8 +9,7 @@ export default function createGetSupersBundlesParams({
   group,
   gender,
   country,
-  page,
-  compact
+  page
 }: Omit<StreamRankingGalleryProps, 'dimension'>): Parameters<
   typeof getSupersBundles
 >[0] {
@@ -49,7 +48,7 @@ export default function createGetSupersBundlesParams({
 
   result = {
     ...result,
-    limit: StreamRankingPagination.getLimit(compact),
+    limit: StreamRankingPagination.getLimit(),
     offset: StreamRankingPagination.getOffset(page)
   }
 

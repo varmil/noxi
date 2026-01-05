@@ -1,23 +1,17 @@
 import { PropsWithoutRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
 import { getCheeredRanking } from 'apis/cheer-ticket-usages/getCheeredRanking'
 import { getGroupName } from 'apis/groups'
 import { PageXSPX } from 'components/page'
 import { MostCheeredPagination } from 'config/constants/Pagination'
-import { MostCheeredDefaultUrl } from 'config/constants/RankingRoute'
 import MostCheeredTable from 'features/cheer/most-cheered/components/table/MostCheeredTable'
 import MostCheeredTableTitle from 'features/cheer/most-cheered/components/table/MostCheeredTableTitle'
 import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
-import { Link } from 'lib/navigation'
 import { MostCheeredPeriod } from 'types/period'
 import { getStartOf } from 'utils/period/ranking'
 
 type MostCheeredGalleryProps = MostCheeredSearchParams & {
   period: MostCheeredPeriod
   group: string
-  compact?: boolean
   className?: string
 }
 
@@ -31,12 +25,11 @@ type MostCheeredGalleryProps = MostCheeredSearchParams & {
 export default async function MostCheeredGallery(
   props: PropsWithoutRef<MostCheeredGalleryProps>
 ) {
-  const { period, group, gender, date, page, compact, className } = props
+  const { period, group, gender, date, page, className } = props
 
-  const [feat, groupName] = await Promise.all([
-    getTranslations('Features.mostCheered'),
-    getGroupName(group, { errorContext: 'most-cheered gallery' })
-  ])
+  const groupName = await getGroupName(group, {
+    errorContext: 'most-cheered gallery'
+  })
 
   const cheeredUsages = await getCheeredRanking({
     group,
@@ -53,7 +46,7 @@ export default async function MostCheeredGallery(
         groupName={groupName}
         gender={gender}
         date={date ? new Date(date) : undefined}
-        className={`${!compact ? PageXSPX : ''} sm:px-0`}
+        className={`${PageXSPX} sm:px-0`}
       />
 
       <MostCheeredTable
@@ -65,14 +58,6 @@ export default async function MostCheeredGallery(
         page={Number(page) || 1}
       />
 
-      {compact && (
-        <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href={MostCheeredDefaultUrl}>
-            {feat('viewAll')}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      )}
     </section>
   )
 }
