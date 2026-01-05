@@ -2,12 +2,24 @@ import { ImageResponse } from 'next/og'
 import { getGroupName } from 'apis/groups'
 import ja from 'config/i18n/messages/ja.json'
 import { getSnapshotSupersRanking } from 'features/channels-ranking/utils/getSnapshotSupersRanking'
+import dayjs from 'lib/dayjs'
 import { Gender } from 'types/gender'
 import { getWebUrl } from 'utils/web-url'
 
 const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
   res => res.arrayBuffer()
 )
+
+/**
+ * ISO週番号から週の開始日（月曜）と終了日（日曜）を計算
+ */
+function getWeekDateRange(year: number, week: number): string {
+  const start = dayjs(`${year}-01-01`).isoWeek(week).startOf('isoWeek')
+  const end = start.endOf('isoWeek')
+  const startStr = `${start.month() + 1}/${start.date()}`
+  const endStr = `${end.month() + 1}/${end.date()}`
+  return `${startStr} ~ ${endStr}`
+}
 
 /**
  * 週間ランキング OGP 画像
@@ -23,8 +35,9 @@ export async function GET(request: Request) {
 
   // 週番号を解析: YYYY-Wxx
   const weekMatch = week?.match(/^(\d{4})-W(\d{2})$/)
-  const year = weekMatch ? weekMatch[1] : ''
-  const weekNum = weekMatch ? weekMatch[2] : ''
+  const year = weekMatch ? parseInt(weekMatch[1], 10) : 0
+  const weekNum = weekMatch ? parseInt(weekMatch[2], 10) : 0
+  const dateRange = weekMatch ? getWeekDateRange(year, weekNum) : ''
 
   const [ranking, groupName] = await Promise.all([
     getSnapshotSupersRanking({
@@ -61,7 +74,7 @@ export async function GET(request: Request) {
               style={{ display: 'flex', fontSize: 30 }}
               tw="text-neutral-500"
             >
-              {`${year}年 第${weekNum}週`}
+              {`${year}年 第${weekNum}週（${dateRange}）`}
             </div>
             <div tw="flex items-end">
               <span tw="font-bold mr-4" style={{ fontSize: 60, lineHeight: 1 }}>
