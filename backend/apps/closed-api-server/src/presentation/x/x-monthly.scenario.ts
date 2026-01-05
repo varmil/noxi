@@ -45,8 +45,6 @@ function getRankPrefix(i: number): string {
 
 function getGroupTitle(group?: GroupId): string {
   if (!group) return 'VTuber総合'
-  const groupStr = group.get()
-  if (groupStr === 'independent') return '個人勢VTuber'
   return group.toJP()
 }
 
