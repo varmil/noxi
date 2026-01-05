@@ -12,7 +12,8 @@ import {
 } from 'features/channels-ranking/types/channels-ranking.type'
 import {
   getChannelsParams,
-  getSupersSummariesParams
+  getSupersSummariesParams,
+  isSnapshotPeriod
 } from 'features/channels-ranking/utils/gallery-params'
 import { ChannelsRankingPeriod } from 'types/period'
 
@@ -29,13 +30,17 @@ export default async function IndexTemplate({
   group,
   searchParams
 }: PropsWithoutRef<Props>) {
+  // スナップショット期間（weekly-xxx, monthly-xxx）の場合は
+  // ページネーションなし（limitで制限されたデータのみ表示）
   const count =
-    dimension === 'super-chat'
-      ? await getSupersSummariesCount(
+    isSnapshotPeriod(period) || dimension !== 'super-chat'
+      ? dimension === 'subscriber'
+        ? await getChannelsCount(
+            getChannelsParams({ period, group, ...searchParams })
+          )
+        : 0 // スナップショットはページネーションなし
+      : await getSupersSummariesCount(
           getSupersSummariesParams({ period, group, ...searchParams })
-        )
-      : await getChannelsCount(
-          getChannelsParams({ period, group, ...searchParams })
         )
 
   return (

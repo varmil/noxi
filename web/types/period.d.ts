@@ -23,9 +23,27 @@ export type MostCheeredPeriod = 'last7Days' | 'last30Days' | 'wholePeriod'
 export type TopFansPeriod = 'last7Days' | 'last30Days' | 'wholePeriod'
 
 /**
- * スパチャランキング or チャンネル登録者数ランキング
+ * 週間スナップショット（例: weekly-2026-W01）
+ * URLパスセグメントとして使うため、スラッシュではなくハイフンを使用
  */
-export type ChannelsRankingPeriod = Period
+export type WeeklySnapshotPeriod = `weekly-${string}`
+
+/**
+ * 月間スナップショット（例: monthly-2025-07）
+ * URLパスセグメントとして使うため、スラッシュではなくハイフンを使用
+ */
+export type MonthlySnapshotPeriod = `monthly-${string}`
+
+/**
+ * スナップショット期間（週間・月間）
+ */
+export type SnapshotPeriod = WeeklySnapshotPeriod | MonthlySnapshotPeriod
+
+/**
+ * スパチャランキング or チャンネル登録者数ランキング
+ * 通常のPeriodに加え、スナップショット期間もサポート
+ */
+export type ChannelsRankingPeriod = Period | SnapshotPeriod
 
 /**
  * 同接数ランキング

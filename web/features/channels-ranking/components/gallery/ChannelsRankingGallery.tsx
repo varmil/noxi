@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
 import { getGroupName } from 'apis/groups'
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
+import { getSupersSnapshotRanking } from 'apis/supers-snapshots/getRanking'
 import { getChannels } from 'apis/youtube/getChannels'
 import { PageXSPX } from 'components/page'
 import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
@@ -17,7 +18,9 @@ import { Link } from 'lib/navigation'
 import { ChannelsRankingPeriod } from 'types/period'
 import {
   getChannelsParams,
-  getSupersSummariesParams
+  getSupersSnapshotParams,
+  getSupersSummariesParams,
+  isSnapshotPeriod
 } from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
@@ -49,10 +52,19 @@ export default async function ChannelsRankingGallery(
   ])
 
   if (dimension === 'super-chat') {
-    const supersSummaries = await getSupersSummaries(
-      getSupersSummariesParams(props)
-    )
-    channelIds = supersSummaries.map(summary => summary.channelId)
+    if (isSnapshotPeriod(period)) {
+      // 週間・月間スナップショットランキング
+      const snapshots = await getSupersSnapshotRanking(
+        getSupersSnapshotParams({ ...props, period })
+      )
+      channelIds = snapshots.map(snapshot => snapshot.channelId)
+    } else {
+      // 通常のランキング
+      const supersSummaries = await getSupersSummaries(
+        getSupersSummariesParams(props)
+      )
+      channelIds = supersSummaries.map(summary => summary.channelId)
+    }
   }
 
   if (dimension === 'subscriber') {
