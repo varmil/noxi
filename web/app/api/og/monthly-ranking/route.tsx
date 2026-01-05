@@ -61,7 +61,7 @@ export async function GET(request: Request) {
               style={{ display: 'flex', fontSize: 30 }}
               tw="text-neutral-500"
             >
-              {`${year}年${monthNum}月`}
+              {`${year}年 ${monthNum}月`}
             </div>
             <div tw="flex items-end">
               <span tw="font-bold mr-4" style={{ fontSize: 70, lineHeight: 1 }}>

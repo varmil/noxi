@@ -18,7 +18,7 @@ function getWeekDateRange(year: number, week: number): string {
   const end = start.endOf('isoWeek')
   const startStr = `${start.month() + 1}/${start.date()}`
   const endStr = `${end.month() + 1}/${end.date()}`
-  return `${startStr} ~ ${endStr}`
+  return `${startStr}~${endStr}`
 }
 
 /**
@@ -74,10 +74,10 @@ export async function GET(request: Request) {
               style={{ display: 'flex', fontSize: 30 }}
               tw="text-neutral-500"
             >
-              {`${year}年 第${weekNum}週（${dateRange}）`}
+              {`${year}年 第${weekNum}週 ${dateRange}`}
             </div>
             <div tw="flex items-end">
-              <span tw="font-bold mr-4" style={{ fontSize: 60, lineHeight: 1 }}>
+              <span tw="font-bold mr-4" style={{ fontSize: 70, lineHeight: 1 }}>
                 週間
               </span>
               <span tw="text-neutral-500" style={{ fontSize: 36 }}>
