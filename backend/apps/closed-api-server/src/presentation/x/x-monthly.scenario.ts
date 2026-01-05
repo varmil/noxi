@@ -12,7 +12,7 @@ import { ChannelIds } from '@domain/youtube'
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-const MAX_LENGTH_PER_LINE = 15
+const MAX_LENGTH_PER_LINE = 13
 
 /** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
 function truncateTitle(
@@ -100,7 +100,7 @@ export class XMonthlyScenario {
         )}`
       })
       .join('\n')
-    const message3 = `タップですべて表示`
+    const message3 = `6位以下はタップで表示`
     const message4 = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}${gender ? `?gender=${gender.get()}` : ''}`
     const content = `${message1}\n\n${message2}\n\n${message3}\n${message4}`
     const tweet = await this.xClient.v2.tweet(content)
