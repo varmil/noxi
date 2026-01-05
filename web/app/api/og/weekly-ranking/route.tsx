@@ -57,11 +57,19 @@ export async function GET(request: Request) {
       >
         <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
           <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
-            <div style={{ display: 'flex', fontSize: 30 }} tw="text-neutral-500">
+            <div
+              style={{ display: 'flex', fontSize: 30 }}
+              tw="text-neutral-500"
+            >
               {`${year}年 第${weekNum}週`}
             </div>
-            <div tw="flex text-neutral-500" style={{ fontSize: 50 }}>
-              週間ランキング
+            <div tw="flex items-end">
+              <span tw="font-bold mr-4" style={{ fontSize: 60, lineHeight: 1 }}>
+                週間
+              </span>
+              <span tw="text-neutral-500" style={{ fontSize: 36 }}>
+                ランキング
+              </span>
             </div>
           </div>
 
