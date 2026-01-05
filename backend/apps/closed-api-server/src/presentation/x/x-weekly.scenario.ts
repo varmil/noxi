@@ -39,9 +39,9 @@ function truncateTitle(
 }
 
 function getRankPrefix(i: number): string {
-  if (i === 0) return '🥇 '
-  if (i === 1) return '🥈 '
-  if (i === 2) return '🥉 '
+  if (i === 0) return '🥇  '
+  if (i === 1) return '🥈  '
+  if (i === 2) return '🥉  '
   return `${i + 1}位. `
 }
 
