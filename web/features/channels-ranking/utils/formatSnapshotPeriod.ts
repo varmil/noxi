@@ -1,5 +1,19 @@
+import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 import { isSnapshotPeriod, parseSnapshotPeriod } from './gallery-params'
+
+/**
+ * ISO週番号から週の開始日（月曜）と終了日（日曜）を計算
+ */
+function getWeekDateRange(
+  year: number,
+  week: number
+): { start: dayjs.Dayjs; end: dayjs.Dayjs } {
+  // その年の1月1日からISO週を設定
+  const start = dayjs(`${year}-01-01`).isoWeek(week).startOf('isoWeek')
+  const end = start.endOf('isoWeek')
+  return { start, end }
+}
 
 /**
  * スナップショット期間を人間が読める形式にフォーマット
@@ -19,14 +33,19 @@ export function formatSnapshotPeriod(
   const { period: type, target } = parseSnapshotPeriod(period as SnapshotPeriod)
 
   if (type === 'weekly') {
-    // YYYY-Wxx → 2026年第1週 / Week 1, 2026
+    // YYYY-Wxx → 2026年第1週（1/6 ~ 1/12） / Week 1, 2026 (1/6 ~ 1/12)
     const weekMatch = target.match(/^(\d{4})-W(\d{2})$/)
     if (weekMatch) {
-      const year = weekMatch[1]
+      const year = parseInt(weekMatch[1], 10)
       const week = parseInt(weekMatch[2], 10)
+      const { start, end } = getWeekDateRange(year, week)
+      const startStr = `${start.month() + 1}/${start.date()}`
+      const endStr = `${end.month() + 1}/${end.date()}`
+      const dateRange = `${startStr} ~ ${endStr}`
+
       return locale === 'ja'
-        ? `${year}年第${week}週`
-        : `Week ${week}, ${year}`
+        ? `${year}年第${week}週（${dateRange}）`
+        : `Week ${week}, ${year} (${dateRange})`
     }
   }
 
