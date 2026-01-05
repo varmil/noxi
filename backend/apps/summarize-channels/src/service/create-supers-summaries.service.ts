@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PromiseService } from '@app/lib/promise-service'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { SupersSummariesService } from '@app/supers-summaries/supers-summaries.service'
-import { AmountMicros, Now } from '@domain/lib'
+import { AmountMicros, Now, TargetDate } from '@domain/lib'
 import { SupersBundleRepository, SupersBundleSums } from '@domain/supers-bundle'
 import { SupersSummary } from '@domain/supers-summary'
 import { ChannelId, Channels } from '@domain/youtube/channel'
@@ -16,7 +16,8 @@ export class CreateSupersSummariesService {
   ) {}
 
   async execute(channels: Channels): Promise<void> {
-    const now = new Now()
+    // 深夜バッチ実行のため、JST基準で前日を集計基準日とする
+    const targetDate = new TargetDate(new Now().endOfYesterdayJST())
     const channelIds = channels.ids()
     const where: (
       d: Date
@@ -26,25 +27,25 @@ export class CreateSupersSummariesService {
     })
 
     const last7Days = await this.supersBundlesService.sum({
-      where: where(now.xDaysAgo(7))
+      where: where(targetDate.xDaysAgo(7))
     })
     const last30Days = await this.supersBundlesService.sum({
-      where: where(now.xDaysAgo(30))
+      where: where(targetDate.xDaysAgo(30))
     })
     const last90Days = await this.supersBundlesService.sum({
-      where: where(now.xDaysAgo(90))
+      where: where(targetDate.xDaysAgo(90))
     })
     const last1Year = await this.supersBundlesService.sum({
-      where: where(now.xYearsAgo(1))
+      where: where(targetDate.xYearsAgo(1))
     })
     const thisWeek = await this.supersBundlesService.sum({
-      where: where(now.startOfWeek())
+      where: where(targetDate.startOfWeek())
     })
     const thisMonth = await this.supersBundlesService.sum({
-      where: where(now.startOfMonth())
+      where: where(targetDate.startOfMonth())
     })
     const thisYear = await this.supersBundlesService.sum({
-      where: where(now.startOfyear())
+      where: where(targetDate.startOfyear())
     })
 
     const getAmountMicros = (data: SupersBundleSums, channelId: ChannelId) => {
@@ -65,7 +66,7 @@ export class CreateSupersSummariesService {
           thisWeek: getAmountMicros(thisWeek, channelId),
           thisMonth: getAmountMicros(thisMonth, channelId),
           thisYear: getAmountMicros(thisYear, channelId),
-          createdAt: now.get()
+          createdAt: targetDate.get()
         })
       })
     })
