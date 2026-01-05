@@ -31,7 +31,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
-      pageNamespace: 'Page.youtube.live.ranking',
+      pageNamespace: 'Page.ranking.live',
       featNamespace: 'Features.streamRanking.ranking.dimension',
       period,
       dimension,

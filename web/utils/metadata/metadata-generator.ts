@@ -16,8 +16,8 @@ type Args = {
   pageNamespace:
     | 'Page.ranking.most-cheered'
     | 'Page.ranking.top-fans'
-    | 'Page.youtube.channels.ranking'
-    | 'Page.youtube.live.ranking'
+    | 'Page.ranking.channels'
+    | 'Page.ranking.live'
   featNamespace:
     | 'Features.mostCheered.dimension'
     | 'Features.topFans.dimension'

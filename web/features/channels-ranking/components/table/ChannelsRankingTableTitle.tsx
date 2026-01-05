@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   RankingTableTitleContainer,
+  RankingTableTitleDescription,
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
@@ -34,6 +35,7 @@ export default function ChannelsRankingTableTitle({
 }: Props) {
   const global = useTranslations('Global')
   const feat = useTranslations('Features.channelsRanking')
+  const page = useTranslations('Page.ranking.channels')
   const locale = useLocale() as 'ja' | 'en'
   const periodName = getPeriodDisplayName(
     period,
@@ -51,7 +53,16 @@ export default function ChannelsRankingTableTitle({
   const { createQueryString } = useQueryString()
   return (
     <RankingTableTitleContainer className={className}>
-      <RankingTableTitleH1 title={title} />
+      <section className="space-y-2">
+        <RankingTableTitleH1 title={title} />
+        <RankingTableTitleDescription>
+          {page(`metadata.description.dimension.${dimension}`, {
+            period: periodName,
+            group: groupName,
+            gender: gender ? global(`gender.${gender}`) : ''
+          })}
+        </RankingTableTitleDescription>
+      </section>
 
       <div className="flex items-baseline gap-x-3">
         <PeriodHoverCardFactory type="channels" period={period} date={date} />
