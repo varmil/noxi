@@ -14,7 +14,7 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(isoWeek)
 
-const MAX_LENGTH_PER_LINE = 13
+const MAX_LENGTH_PER_LINE = 12
 
 /** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
 function truncateTitle(
@@ -36,6 +36,20 @@ function truncateTitle(
   }
 
   return result
+}
+
+function getRankPrefix(i: number): string {
+  if (i === 0) return '🥇 '
+  if (i === 1) return '🥈 '
+  if (i === 2) return '🥉 '
+  return `${i + 1}位. `
+}
+
+function getGroupTitle(group?: GroupId): string {
+  if (!group) return 'VTuber総合'
+  const groupStr = group.get()
+  if (groupStr === 'independent') return '個人勢VTuber'
+  return group.toJP()
 }
 
 @Injectable()
@@ -74,8 +88,14 @@ export class XWeeklyScenario {
     const week = lastWeek.isoWeek()
     const weekStr = `${year}-W${String(week).padStart(2, '0')}`
 
+    // 週の開始日（月曜）と終了日（日曜）を計算
+    const weekStart = lastWeek.startOf('isoWeek')
+    const weekEnd = lastWeek.endOf('isoWeek')
+    const startStr = `${weekStart.month() + 1}/${weekStart.date()}`
+    const endStr = `${weekEnd.month() + 1}/${weekEnd.date()}`
+
     // 前週末（日曜 23:59:59 JST）を targetDate として設定
-    const targetDate = lastWeek.endOf('isoWeek').toDate()
+    const targetDate = weekEnd.toDate()
 
     const snapshots = await this.supersSnapshotsService.findRanking({
       where: { targetDate, period: 'weekly', group, gender },
@@ -90,21 +110,20 @@ export class XWeeklyScenario {
     const groupSlug = group ? `/${group.get()}` : '/all'
     const periodSlug = `/weekly-${weekStr}`
 
-    const message1 =
-      `${year}年第${week}週 ${group ? group.toJP() : '総合'}${gender ? gender.toJP() : ''}ランキング`
-        .replace(/\s+/g, ' ')
-        .trim()
-    const message2 = snapshots
+    const line1 = `${getGroupTitle(group)}スパチャランキング`
+    const line2 = `【週間】${year}年第${week}週（${startStr}~${endStr}）`
+    const rankings = snapshots
       .map((s, i) => {
-        return `${i + 1}位.${truncateTitle(
+        return `${getRankPrefix(i)}${truncateTitle(
           channels.find(c => c.basicInfo.id.equals(s.channelId))?.basicInfo
             .title ?? ''
         )}`
       })
       .join('\n')
-    const message3 = `6位以下はタップで表示`
-    const message4 = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}${gender ? `?gender=${gender.get()}` : ''}`
-    const content = `${message1}\n\n${message2}\n\n${message3}\n${message4}`
+    const footer = `詳細・Top100はこちら`
+    const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}${gender ? `?gender=${gender.get()}` : ''}`
+
+    const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
     const tweet = await this.xClient.v2.tweet(content)
 
     if (!tweet.errors) {
