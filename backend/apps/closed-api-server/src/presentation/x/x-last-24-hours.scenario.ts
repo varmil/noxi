@@ -31,8 +31,8 @@ function truncateTitle(
 }
 
 @Injectable()
-export class XScenario {
-  private readonly logger = new Logger(XScenario.name)
+export class XLast24HoursScenario {
+  private readonly logger = new Logger(XLast24HoursScenario.name)
   private readonly xClient: TwitterApi
 
   constructor(
