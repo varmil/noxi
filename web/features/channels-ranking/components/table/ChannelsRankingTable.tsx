@@ -78,7 +78,8 @@ export default async function ChannelsRankingTable({
             getSupersSnapshotParams({
               period: period as SnapshotPeriod,
               group,
-              gender
+              gender,
+              page: String(page)
             })
           )
         : Promise.resolve([])

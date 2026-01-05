@@ -69,6 +69,23 @@ test.describe('チャンネルランキング', () => {
       await expect(page).toHaveTitle(/2025年第52週/)
       await expect(page.locator('main')).toBeVisible()
     })
+
+    test('2ページ目でもスパチャ金額が表示される', async ({ page }) => {
+      await page.goto(
+        '/ja/ranking/super-chat/channels/all/weekly-2025-W52?page=2'
+      )
+
+      await expect(page).toHaveTitle(/2025年第52週/)
+
+      // テーブルが表示されていることを確認
+      const table = page.locator('table')
+      await expect(table).toBeVisible()
+
+      // 金額セルが「--」ではなく数値を含むことを確認
+      // 金額は「¥」または数字で始まる
+      const amountCells = table.locator('td').filter({ hasText: /^[¥\d]/ })
+      await expect(amountCells.first()).toBeVisible()
+    })
   })
 
   test.describe('月間スナップショットランキング (monthly)', () => {
@@ -89,6 +106,22 @@ test.describe('チャンネルランキング', () => {
 
       await expect(page).toHaveTitle(/2025年12月/)
       await expect(page.locator('main')).toBeVisible()
+    })
+
+    test('2ページ目でもスパチャ金額が表示される', async ({ page }) => {
+      await page.goto(
+        '/ja/ranking/super-chat/channels/all/monthly-2025-12?page=2'
+      )
+
+      await expect(page).toHaveTitle(/2025年12月/)
+
+      // テーブルが表示されていることを確認
+      const table = page.locator('table')
+      await expect(table).toBeVisible()
+
+      // 金額セルが「--」ではなく数値を含むことを確認
+      const amountCells = table.locator('td').filter({ hasText: /^[¥\d]/ })
+      await expect(amountCells.first()).toBeVisible()
     })
   })
 })
