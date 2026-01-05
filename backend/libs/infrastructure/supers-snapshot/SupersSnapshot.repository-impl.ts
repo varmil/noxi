@@ -20,8 +20,7 @@ export class SupersSnapshotRepositoryImpl implements SupersSnapshotRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findRanking({
-    where: { targetDate, group, gender },
-    period,
+    where: { targetDate, period, group, gender },
     limit = 30,
     offset = 0
   }: Parameters<SupersSnapshotRepository['findRanking']>[0]): Promise<SupersSnapshots> {
@@ -84,8 +83,7 @@ export class SupersSnapshotRepositoryImpl implements SupersSnapshotRepository {
   }
 
   async countRanking({
-    where: { targetDate, group, gender },
-    period
+    where: { targetDate, period, group, gender }
   }: Parameters<SupersSnapshotRepository['countRanking']>[0]): Promise<number> {
     const amountColumn = this.getAmountColumn(period)
 

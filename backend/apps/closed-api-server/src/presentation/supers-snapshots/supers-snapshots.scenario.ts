@@ -21,8 +21,7 @@ export class SupersSnapshotsScenario {
     const { targetDate, period, group, gender, limit, offset } = args
 
     const snapshots = await this.supersSnapshotsService.findRanking({
-      where: { targetDate, group, gender },
-      period,
+      where: { targetDate, period, group, gender },
       limit,
       offset
     })
@@ -45,8 +44,7 @@ export class SupersSnapshotsScenario {
     const { targetDate, period, group, gender } = args
 
     const count = await this.supersSnapshotsService.countRanking({
-      where: { targetDate, group, gender },
-      period
+      where: { targetDate, period, group, gender }
     })
 
     return { count }

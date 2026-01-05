@@ -13,10 +13,10 @@ export interface SupersSnapshotRepository {
   findRanking: (args: {
     where: {
       targetDate: Date
+      period: SnapshotPeriod
       group?: GroupId
       gender?: Gender
     }
-    period: SnapshotPeriod
     limit?: number
     offset?: number
   }) => Promise<SupersSnapshots>
@@ -27,9 +27,9 @@ export interface SupersSnapshotRepository {
   countRanking: (args: {
     where: {
       targetDate: Date
+      period: SnapshotPeriod
       group?: GroupId
       gender?: Gender
     }
-    period: SnapshotPeriod
   }) => Promise<number>
 }
