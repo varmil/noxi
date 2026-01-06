@@ -11,7 +11,7 @@ export function SidebarToggleButton() {
     <Button
       size="icon"
       variant="ghost"
-      className="hidden lg:flex"
+      className="hidden lg:flex lg:relative lg:top-px"
       onClick={toggle}
     >
       <PanelLeftIcon className="size-4" />
