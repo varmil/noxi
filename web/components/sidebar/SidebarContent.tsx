@@ -2,9 +2,7 @@
 
 import { useState, type JSX } from 'react'
 import {
-  Activity,
   ChevronDown,
-  DollarSign,
   FileChartLine,
   LogOut,
   MailIcon,
@@ -101,31 +99,32 @@ function GroupMenuItem({
         )}
       >
         <div className="overflow-hidden">
-          <div className="flex flex-col gap-1 pt-1 pb-2 pl-2">
+          <div className="relative ml-[22px] pt-1 pb-1">
+            {/* 縦線（最後の項目の中央で終わる） */}
+            <div className="absolute left-0 top-0 bottom-[22px] w-px bg-border" />
+
             <Link
               href={`/ranking/super-chat/channels/${group.id}/last30Days`}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm',
-                'hover:bg-accent/50',
+                'relative flex items-center pl-5 pr-3 py-2 rounded-md text-sm',
+                'text-muted-foreground hover:text-foreground hover:bg-accent/50',
                 'transition-colors duration-150'
               )}
             >
-              <div className="flex items-center justify-center size-7 rounded-md bg-accent">
-                <DollarSign className="size-4 text-foreground/50" />
-              </div>
+              {/* L字コネクタ */}
+              <div className="absolute left-0 top-1/2 w-4 h-px bg-border" />
               <span>{superChatLabel}</span>
             </Link>
             <Link
               href={`/ranking/concurrent-viewer/live/${group.id}/last30Days`}
               className={cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-md text-sm',
-                'hover:bg-accent/50',
+                'relative flex items-center pl-5 pr-3 py-2 rounded-md text-sm',
+                'text-muted-foreground hover:text-foreground hover:bg-accent/50',
                 'transition-colors duration-150'
               )}
             >
-              <div className="flex items-center justify-center size-7 rounded-md bg-accent">
-                <Activity className="size-4 text-foreground/50" />
-              </div>
+              {/* L字コネクタ（最後の項目は縦線から曲がる） */}
+              <div className="absolute left-0 top-1/2 w-4 h-px bg-border" />
               <span>{concurrentViewerLabel}</span>
             </Link>
           </div>
