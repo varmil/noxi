@@ -192,16 +192,8 @@ export default function HeaderXSSheetContent({
 
   return (
     <div className="h-full overflow-y-auto">
-      {/* ヘッダー部分 */}
-      <div className="flex items-center gap-4 p-4 ml-2 border-b">
-        <LanguageSwitcher />
-        <div className="relative top-px">
-          <ModeToggle />
-        </div>
-      </div>
-
       {/* メインナビゲーション */}
-      <nav className="p-3">
+      <nav className="p-3 pt-4">
         {/* グループセクション */}
         <div className="space-y-1">
           <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
@@ -298,7 +290,15 @@ export default function HeaderXSSheetContent({
           </>
         )}
 
-        {/* <PWAInstallButton /> */}
+        <Separator className="my-4" />
+
+        {/* フッター部分 */}
+        <div className="flex items-center gap-4 px-3 pt-1 pb-3 ml-0.5">
+          <LanguageSwitcher />
+          <div className="relative top-px">
+            <ModeToggle />
+          </div>
+        </div>
       </nav>
     </div>
   )
