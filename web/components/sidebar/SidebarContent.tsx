@@ -16,11 +16,13 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
+import Logo from 'components/Logo'
 import { ModeToggle } from 'components/ModeToggle'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import XIcon from 'components/icons/XIcon'
 import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
 import { SignOutButton } from 'components/sidebar/SignOutButton'
+import VChartsText from 'components/vcharts/svg/text'
 import { Link } from 'lib/navigation'
 
 type GroupData = {
@@ -191,8 +193,19 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
 
   return (
     <ScrollArea className="h-full">
+      {/* ロゴヘッダー（h-14 = 56px でメインヘッダーと同じ高さ） */}
+      <div className="flex h-14 shrink-0 items-center gap-1 px-6">
+        <Link
+          href="/"
+          className="flex items-center gap-1 transition-all hover:scale-105"
+        >
+          <Logo className="size-6" />
+          <VChartsText />
+        </Link>
+      </div>
+
       {/* メインナビゲーション */}
-      <nav className="p-3 pt-4">
+      <nav className="p-3 pt-5">
         {/* グループセクション */}
         <div className="space-y-1">
           <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
