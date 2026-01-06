@@ -24,7 +24,7 @@ export function SignOutButton({ name, icon }: PropsWithoutRef<Props>) {
       }}
     >
       <IconWrapper>{icon}</IconWrapper>
-      <span className="flex-1 relative -top-[0.5px]">
+      <span className="flex-1 leading-none">
         {loading ? (
           <div className="flex items-center">
             <Loader2 className="size-4 animate-spin mr-2" />

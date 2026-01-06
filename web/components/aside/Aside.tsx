@@ -53,7 +53,7 @@ export default async function Aside({ className }: { className?: string }) {
 
   return (
     <aside
-      className={`fixed inset-y-0 left-0 hidden lg:flex w-[280px] flex-col border-r bg-background z-10 ${
+      className={`fixed inset-y-0 left-0 hidden lg:flex w-[280px] flex-col bg-accent/50 z-10 ${
         className ?? ''
       }`}
     >

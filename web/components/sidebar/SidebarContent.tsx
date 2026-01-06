@@ -13,6 +13,7 @@ import {
   UserRoundPlus,
   UsersRound
 } from 'lucide-react'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import { ModeToggle } from 'components/ModeToggle'
@@ -75,7 +76,7 @@ function GroupMenuItem({
           ) : (
             <div className="size-4 rounded-full bg-foreground/60" />
           )}
-          <span className="text-muted-foreground font-medium text-sm relative -top-[0.5px]">
+          <span className="text-muted-foreground font-medium text-sm leading-none">
             {group.name}
           </span>
         </div>
@@ -156,7 +157,7 @@ function NavLink({
         className={linkClassName}
       >
         <div className="flex items-center justify-center size-7">{icon}</div>
-        <span className="relative -top-[0.5px]">{label}</span>
+        <span className="leading-none">{label}</span>
       </a>
     )
   }
@@ -164,7 +165,7 @@ function NavLink({
   return (
     <Link href={href} className={linkClassName}>
       <div className="flex items-center justify-center size-7">{icon}</div>
-      <span className="relative -top-[0.5px]">{label}</span>
+      <span className="leading-none">{label}</span>
     </Link>
   )
 }
@@ -187,7 +188,7 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
   }
 
   return (
-    <div className="h-full overflow-y-auto">
+    <ScrollArea className="h-full">
       {/* メインナビゲーション */}
       <nav className="p-3 pt-4">
         {/* グループセクション */}
@@ -215,7 +216,7 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
               'transition-colors duration-150'
             )}
           >
-            <div className="flex items-center justify-center size-5">
+            <div className="flex items-center justify-center">
               <MoreHorizontal className="size-4" />
             </div>
             <span>{labels.more}</span>
@@ -293,11 +294,9 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
         {/* フッター部分 */}
         <div className="flex items-center gap-4 px-3 pt-1 pb-3 ml-0.5">
           <LanguageSwitcher />
-          <div className="relative top-px">
-            <ModeToggle />
-          </div>
+          <ModeToggle />
         </div>
       </nav>
-    </div>
+    </ScrollArea>
   )
 }
