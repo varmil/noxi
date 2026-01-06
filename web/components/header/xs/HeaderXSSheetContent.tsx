@@ -96,7 +96,7 @@ function GroupMenuItem({
         )}
       >
         <div className="overflow-hidden">
-          <div className="flex flex-col gap-1 pt-1 pb-2 pl-5">
+          <div className="flex flex-col gap-1 pt-1 pb-2 pl-2">
             <Link
               href={`/ranking/super-chat/channels/${group.id}/last30Days`}
               className={cn(
@@ -106,7 +106,7 @@ function GroupMenuItem({
               )}
             >
               <div className="flex items-center justify-center size-7 rounded-md bg-accent">
-                <DollarSign className="size-4 text-foreground/70" />
+                <DollarSign className="size-4 text-foreground/50" />
               </div>
               <span>{superChatLabel}</span>
             </Link>
@@ -119,7 +119,7 @@ function GroupMenuItem({
               )}
             >
               <div className="flex items-center justify-center size-7 rounded-md bg-accent">
-                <Activity className="size-4 text-foreground/70" />
+                <Activity className="size-4 text-foreground/50" />
               </div>
               <span>{concurrentViewerLabel}</span>
             </Link>
@@ -191,15 +191,17 @@ export default function HeaderXSSheetContent({
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="h-full overflow-y-auto">
       {/* ヘッダー部分 */}
-      <div className="flex items-center gap-2 p-4 border-b">
+      <div className="flex items-center gap-4 p-4 ml-2 border-b">
         <LanguageSwitcher />
-        <ModeToggle />
+        <div className="relative top-px">
+          <ModeToggle />
+        </div>
       </div>
 
       {/* メインナビゲーション */}
-      <nav className="flex-1 overflow-y-auto p-3">
+      <nav className="p-3">
         {/* グループセクション */}
         <div className="space-y-1">
           <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
