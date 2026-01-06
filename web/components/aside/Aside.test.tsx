@@ -86,6 +86,16 @@ vi.mock('components/sidebar/SidebarContext', () => ({
   useSidebar: () => ({ isOpen: true, toggle: vi.fn() })
 }))
 
+vi.mock('components/Logo', () => ({
+  __esModule: true,
+  default: () => <span data-testid="logo" />
+}))
+
+vi.mock('components/vcharts/svg/text', () => ({
+  __esModule: true,
+  default: () => <span data-testid="vcharts-text" />
+}))
+
 // Import after mocks
 import Aside from './Aside'
 

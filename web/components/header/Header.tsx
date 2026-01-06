@@ -18,8 +18,8 @@ export default function Header({ className }: { className?: string }) {
   return (
     <header
       className={cn(
-        `sticky top-0 flex h-14 items-center gap-4 border-b border-dotted border-border-variant bg-background`,
-        `px-1.5 sm:px-3.5 lg:px-6 pr-4`,
+        `sticky top-0 flex h-14 items-center gap-4 bg-background`,
+        `px-1.5 sm:px-3.5 pr-4`,
         `${bgFilter}`,
         `${className ?? ''}`
       )}
@@ -29,7 +29,7 @@ export default function Header({ className }: { className?: string }) {
 
       <Link
         href="/"
-        className="flex items-center gap-1 transition-all hover:scale-105"
+        className="flex items-center gap-1 transition-all hover:scale-105 lg:hidden"
         prefetch={false}
       >
         <Logo className="size-6" />

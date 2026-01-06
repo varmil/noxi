@@ -16,11 +16,13 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
+import Logo from 'components/Logo'
 import { ModeToggle } from 'components/ModeToggle'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import XIcon from 'components/icons/XIcon'
 import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
 import { SignOutButton } from 'components/sidebar/SignOutButton'
+import VChartsText from 'components/vcharts/svg/text'
 import { Link } from 'lib/navigation'
 
 type GroupData = {
@@ -191,107 +193,118 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
 
   return (
     <ScrollArea className="h-full">
+      {/* ロゴヘッダー（h-14 = 56px でメインヘッダーと同じ高さ） */}
+      <div className="flex h-14 shrink-0 items-center gap-1 px-6">
+        <Link
+          href="/"
+          className="flex items-center gap-1 transition-all hover:scale-105"
+        >
+          <Logo className="size-6" />
+          <VChartsText />
+        </Link>
+      </div>
+
       {/* メインナビゲーション */}
-      <nav className="p-3 pt-4">
-        {/* グループセクション */}
-        <div className="space-y-1">
-          <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {labels.ranking}
-          </p>
-          {groups.map(group => (
-            <GroupMenuItem
-              key={group.id}
-              group={group}
-              isExpanded={expandedGroups.has(group.id)}
-              onToggle={() => toggleGroup(group.id)}
-              superChatLabel={labels.superChat}
-              concurrentViewerLabel={labels.concurrentViewer}
-            />
-          ))}
-
-          {/* もっと見る */}
-          <Link
-            href="/groups"
-            className={cn(
-              'flex items-center gap-3 p-3 rounded-lg text-sm',
-              'text-muted-foreground hover:text-foreground hover:bg-accent',
-              'transition-colors duration-150'
-            )}
-          >
-            <div className="flex items-center justify-center">
-              <MoreHorizontal className="size-4" />
-            </div>
-            <span>{labels.more}</span>
-          </Link>
-        </div>
-
-        <Separator className="my-4" />
-
-        {/* サポートリンク */}
-        <div className="space-y-1">
-          <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {labels.support}
-          </p>
-          <NavLink
-            href="/contact"
-            icon={<MailIcon className="size-4" />}
-            label={labels.contact}
-          />
-          <NavLink
-            href="/channels/add"
-            icon={<UserRoundPlus className="size-4" />}
-            label={labels.channelsAdd}
-          />
-          <NavLink
-            href="/groups/add"
-            icon={<UsersRound className="size-4" />}
-            label={labels.groupsAdd}
-          />
-        </div>
-
-        <Separator className="my-4" />
-
-        {/* 情報リンク */}
-        <div className="space-y-1">
-          <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {labels.info}
-          </p>
-          <NavLink
-            href="https://x.com/VCharts_net"
-            icon={<XIcon className="size-4" />}
-            label={labels.xAccount}
-            external
-          />
-          <NavLink
-            href="/data-methodology-and-disclaimer"
-            icon={<FileChartLine className="size-4" />}
-            label="Data Methodology"
-          />
-          <NavLink
-            href="/terms-of-use-and-privacy-policy"
-            icon={<PrivacyPolicyIcon className="size-4" />}
-            label="Terms of Use and PP"
-          />
-          <NavLink
-            href="/legal/tokushoho"
-            icon={<Scale className="size-4" />}
-            label="特定商取引法に基づく表記"
-          />
-        </div>
-
-        {isSignedIn && (
-          <>
-            <Separator className="my-4" />
-            <div className="px-3">
-              <SignOutButton
-                name={labels.signOut}
-                icon={<LogOut className="size-4" />}
+      <nav className="p-3 pt-0">
+          {/* グループセクション */}
+          <div className="space-y-1">
+            <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              {labels.ranking}
+            </p>
+            {groups.map(group => (
+              <GroupMenuItem
+                key={group.id}
+                group={group}
+                isExpanded={expandedGroups.has(group.id)}
+                onToggle={() => toggleGroup(group.id)}
+                superChatLabel={labels.superChat}
+                concurrentViewerLabel={labels.concurrentViewer}
               />
-            </div>
-          </>
-        )}
+            ))}
 
-        <Separator className="my-4" />
+            {/* もっと見る */}
+            <Link
+              href="/groups"
+              className={cn(
+                'flex items-center gap-3 p-3 rounded-lg text-sm',
+                'text-muted-foreground hover:text-foreground hover:bg-accent',
+                'transition-colors duration-150'
+              )}
+            >
+              <div className="flex items-center justify-center">
+                <MoreHorizontal className="size-4" />
+              </div>
+              <span>{labels.more}</span>
+            </Link>
+          </div>
+
+          <Separator className="my-4" />
+
+          {/* サポートリンク */}
+          <div className="space-y-1">
+            <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              {labels.support}
+            </p>
+            <NavLink
+              href="/contact"
+              icon={<MailIcon className="size-4" />}
+              label={labels.contact}
+            />
+            <NavLink
+              href="/channels/add"
+              icon={<UserRoundPlus className="size-4" />}
+              label={labels.channelsAdd}
+            />
+            <NavLink
+              href="/groups/add"
+              icon={<UsersRound className="size-4" />}
+              label={labels.groupsAdd}
+            />
+          </div>
+
+          <Separator className="my-4" />
+
+          {/* 情報リンク */}
+          <div className="space-y-1">
+            <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              {labels.info}
+            </p>
+            <NavLink
+              href="https://x.com/VCharts_net"
+              icon={<XIcon className="size-4" />}
+              label={labels.xAccount}
+              external
+            />
+            <NavLink
+              href="/data-methodology-and-disclaimer"
+              icon={<FileChartLine className="size-4" />}
+              label="Data Methodology"
+            />
+            <NavLink
+              href="/terms-of-use-and-privacy-policy"
+              icon={<PrivacyPolicyIcon className="size-4" />}
+              label="Terms of Use and PP"
+            />
+            <NavLink
+              href="/legal/tokushoho"
+              icon={<Scale className="size-4" />}
+              label="特定商取引法に基づく表記"
+            />
+          </div>
+
+          {isSignedIn && (
+            <>
+              <Separator className="my-4" />
+              <div className="px-3">
+                <SignOutButton
+                  name={labels.signOut}
+                  icon={<LogOut className="size-4" />}
+                />
+              </div>
+            </>
+          )}
+
+          <Separator className="my-4" />
 
         {/* フッター部分 */}
         <div className="flex items-center gap-4 px-3 pt-1 pb-3 ml-0.5">

@@ -69,7 +69,7 @@ export default async function HeaderXSSheet() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[290px] p-0" hideCloseButton>
+      <SheetContent side="left" className="w-[290px] p-0 pt-1" hideCloseButton>
         <SheetHeader hidden>
           <SheetTitle hidden>VCharts</SheetTitle>
           <SheetDescription hidden></SheetDescription>

@@ -15,7 +15,7 @@ export function AsideWrapper({ children, className }: Props) {
   return (
     <aside
       className={cn(
-        'fixed inset-y-0 left-0 hidden lg:flex w-[280px] flex-col bg-accent/50 z-10',
+        'fixed inset-y-0 left-0 hidden lg:flex w-[280px] flex-col z-10',
         'transition-transform duration-300 ease-in-out',
         !isOpen && '-translate-x-full',
         className

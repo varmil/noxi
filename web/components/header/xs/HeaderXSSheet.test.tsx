@@ -99,6 +99,16 @@ vi.mock('components/styles/Image', () => ({
   default: () => <div data-testid="image" />
 }))
 
+vi.mock('components/Logo', () => ({
+  __esModule: true,
+  default: () => <span data-testid="logo" />
+}))
+
+vi.mock('components/vcharts/svg/text', () => ({
+  __esModule: true,
+  default: () => <span data-testid="vcharts-text" />
+}))
+
 // Import after mocks
 import HeaderXSSheet from './HeaderXSSheet'
 
