@@ -376,7 +376,12 @@
       "dashboard": "ダッシュボード",
       "liveRanking": "同接数",
       "channelsRanking": "スパチャ金額",
-      "talents": "タレント"
+      "talents": "タレント",
+      "superChatRanking": "スパチャランキング",
+      "concurrentViewerRanking": "同接数ランキング",
+      "ranking": "ランキング",
+      "support": "サポート",
+      "info": "情報"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",

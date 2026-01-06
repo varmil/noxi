@@ -53,7 +53,7 @@ export const PWAInstallProvider: FC<{ children: ReactNode }> = ({
 // Hook: 子コンポーネントから呼び出して deferredPrompt を取得
 const usePWAInstallPrompt = () => useContext(PWAInstallContext)
 
-// インストールボタンコンポーネント
+/** @deprecated インストールボタンコンポーネント */
 export const PWAInstallButton: FC = () => {
   const deferredPrompt = usePWAInstallPrompt()
   const [isIOSSafari, setIsIOSSafari] = useState(false)
@@ -92,7 +92,7 @@ export const PWAInstallButton: FC = () => {
           <AlertDescription>
             <span>
               Safariの共有ボタン
-              <Share className="size-4 inline relative top-[-1px] mx-1" />
+              <Share className="size-4 inline relative -top-px mx-1" />
               をタップし<strong>「ホーム画面に追加」</strong>
               を選択してください
             </span>

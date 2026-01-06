@@ -366,7 +366,12 @@
       "dashboard": "Dashboard",
       "liveRanking": "Live",
       "channelsRanking": "Channels",
-      "talents": "Talents"
+      "talents": "Talents",
+      "superChatRanking": "Super Chat Ranking",
+      "concurrentViewerRanking": "Live Viewer Ranking",
+      "ranking": "Ranking",
+      "support": "Support",
+      "info": "Info"
     },
     "loginBonus": {
       "title": "Daily login bonus!",
