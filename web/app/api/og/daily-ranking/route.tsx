@@ -22,8 +22,7 @@ export async function GET(request: Request) {
   const group = searchParams.get('group') as string
   const gender = searchParams.get('gender') as Gender | undefined
   const dateParam = searchParams.get('date')
-  const date =
-    dateParam && dayjs(dateParam).isValid() ? dateParam : undefined
+  const date = dateParam && dayjs(dateParam).isValid() ? dateParam : undefined
 
   const [ranking, groupName] = await Promise.all([
     getDailySupersRanking({
@@ -53,7 +52,7 @@ export async function GET(request: Request) {
           display: 'flex',
           width: '100%',
           height: '100%',
-          padding: '34px 20px',
+          padding: '34px 20px 34px 50px',
           textAlign: 'center',
           justifyContent: 'center',
           alignItems: 'center',
@@ -80,7 +79,7 @@ export async function GET(request: Request) {
           </div>
         </section>
 
-        <section style={{ gap: 26 }} tw="flex-1 flex flex-col">
+        <section style={{ gap: 22 }} tw="flex-1 flex flex-col">
           {ranking.map((e, i) => (
             <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
               <div tw="flex items-baseline">
@@ -90,13 +89,13 @@ export async function GET(request: Request) {
                 <span tw="text-2xl text-neutral-500">位</span>
               </div>
 
-              <div tw="flex w-[94px] h-[94px] justify-center items-center rounded-full overflow-hidden">
+              <div tw="flex w-[101px] h-[101px] justify-center items-center rounded-full overflow-hidden">
                 <img
                   src={e.channelThumbnails}
                   alt={e.channelTitle}
                   style={{
-                    width: 94,
-                    height: 94,
+                    width: 101,
+                    height: 101,
                     objectFit: 'cover'
                   }}
                 />
@@ -106,9 +105,7 @@ export async function GET(request: Request) {
                   tw="text-left text-3xl text-neutral-600 overflow-hidden"
                   style={{ height: '1.3em' }}
                 >
-                  {e.channelTitle.length > 28
-                    ? `${e.channelTitle.slice(0, 28)}...`
-                    : e.channelTitle}
+                  {e.channelTitle}
                 </div>
                 <div tw="flex text-xl text-neutral-500 ">
                   {e.amount} 円 / 日
