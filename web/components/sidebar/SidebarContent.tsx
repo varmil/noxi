@@ -74,7 +74,9 @@ function GroupMenuItem({
           {group.icon ? (
             group.icon
           ) : (
-            <div className="size-4 rounded-full bg-foreground/60" />
+            <div className="size-4 flex items-center justify-center">
+              <div className="size-3 rounded-full bg-foreground/50" />
+            </div>
           )}
           <span className="text-muted-foreground font-medium text-sm leading-none">
             {group.name}
