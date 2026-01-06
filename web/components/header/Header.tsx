@@ -6,6 +6,7 @@ import HeaderAuthSkeleton from 'components/header/HeaderAuthSkeleton'
 import HeaderNavigationMenuSkeleton from 'components/header/sm/HeaderNavigationMenuSkeleton'
 import HeaderNavigationMenuWrapper from 'components/header/sm/HeaderNavigationMenuWrapper'
 import HeaderXSSheet from 'components/header/xs/HeaderXSSheet'
+import { SidebarToggleButton } from 'components/sidebar/SidebarToggleButton'
 import VChartsText from 'components/vcharts/svg/text'
 import { Link } from 'lib/navigation'
 import Logo from '../Logo'
@@ -24,6 +25,7 @@ export default function Header({ className }: { className?: string }) {
       )}
     >
       <HeaderXSSheet />
+      <SidebarToggleButton />
 
       <Link
         href="/"

@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server'
+import { AsideWrapper } from 'components/aside/AsideWrapper'
 import SidebarContent from 'components/sidebar/SidebarContent'
 import Image from 'components/styles/Image'
 import { getGroups } from 'hooks/useGroups'
@@ -52,16 +53,12 @@ export default async function Aside({ className }: { className?: string }) {
   }
 
   return (
-    <aside
-      className={`fixed inset-y-0 left-0 hidden lg:flex w-[280px] flex-col bg-accent/50 z-10 ${
-        className ?? ''
-      }`}
-    >
+    <AsideWrapper className={className}>
       <SidebarContent
         groups={groupsData}
         labels={labels}
         isSignedIn={!!session}
       />
-    </aside>
+    </AsideWrapper>
   )
 }

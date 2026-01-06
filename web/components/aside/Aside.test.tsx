@@ -82,6 +82,10 @@ vi.mock('components/icons/XIcon', () => ({
   default: () => <span data-testid="x-icon" />
 }))
 
+vi.mock('components/sidebar/SidebarContext', () => ({
+  useSidebar: () => ({ isOpen: true, toggle: vi.fn() })
+}))
+
 // Import after mocks
 import Aside from './Aside'
 
