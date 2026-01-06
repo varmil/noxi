@@ -9,13 +9,12 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
 
       {/* NOTE: 実験中。Adsenseをコンテンツしたにいれる場合 space-y-6 を使う */}
       {/* bottom navigation = h-14.5 なので 22.5 は pb-8 相当 */}
-      <section className="z-0 relative space-y-6 pb-22.5 md:pb-12 sm:pl-14">
+      <section className="z-0 relative space-y-6 pb-22.5 md:pb-12 lg:pl-[280px]">
         {children}
         {/* <div className="px-6">
           <DisplaySquareAds />
         </div> */}
       </section>
-      {/* <CookieAgreeBanner className="z-30" /> */}
       <BottomNavigation className="z-20" />
     </>
   )

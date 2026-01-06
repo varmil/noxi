@@ -16,10 +16,10 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import { ModeToggle } from 'components/ModeToggle'
-import { SignOutInSheet } from 'components/header/xs/HeaderItem'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import XIcon from 'components/icons/XIcon'
 import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
+import { SignOutButton } from 'components/sidebar/SignOutButton'
 import { Link } from 'lib/navigation'
 
 type GroupData = {
@@ -169,11 +169,7 @@ function NavLink({
   )
 }
 
-export default function HeaderXSSheetContent({
-  groups,
-  labels,
-  isSignedIn
-}: Props) {
+export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
     () => new Set(groups.map(g => g.id))
   )
@@ -284,7 +280,7 @@ export default function HeaderXSSheetContent({
           <>
             <Separator className="my-4" />
             <div className="px-3">
-              <SignOutInSheet
+              <SignOutButton
                 name={labels.signOut}
                 icon={<LogOut className="size-4" />}
               />
