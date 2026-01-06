@@ -1,5 +1,6 @@
 import { PropsWithoutRef } from 'react'
 import { getSupersSummariesCount } from 'apis/supers/getSupersSummaries'
+import { getSupersSnapshotRankingCount } from 'apis/supers-snapshots/getRanking'
 import { getChannelsCount } from 'apis/youtube/getChannels'
 import { PageSMPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
@@ -12,9 +13,11 @@ import {
 } from 'features/channels-ranking/types/channels-ranking.type'
 import {
   getChannelsParams,
-  getSupersSummariesParams
+  getSupersSnapshotCountParams,
+  getSupersSummariesParams,
+  isSnapshotPeriod
 } from 'features/channels-ranking/utils/gallery-params'
-import { ChannelsRankingPeriod } from 'types/period'
+import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 
 type Props = {
   period: ChannelsRankingPeriod
@@ -29,14 +32,35 @@ export default async function IndexTemplate({
   group,
   searchParams
 }: PropsWithoutRef<Props>) {
-  const count =
-    dimension === 'super-chat'
-      ? await getSupersSummariesCount(
-          getSupersSummariesParams({ period, group, ...searchParams })
-        )
-      : await getChannelsCount(
-          getChannelsParams({ period, group, ...searchParams })
-        )
+  const count = await getCount({ period, dimension, group, searchParams })
+
+  async function getCount({
+    period,
+    dimension,
+    group,
+    searchParams
+  }: Props): Promise<number> {
+    if (dimension === 'subscriber') {
+      return await getChannelsCount(
+        getChannelsParams({ period, group, ...searchParams })
+      )
+    }
+
+    // super-chat dimension
+    if (isSnapshotPeriod(period)) {
+      return await getSupersSnapshotRankingCount(
+        getSupersSnapshotCountParams({
+          period: period as SnapshotPeriod,
+          group,
+          ...searchParams
+        })
+      )
+    }
+
+    return await getSupersSummariesCount(
+      getSupersSummariesParams({ period, group, ...searchParams })
+    )
+  }
 
   return (
     <section className={`space-y-4`}>

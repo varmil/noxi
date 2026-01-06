@@ -7,6 +7,11 @@ import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
+import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
+import {
+  isSnapshotPeriod,
+  parseSnapshotPeriod
+} from 'features/channels-ranking/utils/gallery-params'
 import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod } from 'types/period'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -34,7 +39,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
-      pageNamespace: 'Page.youtube.channels.ranking',
+      pageNamespace: 'Page.ranking.channels',
       featNamespace: 'Features.channelsRanking.ranking.dimension',
       period,
       dimension,
@@ -46,11 +51,18 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       images: [
         {
           url: getOgUrl(
-            `/daily-ranking?${new URLSearchParams({
-              group: groupId,
-              ...(gender && { gender }),
-              ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
-            }).toString()}`
+            isSnapshotPeriod(period)
+              ? `/${parseSnapshotPeriod(period).period}-ranking?${new URLSearchParams({
+                  [parseSnapshotPeriod(period).period === 'weekly' ? 'week' : 'month']:
+                    parseSnapshotPeriod(period).target,
+                  group: groupId,
+                  ...(gender && { gender })
+                }).toString()}`
+              : `/daily-ranking?${new URLSearchParams({
+                  group: groupId,
+                  ...(gender && { gender }),
+                  ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
+                }).toString()}`
           )
         }
       ]
@@ -75,6 +87,11 @@ export default async function RankingChannelsPage(props: Props) {
     getGroupName(groupId, { errorContext: 'channels ranking page' })
   ])
 
+  // スナップショット期間のフォーマット
+  const periodDisplayName =
+    formatSnapshotPeriod(period, locale as 'ja' | 'en') ??
+    global(`period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`)
+
   return (
     <Page
       breadcrumb={[
@@ -82,7 +99,7 @@ export default async function RankingChannelsPage(props: Props) {
           href: `#`,
           name: feat(dimension, {
             group: groupName,
-            period: global(`period.${period}`),
+            period: periodDisplayName,
             gender: gender ? global(`gender.${gender}`) : ''
           })
             .replace(/\s+/g, ' ')

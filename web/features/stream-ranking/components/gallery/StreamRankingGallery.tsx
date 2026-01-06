@@ -1,13 +1,9 @@
 import { PropsWithoutRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
 import { getGroupName } from 'apis/groups'
 import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
-import { StreamRankingDefaultUrl } from 'config/constants/RankingRoute'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
 import {
@@ -17,26 +13,23 @@ import {
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
 import { CACHE_10M } from 'lib/fetchAPI'
-import { Link } from 'lib/navigation'
 import { StreamRankingPeriod } from 'types/period'
 
 export type StreamRankingGalleryProps = StreamRankingSearchParams & {
   period: StreamRankingPeriod
   dimension: StreamRankingDimension
   group: string
-  compact?: boolean
   className?: string
 }
 
 export default async function StreamRankingGallery(
   props: PropsWithoutRef<StreamRankingGalleryProps>
 ) {
-  const { period, dimension, group, gender, page, compact, className } = props
+  const { period, dimension, group, gender, page, className } = props
 
-  const [t, groupName] = await Promise.all([
-    getTranslations('Features.streamRanking'),
-    getGroupName(group, { errorContext: 'stream ranking gallery' })
-  ])
+  const groupName = await getGroupName(group, {
+    errorContext: 'stream ranking gallery'
+  })
 
   let streams: StreamsSchema = []
 
@@ -72,7 +65,7 @@ export default async function StreamRankingGallery(
         dimension={dimension}
         groupName={groupName}
         gender={gender}
-        className={`${!compact ? PageXSPX : ''} sm:px-0`}
+        className={`${PageXSPX} sm:px-0`}
       />
 
       <StreamRankingTable
@@ -82,14 +75,6 @@ export default async function StreamRankingGallery(
         streams={streams}
       />
 
-      {compact && (
-        <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href={StreamRankingDefaultUrl}>
-            {t('viewAll')}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      )}
     </section>
   )
 }

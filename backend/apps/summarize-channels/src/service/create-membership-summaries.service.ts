@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { PromiseService } from '@app/lib/promise-service'
 import { MembershipBundlesService } from '@app/membership-bundles/membership-bundles.service'
 import { MembershipSummariesService } from '@app/membership-summaries/membership-summaries.service'
-import { AmountMicros, Now } from '@domain/lib'
+import { AmountMicros, Now, TargetDate } from '@domain/lib'
 import { Period } from '@domain/lib/period'
 import { Count } from '@domain/membership'
 import { MembershipBundleSums } from '@domain/membership-bundle'
@@ -18,17 +18,18 @@ export class CreateMembershipSummariesService {
   ) {}
 
   async execute(channels: Channels): Promise<void> {
-    const now = new Now()
+    // 深夜バッチ実行のため、JST基準で前日を集計基準日とする
+    const targetDate = new TargetDate(new Now().endOfYesterdayJST())
     const channelIds = channels.ids()
 
     const periods = [
-      { key: 'last7Days', date: now.xDaysAgo(7) },
-      { key: 'last30Days', date: now.xDaysAgo(30) },
-      { key: 'last90Days', date: now.xDaysAgo(90) },
-      { key: 'last1Year', date: now.xYearsAgo(1) },
-      { key: 'thisWeek', date: now.startOfWeek() },
-      { key: 'thisMonth', date: now.startOfMonth() },
-      { key: 'thisYear', date: now.startOfyear() }
+      { key: 'last7Days', date: targetDate.xDaysAgo(7) },
+      { key: 'last30Days', date: targetDate.xDaysAgo(30) },
+      { key: 'last90Days', date: targetDate.xDaysAgo(90) },
+      { key: 'last1Year', date: targetDate.xYearsAgo(1) },
+      { key: 'thisWeek', date: targetDate.startOfWeek() },
+      { key: 'thisMonth', date: targetDate.startOfMonth() },
+      { key: 'thisYear', date: targetDate.startOfyear() }
     ]
 
     const sumResults = await Promise.all(
@@ -62,7 +63,7 @@ export class CreateMembershipSummariesService {
             period: new Period(period.key),
             amountMicros: getAmountMicros(sumResults[index], channelId),
             count: getCount(sumResults[index], channelId),
-            createdAt: now.get()
+            createdAt: targetDate.get()
           })
         })
       )

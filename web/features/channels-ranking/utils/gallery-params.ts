@@ -1,7 +1,71 @@
 import { getChannels } from 'apis/youtube/getChannels'
 import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import { ChannelsRankingGalleryProps } from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
+import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 import type { getSupersSummaries } from 'apis/supers/getSupersSummaries'
+import type {
+  getSupersSnapshotRanking,
+  getSupersSnapshotRankingCount
+} from 'apis/supers-snapshots/getRanking'
+
+/**
+ * 期間がスナップショット期間（weekly-xxx or monthly-xxx）かどうかを判定
+ */
+export function isSnapshotPeriod(
+  period: ChannelsRankingPeriod
+): period is SnapshotPeriod {
+  return period.startsWith('weekly-') || period.startsWith('monthly-')
+}
+
+/**
+ * スナップショット期間をパースしてAPIパラメータを取得
+ */
+export function parseSnapshotPeriod(period: SnapshotPeriod): {
+  period: 'weekly' | 'monthly'
+  target: string
+} {
+  if (period.startsWith('weekly-')) {
+    return { period: 'weekly', target: period.slice(7) }
+  }
+  return { period: 'monthly', target: period.slice(8) }
+}
+
+type GetSupersSnapshotRanking = Parameters<typeof getSupersSnapshotRanking>[0]
+export function getSupersSnapshotParams({
+  period,
+  group,
+  gender,
+  page
+}: Omit<ChannelsRankingGalleryProps, 'dimension'> & {
+  period: SnapshotPeriod
+}): GetSupersSnapshotRanking {
+  const parsed = parseSnapshotPeriod(period)
+  return {
+    ...parsed,
+    group,
+    gender,
+    limit: ChannelsRankingPagination.getLimit(),
+    offset: ChannelsRankingPagination.getOffset(page)
+  }
+}
+
+type GetSupersSnapshotRankingCount = Parameters<
+  typeof getSupersSnapshotRankingCount
+>[0]
+export function getSupersSnapshotCountParams({
+  period,
+  group,
+  gender
+}: Omit<ChannelsRankingGalleryProps, 'dimension'> & {
+  period: SnapshotPeriod
+}): GetSupersSnapshotRankingCount {
+  const parsed = parseSnapshotPeriod(period)
+  return {
+    ...parsed,
+    group,
+    gender
+  }
+}
 
 type GetSupersSummaries = Parameters<typeof getSupersSummaries>[0]
 export function getSupersSummariesParams({
@@ -10,7 +74,6 @@ export function getSupersSummariesParams({
   gender,
   country,
   date,
-  compact,
   page
 }: Omit<ChannelsRankingGalleryProps, 'dimension'>): GetSupersSummaries {
   let result: GetSupersSummaries = {}
@@ -60,7 +123,7 @@ export function getSupersSummariesParams({
 
   result = {
     ...result,
-    limit: ChannelsRankingPagination.getLimit(compact),
+    limit: ChannelsRankingPagination.getLimit(),
     offset: ChannelsRankingPagination.getOffset(page)
   }
 

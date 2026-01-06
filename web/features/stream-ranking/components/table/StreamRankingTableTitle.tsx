@@ -1,5 +1,9 @@
 import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
+import {
+  RankingTableTitleDescription,
+  RankingTableTitleH1
+} from 'components/ranking/table/title/RankingTableTitle'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'
@@ -21,26 +25,25 @@ export default function StreamRankingTableTitle({
 }: Props) {
   const global = useTranslations('Global')
   const feat = useTranslations('Features.streamRanking')
+  const page = useTranslations('Page.ranking.live')
+  const periodName = global(`period.${period}`)
   const title = feat(`ranking.dimension.${dimension}`, {
-    period: global(`period.${period}`),
+    period: periodName,
     group: groupName,
     gender: gender ? global(`gender.${gender}`) : ''
   })
     .replace(/\s+/g, ' ')
     .trim()
   return (
-    <section className={`${className || ''}`}>
-      <h1
-        title={title}
-        className="flex text-lg sm:text-xl font-bold"
-        aria-label={title}
-      >
-        <div className="flex gap-x-1 sm:gap-x-2 items-center">
-          <span className="tracking-tighter line-clamp-1 break-all">
-            {title}
-          </span>
-        </div>
-      </h1>
+    <section className={`space-y-2 ${className || ''}`}>
+      <RankingTableTitleH1 title={title} />
+      <RankingTableTitleDescription>
+        {page(`metadata.description.dimension.${dimension}`, {
+          period: periodName,
+          group: groupName,
+          gender: gender ? global(`gender.${gender}`) : ''
+        })}
+      </RankingTableTitleDescription>
     </section>
   )
 }

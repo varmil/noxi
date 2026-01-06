@@ -1,30 +1,27 @@
 import { PropsWithoutRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
 import { getGroupName } from 'apis/groups'
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
+import { getSupersSnapshotRanking } from 'apis/supers-snapshots/getRanking'
 import { getChannels } from 'apis/youtube/getChannels'
 import { PageXSPX } from 'components/page'
-import { ChannelsRankingDefaultUrl } from 'config/constants/RankingRoute'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
 import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { Link } from 'lib/navigation'
 import { ChannelsRankingPeriod } from 'types/period'
 import {
   getChannelsParams,
-  getSupersSummariesParams
+  getSupersSnapshotParams,
+  getSupersSummariesParams,
+  isSnapshotPeriod
 } from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
   group: string
-  compact?: boolean
   className?: string
 }
 
@@ -40,19 +37,26 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
 
-  const { period, dimension, group, gender, date, page, compact, className } =
-    props
+  const { period, dimension, group, gender, date, page, className } = props
 
-  const [t, groupName] = await Promise.all([
-    getTranslations('Features.channelsRanking'),
-    getGroupName(group, { errorContext: 'channels ranking gallery' })
-  ])
+  const groupName = await getGroupName(group, {
+    errorContext: 'channels ranking gallery'
+  })
 
   if (dimension === 'super-chat') {
-    const supersSummaries = await getSupersSummaries(
-      getSupersSummariesParams(props)
-    )
-    channelIds = supersSummaries.map(summary => summary.channelId)
+    if (isSnapshotPeriod(period)) {
+      // 週間・月間スナップショットランキング
+      const snapshots = await getSupersSnapshotRanking(
+        getSupersSnapshotParams({ ...props, period })
+      )
+      channelIds = snapshots.map(snapshot => snapshot.channelId)
+    } else {
+      // 通常のランキング
+      const supersSummaries = await getSupersSummaries(
+        getSupersSummariesParams(props)
+      )
+      channelIds = supersSummaries.map(summary => summary.channelId)
+    }
   }
 
   if (dimension === 'subscriber') {
@@ -68,7 +72,7 @@ export default async function ChannelsRankingGallery(
         groupName={groupName}
         gender={gender}
         date={date ? new Date(date) : undefined}
-        className={`${!compact ? PageXSPX : ''} sm:px-0`}
+        className={`${PageXSPX} sm:px-0`}
       />
 
       <ChannelsRankingTable
@@ -81,14 +85,6 @@ export default async function ChannelsRankingGallery(
         page={Number(page) || 1}
       />
 
-      {compact && (
-        <Button variant={'outline'} asChild className="w-full gap-1">
-          <Link href={ChannelsRankingDefaultUrl}>
-            {t('viewAll')}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button>
-      )}
     </section>
   )
 }

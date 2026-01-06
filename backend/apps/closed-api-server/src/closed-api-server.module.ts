@@ -15,6 +15,7 @@ import { MembershipSummariesPresentationModule } from '@presentation/membership-
 import { SupersPresentationModule } from '@presentation/supers/supers.presentation.module'
 import { SupersBundlesPresentationModule } from '@presentation/supers-bundles/supers-bundles.presentation.module'
 import { SupersRankingsPresentationModule } from '@presentation/supers-rankings/supers-rankings.presentation.module'
+import { SupersSnapshotsPresentationModule } from '@presentation/supers-snapshots/supers-snapshots.presentation.module'
 import { SupersSummariesPresentationModule } from '@presentation/supers-summaries/supers-summaries.presentation.module'
 import { UserProfilesPresentationModule } from '@presentation/user-profiles/user-profiles.presentation.module'
 import { UsersPresentationModule } from '@presentation/users/users.presentation.module'
@@ -43,6 +44,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     SupersPresentationModule,
     SupersBundlesPresentationModule,
     SupersRankingsPresentationModule,
+    SupersSnapshotsPresentationModule,
     SupersSummariesPresentationModule,
     UserProfilesPresentationModule,
     UsersPresentationModule,

@@ -21,8 +21,8 @@ vi.mock('next-intl/server', () => ({
       Components: {
         'styles.more': 'More',
         'contact.title': 'Contact',
-        'channelsAdd.title': 'Add your channel',
-        'groupsAdd.title': 'Add your group'
+        'channelsAdd.title': 'Add a channel',
+        'groupsAdd.title': 'Add a group'
       }
     }
     return Promise.resolve((key: string) => messages[namespace]?.[key] || key)
@@ -93,7 +93,7 @@ describe('Aside', () => {
 
     render(AsideComponent)
 
-    const groupsAddLink = screen.getByRole('link', { name: /add your group/i })
+    const groupsAddLink = screen.getByRole('link', { name: /add a group/i })
     expect(groupsAddLink).toBeInTheDocument()
     expect(groupsAddLink).toHaveAttribute('href', '/groups/add')
   })
@@ -104,7 +104,7 @@ describe('Aside', () => {
     render(AsideComponent)
 
     const channelsAddLink = screen.getByRole('link', {
-      name: /add your channel/i
+      name: /add a channel/i
     })
     expect(channelsAddLink).toBeInTheDocument()
     expect(channelsAddLink).toHaveAttribute('href', '/channels/add')

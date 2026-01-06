@@ -1,4 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import { TwitterApi } from 'twitter-api-v2'
 import { SupersBundlesService } from '@app/supers-bundles/supers-bundles.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
@@ -6,7 +9,10 @@ import { GroupId } from '@domain/group'
 import { Gender, Now } from '@domain/lib'
 import { ChannelIds } from '@domain/youtube'
 
-const MAX_LENGTH_PER_LINE = 15
+dayjs.extend(utc)
+dayjs.extend(timezone)
+
+const MAX_LENGTH_PER_LINE = 12
 
 /** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
 function truncateTitle(
@@ -30,9 +36,23 @@ function truncateTitle(
   return result
 }
 
+function getRankPrefix(i: number): string {
+  if (i === 0) return '🥇  '
+  if (i === 1) return '🥈  '
+  if (i === 2) return '🥉  '
+  return `${i + 1}位. `
+}
+
+function getGroupTitle(group?: GroupId): string {
+  if (!group) return 'VTuber総合'
+  return group.toJP()
+}
+
+const DAY_OF_WEEK_JP = ['日', '月', '火', '水', '木', '金', '土']
+
 @Injectable()
-export class XScenario {
-  private readonly logger = new Logger(XScenario.name)
+export class XLast24HoursScenario {
+  private readonly logger = new Logger(XLast24HoursScenario.name)
   private readonly xClient: TwitterApi
 
   constructor(
@@ -67,6 +87,14 @@ export class XScenario {
         id: new ChannelIds(sums.map(s => s.channelId))
       }
     })
+
+    // 日付情報（JST）
+    const now = dayjs().tz('Asia/Tokyo')
+    const year = now.year()
+    const month = now.month() + 1
+    const day = now.date()
+    const dayOfWeek = DAY_OF_WEEK_JP[now.day()]
+
     const groupSlug = group ? `/${group.get()}` : '/all'
     const periodSlug = '/last24Hours'
     const searchParams = new URLSearchParams({
@@ -74,21 +102,20 @@ export class XScenario {
       date: new Date().toISOString()
     })
 
-    const message1 =
-      `本日の${group ? group.toJP() : '総合'}${gender ? gender.toJP() : ''}ランキング`
-        .replace(/\s+/g, ' ')
-        .trim()
-    const message2 = sums
+    const line1 = `${getGroupTitle(group)}スパチャランキング`
+    const line2 = `【日次】${year}年${month}月${day}日（${dayOfWeek}）`
+    const rankings = sums
       .map((s, i) => {
-        return `${i + 1}位.${truncateTitle(
+        return `${getRankPrefix(i)}${truncateTitle(
           channels.find(c => c.basicInfo.id.equals(s.channelId))?.basicInfo
             .title ?? ''
         )}`
       })
       .join('\n')
-    const message3 = `リアルタイム集計。タップですべて表示`
-    const message4 = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
-    const content = `${message1}\n\n${message2}\n\n${message3}\n${message4}`
+    const footer = `詳細・Top100はこちら`
+    const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
+
+    const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
     const tweet = await this.xClient.v2.tweet(content)
 
     if (!tweet.errors) {

@@ -270,6 +270,26 @@
       }
     },
     "ranking": {
+      "channels": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "super-chat": "VTuberのスーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。",
+              "subscriber": "{group}の登録者数を集計した人気順リストです。"
+            }
+          }
+        }
+      },
+      "live": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "concurrent-viewer": "{group}{gender}のライブ配信における同時接続数ランキングです。{period}の人気配信をチェックして、盛り上がっているVTuberを見つけましょう。",
+              "super-chat": "ライブ配信別のスーパーチャット獲得金額ランキングです。{group}{gender}の{period}で、どの配信が最も盛り上がったかをチェックできます。"
+            }
+          }
+        }
+      },
       "most-cheered": {
         "metadata": {
           "description": {
@@ -304,30 +324,6 @@
             "openChat": "チャットを表示",
             "seeMoreVideos": "このチャンネルの動画を見る",
             "seeTop20": "週間ランキングTop20を見る"
-          }
-        },
-        "ranking": {
-          "metadata": {
-            "title": "VTuber",
-            "description": {
-              "dimension": {
-                "concurrent-viewer": "{group}{gender}の同接数ランキング（{period}）。人気ライブをチェックしよう。",
-                "super-chat": "{group}{gender}の【ライブ別】スパチャランキング（{period}）。人気ライブをチェックしよう。"
-              }
-            }
-          }
-        }
-      },
-      "channels": {
-        "ranking": {
-          "metadata": {
-            "title": "VTuber",
-            "description": {
-              "dimension": {
-                "super-chat": "{group}{gender}のスパチャランキング（{period}）。推しのVTuberを比較しよう。",
-                "subscriber": "{group}{gender}のチャンネル登録者数ランキング。推しの成長をチェックしよう。"
-              }
-            }
           }
         }
       }
@@ -380,7 +376,13 @@
       "dashboard": "ダッシュボード",
       "liveRanking": "同接数",
       "channelsRanking": "スパチャ金額",
-      "talents": "タレント"
+      "talents": "タレント",
+      "superChatRanking": "スパチャランキング",
+      "concurrentViewerRanking": "同接数ランキング",
+      "ranking": "ランキング",
+      "support": "サポート",
+      "info": "情報",
+      "allGroup": "総合"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",

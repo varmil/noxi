@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-
+import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import {
@@ -16,8 +16,8 @@ type Args = {
   pageNamespace:
     | 'Page.ranking.most-cheered'
     | 'Page.ranking.top-fans'
-    | 'Page.youtube.channels.ranking'
-    | 'Page.youtube.live.ranking'
+    | 'Page.ranking.channels'
+    | 'Page.ranking.live'
   featNamespace:
     | 'Features.mostCheered.dimension'
     | 'Features.topFans.dimension'
@@ -55,11 +55,16 @@ export const generateTitleAndDescription = async ({
     pageNumber = ` - ${global('pagination.page')} ${page}`
   }
 
-  // 「ホロライブ」や「にじさんじ」 などグループ名が指定されている場合は、「VTuber」
-  //  を省略してシンプルなタイトルにする方がSEOとユーザー体験の観点から最適
+  // スナップショット期間のフォーマット
+  const periodDisplayName =
+    formatSnapshotPeriod(period as ChannelsRankingPeriod, locale) ??
+    global(
+      `period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
+    )
+
   return {
     title: `${feat(dimension, {
-      period: global(`period.${period}`),
+      period: periodDisplayName,
       group,
       gender: gender ? global(`gender.${gender}`) : ''
     })
@@ -67,7 +72,7 @@ export const generateTitleAndDescription = async ({
       .trim()}${pageNumber}`,
 
     description: `${pageT(`metadata.description.dimension.${dimension}`, {
-      period: global(`period.${period}`),
+      period: periodDisplayName,
       group,
       gender: gender ? global(`gender.${gender}`) : ''
     })

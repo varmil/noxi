@@ -3,6 +3,7 @@ import { ChevronRight, JapaneseYen } from 'lucide-react'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { getSupersRankingHistories } from 'apis/supers/getSupersRankingHistories'
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
+import { getSupersSnapshotRanking } from 'apis/supers-snapshots/getRanking'
 import { getChannels } from 'apis/youtube/getChannels'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
 import CountryCell from 'components/ranking/table/cell/CountryCell'
@@ -13,8 +14,12 @@ import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
+import {
+  getSupersSnapshotParams,
+  isSnapshotPeriod
+} from 'features/channels-ranking/utils/gallery-params'
 import { Gender } from 'types/gender'
-import { ChannelsRankingPeriod } from 'types/period'
+import { ChannelsRankingPeriod, Period, SnapshotPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
 import {
@@ -43,36 +48,55 @@ export default async function ChannelsRankingTable({
   date,
   page = 1
 }: Props) {
+  const isSnapshot = isSnapshotPeriod(period)
   const isSuperChat = dimension === 'super-chat' && period !== 'wholePeriod'
-  const [channels, supersSummaries, supersRankingHistories] = await Promise.all(
-    [
+  const isRegularSuperChat = isSuperChat && !isSnapshot
+
+  const [channels, supersSummaries, supersRankingHistories, snapshotRanking] =
+    await Promise.all([
       getChannels({ ids: channelIds, limit: channelIds.length }),
-      isSuperChat
+      isRegularSuperChat
         ? getSupersSummaries({
             channelIds,
             limit: channelIds.length,
-            orderBy: [{ field: period, order: 'desc' }],
+            orderBy: [{ field: period as Period, order: 'desc' }],
             date
           })
         : Promise.resolve([]),
-      isSuperChat && hasSupersRanking({ dimension, group, gender })
+      isRegularSuperChat && hasSupersRanking({ dimension, group, gender })
         ? getSupersRankingHistories({
             channelIds,
-            period,
+            period: period as Period,
             rankingType: getSupersRankingType({ group, gender }),
-            createdAfter: rangeDatetimeForPreviousPeriod(period).gte,
-            createdBefore: rangeDatetimeForPreviousPeriod(period).lte,
+            createdAfter: rangeDatetimeForPreviousPeriod(period as Period).gte,
+            createdBefore: rangeDatetimeForPreviousPeriod(period as Period).lte,
             limit: channelIds.length
           })
+        : Promise.resolve([]),
+      isSnapshot && isSuperChat && group
+        ? getSupersSnapshotRanking(
+            getSupersSnapshotParams({
+              period: period as SnapshotPeriod,
+              group,
+              gender,
+              page: String(page)
+            })
+          )
         : Promise.resolve([])
-    ]
-  )
+    ])
 
   /** Progress.valueで使用する */
-  const topAmountMicros = (supersSummaries[0]?.[period] as bigint) ?? BigInt(0)
+  const topAmountMicros = isSnapshot
+    ? snapshotRanking[0]?.amountMicros ?? BigInt(0)
+    : (supersSummaries[0]?.[period as Period] as bigint) ?? BigInt(0)
   const topSubscribers =
     channels.find(channel => channel.basicInfo.id === channelIds[0])?.statistics
       .subscriberCount ?? 0
+
+  // スナップショットの金額マップを作成
+  const snapshotAmountMap = new Map(
+    snapshotRanking.map(s => [s.channelId, s.amountMicros])
+  )
 
   return (
     <Table>
@@ -84,9 +108,11 @@ export default async function ChannelsRankingTable({
           )
           if (!channel) return null
 
-          const summary = supersSummaries.find(
-            summary => summary.channelId === channelId
-          )?.[period] as bigint | undefined
+          const summary = isSnapshot
+            ? snapshotAmountMap.get(channelId)
+            : (supersSummaries.find(
+                summary => summary.channelId === channelId
+              )?.[period as Period] as bigint | undefined)
 
           /** prefetch=false */
           const LinkCell = (
@@ -117,16 +143,17 @@ export default async function ChannelsRankingTable({
                   <div className="text-center text-lg @lg:text-xl text-nowrap tracking-tight">
                     {Pagination.getRankFromPage(page, i)}
                   </div>
-                  {hasSupersRanking({ dimension, group, gender }) && (
-                    <ComparedToPreviousPeriod
-                      current={rank}
-                      previous={
-                        supersRankingHistories.find(
-                          h => h.channelId === channelId
-                        )?.rank
-                      }
-                    />
-                  )}
+                  {!isSnapshot &&
+                    hasSupersRanking({ dimension, group, gender }) && (
+                      <ComparedToPreviousPeriod
+                        current={rank}
+                        previous={
+                          supersRankingHistories.find(
+                            h => h.channelId === channelId
+                          )?.rank
+                        }
+                      />
+                    )}
                 </div>
               </TableCell>
 

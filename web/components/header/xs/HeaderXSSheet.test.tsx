@@ -20,9 +20,16 @@ vi.mock('next-intl/server', () => ({
       Components: {
         'styles.more': 'More',
         'contact.title': 'Contact',
-        'channelsAdd.title': 'Add your channel',
-        'groupsAdd.title': 'Add your group',
-        'auth.signOut': 'Sign Out'
+        'channelsAdd.title': 'Add a channel',
+        'groupsAdd.title': 'Add a group',
+        'auth.signOut': 'Sign Out',
+        'aside.xAccount': 'Official X',
+        'header.superChatRanking': 'Super Chat Ranking',
+        'header.concurrentViewerRanking': 'Live Viewer Ranking',
+        'header.ranking': 'Ranking',
+        'header.support': 'Support',
+        'header.info': 'Info',
+        'header.allGroup': 'Overall'
       }
     }
     return Promise.resolve((key: string) => messages[namespace]?.[key] || key)
@@ -37,10 +44,6 @@ vi.mock('lib/navigation', () => ({
 
 vi.mock('components/header/xs/HeaderItem', () => ({
   SignOutInSheet: () => <div data-testid="sign-out" />
-}))
-
-vi.mock('components/pwa/PWAInstallContext', () => ({
-  PWAInstallButton: () => <div data-testid="pwa-install" />
 }))
 
 vi.mock('@/components/ui/button', () => ({
@@ -76,22 +79,14 @@ vi.mock('components/ModeToggle', () => ({
   ModeToggle: () => <div data-testid="mode-toggle" />
 }))
 
-vi.mock('components/header/HeaderLink', () => ({
-  __esModule: true,
-  default: ({
-    name,
-    href
-  }: {
-    name: string
-    href: string
-    icon: React.ReactNode
-    active?: boolean
-  }) => <a href={href}>{name}</a>
-}))
-
 vi.mock('components/icons/PrivacyPolicyIcon', () => ({
   __esModule: true,
   default: () => <div data-testid="privacy-policy-icon" />
+}))
+
+vi.mock('components/icons/XIcon', () => ({
+  __esModule: true,
+  default: () => <div data-testid="x-icon" />
 }))
 
 vi.mock('components/language-switcher/components/LanguageSwitcher', () => ({
@@ -113,7 +108,7 @@ describe('HeaderXSSheet', () => {
 
     render(HeaderXSSheetComponent)
 
-    const groupsAddLink = screen.getByRole('link', { name: /add your group/i })
+    const groupsAddLink = screen.getByRole('link', { name: /add a group/i })
     expect(groupsAddLink).toBeInTheDocument()
     expect(groupsAddLink).toHaveAttribute('href', '/groups/add')
   })
@@ -124,7 +119,7 @@ describe('HeaderXSSheet', () => {
     render(HeaderXSSheetComponent)
 
     const channelsAddLink = screen.getByRole('link', {
-      name: /add your channel/i
+      name: /add a channel/i
     })
     expect(channelsAddLink).toBeInTheDocument()
     expect(channelsAddLink).toHaveAttribute('href', '/channels/add')

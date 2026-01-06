@@ -1,16 +1,6 @@
-import {
-  Ellipsis,
-  FileChartLine,
-  LogOut,
-  MailIcon,
-  PanelLeftIcon,
-  Scale,
-  UserRoundPlus,
-  UsersRound
-} from 'lucide-react'
+import { PanelLeftIcon } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetTrigger,
@@ -19,13 +9,7 @@ import {
   SheetDescription,
   SheetTitle
 } from '@/components/ui/sheet'
-import { ModeToggle } from 'components/ModeToggle'
-import HeaderLink from 'components/header/HeaderLink'
-import { SignOutInSheet } from 'components/header/xs/HeaderItem'
-import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
-import XIcon from 'components/icons/XIcon'
-import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
-import { PWAInstallButton } from 'components/pwa/PWAInstallContext'
+import HeaderXSSheetContent from 'components/header/xs/HeaderXSSheetContent'
 import Image from 'components/styles/Image'
 import { getGroups } from 'hooks/useGroups'
 import { auth } from 'lib/auth'
@@ -37,6 +21,46 @@ export default async function HeaderXSSheet() {
     getGroups()
   ])
 
+  const allGroupName = comp('header.allGroup')
+
+  // グループデータを整形
+  const groupsData = [
+    { id: 'all', name: allGroupName, icon: undefined },
+    ...groups.imgs.slice(0, 2).map(group => ({
+      id: group.id,
+      name: group.name,
+      icon: (
+        <Image
+          src={group.src}
+          alt={group.name}
+          width={100}
+          height={100}
+          className="size-4 rounded-full"
+        />
+      )
+    })),
+    ...groups.icons.slice(0, 1).map(group => ({
+      id: group.id,
+      name: group.name,
+      icon: <group.icon className="size-4 rounded-full" />
+    }))
+  ]
+
+  const labels = {
+    allGroupName,
+    superChat: comp('header.superChatRanking'),
+    concurrentViewer: comp('header.concurrentViewerRanking'),
+    more: comp('styles.more'),
+    contact: comp('contact.title'),
+    channelsAdd: comp('channelsAdd.title'),
+    groupsAdd: comp('groupsAdd.title'),
+    xAccount: comp('aside.xAccount'),
+    signOut: comp('auth.signOut'),
+    ranking: comp('header.ranking'),
+    support: comp('header.support'),
+    info: comp('header.info')
+  }
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -45,115 +69,16 @@ export default async function HeaderXSSheet() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-6 sm:max-w-xs">
+      <SheetContent side="left" className="w-[290px] p-0">
         <SheetHeader hidden>
           <SheetTitle hidden>VCharts</SheetTitle>
           <SheetDescription hidden></SheetDescription>
         </SheetHeader>
-        <nav className="h-full flex flex-col font-medium">
-          <section className="grid gap-6 overflow-y-scroll">
-            <div className="relative flex items-center ml-1 gap-4">
-              <LanguageSwitcher />
-              <ModeToggle />
-            </div>
-
-            {groups.imgs.slice(0, 4).map(group => (
-              <HeaderLink
-                key={group.id}
-                name={group.name}
-                icon={
-                  <Image
-                    src={group.src}
-                    alt={group.name}
-                    width={100}
-                    height={100}
-                    className="size-7 rounded-full"
-                  />
-                }
-                href={`/${group.id}`}
-                active
-              />
-            ))}
-
-            {groups.icons.slice(0, 1).map(group => (
-              <HeaderLink
-                key={group.id}
-                name={group.name}
-                icon={<group.icon className="size-7 rounded-full" />}
-                href={`/${group.id}`}
-                active
-              />
-            ))}
-
-            <HeaderLink
-              name={comp('styles.more')}
-              icon={<Ellipsis className="size-7" />}
-              href="/groups"
-              active
-            />
-
-            <Separator orientation="horizontal" />
-
-            <HeaderLink
-              name={comp('contact.title')}
-              icon={<MailIcon className="size-7" />}
-              href="/contact"
-            />
-
-            <HeaderLink
-              name={comp('channelsAdd.title')}
-              icon={<UserRoundPlus className="size-7" />}
-              href="/channels/add"
-            />
-
-            <HeaderLink
-              name={comp('groupsAdd.title')}
-              icon={<UsersRound className="size-7" />}
-              href="/groups/add"
-            />
-
-            <a
-              href="https://x.com/VCharts_net"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 text-muted-foreground hover:text-foreground"
-            >
-              <div className="flex justify-center items-center h-8 w-8">
-                <XIcon className="size-6" />
-              </div>
-              <span className="flex-1">{comp('aside.xAccount')}</span>
-            </a>
-
-            <HeaderLink
-              name="Data Methodology"
-              icon={<FileChartLine className="size-6.5" />}
-              href="/data-methodology-and-disclaimer"
-            />
-
-            <HeaderLink
-              name="Terms of Use and PP"
-              icon={<PrivacyPolicyIcon className="size-6.5" />}
-              href="/terms-of-use-and-privacy-policy"
-            />
-
-            <HeaderLink
-              name="特定商取引法に基づく表記"
-              icon={<Scale className="size-6.5" />}
-              href="/legal/tokushoho"
-            />
-
-            {session ? (
-              <SignOutInSheet
-                name={comp('auth.signOut')}
-                icon={<LogOut className="size-7" />}
-              />
-            ) : null}
-
-            <Separator orientation="horizontal" />
-
-            <PWAInstallButton />
-          </section>
-        </nav>
+        <HeaderXSSheetContent
+          groups={groupsData}
+          labels={labels}
+          isSignedIn={!!session}
+        />
       </SheetContent>
     </Sheet>
   )

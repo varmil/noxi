@@ -265,6 +265,26 @@
     },
 
     "ranking": {
+      "channels": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "super-chat": "Super Chat earnings ranking for VTubers. Aggregated for {group}{gender} over {period}.",
+              "subscriber": "A popularity ranking based on subscriber counts for {group}."
+            }
+          }
+        }
+      },
+      "live": {
+        "metadata": {
+          "description": {
+            "dimension": {
+              "concurrent-viewer": "Concurrent viewer ranking for {group}{gender} live streams. Check the most popular streams of {period} and discover trending VTubers.",
+              "super-chat": "Super Chat earnings ranking by live stream for {group}{gender} over {period}. See which streams were the most popular."
+            }
+          }
+        }
+      },
       "most-cheered": {
         "metadata": {
           "description": {
@@ -301,30 +321,6 @@
             "seeMoreVideos": "See More Videos",
             "seeTop20": "See Weekly Top 20"
           }
-        },
-        "ranking": {
-          "metadata": {
-            "title": "VTuber - ",
-            "description": {
-              "dimension": {
-                "concurrent-viewer": "Concurrent Viewer Ranking from each {group}{gender} channel in {period}.",
-                "super-chat": "Super Chat Ranking from each {group}{gender} live stream in {period}."
-              }
-            }
-          }
-        }
-      },
-      "channels": {
-        "ranking": {
-          "metadata": {
-            "title": "VTuber",
-            "description": {
-              "dimension": {
-                "super-chat": "Super Chat Ranking from each {group}{gender} channel in {period}.",
-                "subscriber": "Ranking of {group}{gender} channel subscribers."
-              }
-            }
-          }
         }
       }
     }
@@ -358,8 +354,8 @@
       "topFans": "Top Fans",
       "groups": "Talents"
     },
-    "channelsAdd": { "title": "Add your channel to VCharts" },
-    "groupsAdd": { "title": "Add your group to VCharts" },
+    "channelsAdd": { "title": "Add a channel to VCharts" },
+    "groupsAdd": { "title": "Add a group to VCharts" },
     "contact": { "title": "Contact" },
     "aside": { "xAccount": "Official X (formerly Twitter)" },
     "group": {
@@ -370,7 +366,13 @@
       "dashboard": "Dashboard",
       "liveRanking": "Live",
       "channelsRanking": "Channels",
-      "talents": "Talents"
+      "talents": "Talents",
+      "superChatRanking": "Super Chat Ranking",
+      "concurrentViewerRanking": "Live Viewer Ranking",
+      "ranking": "Ranking",
+      "support": "Support",
+      "info": "Info",
+      "allGroup": "Overall"
     },
     "loginBonus": {
       "title": "Daily login bonus!",

@@ -2,7 +2,7 @@ import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCard from 'components/ranking/hover-card/period/PeriodHoverCard'
 import dayjs from 'lib/dayjs'
-import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
+import { ChannelsRankingPeriod, Period, StreamRankingPeriod } from 'types/period'
 import { getEndOf, getStartOf, getUpdatedAt } from 'utils/period/ranking'
 
 type Props = PropsWithChildren<{
@@ -15,13 +15,23 @@ type Props = PropsWithChildren<{
 export default function PeriodHoverCardFactory({ type, period, date }: Props) {
   const comp = useTranslations('Components.ranking.hoverCard')
 
-  if (period === 'wholePeriod' || period === 'realtime') return null
+  // スナップショット期間やwholePeriod, realtimeはホバーカード不要
+  if (
+    period === 'wholePeriod' ||
+    period === 'realtime' ||
+    period.startsWith('weekly-') ||
+    period.startsWith('monthly-')
+  ) {
+    return null
+  }
+
+  const regularPeriod = period as Period
 
   let updatedAt: dayjs.Dayjs | undefined
   let criteriaDescription = ''
   switch (type) {
     case 'channels':
-      updatedAt = getUpdatedAt(period, date)
+      updatedAt = getUpdatedAt(regularPeriod, date)
       criteriaDescription = comp('criteriaDescription.channels')
       break
     case 'mostCheered':
@@ -38,8 +48,8 @@ export default function PeriodHoverCardFactory({ type, period, date }: Props) {
   return (
     <div className="flex items-baseline gap-x-3">
       <PeriodHoverCard
-        start={getStartOf(period, date)}
-        end={getEndOf(period, date)}
+        start={getStartOf(regularPeriod, date)}
+        end={getEndOf(regularPeriod, date)}
         updatedAt={updatedAt}
         criteriaDescription={criteriaDescription}
       />
