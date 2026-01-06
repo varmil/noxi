@@ -11,24 +11,20 @@ const IconWrapper = ({ children }: PropsWithChildren<{}>) => (
 type Props = {
   name: string
   icon: JSX.Element
-  href: string
 }
 
-export function SignOutInSheet({
-  name,
-  icon
-}: PropsWithoutRef<Omit<Props, 'href'>>) {
+export function SignOutButton({ name, icon }: PropsWithoutRef<Props>) {
   const [loading, setLoading] = useState(false)
   return (
     <div
-      className={`flex items-center gap-3 text-muted-foreground hover:text-foreground`}
+      className={`flex items-center gap-3 py-2.5 text-muted-foreground hover:bg-accent/50 hover:text-foreground text-sm rounded-lg cursor-pointer`}
       onClick={async () => {
         setLoading(true)
         await signOut({ redirectTo: '/auth/signin' })
       }}
     >
       <IconWrapper>{icon}</IconWrapper>
-      <span className="flex-1 relative -top-[0.5px]">
+      <span className="flex-1 leading-none">
         {loading ? (
           <div className="flex items-center">
             <Loader2 className="size-4 animate-spin mr-2" />

@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { GoogleTagManager } from '@next/third-parties/google'
 import { Noto_Sans_JP } from 'next/font/google'
+import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { SessionProvider } from 'next-auth/react'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
@@ -12,6 +13,7 @@ import { DailyLoginBonus } from 'components/login-bonus/DailyLoginBonus'
 import { PWAInstallProvider } from 'components/pwa/PWAInstallContext'
 import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
+import { SidebarProvider } from 'components/sidebar/SidebarContext'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
 import { auth } from 'lib/auth'
@@ -40,7 +42,11 @@ export const viewport: Viewport = {
 }
 
 export default async function LocaleLayout(props: Props) {
-  const [{ locale }, session] = await Promise.all([props.params, auth()])
+  const [{ locale }, session, cookieStore] = await Promise.all([
+    props.params,
+    auth(),
+    cookies()
+  ])
   const { children } = props
 
   // Ensure that the incoming `locale` is valid
@@ -50,6 +56,9 @@ export default async function LocaleLayout(props: Props) {
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
+
+  // サイドバーの開閉状態をCookieから取得（デフォルトは開いた状態）
+  const sidebarOpen = cookieStore.get('sidebar-open')?.value !== 'false'
 
   return (
     <html
@@ -88,7 +97,9 @@ export default async function LocaleLayout(props: Props) {
           <SessionProvider session={session}>
             <NextTopLoader color="var(--primary)" showSpinner={false} />
             <NextIntlClientProvider>
-              <PWAInstallProvider>{children}</PWAInstallProvider>
+              <SidebarProvider defaultOpen={sidebarOpen}>
+                <PWAInstallProvider>{children}</PWAInstallProvider>
+              </SidebarProvider>
               <Toaster richColors />
               <DailyLoginBonus session={session} />
             </NextIntlClientProvider>

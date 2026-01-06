@@ -42,8 +42,8 @@ vi.mock('lib/navigation', () => ({
   )
 }))
 
-vi.mock('components/header/xs/HeaderItem', () => ({
-  SignOutInSheet: () => <div data-testid="sign-out" />
+vi.mock('components/sidebar/SignOutButton', () => ({
+  SignOutButton: () => <div data-testid="sign-out" />
 }))
 
 vi.mock('@/components/ui/button', () => ({

@@ -9,7 +9,7 @@ import {
   SheetDescription,
   SheetTitle
 } from '@/components/ui/sheet'
-import HeaderXSSheetContent from 'components/header/xs/HeaderXSSheetContent'
+import SidebarContent from 'components/sidebar/SidebarContent'
 import Image from 'components/styles/Image'
 import { getGroups } from 'hooks/useGroups'
 import { auth } from 'lib/auth'
@@ -64,17 +64,17 @@ export default async function HeaderXSSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="icon" variant="ghost" className="sm:hidden">
+        <Button size="icon" variant="ghost" className="lg:hidden">
           <PanelLeftIcon className="h-5 w-5" />
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[290px] p-0">
+      <SheetContent side="left" className="w-[290px] p-0" hideCloseButton>
         <SheetHeader hidden>
           <SheetTitle hidden>VCharts</SheetTitle>
           <SheetDescription hidden></SheetDescription>
         </SheetHeader>
-        <HeaderXSSheetContent
+        <SidebarContent
           groups={groupsData}
           labels={labels}
           isSignedIn={!!session}

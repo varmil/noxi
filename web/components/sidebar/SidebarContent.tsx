@@ -13,13 +13,14 @@ import {
   UserRoundPlus,
   UsersRound
 } from 'lucide-react'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import { ModeToggle } from 'components/ModeToggle'
-import { SignOutInSheet } from 'components/header/xs/HeaderItem'
 import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
 import XIcon from 'components/icons/XIcon'
 import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
+import { SignOutButton } from 'components/sidebar/SignOutButton'
 import { Link } from 'lib/navigation'
 
 type GroupData = {
@@ -73,9 +74,11 @@ function GroupMenuItem({
           {group.icon ? (
             group.icon
           ) : (
-            <div className="size-4 rounded-full bg-foreground/60" />
+            <div className="size-4 flex items-center justify-center">
+              <div className="size-3 rounded-full bg-foreground/50" />
+            </div>
           )}
-          <span className="text-muted-foreground font-medium text-sm relative -top-[0.5px]">
+          <span className="text-muted-foreground font-medium text-sm leading-none">
             {group.name}
           </span>
         </div>
@@ -156,7 +159,7 @@ function NavLink({
         className={linkClassName}
       >
         <div className="flex items-center justify-center size-7">{icon}</div>
-        <span className="relative -top-[0.5px]">{label}</span>
+        <span className="leading-none">{label}</span>
       </a>
     )
   }
@@ -164,16 +167,12 @@ function NavLink({
   return (
     <Link href={href} className={linkClassName}>
       <div className="flex items-center justify-center size-7">{icon}</div>
-      <span className="relative -top-[0.5px]">{label}</span>
+      <span className="leading-none">{label}</span>
     </Link>
   )
 }
 
-export default function HeaderXSSheetContent({
-  groups,
-  labels,
-  isSignedIn
-}: Props) {
+export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(
     () => new Set(groups.map(g => g.id))
   )
@@ -191,7 +190,7 @@ export default function HeaderXSSheetContent({
   }
 
   return (
-    <div className="h-full overflow-y-auto">
+    <ScrollArea className="h-full">
       {/* メインナビゲーション */}
       <nav className="p-3 pt-4">
         {/* グループセクション */}
@@ -219,7 +218,7 @@ export default function HeaderXSSheetContent({
               'transition-colors duration-150'
             )}
           >
-            <div className="flex items-center justify-center size-5">
+            <div className="flex items-center justify-center">
               <MoreHorizontal className="size-4" />
             </div>
             <span>{labels.more}</span>
@@ -284,7 +283,7 @@ export default function HeaderXSSheetContent({
           <>
             <Separator className="my-4" />
             <div className="px-3">
-              <SignOutInSheet
+              <SignOutButton
                 name={labels.signOut}
                 icon={<LogOut className="size-4" />}
               />
@@ -297,11 +296,9 @@ export default function HeaderXSSheetContent({
         {/* フッター部分 */}
         <div className="flex items-center gap-4 px-3 pt-1 pb-3 ml-0.5">
           <LanguageSwitcher />
-          <div className="relative top-px">
-            <ModeToggle />
-          </div>
+          <ModeToggle />
         </div>
       </nav>
-    </div>
+    </ScrollArea>
   )
 }

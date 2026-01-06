@@ -14,7 +14,7 @@ export class SupersSnapshotsController {
    * GET /supers-snapshots/ranking?period=monthly&target=2025-07&group=hololive
    */
   @Get('/ranking')
-  @CacheTTL(24 * 3600 * 1000) // 24 hours - 過去データは変更されないため長めに設定
+  @CacheTTL(7 * 24 * 3600 * 1000) // 1 week - 過去データは変更されないため長めに設定
   async getRanking(@Query() dto: GetSupersSnapshotRanking) {
     return await this.supersSnapshotsScenario.getRanking({
       targetDate: dto.toTargetDate(),
@@ -30,7 +30,7 @@ export class SupersSnapshotsController {
    * GET /supers-snapshots/ranking/count?period=weekly&target=2026-W01&group=hololive
    */
   @Get('/ranking/count')
-  @CacheTTL(24 * 3600 * 1000) // 24 hours
+  @CacheTTL(7 * 24 * 3600 * 1000) // 1 week
   async countRanking(@Query() dto: GetSupersSnapshotRanking) {
     return await this.supersSnapshotsScenario.countRanking({
       targetDate: dto.toTargetDate(),

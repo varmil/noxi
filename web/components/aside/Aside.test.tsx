@@ -9,8 +9,11 @@ vi.mock('lib/auth', () => ({
 
 vi.mock('hooks/useGroups', () => ({
   getGroups: vi.fn().mockResolvedValue({
-    imgs: [],
-    icons: []
+    imgs: [
+      { id: 'nijisanji', name: 'にじさんじ', src: '/group/nijisanji/logo.png' },
+      { id: 'hololive', name: 'ホロライブ', src: '/group/hololive/logo.png' }
+    ],
+    icons: [{ id: 'independent', name: '個人勢', icon: () => <span /> }]
   })
 }))
 
@@ -22,7 +25,15 @@ vi.mock('next-intl/server', () => ({
         'styles.more': 'More',
         'contact.title': 'Contact',
         'channelsAdd.title': 'Add a channel',
-        'groupsAdd.title': 'Add a group'
+        'groupsAdd.title': 'Add a group',
+        'header.superChatRanking': 'Super Chat Ranking',
+        'header.concurrentViewerRanking': 'Concurrent Viewer Ranking',
+        'header.allGroup': 'All',
+        'header.ranking': 'Ranking',
+        'header.support': 'Support',
+        'header.info': 'Info',
+        'aside.xAccount': 'X Account',
+        'auth.signOut': 'Sign Out'
       }
     }
     return Promise.resolve((key: string) => messages[namespace]?.[key] || key)
@@ -35,53 +46,44 @@ vi.mock('lib/navigation', () => ({
   )
 }))
 
-vi.mock('components/aside/SettingsDropdown', () => ({
-  SettingsDropdown: () => <div data-testid="settings-dropdown" />
-}))
-
-vi.mock('@/components/ui/scroll-area', () => ({
-  ScrollArea: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  )
-}))
-
 vi.mock('@/components/ui/separator', () => ({
   Separator: () => <hr />
 }))
 
-vi.mock('@/components/ui/tooltip', () => ({
-  TooltipProvider: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  ),
-  Tooltip: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  ),
-  TooltipTrigger: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  ),
-  TooltipContent: ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  )
+vi.mock('@/lib/utils', () => ({
+  cn: (...args: string[]) => args.filter(Boolean).join(' ')
 }))
 
-vi.mock('components/aside/AsideIcon', () => ({
+vi.mock('components/styles/Image', () => ({
   __esModule: true,
-  default: () => <div data-testid="aside-icon" />
+  default: ({ alt }: { alt: string }) => <img alt={alt} />
 }))
 
-vi.mock('components/skeleton/AsideSkeleton', () => ({
+vi.mock('components/ModeToggle', () => ({
+  ModeToggle: () => <div data-testid="mode-toggle" />
+}))
+
+vi.mock('components/language-switcher/components/LanguageSwitcher', () => ({
   __esModule: true,
-  default: () => <div data-testid="aside-skeleton" />
+  default: () => <div data-testid="language-switcher" />
+}))
+
+vi.mock('components/sidebar/SignOutButton', () => ({
+  SignOutButton: () => <div data-testid="sign-out" />
 }))
 
 vi.mock('components/icons/PrivacyPolicyIcon', () => ({
   __esModule: true,
-  default: () => <div data-testid="privacy-policy-icon" />
+  default: () => <span data-testid="privacy-policy-icon" />
 }))
 
-vi.mock('../Logo', () => ({
+vi.mock('components/icons/XIcon', () => ({
   __esModule: true,
-  default: () => <div data-testid="logo" />
+  default: () => <span data-testid="x-icon" />
+}))
+
+vi.mock('components/sidebar/SidebarContext', () => ({
+  useSidebar: () => ({ isOpen: true, toggle: vi.fn() })
 }))
 
 // Import after mocks
@@ -118,5 +120,39 @@ describe('Aside', () => {
     const contactLink = screen.getByRole('link', { name: /contact/i })
     expect(contactLink).toBeInTheDocument()
     expect(contactLink).toHaveAttribute('href', '/contact')
+  })
+
+  it('renders super chat ranking links for each group', async () => {
+    const AsideComponent = await Aside({})
+
+    render(AsideComponent)
+
+    // 各グループのスパチャランキングリンクが存在することを確認
+    const superChatLinks = screen.getAllByRole('link', {
+      name: /super chat ranking/i
+    })
+    expect(superChatLinks.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('renders concurrent viewer ranking links for each group', async () => {
+    const AsideComponent = await Aside({})
+
+    render(AsideComponent)
+
+    // 各グループの同接ランキングリンクが存在することを確認
+    const concurrentViewerLinks = screen.getAllByRole('link', {
+      name: /concurrent viewer ranking/i
+    })
+    expect(concurrentViewerLinks.length).toBeGreaterThanOrEqual(1)
+  })
+
+  it('renders groups link', async () => {
+    const AsideComponent = await Aside({})
+
+    render(AsideComponent)
+
+    const groupsLink = screen.getByRole('link', { name: /more/i })
+    expect(groupsLink).toBeInTheDocument()
+    expect(groupsLink).toHaveAttribute('href', '/groups')
   })
 })
