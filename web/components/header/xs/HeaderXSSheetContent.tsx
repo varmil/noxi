@@ -75,7 +75,7 @@ function GroupMenuItem({
           ) : (
             <div className="size-4 rounded-full bg-foreground/60" />
           )}
-          <span className="text-muted-foreground font-medium text-sm">
+          <span className="text-muted-foreground font-medium text-sm relative -top-[0.5px]">
             {group.name}
           </span>
         </div>
@@ -156,7 +156,7 @@ function NavLink({
         className={linkClassName}
       >
         <div className="flex items-center justify-center size-7">{icon}</div>
-        <span>{label}</span>
+        <span className="relative -top-[0.5px]">{label}</span>
       </a>
     )
   }
@@ -164,7 +164,7 @@ function NavLink({
   return (
     <Link href={href} className={linkClassName}>
       <div className="flex items-center justify-center size-7">{icon}</div>
-      <span>{label}</span>
+      <span className="relative -top-[0.5px]">{label}</span>
     </Link>
   )
 }
@@ -283,10 +283,12 @@ export default function HeaderXSSheetContent({
         {isSignedIn && (
           <>
             <Separator className="my-4" />
-            <SignOutInSheet
-              name={labels.signOut}
-              icon={<LogOut className="size-6" />}
-            />
+            <div className="px-3">
+              <SignOutInSheet
+                name={labels.signOut}
+                icon={<LogOut className="size-4" />}
+              />
+            </div>
           </>
         )}
 

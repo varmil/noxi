@@ -15,14 +15,13 @@ import { getGroups } from 'hooks/useGroups'
 import { auth } from 'lib/auth'
 
 export default async function HeaderXSSheet() {
-  const [session, global, comp, groups] = await Promise.all([
+  const [session, comp, groups] = await Promise.all([
     auth(),
-    getTranslations('Global'),
     getTranslations('Components'),
     getGroups()
   ])
 
-  const allGroupName = global('group.all')
+  const allGroupName = comp('header.allGroup')
 
   // グループデータを整形
   const groupsData = [
@@ -70,7 +69,7 @@ export default async function HeaderXSSheet() {
           <span className="sr-only">Toggle Menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[300px] p-0">
+      <SheetContent side="left" className="w-[290px] p-0">
         <SheetHeader hidden>
           <SheetTitle hidden>VCharts</SheetTitle>
           <SheetDescription hidden></SheetDescription>
