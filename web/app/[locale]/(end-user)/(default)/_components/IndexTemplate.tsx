@@ -101,6 +101,15 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
         {/* 共通フィルター */}
         <ChartFilters groups={groups} />
 
+        <div>
+          <Suspense
+            key={`channel-growth-${days}-${group}`}
+            fallback={<ChannelGrowthRankingSkeleton />}
+          >
+            <ChannelGrowthRankingContainer days={days} group={group} />
+          </Suspense>
+        </div>
+
         <FlexSection className="gap-6">
           <div className="flex-1 w-full">
             <Suspense
@@ -139,15 +148,6 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             </Suspense>
           </div>
         </FlexSection>
-
-        <div>
-          <Suspense
-            key={`channel-growth-${days}-${group}`}
-            fallback={<ChannelGrowthRankingSkeleton />}
-          >
-            <ChannelGrowthRankingContainer days={days} group={group} />
-          </Suspense>
-        </div>
 
         <div>
           <LookerReport
