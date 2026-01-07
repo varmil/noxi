@@ -2,6 +2,8 @@ import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getEntry } from 'config/sitemap/getEntry'
 import type { MetadataRoute } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 const LIMIT = 5000
 // 100万円（micros単位）
 const MIN_AMOUNT_MICROS = BigInt(1_000_000 * 1_000_000)
