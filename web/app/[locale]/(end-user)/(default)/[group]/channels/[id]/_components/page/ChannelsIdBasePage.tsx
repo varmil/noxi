@@ -73,8 +73,8 @@ export default async function ChannelsIdBasePage(
     <Page
       breadcrumb={[
         {
-          href: `/${group}/charts/channels`,
-          name: t('group', { group: group })
+          href: `/ranking/super-chat/channels/all/last30Days`,
+          name: t('superChatRanking')
         },
         { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
       ]}

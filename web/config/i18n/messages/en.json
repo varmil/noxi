@@ -73,7 +73,9 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "channelsRanking": "VTuber"
+    "channelsRanking": "VTuber",
+    "superChatRanking": "Super Chat Ranking (All)",
+    "concurrentViewerRanking": "Concurrent Viewer Ranking (All)"
   },
 
   "Page": {

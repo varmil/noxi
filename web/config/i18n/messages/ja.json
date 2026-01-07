@@ -69,7 +69,9 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "channelsRanking": "VTuber"
+    "channelsRanking": "VTuber",
+    "superChatRanking": "スパチャランキング（総合）",
+    "concurrentViewerRanking": "同接数ランキング（総合）"
   },
   "Page": {
     "index": {
