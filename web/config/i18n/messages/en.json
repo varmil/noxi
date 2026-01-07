@@ -73,7 +73,9 @@
     "live": "Live now on air",
     "scheduled": "Live schedule",
     "ended": "Past live streams",
-    "channelsRanking": "VTuber"
+    "channelsRanking": "VTuber",
+    "superChatRanking": "Super Chat Ranking (All)",
+    "concurrentViewerRanking": "Concurrent Viewer Ranking (All)"
   },
 
   "Page": {
@@ -279,8 +281,8 @@
         "metadata": {
           "description": {
             "dimension": {
-              "concurrent-viewer": "Concurrent viewer ranking for {group}{gender} live streams. Check the most popular streams of {period} and discover trending VTubers.",
-              "super-chat": "Super Chat earnings ranking by live stream for {group}{gender} over {period}. See which streams were the most popular."
+              "concurrent-viewer": "Concurrent viewer ranking for live streams. Aggregated for {group}{gender} over {period}.",
+              "super-chat": "Super Chat earnings ranking by live stream. Aggregated for {group}{gender} over {period}."
             }
           }
         }
@@ -358,10 +360,7 @@
     "groupsAdd": { "title": "Add a group to VCharts" },
     "contact": { "title": "Contact" },
     "aside": { "xAccount": "Official X (formerly Twitter)" },
-    "group": {
-      "listing": "Listing {count} talents.",
-      "listingAll": "All {count} talents are listed."
-    },
+    "group": {},
     "header": {
       "dashboard": "Dashboard",
       "liveRanking": "Live",

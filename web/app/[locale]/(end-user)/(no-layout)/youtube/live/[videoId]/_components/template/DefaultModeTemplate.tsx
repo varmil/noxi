@@ -1,5 +1,5 @@
 import { PropsWithChildren, Suspense } from 'react'
-import { getChannel } from 'apis/youtube/getChannel'
+import { getTranslations } from 'next-intl/server'
 import { getStream } from 'apis/youtube/getStream'
 import { Page } from 'components/page'
 import LiveIdXXXTemplateSkeleton from 'components/skeleton/LiveIdXXXTemplateSkeleton'
@@ -23,13 +23,13 @@ export default async function DefaultModeTemplate({
   videoId,
   children
 }: PropsWithChildren<Props>) {
-  const stream = await getStream(videoId)
+  const [stream, t] = await Promise.all([
+    getStream(videoId),
+    getTranslations('Breadcrumb')
+  ])
   const {
-    snippet: { channelId, title, thumbnails },
-    group
+    snippet: { title, thumbnails }
   } = stream
-
-  const [{ basicInfo }] = await Promise.all([getChannel(channelId)])
 
   return (
     <div className="grid grid-cols-1 lg:flex lg:gap-x-0">
@@ -38,8 +38,8 @@ export default async function DefaultModeTemplate({
           className="space-y-4"
           breadcrumb={[
             {
-              href: `/${group}/channels/${basicInfo.id}`,
-              name: basicInfo.title
+              href: `/ranking/concurrent-viewer/live/all/last30Days`,
+              name: t('concurrentViewerRanking')
             },
             { href: '#', name: title }
           ]}

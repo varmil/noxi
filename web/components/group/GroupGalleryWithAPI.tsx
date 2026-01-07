@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useTranslations } from 'next-intl'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
 import { GroupSchema } from 'apis/groups'
@@ -17,8 +16,6 @@ export default function GroupGalleryWithAPI({
   useNavigationMenuLink = false,
   groups
 }: Props) {
-  const t = useTranslations('Components.group')
-
   return (
     <ul className={`${className || ''}`}>
       {groups.map(group => (
@@ -36,10 +33,7 @@ export default function GroupGalleryWithAPI({
             />
           }
           useNavigationMenuLink={useNavigationMenuLink}
-        >
-          {/* カウント情報はAPIから取得していないため、基本的なメッセージを表示 */}
-          {t('listing', { count: '0' })}
-        </ListItem>
+        />
       ))}
     </ul>
   )
@@ -51,8 +45,8 @@ const ListItem = React.forwardRef<
     icon?: React.ReactNode
     useNavigationMenuLink?: boolean
   }
->(({ className, title, icon, children, href, useNavigationMenuLink }, ref) => {
-  const Component = ({ children }) =>
+>(({ className, title, icon, href, useNavigationMenuLink }, ref) => {
+  const Wrapper = ({ children }: { children: React.ReactNode }) =>
     useNavigationMenuLink ? (
       <NavigationMenuLink asChild>{children}</NavigationMenuLink>
     ) : (
@@ -61,7 +55,7 @@ const ListItem = React.forwardRef<
 
   return (
     <li>
-      <Component>
+      <Wrapper>
         <Link
           ref={ref}
           href={href || '#'}
@@ -75,11 +69,8 @@ const ListItem = React.forwardRef<
             <div className="w-6 h-6 ">{icon}</div>
             <div className="font-medium leading-none">{title}</div>
           </div>
-          <p className="line-clamp-2 leading-snug text-muted-foreground">
-            {children}
-          </p>
         </Link>
-      </Component>
+      </Wrapper>
     </li>
   )
 })

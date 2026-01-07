@@ -46,7 +46,11 @@ export async function ChannelProfile({
     <div className={className}>
       <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
         {/* Avatar, Name, Group, Description */}
-        <ChannelProfileSection basicInfo={basicInfo} groupName={groupName}>
+        <ChannelProfileSection
+          basicInfo={basicInfo}
+          groupId={groupId}
+          groupName={groupName}
+        >
           {children}
         </ChannelProfileSection>
 

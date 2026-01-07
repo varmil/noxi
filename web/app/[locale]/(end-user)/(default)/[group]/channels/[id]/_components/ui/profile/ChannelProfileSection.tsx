@@ -6,15 +6,18 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
+import { Link } from 'lib/navigation'
 
 type Props = {
   basicInfo: ChannelSchema['basicInfo']
+  groupId: string
   groupName: string
 }
 
 /* Avatar, Name, Group, Description */
 export function ChannelProfileSection({
   basicInfo,
+  groupId,
   groupName,
   children
 }: PropsWithChildren<Props>) {
@@ -40,9 +43,11 @@ export function ChannelProfileSection({
           )}
           <h1 className="text-xl font-bold">{name}</h1>
         </div>
-        <Badge className="max-w-[200px] whitespace-nowrap bg-linear-to-r from-blue-500 to-violet-500 text-white">
-          {groupName}
-        </Badge>
+        <Link href={`/${groupId}`}>
+          <Badge className="max-w-[200px] whitespace-nowrap bg-linear-to-r from-blue-500 to-violet-500 text-white hover:opacity-80 transition-opacity">
+            {groupName}
+          </Badge>
+        </Link>
         <div className="max-w-xl break-anywhere whitespace-normal">
           <div
             className={`overflow-hidden transition-all duration-300 ${
