@@ -39,7 +39,7 @@ export async function GET(request: Request) {
   const weekNum = weekMatch ? parseInt(weekMatch[2], 10) : 0
   const dateRange = weekMatch ? getWeekDateRange(year, weekNum) : ''
 
-  const [ranking, groupName] = await Promise.all([
+  const [ranking, groupNameRaw] = await Promise.all([
     getSnapshotSupersRanking({
       period: 'weekly',
       target: week,
@@ -51,6 +51,9 @@ export async function GET(request: Request) {
       ? getGroupName(group, { errorContext: 'weekly-ranking og image' })
       : Promise.resolve('VTuber総合')
   ])
+  // OGP画像用に短縮（テキストが長くなるため）
+  const groupName =
+    groupNameRaw === '個人勢VTuber' ? '個人勢V' : groupNameRaw
 
   return new ImageResponse(
     (
