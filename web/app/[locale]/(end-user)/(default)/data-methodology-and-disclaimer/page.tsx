@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import DataMethodologyAndDisclaimer from 'features/data-methodology-and-disclaimer/DataMethodologyAndDisclaimer'
+import { getWebUrl } from 'utils/web-url'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -22,7 +23,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: `${tp('title')} | ${tg('title')}`,
-    description: tp('description')
+    description: tp('description'),
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/data-methodology-and-disclaimer`
+    }
   }
 }
 

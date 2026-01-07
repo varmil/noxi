@@ -5,6 +5,7 @@ import { getChannels } from 'apis/youtube/getChannels'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
+import { getWebUrl } from 'utils/web-url'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -24,7 +25,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
   return {
     title: `${t('title')} - ${tg('title')}`,
-    description: `${t('description')}`
+    description: `${t('description')}`,
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/groups`
+    }
   }
 }
 
