@@ -253,13 +253,13 @@
       "live": {
         "metadata": {
           "title": "{group} ライブ - 同時視聴者数ランキング",
-          "description": "{group}の最新ライブ配信をリアルタイムでチェック。VChartsで人気VTuberのライブを見逃さずに楽しもう。"
+          "description": "{group}の最新ライブ配信をリアルタイムでチェック。VChartsで人気のライブを見逃さずに楽しもう。"
         }
       },
       "scheduled": {
         "metadata": {
           "title": "{group} スケジュール - 高評価ランキング",
-          "description": "{group}の今後のライブ配信スケジュールを確認。お気に入りのVTuberの配信を事前にチェックして見逃さないようにしよう。"
+          "description": "{group}の今後のライブ配信スケジュールを確認。お気に入りVTuberの配信を事前にチェックして見逃さないようにしよう。"
         }
       },
       "ended": {
@@ -274,7 +274,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "super-chat": "VTuberのスーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。",
+              "super-chat": "スーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。",
               "subscriber": "{group}の登録者数を集計した人気順リストです。"
             }
           }
@@ -284,8 +284,8 @@
         "metadata": {
           "description": {
             "dimension": {
-              "concurrent-viewer": "{group}{gender}のライブ配信における同時接続数ランキングです。{period}の人気配信をチェックして、盛り上がっているVTuberを見つけましょう。",
-              "super-chat": "ライブ配信別のスーパーチャット獲得金額ランキングです。{group}{gender}の{period}で、どの配信が最も盛り上がったかをチェックできます。"
+              "concurrent-viewer": "ライブ配信の同時接続数ランキングです。{group}{gender}を対象に{period}で集計しています。",
+              "super-chat": "ライブ配信別のスーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。"
             }
           }
         }

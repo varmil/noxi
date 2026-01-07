@@ -279,8 +279,8 @@
         "metadata": {
           "description": {
             "dimension": {
-              "concurrent-viewer": "Concurrent viewer ranking for {group}{gender} live streams. Check the most popular streams of {period} and discover trending VTubers.",
-              "super-chat": "Super Chat earnings ranking by live stream for {group}{gender} over {period}. See which streams were the most popular."
+              "concurrent-viewer": "Concurrent viewer ranking for live streams. Aggregated for {group}{gender} over {period}.",
+              "super-chat": "Super Chat earnings ranking by live stream. Aggregated for {group}{gender} over {period}."
             }
           }
         }
