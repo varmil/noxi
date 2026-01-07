@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import TermsOfUseAndPrivacyPolicy from 'features/terms-of-use-and-privacy-policy/terms-of-use-and-privacy-policy'
+import { getWebUrl } from 'utils/web-url'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -18,7 +19,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: `Terms of Use and Privacy Policy | ${tg('title')}`,
-    description: `Terms of Use and Privacy Policy`
+    description: `Terms of Use and Privacy Policy`,
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/terms-of-use-and-privacy-policy`
+    }
   }
 }
 

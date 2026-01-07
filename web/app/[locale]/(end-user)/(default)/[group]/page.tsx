@@ -4,6 +4,7 @@ import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
+import { getWebUrl } from 'utils/web-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
 type Props = {
@@ -27,7 +28,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
-    description: `${t('description', { group: groupName })}`
+    description: `${t('description', { group: groupName })}`,
+    alternates: {
+      canonical: `${getWebUrl()}/${locale}/${groupId}`
+    }
   }
 }
 
