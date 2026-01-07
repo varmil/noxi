@@ -14,11 +14,10 @@ export async function generateSitemaps() {
 
 // Google's limit is 50,000 URLs per sitemap
 // 100万円以上のスパチャがあった配信のみをリストアップ
-export default async function sitemap({
-  id
-}: {
-  id: number
+export default async function sitemap(props: {
+  id: Promise<string>
 }): Promise<MetadataRoute.Sitemap> {
+  const id = Number(await props.id)
   const bundles = await getSupersBundles({
     amountMicros: { gte: MIN_AMOUNT_MICROS },
     orderBy: [{ field: 'amountMicros', order: 'desc' }],
