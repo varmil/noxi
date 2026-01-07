@@ -77,6 +77,6 @@ export const generateTitleAndDescription = async ({
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')
-      .trim()}`
+      .trim()}${pageNumber}`
   }
 }
