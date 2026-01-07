@@ -287,7 +287,7 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
           <NavLink
             href="/legal/tokushoho"
             icon={<Scale className="size-4" />}
-            label="特定商取引法に基づく表記"
+            label="特商法表記"
           />
         </div>
 
