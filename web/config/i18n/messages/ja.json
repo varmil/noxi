@@ -368,10 +368,7 @@
     "aside": {
       "xAccount": "公式 X (旧 Twitter)"
     },
-    "group": {
-      "listing": "{count}人のタレントを掲載中",
-      "listingAll": "{count}人全員を掲載中!"
-    },
+    "group": {},
     "header": {
       "dashboard": "ダッシュボード",
       "liveRanking": "同接数",

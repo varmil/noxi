@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { useTranslations } from 'next-intl'
 import { NavigationMenuLink } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
 import Image from 'components/styles/Image'
@@ -18,8 +17,6 @@ export default function GroupGallery({
   groups,
   useNavigationMenuLink = false
 }: Props) {
-  const t = useTranslations('Components.group')
-
   return (
     <ul className={`${className || ''}`}>
       {groups.map(group =>
@@ -38,9 +35,7 @@ export default function GroupGallery({
               />
             }
             useNavigationMenuLink={useNavigationMenuLink}
-          >
-            {t('listing', { count: '---' })}
-          </ListItem>
+          />
         ) : (
           (() => {
             const Icon = getIcon(group)
@@ -51,9 +46,7 @@ export default function GroupGallery({
                 href={`/${group.id}`}
                 icon={<Icon className="size-6 text-foreground" />}
                 useNavigationMenuLink={useNavigationMenuLink}
-              >
-                {t('listing', { count: '---' })}
-              </ListItem>
+              />
             )
           })()
         )
@@ -68,8 +61,8 @@ const ListItem = React.forwardRef<
     icon?: React.ReactNode
     useNavigationMenuLink?: boolean
   }
->(({ className, title, icon, children, href, useNavigationMenuLink }, ref) => {
-  const Component = ({ children }) =>
+>(({ className, title, icon, href, useNavigationMenuLink }, ref) => {
+  const Wrapper = ({ children }: { children: React.ReactNode }) =>
     useNavigationMenuLink ? (
       <NavigationMenuLink asChild>{children}</NavigationMenuLink>
     ) : (
@@ -78,7 +71,7 @@ const ListItem = React.forwardRef<
 
   return (
     <li>
-      <Component>
+      <Wrapper>
         <Link
           ref={ref}
           href={href || '#'}
@@ -92,11 +85,8 @@ const ListItem = React.forwardRef<
             <div className="w-6 h-6 ">{icon}</div>
             <div className="font-medium leading-none">{title}</div>
           </div>
-          <p className="line-clamp-2 leading-snug text-muted-foreground">
-            {children}
-          </p>
         </Link>
-      </Component>
+      </Wrapper>
     </li>
   )
 })
