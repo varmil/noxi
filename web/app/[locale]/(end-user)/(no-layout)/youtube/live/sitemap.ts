@@ -1,37 +1,37 @@
-import { getStreams } from 'apis/youtube/getStreams'
+import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getEntry } from 'config/sitemap/getEntry'
-import { CACHE_1D } from 'lib/fetchAPI'
 import type { MetadataRoute } from 'next'
 
-const LIMIT = 2000
+const LIMIT = 5000
+// 100万円（micros単位）
+const MIN_AMOUNT_MICROS = BigInt(1_000_000 * 1_000_000)
 
-// Streamsの総数 / LIMIT = 総ページ数
+// 100万円以上の配信は年間500-1000件程度と想定
+// 余裕を持って5ページ分を用意
 export async function generateSitemaps() {
-  return [...Array(50)].map((_, i) => ({ id: i }))
+  return [...Array(5)].map((_, i) => ({ id: i }))
 }
 
 // Google's limit is 50,000 URLs per sitemap
-export default async function sitemap({
-  id
-}: {
-  id: number
+// 100万円以上のスパチャがあった配信のみをリストアップ
+export default async function sitemap(props: {
+  id: Promise<string>
 }): Promise<MetadataRoute.Sitemap> {
-  const streams = await getStreams({
-    peakConcurrentViewers: { gte: 1 },
-    orderBy: [{ field: 'actualEndTime', order: 'asc' }],
+  const id = Number(await props.id)
+  const bundles = await getSupersBundles({
+    amountMicros: { gte: MIN_AMOUNT_MICROS },
+    orderBy: [{ field: 'amountMicros', order: 'desc' }],
     limit: LIMIT,
-    offset: id * LIMIT,
-    revalidate: CACHE_1D
+    offset: id * LIMIT
   })
 
-  return streams
-    .map(stream => {
-      const { videoId } = stream
+  return bundles
+    .map(bundle => {
+      const { videoId, actualEndTime } = bundle
 
       return getEntry({
         pathname: `/youtube/live/${videoId}`,
-        // NOTE: googlebotが正しい更新を終えたらコメントアウトする
-        lastModified: new Date('2025-04-16T18:33:00+09:00')
+        lastModified: actualEndTime ?? undefined
       })
     })
     .filter(e => !!e)
