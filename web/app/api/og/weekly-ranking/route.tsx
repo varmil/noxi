@@ -52,8 +52,7 @@ export async function GET(request: Request) {
       : Promise.resolve('VTuber総合')
   ])
   // OGP画像用に短縮（テキストが長くなるため）
-  const groupName =
-    groupNameRaw === '個人勢VTuber' ? '個人勢V' : groupNameRaw
+  const groupName = groupNameRaw === '個人勢VTuber' ? '個人勢 V' : groupNameRaw
 
   return new ImageResponse(
     (
