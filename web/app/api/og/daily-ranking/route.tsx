@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   const dateParam = searchParams.get('date')
   const date = dateParam && dayjs(dateParam).isValid() ? dateParam : undefined
 
-  const [ranking, groupName] = await Promise.all([
+  const [ranking, groupNameRaw] = await Promise.all([
     getDailySupersRanking({
       group,
       gender,
@@ -35,6 +35,8 @@ export async function GET(request: Request) {
       ? getGroupName(group, { errorContext: 'daily-ranking og image' })
       : Promise.resolve('VTuber総合')
   ])
+  // OGP画像用に短縮（テキストが長くなるため）
+  const groupName = groupNameRaw === '個人勢VTuber' ? '個人勢 V' : groupNameRaw
 
   const formatter = Intl.DateTimeFormat('ja-JP', {
     year: 'numeric',

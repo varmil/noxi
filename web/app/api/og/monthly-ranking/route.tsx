@@ -26,7 +26,7 @@ export async function GET(request: Request) {
   const year = monthMatch ? monthMatch[1] : ''
   const monthNum = monthMatch ? parseInt(monthMatch[2], 10) : 0
 
-  const [ranking, groupName] = await Promise.all([
+  const [ranking, groupNameRaw] = await Promise.all([
     getSnapshotSupersRanking({
       period: 'monthly',
       target: month,
@@ -38,6 +38,8 @@ export async function GET(request: Request) {
       ? getGroupName(group, { errorContext: 'monthly-ranking og image' })
       : Promise.resolve('VTuber総合')
   ])
+  // OGP画像用に短縮（テキストが長くなるため）
+  const groupName = groupNameRaw === '個人勢VTuber' ? '個人勢 V' : groupNameRaw
 
   return new ImageResponse(
     (
