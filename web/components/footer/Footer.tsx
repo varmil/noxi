@@ -20,6 +20,10 @@ export async function Footer() {
         {
           label: t('last24Hours'),
           href: '/ranking/super-chat/channels/all/last24Hours'
+        },
+        {
+          label: t('thisYear'),
+          href: '/ranking/super-chat/channels/all/thisYear'
         }
       ]
     },
