@@ -82,6 +82,7 @@ export function FooterColumn({
             ) : (
               <Link
                 href={link.href}
+                prefetch={false}
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {link.label}
