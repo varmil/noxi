@@ -112,7 +112,7 @@ export class XLast24HoursScenario {
         )}`
       })
       .join('\n')
-    const footer = `詳細・Top100はこちら`
+    const footer = `タップですべて表示`
     const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
 
     const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
