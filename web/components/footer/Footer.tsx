@@ -1,0 +1,146 @@
+import { getTranslations } from 'next-intl/server'
+import { FooterColumn } from './FooterColumn'
+
+export async function Footer() {
+  const t = await getTranslations('Components.footer')
+  const currentYear = new Date().getFullYear()
+
+  const footerData = {
+    superChatRanking: {
+      title: t('superChatRanking'),
+      links: [
+        {
+          label: t('last30Days'),
+          href: '/ranking/super-chat/channels/all/last30Days'
+        },
+        {
+          label: t('last7Days'),
+          href: '/ranking/super-chat/channels/all/last7Days'
+        },
+        {
+          label: t('last24Hours'),
+          href: '/ranking/super-chat/channels/all/last24Hours'
+        }
+      ]
+    },
+    viewerRanking: {
+      title: t('viewerRanking'),
+      links: [
+        {
+          label: t('last30Days'),
+          href: '/ranking/concurrent-viewer/live/all/last30Days'
+        },
+        {
+          label: t('last7Days'),
+          href: '/ranking/concurrent-viewer/live/all/last7Days'
+        },
+        {
+          label: t('last24Hours'),
+          href: '/ranking/concurrent-viewer/live/all/last24Hours'
+        },
+        {
+          label: t('realtime'),
+          href: '/ranking/concurrent-viewer/live/all/realtime'
+        }
+      ]
+    },
+    subscriberRanking: {
+      title: t('subscriberRanking'),
+      links: [
+        {
+          label: t('wholePeriod'),
+          href: '/ranking/subscriber/channels/all/wholePeriod'
+        }
+      ]
+    },
+    groups: {
+      title: t('groups'),
+      links: [
+        { label: t('nijisanji'), href: '/nijisanji' },
+        { label: t('hololive'), href: '/hololive' },
+        { label: t('independent'), href: '/independent' },
+        { label: t('vspo'), href: '/vspo' },
+        { label: t('neoPorte'), href: '/neo-porte' },
+        { label: t('allGroups'), href: '/groups' }
+      ]
+    },
+    siteInfo: {
+      title: t('siteInfo'),
+      links: [
+        {
+          label: t('xAccount'),
+          href: 'https://x.com/VCharts_net',
+          external: true
+        },
+        {
+          label: t('adPurchase'),
+          href: 'https://docs.google.com/forms/d/e/1FAIpQLScnfs5_qawOpmQcODjrR97T2v42MIbuW-uorTg_qeM9WpnL6A/viewform?usp=sharing&ouid=111998141281822399071',
+          external: true
+        },
+        {
+          label: t('termsAndPrivacy'),
+          href: '/terms-of-use-and-privacy-policy'
+        },
+        {
+          label: t('dataMethodology'),
+          href: '/data-methodology-and-disclaimer'
+        },
+        { label: t('tokushoho'), href: '/legal/tokushoho' }
+      ]
+    }
+  }
+
+  return (
+    <footer className="border-t border-border bg-muted/30">
+      <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
+        {/* SEO-friendly nav with proper structure */}
+        <nav aria-label={t('navigation')}>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+            {/* カラム1: スパチャランキング - 常に展開 */}
+            <FooterColumn
+              title={footerData.superChatRanking.title}
+              links={footerData.superChatRanking.links}
+              defaultOpen={true}
+              alwaysOpen={true}
+            />
+
+            {/* カラム2: 同接数ランキング */}
+            <FooterColumn
+              title={footerData.viewerRanking.title}
+              links={footerData.viewerRanking.links}
+              defaultOpen={false}
+            />
+
+            {/* カラム3: チャンネル登録者数 */}
+            <FooterColumn
+              title={footerData.subscriberRanking.title}
+              links={footerData.subscriberRanking.links}
+              defaultOpen={false}
+            />
+
+            {/* カラム4: 主要グループ */}
+            <FooterColumn
+              title={footerData.groups.title}
+              links={footerData.groups.links}
+              defaultOpen={false}
+            />
+
+            {/* カラム5: サイト情報 */}
+            <FooterColumn
+              title={footerData.siteInfo.title}
+              links={footerData.siteInfo.links}
+              defaultOpen={false}
+            />
+          </div>
+        </nav>
+
+        {/* コピーライト */}
+        <div className="mt-10 border-t border-border pt-6">
+          <p className="text-center text-sm text-muted-foreground">
+            {t('copyright', { year: currentYear })}
+          </p>
+        </div>
+      </div>
+    </footer>
+  )
+}
