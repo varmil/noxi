@@ -36,6 +36,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     errorContext: 'channels ranking page (metadata)'
   })
 
+  // OGPを出力する条件：
+  // - last24Hours: daily-ranking OGを出力
+  // - weekly-xxx, monthly-xxx: X用OGを出力
+  // - それ以外（last7Days, last30Days, thisYear等）: OGを出力しない
+  const shouldShowOg = period === 'last24Hours' || isSnapshotPeriod(period)
+
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
@@ -47,26 +53,28 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    openGraph: {
-      images: [
-        {
-          url: getOgUrl(
-            isSnapshotPeriod(period)
-              ? `/${parseSnapshotPeriod(period).period}-ranking?${new URLSearchParams({
-                  [parseSnapshotPeriod(period).period === 'weekly' ? 'week' : 'month']:
-                    parseSnapshotPeriod(period).target,
-                  group: groupId,
-                  ...(gender && { gender })
-                }).toString()}`
-              : `/daily-ranking?${new URLSearchParams({
-                  group: groupId,
-                  ...(gender && { gender }),
-                  ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
-                }).toString()}`
-          )
-        }
-      ]
-    },
+    ...(shouldShowOg && {
+      openGraph: {
+        images: [
+          {
+            url: getOgUrl(
+              isSnapshotPeriod(period)
+                ? `/${parseSnapshotPeriod(period).period}-ranking?${new URLSearchParams({
+                    [parseSnapshotPeriod(period).period === 'weekly' ? 'week' : 'month']:
+                      parseSnapshotPeriod(period).target,
+                    group: groupId,
+                    ...(gender && { gender })
+                  }).toString()}`
+                : `/daily-ranking?${new URLSearchParams({
+                    group: groupId,
+                    ...(gender && { gender }),
+                    ...(date && dayjs(date).isValid() && { date: dayjs(date).toISOString() })
+                  }).toString()}`
+            )
+          }
+        ]
+      }
+    }),
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
     alternates: {
       canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${groupId}/${dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'}`
