@@ -95,7 +95,7 @@ export async function Footer() {
       <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
             {/* カラム1: スパチャランキング - 常に展開 */}
             <FooterColumn
               title={footerData.superChatRanking.title}
@@ -135,7 +135,7 @@ export async function Footer() {
         </nav>
 
         {/* コピーライト */}
-        <div className="mt-10 border-t border-border pt-6">
+        <div className="mt-6 border-t border-border pt-6">
           <p className="text-center text-sm text-muted-foreground">
             {t('copyright', { year: currentYear })}
           </p>

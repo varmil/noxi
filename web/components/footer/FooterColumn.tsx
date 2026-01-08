@@ -60,7 +60,7 @@ export function FooterColumn({
       <ul
         id={`footer-${title}`}
         className={cn(
-          'mt-6 space-y-3',
+          'mt-4 space-y-2',
           // PC: 常に表示
           'md:block',
           // スマホ: isOpenまたはalwaysOpenの場合のみ表示（CSSのみ、DOMには残る）
