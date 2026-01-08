@@ -1,8 +1,14 @@
-import { getTranslations } from 'next-intl/server'
+/**
+ * @important workaround: googlebotがscript内のhrefを拾って404扱いにする問題
+ * これを回避するために、use clientをつけてhref部分を露出させないようにする
+ */
+'use client'
+
+import { useTranslations } from 'next-intl'
 import { FooterColumn } from './FooterColumn'
 
-export async function Footer() {
-  const t = await getTranslations('Components.footer')
+export function Footer() {
+  const t = useTranslations('Components.footer')
   const currentYear = new Date().getFullYear()
 
   const footerData = {
