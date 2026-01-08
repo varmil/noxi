@@ -3,11 +3,9 @@
 import { useState, type JSX } from 'react'
 import {
   ChevronDown,
-  FileChartLine,
   LogOut,
   MailIcon,
   MoreHorizontal,
-  Scale,
   UserRoundPlus,
   UsersRound
 } from 'lucide-react'
@@ -16,8 +14,6 @@ import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import Logo from 'components/Logo'
 import { ModeToggle } from 'components/ModeToggle'
-import PrivacyPolicyIcon from 'components/icons/PrivacyPolicyIcon'
-import XIcon from 'components/icons/XIcon'
 import LanguageSwitcher from 'components/language-switcher/components/LanguageSwitcher'
 import { SignOutButton } from 'components/sidebar/SignOutButton'
 import VChartsText from 'components/vcharts/svg/text'
@@ -39,11 +35,9 @@ type Props = {
     contact: string
     channelsAdd: string
     groupsAdd: string
-    xAccount: string
     signOut: string
     ranking: string
     support: string
-    info: string
   }
   isSignedIn: boolean
 }
@@ -258,36 +252,6 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
             href="/groups/add"
             icon={<UsersRound className="size-4" />}
             label={labels.groupsAdd}
-          />
-        </div>
-
-        <Separator className="my-4" />
-
-        {/* 情報リンク */}
-        <div className="space-y-1">
-          <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {labels.info}
-          </p>
-          <NavLink
-            href="https://x.com/VCharts_net"
-            icon={<XIcon className="size-4" />}
-            label={labels.xAccount}
-            external
-          />
-          <NavLink
-            href="/data-methodology-and-disclaimer"
-            icon={<FileChartLine className="size-4" />}
-            label="Data Methodology"
-          />
-          <NavLink
-            href="/terms-of-use-and-privacy-policy"
-            icon={<PrivacyPolicyIcon className="size-4" />}
-            label="Terms of Use and PP"
-          />
-          <NavLink
-            href="/legal/tokushoho"
-            icon={<Scale className="size-4" />}
-            label="特商法表記"
           />
         </div>
 

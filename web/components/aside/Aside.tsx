@@ -45,11 +45,9 @@ export default async function Aside({ className }: { className?: string }) {
     contact: comp('contact.title'),
     channelsAdd: comp('channelsAdd.title'),
     groupsAdd: comp('groupsAdd.title'),
-    xAccount: comp('aside.xAccount'),
     signOut: comp('auth.signOut'),
     ranking: comp('header.ranking'),
-    support: comp('header.support'),
-    info: comp('header.info')
+    support: comp('header.support')
   }
 
   return (
