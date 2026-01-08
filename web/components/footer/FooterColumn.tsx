@@ -60,11 +60,11 @@ export function FooterColumn({
       <ul
         id={`footer-${title}`}
         className={cn(
-          'mt-4 space-y-2',
-          // PC: 常に表示
-          'md:block',
+          'mt-4 grid grid-cols-2 gap-x-4 gap-y-3',
+          // md以上: 1列表示
+          'md:grid-cols-1',
           // スマホ: isOpenまたはalwaysOpenの場合のみ表示（CSSのみ、DOMには残る）
-          alwaysOpen ? 'block' : isOpen ? 'block' : 'hidden md:block'
+          alwaysOpen ? 'grid' : isOpen ? 'grid' : 'hidden md:grid'
         )}
       >
         {links.map(link => (
