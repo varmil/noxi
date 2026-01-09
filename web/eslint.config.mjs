@@ -39,10 +39,10 @@ export default [
       '@next/next/no-img-element': 'off',
 
       // eslint-plugin-react-hooks v7 で追加された新ルール（段階的に対応予定）
-      'react-hooks/set-state-in-effect': 'off',
-      'react-hooks/static-components': 'off',
-      'react-hooks/purity': 'off',
-      'react-hooks/immutability': 'off',
+      'react-hooks/set-state-in-effect': 'error',
+      'react-hooks/static-components': 'error',
+      'react-hooks/purity': 'error',
+      'react-hooks/immutability': 'error',
 
       'import-x/no-restricted-paths': ['error', { zones }],
 

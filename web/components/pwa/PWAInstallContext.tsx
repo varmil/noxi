@@ -5,6 +5,7 @@ import React, {
   useContext,
   useEffect,
   useState,
+  useSyncExternalStore,
   ReactNode,
   FC
 } from 'react'
@@ -53,19 +54,26 @@ export const PWAInstallProvider: FC<{ children: ReactNode }> = ({
 // Hook: 子コンポーネントから呼び出して deferredPrompt を取得
 const usePWAInstallPrompt = () => useContext(PWAInstallContext)
 
+const emptySubscribe = () => () => {}
+
+const getIsIOSSafari = () => {
+  if (typeof window === 'undefined') return false
+  const ua = window.navigator.userAgent
+  const isIOS = /iPad|iPhone|iPod/.test(ua)
+  const isSafari = /^((?!chrome|android).)*safari/i.test(ua)
+  const standalone =
+    'standalone' in window.navigator && (window.navigator as any).standalone
+  return isIOS && isSafari && !standalone
+}
+
 /** @deprecated インストールボタンコンポーネント */
 export const PWAInstallButton: FC = () => {
   const deferredPrompt = usePWAInstallPrompt()
-  const [isIOSSafari, setIsIOSSafari] = useState(false)
-
-  useEffect(() => {
-    const ua = window.navigator.userAgent
-    const isIOS = /iPad|iPhone|iPod/.test(ua)
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua)
-    const standalone =
-      'standalone' in window.navigator && (window.navigator as any).standalone
-    setIsIOSSafari(isIOS && isSafari && !standalone)
-  }, [])
+  const isIOSSafari = useSyncExternalStore(
+    emptySubscribe,
+    getIsIOSSafari,
+    () => false
+  )
 
   // PWAインストール不可能 and iOS Safari の案内が必要ない場合は何も表示しない
   if (!deferredPrompt && !isIOSSafari) return null

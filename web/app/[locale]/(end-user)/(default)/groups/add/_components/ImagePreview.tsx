@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import Image from 'components/styles/Image'
 
@@ -10,27 +10,37 @@ interface ImagePreviewProps {
   size?: number
 }
 
+// Handle relative vs absolute URL
+const getImageSrc = (src: string): string | null => {
+  if (!src || src.trim() === '') return null
+
+  // If it's already an absolute URL (starts with http:// or https://)
+  if (src.startsWith('http://') || src.startsWith('https://')) {
+    return src
+  }
+
+  // If it's a relative path, resolve it relative to the application base URL
+  if (src.startsWith('/')) {
+    return src
+  }
+
+  // If it doesn't start with /, add it
+  return `/${src}`
+}
+
 export function ImagePreview({ src, alt, size = 80 }: ImagePreviewProps) {
+  const imageSrc = getImageSrc(src)
+
   const [imageError, setImageError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(!!imageSrc)
+  const [prevImageSrc, setPrevImageSrc] = useState(imageSrc)
   const t = useTranslations('Components.imagePreview')
 
-  // Handle relative vs absolute URL
-  const getImageSrc = (src: string): string | null => {
-    if (!src || src.trim() === '') return null
-
-    // If it's already an absolute URL (starts with http:// or https://)
-    if (src.startsWith('http://') || src.startsWith('https://')) {
-      return src
-    }
-
-    // If it's a relative path, resolve it relative to the application base URL
-    if (src.startsWith('/')) {
-      return src
-    }
-
-    // If it doesn't start with /, add it
-    return `/${src}`
+  // Reset loading state when src changes (React recommended pattern)
+  if (imageSrc !== prevImageSrc) {
+    setPrevImageSrc(imageSrc)
+    setIsLoading(!!imageSrc)
+    setImageError(false)
   }
 
   const handleImageLoad = () => {
@@ -42,19 +52,6 @@ export function ImagePreview({ src, alt, size = 80 }: ImagePreviewProps) {
     setIsLoading(false)
     setImageError(true)
   }
-
-  const imageSrc = getImageSrc(src)
-
-  // Reset loading state when src changes and add timeout
-  useEffect(() => {
-    if (imageSrc) {
-      setIsLoading(true)
-      setImageError(false)
-    } else {
-      setIsLoading(false)
-      setImageError(false)
-    }
-  }, [imageSrc])
 
   return (
     <div className="flex flex-col items-center space-y-2">

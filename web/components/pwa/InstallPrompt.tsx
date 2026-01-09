@@ -1,19 +1,26 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useSyncExternalStore } from 'react'
+
+const emptySubscribe = () => () => {}
+
+const getIsIOS = () =>
+  typeof navigator !== 'undefined' &&
+  /iPad|iPhone|iPod/.test(navigator.userAgent) &&
+  !(window as any).MSStream
+
+const getIsStandalone = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(display-mode: standalone)').matches
 
 /** WIP */
 export default function InstallPrompt() {
-  const [isIOS, setIsIOS] = useState(false)
-  const [isStandalone, setIsStandalone] = useState(false)
-
-  useEffect(() => {
-    setIsIOS(
-      /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
-    )
-
-    setIsStandalone(window.matchMedia('(display-mode: standalone)').matches)
-  }, [])
+  const isIOS = useSyncExternalStore(emptySubscribe, getIsIOS, () => false)
+  const isStandalone = useSyncExternalStore(
+    emptySubscribe,
+    getIsStandalone,
+    () => false
+  )
 
   if (isStandalone) {
     return null // Don't show install button if already installed

@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { Plus, Minus, Send, Tickets, Loader2, AlertCircle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
@@ -48,21 +48,21 @@ export function ChannelCheerDialog({
   const [ticketCount, setTicketCount] = useState(defaultTicketCount)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccessEffect, setShowSuccessEffect] = useState(false)
+  const [prevOpen, setPrevOpen] = useState(open)
   const isSubmittable =
     ticketCount > 0 &&
     ticketCount <= maxTickets &&
     !isSubmitting &&
     !showSuccessEffect
 
-  // ダイアログの開閉に応じた初期化処理
+  // ダイアログの開閉に応じた初期化処理 (React recommended pattern)
   // アニメーションの最中は再レンダリングを防ぐために何もしない
-  useEffect(() => {
-    if (!showSuccessEffect) {
-      if (open) {
-        setTicketCount(defaultTicketCount)
-      }
+  if (open !== prevOpen) {
+    setPrevOpen(open)
+    if (!showSuccessEffect && open) {
+      setTicketCount(defaultTicketCount)
     }
-  }, [showSuccessEffect, defaultTicketCount, open])
+  }
 
   const handleTicketChange = (value: number[]) => {
     setTicketCount(value[0])

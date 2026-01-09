@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, PropsWithChildren } from 'react'
+import { useState, useMemo, PropsWithChildren } from 'react'
 import { CalendarIcon } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import dayjs from 'lib/dayjs'
@@ -14,26 +14,26 @@ export default function PeriodTabs({
   className?: string
 }>) {
   const [selectedRange, setSelectedRange] = useState<DateRange>('30days')
-  const [startDate, setStartDate] = useState(
-    dayjs().subtract(30, 'day').toDate()
-  )
-  const [endDate, setEndDate] = useState(dayjs().toDate())
 
-  useEffect(() => {
+  // selectedRange から日付範囲を計算（派生状態）
+  const { startDate, endDate } = useMemo(() => {
     const now = dayjs()
     switch (selectedRange) {
       case '7days':
-        setStartDate(now.subtract(7, 'day').toDate())
-        setEndDate(now.toDate())
-        break
+        return {
+          startDate: now.subtract(7, 'day').toDate(),
+          endDate: now.toDate()
+        }
       case '30days':
-        setStartDate(now.subtract(30, 'day').toDate())
-        setEndDate(now.toDate())
-        break
+        return {
+          startDate: now.subtract(30, 'day').toDate(),
+          endDate: now.toDate()
+        }
       case '1year':
-        setStartDate(now.subtract(1, 'year').toDate())
-        setEndDate(now.toDate())
-        break
+        return {
+          startDate: now.subtract(1, 'year').toDate(),
+          endDate: now.toDate()
+        }
     }
   }, [selectedRange])
 

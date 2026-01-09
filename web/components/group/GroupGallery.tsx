@@ -62,31 +62,30 @@ const ListItem = React.forwardRef<
     useNavigationMenuLink?: boolean
   }
 >(({ className, title, icon, href, useNavigationMenuLink }, ref) => {
-  const Wrapper = ({ children }: { children: React.ReactNode }) =>
-    useNavigationMenuLink ? (
-      <NavigationMenuLink asChild>{children}</NavigationMenuLink>
-    ) : (
-      <>{children}</>
-    )
+  const linkElement = (
+    <Link
+      ref={ref}
+      href={href || '#'}
+      className={cn(
+        'block select-none space-y-1 rounded p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+        className
+      )}
+      prefetch={false}
+    >
+      <div className="flex items-center gap-x-4">
+        <div className="w-6 h-6 ">{icon}</div>
+        <div className="font-medium leading-none">{title}</div>
+      </div>
+    </Link>
+  )
 
   return (
     <li>
-      <Wrapper>
-        <Link
-          ref={ref}
-          href={href || '#'}
-          className={cn(
-            'block select-none space-y-1 rounded p-3 leading-none no-underline outline-hidden transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
-            className
-          )}
-          prefetch={false}
-        >
-          <div className="flex items-center gap-x-4">
-            <div className="w-6 h-6 ">{icon}</div>
-            <div className="font-medium leading-none">{title}</div>
-          </div>
-        </Link>
-      </Wrapper>
+      {useNavigationMenuLink ? (
+        <NavigationMenuLink asChild>{linkElement}</NavigationMenuLink>
+      ) : (
+        linkElement
+      )}
     </li>
   )
 })

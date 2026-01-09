@@ -41,9 +41,10 @@ async function Earnings({ videoId }: { videoId: string }) {
   // メンバー限定
   if (membersOnly) return <p>{feat('membersOnly')}</p>
 
+  const now = new Date()
   const chartData = await prepareChartData({
-    startTime: new Date(scheduledStartTime ?? actualStartTime ?? Date.now()),
-    endTime: actualEndTime ? new Date(actualEndTime) : new Date(),
+    startTime: new Date(scheduledStartTime ?? actualStartTime ?? now.getTime()),
+    endTime: actualEndTime ? new Date(actualEndTime) : now,
     data: chats
   })
 

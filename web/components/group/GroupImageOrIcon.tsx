@@ -1,6 +1,7 @@
+import { UserCircle, Webcam, MicVocal } from 'lucide-react'
 import { getGroup } from 'apis/groups'
 import Image from 'components/styles/Image'
-import { isIcon, getIcon } from 'utils/group'
+import { isIcon } from 'utils/group'
 
 export default async function GroupImageOrIcon({
   groupId,
@@ -14,9 +15,17 @@ export default async function GroupImageOrIcon({
     return null
   }
 
+  const iconClassName = `rounded-full ${className || ''}`
+
   if (isIcon(group)) {
-    const Icon = getIcon(group)
-    return <Icon className={`rounded-full ${className || ''}`} />
+    switch (group.id) {
+      case 'independent':
+        return <UserCircle className={iconClassName} />
+      case 'independent-irl':
+        return <Webcam className={iconClassName} />
+      case 'artist':
+        return <MicVocal className={iconClassName} />
+    }
   }
 
   return (
@@ -25,7 +34,7 @@ export default async function GroupImageOrIcon({
       alt={`${group.name} icon`}
       width={20}
       height={20}
-      className={`rounded-full ${className || ''}`}
+      className={iconClassName}
     />
   )
 }
