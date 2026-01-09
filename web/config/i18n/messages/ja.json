@@ -399,8 +399,8 @@
     },
     "header": {
       "dashboard": "ダッシュボード",
-      "liveRanking": "同接数",
-      "channelsRanking": "スパチャ金額",
+      "liveRanking": "同接数ランキング",
+      "channelsRanking": "スパチャランキング",
       "talents": "タレント",
       "superChatRanking": "スパチャランキング",
       "concurrentViewerRanking": "同接数ランキング",

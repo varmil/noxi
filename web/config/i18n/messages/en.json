@@ -389,8 +389,8 @@
     },
     "header": {
       "dashboard": "Dashboard",
-      "liveRanking": "Live",
-      "channelsRanking": "Channels",
+      "liveRanking": "Live Viewer Ranking",
+      "channelsRanking": "Super Chat Ranking",
       "talents": "Talents",
       "superChatRanking": "Super Chat Ranking",
       "concurrentViewerRanking": "Live Viewer Ranking",

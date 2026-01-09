@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getGroups } from 'apis/groups'
-import { getChannels } from 'apis/youtube/getChannels'
 import GroupGallery from 'components/group/GroupGallery'
 import { Page } from 'components/page'
 import { TalentSearch } from 'components/talent-search/components/TalentSearch'
@@ -40,19 +39,12 @@ export default async function GroupsPage(props: Props) {
   setRequestLocale(locale as 'ja' | 'en')
   const t = await getTranslations('Page.groups.metadata')
 
-  // 適当におすすめをとる
-  const channels = await getChannels({
-    group: 'nijisanji',
-    limit: 3
-  })
-
-  // groups
   const groups = await getGroups()
 
   return (
     <Page breadcrumb={[{ href: `/groups`, name: t('title') }]}>
-      <section className="flex flex-col gap-y-6 px-4 pt-4">
-        <TalentSearch suggestions={channels} />
+      <section className="flex flex-col gap-y-12 px-4 pt-8">
+        <TalentSearch className="max-w-[600px]" />
         <GroupGallery
           className="grid w-full gap-1.5 md:gap-3 md:grid-cols-2 lg:gap-4 lg:grid-cols-2 text-sm"
           groups={groups}

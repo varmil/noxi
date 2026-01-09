@@ -17,10 +17,11 @@ import { Link } from 'lib/navigation'
 import { searchTalents } from '../actions/searchTalentsActions'
 
 type Props = {
-  suggestions?: ChannelsSchema
   className?: string
+  /** 検索結果をドロップダウンとして表示（ヘッダー用） */
+  dropdown?: boolean
 }
-export function TalentSearch({ suggestions, className }: Props) {
+export function TalentSearch({ className, dropdown }: Props) {
   const [query, setQuery] = React.useState('')
   const [debouncedQuery] = useDebounce(query, 500)
   const [talents, setTalents] = React.useState<ChannelsSchema>([])
@@ -47,9 +48,15 @@ export function TalentSearch({ suggestions, className }: Props) {
     fetchTalents()
   }, [debouncedQuery, queryIsLongEnough])
 
+  const hasResults = loading || talents.length > 0
+
   return (
     <Command
-      className={cn('rounded-lg border shadow-md', className)}
+      className={cn(
+        'rounded-lg border shadow-md',
+        dropdown && 'relative overflow-visible',
+        className
+      )}
       shouldFilter={false}
       defaultValue={'-'}
     >
@@ -58,7 +65,14 @@ export function TalentSearch({ suggestions, className }: Props) {
         value={query}
         onValueChange={setQuery}
       />
-      <CommandList className="max-h-[330px]">
+      <CommandList
+        className={cn(
+          'max-h-[330px]',
+          dropdown &&
+            'absolute top-full left-0 right-0 z-50 rounded-md border bg-popover shadow-md',
+          dropdown && !hasResults && 'hidden'
+        )}
+      >
         {loading && (
           <div className="flex items-center justify-center p-4">
             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
@@ -74,14 +88,6 @@ export function TalentSearch({ suggestions, className }: Props) {
         {talents.length ? (
           <CommandGroup heading="検索結果">
             {talents.map(talent => {
-              return <Item key={talent.basicInfo.id} talent={talent} />
-            })}
-          </CommandGroup>
-        ) : null}
-
-        {suggestions?.length ? (
-          <CommandGroup heading="おすすめ">
-            {suggestions.map(talent => {
               return <Item key={talent.basicInfo.id} talent={talent} />
             })}
           </CommandGroup>
