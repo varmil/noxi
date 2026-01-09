@@ -9,16 +9,18 @@ interface Props {
 }
 
 export function SuccessEffect({ ticketCount }: Props) {
-  const [hearts, setHearts] = useState<
-    {
-      id: number
-      x: number
-      y: number
-      size: number
-      speed: number
-      opacity: number
-    }[]
-  >([])
+  // ハートの初期状態を生成（マウント時に一度だけ実行）
+  const [hearts, setHearts] = useState(() => {
+    const heartCount = Math.min(20, 5 + ticketCount * 2)
+    return Array.from({ length: heartCount }).map((_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: 110 + Math.random() * 20,
+      size: 10 + Math.random() * 20,
+      speed: 1 + Math.random() * 2,
+      opacity: 0.7 + Math.random() * 0.3
+    }))
+  })
 
   useEffect(() => {
     // 応援チケットの枚数に応じて紙吹雪の量を調整
@@ -55,19 +57,7 @@ export function SuccessEffect({ ticketCount }: Props) {
       startVelocity: 45
     })
 
-    // ハートのアニメーション
-    const heartCount = Math.min(20, 5 + ticketCount * 2)
-    const newHearts = Array.from({ length: heartCount }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: 110 + Math.random() * 20,
-      size: 10 + Math.random() * 20,
-      speed: 1 + Math.random() * 2,
-      opacity: 0.7 + Math.random() * 0.3
-    }))
-
-    setHearts(newHearts)
-
+    // ハートのアニメーション（setInterval のコールバック内での setState は許可）
     const interval = setInterval(() => {
       setHearts(prev =>
         prev

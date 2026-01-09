@@ -1,35 +1,43 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useSyncExternalStore } from 'react'
 import {
   sendNotification,
   subscribeUser,
   unsubscribeUser
 } from './serverActions'
 
+const emptySubscribe = () => () => {}
+
+const getIsSupported = () =>
+  typeof navigator !== 'undefined' &&
+  'serviceWorker' in navigator &&
+  typeof window !== 'undefined' &&
+  'PushManager' in window
+
 /** WIP */
 export default function PushNotificationManager() {
-  const [isSupported, setIsSupported] = useState(false)
+  const isSupported = useSyncExternalStore(
+    emptySubscribe,
+    getIsSupported,
+    () => false
+  )
   const [subscription, setSubscription] = useState<PushSubscription | null>(
     null
   )
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    if ('serviceWorker' in navigator && 'PushManager' in window) {
-      setIsSupported(true)
-      registerServiceWorker()
-    }
-  }, [])
-
-  async function registerServiceWorker() {
-    const registration = await navigator.serviceWorker.register('/sw.js', {
-      scope: '/',
-      updateViaCache: 'none'
-    })
-    const sub = await registration.pushManager.getSubscription()
-    setSubscription(sub)
-  }
+    if (!isSupported) return
+    // Service Worker を登録してサブスクリプションを取得
+    navigator.serviceWorker
+      .register('/sw.js', {
+        scope: '/',
+        updateViaCache: 'none'
+      })
+      .then(registration => registration.pushManager.getSubscription())
+      .then(sub => setSubscription(sub))
+  }, [isSupported])
 
   async function subscribeToPush() {
     const registration = await navigator.serviceWorker.ready

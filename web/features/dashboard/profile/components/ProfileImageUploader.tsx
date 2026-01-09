@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import imageCompression from 'browser-image-compression'
 import { Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -43,12 +43,15 @@ export function ProfileImageUploader({ uploadedBy, onCropConfirm }: Props) {
   const [crop, setCrop] = useState({ x: 0, y: 0 })
   const [zoom, setZoom] = useState(1)
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
+  const [prevDialogOpen, setPrevDialogOpen] = useState(false)
 
-  useEffect(() => {
+  // ダイアログが閉じたらクロッパーをリセット (React recommended pattern)
+  if (dialogOpen !== prevDialogOpen) {
+    setPrevDialogOpen(dialogOpen)
     if (!dialogOpen) {
       setShowCropper(false)
     }
-  }, [dialogOpen])
+  }
 
   const onCropComplete = useCallback((_, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels)
