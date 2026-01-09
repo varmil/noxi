@@ -107,7 +107,7 @@ export class XMonthlyScenario {
         )}`
       })
       .join('\n')
-    const footer = `タップですべて表示`
+    const footer = `画像タップですべて表示`
     const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}${gender ? `?gender=${gender.get()}` : ''}`
 
     const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
