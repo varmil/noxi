@@ -1,23 +1,15 @@
 /* eslint-disable import/no-anonymous-default-export */
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { includeIgnoreFile, fixupConfigRules } from '@eslint/compat'
-import { FlatCompat } from '@eslint/eslintrc'
-import js from '@eslint/js'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
+import { includeIgnoreFile } from '@eslint/compat'
+import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
 import importPlugin from 'eslint-plugin-import-x'
+import tseslint from 'typescript-eslint'
 import { zones } from './no-restricted-pahts.mjs'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const gitignorePath = path.resolve(__dirname, '.gitignore')
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-})
 
 const { ignores } = includeIgnoreFile(gitignorePath)
 
@@ -25,17 +17,12 @@ const { ignores } = includeIgnoreFile(gitignorePath)
 export default [
   { ignores: [...ignores, '**/*.md', '**/*.json'] },
 
-  ...fixupConfigRules([...compat.extends('next/core-web-vitals')]),
+  ...nextCoreWebVitals,
 
   {
     plugins: {
-      //   'unused-imports': unusedImports,
       'import-x': importPlugin,
-      '@typescript-eslint': tsPlugin
-    },
-
-    languageOptions: {
-      parser: tsParser // https://github.com/vercel/next.js/discussions/56195
+      '@typescript-eslint': tseslint.plugin
     },
 
     settings: {
@@ -50,6 +37,12 @@ export default [
 
     rules: {
       '@next/next/no-img-element': 'off',
+
+      // eslint-plugin-react-hooks v7 で追加された新ルール（段階的に対応予定）
+      'react-hooks/set-state-in-effect': 'off',
+      'react-hooks/static-components': 'off',
+      'react-hooks/purity': 'off',
+      'react-hooks/immutability': 'off',
 
       'import-x/no-restricted-paths': ['error', { zones }],
 
