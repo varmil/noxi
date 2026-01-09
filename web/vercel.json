@@ -3,7 +3,7 @@
   "crons": [
     {
       "path": "/api/cron/cache-clear/supers/daily",
-      "schedule": "5 9 * * *"
+      "schedule": "5 18 * * *"
     },
     {
       "path": "/api/cron/cache-clear/supers/half-hourly",
