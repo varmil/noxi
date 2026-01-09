@@ -37,9 +37,6 @@ function truncateTitle(
 }
 
 function getRankPrefix(i: number): string {
-  if (i === 0) return '🥇  '
-  if (i === 1) return '🥈  '
-  if (i === 2) return '🥉  '
   return `${i + 1}位. `
 }
 
@@ -112,7 +109,7 @@ export class XLast24HoursScenario {
         )}`
       })
       .join('\n')
-    const footer = `タップですべて表示`
+    const footer = `画像タップですべて表示`
     const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
 
     const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
