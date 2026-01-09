@@ -55,12 +55,13 @@ function ImageLoader({
         width={size}
         height={size}
         className="object-cover w-full h-full"
+        loading="eager"
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setIsLoading(false)
           onError()
         }}
-        style={{ display: isLoading ? 'none' : 'block' }}
+        style={{ opacity: isLoading ? 0 : 1 }}
       />
     </>
   )
