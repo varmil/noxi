@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server'
 
 /**
  * スパチャ金額集計のrevalidateを行う
- * １日に１回 18:00 JST のスケジューラが完了したあとを狙う
+ * １日に１回 3:00 JST のスケジューラが完了したあとを狙う
  */
 export function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization')
