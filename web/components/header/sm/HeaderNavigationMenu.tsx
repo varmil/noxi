@@ -49,7 +49,7 @@ export default function HeaderNavigationMenu({}: {}) {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="flex-1 max-w-[600px]">
+      <div className="flex-1 max-w-[500px]">
         <TalentSearch className="shadow-none" dropdown />
       </div>
     </div>

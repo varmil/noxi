@@ -140,6 +140,10 @@
       "metadata": {
         "title": "グループ一覧",
         "description": "VTuberを一瞬で探そう。所属会社や個人勢といったグループからお気に入りのVTuberを見つけよう。"
+      },
+      "section": {
+        "vtuberSearch": "VTuber検索",
+        "groupList": "グループ一覧"
       }
     },
     "group": {
