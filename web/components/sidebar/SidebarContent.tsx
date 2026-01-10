@@ -110,7 +110,7 @@ function GroupMenuItem({
               <span>{superChatLabel}</span>
             </Link>
             <Link
-              href={`/ranking/concurrent-viewer/live/${group.id}/last30Days`}
+              href={`/ranking/concurrent-viewer/live/${group.id}/realtime`}
               className={cn(
                 'relative flex items-center pl-5 pr-3 py-2 rounded-md text-sm',
                 'text-muted-foreground hover:text-foreground hover:bg-accent/50',

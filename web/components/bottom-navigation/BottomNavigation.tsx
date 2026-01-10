@@ -33,7 +33,7 @@ export default function BottomNavigation({ className }: Props) {
       icon: DollarSign
     },
     {
-      pathname: '/ranking/concurrent-viewer/live/all/last30Days',
+      pathname: '/ranking/concurrent-viewer/live/all/realtime',
       isActive: pathname.startsWith('/ranking/concurrent-viewer'),
       label: t('live'),
       icon: Activity
