@@ -1,7 +1,3 @@
-/**
- * 2025/05/01：periodは区別しないcanonicalにしてみる
- * 2025/05/01：genderは区別しないcanonicalにしてみる
- */
 import { MetadataRoute } from 'next'
 import { getGroups } from 'apis/groups/getGroups'
 import { getEntry } from 'config/sitemap/getEntry'
@@ -9,55 +5,41 @@ import { StreamRankingPeriod } from 'types/period'
 
 export const dynamic = 'force-dynamic'
 
-const periods: StreamRankingPeriod[] = [
-  // 'realtime'
-  // 'last24Hours',
-  // 'last7Days',
-  'last30Days'
-  // 'last1Year'
+/** UIで使用される期間（各ページをcanonicalとして登録） */
+const PERIODS: StreamRankingPeriod[] = [
+  'realtime',
+  'last24Hours',
+  'last7Days',
+  'last30Days',
+  'wholePeriod'
 ]
+
+const DIMENSIONS = ['concurrent-viewer', 'super-chat'] as const
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
 
-  // concurrent-viewer x overall
-  const overallConcurrentViewerEntries = periods.map(period => {
-    return getEntry({
-      lastModified: new Date(),
-      pathname: `/ranking/concurrent-viewer/live/all/${period}`
-    })
-  })
-
-  // concurrent-viewer x group
-  const groupConcurrentViewerEntries = groups.flatMap(group => {
-    return periods.map(period => {
-      return getEntry({
+  const entries = DIMENSIONS.flatMap(dimension => {
+    // overall (all)
+    const overallEntries = PERIODS.map(period =>
+      getEntry({
         lastModified: new Date(),
-        pathname: `/ranking/concurrent-viewer/live/${group.id}/${period}`
+        pathname: `/ranking/${dimension}/live/all/${period}`
       })
-    })
+    )
+
+    // group
+    const groupEntries = groups.flatMap(group =>
+      PERIODS.map(period =>
+        getEntry({
+          lastModified: new Date(),
+          pathname: `/ranking/${dimension}/live/${group.id}/${period}`
+        })
+      )
+    )
+
+    return [...overallEntries, ...groupEntries]
   })
 
-  // super-chat x overall
-  const overallSuperChatEntries = periods.map(period => {
-    return getEntry({
-      lastModified: new Date(),
-      pathname: `/ranking/super-chat/live/all/${period}`
-    })
-  })
-
-  // super-chat x group
-  const groupSuperChatEntries = groups.flatMap(group => {
-    return periods.map(period => {
-      return getEntry({
-        lastModified: new Date(),
-        pathname: `/ranking/super-chat/live/${group.id}/${period}`
-      })
-    })
-  })
-
-  return overallConcurrentViewerEntries
-    .concat(groupConcurrentViewerEntries)
-    .concat(overallSuperChatEntries)
-    .concat(groupSuperChatEntries)
+  return entries
 }
