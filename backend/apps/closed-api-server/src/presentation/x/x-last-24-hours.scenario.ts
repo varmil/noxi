@@ -45,7 +45,7 @@ function getGroupTitle(group?: GroupId): string {
   return group.toJP()
 }
 
-const DAY_OF_WEEK_JP = ['日', '月', '火', '水', '木', '金', '土']
+// const DAY_OF_WEEK_JP = ['日', '月', '火', '水', '木', '金', '土']
 
 @Injectable()
 export class XLast24HoursScenario {
@@ -86,11 +86,11 @@ export class XLast24HoursScenario {
     })
 
     // 日付情報（JST）
-    const now = dayjs().tz('Asia/Tokyo')
-    const year = now.year()
-    const month = now.month() + 1
-    const day = now.date()
-    const dayOfWeek = DAY_OF_WEEK_JP[now.day()]
+    // const now = dayjs().tz('Asia/Tokyo')
+    // const year = now.year()
+    // const month = now.month() + 1
+    // const day = now.date()
+    // const dayOfWeek = DAY_OF_WEEK_JP[now.day()]
 
     const groupSlug = group ? `/${group.get()}` : '/all'
     const periodSlug = '/last24Hours'
@@ -99,8 +99,8 @@ export class XLast24HoursScenario {
       date: new Date().toISOString()
     })
 
-    const line1 = `${getGroupTitle(group)}スパチャランキング`
-    const line2 = `【日次】${year}年${month}月${day}日（${dayOfWeek}）`
+    const line1 = `【日次】${getGroupTitle(group)}ランキング`
+    // const line2 = `${year}年${month}月${day}日（${dayOfWeek}）`
     const rankings = sums
       .map((s, i) => {
         return `${getRankPrefix(i)}${truncateTitle(
@@ -112,7 +112,7 @@ export class XLast24HoursScenario {
     const footer = `画像タップですべて表示`
     const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}?${searchParams.toString()}`
 
-    const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
+    const content = `${line1}\n\n${rankings}\n\n${footer}\n${url}`
     const tweet = await this.xClient.v2.tweet(content)
 
     if (!tweet.errors) {

@@ -84,10 +84,10 @@ export class XWeeklyScenario {
     const weekStr = `${year}-W${String(week).padStart(2, '0')}`
 
     // 週の開始日（月曜）と終了日（日曜）を計算
-    const weekStart = lastWeek.startOf('isoWeek')
+    // const weekStart = lastWeek.startOf('isoWeek')
     const weekEnd = lastWeek.endOf('isoWeek')
-    const startStr = `${weekStart.month() + 1}/${weekStart.date()}`
-    const endStr = `${weekEnd.month() + 1}/${weekEnd.date()}`
+    // const startStr = `${weekStart.month() + 1}/${weekStart.date()}`
+    // const endStr = `${weekEnd.month() + 1}/${weekEnd.date()}`
 
     // 前週末（日曜 23:59:59 JST）を targetDate として設定
     const targetDate = weekEnd.toDate()
@@ -105,8 +105,8 @@ export class XWeeklyScenario {
     const groupSlug = group ? `/${group.get()}` : '/all'
     const periodSlug = `/weekly-${weekStr}`
 
-    const line1 = `${getGroupTitle(group)}スパチャランキング`
-    const line2 = `【週間】${year}年第${week}週（${startStr}~${endStr}）`
+    const line1 = `【週間】${getGroupTitle(group)}ランキング`
+    // const line2 = `${year}年第${week}週（${startStr}~${endStr}）`
     const rankings = snapshots
       .map((s, i) => {
         return `${getRankPrefix(i)}${truncateTitle(
@@ -118,7 +118,7 @@ export class XWeeklyScenario {
     const footer = `画像タップですべて表示`
     const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}${gender ? `?gender=${gender.get()}` : ''}`
 
-    const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
+    const content = `${line1}\n\n${rankings}\n\n${footer}\n${url}`
     const tweet = await this.xClient.v2.tweet(content)
 
     if (!tweet.errors) {
