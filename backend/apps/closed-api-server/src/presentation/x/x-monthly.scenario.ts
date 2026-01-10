@@ -86,7 +86,7 @@ export class XMonthlyScenario {
 
     const snapshots = await this.supersSnapshotsService.findRanking({
       where: { targetDate, period: 'monthly', group, gender },
-      limit: 5
+      limit: 6
     })
 
     const channelIds = new ChannelIds(snapshots.map(s => s.channelId))
@@ -97,8 +97,8 @@ export class XMonthlyScenario {
     const groupSlug = group ? `/${group.get()}` : '/all'
     const periodSlug = `/monthly-${monthStr}`
 
-    const line1 = `${getGroupTitle(group)}スパチャランキング`
-    const line2 = `【月間】${year}年${month}月`
+    const line1 = `【月間】${getGroupTitle(group)}ランキング`
+    // const line2 = `${year}年${month}月`
     const rankings = snapshots
       .map((s, i) => {
         return `${getRankPrefix(i)}${truncateTitle(
@@ -110,7 +110,7 @@ export class XMonthlyScenario {
     const footer = `画像タップですべて表示`
     const url = `https://www.vcharts.net/ja/ranking/super-chat/channels${groupSlug}${periodSlug}${gender ? `?gender=${gender.get()}` : ''}`
 
-    const content = `${line1}\n${line2}\n\n${rankings}\n\n${footer}\n${url}`
+    const content = `${line1}\n\n${rankings}\n\n${footer}\n${url}`
     const tweet = await this.xClient.v2.tweet(content)
 
     if (!tweet.errors) {

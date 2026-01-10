@@ -45,7 +45,7 @@ export async function GET(request: Request) {
       target: week,
       group,
       gender,
-      limit: 5
+      limit: 6
     }),
     group
       ? getGroupName(group, { errorContext: 'weekly-ranking og image' })
@@ -55,88 +55,83 @@ export async function GET(request: Request) {
   const groupName = groupNameRaw === '個人勢VTuber' ? '個人勢 V' : groupNameRaw
 
   return new ImageResponse(
-    (
-      <div
-        style={{
-          color: 'black',
-          background: 'white',
-          display: 'flex',
-          width: '100%',
-          height: '100%',
-          padding: '34px 20px 34px 50px',
-          textAlign: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 44
-        }}
-      >
-        <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
-          <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
-            <div
-              style={{ display: 'flex', fontSize: 30 }}
-              tw="text-neutral-500"
-            >
-              {`${year}年 第${weekNum}週 ${dateRange}`}
-            </div>
-            <div tw="flex items-end">
-              <span tw="font-bold mr-4" style={{ fontSize: 70, lineHeight: 1 }}>
-                週間
+    <div
+      style={{
+        color: 'black',
+        background: 'white',
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        padding: '34px 20px 34px 64px',
+        textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 40
+      }}
+    >
+      <section tw="flex flex-col items-start justify-between w-[480px] h-full text-4xl font-bold">
+        <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
+          <div style={{ display: 'flex', fontSize: 30 }} tw="text-neutral-500">
+            {`${year}年 第${weekNum}週 ${dateRange}`}
+          </div>
+          <div tw="flex items-end">
+            <span tw="font-bold mr-4" style={{ fontSize: 70, lineHeight: 1 }}>
+              週間
+            </span>
+            <span tw="text-neutral-500" style={{ fontSize: 36 }}>
+              ランキング
+            </span>
+          </div>
+        </div>
+
+        <div tw="flex flex-col -top-12" style={{ fontSize: 80 }}>
+          <div tw="flex">{groupName}</div>
+          <div tw="flex">{gender ? ja.Global.gender[gender] : ``}</div>
+        </div>
+
+        <div style={{ fontSize: 12 }} tw="text-neutral-500">
+          ※スーパーステッカーを含む
+        </div>
+      </section>
+
+      <section style={{ gap: 12 }} tw="flex-1 flex flex-col">
+        {ranking.map((e, i) => (
+          <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
+            <div tw="flex items-baseline">
+              <span tw="font-bold" style={{ fontSize: 55, lineHeight: 1 }}>
+                {e.rank}
               </span>
-              <span tw="text-neutral-500" style={{ fontSize: 36 }}>
-                ランキング
-              </span>
+              <span tw="text-2xl text-neutral-500">位</span>
+            </div>
+
+            <div tw="flex w-[92px] h-[92px] justify-center items-center rounded-full overflow-hidden">
+              <img
+                src={e.channelThumbnails}
+                alt={e.channelTitle}
+                style={{
+                  width: 92,
+                  height: 92,
+                  objectFit: 'cover'
+                }}
+              />
+            </div>
+            <div tw="flex flex-1 flex-col">
+              <div
+                tw="text-left text-3xl text-neutral-600 overflow-hidden"
+                style={{ height: '1.3em' }}
+              >
+                {e.channelTitle.length > 28
+                  ? `${e.channelTitle.slice(0, 28)}...`
+                  : e.channelTitle}
+              </div>
+              <div tw="flex text-xl text-neutral-500 ">
+                {`${e.amount} 円 / 週`}
+              </div>
             </div>
           </div>
-
-          <div tw="flex flex-col -top-12" style={{ fontSize: 80 }}>
-            <div tw="flex">{groupName}</div>
-            <div tw="flex">{gender ? ja.Global.gender[gender] : ``}</div>
-          </div>
-
-          <div style={{ fontSize: 12 }} tw="text-neutral-500">
-            ※スーパーステッカーを含む
-          </div>
-        </section>
-
-        <section style={{ gap: 22 }} tw="flex-1 flex flex-col">
-          {ranking.map((e, i) => (
-            <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
-              <div tw="flex items-baseline">
-                <span tw="font-bold" style={{ fontSize: 55, lineHeight: 1 }}>
-                  {e.rank}
-                </span>
-                <span tw="text-2xl text-neutral-500">位</span>
-              </div>
-
-              <div tw="flex w-[101px] h-[101px] justify-center items-center rounded-full overflow-hidden">
-                <img
-                  src={e.channelThumbnails}
-                  alt={e.channelTitle}
-                  style={{
-                    width: 101,
-                    height: 101,
-                    objectFit: 'cover'
-                  }}
-                />
-              </div>
-              <div tw="flex flex-1 flex-col">
-                <div
-                  tw="text-left text-3xl text-neutral-600 overflow-hidden"
-                  style={{ height: '1.3em' }}
-                >
-                  {e.channelTitle.length > 28
-                    ? `${e.channelTitle.slice(0, 28)}...`
-                    : e.channelTitle}
-                </div>
-                <div tw="flex text-xl text-neutral-500 ">
-                  {`${e.amount} 円 / 週`}
-                </div>
-              </div>
-            </div>
-          ))}
-        </section>
-      </div>
-    ),
+        ))}
+      </section>
+    </div>,
     {
       width: 1200,
       height: 630,
