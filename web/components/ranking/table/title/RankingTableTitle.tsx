@@ -29,9 +29,7 @@ export function RankingTableTitleH1({
       aria-label={title}
     >
       <div className="flex gap-x-1 sm:gap-x-2 items-center">
-        <span className="tracking-tighter line-clamp-2 [word-break:auto-phrase]">
-          {title}
-        </span>
+        <span className="tracking-tighter line-clamp-2">{title}</span>
       </div>
     </h1>
   )

@@ -35,6 +35,59 @@ type Args = {
   page?: string
 }
 
+// 同接ランキング用の期間別ディスクリプション対応
+const PERIOD_SPECIFIC_DESCRIPTIONS = [
+  'realtime',
+  'last24Hours',
+  'last7Days',
+  'last30Days',
+  'wholePeriod'
+] as const
+
+type GetDescriptionArgs = {
+  pageT: Awaited<ReturnType<typeof getTranslations>>
+  dimension: Dimension
+  period: Args['period']
+  periodDisplayName: string
+  group: string
+  gender: string
+}
+
+const getDescription = ({
+  pageT,
+  dimension,
+  period,
+  periodDisplayName,
+  group,
+  gender
+}: GetDescriptionArgs): string => {
+  // concurrent-viewer かつ期間別ディスクリプションが存在する場合
+  if (
+    dimension === 'concurrent-viewer' &&
+    PERIOD_SPECIFIC_DESCRIPTIONS.includes(
+      period as (typeof PERIOD_SPECIFIC_DESCRIPTIONS)[number]
+    )
+  ) {
+     
+    return (pageT as any)(
+      `metadata.description.dimension.concurrent-viewer.${period}`,
+      { group, gender }
+    )
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+
+  // それ以外は従来通り
+   
+  return (pageT as any)(`metadata.description.dimension.${dimension}`, {
+    period: periodDisplayName,
+    group,
+    gender
+  })
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
 export const generateTitleAndDescription = async ({
   locale,
   pageNamespace,
@@ -62,21 +115,31 @@ export const generateTitleAndDescription = async ({
       `period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
     )
 
+  // 同接ランキング用のSEOタイトル対応
+  const periodKeyword = global(
+    `periodKeyword.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
+  )
+  // リアルタイムの場合は括弧内の期間を省略
+  const periodInParens = period === 'realtime' ? '' : ` (${periodDisplayName})`
+
   return {
     title: `${feat(dimension, {
       period: periodDisplayName,
+      periodKeyword,
+      periodInParens,
       group,
       gender: gender ? global(`gender.${gender}`) : ''
     })
       .replace(/\s+/g, ' ')
       .trim()}${pageNumber}`,
 
-    description: `${pageT(`metadata.description.dimension.${dimension}`, {
-      period: periodDisplayName,
+    description: `${getDescription({
+      pageT,
+      dimension,
+      period,
+      periodDisplayName,
       group,
       gender: gender ? global(`gender.${gender}`) : ''
-    })
-      .replace(/\s+/g, ' ')
-      .trim()}${pageNumber}`
+    })}${pageNumber}`
   }
 }

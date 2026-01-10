@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
@@ -7,7 +7,6 @@ import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import {
   isSnapshotPeriod,
   parseSnapshotPeriod
@@ -85,39 +84,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function RankingChannelsPage(props: Props) {
   const { locale, dimension, group: groupId, period } = await props.params
   const searchParams = await props.searchParams
-  const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const [global, feat, groupName] = await Promise.all([
-    getTranslations('Global'),
-    getTranslations('Features.channelsRanking.ranking.dimension'),
-    getGroupName(groupId, { errorContext: 'channels ranking page' })
-  ])
-
-  // スナップショット期間のフォーマット
-  const periodDisplayName =
-    formatSnapshotPeriod(period, locale as 'ja' | 'en') ??
-    global(`period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`)
 
   return (
-    <Page
-      breadcrumb={[
-        {
-          href: `#`,
-          name: feat(dimension, {
-            group: groupName,
-            period: periodDisplayName,
-            gender: gender ? global(`gender.${gender}`) : ''
-          })
-            .replace(/\s+/g, ' ')
-            .trim()
-        }
-      ]}
-      noPadding
-      fullWidth
-      ads
-    >
+    <Page noPadding fullWidth ads>
       <RankHighlighter>
         <IndexTemplate
           period={period}

@@ -41,6 +41,19 @@
       "wholePeriod": "All-time"
     },
 
+    "periodKeyword": {
+      "realtime": "Realtime",
+      "last24Hours": "Daily",
+      "last7Days": "Weekly",
+      "last30Days": "Monthly",
+      "last90Days": "Monthly",
+      "last1Year": "Yearly",
+      "thisWeek": "Weekly",
+      "thisMonth": "Monthly",
+      "thisYear": "Yearly",
+      "wholePeriod": "All-time"
+    },
+
     "ranking": {
       "filter": {
         "period": "Time Period",
@@ -285,7 +298,13 @@
         "metadata": {
           "description": {
             "dimension": {
-              "concurrent-viewer": "Concurrent viewer ranking for live streams. Aggregated for {group}{gender} over {period}.",
+              "concurrent-viewer": {
+                "realtime": "Showing currently live VTubers ranked by viewer count. Check out the most trending streamers in {group} in real-time.",
+                "last24Hours": "Concurrent viewer ranking for streams from the last 24 hours. Discover yesterday's most popular streams and trending content you may have missed in {group}.",
+                "last7Days": "Streams from the past week ranked by peak concurrent viewers. See the most talked-about streams and streamers in {group} this week at a glance.",
+                "last30Days": "Concurrent viewer ranking for the past 30 days. Analyze trending streamers and popular content within {group}'s recent activity.",
+                "wholePeriod": "All-time peak concurrent viewer ranking. Look back at legendary streams and the most-watched moments in {group}'s history."
+              },
               "super-chat": "Super Chat earnings ranking by live stream. Aggregated for {group}{gender} over {period}."
             }
           }
@@ -797,7 +816,11 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "{group} {gender} Most Live Viewers in {period}",
+          "concurrent-viewer": "[{periodKeyword}] {group} Most Live Viewers Ranking{periodInParens} | Streamer Trending",
+          "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
+        },
+        "ui": {
+          "concurrent-viewer": "[{periodKeyword}] {group} Most Live Viewers Ranking",
           "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
         }
       },

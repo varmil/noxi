@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import {
@@ -40,7 +40,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       page
     })),
     alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${groupId}/last30Days`
+      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${groupId}/${period}`
     }
   }
 }
@@ -48,34 +48,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function RankingLivePage(props: Props) {
   const { locale, dimension, group: groupId, period } = await props.params
   const searchParams = await props.searchParams
-  const { gender } = searchParams
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const [global, feat, groupName] = await Promise.all([
-    getTranslations('Global'),
-    getTranslations('Features.streamRanking.ranking.dimension'),
-    getGroupName(groupId, { errorContext: 'live ranking page' })
-  ])
-
   return (
-    <Page
-      breadcrumb={[
-        {
-          href: `#`,
-          name: feat(dimension, {
-            period: global(`period.${period}`),
-            group: groupName,
-            gender: gender ? global(`gender.${gender}`) : ''
-          })
-            .replace(/\s+/g, ' ')
-            .trim()
-        }
-      ]}
-      noPadding
-      fullWidth
-      ads
-    >
+    <Page noPadding fullWidth ads>
       <IndexTemplate
         period={period}
         dimension={dimension}
