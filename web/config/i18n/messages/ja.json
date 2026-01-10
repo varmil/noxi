@@ -94,6 +94,7 @@
       "section": {
         "liveStats": {
           "liveCount": "ライブ中",
+          "viewRanking": "ランキングを見る",
           "totalViewers": "現在の総同接数",
           "medianViewers": "同接数（中央値）"
         }
