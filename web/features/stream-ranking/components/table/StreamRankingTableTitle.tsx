@@ -38,16 +38,29 @@ export default function StreamRankingTableTitle({
   })
     .replace(/\s+/g, ' ')
     .trim()
-  return (
-    <section className={`space-y-2 ${className || ''}`}>
-      <RankingTableTitleH1 title={title} />
-      <RankingTableTitleDescription>
-        {page(`metadata.description.dimension.${dimension}`, {
+
+  // concurrent-viewer は期間別ディスクリプション、それ以外は従来通り
+  const description =
+    dimension === 'concurrent-viewer'
+      ? page(
+          `metadata.description.dimension.concurrent-viewer.${period}` as Parameters<
+            typeof page
+          >[0],
+          {
+            group: groupName,
+            gender: gender ? global(`gender.${gender}`) : ''
+          }
+        )
+      : page(`metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat', {
           period: periodName,
           group: groupName,
           gender: gender ? global(`gender.${gender}`) : ''
-        })}
-      </RankingTableTitleDescription>
+        })
+
+  return (
+    <section className={`space-y-2 ${className || ''}`}>
+      <RankingTableTitleH1 title={title} />
+      <RankingTableTitleDescription>{description}</RankingTableTitleDescription>
     </section>
   )
 }
