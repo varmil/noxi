@@ -69,7 +69,7 @@ export async function GET(request: Request) {
         gap: 40
       }}
     >
-      <section tw="flex flex-col items-start justify-between w-[500px] h-full text-4xl font-bold">
+      <section tw="flex flex-col items-start justify-between w-[480px] h-full text-4xl font-bold">
         <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
           <div style={{ display: 'flex', fontSize: 30 }} tw="text-neutral-500">
             {`${year}年 第${weekNum}週 ${dateRange}`}
