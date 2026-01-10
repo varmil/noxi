@@ -373,8 +373,8 @@
     },
     "bottomNavigation": {
       "home": "Home",
-      "live": "Live",
-      "channels": "Channels",
+      "live": "Live Viewer",
+      "channels": "Super Chat",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
       "groups": "Talents"
