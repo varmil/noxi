@@ -820,7 +820,7 @@
           "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
         },
         "ui": {
-          "concurrent-viewer": "[{periodKeyword}] {group} Most Live Viewers Ranking{periodInParens}",
+          "concurrent-viewer": "[{periodKeyword}] {group} Most Live Viewers Ranking",
           "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
         }
       },

@@ -830,7 +830,7 @@
           "super-chat": "【ライブ別】{group}{gender}スパチャランキング - {period}"
         },
         "ui": {
-          "concurrent-viewer": "【{periodKeyword}】{group}同接ランキング{periodInParens}",
+          "concurrent-viewer": "【{periodKeyword}】{group}同接ランキング",
           "super-chat": "【ライブ別】{group}{gender}スパチャランキング - {period}"
         }
       },
