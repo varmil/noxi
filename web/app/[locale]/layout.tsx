@@ -10,7 +10,6 @@ import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
 import { SessionKeepAlive } from 'components/auth/session/SessionKeepAlive'
 import { DailyLoginBonus } from 'components/login-bonus/DailyLoginBonus'
-import { PWAInstallProvider } from 'components/pwa/PWAInstallContext'
 import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
 import { SidebarProvider } from 'components/sidebar/SidebarContext'
@@ -33,7 +32,6 @@ export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
 }
 
-/** for PWA. see https://web.dev/articles/add-manifest?hl=ja */
 export const viewport: Viewport = {
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#f2f2f2' },
@@ -98,7 +96,7 @@ export default async function LocaleLayout(props: Props) {
             <NextTopLoader color="var(--primary)" showSpinner={false} />
             <NextIntlClientProvider>
               <SidebarProvider defaultOpen={sidebarOpen}>
-                <PWAInstallProvider>{children}</PWAInstallProvider>
+                {children}
               </SidebarProvider>
               <Toaster richColors />
               <DailyLoginBonus session={session} />
