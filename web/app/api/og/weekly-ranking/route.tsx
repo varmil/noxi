@@ -45,7 +45,7 @@ export async function GET(request: Request) {
       target: week,
       group,
       gender,
-      limit: 5
+      limit: 6
     }),
     group
       ? getGroupName(group, { errorContext: 'weekly-ranking og image' })

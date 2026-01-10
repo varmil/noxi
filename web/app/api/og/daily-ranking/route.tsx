@@ -29,7 +29,7 @@ export async function GET(request: Request) {
       group,
       gender,
       date,
-      limit: 5
+      limit: 6
     }),
     group
       ? getGroupName(group, { errorContext: 'daily-ranking og image' })

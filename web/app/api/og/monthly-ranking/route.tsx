@@ -32,7 +32,7 @@ export async function GET(request: Request) {
       target: month,
       group,
       gender,
-      limit: 5
+      limit: 6
     }),
     group
       ? getGroupName(group, { errorContext: 'monthly-ranking og image' })

@@ -86,7 +86,7 @@ export class XMonthlyScenario {
 
     const snapshots = await this.supersSnapshotsService.findRanking({
       where: { targetDate, period: 'monthly', group, gender },
-      limit: 5
+      limit: 6
     })
 
     const channelIds = new ChannelIds(snapshots.map(s => s.channelId))

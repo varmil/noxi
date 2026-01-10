@@ -77,7 +77,7 @@ export class XLast24HoursScenario {
     const sums = await this.supersBundlesService.sum({
       where: { group, gender, createdAt: { gte: new Now().xDaysAgo(1) } },
       orderBy: { _sum: { amountMicros: 'desc' } },
-      limit: 5
+      limit: 6
     })
     const channels = await this.channelsService.findAll({
       where: {
