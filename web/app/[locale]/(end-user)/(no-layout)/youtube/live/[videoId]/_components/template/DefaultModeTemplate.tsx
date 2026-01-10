@@ -38,7 +38,7 @@ export default async function DefaultModeTemplate({
           className="space-y-4"
           breadcrumb={[
             {
-              href: `/ranking/concurrent-viewer/live/all/last30Days`,
+              href: `/ranking/concurrent-viewer/live/all/realtime`,
               name: t('concurrentViewerRanking')
             },
             { href: '#', name: title }

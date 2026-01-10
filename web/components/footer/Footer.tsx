@@ -16,16 +16,16 @@ export function Footer() {
       title: t('superChatRanking'),
       links: [
         {
-          label: t('last30Days'),
-          href: '/ranking/super-chat/channels/all/last30Days'
+          label: t('last24Hours'),
+          href: '/ranking/super-chat/channels/all/last24Hours'
         },
         {
           label: t('last7Days'),
           href: '/ranking/super-chat/channels/all/last7Days'
         },
         {
-          label: t('last24Hours'),
-          href: '/ranking/super-chat/channels/all/last24Hours'
+          label: t('last30Days'),
+          href: '/ranking/super-chat/channels/all/last30Days'
         },
         {
           label: t('thisYear'),
@@ -37,20 +37,20 @@ export function Footer() {
       title: t('viewerRanking'),
       links: [
         {
-          label: t('last30Days'),
-          href: '/ranking/concurrent-viewer/live/all/last30Days'
-        },
-        {
-          label: t('last7Days'),
-          href: '/ranking/concurrent-viewer/live/all/last7Days'
+          label: t('realtime'),
+          href: '/ranking/concurrent-viewer/live/all/realtime'
         },
         {
           label: t('last24Hours'),
           href: '/ranking/concurrent-viewer/live/all/last24Hours'
         },
         {
-          label: t('realtime'),
-          href: '/ranking/concurrent-viewer/live/all/realtime'
+          label: t('last7Days'),
+          href: '/ranking/concurrent-viewer/live/all/last7Days'
+        },
+        {
+          label: t('last30Days'),
+          href: '/ranking/concurrent-viewer/live/all/last30Days'
         }
       ]
     },
