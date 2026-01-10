@@ -62,14 +62,14 @@ export async function GET(request: Request) {
         display: 'flex',
         width: '100%',
         height: '100%',
-        padding: '34px 20px 34px 34px',
+        padding: '34px 20px 34px 64px',
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 44
+        gap: 40
       }}
     >
-      <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
+      <section tw="flex flex-col items-start justify-between w-[500px] h-full text-4xl font-bold">
         <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
           <div style={{ display: 'flex', fontSize: 30 }} tw="text-neutral-500">
             {`${year}年 第${weekNum}週 ${dateRange}`}
@@ -94,7 +94,7 @@ export async function GET(request: Request) {
         </div>
       </section>
 
-      <section style={{ gap: 22 }} tw="flex-1 flex flex-col">
+      <section style={{ gap: 12 }} tw="flex-1 flex flex-col">
         {ranking.map((e, i) => (
           <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
             <div tw="flex items-baseline">
@@ -104,13 +104,13 @@ export async function GET(request: Request) {
               <span tw="text-2xl text-neutral-500">位</span>
             </div>
 
-            <div tw="flex w-[101px] h-[101px] justify-center items-center rounded-full overflow-hidden">
+            <div tw="flex w-[92px] h-[92px] justify-center items-center rounded-full overflow-hidden">
               <img
                 src={e.channelThumbnails}
                 alt={e.channelTitle}
                 style={{
-                  width: 101,
-                  height: 101,
+                  width: 92,
+                  height: 92,
                   objectFit: 'cover'
                 }}
               />
