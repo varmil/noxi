@@ -77,7 +77,7 @@ export default async function LocaleLayout(props: Props) {
               '@type': 'Organization',
               name: 'VCharts',
               url: 'https://www.vcharts.net',
-              logo: 'https://www.vcharts.net/icon.svg',
+              logo: 'https://www.vcharts.net/icon2.png',
               sameAs: ['https://x.com/VCharts_net']
             })
           }}
