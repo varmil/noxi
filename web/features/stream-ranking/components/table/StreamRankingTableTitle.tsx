@@ -27,8 +27,12 @@ export default function StreamRankingTableTitle({
   const feat = useTranslations('Features.streamRanking')
   const page = useTranslations('Page.ranking.live')
   const periodName = global(`period.${period}`)
-  const title = feat(`ranking.dimension.${dimension}`, {
+  const periodKeyword = global(`periodKeyword.${period}`)
+  const periodInParens = period === 'realtime' ? '' : ` (${periodName})`
+  const title = feat(`ranking.ui.${dimension}`, {
     period: periodName,
+    periodKeyword,
+    periodInParens,
     group: groupName,
     gender: gender ? global(`gender.${gender}`) : ''
   })

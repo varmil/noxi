@@ -35,6 +35,18 @@
       "thisYear": "今年",
       "wholePeriod": "全期間"
     },
+    "periodKeyword": {
+      "realtime": "リアルタイム",
+      "last24Hours": "デイリー",
+      "last7Days": "週間",
+      "last30Days": "月間",
+      "last90Days": "月間",
+      "last1Year": "年間",
+      "thisWeek": "週間",
+      "thisMonth": "月間",
+      "thisYear": "年間",
+      "wholePeriod": "歴代"
+    },
     "ranking": {
       "filter": {
         "period": "集計期間",
@@ -808,8 +820,12 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "{group} {gender} 同接ランキング - {period}",
-          "super-chat": "【ライブ別】{group} {gender} スパチャランキング - {period}"
+          "concurrent-viewer": "【{periodKeyword}】{group}同接ランキング{periodInParens} | 配信者勢いランキング",
+          "super-chat": "【ライブ別】{group}{gender}スパチャランキング - {period}"
+        },
+        "ui": {
+          "concurrent-viewer": "【{periodKeyword}】{group}同接ランキング{periodInParens}",
+          "super-chat": "【ライブ別】{group}{gender}スパチャランキング - {period}"
         }
       },
       "viewAll": "すべて見る",

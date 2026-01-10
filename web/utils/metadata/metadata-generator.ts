@@ -62,9 +62,18 @@ export const generateTitleAndDescription = async ({
       `period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
     )
 
+  // 同接ランキング用のSEOタイトル対応
+  const periodKeyword = global(
+    `periodKeyword.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
+  )
+  // リアルタイムの場合は括弧内の期間を省略
+  const periodInParens = period === 'realtime' ? '' : ` (${periodDisplayName})`
+
   return {
     title: `${feat(dimension, {
       period: periodDisplayName,
+      periodKeyword,
+      periodInParens,
       group,
       gender: gender ? global(`gender.${gender}`) : ''
     })

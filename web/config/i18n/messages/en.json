@@ -41,6 +41,19 @@
       "wholePeriod": "All-time"
     },
 
+    "periodKeyword": {
+      "realtime": "Realtime",
+      "last24Hours": "Daily",
+      "last7Days": "Weekly",
+      "last30Days": "Monthly",
+      "last90Days": "Monthly",
+      "last1Year": "Yearly",
+      "thisWeek": "Weekly",
+      "thisMonth": "Monthly",
+      "thisYear": "Yearly",
+      "wholePeriod": "All-time"
+    },
+
     "ranking": {
       "filter": {
         "period": "Time Period",
@@ -797,7 +810,11 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "{group} {gender} Most Live Viewers in {period}",
+          "concurrent-viewer": "[{periodKeyword}] {group} Most Live Viewers Ranking{periodInParens} | Streamer Trending",
+          "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
+        },
+        "ui": {
+          "concurrent-viewer": "[{periodKeyword}] {group} Most Live Viewers Ranking{periodInParens}",
           "super-chat": "Live-Specific {group} {gender} Most Super Chatted in {period}"
         }
       },
