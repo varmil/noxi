@@ -11,7 +11,7 @@ const INTERVAL_MS = 3600
 /**
  * 1時間、INTERVAL_MS間隔で実行する
  * Cloud Schedulerは1時間間隔。ここに「処理時間」が加わるので実際には
- * 17分程度の被り（マージン）がある。
+ * 10-15分程度の被り（マージン）がある。
  */
 const EXECUTE_COUNT = (3600 * 1000) / INTERVAL_MS
 
