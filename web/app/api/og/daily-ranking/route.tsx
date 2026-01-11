@@ -5,6 +5,8 @@ import { getDailySupersRanking } from 'features/channels-ranking/utils/getDailyS
 import dayjs from 'lib/dayjs'
 import { Gender } from 'types/gender'
 import { getWebUrl } from 'utils/web-url'
+
+const DAY_OF_WEEK_JP = ['日', '月', '火', '水', '木', '金', '土'] as const
 // App router includes @vercel/og.
 // No need to install it.
 
@@ -22,7 +24,8 @@ export async function GET(request: Request) {
   const group = searchParams.get('group') as string
   const gender = searchParams.get('gender') as Gender | undefined
   const dateParam = searchParams.get('date')
-  const date = dateParam && dayjs(dateParam).isValid() ? dateParam : undefined
+  const date =
+    dateParam && dayjs(dateParam).isValid() ? dateParam : undefined
 
   const [ranking, groupNameRaw] = await Promise.all([
     getDailySupersRanking({
@@ -38,12 +41,9 @@ export async function GET(request: Request) {
   // OGP画像用に短縮（テキストが長くなるため）
   const groupName = groupNameRaw === '個人勢VTuber' ? '個人勢 V' : groupNameRaw
 
-  const formatter = Intl.DateTimeFormat('ja-JP', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    weekday: 'short'
-  })
+  /** 日本時間として解釈した日付 */
+  const jstDate = dayjs(date).tz('Asia/Tokyo')
+  const formattedDate = `${jstDate.format('YYYY/MM/DD')}（${DAY_OF_WEEK_JP[jstDate.day()]}）`
 
   return new ImageResponse(
     <div
@@ -63,7 +63,7 @@ export async function GET(request: Request) {
       <section tw="flex flex-col items-start justify-between w-[520px] h-full text-4xl font-bold">
         <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
           <div style={{ fontSize: 30 }} tw="text-neutral-500">
-            {formatter.format(dayjs(date).toDate())}
+            {formattedDate}
           </div>
           <div tw="text-neutral-500" style={{ fontSize: 50 }}>
             過去24hランキング
