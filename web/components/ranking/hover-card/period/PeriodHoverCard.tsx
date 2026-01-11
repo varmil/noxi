@@ -34,7 +34,7 @@ export default function PeriodHoverCard({
   return (
     <Popover>
       <PopoverTrigger tabIndex={0} className="cursor-pointer">
-        <div className="flex items-center gap-1.5 text-sm">
+        <div className="flex items-center gap-1.5 text-sm whitespace-nowrap">
           <span className="text-muted-foreground">{t('lastUpdated')}</span>
           <PopoverDate date={dayjs()} />
         </div>
