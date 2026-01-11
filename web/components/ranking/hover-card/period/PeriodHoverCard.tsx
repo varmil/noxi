@@ -34,16 +34,10 @@ export default function PeriodHoverCard({
   return (
     <Popover>
       <PopoverTrigger tabIndex={0} className="cursor-pointer">
-        {/* 24時間以内の場合はendのみ表示する */}
-        {isWithin24Hours(start, end) ? (
-          <PopoverDate date={end} />
-        ) : (
-          <div className="flex items-center gap-2">
-            <PopoverDate date={start} />
-            <span className="font-light">-</span>
-            <PopoverDate date={end} />
-          </div>
-        )}
+        <div className="flex items-center gap-1.5 text-sm">
+          <span className="text-muted-foreground">{t('lastUpdated')}</span>
+          <PopoverDate date={dayjs()} />
+        </div>
       </PopoverTrigger>
       <PopoverContent className="text-sm space-y-4 font-normal">
         <Title>{t('title')}</Title>
@@ -76,14 +70,4 @@ export default function PeriodHoverCard({
       </PopoverContent>
     </Popover>
   )
-}
-
-// 差分が24時間以内かを判定
-function isWithin24Hours(
-  start: dayjs.ConfigType,
-  end: dayjs.ConfigType
-): boolean {
-  const startDate = dayjs(start)
-  const endDate = dayjs(end)
-  return Math.abs(endDate.diff(startDate, 'hour')) <= 24
 }

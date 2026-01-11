@@ -6,7 +6,7 @@ import { ChannelsRankingPeriod, Period, StreamRankingPeriod } from 'types/period
 import { getEndOf, getStartOf, getUpdatedAt } from 'utils/period/ranking'
 
 type Props = PropsWithChildren<{
-  type: 'channels' | 'mostCheered' | 'topFans'
+  type: 'channels' | 'mostCheered' | 'topFans' | 'live'
   period: ChannelsRankingPeriod | StreamRankingPeriod
   date?: Date
   className?: string
@@ -33,6 +33,9 @@ export default function PeriodHoverCardFactory({ type, period, date }: Props) {
     case 'channels':
       updatedAt = getUpdatedAt(regularPeriod, date)
       criteriaDescription = comp('criteriaDescription.channels')
+      break
+    case 'live':
+      criteriaDescription = comp('criteriaDescription.live')
       break
     case 'mostCheered':
       criteriaDescription = comp('criteriaDescription.mostCheered')
