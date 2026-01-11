@@ -5,7 +5,6 @@ import { SaveSuperChatsService } from 'apps/update-chats/src/service/save-super-
 import { SaveSuperStickersService } from 'apps/update-chats/src/service/save-super-stickers.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
-import { PublishedAt } from '@domain/youtube'
 
 @Injectable()
 export class MainScenario {
@@ -45,17 +44,9 @@ export class MainScenario {
           if (!res) return
           const { newMessages, nextContinuation } = res
 
-          // next-continuation
+          // next-continuation（DB保存）
           promises.push(
-            this.nextContinuationsService.save({
-              data: {
-                videoId,
-                nextContinuation,
-                latestPublishedAt:
-                  newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
-                createdAt: new Date()
-              }
-            })
+            this.nextContinuationsService.save({ data: nextContinuation })
           )
 
           // super-chats, super-stickers

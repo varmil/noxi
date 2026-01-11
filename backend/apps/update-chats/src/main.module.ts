@@ -1,3 +1,4 @@
+import { CacheModule } from '@nestjs/cache-manager'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { SaveMembershipsService } from 'apps/update-chats/src/service/save-memberships.service'
@@ -18,6 +19,7 @@ import { SaveSuperStickersService } from './service/save-super-stickers.service'
   imports: [
     // in only Local, load .env , in other environments, directly embed with Cloud Run
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
+    CacheModule.register({ ttl: 60 * 1000 }), // 60秒 TTL
     LibAppModule,
     NextContinuationModule,
     YoutubeAppModule,
