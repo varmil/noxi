@@ -60,13 +60,13 @@ export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
       break
 
     case 'thisWeek':
-      end = day.endOf('isoWeek').set('hour', 9).set('minute', 0)
+      end = day.endOf('isoWeek')
       break
     case 'thisMonth':
-      end = day.endOf('month').set('hour', 9).set('minute', 0)
+      end = day.endOf('month')
       break
     case 'thisYear':
-      end = day.endOf('year').set('hour', 9).set('minute', 0)
+      end = day.endOf('year')
       break
 
     default:
