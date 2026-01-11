@@ -53,14 +53,14 @@ export async function GET(request: Request) {
         display: 'flex',
         width: '100%',
         height: '100%',
-        padding: '34px 20px 34px 64px',
+        padding: '34px 24px 34px 34px',
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: 40
+        gap: 44
       }}
     >
-      <section tw="flex flex-col items-start justify-between w-[480px] h-full text-4xl font-bold">
+      <section tw="flex flex-col items-start justify-between w-[520px] h-full text-4xl font-bold">
         <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
           <div style={{ fontSize: 30 }} tw="text-neutral-500">
             {formatter.format(dayjs(date).toDate())}
