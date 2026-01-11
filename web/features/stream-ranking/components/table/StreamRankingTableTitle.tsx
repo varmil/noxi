@@ -1,6 +1,8 @@
 import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
+import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
+  RankingTableTitleContainer,
   RankingTableTitleDescription,
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
@@ -58,9 +60,12 @@ export default function StreamRankingTableTitle({
         })
 
   return (
-    <section className={`space-y-2 ${className || ''}`}>
-      <RankingTableTitleH1 title={title} />
-      <RankingTableTitleDescription>{description}</RankingTableTitleDescription>
-    </section>
+    <RankingTableTitleContainer className={className}>
+      <section className="space-y-2">
+        <RankingTableTitleH1 title={title} />
+        <RankingTableTitleDescription>{description}</RankingTableTitleDescription>
+      </section>
+      <PeriodHoverCardFactory type="live" period={period} />
+    </RankingTableTitleContainer>
   )
 }

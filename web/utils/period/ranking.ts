@@ -60,13 +60,13 @@ export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
       break
 
     case 'thisWeek':
-      end = day.endOf('isoWeek').set('hour', 9).set('minute', 0)
+      end = day.endOf('isoWeek')
       break
     case 'thisMonth':
-      end = day.endOf('month').set('hour', 9).set('minute', 0)
+      end = day.endOf('month')
       break
     case 'thisYear':
-      end = day.endOf('year').set('hour', 9).set('minute', 0)
+      end = day.endOf('year')
       break
 
     default:
@@ -79,7 +79,7 @@ export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
 /**
  * 指定期間の「最新データ更新日時」を返す
  *
- * 集計バッチがUTC09時（日本時間18時）に動くので基本その時点
+ * 集計バッチがUTC18時（日本時間03時）に動くので基本その時点
  * 「過去24時間」だけは例外で30分間隔での集計
  */
 export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
@@ -98,7 +98,7 @@ export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
     case 'thisWeek':
     case 'thisMonth':
     case 'thisYear':
-      updatedAt = getLast09UTC(date)
+      updatedAt = getLast18UTC(date)
       break
 
     default:
@@ -130,11 +130,11 @@ function getLast05or35(date?: dayjs.ConfigType): dayjs.Dayjs {
 }
 
 /**
- * 指定日付（未指定の場合は現在）を基準に最も近い過去の09:00 UTCを返す
+ * 指定日付（未指定の場合は現在）を基準に最も近い過去の18:00 UTC（= JST 03:00）を返す
  **/
-function getLast09UTC(date?: dayjs.ConfigType) {
+function getLast18UTC(date?: dayjs.ConfigType) {
   const now = dayjs.utc(date) // 指定された日付または現在のUTC時刻を取得
-  const today09UTC = now.startOf('day').add(9, 'hour') // その日の09:00 UTC
-  // その日の09:00が基準時刻より未来なら昨日の09:00を取得
-  return now.isBefore(today09UTC) ? today09UTC.subtract(1, 'day') : today09UTC
+  const today18UTC = now.startOf('day').add(18, 'hour') // その日の18:00 UTC
+  // その日の18:00が基準時刻より未来なら昨日の18:00を取得
+  return now.isBefore(today18UTC) ? today18UTC.subtract(1, 'day') : today18UTC
 }
