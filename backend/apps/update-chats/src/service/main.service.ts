@@ -1,7 +1,6 @@
-import { CACHE_MANAGER } from '@nestjs/cache-manager'
-import { Inject, Injectable, Logger } from '@nestjs/common'
-import { Cache } from 'cache-manager'
+import { Injectable, Logger } from '@nestjs/common'
 import dayjs from 'dayjs'
+import { CacheService } from 'apps/update-chats/src/service/cache.service'
 import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { NextContinuation } from '@domain/next-continuation'
@@ -10,14 +9,12 @@ import { PublishedAt, VideoId, VideoTitle } from '@domain/youtube'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
 
-const CACHE_KEY_PREFIX = 'continuation:'
-
 @Injectable()
 export class MainService {
   private readonly logger = new Logger(MainService.name)
 
   constructor(
-    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
+    private readonly cacheService: CacheService,
     private readonly youtubeiLiveChatInfraService: YoutubeiLiveChatInfraService,
     private readonly nextContinuationsService: NextContinuationsService,
     private readonly streamsService: StreamsService
@@ -63,9 +60,8 @@ export class MainService {
     title: VideoTitle
   }) {
     // 前回の結果を取得（メモリキャッシュ優先、なければDBから）
-    const cacheKey = `${CACHE_KEY_PREFIX}${videoId.get()}`
-    let latestNextContinuation = await this.cacheManager.get<NextContinuation>(
-      cacheKey
+    let latestNextContinuation = this.cacheService.getContinuation(
+      videoId.get()
     )
     if (!latestNextContinuation) {
       latestNextContinuation =
@@ -105,7 +101,7 @@ export class MainService {
         newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
       createdAt: new Date()
     })
-    await this.cacheManager.set(cacheKey, continuationData)
+    this.cacheService.setContinuation(videoId.get(), continuationData)
 
     return {
       newMessages,
