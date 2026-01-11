@@ -5,15 +5,16 @@ import { MainModule } from './main.module'
 import { MainScenario } from './scenario/main.scenario'
 
 /**
- * 実行間隔
+ * 実行時間
+ * Cloud Scheduler は1時間間隔で起動。10分オーバーラップさせて
+ * スパチャを取り逃がさないようにする。
  */
-const INTERVAL_MS = 3600
+const DURATION_MS = 70 * 60 * 1000 // 70分
 /**
- * 1時間、INTERVAL_MS間隔で実行する
- * Cloud Schedulerは1時間間隔。ここに「処理時間」が加わるので実際には
- * 10-15分程度の被り（マージン）がある。
+ * 目標ループ間隔
+ * 実行時間が5秒未満なら待機し、5秒以上かかったら即座に次へ。
  */
-const EXECUTE_COUNT = (3600 * 1000) / INTERVAL_MS
+const TARGET_INTERVAL_MS = 5000
 
 async function bootstrap() {
   const app = await NestFactory.createApplicationContext(MainModule)
@@ -28,14 +29,21 @@ async function delay(ms: number) {
 }
 
 async function executeMain(main: MainScenario) {
-  for (let i = 0; i < EXECUTE_COUNT; i++) {
-    console.time(`executeMain/count:${i + 1}`)
-    await main.execute()
-    console.timeEnd(`executeMain/count:${i + 1}`)
+  const endTime = Date.now() + DURATION_MS
+  let count = 0
 
-    // 待つ（最後の実行後は待たない）
-    if (i < EXECUTE_COUNT) {
-      await delay(INTERVAL_MS)
+  while (Date.now() < endTime) {
+    const startTime = Date.now()
+    count++
+
+    console.time(`executeMain/count:${count}`)
+    await main.execute()
+    console.timeEnd(`executeMain/count:${count}`)
+
+    const elapsed = Date.now() - startTime
+    const waitTime = Math.max(0, TARGET_INTERVAL_MS - elapsed)
+    if (waitTime > 0 && Date.now() + waitTime < endTime) {
+      await delay(waitTime)
     }
   }
 }
