@@ -1,18 +1,23 @@
-import { Injectable, Logger } from '@nestjs/common'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { Cache } from 'cache-manager'
 import dayjs from 'dayjs'
 import { NextContinuationsService } from '@app/next-continuation/next-continuations.service'
 import { StreamsService } from '@app/streams/streams.service'
 import { NextContinuation } from '@domain/next-continuation'
 import { StreamStatus } from '@domain/stream'
-import { VideoId, VideoTitle } from '@domain/youtube'
+import { PublishedAt, VideoId, VideoTitle } from '@domain/youtube'
 import { YoutubeiLiveChatInfraService } from '@infra/service/youtubei'
 import { FirstContinuationFetcher } from '@infra/service/youtubei/utils/FirstContinuationFetcher'
+
+const CACHE_KEY_PREFIX = 'continuation:'
 
 @Injectable()
 export class MainService {
   private readonly logger = new Logger(MainService.name)
 
   constructor(
+    @Inject(CACHE_MANAGER) private readonly cacheManager: Cache,
     private readonly youtubeiLiveChatInfraService: YoutubeiLiveChatInfraService,
     private readonly nextContinuationsService: NextContinuationsService,
     private readonly streamsService: StreamsService
@@ -57,11 +62,17 @@ export class MainService {
     videoId: VideoId
     title: VideoTitle
   }) {
-    // 前回の結果を取得
-    const latestNextContinuation =
-      await this.nextContinuationsService.findLatest({
-        where: { videoId }
-      })
+    // 前回の結果を取得（メモリキャッシュ優先、なければDBから）
+    const cacheKey = `${CACHE_KEY_PREFIX}${videoId.get()}`
+    let latestNextContinuation = await this.cacheManager.get<NextContinuation>(
+      cacheKey
+    )
+    if (!latestNextContinuation) {
+      latestNextContinuation =
+        (await this.nextContinuationsService.findLatest({
+          where: { videoId }
+        })) ?? undefined
+    }
 
     const continuation = await this.getContinuation(
       { videoId, title },
@@ -85,9 +96,20 @@ export class MainService {
     const newMessages = items.selectNewerThan(
       latestNextContinuation?.latestPublishedAt
     )
+
+    // メモリキャッシュを更新（TTL 60秒、次サイクルで即座に参照可能）
+    const continuationData = new NextContinuation({
+      videoId,
+      nextContinuation,
+      latestPublishedAt:
+        newMessages.latestPublishedAt ?? new PublishedAt(new Date()),
+      createdAt: new Date()
+    })
+    await this.cacheManager.set(cacheKey, continuationData)
+
     return {
       newMessages,
-      nextContinuation
+      nextContinuation: continuationData
     }
   }
 
@@ -98,7 +120,7 @@ export class MainService {
    */
   private async getContinuation(
     { videoId, title }: { videoId: VideoId; title: VideoTitle },
-    latestNextContinuation: NextContinuation | null
+    latestNextContinuation?: NextContinuation | null
   ) {
     const isContinuationFresh =
       latestNextContinuation?.createdAt &&
