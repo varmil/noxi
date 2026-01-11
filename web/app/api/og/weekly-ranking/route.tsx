@@ -39,20 +39,18 @@ export async function GET(request: Request) {
   const weekNum = weekMatch ? parseInt(weekMatch[2], 10) : 0
   const dateRange = weekMatch ? getWeekDateRange(year, weekNum) : ''
 
-  const [ranking, groupNameRaw] = await Promise.all([
+  const [ranking, groupName] = await Promise.all([
     getSnapshotSupersRanking({
       period: 'weekly',
       target: week,
       group,
       gender,
-      limit: 6
+      limit: 5
     }),
     group
       ? getGroupName(group, { errorContext: 'weekly-ranking og image' })
       : Promise.resolve('VTuber総合')
   ])
-  // OGP画像用に短縮（テキストが長くなるため）
-  const groupName = groupNameRaw === '個人勢VTuber' ? '個人勢 V' : groupNameRaw
 
   return new ImageResponse(
     <div
@@ -62,14 +60,14 @@ export async function GET(request: Request) {
         display: 'flex',
         width: '100%',
         height: '100%',
-        padding: '34px 24px 34px 34px',
+        padding: '24px 24px',
         textAlign: 'center',
         justifyContent: 'center',
         alignItems: 'center',
         gap: 44
       }}
     >
-      <section tw="flex flex-col items-start justify-between w-[520px] h-full text-4xl font-bold">
+      <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
         <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
           <div style={{ display: 'flex', fontSize: 30 }} tw="text-neutral-500">
             {`${year}年 第${weekNum}週 ${dateRange}`}
@@ -94,7 +92,7 @@ export async function GET(request: Request) {
         </div>
       </section>
 
-      <section style={{ gap: 12 }} tw="flex-1 flex flex-col">
+      <section style={{ gap: 16 }} tw="flex-1 flex flex-col">
         {ranking.map((e, i) => (
           <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
             <div tw="flex items-baseline">
@@ -104,13 +102,13 @@ export async function GET(request: Request) {
               <span tw="text-2xl text-neutral-500">位</span>
             </div>
 
-            <div tw="flex w-[92px] h-[92px] justify-center items-center rounded-full overflow-hidden">
+            <div tw="flex w-[104px] h-[104px] justify-center items-center rounded-full overflow-hidden">
               <img
                 src={e.channelThumbnails}
                 alt={e.channelTitle}
                 style={{
-                  width: 92,
-                  height: 92,
+                  width: 104,
+                  height: 104,
                   objectFit: 'cover'
                 }}
               />
