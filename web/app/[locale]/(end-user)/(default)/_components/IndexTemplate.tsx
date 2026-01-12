@@ -93,7 +93,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             ]}
           />
           {/* ライブ統計カード（Above the fold） */}
-          <div className="flex-1 w-full">
+          <div className="flex-1 w-full @container">
             <LiveStatsCards />
           </div>
         </section>
