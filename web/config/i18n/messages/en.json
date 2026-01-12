@@ -101,6 +101,7 @@
         "liveStats": {
           "liveCount": "Live Now",
           "viewRanking": "View Rankings",
+          "totalSuperChat": "Super Chat Total",
           "totalViewers": "Total Viewers",
           "medianViewers": "Median Viewers"
         }
