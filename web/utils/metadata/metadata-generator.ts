@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
 import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
+import { isSnapshotPeriod } from 'features/channels-ranking/utils/gallery-params'
 import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import {
@@ -116,9 +117,17 @@ export const generateTitleAndDescription = async ({
     )
 
   // 同接ランキング用のSEOタイトル対応
-  const periodKeyword = global(
-    `periodKeyword.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
-  )
+  // スナップショット期間（weekly-xxx, monthly-xxx）の場合は適切なキーワードを使用
+  const periodKeyword = (() => {
+    if (isSnapshotPeriod(period as ChannelsRankingPeriod)) {
+      return period.startsWith('weekly-')
+        ? global('periodKeyword.last7Days') // 週間
+        : global('periodKeyword.last30Days') // 月間
+    }
+    return global(
+      `periodKeyword.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
+    )
+  })()
   // リアルタイムの場合は括弧内の期間を省略
   const periodInParens = period === 'realtime' ? '' : ` (${periodDisplayName})`
 
