@@ -96,6 +96,7 @@
           "liveCount": "ライブ中",
           "viewRanking": "ランキングを見る",
           "totalSuperChat": "スパチャ合計",
+          "monthlyRanking": "月間ランキング",
           "totalViewers": "現在の総同接数",
           "medianViewers": "同接数（中央値）"
         }

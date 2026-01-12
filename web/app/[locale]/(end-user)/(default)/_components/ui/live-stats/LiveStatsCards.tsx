@@ -82,24 +82,37 @@ async function LiveStatsCardsContent() {
         </Card>
       </Link>
 
-      <Card className="justify-center gap-2 shadow-xs">
-        <CardHeader className="gap-0">
-          <CardTitle className="text-sm flex justify-between items-center font-medium">
-            <span className="flex items-center gap-2">
-              <Radio className="stroke-red-600 animate-pulse" size={16} />
-              {t('totalSuperChat')}
-            </span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold tabular-nums">
-            {format.number(Math.round(totalSuperChatAmount), {
-              style: 'currency',
-              currency: 'JPY'
-            })}
-          </div>
-        </CardContent>
-      </Card>
+      <Link
+        href="/ranking/super-chat/channels/all/last30Days"
+        className="block group"
+        prefetch={false}
+      >
+        <Card className="h-full justify-center gap-2 shadow-xs transition-all duration-100 ease-in-out group-hover:shadow-md group-hover:border-muted-foreground/20 cursor-pointer">
+          <CardHeader className="gap-0">
+            <CardTitle className="text-sm flex justify-between items-center font-medium">
+              <span className="flex items-center gap-2">
+                <Radio className="stroke-red-600 animate-pulse" size={16} />
+                {t('totalSuperChat')}
+              </span>
+              <span className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+                {t('monthlyRanking')}
+                <ArrowRight
+                  size={14}
+                  className="transition-transform duration-100 group-hover:translate-x-1"
+                />
+              </span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold tabular-nums">
+              {format.number(Math.round(totalSuperChatAmount), {
+                style: 'currency',
+                currency: 'JPY'
+              })}
+            </div>
+          </CardContent>
+        </Card>
+      </Link>
 
       <div className="col-span-full flex lg:flex-row gap-2 @xl:gap-4">
         <Card className="flex-1 justify-center gap-2 shadow-xs">
