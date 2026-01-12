@@ -16,6 +16,7 @@ model NextContinuation {
   createdAt         DateTime @default(now()) @db.Timestamptz(3)
 
   @@index([videoId, createdAt])
+  @@index([createdAt])
 }
 
 model StreamChatDeletingQueue {
