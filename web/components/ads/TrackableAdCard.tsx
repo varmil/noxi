@@ -38,7 +38,7 @@ export function TrackableAdCard({ adId, adType, children }: Props) {
 
   const handleClick = useCallback(() => {
     window.dataLayer?.push({
-      event: 'ad_click',
+      event: 'noxi_ad_click',
       ad_id: adId,
       ad_type: adType
     })
