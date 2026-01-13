@@ -95,7 +95,7 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/negotiator": "^0.6.4",
     "@types/node": "^24.10.7",
-    "@types/react": "19.2.7",
+    "@types/react": "19.2.8",
     "@types/web-push": "^3.6.4",
     "@typescript-eslint/parser": "^8.52.0",
     "@vitejs/plugin-react": "^5.1.2",
