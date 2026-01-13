@@ -4,6 +4,7 @@ import { AdCardBeta } from 'components/ads/AdCardBeta'
 import { AdCarousel } from 'components/ads/AdCarousel'
 import { AdWantedFromFanCardBeta } from 'components/ads/AdWantedFromFanCardBeta'
 import { AdWantedFromTalentCardBeta } from 'components/ads/AdWantedFromTalentCardBeta'
+import { TrackableAdCard } from 'components/ads/TrackableAdCard'
 import { LookerReport } from 'components/looker/LookerReport'
 import {
   ChannelGrowthRankingContainer,
@@ -82,14 +83,15 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             className="max-w-[350px]"
             cards={[
               ...shuffledAdCards,
-              <AdCardBeta
-                key="sample"
-                type="fan"
-                videoUrl="https://www.youtube.com/watch?v=NsueHCfU1Ak"
-                channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-                description="【サンプル】入稿時に指定した動画、チャンネル、メッセージはこのように表示されます。"
-                fanName="ファンの方の名前"
-              />
+              <TrackableAdCard key="sample" adId="sample-001" adType="fan">
+                <AdCardBeta
+                  type="fan"
+                  videoUrl="https://www.youtube.com/watch?v=NsueHCfU1Ak"
+                  channelUrl="https://www.youtube.com/@ShirakamiFubuki"
+                  description="【サンプル】入稿時に指定した動画、チャンネル、メッセージはこのように表示されます。"
+                  fanName="ファンの方の名前"
+                />
+              </TrackableAdCard>
             ]}
           />
           {/* ライブ統計カード（Above the fold） */}

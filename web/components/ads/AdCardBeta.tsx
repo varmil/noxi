@@ -7,8 +7,6 @@ import { getChannel } from 'apis/youtube/data-api/getChannel'
 import { getVideo } from 'apis/youtube/data-api/getVideo'
 import Image from 'components/styles/Image'
 
-export type AdType = 'official' | 'fan'
-
 interface AdCardProps {
   /** 広告の種類（本人PR or ファン応援） */
   type: AdType
