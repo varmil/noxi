@@ -15,8 +15,8 @@ declare global {
   }
 
   type DataLayerEvent =
-    | { event: 'ad_impression'; ad_id: string; ad_type: AdType }
-    | { event: 'ad_click'; ad_id: string; ad_type: AdType }
+    | { event: 'noxi_ad_impression'; ad_id: string; ad_type: AdType }
+    | { event: 'noxi_ad_click'; ad_id: string; ad_type: AdType }
 
   type AdType = 'official' | 'fan'
 
