@@ -60,6 +60,9 @@ interface ImpressionProps {
 
 /**
  * Intersection Observer でインプレッションを検知する内部コンポーネント
+ *
+ * 注意: ページロード直後に発火すると Google タグ（GA4）の初期化前になる可能性があるため、
+ * 少し遅延させてから Observer を開始する
  */
 function TrackableAdCardImpression({ onImpression, children }: ImpressionProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -68,18 +71,22 @@ function TrackableAdCardImpression({ onImpression, children }: ImpressionProps) 
     const element = ref.current
     if (!element) return
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          onImpression()
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.5 }
-    )
+    // Google タグの初期化を待つため少し遅延
+    const timeoutId = setTimeout(() => {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            onImpression()
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.5 }
+      )
 
-    observer.observe(element)
-    return () => observer.disconnect()
+      observer.observe(element)
+    }, 500)
+
+    return () => clearTimeout(timeoutId)
   }, [onImpression])
 
   return <div ref={ref}>{children}</div>
