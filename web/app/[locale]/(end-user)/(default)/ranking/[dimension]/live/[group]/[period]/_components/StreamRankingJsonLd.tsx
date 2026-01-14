@@ -130,48 +130,35 @@ export async function StreamRankingJsonLd({
   }
 
   // ItemList の構築
-  // 同接数ランキングの場合: VideoObject + author: Person（Google 公式 Carousel パターン準拠）
-  // それ以外: シンプルな ListItem
+  // VideoObject + author: Person（Google 公式 Carousel パターン準拠）
   const channelMap = new Map(channels.map(ch => [ch.basicInfo.id, ch]))
 
-  const itemListElement =
-    dimension === 'concurrent-viewer'
-      ? streams.map((stream, index) => {
-          const channel = channelMap.get(stream.snippet.channelId)
-          return {
-            '@type': 'ListItem' as const,
-            position: (currentPage - 1) * pageSize + index + 1,
-            item: {
-              '@type': 'VideoObject' as const,
-              name: stream.snippet.title,
-              url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`,
-              thumbnailUrl:
-                stream.snippet.thumbnails.high?.url ??
-                stream.snippet.thumbnails.medium?.url ??
-                stream.snippet.thumbnails.default?.url,
-              ...(channel && {
-                author: {
-                  '@type': 'Person' as const,
-                  name: channel.basicInfo.title,
-                  url: `${baseUrl}/${locale}/${channel.peakX.group}/channels/${channel.basicInfo.id}`,
-                  image:
-                    channel.basicInfo.thumbnails.high?.url ??
-                    channel.basicInfo.thumbnails.default?.url
-                }
-              })
-            }
+  const itemListElement = streams.map((stream, index) => {
+    const channel = channelMap.get(stream.snippet.channelId)
+    return {
+      '@type': 'ListItem' as const,
+      position: (currentPage - 1) * pageSize + index + 1,
+      item: {
+        '@type': 'VideoObject' as const,
+        name: stream.snippet.title,
+        url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`,
+        thumbnailUrl:
+          stream.snippet.thumbnails.high?.url ??
+          stream.snippet.thumbnails.medium?.url ??
+          stream.snippet.thumbnails.default?.url,
+        ...(channel && {
+          author: {
+            '@type': 'Person' as const,
+            name: channel.basicInfo.title,
+            url: `${baseUrl}/${locale}/${channel.peakX.group}/channels/${channel.basicInfo.id}`,
+            image:
+              channel.basicInfo.thumbnails.high?.url ??
+              channel.basicInfo.thumbnails.default?.url
           }
         })
-      : streams.map((stream, index) => ({
-          '@type': 'ListItem' as const,
-          position: (currentPage - 1) * pageSize + index + 1,
-          name: stream.snippet.title,
-          image:
-            stream.snippet.thumbnails.high?.url ??
-            stream.snippet.thumbnails.medium?.url ??
-            stream.snippet.thumbnails.default?.url,
-          url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`
-        }))
+      }
+    }
+  })
 
   const itemList = {
     '@context': 'https://schema.org',
@@ -256,7 +243,12 @@ async function fetchRankingData({
     return aIndex - bIndex
   })
 
-  return { streams, count: bundleCount, channels: [] }
+  // チャンネル情報を取得（VideoObject の author 用）
+  const channelIds = [...new Set(streams.map(s => s.snippet.channelId))]
+  const channelsData =
+    channelIds.length > 0 ? await getChannels({ ids: channelIds }) : []
+
+  return { streams, count: bundleCount, channels: channelsData }
 }
 
 /** concurrent-viewer 用のカウントパラメータを作成 */
