@@ -42,7 +42,7 @@ type VideoObjectItem = {
   url: string
   thumbnailUrl: string | undefined
   uploadDate: string
-  embedUrl: string
+  contentUrl: string
   author?: VideoObjectAuthor
 }
 
@@ -271,7 +271,7 @@ export function buildStreamItemList(
           url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`,
           thumbnailUrl: stream.thumbnailUrl,
           uploadDate: stream.publishedAt,
-          embedUrl: `https://www.youtube.com/embed/${stream.videoId}`,
+          contentUrl: `https://www.youtube.com/watch?v=${stream.videoId}`,
           ...(channel && {
             author: {
               '@type': 'Person',

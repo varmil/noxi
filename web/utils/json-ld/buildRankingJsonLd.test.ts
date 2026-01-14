@@ -258,7 +258,7 @@ describe('buildStreamItemList', () => {
     expect(firstItem.item.url).toBe('https://example.com/ja/youtube/live/vid1')
     expect(firstItem.item.thumbnailUrl).toBe('https://example.com/vid1.jpg')
     expect(firstItem.item.uploadDate).toBe('2024-01-15T10:00:00Z')
-    expect(firstItem.item.embedUrl).toBe('https://www.youtube.com/embed/vid1')
+    expect(firstItem.item.contentUrl).toBe('https://www.youtube.com/watch?v=vid1')
     expect(firstItem.item.author).toEqual({
       '@type': 'Person',
       name: 'チャンネル1',
