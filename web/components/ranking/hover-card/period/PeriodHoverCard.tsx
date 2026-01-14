@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+import { useFormatter, useTranslations } from 'next-intl'
 import {
   Popover,
   PopoverContent,
@@ -14,12 +14,17 @@ import {
   Item,
   Title
 } from 'components/ranking/hover-card/base/RankingHoverCard'
-import dayjs from 'lib/dayjs'
+
+/** タイムゾーンを明示的に指定してサーバー/クライアントで一致させる */
+const TIME_ZONE = 'Asia/Tokyo'
 
 type Props = {
-  start: dayjs.ConfigType
-  end: dayjs.ConfigType
-  updatedAt?: dayjs.ConfigType
+  /** ISO 8601 文字列 */
+  start: string
+  /** ISO 8601 文字列 */
+  end: string
+  /** ISO 8601 文字列 */
+  updatedAt?: string
   criteriaDescription: string
 }
 
@@ -30,15 +35,23 @@ export default function PeriodHoverCard({
   criteriaDescription
 }: Props) {
   const t = useTranslations('Components.ranking.hoverCard')
-  const startFormatted = dayjs(start).format('YYYY/MM/DD HH:mm')
-  const endFormatted = dayjs(end).format('YYYY/MM/DD HH:mm')
+  const format = useFormatter()
+
+  const formatDate = (dateString: string) =>
+    format.dateTime(new Date(dateString), {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZone: TIME_ZONE
+    })
 
   return (
     <>
       {/* SEO用の非表示テキスト */}
-      {/* suppressHydrationWarning: サーバー(UTC)とクライアント(ユーザーTZ)でフォーマット結果が異なるため */}
-      <span className="sr-only" suppressHydrationWarning>
-        {t('period')}: {startFormatted} - {endFormatted}, {t('criteria')}:{' '}
+      <span className="sr-only">
+        {t('period')}: {formatDate(start)} - {formatDate(end)}, {t('criteria')}:{' '}
         {criteriaDescription}
       </span>
 
@@ -57,9 +70,9 @@ export default function PeriodHoverCard({
               <ItemTitle>{t('period')}</ItemTitle>
               <DatetimeContainer>
                 <div className="text-muted-foreground">{t('start')}</div>
-                <Datetime date={dayjs(start).toDate()} />
+                <Datetime date={start} />
                 <div className="text-muted-foreground">{t('end')}</div>
-                <Datetime date={dayjs(end).toDate()} />
+                <Datetime date={end} />
               </DatetimeContainer>
             </Item>
 
@@ -67,7 +80,7 @@ export default function PeriodHoverCard({
               <Item>
                 <ItemTitle>{t('updatedAt')}</ItemTitle>
                 <ItemDescription>
-                  <Datetime date={dayjs(updatedAt).toDate()} />
+                  <Datetime date={updatedAt} />
                 </ItemDescription>
               </Item>
             ) : null}

@@ -27,6 +27,9 @@ export default async function MostCheeredGallery(
 ) {
   const { period, group, gender, date, page, className } = props
 
+  // Client Component（TableTitle）に渡す日時を Server Component で確定させる
+  const titleDate = (date ? new Date(date) : new Date()).toISOString()
+
   const groupName = await getGroupName(group, {
     errorContext: 'most-cheered gallery'
   })
@@ -45,7 +48,7 @@ export default async function MostCheeredGallery(
         period={period}
         groupName={groupName}
         gender={gender}
-        date={date ? new Date(date) : undefined}
+        date={titleDate}
         className={`${PageXSPX} sm:px-0`}
       />
 

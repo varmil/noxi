@@ -66,11 +66,7 @@ export default function ChannelsRankingTableTitle({
       </section>
 
       <div className="flex items-baseline gap-x-3">
-        <PeriodHoverCardFactory
-          type="channels"
-          period={period}
-          date={new Date(date)}
-        />
+        <PeriodHoverCardFactory type="channels" period={period} date={date} />
         {period === 'last24Hours' && (
           <RealtimeStatusBadge
             href={`${pathname}${createQueryString('date', null)}`}

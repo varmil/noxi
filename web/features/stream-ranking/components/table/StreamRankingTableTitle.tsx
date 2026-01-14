@@ -15,6 +15,8 @@ type Props = PropsWithChildren<{
   period: StreamRankingPeriod
   groupName: string
   gender?: Gender
+  /** ISO 8601 文字列 */
+  date: string
   className?: string
 }>
 
@@ -23,6 +25,7 @@ export default function StreamRankingTableTitle({
   period,
   groupName,
   gender,
+  date,
   className
 }: Props) {
   const global = useTranslations('Global')
@@ -65,7 +68,7 @@ export default function StreamRankingTableTitle({
         <RankingTableTitleH1 title={title} />
         <RankingTableTitleDescription>{description}</RankingTableTitleDescription>
       </section>
-      <PeriodHoverCardFactory type="live" period={period} />
+      <PeriodHoverCardFactory type="live" period={period} date={date} />
     </RankingTableTitleContainer>
   )
 }

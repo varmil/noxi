@@ -27,6 +27,10 @@ export default async function StreamRankingGallery(
 ) {
   const { period, dimension, group, gender, page, className } = props
 
+  // Client Component（TableTitle）に渡す日時を Server Component で確定させる
+  // これにより、サーバーとクライアントで一貫した値になりハイドレーションエラーを防ぐ
+  const titleDate = new Date().toISOString()
+
   const groupName = await getGroupName(group, {
     errorContext: 'stream ranking gallery'
   })
@@ -65,6 +69,7 @@ export default async function StreamRankingGallery(
         dimension={dimension}
         groupName={groupName}
         gender={gender}
+        date={titleDate}
         className={`${PageXSPX} sm:px-0`}
       />
 
