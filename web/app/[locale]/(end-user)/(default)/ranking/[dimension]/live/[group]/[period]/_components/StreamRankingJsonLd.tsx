@@ -1,7 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
 import { getSupersBundles, getSupersBundlesCount } from 'apis/supers/getSupersBundles'
+import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams, getStreamsCount } from 'apis/youtube/getStreams'
+import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import {
@@ -62,7 +64,7 @@ export async function StreamRankingJsonLd({
   })
 
   // 並列でデータ取得
-  const [global, metadata, dimensionName, { streams, count }] =
+  const [global, metadata, dimensionName, { streams, count, channels }] =
     await Promise.all([
       getTranslations({ locale: localeTyped, namespace: 'Global' }),
       generateTitleAndDescription({
@@ -128,6 +130,49 @@ export async function StreamRankingJsonLd({
   }
 
   // ItemList の構築
+  // 同接数ランキングの場合: VideoObject + author: Person（Google 公式 Carousel パターン準拠）
+  // それ以外: シンプルな ListItem
+  const channelMap = new Map(channels.map(ch => [ch.basicInfo.id, ch]))
+
+  const itemListElement =
+    dimension === 'concurrent-viewer'
+      ? streams.map((stream, index) => {
+          const channel = channelMap.get(stream.snippet.channelId)
+          return {
+            '@type': 'ListItem' as const,
+            position: (currentPage - 1) * pageSize + index + 1,
+            item: {
+              '@type': 'VideoObject' as const,
+              name: stream.snippet.title,
+              url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`,
+              thumbnailUrl:
+                stream.snippet.thumbnails.high?.url ??
+                stream.snippet.thumbnails.medium?.url ??
+                stream.snippet.thumbnails.default?.url,
+              ...(channel && {
+                author: {
+                  '@type': 'Person' as const,
+                  name: channel.basicInfo.title,
+                  url: `${baseUrl}/${locale}/${channel.peakX.group}/channels/${channel.basicInfo.id}`,
+                  image:
+                    channel.basicInfo.thumbnails.high?.url ??
+                    channel.basicInfo.thumbnails.default?.url
+                }
+              })
+            }
+          }
+        })
+      : streams.map((stream, index) => ({
+          '@type': 'ListItem' as const,
+          position: (currentPage - 1) * pageSize + index + 1,
+          name: stream.snippet.title,
+          image:
+            stream.snippet.thumbnails.high?.url ??
+            stream.snippet.thumbnails.medium?.url ??
+            stream.snippet.thumbnails.default?.url,
+          url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`
+        }))
+
   const itemList = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
@@ -135,16 +180,7 @@ export async function StreamRankingJsonLd({
     description: metadata.description,
     itemListOrder: 'https://schema.org/ItemListOrderDescending',
     numberOfItems: count,
-    itemListElement: streams.map((stream, index) => ({
-      '@type': 'ListItem',
-      position: (currentPage - 1) * pageSize + index + 1,
-      name: stream.snippet.title,
-      image:
-        stream.snippet.thumbnails.high?.url ??
-        stream.snippet.thumbnails.medium?.url ??
-        stream.snippet.thumbnails.default?.url,
-      url: `${baseUrl}/${locale}/youtube/live/${stream.videoId}`
-    }))
+    itemListElement
   }
 
   return (
@@ -175,6 +211,7 @@ async function fetchRankingData({
 }): Promise<{
   streams: StreamsSchema
   count: number
+  channels: ChannelsSchema
 }> {
   const { gender, page } = searchParams
 
@@ -185,7 +222,13 @@ async function fetchRankingData({
       getStreams(params),
       getStreamsCount(countParams)
     ])
-    return { streams: streamsData, count: countData }
+
+    // チャンネル情報を取得（VideoObject の author 用）
+    const channelIds = [...new Set(streamsData.map(s => s.snippet.channelId))]
+    const channelsData =
+      channelIds.length > 0 ? await getChannels({ ids: channelIds }) : []
+
+    return { streams: streamsData, count: countData, channels: channelsData }
   }
 
   // super-chat dimension
@@ -197,7 +240,7 @@ async function fetchRankingData({
   ])
 
   if (bundles.length === 0) {
-    return { streams: [], count: bundleCount }
+    return { streams: [], count: bundleCount, channels: [] }
   }
 
   // bundle からストリーム情報を取得
@@ -213,7 +256,7 @@ async function fetchRankingData({
     return aIndex - bIndex
   })
 
-  return { streams, count: bundleCount }
+  return { streams, count: bundleCount, channels: [] }
 }
 
 /** concurrent-viewer 用のカウントパラメータを作成 */

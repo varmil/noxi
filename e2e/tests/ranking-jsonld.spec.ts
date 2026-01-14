@@ -220,7 +220,9 @@ test.describe('ライブランキング JSON-LD', () => {
   })
 
   test.describe('ItemList', () => {
-    test('同接数ランキングに ItemList が含まれる', async ({ page }) => {
+    test('同接数ランキングに VideoObject + author 構造の ItemList が含まれる', async ({
+      page
+    }) => {
       await page.goto('/ja/ranking/concurrent-viewer/live/all/last30Days')
 
       const jsonLdList = await getJsonLdScripts(page)
@@ -235,13 +237,27 @@ test.describe('ライブランキング JSON-LD', () => {
       const items = itemList!['itemListElement'] as Record<string, unknown>[]
       expect(items.length).toBeLessThanOrEqual(20)
 
-      // アイテムが存在する場合、構造を確認
+      // アイテムが存在する場合、VideoObject + author 構造を確認
       if (items.length > 0) {
         const firstItem = items[0]
         expect(firstItem['@type']).toBe('ListItem')
         expect(firstItem['position']).toBe(1)
-        expect(firstItem['name']).toBeDefined()
-        expect(firstItem['url']).toContain('/youtube/live/')
+
+        // item プロパティに VideoObject がネストされている
+        const videoObject = firstItem['item'] as Record<string, unknown>
+        expect(videoObject).toBeDefined()
+        expect(videoObject['@type']).toBe('VideoObject')
+        expect(videoObject['name']).toBeDefined()
+        expect(videoObject['url']).toContain('/youtube/live/')
+        expect(videoObject['thumbnailUrl']).toBeDefined()
+
+        // author に Person（チャンネル情報）が含まれる
+        const author = videoObject['author'] as Record<string, unknown>
+        if (author) {
+          expect(author['@type']).toBe('Person')
+          expect(author['name']).toBeDefined()
+          expect(author['url']).toContain('/channels/')
+        }
       }
     })
   })
