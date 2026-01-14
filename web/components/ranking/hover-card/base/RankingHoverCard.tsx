@@ -5,7 +5,11 @@ import dayjs from 'lib/dayjs'
 export const PopoverDate = ({ date }: { date: dayjs.ConfigType }) => {
   const formatter = useFormatter()
   return (
-    <div className="text-muted-foreground underline decoration-1 underline-offset-4 decoration-dashed decoration-slate-400 decoration">
+    // suppressHydrationWarning: サーバー(UTC)とクライアント(ユーザーTZ)でフォーマット結果が異なるため
+    <div
+      className="text-muted-foreground underline decoration-1 underline-offset-4 decoration-dashed decoration-slate-400 decoration"
+      suppressHydrationWarning
+    >
       {formatter.dateTime(dayjs(date).toDate(), {
         year: 'numeric',
         month: '2-digit',
@@ -43,7 +47,8 @@ export const DatetimeContainer = ({ children }: PropsWithChildren) => (
 export const Datetime = ({ date }: { date: Date | number }) => {
   const formatter = useFormatter()
   return (
-    <div>
+    // suppressHydrationWarning: サーバー(UTC)とクライアント(ユーザーTZ)でフォーマット結果が異なるため
+    <div suppressHydrationWarning>
       {formatter.dateTime(date, {
         dateStyle: 'medium',
         timeStyle: 'short'

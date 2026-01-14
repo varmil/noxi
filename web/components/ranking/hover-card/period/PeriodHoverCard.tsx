@@ -36,7 +36,8 @@ export default function PeriodHoverCard({
   return (
     <>
       {/* SEO用の非表示テキスト */}
-      <span className="sr-only">
+      {/* suppressHydrationWarning: サーバー(UTC)とクライアント(ユーザーTZ)でフォーマット結果が異なるため */}
+      <span className="sr-only" suppressHydrationWarning>
         {t('period')}: {startFormatted} - {endFormatted}, {t('criteria')}:{' '}
         {criteriaDescription}
       </span>
