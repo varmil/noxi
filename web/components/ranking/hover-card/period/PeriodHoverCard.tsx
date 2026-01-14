@@ -15,9 +15,6 @@ import {
   Title
 } from 'components/ranking/hover-card/base/RankingHoverCard'
 
-/** タイムゾーンを明示的に指定してサーバー/クライアントで一致させる */
-const TIME_ZONE = 'Asia/Tokyo'
-
 type Props = {
   /** ISO 8601 文字列 */
   start: string
@@ -43,8 +40,7 @@ export default function PeriodHoverCard({
       month: '2-digit',
       day: '2-digit',
       hour: '2-digit',
-      minute: '2-digit',
-      timeZone: TIME_ZONE
+      minute: '2-digit'
     })
 
   return (

@@ -1,9 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { useFormatter } from 'next-intl'
 
-/** タイムゾーンを明示的に指定してサーバー/クライアントで一致させる */
-const TIME_ZONE = 'Asia/Tokyo'
-
 export const PopoverDate = ({ date }: { date: string }) => {
   const format = useFormatter()
   return (
@@ -12,8 +9,7 @@ export const PopoverDate = ({ date }: { date: string }) => {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
-        weekday: 'short',
-        timeZone: TIME_ZONE
+        weekday: 'short'
       })}
     </div>
   )
@@ -49,8 +45,7 @@ export const Datetime = ({ date }: { date: string }) => {
     <div>
       {format.dateTime(new Date(date), {
         dateStyle: 'medium',
-        timeStyle: 'short',
-        timeZone: TIME_ZONE
+        timeStyle: 'short'
       })}
     </div>
   )
