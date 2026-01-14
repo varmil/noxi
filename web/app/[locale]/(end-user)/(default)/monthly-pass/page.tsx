@@ -9,7 +9,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Link } from 'lib/navigation'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { CheckoutButtonUsingDialog } from './components/CheckoutButtonUsingDialog'
 import { MonthlyPassFeatures } from './components/MonthlyPassFeatures'
 import type { Metadata } from 'next'
@@ -25,9 +25,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: '月額パス - VCharts',
     description:
       'VChartsの月額パスに加入して、認証バッジの獲得や追加の応援チケットなどの特典をお楽しみください。',
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/monthly-pass`
-    }
+    alternates: getAlternates({ pathname: '/monthly-pass', locale })
   }
 }
 

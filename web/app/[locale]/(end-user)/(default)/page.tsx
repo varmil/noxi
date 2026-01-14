@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
 import { DaysOption, DEFAULT_DAYS } from 'features/charts/types/chart-filter'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { getWebUrl } from 'utils/web-url'
 import { IndexTemplate } from './_components/IndexTemplate'
 
@@ -21,7 +22,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `${page('metadata.title')} - ${global('title')}`,
     description: `${page('metadata.description')}`,
-    alternates: { canonical: `${getWebUrl()}/${locale}` }
+    alternates: getAlternates({ pathname: '', locale }),
+    openGraph: {
+      images: [{ url: `${getWebUrl()}/vcharts/ogp-toppage.png` }]
+    }
   }
 }
 

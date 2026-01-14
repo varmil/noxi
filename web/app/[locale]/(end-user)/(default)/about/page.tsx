@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -24,9 +24,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `${t('title')} | ${tg('title')}`,
     description: `${t('description')}`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/about`
-    }
+    alternates: getAlternates({ pathname: '/about', locale })
   }
 }
 

@@ -2,7 +2,7 @@ import { use } from 'react'
 import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { LegalInformation } from './components/LegalInformation'
 
 type Props = {
@@ -20,9 +20,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `特定商取引法に基づく表記 | ${tg('title')}`,
     description: `特定商取引法に基づく表記`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/legal/tokushoho`
-    }
+    alternates: getAlternates({ pathname: '/legal/tokushoho', locale })
   }
 }
 

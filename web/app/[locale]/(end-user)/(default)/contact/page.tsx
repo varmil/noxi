@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert'
 import { Page } from 'components/page'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -23,9 +23,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `${page('title')} - ${global('title')}`,
     description: `${page('description')}`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/contact`
-    }
+    alternates: getAlternates({ pathname: '/contact', locale })
   }
 }
 

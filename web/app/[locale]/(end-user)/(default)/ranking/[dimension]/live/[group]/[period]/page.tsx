@@ -7,9 +7,10 @@ import {
   StreamRankingSearchParams
 } from 'features/stream-ranking/types/stream-ranking.type'
 import { StreamRankingPeriod } from 'types/period'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { getWebUrl } from 'utils/web-url'
 import IndexTemplate from './_components/IndexTemplate'
+import { StreamRankingJsonLd } from './_components/StreamRankingJsonLd'
 
 type Props = {
   params: Promise<{
@@ -28,6 +29,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     errorContext: 'live ranking page (metadata)'
   })
 
+  // canonical period: concurrent-viewer は realtime、super-chat は last30Days
+  const canonicalPeriod = dimension === 'concurrent-viewer' ? 'realtime' : 'last30Days'
+
   return {
     ...(await generateTitleAndDescription({
       locale: locale as 'ja' | 'en',
@@ -39,9 +43,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       gender,
       page
     })),
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/live/${groupId}/${period}`
-    }
+    alternates: getAlternates({
+      pathname: `/ranking/${dimension}/live/${groupId}/${canonicalPeriod}`,
+      locale
+    })
   }
 }
 
@@ -53,6 +58,13 @@ export default async function RankingLivePage(props: Props) {
   setRequestLocale(locale as 'ja' | 'en')
   return (
     <Page noPadding fullWidth ads>
+      <StreamRankingJsonLd
+        locale={locale}
+        dimension={dimension}
+        group={groupId}
+        period={period}
+        searchParams={searchParams}
+      />
       <IndexTemplate
         period={period}
         dimension={dimension}

@@ -7,7 +7,7 @@ import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemp
 
 import LocalNavigationForChannelsIdPages from 'features/channel/components/local-navigation/LocalNavigationForChannelsIdPages'
 import { setGroup } from 'lib/server-only-context/cache'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { ChannelProfileTemplate } from '../ui/profile/ChannelProfileTemplate'
 
 export type ChannelsIdBasePageProps = {
@@ -49,9 +49,11 @@ export async function generateBaseMetadata(
     description: `${t('description', {
       channel: basicInfo.title
     })}`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/${group}/channels/${id}`
-    }
+    // サブページも含め canonical は /${group}/channels/${id} に統一
+    alternates: getAlternates({
+      pathname: `/${group}/channels/${id}`,
+      locale
+    })
   }
 }
 

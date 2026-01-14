@@ -7,7 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { AuthCard } from 'components/auth/card/AuthCard'
 import { Page } from 'components/page'
 import { Link } from 'lib/navigation'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -27,7 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `${page('metadata.title')} - ${global('title')}`,
     description: `${page('metadata.description')}`,
-    alternates: { canonical: `${getWebUrl()}/${locale}/auth/signin` }
+    alternates: getAlternates({ pathname: '/auth/signin', locale })
   }
 }
 
