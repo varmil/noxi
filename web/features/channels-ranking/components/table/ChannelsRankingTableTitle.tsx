@@ -21,7 +21,7 @@ type Props = PropsWithChildren<{
   dimension: ChannelsRankingDimension
   groupName: string
   gender?: Gender
-  date?: Date
+  date: Date
   className?: string
 }>
 
