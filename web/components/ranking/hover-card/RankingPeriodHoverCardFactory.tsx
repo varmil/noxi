@@ -26,13 +26,12 @@ export default function PeriodHoverCardFactory({ type, period, date }: Props) {
   }
 
   const regularPeriod = period as Period
-  const dateObj = new Date(date)
 
   let updatedAt: string | undefined
   let criteriaDescription = ''
   switch (type) {
     case 'channels':
-      updatedAt = getUpdatedAt(regularPeriod, dateObj).toISOString()
+      updatedAt = getUpdatedAt(regularPeriod, date).toISOString()
       criteriaDescription = comp('criteriaDescription.channels')
       break
     case 'live':
@@ -52,8 +51,8 @@ export default function PeriodHoverCardFactory({ type, period, date }: Props) {
   return (
     <div className="flex items-baseline gap-x-3">
       <PeriodHoverCard
-        start={getStartOf(regularPeriod, dateObj).toISOString()}
-        end={getEndOf(regularPeriod, dateObj).toISOString()}
+        start={getStartOf(regularPeriod, date).toISOString()}
+        end={getEndOf(regularPeriod, date).toISOString()}
         updatedAt={updatedAt}
         criteriaDescription={criteriaDescription}
       />
