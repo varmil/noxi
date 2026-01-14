@@ -5,7 +5,7 @@ import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { ChannelGallerySearchParams } from 'features/group/types/channel-gallery'
 import { setGroup } from 'lib/server-only-context/cache'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { ChartTemplate } from './_components/ChartTemplate'
 
 type Props = {
@@ -27,9 +27,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `${t('metadata.title', { group: groupName })} - ${tg('title')}`,
     description: `${t('metadata.description', { group: groupName })}`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/${groupId}/charts/channels`
-    }
+    alternates: getAlternates({ pathname: `/${groupId}/charts/channels`, locale })
   }
 }
 

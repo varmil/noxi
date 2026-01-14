@@ -5,7 +5,7 @@ import { IndexTemplate } from 'app/[locale]/(end-user)/(default)/[group]/live/_c
 import { Page } from 'components/page'
 import LocalNavigationForGroupPages from 'features/group/local-navigation/LocalNavigationForGroupPages'
 import { setGroup } from 'lib/server-only-context/cache'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 
 type Props = {
   params: Promise<{
@@ -28,9 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   return {
     title: `${t('title', { group: groupName })} - ${tg('title')}`,
     description: `${t('description', { group: groupName })}`,
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/${groupId}/live`
-    }
+    alternates: getAlternates({ pathname: `/${groupId}/live`, locale })
   }
 }
 

@@ -88,6 +88,8 @@
     "ended": "Past live streams",
     "channelsRanking": "VTuber",
     "superChatRanking": "Super Chat Ranking (All)",
+    "liveSuperChatRanking": "Super Chat Ranking (Per Stream)",
+    "subscriberRanking": "Subscriber Ranking",
     "concurrentViewerRanking": "Concurrent Viewer Ranking (All)"
   },
 

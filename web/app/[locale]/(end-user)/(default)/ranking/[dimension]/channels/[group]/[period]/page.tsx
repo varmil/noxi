@@ -13,9 +13,10 @@ import {
 } from 'features/channels-ranking/utils/gallery-params'
 import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod } from 'types/period'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
-import { getWebUrl } from 'utils/web-url'
+import { ChannelsRankingJsonLd } from './_components/ChannelsRankingJsonLd'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
@@ -75,9 +76,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       }
     }),
     /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
-    alternates: {
-      canonical: `${getWebUrl()}/${locale}/ranking/${dimension}/channels/${groupId}/${dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'}`
-    }
+    alternates: getAlternates({
+      pathname: `/ranking/${dimension}/channels/${groupId}/${dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'}`,
+      locale
+    })
   }
 }
 
@@ -90,6 +92,13 @@ export default async function RankingChannelsPage(props: Props) {
 
   return (
     <Page noPadding fullWidth ads>
+      <ChannelsRankingJsonLd
+        locale={locale}
+        dimension={dimension}
+        group={groupId}
+        period={period}
+        searchParams={searchParams}
+      />
       <RankHighlighter>
         <IndexTemplate
           period={period}
