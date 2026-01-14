@@ -10,7 +10,7 @@ import DefaultLayout from 'components/layouts/DefaultLayout'
 import AutoRouterRefresh from 'components/router/AutoRouterRefresh'
 import { setGroup } from 'lib/server-only-context/cache'
 import { formatMicrosAsRoundedAmount } from 'utils/amount'
-import { getWebUrl } from 'utils/web-url'
+import { getAlternates } from 'utils/metadata/getAlternates'
 import DefaultModeTemplate from '../template/DefaultModeTemplate'
 
 const TITLE_MAX_LENGTH = 22
@@ -57,13 +57,14 @@ export async function generateBaseMetadata(
     ? t('commentForMembersOnly')
     : superChats.map(s => s.userComment).join(', ')
 
-  // 100万円以上であればindex, それ未満ならnoindex
+  // 100万円以上であればindex + hreflang, それ未満ならnoindex
   const indexOption =
     bundle?.amountMicros && bundle.amountMicros >= BigInt(1_000_000 * 1_000_000)
       ? {
-          alternates: {
-            canonical: `${getWebUrl()}/${locale}/youtube/live/${videoId}`
-          }
+          alternates: getAlternates({
+            pathname: `/youtube/live/${videoId}`,
+            locale
+          })
         }
       : { robots: { index: false } }
 
