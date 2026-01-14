@@ -27,8 +27,8 @@ export default async function TopFansGallery(
 ) {
   const { period, group, gender, date, page, className } = props
 
-  // Client Component（TableTitle）に渡す日時を Server Component で確定させる
-  const titleDate = (date ? new Date(date) : new Date()).toISOString()
+  // Client Component に渡す日時を Server Component で確定させてハイドレーションエラーを防ぐ
+  const titleDate = date || new Date().toISOString()
 
   const groupName = await getGroupName(group, {
     errorContext: 'top-fans gallery'
