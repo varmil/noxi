@@ -1,7 +1,13 @@
 import { getTranslations } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
-import { getSupersSummaries, getSupersSummariesCount } from 'apis/supers/getSupersSummaries'
-import { getSupersSnapshotRanking, getSupersSnapshotRankingCount } from 'apis/supers-snapshots/getRanking'
+import {
+  getSupersSummaries,
+  getSupersSummariesCount
+} from 'apis/supers/getSupersSummaries'
+import {
+  getSupersSnapshotRanking,
+  getSupersSnapshotRankingCount
+} from 'apis/supers-snapshots/getRanking'
 import { getChannels, getChannelsCount } from 'apis/youtube/getChannels'
 import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import {
@@ -17,6 +23,11 @@ import {
   isSnapshotPeriod
 } from 'features/channels-ranking/utils/gallery-params'
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
+import {
+  buildBreadcrumbList,
+  buildChannelItemList,
+  ChannelForItemList
+} from 'utils/json-ld/buildRankingJsonLd'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getWebUrl } from 'utils/web-url'
 
@@ -82,70 +93,50 @@ export async function ChannelsRankingJsonLd({
     ])
 
   // 期間の表示名を取得
-   
-  const periodName = getPeriodDisplayName(period, key => (global as any)(key), localeTyped)
+  const periodName = getPeriodDisplayName(
+    period,
+    key => (global as (key: string) => string)(key),
+    localeTyped
+  )
 
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
-  // BreadcrumbList の構築（重複URLを避けるため条件付きで追加）
-  const breadcrumbItems: Array<{
-    '@type': 'ListItem'
-    position: number
-    name: string
-    item: string
-  }> = []
-
-  // Position 1: dimension（常に追加）
-  breadcrumbItems.push({
-    '@type': 'ListItem',
-    position: breadcrumbItems.length + 1,
-    name: dimensionName,
-    item: `${baseUrl}/${locale}/ranking/${dimension}/channels/all/${canonicalPeriod}`
+  // BreadcrumbList の構築
+  const breadcrumbList = buildBreadcrumbList({
+    baseUrl,
+    locale,
+    rankingType: 'channels',
+    dimension,
+    group,
+    period,
+    canonicalPeriod,
+    dimensionName,
+    groupName,
+    periodName
   })
 
-  // Position 2: group（all以外のときのみ追加）
-  if (group !== 'all') {
-    breadcrumbItems.push({
-      '@type': 'ListItem',
-      position: breadcrumbItems.length + 1,
-      name: groupName,
-      item: `${baseUrl}/${locale}/ranking/${dimension}/channels/${group}/${canonicalPeriod}`
-    })
-  }
-
-  // Position 3: period（canonicalPeriod以外のときのみ追加）
-  if (period !== canonicalPeriod) {
-    breadcrumbItems.push({
-      '@type': 'ListItem',
-      position: breadcrumbItems.length + 1,
-      name: periodName,
-      item: `${baseUrl}/${locale}/ranking/${dimension}/channels/${group}/${period}`
-    })
-  }
-
-  const breadcrumbList = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: breadcrumbItems
-  }
+  // ItemList 用にデータを変換
+  const channelsForItemList: ChannelForItemList[] = channels.map(channel => ({
+    id: channel.basicInfo.id,
+    title: channel.basicInfo.title,
+    thumbnailUrl:
+      channel.basicInfo.thumbnails.high?.url ??
+      channel.basicInfo.thumbnails.default?.url,
+    group: channel.peakX.group
+  }))
 
   // ItemList の構築
-  const itemList = {
-    '@context': 'https://schema.org',
-    '@type': 'ItemList',
-    name: metadata.title,
+  const itemList = buildChannelItemList({
+    baseUrl,
+    locale,
+    title: metadata.title as string | undefined,
     description: metadata.description,
-    itemListOrder: 'https://schema.org/ItemListOrderDescending',
-    numberOfItems: count,
-    itemListElement: channels.map((channel, index) => ({
-      '@type': 'ListItem',
-      position: (currentPage - 1) * pageSize + index + 1,
-      name: channel.basicInfo.title,
-      image: channel.basicInfo.thumbnails.high?.url ?? channel.basicInfo.thumbnails.default?.url,
-      url: `${baseUrl}/${locale}/${channel.peakX.group}/channels/${channel.basicInfo.id}`
-    }))
-  }
+    totalCount: count,
+    currentPage,
+    pageSize,
+    channels: channelsForItemList
+  })
 
   return (
     <>
@@ -210,7 +201,12 @@ async function fetchRankingData({
     channelIds = snapshots.map(snapshot => snapshot.channelId)
     count = snapshotCount
   } else {
-    const summaryParams = getSupersSummariesParams({ period, group, gender, page })
+    const summaryParams = getSupersSummariesParams({
+      period,
+      group,
+      gender,
+      page
+    })
     const [summaries, summaryCount] = await Promise.all([
       getSupersSummaries(summaryParams),
       getSupersSummariesCount(summaryParams)
