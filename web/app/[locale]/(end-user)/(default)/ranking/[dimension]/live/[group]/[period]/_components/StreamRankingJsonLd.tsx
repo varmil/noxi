@@ -115,7 +115,8 @@ export async function StreamRankingJsonLd({
       stream.snippet.thumbnails.high?.url ??
       stream.snippet.thumbnails.medium?.url ??
       stream.snippet.thumbnails.default?.url,
-    channelId: stream.snippet.channelId
+    channelId: stream.snippet.channelId,
+    publishedAt: stream.snippet.publishedAt
   }))
 
   const channelMap = new Map<string, ChannelForAuthor>(

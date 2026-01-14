@@ -218,13 +218,15 @@ describe('buildStreamItemList', () => {
         videoId: 'vid1',
         title: '配信タイトル1',
         thumbnailUrl: 'https://example.com/vid1.jpg',
-        channelId: 'ch1'
+        channelId: 'ch1',
+        publishedAt: '2024-01-15T10:00:00Z'
       },
       {
         videoId: 'vid2',
         title: '配信タイトル2',
         thumbnailUrl: 'https://example.com/vid2.jpg',
-        channelId: 'ch2'
+        channelId: 'ch2',
+        publishedAt: '2024-01-14T15:30:00Z'
       }
     ],
     channelMap
@@ -255,6 +257,8 @@ describe('buildStreamItemList', () => {
     expect(firstItem.item.name).toBe('配信タイトル1')
     expect(firstItem.item.url).toBe('https://example.com/ja/youtube/live/vid1')
     expect(firstItem.item.thumbnailUrl).toBe('https://example.com/vid1.jpg')
+    expect(firstItem.item.uploadDate).toBe('2024-01-15T10:00:00Z')
+    expect(firstItem.item.embedUrl).toBe('https://www.youtube.com/embed/vid1')
     expect(firstItem.item.author).toEqual({
       '@type': 'Person',
       name: 'チャンネル1',
@@ -271,7 +275,8 @@ describe('buildStreamItemList', () => {
           videoId: 'vid3',
           title: '配信タイトル3',
           thumbnailUrl: 'https://example.com/vid3.jpg',
-          channelId: 'unknown-channel'
+          channelId: 'unknown-channel',
+          publishedAt: '2024-01-13T12:00:00Z'
         }
       ],
       channelMap: new Map()
