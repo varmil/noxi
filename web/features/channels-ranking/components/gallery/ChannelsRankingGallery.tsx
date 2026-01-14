@@ -39,6 +39,9 @@ export default async function ChannelsRankingGallery(
 
   const { period, dimension, group, gender, date, page, className } = props
 
+  // Client Component に渡す日時を Server Component で確定させてハイドレーションエラーを防ぐ
+  const titleDate = date || new Date().toISOString()
+
   const groupName = await getGroupName(group, {
     errorContext: 'channels ranking gallery'
   })
@@ -71,7 +74,7 @@ export default async function ChannelsRankingGallery(
         period={period}
         groupName={groupName}
         gender={gender}
-        date={date ? new Date(date) : undefined}
+        date={titleDate}
         className={`${PageXSPX} sm:px-0`}
       />
 

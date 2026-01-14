@@ -13,7 +13,8 @@ type Props = PropsWithChildren<{
   period: TopFansPeriod
   groupName: string
   gender?: Gender
-  date?: Date
+  /** ISO 8601 文字列 */
+  date: string
   className?: string
 }>
 

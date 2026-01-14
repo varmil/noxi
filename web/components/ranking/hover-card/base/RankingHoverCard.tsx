@@ -1,12 +1,11 @@
 import { PropsWithChildren } from 'react'
 import { useFormatter } from 'next-intl'
-import dayjs from 'lib/dayjs'
 
-export const PopoverDate = ({ date }: { date: dayjs.ConfigType }) => {
-  const formatter = useFormatter()
+export const PopoverDate = ({ date }: { date: string }) => {
+  const format = useFormatter()
   return (
     <div className="text-muted-foreground underline decoration-1 underline-offset-4 decoration-dashed decoration-slate-400 decoration">
-      {formatter.dateTime(dayjs(date).toDate(), {
+      {format.dateTime(new Date(date), {
         year: 'numeric',
         month: '2-digit',
         day: '2-digit',
@@ -40,11 +39,11 @@ export const DatetimeContainer = ({ children }: PropsWithChildren) => (
   <div className="grid grid-cols-[4rem_1fr] gap-2">{children}</div>
 )
 
-export const Datetime = ({ date }: { date: Date | number }) => {
-  const formatter = useFormatter()
+export const Datetime = ({ date }: { date: string }) => {
+  const format = useFormatter()
   return (
     <div>
-      {formatter.dateTime(date, {
+      {format.dateTime(new Date(date), {
         dateStyle: 'medium',
         timeStyle: 'short'
       })}

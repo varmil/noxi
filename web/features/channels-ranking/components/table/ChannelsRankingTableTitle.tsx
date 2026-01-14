@@ -21,7 +21,8 @@ type Props = PropsWithChildren<{
   dimension: ChannelsRankingDimension
   groupName: string
   gender?: Gender
-  date?: Date
+  /** ISO 8601 文字列（Server → Client で Date はシリアライズ不可のため） */
+  date: string
   className?: string
 }>
 
@@ -69,7 +70,7 @@ export default function ChannelsRankingTableTitle({
         {period === 'last24Hours' && (
           <RealtimeStatusBadge
             href={`${pathname}${createQueryString('date', null)}`}
-            date={date}
+            date={new Date(date)}
           />
         )}
       </div>
