@@ -85,30 +85,46 @@ export async function StreamRankingJsonLd({
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
-  // BreadcrumbList の構築
+  // BreadcrumbList の構築（重複URLを避けるため条件付きで追加）
+  const breadcrumbItems: Array<{
+    '@type': 'ListItem'
+    position: number
+    name: string
+    item: string
+  }> = []
+
+  // Position 1: dimension（常に追加）
+  breadcrumbItems.push({
+    '@type': 'ListItem',
+    position: breadcrumbItems.length + 1,
+    name: dimensionName,
+    item: `${baseUrl}/${locale}/ranking/${dimension}/live/all/${canonicalPeriod}`
+  })
+
+  // Position 2: group（all以外のときのみ追加）
+  if (group !== 'all') {
+    breadcrumbItems.push({
+      '@type': 'ListItem',
+      position: breadcrumbItems.length + 1,
+      name: groupName,
+      item: `${baseUrl}/${locale}/ranking/${dimension}/live/${group}/${canonicalPeriod}`
+    })
+  }
+
+  // Position 3: period（canonicalPeriod以外のときのみ追加）
+  if (period !== canonicalPeriod) {
+    breadcrumbItems.push({
+      '@type': 'ListItem',
+      position: breadcrumbItems.length + 1,
+      name: periodName,
+      item: `${baseUrl}/${locale}/ranking/${dimension}/live/${group}/${period}`
+    })
+  }
+
   const breadcrumbList = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: dimensionName,
-        item: `${baseUrl}/${locale}/ranking/${dimension}/live/all/${canonicalPeriod}`
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: groupName,
-        item: `${baseUrl}/${locale}/ranking/${dimension}/live/${group}/${canonicalPeriod}`
-      },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: periodName,
-        item: `${baseUrl}/${locale}/ranking/${dimension}/live/${group}/${period}`
-      }
-    ]
+    itemListElement: breadcrumbItems
   }
 
   // ItemList の構築
