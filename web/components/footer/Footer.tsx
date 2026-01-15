@@ -105,7 +105,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1200px] pt-6 pb-3 px-4 sm:px-6 lg:px-8">
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>
-          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
             {/* カラム1: スパチャランキング */}
             <FooterColumn
               title={footerData.superChatRanking.title}
