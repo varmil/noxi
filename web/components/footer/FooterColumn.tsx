@@ -39,7 +39,7 @@ export function FooterColumn({
         aria-expanded={isOpen}
         aria-controls={`footer-${title}`}
       >
-        <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+        <h3 className="text-sm text-foreground">{title}</h3>
         {/* スマホのみ表示されるシェブロンアイコン（alwaysOpenの場合は非表示） */}
         {!alwaysOpen && (
           <ChevronDown
