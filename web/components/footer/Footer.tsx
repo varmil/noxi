@@ -101,52 +101,46 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border bg-muted/30">
-      <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
+    <footer className="border-t border-border bg-muted/30 mt-6">
+      <div className="mx-auto max-w-[1200px] pt-6 pb-3 px-4 sm:px-6 lg:px-8">
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
-            {/* カラム1: スパチャランキング - 常に展開 */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
+            {/* カラム1: スパチャランキング */}
             <FooterColumn
               title={footerData.superChatRanking.title}
               links={footerData.superChatRanking.links}
-              defaultOpen={true}
-              alwaysOpen={true}
             />
 
             {/* カラム2: 同接数ランキング */}
             <FooterColumn
               title={footerData.viewerRanking.title}
               links={footerData.viewerRanking.links}
-              defaultOpen={false}
             />
 
             {/* カラム3: チャンネル登録者数 */}
             <FooterColumn
               title={footerData.subscriberRanking.title}
               links={footerData.subscriberRanking.links}
-              defaultOpen={false}
             />
 
             {/* カラム4: 主要グループ */}
             <FooterColumn
               title={footerData.groups.title}
               links={footerData.groups.links}
-              defaultOpen={false}
             />
 
             {/* カラム5: サイト情報 */}
             <FooterColumn
               title={footerData.siteInfo.title}
               links={footerData.siteInfo.links}
-              defaultOpen={false}
             />
           </div>
         </nav>
 
         {/* コピーライト */}
-        <div className="mt-6 border-t border-border pt-6">
-          <p className="text-center text-sm text-muted-foreground">
+        <div className="mt-6 border-t border-border pt-3">
+          <p className="text-center text-xs text-muted-foreground">
             {t('copyright', { year: currentYear })}
           </p>
         </div>

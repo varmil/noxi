@@ -10,7 +10,6 @@ import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
 import { SessionKeepAlive } from 'components/auth/session/SessionKeepAlive'
 import { DailyLoginBonus } from 'components/login-bonus/DailyLoginBonus'
-import { AdsByGoogleScript } from 'components/script/AdsByGoogleScript'
 import { ClarityScript } from 'components/script/ClarityScript'
 import { SidebarProvider } from 'components/sidebar/SidebarContext'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
@@ -106,7 +105,7 @@ export default async function LocaleLayout(props: Props) {
         </ThemeProvider>
 
         {/* Google AdSense */}
-        <AdsByGoogleScript strategy="beforeInteractive" />
+        {/* <AdsByGoogleScript strategy="beforeInteractive" /> */}
       </body>
     </html>
   )

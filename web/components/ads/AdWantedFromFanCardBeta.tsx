@@ -7,7 +7,7 @@ import Image from 'components/styles/Image'
 
 const FORM_URL = 'https://forms.gle/Dt3fdmsPcrY5NG7z6'
 const THUMBNAIL_URL = '/ads/wanted-from-fan.png'
-const ICON_URL = 'vcharts/padding-100px.png'
+const ICON_URL = '/vcharts/padding-100px.png'
 const TITLE = 'VCharts 運営局'
 const MESSAGE =
   'あなたの『推し』をVChartsで宣伝しませんか？メッセージ付き。1週間3,000円（税込）'

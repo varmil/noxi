@@ -37,16 +37,8 @@ export function Page({
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <section>
+    <>
       <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
-
-      {/* EPMが低すぎるのでコメントアウト */}
-      {/* {ads && (
-        <div className="flex justify-center h-[100px] md:h-[90px]">
-          <DisplayLandscapeAds />
-          <DisplayLandscapeAds className="hidden 2xl:block" />
-        </div>
-      )} */}
 
       {!ads && breadcrumb?.length ? (
         <GlobalBreadcrumb items={breadcrumb} className="mb-4" />
@@ -68,6 +60,6 @@ export function Page({
       >
         {children}
       </main>
-    </section>
+    </>
   )
 }
