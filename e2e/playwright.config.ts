@@ -6,8 +6,8 @@ export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
   forbidOnly: isCI,
-  retries: isCI ? 2 : 0,
-  workers: isCI ? 1 : undefined,
+  retries: isCI ? 2 : 1,
+  workers: isCI ? 1 : 4,
   reporter: isCI ? 'github' : 'html',
   use: {
     baseURL: 'http://localhost:3000',
