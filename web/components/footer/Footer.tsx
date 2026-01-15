@@ -101,11 +101,11 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border bg-muted/30">
-      <div className="mx-auto max-w-7xl px-4 pt-8 pb-6 sm:px-6 lg:px-8">
+    <footer className="border-t border-border bg-muted/30 mt-6">
+      <div className="mx-auto max-w-[1200px] pt-6 pb-3 px-4 sm:px-6 lg:px-8">
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
             {/* カラム1: スパチャランキング - 常に展開 */}
             <FooterColumn
               title={footerData.superChatRanking.title}
@@ -145,8 +145,8 @@ export function Footer() {
         </nav>
 
         {/* コピーライト */}
-        <div className="mt-6 border-t border-border pt-6">
-          <p className="text-center text-sm text-muted-foreground">
+        <div className="mt-6 border-t border-border pt-3">
+          <p className="text-center text-xs text-muted-foreground">
             {t('copyright', { year: currentYear })}
           </p>
         </div>

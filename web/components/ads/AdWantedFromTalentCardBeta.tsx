@@ -7,7 +7,7 @@ import Image from 'components/styles/Image'
 
 const FORM_URL = 'https://forms.gle/Dt3fdmsPcrY5NG7z6'
 const THUMBNAIL_URL = '/ads/wanted-from-talent.png'
-const ICON_URL = 'vcharts/padding-100px.png'
+const ICON_URL = '/vcharts/padding-100px.png'
 const TITLE = 'VCharts 運営局'
 const MESSAGE =
   'トップページ上部。年間成長率5,000%のVChartsに掲載。1週間3,000円（税込）'
