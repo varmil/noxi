@@ -136,7 +136,7 @@ export async function AdCardBeta({
             rel="noopener noreferrer"
             className="block"
           >
-            <p className="text-sm text-foreground font-medium line-clamp-2">
+            <p className="text-sm text-foreground font-medium line-clamp-2 whitespace-pre-line">
               {description}
             </p>
           </a>
