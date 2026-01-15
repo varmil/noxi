@@ -2,10 +2,11 @@ import dayjs from 'lib/dayjs'
 import { Period } from 'types/period'
 
 /**
- * 指定期間の開始時点を返す
+ * 指定期間の開始時点を返す（JST ベース）
+ * サーバー/クライアントで同じ結果を得るため、明示的に Asia/Tokyo で計算
  **/
 export const getStartOf = (period: Period, date?: dayjs.ConfigType) => {
-  const day = dayjs(date)
+  const day = dayjs(date).tz('Asia/Tokyo')
   let start: dayjs.Dayjs
 
   switch (period) {
@@ -34,7 +35,7 @@ export const getStartOf = (period: Period, date?: dayjs.ConfigType) => {
       start = day.startOf('year')
       break
     case 'wholePeriod':
-      start = dayjs(new Date(2020, 0, 1)) // 適当に固定値
+      start = dayjs.tz('2020-01-01', 'Asia/Tokyo') // 固定値
       break
     default:
       throw new Error(`Period ${period} is not supported`)
@@ -44,10 +45,11 @@ export const getStartOf = (period: Period, date?: dayjs.ConfigType) => {
 }
 
 /**
- * 指定期間の終了時点を返す
+ * 指定期間の終了時点を返す（JST ベース）
+ * サーバー/クライアントで同じ結果を得るため、明示的に Asia/Tokyo で計算
  */
 export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
-  const day = dayjs(date)
+  const day = dayjs(date).tz('Asia/Tokyo')
   let end: dayjs.Dayjs
 
   switch (period) {
@@ -77,13 +79,13 @@ export const getEndOf = (period: Period, date?: dayjs.ConfigType) => {
 }
 
 /**
- * 指定期間の「最新データ更新日時」を返す
+ * 指定期間の「最新データ更新日時」を返す（UTC ベース）
  *
  * 集計バッチがUTC18時（日本時間03時）に動くので基本その時点
  * 「過去24時間」だけは例外で30分間隔での集計
  */
 export const getUpdatedAt = (period: Period, date?: dayjs.ConfigType) => {
-  const day = dayjs(date)
+  const day = dayjs.utc(date)
   let updatedAt: dayjs.Dayjs
 
   switch (period) {

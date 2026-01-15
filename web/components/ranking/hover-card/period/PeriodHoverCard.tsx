@@ -14,14 +14,12 @@ import {
   Item,
   Title
 } from 'components/ranking/hover-card/base/RankingHoverCard'
+import dayjs from 'lib/dayjs'
 
 type Props = {
-  /** ISO 8601 文字列 */
-  start: string
-  /** ISO 8601 文字列 */
-  end: string
-  /** ISO 8601 文字列 */
-  updatedAt?: string
+  start: dayjs.ConfigType
+  end: dayjs.ConfigType
+  updatedAt?: dayjs.ConfigType
   criteriaDescription: string
 }
 
@@ -34,8 +32,8 @@ export default function PeriodHoverCard({
   const t = useTranslations('Components.ranking.hoverCard')
   const format = useFormatter()
 
-  const formatDate = (dateString: string) =>
-    format.dateTime(new Date(dateString), {
+  const formatDate = (date: dayjs.ConfigType) =>
+    format.dateTime(dayjs(date).toDate(), {
       year: 'numeric',
       month: '2-digit',
       day: '2-digit',
