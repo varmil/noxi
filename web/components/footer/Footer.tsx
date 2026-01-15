@@ -101,7 +101,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border bg-muted/30 mt-6">
+    <footer className="border-t border-border bg-muted/30 mt-8">
       <div className="mx-auto max-w-[1200px] pt-6 pb-3 px-4 sm:px-6 lg:px-8">
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>
