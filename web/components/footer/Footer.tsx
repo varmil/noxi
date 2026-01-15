@@ -106,40 +106,34 @@ export function Footer() {
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>
           <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3 lg:grid-cols-5">
-            {/* カラム1: スパチャランキング - 常に展開 */}
+            {/* カラム1: スパチャランキング */}
             <FooterColumn
               title={footerData.superChatRanking.title}
               links={footerData.superChatRanking.links}
-              defaultOpen={true}
-              alwaysOpen={true}
             />
 
             {/* カラム2: 同接数ランキング */}
             <FooterColumn
               title={footerData.viewerRanking.title}
               links={footerData.viewerRanking.links}
-              defaultOpen={false}
             />
 
             {/* カラム3: チャンネル登録者数 */}
             <FooterColumn
               title={footerData.subscriberRanking.title}
               links={footerData.subscriberRanking.links}
-              defaultOpen={false}
             />
 
             {/* カラム4: 主要グループ */}
             <FooterColumn
               title={footerData.groups.title}
               links={footerData.groups.links}
-              defaultOpen={false}
             />
 
             {/* カラム5: サイト情報 */}
             <FooterColumn
               title={footerData.siteInfo.title}
               links={footerData.siteInfo.links}
-              defaultOpen={false}
             />
           </div>
         </nav>
