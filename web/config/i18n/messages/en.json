@@ -104,7 +104,6 @@
           "liveCount": "Live Now",
           "viewRanking": "View Rankings",
           "totalSuperChat": "Super Chat Total",
-          "monthlyRanking": "Monthly Ranking",
           "totalViewers": "Total Viewers",
           "medianViewers": "Median Viewers"
         }
@@ -416,6 +415,7 @@
       "navigation": "Footer Navigation"
     },
     "header": {
+      "home": "Home",
       "dashboard": "Dashboard",
       "liveRanking": "Live Viewer Ranking",
       "channelsRanking": "Super Chat Ranking",

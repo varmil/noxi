@@ -26,6 +26,19 @@ export default function HeaderNavigationMenu({}: {}) {
               asChild
               className={navigationMenuTriggerStyle()}
             >
+              <Link href="/">
+                <div className="flex items-center gap-1">
+                  <span>{comp('home')}</span>
+                </div>
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
+          <NavigationMenuItem className="hidden lg:block">
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
               <Link href={ChannelsRankingDefaultUrl}>
                 <div className="flex items-center gap-1">
                   <span>{comp('channelsRanking')}</span>
@@ -49,7 +62,7 @@ export default function HeaderNavigationMenu({}: {}) {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <div className="flex-1 max-w-[500px]">
+      <div className="flex-1 max-w-125">
         <TalentSearch className="shadow-none" dropdown />
       </div>
     </div>
