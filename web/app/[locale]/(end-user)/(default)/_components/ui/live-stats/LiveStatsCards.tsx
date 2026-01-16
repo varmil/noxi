@@ -50,97 +50,89 @@ async function LiveStatsCardsContent() {
   )
 
   return (
-    <section
-      className={'grid grid-cols-1 @xl:grid-cols-2 gap-2 @xl:gap-4 h-full'}
-    >
+    <section className="grid grid-cols-2 gap-2 h-full">
       <Link
         href="/ranking/concurrent-viewer/live/all/realtime"
         className="block group"
         prefetch={false}
       >
-        <Card className="h-full justify-center gap-2 shadow-xs transition-all duration-100 ease-in-out group-hover:shadow-md group-hover:border-muted-foreground/20 cursor-pointer">
-          <CardHeader className="gap-0">
-            <CardTitle className="text-sm flex justify-between items-center font-medium">
-              <span className="flex items-center gap-2">
-                <Radio className="stroke-red-600 animate-pulse" size={16} />
-                {t('liveCount')}
-              </span>
-              <span className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-200">
-                {t('viewRanking')}
-                <ArrowRight
-                  size={14}
-                  className="transition-transform duration-100 group-hover:translate-x-1"
-                />
-              </span>
+        <Card className="h-full justify-center gap-1 shadow-xs transition-all duration-100 ease-in-out group-hover:shadow-md group-hover:border-muted-foreground/20 cursor-pointer">
+          <CardHeader className="gap-0 pb-0">
+            <CardTitle className="text-sm flex items-center gap-2 font-medium">
+              <Radio className="stroke-red-600 animate-pulse" size={16} />
+              {t('liveCount')}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div className="text-2xl font-bold tabular-nums">
               {liveCount.toLocaleString()}
             </div>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-200 mt-2">
+              <span className="line-clamp-1 break-all">{t('viewRanking')}</span>
+              <ArrowRight
+                size={14}
+                className="transition-transform duration-100 group-hover:translate-x-1"
+              />
+            </span>
           </CardContent>
         </Card>
       </Link>
 
       <Link
-        href="/ranking/super-chat/channels/all/last30Days"
+        href="/ranking/super-chat/live/all/realtime"
         className="block group"
         prefetch={false}
       >
-        <Card className="h-full justify-center gap-2 shadow-xs transition-all duration-100 ease-in-out group-hover:shadow-md group-hover:border-muted-foreground/20 cursor-pointer">
-          <CardHeader className="gap-0">
-            <CardTitle className="text-sm flex justify-between items-center font-medium">
-              <span className="flex items-center gap-2">
-                <Radio className="stroke-red-600 animate-pulse" size={16} />
+        <Card className="h-full justify-center gap-1 shadow-xs transition-all duration-100 ease-in-out group-hover:shadow-md group-hover:border-muted-foreground/20 cursor-pointer">
+          <CardHeader className="gap-0 pb-0">
+            <CardTitle className="text-sm flex items-center gap-2 font-medium">
+              <Radio className="stroke-red-600 animate-pulse" size={16} />
+              <span className="line-clamp-1 break-all">
                 {t('totalSuperChat')}
-              </span>
-              <span className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-200">
-                {t('monthlyRanking')}
-                <ArrowRight
-                  size={14}
-                  className="transition-transform duration-100 group-hover:translate-x-1"
-                />
               </span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-1">
             <div className="text-2xl font-bold tabular-nums">
-              {format.number(Math.round(totalSuperChatAmount), {
-                style: 'currency',
-                currency: 'JPY'
-              })}
+              <span className="text-lg mr-1">¥</span>
+              {format.number(Math.round(totalSuperChatAmount))}
             </div>
+            <span className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors duration-200 mt-2">
+              <span className="line-clamp-1 break-all">{t('viewRanking')}</span>
+              <ArrowRight
+                size={14}
+                className="transition-transform duration-100 group-hover:translate-x-1"
+              />
+            </span>
           </CardContent>
         </Card>
       </Link>
 
-      <div className="col-span-full flex lg:flex-row gap-2 @xl:gap-4">
-        <Card className="flex-1 justify-center gap-2 shadow-xs">
-          <CardHeader className="gap-0">
-            <CardTitle className="text-sm flex justify-between items-center font-medium line-clamp-1 break-all">
-              {t('totalViewers')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold tabular-nums">
-              {totalViewers.toLocaleString()}
-            </div>
-          </CardContent>
-        </Card>
+      <Card className="justify-center gap-1 shadow-xs">
+        <CardHeader className="gap-0 pb-0">
+          <CardTitle className="text-sm font-medium line-clamp-1 break-all">
+            {t('totalViewers')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-1">
+          <div className="text-2xl font-bold tabular-nums">
+            {totalViewers.toLocaleString()}
+          </div>
+        </CardContent>
+      </Card>
 
-        <Card className="flex-1 justify-center gap-2 shadow-xs">
-          <CardHeader className="gap-0">
-            <CardTitle className="text-sm flex justify-between items-center font-medium line-clamp-1 break-all">
-              {t('medianViewers')}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold tabular-nums">
-              {medianViewers.toLocaleString()}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      <Card className="justify-center gap-1 shadow-xs">
+        <CardHeader className="gap-0 pb-0">
+          <CardTitle className="text-sm font-medium line-clamp-1 break-all">
+            {t('medianViewers')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-1">
+          <div className="text-2xl font-bold tabular-nums">
+            {medianViewers.toLocaleString()}
+          </div>
+        </CardContent>
+      </Card>
     </section>
   )
 }
