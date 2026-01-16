@@ -14,7 +14,7 @@ export function LiveStatsCardsSkeleton() {
         </CardHeader>
         <CardContent className="pt-1">
           <Skeleton className="h-8 w-12" />
-          <Skeleton className="h-4 w-24 mt-1" />
+          <Skeleton className="h-4 w-24 mt-2" />
         </CardContent>
       </Card>
 
@@ -27,7 +27,7 @@ export function LiveStatsCardsSkeleton() {
         </CardHeader>
         <CardContent className="pt-1">
           <Skeleton className="h-8 w-16" />
-          <Skeleton className="h-4 w-28 mt-1" />
+          <Skeleton className="h-4 w-28 mt-2" />
         </CardContent>
       </Card>
 
