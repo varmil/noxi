@@ -65,6 +65,24 @@ export type ChannelItemList = ItemListBase & {
   itemListElement: ChannelItemListItem[]
 }
 
+/**
+ * 「概要ページと詳細ページ」パターン用の ListItem 型
+ *
+ * Google のカルーセル構造化データで、概要ページから詳細ページへリンクする場合、
+ * ListItem は @type, position, url の3つのプロパティのみで構成すべき
+ *
+ * @see https://developers.google.com/search/docs/appearance/structured-data/carousel
+ */
+type SummaryPageItemListItem = {
+  '@type': 'ListItem'
+  position: number
+  url: string
+}
+
+export type SummaryPageItemList = ItemListBase & {
+  itemListElement: SummaryPageItemListItem[]
+}
+
 export type StreamItemList = ItemListBase & {
   itemListElement: StreamItemListItem[]
 }
@@ -196,6 +214,58 @@ export function buildChannelItemList(
       position: (currentPage - 1) * pageSize + index + 1,
       name: channel.title,
       image: channel.thumbnailUrl,
+      url: `${baseUrl}/${locale}/${channel.group}/channels/${channel.id}`
+    }))
+  }
+}
+
+// ============================================
+// Summary Page ItemList Builder (概要ページと詳細ページパターン用)
+// ============================================
+
+export type BuildSummaryPageItemListParams = {
+  baseUrl: string
+  locale: string
+  title: string | null | undefined
+  description: string | null | undefined
+  totalCount: number
+  currentPage: number
+  pageSize: number
+  channels: ChannelForItemList[]
+}
+
+/**
+ * 「概要ページと詳細ページ」パターン用 ItemList JSON-LD を構築
+ *
+ * Google のカルーセル構造化データで、概要ページから詳細ページへリンクする場合、
+ * ListItem は @type, position, url の3つのプロパティのみで構成すべき
+ *
+ * @see https://developers.google.com/search/docs/appearance/structured-data/carousel
+ */
+export function buildSummaryPageItemList(
+  params: BuildSummaryPageItemListParams
+): SummaryPageItemList {
+  const {
+    baseUrl,
+    locale,
+    title,
+    description,
+    totalCount,
+    currentPage,
+    pageSize,
+    channels
+  } = params
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: title,
+    description,
+    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    numberOfItems: totalCount,
+    itemListElement: channels.map((channel, index) => ({
+      '@type': 'ListItem',
+      position: (currentPage - 1) * pageSize + index + 1,
       url: `${baseUrl}/${locale}/${channel.group}/channels/${channel.id}`
     }))
   }
