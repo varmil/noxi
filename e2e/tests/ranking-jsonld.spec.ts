@@ -53,7 +53,9 @@ test.describe('チャンネルランキング JSON-LD', () => {
     expect(items[0]['item']).toBeDefined()
   })
 
-  test('ItemList が含まれる', async ({ page }) => {
+  test('ItemList が含まれる（概要ページと詳細ページパターン）', async ({
+    page
+  }) => {
     await page.goto('/ja/ranking/super-chat/channels/all/last30Days')
 
     const jsonLdList = await getJsonLdScripts(page)
@@ -71,11 +73,50 @@ test.describe('チャンネルランキング JSON-LD', () => {
     expect(items.length).toBeLessThanOrEqual(20)
 
     // 最初のアイテムの構造を確認
+    // 「概要ページと詳細ページ」パターンでは ListItem は position と url のみ
     const firstItem = items[0]
     expect(firstItem['@type']).toBe('ListItem')
     expect(firstItem['position']).toBe(1)
-    expect(firstItem['name']).toBeDefined()
     expect(firstItem['url']).toBeDefined()
+    // name, image は含まない（詳細ページに ProfilePage として定義）
+    expect(firstItem['name']).toBeUndefined()
+    expect(firstItem['image']).toBeUndefined()
+  })
+})
+
+test.describe('VTuber 詳細ページ JSON-LD', () => {
+  test('ProfilePage が含まれる', async ({ page }) => {
+    // 任意の VTuber 詳細ページにアクセス（ホロライブの兎田ぺこら）
+    await page.goto('/ja/hololive/channels/UC1DCedRgGHBdm81E1llLhOQ')
+
+    const jsonLdList = await getJsonLdScripts(page)
+    const profilePage = findJsonLdByType(jsonLdList, 'ProfilePage')
+
+    expect(profilePage).toBeDefined()
+    expect(profilePage!['@context']).toBe('https://schema.org')
+
+    // mainEntity に Person が含まれる
+    const mainEntity = profilePage!['mainEntity'] as Record<string, unknown>
+    expect(mainEntity).toBeDefined()
+    expect(mainEntity['@type']).toBe('Person')
+    expect(mainEntity['name']).toBeDefined()
+    expect(mainEntity['url']).toContain('/channels/')
+
+    // sameAs に YouTube チャンネル URL が含まれる
+    const sameAs = mainEntity['sameAs'] as string[]
+    expect(sameAs).toBeDefined()
+    expect(sameAs.length).toBeGreaterThan(0)
+    expect(sameAs[0]).toContain('youtube.com/channel/')
+
+    // interactionStatistic にフォロワー数が含まれる
+    const stats = mainEntity['interactionStatistic'] as Record<string, unknown>[]
+    expect(stats).toBeDefined()
+    expect(stats.length).toBeGreaterThan(0)
+    expect(stats[0]['@type']).toBe('InteractionCounter')
+    expect(stats[0]['interactionType']).toBe(
+      'https://schema.org/FollowAction'
+    )
+    expect(stats[0]['userInteractionCount']).toBeGreaterThan(0)
   })
 })
 

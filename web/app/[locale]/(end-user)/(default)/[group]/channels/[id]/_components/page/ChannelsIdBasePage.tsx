@@ -9,6 +9,7 @@ import LocalNavigationForChannelsIdPages from 'features/channel/components/local
 import { setGroup } from 'lib/server-only-context/cache'
 import { getAlternates } from 'utils/metadata/getAlternates'
 import { ChannelProfileTemplate } from '../ui/profile/ChannelProfileTemplate'
+import { ChannelProfilePageJsonLd } from './ChannelProfilePageJsonLd'
 
 export type ChannelsIdBasePageProps = {
   params: Promise<{
@@ -72,25 +73,28 @@ export default async function ChannelsIdBasePage(
   ])
 
   return (
-    <Page
-      breadcrumb={[
-        {
-          href: `/ranking/super-chat/channels/all/last30Days`,
-          name: t('superChatRanking')
-        },
-        { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
-      ]}
-    >
-      <section className="flex flex-col">
-        <ChannelProfileTemplate channel={channel} />
-        <section>
-          <LocalNavigationForChannelsIdPages channelId={id} group={group} />
-        </section>
+    <>
+      <ChannelProfilePageJsonLd locale={locale} channel={channel} />
+      <Page
+        breadcrumb={[
+          {
+            href: `/ranking/super-chat/channels/all/last30Days`,
+            name: t('superChatRanking')
+          },
+          { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
+        ]}
+      >
+        <section className="flex flex-col">
+          <ChannelProfileTemplate channel={channel} />
+          <section>
+            <LocalNavigationForChannelsIdPages channelId={id} group={group} />
+          </section>
 
-        <Suspense fallback={<ChannelsIdXXXTemplateSkeleton />}>
-          <section>{props.children}</section>
-        </Suspense>
-      </section>
-    </Page>
+          <Suspense fallback={<ChannelsIdXXXTemplateSkeleton />}>
+            <section>{props.children}</section>
+          </Suspense>
+        </section>
+      </Page>
+    </>
   )
 }

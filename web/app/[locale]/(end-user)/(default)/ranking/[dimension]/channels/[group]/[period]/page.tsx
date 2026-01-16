@@ -91,7 +91,7 @@ export default async function RankingChannelsPage(props: Props) {
   setRequestLocale(locale as 'ja' | 'en')
 
   return (
-    <Page noPadding fullWidth ads>
+    <>
       <ChannelsRankingJsonLd
         locale={locale}
         dimension={dimension}
@@ -99,14 +99,16 @@ export default async function RankingChannelsPage(props: Props) {
         period={period}
         searchParams={searchParams}
       />
-      <RankHighlighter>
-        <IndexTemplate
-          period={period}
-          dimension={dimension}
-          group={groupId}
-          searchParams={searchParams}
-        />
-      </RankHighlighter>
-    </Page>
+      <Page noPadding fullWidth ads>
+        <RankHighlighter>
+          <IndexTemplate
+            period={period}
+            dimension={dimension}
+            group={groupId}
+            searchParams={searchParams}
+          />
+        </RankHighlighter>
+      </Page>
+    </>
   )
 }

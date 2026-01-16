@@ -2,9 +2,11 @@ import { describe, expect, it } from 'vitest'
 import {
   buildBreadcrumbList,
   buildChannelItemList,
+  buildSummaryPageItemList,
   buildStreamItemList,
   BuildBreadcrumbListParams,
   BuildChannelItemListParams,
+  BuildSummaryPageItemListParams,
   BuildStreamItemListParams,
   ChannelForAuthor
 } from './buildRankingJsonLd'
@@ -173,6 +175,86 @@ describe('buildChannelItemList', () => {
 
   it('空のチャンネルリストでも正しく動作', () => {
     const result = buildChannelItemList({
+      ...baseParams,
+      channels: [],
+      totalCount: 0
+    })
+
+    expect(result.itemListElement).toHaveLength(0)
+    expect(result.numberOfItems).toBe(0)
+  })
+})
+
+describe('buildSummaryPageItemList', () => {
+  const baseParams: BuildSummaryPageItemListParams = {
+    baseUrl: 'https://example.com',
+    locale: 'ja',
+    title: 'スパチャランキング',
+    description: 'VTuber のスパチャランキングです',
+    totalCount: 100,
+    currentPage: 1,
+    pageSize: 20,
+    channels: [
+      {
+        id: 'ch1',
+        title: 'チャンネル1',
+        thumbnailUrl: 'https://example.com/thumb1.jpg',
+        group: 'hololive'
+      },
+      {
+        id: 'ch2',
+        title: 'チャンネル2',
+        thumbnailUrl: 'https://example.com/thumb2.jpg',
+        group: 'nijisanji'
+      }
+    ]
+  }
+
+  it('ItemList の基本構造を正しく生成', () => {
+    const result = buildSummaryPageItemList(baseParams)
+
+    expect(result['@context']).toBe('https://schema.org')
+    expect(result['@type']).toBe('ItemList')
+    expect(result.name).toBe('スパチャランキング')
+    expect(result.description).toBe('VTuber のスパチャランキングです')
+    expect(result.itemListOrder).toBe(
+      'https://schema.org/ItemListOrderDescending'
+    )
+    expect(result.numberOfItems).toBe(100)
+  })
+
+  it('ListItem は position と url のみを含む（name, image を含まない）', () => {
+    const result = buildSummaryPageItemList(baseParams)
+
+    expect(result.itemListElement).toHaveLength(2)
+    expect(result.itemListElement[0]).toEqual({
+      '@type': 'ListItem',
+      position: 1,
+      url: 'https://example.com/ja/hololive/channels/ch1'
+    })
+    expect(result.itemListElement[1]).toEqual({
+      '@type': 'ListItem',
+      position: 2,
+      url: 'https://example.com/ja/nijisanji/channels/ch2'
+    })
+
+    // name, image が含まれていないことを確認
+    expect(result.itemListElement[0]).not.toHaveProperty('name')
+    expect(result.itemListElement[0]).not.toHaveProperty('image')
+  })
+
+  it('2ページ目は position が 21 から始まる', () => {
+    const result = buildSummaryPageItemList({
+      ...baseParams,
+      currentPage: 2
+    })
+
+    expect(result.itemListElement[0].position).toBe(21)
+    expect(result.itemListElement[1].position).toBe(22)
+  })
+
+  it('空のチャンネルリストでも正しく動作', () => {
+    const result = buildSummaryPageItemList({
       ...baseParams,
       channels: [],
       totalCount: 0

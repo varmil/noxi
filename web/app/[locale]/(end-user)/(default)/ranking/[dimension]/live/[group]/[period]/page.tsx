@@ -57,7 +57,7 @@ export default async function RankingLivePage(props: Props) {
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
   return (
-    <Page noPadding fullWidth ads>
+    <>
       <StreamRankingJsonLd
         locale={locale}
         dimension={dimension}
@@ -65,12 +65,14 @@ export default async function RankingLivePage(props: Props) {
         period={period}
         searchParams={searchParams}
       />
-      <IndexTemplate
-        period={period}
-        dimension={dimension}
-        group={groupId}
-        searchParams={searchParams}
-      />
-    </Page>
+      <Page noPadding fullWidth ads>
+        <IndexTemplate
+          period={period}
+          dimension={dimension}
+          group={groupId}
+          searchParams={searchParams}
+        />
+      </Page>
+    </>
   )
 }

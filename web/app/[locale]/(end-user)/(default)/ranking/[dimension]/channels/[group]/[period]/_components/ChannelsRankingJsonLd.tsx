@@ -25,7 +25,7 @@ import {
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 import {
   buildBreadcrumbList,
-  buildChannelItemList,
+  buildSummaryPageItemList,
   ChannelForItemList
 } from 'utils/json-ld/buildRankingJsonLd'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
@@ -126,8 +126,8 @@ export async function ChannelsRankingJsonLd({
     group: channel.peakX.group
   }))
 
-  // ItemList の構築
-  const itemList = buildChannelItemList({
+  // ItemList の構築（「概要ページと詳細ページ」パターン用）
+  const itemList = buildSummaryPageItemList({
     baseUrl,
     locale,
     title: metadata.title as string | undefined,
