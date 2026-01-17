@@ -7,25 +7,12 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import { PageXSPX } from 'components/page'
 
 const ROWS = 20
 
 export default function StreamRankingGallerySkeleton() {
   return (
-    <section className="@container space-y-4 sm:space-y-6">
-      {/* Title Section */}
-      <section className={`${PageXSPX} sm:px-0`}>
-        <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between sm:items-center sm:gap-x-8">
-          <div className="space-y-2">
-            <Skeleton className="h-7 w-64 sm:h-8" />
-            <Skeleton className="h-5 w-80" />
-          </div>
-          <Skeleton className="h-5 w-32" />
-        </div>
-      </section>
-
-      {/* Table Section */}
+    <>
       <Table>
         <TableHeader>
           <TableRow>
@@ -95,9 +82,9 @@ export default function StreamRankingGallerySkeleton() {
       </Table>
 
       {/* Pagination Section */}
-      <div className="flex justify-center py-4">
-        <Skeleton className="h-10 w-64" />
+      <div className="flex justify-center">
+        <Skeleton className="h-9 w-64" />
       </div>
-    </section>
+    </>
   )
 }

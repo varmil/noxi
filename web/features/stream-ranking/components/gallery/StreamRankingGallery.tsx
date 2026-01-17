@@ -1,13 +1,10 @@
 import { PropsWithoutRef } from 'react'
-import { getGroupName } from 'apis/groups'
 import { getSupersBundles, getSupersBundlesCount } from 'apis/supers/getSupersBundles'
 import { getStreams, getStreamsCount } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import { PageXSPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
-import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
 import {
   StreamRankingDimension,
   StreamRankingSearchParams
@@ -21,20 +18,12 @@ export type StreamRankingGalleryProps = StreamRankingSearchParams & {
   period: StreamRankingPeriod
   dimension: StreamRankingDimension
   group: string
-  className?: string
 }
 
 export default async function StreamRankingGallery(
   props: PropsWithoutRef<StreamRankingGalleryProps>
 ) {
-  const { period, dimension, group, gender, page, className } = props
-
-  // Client Component に渡す日時を Server Component で確定させてハイドレーションエラーを防ぐ
-  const titleDate = new Date().toISOString()
-
-  const groupName = await getGroupName(group, {
-    errorContext: 'stream ranking gallery'
-  })
+  const { dimension, group, page } = props
 
   let streams: StreamsSchema = []
   let count = 0
@@ -74,16 +63,7 @@ export default async function StreamRankingGallery(
   }
 
   return (
-    <section className={`@container space-y-4 sm:space-y-6 ${className || ''}`}>
-      <StreamRankingTableTitle
-        period={period}
-        dimension={dimension}
-        groupName={groupName}
-        gender={gender}
-        date={titleDate}
-        className={`${PageXSPX} sm:px-0`}
-      />
-
+    <>
       <StreamRankingTable
         dimension={dimension}
         group={group}
@@ -94,6 +74,6 @@ export default async function StreamRankingGallery(
       <ResponsivePagination
         totalPages={StreamRankingPagination.getTotalPages(count)}
       />
-    </section>
+    </>
   )
 }

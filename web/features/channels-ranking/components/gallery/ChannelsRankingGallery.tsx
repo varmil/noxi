@@ -1,16 +1,13 @@
 import { PropsWithoutRef } from 'react'
-import { getGroupName } from 'apis/groups'
 import { getSupersSummaries, getSupersSummariesCount } from 'apis/supers/getSupersSummaries'
 import {
   getSupersSnapshotRanking,
   getSupersSnapshotRankingCount
 } from 'apis/supers-snapshots/getRanking'
 import { getChannels, getChannelsCount } from 'apis/youtube/getChannels'
-import { PageXSPX } from 'components/page'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
-import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
@@ -28,7 +25,6 @@ export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
   group: string
-  className?: string
 }
 
 /**
@@ -43,14 +39,7 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
 
-  const { period, dimension, group, gender, date, page, className } = props
-
-  // Client Component に渡す日時を Server Component で確定させてハイドレーションエラーを防ぐ
-  const titleDate = date || new Date().toISOString()
-
-  const groupName = await getGroupName(group, {
-    errorContext: 'channels ranking gallery'
-  })
+  const { period, dimension, group, gender, date, page } = props
 
   let count = 0
 
@@ -90,16 +79,7 @@ export default async function ChannelsRankingGallery(
   }
 
   return (
-    <section className={`@container space-y-4 sm:space-y-6 ${className || ''}`}>
-      <ChannelsRankingTableTitle
-        dimension={dimension}
-        period={period}
-        groupName={groupName}
-        gender={gender}
-        date={titleDate}
-        className={`${PageXSPX} sm:px-0`}
-      />
-
+    <>
       <ChannelsRankingTable
         channelIds={channelIds}
         dimension={dimension}
@@ -113,6 +93,6 @@ export default async function ChannelsRankingGallery(
       <ResponsivePagination
         totalPages={ChannelsRankingPagination.getTotalPages(count)}
       />
-    </section>
+    </>
   )
 }
