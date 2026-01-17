@@ -1,10 +1,14 @@
 import { Transform } from 'class-transformer'
 import { GroupId, GroupName } from '@domain/group'
-import { ChannelId, ChannelTitle, SubscriberCount } from '@domain/youtube/channel'
+import {
+  ChannelId,
+  ChannelTitle,
+  SubscriberCount,
+  ThumbnailUrl
+} from '@domain/youtube/channel'
 import { Diff } from './Diff.vo'
 import { Rank } from './Rank.vo'
 import { Rate } from './Rate.vo'
-import { ThumbnailUrl } from './ThumbnailUrl.vo'
 
 /** チャンネル登録者数増加ランキング */
 export class ChannelGrowthRanking {

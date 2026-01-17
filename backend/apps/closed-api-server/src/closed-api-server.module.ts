@@ -9,6 +9,7 @@ import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/ex
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { GroupRegistrationsPresentationModule } from '@presentation/group-registrations/group-registrations.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { InactiveChannelsPresentationModule } from '@presentation/inactive-channels/inactive-channels.presentation.module'
 import { LoginBonusesPresentationModule } from '@presentation/login-bonuses/login-bonuses.presentation.module'
 import { MembershipBundlesPresentationModule } from '@presentation/membership-bundles/membership-bundles.presentation.module'
 import { MembershipSummariesPresentationModule } from '@presentation/membership-summaries/membership-summaries.presentation.module'
@@ -32,6 +33,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     AppCacheModule,
     LibAppModule,
     ChannelRegistrationsPresentationModule,
+    InactiveChannelsPresentationModule,
     CheerTicketUsagesPresentationModule,
     CheerTicketsPresentationModule,
     CloudSchedulersPresentationModule,

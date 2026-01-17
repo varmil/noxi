@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsString } from 'class-validator'
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator'
 import { StringValueObject } from '@domain/lib/vo/StringValueObject'
 
-/** サムネイルURL */
 export class ThumbnailUrl extends StringValueObject {
   @IsNotEmpty()
   @IsString()
+  @IsUrl()
   protected readonly val: string
 
   constructor(val: string) {
