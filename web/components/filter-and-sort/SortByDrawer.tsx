@@ -15,6 +15,7 @@ import { Link, usePathname } from 'lib/navigation'
 
 const QS_KEY = 'sort'
 
+/** @deprecated 2026/01/17 未使用状態 */
 export function SortByDrawer({ children }: React.PropsWithChildren) {
   const pathname = usePathname()
   const { has, createQueryString } = useQueryString()

@@ -1,17 +1,14 @@
-import { PropsWithoutRef } from 'react'
-import { getSupersBundlesCount } from 'apis/supers/getSupersBundles'
-import { getStreamsCount } from 'apis/youtube/getStreams'
-import { PageSMPX } from 'components/page'
-import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { StreamRankingPagination } from 'config/constants/Pagination'
+import { PropsWithoutRef, Suspense } from 'react'
+import { getGroupName } from 'apis/groups'
+import { PageSMPX, PageXSPX } from 'components/page'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
+import StreamRankingGallerySkeleton from 'features/stream-ranking/components/gallery/StreamRankingGallerySkeleton'
+import StreamRankingGalleryTitle from 'features/stream-ranking/components/gallery/StreamRankingGalleryTitle'
 import {
   StreamRankingDimension,
   StreamRankingSearchParams
 } from 'features/stream-ranking/types/stream-ranking.type'
-import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
-import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
 import { StreamRankingPeriod } from 'types/period'
 
 type Props = {
@@ -27,21 +24,14 @@ export default async function IndexTemplate({
   group,
   searchParams
 }: PropsWithoutRef<Props>) {
-  let count = 0
-  switch (dimension) {
-    case 'concurrent-viewer':
-      count = await getStreamsCount(
-        createGetStreamsParams({ period, dimension, group, ...searchParams })
-      )
-      break
-    case 'super-chat':
-      count = await getSupersBundlesCount(
-        createGetSupersBundlesParams({ period, group, ...searchParams })
-      )
-      break
-    default:
-      break
-  }
+  const { gender, page } = searchParams
+
+  const groupName = await getGroupName(group, {
+    errorContext: 'stream ranking index'
+  })
+
+  // Client Component に渡す日時を Server Component で確定させてハイドレーションエラーを防ぐ
+  const titleDate = new Date().toISOString()
 
   return (
     <section className={`space-y-4`}>
@@ -50,16 +40,28 @@ export default async function IndexTemplate({
       </section>
 
       <section className={`${PageSMPX} space-y-6`}>
-        <StreamRankingGallery
-          className="max-w-6xl mx-auto"
-          period={period}
-          dimension={dimension}
-          group={group}
-          {...searchParams}
-        />
-        <ResponsivePagination
-          totalPages={StreamRankingPagination.getTotalPages(count)}
-        />
+        <section className="max-w-6xl mx-auto @container space-y-4 sm:space-y-6">
+          <StreamRankingGalleryTitle
+            dimension={dimension}
+            period={period}
+            groupName={groupName}
+            gender={gender}
+            date={titleDate}
+            className={`${PageXSPX} sm:px-0`}
+          />
+
+          <Suspense
+            key={`${period}-${dimension}-${group}-${gender}-${page}`}
+            fallback={<StreamRankingGallerySkeleton />}
+          >
+            <StreamRankingGallery
+              period={period}
+              dimension={dimension}
+              group={group}
+              {...searchParams}
+            />
+          </Suspense>
+        </section>
       </section>
     </section>
   )

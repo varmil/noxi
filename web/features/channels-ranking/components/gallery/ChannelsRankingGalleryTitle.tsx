@@ -26,7 +26,7 @@ type Props = PropsWithChildren<{
   className?: string
 }>
 
-export default function ChannelsRankingTableTitle({
+export default function ChannelsRankingGalleryTitle({
   dimension,
   period,
   groupName,

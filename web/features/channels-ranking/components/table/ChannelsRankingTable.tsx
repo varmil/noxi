@@ -87,8 +87,8 @@ export default async function ChannelsRankingTable({
 
   /** Progress.valueで使用する */
   const topAmountMicros = isSnapshot
-    ? snapshotRanking[0]?.amountMicros ?? BigInt(0)
-    : (supersSummaries[0]?.[period as Period] as bigint) ?? BigInt(0)
+    ? (snapshotRanking[0]?.amountMicros ?? BigInt(0))
+    : ((supersSummaries[0]?.[period as Period] as bigint) ?? BigInt(0))
   const topSubscribers =
     channels.find(channel => channel.basicInfo.id === channelIds[0])?.statistics
       .subscriberCount ?? 0
@@ -163,7 +163,7 @@ export default async function ChannelsRankingTable({
               </LinkCell>
 
               {/* Channel Title */}
-              <LinkCell>
+              <LinkCell width={640}>
                 <ChannelTitle channel={channel} />
               </LinkCell>
 

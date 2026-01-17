@@ -1,18 +1,21 @@
 import { PropsWithoutRef } from 'react'
-import { getGroupName } from 'apis/groups'
-import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
-import { getSupersSnapshotRanking } from 'apis/supers-snapshots/getRanking'
-import { getChannels } from 'apis/youtube/getChannels'
-import { PageXSPX } from 'components/page'
+import { getSupersSummaries, getSupersSummariesCount } from 'apis/supers/getSupersSummaries'
+import {
+  getSupersSnapshotRanking,
+  getSupersSnapshotRankingCount
+} from 'apis/supers-snapshots/getRanking'
+import { getChannels, getChannelsCount } from 'apis/youtube/getChannels'
+import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { ChannelsRankingPagination } from 'config/constants/Pagination'
 import ChannelsRankingTable from 'features/channels-ranking/components/table/ChannelsRankingTable'
-import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { ChannelsRankingPeriod } from 'types/period'
+import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 import {
   getChannelsParams,
+  getSupersSnapshotCountParams,
   getSupersSnapshotParams,
   getSupersSummariesParams,
   isSnapshotPeriod
@@ -22,7 +25,6 @@ export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
   group: string
-  className?: string
 }
 
 /**
@@ -37,47 +39,47 @@ export default async function ChannelsRankingGallery(
 ) {
   let channelIds: string[] = []
 
-  const { period, dimension, group, gender, date, page, className } = props
+  const { period, dimension, group, gender, date, page } = props
 
-  // Client Component に渡す日時を Server Component で確定させてハイドレーションエラーを防ぐ
-  const titleDate = date || new Date().toISOString()
-
-  const groupName = await getGroupName(group, {
-    errorContext: 'channels ranking gallery'
-  })
+  let count = 0
 
   if (dimension === 'super-chat') {
     if (isSnapshotPeriod(period)) {
       // 週間・月間スナップショットランキング
-      const snapshots = await getSupersSnapshotRanking(
-        getSupersSnapshotParams({ ...props, period })
-      )
+      const [snapshots, snapshotCount] = await Promise.all([
+        getSupersSnapshotRanking(getSupersSnapshotParams({ ...props, period })),
+        getSupersSnapshotRankingCount(
+          getSupersSnapshotCountParams({
+            period: period as SnapshotPeriod,
+            group,
+            gender
+          })
+        )
+      ])
       channelIds = snapshots.map(snapshot => snapshot.channelId)
+      count = snapshotCount
     } else {
       // 通常のランキング
-      const supersSummaries = await getSupersSummaries(
-        getSupersSummariesParams(props)
-      )
+      const [supersSummaries, summariesCount] = await Promise.all([
+        getSupersSummaries(getSupersSummariesParams(props)),
+        getSupersSummariesCount(getSupersSummariesParams(props))
+      ])
       channelIds = supersSummaries.map(summary => summary.channelId)
+      count = summariesCount
     }
   }
 
   if (dimension === 'subscriber') {
-    const channels = await getChannels(getChannelsParams(props))
+    const [channels, channelsCount] = await Promise.all([
+      getChannels(getChannelsParams(props)),
+      getChannelsCount(getChannelsParams(props))
+    ])
     channelIds = channels.map(channel => channel.basicInfo.id)
+    count = channelsCount
   }
 
   return (
-    <section className={`@container space-y-4 sm:space-y-6 ${className || ''}`}>
-      <ChannelsRankingTableTitle
-        dimension={dimension}
-        period={period}
-        groupName={groupName}
-        gender={gender}
-        date={titleDate}
-        className={`${PageXSPX} sm:px-0`}
-      />
-
+    <>
       <ChannelsRankingTable
         channelIds={channelIds}
         dimension={dimension}
@@ -88,6 +90,9 @@ export default async function ChannelsRankingGallery(
         page={Number(page) || 1}
       />
 
-    </section>
+      <ResponsivePagination
+        totalPages={ChannelsRankingPagination.getTotalPages(count)}
+      />
+    </>
   )
 }

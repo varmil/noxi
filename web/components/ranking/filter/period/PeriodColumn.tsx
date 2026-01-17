@@ -17,14 +17,6 @@ const RESET_KEYS = {
   page: null
 }
 
-const PREFETCH_KEYS = [
-  'realtime',
-  'last24Hours',
-  'last7Days',
-  'last30Days',
-  'last1Year'
-]
-
 // PeriodColumnはスナップショット期間（weekly-xxx, monthly-xxx）をサポートしない
 // スナップショットはUI選択ではなくURLから直接アクセスするため
 type Keys = Period | StreamRankingPeriod
@@ -47,7 +39,6 @@ export default function PeriodColumn({ keys }: Props) {
             key={key}
             qs={{ ...RESET_KEYS }}
             pathname={pathname.replace(period as string, key)}
-            prefetch={PREFETCH_KEYS.includes(key)}
             isActive={() => period === key}
             activeVariant="secondary"
           >
