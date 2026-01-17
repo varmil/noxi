@@ -1,10 +1,12 @@
 import { NextRequest } from 'next/server'
 import { fromQueryStringsToPathParameters } from 'lib/middleware/fromQueryStringsToPathParameters'
 import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
+import { withBasicAuth } from 'lib/middleware/withBasicAuth'
 import { withIntl } from 'lib/middleware/withIntl'
 import { withRemoveQueryStrings } from 'lib/middleware/withRemoveQueryStrings'
 
 const middlewares = [
+  withBasicAuth,
   fromQueryStringsToPathParameters,
   withRemoveQueryStrings,
   withIntl
