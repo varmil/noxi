@@ -15,7 +15,7 @@ export default function SelectButton({
   activeVariant,
   pathname,
   pathnameMatchMode = 'includes',
-  prefetch = true,
+  prefetch = false,
   className,
   children,
   ...rest

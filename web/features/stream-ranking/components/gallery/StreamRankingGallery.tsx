@@ -1,9 +1,11 @@
 import { PropsWithoutRef } from 'react'
 import { getGroupName } from 'apis/groups'
-import { getSupersBundles } from 'apis/supers/getSupersBundles'
-import { getStreams } from 'apis/youtube/getStreams'
+import { getSupersBundles, getSupersBundlesCount } from 'apis/supers/getSupersBundles'
+import { getStreams, getStreamsCount } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
 import { PageXSPX } from 'components/page'
+import ResponsivePagination from 'components/pagination/ResponsivePagination'
+import { StreamRankingPagination } from 'config/constants/Pagination'
 import StreamRankingTable from 'features/stream-ranking/components/table/StreamRankingTable'
 import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
 import {
@@ -35,6 +37,7 @@ export default async function StreamRankingGallery(
   })
 
   let streams: StreamsSchema = []
+  let count = 0
 
   if (dimension === 'super-chat') {
     /**
@@ -42,7 +45,10 @@ export default async function StreamRankingGallery(
      * sortが崩れる（bundleの方の順番を使う必要がある）ので
      * streamsを取得後に手動で並び替えする
      */
-    const bundles = await getSupersBundles(createGetSupersBundlesParams(props))
+    const [bundles, bundlesCount] = await Promise.all([
+      getSupersBundles(createGetSupersBundlesParams(props)),
+      getSupersBundlesCount(createGetSupersBundlesParams(props))
+    ])
     streams = (
       await getStreams({
         videoIds: bundles.map(bundle => bundle.videoId),
@@ -54,11 +60,17 @@ export default async function StreamRankingGallery(
       const bIndex = bundles.findIndex(bundle => bundle.videoId === b.videoId)
       return aIndex - bIndex
     })
+    count = bundlesCount
   } else {
     /**
      * 直接 stream を取得する
      */
-    streams = await getStreams(createGetStreamsParams(props))
+    const [streamsData, streamsCount] = await Promise.all([
+      getStreams(createGetStreamsParams(props)),
+      getStreamsCount(createGetStreamsParams(props))
+    ])
+    streams = streamsData
+    count = streamsCount
   }
 
   return (
@@ -79,6 +91,9 @@ export default async function StreamRankingGallery(
         streams={streams}
       />
 
+      <ResponsivePagination
+        totalPages={StreamRankingPagination.getTotalPages(count)}
+      />
     </section>
   )
 }
