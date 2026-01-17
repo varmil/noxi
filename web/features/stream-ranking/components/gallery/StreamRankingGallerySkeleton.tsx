@@ -36,34 +36,34 @@ export default function StreamRankingGallerySkeleton() {
         </TableHeader>
         <TableBody>
           {Array.from({ length: ROWS }).map((_, i) => (
-            <TableRow key={i} className="h-[56.8px]">
+            <TableRow key={i}>
               {/* Rank */}
               <TableCell className="min-w-2 max-w-16">
-                <Skeleton className="h-6 w-6 mx-auto" />
+                <Skeleton className="h-8 w-5 mx-auto" />
               </TableCell>
 
               {/* Channel Thumbnail */}
               <TableCell className="text-center @max-md:z-10 @max-md:sticky @max-md:bg-background @max-md:left-0">
-                <Skeleton className="size-8 rounded-full" />
+                <Skeleton className="size-10 rounded-full mx-auto" />
               </TableCell>
 
               {/* Channel Title */}
-              <TableCell className="min-w-[152px]">
+              <TableCell width={400} className="min-w-[152px]">
                 <Skeleton className="h-5 w-32" />
               </TableCell>
 
               {/* Dimension (Concurrent Viewers or SuperChat) */}
-              <TableCell className="min-w-24">
+              <TableCell width={160} className="min-w-24">
                 <Skeleton className="h-5 w-16" />
               </TableCell>
 
               {/* Stream Thumbnail */}
               <TableCell>
-                <Skeleton className="w-20 aspect-video rounded" />
+                <Skeleton className="w-16 aspect-video rounded" />
               </TableCell>
 
               {/* Stream Title */}
-              <TableCell className="min-w-[240px]">
+              <TableCell width={500} className="min-w-[240px]">
                 <Skeleton className="h-5 w-48" />
               </TableCell>
 

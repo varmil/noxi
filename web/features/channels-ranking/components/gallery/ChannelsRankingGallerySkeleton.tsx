@@ -35,19 +35,19 @@ export default function ChannelsRankingGallerySkeleton() {
         </TableHeader>
         <TableBody>
           {Array.from({ length: ROWS }).map((_, i) => (
-            <TableRow key={i} className="h-[56.8px]">
+            <TableRow key={i}>
               {/* Rank */}
               <TableCell className="min-w-2 max-w-16 py-1">
-                <Skeleton className="h-6 w-6 mx-auto" />
+                <Skeleton className="h-8 w-5 mx-auto" />
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <TableCell className="text-center">
-                <Skeleton className="size-8 rounded-full" />
+              <TableCell className="text-center min-w-15 max-w-24">
+                <Skeleton className="size-10 rounded-full mx-auto" />
               </TableCell>
 
               {/* Channel Title */}
-              <TableCell>
+              <TableCell width={700}>
                 <Skeleton className="h-5 w-32 sm:w-48" />
               </TableCell>
 
