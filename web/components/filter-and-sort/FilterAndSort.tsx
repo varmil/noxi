@@ -22,6 +22,7 @@ const DrawerSkeleton = () => (
   </>
 )
 
+/** @deprecated 2026/01/17 未使用状態 */
 export async function FilterAndSort() {
   return (
     <ScrollArea className="whitespace-nowrap">
