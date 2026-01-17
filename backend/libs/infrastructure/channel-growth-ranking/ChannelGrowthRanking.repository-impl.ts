@@ -5,11 +5,15 @@ import {
   ChannelGrowthRankings,
   Diff,
   Rank,
-  Rate,
-  ThumbnailUrl
+  Rate
 } from '@domain/channel-growth-ranking'
 import { GroupId, GroupName } from '@domain/group'
-import { ChannelId, ChannelTitle, SubscriberCount } from '@domain/youtube/channel'
+import {
+  ChannelId,
+  ChannelTitle,
+  SubscriberCount,
+  ThumbnailUrl
+} from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 interface ChannelGrowthRankingRow {
