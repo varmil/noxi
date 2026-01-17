@@ -346,15 +346,17 @@ export function InactiveChannelManagement({
             <AlertDialogTitle>
               チャンネルを完全に削除しますか？
             </AlertDialogTitle>
-            <AlertDialogDescription className="space-y-2">
-              <p>
-                以下のチャンネルを完全に削除します。この操作は元に戻せません。
-              </p>
-              {channelToDelete && (
-                <p className="font-semibold text-foreground mt-2">
-                  {channelToDelete.title}
+            <AlertDialogDescription asChild>
+              <div className="space-y-2">
+                <p>
+                  以下のチャンネルを完全に削除します。この操作は元に戻せません。
                 </p>
-              )}
+                {channelToDelete && (
+                  <p className="font-semibold text-foreground mt-2">
+                    {channelToDelete.title}
+                  </p>
+                )}
+              </div>
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

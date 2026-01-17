@@ -54,67 +54,71 @@ export class InactiveChannelRepositoryImpl implements InactiveChannelRepository 
     const id = channelId.get()
 
     // トランザクションで全ての関連データを削除
-    await this.prisma.$transaction(async tx => {
-      // 1. Cascade されないテーブルを先に削除
-      // YoutubeStreamSuperSticker (videoId で紐づき、relation なし)
-      await tx.$executeRaw`
-        DELETE FROM "YoutubeStreamSuperSticker"
-        WHERE "videoId" IN (
-          SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
-        )
-      `
+    // データ量が多い場合があるためタイムアウトを延長（2分）
+    await this.prisma.$transaction(
+      async tx => {
+        // 1. Cascade されないテーブルを先に削除
+        // YoutubeStreamSuperSticker (videoId で紐づき、relation なし)
+        await tx.$executeRaw`
+          DELETE FROM "YoutubeStreamSuperSticker"
+          WHERE "videoId" IN (
+            SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
+          )
+        `
 
-      // StreamMembership (videoId で紐づき、relation なし)
-      await tx.$executeRaw`
-        DELETE FROM "StreamMembership"
-        WHERE "videoId" IN (
-          SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
-        )
-      `
+        // StreamMembership (videoId で紐づき、relation なし)
+        await tx.$executeRaw`
+          DELETE FROM "StreamMembership"
+          WHERE "videoId" IN (
+            SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
+          )
+        `
 
-      // NextContinuation (videoId で紐づき、relation なし)
-      await tx.$executeRaw`
-        DELETE FROM "NextContinuation"
-        WHERE "videoId" IN (
-          SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
-        )
-      `
+        // NextContinuation (videoId で紐づき、relation なし)
+        await tx.$executeRaw`
+          DELETE FROM "NextContinuation"
+          WHERE "videoId" IN (
+            SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
+          )
+        `
 
-      // YoutubeStreamViewerCount (videoId で紐づき、relation なし)
-      await tx.$executeRaw`
-        DELETE FROM "YoutubeStreamViewerCount"
-        WHERE "videoId" IN (
-          SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
-        )
-      `
+        // YoutubeStreamViewerCount (videoId で紐づき、relation なし)
+        await tx.$executeRaw`
+          DELETE FROM "YoutubeStreamViewerCount"
+          WHERE "videoId" IN (
+            SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
+          )
+        `
 
-      // StreamChatDeletingQueue (videoId で紐づき、relation なし)
-      await tx.$executeRaw`
-        DELETE FROM "StreamChatDeletingQueue"
-        WHERE "videoId" IN (
-          SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
-        )
-      `
+        // StreamChatDeletingQueue (videoId で紐づき、relation なし)
+        await tx.$executeRaw`
+          DELETE FROM "StreamChatDeletingQueue"
+          WHERE "videoId" IN (
+            SELECT "videoId" FROM "YoutubeStream" WHERE "channelId" = ${id}
+          )
+        `
 
-      // MembershipPrice (channelId で紐づき、relation なし)
-      await tx.$executeRaw`
-        DELETE FROM "MembershipPrice" WHERE "channelId" = ${id}
-      `
+        // MembershipPrice (channelId で紐づき、relation なし)
+        await tx.$executeRaw`
+          DELETE FROM "MembershipPrice" WHERE "channelId" = ${id}
+        `
 
-      // 2. Channel を削除（残りは Cascade で自動削除）
-      // - YoutubeStream → YoutubeStreamSuperChat も連鎖削除
-      // - YoutubeStreamSupersBundle
-      // - YoutubeStreamSupersSummary
-      // - YoutubeStreamSupersSummaryLatest
-      // - StreamMembershipBundle
-      // - ChannelMembershipSummary
-      // - ChannelMembershipSummaryLatest
-      // - ChannelSupersRanking
-      // - ChannelSubscriberCountSummary
-      // - ChannelVideoCountSummary
-      // - ChannelViewCountSummary
-      await tx.channel.delete({ where: { id } })
-    })
+        // 2. Channel を削除（残りは Cascade で自動削除）
+        // - YoutubeStream → YoutubeStreamSuperChat も連鎖削除
+        // - YoutubeStreamSupersBundle
+        // - YoutubeStreamSupersSummary
+        // - YoutubeStreamSupersSummaryLatest
+        // - StreamMembershipBundle
+        // - ChannelMembershipSummary
+        // - ChannelMembershipSummaryLatest
+        // - ChannelSupersRanking
+        // - ChannelSubscriberCountSummary
+        // - ChannelVideoCountSummary
+        // - ChannelViewCountSummary
+        await tx.channel.delete({ where: { id } })
+      },
+      { timeout: 120000 }
+    )
   }
 
   private toDomain(row: InactiveChannelRow): InactiveChannel {
