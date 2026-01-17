@@ -42,13 +42,13 @@ export default function ChannelsRankingGallerySkeleton() {
               </TableCell>
 
               {/* Channel Thumbnail */}
-              <TableCell className="text-center min-w-15 max-w-24">
+              <TableCell className="text-center">
                 <Skeleton className="size-10 rounded-full mx-auto" />
               </TableCell>
 
               {/* Channel Title */}
-              <TableCell width={700}>
-                <Skeleton className="h-5 w-32 sm:w-48" />
+              <TableCell width={640}>
+                <Skeleton className="h-5 w-32 sm:w-48 md:w-64" />
               </TableCell>
 
               {/* Dimension (SuperChat or Subscribers) */}
@@ -57,12 +57,12 @@ export default function ChannelsRankingGallerySkeleton() {
               </TableCell>
 
               {/* Group */}
-              <TableCell className="hidden @3xl:table-cell">
+              <TableCell width={100} className="hidden @3xl:table-cell">
                 <Skeleton className="h-5 w-12 mx-auto" />
               </TableCell>
 
               {/* Country */}
-              <TableCell className="hidden @3xl:table-cell">
+              <TableCell width={50} className="hidden @3xl:table-cell">
                 <Skeleton className="h-5 w-8 mx-auto" />
               </TableCell>
 
