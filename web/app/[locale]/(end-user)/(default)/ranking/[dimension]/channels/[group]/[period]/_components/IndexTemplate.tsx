@@ -4,7 +4,7 @@ import { PageSMPX, PageXSPX } from 'components/page'
 import ChannelsRankingFilterGallery from 'features/channels-ranking/components/filter/ChannelsRankingFilterGallery'
 import ChannelsRankingGallery from 'features/channels-ranking/components/gallery/ChannelsRankingGallery'
 import ChannelsRankingGallerySkeleton from 'features/channels-ranking/components/gallery/ChannelsRankingGallerySkeleton'
-import ChannelsRankingTableTitle from 'features/channels-ranking/components/table/ChannelsRankingTableTitle'
+import ChannelsRankingGalleryTitle from 'features/channels-ranking/components/gallery/ChannelsRankingGalleryTitle'
 import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
@@ -44,7 +44,7 @@ export default async function IndexTemplate({
 
       <section className={`${PageSMPX} space-y-6`}>
         <section className="max-w-6xl mx-auto @container space-y-4 sm:space-y-6">
-          <ChannelsRankingTableTitle
+          <ChannelsRankingGalleryTitle
             dimension={dimension}
             period={period}
             groupName={groupName}

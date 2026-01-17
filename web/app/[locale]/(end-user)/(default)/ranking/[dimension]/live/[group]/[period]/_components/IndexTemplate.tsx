@@ -4,7 +4,7 @@ import { PageSMPX, PageXSPX } from 'components/page'
 import StreamRankingFilterGallery from 'features/stream-ranking/components/filter/StreamRankingFilterGallery'
 import StreamRankingGallery from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 import StreamRankingGallerySkeleton from 'features/stream-ranking/components/gallery/StreamRankingGallerySkeleton'
-import StreamRankingTableTitle from 'features/stream-ranking/components/table/StreamRankingTableTitle'
+import StreamRankingGalleryTitle from 'features/stream-ranking/components/gallery/StreamRankingGalleryTitle'
 import {
   StreamRankingDimension,
   StreamRankingSearchParams
@@ -41,7 +41,7 @@ export default async function IndexTemplate({
 
       <section className={`${PageSMPX} space-y-6`}>
         <section className="max-w-6xl mx-auto @container space-y-4 sm:space-y-6">
-          <StreamRankingTableTitle
+          <StreamRankingGalleryTitle
             dimension={dimension}
             period={period}
             groupName={groupName}

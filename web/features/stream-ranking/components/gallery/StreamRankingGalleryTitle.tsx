@@ -20,7 +20,7 @@ type Props = PropsWithChildren<{
   className?: string
 }>
 
-export default function StreamRankingTableTitle({
+export default function StreamRankingGalleryTitle({
   dimension,
   period,
   groupName,
