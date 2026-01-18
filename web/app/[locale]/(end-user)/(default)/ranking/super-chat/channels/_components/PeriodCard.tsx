@@ -14,7 +14,7 @@ export default function PeriodCard({ title, subtitle, href, channels }: Props) {
   return (
     <Link href={href} prefetch={false}>
       <Card className="group cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-primary/50">
-        <CardContent className="p-4">
+        <CardContent>
           <div className="mb-3">
             <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
               {title}
