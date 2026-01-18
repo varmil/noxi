@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
+import { trace } from '@opentelemetry/api'
 import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
-import { GroupsService } from '@app/groups/groups.service'
 import { PromiseService } from '@app/lib/promise-service'
 import { StreamsService } from '@app/streams/streams.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
@@ -11,6 +11,8 @@ import { QueueStatusUnprocessed } from '@domain/queue'
 import { StreamStatusScheduled } from '@domain/stream'
 import { DeletedEntry, UpdatedEntry } from '@domain/youtube'
 import { VideoToStreamConverter } from '@domain/youtube/converter/VideoToStreamConverter'
+
+const tracer = trace.getTracer('PubsubhubbubScenario')
 
 /**
  * callbackを扱う
@@ -23,7 +25,6 @@ export class PubsubhubbubScenario {
     private readonly promiseService: PromiseService,
     private readonly callbackService: CallbackService,
     private readonly channelsService: ChannelsService,
-    private readonly groupsService: GroupsService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService,
     private readonly chatDeletingQueuesService: ChatDeletingQueuesService,
@@ -31,29 +32,62 @@ export class PubsubhubbubScenario {
   ) {}
 
   async handleUpdatedCallback({ entry }: { entry: UpdatedEntry }) {
-    this.logger.log(`hUC: ${entry.videoId.get()}`, entry.toJSON())
+    return tracer.startActiveSpan(
+      'PubsubhubbubScenario.handleUpdatedCallback',
+      async span => {
+        try {
+          this.logger.log(`hUC: ${entry.videoId.get()}`, entry.toJSON())
 
-    const channel = await this.channelsService.findById(entry.channelId)
-    if (!channel) {
-      this.logger.warn('hUC channel not found:', entry.toJSON())
-      return
-    }
-
-    // ChannelからGroupを取得
-    const group = channel.peakX?.group
-    if (!group) {
-      this.logger.warn('hUC group not found:', entry.toJSON())
-      return
-    }
-
-    const video = await this.videosService.findById(entry.videoId)
-    if (!video) {
-      this.logger.warn('hUC video not found:', entry.toJSON())
-      return
-    }
-
-    const stream = VideoToStreamConverter.convert({ group, video })
-    await this.streamsService.save({ data: stream })
+          // 並列実行: channelとvideoを同時に取得
+          const [channel, video] = await tracer.startActiveSpan(
+            'fetch channel and video',
+            async fetchSpan => {
+              try {
+                return await Promise.all([
+                  this.channelsService.findById(entry.channelId),
+                  this.videosService.findById(entry.videoId)
+                ])
+              } finally {
+                fetchSpan.end()
+              }
+            }
+          )
+          if (!channel) {
+            this.logger.warn('hUC channel not found:', entry.toJSON())
+            return
+          }
+          // ChannelからGroupを取得
+          const group = channel.peakX?.group
+          if (!group) {
+            this.logger.warn('hUC group not found:', entry.toJSON())
+            return
+          }
+          if (!video) {
+            this.logger.warn('hUC video not found:', entry.toJSON())
+            return
+          }
+          const stream = tracer.startActiveSpan(
+            'convert video to stream',
+            convertSpan => {
+              try {
+                return VideoToStreamConverter.convert({ group, video })
+              } finally {
+                convertSpan.end()
+              }
+            }
+          )
+          await tracer.startActiveSpan('save stream', async saveSpan => {
+            try {
+              await this.streamsService.save({ data: stream })
+            } finally {
+              saveSpan.end()
+            }
+          })
+        } finally {
+          span.end()
+        }
+      }
+    )
   }
 
   /**
