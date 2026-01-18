@@ -77,6 +77,7 @@
   },
   "Breadcrumb": {
     "group": "{group}",
+    "groupList": "グループ一覧",
     "channels": "タレント一覧",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",

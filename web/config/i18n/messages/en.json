@@ -82,6 +82,7 @@
 
   "Breadcrumb": {
     "group": "{group}",
+    "groupList": "Groups",
     "channels": "Talents",
     "live": "Live now on air",
     "scheduled": "Live schedule",
