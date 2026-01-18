@@ -1,7 +1,10 @@
 'use server'
 
 import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
-import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
+import {
+  formatSnapshotPeriod,
+  formatWeeklyPeriodSplit
+} from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import { getSnapshotSupersRanking } from 'features/channels-ranking/utils/getSnapshotSupersRanking'
 import { generateMonthlyPeriods } from 'features/super-chat-ranking-index/utils/generateMonthlyPeriods'
 import { generateWeeklyPeriods } from 'features/super-chat-ranking-index/utils/generateWeeklyPeriods'
@@ -13,6 +16,7 @@ import {
 export type ArchiveItem = {
   id: string
   title: string
+  subtitle?: string
   href: string
   channels: {
     id: string
@@ -88,16 +92,33 @@ async function fetchTop5ForPeriods(
     })
   )
 
-  return results.map(r => ({
-    id: r.period,
-    title:
-      formatSnapshotPeriod(
-        r.period as WeeklySnapshotPeriod | MonthlySnapshotPeriod,
-        locale
-      ) || r.period,
-    href: `/ranking/super-chat/channels/${group}/${r.period}`,
-    channels: r.channels
-  }))
+  return results.map(r => {
+    const weeklySplit = formatWeeklyPeriodSplit(
+      r.period as WeeklySnapshotPeriod | MonthlySnapshotPeriod,
+      locale
+    )
+
+    if (weeklySplit) {
+      return {
+        id: r.period,
+        title: weeklySplit.title,
+        subtitle: weeklySplit.subtitle,
+        href: `/ranking/super-chat/channels/${group}/${r.period}`,
+        channels: r.channels
+      }
+    }
+
+    return {
+      id: r.period,
+      title:
+        formatSnapshotPeriod(
+          r.period as WeeklySnapshotPeriod | MonthlySnapshotPeriod,
+          locale
+        ) || r.period,
+      href: `/ranking/super-chat/channels/${group}/${r.period}`,
+      channels: r.channels
+    }
+  })
 }
 
 /**

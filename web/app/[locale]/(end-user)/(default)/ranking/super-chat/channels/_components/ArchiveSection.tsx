@@ -63,6 +63,7 @@ export default function ArchiveSection({
           <PeriodCard
             key={item.id}
             title={item.title}
+            subtitle={item.subtitle}
             href={item.href}
             channels={item.channels}
           />
