@@ -112,7 +112,10 @@ export async function ChannelsRankingJsonLd({
     })
     hubPage = {
       name: superChatIndexT('heading'),
-      href: '/ranking/super-chat/channels'
+      href:
+        group !== 'all'
+          ? `/ranking/super-chat/channels?group=${group}`
+          : '/ranking/super-chat/channels'
     }
   }
 

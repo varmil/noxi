@@ -140,7 +140,10 @@ export default async function RankingChannelsPage(props: Props) {
     })
     hubPage = {
       name: superChatIndexT('heading'),
-      href: '/ranking/super-chat/channels'
+      href:
+        groupId !== 'all'
+          ? `/ranking/super-chat/channels?group=${groupId}`
+          : '/ranking/super-chat/channels'
     }
   }
 
