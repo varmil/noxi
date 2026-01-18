@@ -68,7 +68,6 @@ export default async function RankingTopFansPage(props: Props) {
       ]}
       noPadding
       fullWidth
-      ads
     >
       <RankHighlighter>
         <IndexTemplate

@@ -82,6 +82,7 @@
 
   "Breadcrumb": {
     "group": "{group}",
+    "groupList": "Groups",
     "channels": "Talents",
     "live": "Live now on air",
     "scheduled": "Live schedule",
@@ -288,6 +289,25 @@
     },
 
     "ranking": {
+      "superChatIndex": {
+        "metadata": {
+          "title": "Super Chat Ranking - Weekly & Monthly History",
+          "description": "Top page for Super Chat earnings ranking. Browse weekly and monthly historical data."
+        },
+        "heading": "Super Chat Ranking",
+        "section": {
+          "featured": { "title": "Popular Pages" },
+          "weeklyArchive": { "title": "Weekly Ranking History" },
+          "monthlyArchive": { "title": "Monthly Ranking History" }
+        },
+        "filter": { "allGroups": "All Groups" },
+        "showMore": "Show More",
+        "period": {
+          "last24Hours": "Last 24 Hours",
+          "last30Days": "Last 30 Days",
+          "thisYear": "This Year"
+        }
+      },
       "channels": {
         "metadata": {
           "description": {

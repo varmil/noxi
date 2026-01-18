@@ -1,6 +1,7 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { Metadata } from 'next'
 import { setRequestLocale, getTranslations } from 'next-intl/server'
+import { getGroupName } from 'apis/groups'
 import { getChannel } from 'apis/youtube/getChannel'
 import { Page } from 'components/page'
 import ChannelsIdXXXTemplateSkeleton from 'components/skeleton/ChannelsIdXXXTemplateSkeleton'
@@ -67,9 +68,10 @@ export default async function ChannelsIdBasePage(
   setRequestLocale(locale as 'ja' | 'en')
   setGroup(group)
 
-  const [channel, t] = await Promise.all([
+  const [channel, t, groupName] = await Promise.all([
     getChannel(id),
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Breadcrumb' })
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Breadcrumb' }),
+    getGroupName(group, { errorContext: 'channel detail page (breadcrumb)' })
   ])
 
   return (
@@ -77,9 +79,10 @@ export default async function ChannelsIdBasePage(
       <ChannelProfilePageJsonLd locale={locale} channel={channel} />
       <Page
         breadcrumb={[
+          { href: '/groups', name: t('groupList') },
           {
-            href: `/ranking/super-chat/channels/all/last30Days`,
-            name: t('superChatRanking')
+            href: `/${group}/channels`,
+            name: groupName
           },
           { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
         ]}

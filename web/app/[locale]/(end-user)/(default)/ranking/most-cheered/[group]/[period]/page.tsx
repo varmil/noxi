@@ -68,7 +68,6 @@ export default async function RankingMostCheeredPage(props: Props) {
       ]}
       noPadding
       fullWidth
-      ads
     >
       <RankHighlighter>
         <IndexTemplate

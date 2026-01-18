@@ -81,6 +81,45 @@ export function formatSnapshotPeriod(
 }
 
 /**
+ * 週間スナップショット期間をタイトルとサブタイトルに分けてフォーマット
+ * PeriodCard用: タイトル「2025年第48週」、サブタイトル「11/24 ~ 11/30」
+ *
+ * @param period ランキング期間（weekly-YYYY-Wxx形式）
+ * @param locale 'ja' | 'en'
+ * @returns { title, subtitle } または undefined
+ */
+export function formatWeeklyPeriodSplit(
+  period: ChannelsRankingPeriod,
+  locale: 'ja' | 'en' = 'ja'
+): { title: string; subtitle: string } | undefined {
+  if (!isSnapshotPeriod(period)) {
+    return undefined
+  }
+
+  const { period: type, target } = parseSnapshotPeriod(period as SnapshotPeriod)
+
+  if (type !== 'weekly') {
+    return undefined
+  }
+
+  const weekMatch = target.match(/^(\d{4})-W(\d{2})$/)
+  if (!weekMatch) {
+    return undefined
+  }
+
+  const year = parseInt(weekMatch[1], 10)
+  const week = parseInt(weekMatch[2], 10)
+  const { start, end } = getWeekDateRange(year, week)
+  const startStr = `${start.month() + 1}/${start.date()}`
+  const endStr = `${end.month() + 1}/${end.date()}`
+
+  return {
+    title: locale === 'ja' ? `${year}年第${week}週` : `Week ${week}, ${year}`,
+    subtitle: `${startStr} ~ ${endStr}`
+  }
+}
+
+/**
  * 期間名を取得（スナップショットの場合はフォーマット、それ以外は翻訳キーを返す）
  *
  * @param period ランキング期間

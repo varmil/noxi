@@ -77,6 +77,7 @@
   },
   "Breadcrumb": {
     "group": "{group}",
+    "groupList": "グループ一覧",
     "channels": "タレント一覧",
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
@@ -292,6 +293,25 @@
       }
     },
     "ranking": {
+      "superChatIndex": {
+        "metadata": {
+          "title": "スパチャランキング - 週間・月間ランキング履歴",
+          "description": "VTuberのスーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
+        },
+        "heading": "スパチャランキング",
+        "section": {
+          "featured": { "title": "よく見られているページ" },
+          "weeklyArchive": { "title": "週間ランキング履歴" },
+          "monthlyArchive": { "title": "月間ランキング履歴" }
+        },
+        "filter": { "allGroups": "すべてのグループ" },
+        "showMore": "もっと見る",
+        "period": {
+          "last24Hours": "過去24時間",
+          "last30Days": "過去30日間",
+          "thisYear": "今年"
+        }
+      },
       "channels": {
         "metadata": {
           "description": {

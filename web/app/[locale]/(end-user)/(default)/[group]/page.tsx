@@ -40,14 +40,18 @@ export default async function GroupPage(props: Props) {
   setRequestLocale(locale as 'ja' | 'en')
   setGroup(groupId)
 
-  const [feat, groupName] = await Promise.all([
+  const [feat, breadcrumbT, groupName] = await Promise.all([
     getTranslations('Features.group'),
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Breadcrumb' }),
     getGroupName(groupId, { errorContext: 'group page' })
   ])
 
   return (
     <Page
-      breadcrumb={[{ href: `/${groupId}`, name: groupName }]}
+      breadcrumb={[
+        { href: '/groups', name: breadcrumbT('groupList') },
+        { href: `/${groupId}`, name: groupName }
+      ]}
       h1={`${groupName} ${feat('overview.nav')}`}
     >
       <LocalNavigationForGroupPages group={groupId} />
