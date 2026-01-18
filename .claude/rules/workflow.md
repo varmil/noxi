@@ -89,8 +89,27 @@ git commit -m "refactor: コンポーネント構造を改善し整理"
 ## Git ブランチ運用
 
 - **main/master ブランチへの直接コミット・プッシュは禁止**
-- 基本的に `develop` ブランチで作業する
+- main ブランチから新しいブランチを作成して作業する
 - PR を作成してマージする
+
+### 作業ブランチの作成方法
+
+```bash
+# main ブランチから新しいブランチを作成
+git checkout main
+git checkout -b feature/my-feature
+
+# 作業完了後、コミットしてプッシュ
+git add -A
+git commit -m "feat: 新機能を追加"
+git push origin feature/my-feature
+
+# PR を作成
+gh pr create
+```
+
+**注意**: 既存のブランチに過去のコミットが積み重なっている場合、
+新しい作業は必ず main から新規ブランチを作成すること
 
 ## 注意事項
 
