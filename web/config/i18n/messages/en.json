@@ -288,6 +288,24 @@
     },
 
     "ranking": {
+      "superChatIndex": {
+        "metadata": {
+          "title": "Super Chat Ranking - Weekly & Monthly History",
+          "description": "Super Chat earnings ranking for VTubers. Browse weekly and monthly historical data."
+        },
+        "section": {
+          "featured": { "title": "Featured Rankings" },
+          "weeklyArchive": { "title": "Weekly Ranking History" },
+          "monthlyArchive": { "title": "Monthly Ranking History" }
+        },
+        "filter": { "allGroups": "All Groups" },
+        "showMore": "Show More",
+        "period": {
+          "last24Hours": "Last 24 Hours",
+          "last30Days": "Last 30 Days",
+          "thisYear": "This Year"
+        }
+      },
       "channels": {
         "metadata": {
           "description": {
