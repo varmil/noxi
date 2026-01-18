@@ -19,9 +19,9 @@ export default function FeaturedSection({ title, items }: Props) {
       <div className="grid grid-cols-3 gap-2">
         {items.map(item => (
           <Link key={item.id} href={item.href} prefetch={false}>
-            <Card className="group cursor-pointer transition-all duration-200 hover:shadow-md hover:border-primary/50">
+            <Card className="group cursor-pointer transition-all hover:shadow-md hover:border-primary/50">
               <CardContent className="p-2 sm:p-3">
-                <h3 className="text-xs sm:text-sm font-medium text-center text-foreground group-hover:text-primary transition-colors">
+                <h3 className="text-xs sm:text-sm font-medium text-center text-foreground">
                   {item.title}
                 </h3>
               </CardContent>

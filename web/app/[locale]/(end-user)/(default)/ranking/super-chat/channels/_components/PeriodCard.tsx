@@ -13,12 +13,10 @@ type Props = {
 export default function PeriodCard({ title, subtitle, href, channels }: Props) {
   return (
     <Link href={href} prefetch={false}>
-      <Card className="group cursor-pointer transition-all duration-200 hover:shadow-lg hover:border-primary/50">
+      <Card className="group cursor-pointer hover:shadow-lg hover:border-primary/50">
         <CardContent>
           <div className="mb-3">
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors text-sm">
-              {title}
-            </h3>
+            <h3 className="font-semibold text-foreground text-sm">{title}</h3>
             {subtitle && (
               <p className="text-xs text-muted-foreground">{subtitle}</p>
             )}
@@ -27,7 +25,7 @@ export default function PeriodCard({ title, subtitle, href, channels }: Props) {
             {channels.slice(0, 5).map((channel, index) => (
               <Avatar
                 key={channel.channelId}
-                className="size-9 ring-2 ring-background transition-transform group-hover:scale-105"
+                className="size-9 ring-2 ring-background"
                 style={{ zIndex: 5 - index }}
               >
                 <AvatarImage

@@ -107,13 +107,13 @@ async function ArchiveSections({
   return (
     <>
       <ArchiveSection
-        title={t('section.weeklyArchive.title')}
-        items={weeklyItems}
+        title={t('section.monthlyArchive.title')}
+        items={monthlyItems}
         showMoreLabel={t('showMore')}
       />
       <ArchiveSection
-        title={t('section.monthlyArchive.title')}
-        items={monthlyItems}
+        title={t('section.weeklyArchive.title')}
+        items={weeklyItems}
         showMoreLabel={t('showMore')}
       />
     </>
