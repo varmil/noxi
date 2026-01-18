@@ -1,3 +1,9 @@
+/**
+ * @important workaround: googlebotがscript内のhrefを拾って404扱いにする問題
+ * これを回避するために、use clientをつけてhref部分を露出させないようにする
+ */
+'use client'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
 import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
