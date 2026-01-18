@@ -1,47 +1,68 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
+import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
+import {
+  ArchiveItem,
+  fetchArchiveItems
+} from '../_actions/fetchArchiveItems'
 import PeriodCard from './PeriodCard'
-
-type PeriodItem = {
-  id: string
-  title: string
-  subtitle?: string
-  href: string
-  channels: ChannelsRanking[]
-}
 
 type Props = {
   title: string
-  items: PeriodItem[]
+  type: 'weekly' | 'monthly'
+  group: string
+  locale: 'ja' | 'en'
+  initialItems: ArchiveItem[]
+  initialHasMore: boolean
+  totalCount: number
   showMoreLabel: string
-  initialCount?: number
   incrementCount?: number
 }
 
 export default function ArchiveSection({
   title,
-  items,
+  type,
+  group,
+  locale,
+  initialItems,
+  initialHasMore,
+  totalCount,
   showMoreLabel,
-  initialCount = 12,
   incrementCount = 12
 }: Props) {
-  const [visibleCount, setVisibleCount] = useState(initialCount)
+  const [items, setItems] = useState<ArchiveItem[]>(initialItems)
+  const [hasMore, setHasMore] = useState(initialHasMore)
+  const [isPending, startTransition] = useTransition()
 
-  const visibleItems = items.slice(0, visibleCount)
-  const hasMore = visibleCount < items.length
+  const handleLoadMore = () => {
+    startTransition(async () => {
+      const result = await fetchArchiveItems(
+        type,
+        group,
+        locale,
+        items.length,
+        incrementCount
+      )
+      setItems(prev => [...prev, ...result.items])
+      setHasMore(result.hasMore)
+    })
+  }
 
   return (
     <section className="mb-12">
-      <h2 className="text-xl font-bold text-foreground mb-4">{title}</h2>
+      <h2 className="text-xl font-bold text-foreground mb-4">
+        {title}
+        <span className="text-sm font-normal text-muted-foreground ml-2">
+          ({items.length} / {totalCount})
+        </span>
+      </h2>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {visibleItems.map(item => (
+        {items.map(item => (
           <PeriodCard
             key={item.id}
             title={item.title}
-            subtitle={item.subtitle}
             href={item.href}
             channels={item.channels}
           />
@@ -52,9 +73,17 @@ export default function ArchiveSection({
           <Button
             variant="outline"
             size="lg"
-            onClick={() => setVisibleCount(prev => prev + incrementCount)}
+            onClick={handleLoadMore}
+            disabled={isPending}
           >
-            {showMoreLabel}
+            {isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Loading...
+              </>
+            ) : (
+              showMoreLabel
+            )}
           </Button>
         </div>
       )}

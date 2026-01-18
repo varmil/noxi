@@ -1,77 +1,16 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getGroups } from 'apis/groups'
-import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
-import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
-import { getSnapshotSupersRanking } from 'features/channels-ranking/utils/getSnapshotSupersRanking'
-import {
-  generateMonthlyPeriods,
-  MonthlyPeriod
-} from 'features/super-chat-ranking-index/utils/generateMonthlyPeriods'
-import {
-  generateWeeklyPeriods,
-  WeeklyPeriod
-} from 'features/super-chat-ranking-index/utils/generateWeeklyPeriods'
+import { fetchArchiveItems } from '../_actions/fetchArchiveItems'
 import ArchiveSection from './ArchiveSection'
 import FeaturedSection from './FeaturedSection'
 import GroupFilterBar from './GroupFilterBar'
 
+const INITIAL_ITEMS_COUNT = 12
+
 type Props = {
   locale: 'ja' | 'en'
   group?: string
-}
-
-async function fetchTop5ForPeriods<
-  T extends { period: string; target: string }
->(
-  periods: T[],
-  periodType: 'weekly' | 'monthly',
-  group: string
-): Promise<Map<string, ChannelsRanking[]>> {
-  const results = await Promise.all(
-    periods.map(async p => {
-      try {
-        const channels = await getSnapshotSupersRanking({
-          period: periodType,
-          target: p.target,
-          group,
-          limit: 5
-        })
-        return { period: p.period, channels }
-      } catch {
-        return { period: p.period, channels: [] }
-      }
-    })
-  )
-  return new Map(results.map(r => [r.period, r.channels]))
-}
-
-function buildWeeklyItems(
-  periods: WeeklyPeriod[],
-  channelsMap: Map<string, ChannelsRanking[]>,
-  group: string,
-  locale: 'ja' | 'en'
-) {
-  return periods.map(p => ({
-    id: p.period,
-    title: formatSnapshotPeriod(p.period, locale) || p.period,
-    href: `/ranking/super-chat/channels/${group}/${p.period}`,
-    channels: channelsMap.get(p.period) || []
-  }))
-}
-
-function buildMonthlyItems(
-  periods: MonthlyPeriod[],
-  channelsMap: Map<string, ChannelsRanking[]>,
-  group: string,
-  locale: 'ja' | 'en'
-) {
-  return periods.map(p => ({
-    id: p.period,
-    title: formatSnapshotPeriod(p.period, locale) || p.period,
-    href: `/ranking/super-chat/channels/${group}/${p.period}`,
-    channels: channelsMap.get(p.period) || []
-  }))
 }
 
 async function ArchiveSections({
@@ -83,37 +22,32 @@ async function ArchiveSections({
 }) {
   const t = await getTranslations('Page.ranking.superChatIndex')
 
-  const weeklyPeriods = generateWeeklyPeriods()
-  const monthlyPeriods = generateMonthlyPeriods()
-
-  const [weeklyChannelsMap, monthlyChannelsMap] = await Promise.all([
-    fetchTop5ForPeriods(weeklyPeriods, 'weekly', group),
-    fetchTop5ForPeriods(monthlyPeriods, 'monthly', group)
+  // 初期表示分のみ取得（12件ずつ）
+  const [weeklyResult, monthlyResult] = await Promise.all([
+    fetchArchiveItems('weekly', group, locale, 0, INITIAL_ITEMS_COUNT),
+    fetchArchiveItems('monthly', group, locale, 0, INITIAL_ITEMS_COUNT)
   ])
-
-  const weeklyItems = buildWeeklyItems(
-    weeklyPeriods,
-    weeklyChannelsMap,
-    group,
-    locale
-  )
-  const monthlyItems = buildMonthlyItems(
-    monthlyPeriods,
-    monthlyChannelsMap,
-    group,
-    locale
-  )
 
   return (
     <>
       <ArchiveSection
         title={t('section.monthlyArchive.title')}
-        items={monthlyItems}
+        type="monthly"
+        group={group}
+        locale={locale}
+        initialItems={monthlyResult.items}
+        initialHasMore={monthlyResult.hasMore}
+        totalCount={monthlyResult.totalCount}
         showMoreLabel={t('showMore')}
       />
       <ArchiveSection
         title={t('section.weeklyArchive.title')}
-        items={weeklyItems}
+        type="weekly"
+        group={group}
+        locale={locale}
+        initialItems={weeklyResult.items}
+        initialHasMore={weeklyResult.hasMore}
+        totalCount={weeklyResult.totalCount}
         showMoreLabel={t('showMore')}
       />
     </>

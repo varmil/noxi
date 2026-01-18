@@ -6,14 +6,19 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent } from '@/components/ui/card'
-import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
 import { Link } from 'lib/navigation'
+
+type SimpleChannel = {
+  id: string
+  title: string
+  thumbnailUrl: string | undefined
+}
 
 type Props = {
   title: string
   subtitle?: string
   href: string
-  channels: ChannelsRanking[]
+  channels: SimpleChannel[]
 }
 
 export default function PeriodCard({ title, subtitle, href, channels }: Props) {
@@ -30,16 +35,13 @@ export default function PeriodCard({ title, subtitle, href, channels }: Props) {
           <div className="flex items-center -space-x-2">
             {channels.slice(0, 5).map((channel, index) => (
               <Avatar
-                key={channel.channelId}
+                key={channel.id}
                 className="size-9 ring-2 ring-background"
                 style={{ zIndex: 5 - index }}
               >
-                <AvatarImage
-                  src={channel.channelThumbnails}
-                  alt={channel.channelTitle}
-                />
+                <AvatarImage src={channel.thumbnailUrl} alt={channel.title} />
                 <AvatarFallback className="text-xs">
-                  {channel.channelTitle.substring(0, 2)}
+                  {channel.title.substring(0, 2)}
                 </AvatarFallback>
               </Avatar>
             ))}
