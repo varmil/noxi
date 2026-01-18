@@ -9,16 +9,30 @@ export type MonthlyPeriod = {
 }
 
 /**
+ * バッチ実行完了を考慮した「有効な現在時刻」を取得
+ * バッチは日本時間 03:00 に実行され、03:30頃に完了する想定
+ * 03:30より前は前日として扱うことで、未確定データへのリンク生成を防ぐ
+ */
+function getEffectiveNow(): dayjs.Dayjs {
+  const now = dayjs().tz('Asia/Tokyo')
+  const isBatchPending = now.hour() < 3 || (now.hour() === 3 && now.minute() < 30)
+  return isBatchPending ? now.subtract(1, 'day') : now
+}
+
+/**
  * 2025/01 から直前の完了した月までの月間期間一覧を生成
  * 新しい順に返す
+ *
+ * バッチ実行（日本時間 03:00〜03:30）を考慮し、
+ * 03:30以降に新しい月のデータが表示される
  */
 export function generateMonthlyPeriods(): MonthlyPeriod[] {
   const START_YEAR = 2025
   const START_MONTH = 1
-  const now = dayjs().tz('Asia/Tokyo')
+  const effectiveNow = getEffectiveNow()
 
   // 直前の完了した月 = 現在の月の前月の最終日
-  const lastCompletedMonthEnd = now.startOf('month').subtract(1, 'day')
+  const lastCompletedMonthEnd = effectiveNow.startOf('month').subtract(1, 'day')
 
   const periods: MonthlyPeriod[] = []
   let current = dayjs(`${START_YEAR}-${String(START_MONTH).padStart(2, '0')}-01`)
