@@ -38,7 +38,7 @@ export function Page({
       <Header className={`z-30`} />
 
       {breadcrumb?.length ? (
-        <GlobalBreadcrumb items={breadcrumb} className="mt-1 mb-4" />
+        <GlobalBreadcrumb items={breadcrumb} className="mt-0.5 mb-4" />
       ) : null}
 
       {h1 && (
