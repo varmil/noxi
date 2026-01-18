@@ -30,7 +30,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 
   // canonical period: concurrent-viewer は realtime、super-chat は last30Days
-  const canonicalPeriod = dimension === 'concurrent-viewer' ? 'realtime' : 'last30Days'
+  const canonicalPeriod =
+    dimension === 'concurrent-viewer' ? 'realtime' : 'last30Days'
 
   return {
     ...(await generateTitleAndDescription({
@@ -65,7 +66,7 @@ export default async function RankingLivePage(props: Props) {
         period={period}
         searchParams={searchParams}
       />
-      <Page noPadding fullWidth ads>
+      <Page noPadding fullWidth>
         <IndexTemplate
           period={period}
           dimension={dimension}

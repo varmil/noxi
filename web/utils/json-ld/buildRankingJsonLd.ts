@@ -188,6 +188,68 @@ export function buildBreadcrumbList(
   }
 }
 
+/**
+ * UI パンくず用のアイテムを構築
+ *
+ * buildBreadcrumbList と同じロジックを使用
+ */
+export type UIBreadcrumbItem = {
+  name: string
+  href: string
+}
+
+export function buildUIBreadcrumbItems(
+  params: Omit<BuildBreadcrumbListParams, 'baseUrl' | 'locale'>
+): UIBreadcrumbItem[] {
+  const {
+    rankingType,
+    dimension,
+    group,
+    period,
+    canonicalPeriod,
+    dimensionName,
+    groupName,
+    periodName,
+    hubPage
+  } = params
+
+  const items: UIBreadcrumbItem[] = []
+
+  // Position 1: hubPage（存在する場合のみ追加）
+  if (hubPage) {
+    items.push({
+      name: hubPage.name,
+      href: hubPage.href
+    })
+  }
+
+  // Position N: group（all 以外のときのみ追加, ハブページの場合は常に追加）
+  if (hubPage || group !== 'all') {
+    items.push({
+      name: groupName,
+      href: `/ranking/${dimension}/${rankingType}/${group}/${canonicalPeriod}`
+    })
+  }
+
+  // Position N: period（canonicalPeriod 以外のときのみ追加）
+  if (period !== canonicalPeriod) {
+    items.push({
+      name: periodName,
+      href: `/ranking/${dimension}/${rankingType}/${group}/${period}`
+    })
+  }
+
+  // hubPage がない場合のフォールバック: dimension をトップに追加
+  if (!hubPage) {
+    items.unshift({
+      name: dimensionName,
+      href: `/ranking/${dimension}/${rankingType}/all/${canonicalPeriod}`
+    })
+  }
+
+  return items
+}
+
 // ============================================
 // Channel ItemList Builder
 // ============================================

@@ -12,8 +12,6 @@ type Props = {
   noPadding?: boolean
   /** If true, the width will not be limited */
   fullWidth?: boolean
-  /** If true, the ads will be displayed */
-  ads?: boolean
 }
 
 /** Page > XS > Xパディング値 */
@@ -30,18 +28,17 @@ export function Page({
   className,
   children,
   noPadding,
-  fullWidth,
-  ads
+  fullWidth
 }: PropsWithChildren<Props>) {
   const padding = noPadding ? 'px-0' : `${PageXSPX} ${PageSMPX}`
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
     <>
-      <Header className={`z-30 ${ads ? '' : 'mb-4'}`} />
+      <Header className={`z-30`} />
 
-      {!ads && breadcrumb?.length ? (
-        <GlobalBreadcrumb items={breadcrumb} className="mb-4" />
+      {breadcrumb?.length ? (
+        <GlobalBreadcrumb items={breadcrumb} className="mt-1 mb-4" />
       ) : null}
 
       {h1 && (
