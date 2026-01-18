@@ -38,7 +38,7 @@ export default function GroupFilterBar({
   }
 
   return (
-    <div className="mb-8">
+    <div className="mb-10">
       <Select value={currentGroup ?? 'all'} onValueChange={handleChange}>
         <SelectTrigger className="w-full sm:w-[240px]">
           <SelectValue placeholder={allGroupsLabel} />

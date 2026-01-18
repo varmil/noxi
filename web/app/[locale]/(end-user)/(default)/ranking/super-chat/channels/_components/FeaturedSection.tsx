@@ -20,7 +20,7 @@ type Props = {
 
 export default function FeaturedSection({ title, items }: Props) {
   return (
-    <section className="mb-8">
+    <section className="mb-12">
       <h2 className="text-xl font-bold text-foreground mb-3">{title}</h2>
       <div className="grid grid-cols-3 gap-2">
         {items.map(item => (

@@ -3,10 +3,7 @@
 import { useState, useTransition } from 'react'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  ArchiveItem,
-  fetchArchiveItems
-} from '../_actions/fetchArchiveItems'
+import { ArchiveItem, fetchArchiveItems } from '../_actions/fetchArchiveItems'
 import PeriodCard from './PeriodCard'
 
 type Props = {
@@ -51,14 +48,14 @@ export default function ArchiveSection({
   }
 
   return (
-    <section className="mb-12">
+    <section className="@container mb-12">
       <h2 className="text-xl font-bold text-foreground mb-4">
         {title}
         <span className="text-sm font-normal text-muted-foreground ml-2">
           ({items.length} / {totalCount})
         </span>
       </h2>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 @xl:grid-cols-2 @4xl:grid-cols-3 @7xl:grid-cols-4">
         {items.map(item => (
           <PeriodCard
             key={item.id}

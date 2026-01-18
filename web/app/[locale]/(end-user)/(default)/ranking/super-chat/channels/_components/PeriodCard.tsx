@@ -24,7 +24,7 @@ type Props = {
 export default function PeriodCard({ title, subtitle, href, channels }: Props) {
   return (
     <Link href={href} prefetch={false}>
-      <Card className="group cursor-pointer hover:shadow-lg hover:border-primary/50">
+      <Card className="@container group cursor-pointer hover:shadow-lg hover:border-primary/50">
         <CardContent className="flex gap-4">
           {/* 左側: タイトルとアバター */}
           <div className="flex-1">
@@ -50,7 +50,7 @@ export default function PeriodCard({ title, subtitle, href, channels }: Props) {
 
           {/* 右側: Top5リスト */}
           {channels.length > 0 && (
-            <div className="max-w-25 min-w-0 shrink overflow-hidden">
+            <div className="w-[clamp(0px,28cqw,240px)] shrink overflow-hidden">
               <p className="text-xs text-muted-foreground font-medium mb-1">
                 Top5
               </p>
