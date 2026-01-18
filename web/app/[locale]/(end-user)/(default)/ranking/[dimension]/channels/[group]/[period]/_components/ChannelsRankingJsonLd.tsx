@@ -26,7 +26,8 @@ import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
 import {
   buildBreadcrumbList,
   buildSummaryPageItemList,
-  ChannelForItemList
+  ChannelForItemList,
+  HubPageInfo
 } from 'utils/json-ld/buildRankingJsonLd'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getWebUrl } from 'utils/web-url'
@@ -102,6 +103,19 @@ export async function ChannelsRankingJsonLd({
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
+  // super-chat dimension の場合、ハブページ情報を構築
+  let hubPage: HubPageInfo | undefined
+  if (dimension === 'super-chat') {
+    const superChatIndexT = await getTranslations({
+      locale: localeTyped,
+      namespace: 'Page.ranking.superChatIndex'
+    })
+    hubPage = {
+      name: superChatIndexT('heading'),
+      href: '/ranking/super-chat/channels'
+    }
+  }
+
   // BreadcrumbList の構築
   const breadcrumbList = buildBreadcrumbList({
     baseUrl,
@@ -113,7 +127,8 @@ export async function ChannelsRankingJsonLd({
     canonicalPeriod,
     dimensionName,
     groupName,
-    periodName
+    periodName,
+    hubPage
   })
 
   // ItemList 用にデータを変換

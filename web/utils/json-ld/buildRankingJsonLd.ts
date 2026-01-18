@@ -91,6 +91,11 @@ export type StreamItemList = ItemListBase & {
 // BreadcrumbList Builder
 // ============================================
 
+export type HubPageInfo = {
+  name: string
+  href: string
+}
+
 export type BuildBreadcrumbListParams = {
   baseUrl: string
   locale: string
@@ -102,11 +107,14 @@ export type BuildBreadcrumbListParams = {
   dimensionName: string
   groupName: string
   periodName: string
+  /** ハブページ情報（存在する場合のみ指定） */
+  hubPage?: HubPageInfo
 }
 
 /**
  * BreadcrumbList JSON-LD を構築
  *
+ * - hubPage が指定された場合、position 1 にハブページを追加
  * - group === 'all' の場合、group アイテムをスキップ
  * - period === canonicalPeriod の場合、period アイテムをスキップ
  */
@@ -123,21 +131,24 @@ export function buildBreadcrumbList(
     canonicalPeriod,
     dimensionName,
     groupName,
-    periodName
+    periodName,
+    hubPage
   } = params
 
   const items: BreadcrumbListItem[] = []
 
-  // Position 1: dimension（常に追加）
-  items.push({
-    '@type': 'ListItem',
-    position: items.length + 1,
-    name: dimensionName,
-    item: `${baseUrl}/${locale}/ranking/${dimension}/${rankingType}/all/${canonicalPeriod}`
-  })
+  // Position 1: hubPage（存在する場合のみ追加）
+  if (hubPage) {
+    items.push({
+      '@type': 'ListItem',
+      position: items.length + 1,
+      name: hubPage.name,
+      item: `${baseUrl}/${locale}${hubPage.href}`
+    })
+  }
 
-  // Position 2: group（all 以外のときのみ追加）
-  if (group !== 'all') {
+  // Position N: group（all 以外のときのみ追加, ハブページの場合は常に追加）
+  if (hubPage || group !== 'all') {
     items.push({
       '@type': 'ListItem',
       position: items.length + 1,
@@ -146,13 +157,27 @@ export function buildBreadcrumbList(
     })
   }
 
-  // Position 3: period（canonicalPeriod 以外のときのみ追加）
+  // Position N: period（canonicalPeriod 以外のときのみ追加）
   if (period !== canonicalPeriod) {
     items.push({
       '@type': 'ListItem',
       position: items.length + 1,
       name: periodName,
       item: `${baseUrl}/${locale}/ranking/${dimension}/${rankingType}/${group}/${period}`
+    })
+  }
+
+  // hubPage がない場合のフォールバック: dimension をトップに追加
+  if (!hubPage) {
+    items.unshift({
+      '@type': 'ListItem',
+      position: 1,
+      name: dimensionName,
+      item: `${baseUrl}/${locale}/ranking/${dimension}/${rankingType}/all/${canonicalPeriod}`
+    })
+    // position を再計算
+    items.forEach((item, index) => {
+      item.position = index + 1
     })
   }
 
