@@ -297,8 +297,9 @@
           "title": "スパチャランキング - 週間・月間ランキング履歴",
           "description": "VTuberのスーパーチャット獲得金額ランキング。週間・月間の過去データを確認できます。"
         },
+        "heading": "スパチャランキング",
         "section": {
-          "featured": { "title": "注目のランキング" },
+          "featured": { "title": "よく見られているページ" },
           "weeklyArchive": { "title": "週間ランキング履歴" },
           "monthlyArchive": { "title": "月間ランキング履歴" }
         },

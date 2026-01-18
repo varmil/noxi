@@ -32,14 +32,19 @@ export default async function SuperChatChannelsIndexPage(props: Props) {
 
   setRequestLocale(locale as 'ja' | 'en')
 
+  const t = await getTranslations('Page.ranking.superChatIndex')
+
   return (
-    <Page noPadding fullWidth ads>
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <IndexTemplate
-          locale={locale as 'ja' | 'en'}
-          group={searchParams.group}
-        />
-      </div>
+    <Page
+      breadcrumb={[
+        { href: `/ranking/super-chat/channels`, name: t('heading') }
+      ]}
+      h1={t('heading')}
+    >
+      <IndexTemplate
+        locale={locale as 'ja' | 'en'}
+        group={searchParams.group}
+      />
     </Page>
   )
 }

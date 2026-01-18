@@ -9,7 +9,7 @@ import {
   SelectValue
 } from '@/components/ui/select'
 import { GroupSchema } from 'apis/groups'
-import { useRouter } from 'lib/navigation'
+import { usePathname, useRouter } from 'lib/navigation'
 
 type Props = {
   groups: GroupSchema[]
@@ -23,6 +23,7 @@ export default function GroupFilterBar({
   allGroupsLabel
 }: Props) {
   const router = useRouter()
+  const pathname = usePathname()
   const searchParams = useSearchParams()
 
   const handleChange = (value: string) => {
@@ -33,7 +34,7 @@ export default function GroupFilterBar({
       params.set('group', value)
     }
     const query = params.toString()
-    router.push(query ? `?${query}` : '', { scroll: false })
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false })
   }
 
   return (

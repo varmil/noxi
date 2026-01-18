@@ -127,10 +127,7 @@ function ArchiveSectionsSkeleton() {
         <div className="h-7 w-48 bg-muted rounded animate-pulse mb-4" />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-24 bg-muted rounded-lg animate-pulse"
-            />
+            <div key={i} className="h-24 bg-muted rounded-lg animate-pulse" />
           ))}
         </div>
       </section>
@@ -138,10 +135,7 @@ function ArchiveSectionsSkeleton() {
         <div className="h-7 w-48 bg-muted rounded animate-pulse mb-4" />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 12 }).map((_, i) => (
-            <div
-              key={i}
-              className="h-24 bg-muted rounded-lg animate-pulse"
-            />
+            <div key={i} className="h-24 bg-muted rounded-lg animate-pulse" />
           ))}
         </div>
       </section>
@@ -158,37 +152,34 @@ export default async function IndexTemplate({ locale, group }: Props) {
     {
       id: 'last24Hours',
       title: t('period.last24Hours'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/last24Hours`,
-      icon: 'clock' as const
+      href: `/ranking/super-chat/channels/${effectiveGroup}/last24Hours`
     },
     {
       id: 'last30Days',
       title: t('period.last30Days'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/last30Days`,
-      icon: 'calendar' as const
+      href: `/ranking/super-chat/channels/${effectiveGroup}/last30Days`
     },
     {
       id: 'thisYear',
       title: t('period.thisYear'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/thisYear`,
-      icon: 'trending' as const
+      href: `/ranking/super-chat/channels/${effectiveGroup}/thisYear`
     }
   ]
 
   return (
-    <div className="space-y-6">
+    <div className="mt-10 space-y-6">
       <GroupFilterBar
         groups={groups}
         currentGroup={group}
         allGroupsLabel={t('filter.allGroups')}
       />
 
-      <FeaturedSection title={t('section.featured.title')} items={featuredItems} />
+      <FeaturedSection
+        title={t('section.featured.title')}
+        items={featuredItems}
+      />
 
-      <Suspense
-        key={effectiveGroup}
-        fallback={<ArchiveSectionsSkeleton />}
-      >
+      <Suspense key={effectiveGroup} fallback={<ArchiveSectionsSkeleton />}>
         <ArchiveSections locale={locale} group={effectiveGroup} />
       </Suspense>
     </div>

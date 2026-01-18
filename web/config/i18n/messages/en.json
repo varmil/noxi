@@ -293,8 +293,9 @@
           "title": "Super Chat Ranking - Weekly & Monthly History",
           "description": "Super Chat earnings ranking for VTubers. Browse weekly and monthly historical data."
         },
+        "heading": "Super Chat Ranking",
         "section": {
-          "featured": { "title": "Featured Rankings" },
+          "featured": { "title": "Popular Pages" },
           "weeklyArchive": { "title": "Weekly Ranking History" },
           "monthlyArchive": { "title": "Monthly Ranking History" }
         },
