@@ -81,7 +81,7 @@ export default async function ChannelsIdBasePage(
         breadcrumb={[
           { href: '/groups', name: t('groupList') },
           {
-            href: `/${group}/channels`,
+            href: `/${group}`,
             name: groupName
           },
           { href: `/${group}/channels/${id}`, name: channel.basicInfo.title }
