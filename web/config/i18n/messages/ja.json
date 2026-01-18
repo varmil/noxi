@@ -296,7 +296,7 @@
       "superChatIndex": {
         "metadata": {
           "title": "スパチャランキング - 週間・月間ランキング履歴",
-          "description": "VTuberのスーパーチャット獲得金額ランキング。週間・月間の過去データを確認できます。"
+          "description": "VTuberのスーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
         },
         "heading": "スパチャランキング",
         "section": {
