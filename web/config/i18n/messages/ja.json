@@ -281,7 +281,7 @@
       },
       "scheduled": {
         "metadata": {
-          "title": "{group} スケジュール - 高評価ランキング",
+          "title": "{group} 配信スケジュール",
           "description": "{group}の今後のライブ配信スケジュールを確認。お気に入りVTuberの配信を事前にチェックして見逃さないようにしよう。"
         }
       },
@@ -943,6 +943,12 @@
         "consumeCount": "チケット使用数",
         "rank": "ファン順位"
       }
+    },
+    "schedule": {
+      "today": "今日",
+      "tomorrow": "明日",
+      "streamCount": "{count}件の配信予定",
+      "noStreams": "配信予定はありません"
     },
     "stream": {
       "noLive": "現在配信中のライブはありません。",

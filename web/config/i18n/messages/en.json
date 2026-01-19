@@ -934,6 +934,12 @@
         "rank": "Fan ranking"
       }
     },
+    "schedule": {
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "streamCount": "{count, plural, =0 {No scheduled streams} =1 {1 scheduled stream} other {# scheduled streams}}",
+      "noStreams": "No scheduled streams"
+    },
     "stream": {
       "noLive": "There are no live streams at the moment.",
       "noScheduled": "There are no scheduled streams at the moment.",
