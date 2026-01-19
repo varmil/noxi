@@ -39,3 +39,76 @@ import Image from 'components/styles/Image'
 - **高品質**: デザインシステムに準拠した UI
 - **効率性**: 手動実装より高速
 - **一貫性**: プロジェクト全体での UI 統一
+
+## Suspense + Skeleton パターン
+
+### 基本構造
+
+非同期データを取得するコンポーネントには Suspense + Skeleton パターンを適用する：
+
+```tsx
+// IndexTemplate.tsx
+<Suspense fallback={<MyComponentSkeleton />}>
+  <MyComponent />
+</Suspense>
+```
+
+### スケルトンと実コンポーネントの高さ一致
+
+スケルトンと実コンポーネントの高さが一致しないと、ローディング完了時にレイアウトシフト（ガタつき）が発生する。これを防ぐため、以下のフローで実装する：
+
+#### 1. data-testid を付与
+
+```tsx
+// 実コンポーネント
+<Card data-testid="my-component-item">...</Card>
+
+// スケルトン
+<Card data-testid="my-component-skeleton-item">...</Card>
+```
+
+#### 2. E2E テストで高さを検証
+
+`e2e/tests/skeleton-height.spec.ts` にテストケースを追加：
+
+```typescript
+test('MyComponent - アイテムの高さが一致', async ({ page }) => {
+  // API遅延を注入してスケルトンをキャプチャ
+  await page.route('**/api/my-endpoint**', async route => {
+    await new Promise(resolve => setTimeout(resolve, 500))
+    await route.continue()
+  })
+
+  await page.goto('/path/to/page')
+
+  // スケルトンの高さを取得
+  const skeletonItem = page.locator(
+    '[data-testid="my-component-skeleton-item"]'
+  )
+  await expect(skeletonItem.first()).toBeVisible({ timeout: 5000 })
+  const skeletonBox = await skeletonItem.first().boundingBox()
+
+  // 実コンポーネントの高さを取得
+  const actualItem = page.locator('[data-testid="my-component-item"]')
+  await expect(actualItem.first()).toBeVisible({ timeout: 30000 })
+  const actualBox = await actualItem.first().boundingBox()
+
+  // 高さの差が2px以内であることを確認
+  if (skeletonBox && actualBox) {
+    const heightDiff = Math.abs(skeletonBox.height - actualBox.height)
+    expect(heightDiff).toBeLessThanOrEqual(2)
+  }
+})
+```
+
+#### 3. テスト実行で差異を検出・修正
+
+```bash
+cd e2e && npx playwright test skeleton-height.spec.ts
+```
+
+テストが失敗した場合、エラーメッセージに具体的な高さの差が表示されるので、スケルトンのスタイルを調整する。
+
+### 既存のテストファイル
+
+- `e2e/tests/skeleton-height.spec.ts` - スケルトン高さ検証テスト
