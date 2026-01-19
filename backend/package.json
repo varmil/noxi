@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@google-cloud/opentelemetry-cloud-trace-exporter": "^3.0.0",
-    "@googleapis/youtube": "^30.2.0",
+    "@googleapis/youtube": "^30.3.0",
     "@keyv/redis": "^5.1.5",
     "@nestjs/cache-manager": "^3.1.0",
     "@nestjs/common": "^11.1.12",
