@@ -368,7 +368,7 @@
             "label": "Other operations",
             "openChat": "Open Live Chat",
             "seeMoreVideos": "See More Videos",
-            "seeTop20": "See Weekly Top 20"
+            "seeTop20": "See Realtime Top 20"
           }
         }
       }
@@ -420,6 +420,7 @@
       "thisYear": "This year",
       "realtime": "Realtime",
       "wholePeriod": "All-time",
+      "weeklyMonthlyRankings": "Weekly & Monthly Rankings",
       "nijisanji": "Nijisanji",
       "hololive": "Hololive",
       "independent": "Independent",

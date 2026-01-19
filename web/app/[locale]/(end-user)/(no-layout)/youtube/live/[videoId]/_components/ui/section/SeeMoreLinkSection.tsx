@@ -44,7 +44,7 @@ export default async function SeeMoreLinkSection({
         </SeeMoreLinkButton>
 
         <SeeMoreLinkButton
-          href={`/ranking/live?dimension=super-chat&period=last7Days&group=${groupId}`}
+          href={`/ranking/concurrent-viewer/live/${groupId}/realtime`}
         >
           <TitleSpan className="flex items-center justify-center gap-1">
             <GroupImageOrIcon
