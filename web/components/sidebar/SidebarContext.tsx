@@ -27,7 +27,7 @@ type Props = {
   defaultOpen?: boolean
 }
 
-export function SidebarProvider({ children, defaultOpen = true }: Props) {
+export function SidebarProvider({ children, defaultOpen = false }: Props) {
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
   const toggle = useCallback(() => {

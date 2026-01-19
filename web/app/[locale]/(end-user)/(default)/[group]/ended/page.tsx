@@ -50,6 +50,7 @@ export default async function GroupEndedPage(props: Props) {
   return (
     <Page
       breadcrumb={[
+        { href: '/groups', name: t('groupList') },
         { href: `/${groupId}`, name: groupName },
         { href: `/${groupId}/ended`, name: t('ended') }
       ]}

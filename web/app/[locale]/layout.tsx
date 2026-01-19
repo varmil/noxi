@@ -54,8 +54,8 @@ export default async function LocaleLayout(props: Props) {
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
 
-  // サイドバーの開閉状態をCookieから取得（デフォルトは開いた状態）
-  const sidebarOpen = cookieStore.get('sidebar-open')?.value !== 'false'
+  // サイドバーの開閉状態をCookieから取得（デフォルトは閉じた状態）
+  const sidebarOpen = cookieStore.get('sidebar-open')?.value === 'true'
 
   return (
     <html

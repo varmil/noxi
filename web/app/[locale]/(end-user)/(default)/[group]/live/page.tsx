@@ -47,6 +47,7 @@ export default async function GroupLivePage(props: Props) {
   return (
     <Page
       breadcrumb={[
+        { href: '/groups', name: t('groupList') },
         { href: `/${groupId}`, name: groupName },
         { href: `/${groupId}/live`, name: t('live') }
       ]}

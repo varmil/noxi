@@ -47,6 +47,7 @@ export default async function GroupScheduledPage(props: Props) {
   return (
     <Page
       breadcrumb={[
+        { href: '/groups', name: t('groupList') },
         { href: `/${groupId}`, name: groupName },
         { href: `/${groupId}/scheduled`, name: t('scheduled') }
       ]}

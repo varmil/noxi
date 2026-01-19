@@ -20,16 +20,16 @@ export function Footer() {
           href: '/ranking/super-chat/channels/all/last24Hours'
         },
         {
-          label: t('last7Days'),
-          href: '/ranking/super-chat/channels/all/last7Days'
-        },
-        {
           label: t('last30Days'),
           href: '/ranking/super-chat/channels/all/last30Days'
         },
         {
           label: t('thisYear'),
           href: '/ranking/super-chat/channels/all/thisYear'
+        },
+        {
+          label: t('weeklyMonthlyRankings'),
+          href: '/ranking/super-chat/channels'
         }
       ]
     },
