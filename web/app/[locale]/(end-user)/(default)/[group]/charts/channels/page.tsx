@@ -47,6 +47,7 @@ export default async function GroupChartsPage(props: Props) {
   return (
     <Page
       breadcrumb={[
+        { href: '/groups', name: t('groupList') },
         { href: `/${groupId}`, name: groupName },
         { href: `/${groupId}/charts/channels`, name: t('channels') }
       ]}
