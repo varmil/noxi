@@ -14,7 +14,7 @@ export function MainContentWrapper({ children }: Props) {
   return (
     <section
       className={cn(
-        'z-0 relative pb-14.5 lg:pb-0',
+        'z-0 relative pb-16.5 lg:pb-0',
         'transition-[padding] duration-300 ease-in-out',
         isOpen && 'lg:pl-[260px]'
       )}
