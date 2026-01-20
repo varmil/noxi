@@ -1,15 +1,11 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import {
-  Activity,
-  DollarSign,
-  LucideLayoutDashboard,
-  Search
-} from 'lucide-react'
+import { Activity, LucideLayoutDashboard, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import SuperChatIcon from 'components/icons/SuperChatIcon'
 import { Link, usePathname } from 'lib/navigation'
 
 type Props = PropsWithoutRef<{
@@ -30,7 +26,7 @@ export default function BottomNavigation({ className }: Props) {
       pathname: '/ranking/super-chat/channels/all/last30Days',
       isActive: pathname.startsWith('/ranking/super-chat'),
       label: t('channels'),
-      icon: DollarSign
+      icon: SuperChatIcon
     },
     {
       pathname: '/ranking/concurrent-viewer/live/all/realtime',
@@ -72,7 +68,7 @@ export default function BottomNavigation({ className }: Props) {
               )}
             >
               <Link href={item.pathname} prefetch={false}>
-                <Icon className={`size-5`} />
+                <Icon className="size-6" />
                 <span className="text-xs">{item.label}</span>
               </Link>
             </Button>
