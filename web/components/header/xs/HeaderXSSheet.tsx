@@ -50,6 +50,8 @@ export default async function HeaderXSSheet() {
     allGroupName,
     superChat: comp('header.superChatRanking'),
     concurrentViewer: comp('header.concurrentViewerRanking'),
+    schedule: comp('header.schedule'),
+    talents: comp('header.talents'),
     more: comp('styles.more'),
     contact: comp('contact.title'),
     channelsAdd: comp('channelsAdd.title'),

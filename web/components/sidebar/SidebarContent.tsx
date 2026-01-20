@@ -31,6 +31,8 @@ type Props = {
     allGroupName: string
     superChat: string
     concurrentViewer: string
+    schedule: string
+    talents: string
     more: string
     contact: string
     channelsAdd: string
@@ -47,13 +49,19 @@ function GroupMenuItem({
   isExpanded,
   onToggle,
   superChatLabel,
-  concurrentViewerLabel
+  concurrentViewerLabel,
+  scheduleLabel,
+  talentsLabel,
+  isAllGroup
 }: {
   group: GroupData
   isExpanded: boolean
   onToggle: () => void
   superChatLabel: string
   concurrentViewerLabel: string
+  scheduleLabel: string
+  talentsLabel: string
+  isAllGroup: boolean
 }) {
   return (
     <div className="rounded-lg overflow-hidden">
@@ -117,10 +125,38 @@ function GroupMenuItem({
                 'transition-colors duration-150'
               )}
             >
-              {/* L字コネクタ（最後の項目は縦線から曲がる） */}
+              {/* L字コネクタ */}
               <div className="absolute left-0 top-1/2 w-4 h-px bg-border" />
               <span>{concurrentViewerLabel}</span>
             </Link>
+            {!isAllGroup && (
+              <>
+                <Link
+                  href={`/${group.id}/scheduled`}
+                  className={cn(
+                    'relative flex items-center pl-5 pr-3 py-2 rounded-md text-sm',
+                    'text-muted-foreground hover:text-foreground hover:bg-accent/50',
+                    'transition-colors duration-150'
+                  )}
+                >
+                  {/* L字コネクタ */}
+                  <div className="absolute left-0 top-1/2 w-4 h-px bg-border" />
+                  <span>{scheduleLabel}</span>
+                </Link>
+                <Link
+                  href={`/${group.id}/charts/channels`}
+                  className={cn(
+                    'relative flex items-center pl-5 pr-3 py-2 rounded-md text-sm',
+                    'text-muted-foreground hover:text-foreground hover:bg-accent/50',
+                    'transition-colors duration-150'
+                  )}
+                >
+                  {/* L字コネクタ */}
+                  <div className="absolute left-0 top-1/2 w-4 h-px bg-border" />
+                  <span>{talentsLabel}</span>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -212,6 +248,9 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
               onToggle={() => toggleGroup(group.id)}
               superChatLabel={labels.superChat}
               concurrentViewerLabel={labels.concurrentViewer}
+              scheduleLabel={labels.schedule}
+              talentsLabel={labels.talents}
+              isAllGroup={group.id === 'all'}
             />
           ))}
 
