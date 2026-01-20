@@ -9,7 +9,7 @@ export default async function DefaultLayout({ children }: PropsWithChildren) {
     <>
       <Aside className="z-10" />
 
-      {/* bottom navigation = h-14.5 */}
+      {/* bottom navigation = h-16.5 */}
       <MainContentWrapper>
         {children}
         <Footer />
