@@ -58,7 +58,7 @@ export default async function HeaderXSSheet() {
     groupsAdd: comp('groupsAdd.title'),
     xAccount: comp('aside.xAccount'),
     signOut: comp('auth.signOut'),
-    ranking: comp('header.ranking'),
+    groups: comp('header.groups'),
     support: comp('header.support'),
     info: comp('header.info')
   }

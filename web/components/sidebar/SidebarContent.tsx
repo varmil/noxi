@@ -38,7 +38,7 @@ type Props = {
     channelsAdd: string
     groupsAdd: string
     signOut: string
-    ranking: string
+    groups: string
     support: string
   }
   isSignedIn: boolean
@@ -238,7 +238,7 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
         {/* グループセクション */}
         <div className="space-y-1">
           <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {labels.ranking}
+            {labels.groups}
           </p>
           {groups.map(group => (
             <GroupMenuItem

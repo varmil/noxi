@@ -48,7 +48,7 @@ export default async function Aside({ className }: { className?: string }) {
     channelsAdd: comp('channelsAdd.title'),
     groupsAdd: comp('groupsAdd.title'),
     signOut: comp('auth.signOut'),
-    ranking: comp('header.ranking'),
+    groups: comp('header.groups'),
     support: comp('header.support')
   }
 
