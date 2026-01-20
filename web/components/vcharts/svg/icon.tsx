@@ -1,7 +1,5 @@
 import { PropsWithoutRef } from 'react'
 
-const COLOR = '#FC2F00'
-
 type Props = {
   className?: string
 }
@@ -15,12 +13,11 @@ export default function VChartsIcon({ className }: PropsWithoutRef<Props>) {
       height="500.000000pt"
       viewBox="0 0 500.000000 500.000000"
       preserveAspectRatio="xMidYMid meet"
-      className={`${className || ''}`}
+      className={className}
     >
       <g
         transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)"
-        fill={COLOR}
-        stroke={COLOR}
+        className="fill-black stroke-black dark:fill-white dark:stroke-white"
         strokeWidth="150"
       >
         <path
