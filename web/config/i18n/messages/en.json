@@ -440,10 +440,11 @@
       "dashboard": "Dashboard",
       "liveRanking": "Live Viewer Ranking",
       "channelsRanking": "Super Chat Ranking",
-      "talents": "Talents",
+      "talents": "Talent List",
+      "schedule": "Schedule",
       "superChatRanking": "Super Chat Ranking",
       "concurrentViewerRanking": "Live Viewer Ranking",
-      "ranking": "Ranking",
+      "groups": "Groups",
       "support": "Support",
       "info": "Info",
       "allGroup": "Overall"

@@ -449,10 +449,11 @@
       "dashboard": "ダッシュボード",
       "liveRanking": "同接数ランキング",
       "channelsRanking": "スパチャランキング",
-      "talents": "タレント",
+      "talents": "タレント一覧",
+      "schedule": "スケジュール",
       "superChatRanking": "スパチャランキング",
       "concurrentViewerRanking": "同接数ランキング",
-      "ranking": "ランキング",
+      "groups": "グループ",
       "support": "サポート",
       "info": "情報",
       "allGroup": "総合"
