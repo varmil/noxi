@@ -9,16 +9,35 @@ import {
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
+import { SwitchTabs } from 'components/switch-tabs/SwitchTabs'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
 import { getPeriodDisplayName } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import useQueryString from 'hooks/useQueryString'
 import { usePathname } from 'lib/navigation'
 import { Gender } from 'types/gender'
-import { ChannelsRankingPeriod } from 'types/period'
+import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
+
+/** Channels → Live 遷移時の period フォールバック */
+function getStreamPeriodFromChannelsPeriod(
+  period: ChannelsRankingPeriod
+): StreamRankingPeriod {
+  // 共通の period はそのまま維持
+  const commonPeriods: StreamRankingPeriod[] = [
+    'last24Hours',
+    'last7Days',
+    'last30Days'
+  ]
+  if (commonPeriods.includes(period as StreamRankingPeriod)) {
+    return period as StreamRankingPeriod
+  }
+  // Channels 固有の period は last30Days にフォールバック
+  return 'last30Days'
+}
 
 type Props = PropsWithChildren<{
   period: ChannelsRankingPeriod
   dimension: ChannelsRankingDimension
+  group: string
   groupName: string
   gender?: Gender
   /** ISO 8601 文字列（Server → Client で Date はシリアライズ不可のため） */
@@ -29,6 +48,7 @@ type Props = PropsWithChildren<{
 export default function ChannelsRankingGalleryTitle({
   dimension,
   period,
+  group,
   groupName,
   gender,
   date,
@@ -37,6 +57,7 @@ export default function ChannelsRankingGalleryTitle({
   const global = useTranslations('Global')
   const feat = useTranslations('Features.channelsRanking')
   const page = useTranslations('Page.ranking.channels')
+  const t = useTranslations('Components.ranking.aggregationSwitch')
   const locale = useLocale() as 'ja' | 'en'
   const periodName = getPeriodDisplayName(
     period,
@@ -52,6 +73,12 @@ export default function ChannelsRankingGalleryTitle({
     .trim()
   const pathname = usePathname()
   const { createQueryString } = useQueryString()
+
+  // super-chat の場合のみ SwitchTabs を表示
+  const showSwitchTabs = dimension === 'super-chat'
+  const livePeriod = getStreamPeriodFromChannelsPeriod(period)
+  const genderParam = gender ? `?gender=${gender}` : ''
+
   return (
     <RankingTableTitleContainer className={className}>
       <section className="space-y-2">
@@ -65,12 +92,28 @@ export default function ChannelsRankingGalleryTitle({
         </RankingTableTitleDescription>
       </section>
 
-      <div className="flex items-baseline gap-x-3">
-        <PeriodHoverCardFactory type="channels" period={period} date={date} />
-        {period === 'last24Hours' && (
-          <RealtimeStatusBadge
-            href={`${pathname}${createQueryString('date', null)}`}
-            date={new Date(date)}
+      <div className="flex flex-col gap-y-2">
+        <div className="flex items-baseline gap-x-3">
+          <PeriodHoverCardFactory type="channels" period={period} date={date} />
+          {period === 'last24Hours' && (
+            <RealtimeStatusBadge
+              href={`${pathname}${createQueryString('date', null)}`}
+              date={new Date(date)}
+            />
+          )}
+        </div>
+        {showSwitchTabs && (
+          <SwitchTabs
+            tabs={[
+              {
+                label: t('channels'),
+                href: `/ranking/super-chat/channels/${group}/${period}${genderParam}`
+              },
+              {
+                label: t('live'),
+                href: `/ranking/super-chat/live/${group}/${livePeriod}${genderParam}`
+              }
+            ]}
           />
         )}
       </div>

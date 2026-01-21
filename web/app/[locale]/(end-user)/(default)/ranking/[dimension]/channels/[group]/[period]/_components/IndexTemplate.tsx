@@ -47,6 +47,7 @@ export default async function IndexTemplate({
           <ChannelsRankingGalleryTitle
             dimension={dimension}
             period={period}
+            group={group}
             groupName={groupName}
             gender={gender}
             date={titleDate}

@@ -32,7 +32,7 @@ const resetPeriod = (dimension: Keys) => {
 
 const CHEER_KEYS = ['most-cheered', 'top-fans'] as const
 const CHANNELS_KEYS = ['super-chat', 'subscriber'] as const
-const STREAM_KEYS = ['concurrent-viewer', 'super-chat'] as const
+const STREAM_KEYS = ['concurrent-viewer'] as const
 
 export default function DimensionColumn() {
   const { dimension } = useParams()
@@ -48,7 +48,10 @@ export default function DimensionColumn() {
             key={key}
             pathname={`/ranking/${key}/channels/${resetGroup()}/${resetPeriod(key)}`}
             qs={{ ...RESET_KEYS() }}
-            isActive={() => pathname.includes('channels') && key === dimension}
+            isActive={() =>
+              (pathname.includes('channels') && key === dimension) ||
+              (pathname.includes('live') && key === dimension)
+            }
             activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}

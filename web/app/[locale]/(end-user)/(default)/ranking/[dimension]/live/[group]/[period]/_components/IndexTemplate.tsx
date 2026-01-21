@@ -44,6 +44,7 @@ export default async function IndexTemplate({
           <StreamRankingGalleryTitle
             dimension={dimension}
             period={period}
+            group={group}
             groupName={groupName}
             gender={gender}
             date={titleDate}

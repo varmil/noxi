@@ -504,6 +504,10 @@
         },
         "updatedAt": "更新日時",
         "lastUpdated": "最終更新："
+      },
+      "aggregationSwitch": {
+        "channels": "チャンネル集計",
+        "live": "ライブ集計"
       }
     },
     "styles": {
