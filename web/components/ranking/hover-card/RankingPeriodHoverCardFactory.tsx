@@ -26,13 +26,14 @@ export default function PeriodHoverCardFactory({
   const comp = useTranslations('Components.ranking.hoverCard')
 
   // スナップショット期間やwholePeriod, realtimeはホバーカード不要
+  // gap-y を効かせたいので仕方なく空のdivを返す
   if (
     period === 'wholePeriod' ||
     period === 'realtime' ||
     period.startsWith('weekly-') ||
     period.startsWith('monthly-')
   ) {
-    return null
+    return <div />
   }
 
   const regularPeriod = period as Period
