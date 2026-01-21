@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common'
+import { ChannelCacheService } from '@presentation/youtube/pubsubhubbub/channel-cache.service'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 import { PubsubhubbubController } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.controller'
 import { ChatDeletingQueuesModule } from '@app/chat-deleting-queues/chat-deleting-queues.module'
@@ -21,6 +22,6 @@ import { PubsubhubbubScenario } from './pubsubhubbub.scenario'
     YoutubeAppModule
   ],
   controllers: [PubsubhubbubController],
-  providers: [PubsubhubbubScenario, CryptoService]
+  providers: [PubsubhubbubScenario, ChannelCacheService, CryptoService]
 })
 export class PubsubhubbubPresentationModule {}

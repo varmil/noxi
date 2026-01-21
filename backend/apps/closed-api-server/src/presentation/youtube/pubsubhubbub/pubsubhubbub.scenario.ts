@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { trace } from '@opentelemetry/api'
+import { ChannelCacheService } from '@presentation/youtube/pubsubhubbub/channel-cache.service'
 import { ChatDeletingQueuesService } from '@app/chat-deleting-queues/chat-deleting-queues.service'
 import { ChatEventsBundleQueuesService } from '@app/chat-events-bundle-queues/chat-events-bundle-queues.service'
 import { PromiseService } from '@app/lib/promise-service'
@@ -9,7 +10,7 @@ import { CallbackService } from '@app/youtube/pubsubhubbub/callback.service'
 import { VideosService } from '@app/youtube/videos/videos.service'
 import { QueueStatusUnprocessed } from '@domain/queue'
 import { StreamStatusScheduled } from '@domain/stream'
-import { DeletedEntry, UpdatedEntry } from '@domain/youtube'
+import { Channel, ChannelId, DeletedEntry, UpdatedEntry } from '@domain/youtube'
 import { VideoToStreamConverter } from '@domain/youtube/converter/VideoToStreamConverter'
 
 const tracer = trace.getTracer('PubsubhubbubScenario')
@@ -24,6 +25,7 @@ export class PubsubhubbubScenario {
   constructor(
     private readonly promiseService: PromiseService,
     private readonly callbackService: CallbackService,
+    private readonly channelCacheService: ChannelCacheService,
     private readonly channelsService: ChannelsService,
     private readonly streamsService: StreamsService,
     private readonly videosService: VideosService,
@@ -44,7 +46,7 @@ export class PubsubhubbubScenario {
             async fetchSpan => {
               try {
                 return await Promise.all([
-                  this.channelsService.findById(entry.channelId),
+                  this.findChannelWithCache(entry.channelId),
                   this.videosService.findById(entry.videoId)
                 ])
               } finally {
@@ -122,5 +124,29 @@ export class PubsubhubbubScenario {
         })
       ])
     }
+  }
+
+  /**
+   * キャッシュを使用してチャンネル情報を取得
+   * キャッシュにあればそれを返し、なければDBから取得してキャッシュに保存
+   */
+  private async findChannelWithCache(
+    channelId: ChannelId
+  ): Promise<Channel | null> {
+    const channelIdStr = channelId.get()
+
+    // キャッシュから取得
+    const cached = this.channelCacheService.get(channelIdStr)
+    if (cached) {
+      return cached
+    }
+
+    // DBから取得
+    const channel = await this.channelsService.findById(channelId)
+    if (channel) {
+      this.channelCacheService.set(channelIdStr, channel)
+    }
+
+    return channel
   }
 }
