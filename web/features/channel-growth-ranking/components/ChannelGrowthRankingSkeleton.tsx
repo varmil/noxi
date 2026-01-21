@@ -25,7 +25,7 @@ export function ChannelGrowthRankingSkeleton() {
           </div>
 
           {/* カードのスケルトン群 */}
-          {Array.from({ length: 8 }).map((_, i) => (
+          {Array.from({ length: 15 }).map((_, i) => (
             <div key={i} className="shrink-0 w-[100px]">
               <div className="relative flex flex-col">
                 {/* 順位 */}
