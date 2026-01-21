@@ -50,6 +50,7 @@ export class StreamsController {
   }
 
   @Get(':id')
+  @CacheTTL(600 * 1000)
   async getStream(@Param('id') id: string) {
     const stream = await this.streamsService.findOne({
       where: { videoId: new VideoId(id) }
