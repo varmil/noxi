@@ -92,9 +92,14 @@ export default function ChannelsRankingGalleryTitle({
         </RankingTableTitleDescription>
       </section>
 
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-4 sm:gap-y-2 sm:items-end">
         <div className="flex items-baseline gap-x-3">
-          <PeriodHoverCardFactory type="channels" period={period} date={date} />
+          <PeriodHoverCardFactory
+            type="channels"
+            period={period}
+            date={date}
+            className="mr-1" // SwitchTabs と見た目の端を合わせる
+          />
           {period === 'last24Hours' && (
             <RealtimeStatusBadge
               href={`${pathname}${createQueryString('date', null)}`}
@@ -104,6 +109,7 @@ export default function ChannelsRankingGalleryTitle({
         </div>
         {showSwitchTabs && (
           <SwitchTabs
+            className="self-end -mb-3 -mr-3 sm:mb-0 sm:mr-0"
             tabs={[
               {
                 label: t('channels'),

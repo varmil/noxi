@@ -316,7 +316,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "super-chat": "スーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。",
+              "super-chat": "スーパーチャット累計金額ランキングです。{group}{gender}を対象に{period}で集計しています。",
               "subscriber": "{group}の登録者数を集計した人気順リストです。"
             }
           }

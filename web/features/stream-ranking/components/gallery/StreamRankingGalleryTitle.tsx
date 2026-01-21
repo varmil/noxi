@@ -74,11 +74,14 @@ export default function StreamRankingGalleryTitle({
             gender: gender ? global(`gender.${gender}`) : ''
           }
         )
-      : page(`metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat', {
-          period: periodName,
-          group: groupName,
-          gender: gender ? global(`gender.${gender}`) : ''
-        })
+      : page(
+          `metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat',
+          {
+            period: periodName,
+            group: groupName,
+            gender: gender ? global(`gender.${gender}`) : ''
+          }
+        )
 
   // super-chat の場合のみ SwitchTabs を表示
   const showSwitchTabs = dimension === 'super-chat'
@@ -89,12 +92,20 @@ export default function StreamRankingGalleryTitle({
     <RankingTableTitleContainer className={className}>
       <section className="space-y-2">
         <RankingTableTitleH1 title={title} />
-        <RankingTableTitleDescription>{description}</RankingTableTitleDescription>
+        <RankingTableTitleDescription>
+          {description}
+        </RankingTableTitleDescription>
       </section>
-      <div className="flex flex-col gap-y-2">
-        <PeriodHoverCardFactory type="live" period={period} date={date} />
+      <div className="flex flex-col gap-y-4 sm:gap-y-2 sm:items-end">
+        <PeriodHoverCardFactory
+          type="live"
+          period={period}
+          date={date}
+          className="mr-1" // SwitchTabs と見た目の端を合わせる
+        />
         {showSwitchTabs && (
           <SwitchTabs
+            className="self-end -mb-3 -mr-3 sm:mr-0"
             tabs={[
               {
                 label: t('channels'),

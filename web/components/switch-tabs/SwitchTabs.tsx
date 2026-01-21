@@ -35,7 +35,7 @@ export function SwitchTabs({ tabs, className }: SwitchTabsProps) {
           >
             <Link
               href={tab.href}
-              prefetch={true}
+              prefetch={false}
               scroll={false}
               replace
               aria-controls={undefined}
