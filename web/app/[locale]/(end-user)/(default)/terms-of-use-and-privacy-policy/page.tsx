@@ -18,7 +18,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 
   return {
-    title: `Terms of Use and Privacy Policy | ${tg('title')}`,
+    title: `Terms of Use and Privacy Policy - ${tg('title')}`,
     description: `Terms of Use and Privacy Policy`,
     alternates: getAlternates({
       pathname: '/terms-of-use-and-privacy-policy',

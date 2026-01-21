@@ -14,13 +14,13 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const [global, page] = await Promise.all([
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
-    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Page.index' })
-  ])
+  const page = await getTranslations({
+    locale: locale as 'ja' | 'en',
+    namespace: 'Page.index'
+  })
 
   return {
-    title: `${page('metadata.title')} - ${global('title')}`,
+    title: page('metadata.title'),
     description: `${page('metadata.description')}`,
     alternates: getAlternates({ pathname: '', locale }),
     openGraph: {

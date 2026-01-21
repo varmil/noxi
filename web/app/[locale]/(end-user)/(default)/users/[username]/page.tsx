@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import { getUserProfileByUsername } from 'apis/user-profiles/getUserProfile'
@@ -11,6 +12,21 @@ type Props = {
     locale: string
     username: string
   }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { username } = await params
+  const profile = await getUserProfileByUsername(username)
+
+  if (!profile) {
+    return {
+      title: 'User Not Found - VCharts'
+    }
+  }
+
+  return {
+    title: `${profile.name} - VCharts`
+  }
 }
 
 export default async function UserProfilePage({ params }: Props) {

@@ -1,4 +1,5 @@
 import { Lightbulb, Tickets } from 'lucide-react'
+import { Metadata } from 'next'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -13,6 +14,12 @@ import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
 import DashboardTicketsPreview from 'features/dashboard/ticket/Preview'
 import CheerTicketUsages from 'features/user-public-profile/components/CheerTicketUsages'
 import { auth } from 'lib/auth'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: '応援チケット - マイページ - VCharts'
+  }
+}
 
 export default async function TicketsPage() {
   const session = await auth()

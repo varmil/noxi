@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'VTuberチャンネル登録申請',
+    title: 'VTuberチャンネル登録申請 - VCharts',
     description: 'VTuberのYouTubeチャンネルを登録するための申請フォーム'
   }
 }

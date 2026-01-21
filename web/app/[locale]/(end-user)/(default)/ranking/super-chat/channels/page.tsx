@@ -11,13 +11,19 @@ type Props = {
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const { locale } = await props.params
-  const t = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Page.ranking.superChatIndex.metadata'
-  })
+  const [t, tGlobal] = await Promise.all([
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Page.ranking.superChatIndex.metadata'
+    }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Global'
+    })
+  ])
 
   return {
-    title: t('title'),
+    title: `${t('title')} - ${tGlobal('title')}`,
     description: t('description'),
     alternates: getAlternates({
       pathname: '/ranking/super-chat/channels',

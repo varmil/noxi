@@ -1,4 +1,5 @@
 import { CalendarIcon, Heart } from 'lucide-react'
+import { Metadata } from 'next'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   Card,
@@ -7,6 +8,12 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'コメント履歴 - マイページ - VCharts'
+  }
+}
 
 // コメント履歴のモックデータ
 const commentHistory = [

@@ -5,10 +5,13 @@ import { GroupRegistrationForm } from './_components/GroupRegistrationForm'
 import { GroupRegistrationHistory } from './_components/GroupRegistrationHistory'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('Pages.groupsAdd')
+  const [t, tGlobal] = await Promise.all([
+    getTranslations('Pages.groupsAdd'),
+    getTranslations('Global')
+  ])
 
   return {
-    title: t('title'),
+    title: `${t('title')} - ${tGlobal('title')}`,
     description: t('description'),
     robots: { index: false }
   }
