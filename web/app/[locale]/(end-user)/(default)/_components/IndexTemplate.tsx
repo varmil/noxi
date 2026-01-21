@@ -73,6 +73,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
 
   return (
     <>
+      <h1 className="sr-only">VTuberランキング・統計 - VCharts</h1>
       <Container className="flex flex-col gap-6">
         <section className="flex items-center md:items-stretch flex-col md:flex-row gap-4">
           {/* AD Carousel */}
