@@ -1,4 +1,5 @@
 import type React from 'react'
+import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import {
   Card,
@@ -16,6 +17,12 @@ import { getWebUrl } from 'utils/web-url'
 type Props = {
   params: Promise<{ locale: string }>
   searchParams: Promise<{}>
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'プロフィール - マイページ - VCharts'
+  }
 }
 
 export default async function ProfilePage(props: Props) {
