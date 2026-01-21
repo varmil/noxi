@@ -22,7 +22,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 
   return {
-    title: `${t('title')} | ${tg('title')}`,
+    title: `${t('title')} - ${tg('title')}`,
     description: `${t('description')}`,
     alternates: getAlternates({ pathname: '/about', locale })
   }

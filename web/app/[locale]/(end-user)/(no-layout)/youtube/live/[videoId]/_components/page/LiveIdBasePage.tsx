@@ -30,10 +30,14 @@ export async function generateBaseMetadata(
     membersOnly
   } = await getStream(videoId)
 
-  const [t, , bundle, superChats] = await Promise.all([
+  const [t, tGlobal, , bundle, superChats] = await Promise.all([
     getTranslations({
       locale: locale as 'ja' | 'en',
       namespace: props.namespace
+    }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Global'
     }),
     getChannel(channelId),
     getSupersBundle(videoId),
@@ -69,7 +73,7 @@ export async function generateBaseMetadata(
       : { robots: { index: false } }
 
   return {
-    title: `${t('title', { title: slicedTitle })}`,
+    title: `${t('title', { title: slicedTitle })} - ${tGlobal('title')}`,
     description: `${t('description', {
       superChat: formatMicrosAsRoundedAmount(bundle?.amountMicros ?? BigInt(0)),
       concurrentViewers: peakConcurrentViewers.toLocaleString(),

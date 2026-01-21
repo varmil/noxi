@@ -22,7 +22,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 
   return {
-    title: `${tp('title')} | ${tg('title')}`,
+    title: `${tp('title')} - ${tg('title')}`,
     description: tp('description'),
     alternates: getAlternates({
       pathname: '/data-methodology-and-disclaimer',

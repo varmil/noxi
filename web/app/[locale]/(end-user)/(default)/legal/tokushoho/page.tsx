@@ -18,7 +18,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   })
 
   return {
-    title: `特定商取引法に基づく表記 | ${tg('title')}`,
+    title: `特定商取引法に基づく表記 - ${tg('title')}`,
     description: `特定商取引法に基づく表記`,
     alternates: getAlternates({ pathname: '/legal/tokushoho', locale })
   }
