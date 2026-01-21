@@ -39,29 +39,30 @@ export default async function IndexTemplate({
         <StreamRankingFilterGallery className="max-w-6xl mx-auto" />
       </section>
 
-      <section className={`${PageSMPX} space-y-6`}>
-        <section className="max-w-6xl mx-auto @container space-y-4 sm:space-y-6">
-          <StreamRankingGalleryTitle
-            dimension={dimension}
-            period={period}
-            groupName={groupName}
-            gender={gender}
-            date={titleDate}
-            className={`${PageXSPX} sm:px-0`}
-          />
+      <section
+        className={`${PageSMPX} max-w-6xl mx-auto @container space-y-4 sm:space-y-6`}
+      >
+        <StreamRankingGalleryTitle
+          dimension={dimension}
+          period={period}
+          group={group}
+          groupName={groupName}
+          gender={gender}
+          date={titleDate}
+          className={`${PageXSPX} sm:px-0`}
+        />
 
-          <Suspense
-            key={`${period}-${dimension}-${group}-${gender}-${page}`}
-            fallback={<StreamRankingGallerySkeleton />}
-          >
-            <StreamRankingGallery
-              period={period}
-              dimension={dimension}
-              group={group}
-              {...searchParams}
-            />
-          </Suspense>
-        </section>
+        <Suspense
+          key={`${period}-${dimension}-${group}-${gender}-${page}`}
+          fallback={<StreamRankingGallerySkeleton />}
+        >
+          <StreamRankingGallery
+            period={period}
+            dimension={dimension}
+            group={group}
+            {...searchParams}
+          />
+        </Suspense>
       </section>
     </section>
   )

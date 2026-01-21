@@ -495,6 +495,10 @@
         },
         "updatedAt": "Updated At",
         "lastUpdated": "Last updated:"
+      },
+      "aggregationSwitch": {
+        "channels": "By Channel",
+        "live": "By Live"
       }
     },
     "styles": {
@@ -631,8 +635,7 @@
         "past30Days": "Past 30 Days",
         "cheerRanking": "Cheer Ranking",
         "cheerCount": "",
-        "signUpForTicket": "Sign-up for free and get cheer tickets",
-        "cheerEnabledAt": "2025/06/01 (Sun) 14:00~ Cheer available"
+        "signUpForTicket": "Sign-up for free and get cheer tickets"
       },
       "stats": {
         "title": "Cheer Ranking",

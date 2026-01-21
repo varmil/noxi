@@ -6,7 +6,7 @@ export function RankingTableTitleContainer({
 }: PropsWithChildren<{ className?: string }>) {
   return (
     <section className={`flex ${className || ''}`}>
-      <div className="flex flex-col gap-y-2 sm:w-full sm:flex-row sm:justify-between sm:items-center sm:gap-x-8">
+      <div className="flex flex-col sm:w-full sm:flex-row sm:justify-between sm:items-center sm:gap-x-8">
         {children}
       </div>
     </section>

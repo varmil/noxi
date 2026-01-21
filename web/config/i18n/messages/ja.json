@@ -26,7 +26,7 @@
     "period": {
       "realtime": "リアルタイム",
       "last24Hours": "過去24時間",
-      "last7Days": "過去７日間",
+      "last7Days": "過去7日間",
       "last30Days": "過去30日間",
       "last90Days": "過去90日間",
       "last1Year": "過去１年間",
@@ -316,7 +316,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "super-chat": "スーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。",
+              "super-chat": "スーパーチャット累計金額ランキングです。{group}{gender}を対象に{period}で集計。",
               "subscriber": "{group}の登録者数を集計した人気順リストです。"
             }
           }
@@ -333,7 +333,7 @@
                 "last30Days": "過去30日間の同接数ランキングです。{group}内の直近の活動の中で特に勢いのある配信者や人気の高かった企画の傾向を分析できます。",
                 "wholePeriod": "歴代最高同時視聴者数ランキングです。{group}の過去に記録された伝説的な配信や、史上もっとも多くの人が見守った瞬間を振り返ることができます。"
               },
-              "super-chat": "ライブ配信別のスーパーチャット獲得金額ランキングです。{group}{gender}を対象に{period}で集計しています。"
+              "super-chat": "ライブ配信のスーパーチャット累計金額ランキングです。{group}{gender}を対象に{period}で集計。"
             }
           }
         }
@@ -504,6 +504,10 @@
         },
         "updatedAt": "更新日時",
         "lastUpdated": "最終更新："
+      },
+      "aggregationSwitch": {
+        "channels": "チャンネル集計",
+        "live": "ライブ集計"
       }
     },
     "styles": {
@@ -648,8 +652,7 @@
         "past30Days": "過去30日間の応援",
         "cheerRanking": "応援ランキング",
         "cheerCount": "回",
-        "signUpForTicket": "無料の新規登録でチケットを獲得できます",
-        "cheerEnabledAt": "2025/06/01（日）14:00~ 応援可能"
+        "signUpForTicket": "無料の新規登録でチケットを獲得できます"
       },
       "stats": {
         "title": "応援ランキング",
@@ -841,7 +844,7 @@
     "channelsRanking": {
       "ranking": {
         "dimension": {
-          "super-chat": "{group} {gender} スパチャランキング - {period}",
+          "super-chat": "{group}{gender}スパチャランキング - {period}",
           "subscriber": "{group} {gender} チャンネル登録者数ランキング"
         }
       },

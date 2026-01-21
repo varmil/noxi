@@ -1,3 +1,5 @@
+'use client'
+
 import { PropsWithChildren } from 'react'
 import { useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
@@ -6,13 +8,27 @@ import {
   RankingTableTitleDescription,
   RankingTableTitleH1
 } from 'components/ranking/table/title/RankingTableTitle'
+import { SwitchTabs } from 'components/switch-tabs/SwitchTabs'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Gender } from 'types/gender'
-import { StreamRankingPeriod } from 'types/period'
+import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
+
+/** Live → Channels 遷移時の period フォールバック */
+function getChannelsPeriodFromStreamPeriod(
+  period: StreamRankingPeriod
+): ChannelsRankingPeriod {
+  // realtime は last24Hours にフォールバック
+  if (period === 'realtime') {
+    return 'last24Hours'
+  }
+  // その他はそのまま維持（共通の period）
+  return period
+}
 
 type Props = PropsWithChildren<{
   dimension: StreamRankingDimension
   period: StreamRankingPeriod
+  group: string
   groupName: string
   gender?: Gender
   /** ISO 8601 文字列 */
@@ -23,6 +39,7 @@ type Props = PropsWithChildren<{
 export default function StreamRankingGalleryTitle({
   dimension,
   period,
+  group,
   groupName,
   gender,
   date,
@@ -31,6 +48,7 @@ export default function StreamRankingGalleryTitle({
   const global = useTranslations('Global')
   const feat = useTranslations('Features.streamRanking')
   const page = useTranslations('Page.ranking.live')
+  const t = useTranslations('Components.ranking.aggregationSwitch')
   const periodName = global(`period.${period}`)
   const periodKeyword = global(`periodKeyword.${period}`)
   const periodInParens = period === 'realtime' ? '' : ` (${periodName})`
@@ -56,19 +74,51 @@ export default function StreamRankingGalleryTitle({
             gender: gender ? global(`gender.${gender}`) : ''
           }
         )
-      : page(`metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat', {
-          period: periodName,
-          group: groupName,
-          gender: gender ? global(`gender.${gender}`) : ''
-        })
+      : page(
+          `metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat',
+          {
+            period: periodName,
+            group: groupName,
+            gender: gender ? global(`gender.${gender}`) : ''
+          }
+        )
+
+  // super-chat の場合のみ SwitchTabs を表示
+  const showSwitchTabs = dimension === 'super-chat'
+  const channelsPeriod = getChannelsPeriodFromStreamPeriod(period)
+  const genderParam = gender ? `?gender=${gender}` : ''
 
   return (
     <RankingTableTitleContainer className={className}>
       <section className="space-y-2">
         <RankingTableTitleH1 title={title} />
-        <RankingTableTitleDescription>{description}</RankingTableTitleDescription>
+        <RankingTableTitleDescription>
+          {description}
+        </RankingTableTitleDescription>
       </section>
-      <PeriodHoverCardFactory type="live" period={period} date={date} />
+      <div className="flex flex-col gap-y-4 sm:gap-y-2 sm:items-end">
+        <PeriodHoverCardFactory
+          type="live"
+          period={period}
+          date={date}
+          className="mr-1" // SwitchTabs と見た目の端を合わせる
+        />
+        {showSwitchTabs && (
+          <SwitchTabs
+            className="self-end -mb-3 -mr-3 sm:mr-0"
+            tabs={[
+              {
+                label: t('channels'),
+                href: `/ranking/super-chat/channels/${group}/${channelsPeriod}${genderParam}`
+              },
+              {
+                label: t('live'),
+                href: `/ranking/super-chat/live/${group}/${period}${genderParam}`
+              }
+            ]}
+          />
+        )}
+      </div>
     </RankingTableTitleContainer>
   )
 }
