@@ -3,6 +3,7 @@
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
+import { Separator } from '@/components/ui/separator'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -31,8 +32,13 @@ const resetPeriod = (dimension: Keys) => {
 }
 
 const CHEER_KEYS = ['most-cheered', 'top-fans'] as const
-const CHANNELS_KEYS = ['super-chat', 'subscriber'] as const
-const STREAM_KEYS = ['concurrent-viewer'] as const
+
+// 表示順: スパチャ金額 → 同接数 → チャンネル登録者数
+const DIMENSION_ITEMS = [
+  { key: 'super-chat', type: 'channels' },
+  { key: 'concurrent-viewer', type: 'live' },
+  { key: 'subscriber', type: 'channels' }
+] as const
 
 export default function DimensionColumn() {
   const { dimension } = useParams()
@@ -42,15 +48,18 @@ export default function DimensionColumn() {
     <Column>
       <ColumnHeader>{tg('filter.dimension')}</ColumnHeader>
       <ColumnContent>
-        <Label label="Channels" className="my-1.5" />
-        {CHANNELS_KEYS.map(key => (
+        {DIMENSION_ITEMS.map(({ key, type }) => (
           <SelectButton
             key={key}
-            pathname={`/ranking/${key}/channels/${resetGroup()}/${resetPeriod(key)}`}
+            pathname={`/ranking/${key}/${type}/${resetGroup()}/${resetPeriod(key)}`}
             qs={{ ...RESET_KEYS() }}
             isActive={() =>
-              (pathname.includes('channels') && key === dimension) ||
-              (pathname.includes('live') && key === dimension)
+              key === 'super-chat'
+                ? (pathname.includes('channels') && key === dimension) ||
+                  (pathname.includes('live') && key === dimension)
+                : type === 'live'
+                  ? pathname.includes('live') && key === dimension
+                  : pathname.includes('channels') && key === dimension
             }
             activeVariant="secondary"
           >
@@ -58,20 +67,8 @@ export default function DimensionColumn() {
           </SelectButton>
         ))}
 
-        <Label label="Live" className="my-1.5" />
-        {STREAM_KEYS.map(key => (
-          <SelectButton
-            key={key}
-            pathname={`/ranking/${key}/live/${resetGroup()}/${resetPeriod(key)}`}
-            qs={{ ...RESET_KEYS() }}
-            isActive={() => pathname.includes('live') && key === dimension}
-            activeVariant="secondary"
-          >
-            {tg(`dimension.${key}`)}
-          </SelectButton>
-        ))}
+        <Separator className="my-2" />
 
-        <Label label="Cheer" className="mb-1.5" />
         {CHEER_KEYS.map(key => (
           <SelectButton
             key={key}
@@ -92,7 +89,3 @@ export default function DimensionColumn() {
     </Column>
   )
 }
-
-const Label = ({ label, className }: { label: string; className?: string }) => (
-  <div className={`text-muted-foreground text-xs ${className}`}>{label}</div>
-)
