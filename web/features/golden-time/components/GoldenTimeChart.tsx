@@ -10,7 +10,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-import { GoldenTimesSchema } from 'apis/youtube/schema/goldenTimeSchema'
+import { GoldenTimesSchema } from 'apis/insights/schema/goldenTimeSchema'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,

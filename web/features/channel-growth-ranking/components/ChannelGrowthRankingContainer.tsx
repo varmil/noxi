@@ -1,4 +1,4 @@
-import { getChannelGrowthRankings } from 'apis/youtube/getChannelGrowthRankings'
+import { getChannelGrowthRankings } from 'apis/insights/getChannelGrowthRankings'
 import { ChannelGrowthRankingChart } from './ChannelGrowthRankingChart'
 
 type DaysOption = 7 | 28 | 90

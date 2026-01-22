@@ -3,7 +3,7 @@
 import { useFormatter, useTranslations } from 'next-intl'
 import { CardContent, CardDescription, CardTitle } from '@/components/ui/card'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
-import { ChannelGrowthRankingsSchema } from 'apis/youtube/schema/channelGrowthRankingSchema'
+import { ChannelGrowthRankingsSchema } from 'apis/insights/schema/channelGrowthRankingSchema'
 import Image from 'components/styles/Image'
 import { ChartCard, ChartCardHeader } from 'components/styles/card/ChartCard'
 import { Link } from 'lib/navigation'

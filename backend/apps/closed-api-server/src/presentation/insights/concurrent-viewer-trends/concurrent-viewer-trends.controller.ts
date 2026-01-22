@@ -8,7 +8,7 @@ import {
 import { ConcurrentViewerTrendsService } from '@app/concurrent-viewer-trends/concurrent-viewer-trends.service'
 import { GetConcurrentViewerTrendsDto } from './dto/get-concurrent-viewer-trends.dto'
 
-@Controller('youtube/concurrent-viewer-trends')
+@Controller('insights/concurrent-viewer-trends')
 export class ConcurrentViewerTrendsController {
   constructor(
     private readonly concurrentViewerTrendsService: ConcurrentViewerTrendsService

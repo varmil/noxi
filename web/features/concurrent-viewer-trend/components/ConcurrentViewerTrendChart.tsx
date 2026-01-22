@@ -9,7 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-import { ConcurrentViewerTrendsSchema } from 'apis/youtube/schema/concurrentViewerTrendSchema'
+import { ConcurrentViewerTrendsSchema } from 'apis/insights/schema/concurrentViewerTrendSchema'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,

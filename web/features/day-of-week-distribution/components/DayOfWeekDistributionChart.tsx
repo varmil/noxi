@@ -9,7 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-import { DayOfWeekDistributionsSchema } from 'apis/youtube/schema/dayOfWeekDistributionSchema'
+import { DayOfWeekDistributionsSchema } from 'apis/insights/schema/dayOfWeekDistributionSchema'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,

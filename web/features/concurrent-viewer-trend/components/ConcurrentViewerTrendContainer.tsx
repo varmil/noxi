@@ -1,4 +1,4 @@
-import { getConcurrentViewerTrend } from 'apis/youtube/getConcurrentViewerTrend'
+import { getConcurrentViewerTrend } from 'apis/insights/getConcurrentViewerTrend'
 import { ConcurrentViewerTrendChart } from './ConcurrentViewerTrendChart'
 
 type DaysOption = 7 | 28 | 90
