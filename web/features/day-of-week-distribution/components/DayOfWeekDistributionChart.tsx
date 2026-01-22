@@ -94,8 +94,8 @@ export function DayOfWeekDistributionChart({ data }: Props) {
               content={
                 <ChartTooltipContent
                   className="w-[180px] sm:w-[200px]"
-                  labelFormatter={(_label, [{ payload }]) =>
-                    `${weekdays[payload.dayOfWeek]}${tGlobal('weekday.suffix')}`
+                  labelFormatter={(_label, payloads) =>
+                    `${weekdays[payloads[0]?.payload.dayOfWeek]}${tGlobal('weekday.suffix')}`
                   }
                   formatter={(value, name) => {
                     const key = name as string

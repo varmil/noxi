@@ -71,8 +71,11 @@ export default function ViewerCounts({
             <ChartTooltip
               content={
                 <ChartTooltipContent
-                  labelFormatter={(_label, [{ payload }]) =>
-                    format.dateTime(new Date(payload.createdAt), FormatForTick)
+                  labelFormatter={(_label, payloads) =>
+                    format.dateTime(
+                      new Date(payloads[0]?.payload.createdAt),
+                      FormatForTick
+                    )
                   }
                 />
               }
