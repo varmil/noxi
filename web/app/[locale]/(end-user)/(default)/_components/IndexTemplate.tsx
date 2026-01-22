@@ -1,9 +1,9 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
 import { AdCardBeta } from 'components/ads/AdCardBeta'
-// import { AdCarousel } from 'components/ads/AdCarousel'
-// import { AdWantedFromFanCardBeta } from 'components/ads/AdWantedFromFanCardBeta'
-// import { AdWantedFromTalentCardBeta } from 'components/ads/AdWantedFromTalentCardBeta'
+import { AdCarousel } from 'components/ads/AdCarousel'
+import { AdWantedFromFanCardBeta } from 'components/ads/AdWantedFromFanCardBeta'
+import { AdWantedFromTalentCardBeta } from 'components/ads/AdWantedFromTalentCardBeta'
 import { TrackableAdCard } from 'components/ads/TrackableAdCard'
 import { LookerReport } from 'components/looker/LookerReport'
 import {
@@ -53,23 +53,23 @@ const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
 }
 
 /** サーバー側でシャッフル（リクエストごとに1回実行） */
-// function shuffle<T>(array: T[]): T[] {
-//   const shuffled = [...array]
-//   for (let i = shuffled.length - 1; i > 0; i--) {
-//     const j = Math.floor(Math.random() * (i + 1))
-//     ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-//   }
-//   return shuffled
-// }
+function shuffle<T>(array: T[]): T[] {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
 
 export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   const groups = await getGroups()
 
   // サーバー側でランダム化
-  // const shuffledAdCards = shuffle([
-  //   <AdWantedFromTalentCardBeta key="talent" />,
-  //   <AdWantedFromFanCardBeta key="fan" />
-  // ])
+  const shuffledAdCards = shuffle([
+    <AdWantedFromTalentCardBeta key="talent" />,
+    <AdWantedFromFanCardBeta key="fan" />
+  ])
 
   return (
     <>
@@ -77,7 +77,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
       <Container className="flex flex-col gap-6">
         <section className="flex items-center md:items-stretch flex-col md:flex-row gap-4">
           {/* AD Carousel */}
-          {/* <AdCarousel
+          <AdCarousel
             className="max-w-[350px]"
             cards={[
               ...shuffledAdCards,
@@ -91,16 +91,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
                 />
               </TrackableAdCard>
             ]}
-          /> */}
-          <TrackableAdCard adId="fourte-project-001" adType="fan">
-            <AdCardBeta
-              type="fan"
-              videoUrl="https://www.youtube.com/live/PJBxfG_lKA4?si=VT6-vzONT7z3smhc"
-              channelUrl="https://youtube.com/@fourte_project"
-              description={"1/17(土)19時からの1stオンラインライブ！\n楽しみです！"}
-              className="max-w-[350px]"
-            />
-          </TrackableAdCard>
+          />
           {/* ライブ統計カード（Above the fold） */}
           <div className="flex-1 w-full @container">
             <LiveStatsCards />
