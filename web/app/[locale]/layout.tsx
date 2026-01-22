@@ -64,9 +64,6 @@ export default async function LocaleLayout(props: Props) {
       suppressHydrationWarning
     >
       <head>
-        {/* Looker Studio ドメインへの事前接続でパフォーマンス向上 */}
-        <link rel="preconnect" href="https://lookerstudio.google.com" />
-        <link rel="dns-prefetch" href="https://lookerstudio.google.com" />
         {/* 構造化データ: Organization と sameAs で公式Xアカウントとの関連を示す */}
         <script
           type="application/ld+json"
