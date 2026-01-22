@@ -1,12 +1,23 @@
 import { Pool } from '@neondatabase/serverless'
 import jwt from 'jsonwebtoken'
 import { NextAuthConfig } from 'next-auth'
+import { isDisposableEmail } from 'lib/auth/disposableEmailBlocklist'
 import { onSignUp } from 'lib/auth/onSignUp'
 
 const REFRESH_INTERVAL = 24 * 3600 // 1日
 
 const callbacks = (pool: Pool): NextAuthConfig['callbacks'] => {
   return {
+    async signIn({ user, account }) {
+      // Email 認証の場合のみ使い捨てメールをチェック
+      if (account?.provider === 'resend' && user.email) {
+        if (await isDisposableEmail(user.email)) {
+          return false
+        }
+      }
+      return true
+    },
+
     async jwt({ token, trigger, user, session }) {
       const now = Math.floor(Date.now() / 1000)
 
