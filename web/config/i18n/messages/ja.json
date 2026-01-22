@@ -785,6 +785,9 @@
         "nav": "過去のライブ",
         "title": "過去のライブ配信",
         "description": "{group}の過去のYouTubeライブ配信一覧です"
+      },
+      "superChatRanking": {
+        "nav": "スパチャランキング"
       }
     },
     "live": {
