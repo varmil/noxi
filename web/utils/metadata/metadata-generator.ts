@@ -42,6 +42,7 @@ const PERIOD_SPECIFIC_DESCRIPTIONS = [
   'last24Hours',
   'last7Days',
   'last30Days',
+  'thisYear',
   'wholePeriod'
 ] as const
 
