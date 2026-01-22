@@ -28,7 +28,11 @@ export default function LocalNavigationForGroupPages({
           name: t('scheduled.nav'),
           href: `${basePath}/scheduled`
         },
-        { name: t('ended.nav'), href: `${basePath}/ended` }
+        { name: t('ended.nav'), href: `${basePath}/ended` },
+        {
+          name: t('superChatRanking.nav'),
+          href: `/ranking/super-chat/channels/${group}/last30Days`
+        }
       ]}
       className="mb-6"
     />

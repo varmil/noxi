@@ -770,6 +770,9 @@
         "nav": "Past Live",
         "title": "Past Live Streams",
         "description": "Check out all of {group}'s past YouTube live streams!"
+      },
+      "superChatRanking": {
+        "nav": "Super Chat Ranking"
       }
     },
 
