@@ -84,8 +84,8 @@ export function LiveSuperChatChart({ data, config }: Props) {
               content={
                 <ChartTooltipContent
                   className="w-[165px] sm:w-[180px]"
-                  labelFormatter={(_label, [{ payload }]) =>
-                    format.dateTime(new Date(payload.time), TimeFormat)
+                  labelFormatter={(_label, payloads) =>
+                    format.dateTime(new Date(payloads[0]?.payload.time), TimeFormat)
                   }
                   formatter={(value, name) => {
                     const key = name as string

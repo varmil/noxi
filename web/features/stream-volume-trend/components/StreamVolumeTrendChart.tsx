@@ -91,8 +91,8 @@ export function StreamVolumeTrendChart({ data }: Props) {
               content={
                 <ChartTooltipContent
                   className="w-[180px] sm:w-[200px]"
-                  labelFormatter={(_label, [{ payload }]) =>
-                    format.dateTime(new Date(payload.date), {
+                  labelFormatter={(_label, payloads) =>
+                    format.dateTime(new Date(payloads[0]?.payload.date), {
                       year: 'numeric',
                       month: 'numeric',
                       day: 'numeric',

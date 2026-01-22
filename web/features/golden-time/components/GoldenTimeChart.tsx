@@ -30,8 +30,8 @@ function StaggeredTick({
   y,
   payload
 }: {
-  x: number
-  y: number
+  x: string | number
+  y: string | number
   payload: { value: number }
 }) {
   const hour = payload.value
@@ -40,7 +40,7 @@ function StaggeredTick({
   return (
     <text
       x={x}
-      y={y + yOffset}
+      y={Number(y) + yOffset}
       textAnchor="middle"
       className="fill-muted-foreground text-xs"
     >
@@ -155,8 +155,8 @@ export function GoldenTimeChart({ data }: Props) {
               content={
                 <ChartTooltipContent
                   className="w-[180px] sm:w-[200px]"
-                  labelFormatter={(_label, [{ payload }]) =>
-                    `${payload.hour}${t('hourSuffix')}`
+                  labelFormatter={(_label, payloads) =>
+                    `${payloads[0]?.payload.hour}${t('hourSuffix')}`
                   }
                   formatter={(value, name) => {
                     const key = name as DayKey
