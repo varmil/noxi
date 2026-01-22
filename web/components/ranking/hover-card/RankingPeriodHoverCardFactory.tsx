@@ -46,6 +46,7 @@ export default function PeriodHoverCardFactory({
       criteriaDescription = comp('criteriaDescription.channels')
       break
     case 'live':
+      updatedAt = dayjs.utc(date)
       criteriaDescription = comp('criteriaDescription.live')
       break
     case 'mostCheered':

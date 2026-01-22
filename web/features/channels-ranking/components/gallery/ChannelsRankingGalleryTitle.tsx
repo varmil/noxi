@@ -25,7 +25,8 @@ function getStreamPeriodFromChannelsPeriod(
   const commonPeriods: StreamRankingPeriod[] = [
     'last24Hours',
     'last7Days',
-    'last30Days'
+    'last30Days',
+    'thisYear'
   ]
   if (commonPeriods.includes(period as StreamRankingPeriod)) {
     return period as StreamRankingPeriod
