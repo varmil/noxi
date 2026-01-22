@@ -327,6 +327,7 @@
                 "last24Hours": "Concurrent viewer ranking for streams from the last 24 hours. Discover yesterday's most popular streams and trending content you may have missed in {group}.",
                 "last7Days": "Streams from the past week ranked by peak concurrent viewers. See the most talked-about streams and streamers in {group} this week at a glance.",
                 "last30Days": "Concurrent viewer ranking for the past 30 days. Analyze trending streamers and popular content within {group}'s recent activity.",
+                "thisYear": "Concurrent viewer ranking for this year. Discover the most talked-about streams and notable streamers in {group} this year.",
                 "wholePeriod": "All-time peak concurrent viewer ranking. Look back at legendary streams and the most-watched moments in {group}'s history."
               },
               "super-chat": "Super Chat earnings ranking by live stream. Aggregated for {group}{gender} over {period}."
