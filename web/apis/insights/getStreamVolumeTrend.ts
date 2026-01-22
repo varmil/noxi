@@ -1,7 +1,7 @@
 import {
-  ConcurrentViewerTrendsSchema,
+  StreamVolumeTrendsSchema,
   responseSchema
-} from 'apis/youtube/schema/concurrentViewerTrendSchema'
+} from 'apis/insights/schema/streamVolumeTrendSchema'
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
@@ -9,10 +9,10 @@ type Params = {
   group?: string
 }
 
-export async function getConcurrentViewerTrend({
+export async function getStreamVolumeTrend({
   days = 28,
   group
-}: Params = {}): Promise<ConcurrentViewerTrendsSchema> {
+}: Params = {}): Promise<StreamVolumeTrendsSchema> {
   const params = new URLSearchParams()
   params.set('days', String(days))
   if (group) {
@@ -20,14 +20,14 @@ export async function getConcurrentViewerTrend({
   }
 
   const res = await fetchAPI(
-    `/api/youtube/concurrent-viewer-trends?${params.toString()}`,
+    `/api/insights/stream-volume-trends?${params.toString()}`,
     {
       next: { revalidate: CACHE_1H }
     }
   )
 
   if (!res.ok) {
-    throw new Error('Failed to fetch ConcurrentViewerTrend')
+    throw new Error('Failed to fetch StreamVolumeTrend')
   }
 
   const data = responseSchema.parse(await res.json())

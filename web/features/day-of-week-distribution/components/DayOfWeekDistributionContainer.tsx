@@ -1,4 +1,4 @@
-import { getDayOfWeekDistribution } from 'apis/youtube/getDayOfWeekDistribution'
+import { getDayOfWeekDistribution } from 'apis/insights/getDayOfWeekDistribution'
 import { DayOfWeekDistributionChart } from './DayOfWeekDistributionChart'
 
 type DaysOption = 7 | 28 | 90

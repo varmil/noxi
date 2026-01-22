@@ -1,7 +1,7 @@
 import {
-  ChannelGrowthRankingsSchema,
+  DayOfWeekDistributionsSchema,
   responseSchema
-} from 'apis/youtube/schema/channelGrowthRankingSchema'
+} from 'apis/insights/schema/dayOfWeekDistributionSchema'
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
@@ -9,10 +9,10 @@ type Params = {
   group?: string
 }
 
-export async function getChannelGrowthRankings({
+export async function getDayOfWeekDistribution({
   days = 28,
   group
-}: Params = {}): Promise<ChannelGrowthRankingsSchema> {
+}: Params = {}): Promise<DayOfWeekDistributionsSchema> {
   const params = new URLSearchParams()
   params.set('days', String(days))
   if (group) {
@@ -20,14 +20,14 @@ export async function getChannelGrowthRankings({
   }
 
   const res = await fetchAPI(
-    `/api/youtube/channel-growth-rankings?${params.toString()}`,
+    `/api/insights/day-of-week-distribution?${params.toString()}`,
     {
       next: { revalidate: CACHE_1H }
     }
   )
 
   if (!res.ok) {
-    throw new Error('Failed to fetch ChannelGrowthRankings')
+    throw new Error('Failed to fetch DayOfWeekDistribution')
   }
 
   const data = responseSchema.parse(await res.json())

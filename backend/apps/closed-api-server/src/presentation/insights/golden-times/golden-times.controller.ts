@@ -2,7 +2,7 @@ import { Controller, Get, Query } from '@nestjs/common'
 import { GoldenTimesService } from '@app/golden-times/golden-times.service'
 import { GetGoldenTimesDto } from './dto/get-golden-times.dto'
 
-@Controller('youtube/golden-times')
+@Controller('insights/golden-times')
 export class GoldenTimesController {
   constructor(private readonly goldenTimesService: GoldenTimesService) {}
 

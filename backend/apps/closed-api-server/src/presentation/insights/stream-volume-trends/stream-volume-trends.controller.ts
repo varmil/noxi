@@ -8,7 +8,7 @@ import {
 import { StreamVolumeTrendsService } from '@app/stream-volume-trends/stream-volume-trends.service'
 import { GetStreamVolumeTrendsDto } from './dto/get-stream-volume-trends.dto'
 
-@Controller('youtube/stream-volume-trends')
+@Controller('insights/stream-volume-trends')
 export class StreamVolumeTrendsController {
   constructor(
     private readonly streamVolumeTrendsService: StreamVolumeTrendsService

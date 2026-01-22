@@ -9,7 +9,7 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '@/components/ui/chart'
-import { StreamVolumeTrendsSchema } from 'apis/youtube/schema/streamVolumeTrendSchema'
+import { StreamVolumeTrendsSchema } from 'apis/insights/schema/streamVolumeTrendSchema'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
 import {
   ChartCard,

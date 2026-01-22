@@ -1,4 +1,4 @@
-import { getStreamVolumeTrend } from 'apis/youtube/getStreamVolumeTrend'
+import { getStreamVolumeTrend } from 'apis/insights/getStreamVolumeTrend'
 import { StreamVolumeTrendChart } from './StreamVolumeTrendChart'
 
 type DaysOption = 7 | 28 | 90

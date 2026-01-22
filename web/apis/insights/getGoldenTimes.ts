@@ -1,7 +1,7 @@
 import {
   GoldenTimesSchema,
   responseSchema
-} from 'apis/youtube/schema/goldenTimeSchema'
+} from 'apis/insights/schema/goldenTimeSchema'
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
@@ -19,7 +19,7 @@ export async function getGoldenTimes({
     params.set('group', group)
   }
 
-  const res = await fetchAPI(`/api/youtube/golden-times?${params.toString()}`, {
+  const res = await fetchAPI(`/api/insights/golden-times?${params.toString()}`, {
     next: { revalidate: CACHE_1H }
   })
 

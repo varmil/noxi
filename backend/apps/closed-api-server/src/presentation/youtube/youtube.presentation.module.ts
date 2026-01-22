@@ -1,30 +1,20 @@
 import { Module } from '@nestjs/common'
-import { ChannelGrowthRankingsPresentationModule } from '@presentation/youtube/channel-growth-rankings/channel-growth-rankings.presentation.module'
 import { ChannelsPresentationModule } from '@presentation/youtube/channels/channels.presentation.module'
-import { ConcurrentViewerTrendsPresentationModule } from '@presentation/youtube/concurrent-viewer-trends/concurrent-viewer-trends.presentation.module'
-import { DayOfWeekDistributionsPresentationModule } from '@presentation/youtube/day-of-week-distributions/day-of-week-distributions.presentation.module'
-import { GoldenTimesPresentationModule } from '@presentation/youtube/golden-times/golden-times.presentation.module'
 import { CryptoService } from '@presentation/youtube/pubsubhubbub/crypto.service'
 import { PubsubhubbubPresentationModule } from '@presentation/youtube/pubsubhubbub/pubsubhubbub.presentation.module'
 import { SearchesPresentationModule } from '@presentation/youtube/searches/searches.presentation.module'
 import { StreamsPresentationModule } from '@presentation/youtube/stream/streams.presentation.module'
 import { StreamStatsPresentationModule } from '@presentation/youtube/stream-stats/stream-stats.presentation.module'
-import { StreamVolumeTrendsPresentationModule } from '@presentation/youtube/stream-volume-trends/stream-volume-trends.presentation.module'
 import { VideosController } from '@presentation/youtube/videos.controller'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 
 @Module({
   imports: [
-    ChannelGrowthRankingsPresentationModule,
     ChannelsPresentationModule,
-    ConcurrentViewerTrendsPresentationModule,
-    DayOfWeekDistributionsPresentationModule,
-    GoldenTimesPresentationModule,
     PubsubhubbubPresentationModule,
     SearchesPresentationModule,
     StreamsPresentationModule,
     StreamStatsPresentationModule,
-    StreamVolumeTrendsPresentationModule,
     YoutubeAppModule
   ],
   controllers: [VideosController],

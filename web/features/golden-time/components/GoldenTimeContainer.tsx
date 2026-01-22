@@ -1,4 +1,4 @@
-import { getGoldenTimes } from 'apis/youtube/getGoldenTimes'
+import { getGoldenTimes } from 'apis/insights/getGoldenTimes'
 import { GoldenTimeChart } from './GoldenTimeChart'
 
 type DaysOption = 7 | 28 | 90
