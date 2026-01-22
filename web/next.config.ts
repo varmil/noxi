@@ -30,10 +30,16 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // 2025/01/22: Modify period 'wholePeriod' to 'thisYear' for live ranking
+      {
+        source: '/:locale/ranking/:dimension/live/:group/wholePeriod',
+        destination: '/:locale/ranking/:dimension/live/:group/thisYear',
+        permanent: true
+      },
       // 2025/06/12: Modify period 'all' to 'wholePeriod'
       {
         source: '/:locale/ranking/:dimension/live/:group/all',
-        destination: '/:locale/ranking/:dimension/live/:group/wholePeriod',
+        destination: '/:locale/ranking/:dimension/live/:group/thisYear',
         permanent: true
       },
       {
@@ -99,19 +105,6 @@ const nextConfig: NextConfig = {
       {
         source: '/:locale/youtube/live/:id/super-chat',
         destination: '/:locale/youtube/live/:id/earnings',
-        permanent: true
-      },
-      // 2024/11/21：Youtube Live ランキングを移動
-      {
-        source: '/:locale/youtube/live',
-        destination: '/:locale/youtube/ranking/live',
-        permanent: true
-      },
-      // 2024/11/11：LiaqN【りあん】 を independent-irl に移動
-      {
-        source: '/:locale/independent/channels/UCdVnOfmhI0sNGdaH5yldztg',
-        destination:
-          '/:locale/independent-irl/channels/UCdVnOfmhI0sNGdaH5yldztg',
         permanent: true
       }
     ]

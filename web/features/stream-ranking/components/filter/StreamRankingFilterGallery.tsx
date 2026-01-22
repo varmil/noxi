@@ -25,7 +25,7 @@ export default async function StreamRankingFilterGallery({ className }: Props) {
               'last7Days',
               'last30Days',
               // 'last1Year',
-              'wholePeriod'
+              'thisYear'
             ]}
           />
           <DimensionColumn />

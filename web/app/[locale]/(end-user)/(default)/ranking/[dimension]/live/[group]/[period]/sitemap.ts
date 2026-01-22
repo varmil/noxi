@@ -11,7 +11,7 @@ const PERIODS: StreamRankingPeriod[] = [
   'last24Hours',
   'last7Days',
   'last30Days',
-  'wholePeriod'
+  'thisYear'
 ]
 
 const DIMENSIONS = ['concurrent-viewer', 'super-chat'] as const
