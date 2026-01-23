@@ -73,7 +73,8 @@
     },
     "pagination": {
       "page": "ページ"
-    }
+    },
+    "liveSuperChatRanking": "スパチャランキング（ライブ集計）"
   },
   "Breadcrumb": {
     "group": "{group}",
