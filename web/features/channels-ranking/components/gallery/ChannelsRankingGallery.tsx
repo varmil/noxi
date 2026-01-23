@@ -13,12 +13,12 @@ import {
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
+import { isSnapshotPeriod } from 'utils/period/snapshot-period'
 import {
   getChannelsParams,
   getSupersSnapshotCountParams,
   getSupersSnapshotParams,
-  getSupersSummariesParams,
-  isSnapshotPeriod
+  getSupersSummariesParams
 } from '../../utils/gallery-params'
 
 export type ChannelsRankingGalleryProps = ChannelsRankingSearchParams & {

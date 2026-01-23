@@ -14,14 +14,12 @@ import ChannelTitle from 'components/ranking/table/styles/ChannelTitle'
 import Dimension from 'components/ranking/table/styles/Dimension'
 import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
-import {
-  getSupersSnapshotParams,
-  isSnapshotPeriod
-} from 'features/channels-ranking/utils/gallery-params'
+import { getSupersSnapshotParams } from 'features/channels-ranking/utils/gallery-params'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, Period, SnapshotPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
 import { rangeDatetimeForPreviousPeriod } from 'utils/period/period'
+import { isSnapshotPeriod } from 'utils/period/snapshot-period'
 import {
   getSupersRankingType,
   hasSupersRanking

@@ -1,5 +1,9 @@
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import { getStartOf } from 'utils/period/ranking'
+import {
+  getSnapshotDateRange,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import type { getStreams } from 'apis/youtube/getStreams'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
@@ -15,6 +19,15 @@ export default function createGetStreamsParams({
 
   if (period === 'realtime') {
     result = { ...result, status: 'live', revalidate: 600 }
+  } else if (isSnapshotPeriod(period)) {
+    // 週間/月間スナップショット期間の場合
+    const { start, end } = getSnapshotDateRange(period)
+    result = {
+      ...result,
+      status: 'ended',
+      endedAfter: start,
+      endedBefore: end
+    }
   }
   // TODO: 本当はliveもふくめたい
   else {

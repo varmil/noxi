@@ -23,6 +23,11 @@ import {
 } from 'utils/json-ld/buildRankingJsonLd'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getStartOf } from 'utils/period/ranking'
+import {
+  formatSnapshotPeriod,
+  getSnapshotDateRange,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import { getWebUrl } from 'utils/web-url'
 
 type Props = {
@@ -88,7 +93,9 @@ export async function StreamRankingJsonLd({
     ])
 
   // 期間の表示名を取得
-  const periodName = global(`period.${period}`)
+  const periodName = isSnapshotPeriod(period)
+    ? (formatSnapshotPeriod(period, localeTyped) ?? period)
+    : global(`period.${period}`)
 
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
@@ -241,6 +248,14 @@ function createCountParams({
 
   if (period === 'realtime') {
     result = { ...result, status: 'live', revalidate: 600 }
+  } else if (isSnapshotPeriod(period)) {
+    const { start, end } = getSnapshotDateRange(period)
+    result = {
+      ...result,
+      status: 'ended',
+      endedAfter: start,
+      endedBefore: end
+    }
   } else {
     result = {
       ...result,
@@ -274,6 +289,9 @@ function createBundleCountParams({
 
   if (period === 'realtime') {
     result = { ...result, actualEndTimeGTE: null, actualEndTimeLTE: null }
+  } else if (isSnapshotPeriod(period)) {
+    const { start, end } = getSnapshotDateRange(period)
+    result = { ...result, createdAtGTE: start, createdAtLTE: end }
   } else {
     result = { ...result, createdAtGTE: getStartOf(period).toDate() }
   }

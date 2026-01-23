@@ -1,5 +1,9 @@
 import { StreamRankingPagination } from 'config/constants/Pagination'
 import { getStartOf } from 'utils/period/ranking'
+import {
+  getSnapshotDateRange,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import type { getSupersBundles } from 'apis/supers/getSupersBundles'
 import type { StreamRankingGalleryProps } from 'features/stream-ranking/components/gallery/StreamRankingGallery'
 
@@ -18,6 +22,10 @@ export default function createGetSupersBundlesParams({
   if (period === 'realtime') {
     // NULL means "live now"
     result = { ...result, actualEndTimeGTE: null, actualEndTimeLTE: null }
+  } else if (isSnapshotPeriod(period)) {
+    // 週間/月間スナップショット期間の場合
+    const { start, end } = getSnapshotDateRange(period)
+    result = { ...result, createdAtGTE: start, createdAtLTE: end }
   } else {
     // それ以外は「CreatedAt」基準で取得
     result = { ...result, createdAtGTE: getStartOf(period).toDate() }

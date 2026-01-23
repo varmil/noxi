@@ -17,22 +17,13 @@ import { usePathname } from 'lib/navigation'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
 
-/** Channels → Live 遷移時の period フォールバック */
+/** Channels → Live 遷移時の period マッピング */
 function getStreamPeriodFromChannelsPeriod(
   period: ChannelsRankingPeriod
 ): StreamRankingPeriod {
-  // 共通の period はそのまま維持
-  const commonPeriods: StreamRankingPeriod[] = [
-    'last24Hours',
-    'last7Days',
-    'last30Days',
-    'thisYear'
-  ]
-  if (commonPeriods.includes(period as StreamRankingPeriod)) {
-    return period as StreamRankingPeriod
-  }
-  // Channels 固有の period は last30Days にフォールバック
-  return 'last30Days'
+  // StreamRankingPeriod が SnapshotPeriod を含むようになったため
+  // すべての ChannelsRankingPeriod はそのまま StreamRankingPeriod として使える
+  return period as StreamRankingPeriod
 }
 
 type Props = PropsWithChildren<{

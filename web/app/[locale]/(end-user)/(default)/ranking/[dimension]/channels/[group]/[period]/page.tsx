@@ -8,16 +8,16 @@ import {
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
 import { getPeriodDisplayName } from 'features/channels-ranking/utils/formatSnapshotPeriod'
-import {
-  isSnapshotPeriod,
-  parseSnapshotPeriod
-} from 'features/channels-ranking/utils/gallery-params'
 import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod } from 'types/period'
 import { buildUIBreadcrumbItems } from 'utils/json-ld/buildRankingJsonLd'
 import { getAlternates } from 'utils/metadata/getAlternates'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
+import {
+  isSnapshotPeriod,
+  parseSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import { ChannelsRankingJsonLd } from './_components/ChannelsRankingJsonLd'
 import IndexTemplate from './_components/IndexTemplate'
 
