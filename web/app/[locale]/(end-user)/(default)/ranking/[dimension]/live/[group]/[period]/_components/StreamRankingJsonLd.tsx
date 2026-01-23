@@ -24,7 +24,7 @@ import {
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getStartOf } from 'utils/period/ranking'
 import {
-  formatSnapshotPeriod,
+  getPeriodDisplayName,
   getSnapshotDateRange,
   isSnapshotPeriod
 } from 'utils/period/snapshot-period'
@@ -93,9 +93,11 @@ export async function StreamRankingJsonLd({
     ])
 
   // 期間の表示名を取得
-  const periodName = isSnapshotPeriod(period)
-    ? (formatSnapshotPeriod(period, localeTyped) ?? period)
-    : global(`period.${period}`)
+  const periodName = getPeriodDisplayName(
+    period,
+    key => (global as (key: string) => string)(key),
+    localeTyped
+  )
 
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)

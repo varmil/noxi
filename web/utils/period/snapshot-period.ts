@@ -119,3 +119,22 @@ export function formatSnapshotPeriod(
 
   return period
 }
+
+/**
+ * 期間名を取得（スナップショットの場合はフォーマット、それ以外は翻訳キーを返す）
+ *
+ * @param period ランキング期間（ChannelsRankingPeriod, StreamRankingPeriod 両対応）
+ * @param globalTranslations next-intl の翻訳関数
+ * @param locale 'ja' | 'en'
+ */
+export function getPeriodDisplayName(
+  period: string,
+  globalTranslations: (key: string) => string,
+  locale: 'ja' | 'en' = 'ja'
+): string {
+  const snapshotFormatted = formatSnapshotPeriod(period, locale)
+  if (snapshotFormatted) {
+    return snapshotFormatted
+  }
+  return globalTranslations(`period.${period}`)
+}

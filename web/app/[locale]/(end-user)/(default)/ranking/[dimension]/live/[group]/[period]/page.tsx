@@ -10,10 +10,7 @@ import { StreamRankingPeriod } from 'types/period'
 import { buildUIBreadcrumbItems } from 'utils/json-ld/buildRankingJsonLd'
 import { getAlternates } from 'utils/metadata/getAlternates'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import {
-  formatSnapshotPeriod,
-  isSnapshotPeriod
-} from 'utils/period/snapshot-period'
+import { getPeriodDisplayName } from 'utils/period/snapshot-period'
 import IndexTemplate from './_components/IndexTemplate'
 import { StreamRankingJsonLd } from './_components/StreamRankingJsonLd'
 
@@ -88,9 +85,11 @@ export default async function RankingLivePage(props: Props) {
     getDimensionDisplayName(dimension, localeTyped)
   ])
 
-  const periodName = isSnapshotPeriod(period)
-    ? (formatSnapshotPeriod(period, localeTyped) ?? period)
-    : global(`period.${period}`)
+  const periodName = getPeriodDisplayName(
+    period,
+    key => (global as (key: string) => string)(key),
+    localeTyped
+  )
 
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
