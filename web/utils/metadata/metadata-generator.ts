@@ -38,16 +38,6 @@ type Args = {
   page?: string
 }
 
-// 同接ランキング用の期間別ディスクリプション対応
-const PERIOD_SPECIFIC_DESCRIPTIONS = [
-  'realtime',
-  'last24Hours',
-  'last7Days',
-  'last30Days',
-  'thisYear',
-  'wholePeriod'
-] as const
-
 type GetDescriptionArgs = {
   pageT: Awaited<ReturnType<typeof getTranslations>>
   dimension: Dimension
@@ -65,24 +55,23 @@ const getDescription = ({
   group,
   gender
 }: GetDescriptionArgs): string => {
-  // concurrent-viewer かつ期間別ディスクリプションが存在する場合
-  if (
-    dimension === 'concurrent-viewer' &&
-    PERIOD_SPECIFIC_DESCRIPTIONS.includes(
-      period as (typeof PERIOD_SPECIFIC_DESCRIPTIONS)[number]
-    )
-  ) {
-     
+  // concurrent-viewer は期間別ディスクリプションを使用
+  if (dimension === 'concurrent-viewer') {
+    // 期間別キーを決定（スナップショット期間は weekly/monthly キーを使用）
+    let descriptionKey: string = period
+    if (isSnapshotPeriod(period)) {
+      descriptionKey = period.startsWith('weekly-') ? 'weekly' : 'monthly'
+    }
+
     return (pageT as any)(
-      `metadata.description.dimension.concurrent-viewer.${period}`,
-      { group, gender }
+      `metadata.description.dimension.concurrent-viewer.${descriptionKey}`,
+      { period: periodDisplayName, group, gender }
     )
       .replace(/\s+/g, ' ')
       .trim()
   }
 
   // それ以外は従来通り
-   
   return (pageT as any)(`metadata.description.dimension.${dimension}`, {
     period: periodDisplayName,
     group,

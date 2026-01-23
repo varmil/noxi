@@ -73,26 +73,35 @@ export default function StreamRankingGalleryTitle({
     .replace(/\s+/g, ' ')
     .trim()
 
-  // concurrent-viewer は期間別ディスクリプション、それ以外は従来通り
-  const description =
-    dimension === 'concurrent-viewer'
-      ? page(
-          `metadata.description.dimension.concurrent-viewer.${period}` as Parameters<
-            typeof page
-          >[0],
-          {
-            group: groupName,
-            gender: gender ? global(`gender.${gender}`) : ''
-          }
-        )
-      : page(
-          `metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat',
-          {
-            period: periodName,
-            group: groupName,
-            gender: gender ? global(`gender.${gender}`) : ''
-          }
-        )
+  // concurrent-viewer は期間別ディスクリプション（スナップショット期間は汎用キー）、それ以外は従来通り
+  const description = (() => {
+    if (dimension === 'concurrent-viewer') {
+      // スナップショット期間の場合は汎用キーを使用
+      const descriptionKey = isSnapshotPeriod(period)
+        ? period.startsWith('weekly-')
+          ? 'weekly'
+          : 'monthly'
+        : period
+      return page(
+        `metadata.description.dimension.concurrent-viewer.${descriptionKey}` as Parameters<
+          typeof page
+        >[0],
+        {
+          period: periodName,
+          group: groupName,
+          gender: gender ? global(`gender.${gender}`) : ''
+        }
+      )
+    }
+    return page(
+      `metadata.description.dimension.${dimension}` as 'metadata.description.dimension.super-chat',
+      {
+        period: periodName,
+        group: groupName,
+        gender: gender ? global(`gender.${gender}`) : ''
+      }
+    )
+  })()
 
   // super-chat の場合のみ SwitchTabs を表示
   const showSwitchTabs = dimension === 'super-chat'
