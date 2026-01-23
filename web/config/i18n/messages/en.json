@@ -90,10 +90,10 @@
     "scheduled": "Live schedule",
     "ended": "Past live streams",
     "channelsRanking": "VTuber",
-    "superChatChannelsRanking": "Super Chat Ranking (All)",
+    "superChatChannelsRanking": "Super Chat Ranking (Channels)",
     "superChatLiveRanking": "Super Chat Ranking (Live)",
     "subscriberRanking": "Subscriber Ranking",
-    "concurrentViewerRanking": "Concurrent Viewer Ranking (All)"
+    "concurrentViewerRanking": "Concurrent Viewer Ranking"
   },
 
   "Page": {
