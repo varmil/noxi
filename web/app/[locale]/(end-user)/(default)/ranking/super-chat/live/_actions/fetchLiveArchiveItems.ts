@@ -2,14 +2,14 @@
 
 import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
-import {
-  formatSnapshotPeriod,
-  formatWeeklyPeriodSplit
-} from 'features/channels-ranking/utils/formatSnapshotPeriod'
+import { formatWeeklyPeriodSplit } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import { generateMonthlyPeriods } from 'features/super-chat-ranking-index/utils/generateMonthlyPeriods'
 import { generateWeeklyPeriods } from 'features/super-chat-ranking-index/utils/generateWeeklyPeriods'
 import { MonthlySnapshotPeriod, WeeklySnapshotPeriod } from 'types/period'
-import { getSnapshotDateRange } from 'utils/period/snapshot-period'
+import {
+  formatSnapshotPeriod,
+  getSnapshotDateRange
+} from 'utils/period/snapshot-period'
 
 export type LiveArchiveItem = {
   id: string

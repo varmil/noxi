@@ -1,15 +1,6 @@
 import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
-import {
-  formatSnapshotPeriod as formatSnapshotPeriodUtil,
-  getPeriodDisplayName as getPeriodDisplayNameUtil,
-  isSnapshotPeriod,
-  parseSnapshotPeriod
-} from 'utils/period/snapshot-period'
-
-// 後方互換性のため re-export
-export { formatSnapshotPeriodUtil as formatSnapshotPeriod }
-export { getPeriodDisplayNameUtil as getPeriodDisplayName }
+import { isSnapshotPeriod, parseSnapshotPeriod } from 'utils/period/snapshot-period'
 
 /**
  * ISO週番号から週の開始日（月曜）と終了日（日曜）を計算

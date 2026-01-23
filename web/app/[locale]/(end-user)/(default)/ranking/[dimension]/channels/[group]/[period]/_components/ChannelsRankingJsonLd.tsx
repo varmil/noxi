@@ -14,7 +14,6 @@ import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { getPeriodDisplayName } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import {
   getChannelsParams,
   getSupersSnapshotCountParams,
@@ -29,7 +28,10 @@ import {
   HubPageInfo
 } from 'utils/json-ld/buildRankingJsonLd'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { isSnapshotPeriod } from 'utils/period/snapshot-period'
+import {
+  getPeriodDisplayName,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import { getWebUrl } from 'utils/web-url'
 
 type Props = {
