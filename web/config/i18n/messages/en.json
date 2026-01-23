@@ -293,10 +293,10 @@
     "ranking": {
       "superChatChannelsIndex": {
         "metadata": {
-          "title": "Super Chat Ranking - Weekly & Monthly Archive",
+          "title": "Super Chat Ranking (Channels) - Weekly & Monthly Archive",
           "description": "Top page for Super Chat earnings ranking. Browse weekly and monthly archive data."
         },
-        "heading": "Super Chat Ranking",
+        "heading": "Super Chat Ranking (Channels)",
         "section": {
           "featured": { "title": "Popular Pages" },
           "weeklyArchive": { "title": "Weekly Ranking Archive" },
