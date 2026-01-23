@@ -52,7 +52,7 @@ async function getDimensionDisplayName(
 ): Promise<string> {
   const t = await getTranslations({ locale, namespace: 'Breadcrumb' })
   if (dimension === 'super-chat') {
-    return t('superChatRanking')
+    return t('superChatChannelsRanking')
   }
   return t('subscriberRanking')
 }
@@ -108,7 +108,7 @@ export async function ChannelsRankingJsonLd({
   if (dimension === 'super-chat') {
     const superChatIndexT = await getTranslations({
       locale: localeTyped,
-      namespace: 'Page.ranking.superChatIndex'
+      namespace: 'Page.ranking.superChatChannelsIndex'
     })
     hubPage = {
       name: superChatIndexT('heading'),

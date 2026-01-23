@@ -20,7 +20,7 @@ async function ArchiveSections({
   locale: 'ja' | 'en'
   group: string
 }) {
-  const t = await getTranslations('Page.ranking.superChatIndex')
+  const t = await getTranslations('Page.ranking.superChatChannelsIndex')
 
   // 初期表示分のみ取得（12件ずつ）
   const [weeklyResult, monthlyResult] = await Promise.all([
@@ -112,7 +112,7 @@ function ArchiveSectionsSkeleton() {
 }
 
 export default async function IndexTemplate({ locale, group }: Props) {
-  const t = await getTranslations('Page.ranking.superChatIndex')
+  const t = await getTranslations('Page.ranking.superChatChannelsIndex')
   const groups = await getGroups()
   const effectiveGroup = group || 'all'
 

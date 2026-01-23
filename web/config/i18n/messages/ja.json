@@ -74,7 +74,7 @@
     "pagination": {
       "page": "ページ"
     },
-    "liveSuperChatRanking": "スパチャランキング（ライブ集計）"
+    "superChatLiveRanking": "スパチャランキング（ライブ集計）"
   },
   "Breadcrumb": {
     "group": "{group}",
@@ -84,8 +84,8 @@
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
     "channelsRanking": "VTuber",
-    "superChatRanking": "スパチャランキング",
-    "liveSuperChatRanking": "スパチャランキング（ライブ集計）",
+    "superChatChannelsRanking": "スパチャランキング（チャンネル集計）",
+    "superChatLiveRanking": "スパチャランキング（ライブ集計）",
     "subscriberRanking": "チャンネル登録者数ランキング",
     "concurrentViewerRanking": "同接数ランキング"
   },
@@ -294,16 +294,16 @@
       }
     },
     "ranking": {
-      "superChatIndex": {
+      "superChatChannelsIndex": {
         "metadata": {
-          "title": "スパチャランキング - 週間・月間ランキング履歴",
+          "title": "スパチャランキング（チャンネル集計）週間・月間アーカイブ",
           "description": "VTuberのスーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
         },
-        "heading": "スパチャランキング",
+        "heading": "スパチャランキング（チャンネル集計）",
         "section": {
           "featured": { "title": "よく見られているページ" },
-          "weeklyArchive": { "title": "週間ランキング履歴" },
-          "monthlyArchive": { "title": "月間ランキング履歴" }
+          "weeklyArchive": { "title": "週間アーカイブ" },
+          "monthlyArchive": { "title": "月間アーカイブ" }
         },
         "filter": { "allGroups": "すべてのグループ" },
         "showMore": "もっと見る",
@@ -321,8 +321,8 @@
         "heading": "スパチャランキング（ライブ集計）",
         "section": {
           "featured": { "title": "よく見られているページ" },
-          "weeklyArchive": { "title": "週間ランキング履歴" },
-          "monthlyArchive": { "title": "月間ランキング履歴" }
+          "weeklyArchive": { "title": "週間アーカイブ" },
+          "monthlyArchive": { "title": "月間アーカイブ" }
         },
         "filter": { "allGroups": "すべてのグループ" },
         "showMore": "もっと見る",

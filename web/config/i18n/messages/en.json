@@ -79,7 +79,7 @@
       "page": "Page"
     },
 
-    "liveSuperChatRanking": "Super Chat Ranking (Live)"
+    "superChatLiveRanking": "Super Chat Ranking (Live)"
   },
 
   "Breadcrumb": {
@@ -90,8 +90,8 @@
     "scheduled": "Live schedule",
     "ended": "Past live streams",
     "channelsRanking": "VTuber",
-    "superChatRanking": "Super Chat Ranking (All)",
-    "liveSuperChatRanking": "Super Chat Ranking (Live)",
+    "superChatChannelsRanking": "Super Chat Ranking (All)",
+    "superChatLiveRanking": "Super Chat Ranking (Live)",
     "subscriberRanking": "Subscriber Ranking",
     "concurrentViewerRanking": "Concurrent Viewer Ranking (All)"
   },
@@ -291,16 +291,16 @@
     },
 
     "ranking": {
-      "superChatIndex": {
+      "superChatChannelsIndex": {
         "metadata": {
-          "title": "Super Chat Ranking - Weekly & Monthly History",
-          "description": "Top page for Super Chat earnings ranking. Browse weekly and monthly historical data."
+          "title": "Super Chat Ranking - Weekly & Monthly Archive",
+          "description": "Top page for Super Chat earnings ranking. Browse weekly and monthly archive data."
         },
         "heading": "Super Chat Ranking",
         "section": {
           "featured": { "title": "Popular Pages" },
-          "weeklyArchive": { "title": "Weekly Ranking History" },
-          "monthlyArchive": { "title": "Monthly Ranking History" }
+          "weeklyArchive": { "title": "Weekly Ranking Archive" },
+          "monthlyArchive": { "title": "Monthly Ranking Archive" }
         },
         "filter": { "allGroups": "All Groups" },
         "showMore": "Show More",
@@ -318,8 +318,8 @@
         "heading": "Super Chat Ranking (Live)",
         "section": {
           "featured": { "title": "Popular Pages" },
-          "weeklyArchive": { "title": "Weekly Ranking History" },
-          "monthlyArchive": { "title": "Monthly Ranking History" }
+          "weeklyArchive": { "title": "Weekly Ranking Archive" },
+          "monthlyArchive": { "title": "Monthly Ranking Archive" }
         },
         "filter": { "allGroups": "All Groups" },
         "showMore": "Show More",

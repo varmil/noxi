@@ -70,7 +70,7 @@ async function getDimensionDisplayName(
   if (dimension === 'concurrent-viewer') {
     return t('concurrentViewerRanking')
   }
-  return t('liveSuperChatRanking')
+  return t('superChatLiveRanking')
 }
 
 export default async function RankingLivePage(props: Props) {
@@ -98,7 +98,7 @@ export default async function RankingLivePage(props: Props) {
   let hubPage: { name: string; href: string } | undefined
   if (dimension === 'super-chat') {
     hubPage = {
-      name: global('liveSuperChatRanking' as Parameters<typeof global>[0]),
+      name: global('superChatLiveRanking' as Parameters<typeof global>[0]),
       href:
         groupId !== 'all'
           ? `/ranking/super-chat/live?group=${groupId}`

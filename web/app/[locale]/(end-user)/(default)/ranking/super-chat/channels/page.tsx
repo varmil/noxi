@@ -14,7 +14,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const [t, tGlobal] = await Promise.all([
     getTranslations({
       locale: locale as 'ja' | 'en',
-      namespace: 'Page.ranking.superChatIndex.metadata'
+      namespace: 'Page.ranking.superChatChannelsIndex.metadata'
     }),
     getTranslations({
       locale: locale as 'ja' | 'en',
@@ -38,7 +38,7 @@ export default async function SuperChatChannelsIndexPage(props: Props) {
 
   setRequestLocale(locale as 'ja' | 'en')
 
-  const t = await getTranslations('Page.ranking.superChatIndex')
+  const t = await getTranslations('Page.ranking.superChatChannelsIndex')
 
   return (
     <Page

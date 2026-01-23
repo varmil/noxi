@@ -53,7 +53,7 @@ async function getDimensionDisplayName(
     return t('concurrentViewerRanking')
   }
   // super-chat の場合（ライブ別スパチャランキング）
-  return t('liveSuperChatRanking')
+  return t('superChatLiveRanking')
 }
 
 export async function StreamRankingJsonLd({
@@ -104,7 +104,7 @@ export async function StreamRankingJsonLd({
   const hubPage =
     dimension === 'super-chat'
       ? {
-          name: global('liveSuperChatRanking' as Parameters<typeof global>[0]),
+          name: global('superChatLiveRanking' as Parameters<typeof global>[0]),
           href: '/ranking/super-chat/live'
         }
       : undefined
