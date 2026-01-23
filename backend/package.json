@@ -56,7 +56,7 @@
     "stripe": "^20.2.0",
     "twitter-api-v2": "^1.29.0",
     "xss": "^1.0.15",
-    "zod": "^4.3.5",
+    "zod": "^4.3.6",
     "zx": "^8.6.1"
   },
   "devDependencies": {
