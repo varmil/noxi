@@ -100,6 +100,15 @@ export async function StreamRankingJsonLd({
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
+  // super-chat の場合はハブページを追加
+  const hubPage =
+    dimension === 'super-chat'
+      ? {
+          name: global('liveSuperChatRanking' as Parameters<typeof global>[0]),
+          href: '/ranking/super-chat/live'
+        }
+      : undefined
+
   // BreadcrumbList の構築
   const breadcrumbList = buildBreadcrumbList({
     baseUrl,
@@ -111,7 +120,8 @@ export async function StreamRankingJsonLd({
     canonicalPeriod,
     dimensionName,
     groupName,
-    periodName
+    periodName,
+    hubPage
   })
 
   // ItemList 用にデータを変換

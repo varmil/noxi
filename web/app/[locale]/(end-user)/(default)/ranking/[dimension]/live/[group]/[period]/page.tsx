@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { setRequestLocale } from 'next-intl/server'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
 import { Page } from 'components/page'
 import {
@@ -7,8 +7,13 @@ import {
   StreamRankingSearchParams
 } from 'features/stream-ranking/types/stream-ranking.type'
 import { StreamRankingPeriod } from 'types/period'
+import { buildUIBreadcrumbItems } from 'utils/json-ld/buildRankingJsonLd'
 import { getAlternates } from 'utils/metadata/getAlternates'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
+import {
+  formatSnapshotPeriod,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import IndexTemplate from './_components/IndexTemplate'
 import { StreamRankingJsonLd } from './_components/StreamRankingJsonLd'
 
@@ -51,12 +56,69 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
+/** dimension ごとの canonical period を取得 */
+function getCanonicalPeriod(dimension: StreamRankingDimension): string {
+  return dimension === 'concurrent-viewer' ? 'realtime' : 'last30Days'
+}
+
+/** dimension の表示名を取得 */
+async function getDimensionDisplayName(
+  dimension: StreamRankingDimension,
+  locale: 'ja' | 'en'
+): Promise<string> {
+  const t = await getTranslations({ locale, namespace: 'Breadcrumb' })
+  if (dimension === 'concurrent-viewer') {
+    return t('concurrentViewerRanking')
+  }
+  return t('liveSuperChatRanking')
+}
+
 export default async function RankingLivePage(props: Props) {
   const { locale, dimension, group: groupId, period } = await props.params
   const searchParams = await props.searchParams
+  const localeTyped = locale as 'ja' | 'en'
 
   // Enable static rendering
-  setRequestLocale(locale as 'ja' | 'en')
+  setRequestLocale(localeTyped)
+
+  // パンくず用のデータを取得
+  const [global, groupName, dimensionName] = await Promise.all([
+    getTranslations({ locale: localeTyped, namespace: 'Global' }),
+    getGroupName(groupId, { errorContext: 'live ranking page (breadcrumb)' }),
+    getDimensionDisplayName(dimension, localeTyped)
+  ])
+
+  const periodName = isSnapshotPeriod(period)
+    ? (formatSnapshotPeriod(period, localeTyped) ?? period)
+    : global(`period.${period}`)
+
+  const canonicalPeriod = getCanonicalPeriod(dimension)
+
+  // super-chat dimension の場合、ハブページ情報を構築
+  let hubPage: { name: string; href: string } | undefined
+  if (dimension === 'super-chat') {
+    hubPage = {
+      name: global('liveSuperChatRanking' as Parameters<typeof global>[0]),
+      href:
+        groupId !== 'all'
+          ? `/ranking/super-chat/live?group=${groupId}`
+          : '/ranking/super-chat/live'
+    }
+  }
+
+  // UI パンくずを構築
+  const breadcrumb = buildUIBreadcrumbItems({
+    rankingType: 'live',
+    dimension,
+    group: groupId,
+    period,
+    canonicalPeriod,
+    dimensionName,
+    groupName,
+    periodName,
+    hubPage
+  })
+
   return (
     <>
       <StreamRankingJsonLd
@@ -66,7 +128,7 @@ export default async function RankingLivePage(props: Props) {
         period={period}
         searchParams={searchParams}
       />
-      <Page noPadding fullWidth>
+      <Page noPadding fullWidth breadcrumb={breadcrumb}>
         <IndexTemplate
           period={period}
           dimension={dimension}

@@ -84,7 +84,7 @@
     "ended": "過去のライブ配信",
     "channelsRanking": "VTuber",
     "superChatRanking": "スパチャランキング",
-    "liveSuperChatRanking": "【ライブ別】スパチャランキング",
+    "liveSuperChatRanking": "スパチャランキング（ライブ集計）",
     "subscriberRanking": "チャンネル登録者数ランキング",
     "concurrentViewerRanking": "同接数ランキング"
   },
@@ -299,6 +299,25 @@
           "description": "VTuberのスーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
         },
         "heading": "スパチャランキング",
+        "section": {
+          "featured": { "title": "よく見られているページ" },
+          "weeklyArchive": { "title": "週間ランキング履歴" },
+          "monthlyArchive": { "title": "月間ランキング履歴" }
+        },
+        "filter": { "allGroups": "すべてのグループ" },
+        "showMore": "もっと見る",
+        "period": {
+          "last24Hours": "過去24時間",
+          "last30Days": "過去30日間",
+          "thisYear": "今年"
+        }
+      },
+      "superChatLiveIndex": {
+        "metadata": {
+          "title": "スパチャランキング（ライブ集計）週間・月間アーカイブ",
+          "description": "VTuberのスパチャランキング（ライブ集計）の週間・月間アーカイブ。過去のランキングを確認できます。"
+        },
+        "heading": "スパチャランキング（ライブ集計）",
         "section": {
           "featured": { "title": "よく見られているページ" },
           "weeklyArchive": { "title": "週間ランキング履歴" },

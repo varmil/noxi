@@ -89,7 +89,7 @@
     "ended": "Past live streams",
     "channelsRanking": "VTuber",
     "superChatRanking": "Super Chat Ranking (All)",
-    "liveSuperChatRanking": "Super Chat Ranking (Per Stream)",
+    "liveSuperChatRanking": "Super Chat Ranking (Live)",
     "subscriberRanking": "Subscriber Ranking",
     "concurrentViewerRanking": "Concurrent Viewer Ranking (All)"
   },
@@ -295,6 +295,25 @@
           "description": "Top page for Super Chat earnings ranking. Browse weekly and monthly historical data."
         },
         "heading": "Super Chat Ranking",
+        "section": {
+          "featured": { "title": "Popular Pages" },
+          "weeklyArchive": { "title": "Weekly Ranking History" },
+          "monthlyArchive": { "title": "Monthly Ranking History" }
+        },
+        "filter": { "allGroups": "All Groups" },
+        "showMore": "Show More",
+        "period": {
+          "last24Hours": "Last 24 Hours",
+          "last30Days": "Last 30 Days",
+          "thisYear": "This Year"
+        }
+      },
+      "superChatLiveIndex": {
+        "metadata": {
+          "title": "Super Chat Ranking (Live) - Weekly & Monthly Archive",
+          "description": "Weekly and monthly archives of VTuber Super Chat rankings by live stream. Check past rankings."
+        },
+        "heading": "Super Chat Ranking (Live)",
         "section": {
           "featured": { "title": "Popular Pages" },
           "weeklyArchive": { "title": "Weekly Ranking History" },

@@ -2,9 +2,9 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getGroups } from 'apis/groups'
 import GroupFilterBar from 'features/super-chat-ranking-index/components/GroupFilterBar'
-import { fetchArchiveItems } from '../_actions/fetchArchiveItems'
-import ArchiveSection from './ArchiveSection'
-import FeaturedSection from './FeaturedSection'
+import FeaturedSection from '../../channels/_components/FeaturedSection'
+import { fetchLiveArchiveItems } from '../_actions/fetchLiveArchiveItems'
+import LiveArchiveSection from './LiveArchiveSection'
 
 const INITIAL_ITEMS_COUNT = 12
 
@@ -20,17 +20,17 @@ async function ArchiveSections({
   locale: 'ja' | 'en'
   group: string
 }) {
-  const t = await getTranslations('Page.ranking.superChatIndex')
+  const t = await getTranslations('Page.ranking.superChatLiveIndex')
 
   // 初期表示分のみ取得（12件ずつ）
   const [weeklyResult, monthlyResult] = await Promise.all([
-    fetchArchiveItems('weekly', group, locale, 0, INITIAL_ITEMS_COUNT),
-    fetchArchiveItems('monthly', group, locale, 0, INITIAL_ITEMS_COUNT)
+    fetchLiveArchiveItems('weekly', group, locale, 0, INITIAL_ITEMS_COUNT),
+    fetchLiveArchiveItems('monthly', group, locale, 0, INITIAL_ITEMS_COUNT)
   ])
 
   return (
     <>
-      <ArchiveSection
+      <LiveArchiveSection
         title={t('section.monthlyArchive.title')}
         type="monthly"
         group={group}
@@ -40,7 +40,7 @@ async function ArchiveSections({
         totalCount={monthlyResult.totalCount}
         showMoreLabel={t('showMore')}
       />
-      <ArchiveSection
+      <LiveArchiveSection
         title={t('section.weeklyArchive.title')}
         type="weekly"
         group={group}
@@ -54,20 +54,20 @@ async function ArchiveSections({
   )
 }
 
-function PeriodCardSkeleton() {
+function LivePeriodCardSkeleton() {
   return (
     <div className="rounded-xl border bg-card p-6">
       <div className="flex gap-4">
-        {/* 左側: タイトルとアバター */}
+        {/* 左側: タイトルとサムネイル */}
         <div className="flex-1">
-          <div className="mb-6 space-y-1">
+          <div className="mb-4 space-y-1">
             <div className="h-5 w-24 bg-muted rounded animate-pulse" />
           </div>
-          <div className="flex -space-x-2">
+          <div className="flex items-center gap-1.5">
             {Array.from({ length: 5 }).map((_, i) => (
               <div
                 key={i}
-                className="size-10 rounded-full bg-muted animate-pulse ring-2 ring-background"
+                className="w-16 aspect-video rounded bg-muted animate-pulse"
               />
             ))}
           </div>
@@ -95,7 +95,7 @@ function ArchiveSectionSkeleton() {
       <div className="h-7 w-56 bg-muted rounded animate-pulse mb-4" />
       <div className="grid grid-cols-1 gap-3 @xl:grid-cols-2 @4xl:grid-cols-3 @7xl:grid-cols-4">
         {Array.from({ length: 12 }).map((_, i) => (
-          <PeriodCardSkeleton key={i} />
+          <LivePeriodCardSkeleton key={i} />
         ))}
       </div>
     </section>
@@ -112,7 +112,7 @@ function ArchiveSectionsSkeleton() {
 }
 
 export default async function IndexTemplate({ locale, group }: Props) {
-  const t = await getTranslations('Page.ranking.superChatIndex')
+  const t = await getTranslations('Page.ranking.superChatLiveIndex')
   const groups = await getGroups()
   const effectiveGroup = group || 'all'
 
@@ -120,17 +120,17 @@ export default async function IndexTemplate({ locale, group }: Props) {
     {
       id: 'last24Hours',
       title: t('period.last24Hours'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/last24Hours`
+      href: `/ranking/super-chat/live/${effectiveGroup}/last24Hours`
     },
     {
       id: 'last30Days',
       title: t('period.last30Days'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/last30Days`
+      href: `/ranking/super-chat/live/${effectiveGroup}/last30Days`
     },
     {
       id: 'thisYear',
       title: t('period.thisYear'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/thisYear`
+      href: `/ranking/super-chat/live/${effectiveGroup}/thisYear`
     }
   ]
 
