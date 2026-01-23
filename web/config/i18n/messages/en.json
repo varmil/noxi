@@ -77,9 +77,7 @@
 
     "pagination": {
       "page": "Page"
-    },
-
-    "superChatLiveRanking": "Super Chat Ranking (Live)"
+    }
   },
 
   "Breadcrumb": {

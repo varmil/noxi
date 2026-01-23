@@ -97,8 +97,12 @@ export default async function RankingLivePage(props: Props) {
   // super-chat dimension の場合、ハブページ情報を構築
   let hubPage: { name: string; href: string } | undefined
   if (dimension === 'super-chat') {
+    const superChatLiveIndexT = await getTranslations({
+      locale: localeTyped,
+      namespace: 'Page.ranking.superChatLiveIndex'
+    })
     hubPage = {
-      name: global('superChatLiveRanking' as Parameters<typeof global>[0]),
+      name: superChatLiveIndexT('heading'),
       href:
         groupId !== 'all'
           ? `/ranking/super-chat/live?group=${groupId}`

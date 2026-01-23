@@ -101,13 +101,20 @@ export async function StreamRankingJsonLd({
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
   // super-chat の場合はハブページを追加
-  const hubPage =
-    dimension === 'super-chat'
-      ? {
-          name: global('superChatLiveRanking' as Parameters<typeof global>[0]),
-          href: '/ranking/super-chat/live'
-        }
-      : undefined
+  let hubPage: { name: string; href: string } | undefined
+  if (dimension === 'super-chat') {
+    const superChatLiveIndexT = await getTranslations({
+      locale: localeTyped,
+      namespace: 'Page.ranking.superChatLiveIndex'
+    })
+    hubPage = {
+      name: superChatLiveIndexT('heading'),
+      href:
+        group !== 'all'
+          ? `/ranking/super-chat/live?group=${group}`
+          : '/ranking/super-chat/live'
+    }
+  }
 
   // BreadcrumbList の構築
   const breadcrumbList = buildBreadcrumbList({
