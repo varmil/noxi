@@ -13,7 +13,7 @@ import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ran
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
 import {
-  formatSnapshotPeriod,
+  getPeriodDisplayName,
   isSnapshotPeriod
 } from 'utils/period/snapshot-period'
 
@@ -56,9 +56,11 @@ export default function StreamRankingGalleryTitle({
   const t = useTranslations('Components.ranking.aggregationSwitch')
 
   // スナップショット期間の場合はフォーマット、それ以外は翻訳キーを使用
-  const periodName = isSnapshotPeriod(period)
-    ? (formatSnapshotPeriod(period, locale) ?? period)
-    : global(`period.${period}`)
+  const periodName = getPeriodDisplayName(
+    period,
+    key => (global as (key: string) => string)(key),
+    locale
+  )
   const periodKeyword = isSnapshotPeriod(period)
     ? periodName
     : global(`periodKeyword.${period}`)

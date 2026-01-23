@@ -14,7 +14,6 @@ import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { getPeriodDisplayName } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import {
   getChannelsParams,
   getSupersSnapshotCountParams,
@@ -29,7 +28,10 @@ import {
   HubPageInfo
 } from 'utils/json-ld/buildRankingJsonLd'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
-import { isSnapshotPeriod } from 'utils/period/snapshot-period'
+import {
+  getPeriodDisplayName,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 import { getWebUrl } from 'utils/web-url'
 
 type Props = {
@@ -52,7 +54,7 @@ async function getDimensionDisplayName(
 ): Promise<string> {
   const t = await getTranslations({ locale, namespace: 'Breadcrumb' })
   if (dimension === 'super-chat') {
-    return t('superChatRanking')
+    return t('superChatChannelsRanking')
   }
   return t('subscriberRanking')
 }
@@ -108,7 +110,7 @@ export async function ChannelsRankingJsonLd({
   if (dimension === 'super-chat') {
     const superChatIndexT = await getTranslations({
       locale: localeTyped,
-      namespace: 'Page.ranking.superChatIndex'
+      namespace: 'Page.ranking.superChatChannelsIndex'
     })
     hubPage = {
       name: superChatIndexT('heading'),

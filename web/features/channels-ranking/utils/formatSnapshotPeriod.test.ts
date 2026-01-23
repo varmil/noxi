@@ -1,4 +1,5 @@
-import { formatSnapshotPeriod, formatWeeklyPeriodSplit } from './formatSnapshotPeriod'
+import { formatSnapshotPeriod } from 'utils/period/snapshot-period'
+import { formatWeeklyPeriodSplit } from './formatSnapshotPeriod'
 
 describe('formatSnapshotPeriod', () => {
   describe('weekly periods', () => {

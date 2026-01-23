@@ -1,13 +1,6 @@
 import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod, SnapshotPeriod } from 'types/period'
-import {
-  formatSnapshotPeriod as formatSnapshotPeriodUtil,
-  isSnapshotPeriod,
-  parseSnapshotPeriod
-} from 'utils/period/snapshot-period'
-
-// 後方互換性のため re-export
-export { formatSnapshotPeriodUtil as formatSnapshotPeriod }
+import { isSnapshotPeriod, parseSnapshotPeriod } from 'utils/period/snapshot-period'
 
 /**
  * ISO週番号から週の開始日（月曜）と終了日（日曜）を計算
@@ -61,21 +54,3 @@ export function formatWeeklyPeriodSplit(
   }
 }
 
-/**
- * 期間名を取得（スナップショットの場合はフォーマット、それ以外は翻訳キーを返す）
- *
- * @param period ランキング期間
- * @param globalTranslations next-intl の翻訳関数
- * @param locale 'ja' | 'en'
- */
-export function getPeriodDisplayName(
-  period: ChannelsRankingPeriod,
-  globalTranslations: (key: string) => string,
-  locale: 'ja' | 'en' = 'ja'
-): string {
-  const snapshotFormatted = formatSnapshotPeriodUtil(period, locale)
-  if (snapshotFormatted) {
-    return snapshotFormatted
-  }
-  return globalTranslations(`period.${period}`)
-}

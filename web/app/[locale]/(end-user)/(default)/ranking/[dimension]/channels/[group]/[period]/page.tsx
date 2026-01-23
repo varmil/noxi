@@ -7,7 +7,6 @@ import {
   ChannelsRankingDimension,
   ChannelsRankingSearchParams
 } from 'features/channels-ranking/types/channels-ranking.type'
-import { getPeriodDisplayName } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import dayjs from 'lib/dayjs'
 import { ChannelsRankingPeriod } from 'types/period'
 import { buildUIBreadcrumbItems } from 'utils/json-ld/buildRankingJsonLd'
@@ -15,6 +14,7 @@ import { getAlternates } from 'utils/metadata/getAlternates'
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getOgUrl } from 'utils/og-url'
 import {
+  getPeriodDisplayName,
   isSnapshotPeriod,
   parseSnapshotPeriod
 } from 'utils/period/snapshot-period'
@@ -103,7 +103,7 @@ async function getDimensionDisplayName(
 ): Promise<string> {
   const t = await getTranslations({ locale, namespace: 'Breadcrumb' })
   if (dimension === 'super-chat') {
-    return t('superChatRanking')
+    return t('superChatChannelsRanking')
   }
   return t('subscriberRanking')
 }
@@ -136,7 +136,7 @@ export default async function RankingChannelsPage(props: Props) {
   if (dimension === 'super-chat') {
     const superChatIndexT = await getTranslations({
       locale: localeTyped,
-      namespace: 'Page.ranking.superChatIndex'
+      namespace: 'Page.ranking.superChatChannelsIndex'
     })
     hubPage = {
       name: superChatIndexT('heading'),

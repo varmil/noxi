@@ -1,10 +1,7 @@
 'use server'
 
 import { ChannelsRanking } from 'features/channels-ranking/types/channels-ranking.type'
-import {
-  formatSnapshotPeriod,
-  formatWeeklyPeriodSplit
-} from 'features/channels-ranking/utils/formatSnapshotPeriod'
+import { formatWeeklyPeriodSplit } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import { getSnapshotSupersRanking } from 'features/channels-ranking/utils/getSnapshotSupersRanking'
 import { generateMonthlyPeriods } from 'features/super-chat-ranking-index/utils/generateMonthlyPeriods'
 import { generateWeeklyPeriods } from 'features/super-chat-ranking-index/utils/generateWeeklyPeriods'
@@ -12,6 +9,7 @@ import {
   MonthlySnapshotPeriod,
   WeeklySnapshotPeriod
 } from 'types/period'
+import { formatSnapshotPeriod } from 'utils/period/snapshot-period'
 
 export type ArchiveItem = {
   id: string

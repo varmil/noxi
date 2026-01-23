@@ -14,7 +14,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const [t, tGlobal] = await Promise.all([
     getTranslations({
       locale: locale as 'ja' | 'en',
-      namespace: 'Page.ranking.superChatChannelsIndex.metadata'
+      namespace: 'Page.ranking.superChatLiveIndex.metadata'
     }),
     getTranslations({
       locale: locale as 'ja' | 'en',
@@ -26,25 +26,23 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: `${t('title')} - ${tGlobal('title')}`,
     description: t('description'),
     alternates: getAlternates({
-      pathname: '/ranking/super-chat/channels',
+      pathname: '/ranking/super-chat/live',
       locale
     })
   }
 }
 
-export default async function SuperChatChannelsIndexPage(props: Props) {
+export default async function SuperChatLiveIndexPage(props: Props) {
   const { locale } = await props.params
   const searchParams = await props.searchParams
 
   setRequestLocale(locale as 'ja' | 'en')
 
-  const t = await getTranslations('Page.ranking.superChatChannelsIndex')
+  const t = await getTranslations('Page.ranking.superChatLiveIndex')
 
   return (
     <Page
-      breadcrumb={[
-        { href: `/ranking/super-chat/channels`, name: t('heading') }
-      ]}
+      breadcrumb={[{ href: `/ranking/super-chat/live`, name: t('heading') }]}
       h1={t('heading')}
     >
       <IndexTemplate

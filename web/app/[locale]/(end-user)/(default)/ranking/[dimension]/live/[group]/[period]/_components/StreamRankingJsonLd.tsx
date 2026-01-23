@@ -1,6 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
-import { getSupersBundles, getSupersBundlesCount } from 'apis/supers/getSupersBundles'
+import {
+  getSupersBundles,
+  getSupersBundlesCount
+} from 'apis/supers/getSupersBundles'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams, getStreamsCount } from 'apis/youtube/getStreams'
 import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
@@ -24,7 +27,7 @@ import {
 import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import { getStartOf } from 'utils/period/ranking'
 import {
-  formatSnapshotPeriod,
+  getPeriodDisplayName,
   getSnapshotDateRange,
   isSnapshotPeriod
 } from 'utils/period/snapshot-period'
@@ -52,8 +55,8 @@ async function getDimensionDisplayName(
   if (dimension === 'concurrent-viewer') {
     return t('concurrentViewerRanking')
   }
-  // super-chat の場合（ライブ別スパチャランキング）
-  return t('liveSuperChatRanking')
+  // super-chat の場合（スパチャランキング - ライブ集計）
+  return t('superChatLiveRanking')
 }
 
 export async function StreamRankingJsonLd({
@@ -93,12 +96,30 @@ export async function StreamRankingJsonLd({
     ])
 
   // 期間の表示名を取得
-  const periodName = isSnapshotPeriod(period)
-    ? (formatSnapshotPeriod(period, localeTyped) ?? period)
-    : global(`period.${period}`)
+  const periodName = getPeriodDisplayName(
+    period,
+    key => (global as (key: string) => string)(key),
+    localeTyped
+  )
 
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
+
+  // super-chat の場合はハブページを追加
+  let hubPage: { name: string; href: string } | undefined
+  if (dimension === 'super-chat') {
+    const superChatLiveIndexT = await getTranslations({
+      locale: localeTyped,
+      namespace: 'Page.ranking.superChatLiveIndex'
+    })
+    hubPage = {
+      name: superChatLiveIndexT('heading'),
+      href:
+        group !== 'all'
+          ? `/ranking/super-chat/live?group=${group}`
+          : '/ranking/super-chat/live'
+    }
+  }
 
   // BreadcrumbList の構築
   const breadcrumbList = buildBreadcrumbList({
@@ -111,7 +132,8 @@ export async function StreamRankingJsonLd({
     canonicalPeriod,
     dimensionName,
     groupName,
-    periodName
+    periodName,
+    hubPage
   })
 
   // ItemList 用にデータを変換
@@ -186,7 +208,13 @@ async function fetchRankingData({
   const { gender, page } = searchParams
 
   if (dimension === 'concurrent-viewer') {
-    const params = createGetStreamsParams({ dimension, period, group, gender, page })
+    const params = createGetStreamsParams({
+      dimension,
+      period,
+      group,
+      gender,
+      page
+    })
     const countParams = createCountParams({ period, group, gender })
     const [streamsData, countData] = await Promise.all([
       getStreams(params),
@@ -202,7 +230,12 @@ async function fetchRankingData({
   }
 
   // super-chat dimension
-  const bundleParams = createGetSupersBundlesParams({ period, group, gender, page })
+  const bundleParams = createGetSupersBundlesParams({
+    period,
+    group,
+    gender,
+    page
+  })
   const bundleCountParams = createBundleCountParams({ period, group, gender })
   const [bundles, bundleCount] = await Promise.all([
     getSupersBundles(bundleParams),

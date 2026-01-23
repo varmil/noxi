@@ -2,9 +2,9 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getGroups } from 'apis/groups'
 import GroupFilterBar from 'features/super-chat-ranking-index/components/GroupFilterBar'
-import { fetchArchiveItems } from '../_actions/fetchArchiveItems'
-import ArchiveSection from './ArchiveSection'
-import FeaturedSection from './FeaturedSection'
+import FeaturedSection from '../../channels/_components/FeaturedSection'
+import { fetchLiveArchiveItems } from '../_actions/fetchLiveArchiveItems'
+import LiveArchiveSection from './LiveArchiveSection'
 
 const INITIAL_ITEMS_COUNT = 12
 
@@ -20,17 +20,17 @@ async function ArchiveSections({
   locale: 'ja' | 'en'
   group: string
 }) {
-  const t = await getTranslations('Page.ranking.superChatChannelsIndex')
+  const t = await getTranslations('Page.ranking.superChatLiveIndex')
 
   // 初期表示分のみ取得（12件ずつ）
   const [weeklyResult, monthlyResult] = await Promise.all([
-    fetchArchiveItems('weekly', group, locale, 0, INITIAL_ITEMS_COUNT),
-    fetchArchiveItems('monthly', group, locale, 0, INITIAL_ITEMS_COUNT)
+    fetchLiveArchiveItems('weekly', group, locale, 0, INITIAL_ITEMS_COUNT),
+    fetchLiveArchiveItems('monthly', group, locale, 0, INITIAL_ITEMS_COUNT)
   ])
 
   return (
     <>
-      <ArchiveSection
+      <LiveArchiveSection
         title={t('section.monthlyArchive.title')}
         type="monthly"
         group={group}
@@ -40,7 +40,7 @@ async function ArchiveSections({
         totalCount={monthlyResult.totalCount}
         showMoreLabel={t('showMore')}
       />
-      <ArchiveSection
+      <LiveArchiveSection
         title={t('section.weeklyArchive.title')}
         type="weekly"
         group={group}
@@ -54,34 +54,43 @@ async function ArchiveSections({
   )
 }
 
-function PeriodCardSkeleton() {
+function StreamItemSkeleton() {
   return (
-    <div className="rounded-xl border bg-card p-6">
-      <div className="flex gap-4">
-        {/* 左側: タイトルとアバター */}
-        <div className="flex-1">
-          <div className="mb-6 space-y-1">
-            <div className="h-5 w-24 bg-muted rounded animate-pulse" />
+    <div className="flex flex-col gap-1">
+      <div className="relative">
+        {/* 順位バッジ */}
+        <div className="absolute -left-1 -top-1 z-10 h-5 w-5 rounded-full bg-muted animate-pulse" />
+        {/* サムネイル */}
+        <div className="aspect-video rounded-md bg-muted animate-pulse" />
+      </div>
+      {/* タイトル */}
+      <div className="h-4 w-full bg-muted rounded animate-pulse" />
+    </div>
+  )
+}
+
+function LivePeriodCardSkeleton() {
+  return (
+    <div
+      className="rounded-xl border bg-card p-6"
+      data-testid="live-period-card-skeleton"
+    >
+      <div className="flex flex-col gap-3">
+        {/* ヘッダー: タイトル + サブタイトル */}
+        <div className="h-5 w-40 bg-muted rounded animate-pulse" />
+
+        <div className="flex flex-col gap-2">
+          {/* 上段: Top1, Top2 (50%ずつ) */}
+          <div className="grid grid-cols-2 gap-1.5">
+            <StreamItemSkeleton />
+            <StreamItemSkeleton />
           </div>
-          <div className="flex -space-x-2">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <div
-                key={i}
-                className="size-10 rounded-full bg-muted animate-pulse ring-2 ring-background"
-              />
-            ))}
-          </div>
-        </div>
-        {/* 右側: Top5リスト */}
-        <div className="w-[clamp(0px,28cqw,240px)] shrink overflow-hidden">
-          <div className="h-4 w-10 bg-muted rounded animate-pulse mb-1" />
-          <div className="space-y-0.5">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <div
-                key={i}
-                className="h-4 w-full bg-muted rounded animate-pulse"
-              />
-            ))}
+
+          {/* 下段: Top3, Top4, Top5 (33%ずつ) */}
+          <div className="grid grid-cols-3 gap-1.5">
+            <StreamItemSkeleton />
+            <StreamItemSkeleton />
+            <StreamItemSkeleton />
           </div>
         </div>
       </div>
@@ -95,7 +104,7 @@ function ArchiveSectionSkeleton() {
       <div className="h-7 w-56 bg-muted rounded animate-pulse mb-4" />
       <div className="grid grid-cols-1 gap-3 @xl:grid-cols-2 @4xl:grid-cols-3 @7xl:grid-cols-4">
         {Array.from({ length: 12 }).map((_, i) => (
-          <PeriodCardSkeleton key={i} />
+          <LivePeriodCardSkeleton key={i} />
         ))}
       </div>
     </section>
@@ -112,7 +121,7 @@ function ArchiveSectionsSkeleton() {
 }
 
 export default async function IndexTemplate({ locale, group }: Props) {
-  const t = await getTranslations('Page.ranking.superChatChannelsIndex')
+  const t = await getTranslations('Page.ranking.superChatLiveIndex')
   const groups = await getGroups()
   const effectiveGroup = group || 'all'
 
@@ -120,17 +129,17 @@ export default async function IndexTemplate({ locale, group }: Props) {
     {
       id: 'last24Hours',
       title: t('period.last24Hours'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/last24Hours`
+      href: `/ranking/super-chat/live/${effectiveGroup}/last24Hours`
     },
     {
       id: 'last30Days',
       title: t('period.last30Days'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/last30Days`
+      href: `/ranking/super-chat/live/${effectiveGroup}/last30Days`
     },
     {
       id: 'thisYear',
       title: t('period.thisYear'),
-      href: `/ranking/super-chat/channels/${effectiveGroup}/thisYear`
+      href: `/ranking/super-chat/live/${effectiveGroup}/thisYear`
     }
   ]
 

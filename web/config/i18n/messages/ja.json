@@ -83,8 +83,8 @@
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
     "channelsRanking": "VTuber",
-    "superChatRanking": "スパチャランキング",
-    "liveSuperChatRanking": "【ライブ別】スパチャランキング",
+    "superChatChannelsRanking": "スパチャランキング（チャンネル集計）",
+    "superChatLiveRanking": "スパチャランキング（ライブ集計）",
     "subscriberRanking": "チャンネル登録者数ランキング",
     "concurrentViewerRanking": "同接数ランキング"
   },
@@ -293,16 +293,35 @@
       }
     },
     "ranking": {
-      "superChatIndex": {
+      "superChatChannelsIndex": {
         "metadata": {
-          "title": "スパチャランキング - 週間・月間ランキング履歴",
+          "title": "スパチャランキング（チャンネル集計）週間・月間アーカイブ",
           "description": "VTuberのスーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
         },
-        "heading": "スパチャランキング",
+        "heading": "スパチャランキング（チャンネル集計）",
         "section": {
           "featured": { "title": "よく見られているページ" },
-          "weeklyArchive": { "title": "週間ランキング履歴" },
-          "monthlyArchive": { "title": "月間ランキング履歴" }
+          "weeklyArchive": { "title": "週間アーカイブ" },
+          "monthlyArchive": { "title": "月間アーカイブ" }
+        },
+        "filter": { "allGroups": "すべてのグループ" },
+        "showMore": "もっと見る",
+        "period": {
+          "last24Hours": "過去24時間",
+          "last30Days": "過去30日間",
+          "thisYear": "今年"
+        }
+      },
+      "superChatLiveIndex": {
+        "metadata": {
+          "title": "スパチャランキング（ライブ集計）週間・月間アーカイブ",
+          "description": "VTuberのスパチャランキング（ライブ集計）の週間・月間アーカイブ。過去のランキングを確認できます。"
+        },
+        "heading": "スパチャランキング（ライブ集計）",
+        "section": {
+          "featured": { "title": "よく見られているページ" },
+          "weeklyArchive": { "title": "週間アーカイブ" },
+          "monthlyArchive": { "title": "月間アーカイブ" }
         },
         "filter": { "allGroups": "すべてのグループ" },
         "showMore": "もっと見る",
@@ -336,7 +355,7 @@
                 "weekly": "{period}の同接数ランキングです。{group}で該当週にもっとも話題になった配信や配信者を確認できます。",
                 "monthly": "{period}の同接数ランキングです。{group}で該当月にもっとも話題になった配信や配信者を確認できます。"
               },
-              "super-chat": "ライブ配信のスーパーチャット累計金額ランキングです。{group}{gender}を対象に{period}で集計。"
+              "super-chat": "ライブ配信のスーパーチャットランキングです。{group}{gender}を対象に{period}で集計。"
             }
           }
         }

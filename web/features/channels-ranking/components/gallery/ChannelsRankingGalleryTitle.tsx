@@ -11,11 +11,11 @@ import {
 import { RealtimeStatusBadge } from 'components/styles/badge/RealtimeStatusBadge'
 import { SwitchTabs } from 'components/switch-tabs/SwitchTabs'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
-import { getPeriodDisplayName } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import useQueryString from 'hooks/useQueryString'
 import { usePathname } from 'lib/navigation'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
+import { getPeriodDisplayName } from 'utils/period/snapshot-period'
 
 /** Channels → Live 遷移時の period マッピング */
 function getStreamPeriodFromChannelsPeriod(
