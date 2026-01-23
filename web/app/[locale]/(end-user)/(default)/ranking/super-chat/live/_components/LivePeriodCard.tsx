@@ -27,60 +27,49 @@ export default function LivePeriodCard({
   href,
   streams
 }: Props) {
+  const topTwo = streams.slice(0, 2)
+  const bottomThree = streams.slice(2, 5)
+
   return (
     <Link href={href} prefetch={false}>
-      <Card className="@container group cursor-pointer hover:shadow-lg hover:border-primary/50">
-        <CardContent className="flex gap-4">
-          {/* 左側: タイトルとサムネイル */}
-          <div className="flex-1">
-            <div className="mb-4">
-              <h3 className="font-semibold text-foreground text-sm">{title}</h3>
-              {subtitle && <p className="font-semibold text-sm">{subtitle}</p>}
-            </div>
-            <div className="flex items-center gap-1.5">
-              {streams.slice(0, 5).map((stream, index) => (
-                <div
-                  key={stream.id}
-                  className="w-16 aspect-video rounded overflow-hidden bg-muted"
-                  style={{ zIndex: 5 - index }}
-                >
-                  {stream.thumbnailUrl ? (
-                    <Image
-                      src={stream.thumbnailUrl}
-                      alt={stream.title}
-                      className="w-full h-full object-cover"
-                      width={120}
-                      height={68}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-muted" />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+      <Card className="@container group cursor-pointer hover:shadow-lg hover:border-primary/50 transition-shadow">
+        <CardContent className="flex flex-col gap-3">
+          {/* ヘッダー: タイトルとサブタイトルを1行で表示 */}
+          <h3 className="font-semibold text-sm">
+            <span className="text-foreground">{title}</span>
+            {subtitle && (
+              <span className="text-muted-foreground ml-2">{subtitle}</span>
+            )}
+          </h3>
 
-          {/* 右側: Top5リスト */}
-          {streams.length > 0 && (
-            <div className="w-[clamp(0px,28cqw,240px)] shrink overflow-hidden">
-              <p className="text-xs text-muted-foreground font-medium mb-1">
-                Top5
-              </p>
-              <ol className="space-y-0.5">
-                {streams.slice(0, 5).map((stream, index) => (
-                  <li
+          {streams.length > 0 ? (
+            <div className="flex flex-col gap-2">
+              {/* 上段: Top1, Top2 (50%ずつ) */}
+              <div className="grid grid-cols-2 gap-1.5">
+                {topTwo.map((stream, index) => (
+                  <StreamItem
                     key={stream.id}
-                    className="text-xs text-muted-foreground truncate"
-                  >
-                    {index + 1}. {stream.title}
-                  </li>
+                    stream={stream}
+                    rank={index + 1}
+                  />
                 ))}
-              </ol>
-            </div>
-          )}
+              </div>
 
-          {streams.length === 0 && (
-            <div className="flex-1 flex items-center">
+              {/* 下段: Top3, Top4, Top5 (33%ずつ) */}
+              {bottomThree.length > 0 && (
+                <div className="grid grid-cols-3 gap-1.5">
+                  {bottomThree.map((stream, index) => (
+                    <StreamItem
+                      key={stream.id}
+                      stream={stream}
+                      rank={index + 3}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center py-4">
               <span className="text-xs text-muted-foreground">
                 No data available
               </span>
@@ -89,5 +78,34 @@ export default function LivePeriodCard({
         </CardContent>
       </Card>
     </Link>
+  )
+}
+
+function StreamItem({ stream, rank }: { stream: SimpleStream; rank: number }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <div className="relative">
+        {/* 順位バッジ */}
+        <div className="absolute -left-1 -top-1 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold shadow-sm">
+          {rank}
+        </div>
+        {/* サムネイル */}
+        <div className="aspect-video rounded-md overflow-hidden bg-muted">
+          {stream.thumbnailUrl ? (
+            <Image
+              src={stream.thumbnailUrl}
+              alt={stream.title}
+              className="w-full h-full object-cover"
+              width={178}
+              height={100}
+            />
+          ) : (
+            <div className="w-full h-full bg-muted" />
+          )}
+        </div>
+      </div>
+      {/* タイトル */}
+      <p className="text-xs text-muted-foreground line-clamp-1">{stream.title}</p>
+    </div>
   )
 }
