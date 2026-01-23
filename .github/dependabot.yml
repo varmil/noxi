@@ -27,6 +27,10 @@ updates:
           - '@storybook/*'
         exclude-patterns:
           - '@storybook/testing-library'
+      vitest:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
     ignore:
       - dependency-name: '@types/node'
         versions: ['22.x.x', '21.x.x']
