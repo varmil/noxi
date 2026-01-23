@@ -10,7 +10,7 @@ import {
   ColumnContent
 } from 'components/ranking/filter/column/Column'
 import { usePathname } from 'lib/navigation'
-import { Period, StreamRankingPeriod } from 'types/period'
+import { Period } from 'types/period'
 
 const RESET_KEYS = {
   date: null,
@@ -19,7 +19,8 @@ const RESET_KEYS = {
 
 // PeriodColumnはスナップショット期間（weekly-xxx, monthly-xxx）をサポートしない
 // スナップショットはUI選択ではなくURLから直接アクセスするため
-type Keys = Period | StreamRankingPeriod
+// StreamRankingPeriod に SnapshotPeriod が含まれるため、明示的に除外
+type Keys = Period | 'realtime'
 
 type Props = PropsWithoutRef<{
   keys: Keys[]

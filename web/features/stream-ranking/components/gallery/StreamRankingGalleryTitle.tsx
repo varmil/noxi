@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithChildren } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import PeriodHoverCardFactory from 'components/ranking/hover-card/RankingPeriodHoverCardFactory'
 import {
   RankingTableTitleContainer,
@@ -12,8 +12,12 @@ import { SwitchTabs } from 'components/switch-tabs/SwitchTabs'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
+import {
+  formatSnapshotPeriod,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 
-/** Live → Channels 遷移時の period フォールバック */
+/** Live → Channels 遷移時の period マッピング */
 function getChannelsPeriodFromStreamPeriod(
   period: StreamRankingPeriod
 ): ChannelsRankingPeriod {
@@ -45,12 +49,19 @@ export default function StreamRankingGalleryTitle({
   date,
   className
 }: Props) {
+  const locale = useLocale() as 'ja' | 'en'
   const global = useTranslations('Global')
   const feat = useTranslations('Features.streamRanking')
   const page = useTranslations('Page.ranking.live')
   const t = useTranslations('Components.ranking.aggregationSwitch')
-  const periodName = global(`period.${period}`)
-  const periodKeyword = global(`periodKeyword.${period}`)
+
+  // スナップショット期間の場合はフォーマット、それ以外は翻訳キーを使用
+  const periodName = isSnapshotPeriod(period)
+    ? (formatSnapshotPeriod(period, locale) ?? period)
+    : global(`period.${period}`)
+  const periodKeyword = isSnapshotPeriod(period)
+    ? periodName
+    : global(`periodKeyword.${period}`)
   const periodInParens = period === 'realtime' ? '' : ` (${periodName})`
   const title = feat(`ranking.ui.${dimension}`, {
     period: periodName,

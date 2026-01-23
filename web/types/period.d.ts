@@ -46,10 +46,13 @@ export type SnapshotPeriod = WeeklySnapshotPeriod | MonthlySnapshotPeriod
 export type ChannelsRankingPeriod = Period | SnapshotPeriod
 
 /**
- * 同接数ランキング
+ * 同接数ランキング / ライブ集計ランキング
  *
  * 「realtime」が追加される
  * またUI上では今年、今週などは表示されないがロジック的には動くので
  * ここの型定義には含めている
+ *
+ * スナップショット期間（週間・月間）もサポート
+ * チャンネル集計ページからの SwitchTabs 遷移でフォールバックせず表示するため
  **/
-export type StreamRankingPeriod = 'realtime' | Period
+export type StreamRankingPeriod = 'realtime' | Period | SnapshotPeriod

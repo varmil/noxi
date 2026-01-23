@@ -1,8 +1,6 @@
 import { Metadata } from 'next'
 import { Locale } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
-import { formatSnapshotPeriod } from 'features/channels-ranking/utils/formatSnapshotPeriod'
-import { isSnapshotPeriod } from 'features/channels-ranking/utils/gallery-params'
 import { Dimension } from 'types/dimension'
 import { Gender } from 'types/gender'
 import {
@@ -11,6 +9,10 @@ import {
   StreamRankingPeriod,
   TopFansPeriod
 } from 'types/period'
+import {
+  formatSnapshotPeriod,
+  isSnapshotPeriod
+} from 'utils/period/snapshot-period'
 
 type Args = {
   locale: Locale
