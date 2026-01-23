@@ -32,7 +32,10 @@ export default function LivePeriodCard({
 
   return (
     <Link href={href} prefetch={false}>
-      <Card className="@container group cursor-pointer hover:shadow-lg hover:border-primary/50 transition-shadow">
+      <Card
+        className="@container group cursor-pointer hover:shadow-lg hover:border-primary/50 transition-shadow"
+        data-testid="live-period-card"
+      >
         <CardContent className="flex flex-col gap-3">
           {/* ヘッダー: タイトルとサブタイトルを1行で表示 */}
           <h3 className="font-semibold text-sm">

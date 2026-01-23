@@ -29,16 +29,16 @@ test.describe('スパチャランキングインデックスページ', () => {
       await expect(page.getByRole('link', { name: /今年/ })).toBeVisible()
     })
 
-    test('月間ランキング履歴セクションが表示される', async ({ page }) => {
+    test('月間アーカイブセクションが表示される', async ({ page }) => {
       await page.goto('/ja/ranking/super-chat/channels')
 
-      await expect(page.getByRole('heading', { name: /月間ランキング履歴/ })).toBeVisible()
+      await expect(page.getByRole('heading', { name: /月間アーカイブ/ })).toBeVisible()
     })
 
-    test('週間ランキング履歴セクションが表示される', async ({ page }) => {
+    test('週間アーカイブセクションが表示される', async ({ page }) => {
       await page.goto('/ja/ranking/super-chat/channels')
 
-      await expect(page.getByRole('heading', { name: /週間ランキング履歴/ })).toBeVisible()
+      await expect(page.getByRole('heading', { name: /週間アーカイブ/ })).toBeVisible()
     })
 
     test('英語版も正常に表示される', async ({ page }) => {
@@ -82,7 +82,7 @@ test.describe('スパチャランキングインデックスページ', () => {
       await page.goto('/ja/ranking/super-chat/channels')
 
       // 週間セクションを特定（週間データは十分な件数がある）
-      const weeklySection = page.locator('section').filter({ hasText: /週間ランキング履歴/ })
+      const weeklySection = page.locator('section').filter({ hasText: /週間アーカイブ/ })
 
       // 初期表示件数を確認（12件）
       const initialCards = weeklySection.locator('a[href*="/weekly-"]')
@@ -107,7 +107,7 @@ test.describe('スパチャランキングインデックスページ', () => {
 
       // 月間セクションのヘッダーにカウント表示があることを確認
       // h2要素内の "(12 / 12)" のような形式を確認
-      const monthlyHeading = page.getByRole('heading', { name: /月間ランキング履歴/ })
+      const monthlyHeading = page.getByRole('heading', { name: /月間アーカイブ/ })
       await expect(monthlyHeading).toBeVisible()
       await expect(monthlyHeading).toContainText(/\(\d+ \/ \d+\)/)
     })
@@ -128,7 +128,7 @@ test.describe('スパチャランキングインデックスページ', () => {
       await page.goto('/ja/ranking/super-chat/channels')
 
       // 月間セクションの最初のカードをクリック
-      const monthlySection = page.locator('section').filter({ hasText: /月間ランキング履歴/ })
+      const monthlySection = page.locator('section').filter({ hasText: /月間アーカイブ/ })
       const firstCard = monthlySection.locator('a[href*="/monthly-"]').first()
 
       if (await firstCard.isVisible()) {
@@ -143,7 +143,7 @@ test.describe('スパチャランキングインデックスページ', () => {
       await page.goto('/ja/ranking/super-chat/channels')
 
       // 週間セクションの最初のカードをクリック
-      const weeklySection = page.locator('section').filter({ hasText: /週間ランキング履歴/ })
+      const weeklySection = page.locator('section').filter({ hasText: /週間アーカイブ/ })
       const firstCard = weeklySection.locator('a[href*="/weekly-"]').first()
 
       if (await firstCard.isVisible()) {
