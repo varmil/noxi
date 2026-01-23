@@ -1,6 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { getGroupName } from 'apis/groups'
-import { getSupersBundles, getSupersBundlesCount } from 'apis/supers/getSupersBundles'
+import {
+  getSupersBundles,
+  getSupersBundlesCount
+} from 'apis/supers/getSupersBundles'
 import { getChannels } from 'apis/youtube/getChannels'
 import { getStreams, getStreamsCount } from 'apis/youtube/getStreams'
 import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
@@ -52,7 +55,7 @@ async function getDimensionDisplayName(
   if (dimension === 'concurrent-viewer') {
     return t('concurrentViewerRanking')
   }
-  // super-chat の場合（ライブ別スパチャランキング）
+  // super-chat の場合（スパチャランキング - ライブ集計）
   return t('superChatLiveRanking')
 }
 
@@ -205,7 +208,13 @@ async function fetchRankingData({
   const { gender, page } = searchParams
 
   if (dimension === 'concurrent-viewer') {
-    const params = createGetStreamsParams({ dimension, period, group, gender, page })
+    const params = createGetStreamsParams({
+      dimension,
+      period,
+      group,
+      gender,
+      page
+    })
     const countParams = createCountParams({ period, group, gender })
     const [streamsData, countData] = await Promise.all([
       getStreams(params),
@@ -221,7 +230,12 @@ async function fetchRankingData({
   }
 
   // super-chat dimension
-  const bundleParams = createGetSupersBundlesParams({ period, group, gender, page })
+  const bundleParams = createGetSupersBundlesParams({
+    period,
+    group,
+    gender,
+    page
+  })
   const bundleCountParams = createBundleCountParams({ period, group, gender })
   const [bundles, bundleCount] = await Promise.all([
     getSupersBundles(bundleParams),
