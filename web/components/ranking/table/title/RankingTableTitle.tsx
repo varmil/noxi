@@ -40,7 +40,7 @@ export function RankingTableTitleH1({
             type="button"
             className="flex gap-x-1 sm:gap-x-2 items-center text-left cursor-pointer"
           >
-            <span className="tracking-tighter line-clamp-1">{title}</span>
+            <span className="tracking-tight line-clamp-1">{title}</span>
           </button>
         </PopoverTrigger>
         <PopoverContent className="w-auto max-w-xs p-2 text-sm">
