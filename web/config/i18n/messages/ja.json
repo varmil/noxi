@@ -354,7 +354,7 @@
         "metadata": {
           "description": {
             "dimension": {
-              "super-chat": "スーパーチャット累計金額ランキングです。{group}{gender}を対象に{period}で集計。",
+              "super-chat": "{period}のスーパーチャット累計金額ランキングです。{group}{gender}が対象。",
               "subscriber": "{group}の登録者数を集計した人気順リストです。"
             }
           }
@@ -365,16 +365,16 @@
           "description": {
             "dimension": {
               "concurrent-viewer": {
-                "realtime": "現在配信中のVTuberを視聴者数順に表示しています。{group}で今もっとも勢いのある配信者をリアルタイムでチェックできます。",
-                "last24Hours": "直近24時間に配信された同接数ランキングです。{group}で昨日もっとも勢いのあった人気配信や、見逃してしまった話題の枠をチェックできます。",
-                "last7Days": "過去1週間の配信を最大同時視聴者数順に集計しました。{group}で今週もっとも話題になった配信や配信者を一目で確認できます。",
-                "last30Days": "過去30日間の同接数ランキングです。{group}内の直近の活動の中で特に勢いのある配信者や人気の高かった企画の傾向を分析できます。",
-                "thisYear": "今年の同時視聴者数ランキングです。{group}で今年もっとも話題になった配信や、注目を集めた配信者をチェックできます。",
-                "wholePeriod": "歴代最高同時視聴者数ランキングです。{group}の過去に記録された伝説的な配信や、史上もっとも多くの人が見守った瞬間を振り返ることができます。",
-                "weekly": "{period}の同接数ランキングです。{group}で該当週にもっとも話題になった配信や配信者を確認できます。",
-                "monthly": "{period}の同接数ランキングです。{group}で該当月にもっとも話題になった配信や配信者を確認できます。"
+                "realtime": "配信中のVTuberを視聴者数順に表示しています。{group}で今勢いのある配信者をチェックできます。",
+                "last24Hours": "直近24時間の同接数ランキングです。{group}で昨日勢いのあった人気配信をチェックできます。",
+                "last7Days": "過去1週間の同接数ランキングです。{group}で今週話題になった配信や配信者を一目で確認できます。",
+                "last30Days": "過去30日間の同接数ランキングです。{group}内の直近で特に勢いのある配信を確認できます。",
+                "thisYear": "今年の同時視聴者数ランキングです。{group}で今年話題になった配信者や人気配信をチェックできます。",
+                "wholePeriod": "歴代最高同時視聴者数ランキングです。{group}の過去に記録された伝説的な配信を振り返ります。",
+                "weekly": "{period}の同接数ランキングです。{group}で該当週に話題になった配信や配信者を確認できます。",
+                "monthly": "{period}の同接数ランキングです。{group}で該当月に話題になった配信や配信者を確認できます。"
               },
-              "super-chat": "ライブ配信のスーパーチャットランキングです。{group}{gender}を対象に{period}で集計。"
+              "super-chat": "{period}のライブ配信スーパーチャットランキングです。{group}{gender}が対象。"
             }
           }
         }
@@ -888,6 +888,10 @@
     "channelsRanking": {
       "ranking": {
         "dimension": {
+          "super-chat": "{group}{gender}スパチャランキング【チャンネル集計】- {period}",
+          "subscriber": "{group} {gender} チャンネル登録者数ランキング"
+        },
+        "ui": {
           "super-chat": "{group}{gender}スパチャランキング - {period}",
           "subscriber": "{group} {gender} チャンネル登録者数ランキング"
         }
@@ -902,12 +906,12 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "【{periodKeyword}】{group}同接ランキング{periodInParens} | 配信者勢いランキング",
-          "super-chat": "【ライブ別】{group}{gender}スパチャランキング - {period}"
+          "concurrent-viewer": "{group}同接数ランキング - {period} | 配信者勢いランキング",
+          "super-chat": "{group}{gender}スパチャランキング【ライブ集計】- {period}"
         },
         "ui": {
-          "concurrent-viewer": "【{periodKeyword}】{group}同接ランキング",
-          "super-chat": "【ライブ別】{group}{gender}スパチャランキング - {period}"
+          "concurrent-viewer": "{group}同接数ランキング - {period}",
+          "super-chat": "{group}{gender}スパチャランキング - {period}"
         }
       },
       "viewAll": "すべて見る",

@@ -15,21 +15,21 @@ test.describe('ライブランキング', () => {
     test('全グループ - リアルタイム', async ({ page }) => {
       await page.goto('/ja/ranking/concurrent-viewer/live/all/realtime')
 
-      await expect(page).toHaveTitle(/同接ランキング/)
+      await expect(page).toHaveTitle(/同接数ランキング/)
       await expect(page.locator('main')).toBeVisible()
     })
 
     test('にじさんじ - 過去30日間', async ({ page }) => {
       await page.goto('/ja/ranking/concurrent-viewer/live/nijisanji/last30Days')
 
-      await expect(page).toHaveTitle(/同接ランキング/)
+      await expect(page).toHaveTitle(/同接数ランキング/)
       await expect(page.locator('main')).toBeVisible()
     })
 
     test('個人勢 - リアルタイム', async ({ page }) => {
       await page.goto('/ja/ranking/concurrent-viewer/live/independent/realtime')
 
-      await expect(page).toHaveTitle(/同接ランキング/)
+      await expect(page).toHaveTitle(/同接数ランキング/)
       await expect(page.locator('main')).toBeVisible()
     })
   })

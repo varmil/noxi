@@ -149,7 +149,7 @@ describe('Aside', () => {
 
     render(AsideComponent)
 
-    // 各グループの同接ランキングリンクが存在することを確認
+    // 各グループの同接数ランキングリンクが存在することを確認
     const concurrentViewerLinks = screen.getAllByRole('link', {
       name: /concurrent viewer ranking/i
     })

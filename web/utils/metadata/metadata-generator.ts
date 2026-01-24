@@ -108,7 +108,7 @@ export const generateTitleAndDescription = async ({
       `period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
     )
 
-  // 同接ランキング用のSEOタイトル対応
+  // 同接数ランキング用のSEOタイトル対応
   // スナップショット期間（weekly-xxx, monthly-xxx）の場合は適切なキーワードを使用
   const periodKeyword = (() => {
     if (isSnapshotPeriod(period as ChannelsRankingPeriod)) {

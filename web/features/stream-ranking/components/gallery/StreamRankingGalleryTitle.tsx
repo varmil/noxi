@@ -12,10 +12,7 @@ import { SwitchTabs } from 'components/switch-tabs/SwitchTabs'
 import { StreamRankingDimension } from 'features/stream-ranking/types/stream-ranking.type'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, StreamRankingPeriod } from 'types/period'
-import {
-  getPeriodDisplayName,
-  isSnapshotPeriod
-} from 'utils/period/snapshot-period'
+import { getPeriodDisplayName, isSnapshotPeriod } from 'utils/period/snapshot-period'
 
 /** Live → Channels 遷移時の period マッピング */
 function getChannelsPeriodFromStreamPeriod(
@@ -61,14 +58,8 @@ export default function StreamRankingGalleryTitle({
     key => (global as (key: string) => string)(key),
     locale
   )
-  const periodKeyword = isSnapshotPeriod(period)
-    ? periodName
-    : global(`periodKeyword.${period}`)
-  const periodInParens = period === 'realtime' ? '' : ` (${periodName})`
   const title = feat(`ranking.ui.${dimension}`, {
     period: periodName,
-    periodKeyword,
-    periodInParens,
     group: groupName,
     gender: gender ? global(`gender.${gender}`) : ''
   })

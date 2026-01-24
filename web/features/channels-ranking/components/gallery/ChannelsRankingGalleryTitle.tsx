@@ -56,7 +56,7 @@ export default function ChannelsRankingGalleryTitle({
     (key: string) => global(key as never),
     locale
   )
-  const title = feat(`ranking.dimension.${dimension}`, {
+  const title = feat(`ranking.ui.${dimension}`, {
     period: periodName,
     group: groupName,
     gender: gender ? global(`gender.${gender}`) : ''
