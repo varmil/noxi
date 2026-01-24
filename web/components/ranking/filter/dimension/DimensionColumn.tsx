@@ -61,7 +61,6 @@ export default function DimensionColumn() {
                   ? pathname.includes('live') && key === dimension
                   : pathname.includes('channels') && key === dimension
             }
-            activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}
           </SelectButton>
@@ -77,7 +76,6 @@ export default function DimensionColumn() {
             pathname={`/ranking/${key}/${resetGroup()}/${resetPeriod(key)}`}
             qs={{ ...RESET_KEYS() }}
             isActive={() => pathname.includes(`/ranking/${key}/`)}
-            activeVariant="secondary"
           >
             <div>
               <span>{tg(`dimension.${key}`)}</span>

@@ -41,7 +41,6 @@ export default function PeriodColumn({ keys }: Props) {
             qs={{ ...RESET_KEYS }}
             pathname={pathname.replace(period as string, key)}
             isActive={() => period === key}
-            activeVariant="secondary"
           >
             {tg(`period.${key}`)}
           </SelectButton>
