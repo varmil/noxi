@@ -39,7 +39,8 @@ vi.mock('next-intl/server', () => ({
 vi.mock('lib/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => (
     <a href={href}>{children}</a>
-  )
+  ),
+  usePathname: () => '/'
 }))
 
 vi.mock('components/sidebar/SignOutButton', () => ({

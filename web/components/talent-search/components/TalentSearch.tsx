@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/command'
 import { cn } from '@/lib/utils'
 import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
-import { Link } from 'lib/navigation'
+import { Link, usePathname } from 'lib/navigation'
 import { searchTalents } from '../actions/searchTalentsActions'
 
 type Props = {
@@ -27,6 +27,13 @@ export function TalentSearch({ className, dropdown }: Props) {
   const [talents, setTalents] = React.useState<ChannelsSchema>([])
   const [loading, setLoading] = React.useState(false)
   const queryIsLongEnough = debouncedQuery.length >= 2
+  const pathname = usePathname()
+
+  // パス変更時に状態をリセット
+  React.useEffect(() => {
+    setQuery('')
+    setTalents([])
+  }, [pathname])
 
   React.useEffect(() => {
     const fetchTalents = async () => {
