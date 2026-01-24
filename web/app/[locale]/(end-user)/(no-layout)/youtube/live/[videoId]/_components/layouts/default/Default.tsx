@@ -46,7 +46,8 @@ export function LgChatContainer({ children }: PropsWithChildren) {
   if (isOpenLiveChat) {
     return (
       <section className="relative w-[400px] h-screen px-0">
-        <div className="fixed w-[400px] h-full top-0 bottom-0">{children}</div>
+        {/* top-14: Header の高さ (h-14) 分のオフセット */}
+        <div className="fixed w-[400px] top-14 bottom-0">{children}</div>
       </section>
     )
   } else {
