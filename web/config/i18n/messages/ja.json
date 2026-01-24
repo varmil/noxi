@@ -906,7 +906,7 @@
     "streamRanking": {
       "ranking": {
         "dimension": {
-          "concurrent-viewer": "{group}同接数ランキング - {period} | VTuber配信者勢いランキング",
+          "concurrent-viewer": "{group}同接数ランキング - {period} | 配信者勢いランキング",
           "super-chat": "{group}{gender}スパチャランキング【ライブ集計】- {period}"
         },
         "ui": {
