@@ -1,18 +1,9 @@
-import { PanelLeftIcon } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
-import { Button } from '@/components/ui/button'
-import {
-  Sheet,
-  SheetTrigger,
-  SheetContent,
-  SheetHeader,
-  SheetDescription,
-  SheetTitle
-} from '@/components/ui/sheet'
 import SidebarContent from 'components/sidebar/SidebarContent'
 import Image from 'components/styles/Image'
 import { getGroups } from 'hooks/useGroups'
 import { auth } from 'lib/auth'
+import { HeaderXSSheetClient } from './HeaderXSSheetClient'
 
 export default async function HeaderXSSheet() {
   const [session, comp, groups] = await Promise.all([
@@ -64,24 +55,12 @@ export default async function HeaderXSSheet() {
   }
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button size="icon" variant="ghost" className="lg:hidden">
-          <PanelLeftIcon className="h-5 w-5" />
-          <span className="sr-only">Toggle Menu</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="left" className="w-[290px] p-0 pt-1" hideCloseButton>
-        <SheetHeader hidden>
-          <SheetTitle hidden>VCharts</SheetTitle>
-          <SheetDescription hidden></SheetDescription>
-        </SheetHeader>
-        <SidebarContent
-          groups={groupsData}
-          labels={labels}
-          isSignedIn={!!session}
-        />
-      </SheetContent>
-    </Sheet>
+    <HeaderXSSheetClient>
+      <SidebarContent
+        groups={groupsData}
+        labels={labels}
+        isSignedIn={!!session}
+      />
+    </HeaderXSSheetClient>
   )
 }
