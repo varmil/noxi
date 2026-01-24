@@ -1,4 +1,11 @@
+'use client'
+
 import { PropsWithChildren } from 'react'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
 
 export function RankingTableTitleContainer({
   children,
@@ -22,15 +29,24 @@ export function RankingTableTitleH1({
 }) {
   return (
     <h1
-      title={title}
       className={`flex items-center text-lg sm:text-xl font-bold ${
         className || ''
       }`}
       aria-label={title}
     >
-      <div className="flex gap-x-1 sm:gap-x-2 items-center">
-        <span className="tracking-tighter line-clamp-2">{title}</span>
-      </div>
+      <Popover>
+        <PopoverTrigger asChild>
+          <button
+            type="button"
+            className="flex gap-x-1 sm:gap-x-2 items-center text-left cursor-pointer"
+          >
+            <span className="tracking-tighter line-clamp-1">{title}</span>
+          </button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto max-w-xs p-2 text-sm">
+          {title}
+        </PopoverContent>
+      </Popover>
     </h1>
   )
 }
