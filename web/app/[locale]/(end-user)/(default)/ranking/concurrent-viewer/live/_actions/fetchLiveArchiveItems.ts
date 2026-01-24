@@ -1,6 +1,5 @@
 'use server'
 
-import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
 import { formatWeeklyPeriodSplit } from 'features/channels-ranking/utils/formatSnapshotPeriod'
 import { generateMonthlyPeriods } from 'features/hub-page/utils/generateMonthlyPeriods'
@@ -81,34 +80,28 @@ async function fetchTop5ForPeriods(
             : (`monthly-${p.target}` as MonthlySnapshotPeriod)
         const { start, end } = getSnapshotDateRange(snapshotPeriod)
 
-        // Top5 配信を取得（スパチャ金額順）
-        const bundles = await getSupersBundles({
+        // Top5 配信を取得（同接数順）
+        // endedAfter/endedBefore で終了済みの配信を期間でフィルタリング
+        const streams = await getStreams({
           group: group === 'all' ? undefined : group,
-          createdAtGTE: start,
-          createdAtLTE: end,
-          orderBy: [{ field: 'amountMicros', order: 'desc' }],
+          status: 'ended',
+          endedAfter: start,
+          endedBefore: end,
+          orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
           limit: 5
         })
 
-        if (bundles.length === 0) {
+        if (streams.length === 0) {
           return { period: p.period, streams: [] }
         }
 
-        // videoIds から配信詳細を取得
-        const videoIds = bundles.map(b => b.videoId)
-        const streams = await getStreams({ videoIds })
+        const mappedStreams = streams.map(stream => ({
+          id: stream.videoId,
+          title: stream.snippet.title,
+          thumbnailUrl: stream.snippet.thumbnails?.medium?.url
+        }))
 
-        // スパチャ金額順に並び替え
-        const orderedStreams = bundles.map(b => {
-          const stream = streams.find(s => s.videoId === b.videoId)
-          return {
-            id: b.videoId,
-            title: stream?.snippet.title || '',
-            thumbnailUrl: stream?.snippet.thumbnails?.medium?.url
-          }
-        })
-
-        return { period: p.period, streams: orderedStreams }
+        return { period: p.period, streams: mappedStreams }
       } catch {
         return { period: p.period, streams: [] }
       }
@@ -126,7 +119,7 @@ async function fetchTop5ForPeriods(
         id: r.period,
         title: weeklySplit.title,
         subtitle: weeklySplit.subtitle,
-        href: `/ranking/super-chat/live/${group}/${r.period}`,
+        href: `/ranking/concurrent-viewer/live/${group}/${r.period}`,
         streams: r.streams
       }
     }
@@ -138,7 +131,7 @@ async function fetchTop5ForPeriods(
           r.period as WeeklySnapshotPeriod | MonthlySnapshotPeriod,
           locale
         ) || r.period,
-      href: `/ranking/super-chat/live/${group}/${r.period}`,
+      href: `/ranking/concurrent-viewer/live/${group}/${r.period}`,
       streams: r.streams
     }
   })

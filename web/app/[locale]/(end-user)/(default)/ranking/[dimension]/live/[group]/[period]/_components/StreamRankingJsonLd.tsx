@@ -105,7 +105,7 @@ export async function StreamRankingJsonLd({
   // canonical period
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
-  // super-chat の場合はハブページを追加
+  // ハブページを追加
   let hubPage: { name: string; href: string } | undefined
   if (dimension === 'super-chat') {
     const superChatLiveIndexT = await getTranslations({
@@ -118,6 +118,18 @@ export async function StreamRankingJsonLd({
         group !== 'all'
           ? `/ranking/super-chat/live?group=${group}`
           : '/ranking/super-chat/live'
+    }
+  } else if (dimension === 'concurrent-viewer') {
+    const concurrentViewerLiveIndexT = await getTranslations({
+      locale: localeTyped,
+      namespace: 'Page.ranking.concurrentViewerLiveIndex'
+    })
+    hubPage = {
+      name: concurrentViewerLiveIndexT('heading'),
+      href:
+        group !== 'all'
+          ? `/ranking/concurrent-viewer/live?group=${group}`
+          : '/ranking/concurrent-viewer/live'
     }
   }
 

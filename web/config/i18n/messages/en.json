@@ -327,6 +327,25 @@
           "thisYear": "This Year"
         }
       },
+      "concurrentViewerLiveIndex": {
+        "metadata": {
+          "title": "Most Live Viewers - Weekly & Monthly Archive",
+          "description": "Weekly and monthly archives of VTuber most live viewers rankings. Check past rankings."
+        },
+        "heading": "Most Live Viewers",
+        "section": {
+          "featured": { "title": "Popular Pages" },
+          "weeklyArchive": { "title": "Weekly Ranking Archive" },
+          "monthlyArchive": { "title": "Monthly Ranking Archive" }
+        },
+        "filter": { "allGroups": "All Groups" },
+        "showMore": "Show More",
+        "period": {
+          "realtime": "Realtime",
+          "last30Days": "Last 30 Days",
+          "thisYear": "This Year"
+        }
+      },
       "channels": {
         "metadata": {
           "description": {

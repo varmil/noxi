@@ -1,7 +1,7 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getGroups } from 'apis/groups'
-import GroupFilterBar from 'features/super-chat-ranking-index/components/GroupFilterBar'
+import GroupFilterBar from 'features/hub-page/components/GroupFilterBar'
 import { fetchArchiveItems } from '../_actions/fetchArchiveItems'
 import ArchiveSection from './ArchiveSection'
 import FeaturedSection from './FeaturedSection'

@@ -93,7 +93,7 @@ export default async function RankingLivePage(props: Props) {
 
   const canonicalPeriod = getCanonicalPeriod(dimension)
 
-  // super-chat dimension の場合、ハブページ情報を構築
+  // ハブページ情報を構築
   let hubPage: { name: string; href: string } | undefined
   if (dimension === 'super-chat') {
     const superChatLiveIndexT = await getTranslations({
@@ -106,6 +106,18 @@ export default async function RankingLivePage(props: Props) {
         groupId !== 'all'
           ? `/ranking/super-chat/live?group=${groupId}`
           : '/ranking/super-chat/live'
+    }
+  } else if (dimension === 'concurrent-viewer') {
+    const concurrentViewerLiveIndexT = await getTranslations({
+      locale: localeTyped,
+      namespace: 'Page.ranking.concurrentViewerLiveIndex'
+    })
+    hubPage = {
+      name: concurrentViewerLiveIndexT('heading'),
+      href:
+        groupId !== 'all'
+          ? `/ranking/concurrent-viewer/live?group=${groupId}`
+          : '/ranking/concurrent-viewer/live'
     }
   }
 

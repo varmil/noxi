@@ -21,7 +21,7 @@ async function ArchiveSections({
   locale: 'ja' | 'en'
   group: string
 }) {
-  const t = await getTranslations('Page.ranking.superChatLiveIndex')
+  const t = await getTranslations('Page.ranking.concurrentViewerLiveIndex')
 
   // 初期表示分のみ取得（12件ずつ）
   const [weeklyResult, monthlyResult] = await Promise.all([
@@ -58,25 +58,25 @@ async function ArchiveSections({
 }
 
 export default async function IndexTemplate({ locale, group }: Props) {
-  const t = await getTranslations('Page.ranking.superChatLiveIndex')
+  const t = await getTranslations('Page.ranking.concurrentViewerLiveIndex')
   const groups = await getGroups()
   const effectiveGroup = group || 'all'
 
   const featuredItems = [
     {
-      id: 'last24Hours',
-      title: t('period.last24Hours'),
-      href: `/ranking/super-chat/live/${effectiveGroup}/last24Hours`
+      id: 'realtime',
+      title: t('period.realtime'),
+      href: `/ranking/concurrent-viewer/live/${effectiveGroup}/realtime`
     },
     {
       id: 'last30Days',
       title: t('period.last30Days'),
-      href: `/ranking/super-chat/live/${effectiveGroup}/last30Days`
+      href: `/ranking/concurrent-viewer/live/${effectiveGroup}/last30Days`
     },
     {
       id: 'thisYear',
       title: t('period.thisYear'),
-      href: `/ranking/super-chat/live/${effectiveGroup}/thisYear`
+      href: `/ranking/concurrent-viewer/live/${effectiveGroup}/thisYear`
     }
   ]
 
