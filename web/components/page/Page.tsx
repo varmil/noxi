@@ -33,7 +33,7 @@ export function Page({
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <main role="main" className="relative z-0 min-h-[70vh]">
+    <main role="main" className="relative z-0 min-h-[80vh]">
       {breadcrumb?.length ? (
         <GlobalBreadcrumb items={breadcrumb} className="mt-0.5 mb-4" />
       ) : null}
