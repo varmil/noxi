@@ -40,7 +40,7 @@ export default function SelectButton({
 
   return (
     <Button
-      className={`w-full font-normal justify-start ${className || ''}`}
+      className={`rounded-none w-full font-normal justify-start ${className || ''}`}
       {...rest}
       asChild
       variant={active ? (activeVariant ?? 'default') : 'ghost'}

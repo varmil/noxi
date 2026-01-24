@@ -61,13 +61,14 @@ export default function DimensionColumn() {
                   ? pathname.includes('live') && key === dimension
                   : pathname.includes('channels') && key === dimension
             }
-            activeVariant="secondary"
           >
             {tg(`dimension.${key}`)}
           </SelectButton>
         ))}
 
-        <Separator className="my-2" />
+        <div className="py-2 px-4">
+          <Separator />
+        </div>
 
         {CHEER_KEYS.map(key => (
           <SelectButton
@@ -75,7 +76,6 @@ export default function DimensionColumn() {
             pathname={`/ranking/${key}/${resetGroup()}/${resetPeriod(key)}`}
             qs={{ ...RESET_KEYS() }}
             isActive={() => pathname.includes(`/ranking/${key}/`)}
-            activeVariant="secondary"
           >
             <div>
               <span>{tg(`dimension.${key}`)}</span>

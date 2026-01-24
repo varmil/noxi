@@ -18,6 +18,7 @@
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   },
+  "tailwindCSS.lint.suggestCanonicalClasses": "ignore",
   "tailwindCSS.experimental.classRegex": [
     // const aClass = 'text-slate'
     // const bClass   = `text-zinc-300`
