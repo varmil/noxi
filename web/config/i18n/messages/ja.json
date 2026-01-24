@@ -331,6 +331,25 @@
           "thisYear": "今年"
         }
       },
+      "concurrentViewerLiveIndex": {
+        "metadata": {
+          "title": "同接数ランキング 週間・月間アーカイブ",
+          "description": "VTuberの同接数ランキングの週間・月間アーカイブ。過去のランキングを確認できます。"
+        },
+        "heading": "同接数ランキング",
+        "section": {
+          "featured": { "title": "よく見られているページ" },
+          "weeklyArchive": { "title": "週間アーカイブ" },
+          "monthlyArchive": { "title": "月間アーカイブ" }
+        },
+        "filter": { "allGroups": "すべてのグループ" },
+        "showMore": "もっと見る",
+        "period": {
+          "realtime": "リアルタイム",
+          "last7Days": "過去7日間",
+          "thisYear": "今年"
+        }
+      },
       "channels": {
         "metadata": {
           "description": {
