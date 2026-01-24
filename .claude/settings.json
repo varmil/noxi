@@ -2,7 +2,9 @@
   "mcpServers": {
     "fetch": {
       "command": "uvx",
-      "args": ["mcp-server-fetch"],
+      "args": [
+        "mcp-server-fetch"
+      ],
       "env": {},
       "disabled": true,
       "autoApprove": []
@@ -18,13 +20,22 @@
     },
     "next-devtools": {
       "command": "npx",
-      "args": ["-y", "next-devtools-mcp@latest"],
+      "args": [
+        "-y",
+        "next-devtools-mcp@latest"
+      ],
       "disabled": false,
-      "autoApprove": ["upgrade_nextjs_16", "browser_eval"]
+      "autoApprove": [
+        "upgrade_nextjs_16",
+        "browser_eval"
+      ]
     },
     "shadcn": {
       "command": "npx",
-      "args": ["shadcn@latest", "mcp"],
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ],
       "autoApprove": [
         "get_project_registries",
         "search_items_in_registries",
@@ -41,5 +52,10 @@
         "Authorization: Bearer ${V0_API_TOKEN}"
       ]
     }
+  },
+  "permissions": {
+    "additionalDirectories": [
+      "/home/ay/github/noxi/web/app/[locale]/(end-user)/(default)/ranking/super-chat/live/_components"
+    ]
   }
 }
