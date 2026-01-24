@@ -2,10 +2,10 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getGroups } from 'apis/groups'
 import GroupFilterBar from 'features/hub-page/components/GroupFilterBar'
+import LiveArchiveSection from 'features/hub-page/components/LiveArchiveSection'
 import { ArchiveSectionsSkeleton } from 'features/hub-page/components/LivePeriodCardSkeleton'
 import FeaturedSection from '../../channels/_components/FeaturedSection'
 import { fetchLiveArchiveItems } from '../_actions/fetchLiveArchiveItems'
-import LiveArchiveSection from './LiveArchiveSection'
 
 const INITIAL_ITEMS_COUNT = 12
 
@@ -40,6 +40,7 @@ async function ArchiveSections({
         initialHasMore={monthlyResult.hasMore}
         totalCount={monthlyResult.totalCount}
         showMoreLabel={t('showMore')}
+        fetchMore={fetchLiveArchiveItems}
       />
       <LiveArchiveSection
         title={t('section.weeklyArchive.title')}
@@ -50,6 +51,7 @@ async function ArchiveSections({
         initialHasMore={weeklyResult.hasMore}
         totalCount={weeklyResult.totalCount}
         showMoreLabel={t('showMore')}
+        fetchMore={fetchLiveArchiveItems}
       />
     </>
   )

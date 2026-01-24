@@ -3,11 +3,25 @@
 import { useState, useTransition } from 'react'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import LivePeriodCard from 'features/hub-page/components/LivePeriodCard'
-import {
-  LiveArchiveItem,
-  fetchLiveArchiveItems
-} from '../_actions/fetchLiveArchiveItems'
+import LivePeriodCard from './LivePeriodCard'
+
+export type LiveArchiveItem = {
+  id: string
+  title: string
+  subtitle?: string
+  href: string
+  streams: {
+    id: string
+    title: string
+    thumbnailUrl: string | undefined
+  }[]
+}
+
+export type FetchLiveArchiveItemsResult = {
+  items: LiveArchiveItem[]
+  hasMore: boolean
+  totalCount: number
+}
 
 type Props = {
   title: string
@@ -19,6 +33,13 @@ type Props = {
   totalCount: number
   showMoreLabel: string
   incrementCount?: number
+  fetchMore: (
+    type: 'weekly' | 'monthly',
+    group: string,
+    locale: 'ja' | 'en',
+    offset: number,
+    limit: number
+  ) => Promise<FetchLiveArchiveItemsResult>
 }
 
 export default function LiveArchiveSection({
@@ -30,7 +51,8 @@ export default function LiveArchiveSection({
   initialHasMore,
   totalCount,
   showMoreLabel,
-  incrementCount = 12
+  incrementCount = 12,
+  fetchMore
 }: Props) {
   const [items, setItems] = useState<LiveArchiveItem[]>(initialItems)
   const [hasMore, setHasMore] = useState(initialHasMore)
@@ -38,7 +60,7 @@ export default function LiveArchiveSection({
 
   const handleLoadMore = () => {
     startTransition(async () => {
-      const result = await fetchLiveArchiveItems(
+      const result = await fetchMore(
         type,
         group,
         locale,
