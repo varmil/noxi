@@ -1,6 +1,5 @@
 import type { ComponentProps, PropsWithChildren } from 'react'
 import GlobalBreadcrumb from 'components/GlobalBreadcrumb'
-import Header from 'components/header/Header'
 
 type Props = {
   breadcrumb?: ComponentProps<typeof GlobalBreadcrumb>['items']
@@ -34,9 +33,12 @@ export function Page({
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <>
-      <Header className={`z-30`} />
-
+    <main
+      role="main"
+      className={`relative z-0 ${containerClass} min-h-[70vh] overflow-x-clip ${padding} ${
+        className ?? ''
+      }`}
+    >
       {breadcrumb?.length ? (
         <GlobalBreadcrumb items={breadcrumb} className="mt-0.5 mb-4" />
       ) : null}
@@ -49,14 +51,7 @@ export function Page({
         </div>
       )}
 
-      <main
-        role="main"
-        className={`relative z-0 ${containerClass} min-h-[70vh] overflow-x-clip ${padding} ${
-          className ?? ''
-        }`}
-      >
-        {children}
-      </main>
-    </>
+      {children}
+    </main>
   )
 }
