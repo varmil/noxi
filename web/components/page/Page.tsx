@@ -35,15 +35,12 @@ export function Page({
   return (
     <main role="main" className="relative z-0 min-h-[70vh]">
       {breadcrumb?.length ? (
-        <GlobalBreadcrumb
-          items={breadcrumb}
-          className={`mt-0.5 mb-4 ${PageXSPX} ${PageSMPX}`}
-        />
+        <GlobalBreadcrumb items={breadcrumb} className="mt-0.5 mb-4" />
       ) : null}
 
       {h1 && (
         <div
-          className={`z-0 text-xl bg-muted text-muted-foreground py-6 mb-4 ${PageXSPX} ${PageSMPX}`}
+          className={`text-xl bg-muted text-muted-foreground py-6 mb-4 ${padding}`}
         >
           <h1 className="font-bold">{h1}</h1>
         </div>
