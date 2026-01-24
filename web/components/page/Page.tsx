@@ -33,7 +33,7 @@ export function Page({
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <main role="main" className="relative z-0 min-h-[80vh]">
+    <main role="main" className="relative z-0 min-h-[80vh] overflow-x-clip">
       {breadcrumb?.length ? (
         <GlobalBreadcrumb items={breadcrumb} className="mt-0.5 mb-4" />
       ) : null}
@@ -46,9 +46,7 @@ export function Page({
         </div>
       )}
 
-      <div
-        className={`${containerClass} overflow-x-clip ${padding} ${className ?? ''}`}
-      >
+      <div className={`${containerClass} ${padding} ${className ?? ''}`}>
         {children}
       </div>
     </main>
