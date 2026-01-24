@@ -329,10 +329,10 @@
       },
       "concurrentViewerLiveIndex": {
         "metadata": {
-          "title": "Peak Viewers Ranking - Weekly & Monthly Archive",
-          "description": "Weekly and monthly archives of VTuber peak concurrent viewer rankings. Check past rankings."
+          "title": "Most Live Viewers - Weekly & Monthly Archive",
+          "description": "Weekly and monthly archives of VTuber most live viewers rankings. Check past rankings."
         },
-        "heading": "Peak Viewers Ranking",
+        "heading": "Most Live Viewers",
         "section": {
           "featured": { "title": "Popular Pages" },
           "weeklyArchive": { "title": "Weekly Ranking Archive" },
