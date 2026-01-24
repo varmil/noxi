@@ -3,11 +3,11 @@
 import { useState, useTransition } from 'react'
 import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import LivePeriodCard from 'features/hub-page/components/LivePeriodCard'
 import {
   LiveArchiveItem,
   fetchLiveArchiveItems
 } from '../_actions/fetchLiveArchiveItems'
-import LivePeriodCard from './LivePeriodCard'
 
 type Props = {
   title: string
