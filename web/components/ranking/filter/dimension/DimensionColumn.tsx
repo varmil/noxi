@@ -67,7 +67,9 @@ export default function DimensionColumn() {
           </SelectButton>
         ))}
 
-        <Separator className="my-2" />
+        <div className="py-2 px-4">
+          <Separator />
+        </div>
 
         {CHEER_KEYS.map(key => (
           <SelectButton
