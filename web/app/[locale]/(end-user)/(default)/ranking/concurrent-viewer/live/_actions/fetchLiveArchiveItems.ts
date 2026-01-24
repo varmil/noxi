@@ -2,8 +2,8 @@
 
 import { getStreams } from 'apis/youtube/getStreams'
 import { formatWeeklyPeriodSplit } from 'features/channels-ranking/utils/formatSnapshotPeriod'
-import { generateMonthlyPeriods } from 'features/super-chat-ranking-index/utils/generateMonthlyPeriods'
-import { generateWeeklyPeriods } from 'features/super-chat-ranking-index/utils/generateWeeklyPeriods'
+import { generateMonthlyPeriods } from 'features/hub-page/utils/generateMonthlyPeriods'
+import { generateWeeklyPeriods } from 'features/hub-page/utils/generateWeeklyPeriods'
 import { MonthlySnapshotPeriod, WeeklySnapshotPeriod } from 'types/period'
 import {
   formatSnapshotPeriod,
