@@ -346,7 +346,7 @@
         "showMore": "もっと見る",
         "period": {
           "realtime": "リアルタイム",
-          "last7Days": "過去7日間",
+          "last30Days": "過去30日間",
           "thisYear": "今年"
         }
       },

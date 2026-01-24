@@ -342,7 +342,7 @@
         "showMore": "Show More",
         "period": {
           "realtime": "Realtime",
-          "last7Days": "Last 7 Days",
+          "last30Days": "Last 30 Days",
           "thisYear": "This Year"
         }
       },

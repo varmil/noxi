@@ -132,9 +132,9 @@ export default async function IndexTemplate({ locale, group }: Props) {
       href: `/ranking/concurrent-viewer/live/${effectiveGroup}/realtime`
     },
     {
-      id: 'last7Days',
-      title: t('period.last7Days'),
-      href: `/ranking/concurrent-viewer/live/${effectiveGroup}/last7Days`
+      id: 'last30Days',
+      title: t('period.last30Days'),
+      href: `/ranking/concurrent-viewer/live/${effectiveGroup}/last30Days`
     },
     {
       id: 'thisYear',
