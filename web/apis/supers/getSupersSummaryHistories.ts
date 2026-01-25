@@ -3,7 +3,7 @@ import {
   SupersSummaryHistoriesSchema,
   responseHistoriesSchema
 } from 'apis/youtube/schema/supersSummarySchema'
-import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelId: string
@@ -29,7 +29,7 @@ export async function getSupersSummaryHistories({
 
   const res = await fetchAPI(
     `/api/supers-summaries/${channelId}/histories?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
+    { next: { revalidate: CACHE_1D, tags: [SUPERS_SUMMARIES] } }
   )
 
   if (!res.ok) {

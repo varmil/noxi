@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
 /** スナップショットランキングのレスポンス型 */
@@ -49,10 +49,10 @@ export async function getSupersSnapshotRanking(
     ...(offset !== undefined && { offset: String(offset) })
   })
 
-  // 過去データは変更されないため1週間キャッシュ
+  // 過去データは変更されないため1日キャッシュ
   const res = await fetchAPI(
     `/api/supers-snapshots/ranking?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1W } }
+    { next: { revalidate: CACHE_1D } }
   )
 
   if (!res.ok) {
@@ -84,7 +84,7 @@ export async function getSupersSnapshotRankingCount(
 
   const res = await fetchAPI(
     `/api/supers-snapshots/ranking/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1W } }
+    { next: { revalidate: CACHE_1D } }
   )
 
   if (!res.ok) {

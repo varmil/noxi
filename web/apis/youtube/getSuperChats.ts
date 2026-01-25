@@ -2,7 +2,7 @@ import {
   responseSchema,
   SuperChatsSchema
 } from 'apis/youtube/schema/superChatSchema'
-import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { roundDateToWeek } from 'utils/date'
 
 type Params = {
@@ -53,7 +53,7 @@ export async function getSuperChats({
     createdAfter: roundDateToWeek(createdAfter)
   })
   const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`, {
-    next: { revalidate: CACHE_1W }
+    next: { revalidate: CACHE_1D }
   })
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -73,7 +73,7 @@ export async function getSuperChatsCount({
   })
   const res = await fetchAPI(
     `/api/supers/chats/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1W } }
+    { next: { revalidate: CACHE_1D } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

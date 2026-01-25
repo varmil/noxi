@@ -13,7 +13,7 @@ export class SupersController {
   ) {}
 
   @Get('chats')
-  @CacheTTL(7 * 24 * 3600 * 1000)
+  @CacheTTL(24 * 3600 * 1000)
   async GetSuperChats(@Query() dto: GetSuperChats) {
     return await this.superChatsService.findAll({
       where: {
@@ -28,7 +28,7 @@ export class SupersController {
   }
 
   @Get('chats/count')
-  @CacheTTL(7 * 24 * 3600 * 1000)
+  @CacheTTL(24 * 3600 * 1000)
   async GetSuperChatsCount(@Query() dto: GetSuperChats) {
     return await this.superChatsService.count({
       where: {
