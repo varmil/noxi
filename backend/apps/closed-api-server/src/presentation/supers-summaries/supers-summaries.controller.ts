@@ -1,4 +1,3 @@
-import { CacheTTL } from '@nestjs/cache-manager'
 import { Controller, Get, Param, Query } from '@nestjs/common'
 import { GetSupersMonthlySummaries } from '@presentation/supers-summaries/dto/GetSupersMonthlySummaries.dto'
 import { GetSupersSummaries } from '@presentation/supers-summaries/dto/GetSupersSummaries.dto'
@@ -33,7 +32,6 @@ export class SupersSummariesController {
   }
 
   @Get('/count')
-  @CacheTTL(12 * 3600 * 1000)
   async getSupersSummariesCount(@Query() dto: GetSupersSummaries) {
     return await this.supersSummariesScenario.countSupersSummaries({
       where: {
