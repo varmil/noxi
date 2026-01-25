@@ -42,6 +42,12 @@ const nextConfig: NextConfig = {
         destination: '/:locale/ranking/:dimension/live/:group/thisYear',
         permanent: true
       },
+      // 2025/01/25: Redirect last1Year to thisYear for live ranking
+      {
+        source: '/:locale/ranking/:dimension/live/:group/last1Year',
+        destination: '/:locale/ranking/:dimension/live/:group/thisYear',
+        permanent: true
+      },
       // 2025/06/12: Modify period 'all' to 'wholePeriod'
       {
         source: '/:locale/ranking/:dimension/live/:group/all',
