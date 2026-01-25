@@ -15,7 +15,6 @@ import {
 } from 'features/stream-ranking/types/stream-ranking.type'
 import createGetStreamsParams from 'features/stream-ranking/utils/createGetStreamsParams'
 import createGetSupersBundlesParams from 'features/stream-ranking/utils/createGetSupersBundlesParams'
-import { CACHE_10M } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { StreamRankingPeriod } from 'types/period'
 import {
@@ -262,8 +261,7 @@ async function fetchRankingData({
   const streams = (
     await getStreams({
       videoIds: bundles.map(bundle => bundle.videoId),
-      limit: bundles.length,
-      revalidate: CACHE_10M
+      limit: bundles.length
     })
   ).sort((a, b) => {
     const aIndex = bundles.findIndex(bundle => bundle.videoId === a.videoId)
@@ -292,7 +290,7 @@ function createCountParams({
   let result: Parameters<typeof getStreamsCount>[0] = {}
 
   if (period === 'realtime') {
-    result = { ...result, status: 'live', revalidate: 600 }
+    result = { ...result, status: 'live' }
   } else if (isSnapshotPeriod(period)) {
     const { start, end } = getSnapshotDateRange(period)
     result = {

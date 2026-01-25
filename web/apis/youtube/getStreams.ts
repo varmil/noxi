@@ -3,7 +3,7 @@ import {
   responseListSchema
 } from 'apis/youtube/schema/streamSchema'
 
-import { CACHE_1D, CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_10M, CACHE_1D, CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { roundDateTo10Minutes, roundDateToHour } from 'utils/date'
 
@@ -31,8 +31,6 @@ type Params = {
   }[]
   limit?: number
   offset?: number
-  /** cache */
-  revalidate?: number
 }
 
 const createSearchParams = ({
@@ -96,7 +94,6 @@ const createSearchParams = ({
 }
 
 export async function getStreams({
-  revalidate,
   scheduledBefore,
   scheduledAfter,
   endedBefore,
@@ -111,9 +108,11 @@ export async function getStreams({
     endedBefore: roundDateTo10Minutes(endedBefore),
     endedAfter: roundDateTo10Minutes(endedAfter)
   })
+  // ended は変更されにくいため長めにキャッシュ
+  const revalidate = params.status === 'ended' ? CACHE_1D : CACHE_10M
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    { next: { revalidate: revalidate ?? CACHE_1H } }
+    { next: { revalidate } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -136,11 +135,9 @@ type CountParams = Pick<
   | 'endedAfter'
   | 'peakConcurrentViewers'
   | 'avgConcurrentViewers'
-  | 'revalidate'
 >
 
 export async function getStreamsCount({
-  revalidate,
   title,
   status,
   videoIds,
@@ -172,7 +169,7 @@ export async function getStreamsCount({
   })
   const res = await fetchAPI(
     `/api/youtube/streams/count?${searchParams.toString()}`,
-    { next: { revalidate: revalidate ?? CACHE_1D } }
+    { next: { revalidate: CACHE_1H } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

@@ -9,7 +9,6 @@ import StreamGallery from 'features/group/stream/components/gallery/StreamGaller
 import StreamGalleryFooter from 'features/group/stream/components/gallery/StreamGalleryFooter'
 import StreamGalleryHeader from 'features/group/stream/components/gallery/StreamGalleryHeader'
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
-import { CACHE_1H } from 'lib/fetchAPI'
 
 type Props = StreamGallerySearchParams & {
   compact?: boolean
@@ -32,8 +31,7 @@ export default async function EndedStreamGallery({
       channelId,
       orderBy: [{ field: 'actualEndTime', order: 'desc' }],
       limit: StreamGalleryPagination.getLimit(compact),
-      offset: StreamGalleryPagination.getOffset(page),
-      revalidate: CACHE_1H
+      offset: StreamGalleryPagination.getOffset(page)
     }),
     getTranslations('Features.group.ended'),
     group

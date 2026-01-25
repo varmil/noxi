@@ -6,7 +6,7 @@ import dayjs from 'lib/dayjs'
  */
 function roundISOString(
   isoString: string,
-  unit: 'hour' | 'day'
+  unit: 'hour' | 'day' | 'week'
 ): string {
   return dayjs(isoString).startOf(unit).toISOString()
 }
@@ -66,4 +66,22 @@ export function roundDateToDay(
 ): Date | null | undefined {
   if (date === null || date === undefined) return date
   return new Date(roundISOString(date.toISOString(), 'day'))
+}
+
+/**
+ * 日付を週単位に丸める（キャッシュヒット率向上のため）
+ */
+export function roundDateToWeek(date: undefined): undefined
+export function roundDateToWeek(date: null): null
+export function roundDateToWeek(date: Date): Date
+export function roundDateToWeek(date: Date | undefined): Date | undefined
+export function roundDateToWeek(date: Date | null): Date | null
+export function roundDateToWeek(
+  date: Date | null | undefined
+): Date | null | undefined
+export function roundDateToWeek(
+  date: Date | null | undefined
+): Date | null | undefined {
+  if (date === null || date === undefined) return date
+  return new Date(roundISOString(date.toISOString(), 'week'))
 }

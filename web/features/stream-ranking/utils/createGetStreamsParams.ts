@@ -18,7 +18,7 @@ export default function createGetStreamsParams({
   let result = {}
 
   if (period === 'realtime') {
-    result = { ...result, status: 'live', revalidate: 600 }
+    result = { ...result, status: 'live' }
   } else if (isSnapshotPeriod(period)) {
     // 週間/月間スナップショット期間の場合
     const { start, end } = getSnapshotDateRange(period)

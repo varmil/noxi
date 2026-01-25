@@ -1,10 +1,6 @@
 import 'server-only'
 import { getStreams } from 'apis/youtube/getStreams'
 import { StreamsSchema } from 'apis/youtube/schema/streamSchema'
-import { CACHE_1D } from 'lib/fetchAPI'
-
-/** 終了したStreamなので強気にキャッシュする */
-const ENDED_CACHE_TTL = CACHE_1D
 
 export const getRelatedVideos = async (args: {
   type: 'live' | 'ended'
@@ -25,8 +21,7 @@ export const getRelatedVideos = async (args: {
       status: 'ended',
       channelId,
       orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-      limit: 15,
-      revalidate: ENDED_CACHE_TTL
+      limit: 15
     })
   }
 
