@@ -5,7 +5,7 @@ import {
 
 import { CACHE_1D, CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
-import { roundDateTo10Minutes, roundDateToHour } from 'utils/date'
+import { roundDateToDay, roundDateToHour } from 'utils/date'
 
 type Params = {
   videoIds?: string[]
@@ -78,11 +78,11 @@ export async function getSupersBundles({
   createdAtLTE,
   ...params
 }: Params): Promise<SupersBundlesSchema> {
-  // 日付パラメータを10分単位に丸めてキャッシュヒット率を向上
+  // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
   const searchParams = createSearchParams({
     ...params,
-    createdAtGTE: roundDateTo10Minutes(createdAtGTE),
-    createdAtLTE: roundDateTo10Minutes(createdAtLTE)
+    createdAtGTE: roundDateToHour(createdAtGTE),
+    createdAtLTE: roundDateToHour(createdAtLTE)
   })
   const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`, {
     next: { revalidate: CACHE_1H }
@@ -118,7 +118,7 @@ export async function getSupersBundlesCount({
   createdAtGTE,
   createdAtLTE
 }: CountParams): Promise<number> {
-  // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
+  // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
   // limit, offset, orderBy は Count に不要なので明示的に除外
   const searchParams = createSearchParams({
     videoIds,
@@ -128,8 +128,8 @@ export async function getSupersBundlesCount({
     gender,
     actualEndTimeGTE,
     actualEndTimeLTE,
-    createdAtGTE: roundDateToHour(createdAtGTE),
-    createdAtLTE: roundDateToHour(createdAtLTE)
+    createdAtGTE: roundDateToDay(createdAtGTE),
+    createdAtLTE: roundDateToDay(createdAtLTE)
   })
   const res = await fetchAPI(
     `/api/supers-bundles/count?${searchParams.toString()}`,
