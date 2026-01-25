@@ -79,7 +79,7 @@ export class SupersBundlesController {
   }
 
   @Get(':id/rank')
-  @CacheTTL(7 * 24 * 3600 * 1000)
+  @CacheTTL(24 * 3600 * 1000)
   async getSupersBundleRank(
     @Param('id') id: string,
     @Query() dto: GetSupersBundleRank

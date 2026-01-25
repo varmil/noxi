@@ -7,7 +7,7 @@ import {
   responseListSchema
 } from 'apis/youtube/schema/supersSummarySchema'
 
-import { CACHE_12H, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { Period } from 'types/period'
 
@@ -70,8 +70,8 @@ export async function getSupersSummaries(
   const cacheOption = params.orderBy?.some(
     orderBy => orderBy.field === 'last24Hours'
   )
-    ? { next: { revalidate: CACHE_12H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
-    : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
+    ? { next: { revalidate: CACHE_1H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
+    : { next: { revalidate: CACHE_1D, tags: [SUPERS_SUMMARIES] } }
 
   const res = await fetchAPI(
     `/api/supers-summaries?${searchParams.toString()}`,
@@ -112,8 +112,8 @@ export async function getSupersSummariesCount({
     orderBy
   })
   const cacheOption = orderBy?.some(o => o.field === 'last24Hours')
-    ? { next: { revalidate: CACHE_12H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
-    : { next: { revalidate: CACHE_1W, tags: [SUPERS_SUMMARIES] } }
+    ? { next: { revalidate: CACHE_1H, tags: [SUPERS_SUMMARIES_HALF_HOURLY] } }
+    : { next: { revalidate: CACHE_1D, tags: [SUPERS_SUMMARIES] } }
 
   const res = await fetchAPI(
     `/api/supers-summaries/count?${searchParams.toString()}`,

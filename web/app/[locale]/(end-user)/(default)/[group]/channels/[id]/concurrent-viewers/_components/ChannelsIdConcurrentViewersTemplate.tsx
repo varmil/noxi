@@ -19,7 +19,6 @@ export async function ChannelsIdConcurrentViewersTemplate({
           page={page}
           className="z-10"
         />
-        {/* <StreamTrendsTable channel={channel} /> */}
       </Section>
     </Sections>
   )

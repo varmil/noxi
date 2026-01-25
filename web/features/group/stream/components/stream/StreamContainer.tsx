@@ -9,7 +9,11 @@ export const StreamContainer = ({
   children
 }: PropsWithChildren<{ videoId: string }>) => (
   <Card className="pt-0 pb-4 gap-0 cursor-pointer hover:bg-accent/50">
-    <Link className="contents" href={`/youtube/live/${videoId}`}>
+    <Link
+      className="contents"
+      href={`/youtube/live/${videoId}`}
+      prefetch={false}
+    >
       {children}
     </Link>
   </Card>
