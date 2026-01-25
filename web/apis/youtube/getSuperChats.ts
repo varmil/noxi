@@ -3,7 +3,7 @@ import {
   SuperChatsSchema
 } from 'apis/youtube/schema/superChatSchema'
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
-import { roundDateToWeek } from 'utils/date'
+import { roundDateToDay } from 'utils/date'
 
 type Params = {
   videoId?: string
@@ -47,10 +47,10 @@ export async function getSuperChats({
   createdAfter,
   ...params
 }: Params): Promise<SuperChatsSchema> {
-  // 日付パラメータを週単位に丸めてキャッシュヒット率を向上
+  // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
   const searchParams = createSearchParams({
     ...params,
-    createdAfter: roundDateToWeek(createdAfter)
+    createdAfter: roundDateToDay(createdAfter)
   })
   const res = await fetchAPI(`/api/supers/chats?${searchParams.toString()}`, {
     next: { revalidate: CACHE_1D }
@@ -66,10 +66,10 @@ export async function getSuperChatsCount({
   createdAfter,
   ...params
 }: Omit<Params, 'limit' | 'offset' | 'orderBy'>): Promise<number> {
-  // 日付パラメータを週単位に丸めてキャッシュヒット率を向上
+  // 日付パラメータを日単位に丸めてキャッシュヒット率を向上
   const searchParams = createSearchParams({
     ...params,
-    createdAfter: roundDateToWeek(createdAfter)
+    createdAfter: roundDateToDay(createdAfter)
   })
   const res = await fetchAPI(
     `/api/supers/chats/count?${searchParams.toString()}`,
