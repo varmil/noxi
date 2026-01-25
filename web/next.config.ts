@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // iOS レガシーアイコン → 標準アイコンへリダイレクト
+      {
+        source: '/apple-touch-icon-precomposed.png',
+        destination: '/apple-touch-icon.png',
+        permanent: true
+      },
       // 2025/01/22: Modify period 'wholePeriod' to 'thisYear' for live ranking
       {
         source: '/:locale/ranking/:dimension/live/:group/wholePeriod',
