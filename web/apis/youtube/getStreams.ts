@@ -31,8 +31,6 @@ type Params = {
   }[]
   limit?: number
   offset?: number
-  /** cache */
-  revalidate?: number
 }
 
 const createSearchParams = ({
@@ -96,7 +94,6 @@ const createSearchParams = ({
 }
 
 export async function getStreams({
-  revalidate,
   scheduledBefore,
   scheduledAfter,
   endedBefore,
@@ -113,7 +110,7 @@ export async function getStreams({
   })
   const res = await fetchAPI(
     `/api/youtube/streams?${searchParams.toString()}`,
-    { next: { revalidate: revalidate ?? CACHE_10M } }
+    { next: { revalidate: CACHE_10M } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -136,11 +133,9 @@ type CountParams = Pick<
   | 'endedAfter'
   | 'peakConcurrentViewers'
   | 'avgConcurrentViewers'
-  | 'revalidate'
 >
 
 export async function getStreamsCount({
-  revalidate,
   title,
   status,
   videoIds,
@@ -172,7 +167,7 @@ export async function getStreamsCount({
   })
   const res = await fetchAPI(
     `/api/youtube/streams/count?${searchParams.toString()}`,
-    { next: { revalidate: revalidate ?? CACHE_1H } }
+    { next: { revalidate: CACHE_1H } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

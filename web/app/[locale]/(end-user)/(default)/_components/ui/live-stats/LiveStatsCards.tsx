@@ -4,7 +4,6 @@ import { getFormatter, getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getSupersBundles } from 'apis/supers/getSupersBundles'
 import { getStreams } from 'apis/youtube/getStreams'
-import { CACHE_10M } from 'lib/fetchAPI'
 import { Link } from 'lib/navigation'
 import { convertMicrosToAmount } from 'utils/amount'
 import { LiveStatsCardsSkeleton } from './LiveStatsCardsSkeleton'
@@ -26,8 +25,7 @@ async function LiveStatsCardsContent() {
   const [streams, supersBundles] = await Promise.all([
     getStreams({
       status: 'live',
-      peakConcurrentViewers: { gte: 1 },
-      revalidate: CACHE_10M
+      peakConcurrentViewers: { gte: 1 }
     }),
     getSupersBundles({
       actualEndTimeGTE: null
