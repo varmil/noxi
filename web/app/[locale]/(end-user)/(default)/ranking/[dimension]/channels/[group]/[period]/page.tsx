@@ -83,17 +83,27 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         ]
       }
     }),
-    /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる */
+    /** 2025/05/01：period, gender, pageは区別しないcanonicalにしてみる（last24Hoursは独立） */
     alternates: getAlternates({
-      pathname: `/ranking/${dimension}/channels/${groupId}/${dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'}`,
+      pathname: `/ranking/${dimension}/channels/${groupId}/${getCanonicalPeriod(dimension, period)}`,
       locale
     })
   }
 }
 
-/** dimension ごとの canonical period を取得 */
-function getCanonicalPeriod(dimension: ChannelsRankingDimension): string {
-  return dimension === 'subscriber' ? 'wholePeriod' : 'last30Days'
+/** dimension と period から canonical period を取得 */
+function getCanonicalPeriod(
+  dimension: ChannelsRankingDimension,
+  period: ChannelsRankingPeriod
+): string {
+  if (dimension === 'subscriber') {
+    return 'wholePeriod'
+  }
+  // super-chat の場合: last24Hours は独立した canonical
+  if (period === 'last24Hours') {
+    return 'last24Hours'
+  }
+  return 'last30Days'
 }
 
 /** dimension の表示名を取得 */
@@ -129,7 +139,7 @@ export default async function RankingChannelsPage(props: Props) {
     localeTyped
   )
 
-  const canonicalPeriod = getCanonicalPeriod(dimension)
+  const canonicalPeriod = getCanonicalPeriod(dimension, period)
 
   // super-chat dimension の場合、ハブページ情報を構築
   let hubPage: { name: string; href: string } | undefined
