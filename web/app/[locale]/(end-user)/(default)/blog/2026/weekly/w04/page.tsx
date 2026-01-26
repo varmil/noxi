@@ -25,6 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title,
     description,
     openGraph: {
+      siteName: 'VCharts',
       title,
       description,
       type: 'article',
