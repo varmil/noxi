@@ -142,7 +142,7 @@ export default async function WeeklySuperchatRankingW04(props: Props) {
         {/* フッター */}
         <footer className="pt-8 border-t space-y-4">
           <p className="text-sm text-muted-foreground">
-            ※金額はスーパーチャットおよびスーパーステッカーの合計です。
+            金額はスーパーチャットおよびスーパーステッカーの合計で待機所の金額は含まれません。
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
