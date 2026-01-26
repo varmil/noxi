@@ -31,9 +31,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     errorContext: 'live ranking page (metadata)'
   })
 
-  // canonical period: concurrent-viewer は realtime、super-chat は last30Days
-  const canonicalPeriod =
-    dimension === 'concurrent-viewer' ? 'realtime' : 'last30Days'
+  // canonical period を取得
+  const canonicalPeriod = getCanonicalPeriod(dimension, period)
 
   return {
     ...(await generateTitleAndDescription({
@@ -53,9 +52,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   }
 }
 
-/** dimension ごとの canonical period を取得 */
-function getCanonicalPeriod(dimension: StreamRankingDimension): string {
-  return dimension === 'concurrent-viewer' ? 'realtime' : 'last30Days'
+/** dimension と period から canonical period を取得 */
+function getCanonicalPeriod(
+  dimension: StreamRankingDimension,
+  period: StreamRankingPeriod
+): string {
+  if (dimension === 'concurrent-viewer') {
+    return 'realtime'
+  }
+  // super-chat の場合: realtime, last24Hours は独立した canonical
+  if (period === 'realtime' || period === 'last24Hours') {
+    return period
+  }
+  return 'last30Days'
 }
 
 /** dimension の表示名を取得 */
@@ -91,7 +100,7 @@ export default async function RankingLivePage(props: Props) {
     localeTyped
   )
 
-  const canonicalPeriod = getCanonicalPeriod(dimension)
+  const canonicalPeriod = getCanonicalPeriod(dimension, period)
 
   // ハブページ情報を構築
   let hubPage: { name: string; href: string } | undefined
