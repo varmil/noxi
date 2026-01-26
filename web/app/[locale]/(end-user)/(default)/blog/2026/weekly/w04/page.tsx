@@ -10,8 +10,8 @@ const WEEK = '2026-W04'
 const WEEK_DISPLAY = '第4週'
 const DATE_RANGE = '1/19〜1/25'
 const YEAR = 2026
-const PUBLISHED_AT = '2026-01-26T09:00:00+09:00'
-const PUBLISHED_DATE_DISPLAY = '2026年1月26日'
+const PUBLISHED_AT = '2026-01-26T20:01:00+09:00'
+const PUBLISHED_DATE_DISPLAY = '2026年1月26日 20:01'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -75,12 +75,9 @@ export default async function WeeklySuperchatRankingW04(props: Props) {
         {/* ヘッダー */}
         <header className="space-y-4">
           <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
-            【週間】VTuberスパチャランキング TOP10
+            VTuberスパチャランキング 週間TOP10【{YEAR}年 {WEEK_DISPLAY}】
           </h1>
-          <time
-            dateTime={PUBLISHED_AT}
-            className="block text-sm text-muted-foreground"
-          >
+          <time dateTime={PUBLISHED_AT} className="block text-sm">
             {PUBLISHED_DATE_DISPLAY}
           </time>
           <p className="text-muted-foreground">
