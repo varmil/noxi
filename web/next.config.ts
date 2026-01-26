@@ -14,6 +14,17 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [
+      // グループロゴ画像の長期キャッシュ（1年間）
+      // ロゴはほとんど変わらないので、ブラウザキャッシュで完結させる
+      {
+        source: '/group/:groupId/logo.:ext(png|webp)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ]
+      },
       // workaround: browser --> PWA google auth causes error
       // https://intercom.help/progressier/en/articles/9519381-google-oauth2-is-not-working-in-my-pwa-on-ios-why
       // https://stackoverflow.com/questions/62127764/google-oauth2-invalid-token-format-error-on-redirecting-to-pwa
