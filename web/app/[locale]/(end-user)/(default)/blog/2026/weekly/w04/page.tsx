@@ -77,8 +77,8 @@ export default async function WeeklySuperchatRankingW04(props: Props) {
           <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
             VTuberスパチャランキング 週間TOP10【{YEAR}年 {WEEK_DISPLAY}】
           </h1>
-          <time dateTime={PUBLISHED_AT} className="block text-sm">
-            {PUBLISHED_DATE_DISPLAY}
+          <time dateTime={PUBLISHED_AT} className="block">
+            公開日時：{PUBLISHED_DATE_DISPLAY} (日本時間)
           </time>
           <p className="text-muted-foreground">
             {YEAR}年{WEEK_DISPLAY}（{DATE_RANGE}）
