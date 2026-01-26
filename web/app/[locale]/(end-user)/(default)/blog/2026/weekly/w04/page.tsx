@@ -16,7 +16,7 @@ type Props = {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = `VTuberスパチャ週間ランキング TOP10【${YEAR}年 ${WEEK_DISPLAY}】`
+  const title = `VTuberスパチャランキング 週間TOP10【${YEAR}年 ${WEEK_DISPLAY}】`
   const description = `${YEAR}年${WEEK_DISPLAY}（${DATE_RANGE}）のVTuberスーパーチャットランキングTOP10を発表。今週最もスパチャを集めたVTuberは誰？`
 
   const ogImageUrl = `${getWebUrl()}/api/og/weekly-ranking?week=${WEEK}&group=all`
