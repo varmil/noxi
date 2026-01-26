@@ -15,7 +15,7 @@ import { SidebarProvider } from 'components/sidebar/SidebarContext'
 import { ThemeProvider } from 'components/styles/ThemeProvider'
 import { routing } from 'config/i18n/routing'
 import { auth } from 'lib/auth'
-import type { Metadata, Viewport } from 'next'
+import type { Viewport } from 'next'
 
 type Props = {
   children: ReactNode
@@ -29,12 +29,6 @@ const notoSansJP = Noto_Sans_JP({
 
 export function generateStaticParams() {
   return routing.locales.map(locale => ({ locale }))
-}
-
-export const metadata: Metadata = {
-  openGraph: {
-    siteName: 'VCharts'
-  }
 }
 
 export const viewport: Viewport = {
