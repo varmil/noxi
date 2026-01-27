@@ -256,16 +256,6 @@
             "card": { "title": "Live Frequency/Duration - Last 30 Days" },
             "chart": { "title": "Live streaming time slot" }
           }
-        },
-        "faq": {
-          "metadata": {
-            "title": "{channel} FAQ",
-            "description": "The FAQ page for {channel}. Find answers to questions about the person behind the channel, their content and activities. Explore more on VCharts."
-          },
-          "section": {
-            "title": "FAQ - Frequently Asked Questions",
-            "noData": "No Data"
-          }
         }
       },
       "live": {
@@ -658,9 +648,6 @@
             "title": "Viewers By Day of the Week"
           }
         }
-      },
-      "faq": {
-        "nav": "FAQ"
       }
     },
 
