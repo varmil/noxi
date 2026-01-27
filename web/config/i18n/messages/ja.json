@@ -261,16 +261,6 @@
               "title": "配信時間帯・曜日"
             }
           }
-        },
-        "faq": {
-          "metadata": {
-            "title": "{channel} FAQ - よくある質問と回答",
-            "description": "{channel}のよくある質問ページです。中の人、前世、経歴など活動内容に関する疑問にお答えします。詳細はVChartsでご確認ください。"
-          },
-          "section": {
-            "title": "FAQ - よくある質問と回答",
-            "noData": "FAQはありません"
-          }
         }
       },
       "live": {
@@ -676,9 +666,6 @@
             "title": "曜日別同接数"
           }
         }
-      },
-      "faq": {
-        "nav": "FAQ"
       }
     },
     "cheerChannel": {

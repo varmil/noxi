@@ -40,21 +40,10 @@ export default function LocalNavigationForChannelsIdPages({
         {
           name: t('streamTimes.nav'),
           href: `${basePath}/stream-times`
-        },
-        hasFAQ(channelId)
-          ? {
-              name: t('faq.nav'),
-              href: `${basePath}/faq`
-            }
-          : null
-      ].filter(e => !!e)}
+        }
+      ]}
       className="border-b mb-8"
       linkClassName="min-w-20"
     />
   )
 }
-
-const hasFAQ = (channelId: string) =>
-  [
-    'UCrV1Hf5r8P148idjoSfrGEQ' // 結城さくな
-  ].includes(channelId)
