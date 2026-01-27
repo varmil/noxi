@@ -47,75 +47,144 @@ export async function GET(request: Request) {
         display: 'flex',
         width: '100%',
         height: '100%',
-        padding: '24px 24px',
         textAlign: 'center',
         justifyContent: 'center',
-        alignItems: 'center',
-        gap: 44
+        alignItems: 'center'
       }}
     >
-      <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
-        <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
-          <div style={{ display: 'flex', fontSize: 30 }} tw="text-neutral-500">
-            {`${year}年 ${monthNum}月`}
-          </div>
-          <div tw="flex items-end">
-            <span tw="font-bold mr-4" style={{ fontSize: 70, lineHeight: 1 }}>
-              月間
-            </span>
-            <span tw="text-neutral-500" style={{ fontSize: 36 }}>
-              ランキング
-            </span>
-          </div>
-        </div>
+      {/* 上のアクセントバー */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          height: 12,
+          background:
+            'linear-gradient(90deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%)'
+        }}
+      />
+      {/* 下のアクセントバー */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          height: 12,
+          background:
+            'linear-gradient(90deg, #B8860B 0%, #D4AF37 50%, #FFD700 100%)'
+        }}
+      />
+      {/* 左のアクセントバー */}
+      <div
+        style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 12,
+          background:
+            'linear-gradient(180deg, #FFD700 0%, #D4AF37 50%, #B8860B 100%)'
+        }}
+      />
+      {/* 右のアクセントバー */}
+      <div
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: 0,
+          bottom: 0,
+          width: 12,
+          background:
+            'linear-gradient(180deg, #B8860B 0%, #D4AF37 50%, #FFD700 100%)'
+        }}
+      />
 
-        <div tw="flex flex-col -top-12" style={{ fontSize: 80 }}>
-          <div tw="flex">{groupName}</div>
-          <div tw="flex">{gender ? ja.Global.gender[gender] : ``}</div>
-        </div>
-
-        <div style={{ fontSize: 12 }} tw="text-neutral-500">
-          ※スーパーステッカーを含む
-        </div>
-      </section>
-
-      <section style={{ gap: 16 }} tw="flex-1 flex flex-col">
-        {ranking.map((e, i) => (
-          <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
-            <div tw="flex items-baseline">
-              <span tw="font-bold" style={{ fontSize: 55, lineHeight: 1 }}>
-                {e.rank}
-              </span>
-              <span tw="text-2xl text-neutral-500">位</span>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          padding: '32px 32px 32px 32px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 44
+        }}
+      >
+        <section tw="flex flex-col items-start justify-between w-[530px] h-full text-4xl font-bold">
+          <div tw="flex flex-col items-start mt-4" style={{ gap: 10 }}>
+            <div
+              style={{ display: 'flex', fontSize: 30 }}
+              tw="text-neutral-500"
+            >
+              {`${year}年 ${monthNum}月`}
             </div>
-
-            <div tw="flex w-[104px] h-[104px] justify-center items-center rounded-full overflow-hidden">
-              <img
-                src={e.channelThumbnails}
-                alt={e.channelTitle}
+            <div tw="flex items-end">
+              <span
+                tw="font-bold mr-4"
                 style={{
-                  width: 104,
-                  height: 104,
-                  objectFit: 'cover'
+                  fontSize: 70,
+                  lineHeight: 1
                 }}
-              />
-            </div>
-            <div tw="flex flex-1 flex-col">
-              <div
-                tw="text-left text-3xl text-neutral-600 overflow-hidden"
-                style={{ height: '1.3em' }}
               >
-                {e.channelTitle.length > 28
-                  ? `${e.channelTitle.slice(0, 28)}...`
-                  : e.channelTitle}
-              </div>
-              <div tw="flex text-xl text-neutral-500 ">
-                {`${e.amount} 円 / 月`}
-              </div>
+                月間
+              </span>
+              <span tw="text-neutral-500" style={{ fontSize: 36 }}>
+                ランキング
+              </span>
             </div>
           </div>
-        ))}
-      </section>
+
+          <div tw="flex flex-col -top-12" style={{ fontSize: 80 }}>
+            <div tw="flex">{groupName}</div>
+            <div tw="flex">{gender ? ja.Global.gender[gender] : ``}</div>
+          </div>
+
+          <div style={{ fontSize: 12 }} tw="text-neutral-500">
+            ※スーパーステッカーを含む
+          </div>
+        </section>
+
+        <section style={{ gap: 16 }} tw="flex-1 flex flex-col">
+          {ranking.map((e, i) => (
+            <div key={i} style={{ gap: 20 }} tw="flex flex-row items-center">
+              <div tw="flex items-baseline">
+                <span tw="font-bold" style={{ fontSize: 55, lineHeight: 1 }}>
+                  {e.rank}
+                </span>
+                <span tw="text-2xl text-neutral-500">位</span>
+              </div>
+
+              <div tw="flex w-[104px] h-[104px] justify-center items-center rounded-full overflow-hidden">
+                <img
+                  src={e.channelThumbnails}
+                  alt={e.channelTitle}
+                  style={{
+                    width: 104,
+                    height: 104,
+                    objectFit: 'cover',
+                    borderRadius: '50%'
+                  }}
+                />
+              </div>
+              <div tw="flex flex-1 flex-col">
+                <div
+                  tw="text-left text-3xl text-neutral-600 overflow-hidden"
+                  style={{ height: '1.3em' }}
+                >
+                  {e.channelTitle.length > 28
+                    ? `${e.channelTitle.slice(0, 28)}...`
+                    : e.channelTitle}
+                </div>
+                <div tw="flex text-xl text-neutral-500">
+                  {`${e.amount} 円 / 月`}
+                </div>
+              </div>
+            </div>
+          ))}
+        </section>
+      </div>
     </div>,
     {
       width: 1200,
