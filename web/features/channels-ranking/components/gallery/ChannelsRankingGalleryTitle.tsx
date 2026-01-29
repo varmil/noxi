@@ -56,9 +56,12 @@ export default function ChannelsRankingGalleryTitle({
     (key: string) => global(key as never),
     locale
   )
+  // super-chat && group === 'all' の場合、タイトル用の groupName は空文字にする
+  const displayGroupName =
+    dimension === 'super-chat' && group === 'all' ? '' : groupName
   const title = feat(`ranking.ui.${dimension}`, {
     period: periodName,
-    group: groupName,
+    group: displayGroupName,
     gender: gender ? global(`gender.${gender}`) : ''
   })
     .replace(/\s+/g, ' ')
@@ -76,11 +79,19 @@ export default function ChannelsRankingGalleryTitle({
       <section className="space-y-2">
         <RankingTableTitleH1 title={title} />
         <RankingTableTitleDescription>
-          {page(`metadata.description.dimension.${dimension}`, {
-            period: periodName,
-            group: groupName,
-            gender: gender ? global(`gender.${gender}`) : ''
-          })}
+          {dimension === 'super-chat' && group === 'all'
+            ? (page as unknown as (key: string, values: object) => string)(
+                'metadata.description.dimension.super-chat-all',
+                {
+                  period: periodName,
+                  gender: gender ? global(`gender.${gender}`) : ''
+                }
+              )
+            : page(`metadata.description.dimension.${dimension}`, {
+                period: periodName,
+                group: groupName,
+                gender: gender ? global(`gender.${gender}`) : ''
+              })}
         </RankingTableTitleDescription>
       </section>
 

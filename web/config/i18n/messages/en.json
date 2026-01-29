@@ -41,18 +41,6 @@
       "wholePeriod": "All-time"
     },
 
-    "periodKeyword": {
-      "realtime": "Realtime",
-      "last24Hours": "Daily",
-      "last7Days": "Weekly",
-      "last30Days": "Monthly",
-      "last90Days": "Monthly",
-      "last1Year": "Yearly",
-      "thisWeek": "Weekly",
-      "thisMonth": "Monthly",
-      "thisYear": "Yearly",
-      "wholePeriod": "All-time"
-    },
 
     "ranking": {
       "filter": {
@@ -341,6 +329,7 @@
           "description": {
             "dimension": {
               "super-chat": "Super Chat earnings ranking for {period}. Covers {group}{gender}.",
+              "super-chat-all": "Super Chat earnings ranking for {period}. Covers popular YouTube streamers{gender}.",
               "subscriber": "A popularity ranking based on subscriber counts for {group}."
             }
           }
@@ -360,7 +349,8 @@
                 "weekly": "Concurrent viewer ranking for {period}. See the most talked-about streams and streamers in {group} during that week.",
                 "monthly": "Concurrent viewer ranking for {period}. See the most talked-about streams and streamers in {group} during that month."
               },
-              "super-chat": "Live stream Super Chat ranking for {period}. Covers {group}{gender}."
+              "super-chat": "Live stream Super Chat ranking for {period}. Covers {group}{gender}.",
+              "super-chat-all": "Live stream Super Chat ranking for {period}. Covers popular YouTube streamers{gender}."
             }
           }
         }

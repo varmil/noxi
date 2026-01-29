@@ -42,6 +42,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       period,
       dimension,
       groupName,
+      groupId,
       gender,
       page
     })),

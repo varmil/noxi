@@ -35,18 +35,6 @@
       "thisYear": "今年",
       "wholePeriod": "全期間"
     },
-    "periodKeyword": {
-      "realtime": "リアルタイム",
-      "last24Hours": "デイリー",
-      "last7Days": "週間",
-      "last30Days": "月間",
-      "last90Days": "月間",
-      "last1Year": "年間",
-      "thisWeek": "週間",
-      "thisMonth": "月間",
-      "thisYear": "年間",
-      "wholePeriod": "歴代"
-    },
     "ranking": {
       "filter": {
         "period": "集計期間",
@@ -345,6 +333,7 @@
           "description": {
             "dimension": {
               "super-chat": "{period}のスーパーチャット累計金額ランキングです。{group}{gender}が対象。",
+              "super-chat-all": "{period}のスーパーチャット累計金額ランキングです。YouTube有名配信者{gender}が対象。",
               "subscriber": "{group}の登録者数を集計した人気順リストです。"
             }
           }
@@ -364,7 +353,8 @@
                 "weekly": "{period}の同接数ランキングです。{group}で該当週に話題になった配信や配信者を確認できます。",
                 "monthly": "{period}の同接数ランキングです。{group}で該当月に話題になった配信や配信者を確認できます。"
               },
-              "super-chat": "{period}のライブ配信スーパーチャットランキングです。{group}{gender}が対象。"
+              "super-chat": "{period}のライブ配信スーパーチャットランキングです。{group}{gender}が対象。",
+              "super-chat-all": "{period}のライブ配信スーパーチャットランキングです。YouTube有名配信者{gender}が対象。"
             }
           }
         }
