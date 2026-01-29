@@ -34,6 +34,8 @@ type Args = {
     | StreamRankingPeriod
   /** It means `group.name` from database */
   groupName: string
+  /** groupId（all の場合にタイトル・description の特別処理に使用） */
+  groupId?: string
   gender?: Gender
   page?: string
 }
@@ -44,6 +46,7 @@ type GetDescriptionArgs = {
   period: Args['period']
   periodDisplayName: string
   group: string
+  groupId?: string
   gender: string
 }
 
@@ -53,6 +56,7 @@ const getDescription = ({
   period,
   periodDisplayName,
   group,
+  groupId,
   gender
 }: GetDescriptionArgs): string => {
   // concurrent-viewer は期間別ディスクリプションを使用
@@ -67,6 +71,16 @@ const getDescription = ({
       `metadata.description.dimension.concurrent-viewer.${descriptionKey}`,
       { period: periodDisplayName, group, gender }
     )
+      .replace(/\s+/g, ' ')
+      .trim()
+  }
+
+  // super-chat && groupId === 'all' の場合は専用キーを使用
+  if (dimension === 'super-chat' && groupId === 'all') {
+    return (pageT as any)(`metadata.description.dimension.super-chat-all`, {
+      period: periodDisplayName,
+      gender
+    })
       .replace(/\s+/g, ' ')
       .trim()
   }
@@ -87,10 +101,14 @@ export const generateTitleAndDescription = async ({
   featNamespace,
   dimension,
   period,
-  groupName: group,
+  groupName,
+  groupId,
   gender,
   page
 }: Args): Promise<Pick<Metadata, 'title' | 'description'>> => {
+  // super-chat && groupId === 'all' の場合、タイトル用の group は空文字にする
+  const group =
+    dimension === 'super-chat' && groupId === 'all' ? '' : groupName
   const global = await getTranslations({ locale, namespace: 'Global' })
   const pageT = await getTranslations({ locale, namespace: pageNamespace })
   const feat = await getTranslations({ locale, namespace: featNamespace })
@@ -108,26 +126,9 @@ export const generateTitleAndDescription = async ({
       `period.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
     )
 
-  // 同接数ランキング用のSEOタイトル対応
-  // スナップショット期間（weekly-xxx, monthly-xxx）の場合は適切なキーワードを使用
-  const periodKeyword = (() => {
-    if (isSnapshotPeriod(period as ChannelsRankingPeriod)) {
-      return period.startsWith('weekly-')
-        ? global('periodKeyword.last7Days') // 週間
-        : global('periodKeyword.last30Days') // 月間
-    }
-    return global(
-      `periodKeyword.${period as Exclude<typeof period, `weekly-${string}` | `monthly-${string}`>}`
-    )
-  })()
-  // リアルタイムの場合は括弧内の期間を省略
-  const periodInParens = period === 'realtime' ? '' : ` (${periodDisplayName})`
-
   return {
     title: `${feat(dimension, {
       period: periodDisplayName,
-      periodKeyword,
-      periodInParens,
       group,
       gender: gender ? global(`gender.${gender}`) : ''
     })
@@ -140,6 +141,7 @@ export const generateTitleAndDescription = async ({
       period,
       periodDisplayName,
       group,
+      groupId,
       gender: gender ? global(`gender.${gender}`) : ''
     })}${pageNumber}`
   }
