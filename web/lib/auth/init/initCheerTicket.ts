@@ -17,9 +17,9 @@ export async function initCheerTicket(pool: Pool, userId: string) {
     `
     SELECT ct."userId"
     FROM "CheerTicket" ct
-    INNER JOIN users u ON ct."userId" = u.id::text
-    INNER JOIN users current_user ON current_user.id::text = $1
-    WHERE u."normalizedEmail" = current_user."normalizedEmail"
+    INNER JOIN users u ON ct."userId" = u.id
+    INNER JOIN users target_user ON target_user.id = $1::integer
+    WHERE u."normalizedEmail" = target_user."normalizedEmail"
     LIMIT 1
     `,
     [userId]

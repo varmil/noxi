@@ -41,7 +41,7 @@ model User {
     id              Int       @id @default(autoincrement())
     name            String?
     email           String?
-    normalizedEmail String?   @unique
+    normalizedEmail String?
     emailVerified   DateTime? @map("emailVerified")
     image           String?
     createdAt       DateTime  @default(now()) @db.Timestamptz(3)
@@ -53,5 +53,6 @@ model User {
     cheerTicketUsage CheerTicketUsage[]
     userProfile      UserProfile?
 
+    @@index([normalizedEmail])
     @@map("users")
 }
