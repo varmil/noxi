@@ -80,7 +80,9 @@ export default async function EmailAliasPage(props: Props) {
             </section>
 
             <section>
-              <h3 className="font-semibold mb-2">{t('gmail.googlemailTitle')}</h3>
+              <h3 className="font-semibold mb-2">
+                {t('gmail.googlemailTitle')}
+              </h3>
               <p className="text-sm text-muted-foreground">
                 {t('gmail.googlemailDescription')}
               </p>
@@ -103,7 +105,9 @@ export default async function EmailAliasPage(props: Props) {
           <CardContent className="space-y-4">
             <p className="text-sm">{t('ourPolicy.content')}</p>
             <div className="bg-muted p-3 rounded-md text-sm">
-              <p className="font-semibold mb-2">{t('ourPolicy.exampleTitle')}</p>
+              <p className="font-semibold mb-2">
+                {t('ourPolicy.exampleTitle')}
+              </p>
               <ul className="list-disc list-inside space-y-1 text-muted-foreground">
                 <li>example+test@gmail.com → example@gmail.com</li>
                 <li>e.x.a.m.p.l.e@gmail.com → example@gmail.com</li>
@@ -130,7 +134,7 @@ export default async function EmailAliasPage(props: Props) {
             href="https://support.google.com/mail/community-guide/257098940"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-primary hover:underline"
+            className="text-blue-600 dark:text-blue-400 hover:underline"
           >
             {t('referenceLink')}
           </a>
