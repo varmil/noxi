@@ -45,7 +45,7 @@
     "@stripe/stripe-js": "^8.6.4",
     "@tailwindcss/container-queries": "^0.1.1",
     "@uploadthing/react": "^7.3.3",
-    "axios": "^1.13.3",
+    "axios": "^1.13.4",
     "bignumber.js": "^9.3.1",
     "browser-image-compression": "^2.0.2",
     "canvas-confetti": "^1.9.4",
