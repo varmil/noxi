@@ -42,7 +42,7 @@
     "@radix-ui/react-visually-hidden": "^1.2.4",
     "@react-email/components": "^1.0.6",
     "@stripe/react-stripe-js": "^5.6.0",
-    "@stripe/stripe-js": "^8.6.4",
+    "@stripe/stripe-js": "^8.7.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@uploadthing/react": "^7.3.3",
     "axios": "^1.13.4",
