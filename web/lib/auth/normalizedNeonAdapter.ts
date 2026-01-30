@@ -7,7 +7,7 @@ import { normalizeEmail } from './normalizeEmail'
  * NeonAdapter をラップして、メールアドレスの正規化を行う
  *
  * - createUser: normalizedEmail カラムに正規化したメールを保存
- * - getUserByEmail: normalizedEmail で検索
+ * - getUserByEmail: normalizedEmail で検索し、異なるエイリアスでサインインした場合は email を更新
  * - updateUser: normalizedEmail も一緒に更新
  */
 export function NormalizedNeonAdapter(pool: Pool): Adapter {
@@ -46,7 +46,20 @@ export function NormalizedNeonAdapter(pool: Pool): Adapter {
       const sql = `SELECT * FROM users WHERE "normalizedEmail" = $1`
       const result = await pool.query(sql, [normalizedEmailValue])
 
-      return result.rowCount !== 0 ? result.rows[0] : null
+      if (result.rowCount === 0) return null
+
+      const user = result.rows[0]
+
+      // サインインに使用されたメールアドレスが保存されているものと異なる場合、
+      // ユーザーの希望するフォーマットに更新する（normalizedEmail は同じなので一意性は保たれる）
+      // これにより Auth.js の Verification 比較エラーも解消される
+      if (user.email !== email) {
+        const updateSql = `UPDATE users SET email = $1 WHERE id = $2 RETURNING *`
+        const updateResult = await pool.query(updateSql, [email, user.id])
+        return updateResult.rows[0]
+      }
+
+      return user
     },
 
     async updateUser(
