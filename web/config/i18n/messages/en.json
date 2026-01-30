@@ -135,6 +135,41 @@
       }
     },
 
+    "help": {
+      "emailAlias": {
+        "metadata": {
+          "title": "How Email Addresses Work",
+          "description": "Learn about Gmail aliases and dot handling"
+        },
+        "title": "How Email Addresses Work",
+        "gmail": {
+          "title": "How Gmail Addresses Work",
+          "description": "Gmail treats periods (dots) and plus sign aliases as the same address",
+          "dotTitle": "Period (Dot) Handling",
+          "dotDescription": "Periods in the username part of a Gmail address are ignored. All of the following are delivered to the same mailbox.",
+          "dotExample": "All treated as the same address",
+          "plusTitle": "Plus Sign (+) Aliases",
+          "plusDescription": "You can add a plus sign and any string after your username. These all go to the original address.",
+          "plusExample": "All delivered to the same address",
+          "googlemailTitle": "gmail.com and googlemail.com",
+          "googlemailDescription": "gmail.com and googlemail.com are treated as the same domain.",
+          "googlemailExample": "Same address"
+        },
+        "ourPolicy": {
+          "title": "Our Policy",
+          "description": "We normalize email addresses to prevent multiple account registrations",
+          "content": "To prevent fraudulent multiple account registrations, we normalize (standardize) email addresses before checking for duplicates. This means you cannot create multiple accounts with the same email address.",
+          "exampleTitle": "Normalization examples (Gmail)"
+        },
+        "otherProviders": {
+          "title": "Other Email Providers",
+          "description": "Other email providers like Outlook and iCloud also treat plus sign (+) aliases as the same address. However, dot handling is specific to Gmail and does not apply to other providers."
+        },
+        "reference": "Reference:",
+        "referenceLink": "How Gmail Addresses Work - Google Support"
+      }
+    },
+
     "contact": {
       "title": "Contact",
       "description": "Contact us about feature requests, advertising inquiries, bug reports, or any questions regarding VCharts."
@@ -453,6 +488,7 @@
       "termsAndPrivacy": "Terms of Use and PP",
       "dataMethodology": "Data Methodology",
       "tokushoho": "Tokushoho",
+      "emailAlias": "Email Address Guide",
       "copyright": "© {year} VCharts. All rights reserved.",
       "navigation": "Footer Navigation"
     },

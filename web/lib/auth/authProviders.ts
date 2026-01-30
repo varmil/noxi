@@ -2,10 +2,14 @@ import { Provider } from '@auth/core/providers'
 import Credentials from '@auth/core/providers/credentials'
 import Google from 'next-auth/providers/google'
 import Resend from 'next-auth/providers/resend'
+import { normalizeEmail } from './normalizeEmail'
 
 const providers: Provider[] = [
-  Google,
-  Resend({ from: 'VCharts.net <verify@vcharts.net>' })
+  Google({ allowDangerousEmailAccountLinking: true }),
+  Resend({
+    from: 'VCharts.net <verify@vcharts.net>',
+    normalizeIdentifier: (identifier: string) => normalizeEmail(identifier)
+  })
 ]
 
 if (process.env.NODE_ENV === 'development') {

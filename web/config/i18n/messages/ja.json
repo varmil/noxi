@@ -127,6 +127,40 @@
         "content": "メールをご確認いただき、リンクをクリックしてログインしてください。はじめてログインを行うとアカウント登録も同時に完了します。"
       }
     },
+    "help": {
+      "emailAlias": {
+        "metadata": {
+          "title": "メールアドレスの仕組み",
+          "description": "Gmailのエイリアスやドットの扱いについて説明します"
+        },
+        "title": "メールアドレスの仕組みについて",
+        "gmail": {
+          "title": "Gmail のアドレスの仕組み",
+          "description": "Gmail ではピリオド（ドット）やプラス記号を使ったエイリアスが同一アドレスとして扱われます",
+          "dotTitle": "ピリオド（ドット）の扱い",
+          "dotDescription": "Gmail のユーザー名部分に含まれるピリオドは無視されます。以下はすべて同じメールボックスに届きます。",
+          "dotExample": "すべて同じアドレスとして扱われます",
+          "plusTitle": "プラス記号（+）エイリアス",
+          "plusDescription": "ユーザー名の後ろにプラス記号と任意の文字列を追加できます。これらはすべて元のアドレスに届きます。",
+          "plusExample": "すべて同じアドレスに届きます",
+          "googlemailTitle": "gmail.com と googlemail.com",
+          "googlemailDescription": "gmail.com と googlemail.com は同一として扱われます。",
+          "googlemailExample": "同じアドレスです"
+        },
+        "ourPolicy": {
+          "title": "当サイトでの扱い",
+          "description": "複数アカウント登録防止のため、メールアドレスを正規化して管理しています",
+          "content": "不正な複数アカウント登録を防止するため、当サイトではメールアドレスを正規化（標準化）した上で重複チェックを行っています。これにより、同一のメールアドレスで複数のアカウントを作成することはできません。",
+          "exampleTitle": "正規化の例（Gmail の場合）"
+        },
+        "otherProviders": {
+          "title": "その他のメールプロバイダー",
+          "description": "Outlook、iCloud などの他のメールプロバイダーでも、プラス記号（+）によるエイリアスは同一アドレスとして扱われます。ただし、ドットの扱いは Gmail 特有の仕様のため、他のプロバイダーでは適用されません。"
+        },
+        "reference": "参考:",
+        "referenceLink": "Gmail のアドレスの仕組み - Google サポート"
+      }
+    },
     "contact": {
       "title": "お問い合わせ",
       "description": "VChartsに関するご意見・ご要望、広告出稿やバグのご報告など、お問い合わせはこちらから。"
@@ -462,6 +496,7 @@
       "termsAndPrivacy": "利用規約/PP",
       "dataMethodology": "データ算出方法",
       "tokushoho": "特定商取引法表記",
+      "emailAlias": "メールアドレスの仕組み",
       "copyright": "© {year} VCharts. All rights reserved.",
       "navigation": "フッターナビゲーション"
     },

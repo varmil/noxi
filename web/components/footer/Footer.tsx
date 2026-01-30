@@ -95,7 +95,8 @@ export function Footer() {
           label: t('dataMethodology'),
           href: '/data-methodology-and-disclaimer'
         },
-        { label: t('tokushoho'), href: '/legal/tokushoho' }
+        { label: t('tokushoho'), href: '/legal/tokushoho' },
+        { label: t('emailAlias'), href: '/help/email-alias' }
       ]
     }
   }

@@ -14,6 +14,10 @@ import {
 } from '@react-email/components'
 import { getWebUrl } from 'utils/web-url'
 
+// メール内の静的リソース（画像など）は常に本番 URL を使用
+// メールクライアントから localhost にはアクセスできないため
+const STATIC_ASSETS_URL = 'https://www.vcharts.net'
+
 interface WelcomeEmailProps {
   username: string
   userEmail?: string | null
@@ -29,7 +33,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
       <Body style={main}>
         <Container style={container}>
           <Img
-            src={`${baseUrl}/peakx/icon.png`}
+            src={`${STATIC_ASSETS_URL}/vcharts/logo-323x323.png`}
             width="48"
             height="48"
             alt="VCharts"
@@ -58,8 +62,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
             <Text style={text}>VChartsでは以下のことができます：</Text>
             <ul style={list}>
               <li style={listItem}>応援チケットを獲得する</li>
-              <li style={listItem}>応援チケットを購入する（年内予定）</li>
-              <li style={listItem}>タレントを応援する</li>
+              <li style={listItem}>ハイパーチャットを購入する（2026年予定）</li>
               <li style={listItem}>ランキングで活躍を見守る</li>
             </ul>
             <Text style={text}>
@@ -69,7 +72,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
           <Hr style={hr} />
           <Section>
             <Text style={footer}>
-              © 2025 VCharts, Inc. All rights reserved.
+              © 2026 VCharts, Inc. All rights reserved.
             </Text>
             {/* <Text style={footer}>〒100-0001 東京都千代田区1-1-1</Text> */}
             <Text style={footer}>support@vcharts.net</Text>
