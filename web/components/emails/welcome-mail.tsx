@@ -14,6 +14,10 @@ import {
 } from '@react-email/components'
 import { getWebUrl } from 'utils/web-url'
 
+// メール内の静的リソース（画像など）は常に本番 URL を使用
+// メールクライアントから localhost にはアクセスできないため
+const STATIC_ASSETS_URL = 'https://www.vcharts.net'
+
 interface WelcomeEmailProps {
   username: string
   userEmail?: string | null
@@ -29,7 +33,7 @@ export const WelcomeEmail = ({ username, userEmail }: WelcomeEmailProps) => {
       <Body style={main}>
         <Container style={container}>
           <Img
-            src={`${baseUrl}/peakx/icon.png`}
+            src={`${STATIC_ASSETS_URL}/peakx/icon.png`}
             width="48"
             height="48"
             alt="VCharts"
