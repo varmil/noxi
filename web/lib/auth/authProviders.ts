@@ -5,7 +5,7 @@ import Resend from 'next-auth/providers/resend'
 import { normalizeEmail } from './normalizeEmail'
 
 const providers: Provider[] = [
-  Google,
+  Google({ allowDangerousEmailAccountLinking: true }),
   Resend({
     from: 'VCharts.net <verify@vcharts.net>',
     normalizeIdentifier: (identifier: string) => normalizeEmail(identifier)
