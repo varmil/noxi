@@ -19,9 +19,7 @@ export const onSignUp = async (pool: Pool, user: User) => {
   const { name, image } = await initUser(pool, id, user.name, user.image)
 
   // normalizedEmail を先に更新（initCheerTicket のチェックで使用するため）
-  if (email) {
-    await initNormalizedEmail(pool, id, email)
-  }
+  await initNormalizedEmail(pool, id, email)
 
   await Promise.all([
     initUsername(pool, id),

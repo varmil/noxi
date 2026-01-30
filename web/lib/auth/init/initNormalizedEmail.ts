@@ -5,8 +5,10 @@ import { normalizeEmail } from 'lib/auth/normalizeEmail'
 export async function initNormalizedEmail(
   pool: Pool,
   userId: string,
-  email: string
+  email: string | null | undefined
 ) {
+  if (!email) return
+
   const normalizedEmailValue = normalizeEmail(email)
   await pool.query(`UPDATE users SET "normalizedEmail" = $1 WHERE id = $2`, [
     normalizedEmailValue,
