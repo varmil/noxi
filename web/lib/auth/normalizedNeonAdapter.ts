@@ -1,4 +1,4 @@
-import { Adapter, AdapterUser } from '@auth/core/adapters'
+import { Adapter, AdapterUser, VerificationToken } from '@auth/core/adapters'
 import NeonAdapter from '@auth/neon-adapter'
 import { Pool } from '@neondatabase/serverless'
 import { normalizeEmail } from './normalizeEmail'
@@ -9,12 +9,61 @@ import { normalizeEmail } from './normalizeEmail'
  * - createUser: normalizedEmail カラムに正規化したメールを保存
  * - getUserByEmail: normalizedEmail で検索し、異なるエイリアスでサインインした場合は email を更新
  * - updateUser: normalizedEmail も一緒に更新
+ * - createVerificationToken: identifier を正規化して保存
+ * - useVerificationToken: identifier を正規化して検索
  */
 export function NormalizedNeonAdapter(pool: Pool): Adapter {
   const baseAdapter = NeonAdapter(pool)
 
   return {
     ...baseAdapter,
+
+    async createVerificationToken(
+      verificationToken: VerificationToken
+    ): Promise<VerificationToken> {
+      const { identifier, expires, token } = verificationToken
+      const normalizedIdentifier = normalizeEmail(identifier)
+
+      console.log('[NormalizedNeonAdapter] createVerificationToken:', {
+        originalIdentifier: identifier,
+        normalizedIdentifier
+      })
+
+      const sql = `
+        INSERT INTO verification_token (identifier, expires, token)
+        VALUES ($1, $2, $3)`
+      await pool.query(sql, [normalizedIdentifier, expires, token])
+
+      return { ...verificationToken, identifier: normalizedIdentifier }
+    },
+
+    async useVerificationToken({
+      identifier,
+      token
+    }: {
+      identifier: string
+      token: string
+    }): Promise<VerificationToken | null> {
+      const normalizedIdentifier = normalizeEmail(identifier)
+
+      console.log('[NormalizedNeonAdapter] useVerificationToken:', {
+        originalIdentifier: identifier,
+        normalizedIdentifier
+      })
+
+      const sql = `
+        DELETE FROM verification_token
+        WHERE identifier = $1 AND token = $2
+        RETURNING identifier, expires, token`
+      const result = await pool.query(sql, [normalizedIdentifier, token])
+
+      console.log('[NormalizedNeonAdapter] useVerificationToken result:', {
+        found: result.rowCount !== 0,
+        returnedIdentifier: result.rows[0]?.identifier
+      })
+
+      return result.rowCount !== 0 ? result.rows[0] : null
+    },
 
     async createUser(
       user: Omit<AdapterUser, 'id'>
@@ -42,6 +91,11 @@ export function NormalizedNeonAdapter(pool: Pool): Adapter {
       email: string
     ): Promise<(AdapterUser & { normalizedEmail?: string | null }) | null> {
       const normalizedEmailValue = normalizeEmail(email)
+
+      console.log('[NormalizedNeonAdapter] getUserByEmail:', {
+        originalEmail: email,
+        normalizedEmail: normalizedEmailValue
+      })
 
       const sql = `SELECT * FROM users WHERE "normalizedEmail" = $1`
       const result = await pool.query(sql, [normalizedEmailValue])
