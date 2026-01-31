@@ -157,8 +157,8 @@
         },
         "ourPolicy": {
           "title": "Our Policy",
-          "description": "We normalize email addresses to prevent multiple account registrations",
-          "content": "To prevent fraudulent multiple account registrations, we normalize (standardize) email addresses before checking for duplicates. This means you cannot create multiple accounts with the same email address.",
+          "description": "We normalize email addresses to prevent duplicate benefit distribution",
+          "content": "We do not restrict account creation with email aliases. However, sign-up benefits are distributed only once per normalized email address. If you create multiple accounts with aliases derived from the same email address, the second and subsequent accounts will not receive benefits.",
           "exampleTitle": "Normalization examples (Gmail)"
         },
         "otherProviders": {
