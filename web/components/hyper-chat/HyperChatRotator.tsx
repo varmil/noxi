@@ -27,18 +27,23 @@ export function HyperChatRotator({
   // ローテーション用リスト（スロット重み付け適用）
   const rotationList = useMemo(() => getRotationList(hyperChats), [hyperChats])
 
-  // 複数件の場合のみ Fade 効果を有効化
-  const plugins = useMemo(() => {
-    const autoplay = Autoplay({
-      delay: 3000,
-      stopOnInteraction: false,
-      stopOnMouseEnter: true
-    })
-    return rotationList.length > 1 ? [Fade(), autoplay] : [autoplay]
-  }, [rotationList.length])
-
   if (rotationList.length === 0) {
     return null
+  }
+
+  // 1件のみの場合はカルーセルを使わずシンプルに描画
+  if (rotationList.length === 1) {
+    return (
+      <div className={cn('w-full max-w-full', className)}>
+        <button
+          type="button"
+          onClick={onBubbleClick}
+          className="block w-full text-left"
+        >
+          <HyperChatBubble hyperChat={rotationList[0]} />
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -47,18 +52,21 @@ export function HyperChatRotator({
         loop: true,
         align: 'start'
       }}
-      plugins={plugins}
+      plugins={[
+        Fade(),
+        Autoplay({
+          delay: 3000,
+          stopOnInteraction: false,
+          stopOnMouseEnter: true
+        })
+      ]}
       className={cn('w-full max-w-full overflow-hidden', className)}
     >
       <CarouselContent className="ml-0">
         {rotationList.map((hyperChat, index) => (
           <CarouselItem
             key={`${hyperChat.id}-${index}`}
-            className={cn(
-              'pl-0 min-w-0',
-              hyperChats.length > 1 &&
-                'transition-opacity duration-1500 ease-in-out'
-            )}
+            className="pl-0 min-w-0 transition-opacity duration-1500 ease-in-out"
           >
             <button
               type="button"
