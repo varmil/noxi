@@ -1,49 +1,31 @@
-import { PropsWithoutRef } from 'react'
-import { getFanRankingCount } from 'apis/cheer-ticket-usages/getFanRanking'
+import { Construction } from 'lucide-react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { PageSMPX } from 'components/page'
-import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { TopFansPagination } from 'config/constants/Pagination'
-import TopFansFilterGallery from 'features/cheer/top-fans/components/filter/TopFansFilterGallery'
-import TopFansGallery from 'features/cheer/top-fans/components/gallery/TopFansGallery'
-import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
-import { TopFansPeriod } from 'types/period'
-import { getStartOf } from 'utils/period/ranking'
 
-type Props = {
-  period: TopFansPeriod
-  group: string
-  searchParams: TopFansSearchParams
-}
-
-export default async function IndexTemplate({
-  period,
-  group,
-  searchParams
-}: PropsWithoutRef<Props>) {
-  const { gender } = searchParams
-  const count = await getFanRankingCount({
-    group,
-    gender,
-    usedAt: { gte: getStartOf(period).toDate() }
-  })
-
+export default async function IndexTemplate() {
   return (
-    <section className={`space-y-4`}>
-      <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
-        <TopFansFilterGallery className="max-w-6xl mx-auto" />
-      </section>
-
-      <section className={`${PageSMPX} space-y-6`}>
-        <TopFansGallery
-          className="max-w-6xl mx-auto"
-          period={period}
-          group={group}
-          {...searchParams}
-        />
-        <ResponsivePagination
-          totalPages={TopFansPagination.getTotalPages(count)}
-        />
-      </section>
+    <section className={`space-y-4 ${PageSMPX}`}>
+      <Card className="w-full max-w-2xl mx-auto mt-8">
+        <CardHeader>
+          <CardTitle>トップファンランキング</CardTitle>
+          <CardDescription>
+            ハイパーチャットによるファンランキングを表示します
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+            <Construction className="size-12 mb-4" />
+            <p className="text-lg font-medium">Coming Soon</p>
+            <p className="text-sm">ハイパーチャット機能は現在開発中です</p>
+          </div>
+        </CardContent>
+      </Card>
     </section>
   )
 }

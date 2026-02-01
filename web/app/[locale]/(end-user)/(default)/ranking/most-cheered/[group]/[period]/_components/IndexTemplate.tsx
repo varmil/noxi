@@ -1,49 +1,31 @@
-import { PropsWithoutRef } from 'react'
-import { getCheeredRankingCount } from 'apis/cheer-ticket-usages/getCheeredRanking'
+import { Construction } from 'lucide-react'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card'
 import { PageSMPX } from 'components/page'
-import ResponsivePagination from 'components/pagination/ResponsivePagination'
-import { MostCheeredPagination } from 'config/constants/Pagination'
-import MostCheeredFilterGallery from 'features/cheer/most-cheered/components/filter/MostCheeredFilterGallery'
-import MostCheeredGallery from 'features/cheer/most-cheered/components/gallery/MostCheeredGallery'
-import { MostCheeredSearchParams } from 'features/cheer/most-cheered/types/most-cheered.type'
-import { MostCheeredPeriod } from 'types/period'
-import { getStartOf } from 'utils/period/ranking'
 
-type Props = {
-  period: MostCheeredPeriod
-  group: string
-  searchParams: MostCheeredSearchParams
-}
-
-export default async function IndexTemplate({
-  period,
-  group,
-  searchParams
-}: PropsWithoutRef<Props>) {
-  const { gender } = searchParams
-  const count = await getCheeredRankingCount({
-    group,
-    gender,
-    usedAt: { gte: getStartOf(period).toDate() }
-  })
-
+export default async function IndexTemplate() {
   return (
-    <section className={`space-y-4`}>
-      <section className={`py-4 ${PageSMPX} sm:py-5 bg-muted`}>
-        <MostCheeredFilterGallery className="max-w-6xl mx-auto" />
-      </section>
-
-      <section className={`${PageSMPX} space-y-6`}>
-        <MostCheeredGallery
-          className="max-w-6xl mx-auto"
-          period={period}
-          group={group}
-          {...searchParams}
-        />
-        <ResponsivePagination
-          totalPages={MostCheeredPagination.getTotalPages(count)}
-        />
-      </section>
+    <section className={`space-y-4 ${PageSMPX}`}>
+      <Card className="w-full max-w-2xl mx-auto mt-8">
+        <CardHeader>
+          <CardTitle>応援ランキング</CardTitle>
+          <CardDescription>
+            ハイパーチャットによる応援ランキングを表示します
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
+            <Construction className="size-12 mb-4" />
+            <p className="text-lg font-medium">Coming Soon</p>
+            <p className="text-sm">ハイパーチャット機能は現在開発中です</p>
+          </div>
+        </CardContent>
+      </Card>
     </section>
   )
 }
