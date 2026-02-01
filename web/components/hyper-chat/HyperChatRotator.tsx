@@ -32,7 +32,7 @@ export function HyperChatRotator({
   }
 
   // 1件のみの場合はカルーセルを使わずシンプルに描画
-  if (rotationList.length === 1) {
+  if (hyperChats.length === 1) {
     return (
       <div className={cn('w-full max-w-full', className)}>
         <button
@@ -48,10 +48,7 @@ export function HyperChatRotator({
 
   return (
     <Carousel
-      opts={{
-        loop: true,
-        align: 'start'
-      }}
+      opts={{ loop: true, align: 'start' }}
       plugins={[
         Fade(),
         Autoplay({
@@ -66,7 +63,7 @@ export function HyperChatRotator({
         {rotationList.map((hyperChat, index) => (
           <CarouselItem
             key={`${hyperChat.id}-${index}`}
-            className="pl-0 min-w-0 transition-opacity duration-1500 ease-in-out"
+            className="pl-0 min-w-0 transition-opacity duration-1000 ease-in-out"
           >
             <button
               type="button"
