@@ -1,123 +1,123 @@
 /// スーパーチャットイベント
 model YoutubeStreamSuperChat {
-    id                  String  @id
-    amountMicros        BigInt
-    currency            String
-    amountDisplayString String
-    userComment         String?
+  id                  String  @id
+  amountMicros        BigInt
+  currency            String
+  amountDisplayString String
+  userComment         String?
 
-    // author
-    authorChannelId       String
-    authorDisplayName     String
-    authorProfileImageUrl String
-    authorIsChatSponsor   Boolean
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+  authorIsChatSponsor   Boolean
 
-    videoId   String
-    group     String
-    createdAt DateTime      @default(now()) @db.Timestamptz(3)
-    stream    YoutubeStream @relation(fields: [videoId], references: [videoId], onDelete: Cascade)
+  videoId   String
+  group     String
+  createdAt DateTime      @default(now()) @db.Timestamptz(3)
+  stream    YoutubeStream @relation(fields: [videoId], references: [videoId], onDelete: Cascade)
 
-    @@index([videoId, createdAt])
-    @@index([videoId, amountMicros])
-    @@index([videoId, currency])
-    @@index([group, createdAt])
-    @@index([group, amountMicros, createdAt])
+  @@index([videoId, createdAt])
+  @@index([videoId, amountMicros])
+  @@index([videoId, currency])
+  @@index([group, createdAt])
+  @@index([group, amountMicros, createdAt])
 }
 
 /// スーパーステッカーイベント
 model YoutubeStreamSuperSticker {
-    id                  String @id
-    amountMicros        BigInt
-    currency            String
-    amountDisplayString String
+  id                  String @id
+  amountMicros        BigInt
+  currency            String
+  amountDisplayString String
 
-    // author
-    authorChannelId       String
-    authorDisplayName     String
-    authorProfileImageUrl String
-    authorIsChatSponsor   Boolean
+  // author
+  authorChannelId       String
+  authorDisplayName     String
+  authorProfileImageUrl String
+  authorIsChatSponsor   Boolean
 
-    videoId   String
-    group     String
-    createdAt DateTime @default(now()) @db.Timestamptz(3)
+  videoId   String
+  group     String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
 
-    @@index([videoId, createdAt])
-    @@index([videoId, amountMicros])
-    @@index([videoId, currency])
-    @@index([group, createdAt])
-    @@index([group, amountMicros, createdAt])
+  @@index([videoId, createdAt])
+  @@index([videoId, amountMicros])
+  @@index([videoId, currency])
+  @@index([group, createdAt])
+  @@index([group, amountMicros, createdAt])
 }
 
 /// 1ライブで発生したスーパーチャットイベントの集計
 model YoutubeStreamSupersBundle {
-    videoId         String    @id
-    channelId       String
-    /// JPY
-    amountMicros    BigInt
-    count           Int
-    actualStartTime DateTime  @db.Timestamptz(3)
-    actualEndTime   DateTime? @db.Timestamptz(3)
-    group           String
-    createdAt       DateTime  @default(now()) @db.Timestamptz(3)
-    channel         Channel   @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  videoId         String    @id
+  channelId       String
+  /// JPY
+  amountMicros    BigInt
+  count           Int
+  actualStartTime DateTime  @db.Timestamptz(3)
+  actualEndTime   DateTime? @db.Timestamptz(3)
+  group           String
+  createdAt       DateTime  @default(now()) @db.Timestamptz(3)
+  channel         Channel   @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-    @@index([amountMicros(sort: Desc)])
-    @@index([amountMicros(sort: Desc), videoId])
-    @@index([actualStartTime, amountMicros])
-    @@index([actualEndTime, amountMicros])
-    @@index([channelId, amountMicros(sort: Desc)])
-    @@index([channelId, actualStartTime, amountMicros])
-    @@index([channelId, actualEndTime, amountMicros])
-    @@index([group, actualStartTime, amountMicros])
-    @@index([group, actualEndTime, amountMicros])
-    @@index([createdAt, group])
+  @@index([amountMicros(sort: Desc)])
+  @@index([amountMicros(sort: Desc), videoId])
+  @@index([actualStartTime, amountMicros])
+  @@index([actualEndTime, amountMicros])
+  @@index([channelId, amountMicros(sort: Desc)])
+  @@index([channelId, actualStartTime, amountMicros])
+  @@index([channelId, actualEndTime, amountMicros])
+  @@index([group, actualStartTime, amountMicros])
+  @@index([group, actualEndTime, amountMicros])
+  @@index([createdAt, group])
 }
 
 /// スーパーチャットの期間別集計。日次更新。(JPY amountMicros)
 model YoutubeStreamSupersSummary {
-    id        Int    @id @default(autoincrement())
-    channelId String
+  id        Int    @id @default(autoincrement())
+  channelId String
 
-    last7Days  BigInt
-    last30Days BigInt
-    last90Days BigInt
-    last1Year  BigInt
-    thisWeek   BigInt
-    thisMonth  BigInt
-    thisYear   BigInt
+  last7Days  BigInt
+  last30Days BigInt
+  last90Days BigInt
+  last1Year  BigInt
+  thisWeek   BigInt
+  thisMonth  BigInt
+  thisYear   BigInt
 
-    createdAt DateTime @default(now()) @db.Timestamptz(3)
-    channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-    @@index([channelId, createdAt, last7Days])
-    @@index([channelId, createdAt, last30Days])
-    @@index([channelId, createdAt, last90Days])
-    @@index([channelId, createdAt, last1Year])
-    @@index([channelId, createdAt, thisWeek])
-    @@index([channelId, createdAt, thisMonth])
-    @@index([channelId, createdAt, thisYear])
+  @@index([channelId, createdAt, last7Days])
+  @@index([channelId, createdAt, last30Days])
+  @@index([channelId, createdAt, last90Days])
+  @@index([channelId, createdAt, last1Year])
+  @@index([channelId, createdAt, thisWeek])
+  @@index([channelId, createdAt, thisMonth])
+  @@index([channelId, createdAt, thisYear])
 }
 
 /// YoutubeStreamSupersSummaryの各チャンネルの最新1レコードのみ保持
 model YoutubeStreamSupersSummaryLatest {
-    channelId String @id
+  channelId String @id
 
-    last7Days  BigInt
-    last30Days BigInt
-    last90Days BigInt
-    last1Year  BigInt
-    thisWeek   BigInt
-    thisMonth  BigInt
-    thisYear   BigInt
+  last7Days  BigInt
+  last30Days BigInt
+  last90Days BigInt
+  last1Year  BigInt
+  thisWeek   BigInt
+  thisMonth  BigInt
+  thisYear   BigInt
 
-    createdAt DateTime @default(now()) @db.Timestamptz(3)
-    channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-    @@index([channelId, last7Days])
-    @@index([channelId, last30Days])
-    @@index([channelId, last90Days])
-    @@index([channelId, last1Year])
-    @@index([channelId, thisWeek])
-    @@index([channelId, thisMonth])
-    @@index([channelId, thisYear])
+  @@index([channelId, last7Days])
+  @@index([channelId, last30Days])
+  @@index([channelId, last90Days])
+  @@index([channelId, last1Year])
+  @@index([channelId, thisWeek])
+  @@index([channelId, thisMonth])
+  @@index([channelId, thisYear])
 }

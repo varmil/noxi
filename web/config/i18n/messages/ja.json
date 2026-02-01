@@ -764,6 +764,59 @@
         }
       }
     },
+    "hyperChat": {
+      "button": {
+        "label": "ハイパーチャットを送信する",
+        "tooltip": "チャンネルにメッセージを送る"
+      },
+      "dialog": {
+        "title": "{channel}にハイパーチャットを送る",
+        "description": "目立つメッセージで応援しよう",
+        "tier": {
+          "lite": "ライト",
+          "standard": "スタンダード",
+          "max": "マックス"
+        },
+        "price": "{price}円",
+        "maxChars": "最大{count}文字",
+        "messageLabel": "メッセージ（任意）",
+        "messagePlaceholder": "メッセージを入力（空欄OK）",
+        "charCount": "{current}/{max}文字",
+        "cancel": "キャンセル",
+        "purchase": "購入する",
+        "payButton": "¥{price}を支払う",
+        "processing": "処理中...",
+        "back": "戻る",
+        "close": "閉じる",
+        "payment": {
+          "title": "お支払い",
+          "description": "支払い方法を選択してください"
+        },
+        "confirmPayment": "支払いを確定",
+        "complete": {
+          "title": "決済完了",
+          "description": "ハイパーチャットを送信しました"
+        },
+        "loginRequired": {
+          "title": "ログインが必要です",
+          "description": "ハイパーチャットを送るにはログインしてください"
+        },
+        "error": {
+          "title": "エラーが発生しました",
+          "description": "ハイパーチャットの送信に失敗しました。後でもう一度お試しください。"
+        },
+        "maxCharsError": "メッセージは{count}文字以内で入力してください",
+        "profanityError": "不適切な表現が含まれています: {words}",
+        "moderationError": "不適切な内容が含まれています"
+      },
+      "stats": {
+        "totalAmount": "総応援額",
+        "supporterCount": "応援者数",
+        "peopleCount": "{count}人",
+        "yenSuffix": "円",
+        "peopleSuffix": "人"
+      }
+    },
     "dashboard": {
       "profile": {
         "form": {

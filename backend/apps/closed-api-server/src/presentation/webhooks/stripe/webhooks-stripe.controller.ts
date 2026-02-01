@@ -11,20 +11,21 @@ import {
 } from '@nestjs/common'
 import { Request, Response } from 'express'
 import Stripe from 'stripe'
+import { HyperChatsScenario } from '@presentation/hyper-chats/hyper-chats.scenario'
 
 @Controller('webhooks/stripe')
 export class WebhooksStripeController {
   private readonly logger = new Logger(WebhooksStripeController.name)
   private stripe: Stripe
 
-  constructor() {
+  constructor(private readonly hyperChatsScenario: HyperChatsScenario) {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
       apiVersion: '2026-01-28.clover'
     })
   }
 
   @Post()
-  handleStripeWebhook(
+  async handleStripeWebhook(
     @Req() req: RawBodyRequest<Request>,
     @Res() res: Response,
     @Headers('stripe-signature') sig: string
@@ -48,30 +49,54 @@ export class WebhooksStripeController {
     }
 
     switch (event.type) {
-      // 初回の Checkout セッション完了時（ユーザーが決済成功）。2回目以降は呼ばれない
-      case 'checkout.session.completed': {
-        const session = event.data.object
-        this.logger.log(`Checkout session completed:`, session)
+      // PaymentIntent 成功時
+      case 'payment_intent.succeeded': {
+        const paymentIntent = event.data.object
+        const productType = paymentIntent.metadata.product_type
+        this.logger.log(
+          `Payment intent succeeded: ${paymentIntent.id}, product_type: ${productType}`
+        )
+
+        switch (productType) {
+          case 'hyper_chat':
+            await this.hyperChatsScenario.handlePaymentSuccess({
+              stripePaymentIntentId: paymentIntent.id
+            })
+            break
+          default:
+            this.logger.warn(`Unknown product type: ${productType}`)
+        }
         break
       }
-      // 初回も2ヶ月目以降も請求が成功したときに呼ばれる
+      // PaymentIntent 失敗時
+      case 'payment_intent.payment_failed': {
+        const paymentIntent = event.data.object
+        const productType = paymentIntent.metadata.product_type
+        this.logger.log(
+          `Payment intent failed: ${paymentIntent.id}, product_type: ${productType}`
+        )
+
+        switch (productType) {
+          case 'hyper_chat':
+            await this.hyperChatsScenario.handlePaymentFailed(paymentIntent.id)
+            break
+          default:
+            this.logger.warn(`Unknown product type: ${productType}`)
+        }
+        break
+      }
+      // サブスクリプション関連（将来の拡張用）
       case 'invoice.paid': {
         const invoice = event.data.object
-        const subscriptionId = invoice.lines.data[0].subscription as string
+        const subscriptionId = invoice.lines.data[0]?.subscription as
+          | string
+          | undefined
         const customerId = invoice.customer as string
         this.logger.log(
           `Invoice paid: customer=${customerId}, subscription=${subscriptionId}`
         )
-        // Example: 2回目以降の支払い（更新）に対する処理
-        // if (invoice.billing_reason === 'subscription_cycle') {
-        //   await this.ticketService.grantSupportTickets(invoice.customer as string, 20)
-        // }
-
-        // チケット20枚を付与（あなたのロジックをここに）
-        // await this.ticketService.grantSupportTickets(customerId, 20)
         break
       }
-      // 管理画面からキャンセル / API経由でキャンセル / 支払い失敗による自動キャンセル
       case 'customer.subscription.deleted': {
         const subscription = event.data.object
         this.logger.log(

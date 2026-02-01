@@ -41,7 +41,6 @@
       "wholePeriod": "All-time"
     },
 
-
     "ranking": {
       "filter": {
         "period": "Time Period",
@@ -748,7 +747,59 @@
         }
       }
     },
-
+    "hyperChat": {
+      "button": {
+        "label": "Send HyperChat",
+        "tooltip": "Send a message to this channel"
+      },
+      "dialog": {
+        "title": "Send HyperChat to {channel}",
+        "description": "Send a paid message to support this channel",
+        "tier": {
+          "lite": "Lite",
+          "standard": "Standard",
+          "max": "Max"
+        },
+        "price": "¥{price}",
+        "maxChars": "Max {count} characters",
+        "messageLabel": "Message (optional)",
+        "messagePlaceholder": "Enter your message (leave blank OK)",
+        "charCount": "{current}/{max} characters",
+        "cancel": "Cancel",
+        "purchase": "Purchase",
+        "payButton": "Pay ¥{price}",
+        "processing": "Processing...",
+        "back": "Back",
+        "close": "Close",
+        "payment": {
+          "title": "Payment",
+          "description": "Select a payment method"
+        },
+        "confirmPayment": "Confirm Payment",
+        "complete": {
+          "title": "Payment completed",
+          "description": "Your HyperChat has been sent successfully."
+        },
+        "loginRequired": {
+          "title": "Login Required",
+          "description": "Please sign in to send a HyperChat"
+        },
+        "error": {
+          "title": "Error",
+          "description": "Failed to send HyperChat. Please try again later."
+        },
+        "maxCharsError": "Message must be {count} characters or less",
+        "profanityError": "Your message contains inappropriate language: {words}",
+        "moderationError": "Your message contains inappropriate content"
+      },
+      "stats": {
+        "totalAmount": "Total HyperChat",
+        "supporterCount": "Supporters",
+        "peopleCount": "{count}",
+        "yenSuffix": " yen",
+        "peopleSuffix": ""
+      }
+    },
     "dashboard": {
       "profile": {
         "form": {

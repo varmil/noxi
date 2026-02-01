@@ -1,0 +1,66 @@
+/**
+ * ハイパーチャット注文/決済情報
+ * PaymentIntent 作成時に pending で作成され、Webhook で status 更新
+ */
+model HyperChatOrder {
+  id                    Int      @id @default(autoincrement())
+  stripePaymentIntentId String   @unique // pi_xxx
+  userId                Int
+  channelId             String
+  group                 String
+  gender                String
+  tier                  String // "lite", "standard", "max"
+  amount                Int // 金額（円）
+  message               String
+  status                String   @default("pending") // pending, completed, failed
+  createdAt             DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt             DateTime @updatedAt @db.Timestamptz(3)
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hyperChat HyperChat?
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+}
+
+/**
+ * ハイパーチャット（確定済みのみ）
+ * User -> VTuber への有料コメント
+ * orderId: 購入時は設定、チケット利用時は null
+ */
+model HyperChat {
+  id        Int      @id @default(autoincrement())
+  orderId   Int?     @unique // nullable - 購入時のみ設定、チケット利用時は null
+  userId    Int
+  channelId String
+  group     String
+  gender    String
+  tier      String // "lite", "standard", "max"
+  amount    Int // 金額（円）
+  message   String
+  likeCount Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  order HyperChatOrder? @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes HyperChatLike[]
+
+  @@index([channelId, createdAt])
+  @@index([userId, createdAt])
+}
+
+/**
+ * ハイパーチャットへのいいね
+ */
+model HyperChatLike {
+  id          Int      @id @default(autoincrement())
+  hyperChatId Int
+  userId      Int
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  hyperChat HyperChat @relation(fields: [hyperChatId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([hyperChatId, userId])
+  @@index([userId])
+}

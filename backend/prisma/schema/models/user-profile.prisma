@@ -1,7 +1,7 @@
 model UserProfile {
-    userId      Int    @id @default(autoincrement())
-    username    String @unique @db.Citext
-    description String
+  userId      Int    @id @default(autoincrement())
+  username    String @unique @db.Citext
+  description String
 
-    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -1,0 +1,169 @@
+import { Injectable } from '@nestjs/common'
+import { GroupId } from '@domain/group'
+import {
+  HyperChat,
+  HyperChatId,
+  HyperChatRepository,
+  HyperChats,
+  LikeCount,
+  Message,
+  Tier,
+  TierValue
+} from '@domain/hyper-chat'
+import { Amount } from '@domain/hyper-chat-order'
+import { Gender } from '@domain/lib'
+import { UserId } from '@domain/user'
+import { ChannelId } from '@domain/youtube'
+import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+
+@Injectable()
+export class HyperChatRepositoryImpl implements HyperChatRepository {
+  constructor(private readonly prismaInfraService: PrismaInfraService) {}
+
+  create: HyperChatRepository['create'] = async ({ data }) => {
+    const row = await this.prismaInfraService.hyperChat.create({
+      data: {
+        orderId: data.orderId?.get(),
+        userId: data.userId.get(),
+        channelId: data.channelId.get(),
+        group: data.group.get(),
+        gender: data.gender.get(),
+        tier: data.tier.get(),
+        amount: data.amount.get(),
+        message: data.message.get()
+      }
+    })
+
+    return this.toDomain(row)
+  }
+
+  findById: HyperChatRepository['findById'] = async id => {
+    const row = await this.prismaInfraService.hyperChat.findUnique({
+      where: { id: id.get() }
+    })
+
+    return row ? this.toDomain(row) : null
+  }
+
+  findByOrderId: HyperChatRepository['findByOrderId'] = async orderId => {
+    const row = await this.prismaInfraService.hyperChat.findUnique({
+      where: { orderId: orderId.get() }
+    })
+
+    return row ? this.toDomain(row) : null
+  }
+
+  findAll: HyperChatRepository['findAll'] = async ({
+    where,
+    orderBy,
+    limit,
+    offset
+  }) => {
+    const rows = await this.prismaInfraService.hyperChat.findMany({
+      where: {
+        channelId: where.channelId?.get(),
+        userId: where.userId?.get(),
+        group: where.group?.get(),
+        gender: where.gender?.get(),
+        createdAt: where.createdAt
+          ? {
+              gte: where.createdAt.gte,
+              lte: where.createdAt.lte
+            }
+          : undefined
+      },
+      orderBy,
+      take: limit,
+      skip: offset
+    })
+
+    return new HyperChats(rows.map(row => this.toDomain(row)))
+  }
+
+  count: HyperChatRepository['count'] = async ({ where }) => {
+    return await this.prismaInfraService.hyperChat.count({
+      where: {
+        channelId: where.channelId?.get(),
+        userId: where.userId?.get(),
+        group: where.group?.get(),
+        gender: where.gender?.get(),
+        createdAt: where.createdAt
+          ? {
+              gte: where.createdAt.gte,
+              lte: where.createdAt.lte
+            }
+          : undefined
+      }
+    })
+  }
+
+  sumAmount: HyperChatRepository['sumAmount'] = async ({ where }) => {
+    const result = await this.prismaInfraService.hyperChat.aggregate({
+      where: {
+        channelId: where.channelId?.get(),
+        userId: where.userId?.get(),
+        group: where.group?.get(),
+        gender: where.gender?.get(),
+        createdAt: where.createdAt
+          ? {
+              gte: where.createdAt.gte,
+              lte: where.createdAt.lte
+            }
+          : undefined
+      },
+      _sum: {
+        amount: true
+      }
+    })
+
+    return result._sum.amount ?? 0
+  }
+
+  countDistinctUsers: HyperChatRepository['countDistinctUsers'] = async ({
+    where
+  }) => {
+    const result = await this.prismaInfraService.hyperChat.groupBy({
+      by: ['userId'],
+      where: {
+        channelId: where.channelId?.get(),
+        userId: where.userId?.get(),
+        group: where.group?.get(),
+        gender: where.gender?.get(),
+        createdAt: where.createdAt
+          ? {
+              gte: where.createdAt.gte,
+              lte: where.createdAt.lte
+            }
+          : undefined
+      }
+    })
+
+    return result.length
+  }
+
+  private toDomain(row: {
+    id: number
+    userId: number
+    channelId: string
+    group: string
+    gender: string
+    tier: string
+    amount: number
+    message: string
+    likeCount: number
+    createdAt: Date
+  }): HyperChat {
+    return new HyperChat({
+      id: new HyperChatId(row.id),
+      userId: new UserId(row.userId),
+      channelId: new ChannelId(row.channelId),
+      group: new GroupId(row.group),
+      gender: new Gender(row.gender),
+      tier: new Tier(row.tier as TierValue),
+      amount: new Amount(row.amount),
+      message: new Message(row.message),
+      likeCount: new LikeCount(row.likeCount),
+      createdAt: row.createdAt
+    })
+  }
+}

@@ -1,32 +1,32 @@
 /// チャンネル登録者数の推移。日次で毎日INSERTされる
 model ChannelSubscriberCountSummary {
-    id        BigInt   @id @default(autoincrement())
-    channelId String
-    count     Int
-    createdAt DateTime @default(now()) @db.Timestamptz(3)
-    channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  id        BigInt   @id @default(autoincrement())
+  channelId String
+  count     Int
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-    @@index([channelId, createdAt, count])
+  @@index([channelId, createdAt, count])
 }
 
 /// チャンネル動画数の推移。日次で毎日INSERTされる
 model ChannelVideoCountSummary {
-    id        BigInt   @id @default(autoincrement())
-    channelId String
-    count     Int
-    createdAt DateTime @default(now()) @db.Timestamptz(3)
-    channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  id        BigInt   @id @default(autoincrement())
+  channelId String
+  count     Int
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-    @@index([channelId, createdAt, count])
+  @@index([channelId, createdAt, count])
 }
 
 /// チャンネル再生回数の推移。日次で毎日INSERTされる
 model ChannelViewCountSummary {
-    id        BigInt   @id @default(autoincrement())
-    channelId String
-    count     BigInt
-    createdAt DateTime @default(now()) @db.Timestamptz(3)
-    channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  id        BigInt   @id @default(autoincrement())
+  channelId String
+  count     BigInt
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
-    @@index([channelId, createdAt, count])
+  @@index([channelId, createdAt, count])
 }

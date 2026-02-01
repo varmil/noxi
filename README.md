@@ -29,3 +29,22 @@ npm run app -- groups/update-channels prod
 cd backend
 npx nest generate app my-app-name
 ```
+
+## STRIPE
+
+### Webhook ローカルテスト
+
+```shell
+# 1. Stripe CLI にログイン（初回のみ）
+stripe login
+
+# 2. Webhook をローカルに転送
+stripe listen --forward-to localhost:15000/api/webhooks/stripe
+```
+
+表示される `whsec_...` を `backend/.env` の `STRIPE_WEBHOOK_SECRET` に設定。
+
+```shell
+# テストイベント送信
+stripe trigger payment_intent.succeeded
+```
