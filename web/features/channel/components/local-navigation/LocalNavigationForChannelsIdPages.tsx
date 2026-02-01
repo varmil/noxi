@@ -40,6 +40,10 @@ export default function LocalNavigationForChannelsIdPages({
         {
           name: t('streamTimes.nav'),
           href: `${basePath}/stream-times`
+        },
+        {
+          name: t('hyperChat.nav'),
+          href: `${basePath}/hyper-chat`
         }
       ]}
       className="border-b mb-8"

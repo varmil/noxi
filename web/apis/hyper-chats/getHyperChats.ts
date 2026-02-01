@@ -10,7 +10,7 @@ type Params = {
   group?: string
   gender?: 'male' | 'female' | 'nonbinary'
   orderBy?: {
-    field: 'createdAt' | 'tier' | 'likeCount'
+    field: 'createdAt' | 'tier' | 'likeCount' | 'amount'
     order: 'asc' | 'desc'
   }[]
   limit?: number

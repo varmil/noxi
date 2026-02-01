@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common'
 import { CreateHyperChatPaymentIntent } from '@presentation/hyper-chats/dto/CreateHyperChatPaymentIntent.dto'
 import { GetHyperChats } from '@presentation/hyper-chats/dto/GetHyperChats.dto'
+import { GetRecentHyperChats } from '@presentation/hyper-chats/dto/GetRecentHyperChats.dto'
 import { HyperChatsScenario } from '@presentation/hyper-chats/hyper-chats.scenario'
 import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
 import { HyperChatsService } from '@app/hyper-chats/hyper-chats.service'
@@ -24,6 +25,25 @@ export class HyperChatsController {
     private readonly hyperChatsService: HyperChatsService,
     private readonly hyperChatsScenario: HyperChatsScenario
   ) {}
+
+  /**
+   * 複数チャンネルの最新HyperChatを取得（過去24時間）
+   * channelIdをキーとしたオブジェクトを返却
+   */
+  @Get('recent')
+  async getRecent(@Query() dto: GetRecentHyperChats) {
+    const result = await this.hyperChatsService.findRecentByChannelIds({
+      channelIds: dto.toChannelIds()
+    })
+
+    // Map → Object に変換
+    const response: Record<string, unknown> = {}
+    for (const [channelId, hyperChats] of result) {
+      response[channelId] = hyperChats
+    }
+
+    return response
+  }
 
   /**
    * Stripe PaymentIntentを作成してclientSecretを返却（Elements用）

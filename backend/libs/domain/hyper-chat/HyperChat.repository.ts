@@ -72,4 +72,11 @@ export interface HyperChatRepository {
    * 条件に一致するユニークユーザー数を取得
    */
   countDistinctUsers: (args: { where: FindAllWhere }) => Promise<number>
+
+  /**
+   * 複数チャンネルの最新ハイパーチャットを取得（過去24時間）
+   */
+  findRecentByChannelIds: (args: {
+    channelIds: ChannelId[]
+  }) => Promise<Map<string, HyperChats>>
 }

@@ -9,6 +9,11 @@ export const TIER_CONFIG = {
   max: { price: 10000, maxChars: 300 }
 } as const
 
+export const authorSchema = z.object({
+  name: z.string().nullable(),
+  image: z.string().nullable()
+})
+
 export const schema = z.object({
   id: z.number(),
   userId: z.number(),
@@ -19,7 +24,8 @@ export const schema = z.object({
   amount: z.number(),
   message: z.string(),
   likeCount: z.number(),
-  createdAt: z.string()
+  createdAt: z.coerce.date(),
+  author: authorSchema
 })
 
 export const responseSchema = z.object({

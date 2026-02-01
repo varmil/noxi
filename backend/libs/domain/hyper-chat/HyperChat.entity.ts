@@ -11,6 +11,12 @@ import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
+/** HyperChat送信者の情報 */
+export interface HyperChatAuthor {
+  name: string | null
+  image: string | null
+}
+
 export class HyperChat {
   @Transform(({ value }: { value: HyperChatId }) => value.get())
   public readonly id: HyperChatId
@@ -41,6 +47,9 @@ export class HyperChat {
 
   public readonly createdAt: Date
 
+  /** 送信者情報 */
+  public readonly author: HyperChatAuthor
+
   constructor(args: {
     id: HyperChatId
     userId: UserId
@@ -52,6 +61,7 @@ export class HyperChat {
     message: Message
     likeCount: LikeCount
     createdAt: Date
+    author: HyperChatAuthor
   }) {
     this.id = args.id
     this.userId = args.userId
@@ -63,5 +73,6 @@ export class HyperChat {
     this.message = args.message
     this.likeCount = args.likeCount
     this.createdAt = args.createdAt
+    this.author = args.author
   }
 }

@@ -5,7 +5,7 @@ import { GroupId } from '@domain/group'
 import { Gender, GenderString, GenderStrings } from '@domain/lib/gender'
 import { ChannelId } from '@domain/youtube'
 
-type SortableField = 'createdAt' | 'tier' | 'likeCount'
+type SortableField = 'createdAt' | 'tier' | 'likeCount' | 'amount'
 
 export class GetHyperChats {
   @IsOptional()

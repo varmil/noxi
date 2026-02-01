@@ -31,6 +31,7 @@ export async function generateBaseMetadata(
       | 'Page.group.channelsId.comments.metadata'
       | 'Page.group.channelsId.concurrentViewers.metadata'
       | 'Page.group.channelsId.streamTimes.metadata'
+      | 'Page.group.channelsId.hyperChat.metadata'
   }
 ): Promise<Metadata> {
   const { locale, group, id } = await props.params

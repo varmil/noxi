@@ -72,12 +72,13 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
             }
           : undefined
       },
+      include: { user: true },
       orderBy,
       take: limit,
       skip: offset
     })
 
-    return new HyperChats(rows.map(row => this.toDomain(row)))
+    return new HyperChats(rows.map(row => this.toDomainWithUser(row)))
   }
 
   count: HyperChatRepository['count'] = async ({ where }) => {
@@ -141,6 +142,44 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     return result.length
   }
 
+  findRecentByChannelIds: HyperChatRepository['findRecentByChannelIds'] =
+    async ({ channelIds }) => {
+      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000)
+
+      const rows = await this.prismaInfraService.hyperChat.findMany({
+        where: {
+          channelId: { in: channelIds.map(id => id.get()) },
+          createdAt: { gte: twentyFourHoursAgo }
+        },
+        include: { user: true },
+        orderBy: { createdAt: 'desc' }
+      })
+
+      const result = new Map<string, HyperChats>()
+
+      // 全channelIdの初期化（空配列）
+      for (const channelId of channelIds) {
+        result.set(channelId.get(), new HyperChats([]))
+      }
+
+      // グループ化
+      const grouped = new Map<string, HyperChat[]>()
+      for (const row of rows) {
+        const channelId = row.channelId
+        if (!grouped.has(channelId)) {
+          grouped.set(channelId, [])
+        }
+        grouped.get(channelId)!.push(this.toDomainWithUser(row))
+      }
+
+      // HyperChats に変換
+      for (const [channelId, hyperChats] of grouped) {
+        result.set(channelId, new HyperChats(hyperChats))
+      }
+
+      return result
+    }
+
   private toDomain(row: {
     id: number
     userId: number
@@ -163,7 +202,36 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       amount: new Amount(row.amount),
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
-      createdAt: row.createdAt
+      createdAt: row.createdAt,
+      author: { name: null, image: null }
+    })
+  }
+
+  private toDomainWithUser(row: {
+    id: number
+    userId: number
+    channelId: string
+    group: string
+    gender: string
+    tier: string
+    amount: number
+    message: string
+    likeCount: number
+    createdAt: Date
+    user: { name: string | null; image: string | null }
+  }): HyperChat {
+    return new HyperChat({
+      id: new HyperChatId(row.id),
+      userId: new UserId(row.userId),
+      channelId: new ChannelId(row.channelId),
+      group: new GroupId(row.group),
+      gender: new Gender(row.gender),
+      tier: new Tier(row.tier as TierValue),
+      amount: new Amount(row.amount),
+      message: new Message(row.message),
+      likeCount: new LikeCount(row.likeCount),
+      createdAt: row.createdAt,
+      author: { name: row.user.name, image: row.user.image }
     })
   }
 }

@@ -39,4 +39,10 @@ export class HyperChatsService {
   ) {
     return await this.hyperChatRepository.countDistinctUsers(args)
   }
+
+  async findRecentByChannelIds(
+    args: Parameters<HyperChatRepository['findRecentByChannelIds']>[0]
+  ) {
+    return await this.hyperChatRepository.findRecentByChannelIds(args)
+  }
 }

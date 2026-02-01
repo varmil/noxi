@@ -278,6 +278,12 @@
             "card": { "title": "Live Frequency/Duration - Last 30 Days" },
             "chart": { "title": "Live streaming time slot" }
           }
+        },
+        "hyperChat": {
+          "metadata": {
+            "title": "{channel} HyperChat History",
+            "description": "View HyperChat history for {channel}. Send a support message and cheer on your favorite VTuber!"
+          }
         }
       },
       "live": {
@@ -673,6 +679,9 @@
             "title": "Viewers By Day of the Week"
           }
         }
+      },
+      "hyperChat": {
+        "nav": "HyperChat"
       }
     },
 
@@ -748,6 +757,7 @@
       }
     },
     "hyperChat": {
+      "nav": "HyperChat",
       "button": {
         "label": "Send HyperChat",
         "tooltip": "Send a message to this channel"
@@ -798,6 +808,17 @@
         "peopleCount": "{count}",
         "yenSuffix": " yen",
         "peopleSuffix": ""
+      },
+      "timeline": {
+        "title": "HyperChat",
+        "empty": "No HyperChats yet",
+        "viewAll": "View All"
+      },
+      "history": {
+        "title": "HyperChat History",
+        "stats": "Support Stats",
+        "sortNewest": "Newest",
+        "sortAmount": "Amount"
       }
     },
     "dashboard": {
