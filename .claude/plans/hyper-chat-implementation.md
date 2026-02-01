@@ -230,65 +230,76 @@ web/apis/hyper-chats/
 
 ---
 
-## Phase 2: 表示機能
+## Phase 2: 表示機能 ✅ 実装済み（8割完了）
 
 ### 機能範囲
 
 - ランキングページ各行に吹き出し表示（過去24時間のデータ）
 - ローテーション表示（金額に応じたスロット数）
-- MAXローテーション枠（10,000円は60分独占）
+- MAXローテーション枠（10,000円は60分独占、複数MAX対応）
 - チャンネル詳細ページにハイパーチャット履歴タブ追加
 
 **注意**: 「ハイパーチャットランキング」機能は今回スコープ外
 
 ### API エンドポイント
 
-| Method | Endpoint                               | 説明                               |
-| ------ | -------------------------------------- | ---------------------------------- |
-| GET    | `/api/hyper-chats/rotation/:channelId` | ローテーション表示用（過去24時間） |
+| Method | Endpoint                 | 説明                                           |
+| ------ | ------------------------ | ---------------------------------------------- |
+| GET    | `/api/hyper-chats/recent` | 過去24時間のHyperChat（複数channelId対応） |
 
 ### ローテーションロジック
 
 ```typescript
-// lite = 1スロット、standard = 4スロット
-// max = 60分間MAXローテーション枠（独占）、60分経過後はstandard扱い
+// web/utils/hyper-chat/rotation.ts
+const ROTATION_SLOTS = { lite: 1, standard: 4, max: 60 }
 
-interface RotationSlot {
-  hyperChat: HyperChat
-  weight: number // スロット数
-  isMax: boolean // MAXローテーション中か
-  maxExpiresAt?: Date
+// MAXは60分間独占、経過後はstandard扱い（4スロット）
+// 複数MAXがある場合は古い順にローテーション
+function isMaxExclusive(createdAt: Date): boolean {
+  const diffMinutes = (Date.now() - createdAt.getTime()) / 60000
+  return diffMinutes <= 60
 }
 ```
 
 ### 吹き出し仕様
 
-- 背景色: lite=水色、standard=黄色、max=赤色
-- line-clamp: lite/standard=2行、max=3行
-- 表示時間: 5秒ごとにフェード切替
-- タップで全ハイパーチャットのタイムラインをSheet/Dialogで表示
+- 背景色: lite=水色、standard=黄色、max=赤色（tier-styles.tsで一元管理）
+- line-clamp: 2行
+- 表示時間: 3秒ごとにフェード切替（embla-carousel-fade使用）
+- 1件のみの場合はカルーセル不使用（シンプル描画）
+- ユーザー情報表示: アバター、表示名、相対時間
+- タップで全ハイパーチャットのタイムラインをSheetで表示
 
 ### フロントエンド
 
 ```
-web/features/hyper-chat/components/
-├── send/                        # Phase 1（既存）
-└── timeline/                    # 表示/履歴関連
-    ├── HyperChatRotation.tsx    # ローテーション表示（5秒切替）
-    ├── HyperChatBubble.tsx      # 吹き出しUI
-    ├── HyperChatList.tsx        # 履歴リスト
-    ├── HyperChatCard.tsx        # 個別カード
-    └── HyperChatTimeline.tsx    # タイムラインSheet/Dialog
+web/components/hyper-chat/           # 表示系（feature横断で使用）
+├── HyperChatBubble.tsx              # 吹き出しUI
+├── HyperChatRotator.tsx             # ローテーション表示（3秒切替）
+├── HyperChatTimelineSheet.tsx       # タイムラインSheet
+├── HyperChatCard.tsx                # 履歴カード
+├── HyperChatHistoryList.tsx         # 履歴ページ用リスト
+└── tier-styles.ts                   # Tier別カラー定義
+
+web/utils/hyper-chat/
+└── rotation.ts                      # スロット重み付け計算
+
+web/features/hyper-chat/components/send/  # 送信系（Phase 1）
+└── ...
 
 web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
-└── page.tsx                     # ハイパーチャット履歴ページ
+├── page.tsx
+└── _components/
+    └── ChannelsIdHyperChatTemplate.tsx
 ```
+
+**注意**: 表示系コンポーネントは `components/hyper-chat/` に配置（Lintルールで features間のインポートが禁止されているため）
 
 ### 履歴ページ仕様
 
 - 30件/ページのページング
-- ソート: 新着順（デフォルト）、金額順
-- 画面下部に「ハイパーチャットを購入」ボタンを常駐
+- ソート: 新着順（デフォルト）、金額順（amount DESC → likeCount DESC → createdAt DESC）
+- 統計情報表示: 総応援額、応援者数
 
 ---
 
