@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { MessageCircle } from 'lucide-react'
+import { MessagesSquare } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 import {
   Sheet,
   SheetContent,
@@ -48,30 +49,36 @@ export function HyperChatTimelineSheet({
           />
         </div>
       </SheetTrigger>
-      <SheetContent side="right" className="w-[320px] sm:w-[400px]">
+      <SheetContent
+        side="right"
+        className="w-[320px] sm:w-[400px] gap-y-2"
+        hideCloseButton
+      >
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
-            <MessageCircle className="h-5 w-5" />
+            <MessagesSquare className="size-5" />
             {t('title')}
           </SheetTitle>
-          <SheetDescription hidden>{t('title')}</SheetDescription>
+          <SheetDescription hidden />
         </SheetHeader>
 
-        <div className="mt-4 flex flex-col gap-3 overflow-y-auto pr-2">
-          {hyperChats.slice(0, 10).map(hyperChat => (
-            <HyperChatCard key={hyperChat.id} hyperChat={hyperChat} />
-          ))}
-        </div>
-
-        {hyperChats.length > 10 && (
-          <div className="mt-4">
-            <Button variant="outline" className="w-full" asChild>
-              <Link href={`/${group}/channels/${channelId}/hyper-chat`}>
-                {t('viewAll')}
-              </Link>
-            </Button>
+        <ScrollArea className="flex-1 min-h-0">
+          <div className="flex flex-col gap-3 px-3 pb-6">
+            {hyperChats.slice(0, 10).map(hyperChat => (
+              <HyperChatCard key={hyperChat.id} hyperChat={hyperChat} />
+            ))}
           </div>
-        )}
+
+          {hyperChats.length > 10 && (
+            <div className="mt-4">
+              <Button variant="outline" className="w-full" asChild>
+                <Link href={`/${group}/channels/${channelId}/hyper-chat`}>
+                  {t('viewAll')}
+                </Link>
+              </Button>
+            </div>
+          )}
+        </ScrollArea>
       </SheetContent>
     </Sheet>
   )

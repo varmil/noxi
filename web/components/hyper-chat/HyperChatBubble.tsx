@@ -60,7 +60,10 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
             </AvatarFallback>
           </Avatar>
           <span
-            className={cn('truncate font-medium', TIER_TEXT_MUTED_COLORS[tier])}
+            className={cn(
+              'line-clamp-1 break-all font-medium',
+              TIER_TEXT_MUTED_COLORS[tier]
+            )}
           >
             {displayName}
           </span>
