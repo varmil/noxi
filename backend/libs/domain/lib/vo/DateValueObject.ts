@@ -13,13 +13,16 @@ extend(isoWeek)
 
 export abstract class DateValueObject extends ValueObject<Date> {
   @Exclude()
-  startOfWeek = () => dayjs(this.val).startOf('isoWeek').toDate()
+  startOfWeek = () =>
+    dayjs(this.val).tz('Asia/Tokyo').startOf('isoWeek').toDate()
 
   @Exclude()
-  startOfMonth = () => dayjs(this.val).startOf('month').toDate()
+  startOfMonth = () =>
+    dayjs(this.val).tz('Asia/Tokyo').startOf('month').toDate()
 
   @Exclude()
-  startOfyear = () => dayjs(this.val).startOf('year').toDate()
+  startOfYear = () =>
+    dayjs(this.val).tz('Asia/Tokyo').startOf('year').toDate()
 
   @Exclude()
   xDaysAgo = (x: number) => dayjs(this.val).subtract(x, 'd').toDate()

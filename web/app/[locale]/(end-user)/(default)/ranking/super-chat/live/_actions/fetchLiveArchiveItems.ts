@@ -81,11 +81,11 @@ async function fetchTop5ForPeriods(
             : (`monthly-${p.target}` as MonthlySnapshotPeriod)
         const { start, end } = getSnapshotDateRange(snapshotPeriod)
 
-        // Top5 配信を取得（スパチャ金額順）
+        // Top5 配信を取得（スパチャ金額順、配信開始時刻でフィルタリング）
         const bundles = await getSupersBundles({
           group: group === 'all' ? undefined : group,
-          createdAtGTE: start,
-          createdAtLTE: end,
+          actualStartTimeGTE: start,
+          actualStartTimeLTE: end,
           orderBy: [{ field: 'amountMicros', order: 'desc' }],
           limit: 5
         })
