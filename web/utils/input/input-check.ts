@@ -15,7 +15,7 @@ export const getProfanityFilterForJapanese = () => {
     caseSensitive: false,
     wordBoundaries: false, // これが重要
     logProfanity: true,
-    contextWindow: 5
+    enableContextAware: true
   })
 }
 
