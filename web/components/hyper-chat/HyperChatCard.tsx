@@ -4,9 +4,11 @@ import { useFormatter, useNow } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
+import { HyperChatMessage } from 'components/hyper-chat/HyperChatMessage'
 import {
   TIER_BG_COLORS,
   TIER_BORDER_LEFT_COLORS,
+  TIER_TEXT_COLORS,
   TIER_TEXT_MUTED_COLORS
 } from 'components/hyper-chat/tier-styles'
 
@@ -45,7 +47,7 @@ export function HyperChatCard({ hyperChat, className }: Props) {
         >
           {displayName}
         </span>
-        <span className="font-medium">
+        <span className={cn('font-medium', TIER_TEXT_COLORS[tier])}>
           ￥{hyperChat.amount.toLocaleString()}
         </span>
         <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
@@ -54,7 +56,7 @@ export function HyperChatCard({ hyperChat, className }: Props) {
       </div>
 
       {/* メッセージ */}
-      <p className="text-sm whitespace-pre-wrap">{hyperChat.message}</p>
+      <HyperChatMessage tier={tier} message={hyperChat.message} />
     </div>
   )
 }

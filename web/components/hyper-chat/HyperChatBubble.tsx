@@ -8,6 +8,7 @@ import {
   TIER_BG_COLORS,
   TIER_BORDER_COLORS,
   TIER_BORDER_LEFT_COLORS,
+  TIER_TEXT_COLORS,
   TIER_TEXT_MUTED_COLORS
 } from 'components/hyper-chat/tier-styles'
 
@@ -63,7 +64,7 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
           >
             {displayName}
           </span>
-          <span className="font-medium">
+          <span className={cn('font-medium', TIER_TEXT_COLORS[tier])}>
             ￥{hyperChat.amount.toLocaleString()}
           </span>
           <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
@@ -72,7 +73,12 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
         </div>
 
         {/* メッセージ */}
-        <p className="text-xs line-clamp-2 whitespace-pre-wrap">
+        <p
+          className={cn(
+            'text-xs line-clamp-2 whitespace-pre-wrap',
+            TIER_TEXT_COLORS[tier]
+          )}
+        >
           {hyperChat.message}
         </p>
       </div>
