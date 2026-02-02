@@ -1,33 +1,14 @@
+'use client'
+
+import { useFormatter, useNow } from 'next-intl'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
-import { HyperChatSchema, TierValue } from 'apis/hyper-chats/hyperChatSchema'
-
-/** Tier別の背景色 */
-const TIER_COLORS: Record<TierValue, string> = {
-  lite: 'bg-cyan-50 dark:bg-cyan-950/30',
-  standard: 'bg-yellow-50 dark:bg-yellow-950/30',
-  max: 'bg-red-50 dark:bg-red-950/30'
-}
-
-/** Tier別のボーダー色 */
-const TIER_BORDER_COLORS: Record<TierValue, string> = {
-  lite: 'border-l-cyan-400',
-  standard: 'border-l-yellow-400',
-  max: 'border-l-red-400'
-}
-
-/** Tier別のラベル */
-const TIER_LABELS: Record<TierValue, string> = {
-  lite: 'Lite',
-  standard: 'Standard',
-  max: 'MAX'
-}
-
-/** Tier別のラベル色 */
-const TIER_LABEL_COLORS: Record<TierValue, string> = {
-  lite: 'text-cyan-600 dark:text-cyan-400',
-  standard: 'text-yellow-600 dark:text-yellow-400',
-  max: 'text-red-600 dark:text-red-400'
-}
+import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
+import {
+  TIER_BG_COLORS,
+  TIER_BORDER_LEFT_COLORS,
+  TIER_TEXT_MUTED_COLORS
+} from 'components/hyper-chat/tier-styles'
 
 interface Props {
   hyperChat: HyperChatSchema
@@ -35,41 +16,45 @@ interface Props {
 }
 
 export function HyperChatCard({ hyperChat, className }: Props) {
-  const bgColor = TIER_COLORS[hyperChat.tier]
-  const borderColor = TIER_BORDER_COLORS[hyperChat.tier]
-  const label = TIER_LABELS[hyperChat.tier]
-  const labelColor = TIER_LABEL_COLORS[hyperChat.tier]
-
-  const formattedDate = new Date(hyperChat.createdAt).toLocaleDateString(
-    'ja-JP',
-    {
-      month: 'numeric',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    }
-  )
-
-  const formattedAmount = new Intl.NumberFormat('ja-JP').format(hyperChat.amount)
+  const format = useFormatter()
+  const now = useNow({ updateInterval: 60000 })
+  const tier = hyperChat.tier
+  const displayName = hyperChat.author.name || '匿名さん'
 
   return (
     <div
       className={cn(
-        'rounded-lg border-l-4 p-3',
-        bgColor,
-        borderColor,
+        'rounded-lg border-l-4 px-3 py-2 min-h-[56px]',
+        TIER_BG_COLORS[tier],
+        TIER_BORDER_LEFT_COLORS[tier],
         className
       )}
       data-testid="hyper-chat-card"
     >
-      <div className="mb-1 flex items-center justify-between">
-        <span className={cn('text-xs font-medium', labelColor)}>{label}</span>
-        <span className="text-xs text-muted-foreground">{formattedDate}</span>
+      {/* ヘッダー: アイコン + 表示名 + 金額 + 相対日時 */}
+      <div className="text-sm mb-2 flex items-center gap-2">
+        <Avatar className="size-7 shrink-0">
+          <AvatarImage
+            src={hyperChat.author.image || undefined}
+            alt={displayName}
+          />
+          <AvatarFallback>{displayName.charAt(0).toUpperCase()}</AvatarFallback>
+        </Avatar>
+        <span
+          className={cn('truncate font-medium', TIER_TEXT_MUTED_COLORS[tier])}
+        >
+          {displayName}
+        </span>
+        <span className="font-medium">
+          ￥{hyperChat.amount.toLocaleString()}
+        </span>
+        <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
+          {format.relativeTime(hyperChat.createdAt, now)}
+        </span>
       </div>
-      <p className="text-sm text-foreground">{hyperChat.message}</p>
-      <div className="mt-2 text-right">
-        <span className="text-xs text-muted-foreground">{formattedAmount}円</span>
-      </div>
+
+      {/* メッセージ */}
+      <p className="text-sm whitespace-pre-wrap">{hyperChat.message}</p>
     </div>
   )
 }

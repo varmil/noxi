@@ -5,9 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
 import {
-  TIER_ARROW_LEFT_COLORS,
   TIER_BG_COLORS,
   TIER_BORDER_COLORS,
+  TIER_BORDER_LEFT_COLORS,
   TIER_TEXT_MUTED_COLORS
 } from 'components/hyper-chat/tier-styles'
 
@@ -43,7 +43,7 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
           className={cn(
             'absolute -right-2 top-3 h-0 w-0',
             'border-y-[6px] border-l-[8px] border-y-transparent',
-            TIER_ARROW_LEFT_COLORS[tier]
+            TIER_BORDER_LEFT_COLORS[tier]
           )}
         />
 
@@ -72,7 +72,9 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
         </div>
 
         {/* メッセージ */}
-        <p className="text-xs line-clamp-2">{hyperChat.message}</p>
+        <p className="text-xs line-clamp-2 whitespace-pre-wrap">
+          {hyperChat.message}
+        </p>
       </div>
 
       {/* ユーザーアイコン（右側） */}

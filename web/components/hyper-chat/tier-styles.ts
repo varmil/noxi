@@ -14,8 +14,8 @@ export const TIER_BORDER_COLORS: Record<TierValue, string> = {
   max: 'border-red-300 dark:border-red-800'
 }
 
-/** Tier別の吹き出し三角形の色（左向き border-l-*） */
-export const TIER_ARROW_LEFT_COLORS: Record<TierValue, string> = {
+/** Tier別の左ボーダー色（吹き出し三角形、カード左ボーダー用） */
+export const TIER_BORDER_LEFT_COLORS: Record<TierValue, string> = {
   lite: 'border-l-cyan-300/70 dark:border-l-cyan-800/70',
   standard: 'border-l-yellow-300 dark:border-l-yellow-800',
   max: 'border-l-red-300 dark:border-l-red-800'
