@@ -47,7 +47,7 @@
     "class-validator": "^0.14.3",
     "compression": "^1.8.0",
     "dayjs": "^1.11.13",
-    "fast-xml-parser": "^5.3.3",
+    "fast-xml-parser": "^5.3.4",
     "firebase-admin": "^13.6.0",
     "passport-jwt": "^4.0.1",
     "prisma-json-types-generator": "^4.1.1",
