@@ -40,7 +40,7 @@ export function getSnapshotDateRange(period: SnapshotPeriod): {
       .isoWeek(week)
       .startOf('isoWeek')
     const end = start.endOf('isoWeek')
-    return { start: start.toDate(), end: end.toDate() }
+    return { start: start.utc().toDate(), end: end.utc().toDate() }
   }
 
   if (type === 'monthly') {
@@ -54,7 +54,7 @@ export function getSnapshotDateRange(period: SnapshotPeriod): {
       .month(month)
       .startOf('month')
     const end = start.endOf('month')
-    return { start: start.toDate(), end: end.toDate() }
+    return { start: start.utc().toDate(), end: end.utc().toDate() }
   }
 
   throw new Error(`Unknown period type: ${type}`)
