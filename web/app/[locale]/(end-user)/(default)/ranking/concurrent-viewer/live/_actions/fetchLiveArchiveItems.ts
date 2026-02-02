@@ -81,12 +81,12 @@ async function fetchTop5ForPeriods(
         const { start, end } = getSnapshotDateRange(snapshotPeriod)
 
         // Top5 配信を取得（同接数順）
-        // endedAfter/endedBefore で終了済みの配信を期間でフィルタリング
+        // startedAfter/startedBefore で配信開始時刻でフィルタリング
         const streams = await getStreams({
           group: group === 'all' ? undefined : group,
           status: 'ended',
-          endedAfter: start,
-          endedBefore: end,
+          startedAfter: start,
+          startedBefore: end,
           orderBy: [{ field: 'maxViewerCount', order: 'desc' }],
           limit: 5
         })

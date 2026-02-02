@@ -68,6 +68,14 @@ export class GetSupersBundles {
   @IsOptional()
   gender?: GenderString
 
+  @IsOptional()
+  @IsRFC3339()
+  actualStartTimeGTE?: string
+
+  @IsOptional()
+  @IsRFC3339()
+  actualStartTimeLTE?: string
+
   /** "null" means "realtime live" */
   @IsOptional()
   @IsRFC3339()
@@ -141,6 +149,20 @@ export class GetSupersBundles {
       })) as Parameters<SupersBundleRepository['findAll']>[0]['orderBy']) ??
       undefined
     )
+  }
+
+  toActualStartTime = () => {
+    const gte = this.actualStartTimeGTE
+      ? new Date(this.actualStartTimeGTE)
+      : undefined
+    const lte = this.actualStartTimeLTE
+      ? new Date(this.actualStartTimeLTE)
+      : undefined
+
+    return {
+      ...(gte && { gte }),
+      ...(lte && { lte })
+    }
   }
 
   /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */

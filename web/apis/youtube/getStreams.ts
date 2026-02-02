@@ -16,6 +16,8 @@ type Params = {
   channelId?: string
   scheduledBefore?: Date | null
   scheduledAfter?: Date | null
+  startedBefore?: Date | null
+  startedAfter?: Date | null
   endedBefore?: Date | null
   endedAfter?: Date | null
   peakConcurrentViewers?: { gte?: number; lte?: number }
@@ -42,6 +44,8 @@ const createSearchParams = ({
   channelId,
   scheduledBefore,
   scheduledAfter,
+  startedBefore,
+  startedAfter,
   endedBefore,
   endedAfter,
   peakConcurrentViewers,
@@ -62,6 +66,12 @@ const createSearchParams = ({
     }),
     ...(scheduledAfter !== undefined && {
       scheduledAfter: scheduledAfter?.toISOString() ?? 'null'
+    }),
+    ...(startedBefore !== undefined && {
+      startedBefore: startedBefore?.toISOString() ?? 'null'
+    }),
+    ...(startedAfter !== undefined && {
+      startedAfter: startedAfter?.toISOString() ?? 'null'
     }),
     ...(endedBefore !== undefined && {
       endedBefore: endedBefore?.toISOString() ?? 'null'
@@ -96,6 +106,8 @@ const createSearchParams = ({
 export async function getStreams({
   scheduledBefore,
   scheduledAfter,
+  startedBefore,
+  startedAfter,
   endedBefore,
   endedAfter,
   ...params
@@ -105,6 +117,8 @@ export async function getStreams({
     ...params,
     scheduledBefore: roundDateTo10Minutes(scheduledBefore),
     scheduledAfter: roundDateTo10Minutes(scheduledAfter),
+    startedBefore: roundDateTo10Minutes(startedBefore),
+    startedAfter: roundDateTo10Minutes(startedAfter),
     endedBefore: roundDateTo10Minutes(endedBefore),
     endedAfter: roundDateTo10Minutes(endedAfter)
   })
@@ -131,6 +145,8 @@ type CountParams = Pick<
   | 'channelId'
   | 'scheduledBefore'
   | 'scheduledAfter'
+  | 'startedBefore'
+  | 'startedAfter'
   | 'endedBefore'
   | 'endedAfter'
   | 'peakConcurrentViewers'
@@ -146,6 +162,8 @@ export async function getStreamsCount({
   channelId,
   scheduledBefore,
   scheduledAfter,
+  startedBefore,
+  startedAfter,
   endedBefore,
   endedAfter,
   peakConcurrentViewers,
@@ -162,6 +180,8 @@ export async function getStreamsCount({
     channelId,
     scheduledBefore: roundDateToHour(scheduledBefore),
     scheduledAfter: roundDateToHour(scheduledAfter),
+    startedBefore: roundDateToHour(startedBefore),
+    startedAfter: roundDateToHour(startedAfter),
     endedBefore: roundDateToHour(endedBefore),
     endedAfter: roundDateToHour(endedAfter),
     peakConcurrentViewers,
