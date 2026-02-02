@@ -67,6 +67,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
             channelId: where.channelId?.get(),
             amountMicros,
             group: where.group?.get(),
+            actualStartTime: where.actualStartTime,
             actualEndTime: where.actualEndTime,
             createdAt: where.createdAt,
             channel: { gender: where.gender?.get() }
@@ -102,6 +103,7 @@ export class SupersBundleRepositoryImpl implements SupersBundleRepository {
             channelId: where.channelId?.get(),
             amountMicros,
             group: where.group?.get(),
+            actualStartTime: where.actualStartTime,
             actualEndTime: where.actualEndTime,
             createdAt: where.createdAt,
             channel: { gender: where.gender?.get() }

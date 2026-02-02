@@ -29,7 +29,7 @@ export class CreateMembershipSummariesService {
       { key: 'last1Year', date: targetDate.xYearsAgo(1) },
       { key: 'thisWeek', date: targetDate.startOfWeek() },
       { key: 'thisMonth', date: targetDate.startOfMonth() },
-      { key: 'thisYear', date: targetDate.startOfyear() }
+      { key: 'thisYear', date: targetDate.startOfYear() }
     ]
 
     const sumResults = await Promise.all(

@@ -22,6 +22,7 @@ export class SupersBundlesController {
         amountMicros: dto.toAmountMicros(),
         group: dto.toGroup(),
         gender: dto.toGender(),
+        actualStartTime: dto.toActualStartTime(),
         actualEndTime: dto.toActualEndTime(),
         createdAt: dto.toCreatedAt()
       },
@@ -41,6 +42,7 @@ export class SupersBundlesController {
         amountMicros: dto.toAmountMicros(),
         group: dto.toGroup(),
         gender: dto.toGender(),
+        actualStartTime: dto.toActualStartTime(),
         actualEndTime: dto.toActualEndTime(),
         createdAt: dto.toCreatedAt()
       }

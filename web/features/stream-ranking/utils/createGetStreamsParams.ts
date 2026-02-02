@@ -20,13 +20,13 @@ export default function createGetStreamsParams({
   if (period === 'realtime') {
     result = { ...result, status: 'live' }
   } else if (isSnapshotPeriod(period)) {
-    // 週間/月間スナップショット期間の場合
+    // 週間/月間スナップショット期間の場合（配信開始時刻でフィルタリング）
     const { start, end } = getSnapshotDateRange(period)
     result = {
       ...result,
       status: 'ended',
-      endedAfter: start,
-      endedBefore: end
+      startedAfter: start,
+      startedBefore: end
     }
   }
   // TODO: 本当はliveもふくめたい
@@ -34,7 +34,7 @@ export default function createGetStreamsParams({
     result = {
       ...result,
       status: 'ended',
-      endedAfter: getStartOf(period).toDate()
+      startedAfter: getStartOf(period).toDate()
     }
   }
 

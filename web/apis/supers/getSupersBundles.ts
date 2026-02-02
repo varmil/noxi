@@ -18,6 +18,8 @@ type Params = {
   }
   group?: string
   gender?: Gender
+  actualStartTimeGTE?: Date
+  actualStartTimeLTE?: Date
   actualEndTimeGTE?: null
   actualEndTimeLTE?: null
   createdAtGTE?: Date
@@ -36,6 +38,8 @@ const createSearchParams = ({
   amountMicros,
   group,
   gender,
+  actualStartTimeGTE,
+  actualStartTimeLTE,
   actualEndTimeGTE,
   actualEndTimeLTE,
   createdAtGTE,
@@ -49,6 +53,12 @@ const createSearchParams = ({
     ...(channelId && { channelId }),
     ...(group && group !== 'all' && { group }),
     ...(gender && { gender }),
+    ...(actualStartTimeGTE && {
+      actualStartTimeGTE: actualStartTimeGTE.toISOString()
+    }),
+    ...(actualStartTimeLTE && {
+      actualStartTimeLTE: actualStartTimeLTE.toISOString()
+    }),
     ...(actualEndTimeGTE === null && { actualEndTimeGTE: 'null' }),
     ...(actualEndTimeLTE === null && { actualEndTimeLTE: 'null' }),
     ...(createdAtGTE && { createdAtGTE: createdAtGTE?.toISOString() }),
@@ -74,6 +84,8 @@ const createSearchParams = ({
 }
 
 export async function getSupersBundles({
+  actualStartTimeGTE,
+  actualStartTimeLTE,
   createdAtGTE,
   createdAtLTE,
   ...params
@@ -81,6 +93,8 @@ export async function getSupersBundles({
   // 日付パラメータを時間単位に丸めてキャッシュヒット率を向上
   const searchParams = createSearchParams({
     ...params,
+    actualStartTimeGTE: roundDateToHour(actualStartTimeGTE),
+    actualStartTimeLTE: roundDateToHour(actualStartTimeLTE),
     createdAtGTE: roundDateToHour(createdAtGTE),
     createdAtLTE: roundDateToHour(createdAtLTE)
   })
@@ -101,6 +115,8 @@ type CountParams = Pick<
   | 'amountMicros'
   | 'group'
   | 'gender'
+  | 'actualStartTimeGTE'
+  | 'actualStartTimeLTE'
   | 'actualEndTimeGTE'
   | 'actualEndTimeLTE'
   | 'createdAtGTE'
@@ -113,6 +129,8 @@ export async function getSupersBundlesCount({
   amountMicros,
   group,
   gender,
+  actualStartTimeGTE,
+  actualStartTimeLTE,
   actualEndTimeGTE,
   actualEndTimeLTE,
   createdAtGTE,
@@ -126,6 +144,8 @@ export async function getSupersBundlesCount({
     amountMicros,
     group,
     gender,
+    actualStartTimeGTE: roundDateToDay(actualStartTimeGTE),
+    actualStartTimeLTE: roundDateToDay(actualStartTimeLTE),
     actualEndTimeGTE,
     actualEndTimeLTE,
     createdAtGTE: roundDateToDay(createdAtGTE),

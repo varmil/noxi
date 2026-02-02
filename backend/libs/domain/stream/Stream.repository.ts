@@ -26,6 +26,7 @@ export interface StreamFindAllWhere {
   gender?: Gender
   channelId?: ChannelId
   scheduledStartTime?: { gte?: Date; lte?: Date } | null
+  actualStartTime?: { gte?: Date; lte?: Date } | null
   actualEndTime?: { gte?: Date; lte?: Date } | null
   peakConcurrentViewers?: { gte?: number; lte?: number }
   avgConcurrentViewers?: { gte?: number; lte?: number }

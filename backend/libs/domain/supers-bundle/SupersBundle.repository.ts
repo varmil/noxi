@@ -21,6 +21,7 @@ interface SupersBundleFindAllWhere {
   }
   group?: GroupId
   gender?: Gender
+  actualStartTime?: { gte?: Date; lte?: Date }
   // NULL means "live now"
   actualEndTime?: null
   createdAt?: { gte?: Date; lte?: Date }

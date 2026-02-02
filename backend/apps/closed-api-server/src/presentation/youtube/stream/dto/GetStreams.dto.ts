@@ -83,6 +83,22 @@ export class GetStreamsDto {
   @Transform(({ value }: { value?: string | null }) =>
     value === 'null' ? null : value
   )
+  startedBefore?: string | null
+
+  @IsOptional()
+  @IsRFC3339()
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
+  startedAfter?: string | null
+
+  @IsOptional()
+  @IsRFC3339()
+  @ValidateIf((_, value) => value !== 'null')
+  @Transform(({ value }: { value?: string | null }) =>
+    value === 'null' ? null : value
+  )
   endedBefore?: string
 
   @IsOptional()
@@ -157,6 +173,25 @@ export class GetStreamsDto {
     return {
       ...(scheduledAfter && { gte: scheduledAfter }),
       ...(scheduledBefore && { lte: scheduledBefore })
+    }
+  }
+
+  /** 便宜的にgte, lteどちらかがnullであれば、全体をnullとして扱う */
+  toActualStartTime = () => {
+    if (this.startedBefore === null || this.startedAfter === null) {
+      return null
+    }
+
+    const startedAfter =
+      this.startedAfter !== undefined ? new Date(this.startedAfter) : undefined
+    const startedBefore =
+      this.startedBefore !== undefined
+        ? new Date(this.startedBefore)
+        : undefined
+
+    return {
+      ...(startedAfter && { gte: startedAfter }),
+      ...(startedBefore && { lte: startedBefore })
     }
   }
 

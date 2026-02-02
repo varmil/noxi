@@ -45,7 +45,7 @@ export class CreateSupersSummariesService {
       where: where(targetDate.startOfMonth())
     })
     const thisYear = await this.supersBundlesService.sum({
-      where: where(targetDate.startOfyear())
+      where: where(targetDate.startOfYear())
     })
 
     const getAmountMicros = (data: SupersBundleSums, channelId: ChannelId) => {
