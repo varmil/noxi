@@ -1,7 +1,7 @@
 import { MessageCircleOff } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import { HyperChatCard } from 'components/hyper-chat/HyperChatCard'
+import { HyperChatCard } from './HyperChatCard'
 
 interface Props {
   hyperChats: HyperChatSchema[]

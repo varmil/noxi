@@ -4,13 +4,13 @@ import { useFormatter, useNow } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import { HyperChatMessage } from 'components/hyper-chat/HyperChatMessage'
 import {
   TIER_BG_COLORS,
   TIER_BORDER_LEFT_COLORS,
   TIER_TEXT_COLORS,
   TIER_TEXT_MUTED_COLORS
-} from 'components/hyper-chat/tier-styles'
+} from '../tier-styles'
+import { HyperChatMessage } from './HyperChatMessage'
 
 interface Props {
   hyperChat: HyperChatSchema

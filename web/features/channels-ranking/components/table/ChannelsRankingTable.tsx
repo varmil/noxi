@@ -12,7 +12,7 @@ import { getSupersRankingHistories } from 'apis/supers/getSupersRankingHistories
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
 import { getSupersSnapshotRanking } from 'apis/supers-snapshots/getRanking'
 import { getChannels } from 'apis/youtube/getChannels'
-import { HyperChatTimelineSheet } from 'components/hyper-chat/HyperChatTimelineSheet'
+import { HyperChatTimelineSheet } from 'components/hyper-chat/timeline/HyperChatTimelineSheet'
 import { RANK_HIGHLIGHTER_ID_PREFIX } from 'components/ranking/highlighter/rank-highlighter'
 import CountryCell from 'components/ranking/table/cell/CountryCell'
 import GroupCell from 'components/ranking/table/cell/GroupCell'
@@ -234,7 +234,9 @@ export default async function ChannelsRankingTable({
                       <HyperChatTimelineSheet
                         hyperChats={hyperChats}
                         channelId={channelId}
+                        channelTitle={channel.basicInfo.title}
                         group={channel.peakX.group}
+                        gender={channel.peakX.gender}
                       />
                     </div>
                   </TableCell>

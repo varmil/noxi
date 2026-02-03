@@ -9,27 +9,33 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import { HyperChatCard } from 'components/hyper-chat/HyperChatCard'
-import { HyperChatRotator } from 'components/hyper-chat/HyperChatRotator'
+import { HyperChatButton } from 'components/hyper-chat/send/HyperChatButton'
 import { Link } from 'lib/navigation'
+import { HyperChatCard } from './HyperChatCard'
+import { HyperChatRotator } from './HyperChatRotator'
 
 interface Props {
   hyperChats: HyperChatSchema[]
   channelId: string
+  channelTitle: string
   group: string
+  gender: 'male' | 'female' | 'nonbinary'
   className?: string
 }
 
 export function HyperChatTimelineSheet({
   hyperChats,
   channelId,
+  channelTitle,
   group,
+  gender,
   className
 }: Props) {
   const t = useTranslations('Features.hyperChat.timeline')
@@ -70,7 +76,7 @@ export function HyperChatTimelineSheet({
           </div>
 
           {hyperChats.length > 10 && (
-            <div className="mt-4">
+            <div className="mt-4 px-3">
               <Button variant="outline" className="w-full" asChild>
                 <Link href={`/${group}/channels/${channelId}/hyper-chat`}>
                   {t('viewAll')}
@@ -79,6 +85,15 @@ export function HyperChatTimelineSheet({
             </div>
           )}
         </ScrollArea>
+
+        <SheetFooter className="border-t pt-4">
+          <HyperChatButton
+            channelId={channelId}
+            channelTitle={channelTitle}
+            group={group}
+            gender={gender}
+          />
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )

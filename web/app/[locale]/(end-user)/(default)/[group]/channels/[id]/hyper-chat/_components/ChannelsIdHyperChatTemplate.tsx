@@ -7,14 +7,14 @@ import {
   getHyperChatsUniqueSupporters
 } from 'apis/hyper-chats/getHyperChats'
 import { getChannel } from 'apis/youtube/getChannel'
-import { HyperChatHistoryList } from 'components/hyper-chat/HyperChatHistoryList'
+import { HyperChatButton } from 'components/hyper-chat/send/HyperChatButton'
+import { HyperChatStats } from 'components/hyper-chat/send/HyperChatStats'
+import { HyperChatHistoryList } from 'components/hyper-chat/timeline/HyperChatHistoryList'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
-import { HyperChatButton } from 'features/hyper-chat/components/send/HyperChatButton'
-import { HyperChatStats } from 'features/hyper-chat/components/send/HyperChatStats'
 
 type SortField = 'createdAt' | 'amount'
 

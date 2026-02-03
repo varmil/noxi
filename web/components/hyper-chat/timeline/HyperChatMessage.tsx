@@ -7,7 +7,7 @@ import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
 import {
   TIER_TEXT_COLORS,
   TIER_TEXT_MUTED_COLORS
-} from 'components/hyper-chat/tier-styles'
+} from '../tier-styles'
 
 interface Props {
   tier: HyperChatSchema['tier']

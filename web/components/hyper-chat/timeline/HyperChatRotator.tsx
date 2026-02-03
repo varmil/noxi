@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/carousel'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import { HyperChatBubble } from 'components/hyper-chat/HyperChatBubble'
 import { getRotationList } from 'utils/hyper-chat/rotation'
+import { HyperChatBubble } from './HyperChatBubble'
 
 interface Props {
   hyperChats: HyperChatSchema[]
