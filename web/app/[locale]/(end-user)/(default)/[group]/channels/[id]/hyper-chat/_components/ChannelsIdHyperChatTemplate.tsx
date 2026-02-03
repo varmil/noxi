@@ -27,7 +27,7 @@ type Props = {
   sort: SortField
 }
 
-const PAGE_SIZE = 20
+const PAGE_SIZE = 30
 
 export async function ChannelsIdHyperChatTemplate({
   channelId,
