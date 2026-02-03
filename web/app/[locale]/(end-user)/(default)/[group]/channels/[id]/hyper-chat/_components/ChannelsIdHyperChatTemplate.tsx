@@ -65,35 +65,51 @@ export async function ChannelsIdHyperChatTemplate({
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   return (
-    <Sections className="max-w-[880px] lg:grid-cols-11 lg:gap-x-10 mx-auto">
-      <Section
-        className="lg:col-span-7 w-full max-w-[550px] mx-auto"
-        title={t('title', { count: totalCount })}
-      >
-        <SortTabs currentSort={sort} />
-        <HyperChatHistoryList hyperChats={hyperChats} />
-        {totalPages > 1 && (
-          <div className="mt-6">
-            <ResponsivePagination totalPages={totalPages} />
-          </div>
-        )}
-      </Section>
+    <>
+      <Sections className="max-w-[880px] lg:grid-cols-11 lg:gap-x-10">
+        <Section
+          className="lg:col-span-7 w-full max-w-[550px] mx-auto"
+          title={t('title', { count: totalCount })}
+        >
+          <SortTabs currentSort={sort} />
+          <HyperChatHistoryList hyperChats={hyperChats} />
+          {totalPages > 1 && (
+            <div className="mt-6">
+              <ResponsivePagination totalPages={totalPages} />
+            </div>
+          )}
+        </Section>
 
-      <Section className="lg:col-span-4" title={t('stats')}>
-        <HyperChatStats
-          totalAmount={totalAmount}
-          supporterCount={supporterCount}
-        />
-        <div className="mt-4">
-          <HyperChatButton
-            channelId={channelId}
-            channelTitle={channel.basicInfo.title}
-            group={group}
-            gender={channel.peakX.gender}
+        {/* PC: sticky サイドバー */}
+        <Section
+          className="hidden lg:block lg:col-span-4 lg:sticky lg:top-16 lg:self-start"
+          title={t('stats')}
+        >
+          <HyperChatStats
+            totalAmount={totalAmount}
+            supporterCount={supporterCount}
           />
-        </div>
-      </Section>
-    </Sections>
+          <div className="mt-4">
+            <HyperChatButton
+              channelId={channelId}
+              channelTitle={channel.basicInfo.title}
+              group={group}
+              gender={channel.peakX.gender}
+            />
+          </div>
+        </Section>
+      </Sections>
+
+      {/* スマホ: BottomNavigation の上に固定表示 */}
+      <div className="fixed bottom-16.5 left-0 right-0 z-40 bg-background border-t py-4 px-8 lg:hidden">
+        <HyperChatButton
+          channelId={channelId}
+          channelTitle={channel.basicInfo.title}
+          group={group}
+          gender={channel.peakX.gender}
+        />
+      </div>
+    </>
   )
 }
 
