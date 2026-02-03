@@ -4,31 +4,37 @@
 
 ランキングページへの吹き出し表示、ローテーション機能、チャンネル詳細ページへの履歴タブを追加する。
 
-**状態**: ✅ 8割完了
+**状態**: ✅ 完了
 
 ---
 
 ## 1. フロントエンド構成
 
-### ディレクトリ構造（実装済み）
+### ディレクトリ構造
 
 ```
-web/components/hyper-chat/           # 表示系（feature横断で使用）
-├── HyperChatBubble.tsx              # 吹き出しUI
-├── HyperChatRotator.tsx             # ローテーション表示（3秒切替）
-├── HyperChatTimelineSheet.tsx       # タイムラインSheet
-├── HyperChatCard.tsx                # 履歴カード
-├── HyperChatHistoryList.tsx         # 履歴ページ用リスト
+web/components/hyper-chat/
+├── send/                            # 送信系（Phase 1から移動）
+│   ├── HyperChatButton.tsx          # 購入ボタン
+│   ├── HyperChatDialog.tsx          # 購入ダイアログ
+│   ├── HyperChatStats.tsx           # 統計情報表示
+│   ├── PaymentForm.tsx              # Stripe PaymentElement
+│   ├── MessageInput.tsx             # メッセージ入力
+│   └── AnimatedCheckmark.tsx        # 完了アニメーション
+├── timeline/                        # 表示系（Phase 2）
+│   ├── HyperChatBubble.tsx          # 吹き出しUI
+│   ├── HyperChatRotator.tsx         # ローテーション表示（3秒切替）
+│   ├── HyperChatTimelineSheet.tsx   # タイムラインSheet + 購入ボタン
+│   ├── HyperChatCard.tsx            # 個別カード
+│   ├── HyperChatMessage.tsx         # メッセージ表示
+│   └── HyperChatHistoryList.tsx     # 履歴ページ用リスト
 └── tier-styles.ts                   # Tier別カラー定義
 
 web/utils/hyper-chat/
-└── rotation.ts                      # スロット重み付け計算
-
-web/features/hyper-chat/components/send/  # 送信系（Phase 1、既存）
-└── ...
+└── rotation.ts                      # 優先度計算（MAXは60分独占）
 ```
 
-**注意**: 表示系コンポーネントは `components/hyper-chat/` に配置。
+**注意**: `components/hyper-chat/` に配置。
 Lintルール（`import-x/no-restricted-paths`）により features 間のインポートが禁止されているため、
 `channels-ranking` feature から使用できるよう `components/` に配置。
 
@@ -38,9 +44,9 @@ Lintルール（`import-x/no-restricted-paths`）により features 間のイン
 |---------------|------|------|
 | HyperChatBubble | Client | 吹き出しUI（背景色: lite=水色, standard=黄色, max=赤色）、ユーザー情報・相対時間表示 |
 | HyperChatRotator | Client | embla-carousel + Autoplay + Fade、3秒間隔切替、1件のみの場合はカルーセル不使用 |
-| HyperChatTimelineSheet | Client | 右側から出現するSheet（PC/モバイル共通） |
-| HyperChatCard | Server | 個別メッセージカード |
-| HyperChatHistoryList | Server | 30件/ページのリスト表示 |
+| HyperChatTimelineSheet | Client | 右側から出現するSheet、フッターに HyperChatButton を配置 |
+| HyperChatCard | Client | 個別メッセージカード（相対時間表示のため Client Component） |
+| HyperChatHistoryList | Server | 履歴ページ用リスト（30件/ページ） |
 
 ### tier-styles.ts（カラー定義）
 
@@ -62,20 +68,32 @@ export const TIER_TEXT_MUTED_COLORS: Record<TierValue, string> = {
 
 ```typescript
 // web/utils/hyper-chat/rotation.ts
-const ROTATION_SLOTS = { lite: 1, standard: 4, max: 60 }
 
-// MAXは60分間独占、経過後はstandard扱い（4スロット）
+/** 各Tierのソート優先度（大きいほど前に表示） */
+const TIER_PRIORITY: Record<TierValue, number> = {
+  lite: 1,
+  standard: 4,
+  max: 100
+}
+
+/** MAXの独占表示時間（分） */
+const MAX_EXCLUSIVE_MINUTES = 60
+
+// MAXが独占表示中かどうかを判定（投稿から60分以内）
 function isMaxExclusive(createdAt: Date): boolean {
   const diffMinutes = (Date.now() - createdAt.getTime()) / 60000
-  return diffMinutes <= 60
+  return diffMinutes <= MAX_EXCLUSIVE_MINUTES
 }
 
-// 複数MAXがある場合は古い順にローテーション
-function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[] {
-  return hyperChats
-    .filter(hc => hc.tier === 'max' && isMaxExclusive(hc.createdAt))
-    .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-}
+// 独占表示中のMAXを取得（古い順にソート）
+export function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[]
+
+// Tier優先度でソート（max > standard > lite、同Tierは新しい順）
+export function sortByTierPriority(hyperChats: HyperChatSchema[]): HyperChatSchema[]
+
+// ローテーション表示用リスト生成
+// 独占MAXがあればそれらのみ、なければTier優先度でソート
+export function getRotationList(hyperChats: HyperChatSchema[]): HyperChatSchema[]
 ```
 
 ---
@@ -114,7 +132,7 @@ function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[] {
 
 ---
 
-## 3. ランキングテーブル統合（実装済み）
+## 3. ランキングテーブル統合
 
 ### 修正ファイル
 
@@ -124,6 +142,7 @@ function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[] {
 
 1. `getRecentHyperChats()` を Promise.all に追加
 2. HyperChatがある場合は2行構成、ない場合は1行のまま
+3. HyperChatTimelineSheet に `channelTitle` と `gender` を渡す（購入ボタン用）
 
 ```tsx
 {/* 1行目: 既存データ */}
@@ -135,12 +154,14 @@ function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[] {
 {hyperChats.length > 0 && (
   <TableRow>
     <TableCell />
-    <TableCell colSpan={5} className="pt-0 pb-2 max-w-0">
+    <TableCell colSpan={5} width={300} className="pt-0 pb-2 max-w-0">
       <div className="overflow-hidden">
         <HyperChatTimelineSheet
           hyperChats={hyperChats}
           channelId={channelId}
+          channelTitle={channel.basicInfo.title}
           group={channel.peakX.group}
+          gender={channel.peakX.gender}
         />
       </div>
     </TableCell>
@@ -150,7 +171,7 @@ function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[] {
 
 ---
 
-## 4. チャンネル詳細ページ（実装済み）
+## 4. チャンネル詳細ページ
 
 ### ナビゲーション追加
 
@@ -167,11 +188,14 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 
 ### ページ機能
 
-- 30件/ページのページネーション
-- ソート:
+- 30件/ページのページネーション（ResponsivePagination使用）
+- ソートタブ:
   - **新着順**（デフォルト）: `createdAt DESC`
   - **金額順**: `amount DESC → likeCount DESC → createdAt DESC`（複合ソート）
-- 統計情報表示: 総応援額、応援者数
+- 統計情報表示: 総応援額、応援者数（HyperChatStats使用）
+- レスポンシブ対応:
+  - **PC**: サイドバーにsticky表示（統計情報 + 購入ボタン）
+  - **スマホ**: ScrollRevealFooter で購入ボタンを固定表示
 
 ---
 
@@ -183,8 +207,7 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 
 ## 6. 残タスク
 
-- [ ] ブラッシュアップ（UI調整、UX改善）
-- [ ] E2Eテスト追加（skeleton高さ検証など）
+すべて完了。Phase 3 でブラッシュアップを実施予定。
 
 ---
 
@@ -193,11 +216,15 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 | ファイル | 変更内容 |
 |---------|---------|
 | `web/features/channels-ranking/components/table/ChannelsRankingTable.tsx` | 2行構成で吹き出し表示 |
-| `web/components/hyper-chat/HyperChatTimelineSheet.tsx` | タイムラインSheet |
-| `web/components/hyper-chat/HyperChatRotator.tsx` | カルーセル表示 |
-| `web/components/hyper-chat/HyperChatBubble.tsx` | 吹き出しUI |
+| `web/components/hyper-chat/timeline/HyperChatTimelineSheet.tsx` | タイムラインSheet + 購入ボタン |
+| `web/components/hyper-chat/timeline/HyperChatRotator.tsx` | カルーセル表示 |
+| `web/components/hyper-chat/timeline/HyperChatBubble.tsx` | 吹き出しUI |
+| `web/components/hyper-chat/timeline/HyperChatCard.tsx` | 個別カード |
+| `web/components/hyper-chat/timeline/HyperChatHistoryList.tsx` | 履歴ページ用リスト |
 | `web/components/hyper-chat/tier-styles.ts` | Tier別カラー定義 |
-| `web/utils/hyper-chat/rotation.ts` | ローテーションロジック |
+| `web/utils/hyper-chat/rotation.ts` | ローテーションロジック（優先度ベース） |
+| `web/apis/hyper-chats/getRecentHyperChats.ts` | 過去24時間のHyperChat取得 |
+| `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/` | 履歴ページ |
 | `backend/apps/closed-api-server/src/presentation/hyper-chats/hyper-chats.controller.ts` | /recent API |
 
 ---
