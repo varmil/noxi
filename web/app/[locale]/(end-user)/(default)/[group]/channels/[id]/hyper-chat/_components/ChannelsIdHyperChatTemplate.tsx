@@ -15,6 +15,7 @@ import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
+import { Link } from 'lib/navigation'
 
 type SortField = 'createdAt' | 'amount'
 
@@ -35,7 +36,10 @@ export async function ChannelsIdHyperChatTemplate({
 }: PropsWithoutRef<Props>) {
   const t = await getTranslations('Features.hyperChat.history')
 
-  const orderBy: { field: 'createdAt' | 'amount' | 'likeCount'; order: 'asc' | 'desc' }[] =
+  const orderBy: {
+    field: 'createdAt' | 'amount' | 'likeCount'
+    order: 'asc' | 'desc'
+  }[] =
     sort === 'amount'
       ? [
           { field: 'amount', order: 'desc' },
@@ -99,7 +103,7 @@ export async function ChannelsIdHyperChatTemplate({
 
 function SortTabs({ currentSort }: { currentSort: SortField }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-3">
       <SortTab value="createdAt" current={currentSort} labelKey="sortNewest" />
       <SortTab value="amount" current={currentSort} labelKey="sortAmount" />
     </div>
@@ -125,12 +129,14 @@ async function SortTab({
       {isActive ? (
         t(labelKey)
       ) : (
-        <a
+        <Link
           href={`?sort=${value}`}
+          scroll={false}
+          prefetch={false}
           className="hover:text-foreground transition-colors"
         >
           {t(labelKey)}
-        </a>
+        </Link>
       )}
     </span>
   )

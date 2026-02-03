@@ -22,6 +22,10 @@ export default function LocalNavigationForChannelsIdPages({
       items={[
         { name: t('overview.nav'), href: basePath },
         {
+          name: t('hyperChat.nav'),
+          href: `${basePath}/hyper-chat`
+        },
+        {
           name: t('superChat.nav'),
           href: `${basePath}/super-chat`
         },
@@ -40,10 +44,6 @@ export default function LocalNavigationForChannelsIdPages({
         {
           name: t('streamTimes.nav'),
           href: `${basePath}/stream-times`
-        },
-        {
-          name: t('hyperChat.nav'),
-          href: `${basePath}/hyper-chat`
         }
       ]}
       className="border-b mb-8"
