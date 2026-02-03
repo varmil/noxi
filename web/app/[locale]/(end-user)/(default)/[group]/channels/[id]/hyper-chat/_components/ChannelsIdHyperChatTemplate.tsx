@@ -67,7 +67,7 @@ export async function ChannelsIdHyperChatTemplate({
   return (
     <Sections className="max-w-[880px] lg:grid-cols-11 lg:gap-x-10 mx-auto">
       <Section
-        className="lg:col-span-7 max-w-[550px] mx-auto"
+        className="lg:col-span-7 w-full max-w-[550px] mx-auto"
         title={t('title', { count: totalCount })}
       >
         <SortTabs currentSort={sort} />
