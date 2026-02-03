@@ -20,10 +20,7 @@ export async function HyperChatHistoryList({ hyperChats }: Props) {
   }
 
   return (
-    <div
-      className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
-      data-testid="hyper-chat-history-list"
-    >
+    <div className="grid gap-3" data-testid="hyper-chat-history-list">
       {hyperChats.map(hyperChat => (
         <HyperChatCard key={hyperChat.id} hyperChat={hyperChat} />
       ))}

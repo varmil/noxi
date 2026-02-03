@@ -815,7 +815,7 @@
         "viewAll": "View All"
       },
       "history": {
-        "title": "HyperChat History",
+        "title": "{count} HyperChats",
         "stats": "Support Stats",
         "sortNewest": "Newest",
         "sortAmount": "Amount"

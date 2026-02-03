@@ -832,7 +832,7 @@
         "viewAll": "すべて見る"
       },
       "history": {
-        "title": "ハイパーチャット履歴",
+        "title": "{count} 件のハイパーチャット",
         "stats": "応援状況",
         "sortNewest": "新着順",
         "sortAmount": "金額順"

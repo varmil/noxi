@@ -26,7 +26,7 @@ type Props = {
   sort: SortField
 }
 
-const PAGE_SIZE = 30
+const PAGE_SIZE = 20
 
 export async function ChannelsIdHyperChatTemplate({
   channelId,
@@ -65,8 +65,21 @@ export async function ChannelsIdHyperChatTemplate({
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   return (
-    <Sections className="lg:grid-cols-10">
-      <Section className="lg:col-span-3" title={t('stats')}>
+    <Sections className="max-w-[880px] lg:grid-cols-11 lg:gap-x-10 mx-auto">
+      <Section
+        className="lg:col-span-7 max-w-[550px] mx-auto"
+        title={t('title', { count: totalCount })}
+      >
+        <SortTabs currentSort={sort} />
+        <HyperChatHistoryList hyperChats={hyperChats} />
+        {totalPages > 1 && (
+          <div className="mt-6">
+            <ResponsivePagination totalPages={totalPages} />
+          </div>
+        )}
+      </Section>
+
+      <Section className="lg:col-span-4" title={t('stats')}>
         <HyperChatStats
           totalAmount={totalAmount}
           supporterCount={supporterCount}
@@ -80,30 +93,13 @@ export async function ChannelsIdHyperChatTemplate({
           />
         </div>
       </Section>
-
-      <Section className="lg:col-span-7" title={t('title')}>
-        <div className="mb-4 flex items-center justify-between">
-          <SortTabs currentSort={sort} />
-          {totalCount > 0 && (
-            <span className="text-sm text-muted-foreground">
-              {totalCount}件
-            </span>
-          )}
-        </div>
-        <HyperChatHistoryList hyperChats={hyperChats} />
-        {totalPages > 1 && (
-          <div className="mt-6">
-            <ResponsivePagination totalPages={totalPages} />
-          </div>
-        )}
-      </Section>
     </Sections>
   )
 }
 
 function SortTabs({ currentSort }: { currentSort: SortField }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 mb-2">
       <SortTab value="createdAt" current={currentSort} labelKey="sortNewest" />
       <SortTab value="amount" current={currentSort} labelKey="sortAmount" />
     </div>
@@ -133,6 +129,7 @@ async function SortTab({
           href={`?sort=${value}`}
           scroll={false}
           prefetch={false}
+          replace
           className="hover:text-foreground transition-colors"
         >
           {t(labelKey)}
