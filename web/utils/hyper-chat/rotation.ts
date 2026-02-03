@@ -1,10 +1,10 @@
 import { HyperChatSchema, TierValue } from 'apis/hyper-chats/hyperChatSchema'
 
-/** 各Tierのローテーションスロット数 */
-const ROTATION_SLOTS: Record<TierValue, number> = {
+/** 各Tierのソート優先度（大きいほど前に表示） */
+const TIER_PRIORITY: Record<TierValue, number> = {
   lite: 1,
   standard: 4,
-  max: 60
+  max: 100
 }
 
 /** MAXの独占表示時間（分） */
@@ -20,33 +20,32 @@ function isMaxExclusive(createdAt: Date): boolean {
 }
 
 /**
- * HyperChatの実効ローテーションスロット数を取得
- * MAXは60分経過後はstandardと同等（4スロット）
+ * HyperChatのソート優先度を取得
+ * max > standard > lite の順
  */
-function getEffectiveSlots(hyperChat: HyperChatSchema): number {
-  if (hyperChat.tier === 'max' && !isMaxExclusive(hyperChat.createdAt)) {
-    return ROTATION_SLOTS.standard
-  }
-  return ROTATION_SLOTS[hyperChat.tier]
+function getTierPriority(hyperChat: HyperChatSchema): number {
+  return TIER_PRIORITY[hyperChat.tier]
 }
 
 /**
- * HyperChatをスロット重み付けで展開
- * 各HyperChatがそのスロット数分だけ配列に含まれる
+ * HyperChatをTier優先度でソート
+ * max > standard > lite、同 Tier は createdAt 降順（新しい順）
  */
-export function expandBySlots(
+export function sortByTierPriority(
   hyperChats: HyperChatSchema[]
 ): HyperChatSchema[] {
-  const result: HyperChatSchema[] = []
+  return [...hyperChats].sort((a, b) => {
+    const priorityA = getTierPriority(a)
+    const priorityB = getTierPriority(b)
 
-  for (const hyperChat of hyperChats) {
-    const slots = getEffectiveSlots(hyperChat)
-    for (let i = 0; i < slots; i++) {
-      result.push(hyperChat)
+    // 優先度降順
+    if (priorityA !== priorityB) {
+      return priorityB - priorityA
     }
-  }
 
-  return result
+    // 同 Tier は createdAt 降順（新しい順）
+    return b.createdAt.getTime() - a.createdAt.getTime()
+  })
 }
 
 /**
@@ -68,7 +67,7 @@ export function getExclusiveMaxes(
 
 /**
  * ローテーション表示用のHyperChatリストを生成
- * 独占表示中のMAXがあればそれらのみでローテーション、なければスロット重み付けで展開
+ * 独占表示中のMAXがあればそれらのみ、なければTier優先度でソート
  */
 export function getRotationList(
   hyperChats: HyperChatSchema[]
@@ -80,6 +79,6 @@ export function getRotationList(
     return exclusiveMaxes
   }
 
-  // スロット重み付けで展開
-  return expandBySlots(hyperChats)
+  // Tier優先度でソート
+  return sortByTierPriority(hyperChats)
 }

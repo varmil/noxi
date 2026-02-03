@@ -87,7 +87,7 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
       </div>
 
       {/* ユーザーアイコン（右側） */}
-      <Avatar className="size-8 shrink-0 mt-0.5">
+      <Avatar className="size-7 shrink-0 mt-1">
         <AvatarImage
           src={hyperChat.author.image || undefined}
           alt={displayName}
