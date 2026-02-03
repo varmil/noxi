@@ -7,6 +7,7 @@ import {
   getHyperChatsUniqueSupporters
 } from 'apis/hyper-chats/getHyperChats'
 import { getChannel } from 'apis/youtube/getChannel'
+import { ScrollRevealFooter } from 'components/footer/ScrollRevealFooter'
 import { HyperChatButton } from 'components/hyper-chat/send/HyperChatButton'
 import { HyperChatStats } from 'components/hyper-chat/send/HyperChatStats'
 import { HyperChatHistoryList } from 'components/hyper-chat/timeline/HyperChatHistoryList'
@@ -100,15 +101,15 @@ export async function ChannelsIdHyperChatTemplate({
         </Section>
       </Sections>
 
-      {/* スマホ: BottomNavigation の上に固定表示 */}
-      <div className="fixed bottom-16.5 left-0 right-0 z-40 bg-background border-t py-4 px-8 lg:hidden">
+      {/* スマホ: スクロールで BottomNavigation の上に固定表示 */}
+      <ScrollRevealFooter>
         <HyperChatButton
           channelId={channelId}
           channelTitle={channel.basicInfo.title}
           group={group}
           gender={channel.peakX.gender}
         />
-      </div>
+      </ScrollRevealFooter>
     </>
   )
 }
