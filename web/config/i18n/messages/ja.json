@@ -821,7 +821,7 @@
       },
       "stats": {
         "totalAmount": "累計金額",
-        "senderCount": "投稿者数",
+        "posterCount": "投稿者数",
         "peopleCount": "{count}人",
         "yenSuffix": "円",
         "peopleSuffix": "人"

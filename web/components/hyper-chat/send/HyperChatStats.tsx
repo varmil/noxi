@@ -4,10 +4,10 @@ import CountMotion from 'components/styles/number/CountMotion'
 
 type Props = {
   totalAmount: number
-  senderCount: number
+  posterCount: number
 }
 
-export async function HyperChatStats({ totalAmount, senderCount }: Props) {
+export async function HyperChatStats({ totalAmount, posterCount }: Props) {
   const t = await getTranslations('Features.hyperChat.stats')
 
   return (
@@ -23,14 +23,14 @@ export async function HyperChatStats({ totalAmount, senderCount }: Props) {
         </div>
       </div>
 
-      {/* Sender Count */}
+      {/* Poster Count */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-1.5 text-muted-foreground">
           <Users className="size-3.5" />
-          <span className="text-[11px] leading-none">{t('senderCount')}</span>
+          <span className="text-[11px] leading-none">{t('posterCount')}</span>
         </div>
         <div className="text-lg font-semibold leading-none">
-          <CountMotion value={senderCount}>{t('peopleSuffix')}</CountMotion>
+          <CountMotion value={posterCount}>{t('peopleSuffix')}</CountMotion>
         </div>
       </div>
     </div>

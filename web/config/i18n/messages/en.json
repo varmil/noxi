@@ -804,7 +804,7 @@
       },
       "stats": {
         "totalAmount": "Total Amount",
-        "senderCount": "Posters",
+        "posterCount": "Posters",
         "peopleCount": "{count}",
         "yenSuffix": " yen",
         "peopleSuffix": ""
