@@ -323,7 +323,6 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 - いいね機能（1人1回）
 - プリセットメッセージ（「尊い...」「神回だった」「おめでとう！」など）
 - 購入導線追加（ランキングページ各行）
-- 自動復元機能（localStorage）
 
 ### API エンドポイント
 
