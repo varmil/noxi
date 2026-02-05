@@ -1,10 +1,12 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Post,
   Query,
   Req,
@@ -12,10 +14,13 @@ import {
 } from '@nestjs/common'
 import { CreateHyperChatPaymentIntent } from '@presentation/hyper-chats/dto/CreateHyperChatPaymentIntent.dto'
 import { GetHyperChats } from '@presentation/hyper-chats/dto/GetHyperChats.dto'
+import { GetLikedHyperChatIds } from '@presentation/hyper-chats/dto/GetLikedHyperChatIds.dto'
 import { GetRecentHyperChats } from '@presentation/hyper-chats/dto/GetRecentHyperChats.dto'
 import { HyperChatsScenario } from '@presentation/hyper-chats/hyper-chats.scenario'
 import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
+import { HyperChatLikesService } from '@app/hyper-chat-likes/hyper-chat-likes.service'
 import { HyperChatsService } from '@app/hyper-chats/hyper-chats.service'
+import { HyperChatId } from '@domain/hyper-chat'
 import { User } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
@@ -23,6 +28,7 @@ import { ChannelId } from '@domain/youtube'
 export class HyperChatsController {
   constructor(
     private readonly hyperChatsService: HyperChatsService,
+    private readonly hyperChatLikesService: HyperChatLikesService,
     private readonly hyperChatsScenario: HyperChatsScenario
   ) {}
 
@@ -171,5 +177,56 @@ export class HyperChatsController {
     })
 
     return hyperChats
+  }
+
+  /**
+   * いいね済みのHyperChat IDを一括取得
+   */
+  @Get('liked-ids')
+  @UseGuards(JwtAuthGuard)
+  async getLikedIds(
+    @Req() req: { user: User },
+    @Query() dto: GetLikedHyperChatIds
+  ) {
+    const likedIds = await this.hyperChatLikesService.findLikedHyperChatIds({
+      hyperChatIds: dto.toHyperChatIds(),
+      userId: req.user.id
+    })
+
+    return { likedIds: Array.from(likedIds).map(id => id.get()) }
+  }
+
+  /**
+   * HyperChatにいいねを追加
+   */
+  @Post(':id/like')
+  @UseGuards(JwtAuthGuard)
+  async addLike(
+    @Req() req: { user: User },
+    @Param('id', ParseIntPipe) id: number
+  ) {
+    await this.hyperChatLikesService.create({
+      hyperChatId: new HyperChatId(id),
+      userId: req.user.id
+    })
+
+    return { success: true }
+  }
+
+  /**
+   * HyperChatのいいねを解除
+   */
+  @Delete(':id/like')
+  @UseGuards(JwtAuthGuard)
+  async removeLike(
+    @Req() req: { user: User },
+    @Param('id', ParseIntPipe) id: number
+  ) {
+    await this.hyperChatLikesService.delete({
+      hyperChatId: new HyperChatId(id),
+      userId: req.user.id
+    })
+
+    return { success: true }
   }
 }

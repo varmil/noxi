@@ -23,6 +23,7 @@ import { HyperChatRotator } from './HyperChatRotator'
 
 interface Props {
   hyperChats: HyperChatSchema[]
+  likedIds?: Set<number>
   channelId: string
   channelTitle: string
   group: string
@@ -32,6 +33,7 @@ interface Props {
 
 export function HyperChatTimelineSheet({
   hyperChats,
+  likedIds = new Set(),
   channelId,
   channelTitle,
   group,
@@ -71,7 +73,11 @@ export function HyperChatTimelineSheet({
         <ScrollArea className="flex-1 min-h-0">
           <div className="flex flex-col gap-3 px-3 pb-6">
             {hyperChats.slice(0, 10).map(hyperChat => (
-              <HyperChatCard key={hyperChat.id} hyperChat={hyperChat} />
+              <HyperChatCard
+                key={hyperChat.id}
+                hyperChat={hyperChat}
+                isLiked={likedIds.has(hyperChat.id)}
+              />
             ))}
           </div>
 

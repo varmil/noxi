@@ -24,7 +24,7 @@ YouTubeのスーパーチャットのような有料コメント機能「ハイ�
 | 0     | **既存機能クリーンアップ**    | 応援チケット関連をコメントアウト/削除 | なし      | ✅ 完了 |
 | 1     | **MVP: ハイパーチャット基本** | 購入・保存・決済                      | Phase 0   | ✅ 完了 |
 | 2     | **表示機能**                  | 吹き出し表示、ローテーション、履歴    | Phase 1   | ✅ 完了 |
-| 3     | **エンゲージメント**          | いいね、プリセット、購入導線追加      | Phase 2   |         |
+| 3     | **エンゲージメント**          | いいね、購入導線追加                  | Phase 2   | ✅ 完了 |
 | 4     | **チケット**                  | 無料チケット配布・使用                | Phase 1   |         |
 | 5     | **ハイパートレイン**          | 集団応援でトレイン発動                | Phase 1-2 |         |
 | 6     | **ハイパーレベル**            | VIP制度、バッジ表示                   | Phase 1   |         |
@@ -316,28 +316,33 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 
 ---
 
-## Phase 3: エンゲージメント機能
+## Phase 3: エンゲージメント機能 ✅ 完了
+
+**詳細は `.claude/plans/phase-3.md` を参照**
 
 ### 機能範囲
 
-- いいね機能（1人1回）
-- プリセットメッセージ（「尊い...」「神回だった」「おめでとう！」など）
+- いいね機能（1人1回）- メッセージ下に配置、Optimistic UI
 - 購入導線追加（ランキングページ各行）
+
+※ プリセットメッセージは検討の結果、実装しないことになった
 
 ### API エンドポイント
 
-| Method | Endpoint                    | 説明       |
-| ------ | --------------------------- | ---------- |
-| POST   | `/api/hyper-chats/:id/like` | いいね     |
-| DELETE | `/api/hyper-chats/:id/like` | いいね解除 |
+| Method | Endpoint                    | 説明                 |
+| ------ | --------------------------- | -------------------- |
+| POST   | `/api/hyper-chats/:id/like` | いいね               |
+| DELETE | `/api/hyper-chats/:id/like` | いいね解除           |
+| GET    | `/api/hyper-chats/liked-ids`| いいね済みID一括取得 |
 
 ### 購入導線追加
 
 **ランキングページ各行**:
 
 - ファイル: `web/features/channels-ranking/components/table/ChannelsRankingTable.tsx`
-- 右端に `messages-square` アイコンボタンを追加
-- 対象: `/ranking/[dimension]/channels/[group]/[period]`、`/ranking/concurrent-viewer/live/[group]/[period]`
+- 右端に `messages-square` アイコンボタンを追加（HyperChatDialogTrigger）
+- 未ログイン時はAuthModalを表示
+- 対象: `/ranking/[dimension]/channels/[group]/[period]`
 
 ---
 

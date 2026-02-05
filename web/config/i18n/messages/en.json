@@ -759,8 +759,7 @@
     "hyperChat": {
       "nav": "HyperChat",
       "button": {
-        "label": "Post HyperChat",
-        "tooltip": "Post a message to this channel"
+        "label": "Post HyperChat"
       },
       "dialog": {
         "title": "Post HyperChat to {channel}",
@@ -801,6 +800,10 @@
         "maxCharsError": "Message must be {count} characters or less",
         "profanityError": "Your message contains inappropriate language: {words}",
         "moderationError": "Your message contains inappropriate content"
+      },
+      "like": {
+        "button": "Like",
+        "liked": "Liked"
       },
       "stats": {
         "totalAmount": "Total Amount",

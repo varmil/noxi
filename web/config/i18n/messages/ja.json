@@ -776,8 +776,7 @@
     "hyperChat": {
       "nav": "ハイパーチャット",
       "button": {
-        "label": "ハイパーチャットを投稿する",
-        "tooltip": "チャンネルにメッセージを投稿する"
+        "label": "ハイパーチャットを投稿する"
       },
       "dialog": {
         "title": "{channel}にハイパーチャットを投稿",
@@ -818,6 +817,10 @@
         "maxCharsError": "メッセージは{count}文字以内で入力してください",
         "profanityError": "不適切な表現が含まれています: {words}",
         "moderationError": "不適切な内容が含まれています"
+      },
+      "like": {
+        "button": "いいね",
+        "liked": "いいね済み"
       },
       "stats": {
         "totalAmount": "累計金額",

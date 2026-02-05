@@ -4,9 +4,10 @@ import {
   PropsWithChildren,
   PropsWithoutRef
 } from 'react'
-import { ChevronRight, JapaneseYen } from 'lucide-react'
+import { JapaneseYen } from 'lucide-react'
 import { Table, TableRow, TableBody, TableCell } from '@/components/ui/table'
 import { cn } from '@/lib/utils'
+import { getLikedHyperChatIds } from 'apis/hyper-chat-likes'
 import { getRecentHyperChats } from 'apis/hyper-chats/getRecentHyperChats'
 import { getSupersRankingHistories } from 'apis/supers/getSupersRankingHistories'
 import { getSupersSummaries } from 'apis/supers/getSupersSummaries'
@@ -23,6 +24,7 @@ import Dimension from 'components/ranking/table/styles/Dimension'
 import { ChannelsRankingPagination as Pagination } from 'config/constants/Pagination'
 import { ChannelsRankingDimension } from 'features/channels-ranking/types/channels-ranking.type'
 import { getSupersSnapshotParams } from 'features/channels-ranking/utils/gallery-params'
+import { auth } from 'lib/auth'
 import { Gender } from 'types/gender'
 import { ChannelsRankingPeriod, Period, SnapshotPeriod } from 'types/period'
 import { convertMicrosToAmount } from 'utils/amount'
@@ -32,6 +34,7 @@ import {
   getSupersRankingType,
   hasSupersRanking
 } from 'utils/ranking/channels-ranking'
+import { HyperChatDialogTrigger } from './HyperChatDialogTrigger'
 import ComparedToPreviousPeriod from './cell/ComparedToPreviousPeriod'
 import ChannelsRankingTableHeader from './header/ChannelsRankingTableHeader'
 
@@ -109,6 +112,16 @@ export default async function ChannelsRankingTable({
   const snapshotAmountMap = new Map(
     snapshotRanking.map(s => [s.channelId, s.amountMicros])
   )
+
+  // いいね状態を取得
+  const allHyperChatIds = Object.values(recentHyperChats).flatMap(chats =>
+    chats.map(chat => chat.id)
+  )
+  const session = await auth()
+  const likedIds =
+    session && allHyperChatIds.length > 0
+      ? await getLikedHyperChatIds(allHyperChatIds)
+      : new Set<number>()
 
   return (
     <Table>
@@ -215,10 +228,15 @@ export default async function ChannelsRankingTable({
                 {/* 3xl-: Country */}
                 <CountryCell countryCode={channel.peakX.country} />
 
-                {/* xs - 2xl: Link Icon */}
-                <LinkCell className="min-w-[32px] @3xl:hidden">
-                  <ChevronRight className="size-4" />
-                </LinkCell>
+                {/* HyperChat投稿ボタン */}
+                <TableCell align="center" className="min-w-[32px]">
+                  <HyperChatDialogTrigger
+                    channelId={channelId}
+                    channelTitle={channel.basicInfo.title}
+                    group={channel.peakX.group}
+                    gender={channel.peakX.gender}
+                  />
+                </TableCell>
               </TableRow>
 
               {/* 2行目: HyperChatがある場合のみ表示 */}
@@ -233,6 +251,7 @@ export default async function ChannelsRankingTable({
                     <div className="overflow-hidden">
                       <HyperChatTimelineSheet
                         hyperChats={hyperChats}
+                        likedIds={likedIds}
                         channelId={channelId}
                         channelTitle={channel.basicInfo.title}
                         group={channel.peakX.group}

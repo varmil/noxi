@@ -10,14 +10,20 @@ import {
   TIER_TEXT_COLORS,
   TIER_TEXT_MUTED_COLORS
 } from '../tier-styles'
+import { HyperChatLikeButton } from './HyperChatLikeButton'
 import { HyperChatMessage } from './HyperChatMessage'
 
 interface Props {
   hyperChat: HyperChatSchema
+  isLiked?: boolean
   className?: string
 }
 
-export function HyperChatCard({ hyperChat, className }: Props) {
+export function HyperChatCard({
+  hyperChat,
+  isLiked = false,
+  className
+}: Props) {
   const format = useFormatter()
   const now = useNow({ updateInterval: 60000 })
   const tier = hyperChat.tier
@@ -26,7 +32,7 @@ export function HyperChatCard({ hyperChat, className }: Props) {
   return (
     <div
       className={cn(
-        'rounded-lg border-l-4 px-3 py-2 min-h-[56px]',
+        'rounded-lg border-l-4 px-3 py-3 min-h-[56px]',
         TIER_BG_COLORS[tier],
         TIER_BORDER_LEFT_COLORS[tier],
         className
@@ -60,6 +66,17 @@ export function HyperChatCard({ hyperChat, className }: Props) {
 
       {/* メッセージ */}
       <HyperChatMessage tier={tier} message={hyperChat.message} />
+
+      {/* いいねボタン */}
+      <div className="mt-2">
+        <HyperChatLikeButton
+          hyperChatId={hyperChat.id}
+          channelId={hyperChat.channelId}
+          tier={tier}
+          likeCount={hyperChat.likeCount}
+          isLiked={isLiked}
+        />
+      </div>
     </div>
   )
 }
