@@ -49,7 +49,7 @@ export async function ChannelsIdHyperChatTemplate({
         ]
       : [{ field: 'createdAt', order: 'desc' }]
 
-  const [hyperChats, totalCount, totalAmount, supporterCount, channel] =
+  const [hyperChats, totalCount, totalAmount, senderCount, channel] =
     await Promise.all([
       getHyperChats({
         channelId,
@@ -88,7 +88,7 @@ export async function ChannelsIdHyperChatTemplate({
         >
           <HyperChatStats
             totalAmount={totalAmount}
-            supporterCount={supporterCount}
+            senderCount={senderCount}
           />
           <div className="mt-4">
             <HyperChatButton

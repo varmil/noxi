@@ -4,15 +4,15 @@ import CountMotion from 'components/styles/number/CountMotion'
 
 type Props = {
   totalAmount: number
-  supporterCount: number
+  senderCount: number
 }
 
-export async function HyperChatStats({ totalAmount, supporterCount }: Props) {
+export async function HyperChatStats({ totalAmount, senderCount }: Props) {
   const t = await getTranslations('Features.hyperChat.stats')
 
   return (
     <div className="flex gap-6">
-      {/* Total Support Amount */}
+      {/* Total Amount */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-1.5 text-muted-foreground">
           <JapaneseYen className="size-3.5" />
@@ -23,16 +23,14 @@ export async function HyperChatStats({ totalAmount, supporterCount }: Props) {
         </div>
       </div>
 
-      {/* Supporter Count */}
+      {/* Sender Count */}
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-1.5 text-muted-foreground">
           <Users className="size-3.5" />
-          <span className="text-[11px] leading-none">
-            {t('supporterCount')}
-          </span>
+          <span className="text-[11px] leading-none">{t('senderCount')}</span>
         </div>
         <div className="text-lg font-semibold leading-none">
-          <CountMotion value={supporterCount}>{t('peopleSuffix')}</CountMotion>
+          <CountMotion value={senderCount}>{t('peopleSuffix')}</CountMotion>
         </div>
       </div>
     </div>

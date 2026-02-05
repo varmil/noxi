@@ -24,7 +24,7 @@ export async function ChannelProfile({
     peakX: { group: groupId, gender }
   } = channel
 
-  const [group, supporterCount, totalAmount] = await Promise.all([
+  const [group, senderCount, totalAmount] = await Promise.all([
     getGroup(groupId),
     getHyperChatsUniqueSupporters(basicInfo.id),
     getHyperChatsSumAmount(basicInfo.id)
@@ -51,7 +51,7 @@ export async function ChannelProfile({
         <div className="min-w-[240px] shrink-0 flex flex-col items-center gap-4 @2xl:mt-6">
           <HyperChatStats
             totalAmount={totalAmount}
-            supporterCount={supporterCount}
+            senderCount={senderCount}
           />
           <HyperChatButton
             channelId={basicInfo.id}

@@ -282,7 +282,7 @@
         "hyperChat": {
           "metadata": {
             "title": "{channel} HyperChat History",
-            "description": "View HyperChat history for {channel}. Send a support message and cheer on your favorite VTuber!"
+            "description": "View HyperChat history for {channel}. Post your message too!"
           }
         }
       },
@@ -759,12 +759,12 @@
     "hyperChat": {
       "nav": "HyperChat",
       "button": {
-        "label": "Send HyperChat",
-        "tooltip": "Send a message to this channel"
+        "label": "Post HyperChat",
+        "tooltip": "Post a message to this channel"
       },
       "dialog": {
-        "title": "Send HyperChat to {channel}",
-        "description": "Send a paid message to support this channel",
+        "title": "Post HyperChat to {channel}",
+        "description": "Post a positive message to this channel",
         "tier": {
           "lite": "Lite",
           "standard": "Standard",
@@ -788,23 +788,23 @@
         "confirmPayment": "Confirm Payment",
         "complete": {
           "title": "Payment completed",
-          "description": "Your HyperChat has been sent successfully."
+          "description": "Your HyperChat has been posted successfully."
         },
         "loginRequired": {
           "title": "Login Required",
-          "description": "Please sign in to send a HyperChat"
+          "description": "Please sign in to post a HyperChat"
         },
         "error": {
           "title": "Error",
-          "description": "Failed to send HyperChat. Please try again later."
+          "description": "Failed to post HyperChat. Please try again later."
         },
         "maxCharsError": "Message must be {count} characters or less",
         "profanityError": "Your message contains inappropriate language: {words}",
         "moderationError": "Your message contains inappropriate content"
       },
       "stats": {
-        "totalAmount": "Total HyperChat",
-        "supporterCount": "Supporters",
+        "totalAmount": "Total Amount",
+        "senderCount": "Posters",
         "peopleCount": "{count}",
         "yenSuffix": " yen",
         "peopleSuffix": ""
@@ -816,7 +816,7 @@
       },
       "history": {
         "title": "{count} HyperChats",
-        "stats": "Support Stats",
+        "stats": "Stats",
         "sortNewest": "Newest",
         "sortAmount": "Amount"
       }

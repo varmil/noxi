@@ -287,7 +287,7 @@
         "hyperChat": {
           "metadata": {
             "title": "{channel} ハイパーチャット履歴",
-            "description": "「{channel}」に送られたハイパーチャットの履歴を確認できます。応援メッセージを送って推しを応援しよう！"
+            "description": "「{channel}」に投稿されたハイパーチャットの履歴を確認できます。あなたもメッセージを投稿しよう！"
           }
         }
       },
@@ -776,12 +776,12 @@
     "hyperChat": {
       "nav": "ハイパーチャット",
       "button": {
-        "label": "ハイパーチャットを送信する",
-        "tooltip": "チャンネルにメッセージを送る"
+        "label": "ハイパーチャットを投稿する",
+        "tooltip": "チャンネルにメッセージを投稿する"
       },
       "dialog": {
-        "title": "{channel}にハイパーチャットを送る",
-        "description": "目立つメッセージで応援しよう",
+        "title": "{channel}にハイパーチャットを投稿",
+        "description": "ポジティブなメッセージを投稿しよう",
         "tier": {
           "lite": "ライト",
           "standard": "スタンダード",
@@ -805,23 +805,23 @@
         "confirmPayment": "支払いを確定",
         "complete": {
           "title": "決済完了",
-          "description": "ハイパーチャットを送信しました"
+          "description": "ハイパーチャットを投稿しました"
         },
         "loginRequired": {
           "title": "ログインが必要です",
-          "description": "ハイパーチャットを送るにはログインしてください"
+          "description": "ハイパーチャットを投稿するにはログインしてください"
         },
         "error": {
           "title": "エラーが発生しました",
-          "description": "ハイパーチャットの送信に失敗しました。後でもう一度お試しください。"
+          "description": "ハイパーチャットの投稿に失敗しました。後でもう一度お試しください。"
         },
         "maxCharsError": "メッセージは{count}文字以内で入力してください",
         "profanityError": "不適切な表現が含まれています: {words}",
         "moderationError": "不適切な内容が含まれています"
       },
       "stats": {
-        "totalAmount": "総応援額",
-        "supporterCount": "応援者数",
+        "totalAmount": "累計金額",
+        "senderCount": "投稿者数",
         "peopleCount": "{count}人",
         "yenSuffix": "円",
         "peopleSuffix": "人"
@@ -833,7 +833,7 @@
       },
       "history": {
         "title": "{count} 件のハイパーチャット",
-        "stats": "応援状況",
+        "stats": "投稿状況",
         "sortNewest": "新着順",
         "sortAmount": "金額順"
       }

@@ -224,7 +224,7 @@ web/apis/hyper-chats/
 **チャンネル詳細ページ Base部**:
 
 - ファイル: `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/profile/ChannelProfile.tsx`
-- 応援チケット関連を削除し、「ハイパーチャットを送る」ボタンを配置
+- 応援チケット関連を削除し、「ハイパーチャットを投稿する」ボタンを配置
 - 統計情報: 「累計金額」「投稿者数（ユニークユーザー数）」
 - Container Query (`@container` + `@2xl:`) でレスポンシブ対応
 
