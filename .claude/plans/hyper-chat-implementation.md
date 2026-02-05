@@ -176,7 +176,7 @@ backend/libs/domain/stripe/
 | GET    | `/api/hyper-chats/channels/:channelId`                   | チャンネル別履歴                | 任意 |
 | GET    | `/api/hyper-chats/channels/:channelId/count`             | 件数取得                        | 任意 |
 | GET    | `/api/hyper-chats/channels/:channelId/sum-amount`        | 合計金額取得                    | 任意 |
-| GET    | `/api/hyper-chats/channels/:channelId/unique-supporters` | ユニーク応援者数                | 任意 |
+| GET    | `/api/hyper-chats/channels/:channelId/unique-supporters` | ユニーク投稿者数                | 任意 |
 | GET    | `/api/hyper-chats/me`                                    | 自分の送信履歴                  | 必須 |
 
 ### Stripe Webhook 拡張
@@ -225,7 +225,7 @@ web/apis/hyper-chats/
 
 - ファイル: `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/profile/ChannelProfile.tsx`
 - 応援チケット関連を削除し、「ハイパーチャットを送る」ボタンを配置
-- 統計情報: 「総応援額」「応援者数（ユニークユーザー数）」
+- 統計情報: 「累計金額」「投稿者数（ユニークユーザー数）」
 - Container Query (`@container` + `@2xl:`) でレスポンシブ対応
 
 ---
@@ -309,7 +309,7 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 
 - 30件/ページのページング
 - ソートタブ: 新着順（デフォルト）、金額順（amount DESC → likeCount DESC → createdAt DESC）
-- 統計情報表示: 総応援額、応援者数
+- 統計情報表示: 累計金額、投稿者数
 - レスポンシブ対応:
   - PC: サイドバーにsticky表示（統計情報 + 購入ボタン）
   - スマホ: ScrollRevealFooter で購入ボタンを固定表示
@@ -368,8 +368,8 @@ model HyperChatTicket {
 
 ### 仕様（有料との違い）
 
-- 「総応援金額」には含めない
-- 「支援者数」には含める
+- 「累計金額」には含めない
+- 「投稿者数」には含める
 - 吹き出しの「表示権」は有料・無料で差別しない
 - 吹き出しやCard上の「金額」部分テキストは「無料チケ」とする（￥300としない）
 
@@ -556,6 +556,7 @@ cd e2e && npm test
 
 ## 備考
 
-- 「これはタレントへの投げ銭ではなく、VCharts上の広告枠購入費です」と明記（資金決済法対応）
+- 二次創作ガイドライン、パブリシティ権を尊重しサイト内の表現に注意
+- 「VTuber本人・所属事務所への投げ銭ではなく、VChartsのコメント掲載機能の利用料」と明記
 - 決済はシンプルに都度決済（クレジット型/サブスク型は考慮せず）
 - UIは必要に応じて v0 MCP を活用
