@@ -201,7 +201,7 @@ case 'payment_intent.succeeded': {
 ```
 web/features/hyper-chat/
 ├── components/
-│   └── send/                        # 送信/購入関連
+│   └── post/                        # 投稿/購入関連
 │       ├── HyperChatButton.tsx      # 購入ボタン
 │       ├── HyperChatDialog.tsx      # 購入ダイアログ（Stripe Elements統合）
 │       ├── HyperChatStats.tsx       # 統計情報表示（総額・応援者数）
@@ -281,7 +281,7 @@ function getRotationList(hyperChats: HyperChatSchema[]): HyperChatSchema[]
 
 ```
 web/components/hyper-chat/
-├── send/                            # 送信系（Phase 1から移動）
+├── post/                            # 投稿系（Phase 1から移動）
 │   ├── HyperChatButton.tsx
 │   ├── HyperChatDialog.tsx
 │   ├── HyperChatStats.tsx

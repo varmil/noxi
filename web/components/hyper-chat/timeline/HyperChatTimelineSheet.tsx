@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/sheet'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import { HyperChatButton } from 'components/hyper-chat/send/HyperChatButton'
+import { HyperChatButton } from 'components/hyper-chat/post/HyperChatButton'
 import { Link } from 'lib/navigation'
 import { HyperChatCard } from './HyperChatCard'
 import { HyperChatRotator } from './HyperChatRotator'

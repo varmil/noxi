@@ -5,8 +5,8 @@ import {
   getHyperChatsUniqueSupporters
 } from 'apis/hyper-chats/getHyperChats'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { HyperChatButton } from 'components/hyper-chat/send/HyperChatButton'
-import { HyperChatStats } from 'components/hyper-chat/send/HyperChatStats'
+import { HyperChatButton } from 'components/hyper-chat/post/HyperChatButton'
+import { HyperChatStats } from 'components/hyper-chat/post/HyperChatStats'
 import { ChannelProfileSection } from './ChannelProfileSection'
 
 type Props = {

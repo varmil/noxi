@@ -8,8 +8,8 @@ import {
 } from 'apis/hyper-chats/getHyperChats'
 import { getChannel } from 'apis/youtube/getChannel'
 import { ScrollRevealFooter } from 'components/footer/ScrollRevealFooter'
-import { HyperChatButton } from 'components/hyper-chat/send/HyperChatButton'
-import { HyperChatStats } from 'components/hyper-chat/send/HyperChatStats'
+import { HyperChatButton } from 'components/hyper-chat/post/HyperChatButton'
+import { HyperChatStats } from 'components/hyper-chat/post/HyperChatStats'
 import { HyperChatHistoryList } from 'components/hyper-chat/timeline/HyperChatHistoryList'
 import ResponsivePagination from 'components/pagination/ResponsivePagination'
 import {
