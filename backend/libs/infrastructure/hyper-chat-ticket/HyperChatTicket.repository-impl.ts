@@ -104,9 +104,6 @@ export class HyperChatTicketRepositoryImpl implements HyperChatTicketRepository 
         amount: new Amount(hyperChatRow.amount),
         message: new Message(hyperChatRow.message),
         likeCount: new LikeCount(hyperChatRow.likeCount),
-        ticketId: hyperChatRow.ticketId
-          ? new HyperChatTicketId(hyperChatRow.ticketId)
-          : null,
         createdAt: hyperChatRow.createdAt,
         author: {
           name: hyperChatRow.user.name,

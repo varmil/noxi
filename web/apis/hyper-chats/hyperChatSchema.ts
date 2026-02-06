@@ -28,7 +28,6 @@ export const schema = z.object({
   amount: z.number(),
   message: z.string(),
   likeCount: z.number(),
-  ticketId: z.number().nullable(),
   createdAt: z.coerce.date(),
   author: authorSchema
 })
