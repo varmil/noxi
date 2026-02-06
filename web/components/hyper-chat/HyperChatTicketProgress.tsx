@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { Tickets } from 'lucide-react'
 import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
@@ -16,6 +15,7 @@ import {
 import { Progress } from '@/components/ui/progress'
 import { recordProgress } from 'apis/hyper-chat-tickets/recordProgress'
 import { ProgressResponseSchema } from 'apis/hyper-chat-tickets/ticketSchema'
+import { AnimatedTicketIcon } from './AnimatedTicketIcon'
 
 export function HyperChatTicketProgress({
   session
@@ -27,6 +27,7 @@ export function HyperChatTicketProgress({
   const [isLoading, setIsLoading] = useState(true)
   const [progressData, setProgressData] =
     useState<ProgressResponseSchema | null>(null)
+  const [animatedProgress, setAnimatedProgress] = useState(0)
 
   const checkProgress = useCallback(async () => {
     setIsLoading(true)
@@ -52,6 +53,17 @@ export function HyperChatTicketProgress({
     }
   }, [checkProgress, session])
 
+  // ダイアログが開いたときにプログレスバーをアニメーション
+  useEffect(() => {
+    if (open && progressData) {
+      setAnimatedProgress(0)
+      const timer = setTimeout(() => {
+        setAnimatedProgress((progressData.currentCount / 3) * 100)
+      }, 400)
+      return () => clearTimeout(timer)
+    }
+  }, [open, progressData])
+
   const handleClose = () => {
     setOpen(false)
     if (progressData?.granted) {
@@ -69,7 +81,10 @@ export function HyperChatTicketProgress({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent
+        className="sm:max-w-md"
+        onOpenAutoFocus={e => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle className="text-center text-xl">
             {t('title')}
@@ -78,12 +93,12 @@ export function HyperChatTicketProgress({
             {isGranted ? t('description') : t('progressDescription')}
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col gap-y-4 min-h-[110px] justify-center">
+        <div className="flex flex-col gap-y-4 min-h-[110px] items-center justify-center">
           {isGranted && (
             <div className="flex flex-col items-center justify-center py-6 space-y-4">
-              <div className="relative size-32 bg-accent rounded-full flex items-center justify-center">
-                <Tickets className="size-16 text-accent-foreground" />
-                <div className="absolute -top-2 -right-2 bg-accent-foreground text-accent text-lg font-bold rounded-full size-10 flex items-center justify-center">
+              <div className="relative">
+                <AnimatedTicketIcon size="size-16" />
+                <div className="absolute -top-5 -right-5 bg-accent text-accent-foreground text-lg font-bold rounded-full size-10 flex items-center justify-center shadow-md">
                   +1
                 </div>
               </div>
@@ -102,10 +117,7 @@ export function HyperChatTicketProgress({
               <span>{t('progress')}</span>
               <span>{progressData.currentCount}/3</span>
             </div>
-            <Progress
-              value={(progressData.currentCount / 3) * 100}
-              className="h-2"
-            />
+            <Progress value={animatedProgress} className="h-2" />
             <p className="text-xs text-center text-muted-foreground">
               {t('nextTicket', { days: 3 - progressData.currentCount })}
             </p>
