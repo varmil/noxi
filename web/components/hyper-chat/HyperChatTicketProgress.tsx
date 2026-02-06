@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { Ticket } from 'lucide-react'
+import { Tickets } from 'lucide-react'
 import { Session } from 'next-auth'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
@@ -72,26 +72,28 @@ export function HyperChatTicketProgress({
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl">
-            {isGranted ? t('title') : t('progressTitle')}
+            {t('title')}
           </DialogTitle>
           <DialogDescription className="text-center">
             {isGranted ? t('description') : t('progressDescription')}
           </DialogDescription>
         </DialogHeader>
-        <div className="flex flex-col items-center justify-center py-6 space-y-4">
+        <div className="flex flex-col gap-y-4 min-h-[110px] justify-center">
           {isGranted && (
-            <>
-              <div className="relative w-32 h-32 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-                <Ticket className="h-16 w-16 text-green-600 dark:text-green-400" />
-                <div className="absolute -top-2 -right-2 bg-green-600 text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center">
+            <div className="flex flex-col items-center justify-center py-6 space-y-4">
+              <div className="relative size-32 bg-accent rounded-full flex items-center justify-center">
+                <Tickets className="size-16 text-accent-foreground" />
+                <div className="absolute -top-2 -right-2 bg-accent-foreground text-accent text-lg font-bold rounded-full size-10 flex items-center justify-center">
                   +1
                 </div>
               </div>
               <div className="text-center space-y-2">
                 <p className="text-lg font-medium">{t('awarded')}</p>
-                <p className="text-sm text-muted-foreground">{t('useInstructions')}</p>
+                <p className="text-sm text-muted-foreground">
+                  {t('useInstructions')}
+                </p>
               </div>
-            </>
+            </div>
           )}
 
           {/* 進捗バー */}

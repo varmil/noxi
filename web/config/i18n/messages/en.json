@@ -522,12 +522,11 @@
       "toastTitle": "Earned cheer tickets"
     },
     "hyperChatTicketProgress": {
-      "title": "HyperChat Ticket Earned!",
+      "title": "Login Bonus",
       "description": "You earned a ticket by logging in 3 days",
-      "progressTitle": "Login Bonus",
       "progressDescription": "Earn tickets based on your login days",
       "awarded": "Earned 1 free ticket!",
-      "useInstructions": "Tickets can be used to post HyperChats to your favorite talents",
+      "useInstructions": "Tickets can be used to post HyperChats",
       "progress": "Next ticket",
       "nextTicket": "{days} more days to earn next ticket",
       "close": "Close",

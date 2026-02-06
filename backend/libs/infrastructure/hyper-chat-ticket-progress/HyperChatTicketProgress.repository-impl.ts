@@ -1,18 +1,16 @@
 import { Injectable } from '@nestjs/common'
+import { SOURCE_TYPE } from '@domain/hyper-chat-ticket'
 import {
   Granted,
   HyperChatTicketProgressRepository,
   LoginCount
 } from '@domain/hyper-chat-ticket-progress'
-import { SOURCE_TYPE } from '@domain/hyper-chat-ticket'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 const TICKET_VALIDITY_DAYS = 30
 
 @Injectable()
-export class HyperChatTicketProgressRepositoryImpl
-  implements HyperChatTicketProgressRepository
-{
+export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketProgressRepository {
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   /**

@@ -531,12 +531,11 @@
       "toastTitle": "応援チケットを獲得しました"
     },
     "hyperChatTicketProgress": {
-      "title": "ハイパーチャットチケット獲得！",
-      "description": "3日連続ログインでチケットを獲得しました",
-      "progressTitle": "ログインボーナス",
+      "title": "ログインボーナス",
+      "description": "3日間のログインでチケットを獲得しました",
       "progressDescription": "ログイン日数に応じてチケットを獲得できます",
       "awarded": "無料チケット1枚を獲得！",
-      "useInstructions": "チケットは好きなタレントへのハイパーチャット投稿に使えます",
+      "useInstructions": "ハイパーチャット投稿に使うことができます",
       "progress": "次のチケットまで",
       "nextTicket": "あと{days}日ログインで次のチケット獲得",
       "close": "閉じる",
