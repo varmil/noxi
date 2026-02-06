@@ -39,3 +39,27 @@ export const TIER_TEXT_MUTED_COLORS: Record<TierValue, string> = {
   standard: 'text-yellow-900 dark:text-gray-300',
   max: 'text-red-200 dark:text-gray-300'
 }
+
+/** Tier別のリング色（選択状態用） */
+export const TIER_RING_COLORS: Record<TierValue, string> = {
+  free: 'ring-green-500',
+  lite: 'ring-cyan-500',
+  standard: 'ring-yellow-500',
+  max: 'ring-red-600'
+}
+
+/** Tier別のスライダードット色（ソリッド） */
+export const TIER_DOT_COLORS: Record<TierValue, string> = {
+  free: 'bg-green-500',
+  lite: 'bg-cyan-500',
+  standard: 'bg-yellow-500',
+  max: 'bg-red-600'
+}
+
+/** Tier別のアクセントテキスト色 */
+export const TIER_ACCENT_TEXT_COLORS: Record<TierValue, string> = {
+  free: 'text-green-600 dark:text-green-400',
+  lite: 'text-cyan-600 dark:text-cyan-400',
+  standard: 'text-yellow-600 dark:text-yellow-400',
+  max: 'text-red-600 dark:text-red-400'
+}

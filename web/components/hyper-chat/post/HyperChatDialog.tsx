@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js'
-import { Loader2, Ticket } from 'lucide-react'
+import { Loader2, Tickets } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
@@ -16,22 +16,17 @@ import {
   DialogTitle
 } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
-import { Label } from '@/components/ui/label'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { getMyTickets } from 'apis/hyper-chat-tickets/getMyTickets'
 import { TicketSchema } from 'apis/hyper-chat-tickets/ticketSchema'
 import { consumeTicket } from 'apis/hyper-chat-tickets/useTicket'
 import { createHyperChatPaymentIntent } from 'apis/hyper-chats/createHyperChatPaymentIntent'
-import {
-  PAID_TIERS,
-  PaidTierValue,
-  TIER_CONFIG
-} from 'apis/hyper-chats/hyperChatSchema'
+import { PaidTierValue, TIER_CONFIG } from 'apis/hyper-chats/hyperChatSchema'
 import { revalidateHyperChat } from 'apis/hyper-chats/revalidateHyperChat'
 import { useHyperChatForm } from 'hooks/hyper-chat/useHyperChatForm'
 import { AnimatedCheckmark } from './AnimatedCheckmark'
 import { MessageInput } from './MessageInput'
 import { PaymentForm } from './PaymentForm'
+import { TierSlider } from './TierSlider'
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
@@ -119,9 +114,9 @@ export function HyperChatDialog({
     }
   }
 
-  const handleTierChange = (value: string) => {
-    const newTier = value as PaidTierValue
+  const handleTierChange = (newTier: PaidTierValue) => {
     setSelectedTier(newTier)
+    setMode('paid')
     const newMaxChars = TIER_CONFIG[newTier].maxChars
     if (message.length > newMaxChars) {
       form.setValue('message', message.slice(0, newMaxChars), {
@@ -171,11 +166,6 @@ export function HyperChatDialog({
         shouldValidate: true
       })
     }
-  }
-
-  const handleSwitchToPaidMode = () => {
-    setMode('paid')
-    form.trigger('message')
   }
 
   const handleBack = () => {
@@ -229,92 +219,15 @@ export function HyperChatDialog({
             </DialogHeader>
 
             <div className="space-y-4 py-4">
-              {mode === 'paid' ? (
-                <>
-                  {/* Paid Tier Selection */}
-                  <div className="space-y-2">
-                    <Label>Tier</Label>
-                    <RadioGroup
-                      value={selectedTier}
-                      onValueChange={handleTierChange}
-                      className="grid grid-cols-3 gap-2"
-                    >
-                      {PAID_TIERS.map(tier => (
-                        <div key={tier}>
-                          <RadioGroupItem
-                            value={tier}
-                            id={tier}
-                            className="peer sr-only"
-                          />
-                          <Label
-                            htmlFor={tier}
-                            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary cursor-pointer"
-                          >
-                            <span className="font-semibold">
-                              {t(`dialog.tier.${tier}`)}
-                            </span>
-                            <span className="text-sm text-muted-foreground">
-                              {t('dialog.price', {
-                                price: TIER_CONFIG[tier].price.toLocaleString()
-                              })}
-                            </span>
-                            <span className="text-xs text-muted-foreground">
-                              {t('dialog.maxChars', {
-                                count: TIER_CONFIG[tier].maxChars
-                              })}
-                            </span>
-                          </Label>
-                        </div>
-                      ))}
-                    </RadioGroup>
-                  </div>
-
-                  {/* Free Ticket Option Link */}
-                  {!isLoadingTickets && tickets.length > 0 && (
-                    <button
-                      type="button"
-                      onClick={handleSwitchToFreeMode}
-                      className="w-full py-2 px-3 text-sm text-green-600 dark:text-green-400 border border-dashed border-green-300 dark:border-green-700 rounded-md hover:bg-green-50 dark:hover:bg-green-950/30 transition-colors flex items-center justify-center gap-2"
-                    >
-                      <Ticket className="size-4" />
-                      <span>
-                        {t('dialog.useTicket')}（
-                        {t('dialog.ticketsRemaining', { count: tickets.length })}
-                        ）
-                      </span>
-                    </button>
-                  )}
-                </>
-              ) : (
-                <>
-                  {/* Free Ticket Mode */}
-                  <div className="p-4 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg space-y-3">
-                    <div className="flex items-center gap-2 text-green-700 dark:text-green-300">
-                      <Ticket className="size-5" />
-                      <span className="font-medium">
-                        {t('dialog.tier.free')}
-                      </span>
-                      <span className="text-sm text-green-600 dark:text-green-400">
-                        （{t('dialog.ticketsRemaining', { count: tickets.length })}）
-                      </span>
-                    </div>
-                    <p className="text-sm text-green-600 dark:text-green-400">
-                      {t('dialog.maxChars', {
-                        count: TIER_CONFIG.free.maxChars
-                      })}
-                    </p>
-                  </div>
-
-                  {/* Back to paid mode link */}
-                  <button
-                    type="button"
-                    onClick={handleSwitchToPaidMode}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    ← {t('dialog.orPurchase')}
-                  </button>
-                </>
-              )}
+              {/* Tier Slider */}
+              <TierSlider
+                selectedTier={selectedTier}
+                onTierChange={handleTierChange}
+                onSelectFree={handleSwitchToFreeMode}
+                hasTicket={!isLoadingTickets && tickets.length > 0}
+                ticketCount={tickets.length}
+                isTicketMode={mode === 'free'}
+              />
 
               {/* Message Input */}
               <Form {...form}>
@@ -361,7 +274,7 @@ export function HyperChatDialog({
                     </>
                   ) : (
                     <>
-                      <Ticket className="mr-2 size-4" />
+                      <Tickets className="mr-2 size-4" />
                       {t('dialog.useTicket')}
                     </>
                   )}
