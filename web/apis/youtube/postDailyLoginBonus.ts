@@ -11,6 +11,7 @@ type Params = {
   userId: number
 }
 
+/** @deprecated 応援機能は削除予定. ハイパーチャットへ移行 */
 export async function postDailyLoginBonus(
   params: Params
 ): Promise<DailyLoginBonusSchema> {

@@ -16,6 +16,7 @@ import {
 import { postDailyLoginBonus } from 'apis/youtube/postDailyLoginBonus'
 import { DailyLoginBonusSchema } from 'apis/youtube/schema/dailyLoginBonusSchema'
 
+/** @deprecated 応援機能は削除予定、変わりに HyperChatTicketProgress に移行  */
 export function DailyLoginBonus({ session }: { session: Session | null }) {
   const comp = useTranslations('Components.loginBonus')
   const [open, setOpen] = useState(false)
