@@ -9,7 +9,7 @@ YouTubeのスーパーチャットのような有料コメント機能「ハイ�
 **関連Issue**:
 
 - 親: #2726 ハイパーチャット機能の開発
-- Sub: #2773 ハイパートレイン、#2774 ハイパーレベル、#2775 チケット
+- Sub: #2773 ハイパートレイン、#2774 ハイパーレベル、#2775 チケット、#2893 ギフト機能
 
 この計画ファイルの情報だけでは不十分なことがあるので、適宜上記Issueを参照してください
 
@@ -329,11 +329,11 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 
 ### API エンドポイント
 
-| Method | Endpoint                    | 説明                 |
-| ------ | --------------------------- | -------------------- |
-| POST   | `/api/hyper-chats/:id/like` | いいね               |
-| DELETE | `/api/hyper-chats/:id/like` | いいね解除           |
-| GET    | `/api/hyper-chats/liked-ids`| いいね済みID一括取得 |
+| Method | Endpoint                     | 説明                 |
+| ------ | ---------------------------- | -------------------- |
+| POST   | `/api/hyper-chats/:id/like`  | いいね               |
+| DELETE | `/api/hyper-chats/:id/like`  | いいね解除           |
+| GET    | `/api/hyper-chats/liked-ids` | いいね済みID一括取得 |
 
 ### 購入導線追加
 
@@ -350,9 +350,31 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 
 ### 機能範囲
 
-- 300円（Lite）相当のチケット配布
+- 無料チケットの配布機能
 - 30日間有効期限
-- 配布タイミング: リリース時3枚、新規登録時1枚、5日ごとにログインボーナス
+- 配布タイミング: リリース時7枚(直SQL)、新規登録時3枚(normalizedEmailで判定)、3日ごとにログインボーナス1枚
+- web/components/hyper-chat/post/HyperChatDialog.tsx 上でチケットがある場合、チケットを利用してハイパーチャット投稿できる
+
+### Tier 設計
+
+**'free' を4つ目のTierとして追加する**
+
+```typescript
+export const TIERS = ['free', 'lite', 'standard', 'max'] as const
+
+export const TIER_CONFIG = {
+  free: { price: 0, maxChars: 60, rotationSlots: 1 },
+  lite: { price: 300, maxChars: 60, rotationSlots: 1 },
+  standard: { price: 1000, maxChars: 140, rotationSlots: 4 },
+  max: { price: 10000, maxChars: 300, rotationSlots: 60 }
+} as const
+```
+
+**理由**:
+
+- `amount: 0` で累計金額から自然に除外
+- `TIER_CONFIG['free']` でスタイル定義が一元化
+- 'lite' 扱いにすると「無料か有料か」の複合条件が必要になり複雑化
 
 ### データモデル
 
@@ -365,18 +387,38 @@ model HyperChatTicket {
   sourceType String    // "release", "signup", "login_bonus"
   createdAt  DateTime  @default(now()) @db.Timestamptz(3)
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hyperChat HyperChat? // 使用結果として作成されたHyperChat（1:1）
 
   @@index([userId, expiresAt, usedAt])
 }
+
+// HyperChat に ticketId を追加
+model HyperChat {
+  id        Int      @id @default(autoincrement())
+  orderId   Int?     @unique  // 購入時のみ
+  ticketId  Int?     @unique  // チケット利用時のみ ← 追加
+  // ... 他のフィールド
+
+  order  HyperChatOrder?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  ticket HyperChatTicket?  @relation(fields: [ticketId], references: [id])  // ← 追加
+}
 ```
+
+**relation 設計のポイント**:
+
+- HyperChatTicket と HyperChat は 1:1
+- 購入時: `orderId` が設定、`ticketId` は null
+- チケット利用時: `ticketId` が設定、`orderId` は null
+- CheerTicketUsage のような中間テーブルは不要（直接 relation で十分）
 
 ### 仕様（有料との違い）
 
-- 「累計金額」には含めない
-- 「投稿者数」には含める
+- 「累計金額」には含めない（`tier: 'free'`, `amount: 0`）
+- 「投稿者数」には含める（userId ベースのカウントなので自動的に含まれる）
 - 吹き出しの「表示権」は有料・無料で差別しない
 - 吹き出しやCard上の「金額」部分テキストは「無料チケ」とする（￥300としない）
+- 背景色: free 専用のスタイルを定義（例: グレー系 or lite と同じ水色）
 
 ### API エンドポイント
 
@@ -406,7 +448,7 @@ model HyperChatTicket {
 
 | Lv. | 必要総金額 | 次のレベルまで |
 | --- | ---------- | -------------- |
-| 1   | 900        | 2,100          |
+| 1   | 0          | 3,000          |
 | 2   | 3,000      | 3,000          |
 | 3   | 6,000      | 4,000          |
 | 4   | 10,000     | 5,000          |
