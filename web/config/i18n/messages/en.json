@@ -785,7 +785,7 @@
         "price": "¥{price}",
         "maxChars": "Max {count} characters",
         "messageLabel": "Message (optional)",
-        "messagePlaceholder": "Enter your message (leave blank OK)",
+        "messagePlaceholder": "Amounts and messages will be made public...",
         "charCount": "{current}/{max} characters",
         "cancel": "Cancel",
         "purchase": "Purchase",

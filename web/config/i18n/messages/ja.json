@@ -802,7 +802,7 @@
         "price": "{price}円",
         "maxChars": "最大{count}文字",
         "messageLabel": "メッセージ（任意）",
-        "messagePlaceholder": "メッセージを入力（空欄OK）",
+        "messagePlaceholder": "金額とメッセージは公開されます...",
         "charCount": "{current}/{max}文字",
         "cancel": "キャンセル",
         "purchase": "購入する",
