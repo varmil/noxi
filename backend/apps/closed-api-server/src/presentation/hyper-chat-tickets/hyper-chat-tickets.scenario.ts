@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { HyperChatTicketsService } from '@app/hyper-chat-tickets/hyper-chat-tickets.service'
 import { GroupId } from '@domain/group'
-import { HyperChat } from '@domain/hyper-chat'
+import { HyperChat, Message } from '@domain/hyper-chat'
 import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
@@ -24,7 +24,7 @@ export class HyperChatTicketsScenario {
     channelId: ChannelId
     group: GroupId
     gender: Gender
-    message: string
+    message: Message
   }): Promise<HyperChat> {
     const hyperChat = await this.hyperChatTicketsService.useTicket(args)
 

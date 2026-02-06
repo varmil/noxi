@@ -4,6 +4,7 @@ import {
   HyperChatTicketProgressRepository,
   LoginCount
 } from '@domain/hyper-chat-ticket-progress'
+import { SOURCE_TYPE } from '@domain/hyper-chat-ticket'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
 const TICKET_VALIDITY_DAYS = 30
@@ -78,7 +79,7 @@ export class HyperChatTicketProgressRepositoryImpl
             data: {
               userId,
               expiresAt,
-              sourceType: 'login_bonus'
+              sourceType: SOURCE_TYPE.LOGIN_BONUS
             }
           })
           await tx.hyperChatTicketProgress.update({

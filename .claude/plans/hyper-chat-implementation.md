@@ -384,7 +384,7 @@ model HyperChatTicket {
   userId     Int
   expiresAt  DateTime  @db.Timestamptz(3)
   usedAt     DateTime? @db.Timestamptz(3)
-  sourceType String    // "release", "signup", "login_bonus"
+  sourceType String    // "release", "signup", "loginBonus"
   createdAt  DateTime  @default(now()) @db.Timestamptz(3)
 
   user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)

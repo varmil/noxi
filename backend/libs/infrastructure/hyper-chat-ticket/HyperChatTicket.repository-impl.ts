@@ -89,7 +89,7 @@ export class HyperChatTicketRepositoryImpl implements HyperChatTicketRepository 
           gender: args.gender.get(),
           tier: 'free',
           amount: 0,
-          message: args.message
+          message: args.message.get()
         },
         include: { user: true }
       })

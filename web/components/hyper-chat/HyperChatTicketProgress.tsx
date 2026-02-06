@@ -37,10 +37,8 @@ export function HyperChatTicketProgress({
       const result = await recordProgress()
       setProgressData(result)
 
-      // チケット獲得時はダイアログを表示
-      if (result.granted) {
-        setOpen(true)
-      }
+      // 進捗が記録されたらダイアログを表示
+      setOpen(true)
     } catch (error) {
       console.error('Error recording HyperChat ticket progress:', error)
     } finally {
@@ -63,39 +61,40 @@ export function HyperChatTicketProgress({
     }
   }
 
-  if (!session?.user || isLoading) {
+  if (!session?.user || isLoading || !progressData) {
     return null
   }
 
-  // チケット獲得時のみダイアログ表示
-  if (!progressData?.granted) {
-    return null
-  }
+  const isGranted = progressData.granted
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center text-xl">
-            {t('title')}
+            {isGranted ? t('title') : t('progressTitle')}
           </DialogTitle>
           <DialogDescription className="text-center">
-            {t('description')}
+            {isGranted ? t('description') : t('progressDescription')}
           </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center justify-center py-6 space-y-4">
-          <div className="relative w-32 h-32 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
-            <Ticket className="h-16 w-16 text-green-600 dark:text-green-400" />
-            <div className="absolute -top-2 -right-2 bg-green-600 text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center">
-              +1
-            </div>
-          </div>
-          <div className="text-center space-y-2">
-            <p className="text-lg font-medium">{t('awarded')}</p>
-            <p className="text-sm text-muted-foreground">{t('useInstructions')}</p>
-          </div>
+          {isGranted && (
+            <>
+              <div className="relative w-32 h-32 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                <Ticket className="h-16 w-16 text-green-600 dark:text-green-400" />
+                <div className="absolute -top-2 -right-2 bg-green-600 text-white text-lg font-bold rounded-full w-10 h-10 flex items-center justify-center">
+                  +1
+                </div>
+              </div>
+              <div className="text-center space-y-2">
+                <p className="text-lg font-medium">{t('awarded')}</p>
+                <p className="text-sm text-muted-foreground">{t('useInstructions')}</p>
+              </div>
+            </>
+          )}
 
-          {/* 進捗バー（リセット後は0/3） */}
+          {/* 進捗バー */}
           <div className="w-full max-w-xs space-y-2">
             <div className="flex justify-between text-sm text-muted-foreground">
               <span>{t('progress')}</span>

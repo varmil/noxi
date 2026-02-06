@@ -533,6 +533,8 @@
     "hyperChatTicketProgress": {
       "title": "ハイパーチャットチケット獲得！",
       "description": "3日連続ログインでチケットを獲得しました",
+      "progressTitle": "ログインボーナス",
+      "progressDescription": "ログイン日数に応じてチケットを獲得できます",
       "awarded": "無料チケット1枚を獲得！",
       "useInstructions": "チケットは好きなタレントへのハイパーチャット投稿に使えます",
       "progress": "次のチケットまで",

@@ -1,5 +1,5 @@
 import { GroupId } from '@domain/group'
-import { HyperChat } from '@domain/hyper-chat'
+import { HyperChat, Message } from '@domain/hyper-chat'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -12,7 +12,7 @@ export interface UseTicketArgs {
   channelId: ChannelId
   group: GroupId
   gender: Gender
-  message: string
+  message: Message
 }
 
 export interface HyperChatTicketRepository {

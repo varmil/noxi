@@ -1,6 +1,6 @@
-import { IsInt, IsString, MaxLength, Min, IsIn  } from 'class-validator'
+import { IsInt, IsString, Min, IsIn } from 'class-validator'
 import { GroupId } from '@domain/group'
-import { TIER_CONFIG } from '@domain/hyper-chat'
+import { Message } from '@domain/hyper-chat'
 import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
 import { Gender, GenderString, GenderStrings } from '@domain/lib/gender'
 import { ChannelId } from '@domain/youtube'
@@ -20,7 +20,6 @@ export class UseTicket {
   gender: GenderString
 
   @IsString()
-  @MaxLength(60) // free tier max chars
   message: string
 
   toTicketId = () => new HyperChatTicketId(this.ticketId)
@@ -31,13 +30,5 @@ export class UseTicket {
 
   toGender = () => new Gender(this.gender)
 
-  toMessage = () => {
-    const maxChars = TIER_CONFIG['free'].maxChars
-    if (this.message.length > maxChars) {
-      throw new Error(
-        `Message too long for free ticket. Max ${maxChars} characters.`
-      )
-    }
-    return this.message
-  }
+  toMessage = () => new Message(this.message, 'free')
 }

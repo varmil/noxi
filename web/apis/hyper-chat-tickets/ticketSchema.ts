@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const SOURCE_TYPES = ['release', 'signup', 'login_bonus'] as const
+export const SOURCE_TYPES = ['release', 'signup', 'loginBonus'] as const
 export type SourceType = (typeof SOURCE_TYPES)[number]
 
 export const ticketSchema = z.object({
