@@ -7,6 +7,7 @@ import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/ex
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { GroupRegistrationsPresentationModule } from '@presentation/group-registrations/group-registrations.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { HyperChatTicketsPresentationModule } from '@presentation/hyper-chat-tickets/hyper-chat-tickets.presentation.module'
 import { HyperChatsPresentationModule } from '@presentation/hyper-chats/hyper-chats.presentation.module'
 import { InactiveChannelsPresentationModule } from '@presentation/inactive-channels/inactive-channels.presentation.module'
 import { InsightsPresentationModule } from '@presentation/insights/insights.presentation.module'
@@ -39,6 +40,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     GroupsPresentationModule,
     GroupRegistrationsPresentationModule,
     HyperChatsPresentationModule,
+    HyperChatTicketsPresentationModule,
     LoginBonusesPresentationModule,
     MembershipBundlesPresentationModule,
     MembershipSummariesPresentationModule,

@@ -4,9 +4,11 @@ import { Pool } from '@neondatabase/serverless'
 import { User } from 'next-auth'
 import { Resend } from 'resend'
 import { WelcomeEmail } from 'components/emails/welcome-mail'
+import { initHyperChatTickets } from 'lib/auth/init/initHyperChatTickets'
 import { initNormalizedEmail } from 'lib/auth/init/initNormalizedEmail'
 import { initUser } from 'lib/auth/init/initUser'
 import { initUsername } from 'lib/auth/init/initUsername'
+import { normalizeEmail } from 'lib/auth/normalizeEmail'
 
 export const onSignUp = async (pool: Pool, user: User) => {
   const resend = new Resend(process.env.AUTH_RESEND_KEY)
@@ -22,7 +24,7 @@ export const onSignUp = async (pool: Pool, user: User) => {
   await Promise.all([
     initUsername(pool, id),
 
-    // TODO: HyperChat ticket distribution will be added in Phase 4
+    email && initHyperChatTickets(pool, id, normalizeEmail(email)),
 
     email &&
       resend.emails.send({

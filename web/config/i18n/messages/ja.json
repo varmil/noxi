@@ -530,6 +530,17 @@
       "close": "閉じる",
       "toastTitle": "応援チケットを獲得しました"
     },
+    "hyperChatTicketProgress": {
+      "title": "ハイパーチャットチケット獲得！",
+      "description": "3日連続ログインでチケットを獲得しました",
+      "awarded": "無料チケット1枚を獲得！",
+      "useInstructions": "チケットは好きなタレントへのハイパーチャット投稿に使えます",
+      "progress": "次のチケットまで",
+      "nextTicket": "あと{days}日ログインで次のチケット獲得",
+      "close": "閉じる",
+      "toastTitle": "チケット獲得",
+      "toastDescription": "ハイパーチャットチケットを1枚獲得しました"
+    },
     "pagination": {
       "first": "最初のページへ",
       "previous": "前へ",
@@ -782,6 +793,7 @@
         "title": "{channel}にハイパーチャットを投稿",
         "description": "ポジティブなメッセージを投稿しよう",
         "tier": {
+          "free": "無料",
           "lite": "ライト",
           "standard": "スタンダード",
           "max": "マックス"
@@ -816,7 +828,19 @@
         },
         "maxCharsError": "メッセージは{count}文字以内で入力してください",
         "profanityError": "不適切な表現が含まれています: {words}",
-        "moderationError": "不適切な内容が含まれています"
+        "moderationError": "不適切な内容が含まれています",
+        "useTicket": "無料チケットで投稿",
+        "ticketsRemaining": "残り{count}枚",
+        "orPurchase": "または有料で購入",
+        "ticketConfirm": {
+          "title": "チケットを使用",
+          "description": "チケットを1枚使用してハイパーチャットを投稿しますか？",
+          "confirm": "投稿する",
+          "cancel": "戻る"
+        }
+      },
+      "card": {
+        "freeTicket": "無料チケ"
       },
       "like": {
         "button": "いいね",

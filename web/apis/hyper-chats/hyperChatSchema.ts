@@ -1,12 +1,16 @@
 import { z } from 'zod'
 
-export const TIERS = ['lite', 'standard', 'max'] as const
+export const TIERS = ['free', 'lite', 'standard', 'max'] as const
 export type TierValue = (typeof TIERS)[number]
 
+export const PAID_TIERS = ['lite', 'standard', 'max'] as const
+export type PaidTierValue = (typeof PAID_TIERS)[number]
+
 export const TIER_CONFIG = {
-  lite: { price: 300, maxChars: 60 },
-  standard: { price: 1000, maxChars: 140 },
-  max: { price: 10000, maxChars: 300 }
+  free: { price: 0, maxChars: 60, rotationSlots: 1 },
+  lite: { price: 300, maxChars: 60, rotationSlots: 1 },
+  standard: { price: 1000, maxChars: 140, rotationSlots: 4 },
+  max: { price: 10000, maxChars: 300, rotationSlots: 60 }
 } as const
 
 export const authorSchema = z.object({
@@ -24,6 +28,7 @@ export const schema = z.object({
   amount: z.number(),
   message: z.string(),
   likeCount: z.number(),
+  ticketId: z.number().nullable(),
   createdAt: z.coerce.date(),
   author: authorSchema
 })

@@ -1,6 +1,6 @@
 'use client'
 
-import { useFormatter, useNow } from 'next-intl'
+import { useFormatter, useNow, useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
@@ -26,8 +26,13 @@ export function HyperChatCard({
 }: Props) {
   const format = useFormatter()
   const now = useNow({ updateInterval: 60000 })
+  const t = useTranslations('Features.hyperChat')
   const tier = hyperChat.tier
   const displayName = hyperChat.author.name || '匿名さん'
+  const amountDisplay =
+    hyperChat.amount === 0
+      ? t('card.freeTicket')
+      : `￥${hyperChat.amount.toLocaleString()}`
 
   return (
     <div
@@ -57,7 +62,7 @@ export function HyperChatCard({
           {displayName}
         </span>
         <span className={cn('font-medium', TIER_TEXT_COLORS[tier])}>
-          ￥{hyperChat.amount.toLocaleString()}
+          {amountDisplay}
         </span>
         <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
           {format.relativeTime(hyperChat.createdAt, now)}

@@ -11,6 +11,7 @@ import {
   TierValue
 } from '@domain/hyper-chat'
 import { Amount } from '@domain/hyper-chat-order'
+import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -190,6 +191,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     amount: number
     message: string
     likeCount: number
+    ticketId: number | null
     createdAt: Date
   }): HyperChat {
     return new HyperChat({
@@ -202,6 +204,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       amount: new Amount(row.amount),
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
+      ticketId: row.ticketId ? new HyperChatTicketId(row.ticketId) : null,
       createdAt: row.createdAt,
       author: { name: null, image: null }
     })
@@ -217,6 +220,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     amount: number
     message: string
     likeCount: number
+    ticketId: number | null
     createdAt: Date
     user: { name: string | null; image: string | null }
   }): HyperChat {
@@ -230,6 +234,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       amount: new Amount(row.amount),
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
+      ticketId: row.ticketId ? new HyperChatTicketId(row.ticketId) : null,
       createdAt: row.createdAt,
       author: { name: row.user.name, image: row.user.image }
     })

@@ -1,24 +1,18 @@
 'use server'
 
-import {
-  paymentIntentResponseSchema,
-  PaymentIntentResponseSchema,
-  PaidTierValue
-} from 'apis/hyper-chats/hyperChatSchema'
+import { schema, HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 import { checkModeration } from 'utils/input/moderation'
 
 type Data = {
+  ticketId: number
   channelId: string
   group: string
   gender: 'male' | 'female' | 'nonbinary'
-  tier: PaidTierValue
   message: string
 }
 
-export async function createHyperChatPaymentIntent(
-  data: Data
-): Promise<PaymentIntentResponseSchema> {
+export async function consumeTicket(data: Data): Promise<HyperChatSchema> {
   // OpenAI Moderation check (server-side)
   if (data.message) {
     const isClean = await checkModeration(data.message)
@@ -27,7 +21,7 @@ export async function createHyperChatPaymentIntent(
     }
   }
 
-  const res = await fetchAPI(`/api/hyper-chats/payment-intent`, {
+  const res = await fetchAPI(`/api/hyper-chat-tickets/use`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -38,8 +32,8 @@ export async function createHyperChatPaymentIntent(
 
   if (!res.ok) {
     const errorText = await res.text()
-    throw new Error(`Failed to create payment intent: ${errorText}`)
+    throw new Error(`Failed to use ticket: ${errorText}`)
   }
 
-  return paymentIntentResponseSchema.parse(await res.json())
+  return schema.parse(await res.json())
 }

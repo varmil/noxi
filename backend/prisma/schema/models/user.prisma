@@ -46,15 +46,17 @@ model User {
   image           String?
   createdAt       DateTime  @default(now()) @db.Timestamptz(3)
 
-  accounts         Account[]
-  sessions         Session[]
-  cheerTicket      CheerTicket?
-  cheerTicketLog   CheerTicketLog[]
-  cheerTicketUsage CheerTicketUsage[]
-  userProfile      UserProfile?
-  hyperChatOrders  HyperChatOrder[]
-  hyperChats       HyperChat[]
-  hyperChatLikes   HyperChatLike[]
+  accounts                   Account[]
+  sessions                   Session[]
+  cheerTicket                CheerTicket?
+  cheerTicketLog             CheerTicketLog[]
+  cheerTicketUsage           CheerTicketUsage[]
+  userProfile                UserProfile?
+  hyperChatOrders            HyperChatOrder[]
+  hyperChats                 HyperChat[]
+  hyperChatLikes             HyperChatLike[]
+  hyperChatTickets           HyperChatTicket[]
+  hyperChatTicketProgress    HyperChatTicketProgress?
 
   @@index([normalizedEmail])
   @@map("users")

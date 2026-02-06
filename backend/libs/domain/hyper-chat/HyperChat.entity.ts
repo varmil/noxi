@@ -7,6 +7,7 @@ import {
   Tier
 } from '@domain/hyper-chat'
 import { Amount } from '@domain/hyper-chat-order'
+import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -45,6 +46,11 @@ export class HyperChat {
   @Transform(({ value }: { value: LikeCount }) => value.get())
   public readonly likeCount: LikeCount
 
+  @Transform(({ value }: { value: HyperChatTicketId | null }) =>
+    value?.get() ?? null
+  )
+  public readonly ticketId: HyperChatTicketId | null
+
   public readonly createdAt: Date
 
   /** 送信者情報 */
@@ -60,6 +66,7 @@ export class HyperChat {
     amount: Amount
     message: Message
     likeCount: LikeCount
+    ticketId: HyperChatTicketId | null
     createdAt: Date
     author: HyperChatAuthor
   }) {
@@ -72,6 +79,7 @@ export class HyperChat {
     this.amount = args.amount
     this.message = args.message
     this.likeCount = args.likeCount
+    this.ticketId = args.ticketId
     this.createdAt = args.createdAt
     this.author = args.author
   }

@@ -9,6 +9,7 @@ import { setRequestLocale } from 'next-intl/server'
 import NextTopLoader from 'nextjs-toploader'
 import { Toaster } from '@/components/ui/sonner'
 import { SessionKeepAlive } from 'components/auth/session/SessionKeepAlive'
+import { HyperChatTicketProgress } from 'components/hyper-chat/HyperChatTicketProgress'
 import { DailyLoginBonus } from 'components/login-bonus/DailyLoginBonus'
 import { ClarityScript } from 'components/script/ClarityScript'
 import { SidebarProvider } from 'components/sidebar/SidebarContext'
@@ -96,6 +97,7 @@ export default async function LocaleLayout(props: Props) {
               </SidebarProvider>
               <Toaster richColors />
               <DailyLoginBonus session={session} />
+              <HyperChatTicketProgress session={session} />
             </NextIntlClientProvider>
             <SessionKeepAlive />
           </SessionProvider>

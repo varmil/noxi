@@ -2,6 +2,7 @@ import { HyperChatSchema, TierValue } from 'apis/hyper-chats/hyperChatSchema'
 
 /** 各Tierのソート優先度（大きいほど前に表示） */
 const TIER_PRIORITY: Record<TierValue, number> = {
+  free: 1,
   lite: 1,
   standard: 4,
   max: 100

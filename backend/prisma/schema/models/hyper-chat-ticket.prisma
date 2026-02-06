@@ -1,0 +1,31 @@
+/**
+ * ハイパーチャットチケット
+ * 無料で HyperChat を投稿できるチケット
+ * sourceType: release（リリース時配布）, signup（新規登録時）, login_bonus（ログインボーナス）
+ */
+model HyperChatTicket {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  expiresAt  DateTime  @db.Timestamptz(3)
+  usedAt     DateTime? @db.Timestamptz(3)
+  sourceType String // "release", "signup", "login_bonus"
+  createdAt  DateTime  @default(now()) @db.Timestamptz(3)
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hyperChat HyperChat?
+
+  @@index([userId, expiresAt, usedAt])
+}
+
+/**
+ * ハイパーチャットチケットのログインボーナス進捗
+ * 3日ログインでチケット1枚付与、その後カウントリセット
+ */
+model HyperChatTicketProgress {
+  userId       Int      @id
+  count        Int      @default(0) // 0, 1, 2 → 3でチケット付与して0にリセット
+  lastLoginKey String // 最後にカウントした日付キー（JST 5時基準の "yyyy-mm-dd"）
+  updatedAt    DateTime @updatedAt @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
