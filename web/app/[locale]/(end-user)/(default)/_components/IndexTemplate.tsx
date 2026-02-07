@@ -55,7 +55,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
       <h1 className="sr-only">VTuberランキング・統計 - VCharts</h1>
       <Container className="flex flex-col gap-6">
         {/* ライブ統計カード（Above the fold） */}
-        <section className="w-full">
+        <section className="@container w-full">
           <LiveStatsCards />
         </section>
 
