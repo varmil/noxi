@@ -48,7 +48,7 @@ async function LiveStatsCardsContent() {
   )
 
   return (
-    <section className="grid grid-cols-2 gap-2 h-full">
+    <section className="grid grid-cols-2 lg:grid-cols-4 gap-2 h-full">
       <Link
         href="/ranking/concurrent-viewer/live/all/realtime"
         className="block group"
