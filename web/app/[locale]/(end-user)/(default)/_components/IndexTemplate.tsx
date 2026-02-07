@@ -1,10 +1,5 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
-import { AdCardBeta } from 'components/ads/AdCardBeta'
-import { AdCarousel } from 'components/ads/AdCarousel'
-import { AdWantedFromFanCardBeta } from 'components/ads/AdWantedFromFanCardBeta'
-import { AdWantedFromTalentCardBeta } from 'components/ads/AdWantedFromTalentCardBeta'
-import { TrackableAdCard } from 'components/ads/TrackableAdCard'
 import { LookerReport } from 'components/looker/LookerReport'
 import {
   ChannelGrowthRankingContainer,
@@ -52,50 +47,16 @@ const FlexSection = (props: PropsWithChildren<{ className?: string }>) => {
   )
 }
 
-/** サーバー側でシャッフル（リクエストごとに1回実行） */
-function shuffle<T>(array: T[]): T[] {
-  const shuffled = [...array]
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
-  }
-  return shuffled
-}
-
 export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
   const groups = await getGroups()
-
-  // サーバー側でランダム化
-  const shuffledAdCards = shuffle([
-    <AdWantedFromTalentCardBeta key="talent" />,
-    <AdWantedFromFanCardBeta key="fan" />
-  ])
 
   return (
     <>
       <h1 className="sr-only">VTuberランキング・統計 - VCharts</h1>
       <Container className="flex flex-col gap-6">
-        <section className="flex items-center md:items-stretch flex-col md:flex-row gap-4">
-          {/* AD Carousel */}
-          <AdCarousel
-            className="max-w-[350px]"
-            cards={[
-              ...shuffledAdCards,
-              <TrackableAdCard key="sample" adId="sample-001" adType="fan">
-                <AdCardBeta
-                  type="fan"
-                  videoUrl="https://www.youtube.com/watch?v=NsueHCfU1Ak"
-                  channelUrl="https://www.youtube.com/@ShirakamiFubuki"
-                  description="【サンプル】入稿時に指定した動画、チャンネル、メッセージはこのように表示されます。"
-                  fanName="ファンの方の名前"
-                />
-              </TrackableAdCard>
-            ]}
-          />
-          {/* ライブ統計カード（Above the fold） */}
-          <div className="flex-1 w-full @container">
-            <LiveStatsCards />
-          </div>
+        {/* ライブ統計カード（Above the fold） */}
+        <section className="@container w-full">
+          <LiveStatsCards />
         </section>
 
         {/* 共通フィルター */}
