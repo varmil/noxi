@@ -38,8 +38,10 @@ export function HyperChatTicketProgress({
       const result = await recordProgress()
       setProgressData(result)
 
-      // 進捗が記録されたらダイアログを表示
-      setOpen(true)
+      // 進捗が増えた場合のみダイアログを表示
+      if (result.progressIncremented) {
+        setOpen(true)
+      }
     } catch (error) {
       console.error('Error recording HyperChat ticket progress:', error)
     } finally {

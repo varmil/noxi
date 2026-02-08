@@ -18,7 +18,8 @@ export const ticketsResponseSchema = z.object({
 
 export const progressResponseSchema = z.object({
   granted: z.boolean(),
-  currentCount: z.number()
+  currentCount: z.number(),
+  progressIncremented: z.boolean()
 })
 
 export type TicketSchema = z.infer<typeof ticketSchema>

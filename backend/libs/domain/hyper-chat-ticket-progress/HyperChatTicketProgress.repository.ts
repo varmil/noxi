@@ -1,6 +1,7 @@
 import { UserId } from '@domain/user'
 import { Granted } from './Granted.vo'
 import { LoginCount } from './LoginCount.vo'
+import { ProgressIncremented } from './ProgressIncremented.vo'
 
 export interface HyperChatTicketProgressRepository {
   /**
@@ -12,5 +13,9 @@ export interface HyperChatTicketProgressRepository {
    */
   recordLoginAndGrantIfEligible: (args: {
     where: { userId: UserId }
-  }) => Promise<{ granted: Granted; currentCount: LoginCount }>
+  }) => Promise<{
+    granted: Granted
+    currentCount: LoginCount
+    progressIncremented: ProgressIncremented
+  }>
 }

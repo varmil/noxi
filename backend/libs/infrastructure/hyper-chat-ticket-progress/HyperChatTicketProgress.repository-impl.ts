@@ -3,7 +3,8 @@ import { SOURCE_TYPE } from '@domain/hyper-chat-ticket'
 import {
   Granted,
   HyperChatTicketProgressRepository,
-  LoginCount
+  LoginCount,
+  ProgressIncremented
 } from '@domain/hyper-chat-ticket-progress'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
@@ -53,7 +54,8 @@ export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketPro
           })
           return {
             granted: new Granted(false),
-            currentCount: new LoginCount(1)
+            currentCount: new LoginCount(1),
+            progressIncremented: new ProgressIncremented(true)
           }
         }
 
@@ -61,7 +63,8 @@ export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketPro
         if (progress.lastLoginKey === todayKey) {
           return {
             granted: new Granted(false),
-            currentCount: new LoginCount(progress.count)
+            currentCount: new LoginCount(progress.count),
+            progressIncremented: new ProgressIncremented(false)
           }
         }
 
@@ -86,7 +89,8 @@ export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketPro
           })
           return {
             granted: new Granted(true),
-            currentCount: new LoginCount(0)
+            currentCount: new LoginCount(0),
+            progressIncremented: new ProgressIncremented(true)
           }
         } else {
           // 4b. カウント更新のみ
@@ -96,7 +100,8 @@ export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketPro
           })
           return {
             granted: new Granted(false),
-            currentCount: new LoginCount(newCount)
+            currentCount: new LoginCount(newCount),
+            progressIncremented: new ProgressIncremented(true)
           }
         }
       })

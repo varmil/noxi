@@ -74,7 +74,8 @@ export class HyperChatTicketsController {
 
     return {
       granted: result.granted.get(),
-      currentCount: result.currentCount.get()
+      currentCount: result.currentCount.get(),
+      progressIncremented: result.progressIncremented.get()
     }
   }
 }
