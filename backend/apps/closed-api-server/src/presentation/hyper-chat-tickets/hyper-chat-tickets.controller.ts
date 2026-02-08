@@ -67,15 +67,10 @@ export class HyperChatTicketsController {
   @Post('progress')
   @UseGuards(JwtAuthGuard)
   async recordProgress(@Req() req: { user: User }) {
-    const result =
-      await this.hyperChatTicketProgressService.recordLoginAndGrantIfEligible({
+    return await this.hyperChatTicketProgressService.recordLoginAndGrantIfEligible(
+      {
         where: { userId: req.user.id }
-      })
-
-    return {
-      granted: result.granted.get(),
-      currentCount: result.currentCount.get(),
-      progressIncremented: result.progressIncremented.get()
-    }
+      }
+    )
   }
 }

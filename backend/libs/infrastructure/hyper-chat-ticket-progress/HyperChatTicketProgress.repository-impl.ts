@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { SOURCE_TYPE } from '@domain/hyper-chat-ticket'
 import {
   Granted,
+  HyperChatTicketProgress,
   HyperChatTicketProgressRepository,
   LoginCount,
   ProgressIncremented
@@ -52,20 +53,20 @@ export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketPro
               lastLoginKey: todayKey
             }
           })
-          return {
+          return new HyperChatTicketProgress({
             granted: new Granted(false),
             currentCount: new LoginCount(1),
             progressIncremented: new ProgressIncremented(true)
-          }
+          })
         }
 
         // 2. 同じ日付キーなら何もしない（1日1回のみカウント）
         if (progress.lastLoginKey === todayKey) {
-          return {
+          return new HyperChatTicketProgress({
             granted: new Granted(false),
             currentCount: new LoginCount(progress.count),
             progressIncremented: new ProgressIncremented(false)
-          }
+          })
         }
 
         // 3. カウントを +1
@@ -87,22 +88,22 @@ export class HyperChatTicketProgressRepositoryImpl implements HyperChatTicketPro
             where: { userId },
             data: { count: 0, lastLoginKey: todayKey }
           })
-          return {
+          return new HyperChatTicketProgress({
             granted: new Granted(true),
             currentCount: new LoginCount(0),
             progressIncremented: new ProgressIncremented(true)
-          }
+          })
         } else {
           // 4b. カウント更新のみ
           await tx.hyperChatTicketProgress.update({
             where: { userId },
             data: { count: newCount, lastLoginKey: todayKey }
           })
-          return {
+          return new HyperChatTicketProgress({
             granted: new Granted(false),
             currentCount: new LoginCount(newCount),
             progressIncremented: new ProgressIncremented(true)
-          }
+          })
         }
       })
     }
