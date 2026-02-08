@@ -9,7 +9,7 @@ model HyperChatOrder {
   channelId             String
   group                 String
   gender                String
-  tier                  String // "lite", "standard", "max"
+  tier                  String // "free", "lite", "standard", "max"
   amount                Int // 金額（円）
   message               String
   status                String   @default("pending") // pending, completed, failed
@@ -43,9 +43,9 @@ model HyperChat {
   likeCount Int      @default(0)
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
-  order  HyperChatOrder?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  ticket HyperChatTicket?  @relation(fields: [ticketId], references: [id])
-  user   User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order  HyperChatOrder?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  ticket HyperChatTicket? @relation(fields: [ticketId], references: [id])
+  user   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   likes  HyperChatLike[]
 
   @@index([channelId, createdAt])

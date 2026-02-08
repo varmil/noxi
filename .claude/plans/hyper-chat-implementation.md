@@ -436,29 +436,52 @@ model HyperChat {
 ### 機能範囲
 
 - 60分以内に3回のハイパーチャットで発生（3人の協力が必要）
+- 1ユーザーが複数アクションしても1回のカウントとし、発動には3人の協力が必要。
+- 例外：10,000円（Max）でソロ・スタート
 - 無料チケ（Phase 4のチケット）も1回にカウントする
-- ただし無料チケットの場合は「金額」にはカウントしない
-- 10,000円（Max）でソロスタート
-- レベル1-10（最大100,000円）
+- 無料チケットの場合は「100pt」としてカウントする。有料ハイパーチャットは1円=1pt
+- 純粋な「金額」ではなくなるのでUI上も「ポイント」「pt」のような表示で一貫する
+- レベル1-10（最大100,000pt）
 - トップページに大きく表示
 - 60分タイマー、レベルアップでリセット
-- クールダウン: 終了後1時間は新規トレイン発生しない
+- クールダウン機能: 終了後1時間は新規トレイン発生しない
 - 最大6時間継続
 
 ### レベル定義
 
-| Lv. | 必要総金額 | 次のレベルまで |
-| --- | ---------- | -------------- |
-| 1   | 0          | 3,000          |
-| 2   | 3,000      | 3,000          |
-| 3   | 6,000      | 4,000          |
-| 4   | 10,000     | 5,000          |
-| 5   | 15,000     | 15,000         |
-| 6   | 30,000     | 15,000         |
-| 7   | 45,000     | 15,000         |
-| 8   | 60,000     | 20,000         |
-| 9   | 80,000     | 20,000         |
-| 10  | 100,000    | N/A            |
+| Lv. | 必要総ポイント | 次のレベルまで |
+| --- | -------------- | -------------- |
+| 1   | 0              | 1,500          |
+| 2   | 1,500          | 3,500          |
+| 3   | 5,000          | 5,000          |
+| 4   | 10,000         | 5,000          |
+| 5   | 15,000         | 15,000         |
+| 6   | 30,000         | 15,000         |
+| 7   | 45,000         | 15,000         |
+| 8   | 60,000         | 20,000         |
+| 9   | 80,000         | 20,000         |
+| 10  | 100,000        | N/A            |
+
+### ポイント計算の設計方針
+
+**HyperChat テーブルにはポイントカラムを追加しない**
+
+ポイントは `amount` と `tier` から計算可能な派生値のため、冗長なデータを避けデータ整合性を保つため：
+
+```typescript
+// backend/libs/domain/hyper-chat/HyperChat.entity.ts
+public getPoint(): number {
+  if (this.tier.get() === 'free') {
+    return 100  // 無料チケット
+  }
+  return this.amount.get()  // 有料: 1円 = 1pt
+}
+```
+
+**使用箇所**:
+
+- `HyperTrainContribution.point`: HyperChat からポイントを計算して保存
+- `HyperLevel.totalPoint`: 累積ポイントを集計して保存
 
 ### データモデル
 
@@ -467,7 +490,7 @@ model HyperTrain {
   id          Int      @id @default(autoincrement())
   channelId   String
   level       Int      @default(1)
-  totalAmount Int
+  totalPoint  Int
   startedAt   DateTime @db.Timestamptz(3)
   expiresAt   DateTime @db.Timestamptz(3)
   endedAt     DateTime? @db.Timestamptz(3)
@@ -482,7 +505,7 @@ model HyperTrainContribution {
   hyperTrainId Int
   hyperChatId  Int      @unique
   userId       Int
-  amount       Int
+  point        Int      // HyperChat.getPoint() で計算した値を保存
   createdAt    DateTime @default(now()) @db.Timestamptz(3)
 
   hyperTrain HyperTrain @relation(fields: [hyperTrainId], references: [id], onDelete: Cascade)
@@ -491,9 +514,13 @@ model HyperTrainContribution {
 
 ### UI
 
-- トップページ: 発生中のトレインを大きく固定表示（v0 MCP活用）
-- チャンネル詳細ページ: Incoming Train（未発生時）、発生中の演出
-- 過去記録: 最大レベル、参加人数、総額
+- トップページ:
+  - 発生中のトレイン一覧を大きく表示（v0 MCP活用）
+  - トレインタップで貢献ユーザー一覧表示。ポイント降順。別ページ遷移でOK
+- チャンネル詳細ページ:
+  - Incoming Train（未発生時。３つランプで発生までに後いくつアクション必要かわかる）
+  - 発生中はトップページと似たような演出。同じコンポーネントでいいかも。
+  - 過去記録: 最大到達レベル、そのときの参加人数、そのときの総ポイント
 
 ---
 
@@ -501,24 +528,31 @@ model HyperTrainContribution {
 
 ### 機能範囲
 
-- VIP制度（ユーザー→特定タレントへの累積ptでレベル決定）
+- VIP制度（ユーザー→特定グループへの累積ptでレベル決定）
 - バッジ表示（lucide-iconで色違い）
-- サイト全体での「総合レベル」もサブ指標として保持
-- この機能だけは無料チケットも300ptとしてポイントに加算。有料分は1円=1pt
+- サイト全体での「総合レベル」もサブ指標として保持 (UIには出さない)
+- 無料チケットは100ptとしてポイントに加算。有料ハイパーチャットは1円=1pt
 - 純粋な「金額」ではなくなるのでUI上も「ポイント」「pt」のような表示で一貫する
 
 ### レベル定義
 
 | レベル | 累積pt                | バッジ色         |
 | ------ | --------------------- | ---------------- |
-| 1      | 2,000 ~ 10,000pt      | 銅（Bronze）     |
+| 1      | 1,000 ~ 10,000pt      | 銅（Bronze）     |
 | 2      | 10,001 ~ 30,000pt     | 銀（Silver）     |
 | 3      | 30,001 ~ 100,000pt    | 金（Gold）       |
 | 4      | 100,001 ~ 300,000pt   | プラチナ（白金） |
 | 5      | 300,001 ~ 1,000,000pt | エメラルド（緑） |
 | 守護神 | 1,000,001pt~          | レインボー/特殊  |
 
-**注意**: 無料チケット分も累積に含める
+**注意**: 無料チケット分も100ptとして累積に含める
+
+### ポイント計算
+
+Phase 5 と同様、ポイントは `HyperChat.getPoint()` で計算します（HyperChat テーブルには追加しない）：
+
+- 無料チケット: 100pt
+- 有料: 1円 = 1pt
 
 ### データモデル
 
@@ -527,8 +561,8 @@ model HyperLevel {
   id         Int      @id @default(autoincrement())
   userId     Int
   channelId  String
-  totalSpent Int      @default(0)
-  level      Int      @default(0) // 0-5, 6=守護神
+  totalPoint Int      @default(0)  // HyperChat.getPoint() の累積値
+  level      Int      @default(0)  // 0-5, 6=守護神
   updatedAt  DateTime @default(now()) @db.Timestamptz(3)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
