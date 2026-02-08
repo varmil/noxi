@@ -557,15 +557,7 @@ CROSS JOIN generate_series(1, 7);
         "tier": {
           "free": "無料"
         },
-        "useTicket": "無料チケットで投稿",
-        "ticketsRemaining": "残り{count}枚",
-        "orPurchase": "または有料で購入",
-        "ticketConfirm": {
-          "title": "チケットを使用",
-          "description": "チケットを1枚使用してハイパーチャットを投稿しますか？",
-          "confirm": "投稿する",
-          "cancel": "戻る"
-        }
+        "useTicket": "無料チケットで投稿"
       },
       "card": {
         "freeTicket": "無料チケ"
@@ -585,15 +577,7 @@ CROSS JOIN generate_series(1, 7);
         "tier": {
           "free": "Free"
         },
-        "useTicket": "Post with Free Ticket",
-        "ticketsRemaining": "{count} tickets remaining",
-        "orPurchase": "Or purchase",
-        "ticketConfirm": {
-          "title": "Use Ticket",
-          "description": "Use 1 ticket to post a HyperChat?",
-          "confirm": "Post",
-          "cancel": "Back"
-        }
+        "useTicket": "Post with Free Ticket"
       },
       "card": {
         "freeTicket": "Free Ticket"

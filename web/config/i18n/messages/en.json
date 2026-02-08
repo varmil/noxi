@@ -782,6 +782,17 @@
           "standard": "Standard",
           "max": "Max"
         },
+        "tierFeatures": {
+          "free": ["Basic posting only"],
+          "lite": ["Add 300 points"],
+          "standard": ["Add 1,000 points", "Priority display"],
+          "max": [
+            "Add 10,000 points",
+            "Priority display",
+            "60-min exclusive display",
+            "HyperTrain guaranteed"
+          ]
+        },
         "price": "¥{price}",
         "maxChars": "Max {count} characters",
         "messageLabel": "Message (optional)",
@@ -814,14 +825,7 @@
         "profanityError": "Your message contains inappropriate language: {words}",
         "moderationError": "Your message contains inappropriate content",
         "useTicket": "Post with Free Ticket",
-        "ticketsRemaining": "{count} tickets remaining",
-        "orPurchase": "Or purchase",
-        "ticketConfirm": {
-          "title": "Use Ticket",
-          "description": "Use 1 ticket to post a HyperChat?",
-          "confirm": "Post",
-          "cancel": "Back"
-        }
+        "ticketLeft": "left"
       },
       "card": {
         "freeTicket": "Free Ticket"

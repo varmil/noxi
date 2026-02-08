@@ -14,7 +14,8 @@ import {
   TIER_BG_COLORS,
   TIER_DOT_COLORS,
   TIER_RING_COLORS,
-  TIER_TEXT_COLORS
+  TIER_TEXT_COLORS,
+  TIER_TEXT_MUTED_COLORS
 } from '../tier-styles'
 
 type TierOption = {
@@ -134,22 +135,33 @@ export function TierSlider({
         )}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {activeTier === 'free' && <Tickets className="size-5" />}
             <div>
               <div className="font-bold text-lg">
                 {t(`dialog.tier.${activeTier}`)}
               </div>
-              <div className="text-sm opacity-90">
-                {t('dialog.maxChars', { count: activeConfig.maxChars })}
+              <div
+                className={`text-xs ${TIER_TEXT_MUTED_COLORS[activeTier]} space-y-0.5 mt-1`}
+              >
+                {(t.raw(`dialog.tierFeatures.${activeTier}`) as string[]).map(
+                  (feature, index) => (
+                    <div key={index} className="flex items-center gap-1">
+                      <span className="text-xs">✓</span>
+                      <span>{feature}</span>
+                    </div>
+                  )
+                )}
               </div>
             </div>
           </div>
           <div className="text-2xl font-bold">
             {activeTier === 'free' ? (
               <span className="flex items-center gap-1">
-                <Tickets className="size-5" />
                 {ticketCount}
+                <span className="self-end text-sm">
+                  {t('dialog.ticketLeft')}
+                </span>
               </span>
             ) : (
               t('dialog.price', { price: activeConfig.price.toLocaleString() })

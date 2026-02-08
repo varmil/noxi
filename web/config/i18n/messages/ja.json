@@ -799,6 +799,17 @@
           "standard": "スタンダード",
           "max": "マックス"
         },
+        "tierFeatures": {
+          "free": [],
+          "lite": ["300ptを加算"],
+          "standard": ["1,000ptを加算", "吹出し優先表示"],
+          "max": [
+            "10,000ptを加算",
+            "吹出し優先表示",
+            "60分間吹出し独占",
+            "ハイパートレイン確定発車"
+          ]
+        },
         "price": "{price}円",
         "maxChars": "最大{count}文字",
         "messageLabel": "メッセージ（任意）",
@@ -831,14 +842,7 @@
         "profanityError": "不適切な表現が含まれています: {words}",
         "moderationError": "不適切な内容が含まれています",
         "useTicket": "無料チケットで投稿",
-        "ticketsRemaining": "残り{count}枚",
-        "orPurchase": "または有料で購入",
-        "ticketConfirm": {
-          "title": "チケットを使用",
-          "description": "チケットを1枚使用してハイパーチャットを投稿しますか？",
-          "confirm": "投稿する",
-          "cancel": "戻る"
-        }
+        "ticketLeft": "枚"
       },
       "card": {
         "freeTicket": "無料チケ"
