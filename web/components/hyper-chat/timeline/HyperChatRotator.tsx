@@ -52,7 +52,7 @@ export function HyperChatRotator({
       plugins={[
         Fade(),
         Autoplay({
-          delay: 3900,
+          delay: 5000,
           stopOnInteraction: false,
           stopOnMouseEnter: true
         })
