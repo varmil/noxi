@@ -1,8 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { HyperChatRepository } from '@domain/hyper-chat'
 
 @Injectable()
 export class HyperChatsService {
+  private readonly logger = new Logger(HyperChatsService.name)
+
   constructor(
     @Inject('HyperChatRepository')
     private readonly hyperChatRepository: HyperChatRepository
@@ -44,5 +46,44 @@ export class HyperChatsService {
     args: Parameters<HyperChatRepository['findRecentByChannelIds']>[0]
   ) {
     return await this.hyperChatRepository.findRecentByChannelIds(args)
+  }
+
+  /**
+   * Next.js のキャッシュを無効化
+   * Vercel Bot Protection 対策:
+   * - 秘密トークンで認証
+   * - 適切な User-Agent を設定
+   */
+  async revalidateCache(channelId: string): Promise<void> {
+    const webUrl = process.env.WEB_URL
+    const secret = process.env.REVALIDATE_SECRET
+
+    if (!webUrl || !secret) {
+      this.logger.warn('WEB_URL or REVALIDATE_SECRET not set')
+      return
+    }
+
+    try {
+      const response = await fetch(`${webUrl}/api/revalidate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-revalidate-secret': secret,
+          // Vercel Bot Protection 対策: 正規のUser-Agentを設定
+          'User-Agent': 'NoxiBackend/1.0 (Revalidation Service)'
+        },
+        body: JSON.stringify({ tag: `hyper-chat:${channelId}` })
+      })
+
+      if (!response.ok) {
+        this.logger.error(
+          `Failed to revalidate cache: ${response.status} ${response.statusText}`
+        )
+      } else {
+        this.logger.log(`Revalidated cache for channel: ${channelId}`)
+      }
+    } catch (error) {
+      this.logger.error('Error calling revalidate endpoint', error)
+    }
   }
 }

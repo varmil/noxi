@@ -125,6 +125,9 @@ export class HyperChatsScenario {
       `Created HyperChat ${hyperChat.id.get()} from Order ${order.id.get()}`
     )
 
+    // 3. Next.js のキャッシュを無効化
+    await this.hyperChatsService.revalidateCache(order.channelId.get())
+
     return hyperChat
   }
 

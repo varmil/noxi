@@ -176,11 +176,11 @@ export function HyperChatDialog({
   const handleDialogClose = (nextOpen: boolean) => {
     onOpenChange(nextOpen)
     if (!nextOpen) {
-      // 支払いに成功した場合はUI更新
+      // 支払いに成功した場合はUI更新（フォールバック: バックエンドのWebhook処理が遅延した場合の保険）
       if (step === 'complete') {
         setTimeout(async () => {
           await revalidateHyperChat(channelId)
-        }, 300)
+        }, 600)
       }
 
       // Delay reset to prevent UI flicker during close animation
