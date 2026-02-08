@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 
 export function LiveStatsCardsSkeleton() {
   return (
-    <section className="grid grid-cols-2 gap-2 h-full">
+    <section className="grid grid-cols-2 @2xl:grid-cols-4 gap-2 h-full">
       <Card className="justify-center gap-1 shadow-xs">
         <CardHeader className="gap-0 pb-0">
           <CardTitle className="text-sm flex items-center gap-2 font-medium">
