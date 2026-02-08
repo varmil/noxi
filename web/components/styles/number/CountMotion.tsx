@@ -23,6 +23,11 @@ export default function CountMotion({
   const scaleControls = useAnimationControls()
 
   useEffect(() => {
+    // 値が変わっていない場合はアニメーションをスキップ
+    if (previousValue.current === value) {
+      return
+    }
+
     const from =
       previousValue.current + Math.round((value - previousValue.current) * 0.4)
     count.set(from)
