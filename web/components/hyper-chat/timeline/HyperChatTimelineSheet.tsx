@@ -61,6 +61,7 @@ export function HyperChatTimelineSheet({
         side="right"
         className="w-[320px] sm:w-[400px] gap-y-2"
         hideCloseButton
+        onOpenAutoFocus={e => e.preventDefault()}
       >
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
