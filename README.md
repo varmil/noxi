@@ -48,3 +48,9 @@ stripe listen --forward-to localhost:15000/api/webhooks/stripe
 # テストイベント送信
 stripe trigger payment_intent.succeeded
 ```
+
+## 実機モバイルデバッグ
+
+1. `ipconfig` でローカルIPアドレス(A)取得
+2. Windows "private" ファイアウォールをOFF
+3. `http://A:3000` をスマホブラウザで閲覧
