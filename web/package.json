@@ -5,7 +5,7 @@
     "lint": "eslint --fix './*.{ts,tsx}' './**/*.{ts,tsx}'",
     "type-check": "tsc --noEmit --pretty --project tsconfig.watch.json",
     "type-check:test": "tsc --noEmit --pretty --project tsconfig.test.json",
-    "dev": "next",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
