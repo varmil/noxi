@@ -55,7 +55,7 @@
     "dayjs": "^1.11.19",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
-    "framer-motion": "^12.31.0",
+    "framer-motion": "^12.33.0",
     "glin-profanity": "^3.3.0",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.563.0",
