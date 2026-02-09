@@ -455,7 +455,8 @@
       "terms": "続行することで、VChartsの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。",
       "buttonText": "新規登録 / ログイン",
       "linkText": "新規登録 / ログインはこちらから",
-      "noGoogleAccount": "Googleアカウントをお持ちでない方"
+      "noGoogleAccount": "Googleアカウントをお持ちでない方",
+      "testLogin": "テストログイン"
     },
     "bottomNavigation": {
       "home": "ホーム",

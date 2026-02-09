@@ -454,7 +454,8 @@
       "terms": "By continuing, you agree to VCharts's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>.",
       "buttonText": "Sign-up / Sign-in",
       "linkText": "Sign-up / Sign-in here",
-      "noGoogleAccount": "Don't have a Google account?"
+      "noGoogleAccount": "Don't have a Google account?",
+      "testLogin": "Test Login"
     },
     "bottomNavigation": {
       "home": "Home",

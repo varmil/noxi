@@ -58,8 +58,29 @@ export default function AuthForm({ redirectTo }: AuthFormProps) {
     }
   }
 
+  const handleTestSignIn = async () => {
+    setIsLoading(true)
+    try {
+      await signIn('password', { password: 'password' })
+    } catch (error) {
+      console.error(error)
+      setIsLoading(false)
+    }
+  }
+
   return (
     <div className="flex flex-col py-4">
+      {process.env.NODE_ENV === 'development' && (
+        <Button
+          variant="outline"
+          className="flex items-center justify-center gap-4 h-12 px-4 border-2 mb-4 border-dashed border-yellow-500 text-yellow-600"
+          onClick={handleTestSignIn}
+          disabled={isLoading}
+        >
+          {comp('testLogin')}
+        </Button>
+      )}
+
       <Button
         variant="outline"
         className="flex items-center justify-center gap-4 h-12 px-4 border-2"
