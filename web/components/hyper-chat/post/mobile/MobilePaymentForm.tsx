@@ -6,25 +6,18 @@ import { ArrowLeft, Loader2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
-  DialogDescription,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog'
-import {
   SheetDescription,
   SheetHeader,
   SheetTitle
 } from '@/components/ui/sheet'
-import { cn } from '@/lib/utils'
 
 type Props = {
   price: number
   onSuccess: () => void
   onBack: () => void
-  isDesktop: boolean
 }
 
-export function PaymentForm({ price, onSuccess, onBack, isDesktop }: Props) {
+export function MobilePaymentForm({ price, onSuccess, onBack }: Props) {
   const stripe = useStripe()
   const elements = useElements()
   const t = useTranslations('Features.hyperChat')
@@ -34,10 +27,7 @@ export function PaymentForm({ price, onSuccess, onBack, isDesktop }: Props) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!stripe || !elements) {
-      return
-    }
+    if (!stripe || !elements) return
 
     setIsProcessing(true)
     setError(null)
@@ -64,21 +54,12 @@ export function PaymentForm({ price, onSuccess, onBack, isDesktop }: Props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {isDesktop ? (
-        <DialogHeader>
-          <DialogTitle>{t('dialog.payment.title')}</DialogTitle>
-          <DialogDescription>
-            {t('dialog.payment.description')}
-          </DialogDescription>
-        </DialogHeader>
-      ) : (
-        <SheetHeader>
-          <SheetTitle>{t('dialog.payment.title')}</SheetTitle>
-          <SheetDescription>{t('dialog.payment.description')}</SheetDescription>
-        </SheetHeader>
-      )}
+      <SheetHeader>
+        <SheetTitle>{t('dialog.payment.title')}</SheetTitle>
+        <SheetDescription>{t('dialog.payment.description')}</SheetDescription>
+      </SheetHeader>
 
-      <div className={cn('py-4 min-h-[200px]', !isDesktop && 'px-4')}>
+      <div className="px-4 py-4 min-h-[200px]">
         {!isReady && (
           <div className="flex items-center justify-center h-[200px]">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />
@@ -86,9 +67,7 @@ export function PaymentForm({ price, onSuccess, onBack, isDesktop }: Props) {
         )}
         <div className={isReady ? '' : 'invisible absolute'}>
           <PaymentElement
-            options={{
-              layout: 'tabs'
-            }}
+            options={{ layout: 'tabs' }}
             onReady={() => setIsReady(true)}
           />
         </div>
@@ -97,7 +76,7 @@ export function PaymentForm({ price, onSuccess, onBack, isDesktop }: Props) {
         )}
       </div>
 
-      <div className={cn('flex justify-between', !isDesktop && 'px-4 pb-4')}>
+      <div className="flex justify-between px-4 pb-4">
         <Button
           type="button"
           variant="ghost"
