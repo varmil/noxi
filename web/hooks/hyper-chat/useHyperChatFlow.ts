@@ -1,9 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js'
+import {
+  loadStripe,
+  StripeElementLocale,
+  StripeElementsOptions
+} from '@stripe/stripe-js'
 import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { getMyTickets } from 'apis/hyper-chat-tickets/getMyTickets'
 import { TicketSchema } from 'apis/hyper-chat-tickets/ticketSchema'
@@ -40,6 +44,7 @@ export function useHyperChatFlow({
 }: Args) {
   const { data: session } = useSession()
   const { resolvedTheme } = useTheme()
+  const locale = useLocale() as StripeElementLocale
   const t = useTranslations('Features.hyperChat')
   const [selectedTier, setSelectedTier] = useState<PaidTierValue>('standard')
   const [isLoading, setIsLoading] = useState(false)
@@ -207,7 +212,7 @@ export function useHyperChatFlow({
         borderRadius: '8px'
       }
     },
-    locale: 'ja'
+    locale
   }
 
   return {

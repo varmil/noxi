@@ -10,7 +10,7 @@ import {
   StripePaymentIntentId
 } from '@domain/hyper-chat-order'
 import { Gender } from '@domain/lib'
-import { UserId } from '@domain/user'
+import { Email, UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
 @Injectable()
@@ -35,19 +35,21 @@ export class HyperChatsScenario {
    */
   async createPaymentIntent(args: {
     userId: UserId
+    email: Email
     channelId: ChannelId
     group: GroupId
     gender: Gender
     tier: Tier
     message: Message
   }): Promise<{ clientSecret: string; orderId: number }> {
-    const { userId, channelId, group, gender, tier, message } = args
+    const { userId, email, channelId, group, gender, tier, message } = args
     const amount = tier.getPrice()
 
     // 1. PaymentIntentを作成
     const paymentIntent = await this.stripe.paymentIntents.create({
       amount,
       currency: 'jpy',
+      receipt_email: email.get(),
       automatic_payment_methods: {
         enabled: true,
         allow_redirects: 'never'

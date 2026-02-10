@@ -60,9 +60,17 @@ export class HyperChatsController {
     @Req() req: { user: User },
     @Body() dto: CreateHyperChatPaymentIntent
   ) {
+    if (!req.user.email) {
+      throw new HttpException(
+        'User email is required for payment',
+        HttpStatus.BAD_REQUEST
+      )
+    }
+
     try {
       const result = await this.hyperChatsScenario.createPaymentIntent({
         userId: req.user.id,
+        email: req.user.email,
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
         gender: dto.toGender(),
