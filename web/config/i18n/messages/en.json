@@ -775,7 +775,7 @@
         "label": "Post HyperChat"
       },
       "dialog": {
-        "title": "Post HyperChat to {channel}",
+        "title": "Post HyperChat",
         "description": "Post a positive message to this channel",
         "tier": {
           "free": "Free",
@@ -796,8 +796,7 @@
         },
         "price": "¥{price}",
         "maxChars": "Max {count} characters",
-        "messageLabel": "Message (optional)",
-        "messagePlaceholder": "Amounts and messages will be made public...",
+        "messagePlaceholder": "Enter a message... (optional)",
         "charCount": "{current}/{max} characters",
         "cancel": "Cancel",
         "purchase": "Purchase",
@@ -826,7 +825,11 @@
         "profanityError": "Your message contains inappropriate language: {words}",
         "moderationError": "Your message contains inappropriate content",
         "useTicket": "Post with Free Ticket",
-        "ticketLeft": "left"
+        "ticketLeft": "left",
+        "postTarget": {
+          "currentAmount": "Current",
+          "afterAmount": "After"
+        }
       },
       "card": {
         "freeTicket": "Free Ticket"

@@ -6,7 +6,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage
 } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
@@ -31,14 +30,6 @@ export function MessageInput({ control, maxChars }: Props) {
       name="message"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>
-            <div className="w-full flex items-center justify-between">
-              <span>{t('messageLabel')}</span>
-              <span className="text-xs font-normal text-muted-foreground">
-                {t('charCount', { current: charCount, max: maxChars })}
-              </span>
-            </div>
-          </FormLabel>
           <FormControl>
             <Textarea
               {...field}
@@ -53,6 +44,11 @@ export function MessageInput({ control, maxChars }: Props) {
               className="min-h-[128px] max-h-[284px] field-sizing-content"
             />
           </FormControl>
+          <div className="flex justify-end">
+            <span className="text-xs text-muted-foreground">
+              {t('charCount', { current: charCount, max: maxChars })}
+            </span>
+          </div>
           <FormMessage />
         </FormItem>
       )}

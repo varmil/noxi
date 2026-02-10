@@ -792,7 +792,7 @@
         "label": "ハイパーチャットを投稿する"
       },
       "dialog": {
-        "title": "{channel}にハイパーチャットを投稿",
+        "title": "ハイパーチャットを投稿",
         "description": "ポジティブなメッセージを投稿しよう",
         "tier": {
           "free": "無料",
@@ -813,8 +813,7 @@
         },
         "price": "{price}円",
         "maxChars": "最大{count}文字",
-        "messageLabel": "メッセージ（任意）",
-        "messagePlaceholder": "金額とメッセージは公開されます...",
+        "messagePlaceholder": "メッセージを入力...（任意）",
         "charCount": "{current}/{max}文字",
         "cancel": "キャンセル",
         "purchase": "購入する",
@@ -843,7 +842,11 @@
         "profanityError": "不適切な表現が含まれています: {words}",
         "moderationError": "不適切な内容が含まれています",
         "useTicket": "無料チケットで投稿",
-        "ticketLeft": "枚"
+        "ticketLeft": "枚",
+        "postTarget": {
+          "currentAmount": "現在",
+          "afterAmount": "投稿後"
+        }
       },
       "card": {
         "freeTicket": "無料チケ"

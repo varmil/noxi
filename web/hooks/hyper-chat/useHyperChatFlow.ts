@@ -9,8 +9,10 @@ import { getMyTickets } from 'apis/hyper-chat-tickets/getMyTickets'
 import { TicketSchema } from 'apis/hyper-chat-tickets/ticketSchema'
 import { consumeTicket } from 'apis/hyper-chat-tickets/useTicket'
 import { createHyperChatPaymentIntent } from 'apis/hyper-chats/createHyperChatPaymentIntent'
+import { getHyperChatsSumAmount } from 'apis/hyper-chats/getHyperChats'
 import { PaidTierValue, TIER_CONFIG } from 'apis/hyper-chats/hyperChatSchema'
 import { revalidateHyperChat } from 'apis/hyper-chats/revalidateHyperChat'
+import { getChannel } from 'apis/youtube/getChannel'
 import { useHyperChatForm } from './useHyperChatForm'
 
 export const stripePromise = loadStripe(
@@ -50,20 +52,41 @@ export function useHyperChatFlow({
   const [tickets, setTickets] = useState<TicketSchema[]>([])
   const [isLoadingTickets, setIsLoadingTickets] = useState(false)
 
+  // Post target state (fetched when dialog opens)
+  const [channelThumbnailUrl, setChannelThumbnailUrl] = useState<string | null>(
+    null
+  )
+  const [totalAmount, setTotalAmount] = useState<number | null>(null)
+
   // Free tier has fixed config
   const activeTier = mode === 'free' ? 'free' : selectedTier
   const { form, message, maxChars } = useHyperChatForm(activeTier)
 
-  // Fetch tickets when dialog opens
+  // Fetch tickets and post target info when dialog opens
   useEffect(() => {
     if (open && session?.user) {
       setIsLoadingTickets(true)
+
       getMyTickets()
         .then(setTickets)
         .catch(() => setTickets([]))
         .finally(() => setIsLoadingTickets(false))
+
+      getChannel(channelId)
+        .then(channel => {
+          const url =
+            channel.basicInfo.thumbnails.high?.url ??
+            channel.basicInfo.thumbnails.medium?.url ??
+            channel.basicInfo.thumbnails.default?.url
+          setChannelThumbnailUrl(url ?? null)
+        })
+        .catch(() => setChannelThumbnailUrl(null))
+
+      getHyperChatsSumAmount(channelId)
+        .then(setTotalAmount)
+        .catch(() => setTotalAmount(null))
     }
-  }, [open, session])
+  }, [open, session, channelId])
 
   const price = TIER_CONFIG[selectedTier].price
 
@@ -209,6 +232,10 @@ export function useHyperChatFlow({
     maxChars,
     /** Stripe Elements Options */
     elementsOptions,
+    /** 投稿対象チャンネルのサムネイルURL */
+    channelThumbnailUrl,
+    /** 現在のチャンネルの累計金額 */
+    totalAmount,
     handleProceedToPayment,
     handleTierChange,
     handlePaymentSuccess,

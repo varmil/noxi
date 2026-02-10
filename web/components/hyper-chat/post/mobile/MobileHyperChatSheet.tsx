@@ -40,6 +40,8 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
     form,
     maxChars,
     elementsOptions,
+    channelThumbnailUrl,
+    totalAmount,
     handleProceedToPayment,
     handleTierChange,
     handlePaymentSuccess,
@@ -53,16 +55,18 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
     <Sheet open={open} onOpenChange={handleClose}>
       <SheetContent
         side="bottom"
-        className="h-full"
+        className="h-full overflow-y-auto"
         onOpenAutoFocus={e => e.preventDefault()}
       >
         {step === 'input' && (
           <>
             <SheetHeader>
               <SheetTitle className="mr-10">
-                {t('dialog.title', { channel: channelTitle })}
+                {t('dialog.title')}
               </SheetTitle>
-              <SheetDescription>{t('dialog.description')}</SheetDescription>
+              <SheetDescription hidden>
+                {t('dialog.description')}
+              </SheetDescription>
             </SheetHeader>
             <div className="px-4 pb-4">
               <InputStepContent
@@ -75,6 +79,10 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 tickets={tickets}
                 mode={mode}
                 error={error}
+                channelTitle={channelTitle}
+                channelThumbnailUrl={channelThumbnailUrl}
+                totalAmount={totalAmount}
+                price={price}
               />
 
               <div className="flex justify-end space-x-2">
