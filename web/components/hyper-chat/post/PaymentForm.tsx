@@ -10,14 +10,21 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog'
+import {
+  SheetDescription,
+  SheetHeader,
+  SheetTitle
+} from '@/components/ui/sheet'
+import { cn } from '@/lib/utils'
 
 type Props = {
   price: number
   onSuccess: () => void
   onBack: () => void
+  isDesktop: boolean
 }
 
-export function PaymentForm({ price, onSuccess, onBack }: Props) {
+export function PaymentForm({ price, onSuccess, onBack, isDesktop }: Props) {
   const stripe = useStripe()
   const elements = useElements()
   const t = useTranslations('Features.hyperChat')
@@ -57,12 +64,21 @@ export function PaymentForm({ price, onSuccess, onBack }: Props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <DialogHeader>
-        <DialogTitle>{t('dialog.payment.title')}</DialogTitle>
-        <DialogDescription>{t('dialog.payment.description')}</DialogDescription>
-      </DialogHeader>
+      {isDesktop ? (
+        <DialogHeader>
+          <DialogTitle>{t('dialog.payment.title')}</DialogTitle>
+          <DialogDescription>
+            {t('dialog.payment.description')}
+          </DialogDescription>
+        </DialogHeader>
+      ) : (
+        <SheetHeader>
+          <SheetTitle>{t('dialog.payment.title')}</SheetTitle>
+          <SheetDescription>{t('dialog.payment.description')}</SheetDescription>
+        </SheetHeader>
+      )}
 
-      <div className="py-4 min-h-[200px]">
+      <div className={cn('py-4 min-h-[200px]', !isDesktop && 'px-4')}>
         {!isReady && (
           <div className="flex items-center justify-center h-[200px]">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />
@@ -81,7 +97,7 @@ export function PaymentForm({ price, onSuccess, onBack }: Props) {
         )}
       </div>
 
-      <div className="flex justify-between">
+      <div className={cn('flex justify-between', !isDesktop && 'px-4 pb-4')}>
         <Button
           type="button"
           variant="ghost"

@@ -49,7 +49,8 @@ export function MessageInput({ control, maxChars }: Props) {
                 }
               }}
               placeholder={t('messagePlaceholder')}
-              className="min-h-[100px] max-h-[280px]"
+              // X参考：128px - 284px
+              className="min-h-[128px] max-h-[284px] field-sizing-content"
             />
           </FormControl>
           <FormMessage />

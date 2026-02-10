@@ -173,7 +173,7 @@ export function TierSlider({
       {/* Slider track */}
       <div
         ref={containerRef}
-        className="relative h-14 select-none touch-none mx-1.5"
+        className="relative h-14 select-none touch-none mx-3"
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}

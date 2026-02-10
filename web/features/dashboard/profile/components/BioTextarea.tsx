@@ -35,7 +35,12 @@ export const BioTextarea = () => {
             </div>
           </FormLabel>
           <FormControl>
-            <Textarea id="bio" {...field} rows={4} maxLength={MAX_BIO_LENGTH} />
+            <Textarea
+              id="bio"
+              {...field}
+              maxLength={MAX_BIO_LENGTH}
+              className="min-h-[120px] max-h-[280px] field-sizing-content"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>

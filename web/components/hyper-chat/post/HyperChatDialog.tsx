@@ -16,6 +16,14 @@ import {
   DialogTitle
 } from '@/components/ui/dialog'
 import { Form } from '@/components/ui/form'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle
+} from '@/components/ui/sheet'
+import { useIsMD } from '@/hooks/use-media-query'
 import { getMyTickets } from 'apis/hyper-chat-tickets/getMyTickets'
 import { TicketSchema } from 'apis/hyper-chat-tickets/ticketSchema'
 import { consumeTicket } from 'apis/hyper-chat-tickets/useTicket'
@@ -52,6 +60,7 @@ export function HyperChatDialog({
   group,
   gender
 }: Props) {
+  const isDesktop = useIsMD()
   const { data: session } = useSession()
   const { resolvedTheme } = useTheme()
   const t = useTranslations('Features.hyperChat')
@@ -173,7 +182,7 @@ export function HyperChatDialog({
     setClientSecret(null)
   }
 
-  const handleDialogClose = (nextOpen: boolean) => {
+  const handleClose = (nextOpen: boolean) => {
     onOpenChange(nextOpen)
     if (!nextOpen) {
       // 支払いに成功した場合はUI更新（フォールバック: バックエンドのWebhook処理が遅延した場合の保険）
@@ -206,81 +215,154 @@ export function HyperChatDialog({
     locale: 'ja'
   }
 
+  // --- Shared step content ---
+
+  const inputStepBody = (
+    <>
+      <div className="space-y-10 pb-6">
+        <Form {...form}>
+          <MessageInput control={form.control} maxChars={maxChars} />
+        </Form>
+
+        <TierSlider
+          selectedTier={selectedTier}
+          onTierChange={handleTierChange}
+          onSelectFree={handleSwitchToFreeMode}
+          hasTicket={!isLoadingTickets && tickets.length > 0}
+          ticketCount={tickets.length}
+          isTicketMode={mode === 'free'}
+        />
+
+        {error && (
+          <p className="text-sm text-destructive text-center">{error}</p>
+        )}
+      </div>
+
+      <div className="flex justify-end space-x-2">
+        <Button
+          variant="outline"
+          onClick={() => handleClose(false)}
+          disabled={isLoading}
+        >
+          {t('dialog.cancel')}
+        </Button>
+        {mode === 'paid' ? (
+          <Button
+            onClick={handleProceedToPayment}
+            disabled={isLoading || !form.formState.isValid}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                {t('dialog.processing')}
+              </>
+            ) : (
+              t('dialog.payButton', { price: price.toLocaleString() })
+            )}
+          </Button>
+        ) : (
+          <Button
+            onClick={handleUseTicket}
+            disabled={isLoading || !form.formState.isValid}
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 size-4 animate-spin" />
+                {t('dialog.processing')}
+              </>
+            ) : (
+              <>
+                <Tickets className="mr-2 size-4" />
+                {t('dialog.useTicket')}
+              </>
+            )}
+          </Button>
+        )}
+      </div>
+    </>
+  )
+
+  const completeStepBody = (
+    <>
+      <div className="flex flex-col items-center py-8">
+        <div className="mx-auto size-20 flex items-center justify-center rounded-full mb-8">
+          <AnimatedCheckmark className="size-20" />
+        </div>
+        <p className="text-lg font-bold">THANK YOU !!</p>
+        <p className="text-center text-muted-foreground">
+          {t('dialog.complete.description')}
+        </p>
+      </div>
+      <div className="flex justify-end">
+        <Button onClick={() => handleClose(false)}>{t('dialog.close')}</Button>
+      </div>
+    </>
+  )
+
+  // --- Desktop: Dialog ---
+
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={handleClose}>
+        <DialogContent
+          className="sm:max-w-md"
+          onOpenAutoFocus={e => e.preventDefault()}
+        >
+          {step === 'input' && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="mr-10 leading-normal">
+                  {t('dialog.title', { channel: channelTitle })}
+                </DialogTitle>
+                <DialogDescription>{t('dialog.description')}</DialogDescription>
+              </DialogHeader>
+              {inputStepBody}
+            </>
+          )}
+
+          {step === 'payment' && clientSecret && (
+            <Elements stripe={stripePromise} options={elementsOptions}>
+              <PaymentForm
+                price={price}
+                onSuccess={handlePaymentSuccess}
+                onBack={handleBack}
+                isDesktop
+              />
+            </Elements>
+          )}
+
+          {step === 'complete' && (
+            <>
+              <DialogHeader>
+                <DialogTitle>{t('dialog.complete.title')}</DialogTitle>
+              </DialogHeader>
+              {completeStepBody}
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
+  // --- Mobile: Sheet (bottom) ---
+
   return (
-    <Dialog open={open} onOpenChange={handleDialogClose}>
-      <DialogContent className="sm:max-w-md">
+    <Sheet open={open} onOpenChange={handleClose}>
+      <SheetContent
+        side="bottom"
+        className="h-full"
+        onOpenAutoFocus={e => e.preventDefault()}
+      >
         {step === 'input' && (
           <>
-            <DialogHeader>
-              <DialogTitle>
+            <SheetHeader>
+              <SheetTitle className="mr-10">
                 {t('dialog.title', { channel: channelTitle })}
-              </DialogTitle>
-              <DialogDescription>{t('dialog.description')}</DialogDescription>
-            </DialogHeader>
-
-            <div className="space-y-4 py-4">
-              {/* Tier Slider */}
-              <TierSlider
-                selectedTier={selectedTier}
-                onTierChange={handleTierChange}
-                onSelectFree={handleSwitchToFreeMode}
-                hasTicket={!isLoadingTickets && tickets.length > 0}
-                ticketCount={tickets.length}
-                isTicketMode={mode === 'free'}
-              />
-
-              {/* Message Input */}
-              <Form {...form}>
-                <MessageInput control={form.control} maxChars={maxChars} />
-              </Form>
-
-              {error && (
-                <p className="text-sm text-destructive text-center">{error}</p>
-              )}
-            </div>
-
-            <div className="flex justify-end space-x-2">
-              <Button
-                variant="outline"
-                onClick={() => handleDialogClose(false)}
-                disabled={isLoading}
-              >
-                {t('dialog.cancel')}
-              </Button>
-              {mode === 'paid' ? (
-                <Button
-                  onClick={handleProceedToPayment}
-                  disabled={isLoading || !form.formState.isValid}
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 size-4 animate-spin" />
-                      {t('dialog.processing')}
-                    </>
-                  ) : (
-                    t('dialog.payButton', { price: price.toLocaleString() })
-                  )}
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleUseTicket}
-                  disabled={isLoading || !form.formState.isValid}
-                  className="bg-green-600 hover:bg-green-700 text-white"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 size-4 animate-spin" />
-                      {t('dialog.processing')}
-                    </>
-                  ) : (
-                    <>
-                      <Tickets className="mr-2 size-4" />
-                      {t('dialog.useTicket')}
-                    </>
-                  )}
-                </Button>
-              )}
-            </div>
+              </SheetTitle>
+              <SheetDescription>{t('dialog.description')}</SheetDescription>
+            </SheetHeader>
+            <div className="px-4 pb-4">{inputStepBody}</div>
           </>
         )}
 
@@ -290,32 +372,20 @@ export function HyperChatDialog({
               price={price}
               onSuccess={handlePaymentSuccess}
               onBack={handleBack}
+              isDesktop={false}
             />
           </Elements>
         )}
 
         {step === 'complete' && (
           <>
-            <DialogHeader>
-              <DialogTitle>{t('dialog.complete.title')}</DialogTitle>
-            </DialogHeader>
-            <div className="flex flex-col items-center py-8">
-              <div className="mx-auto size-20 flex items-center justify-center rounded-full mb-8">
-                <AnimatedCheckmark className="size-20" />
-              </div>
-              <p className="text-lg font-bold">THANK YOU !!</p>
-              <p className="text-center text-muted-foreground">
-                {t('dialog.complete.description')}
-              </p>
-            </div>
-            <div className="flex justify-end">
-              <Button onClick={() => handleDialogClose(false)}>
-                {t('dialog.close')}
-              </Button>
-            </div>
+            <SheetHeader>
+              <SheetTitle>{t('dialog.complete.title')}</SheetTitle>
+            </SheetHeader>
+            <div className="px-4 pb-4">{completeStepBody}</div>
           </>
         )}
-      </DialogContent>
-    </Dialog>
+      </SheetContent>
+    </Sheet>
   )
 }
