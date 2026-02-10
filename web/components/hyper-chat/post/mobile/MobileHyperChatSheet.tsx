@@ -55,15 +55,13 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
     <Sheet open={open} onOpenChange={handleClose}>
       <SheetContent
         side="bottom"
-        className="h-full overflow-y-auto"
+        className="h-full gap-2 overflow-y-auto"
         onOpenAutoFocus={e => e.preventDefault()}
       >
         {step === 'input' && (
           <>
             <SheetHeader>
-              <SheetTitle className="mr-10">
-                {t('dialog.title')}
-              </SheetTitle>
+              <SheetTitle className="mr-10">{t('dialog.title')}</SheetTitle>
               <SheetDescription hidden>
                 {t('dialog.description')}
               </SheetDescription>

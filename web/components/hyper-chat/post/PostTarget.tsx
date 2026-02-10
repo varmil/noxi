@@ -28,14 +28,17 @@ export function PostTarget({
   return (
     <div className="flex items-center gap-3">
       <Avatar className="size-8 shrink-0">
-        <AvatarImage src={channelThumbnailUrl ?? undefined} alt={channelTitle} />
+        <AvatarImage
+          src={channelThumbnailUrl ?? undefined}
+          alt={channelTitle}
+        />
         <AvatarFallback className="text-xs">
           {channelTitle.charAt(0)}
         </AvatarFallback>
       </Avatar>
 
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium truncate">{channelTitle}</p>
+        <p className="text-sm truncate">{channelTitle}</p>
         {showAmountChange && (
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             <span>

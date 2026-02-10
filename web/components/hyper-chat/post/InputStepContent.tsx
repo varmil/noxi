@@ -1,7 +1,9 @@
 'use client'
 
+import { AlertCircleIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { UseFormReturn } from 'react-hook-form'
+import { Alert, AlertTitle } from '@/components/ui/alert'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Form } from '@/components/ui/form'
 import { TicketSchema } from 'apis/hyper-chat-tickets/ticketSchema'
@@ -64,14 +66,6 @@ export function InputStepContent({
         </div>
       </div>
 
-      <PostTarget
-        channelTitle={channelTitle}
-        channelThumbnailUrl={channelThumbnailUrl}
-        totalAmount={totalAmount}
-        price={price}
-        mode={mode}
-      />
-
       <TierSlider
         selectedTier={selectedTier}
         onTierChange={onTierChange}
@@ -81,8 +75,19 @@ export function InputStepContent({
         isTicketMode={mode === 'free'}
       />
 
+      <PostTarget
+        channelTitle={channelTitle}
+        channelThumbnailUrl={channelThumbnailUrl}
+        totalAmount={totalAmount}
+        price={price}
+        mode={mode}
+      />
+
       {error && (
-        <p className="text-sm text-destructive text-center">{error}</p>
+        <Alert variant="destructive" className="max-w-md">
+          <AlertCircleIcon />
+          <AlertTitle>{error}</AlertTitle>
+        </Alert>
       )}
     </div>
   )

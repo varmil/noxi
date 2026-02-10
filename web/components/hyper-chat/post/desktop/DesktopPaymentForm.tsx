@@ -56,12 +56,10 @@ export function DesktopPaymentForm({ price, onSuccess, onBack }: Props) {
     <form onSubmit={handleSubmit}>
       <DialogHeader>
         <DialogTitle>{t('dialog.payment.title')}</DialogTitle>
-        <DialogDescription>
-          {t('dialog.payment.description')}
-        </DialogDescription>
+        <DialogDescription>{t('dialog.payment.description')}</DialogDescription>
       </DialogHeader>
 
-      <div className="py-4 min-h-[200px]">
+      <div className="py-4 min-h-[200px] relative overflow-hidden">
         {!isReady && (
           <div className="flex items-center justify-center h-[200px]">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />
