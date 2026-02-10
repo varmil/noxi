@@ -24,7 +24,8 @@ export function HyperChatDialogTrigger({
   const [dialogOpen, setDialogOpen] = useState(false)
   const [authModalOpen, setAuthModalOpen] = useState(false)
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.currentTarget.blur()
     if (!session) {
       setAuthModalOpen(true)
       return

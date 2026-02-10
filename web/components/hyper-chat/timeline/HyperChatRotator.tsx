@@ -37,7 +37,10 @@ export function HyperChatRotator({
       <div className={cn('w-full max-w-full', className)}>
         <button
           type="button"
-          onClick={onBubbleClick}
+          onClick={e => {
+            e.currentTarget.blur()
+            onBubbleClick?.()
+          }}
           className="block w-full text-left"
         >
           <HyperChatBubble hyperChat={rotationList[0]} />
@@ -67,7 +70,10 @@ export function HyperChatRotator({
           >
             <button
               type="button"
-              onClick={onBubbleClick}
+              onClick={e => {
+                e.currentTarget.blur()
+                onBubbleClick?.()
+              }}
               className="block w-full text-left"
             >
               <HyperChatBubble hyperChat={hyperChat} />
