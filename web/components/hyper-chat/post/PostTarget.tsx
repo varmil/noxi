@@ -26,30 +26,35 @@ export function PostTarget({
   const showAmountChange = mode === 'paid' && totalAmount !== null && price > 0
 
   return (
-    <div className="flex items-center gap-3">
-      <Avatar className="size-8 shrink-0">
-        <AvatarImage
-          src={channelThumbnailUrl ?? undefined}
-          alt={channelTitle}
-        />
-        <AvatarFallback className="text-xs">
-          {channelTitle.charAt(0)}
-        </AvatarFallback>
-      </Avatar>
+    <div className="flex flex-col items-start gap-2">
+      {/* Title */}
+      <div className="text-xs text-muted-foreground">投稿先</div>
+      {/* Channel */}
+      <div className="flex items-center gap-3">
+        <Avatar className="size-8 shrink-0">
+          <AvatarImage
+            src={channelThumbnailUrl ?? undefined}
+            alt={channelTitle}
+          />
+          <AvatarFallback className="text-xs">
+            {channelTitle.charAt(0)}
+          </AvatarFallback>
+        </Avatar>
 
-      <div className="min-w-0 flex-1">
-        <p className="text-sm truncate">{channelTitle}</p>
-        {showAmountChange && (
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            <span>
-              {t('currentAmount')}: ¥{format.number(totalAmount)}
-            </span>
-            <ArrowRight className="size-3 shrink-0" />
-            <span className="text-foreground font-medium">
-              {t('afterAmount')}: ¥{format.number(totalAmount + price)}
-            </span>
-          </p>
-        )}
+        <div className="min-w-0 flex-1">
+          <p className="text-sm line-clamp-1 break-all">{channelTitle}</p>
+          {showAmountChange && (
+            <p className="text-xs text-muted-foreground flex items-center gap-1">
+              <span>
+                {t('currentAmount')}: ¥{format.number(totalAmount)}
+              </span>
+              <ArrowRight className="size-3 shrink-0" />
+              <span className="text-foreground font-medium">
+                {t('afterAmount')}: ¥{format.number(totalAmount + price)}
+              </span>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   )

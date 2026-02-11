@@ -66,7 +66,7 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 {t('dialog.description')}
               </SheetDescription>
             </SheetHeader>
-            <div className="px-4 pb-4">
+            <div className="px-4 pb-6">
               <InputStepContent
                 form={form}
                 maxChars={maxChars}
@@ -83,7 +83,7 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 price={price}
               />
 
-              <div className="flex justify-end space-x-2">
+              <div className="flex justify-end space-x-2 mt-4">
                 <Button
                   variant="outline"
                   onClick={() => handleClose(false)}
