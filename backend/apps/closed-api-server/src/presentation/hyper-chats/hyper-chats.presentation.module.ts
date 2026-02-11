@@ -5,13 +5,15 @@ import { AuthModule } from '@presentation/nestjs/guard/auth/auth.module'
 import { HyperChatLikesAppModule } from '@app/hyper-chat-likes/hyper-chat-likes.app.module'
 import { HyperChatOrdersAppModule } from '@app/hyper-chat-orders/hyper-chat-orders.app.module'
 import { HyperChatsAppModule } from '@app/hyper-chats/hyper-chats.app.module'
+import { HyperTrainsAppModule } from '@app/hyper-trains/hyper-trains.app.module'
 
 @Module({
   imports: [
     AuthModule,
     HyperChatsAppModule,
     HyperChatLikesAppModule,
-    HyperChatOrdersAppModule
+    HyperChatOrdersAppModule,
+    HyperTrainsAppModule
   ],
   controllers: [HyperChatsController],
   providers: [HyperChatsScenario],

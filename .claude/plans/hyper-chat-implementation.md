@@ -493,7 +493,6 @@ model HyperTrain {
   totalPoint  Int
   startedAt   DateTime @db.Timestamptz(3)
   expiresAt   DateTime @db.Timestamptz(3)
-  endedAt     DateTime? @db.Timestamptz(3)
 
   contributions HyperTrainContribution[]
 

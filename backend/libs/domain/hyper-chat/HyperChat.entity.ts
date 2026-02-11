@@ -7,6 +7,7 @@ import {
   Tier
 } from '@domain/hyper-chat'
 import { Amount } from '@domain/hyper-chat-order'
+import { FREE_TICKET_POINT } from '@domain/hyper-train/level-config'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -49,6 +50,16 @@ export class HyperChat {
 
   /** 送信者情報 */
   public readonly author: HyperChatAuthor
+
+  /**
+   * ハイパートレイン用のポイントを計算
+   * - free tier: 100pt（定数）
+   * - 有料 tier: 金額（1円 = 1pt）
+   */
+  getPoint(): number {
+    if (this.tier.get() === 'free') return FREE_TICKET_POINT
+    return this.amount.get()
+  }
 
   constructor(args: {
     id: HyperChatId

@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { HyperChatTicketsService } from '@app/hyper-chat-tickets/hyper-chat-tickets.service'
+import { HyperTrainEvaluatorService } from '@app/hyper-trains/hyper-train-evaluator.service'
 import { GroupId } from '@domain/group'
 import { HyperChat, Message } from '@domain/hyper-chat'
 import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
@@ -12,7 +13,8 @@ export class HyperChatTicketsScenario {
   private readonly logger = new Logger(HyperChatTicketsScenario.name)
 
   constructor(
-    private readonly hyperChatTicketsService: HyperChatTicketsService
+    private readonly hyperChatTicketsService: HyperChatTicketsService,
+    private readonly hyperTrainEvaluatorService: HyperTrainEvaluatorService
   ) {}
 
   /**
@@ -31,6 +33,13 @@ export class HyperChatTicketsScenario {
     this.logger.log(
       `Created HyperChat ${hyperChat.id.get()} from Ticket ${args.ticketId.get()}`
     )
+
+    // ハイパートレイン評価（失敗してもHyperChat作成には影響させない）
+    try {
+      await this.hyperTrainEvaluatorService.evaluate(hyperChat)
+    } catch (error) {
+      this.logger.error('Failed to evaluate hyper train', error)
+    }
 
     return hyperChat
   }

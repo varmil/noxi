@@ -10,7 +10,7 @@ export async function getLikedHyperChatIds(
   }
 
   const res = await fetchAPI(
-    `/api/hyper-chats/liked-ids?${ids.map(id => `ids=${id}`).join('&')}`,
+    `/api/hyper-chats/liked-ids?ids=${ids.map(id => id).join(',')}`,
     {
       method: 'GET',
       cache: 'no-store'

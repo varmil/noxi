@@ -9,18 +9,21 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { tag } = await request.json()
+    const body = await request.json()
+    const tags: string[] = body.tags ?? (body.tag ? [body.tag] : [])
 
-    if (!tag) {
+    if (tags.length === 0) {
       return NextResponse.json({ error: 'Tag is required' }, { status: 400 })
     }
 
     // キャッシュ無効化
-    revalidateTag(tag, 'max')
+    for (const tag of tags) {
+      revalidateTag(tag, 'max')
+    }
 
     return NextResponse.json({
       revalidated: true,
-      tag,
+      tags,
       now: Date.now()
     })
   } catch {

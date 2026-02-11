@@ -67,7 +67,7 @@ export async function ChannelsIdHyperChatTemplate({
 
   return (
     <>
-      <Sections className="max-w-[880px] lg:grid-cols-11 lg:gap-x-10">
+      <Sections className="max-w-[880px] lg:grid-cols-11 lg:gap-x-10 mx-auto">
         <Section
           className="lg:col-span-7 w-full max-w-[550px] mx-auto"
           title={t('title', { count: totalCount })}
@@ -86,10 +86,7 @@ export async function ChannelsIdHyperChatTemplate({
           className="hidden lg:block lg:col-span-4 lg:sticky lg:top-16 lg:self-start"
           title={t('stats')}
         >
-          <HyperChatStats
-            totalAmount={totalAmount}
-            posterCount={posterCount}
-          />
+          <HyperChatStats totalAmount={totalAmount} posterCount={posterCount} />
           <div className="mt-4">
             <HyperChatButton
               channelId={channelId}

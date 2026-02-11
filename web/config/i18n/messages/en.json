@@ -284,6 +284,12 @@
             "title": "{channel} HyperChat History",
             "description": "View HyperChat history for {channel}. Post your message too!"
           }
+        },
+        "hyperTrain": {
+          "metadata": {
+            "title": "{channel} HyperTrain Record",
+            "description": "View {channel}'s best HyperTrain records. Cheer together and level up!"
+          }
         }
       },
       "live": {
@@ -695,6 +701,9 @@
       },
       "hyperChat": {
         "nav": "HyperChat"
+      },
+      "hyperTrain": {
+        "nav": "HyperTrain"
       }
     },
 
@@ -855,6 +864,32 @@
         "stats": "Stats",
         "sortNewest": "Newest",
         "sortAmount": "Amount"
+      }
+    },
+    "hyperTrain": {
+      "ticker": {},
+      "card": {
+        "totalPoints": "{points}pt",
+        "contributors": "{count} participants",
+        "nextLevel": "{points}pt to Lv.{level}",
+        "remainingTime": "Time left"
+      },
+      "incoming": {
+        "title": "Train incoming",
+        "description": "{remaining} more to depart",
+        "cooldown": "Cooldown ({time} left)"
+      },
+      "bestRecord": {
+        "title": "Best Record",
+        "empty": "When HyperChat spikes in a short period of time, a train will launch. The highest completed record will be recorded.",
+        "maxLevel": "Max Level",
+        "participants": "Participants",
+        "totalPoints": "Total Points",
+        "date": "Date",
+        "contributorList": "Contributors"
+      },
+      "listSection": {
+        "title": "HyperTrains Active"
       }
     },
     "dashboard": {

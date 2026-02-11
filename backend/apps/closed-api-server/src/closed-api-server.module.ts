@@ -9,6 +9,7 @@ import { GroupRegistrationsPresentationModule } from '@presentation/group-regist
 import { HealthController } from '@presentation/health/health.controller'
 import { HyperChatTicketsPresentationModule } from '@presentation/hyper-chat-tickets/hyper-chat-tickets.presentation.module'
 import { HyperChatsPresentationModule } from '@presentation/hyper-chats/hyper-chats.presentation.module'
+import { HyperTrainsPresentationModule } from '@presentation/hyper-trains/hyper-trains.presentation.module'
 import { InactiveChannelsPresentationModule } from '@presentation/inactive-channels/inactive-channels.presentation.module'
 import { InsightsPresentationModule } from '@presentation/insights/insights.presentation.module'
 import { LoginBonusesPresentationModule } from '@presentation/login-bonuses/login-bonuses.presentation.module'
@@ -41,6 +42,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     GroupRegistrationsPresentationModule,
     HyperChatsPresentationModule,
     HyperChatTicketsPresentationModule,
+    HyperTrainsPresentationModule,
     LoginBonusesPresentationModule,
     MembershipBundlesPresentationModule,
     MembershipSummariesPresentationModule,

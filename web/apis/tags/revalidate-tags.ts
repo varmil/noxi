@@ -12,3 +12,6 @@ export const SUPERS_SUMMARIES_HALF_HOURLY = 'supers-summaries-half-hourly'
 /** ハイパーチャットの再検証タグ（チャンネルごと） */
 export const getHyperChatTag = (channelId: string) =>
   `hyper-chat:${channelId}` as const
+
+/** ハイパートレイン（アクティブ一覧）の再検証タグ */
+export const HYPER_TRAINS_ACTIVE = 'hyper-trains-active'

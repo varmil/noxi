@@ -72,7 +72,9 @@ export class HyperChatsService {
           // Vercel Bot Protection 対策: 正規のUser-Agentを設定
           'User-Agent': 'NoxiBackend/1.0 (Revalidation Service)'
         },
-        body: JSON.stringify({ tag: `hyper-chat:${channelId}` })
+        body: JSON.stringify({
+          tags: [`hyper-chat:${channelId}`, 'hyper-trains-active']
+        })
       })
 
       if (!response.ok) {

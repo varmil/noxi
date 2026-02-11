@@ -1,0 +1,35 @@
+/**
+ * ハイパートレイン
+ * 一定条件を満たすと発動する集団応援機能
+ * 60分タイマー、レベル1-10、最大6時間継続
+ */
+model HyperTrain {
+  id        Int       @id @default(autoincrement())
+  channelId String
+  group     String
+  level     Int       @default(1)
+  totalPoint Int
+  startedAt DateTime  @db.Timestamptz(3)
+  expiresAt DateTime  @db.Timestamptz(3)
+
+  contributions HyperTrainContribution[]
+
+  @@index([channelId, expiresAt])
+  @@index([group, expiresAt])
+}
+
+/**
+ * ハイパートレインへの貢献（HyperChat 1件ごとに記録）
+ */
+model HyperTrainContribution {
+  id           Int      @id @default(autoincrement())
+  hyperTrainId Int
+  hyperChatId  Int      @unique
+  userId       Int
+  point        Int
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  hyperTrain HyperTrain @relation(fields: [hyperTrainId], references: [id], onDelete: Cascade)
+
+  @@index([hyperTrainId, createdAt])
+}

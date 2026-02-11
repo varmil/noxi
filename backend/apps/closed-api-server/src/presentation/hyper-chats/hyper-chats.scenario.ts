@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import Stripe from 'stripe'
 import { HyperChatOrdersService } from '@app/hyper-chat-orders/hyper-chat-orders.service'
 import { HyperChatsService } from '@app/hyper-chats/hyper-chats.service'
+import { HyperTrainEvaluatorService } from '@app/hyper-trains/hyper-train-evaluator.service'
 import { GroupId } from '@domain/group'
 import { HyperChat, Message, Tier } from '@domain/hyper-chat'
 import {
@@ -20,7 +21,8 @@ export class HyperChatsScenario {
 
   constructor(
     private readonly hyperChatOrdersService: HyperChatOrdersService,
-    private readonly hyperChatsService: HyperChatsService
+    private readonly hyperChatsService: HyperChatsService,
+    private readonly hyperTrainEvaluatorService: HyperTrainEvaluatorService
   ) {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
       apiVersion: '2026-01-28.clover'
@@ -127,7 +129,14 @@ export class HyperChatsScenario {
       `Created HyperChat ${hyperChat.id.get()} from Order ${order.id.get()}`
     )
 
-    // 3. Next.js のキャッシュを無効化
+    // 3. ハイパートレイン評価（失敗してもHyperChat作成には影響させない）
+    try {
+      await this.hyperTrainEvaluatorService.evaluate(hyperChat)
+    } catch (error) {
+      this.logger.error('Failed to evaluate hyper train', error)
+    }
+
+    // 4. Next.js のキャッシュを無効化
     await this.hyperChatsService.revalidateCache(order.channelId.get())
 
     return hyperChat

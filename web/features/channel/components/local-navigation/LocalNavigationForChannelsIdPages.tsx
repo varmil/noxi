@@ -26,6 +26,10 @@ export default function LocalNavigationForChannelsIdPages({
           href: `${basePath}/hyper-chat`
         },
         {
+          name: t('hyperTrain.nav'),
+          href: `${basePath}/hyper-train`
+        },
+        {
           name: t('superChat.nav'),
           href: `${basePath}/super-chat`
         },

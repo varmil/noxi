@@ -1,4 +1,4 @@
-import { MessageCircleOff } from 'lucide-react'
+import { MessagesSquare } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getLikedHyperChatIds } from 'apis/hyper-chat-likes'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
@@ -15,7 +15,7 @@ export async function HyperChatHistoryList({ hyperChats }: Props) {
   if (hyperChats.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-        <MessageCircleOff className="mb-4 h-12 w-12" />
+        <MessagesSquare className="mb-4 h-12 w-12" />
         <p>{t('empty')}</p>
       </div>
     )

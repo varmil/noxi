@@ -289,6 +289,12 @@
             "title": "{channel} ハイパーチャット履歴",
             "description": "「{channel}」に投稿されたハイパーチャットの履歴を確認できます。あなたもメッセージを投稿しよう！"
           }
+        },
+        "hyperTrain": {
+          "metadata": {
+            "title": "{channel} ハイパートレイン記録",
+            "description": "「{channel}」のハイパートレインのベストレコードを確認できます。みんなで応援してレベルを上げよう！"
+          }
         }
       },
       "live": {
@@ -713,6 +719,9 @@
       },
       "hyperChat": {
         "nav": "ハイパーチャット"
+      },
+      "hyperTrain": {
+        "nav": "ハイパートレイン"
       }
     },
     "cheerChannel": {
@@ -872,6 +881,32 @@
         "stats": "投稿状況",
         "sortNewest": "新着順",
         "sortAmount": "金額順"
+      }
+    },
+    "hyperTrain": {
+      "ticker": {},
+      "card": {
+        "totalPoints": "{points}pt",
+        "contributors": "{count}人参加",
+        "nextLevel": "Lv.{level}まで{points}pt",
+        "remainingTime": "残り時間"
+      },
+      "incoming": {
+        "title": "トレイン発車準備中",
+        "description": "トレイン発車まであと{remaining}人",
+        "cooldown": "トレインは帰還中（残り {time}）"
+      },
+      "bestRecord": {
+        "title": "ベストレコード",
+        "empty": "ハイパーチャットが短時間に急増するとトレインが発車します。終了済みの最高記録がレコードされます。",
+        "maxLevel": "最大到達レベル",
+        "participants": "参加人数",
+        "totalPoints": "総ポイント",
+        "date": "発生日",
+        "contributorList": "貢献者一覧"
+      },
+      "listSection": {
+        "title": "ハイパートレイン発車中"
       }
     },
     "dashboard": {

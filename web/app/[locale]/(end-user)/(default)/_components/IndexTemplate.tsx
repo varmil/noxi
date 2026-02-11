@@ -1,6 +1,6 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
-import { LookerReport } from 'components/looker/LookerReport'
+import { HyperTrainListSection } from 'components/hyper-train/HyperTrainListSection'
 import {
   ChannelGrowthRankingContainer,
   ChannelGrowthRankingSkeleton
@@ -21,8 +21,6 @@ import {
   StreamVolumeTrendSkeleton
 } from 'features/stream-volume-trend'
 import LiveStatsCards from './ui/live-stats/LiveStatsCards'
-const SCATTER_URL =
-  'https://lookerstudio.google.com/embed/reporting/10cf9721-c85a-478c-bf93-e9a9ae204092/page/p_iyv78oa1yd'
 
 type Props = {
   days?: DaysOption
@@ -110,13 +108,18 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
           </div>
         </FlexSection>
 
-        <div>
+        {/* <div>
           <LookerReport
             reportUrl={SCATTER_URL}
             className="h-[480px] xl:h-[500px] 2xl:h-[530px]"
             lazy={true}
           />
-        </div>
+        </div> */}
+
+        {/* ハイパートレイン発車中 */}
+        <Suspense fallback={null}>
+          <HyperTrainListSection />
+        </Suspense>
       </Container>
     </>
   )
