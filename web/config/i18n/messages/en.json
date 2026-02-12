@@ -793,15 +793,10 @@
           "max": "Max"
         },
         "tierFeatures": {
-          "free": ["Basic posting only"],
-          "lite": ["Add 300 points", "Display priority: Low"],
-          "standard": ["Add 1,000 points", "Display priority: Standard"],
-          "max": [
-            "Add 10,000 points",
-            "Display priority: High",
-            "60-min exclusive display",
-            "HyperTrain guaranteed"
-          ]
+          "free": ["Display priority: Lowest"],
+          "lite": ["Display priority: Low"],
+          "standard": ["Display priority: Standard"],
+          "max": ["Display priority: High", "HyperTrain guaranteed"]
         },
         "price": "¥{price}",
         "maxChars": "Max {count} characters",

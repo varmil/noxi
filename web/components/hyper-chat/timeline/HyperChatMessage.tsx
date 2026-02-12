@@ -4,10 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import {
-  TIER_TEXT_COLORS,
-  TIER_TEXT_MUTED_COLORS
-} from '../tier-styles'
+import { TIER_TEXT_COLORS, TIER_TEXT_MUTED_COLORS } from '../tier-styles'
 
 interface Props {
   tier: HyperChatSchema['tier']
@@ -35,7 +32,7 @@ export function HyperChatMessage({ tier, message }: Props) {
       <p
         ref={contentRef}
         className={cn(
-          `text-sm whitespace-pre-wrap ${!isExpanded ? 'line-clamp-8' : ''}`,
+          `text-base whitespace-pre-wrap ${!isExpanded ? 'line-clamp-8' : ''}`,
           TIER_TEXT_COLORS[tier]
         )}
       >

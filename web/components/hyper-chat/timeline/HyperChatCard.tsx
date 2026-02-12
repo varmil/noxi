@@ -28,6 +28,7 @@ export function HyperChatCard({
   const now = useNow({ updateInterval: 60000 })
   const t = useTranslations('Features.hyperChat')
   const tier = hyperChat.tier
+  const isFreeTier = tier === 'free'
   const displayName = hyperChat.author.name || '匿名さん'
   const amountDisplay =
     hyperChat.amount === 0
@@ -37,9 +38,12 @@ export function HyperChatCard({
   return (
     <div
       className={cn(
-        'rounded-lg border-l-4 px-3 py-3 min-h-[56px]',
-        TIER_BG_COLORS[tier],
-        TIER_BORDER_LEFT_COLORS[tier],
+        'rounded-lg px-1 py-3 min-h-[56px]',
+        !isFreeTier && [
+          'px-4 border-l-4',
+          TIER_BG_COLORS[tier],
+          TIER_BORDER_LEFT_COLORS[tier]
+        ],
         className
       )}
       data-testid="hyper-chat-card"
@@ -73,7 +77,7 @@ export function HyperChatCard({
       <HyperChatMessage tier={tier} message={hyperChat.message} />
 
       {/* いいねボタン */}
-      <div className="mt-2">
+      <div className="mt-3">
         <HyperChatLikeButton
           hyperChatId={hyperChat.id}
           channelId={hyperChat.channelId}

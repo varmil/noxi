@@ -158,7 +158,7 @@ export function TierSlider({
           <div className="text-2xl font-bold">
             {activeTier === 'free' ? (
               <span className="flex items-center gap-1">
-                {ticketCount}
+                {ticketCount} → {ticketCount - 1}
                 <span className="self-end text-sm">
                   {t('dialog.ticketLeft')}
                 </span>

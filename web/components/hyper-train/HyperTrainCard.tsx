@@ -30,9 +30,9 @@ export function HyperTrainCard({
     <Card
       className={`border-l-4 ${getLevelBorderColor(train.level)} overflow-hidden py-0`}
     >
-      <CardContent className="p-4">
-        <Link href={href} className="flex items-center gap-2 mb-6">
-          <Avatar className="size-12 shrink-0">
+      <CardContent className="p-6">
+        <Link href={href} className="flex items-center gap-2 -mx-2 mb-6">
+          <Avatar className="size-20 shrink-0">
             <AvatarImage src={channelThumbnailUrl} alt={channelTitle} />
             <AvatarFallback>{channelTitle[0]}</AvatarFallback>
           </Avatar>
