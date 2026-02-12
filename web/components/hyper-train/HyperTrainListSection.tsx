@@ -1,3 +1,4 @@
+import { Train } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import { getActiveHyperTrains } from 'apis/hyper-trains/getHyperTrains'
 import { getChannels } from 'apis/youtube/getChannels'
@@ -22,7 +23,10 @@ export async function HyperTrainListSection() {
   return (
     <>
       <section className={`col-span-full ${PageXSPX} ${PageSMPX}`}>
-        <h2 className="text-base font-semibold mb-3">{t('title')}</h2>
+        <div className="flex items-center gap-2 mb-3">
+          <Train className="size-5 text-muted-foreground" />
+          <h2 className="text-base font-semibold">{t('title')}</h2>
+        </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {trains.map(train => {
             const channel = channelMap.get(train.channelId)

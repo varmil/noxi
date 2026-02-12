@@ -1,4 +1,4 @@
-# Phase 5: ハイパートレイン実装計画
+# Phase 5: ハイパートレイン ✅ 完了
 
 ## Context
 
@@ -14,27 +14,26 @@
 
 ---
 
-## Sub-Phase 1: Backend - Prisma スキーマ + ドメイン層
+## Sub-Phase 1: Backend - Prisma スキーマ + ドメイン層 ✅
 
 ### 1.1 Prisma スキーマ
 
-**新規: `backend/prisma/schema/models/hyper-train.prisma`**
+**`backend/prisma/schema/models/hyper-train.prisma`**
 
 ```prisma
 model HyperTrain {
-  id          Int       @id @default(autoincrement())
-  channelId   String
-  group       String
-  level       Int       @default(1)
-  totalPoint  Int
-  startedAt   DateTime  @db.Timestamptz(3)
-  expiresAt   DateTime  @db.Timestamptz(3)
-  endedAt     DateTime? @db.Timestamptz(3)
+  id         Int      @id @default(autoincrement())
+  channelId  String
+  group      String
+  level      Int      @default(1)
+  totalPoint Int
+  startedAt  DateTime @db.Timestamptz(3)
+  expiresAt  DateTime @db.Timestamptz(3)
 
   contributions HyperTrainContribution[]
 
   @@index([channelId, expiresAt])
-  @@index([group, endedAt])
+  @@index([group, expiresAt])
 }
 
 model HyperTrainContribution {
@@ -51,9 +50,9 @@ model HyperTrainContribution {
 }
 ```
 
-`group` カラムを追加: グループページでのフィルタ用。マイグレーション実行: `npx prisma migrate dev`
+**設計変更**: `endedAt` カラムは不採用。トレインの終了は `expiresAt` による lazy expiration で管理（`expireTrains()` で API 呼出時に期限切れを処理）。インデックスも `[group, expiresAt]` に変更。
 
-### 1.2 Value Objects
+### 1.2 Value Objects ✅
 
 **新規ファイル群 `backend/libs/domain/hyper-train/`**:
 
@@ -65,7 +64,7 @@ model HyperTrainContribution {
 | `Point.vo.ts`                    | Contribution 個別ポイント用                | `Amount.vo.ts`      |
 | `HyperTrainContributionId.vo.ts` | `NumberValueObject`                        | —                   |
 
-### 1.3 レベル定義定数
+### 1.3 レベル定義定数 ✅
 
 **新規: `backend/libs/domain/hyper-train/level-config.ts`**
 
@@ -100,7 +99,7 @@ export function calculateLevel(totalPoint: number): number {
 }
 ```
 
-### 1.4 Entity + Collection
+### 1.4 Entity + Collection ✅
 
 **新規: `backend/libs/domain/hyper-train/HyperTrainContributor.entity.ts`**
 
@@ -118,7 +117,7 @@ export function calculateLevel(totalPoint: number): number {
 
 **新規: `backend/libs/domain/hyper-train/HyperTrains.collection.ts`**
 
-### 1.5 Repository Interface
+### 1.5 Repository Interface ✅
 
 **新規: `backend/libs/domain/hyper-train/HyperTrain.repository.ts`**
 
@@ -126,14 +125,14 @@ export function calculateLevel(totalPoint: number): number {
 
 **汎用メソッド:**
 
-- `findOne(args: { where: { id?, channelId?, endedAt?, expiresAt? } })` → HyperTrain | null
-- `findAll(args: { where: { channelId?, group?, endedAt?, expiresAt? }, orderBy?: [...], limit?, offset? })` → HyperTrains
+- `findOne(args: { where: { id?, channelId?, expiresAt? } })` → HyperTrain | null
+- `findAll(args: { where: { channelId?, group?, expiresAt? }, orderBy?: [...], limit?, offset? })` → HyperTrains
 
 **特化型メソッド（汎用で表現困難）:**
 
 - `findBestByChannelId(channelId)` → 最高レベルのトレイン（contributors含む、level DESC → totalPoint DESC）
 - `countRecentUniqueUsers(channelId, withinMinutes)` → incoming判定（HyperChat テーブルへの DISTINCT クエリ）
-- `expireTrains()` → number（期限切れ件数、updateMany）
+- `expireTrains()` → number（期限切れ件数、deleteMany or 期限切れ処理）
 
 **更新系メソッド（基本 void 返り値）:**
 
@@ -143,7 +142,7 @@ export function calculateLevel(totalPoint: number): number {
 
 ※ Service 側で作成直後の情報が必要な場合のみ返り値を検討
 
-### 1.6 HyperChat Entity に getPoint() 追加
+### 1.6 HyperChat Entity に getPoint() 追加 ✅
 
 **修正: `backend/libs/domain/hyper-chat/HyperChat.entity.ts`**
 
@@ -156,13 +155,13 @@ public getPoint(): number {
 }
 ```
 
-### 1.7 index.ts
+### 1.7 index.ts ✅
 
 **新規: `backend/libs/domain/hyper-train/index.ts`** — 全エクスポート
 
 ---
 
-## Sub-Phase 2: Backend - インフラ + App + Presentation
+## Sub-Phase 2: Backend - インフラ + App + Presentation ✅
 
 ### 2.1 Repository 実装
 
@@ -171,7 +170,7 @@ public getPoint(): number {
 - `PrismaInfraService` 注入
 - `findBestByChannelId`: level DESC, totalPoint DESC でソート。User JOIN で contributor 情報取得
 - `countRecentUniqueUsers`: HyperChat テーブルに対し `SELECT COUNT(DISTINCT "userId")` で過去N分の channelId 指定
-- `expireTrains`: `updateMany({ where: { endedAt: null, expiresAt: { lte: now } }, data: { endedAt: now } })`
+- `expireTrains`: 期限切れトレインの処理（`expiresAt <= now` のレコードを処理）
 - パターン参考: `backend/libs/infrastructure/hyper-chat/HyperChatRepositoryImpl.ts`
 
 **新規: `backend/libs/infrastructure/hyper-train/hyper-train.infra.module.ts`**
@@ -189,8 +188,8 @@ public getPoint(): number {
 
 ```
 evaluate(hyperChat):
-  1. expireTrains() // lazy に期限切れを終了
-  2. activeTrain = findOne({ where: { channelId, endedAt: null, expiresAt: { gt: now } } })
+  1. expireTrains() // lazy に期限切れを処理
+  2. activeTrain = findOne({ where: { channelId, expiresAt: { gt: now } } })
   3. if activeTrain → contributeToTrain(train, hyperChat)
   4. else if !cooldown → evaluateNewTrain(hyperChat)
 
@@ -225,7 +224,7 @@ imports: `HyperTrainInfraModule`, `HyperChatsAppModule`
 | GET    | `/hyper-trains/active`                       | アクティブ一覧（`?group=` フィルタ） |
 | GET    | `/hyper-trains/channels/:channelId/active`   | チャンネルのアクティブトレイン       |
 | GET    | `/hyper-trains/channels/:channelId/best`     | ベストレコード                       |
-| GET    | `/hyper-trains/channels/:channelId/incoming` | Incoming状態（uniqueUserCount）      |
+| GET    | `/hyper-trains/channels/:channelId/incoming` | Incoming状態（uniqueUserCount + cooldownEndsAt） |
 
 **新規: `hyper-trains.scenario.ts`** — Controller とサービス間の調整
 
@@ -237,7 +236,7 @@ imports: `HyperTrainInfraModule`, `HyperChatsAppModule`
 
 ---
 
-## Sub-Phase 3: 既存 HyperChat フローへの統合
+## Sub-Phase 3: 既存 HyperChat フローへの統合 ✅
 
 ### 3.1 有料決済成功時のトレイン評価
 
@@ -265,7 +264,7 @@ imports: `HyperTrainInfraModule`, `HyperChatsAppModule`
 
 ---
 
-## Sub-Phase 4: Frontend - API 層 + 共有コンポーネント
+## Sub-Phase 4: Frontend - API 層 + 共有コンポーネント ✅
 
 ### 4.1 API スキーマ + データ取得
 
@@ -301,17 +300,17 @@ backend と同じ定数をミラー + `getProgressToNextLevel(level, totalPoint)
 ESLint の `import-x/no-restricted-paths` ルールにより `components/` → `features/` のインポートが禁止されているため。
 既存の hyper-chat と同じパターン。
 
-| コンポーネント                     | 種別   | 用途                           |
-| ---------------------------------- | ------ | ------------------------------ |
-| `HyperTrainLevelBadge.tsx`         | Server | レベル数字+色付きバッジ        |
-| `HyperTrainProgressBar.tsx`        | Client | 次レベルまでの進捗バー         |
-| `HyperTrainTimer.tsx`              | Client | expiresAt カウントダウン       |
-| `HyperTrainContributorAvatars.tsx` | Server | avatar 横並び（最大5+N表示）   |
-| `HyperTrainCard.tsx`               | Client | 一覧表示用カード（v0 MCP活用） |
+| コンポーネント                     | 種別   | 用途                               |
+| ---------------------------------- | ------ | ---------------------------------- |
+| `HyperTrainLevelBadge.tsx`         | Server | レベル数字+色付きバッジ（sm/md/lg）|
+| `HyperTrainProgressBar.tsx`        | Client | 次レベルまでの進捗バー             |
+| `HyperTrainTimer.tsx`              | Client | expiresAt カウントダウン           |
+| `HyperTrainContributorAvatars.tsx` | Client | avatar 横並び（最大7+N、Popover）  |
+| `HyperTrainCard.tsx`               | Server | 一覧表示用カード                   |
 
 ---
 
-## Sub-Phase 5: Frontend - グローバルティッカー
+## Sub-Phase 5: Frontend - グローバルティッカー ✅
 
 **新規: `web/components/hyper-train/ticker/HyperTrainTicker.tsx`** (Server)
 
@@ -321,7 +320,7 @@ ESLint の `import-x/no-restricted-paths` ルールにより `components/` → `
 **新規: `web/components/hyper-train/ticker/HyperTrainTickerClient.tsx`** (Client)
 
 - 細いバー（h-8程度）: アイコン + チャンネル名 + Lv + pt + 残り時間
-- 複数トレインは3秒ごとにローテーション（totalPoint DESC）
+- 複数トレインは5秒ごとにローテーション（totalPoint DESC）
 - タップ → `/${group}/channels/${channelId}/hyper-chat` へ遷移
 
 **修正: `web/components/layouts/DefaultLayout.tsx`**
@@ -331,28 +330,34 @@ ESLint の `import-x/no-restricted-paths` ルールにより `components/` → `
 
 ---
 
-## Sub-Phase 6: Frontend - グループページのトレイン一覧
+## Sub-Phase 6: Frontend - DefaultLayout のトレイン一覧 ✅
 
 **新規: `web/components/hyper-train/HyperTrainListSection.tsx`** (Server)
 
-- `getActiveHyperTrains(group)` でフィルタ
+- `getActiveHyperTrains()` で全グループのアクティブトレイン取得
 - 0件 → 何も表示しない
-- `HyperTrainCard` でリスト表示（v0 MCP で UI 生成推奨）
+- `HyperTrainCard` でリスト表示
 
-**修正: `web/app/[locale]/(end-user)/(default)/[group]/_components/IndexTemplate.tsx`**
+**修正: `web/components/layouts/DefaultLayout.tsx`**
 
-- `<ChannelGallery>` の上（最上部）に `<Suspense><HyperTrainListSection /></Suspense>` 追加
+- Footer 上のセクションに `<Suspense fallback={null}><HyperTrainListSection /></Suspense>` を配置
+- グループ固有の IndexTemplate ではなく DefaultLayout に配置し、全ページで共通表示
 
 ---
 
-## Sub-Phase 7: Frontend - チャンネル詳細ページ
+## Sub-Phase 7: Frontend - チャンネル詳細ページ ✅
 
 ### 7.1 Incoming Train インジケーター
 
-**新規: `web/components/hyper-train/incoming/IncomingTrainIndicator.tsx`**
+**新規: `web/components/hyper-train/incoming/IncomingTrainIndicator.tsx`** (Server)
 
 - 3つのランプ（丸）で進捗表示: uniqueUserCount=0→全消灯, 1→1点灯, 2→2点灯
 - 0の場合（ハイパーチャットなし）は非表示
+
+**新規: `web/components/hyper-train/incoming/CooldownIndicator.tsx`** (Client)
+
+- クールダウン中のカウントダウンタイマー表示
+- cooldownEndsAt を受け取り残り時間を表示
 
 ### 7.2 Active Train インジケーター
 
@@ -386,7 +391,7 @@ const [group, posterCount, totalAmount, activeTrain] = await Promise.all([
 
 ---
 
-## Sub-Phase 8: Frontend - hyper-train サブページ
+## Sub-Phase 8: Frontend - hyper-train サブページ ✅
 
 ### 8.1 ページ + テンプレート
 
@@ -420,7 +425,7 @@ const [group, posterCount, totalAmount, activeTrain] = await Promise.all([
 
 ---
 
-## Sub-Phase 9: i18n
+## Sub-Phase 9: i18n ✅
 
 **修正: `web/config/i18n/messages/ja.json` + `en.json`**
 
@@ -429,14 +434,15 @@ const [group, posterCount, totalAmount, activeTrain] = await Promise.all([
 - `Features.channel.hyperTrain.nav` — ナビゲーションタブ
 - `Features.hyperTrain.ticker.*` — グローバルティッカー
 - `Features.hyperTrain.card.*` — カード表示（level, totalPoints, remainingTime, contributors, nextLevel）
-- `Features.hyperTrain.incoming.*` — Incoming表示（title, description, lamp）
-- `Features.hyperTrain.bestRecord.*` — ベストレコード（title, empty, maxLevel, participants, totalPoints, date, contributorList）
-- `Features.hyperTrain.listSection.*` — グループページセクション
+- `Features.hyperTrain.incoming.*` — Incoming表示（description, cooldown）
+- `Features.hyperTrain.bestRecord.*` — ベストレコード（title, empty, participants, totalPoints, date, contributorList）
+- `Features.hyperTrain.contributorPopover.*` — 貢献者ポップオーバー
+- `Features.hyperTrain.listSection.*` — トレイン一覧セクション
 - `Page.group.channelsId.hyperTrain.metadata.*` — ページメタデータ
 
 ---
 
-## Sub-Phase 10: 検証
+## Sub-Phase 10: 検証 ✅
 
 ### 自動検証
 
@@ -465,16 +471,19 @@ cd e2e && npm test
 | 決定                                             | 理由                                                                   |
 | ------------------------------------------------ | ---------------------------------------------------------------------- |
 | `HyperTrain` に `group` カラム追加               | グループページフィルタ用。channelId→group の毎回解決は非効率           |
+| `endedAt` カラムは不採用                         | `expiresAt` による lazy expiration で十分。カラム追加は冗長             |
 | トレイン評価は try-catch で囲む                  | 課金フローの安定性を最優先。評価失敗でHyperChat作成を止めない          |
 | 期限切れは lazy 終了                             | バッチ不要。API 呼出時に `expireTrains()` を実行                       |
 | Date は ISO 8601 文字列で Server→Client に渡す   | React のシリアライズ制約                                               |
 | `HyperTrainEvaluatorService` は Application 層   | Repository 2つを調整する必要があるため                                 |
-| UI は v0 MCP 活用                                | HyperTrainCard, BestRecord 等の複雑な UI は v0 で生成                  |
 | Repository は汎用 findOne/findAll + 特化型の混合 | 汎用 where/orderBy で表現可能な範囲は汎用メソッド、DISTINCT 等は特化型 |
 | contributors は Collection クラス                | 配列は基本 Collection 継承クラスで扱うプロジェクト規約に従う           |
 | 更新系メソッドは基本 void 返り値                 | create/update は void。直後に情報が必要な場合のみ返り値を検討          |
 | ポイントは `HyperChat.getPoint()` で計算         | 引数で point を渡さず Entity メソッドで都度計算。リテラル値は定数化    |
 | コンポーネントは `web/components/hyper-train/`   | ESLint import 制約で `components/` → `features/` が禁止のため          |
+| トレイン一覧は DefaultLayout に配置              | グループ固有の IndexTemplate ではなく全ページ共通で Footer 上に表示    |
+| ティッカーは5秒ローテーション                    | 3秒では速すぎるため5秒に調整                                           |
+| incoming API は cooldownEndsAt も返す            | クールダウン中の UI 表示（CooldownIndicator）に必要                    |
 
 ## 重要ファイル一覧
 
@@ -504,8 +513,7 @@ cd e2e && npm test
 
 ### Frontend（修正）
 
-- `web/components/layouts/DefaultLayout.tsx` — ティッカー追加
-- `web/app/.../[group]/_components/IndexTemplate.tsx` — トレイン一覧セクション追加
+- `web/components/layouts/DefaultLayout.tsx` — ティッカー + トレイン一覧セクション追加
 - `web/app/.../channels/[id]/_components/ui/profile/ChannelProfile.tsx` — インジケーター追加
 - `web/features/channel/components/local-navigation/LocalNavigationForChannelsIdPages.tsx` — タブ追加
 - `web/config/i18n/messages/ja.json` + `en.json` — i18n キー追加
