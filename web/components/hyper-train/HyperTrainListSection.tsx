@@ -9,11 +9,11 @@ export async function HyperTrainListSection() {
     getActiveHyperTrains(),
     getTranslations('Features.hyperTrain.listSection')
   ])
-
   if (trains.length === 0) return null
 
   const channels = await getChannels({
-    ids: trains.map(train => train.channelId)
+    ids: trains.map(train => train.channelId),
+    limit: trains.length
   })
   const channelMap = new Map(
     channels.map(ch => [ch.basicInfo.id, ch.basicInfo])

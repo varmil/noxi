@@ -864,6 +864,10 @@
         "stats": "Stats",
         "sortNewest": "Newest",
         "sortAmount": "Amount"
+      },
+      "latestActivity": {
+        "title": "Recent HyperChats",
+        "empty": "HyperChats will appear here once posted"
       }
     },
     "hyperTrain": {

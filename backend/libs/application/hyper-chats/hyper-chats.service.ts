@@ -42,6 +42,12 @@ export class HyperChatsService {
     return await this.hyperChatRepository.countDistinctUsers(args)
   }
 
+  async findLatestPerChannel(
+    args: Parameters<HyperChatRepository['findLatestPerChannel']>[0]
+  ) {
+    return await this.hyperChatRepository.findLatestPerChannel(args)
+  }
+
   async findRecentByChannelIds(
     args: Parameters<HyperChatRepository['findRecentByChannelIds']>[0]
   ) {
@@ -73,7 +79,11 @@ export class HyperChatsService {
           'User-Agent': 'NoxiBackend/1.0 (Revalidation Service)'
         },
         body: JSON.stringify({
-          tags: [`hyper-chat:${channelId}`, 'hyper-trains-active']
+          tags: [
+            `hyper-chat:${channelId}`,
+            'hyper-trains-active',
+            'hyper-chats-latest'
+          ]
         })
       })
 

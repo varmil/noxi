@@ -79,4 +79,9 @@ export interface HyperChatRepository {
   findRecentByChannelIds: (args: {
     channelIds: ChannelId[]
   }) => Promise<Map<string, HyperChats>>
+
+  /**
+   * チャンネルごとに最新1件のハイパーチャットを取得
+   */
+  findLatestPerChannel: (args: { limit: number }) => Promise<HyperChats>
 }

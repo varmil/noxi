@@ -180,6 +180,29 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       return result
     }
 
+  findLatestPerChannel: HyperChatRepository['findLatestPerChannel'] = async ({
+    limit
+  }) => {
+    // createdAt DESC で多めに取得し、チャンネルごとに最新1件だけ残す
+    const rows = await this.prismaInfraService.hyperChat.findMany({
+      include: { user: true },
+      orderBy: { createdAt: 'desc' },
+      // 最悪全行が同一チャンネルの場合に備えて多めに取得
+      take: limit * 5
+    })
+
+    const seen = new Set<string>()
+    const unique: typeof rows = []
+    for (const row of rows) {
+      if (seen.has(row.channelId)) continue
+      seen.add(row.channelId)
+      unique.push(row)
+      if (unique.length >= limit) break
+    }
+
+    return new HyperChats(unique.map(row => this.toDomainWithUser(row)))
+  }
+
   private toDomain(row: {
     id: number
     userId: number

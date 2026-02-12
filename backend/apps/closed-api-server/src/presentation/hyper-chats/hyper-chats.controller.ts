@@ -33,6 +33,18 @@ export class HyperChatsController {
   ) {}
 
   /**
+   * チャンネルごとに最新1件のHyperChatを取得（チャンネル重複なし）
+   */
+  @Get('latest')
+  async getLatest(
+    @Query('limit', new ParseIntPipe({ optional: true })) limit?: number
+  ) {
+    return await this.hyperChatsService.findLatestPerChannel({
+      limit: limit ?? 20
+    })
+  }
+
+  /**
    * 複数チャンネルの最新HyperChatを取得（過去24時間）
    * channelIdをキーとしたオブジェクトを返却
    */

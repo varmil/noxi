@@ -881,6 +881,10 @@
         "stats": "投稿状況",
         "sortNewest": "新着順",
         "sortAmount": "金額順"
+      },
+      "latestActivity": {
+        "title": "新着ハイパーチャット",
+        "empty": "ハイパーチャットを投稿すると、ここに表示されます"
       }
     },
     "hyperTrain": {
