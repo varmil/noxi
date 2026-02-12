@@ -23,7 +23,7 @@ export async function HyperTrainListSection() {
     <>
       <Separator className="my-4" />
       <section className="col-span-full">
-        <h2 className="text-lg font-semibold mb-3">{t('title')}</h2>
+        <h2 className="text-base font-semibold mb-3">{t('title')}</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {trains.map(train => {
             const channel = channelMap.get(train.channelId)

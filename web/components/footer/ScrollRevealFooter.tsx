@@ -9,7 +9,7 @@ type Props = PropsWithChildren<{
 }>
 
 /** スクロールで表示される固定フッター */
-export function ScrollRevealFooter({ children, threshold = 200 }: Props) {
+export function ScrollRevealFooter({ children, threshold = 300 }: Props) {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {

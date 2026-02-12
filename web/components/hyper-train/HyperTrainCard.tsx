@@ -32,11 +32,11 @@ export function HyperTrainCard({
     >
       <CardContent className="p-4">
         <div className="flex items-center gap-2 mb-6">
-          <Avatar className="size-7 shrink-0">
+          <Avatar className="size-12 shrink-0">
             <AvatarImage src={channelThumbnailUrl} alt={channelTitle} />
             <AvatarFallback>{channelTitle[0]}</AvatarFallback>
           </Avatar>
-          <span className="text-sm font-medium line-clamp-1 break-all">
+          <span className="text-base font-medium line-clamp-1 break-all">
             {channelTitle}
           </span>
         </div>
