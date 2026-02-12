@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server'
-import { Separator } from '@/components/ui/separator'
 import { getActiveHyperTrains } from 'apis/hyper-trains/getHyperTrains'
 import { getChannels } from 'apis/youtube/getChannels'
 import { HyperTrainCard } from 'components/hyper-train/HyperTrainCard'
+import { PageXSPX, PageSMPX } from 'components/page'
 
 export async function HyperTrainListSection() {
   const [trains, t] = await Promise.all([
@@ -21,9 +21,8 @@ export async function HyperTrainListSection() {
 
   return (
     <>
-      <Separator className="my-4" />
-      <section className="col-span-full">
-        <h2 className="text-lg font-semibold mb-3">{t('title')}</h2>
+      <section className={`col-span-full ${PageXSPX} ${PageSMPX}`}>
+        <h2 className="text-base font-semibold mb-3">{t('title')}</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {trains.map(train => {
             const channel = channelMap.get(train.channelId)

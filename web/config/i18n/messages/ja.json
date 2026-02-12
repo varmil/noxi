@@ -822,7 +822,7 @@
         },
         "price": "{price}円",
         "maxChars": "最大{count}文字",
-        "messagePlaceholder": "メッセージを入力...（任意）",
+        "messagePlaceholder": "メッセージを入力...",
         "charCount": "{current}/{max}文字",
         "cancel": "キャンセル",
         "purchase": "購入する",
@@ -911,6 +911,12 @@
       },
       "listSection": {
         "title": "ハイパートレイン発車中"
+      },
+      "contributorPopover": {
+        "title": "貢献者一覧",
+        "rank": "{rank}位",
+        "points": "{points}pt",
+        "viewProfile": "プロフィールを見る"
       }
     },
     "dashboard": {

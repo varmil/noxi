@@ -1,6 +1,5 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
-import { HyperTrainListSection } from 'components/hyper-train/HyperTrainListSection'
 import {
   ChannelGrowthRankingContainer,
   ChannelGrowthRankingSkeleton
@@ -116,10 +115,6 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
           />
         </div> */}
 
-        {/* ハイパートレイン発車中 */}
-        <Suspense fallback={null}>
-          <HyperTrainListSection />
-        </Suspense>
       </Container>
     </>
   )

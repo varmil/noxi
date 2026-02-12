@@ -1,9 +1,12 @@
 import { MessagesSquare } from 'lucide-react'
 import { Skeleton } from '@/components/ui/skeleton'
+import { PageXSPX, PageSMPX } from 'components/page'
 
 export function LatestHyperChatsSkeleton() {
   return (
-    <section className="z-0 w-full max-w-6xl pt-12 pb-2 px-4 sm:px-6 mx-auto">
+    <section
+      className={`z-0 w-full max-w-6xl pt-12 pb-2 ${PageXSPX} ${PageSMPX} mx-auto`}
+    >
       <div className="mx-auto">
         <div className="mb-4 flex items-center gap-2 sm:mb-6">
           <MessagesSquare className="size-5 text-muted-foreground" />

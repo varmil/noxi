@@ -3,6 +3,7 @@ import { useFormatter, useTranslations } from 'next-intl'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { HyperChatsSchema } from 'apis/hyper-chats/hyperChatSchema'
 import { ChannelsSchema } from 'apis/youtube/schema/channelSchema'
+import { PageXSPX, PageSMPX } from 'components/page'
 import Image from 'components/styles/Image'
 import { Link } from 'lib/navigation'
 
@@ -16,7 +17,7 @@ export function LatestHyperChats({ hyperChats, channels }: Props) {
   const format = useFormatter()
 
   return (
-    <section className="z-0 w-full max-w-[1185px] pt-12 pb-2 px-4 sm:px-6 mx-auto">
+    <section className={`w-full ${PageXSPX} ${PageSMPX}`}>
       <div className="mx-auto ">
         <div className="mb-4 flex items-center gap-2 sm:mb-6">
           <MessagesSquare className="size-5 text-muted-foreground" />

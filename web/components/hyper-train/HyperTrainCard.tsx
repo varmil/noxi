@@ -26,20 +26,20 @@ export function HyperTrainCard({
   const t = useTranslations('Features.hyperTrain.card')
   const format = useFormatter()
 
-  const content = (
+  return (
     <Card
       className={`border-l-4 ${getLevelBorderColor(train.level)} overflow-hidden py-0`}
     >
       <CardContent className="p-4">
-        <div className="flex items-center gap-2 mb-6">
-          <Avatar className="size-7 shrink-0">
+        <Link href={href} className="flex items-center gap-2 mb-6">
+          <Avatar className="size-12 shrink-0">
             <AvatarImage src={channelThumbnailUrl} alt={channelTitle} />
             <AvatarFallback>{channelTitle[0]}</AvatarFallback>
           </Avatar>
-          <span className="text-sm font-medium line-clamp-1 break-all">
+          <span className="text-base font-medium line-clamp-1 break-all">
             {channelTitle}
           </span>
-        </div>
+        </Link>
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 min-w-0">
             <Train className="size-5 text-muted-foreground shrink-0" />
@@ -75,11 +75,5 @@ export function HyperTrainCard({
         )}
       </CardContent>
     </Card>
-  )
-
-  return (
-    <Link href={href} className="block hover:opacity-90 transition-opacity">
-      {content}
-    </Link>
   )
 }

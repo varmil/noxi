@@ -18,9 +18,6 @@ export const PageXSPX = 'px-4'
 /** Page > SM > Xパディング値 */
 export const PageSMPX = 'sm:px-6'
 
-/** （注意）Page> XS > Xマージン値 | 基本はpaddingを使う */
-export const PageXSMX = 'mx-4'
-
 export function Page({
   breadcrumb,
   h1,

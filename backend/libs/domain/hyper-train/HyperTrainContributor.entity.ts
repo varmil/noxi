@@ -13,15 +13,19 @@ export class HyperTrainContributor {
 
   public readonly image: string | null
 
+  public readonly username: string | null
+
   constructor(args: {
     userId: UserId
     point: Point
     name: string | null
     image: string | null
+    username: string | null
   }) {
     this.userId = args.userId
     this.point = args.point
     this.name = args.name
     this.image = args.image
+    this.username = args.username
   }
 }

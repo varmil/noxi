@@ -162,21 +162,54 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
 
   private async fetchUserMap(
     contributions: { userId: number }[]
-  ): Promise<Map<number, { id: number; name: string | null; image: string | null }>> {
+  ): Promise<
+    Map<
+      number,
+      {
+        id: number
+        name: string | null
+        image: string | null
+        username: string | null
+      }
+    >
+  > {
     const userIds = [...new Set(contributions.map(c => c.userId))]
     if (userIds.length === 0) return new Map()
 
     const users = await this.prismaInfraService.user.findMany({
       where: { id: { in: userIds } },
-      select: { id: true, name: true, image: true }
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        userProfile: { select: { username: true } }
+      }
     })
-    return new Map(users.map(u => [u.id, u]))
+    return new Map(
+      users.map(u => [
+        u.id,
+        {
+          id: u.id,
+          name: u.name,
+          image: u.image,
+          username: u.userProfile?.username ?? null
+        }
+      ])
+    )
   }
 
   /** ユーザー情報付き＆同一ユーザーのポイントを合算 */
   private toDomainWithUsers(
     row: TrainRow,
-    userMap: Map<number, { id: number; name: string | null; image: string | null }>
+    userMap: Map<
+      number,
+      {
+        id: number
+        name: string | null
+        image: string | null
+        username: string | null
+      }
+    >
   ): HyperTrain {
     // 同一ユーザーのポイントを合算
     const aggregated = new Map<number, number>()
@@ -194,7 +227,8 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
           userId: new UserId(userId),
           point: new Point(point),
           name: user?.name ?? null,
-          image: user?.image ?? null
+          image: user?.image ?? null,
+          username: user?.username ?? null
         })
       })
     )

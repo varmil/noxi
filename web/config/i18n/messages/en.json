@@ -805,7 +805,7 @@
         },
         "price": "¥{price}",
         "maxChars": "Max {count} characters",
-        "messagePlaceholder": "Enter a message... (optional)",
+        "messagePlaceholder": "Enter a message...",
         "charCount": "{current}/{max} characters",
         "cancel": "Cancel",
         "purchase": "Purchase",
@@ -894,6 +894,12 @@
       },
       "listSection": {
         "title": "HyperTrains Active"
+      },
+      "contributorPopover": {
+        "title": "Contributors",
+        "rank": "#{rank}",
+        "points": "{points}pt",
+        "viewProfile": "View Profile"
       }
     },
     "dashboard": {
