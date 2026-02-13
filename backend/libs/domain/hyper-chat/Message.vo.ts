@@ -1,11 +1,10 @@
 import { IsString, MaxLength } from 'class-validator'
-import xss from 'xss'
 import { StringValueObject } from '@domain/lib'
 import { TIER_CONFIG, TierValue } from './Tier.vo'
 
 /**
  * ハイパーチャットのメッセージ
- * XSS対策を行い、Tierに応じた文字数制限を検証する
+ * Tierに応じた文字数制限を検証する
  * 空文字も許可（無言スパチャ）
  */
 export class Message extends StringValueObject {
@@ -14,7 +13,7 @@ export class Message extends StringValueObject {
   protected readonly val: string
 
   constructor(val: string, tier?: TierValue) {
-    val = xss(val.trim())
+    val = val.trim()
     super(val)
     this.val = val
 
