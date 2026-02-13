@@ -12,7 +12,7 @@ export const HYPER_TRAIN_LEVEL_THRESHOLDS = [
 ] as const
 
 export const MAX_LEVEL = 10
-export const TRAIN_TRIGGER_UNIQUE_USERS = 3
+export const TRAIN_TRIGGER_UNIQUE_USERS = 7
 
 /**
  * 次のレベルまでの残りポイントを返す
