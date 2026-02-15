@@ -40,7 +40,18 @@ export function LegalInformation() {
 
           {/* 金額・支払いについて */}
           <TableRow label="販売価格">
-            各商品・プランの申し込みページに表示された金額（表示価格・消費税込）とします。
+            <p className="mb-2">
+              各商品・プランの申し込みページに表示された金額（表示価格・消費税込）とします。
+            </p>
+            <ul className="list-disc list-inside space-y-1">
+              <li>ハイパーチャット Lite：300円</li>
+              <li>ハイパーチャット Standard：1,000円</li>
+              <li>ハイパーチャット Premium：3,000円</li>
+              <li>ハイパーチャット Special：10,000円</li>
+            </ul>
+            <p className="mt-2 text-muted-foreground text-xs">
+              ※ハイパーチャットチケット（無料配布）は対価のない無償提供のため、上記の販売価格には含まれません。
+            </p>
           </TableRow>
 
           <TableRow label="商品代金以外の必要料金">
@@ -102,6 +113,15 @@ export function LegalInformation() {
             </p>
 
             <ul className="list-disc list-inside space-y-2">
+              <li>
+                <span className="font-bold">ハイパーチャット：</span>
+                <br />
+                決済完了後のキャンセル・返金はできません。
+                <br />
+                投稿されたコメントが当社の判断により非表示・削除された場合も、返金は行いません。
+                <br />
+                ただし、当方の不備によりサービスが提供されなかった場合は全額返金いたします。
+              </li>
               <li>
                 <span className="font-bold">広告掲載のキャンセル：</span>
                 <br />
