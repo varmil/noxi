@@ -53,8 +53,8 @@ YouTubeのスーパーチャットのような有料コメント機能「ハイ�
 
 ### 機能範囲
 
-- Lite(300円)/Standard(1,000円)/Max(10,000円)の3段階購入
-- メッセージ入力（文字数制限: 60/140/300文字）※無言（空メッセージ）も可
+- Lite(300円)/Standard(1,000円)/Premium(3,000円)/Special(10,000円)の4段階購入
+- メッセージ入力（文字数制限: 60/140/200/300文字）※無言（空メッセージ）も可
 - Stripe都度決済（Stripe Elements）
 - チャンネル詳細ページに購入ボタン・統計情報を配置
 - 基本的な履歴保存
@@ -77,7 +77,7 @@ model HyperChatOrder {
   channelId             String
   group                 String
   gender                String
-  tier                  String // "lite", "standard", "max"
+  tier                  String // "lite", "standard", "premium", "special"
   amount                Int // 金額（円）
   message               String
   status                String   @default("pending") // pending, completed, failed
@@ -137,7 +137,8 @@ model HyperChatLike {
 export const TIER_CONFIG = {
   lite: { price: 300, maxChars: 60 },
   standard: { price: 1000, maxChars: 140 },
-  max: { price: 10000, maxChars: 300 }
+  premium: { price: 3000, maxChars: 200 },
+  special: { price: 10000, maxChars: 300 }
 } as const
 ```
 
@@ -149,7 +150,7 @@ backend/libs/domain/hyper-chat/
 ├── HyperChat.repository.ts
 ├── HyperChats.collection.ts
 ├── HyperChatId.vo.ts
-├── Tier.vo.ts           // "lite" | "standard" | "max" + 設定
+├── Tier.vo.ts           // "lite" | "standard" | "premium" | "special" + 設定
 ├── Message.vo.ts        // 文字数制限（300文字以内）
 ├── LikeCount.vo.ts
 ├── Status.vo.ts         // 未使用（HyperChatOrder で管理）
@@ -254,23 +255,23 @@ web/apis/hyper-chats/
 
 ```typescript
 // web/utils/hyper-chat/rotation.ts
-const TIER_PRIORITY = { lite: 1, standard: 4, max: 100 }
-const MAX_EXCLUSIVE_MINUTES = 60
+const TIER_PRIORITY = { free: 1, lite: 3, standard: 10, premium: 30, special: 100 }
+const SPECIAL_EXCLUSIVE_MINUTES = 60
 
-// MAXが独占表示中かどうかを判定（投稿から60分以内）
-function isMaxExclusive(createdAt: Date): boolean
+// Specialが独占表示中かどうかを判定（投稿から60分以内）
+function isSpecialExclusive(createdAt: Date): boolean
 
-// 独占表示中のMAXを取得（古い順にソート）
-function getExclusiveMaxes(hyperChats: HyperChatSchema[]): HyperChatSchema[]
+// 独占表示中のSpecialを取得（古い順にソート）
+function getExclusiveSpecials(hyperChats: HyperChatSchema[]): HyperChatSchema[]
 
 // ローテーション表示用リスト生成
-// 独占MAXがあればそれらのみ、なければTier優先度でソート
+// 独占Specialがあればそれらのみ、なければTier優先度でソート
 function getRotationList(hyperChats: HyperChatSchema[]): HyperChatSchema[]
 ```
 
 ### 吹き出し仕様
 
-- 背景色: lite=水色、standard=黄色、max=赤色（tier-styles.tsで一元管理）
+- 背景色: lite=水色、standard=黄色、premium=オレンジ、special=赤色（tier-styles.tsで一元管理）
 - line-clamp: 2行
 - 表示時間: 3秒ごとにフェード切替（embla-carousel-fade使用）
 - 1件のみの場合はカルーセル不使用（シンプル描画）
@@ -361,13 +362,14 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 **'free' を4つ目のTierとして追加する**
 
 ```typescript
-export const TIERS = ['free', 'lite', 'standard', 'max'] as const
+export const TIERS = ['free', 'lite', 'standard', 'premium', 'special'] as const
 
 export const TIER_CONFIG = {
   free: { price: 0, maxChars: 60 },
   lite: { price: 300, maxChars: 60 },
   standard: { price: 1000, maxChars: 140 },
-  max: { price: 10000, maxChars: 300 }
+  premium: { price: 3000, maxChars: 200 },
+  special: { price: 10000, maxChars: 300 }
 } as const
 ```
 
@@ -437,7 +439,7 @@ model HyperChat {
 ### 機能範囲
 
 - 60分以内に3人のユニークユーザーがHyperChatを送信 → トレイン発動
-- 例外：Max(10,000円) はソロ・スタート
+- 例外：Special(10,000円) はソロ・スタート
 - 無料チケットも1アクション/100ptとしてカウント
 - レベル1-10（最大100,000pt）、60分タイマー（レベルアップでリセット）
 - 最大6時間継続、終了後1時間クールダウン
@@ -660,7 +662,7 @@ model HyperLevel {
 
 ### Phase 1 完了時
 
-1. **決済フロー**: Stripe テストモードでLite/Standard/Maxの決済が完了すること
+1. **決済フロー**: Stripe テストモードでLite/Standard/Premium/Specialの決済が完了すること
 2. **メッセージ保存**: 決済完了後、DBにHyperChatレコードが作成されること
 3. **文字数制限**: Tierに応じた文字数制限が機能すること
 4. **無言スパチャ**: メッセージなしでも購入できること
