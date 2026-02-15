@@ -5,7 +5,7 @@ import { TIER_CONFIG, TierValue } from './Tier.vo'
 /**
  * ハイパーチャットのメッセージ
  * Tierに応じた文字数制限を検証する
- * 空文字も許可（無言スパチャ）
+ * 有料tierは空文字許可（無言スパチャ）、無料tierは1文字以上必須
  */
 export class Message extends StringValueObject {
   @IsString()
@@ -16,6 +16,13 @@ export class Message extends StringValueObject {
     val = val.trim()
     super(val)
     this.val = val
+
+    // 無料チケットの場合は空文字を禁止
+    if (tier === 'free' && val.length === 0) {
+      throw new TypeError(
+        'Message is required for free tier'
+      )
+    }
 
     // Tierが指定されている場合、その文字数制限を検証
     if (tier) {

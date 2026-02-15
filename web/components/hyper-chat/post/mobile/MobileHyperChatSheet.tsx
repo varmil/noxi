@@ -108,7 +108,11 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 ) : (
                   <Button
                     onClick={handleUseTicket}
-                    disabled={isLoading || !form.formState.isValid}
+                    disabled={
+                      isLoading ||
+                      !form.formState.isValid ||
+                      !form.watch('message')?.trim() // 無料チケは空文字を禁止
+                    }
                     className="bg-green-600 hover:bg-green-700 text-white"
                   >
                     {isLoading ? (
