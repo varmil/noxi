@@ -135,9 +135,9 @@ model HyperChatLike {
 
 ```typescript
 export const TIER_CONFIG = {
-  lite: { price: 300, maxChars: 60, rotationSlots: 1 },
-  standard: { price: 1000, maxChars: 140, rotationSlots: 4 },
-  max: { price: 10000, maxChars: 300, rotationSlots: 60 }
+  lite: { price: 300, maxChars: 60 },
+  standard: { price: 1000, maxChars: 140 },
+  max: { price: 10000, maxChars: 300 }
 } as const
 ```
 
@@ -364,10 +364,10 @@ web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
 export const TIERS = ['free', 'lite', 'standard', 'max'] as const
 
 export const TIER_CONFIG = {
-  free: { price: 0, maxChars: 60, rotationSlots: 1 },
-  lite: { price: 300, maxChars: 60, rotationSlots: 1 },
-  standard: { price: 1000, maxChars: 140, rotationSlots: 4 },
-  max: { price: 10000, maxChars: 300, rotationSlots: 60 }
+  free: { price: 0, maxChars: 60 },
+  lite: { price: 300, maxChars: 60 },
+  standard: { price: 1000, maxChars: 140 },
+  max: { price: 10000, maxChars: 300 }
 } as const
 ```
 
@@ -510,18 +510,19 @@ model HyperTrainContribution {
 ```
 
 **設計ポイント**:
+
 - `group` カラム: グループページフィルタ用。channelId→group の毎回解決は非効率
 - `endedAt` カラムなし: トレインの終了は `expiresAt` で管理（lazy expiration）
 - トレイン評価は try-catch で囲む: 課金フローの安定性を最優先
 
 ### API エンドポイント
 
-| Method | Endpoint                                     | 説明                                                 |
-| ------ | -------------------------------------------- | ---------------------------------------------------- |
-| GET    | `/hyper-trains/active`                       | アクティブ一覧（`?group=` フィルタ）                 |
-| GET    | `/hyper-trains/channels/:channelId/active`   | チャンネルのアクティブトレイン                       |
-| GET    | `/hyper-trains/channels/:channelId/best`     | ベストレコード（contributors含む）                   |
-| GET    | `/hyper-trains/channels/:channelId/incoming` | Incoming状態（uniqueUserCount + cooldownEndsAt）     |
+| Method | Endpoint                                     | 説明                                             |
+| ------ | -------------------------------------------- | ------------------------------------------------ |
+| GET    | `/hyper-trains/active`                       | アクティブ一覧（`?group=` フィルタ）             |
+| GET    | `/hyper-trains/channels/:channelId/active`   | チャンネルのアクティブトレイン                   |
+| GET    | `/hyper-trains/channels/:channelId/best`     | ベストレコード（contributors含む）               |
+| GET    | `/hyper-trains/channels/:channelId/incoming` | Incoming状態（uniqueUserCount + cooldownEndsAt） |
 
 ### フロントエンド
 

@@ -790,13 +790,15 @@
           "free": "Free",
           "lite": "Lite",
           "standard": "Standard",
-          "max": "Max"
+          "premium": "Premium",
+          "special": "Special"
         },
         "tierFeatures": {
           "free": ["Display priority: Lowest"],
           "lite": ["Display priority: Low"],
           "standard": ["Display priority: Standard"],
-          "max": ["Display priority: High", "HyperTrain guaranteed"]
+          "premium": ["Display priority: High"],
+          "special": ["Display priority: Highest", "HyperTrain guaranteed"]
         },
         "price": "¥{price}",
         "maxChars": "Max {count} characters",

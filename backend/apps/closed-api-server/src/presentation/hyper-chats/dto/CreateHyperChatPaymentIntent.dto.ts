@@ -18,7 +18,7 @@ export class CreateHyperChatPaymentIntent {
   tier: TierValue
 
   @IsString()
-  @MaxLength(300) // max tier allows 300 chars, empty allowed (無言スパチャ)
+  @MaxLength(300) // special tier allows 300 chars, empty allowed (無言スパチャ)
   message: string
 
   toChannelId = () => new ChannelId(this.channelId)

@@ -9,7 +9,7 @@ model HyperChatOrder {
   channelId             String
   group                 String
   gender                String
-  tier                  String // "free", "lite", "standard", "max"
+  tier                  String // "free", "lite", "standard", "premium", "special"
   amount                Int // 金額（円）
   message               String
   status                String   @default("pending") // pending, completed, failed
@@ -37,7 +37,7 @@ model HyperChat {
   channelId String
   group     String
   gender    String
-  tier      String // "free", "lite", "standard", "max"
+  tier      String // "free", "lite", "standard", "premium", "special"
   amount    Int // 金額（円）- free tier は 0
   message   String
   likeCount Int      @default(0)

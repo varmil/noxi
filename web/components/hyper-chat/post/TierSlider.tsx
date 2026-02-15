@@ -57,9 +57,14 @@ export function TierSlider({
       maxChars: TIER_CONFIG.standard.maxChars
     },
     {
-      id: 'max',
-      price: TIER_CONFIG.max.price,
-      maxChars: TIER_CONFIG.max.maxChars
+      id: 'premium',
+      price: TIER_CONFIG.premium.price,
+      maxChars: TIER_CONFIG.premium.maxChars
+    },
+    {
+      id: 'special',
+      price: TIER_CONFIG.special.price,
+      maxChars: TIER_CONFIG.special.maxChars
     }
   ]
 
@@ -187,8 +192,8 @@ export function TierSlider({
             className="absolute inset-0 rounded-full"
             style={{
               background: hasTicket
-                ? 'linear-gradient(to right, #22c55e, #06b6d4, #eab308, #dc2626)'
-                : 'linear-gradient(to right, #06b6d4, #eab308, #dc2626)'
+                ? 'linear-gradient(to right, #22c55e, #06b6d4, #eab308, #fb923c, #dc2626)'
+                : 'linear-gradient(to right, #06b6d4, #eab308, #fb923c, #dc2626)'
             }}
           />
           {/* Unfilled overlay */}

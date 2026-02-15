@@ -9,7 +9,7 @@ import { TIER_CONFIG, TierValue } from './Tier.vo'
  */
 export class Message extends StringValueObject {
   @IsString()
-  @MaxLength(300) // max tier の最大文字数
+  @MaxLength(300) // special tier の最大文字数
   protected readonly val: string
 
   constructor(val: string, tier?: TierValue) {

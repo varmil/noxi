@@ -807,13 +807,15 @@
           "free": "無料",
           "lite": "ライト",
           "standard": "スタンダード",
-          "max": "マックス"
+          "premium": "プレミアム",
+          "special": "スペシャル"
         },
         "tierFeatures": {
           "free": ["表示優先度：最低"],
           "lite": ["表示優先度：低"],
           "standard": ["表示優先度：標準"],
-          "max": ["表示優先度：高", "ハイパートレイン確定発車"]
+          "premium": ["表示優先度：高"],
+          "special": ["表示優先度：最高", "ハイパートレイン確定発車"]
         },
         "price": "{price}円",
         "maxChars": "最大{count}文字",

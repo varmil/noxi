@@ -13,7 +13,7 @@ describe('Tier Value Object', () => {
 
   describe('invalid tiers', () => {
     it('should reject invalid tier values', () => {
-      const invalidTiers = ['basic', 'premium', 'ultra', 'LITE', 'Standard', '']
+      const invalidTiers = ['basic', 'max', 'ultra', 'LITE', 'Standard', '']
 
       invalidTiers.forEach(val => {
         expect(() => new Tier(val as 'lite')).toThrow()
@@ -34,22 +34,23 @@ describe('Tier Value Object', () => {
       expect(tier.getPrice()).toBe(1000)
     })
 
-    it('should return correct price for max tier', () => {
-      const tier = new Tier('max')
-      expect(tier.getPrice()).toBe(TIER_CONFIG.max.price)
+    it('should return correct price for premium tier', () => {
+      const tier = new Tier('premium')
+      expect(tier.getPrice()).toBe(TIER_CONFIG.premium.price)
+      expect(tier.getPrice()).toBe(3000)
+    })
+
+    it('should return correct price for special tier', () => {
+      const tier = new Tier('special')
+      expect(tier.getPrice()).toBe(TIER_CONFIG.special.price)
       expect(tier.getPrice()).toBe(10000)
     })
 
     it('should return correct maxChars for each tier', () => {
       expect(new Tier('lite').getMaxChars()).toBe(60)
       expect(new Tier('standard').getMaxChars()).toBe(140)
-      expect(new Tier('max').getMaxChars()).toBe(300)
-    })
-
-    it('should return correct rotationSlots for each tier', () => {
-      expect(new Tier('lite').getRotationSlots()).toBe(1)
-      expect(new Tier('standard').getRotationSlots()).toBe(4)
-      expect(new Tier('max').getRotationSlots()).toBe(60)
+      expect(new Tier('premium').getMaxChars()).toBe(200)
+      expect(new Tier('special').getMaxChars()).toBe(300)
     })
   })
 
@@ -62,7 +63,7 @@ describe('Tier Value Object', () => {
 
     it('should not be equal for different tier values', () => {
       const tier1 = new Tier('lite')
-      const tier2 = new Tier('max')
+      const tier2 = new Tier('special')
       expect(tier1.equals(tier2)).toBe(false)
     })
   })

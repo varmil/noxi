@@ -3,26 +3,27 @@ import { HyperChatSchema, TierValue } from 'apis/hyper-chats/hyperChatSchema'
 /** 各Tierのソート優先度（大きいほど前に表示） */
 const TIER_PRIORITY: Record<TierValue, number> = {
   free: 1,
-  lite: 1,
-  standard: 4,
-  max: 100
+  lite: 3,
+  standard: 10,
+  premium: 30,
+  special: 100
 }
 
-/** MAXの独占表示時間（分） */
-const MAX_EXCLUSIVE_MINUTES = 60
+/** Specialの独占表示時間（分） */
+const SPECIAL_EXCLUSIVE_MINUTES = 60
 
 /**
- * MAXが独占表示中かどうかを判定
- * 投稿から60分以内はMAXが独占
+ * Specialが独占表示中かどうかを判定
+ * 投稿から60分以内はSpecialが独占
  */
-function isMaxExclusive(createdAt: Date): boolean {
+function isSpecialExclusive(createdAt: Date): boolean {
   const diffMinutes = (Date.now() - createdAt.getTime()) / 60000
-  return diffMinutes <= MAX_EXCLUSIVE_MINUTES
+  return diffMinutes <= SPECIAL_EXCLUSIVE_MINUTES
 }
 
 /**
  * HyperChatのソート優先度を取得
- * max > standard > lite の順
+ * special > premium > standard > lite の順
  */
 function getTierPriority(hyperChat: HyperChatSchema): number {
   return TIER_PRIORITY[hyperChat.tier]
@@ -30,7 +31,7 @@ function getTierPriority(hyperChat: HyperChatSchema): number {
 
 /**
  * HyperChatをTier優先度でソート
- * max > standard > lite、同 Tier は createdAt 降順（新しい順）
+ * special > premium > standard > lite、同 Tier は createdAt 降順（新しい順）
  */
 export function sortByTierPriority(
   hyperChats: HyperChatSchema[]
@@ -50,34 +51,34 @@ export function sortByTierPriority(
 }
 
 /**
- * 独占表示中のMAX HyperChatを取得
+ * 独占表示中のSpecial HyperChatを取得
  * 複数ある場合は古い順（投稿が早い順）にソートして返す
  */
-export function getExclusiveMaxes(
+export function getExclusiveSpecials(
   hyperChats: HyperChatSchema[]
 ): HyperChatSchema[] {
-  const exclusiveMaxes = hyperChats.filter(
-    hc => hc.tier === 'max' && isMaxExclusive(hc.createdAt)
+  const exclusiveSpecials = hyperChats.filter(
+    hc => hc.tier === 'special' && isSpecialExclusive(hc.createdAt)
   )
 
   // 古い順（投稿が早い順）にソート
-  return exclusiveMaxes.sort(
+  return exclusiveSpecials.sort(
     (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
   )
 }
 
 /**
  * ローテーション表示用のHyperChatリストを生成
- * 独占表示中のMAXがあればそれらのみ、なければTier優先度でソート
+ * 独占表示中のSpecialがあればそれらのみ、なければTier優先度でソート
  */
 export function getRotationList(
   hyperChats: HyperChatSchema[]
 ): HyperChatSchema[] {
-  const exclusiveMaxes = getExclusiveMaxes(hyperChats)
+  const exclusiveSpecials = getExclusiveSpecials(hyperChats)
 
-  if (exclusiveMaxes.length > 0) {
-    // 独占表示中のMAXがあればそれらのみでローテーション
-    return exclusiveMaxes
+  if (exclusiveSpecials.length > 0) {
+    // 独占表示中のSpecialがあればそれらのみでローテーション
+    return exclusiveSpecials
   }
 
   // Tier優先度でソート

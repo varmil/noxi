@@ -111,7 +111,7 @@ export class HyperTrainEvaluatorService {
 
   /**
    * 新規トレインの発動を評価
-   * - Max tier → ソロスタート
+   * - Special tier → ソロスタート
    * - それ以外 → 過去60分の3人ユニークユーザー判定
    */
   private async evaluateNewTrain(
@@ -119,7 +119,7 @@ export class HyperTrainEvaluatorService {
     now: Date
   ): Promise<void> {
     const channelId = hyperChat.channelId
-    const isSoloStart = hyperChat.tier.get() === 'max'
+    const isSoloStart = hyperChat.tier.get() === 'special'
 
     if (!isSoloStart) {
       // ユニークユーザー数を確認
@@ -127,7 +127,6 @@ export class HyperTrainEvaluatorService {
         channelId,
         TRAIN_TRIGGER_WINDOW_MINUTES
       )
-
       if (uniqueUsers < TRAIN_TRIGGER_UNIQUE_USERS) {
         return // 条件未達
       }
