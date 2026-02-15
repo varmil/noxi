@@ -2,6 +2,7 @@ model UserProfile {
   userId      Int    @id @default(autoincrement())
   username    String @unique @db.Citext
   description String
+  website     String @default("")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

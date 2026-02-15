@@ -910,6 +910,8 @@
           "minLength": "{type} must be at least {length} characters",
           "maxLength": "{type} can be up to {length} characters",
           "usernameRegex": "Username must be alphanumeric and can only contain underscores (_)",
+          "website": "Website",
+          "websiteInvalid": "Please enter a valid URL",
           "usernameReserved": "This username is not available",
           "usernameAvailable": "This username is available",
           "usernameAlreadyExists": "This username already exists",

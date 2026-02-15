@@ -10,6 +10,7 @@ export const MAX_NAME_LENGTH = 25
 export const MIN_USERNAME_LENGTH = 3
 export const MAX_USERNAME_LENGTH = 20
 export const MAX_BIO_LENGTH = 160
+export const MAX_WEBSITE_LENGTH = 2048
 
 // isProfane が誤検出されるので使わない
 const JapaneseFilter = getProfanityFilterForJapanese()
@@ -85,10 +86,33 @@ export const useProfileFormSchema = () => {
       }
     )
 
+  const websiteSchema = z
+    .string()
+    .max(
+      MAX_WEBSITE_LENGTH,
+      feat('maxLength', {
+        type: feat('website'),
+        length: MAX_WEBSITE_LENGTH.toString()
+      })
+    )
+    .refine(
+      val => {
+        if (val === '') return true
+        try {
+          const url = new URL(val)
+          return url.protocol === 'https:'
+        } catch {
+          return false
+        }
+      },
+      { message: feat('websiteInvalid') }
+    )
+
   return z.object({
     name: nameSchema,
     username: usernameSchema,
-    bio: bioSchema
+    bio: bioSchema,
+    website: websiteSchema
   })
 }
 

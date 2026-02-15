@@ -1,5 +1,5 @@
 import { IsOptional, IsString } from 'class-validator'
-import { Name, Image, Description, Username } from '@domain/user-profile'
+import { Name, Image, Description, Username, Website } from '@domain/user-profile'
 
 export class PutProfile {
   @IsOptional()
@@ -18,6 +18,10 @@ export class PutProfile {
   @IsString()
   description?: string
 
+  @IsOptional()
+  @IsString()
+  website?: string
+
   toName = () => (this.name ? new Name(this.name) : undefined)
 
   toUsername = () => (this.username ? new Username(this.username) : undefined)
@@ -26,4 +30,7 @@ export class PutProfile {
 
   toDescription = () =>
     this.description ? new Description(this.description) : undefined
+
+  toWebsite = () =>
+    this.website !== undefined ? new Website(this.website) : undefined
 }

@@ -51,7 +51,8 @@ export class UserProfilesController {
         name: dto.toName(),
         username: dto.toUsername(),
         image: dto.toImage(),
-        description: dto.toDescription()
+        description: dto.toDescription(),
+        website: dto.toWebsite()
       },
       where: { userId: req.user.id }
     })

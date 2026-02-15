@@ -1,6 +1,5 @@
 'use client'
 
-import type React from 'react'
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AlertCircle, ArrowRight, Loader2 } from 'lucide-react'
@@ -20,6 +19,7 @@ import { BioTextarea } from 'features/dashboard/profile/components/BioTextarea'
 import { NameInput } from 'features/dashboard/profile/components/NameInput'
 import { ProfileImageUploader } from 'features/dashboard/profile/components/ProfileImageUploader'
 import { UsernameInput } from 'features/dashboard/profile/components/UsernameInput'
+import { WebsiteInput } from 'features/dashboard/profile/components/WebsiteInput'
 import {
   ProfileFormSchema,
   useProfileFormSchema
@@ -60,7 +60,8 @@ export default function ProfileForm({
     defaultValues: {
       name: displayName,
       username: userProfile?.username || '',
-      bio: userProfile?.description || ''
+      bio: userProfile?.description || '',
+      website: userProfile?.website || ''
     },
     mode: 'onChange'
   })
@@ -106,7 +107,8 @@ export default function ProfileForm({
           name: data.name,
           username: data.username,
           image,
-          description: data.bio
+          description: data.bio,
+          website: data.website
         })
       }
       // 後処理 (古い画像を削除)
@@ -185,6 +187,7 @@ export default function ProfileForm({
           <NameInput />
           <UsernameInput key={submitCount} />
           <BioTextarea />
+          <WebsiteInput />
           {(!isImageModerationOk || !isModerationOk) && (
             <Alert variant="destructive">
               <AlertCircle className="size-4" />

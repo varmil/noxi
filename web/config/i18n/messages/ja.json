@@ -927,6 +927,8 @@
           "minLength": "{type}は{length}文字以上で入力してください",
           "maxLength": "{type}は{length}文字まで入力できます",
           "usernameRegex": "ユーザー名は英数字とアンダースコア(_)のみ使用できます",
+          "website": "ウェブサイト",
+          "websiteInvalid": "有効なURLを入力してください",
           "usernameReserved": "このユーザーネームは使用できません",
           "usernameAvailable": "このユーザーネームは使用可能です",
           "usernameAlreadyExists": "このユーザーネームは既に使用されています",
