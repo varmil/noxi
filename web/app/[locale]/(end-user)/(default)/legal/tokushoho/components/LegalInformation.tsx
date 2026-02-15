@@ -16,23 +16,23 @@ function TableRow({ label, children }: TableRowProps) {
 
 export function LegalInformation() {
   return (
-    <div className="max-w-3xl mx-auto p-6 md:p-12">
+    <div className="max-w-3xl mx-auto px-4 md:p-12">
       <h1 className="text-2xl font-bold mb-8">特定商取引法に基づく表記</h1>
 
       <table className="w-full text-sm text-left border-collapse">
         <tbody>
           {/* 基本情報（共通） */}
-          <TableRow label="販売業者（屋号）">VCharts</TableRow>
+          <TableRow label="販売業者">VCharts</TableRow>
 
           <TableRow label="運営統括責任者">山本晃大</TableRow>
 
-          <TableRow label="所在地・電話番号">
+          <TableRow label="所在地・電話">
             消費者庁の規定に基づき、請求があり次第遅滞なく開示いたします。
             <br />
             開示をご希望の場合は、以下の連絡先までお問い合わせください。
           </TableRow>
 
-          <TableRow label="連絡先（メールアドレス）">
+          <TableRow label="連絡先">
             <a href="mailto:support@vcharts.net" className="underline">
               support@vcharts.net
             </a>
@@ -41,16 +41,16 @@ export function LegalInformation() {
           {/* 金額・支払いについて */}
           <TableRow label="販売価格">
             <p className="mb-2">
-              各商品・プランの申し込みページに表示された金額（表示価格・消費税込）とします。
+              各商品・プランの申し込みページに表示された金額（表示価格・消費税込）とします。ハイパーチャットは下記のとおりです。
             </p>
-            <ul className="list-disc list-inside space-y-1">
-              <li>ハイパーチャット Lite：300円</li>
-              <li>ハイパーチャット Standard：1,000円</li>
-              <li>ハイパーチャット Premium：3,000円</li>
-              <li>ハイパーチャット Special：10,000円</li>
+            <ul className="space-y-1">
+              <li>Lite：300円</li>
+              <li>Standard：1,000円</li>
+              <li>Premium：3,000円</li>
+              <li>Special：10,000円</li>
             </ul>
             <p className="mt-2 text-muted-foreground text-xs">
-              ※ハイパーチャットチケット（無料配布）は対価のない無償提供のため、上記の販売価格には含まれません。
+              ※ハイパーチャットチケットは対価のない無償提供のため、上記の販売価格には含まれません。
             </p>
           </TableRow>
 
@@ -64,11 +64,9 @@ export function LegalInformation() {
 
           {/* 拡張部分 */}
           <TableRow label="代金の支払時期">
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="space-y-1">
               <li>
-                <span className="font-bold">
-                  都度課金（ハイパーチャット等）：
-                </span>
+                <span className="font-bold">都度課金：</span>
                 <br />
                 購入手続き時に即時決済が行われます。
               </li>
@@ -86,11 +84,9 @@ export function LegalInformation() {
           </TableRow>
 
           <TableRow label="商品の引き渡し時期">
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="space-y-1">
               <li>
-                <span className="font-bold">
-                  都度課金（ハイパーチャット等）：
-                </span>
+                <span className="font-bold">都度課金：</span>
                 <br />
                 決済完了後、直ちにコメントが掲載されます。
               </li>
@@ -112,30 +108,21 @@ export function LegalInformation() {
               デジタルコンテンツの性質上、お客様都合による返品・返金はお受けできません。
             </p>
 
-            <ul className="list-disc list-inside space-y-2">
+            <ul className="space-y-2">
               <li>
                 <span className="font-bold">ハイパーチャット：</span>
                 <br />
-                決済完了後のキャンセル・返金はできません。
-                <br />
-                投稿されたコメントが当社の判断により非表示・削除された場合も、返金は行いません。
-                <br />
-                ただし、当方の不備によりサービスが提供されなかった場合は全額返金いたします。
+                決済完了後のキャンセル・返金はできません。投稿されたコメントが当社の判断により非表示・削除された場合も、返金は行いません。ただし、当方の不備によりサービスが提供されなかった場合は全額返金いたします。
               </li>
               <li>
                 <span className="font-bold">広告掲載のキャンセル：</span>
                 <br />
-                掲載開始後のキャンセル・返金はできません。
-                <br />
-                ただし、当方の不備により掲載が行われなかった場合は全額返金いたします。
+                掲載開始後のキャンセル・返金はできません。ただし、当方の不備により掲載が行われなかった場合は全額返金いたします。
               </li>
               <li>
                 <span className="font-bold">定期課金の解約：</span>
                 <br />
-                マイページよりいつでも解約手続きが可能です。
-                <br />
-                次回更新日の前日までに解約手続きを行ってください。
-                <br />
+                マイページよりいつでも解約手続きが可能です。次回更新日の前日までに解約手続きを行ってください。
                 日割り計算による返金は行われませんが、解約後も契約期間終了日まではサービスをご利用いただけます。
               </li>
             </ul>
