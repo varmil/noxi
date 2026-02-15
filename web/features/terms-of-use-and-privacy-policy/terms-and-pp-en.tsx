@@ -9,7 +9,7 @@ export default function TermsAndPPEn() {
             Terms of Use and Privacy Policy
           </h1>
           <p className="mt-2 text-muted-foreground">
-            Effective Date: July 13, 2024
+            Effective Date: July 13, 2024 (Last Updated: February 15, 2026)
           </p>
         </div>
         <div>
@@ -118,40 +118,98 @@ export default function TermsAndPPEn() {
               without prior notice.
             </p>
 
-            <h3 className="text-l font-bold">
-              5. Validity Period and Possession Limit of Cheer Tickets
-            </h3>
+            <h3 className="text-l font-bold">5. Hyper Chat</h3>
             <p>
-              5.1 Cheer tickets obtained for free through the Service will be
-              reset at the end of each season. Cheer tickets purchased through
-              the Service will be valid for one year from the purchase date (or
-              issue date).
+              5.1 Hyper Chat is a paid comment posting feature provided by
+              VCharts. It is not a tip, donation, or direct payment to any
+              VTuber or their affiliated agency. Payments made through Hyper Chat
+              are fees for using VCharts&apos; comment posting service and are
+              not forwarded to VTubers.
             </p>
             <p>
-              5.2 Free cheer tickets have a possession limit of 100 tickets.
-              When the number of tickets held reaches the limit, no new free
-              tickets (such as login bonuses) will be granted, and the right to
-              receive such tickets will be forfeited. To receive tickets again,
-              users must use their tickets to reduce the number held below the
-              limit.
+              5.2 Messages posted via Hyper Chat are publicly displayed to other
+              users on the Service. Please review your message content carefully
+              before posting.
             </p>
             <p>
-              5.3 Cheer tickets that have expired are invalid, and no reissuance
-              or refund will be made for any reason.
+              5.3 Hyper Chat purchases constitute the provision of digital
+              content. Refunds or returns are not available after payment is
+              completed, except in cases where the Service fails to deliver due
+              to our fault.
             </p>
 
-            <h3 className="text-l font-bold">6. Disclaimer</h3>
+            <h3 className="text-l font-bold">6. Hyper Chat Tickets</h3>
             <p>
-              6.1 The Service is provided &quot;as is&quot; without warranties
+              6.1 Hyper Chat Tickets (&quot;Tickets&quot;) are distributed by us
+              free of charge and are valid for 30 days from the date of
+              distribution. Tickets that have expired are automatically
+              invalidated, and no reissuance will be made for any reason.
+            </p>
+            <p>
+              6.2 Tickets cannot be exchanged for cash, refunded, or transferred
+              to third parties. Tickets have no monetary value and may only be
+              used to post Hyper Chat messages within the Service.
+            </p>
+            <p>
+              6.3 The conditions for Ticket distribution (including quantity,
+              timing, and validity period) may be changed at our discretion
+              without prior notice.
+            </p>
+
+            <h3 className="text-l font-bold">
+              7. Prohibited Conduct and Content Moderation
+            </h3>
+            <p>
+              7.1 Users must not engage in the following when posting Hyper Chat
+              messages:
+            </p>
+            <ul className="ml-4">
+              <li>
+                - Defamation, slander, insults, or attacks against others
+              </li>
+              <li>- Obscene, violent, or discriminatory content</li>
+              <li>- Spam or repetitive nuisance postings</li>
+              <li>
+                - Content that violates laws or encourages illegal activities
+              </li>
+              <li>
+                - Actions that infringe upon the rights of VTubers, their
+                affiliated agencies, or other users
+              </li>
+              <li>
+                - Any other conduct deemed inappropriate by us
+              </li>
+            </ul>
+            <p>
+              7.2 We reserve the right to hide or delete any comments that we
+              determine fall under the above categories, without prior notice.
+              No refunds will be issued for paid Hyper Chat messages that are
+              hidden or deleted.
+            </p>
+
+            <h3 className="text-l font-bold">
+              8. Changes to or Termination of the Service
+            </h3>
+            <p>
+              8.1 We may change the content of the Hyper Chat feature (including
+              pricing, tier settings, and ticket distribution conditions) or
+              discontinue its provision without prior notice to users. We shall
+              not be liable for any damages incurred by users as a result of
+              such changes or termination.
+            </p>
+
+            <h3 className="text-l font-bold">9. Disclaimer</h3>
+            <p>
+              9.1 The Service is provided &quot;as is&quot; without warranties
               of any kind, whether express or implied, including but not limited
               to implied warranties of merchantability, fitness for a particular
               purpose, and non-infringement.
             </p>
 
-            <h3 className="text-l font-bold">7. Contact Information</h3>
+            <h3 className="text-l font-bold">10. Contact Information</h3>
             <p>
-              7.1 If you have any questions about these Terms, please contact us
-              here:{' '}
+              10.1 If you have any questions about these Terms, please contact
+              us here:{' '}
               <a
                 href="https://forms.gle/AtHChW8N4R2NRDbu5"
                 target="_blank"

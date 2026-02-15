@@ -55,6 +55,13 @@ export function LegalInformation() {
           <TableRow label="代金の支払時期">
             <ul className="list-disc list-inside space-y-1">
               <li>
+                <span className="font-bold">
+                  都度課金（ハイパーチャット等）：
+                </span>
+                <br />
+                購入手続き時に即時決済が行われます。
+              </li>
+              <li className="mt-2">
                 <span className="font-bold">都度課金（広告掲載等）：</span>
                 <br />
                 ご請求メール送付後、指定の期日まで（原則3日以内）にお支払いください。
@@ -70,7 +77,14 @@ export function LegalInformation() {
           <TableRow label="商品の引き渡し時期">
             <ul className="list-disc list-inside space-y-1">
               <li>
-                <span className="font-bold">都度課金：</span>
+                <span className="font-bold">
+                  都度課金（ハイパーチャット等）：
+                </span>
+                <br />
+                決済完了後、直ちにコメントが掲載されます。
+              </li>
+              <li className="mt-2">
+                <span className="font-bold">都度課金（広告掲載等）：</span>
                 <br />
                 お支払い確認後、所定の掲載期間開始時にサービスを提供いたします。
               </li>
