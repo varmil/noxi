@@ -48,7 +48,7 @@
     "compression": "^1.8.0",
     "dayjs": "^1.11.13",
     "fast-xml-parser": "^5.3.4",
-    "firebase-admin": "^13.6.0",
+    "firebase-admin": "^13.6.1",
     "passport-jwt": "^4.0.1",
     "prisma-json-types-generator": "^4.1.1",
     "reflect-metadata": "^0.2.0",
