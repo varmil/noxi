@@ -34,9 +34,9 @@ export default function DataMethodologyAndDisclaimerEn() {
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">Target</p>
               <p className="text-lg font-semibold">
-                846 VCharts-registered talents
+                933 VCharts-registered talents
               </p>
-              <p className="text-xs text-muted-foreground">As of December 2025</p>
+              <p className="text-xs text-muted-foreground">As of February 2026</p>
             </div>
           </CardContent>
         </Card>
