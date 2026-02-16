@@ -4,7 +4,7 @@ import { HyperChatOrdersService } from '@app/hyper-chat-orders/hyper-chat-orders
 import { HyperChatsService } from '@app/hyper-chats/hyper-chats.service'
 import { HyperTrainEvaluatorService } from '@app/hyper-trains/hyper-train-evaluator.service'
 import { GroupId } from '@domain/group'
-import { HyperChat, Message, Tier } from '@domain/hyper-chat'
+import { HyperChat, IsAnonymous, Message, Tier } from '@domain/hyper-chat'
 import {
   Amount,
   HyperChatOrderId,
@@ -43,8 +43,9 @@ export class HyperChatsScenario {
     gender: Gender
     tier: Tier
     message: Message
+    isAnonymous: IsAnonymous
   }): Promise<{ clientSecret: string; orderId: number }> {
-    const { userId, email, channelId, group, gender, tier, message } = args
+    const { userId, email, channelId, group, gender, tier, message, isAnonymous } = args
     const amount = tier.getPrice()
 
     // 1. PaymentIntentを作成
@@ -74,7 +75,8 @@ export class HyperChatsScenario {
         gender,
         tier,
         amount: new Amount(amount),
-        message
+        message,
+        isAnonymous
       }
     })
 
@@ -121,7 +123,8 @@ export class HyperChatsScenario {
         gender: order.gender,
         tier: order.tier,
         amount: order.amount,
-        message: order.message
+        message: order.message,
+        isAnonymous: order.isAnonymous
       }
     })
 

@@ -24,6 +24,7 @@ export const schema = z.object({
   amount: z.number(),
   message: z.string(),
   likeCount: z.number(),
+  isAnonymous: z.boolean(),
   createdAt: z.coerce.date(),
   author: z.object({
     name: z.string().nullable(),

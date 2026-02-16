@@ -17,3 +17,6 @@ export class UserId extends NumberValueObject {
     this.val = num
   }
 }
+
+/** 匿名ユーザーのID */
+export const AnonymousUserId = new UserId(9999999)

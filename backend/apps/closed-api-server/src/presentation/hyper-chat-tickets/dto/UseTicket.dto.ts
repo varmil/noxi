@@ -1,6 +1,6 @@
-import { IsInt, IsString, Min, IsIn } from 'class-validator'
+import { IsBoolean, IsInt, IsString, Min, IsIn, IsOptional } from 'class-validator'
 import { GroupId } from '@domain/group'
-import { Message } from '@domain/hyper-chat'
+import { IsAnonymous, Message } from '@domain/hyper-chat'
 import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
 import { Gender, GenderString, GenderStrings } from '@domain/lib/gender'
 import { ChannelId } from '@domain/youtube'
@@ -22,6 +22,10 @@ export class UseTicket {
   @IsString()
   message: string
 
+  @IsBoolean()
+  @IsOptional()
+  isAnonymous?: boolean
+
   toTicketId = () => new HyperChatTicketId(this.ticketId)
 
   toChannelId = () => new ChannelId(this.channelId)
@@ -31,4 +35,6 @@ export class UseTicket {
   toGender = () => new Gender(this.gender)
 
   toMessage = () => new Message(this.message, 'free')
+
+  toIsAnonymous = () => new IsAnonymous(this.isAnonymous)
 }

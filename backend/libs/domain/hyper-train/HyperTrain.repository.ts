@@ -1,5 +1,5 @@
 import { GroupId } from '@domain/group'
-import { HyperChatId } from '@domain/hyper-chat'
+import { HyperChatId, IsAnonymous } from '@domain/hyper-chat'
 import {
   HyperTrain,
   HyperTrainId,
@@ -75,6 +75,7 @@ export interface HyperTrainRepository {
       hyperChatId: HyperChatId
       userId: UserId
       point: Point
+      isAnonymous?: IsAnonymous
     }
   }) => Promise<void>
 

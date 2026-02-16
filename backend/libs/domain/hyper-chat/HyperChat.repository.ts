@@ -3,6 +3,7 @@ import {
   HyperChat,
   HyperChatId,
   HyperChats,
+  IsAnonymous,
   Message,
   Tier
 } from '@domain/hyper-chat'
@@ -35,6 +36,7 @@ export interface HyperChatRepository {
       tier: Tier
       amount: Amount
       message: Message
+      isAnonymous?: IsAnonymous
     }
   }) => Promise<HyperChat>
 

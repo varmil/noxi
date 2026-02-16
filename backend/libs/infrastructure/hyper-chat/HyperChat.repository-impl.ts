@@ -5,6 +5,7 @@ import {
   HyperChatId,
   HyperChatRepository,
   HyperChats,
+  IsAnonymous,
   LikeCount,
   Message,
   Tier,
@@ -30,7 +31,8 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
         gender: data.gender.get(),
         tier: data.tier.get(),
         amount: data.amount.get(),
-        message: data.message.get()
+        message: data.message.get(),
+        isAnonymous: data.isAnonymous?.get() ?? false
       }
     })
 
@@ -212,6 +214,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     tier: string
     amount: number
     message: string
+    isAnonymous: boolean
     likeCount: number
     createdAt: Date
   }): HyperChat {
@@ -225,6 +228,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       amount: new Amount(row.amount),
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
+      isAnonymous: new IsAnonymous(row.isAnonymous),
       createdAt: row.createdAt,
       author: { name: null, image: null, username: null }
     })
@@ -239,6 +243,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     tier: string
     amount: number
     message: string
+    isAnonymous: boolean
     likeCount: number
     createdAt: Date
     user: {
@@ -257,6 +262,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       amount: new Amount(row.amount),
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
+      isAnonymous: new IsAnonymous(row.isAnonymous),
       createdAt: row.createdAt,
       author: {
         name: row.user.name,

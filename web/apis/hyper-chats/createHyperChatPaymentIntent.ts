@@ -18,6 +18,7 @@ type Data = {
   gender: 'male' | 'female' | 'nonbinary'
   tier: PaidTierValue
   message: string
+  isAnonymous?: boolean
 }
 
 export async function createHyperChatPaymentIntent(

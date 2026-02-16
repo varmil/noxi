@@ -3,6 +3,7 @@ import { GroupId } from '@domain/group'
 import {
   HyperChat,
   HyperChatId,
+  IsAnonymous,
   LikeCount,
   Message,
   Tier,
@@ -89,7 +90,8 @@ export class HyperChatTicketRepositoryImpl implements HyperChatTicketRepository 
           gender: args.gender.get(),
           tier: 'free',
           amount: 0,
-          message: args.message.get()
+          message: args.message.get(),
+          isAnonymous: args.isAnonymous?.get() ?? false
         },
         include: { user: true }
       })
@@ -104,6 +106,7 @@ export class HyperChatTicketRepositoryImpl implements HyperChatTicketRepository 
         amount: new Amount(hyperChatRow.amount),
         message: new Message(hyperChatRow.message),
         likeCount: new LikeCount(hyperChatRow.likeCount),
+        isAnonymous: new IsAnonymous(hyperChatRow.isAnonymous),
         createdAt: hyperChatRow.createdAt,
         author: {
           name: hyperChatRow.user.name,

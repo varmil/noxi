@@ -52,6 +52,9 @@ export function useHyperChatFlow({
   const [step, setStep] = useState<Step>('input')
   const [clientSecret, setClientSecret] = useState<string | null>(null)
 
+  // Anonymous mode state
+  const [isAnonymous, setIsAnonymous] = useState(false)
+
   // Ticket mode state
   const [mode, setMode] = useState<Mode>('paid')
   const [tickets, setTickets] = useState<TicketSchema[]>([])
@@ -110,7 +113,8 @@ export function useHyperChatFlow({
         group,
         gender,
         tier: selectedTier,
-        message
+        message,
+        isAnonymous
       })
 
       setClientSecret(result.clientSecret)
@@ -155,7 +159,8 @@ export function useHyperChatFlow({
         channelId,
         group,
         gender,
-        message
+        message,
+        isAnonymous
       })
       setStep('complete')
     } catch (err) {
@@ -199,6 +204,7 @@ export function useHyperChatFlow({
         form.reset()
         setSelectedTier('standard')
         setMode('paid')
+        setIsAnonymous(false)
         setError(null)
       }, 200)
     }
@@ -241,6 +247,8 @@ export function useHyperChatFlow({
     channelThumbnailUrl,
     /** 現在のチャンネルの累計金額 */
     totalAmount,
+    isAnonymous,
+    setIsAnonymous,
     handleProceedToPayment,
     handleTierChange,
     handlePaymentSuccess,

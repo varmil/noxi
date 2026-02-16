@@ -27,6 +27,7 @@ model HyperTrainContribution {
   hyperChatId  Int      @unique
   userId       Int
   point        Int
+  isAnonymous  Boolean  @default(false)
   createdAt    DateTime @default(now()) @db.Timestamptz(3)
 
   hyperTrain HyperTrain @relation(fields: [hyperTrainId], references: [id], onDelete: Cascade)

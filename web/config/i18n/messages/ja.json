@@ -640,7 +640,7 @@
           "rank": "#{rank}",
           "empty": "直近の投稿がありません。",
           "noMessage": "メッセージなし",
-          "anonymous": "匿名さん"
+          "anonymous": "名無しさん"
         }
       },
       "superChat": {
@@ -838,6 +838,10 @@
       "latestActivity": {
         "title": "新着ハイパーチャット",
         "empty": "ハイパーチャットを投稿すると、ここに表示されます"
+      },
+      "anonymous": {
+        "label": "匿名",
+        "displayName": "名無しさん"
       }
     },
     "hyperTrain": {
@@ -869,7 +873,8 @@
         "title": "貢献者一覧",
         "rank": "{rank}位",
         "points": "{points}pt",
-        "viewProfile": "プロフィールを見る"
+        "viewProfile": "プロフィールを見る",
+        "anonymousTotal": "名無しさん（計 {points} pt）"
       }
     },
     "dashboard": {

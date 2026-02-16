@@ -827,6 +827,10 @@
       "latestActivity": {
         "title": "Recent HyperChats",
         "empty": "HyperChats will appear here once posted"
+      },
+      "anonymous": {
+        "label": "Anonymous",
+        "displayName": "Anonymous"
       }
     },
     "hyperTrain": {
@@ -858,7 +862,8 @@
         "title": "Contributors",
         "rank": "#{rank}",
         "points": "{points}pt",
-        "viewProfile": "View Profile"
+        "viewProfile": "View Profile",
+        "anonymousTotal": "Anonymous (Total {points} pt)"
       }
     },
     "dashboard": {

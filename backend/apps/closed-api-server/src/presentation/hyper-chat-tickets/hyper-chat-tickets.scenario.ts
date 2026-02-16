@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common'
 import { HyperChatTicketsService } from '@app/hyper-chat-tickets/hyper-chat-tickets.service'
 import { HyperTrainEvaluatorService } from '@app/hyper-trains/hyper-train-evaluator.service'
 import { GroupId } from '@domain/group'
-import { HyperChat, Message } from '@domain/hyper-chat'
+import { HyperChat, IsAnonymous, Message } from '@domain/hyper-chat'
 import { HyperChatTicketId } from '@domain/hyper-chat-ticket'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
@@ -27,6 +27,7 @@ export class HyperChatTicketsScenario {
     group: GroupId
     gender: Gender
     message: Message
+    isAnonymous: IsAnonymous
   }): Promise<HyperChat> {
     const hyperChat = await this.hyperChatTicketsService.useTicket(args)
 

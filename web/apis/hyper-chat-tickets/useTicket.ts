@@ -10,6 +10,7 @@ type Data = {
   group: string
   gender: 'male' | 'female' | 'nonbinary'
   message: string
+  isAnonymous?: boolean
 }
 
 export async function consumeTicket(data: Data): Promise<HyperChatSchema> {

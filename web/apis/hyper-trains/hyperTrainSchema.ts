@@ -5,7 +5,8 @@ export const contributorSchema = z.object({
   point: z.number(),
   name: z.string().nullable(),
   image: z.string().nullable(),
-  username: z.string().nullable()
+  username: z.string().nullable(),
+  isAnonymous: z.boolean()
 })
 
 export const hyperTrainSchema = z.object({

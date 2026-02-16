@@ -1,6 +1,6 @@
-import { IsIn, IsString, MaxLength } from 'class-validator'
+import { IsBoolean, IsIn, IsOptional, IsString, MaxLength } from 'class-validator'
 import { GroupId } from '@domain/group'
-import { Message, TIER_CONFIG, Tier, TIERS, TierValue } from '@domain/hyper-chat'
+import { IsAnonymous, Message, TIER_CONFIG, Tier, TIERS, TierValue } from '@domain/hyper-chat'
 import { GenderStrings, GenderString, Gender } from '@domain/lib/gender'
 import { ChannelId } from '@domain/youtube'
 
@@ -21,6 +21,10 @@ export class CreateHyperChatPaymentIntent {
   @MaxLength(300) // special tier allows 300 chars, empty allowed (無言スパチャ)
   message: string
 
+  @IsBoolean()
+  @IsOptional()
+  isAnonymous?: boolean
+
   toChannelId = () => new ChannelId(this.channelId)
 
   toGroup = () => new GroupId(this.group)
@@ -38,4 +42,6 @@ export class CreateHyperChatPaymentIntent {
     }
     return new Message(this.message)
   }
+
+  toIsAnonymous = () => new IsAnonymous(this.isAnonymous)
 }

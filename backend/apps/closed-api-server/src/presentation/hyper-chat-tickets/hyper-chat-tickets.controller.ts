@@ -49,7 +49,8 @@ export class HyperChatTicketsController {
         channelId: dto.toChannelId(),
         group: dto.toGroup(),
         gender: dto.toGender(),
-        message: dto.toMessage()
+        message: dto.toMessage(),
+        isAnonymous: dto.toIsAnonymous()
       })
 
       return hyperChat

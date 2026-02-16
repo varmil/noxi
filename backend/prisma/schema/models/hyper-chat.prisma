@@ -12,6 +12,7 @@ model HyperChatOrder {
   tier                  String // "free", "lite", "standard", "premium", "special"
   amount                Int // 金額（円）
   message               String
+  isAnonymous           Boolean  @default(false)
   status                String   @default("pending") // pending, completed, failed
   createdAt             DateTime @default(now()) @db.Timestamptz(3)
   updatedAt             DateTime @updatedAt @db.Timestamptz(3)
@@ -39,8 +40,9 @@ model HyperChat {
   gender    String
   tier      String // "free", "lite", "standard", "premium", "special"
   amount    Int // 金額（円）- free tier は 0
-  message   String
-  likeCount Int      @default(0)
+  message     String
+  isAnonymous Boolean  @default(false)
+  likeCount   Int      @default(0)
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 
   order  HyperChatOrder?  @relation(fields: [orderId], references: [id], onDelete: Cascade)

@@ -87,7 +87,8 @@ export class HyperChatsController {
         group: dto.toGroup(),
         gender: dto.toGender(),
         tier: dto.toTier(),
-        message: dto.toMessage()
+        message: dto.toMessage(),
+        isAnonymous: dto.toIsAnonymous()
       })
 
       return result

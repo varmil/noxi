@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { GroupId } from '@domain/group'
+import { IsAnonymous } from '@domain/hyper-chat'
 import {
   HyperTrain,
   HyperTrainContributor,
@@ -11,7 +12,7 @@ import {
   Point,
   TotalPoint
 } from '@domain/hyper-train'
-import { UserId } from '@domain/user'
+import { AnonymousUserId, UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
@@ -26,6 +27,7 @@ interface TrainRow {
   contributions: {
     userId: number
     point: number
+    isAnonymous: boolean
   }[]
 }
 
@@ -84,27 +86,26 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
     )
   }
 
-  findBestByChannelId: HyperTrainRepository['findBestByChannelId'] = async (
-    channelId
-  ) => {
-    const row = await this.prismaInfraService.hyperTrain.findFirst({
-      where: {
-        channelId: channelId.get(),
-        expiresAt: { lt: new Date() }
-      },
-      orderBy: [{ level: 'desc' }, { totalPoint: 'desc' }],
-      include: {
-        contributions: {
-          orderBy: { point: 'desc' }
+  findBestByChannelId: HyperTrainRepository['findBestByChannelId'] =
+    async channelId => {
+      const row = await this.prismaInfraService.hyperTrain.findFirst({
+        where: {
+          channelId: channelId.get(),
+          expiresAt: { lt: new Date() }
+        },
+        orderBy: [{ level: 'desc' }, { totalPoint: 'desc' }],
+        include: {
+          contributions: {
+            orderBy: { point: 'desc' }
+          }
         }
-      }
-    })
+      })
 
-    if (!row) return null
+      if (!row) return null
 
-    const userMap = await this.fetchUserMap(row.contributions)
-    return this.toDomainWithUsers(row, userMap)
-  }
+      const userMap = await this.fetchUserMap(row.contributions)
+      return this.toDomainWithUsers(row, userMap)
+    }
 
   countRecentUniqueUsers: HyperTrainRepository['countRecentUniqueUsers'] =
     async (channelId, withinMinutes) => {
@@ -144,7 +145,8 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
         hyperTrainId: data.hyperTrainId.get(),
         hyperChatId: data.hyperChatId.get(),
         userId: data.userId.get(),
-        point: data.point.get()
+        point: data.point.get(),
+        isAnonymous: data.isAnonymous?.get() ?? false
       }
     })
   }
@@ -160,9 +162,7 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
     })
   }
 
-  private async fetchUserMap(
-    contributions: { userId: number }[]
-  ): Promise<
+  private async fetchUserMap(contributions: { userId: number }[]): Promise<
     Map<
       number,
       {
@@ -198,7 +198,7 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
     )
   }
 
-  /** ユーザー情報付き＆同一ユーザーのポイントを合算 */
+  /** ユーザー情報付き＆同一ユーザーのポイントを合算（匿名は1エントリに集約） */
   private toDomainWithUsers(
     row: TrainRow,
     userMap: Map<
@@ -211,27 +211,51 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
       }
     >
   ): HyperTrain {
-    // 同一ユーザーのポイントを合算
-    const aggregated = new Map<number, number>()
+    // 匿名と非匿名を分離して集約
+    const namedAggregated = new Map<number, number>()
+    let anonymousTotalPoint = 0
+
     for (const c of row.contributions) {
-      aggregated.set(c.userId, (aggregated.get(c.userId) ?? 0) + c.point)
+      if (c.isAnonymous) {
+        anonymousTotalPoint += c.point
+      } else {
+        namedAggregated.set(
+          c.userId,
+          (namedAggregated.get(c.userId) ?? 0) + c.point
+        )
+      }
     }
 
     // ポイント降順でソート
-    const sorted = [...aggregated.entries()].sort(([, a], [, b]) => b - a)
+    const sorted = [...namedAggregated.entries()].sort(([, a], [, b]) => b - a)
 
-    const contributors = new HyperTrainContributors(
-      sorted.map(([userId, point]) => {
-        const user = userMap.get(userId)
-        return new HyperTrainContributor({
-          userId: new UserId(userId),
-          point: new Point(point),
-          name: user?.name ?? null,
-          image: user?.image ?? null,
-          username: user?.username ?? null
-        })
+    const namedContributors = sorted.map(([userId, point]) => {
+      const user = userMap.get(userId)
+      return new HyperTrainContributor({
+        userId: new UserId(userId),
+        point: new Point(point),
+        name: user?.name ?? null,
+        image: user?.image ?? null,
+        username: user?.username ?? null,
+        isAnonymous: new IsAnonymous(false)
       })
-    )
+    })
+
+    // 匿名分があれば最後尾に1エントリとして追加
+    if (anonymousTotalPoint > 0) {
+      namedContributors.push(
+        new HyperTrainContributor({
+          userId: AnonymousUserId,
+          point: new Point(anonymousTotalPoint),
+          name: null,
+          image: null,
+          username: null,
+          isAnonymous: new IsAnonymous(true)
+        })
+      )
+    }
+
+    const contributors = new HyperTrainContributors(namedContributors)
 
     return new HyperTrain({
       id: new HyperTrainId(row.id),

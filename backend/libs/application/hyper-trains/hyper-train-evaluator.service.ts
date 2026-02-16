@@ -69,7 +69,8 @@ export class HyperTrainEvaluatorService {
         hyperTrainId: train.id,
         hyperChatId: hyperChat.id,
         userId: hyperChat.userId,
-        point: new Point(point)
+        point: new Point(point),
+        isAnonymous: hyperChat.isAnonymous
       }
     })
 
@@ -175,7 +176,8 @@ export class HyperTrainEvaluatorService {
           hyperTrainId: trainId,
           hyperChatId: chat.id,
           userId: chat.userId,
-          point: new Point(chat.getPoint())
+          point: new Point(chat.getPoint()),
+          isAnonymous: chat.isAnonymous
         }
       })
     }

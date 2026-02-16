@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { GroupId } from '@domain/group'
-import { Message, Status, Tier, TierValue } from '@domain/hyper-chat'
+import { IsAnonymous, Message, Status, Tier, TierValue } from '@domain/hyper-chat'
 import {
   Amount,
   HyperChatOrder,
@@ -30,6 +30,7 @@ export class HyperChatOrderRepositoryImpl implements HyperChatOrderRepository {
         tier: data.tier.get(),
         amount: data.amount.get(),
         message: data.message.get(),
+        isAnonymous: data.isAnonymous?.get() ?? false,
         status: 'pending'
       }
     })
@@ -130,6 +131,7 @@ export class HyperChatOrderRepositoryImpl implements HyperChatOrderRepository {
     tier: string
     amount: number
     message: string
+    isAnonymous: boolean
     status: string
     createdAt: Date
     updatedAt: Date
@@ -147,6 +149,7 @@ export class HyperChatOrderRepositoryImpl implements HyperChatOrderRepository {
       amount: new Amount(row.amount),
       message: new Message(row.message),
       status: new Status(row.status as 'pending' | 'completed' | 'failed'),
+      isAnonymous: new IsAnonymous(row.isAnonymous),
       createdAt: row.createdAt,
       updatedAt: row.updatedAt
     })

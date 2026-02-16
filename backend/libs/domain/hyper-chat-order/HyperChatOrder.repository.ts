@@ -1,5 +1,5 @@
 import { GroupId } from '@domain/group'
-import { Message, Status, Tier } from '@domain/hyper-chat'
+import { IsAnonymous, Message, Status, Tier } from '@domain/hyper-chat'
 import {
   Amount,
   HyperChatOrder,
@@ -24,6 +24,7 @@ export interface HyperChatOrderRepository {
       tier: Tier
       amount: Amount
       message: Message
+      isAnonymous?: IsAnonymous
     }
   }) => Promise<HyperChatOrder>
 

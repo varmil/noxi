@@ -46,6 +46,8 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
     handleTierChange,
     handlePaymentSuccess,
     handleUseTicket,
+    isAnonymous,
+    setIsAnonymous,
     handleSwitchToFreeMode,
     handleBack,
     handleClose
@@ -55,7 +57,7 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
     <Sheet open={open} onOpenChange={handleClose}>
       <SheetContent
         side="bottom"
-        className="h-full gap-2 overflow-y-auto"
+        className="h-full gap-1 overflow-y-auto"
         onOpenAutoFocus={e => e.preventDefault()}
       >
         {step === 'input' && (
@@ -81,6 +83,8 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 channelThumbnailUrl={channelThumbnailUrl}
                 totalAmount={totalAmount}
                 price={price}
+                isAnonymous={isAnonymous}
+                onAnonymousChange={setIsAnonymous}
               />
 
               <div className="flex justify-end space-x-2 mt-4">

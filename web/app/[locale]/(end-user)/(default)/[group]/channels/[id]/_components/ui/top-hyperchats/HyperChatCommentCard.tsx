@@ -15,7 +15,7 @@ type Props = {
 export default async function HyperChatCommentCard({ hyperChat, rank }: Props) {
   const feat = await getTranslations('Features.channel.overview.topHyperChats')
 
-  const { tier, amount, message, author } = hyperChat
+  const { tier, amount, message, isAnonymous, author } = hyperChat
   const displayName = author.name || feat('anonymous')
   const amountDisplay = `\uFFE5${amount.toLocaleString()}`
 
@@ -55,7 +55,18 @@ export default async function HyperChatCommentCard({ hyperChat, rank }: Props) {
 
       <CardFooter className="pt-0">
         {/* 投稿者名 */}
-        {author.username ? (
+        {isAnonymous ? (
+          <div className="flex items-center gap-2 w-full">
+            <Avatar className="size-6 shrink-0">
+              <AvatarFallback className="text-xs">
+                {feat('anonymous').charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+            <div className="text-xs text-muted-foreground truncate">
+              {feat('anonymous')}
+            </div>
+          </div>
+        ) : (
           <Link
             href={`/users/${author.username}`}
             className="flex items-center gap-2 w-full hover:opacity-80 transition-opacity"
@@ -70,7 +81,7 @@ export default async function HyperChatCommentCard({ hyperChat, rank }: Props) {
               {displayName}
             </div>
           </Link>
-        ) : null}
+        )}
       </CardFooter>
     </Card>
   )

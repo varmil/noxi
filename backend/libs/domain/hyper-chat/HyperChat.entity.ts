@@ -2,6 +2,7 @@ import { Transform } from 'class-transformer'
 import { GroupId } from '@domain/group'
 import {
   HyperChatId,
+  IsAnonymous,
   LikeCount,
   Message,
   Tier
@@ -47,9 +48,15 @@ export class HyperChat {
   @Transform(({ value }: { value: LikeCount }) => value.get())
   public readonly likeCount: LikeCount
 
+  @Transform(({ value }: { value: IsAnonymous }) => value.get())
+  public readonly isAnonymous: IsAnonymous
+
   public readonly createdAt: Date
 
-  /** 送信者情報 */
+  /** 送信者情報（isAnonymous の場合はマスク済み） */
+  @Transform(({ value, obj }: { value: HyperChatAuthor; obj: HyperChat }) =>
+    obj.isAnonymous.get() ? { name: null, image: null, username: null } : value
+  )
   public readonly author: HyperChatAuthor
 
   /**
@@ -72,6 +79,7 @@ export class HyperChat {
     amount: Amount
     message: Message
     likeCount: LikeCount
+    isAnonymous: IsAnonymous
     createdAt: Date
     author: HyperChatAuthor
   }) {
@@ -84,6 +92,7 @@ export class HyperChat {
     this.amount = args.amount
     this.message = args.message
     this.likeCount = args.likeCount
+    this.isAnonymous = args.isAnonymous
     this.createdAt = args.createdAt
     this.author = args.author
   }

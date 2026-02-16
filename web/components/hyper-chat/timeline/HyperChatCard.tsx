@@ -29,7 +29,9 @@ export function HyperChatCard({
   const t = useTranslations('Features.hyperChat')
   const tier = hyperChat.tier
   const isFreeTier = tier === 'free'
-  const displayName = hyperChat.author.name || '匿名さん'
+  const displayName = hyperChat.isAnonymous
+    ? t('anonymous.displayName')
+    : hyperChat.author.name || ''
   const amountDisplay =
     hyperChat.amount === 0
       ? t('card.freeTicket')
@@ -51,10 +53,12 @@ export function HyperChatCard({
       {/* ヘッダー: アイコン + 表示名 + 金額 + 相対日時 */}
       <div className="text-sm mb-2 flex items-center gap-2">
         <Avatar className="size-7 shrink-0">
-          <AvatarImage
-            src={hyperChat.author.image || undefined}
-            alt={displayName}
-          />
+          {!hyperChat.isAnonymous && (
+            <AvatarImage
+              src={hyperChat.author.image || undefined}
+              alt={displayName}
+            />
+          )}
           <AvatarFallback>{displayName.charAt(0).toUpperCase()}</AvatarFallback>
         </Avatar>
         <span
@@ -65,7 +69,7 @@ export function HyperChatCard({
         >
           {displayName}
         </span>
-        <span className={cn('font-medium', TIER_TEXT_COLORS[tier])}>
+        <span className={cn('font-medium text-nowrap', TIER_TEXT_COLORS[tier])}>
           {amountDisplay}
         </span>
         <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>

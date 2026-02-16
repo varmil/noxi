@@ -22,7 +22,7 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
   const now = useNow({ updateInterval: 60000 }) // 1分ごとに更新
   const t = useTranslations('Features.hyperChat')
   const tier = hyperChat.tier
-  const displayName = hyperChat.author.name || '匿名さん'
+  const displayName = hyperChat.author.name || t('anonymous.displayName')
   const amountDisplay =
     hyperChat.amount === 0
       ? t('card.freeTicket')
@@ -60,7 +60,7 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
               src={hyperChat.author.image || undefined}
               alt={displayName}
             />
-            <AvatarFallback>
+            <AvatarFallback className="text-[10px]">
               {displayName.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>

@@ -46,6 +46,8 @@ export function DesktopHyperChatDialog({ dialog, channelTitle }: Props) {
     handleTierChange,
     handlePaymentSuccess,
     handleUseTicket,
+    isAnonymous,
+    setIsAnonymous,
     handleSwitchToFreeMode,
     handleBack,
     handleClose
@@ -82,6 +84,8 @@ export function DesktopHyperChatDialog({ dialog, channelTitle }: Props) {
               channelThumbnailUrl={channelThumbnailUrl}
               totalAmount={totalAmount}
               price={price}
+              isAnonymous={isAnonymous}
+              onAnonymousChange={setIsAnonymous}
             />
 
             <div className="flex justify-end space-x-2">
