@@ -1246,6 +1246,119 @@
       "breadcrumb": "Group登録申請",
       "formPlaceholder": "申請フォームはここに表示されます",
       "historyPlaceholder": "申請履歴はここに表示されます"
+    },
+    "hyperChatAbout": {
+      "metadata": {
+        "title": "ハイパーチャットとは",
+        "description": "ハイパーチャットは、推しのチャンネルページにメッセージを残せるVTuberファン専用の蓄積型メッセージ機能です。"
+      },
+      "hero": {
+        "badge": "VTuberファン専用",
+        "title": "ハイパーチャット",
+        "subtitle1": "想いを儚い「消費」にしない",
+        "subtitle2": "推しのページに残せる蓄積型メッセージ"
+      },
+      "features": {
+        "title": "ハイパーチャットとは？",
+        "channelPage": {
+          "title": "推しのページに投稿",
+          "description": "いつでも推しのチャンネルページにメッセージを残せます。配信後の感想戦もできます。さらにメッセージが新規さんに届きやすい設計です。"
+        },
+        "standOut": {
+          "title": "目立つメッセージ",
+          "description": "有料ティアを選ぶとメッセージが目立ちます。さらに金額が『ファンの熱量データ（実績）』として蓄積できます。"
+        },
+        "anonymous": {
+          "title": "匿名モード",
+          "description": "匿名で投稿することもできます。プライバシーを守りながら応援できます。"
+        },
+        "tierTable": {
+          "title": "料金プラン",
+          "tier": "ティア",
+          "price": "料金",
+          "maxChars": "最大文字数",
+          "displayPriority": "表示優先度",
+          "charsUnit": "{count}文字",
+          "free": "要チケット"
+        }
+      },
+      "comparison": {
+        "title": "他サービスとの比較",
+        "subtitle": "投げ銭やメンバーシップをやめる必要はまったくありません。もっと推してる実感が欲しい。疲弊させずに応援の声を残したい——そう思った時にハイパーチャットを使ってください。",
+        "headers": {
+          "feature": "比較項目",
+          "hyperChat": "ハイパーチャット",
+          "hyperChatSub": "",
+          "superChat": "投げ銭",
+          "superChatSub": "YouTube",
+          "membership": "メンバーシップ",
+          "membershipSub": "ファンクラブ",
+          "sns": "SNS",
+          "snsSub": "X, 好き嫌い.com"
+        },
+        "rows": {
+          "monetaryReturn": {
+            "label": "推しへの金銭還元",
+            "labelSub": "",
+            "hyperChat": "サイト運営/開発費へ",
+            "superChat": "~70%",
+            "membership": "~90%",
+            "sns": ""
+          },
+          "spreadEffect": {
+            "label": "外部への布教効果",
+            "labelSub": "認知の拡大",
+            "hyperChat": "新規にリーチ可",
+            "superChat": "",
+            "membership": "",
+            "sns": "バズると強い"
+          },
+          "assetValue": {
+            "label": "応援の「資産性」",
+            "labelSub": "残るか、流れるか",
+            "hyperChat": "メッセージの蓄積",
+            "superChat": "一瞬で流れる",
+            "membership": "コンテンツ次第",
+            "sns": "多すぎて流れる"
+          },
+          "talentBurden": {
+            "label": "タレントの負担",
+            "labelSub": "準備や読み上げ",
+            "hyperChat": "無し",
+            "superChat": "読み上げあり",
+            "membership": "専用準備必要",
+            "sns": "エゴサ疲れ"
+          },
+          "safety": {
+            "label": "安全性・民度",
+            "labelSub": "荒れないか",
+            "hyperChat": "人間＋AIのW管理",
+            "superChat": "モデレーター",
+            "membership": "クローズド",
+            "sns": "地獄"
+          }
+        },
+        "summaryLine1": "投げ銭/メンバーシップは『今の活動』の土台、",
+        "summaryLine2": "ハイパーチャットは『未来の成長』の土台となります"
+      },
+      "transparency": {
+        "title": "収益の使いみち",
+        "description": "収益は以下の目的に使用されます。",
+        "items": {
+          "server": "サーバー費用・コミットメント費用",
+          "development": "新機能の開発・既存機能の改善",
+          "operation": "安定したサービス運用"
+        }
+      },
+      "cta": {
+        "title": "言葉で推しを飛躍させよう",
+        "description": "推しのページにあなたの熱いメッセージを残そう",
+        "button": "ハイパーチャットを投稿する",
+        "legal": {
+          "tokushoho": "特定商取引法に基づく表記",
+          "terms": "利用規約"
+        }
+      }
     }
   }
 }

@@ -1236,6 +1236,119 @@
       "breadcrumb": "Group Registration Application",
       "formPlaceholder": "Application form will be displayed here",
       "historyPlaceholder": "Application history will be displayed here"
+    },
+    "hyperChatAbout": {
+      "metadata": {
+        "title": "What is HyperChat",
+        "description": "HyperChat is a persistent message feature for VTuber fans that lets you leave messages on your favorite talent's channel page."
+      },
+      "hero": {
+        "badge": "For VTuber Fans",
+        "title": "HyperChat",
+        "subtitle1": "Don't just consume your feelings.",
+        "subtitle2": "Leave cumulative messages on your favorite oshi's page."
+      },
+      "features": {
+        "title": "Features",
+        "standOut": {
+          "title": "Stand Out Messages",
+          "description": "Choose a paid tier to display your message in a more prominent color."
+        },
+        "channelPage": {
+          "title": "Post on Channel Pages",
+          "description": "Leave a message on your favorite talent's channel page anytime, not just during live streams."
+        },
+        "anonymous": {
+          "title": "Anonymous Mode",
+          "description": "You can post anonymously. Support your favorites while keeping your privacy."
+        },
+        "tierTable": {
+          "title": "Pricing Plans",
+          "tier": "Tier",
+          "price": "Price",
+          "maxChars": "Max Characters",
+          "displayPriority": "Display Priority",
+          "charsUnit": "{count} chars",
+          "free": "Ticket required"
+        }
+      },
+      "comparison": {
+        "title": "Comparison with Other Services",
+        "subtitle": "You don't have to stop using Super Chats or memberships at all. When you want to make your favorite bigger and leave a cheer without burdening them — use HyperChat.",
+        "headers": {
+          "feature": "Feature",
+          "hyperChat": "HyperChat",
+          "hyperChatSub": "",
+          "superChat": "Super Chat",
+          "superChatSub": "YouTube",
+          "membership": "Membership",
+          "membershipSub": "Fan Club",
+          "sns": "SNS",
+          "snsSub": "X, etc."
+        },
+        "rows": {
+          "monetaryReturn": {
+            "label": "Monetary Return",
+            "labelSub": "",
+            "hyperChat": "Goes to operation/dev",
+            "superChat": "~70%",
+            "membership": "~90%",
+            "sns": ""
+          },
+          "spreadEffect": {
+            "label": "Outreach Effect",
+            "labelSub": "Growing awareness",
+            "hyperChat": "Reaches new audiences",
+            "superChat": "",
+            "membership": "",
+            "sns": "Powerful if viral"
+          },
+          "assetValue": {
+            "label": "Support as Asset",
+            "labelSub": "Stays or fades",
+            "hyperChat": "Messages accumulate",
+            "superChat": "Gone in an instant",
+            "membership": "Depends on content",
+            "sns": "Too much, gets buried"
+          },
+          "talentBurden": {
+            "label": "Talent's Burden",
+            "labelSub": "Prep & read-aloud",
+            "hyperChat": "None",
+            "superChat": "Read-aloud required",
+            "membership": "Dedicated prep needed",
+            "sns": "Ego-search chaos"
+          },
+          "safety": {
+            "label": "Safety & Civility",
+            "labelSub": "Risk of toxicity",
+            "hyperChat": "Human + AI moderation",
+            "superChat": "Moderators",
+            "membership": "Closed community",
+            "sns": "Hellscape"
+          }
+        },
+        "summaryLine1": "Super Chats and memberships are the foundation of 'today's activities' —",
+        "summaryLine2": "HyperChat is the foundation of 'future growth'"
+      },
+      "transparency": {
+        "title": "How Revenue is Used",
+        "description": "Revenue from HyperChat is used for the following purposes.",
+        "items": {
+          "server": "Server maintenance and infrastructure costs",
+          "development": "New feature development and improvements",
+          "operation": "Stable service operation"
+        }
+      },
+      "cta": {
+        "title": "Send Your Message to Your Favorite",
+        "description": "Leave your message on your favorite talent's channel page with HyperChat.",
+        "button": "Post a HyperChat",
+        "legal": {
+          "tokushoho": "Commercial Transaction Act Disclosure",
+          "terms": "Terms of Service"
+        }
+      }
     }
   }
 }
