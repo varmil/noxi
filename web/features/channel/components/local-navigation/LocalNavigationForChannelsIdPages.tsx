@@ -41,10 +41,6 @@ export default function LocalNavigationForChannelsIdPages({
         {
           name: t('hyperTrain.nav'),
           href: `${basePath}/hyper-train`
-        },
-        {
-          name: t('comments.nav'),
-          href: [`${basePath}/comments`]
         }
       ]}
       className="border-b mb-8"

@@ -261,15 +261,6 @@
             "title": "ライブ同接数の推移"
           }
         },
-        "comments": {
-          "metadata": {
-            "title": "{channel} 最新のコメント",
-            "description": "{channel}の最新のコメント一覧をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
-          },
-          "section": {
-            "title": "最新のコメント"
-          }
-        },
         "hyperChat": {
           "metadata": {
             "title": "{channel} ハイパーチャット履歴",
@@ -681,9 +672,6 @@
           "max": "最大同接数",
           "median": "中央値"
         }
-      },
-      "comments": {
-        "nav": "コメント"
       },
       "hyperChat": {
         "nav": "ハイパーチャット"

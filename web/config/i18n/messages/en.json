@@ -260,15 +260,6 @@
             "title": "Concurrent Viewers Trends"
           }
         },
-        "comments": {
-          "metadata": {
-            "title": "{channel} Latest comments",
-            "description": "Check out the latest comments on {channel}! Check out the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
-          },
-          "section": {
-            "title": "Latest comments"
-          }
-        },
         "hyperChat": {
           "metadata": {
             "title": "{channel} HyperChat History",
@@ -670,7 +661,6 @@
         "nav": "Concurrent",
         "card": { "min": "Min", "max": "Max", "median": "Median" }
       },
-      "comments": { "nav": "Comments" },
       "hyperChat": {
         "nav": "HyperChat"
       },
