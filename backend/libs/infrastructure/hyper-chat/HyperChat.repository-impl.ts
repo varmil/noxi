@@ -72,7 +72,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
             }
           : undefined
       },
-      include: { user: true },
+      include: { user: { include: { userProfile: true } } },
       orderBy,
       take: limit,
       skip: offset
@@ -151,7 +151,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
           channelId: { in: channelIds.map(id => id.get()) },
           createdAt: { gte: twentyFourHoursAgo }
         },
-        include: { user: true },
+        include: { user: { include: { userProfile: true } } },
         orderBy: { createdAt: 'desc' }
       })
 
@@ -185,7 +185,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
   }) => {
     // createdAt DESC で多めに取得し、チャンネルごとに最新1件だけ残す
     const rows = await this.prismaInfraService.hyperChat.findMany({
-      include: { user: true },
+      include: { user: { include: { userProfile: true } } },
       orderBy: { createdAt: 'desc' },
       // 最悪全行が同一チャンネルの場合に備えて多めに取得
       take: limit * 5
@@ -226,7 +226,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
       createdAt: row.createdAt,
-      author: { name: null, image: null }
+      author: { name: null, image: null, username: null }
     })
   }
 
@@ -241,7 +241,11 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     message: string
     likeCount: number
     createdAt: Date
-    user: { name: string | null; image: string | null }
+    user: {
+      name: string | null
+      image: string | null
+      userProfile: { username: string } | null
+    }
   }): HyperChat {
     return new HyperChat({
       id: new HyperChatId(row.id),
@@ -254,7 +258,11 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       message: new Message(row.message),
       likeCount: new LikeCount(row.likeCount),
       createdAt: row.createdAt,
-      author: { name: row.user.name, image: row.user.image }
+      author: {
+        name: row.user.name,
+        image: row.user.image,
+        username: row.user.userProfile?.username ?? null
+      }
     })
   }
 }

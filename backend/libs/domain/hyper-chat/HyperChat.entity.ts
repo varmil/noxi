@@ -16,6 +16,7 @@ import { ChannelId } from '@domain/youtube'
 export interface HyperChatAuthor {
   name: string | null
   image: string | null
+  username: string | null
 }
 
 export class HyperChat {

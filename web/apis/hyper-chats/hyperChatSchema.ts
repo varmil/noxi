@@ -14,11 +14,6 @@ export const TIER_CONFIG = {
   special: { price: 10000, maxChars: 300 }
 } as const
 
-export const authorSchema = z.object({
-  name: z.string().nullable(),
-  image: z.string().nullable()
-})
-
 export const schema = z.object({
   id: z.number(),
   userId: z.number(),
@@ -30,20 +25,16 @@ export const schema = z.object({
   message: z.string(),
   likeCount: z.number(),
   createdAt: z.coerce.date(),
-  author: authorSchema
+  author: z.object({
+    name: z.string().nullable(),
+    image: z.string().nullable(),
+    username: z.string().nullable()
+  })
 })
 
 export const responseSchema = z.object({
   list: z.array(schema)
 })
 
-export const paymentIntentResponseSchema = z.object({
-  clientSecret: z.string(),
-  orderId: z.number()
-})
-
 export type HyperChatSchema = z.infer<typeof schema>
 export type HyperChatsSchema = HyperChatSchema[]
-export type PaymentIntentResponseSchema = z.infer<
-  typeof paymentIntentResponseSchema
->

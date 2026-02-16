@@ -107,7 +107,8 @@ export class HyperChatTicketRepositoryImpl implements HyperChatTicketRepository 
         createdAt: hyperChatRow.createdAt,
         author: {
           name: hyperChatRow.user.name,
-          image: hyperChatRow.user.image
+          image: hyperChatRow.user.image,
+          username: null
         }
       })
     })

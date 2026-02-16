@@ -1,12 +1,16 @@
 'use server'
 
-import {
-  paymentIntentResponseSchema,
-  PaymentIntentResponseSchema,
-  PaidTierValue
-} from 'apis/hyper-chats/hyperChatSchema'
+import { z } from 'zod'
+import { PaidTierValue } from 'apis/hyper-chats/hyperChatSchema'
 import { fetchAPI } from 'lib/fetchAPI'
 import { checkModeration } from 'utils/input/moderation'
+
+const paymentIntentResponseSchema = z.object({
+  clientSecret: z.string(),
+  orderId: z.number()
+})
+
+type PaymentIntentResponse = z.infer<typeof paymentIntentResponseSchema>
 
 type Data = {
   channelId: string
@@ -18,7 +22,7 @@ type Data = {
 
 export async function createHyperChatPaymentIntent(
   data: Data
-): Promise<PaymentIntentResponseSchema> {
+): Promise<PaymentIntentResponse> {
   // OpenAI Moderation check (server-side)
   if (data.message) {
     const isClean = await checkModeration(data.message)

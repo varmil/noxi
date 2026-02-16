@@ -1,5 +1,11 @@
 import { Type } from 'class-transformer'
-import { IsIn, IsInt, IsOptional, IsString } from 'class-validator'
+import {
+  IsDateString,
+  IsIn,
+  IsInt,
+  IsOptional,
+  IsString
+} from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { GroupId } from '@domain/group'
 import { Gender, GenderString, GenderStrings } from '@domain/lib/gender'
@@ -21,6 +27,10 @@ export class GetHyperChats {
   gender?: GenderString
 
   @IsOptional()
+  @IsDateString()
+  createdAfter?: string
+
+  @IsOptional()
   @Type(() => OrderByDto)
   orderBy?: OrderByDto<SortableField>[]
 
@@ -40,6 +50,9 @@ export class GetHyperChats {
   toGroup = () => (this.group ? new GroupId(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
+
+  toCreatedAt = () =>
+    this.createdAfter ? { gte: new Date(this.createdAfter) } : undefined
 
   toOrderBy = () => {
     return (

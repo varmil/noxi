@@ -5,6 +5,7 @@ import {
 import { HYPER_CHATS_LATEST } from 'apis/tags/revalidate-tags'
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
+/** Layout下部で使う専用のAPI */
 export async function getLatestHyperChats(
   limit = 20
 ): Promise<HyperChatsSchema> {

@@ -53,7 +53,7 @@ export interface HyperChatRepository {
    */
   findAll: (args: {
     where: FindAllWhere
-    orderBy?: Partial<Record<'createdAt' | 'tier' | 'likeCount', 'asc' | 'desc'>>[]
+    orderBy?: Partial<Record<'createdAt' | 'tier' | 'likeCount' | 'amount', 'asc' | 'desc'>>[]
     limit: number
     offset?: number
   }) => Promise<HyperChats>

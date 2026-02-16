@@ -11,6 +11,7 @@ type Params = {
   channelId: string
   group?: string
   gender?: 'male' | 'female' | 'nonbinary'
+  createdAfter?: Date
   orderBy?: {
     field: 'createdAt' | 'tier' | 'likeCount' | 'amount'
     order: 'asc' | 'desc'
@@ -22,6 +23,7 @@ type Params = {
 const createSearchParams = ({
   group,
   gender,
+  createdAfter,
   orderBy,
   limit,
   offset
@@ -29,6 +31,7 @@ const createSearchParams = ({
   const searchParams = new URLSearchParams({
     ...(group && { group }),
     ...(gender && { gender }),
+    ...(createdAfter && { createdAfter: createdAfter.toISOString() }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })

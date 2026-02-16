@@ -111,7 +111,8 @@ export class HyperChatsController {
       where: {
         channelId: new ChannelId(channelId),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
       },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
@@ -133,7 +134,8 @@ export class HyperChatsController {
       where: {
         channelId: new ChannelId(channelId),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
       }
     })
 
@@ -152,7 +154,8 @@ export class HyperChatsController {
       where: {
         channelId: new ChannelId(channelId),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
       }
     })
 
@@ -171,7 +174,8 @@ export class HyperChatsController {
       where: {
         channelId: new ChannelId(channelId),
         group: dto.toGroup(),
-        gender: dto.toGender()
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
       }
     })
 
