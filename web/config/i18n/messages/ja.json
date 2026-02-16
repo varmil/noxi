@@ -270,20 +270,6 @@
             "title": "最新のコメント"
           }
         },
-        "streamTimes": {
-          "metadata": {
-            "title": "{channel} 配信時間・配信時間帯・配信曜日",
-            "description": "「{channel}」の配信時間帯、配信時間、配信曜日を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
-          },
-          "section": {
-            "card": {
-              "title": "ライブ頻度・時間 - 過去30日間"
-            },
-            "chart": {
-              "title": "配信時間帯・曜日"
-            }
-          }
-        },
         "hyperChat": {
           "metadata": {
             "title": "{channel} ハイパーチャット履歴",
@@ -697,25 +683,6 @@
       },
       "comments": {
         "nav": "コメント"
-      },
-      "streamTimes": {
-        "nav": "配信時間",
-        "card": {
-          "count": "ライブ回数",
-          "totalDuration": "合計ライブ時間",
-          "averageDuration": "平均ライブ時間"
-        },
-        "chart": {
-          "countsByDoW": {
-            "title": "曜日ごとの配信頻度",
-            "description": "各曜日のライブ回数を表示",
-            "srOnly": "1週間の各曜日におけるライブ配信回数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
-            "srOnlyLoop": "{DoW}に{count}本のライブ配信が行われました。"
-          },
-          "viewersByDoW": {
-            "title": "曜日別同接数"
-          }
-        }
       },
       "hyperChat": {
         "nav": "ハイパーチャット"

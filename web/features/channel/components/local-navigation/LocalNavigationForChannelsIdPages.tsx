@@ -39,10 +39,6 @@ export default function LocalNavigationForChannelsIdPages({
           href: `${basePath}/concurrent-viewers`
         },
         {
-          name: t('streamTimes.nav'),
-          href: `${basePath}/stream-times`
-        },
-        {
           name: t('hyperTrain.nav'),
           href: `${basePath}/hyper-train`
         },

@@ -269,16 +269,6 @@
             "title": "Latest comments"
           }
         },
-        "streamTimes": {
-          "metadata": {
-            "title": "{channel} Stream Times",
-            "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
-          },
-          "section": {
-            "card": { "title": "Live Frequency/Duration - Last 30 Days" },
-            "chart": { "title": "Live streaming time slot" }
-          }
-        },
         "hyperChat": {
           "metadata": {
             "title": "{channel} HyperChat History",
@@ -680,25 +670,6 @@
         "card": { "min": "Min", "max": "Max", "median": "Median" }
       },
       "comments": { "nav": "Comments" },
-      "streamTimes": {
-        "nav": "Stream Times",
-        "card": {
-          "count": "Live Stream Count",
-          "totalDuration": "Total Live Duration",
-          "averageDuration": "Average Live Duration"
-        },
-        "chart": {
-          "countsByDoW": {
-            "title": "Live Stream Counts By Day of the Week",
-            "description": "Shows the count of live streams on each day of the week.",
-            "srOnly": "The bar chart shows the count of live streams on each day of the week. This allows you to analyze which days of the week the channel is most active.",
-            "srOnlyLoop": "{count} is the count of live streams on {DoW}."
-          },
-          "viewersByDoW": {
-            "title": "Viewers By Day of the Week"
-          }
-        }
-      },
       "hyperChat": {
         "nav": "HyperChat"
       },
