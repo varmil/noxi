@@ -28,12 +28,11 @@ export async function HyperChatScrambleTemplate({ page }: Props) {
     getAllHyperChatsCount()
   ])
 
-  // フロントエンドソート: 有料を先に（amount DESC → likeCount DESC → createdAt DESC）、無料を後に（createdAt DESC）
+  // フロントエンドソート: 有料を先に（amount DESC → createdAt DESC）、無料を後に（createdAt DESC）
   const paid = hyperChats
     .filter(hc => hc.amount > 0)
     .sort((a, b) => {
       if (b.amount !== a.amount) return b.amount - a.amount
-      if (b.likeCount !== a.likeCount) return b.likeCount - a.likeCount
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     })
   const free = hyperChats

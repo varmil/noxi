@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useOptimistic, useState, useTransition } from 'react'
 import { Heart } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { cn } from '@/lib/utils'
@@ -23,14 +23,19 @@ export function HyperChatLikeButton({
   channelId,
   tier,
   likeCount,
-  isLiked: initialIsLiked,
+  isLiked,
   className
 }: Props) {
   const { data: session } = useSession()
   const [authModalOpen, setAuthModalOpen] = useState(false)
   const [isPending, startTransition] = useTransition()
-  const [optimisticIsLiked, setOptimisticIsLiked] = useState(initialIsLiked)
-  const [optimisticCount, setOptimisticCount] = useState(likeCount)
+  const [optimistic, addOptimistic] = useOptimistic(
+    { isLiked, count: likeCount },
+    (current, newIsLiked: boolean) => ({
+      isLiked: newIsLiked,
+      count: newIsLiked ? current.count + 1 : current.count - 1
+    })
+  )
 
   const handleClick = () => {
     if (!session) {
@@ -38,22 +43,14 @@ export function HyperChatLikeButton({
       return
     }
 
-    // Optimistic UI update
-    const newIsLiked = !optimisticIsLiked
-    setOptimisticIsLiked(newIsLiked)
-    setOptimisticCount(prev => (newIsLiked ? prev + 1 : prev - 1))
+    const newIsLiked = !optimistic.isLiked
 
     startTransition(async () => {
-      try {
-        if (newIsLiked) {
-          await likeHyperChat(hyperChatId, channelId)
-        } else {
-          await unlikeHyperChat(hyperChatId, channelId)
-        }
-      } catch {
-        // Rollback on error
-        setOptimisticIsLiked(!newIsLiked)
-        setOptimisticCount(prev => (newIsLiked ? prev - 1 : prev + 1))
+      addOptimistic(newIsLiked)
+      if (newIsLiked) {
+        await likeHyperChat(hyperChatId, channelId)
+      } else {
+        await unlikeHyperChat(hyperChatId, channelId)
       }
     })
   }
@@ -65,15 +62,17 @@ export function HyperChatLikeButton({
         disabled={isPending}
         className={cn(
           'flex items-center gap-1.5 text-sm transition-colors cursor-pointer',
-          optimisticIsLiked
+          optimistic.isLiked
             ? TIER_TEXT_COLORS[tier]
             : `${TIER_TEXT_MUTED_COLORS[tier]} hover:scale-110`,
           isPending && 'opacity-70',
           className
         )}
       >
-        <Heart className={cn('size-4', optimisticIsLiked && 'fill-current')} />
-        {optimisticCount > 0 && <span>{optimisticCount.toLocaleString()}</span>}
+        <Heart className={cn('size-4', optimistic.isLiked && 'fill-current')} />
+        {optimistic.count > 0 && (
+          <span>{optimistic.count.toLocaleString()}</span>
+        )}
       </button>
 
       <AuthModal open={authModalOpen} onOpenChange={setAuthModalOpen} />

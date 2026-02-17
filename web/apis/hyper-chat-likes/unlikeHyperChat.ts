@@ -1,7 +1,7 @@
 'use server'
 
-import { revalidateTag } from 'next/cache'
-import { getHyperChatTag } from 'apis/tags/revalidate-tags'
+import { updateTag } from 'next/cache'
+import { getHyperChatTag, HYPER_CHATS_LATEST } from 'apis/tags/revalidate-tags'
 import { fetchAPI } from 'lib/fetchAPI'
 
 export async function unlikeHyperChat(
@@ -18,5 +18,6 @@ export async function unlikeHyperChat(
     throw new Error(`Failed to unlike: ${errorText}`)
   }
 
-  revalidateTag(getHyperChatTag(channelId), 'max')
+  updateTag(getHyperChatTag(channelId))
+  updateTag(HYPER_CHATS_LATEST)
 }
