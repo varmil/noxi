@@ -4,6 +4,7 @@ import { useFormatter, useNow, useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
+import { Link } from 'lib/navigation'
 import {
   TIER_BG_COLORS,
   TIER_BORDER_LEFT_COLORS,
@@ -17,6 +18,45 @@ interface Props {
   hyperChat: HyperChatSchema
   isLiked?: boolean
   className?: string
+}
+
+const AvatarContainer = ({
+  displayName,
+  src,
+  isAnonymous
+}: {
+  displayName: string
+  src?: string | null
+  isAnonymous?: boolean
+}) => {
+  return (
+    <Avatar className="size-7 shrink-0">
+      {!isAnonymous && <AvatarImage src={src || undefined} alt={displayName} />}
+      <AvatarFallback>{displayName.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar>
+  )
+}
+
+const DisplayName = ({
+  displayName,
+  tier,
+  isAnonymous
+}: {
+  displayName: string
+  tier: string
+  isAnonymous?: boolean
+}) => {
+  return (
+    <span
+      className={cn(
+        'line-clamp-1 break-all font-medium',
+        TIER_TEXT_MUTED_COLORS[tier],
+        !isAnonymous && 'hover:underline'
+      )}
+    >
+      {displayName}
+    </span>
+  )
 }
 
 export function HyperChatCard({
@@ -52,23 +92,37 @@ export function HyperChatCard({
     >
       {/* ヘッダー: アイコン + 表示名 + 金額 + 相対日時 */}
       <div className="text-sm mb-2 flex items-center gap-2">
-        <Avatar className="size-7 shrink-0">
-          {!hyperChat.isAnonymous && (
-            <AvatarImage
-              src={hyperChat.author.image || undefined}
-              alt={displayName}
+        {!hyperChat.isAnonymous && hyperChat.author.username ? (
+          <Link
+            href={`/users/${hyperChat.author.username}`}
+            className="flex items-center gap-2 min-w-0"
+            prefetch={false}
+          >
+            <AvatarContainer
+              displayName={displayName}
+              src={hyperChat.author.image}
+              isAnonymous={hyperChat.isAnonymous}
             />
-          )}
-          <AvatarFallback>{displayName.charAt(0).toUpperCase()}</AvatarFallback>
-        </Avatar>
-        <span
-          className={cn(
-            'line-clamp-1 break-all font-medium',
-            TIER_TEXT_MUTED_COLORS[tier]
-          )}
-        >
-          {displayName}
-        </span>
+            <DisplayName
+              displayName={displayName}
+              tier={tier}
+              isAnonymous={hyperChat.isAnonymous}
+            />
+          </Link>
+        ) : (
+          <div className="flex items-center gap-2 min-w-0">
+            <AvatarContainer
+              displayName={displayName}
+              src={null}
+              isAnonymous={hyperChat.isAnonymous}
+            />
+            <DisplayName
+              displayName={displayName}
+              tier={tier}
+              isAnonymous={hyperChat.isAnonymous}
+            />
+          </div>
+        )}
         <span className={cn('font-medium text-nowrap', TIER_TEXT_COLORS[tier])}>
           {amountDisplay}
         </span>
