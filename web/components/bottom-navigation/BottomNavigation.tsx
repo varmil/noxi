@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Activity, LucideLayoutDashboard, Search } from 'lucide-react'
+import { Activity, LucideLayoutDashboard, MessagesSquare, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -29,6 +29,12 @@ export default function BottomNavigation({ className }: Props) {
       icon: SuperChatIcon
     },
     {
+      pathname: '/hyper-chat',
+      isActive: pathname.startsWith('/hyper-chat'),
+      label: t('hyperChat'),
+      icon: MessagesSquare
+    },
+    {
       pathname: '/ranking/concurrent-viewer/live/all/realtime',
       isActive: pathname.startsWith('/ranking/concurrent-viewer'),
       label: t('live'),
@@ -49,7 +55,7 @@ export default function BottomNavigation({ className }: Props) {
     >
       {/* workaround: https://stackoverflow.com/questions/73891040/div-with-sticky-position-relative-to-the-bottom-jumps-around-when-scrolling */}
       <div className="fixed" />
-      <div className="grid h-full grid-cols-4 mx-auto">
+      <div className="grid h-full grid-cols-5 mx-auto">
         {navigation.map(item => {
           const isActive = (href: string) => {
             return item.isActive || pathname === href
@@ -69,7 +75,7 @@ export default function BottomNavigation({ className }: Props) {
             >
               <Link href={item.pathname} prefetch={false}>
                 <Icon className="size-6" />
-                <span className="text-xs">{item.label}</span>
+                <span className="text-xs whitespace-nowrap">{item.label}</span>
               </Link>
             </Button>
           )

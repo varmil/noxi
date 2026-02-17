@@ -184,6 +184,39 @@ export class HyperChatsController {
   }
 
   /**
+   * 全チャンネルのHyperChat一覧を取得（確定済みのみ）
+   */
+  @Get()
+  async findAll(@Query() dto: GetHyperChats) {
+    return await this.hyperChatsService.findAll({
+      where: {
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
+      },
+      orderBy: dto.toOrderBy() ?? [{ createdAt: 'desc' }],
+      limit: dto.toLimit(),
+      offset: dto.toOffset()
+    })
+  }
+
+  /**
+   * 全チャンネルのHyperChat件数を取得
+   */
+  @Get('count')
+  async count(@Query() dto: GetHyperChats) {
+    const count = await this.hyperChatsService.count({
+      where: {
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
+      }
+    })
+
+    return { count }
+  }
+
+  /**
    * 自分が送信したHyperChat一覧を取得
    */
   @Get('me')

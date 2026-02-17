@@ -13,7 +13,7 @@ export default function CtaSection() {
           <p className="mb-8 text-muted-foreground">{t('description')}</p>
 
           <Button asChild size="lg">
-            <Link href="#">{t('button')}</Link>
+            <Link href="/hyper-chat">{t('button')}</Link>
           </Button>
 
           <div className="mt-6 flex justify-center gap-4 text-xs text-muted-foreground">

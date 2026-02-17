@@ -445,6 +445,7 @@
       "home": "ホーム",
       "live": "同接数",
       "channels": "スパチャ金額",
+      "hyperChat": "ハイパーチャット",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
       "groups": "タレント検索"
@@ -502,7 +503,8 @@
       "groups": "グループ",
       "support": "サポート",
       "info": "情報",
-      "allGroup": "総合"
+      "allGroup": "総合",
+      "hyperChat": "ハイパーチャット"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",
@@ -753,6 +755,7 @@
     },
     "hyperChat": {
       "nav": "ハイパーチャット",
+      "toChannel": "To ",
       "button": {
         "label": "ハイパーチャットを投稿する"
       },
@@ -1208,6 +1211,14 @@
       "formPlaceholder": "申請フォームはここに表示されます",
       "historyPlaceholder": "申請履歴はここに表示されます"
     },
+    "hyperChatScramble": {
+      "metadata": {
+        "title": "ハイパーチャット一覧",
+        "description": "全チャンネルのハイパーチャットを一覧で確認できます。"
+      },
+      "title": "ハイパーチャット",
+      "aboutLink": "ハイパーチャットとは？"
+    },
     "hyperChatAbout": {
       "metadata": {
         "title": "ハイパーチャットとは",
@@ -1314,7 +1325,7 @@
       "cta": {
         "title": "言葉で推しを飛躍させよう",
         "description": "推しのページにあなたの熱いメッセージを残そう",
-        "button": "ハイパーチャットを投稿する",
+        "button": "最新のハイパーチャットを見る",
         "legal": {
           "tokushoho": "特定商取引法に基づく表記",
           "terms": "利用規約"

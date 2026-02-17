@@ -448,6 +448,7 @@
       "home": "Home",
       "live": "Live Viewer",
       "channels": "Super Chat",
+      "hyperChat": "Hyper Chat",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
       "groups": "Talents"
@@ -497,7 +498,8 @@
       "groups": "Groups",
       "support": "Support",
       "info": "Info",
-      "allGroup": "Overall"
+      "allGroup": "Overall",
+      "hyperChat": "Hyper Chat"
     },
     "loginBonus": {
       "title": "Daily login bonus!",
@@ -742,6 +744,7 @@
     },
     "hyperChat": {
       "nav": "HyperChat",
+      "toChannel": "To ",
       "button": {
         "label": "Post HyperChat"
       },
@@ -1204,6 +1207,14 @@
       "formPlaceholder": "Application form will be displayed here",
       "historyPlaceholder": "Application history will be displayed here"
     },
+    "hyperChatScramble": {
+      "metadata": {
+        "title": "Hyper Chat Timeline",
+        "description": "View hyper chats from all channels."
+      },
+      "title": "Hyper Chat",
+      "aboutLink": "What is Hyper Chat?"
+    },
     "hyperChatAbout": {
       "metadata": {
         "title": "What is HyperChat",
@@ -1310,7 +1321,7 @@
       "cta": {
         "title": "Send Your Message to Your Favorite",
         "description": "Leave your message on your favorite talent's channel page with HyperChat.",
-        "button": "Post a HyperChat",
+        "button": "See latest Hyper Chats",
         "legal": {
           "tokushoho": "Commercial Transaction Act Disclosure",
           "terms": "Terms of Service"
