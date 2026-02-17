@@ -834,6 +834,15 @@
       "anonymous": {
         "label": "Anonymous",
         "displayName": "Anonymous"
+      },
+      "delete": {
+        "menuLabel": "Delete HyperChat",
+        "title": "Delete this HyperChat?",
+        "description": "Once deleted, this post cannot be recovered. Type \"delete\" to confirm.",
+        "inputPlaceholder": "delete",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "deleting": "Deleting..."
       }
     },
     "hyperTrain": {

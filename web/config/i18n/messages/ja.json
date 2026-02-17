@@ -845,6 +845,15 @@
       "anonymous": {
         "label": "匿名",
         "displayName": "名無しさん"
+      },
+      "delete": {
+        "menuLabel": "ハイパーチャットを削除",
+        "title": "ハイパーチャットを削除しますか？",
+        "description": "一度削除した投稿は二度と復帰できません。削除するには「delete」と入力してください。",
+        "inputPlaceholder": "delete",
+        "confirm": "削除する",
+        "cancel": "キャンセル",
+        "deleting": "削除中..."
       }
     },
     "hyperTrain": {

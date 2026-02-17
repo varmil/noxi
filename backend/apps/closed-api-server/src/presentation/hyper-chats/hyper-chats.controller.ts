@@ -2,9 +2,11 @@ import {
   Body,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   HttpException,
   HttpStatus,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -286,5 +288,24 @@ export class HyperChatsController {
     })
 
     return { success: true }
+  }
+
+  /**
+   * HyperChatを削除（投稿者本人のみ）
+   */
+  @Delete(':id')
+  @UseGuards(JwtAuthGuard)
+  async deleteHyperChat(
+    @Req() req: { user: User },
+    @Param('id', ParseIntPipe) id: number
+  ) {
+    const hyperChat = await this.hyperChatsService.findById(new HyperChatId(id))
+    if (!hyperChat) {
+      throw new NotFoundException('HyperChat not found')
+    }
+    if (hyperChat.userId.get() !== req.user.id.get()) {
+      throw new ForbiddenException('You can only delete your own HyperChat')
+    }
+    await this.hyperChatsService.delete(new HyperChatId(id))
   }
 }

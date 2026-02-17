@@ -86,4 +86,9 @@ export interface HyperChatRepository {
    * チャンネルごとに最新1件のハイパーチャットを取得
    */
   findLatestPerChannel: (args: { limit: number }) => Promise<HyperChats>
+
+  /**
+   * ハイパーチャットを削除
+   */
+  delete: (id: HyperChatId) => Promise<void>
 }

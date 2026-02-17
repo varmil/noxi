@@ -24,6 +24,7 @@ import { HyperChatRotator } from './HyperChatRotator'
 interface Props {
   hyperChats: HyperChatSchema[]
   likedIds?: Set<number>
+  currentUserId?: number
   channelId: string
   channelTitle: string
   group: string
@@ -34,6 +35,7 @@ interface Props {
 export function HyperChatTimelineSheet({
   hyperChats,
   likedIds = new Set(),
+  currentUserId,
   channelId,
   channelTitle,
   group,
@@ -78,6 +80,7 @@ export function HyperChatTimelineSheet({
                 key={hyperChat.id}
                 hyperChat={hyperChat}
                 isLiked={likedIds.has(hyperChat.id)}
+                currentUserId={currentUserId}
               />
             ))}
           </div>

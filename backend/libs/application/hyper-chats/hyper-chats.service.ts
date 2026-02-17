@@ -48,6 +48,10 @@ export class HyperChatsService {
     return await this.hyperChatRepository.findLatestPerChannel(args)
   }
 
+  async delete(args: Parameters<HyperChatRepository['delete']>[0]) {
+    return await this.hyperChatRepository.delete(args)
+  }
+
   async findRecentByChannelIds(
     args: Parameters<HyperChatRepository['findRecentByChannelIds']>[0]
   ) {

@@ -205,6 +205,12 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     return new HyperChats(unique.map(row => this.toDomainWithUser(row)))
   }
 
+  delete: HyperChatRepository['delete'] = async id => {
+    await this.prismaInfraService.hyperChat.deleteMany({
+      where: { id: id.get() }
+    })
+  }
+
   private toDomain(row: {
     id: number
     userId: number

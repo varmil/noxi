@@ -1,6 +1,4 @@
-'use client'
-
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
@@ -10,15 +8,25 @@ import { Link } from 'lib/navigation'
 interface Props {
   hyperChat: HyperChatSchema
   isLiked?: boolean
+  currentUserId?: number
   channel?: ChannelSchema
 }
 
-export function ScrambleHyperChatCard({ hyperChat, isLiked, channel }: Props) {
-  const t = useTranslations('Features.hyperChat')
+export async function ScrambleHyperChatCard({
+  hyperChat,
+  isLiked,
+  currentUserId,
+  channel
+}: Props) {
+  const t = await getTranslations('Features.hyperChat')
 
   return (
     <div>
-      <HyperChatCard hyperChat={hyperChat} isLiked={isLiked} />
+      <HyperChatCard
+        hyperChat={hyperChat}
+        isLiked={isLiked}
+        currentUserId={currentUserId}
+      />
 
       {channel && (
         <Link

@@ -47,8 +47,9 @@ model HyperChat {
 
   order  HyperChatOrder?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   ticket HyperChatTicket? @relation(fields: [ticketId], references: [id])
-  user   User             @relation(fields: [userId], references: [id], onDelete: Cascade)
-  likes  HyperChatLike[]
+  user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes        HyperChatLike[]
+  contribution HyperTrainContribution?
 
   @@index([channelId, createdAt])
   @@index([userId, createdAt])

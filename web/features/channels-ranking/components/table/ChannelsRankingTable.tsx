@@ -62,12 +62,14 @@ export default async function ChannelsRankingTable({
   const isRegularSuperChat = isSuperChat && !isSnapshot
 
   const [
+    session,
     channels,
     supersSummaries,
     supersRankingHistories,
     snapshotRanking,
     recentHyperChats
   ] = await Promise.all([
+    auth(),
     getChannels({ ids: channelIds, limit: channelIds.length }),
     isRegularSuperChat
       ? getSupersSummaries({
@@ -117,7 +119,6 @@ export default async function ChannelsRankingTable({
   const allHyperChatIds = Object.values(recentHyperChats).flatMap(chats =>
     chats.map(chat => chat.id)
   )
-  const session = await auth()
   const likedIds =
     session && allHyperChatIds.length > 0
       ? await getLikedHyperChatIds(allHyperChatIds)
@@ -252,6 +253,11 @@ export default async function ChannelsRankingTable({
                       <HyperChatTimelineSheet
                         hyperChats={hyperChats}
                         likedIds={likedIds}
+                        currentUserId={
+                          session?.user?.id
+                            ? Number(session.user.id)
+                            : undefined
+                        }
                         channelId={channelId}
                         channelTitle={channel.basicInfo.title}
                         group={channel.peakX.group}

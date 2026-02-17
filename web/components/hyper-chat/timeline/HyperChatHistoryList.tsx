@@ -34,6 +34,7 @@ export async function HyperChatHistoryList({ hyperChats }: Props) {
           key={hyperChat.id}
           hyperChat={hyperChat}
           isLiked={likedIds.has(hyperChat.id)}
+          currentUserId={session?.user?.id ? Number(session.user.id) : undefined}
         />
       ))}
     </div>

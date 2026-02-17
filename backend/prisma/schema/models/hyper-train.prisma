@@ -30,6 +30,7 @@ model HyperTrainContribution {
   isAnonymous  Boolean  @default(false)
   createdAt    DateTime @default(now()) @db.Timestamptz(3)
 
+  hyperChat  HyperChat  @relation(fields: [hyperChatId], references: [id], onDelete: Cascade)
   hyperTrain HyperTrain @relation(fields: [hyperTrainId], references: [id], onDelete: Cascade)
 
   @@index([hyperTrainId, createdAt])

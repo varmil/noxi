@@ -11,12 +11,14 @@ import {
   TIER_TEXT_COLORS,
   TIER_TEXT_MUTED_COLORS
 } from '../tier-styles'
+import { HyperChatCardMenu } from './HyperChatCardMenu'
 import { HyperChatLikeButton } from './HyperChatLikeButton'
 import { HyperChatMessage } from './HyperChatMessage'
 
 interface Props {
   hyperChat: HyperChatSchema
   isLiked?: boolean
+  currentUserId?: number
   className?: string
 }
 
@@ -62,6 +64,7 @@ const DisplayName = ({
 export function HyperChatCard({
   hyperChat,
   isLiked = false,
+  currentUserId,
   className
 }: Props) {
   const format = useFormatter()
@@ -129,6 +132,14 @@ export function HyperChatCard({
         <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
           {format.relativeTime(hyperChat.createdAt, now)}
         </span>
+
+        {currentUserId === hyperChat.userId && (
+          <HyperChatCardMenu
+            hyperChatId={hyperChat.id}
+            channelId={hyperChat.channelId}
+            className="ml-auto"
+          />
+        )}
       </div>
 
       {/* メッセージ */}

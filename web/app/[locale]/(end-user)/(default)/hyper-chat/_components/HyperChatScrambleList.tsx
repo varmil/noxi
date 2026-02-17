@@ -35,6 +35,7 @@ export async function HyperChatScrambleList({ hyperChats, channelMap }: Props) {
           key={hyperChat.id}
           hyperChat={hyperChat}
           isLiked={likedIds.has(hyperChat.id)}
+          currentUserId={session?.user?.id ? Number(session.user.id) : undefined}
           channel={channelMap.get(hyperChat.channelId)}
         />
       ))}
