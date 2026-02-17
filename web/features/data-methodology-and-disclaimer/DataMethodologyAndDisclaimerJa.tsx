@@ -34,9 +34,9 @@ export default function DataMethodologyAndDisclaimerJa() {
             <div className="rounded-lg border p-3">
               <p className="text-xs text-muted-foreground">集計対象</p>
               <p className="text-lg font-semibold">
-                VCharts登録済みタレント 846名
+                VCharts登録済みタレント 933名
               </p>
-              <p className="text-xs text-muted-foreground">2025年12月時点</p>
+              <p className="text-xs text-muted-foreground">2026年2月時点</p>
             </div>
           </CardContent>
         </Card>
