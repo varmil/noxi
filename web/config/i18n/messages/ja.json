@@ -848,7 +848,9 @@
       }
     },
     "hyperTrain": {
-      "ticker": {},
+      "ticker": {
+        "active": "ハイパートレイン発生中 !!"
+      },
       "card": {
         "totalPoints": "{points}pt",
         "contributors": "{count}人参加",

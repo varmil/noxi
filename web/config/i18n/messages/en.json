@@ -837,7 +837,9 @@
       }
     },
     "hyperTrain": {
-      "ticker": {},
+      "ticker": {
+        "active": "HyperTrain Active !!"
+      },
       "card": {
         "totalPoints": "{points}pt",
         "contributors": "{count} participants",
