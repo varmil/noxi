@@ -154,7 +154,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
           createdAt: { gte: twentyFourHoursAgo }
         },
         include: { user: { include: { userProfile: true } } },
-        orderBy: { createdAt: 'desc' }
+        orderBy: [{ amount: 'desc' }, { createdAt: 'desc' }]
       })
 
       const result = new Map<string, HyperChats>()

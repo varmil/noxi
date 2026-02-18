@@ -75,7 +75,7 @@ export function HyperChatTimelineSheet({
 
         <ScrollArea className="flex-1 min-h-0">
           <div className="flex flex-col gap-3 px-3 pb-6">
-            {hyperChats.slice(0, 10).map(hyperChat => (
+            {hyperChats.slice(0, 20).map(hyperChat => (
               <HyperChatCard
                 key={hyperChat.id}
                 hyperChat={hyperChat}
@@ -85,7 +85,7 @@ export function HyperChatTimelineSheet({
             ))}
           </div>
 
-          {hyperChats.length > 10 && (
+          {hyperChats.length > 20 && (
             <div className="mt-4 px-3">
               <Button variant="outline" className="w-full" asChild>
                 <Link href={`/${group}/channels/${channelId}/hyper-chat`}>

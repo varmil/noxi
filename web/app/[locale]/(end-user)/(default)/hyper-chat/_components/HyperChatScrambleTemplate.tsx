@@ -14,7 +14,7 @@ type Props = {
   page: number
 }
 
-const PAGE_SIZE = 50
+const PAGE_SIZE = 30
 
 export async function HyperChatScrambleTemplate({ page }: Props) {
   const t = await getTranslations('Pages.hyperChatScramble')
