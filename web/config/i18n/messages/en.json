@@ -1275,7 +1275,8 @@
       },
       "note": {
         "description": "Posts deemed to be fraudulent or otherwise in violation may be removed in accordance with our Terms of Service."
-      }
+      },
+      "backLink": "Back to HyperChat"
     },
     "hyperChatAbout": {
       "metadata": {
