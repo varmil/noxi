@@ -1224,7 +1224,58 @@
         "description": "View hyper chats from all channels."
       },
       "title": "Hyper Chat",
-      "aboutLink": "What is Hyper Chat?"
+      "aboutLink": "What is Hyper Chat?",
+      "guidelineLink": "Posting Guidelines"
+    },
+    "hyperChatGuideline": {
+      "metadata": {
+        "title": "HyperChat Posting Guidelines",
+        "description": "Learn about the posting rules and content quality management for HyperChat."
+      },
+      "hero": {
+        "title": "Posting Guidelines"
+      },
+      "guideline": {
+        "title": "Guidelines",
+        "recommended": {
+          "title": "Recommended",
+          "items": {
+            "positive": "Positive expressions and celebrations",
+            "original": "Your own words, experiences, and unique perspectives",
+            "insightful": "Interesting information and insightful analysis"
+          }
+        },
+        "acceptable": {
+          "title": "OK",
+          "items": {
+            "introduction": "Introducing a talent's appeal to newcomers",
+            "event": "Event announcements (please include your own thoughts on why you're excited, adding your unique perspective)",
+            "discussion": "Questions and constructive discussions (please be mindful to keep things positive)"
+          }
+        },
+        "prohibited": {
+          "title": "Not Allowed",
+          "items": {
+            "illegal": "Content that violates laws or public order and morals",
+            "rumor": "Speculation, hearsay, falsehoods, or rumors",
+            "offensive": "Content that causes strong shock or discomfort to readers"
+          }
+        }
+      },
+      "moderation": {
+        "title": "Maintaining and Improving Message Quality",
+        "manual": {
+          "title": "Manual Review by Staff",
+          "description": "At VCharts, we recognize our social responsibility as a media platform that shares user-generated content on the internet, and we strive to avoid any negative impact on society."
+        },
+        "ai": {
+          "title": "Monitoring with Latest AI Models",
+          "description": "We use the latest models provided by OpenAI to check whether text and images are potentially harmful. We take corrective actions such as filtering harmful content and intervening with problematic user accounts."
+        }
+      },
+      "note": {
+        "description": "Posts deemed to be fraudulent or otherwise in violation may be removed in accordance with our Terms of Service."
+      }
     },
     "hyperChatAbout": {
       "metadata": {

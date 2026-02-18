@@ -1,4 +1,4 @@
-import { Lightbulb } from 'lucide-react'
+import { BookOpen, Lightbulb } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import {
   getAllHyperChats,
@@ -61,7 +61,7 @@ export async function HyperChatScrambleTemplate({ page }: Props) {
 
   return (
     <div className="w-full max-w-[550px] mx-auto">
-      <div className="flex items-center justify-end mb-12">
+      <div className="flex flex-col items-end justify-end gap-2 mb-12">
         <Link
           href="/hyper-chat/about"
           prefetch={false}
@@ -69,6 +69,14 @@ export async function HyperChatScrambleTemplate({ page }: Props) {
         >
           <Lightbulb className="mr-1 size-4" />
           {t('aboutLink')}
+        </Link>
+        <Link
+          href="/hyper-chat/guideline"
+          prefetch={false}
+          className="flex items-center text-sm text-muted-foreground hover:underline"
+        >
+          <BookOpen className="mr-1 size-4" />
+          {t('guidelineLink')}
         </Link>
       </div>
 
