@@ -18,7 +18,7 @@ export class CreateHyperChatPaymentIntent {
   tier: TierValue
 
   @IsString()
-  @MaxLength(300) // special tier allows 300 chars, empty allowed (無言スパチャ)
+  @MaxLength(1000) // special tier allows 1000 chars, empty allowed (無言スパチャ)
   message: string
 
   @IsBoolean()

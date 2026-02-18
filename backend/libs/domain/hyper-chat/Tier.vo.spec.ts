@@ -47,10 +47,10 @@ describe('Tier Value Object', () => {
     })
 
     it('should return correct maxChars for each tier', () => {
-      expect(new Tier('lite').getMaxChars()).toBe(60)
-      expect(new Tier('standard').getMaxChars()).toBe(140)
-      expect(new Tier('premium').getMaxChars()).toBe(200)
-      expect(new Tier('special').getMaxChars()).toBe(300)
+      expect(new Tier('lite').getMaxChars()).toBe(140)
+      expect(new Tier('standard').getMaxChars()).toBe(300)
+      expect(new Tier('premium').getMaxChars()).toBe(500)
+      expect(new Tier('special').getMaxChars()).toBe(1000)
     })
   })
 

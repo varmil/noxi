@@ -52,7 +52,9 @@ export default function TierTable() {
                       : `¥${config.price.toLocaleString()}`}
                   </TableCell>
                   <TableCell className="whitespace-nowrap">
-                    {t('charsUnit', { count: config.maxChars })}
+                    {t('charsUnit', {
+                      count: config.maxChars.toLocaleString()
+                    })}
                   </TableCell>
                   <TableCell className="whitespace-nowrap">
                     {features[0]}

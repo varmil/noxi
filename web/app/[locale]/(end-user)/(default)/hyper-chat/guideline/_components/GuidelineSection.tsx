@@ -1,11 +1,6 @@
 import { Ban, CheckCircle2, LucideIcon, ThumbsUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 function CategoryCard({
   icon: Icon,
@@ -37,7 +32,7 @@ function CategoryCard({
               key={key}
               className="flex items-start gap-2 text-sm text-muted-foreground"
             >
-              <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-current" />
+              <span className="mt-1.5 block size-1.5 shrink-0 rounded-full bg-current" />
               {label}
             </li>
           ))}

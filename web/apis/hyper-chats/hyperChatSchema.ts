@@ -8,10 +8,10 @@ export type PaidTierValue = (typeof PAID_TIERS)[number]
 
 export const TIER_CONFIG = {
   free: { price: 0, maxChars: 60 },
-  lite: { price: 300, maxChars: 60 },
-  standard: { price: 1000, maxChars: 140 },
-  premium: { price: 3000, maxChars: 200 },
-  special: { price: 10000, maxChars: 300 }
+  lite: { price: 300, maxChars: 140 },
+  standard: { price: 1000, maxChars: 300 },
+  premium: { price: 3000, maxChars: 500 },
+  special: { price: 10000, maxChars: 1000 }
 } as const
 
 export const schema = z.object({
