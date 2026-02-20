@@ -78,7 +78,9 @@
     "superChatChannelsRanking": "Super Chat Ranking (Channels)",
     "superChatLiveRanking": "Super Chat Ranking (Live)",
     "subscriberRanking": "Subscriber Ranking",
-    "concurrentViewerRanking": "Concurrent Viewer Ranking"
+    "concurrentViewerRanking": "Concurrent Viewer Ranking",
+    "hyperChat": "HyperChat",
+    "posterRanking": "Poster Ranking"
   },
 
   "Page": {
@@ -264,6 +266,12 @@
           "metadata": {
             "title": "{channel} HyperChat History",
             "description": "View HyperChat history for {channel}. Post your message too!"
+          },
+          "posterRanking": {
+            "metadata": {
+              "title": "{channel} Poster Ranking",
+              "description": "View the HyperChat poster ranking for {channel}."
+            }
           }
         },
         "hyperTrain": {
@@ -843,6 +851,12 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "deleting": "Deleting..."
+      },
+      "posterRanking": {
+        "title": "Poster Ranking",
+        "backLink": "Back",
+        "empty": "No HyperChats yet",
+        "yenAmount": "¥{amount}"
       }
     },
     "hyperTrain": {

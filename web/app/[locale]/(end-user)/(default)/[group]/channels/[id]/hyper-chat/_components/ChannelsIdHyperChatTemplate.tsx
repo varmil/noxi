@@ -86,7 +86,12 @@ export async function ChannelsIdHyperChatTemplate({
           className="hidden lg:block lg:col-span-4 lg:sticky lg:top-16 lg:self-start"
           title={t('stats')}
         >
-          <HyperChatStats totalAmount={totalAmount} posterCount={posterCount} />
+          <HyperChatStats
+            totalAmount={totalAmount}
+            posterCount={posterCount}
+            channelId={channelId}
+            group={group}
+          />
           <div className="mt-4">
             <HyperChatButton
               channelId={channelId}

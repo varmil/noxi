@@ -53,7 +53,12 @@ export async function ChannelProfile({
 
         {/* HyperChat Stats & Button Section */}
         <div className="min-w-[240px] shrink-0 flex flex-col items-center gap-4 @2xl:mt-2">
-          <HyperChatStats totalAmount={totalAmount} posterCount={posterCount} />
+          <HyperChatStats
+            totalAmount={totalAmount}
+            posterCount={posterCount}
+            channelId={basicInfo.id}
+            group={groupId}
+          />
           <HyperChatButton
             channelId={basicInfo.id}
             channelTitle={basicInfo.title}

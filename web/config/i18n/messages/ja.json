@@ -74,7 +74,9 @@
     "superChatChannelsRanking": "スパチャランキング（チャンネル集計）",
     "superChatLiveRanking": "スパチャランキング（ライブ集計）",
     "subscriberRanking": "チャンネル登録者数ランキング",
-    "concurrentViewerRanking": "同接数ランキング"
+    "concurrentViewerRanking": "同接数ランキング",
+    "hyperChat": "ハイパーチャット",
+    "posterRanking": "投稿者ランキング"
   },
   "Page": {
     "index": {
@@ -265,6 +267,12 @@
           "metadata": {
             "title": "{channel} ハイパーチャット履歴",
             "description": "「{channel}」に投稿されたハイパーチャットの履歴を確認できます。あなたもメッセージを投稿しよう！"
+          },
+          "posterRanking": {
+            "metadata": {
+              "title": "{channel} 投稿者ランキング",
+              "description": "「{channel}」へのハイパーチャット投稿者ランキングを確認できます。"
+            }
           }
         },
         "hyperTrain": {
@@ -854,6 +862,12 @@
         "confirm": "削除する",
         "cancel": "キャンセル",
         "deleting": "削除中..."
+      },
+      "posterRanking": {
+        "title": "投稿者ランキング",
+        "backLink": "戻る",
+        "empty": "まだハイパーチャットの投稿はありません",
+        "yenAmount": "¥{amount}"
       }
     },
     "hyperTrain": {
@@ -1354,7 +1368,7 @@
             "hyperChat": "メッセージの蓄積",
             "superChat": "一瞬で流れる",
             "membership": "コンテンツ次第",
-            "sns": "多すぎて流れる"
+            "sns": "鮮度が命"
           },
           "talentBurden": {
             "label": "タレントの負担",
