@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "prepare": "git config --local core.hooksPath .githooks",
-    "i": "npm i && cd web && npm i && cd ../backend && npm i",
+    "i": "npm i && cd web && npm i && npm audit fix && cd ../backend && npm i && npm audit fix",
     "lint:web": "cd web && npm run lint",
     "lint:backend": "cd backend && npm run lint",
     "emulator": "firebase emulators:start --import=./firebase-emulator-data --export-on-exit",
