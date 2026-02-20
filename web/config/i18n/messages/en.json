@@ -1272,7 +1272,8 @@
           "items": {
             "illegal": "Content that violates laws or public order and morals",
             "rumor": "Speculation, hearsay, falsehoods, or rumors",
-            "offensive": "Content that causes strong shock or discomfort to readers"
+            "offensive": "Content that causes strong shock or discomfort to readers",
+            "irrelevant": "Content unrelated to the talent"
           }
         }
       },

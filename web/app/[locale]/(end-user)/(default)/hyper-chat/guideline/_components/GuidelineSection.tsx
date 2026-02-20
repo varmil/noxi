@@ -86,7 +86,8 @@ export default function GuidelineSection() {
             items={[
               { key: 'illegal', label: t('prohibited.items.illegal') },
               { key: 'rumor', label: t('prohibited.items.rumor') },
-              { key: 'offensive', label: t('prohibited.items.offensive') }
+              { key: 'offensive', label: t('prohibited.items.offensive') },
+              { key: 'irrelevant', label: t('prohibited.items.irrelevant') }
             ]}
           />
         </div>
