@@ -18,7 +18,7 @@ const navItems = [
     icon: User
   },
   {
-    title: '応援チケット',
+    title: 'チケット',
     href: '/dashboard/tickets',
     icon: Tickets
   },

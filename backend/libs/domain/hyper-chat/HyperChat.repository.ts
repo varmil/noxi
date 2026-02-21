@@ -17,6 +17,7 @@ interface FindAllWhere {
   userId?: UserId
   group?: GroupId
   gender?: Gender
+  tier?: Tier
   createdAt?: { gte?: Date; lte?: Date }
 }
 

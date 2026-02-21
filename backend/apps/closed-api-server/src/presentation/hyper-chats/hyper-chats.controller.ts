@@ -115,6 +115,7 @@ export class HyperChatsController {
         channelId: new ChannelId(channelId),
         group: dto.toGroup(),
         gender: dto.toGender(),
+        tier: dto.toTier(),
         createdAt: dto.toCreatedAt()
       },
       orderBy: dto.toOrderBy(),
@@ -194,6 +195,7 @@ export class HyperChatsController {
       where: {
         group: dto.toGroup(),
         gender: dto.toGender(),
+        tier: dto.toTier(),
         createdAt: dto.toCreatedAt()
       },
       orderBy: dto.toOrderBy() ?? [{ createdAt: 'desc' }],
@@ -229,7 +231,8 @@ export class HyperChatsController {
   ) {
     const hyperChats = await this.hyperChatsService.findAll({
       where: {
-        userId: req.user.id
+        userId: req.user.id,
+        tier: dto.toTier()
       },
       orderBy: dto.toOrderBy() ?? [{ createdAt: 'desc' }],
       limit: dto.toLimit(),

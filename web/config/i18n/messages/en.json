@@ -184,6 +184,17 @@
       "mypage": {
         "title": "Your Public Profile URL",
         "description": "Access this URL to view your profile."
+      },
+      "tickets": {
+        "title": "Tickets",
+        "description": "View your Hyper Chat ticket balance and usage history",
+        "remainingTickets": "Remaining Tickets",
+        "count": "{count} tickets",
+        "nearestExpiration": "Nearest Expiration",
+        "noTickets": "No valid tickets available",
+        "usageHistory": "Usage History",
+        "noUsageHistory": "No usage history yet",
+        "usedOn": "Used on {date}"
       }
     },
 

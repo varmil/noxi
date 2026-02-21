@@ -8,6 +8,7 @@ import {
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { GroupId } from '@domain/group'
+import { TIERS, Tier, TierValue } from '@domain/hyper-chat'
 import { Gender, GenderString, GenderStrings } from '@domain/lib/gender'
 import { ChannelId } from '@domain/youtube'
 
@@ -25,6 +26,10 @@ export class GetHyperChats {
   @IsIn(GenderStrings)
   @IsOptional()
   gender?: GenderString
+
+  @IsOptional()
+  @IsIn(TIERS)
+  tier?: TierValue
 
   @IsOptional()
   @IsDateString()
@@ -50,6 +55,8 @@ export class GetHyperChats {
   toGroup = () => (this.group ? new GroupId(this.group) : undefined)
 
   toGender = () => (this.gender ? new Gender(this.gender) : undefined)
+
+  toTier = () => (this.tier ? new Tier(this.tier) : undefined)
 
   toCreatedAt = () =>
     this.createdAfter ? { gte: new Date(this.createdAfter) } : undefined

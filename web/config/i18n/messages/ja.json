@@ -175,6 +175,17 @@
       "mypage": {
         "title": "公開プロフィールURL",
         "description": "他ユーザーから見たあなたのプロフィールの見え方を確認できます。"
+      },
+      "tickets": {
+        "title": "チケット",
+        "description": "ハイパーチャットチケットの残数と使用履歴",
+        "remainingTickets": "保有無料チケット",
+        "count": "{count}枚",
+        "nearestExpiration": "最短有効期限",
+        "noTickets": "有効なチケットはありません",
+        "usageHistory": "使用履歴",
+        "noUsageHistory": "使用履歴はまだありません",
+        "usedOn": "{date}に使用"
       }
     },
     "groups": {
