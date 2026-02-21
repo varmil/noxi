@@ -39,7 +39,7 @@ export function HyperChatButton({
     <>
       <Button
         // transition-none is for Safari workaround
-        className="w-full bg-linear-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
+        className="w-full rounded-4xl shadow-sm bg-linear-to-r from-pink-500 to-rose-500 text-white hover:from-pink-600 hover:to-rose-600 transition-none"
         onClick={handleButtonClick}
       >
         <MessagesSquare className="size-4 mr-1" />
