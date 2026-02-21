@@ -32,7 +32,7 @@ const AvatarContainer = ({
   isAnonymous?: boolean
 }) => {
   return (
-    <Avatar className="size-7 shrink-0">
+    <Avatar className="size-6 shrink-0">
       {!isAnonymous && <AvatarImage src={src || undefined} alt={displayName} />}
       <AvatarFallback>{displayName.charAt(0).toUpperCase()}</AvatarFallback>
     </Avatar>
@@ -83,9 +83,9 @@ export function HyperChatCard({
   return (
     <div
       className={cn(
-        'rounded-lg px-1 py-3 min-h-[56px]',
+        'rounded-lg px-1 py-3 min-h-[56px] flex gap-2',
         !isFreeTier && [
-          'px-4 border-l-4',
+          'pl-3 pr-4 border-l-4',
           TIER_BG_COLORS[tier],
           TIER_BORDER_LEFT_COLORS[tier]
         ],
@@ -93,67 +93,79 @@ export function HyperChatCard({
       )}
       data-testid="hyper-chat-card"
     >
-      {/* ヘッダー: アイコン + 表示名 + 金額 + 相対日時 */}
-      <div className="text-sm mb-2 flex items-center gap-2">
+      {/* アバター */}
+      <div className="shrink-0 pt-0.5">
         {!hyperChat.isAnonymous && hyperChat.author.username ? (
-          <Link
-            href={`/users/${hyperChat.author.username}`}
-            className="flex items-center gap-2 min-w-0"
-            prefetch={false}
-          >
+          <Link href={`/users/${hyperChat.author.username}`} prefetch={false}>
             <AvatarContainer
               displayName={displayName}
               src={hyperChat.author.image}
               isAnonymous={hyperChat.isAnonymous}
             />
-            <DisplayName
-              displayName={displayName}
-              tier={tier}
-              isAnonymous={hyperChat.isAnonymous}
-            />
           </Link>
         ) : (
-          <div className="flex items-center gap-2 min-w-0">
-            <AvatarContainer
-              displayName={displayName}
-              src={null}
-              isAnonymous={hyperChat.isAnonymous}
-            />
-            <DisplayName
-              displayName={displayName}
-              tier={tier}
-              isAnonymous={hyperChat.isAnonymous}
-            />
-          </div>
-        )}
-        <span className={cn('font-medium text-nowrap', TIER_TEXT_COLORS[tier])}>
-          {amountDisplay}
-        </span>
-        <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
-          {format.relativeTime(hyperChat.createdAt, now)}
-        </span>
-
-        {currentUserId === hyperChat.userId && (
-          <HyperChatCardMenu
-            hyperChatId={hyperChat.id}
-            channelId={hyperChat.channelId}
-            className="ml-auto"
+          <AvatarContainer
+            displayName={displayName}
+            src={null}
+            isAnonymous={hyperChat.isAnonymous}
           />
         )}
       </div>
 
-      {/* メッセージ */}
-      <HyperChatMessage tier={tier} message={hyperChat.message} />
+      {/* 右側: ヘッダー + 本文 + いいね */}
+      <div className="min-w-0 flex-1">
+        {/* ヘッダー: 表示名 + 金額 + 相対日時 */}
+        <div className="text-sm mb-1 flex items-center gap-2">
+          {!hyperChat.isAnonymous && hyperChat.author.username ? (
+            <Link
+              href={`/users/${hyperChat.author.username}`}
+              className="min-w-0"
+              prefetch={false}
+            >
+              <DisplayName
+                displayName={displayName}
+                tier={tier}
+                isAnonymous={hyperChat.isAnonymous}
+              />
+            </Link>
+          ) : (
+            <DisplayName
+              displayName={displayName}
+              tier={tier}
+              isAnonymous={hyperChat.isAnonymous}
+            />
+          )}
+          <span
+            className={cn('font-medium text-nowrap', TIER_TEXT_COLORS[tier])}
+          >
+            {amountDisplay}
+          </span>
+          <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
+            {format.relativeTime(hyperChat.createdAt, now)}
+          </span>
 
-      {/* いいねボタン */}
-      <div className="mt-3">
-        <HyperChatLikeButton
-          hyperChatId={hyperChat.id}
-          channelId={hyperChat.channelId}
-          tier={tier}
-          likeCount={hyperChat.likeCount}
-          isLiked={isLiked}
-        />
+          {currentUserId === hyperChat.userId && (
+            <HyperChatCardMenu
+              hyperChatId={hyperChat.id}
+              channelId={hyperChat.channelId}
+              className="ml-auto"
+            />
+          )}
+        </div>
+
+        {/* メッセージ */}
+        <HyperChatMessage tier={tier} message={hyperChat.message} />
+
+        {/* いいねボタン */}
+        <div className="mt-3">
+          <HyperChatLikeButton
+            hyperChatId={hyperChat.id}
+            channelId={hyperChat.channelId}
+            tier={tier}
+            likeCount={hyperChat.likeCount}
+            isLiked={isLiked}
+          />
+        </div>
       </div>
     </div>
   )
