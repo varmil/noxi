@@ -3,6 +3,7 @@ import { GroupId } from '@domain/group'
 import { IsAnonymous } from '@domain/hyper-chat'
 import {
   HyperTrain,
+  HyperTrainContributionStats,
   HyperTrainContributor,
   HyperTrainContributors,
   HyperTrainId,
@@ -12,6 +13,8 @@ import {
   Point,
   TotalPoint
 } from '@domain/hyper-train'
+import { ParticipationCount } from '@domain/hyper-train/contribution-stats/ParticipationCount.vo'
+import { TopContributorCount } from '@domain/hyper-train/contribution-stats/TopContributorCount.vo'
 import { AnonymousUserId, UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
@@ -150,6 +153,74 @@ export class HyperTrainRepositoryImpl implements HyperTrainRepository {
       }
     })
   }
+
+  findContributionStatsByUserId: HyperTrainRepository['findContributionStatsByUserId'] =
+    async userId => {
+      const uid = userId.get()
+
+      // 参加回数 + 総ポイント
+      const basicStats = await this.prismaInfraService.$queryRaw<
+        { participationCount: bigint; totalPoint: string | null }[]
+      >`
+        SELECT
+          COUNT(DISTINCT "hyperTrainId") as "participationCount",
+          COALESCE(SUM("point"), 0) as "totalPoint"
+        FROM "HyperTrainContribution"
+        WHERE "userId" = ${uid}
+      `
+
+      // 貢献1位回数
+      const topStats = await this.prismaInfraService.$queryRaw<
+        { topCount: bigint }[]
+      >`
+        SELECT COUNT(*) as "topCount"
+        FROM (
+          SELECT "hyperTrainId"
+          FROM "HyperTrainContribution"
+          GROUP BY "hyperTrainId", "userId"
+          HAVING "userId" = ${uid}
+             AND SUM("point") >= ALL(
+               SELECT SUM(htc2."point")
+               FROM "HyperTrainContribution" htc2
+               WHERE htc2."hyperTrainId" = "HyperTrainContribution"."hyperTrainId"
+               GROUP BY htc2."userId"
+             )
+        ) sub
+      `
+
+      // 最貢献チャンネル
+      const channelStats = await this.prismaInfraService.$queryRaw<
+        { channelId: string; channelPoint: string | null }[]
+      >`
+        SELECT ht."channelId", SUM(htc."point") as "channelPoint"
+        FROM "HyperTrainContribution" htc
+        JOIN "HyperTrain" ht ON ht.id = htc."hyperTrainId"
+        WHERE htc."userId" = ${uid}
+        GROUP BY ht."channelId"
+        ORDER BY "channelPoint" DESC
+        LIMIT 1
+      `
+
+      const basic = basicStats[0]
+      const top = topStats[0]
+      const channel = channelStats[0]
+
+      return new HyperTrainContributionStats({
+        participationCount: new ParticipationCount(
+          Number(basic?.participationCount ?? 0)
+        ),
+        topContributorCount: new TopContributorCount(
+          Number(top?.topCount ?? 0)
+        ),
+        totalPoint: new Point(Number(basic?.totalPoint ?? 0)),
+        mostContributedChannelId: channel?.channelId
+          ? new ChannelId(channel.channelId)
+          : null,
+        mostContributedChannelPoint: new Point(
+          Number(channel?.channelPoint ?? 0)
+        )
+      })
+    }
 
   update: HyperTrainRepository['update'] = async ({ id, data }) => {
     await this.prismaInfraService.hyperTrain.update({

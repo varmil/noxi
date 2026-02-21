@@ -2,6 +2,7 @@ import { GroupId } from '@domain/group'
 import { HyperChatId, IsAnonymous } from '@domain/hyper-chat'
 import {
   HyperTrain,
+  HyperTrainContributionStats,
   HyperTrainId,
   HyperTrains,
   Level,
@@ -90,4 +91,11 @@ export interface HyperTrainRepository {
       expiresAt?: Date
     }
   }) => Promise<void>
+
+  /**
+   * ユーザーのハイパートレイン貢献統計を取得
+   */
+  findContributionStatsByUserId: (
+    userId: UserId
+  ) => Promise<HyperTrainContributionStats>
 }

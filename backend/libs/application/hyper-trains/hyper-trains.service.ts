@@ -1,5 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { HyperTrainRepository, TRAIN_COOLDOWN_HOURS } from '@domain/hyper-train'
+import {
+  HyperTrainRepository,
+  TRAIN_COOLDOWN_HOURS
+} from '@domain/hyper-train'
+import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
 @Injectable()
@@ -70,5 +74,9 @@ export class HyperTrainsService {
 
   async update(args: Parameters<HyperTrainRepository['update']>[0]) {
     return await this.hyperTrainRepository.update(args)
+  }
+
+  async findContributionStatsByUserId(userId: UserId) {
+    return await this.hyperTrainRepository.findContributionStatsByUserId(userId)
   }
 }

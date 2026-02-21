@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Query } from '@nestjs/common'
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common'
 import { GetHyperTrains } from '@presentation/hyper-trains/dto/GetHyperTrains.dto'
 import { HyperTrainsScenario } from '@presentation/hyper-trains/hyper-trains.scenario'
+import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
 @Controller('hyper-trains')
@@ -42,6 +43,18 @@ export class HyperTrainsController {
   async getIncomingStatus(@Param('channelId') channelId: string) {
     return await this.hyperTrainsScenario.getIncomingStatus(
       new ChannelId(channelId)
+    )
+  }
+
+  /**
+   * ユーザーのハイパートレイン貢献統計を取得
+   */
+  @Get('contributions/users/:userId/stats')
+  async getUserContributionStats(
+    @Param('userId', ParseIntPipe) userId: number
+  ) {
+    return await this.hyperTrainsScenario.getUserContributionStats(
+      new UserId(userId)
     )
   }
 }

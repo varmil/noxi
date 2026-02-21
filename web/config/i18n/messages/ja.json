@@ -1160,6 +1160,24 @@
         "title": "応援スタッツ",
         "consumeCount": "チケット使用数",
         "rank": "ファン順位"
+      },
+      "hyperTrainStats": {
+        "title": "ハイパートレイン参加統計",
+        "participationCount": "参加回数",
+        "topContributorCount": "貢献１位回数",
+        "totalPoint": "総貢献ポイント",
+        "mostContributedTalent": "最も貢献したタレント"
+      },
+      "hyperChatTimeline": {
+        "empty": "ハイパーチャットの履歴はありません",
+        "posted": "ハイパーチャットを投稿",
+        "tierDescription": "Tier {tier} の投稿をしました",
+        "freeTicket": "無料チケット",
+        "detail": "詳細",
+        "amount": "金額",
+        "destination": "投稿先",
+        "countActivities": "{count}件のアクティビティ",
+        "badge": "投稿"
       }
     },
     "schedule": {

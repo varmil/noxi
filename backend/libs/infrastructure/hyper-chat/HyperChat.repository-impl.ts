@@ -68,6 +68,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
         group: where.group?.get(),
         gender: where.gender?.get(),
         tier: where.tier?.get(),
+        isAnonymous: where.isAnonymous?.get(),
         createdAt: where.createdAt
           ? {
               gte: where.createdAt.gte,

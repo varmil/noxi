@@ -1155,6 +1155,24 @@
         "title": "Cheer Stats",
         "consumeCount": "Tickets used",
         "rank": "Fan ranking"
+      },
+      "hyperTrainStats": {
+        "title": "Hyper Train Stats",
+        "participationCount": "Participations",
+        "topContributorCount": "Top Contributor",
+        "totalPoint": "Total Points",
+        "mostContributedTalent": "Most Supported Talent"
+      },
+      "hyperChatTimeline": {
+        "empty": "No hyper chat history",
+        "posted": "Posted a Hyper Chat",
+        "tierDescription": "Posted a Tier {tier} message",
+        "freeTicket": "Free Ticket",
+        "detail": "Details",
+        "amount": "Amount",
+        "destination": "Sent to",
+        "countActivities": "{count} activities",
+        "badge": "Post"
       }
     },
     "schedule": {

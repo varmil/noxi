@@ -193,6 +193,8 @@ export class HyperChatsController {
   async findAll(@Query() dto: GetHyperChats) {
     return await this.hyperChatsService.findAll({
       where: {
+        userId: dto.toUserId(),
+        isAnonymous: dto.toIsAnonymous(),
         group: dto.toGroup(),
         gender: dto.toGender(),
         tier: dto.toTier(),

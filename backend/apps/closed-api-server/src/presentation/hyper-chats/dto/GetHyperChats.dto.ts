@@ -1,5 +1,6 @@
-import { Type } from 'class-transformer'
+import { Transform, Type } from 'class-transformer'
 import {
+  IsBoolean,
   IsDateString,
   IsIn,
   IsInt,
@@ -8,13 +9,28 @@ import {
 } from 'class-validator'
 import { OrderByDto } from '@presentation/dto/OrderByDto'
 import { GroupId } from '@domain/group'
-import { TIERS, Tier, TierValue } from '@domain/hyper-chat'
+import { IsAnonymous, TIERS, Tier, TierValue } from '@domain/hyper-chat'
 import { Gender, GenderString, GenderStrings } from '@domain/lib/gender'
+import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
 type SortableField = 'createdAt' | 'tier' | 'likeCount' | 'amount'
 
 export class GetHyperChats {
+  @IsOptional()
+  @IsInt()
+  @Type(() => Number)
+  userId?: number
+
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }: { value: string | boolean }) => {
+    if (value === 'true') return true
+    if (value === 'false') return false
+    return value as boolean
+  })
+  isAnonymous?: boolean
+
   @IsOptional()
   @IsString()
   channelId?: string
@@ -48,6 +64,14 @@ export class GetHyperChats {
   @IsInt()
   @Type(() => Number)
   offset?: number
+
+  toUserId = () =>
+    this.userId !== undefined ? new UserId(this.userId) : undefined
+
+  toIsAnonymous = () =>
+    this.isAnonymous !== undefined
+      ? new IsAnonymous(this.isAnonymous)
+      : undefined
 
   toChannelId = () =>
     this.channelId ? new ChannelId(this.channelId) : undefined

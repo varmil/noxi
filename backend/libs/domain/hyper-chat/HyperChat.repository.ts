@@ -18,6 +18,7 @@ interface FindAllWhere {
   group?: GroupId
   gender?: Gender
   tier?: Tier
+  isAnonymous?: IsAnonymous
   createdAt?: { gte?: Date; lte?: Date }
 }
 

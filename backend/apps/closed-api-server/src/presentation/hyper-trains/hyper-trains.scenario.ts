@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { HyperTrainsService } from '@app/hyper-trains/hyper-trains.service'
 import { GroupId } from '@domain/group'
-import { HyperTrain, HyperTrains, TRAIN_TRIGGER_WINDOW_MINUTES } from '@domain/hyper-train'
+import {
+  HyperTrain,
+  HyperTrainContributionStats,
+  HyperTrains,
+  TRAIN_TRIGGER_WINDOW_MINUTES
+} from '@domain/hyper-train'
+import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 
 @Injectable()
@@ -40,6 +46,15 @@ export class HyperTrainsScenario {
    */
   async getBestByChannel(channelId: ChannelId): Promise<HyperTrain | null> {
     return await this.hyperTrainsService.findBestByChannelId(channelId)
+  }
+
+  /**
+   * ユーザーの貢献統計を取得
+   */
+  async getUserContributionStats(
+    userId: UserId
+  ): Promise<HyperTrainContributionStats> {
+    return await this.hyperTrainsService.findContributionStatsByUserId(userId)
   }
 
   /**

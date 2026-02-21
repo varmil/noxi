@@ -8,6 +8,8 @@ import { HYPER_CHATS_LATEST } from 'apis/tags/revalidate-tags'
 import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
+  userId?: number
+  isAnonymous?: boolean
   orderBy?: {
     field: 'createdAt' | 'tier' | 'likeCount' | 'amount'
     order: 'asc' | 'desc'
@@ -17,11 +19,15 @@ type Params = {
 }
 
 export async function getAllHyperChats({
+  userId,
+  isAnonymous,
   orderBy,
   limit,
   offset
 }: Params = {}): Promise<HyperChatsSchema> {
   const searchParams = new URLSearchParams({
+    ...(userId !== undefined && { userId: String(userId) }),
+    ...(isAnonymous !== undefined && { isAnonymous: String(isAnonymous) }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })

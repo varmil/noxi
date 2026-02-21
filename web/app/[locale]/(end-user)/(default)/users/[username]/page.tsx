@@ -1,9 +1,13 @@
+import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import { getUserProfileByUsername } from 'apis/user-profiles/getUserProfile'
 import { Page } from 'components/page'
-import { CheerHistoryTabs } from 'features/user-public-profile/components/CheerHistoryTabs'
+import { HyperChatTimeline } from 'features/user-public-profile/components/HyperChatTimeline'
+import { HyperChatTimelineSkeleton } from 'features/user-public-profile/components/HyperChatTimelineSkeleton'
+import { HyperTrainStatsCards } from 'features/user-public-profile/components/HyperTrainStatsCards'
+import { HyperTrainStatsSkeleton } from 'features/user-public-profile/components/HyperTrainStatsSkeleton'
 import { ProfileHeader } from './components/ProfileHeader'
 
 type Props = {
@@ -43,8 +47,16 @@ export default async function UserProfilePage({ params }: Props) {
         <ProfileHeader profile={profile} />
         <Separator />
 
-        <div className="mt-8">
-          <CheerHistoryTabs profile={profile} className="flex-1" />
+        <div className="mt-6">
+          <Suspense fallback={<HyperTrainStatsSkeleton />}>
+            <HyperTrainStatsCards userId={profile.userId} />
+          </Suspense>
+        </div>
+
+        <div className="mt-12">
+          <Suspense fallback={<HyperChatTimelineSkeleton />}>
+            <HyperChatTimeline userId={profile.userId} />
+          </Suspense>
         </div>
       </div>
     </Page>
