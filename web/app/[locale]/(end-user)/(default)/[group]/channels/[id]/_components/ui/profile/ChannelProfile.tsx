@@ -1,9 +1,5 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroup } from 'apis/groups'
-import {
-  getHyperChatsSumAmount,
-  getHyperChatsUniqueSupporters
-} from 'apis/hyper-chats/getHyperChats'
 import { getActiveHyperTrainByChannel } from 'apis/hyper-trains/getHyperTrains'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
 import { HyperChatButton } from 'components/hyper-chat/post/HyperChatButton'
@@ -27,10 +23,8 @@ export async function ChannelProfile({
     peakX: { group: groupId, gender }
   } = channel
 
-  const [group, posterCount, totalAmount, activeTrain] = await Promise.all([
+  const [group, activeTrain] = await Promise.all([
     getGroup(groupId),
-    getHyperChatsUniqueSupporters(basicInfo.id),
-    getHyperChatsSumAmount(basicInfo.id),
     getActiveHyperTrainByChannel(basicInfo.id)
   ])
 
@@ -53,12 +47,7 @@ export async function ChannelProfile({
 
         {/* HyperChat Stats & Button Section */}
         <div className="min-w-[250px] shrink-0 flex flex-col items-center gap-4 @2xl:mt-2">
-          <HyperChatStats
-            totalAmount={totalAmount}
-            posterCount={posterCount}
-            channelId={basicInfo.id}
-            group={groupId}
-          />
+          <HyperChatStats channelId={basicInfo.id} group={groupId} />
           <HyperChatButton
             channelId={basicInfo.id}
             channelTitle={basicInfo.title}

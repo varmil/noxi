@@ -94,20 +94,20 @@ export async function getHyperChatsSumAmount(
   return data.sumAmount
 }
 
-export async function getHyperChatsUniqueSupporters(
+export async function getHyperChatsSumLikeCount(
   channelId: string,
   params?: Omit<Params, 'channelId' | 'limit' | 'offset' | 'orderBy'>
 ): Promise<number> {
   const searchParams = createSearchParams(params ?? {})
   const res = await fetchAPI(
-    `/api/hyper-chats/channels/${channelId}/unique-supporters?${searchParams.toString()}`,
+    `/api/hyper-chats/channels/${channelId}/sum-like-count?${searchParams.toString()}`,
     { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(
-      `Failed to fetch hyper chats unique supporters: ${await res.text()}`
+      `Failed to fetch hyper chats sum like count: ${await res.text()}`
     )
   }
-  const data = (await res.json()) as { count: number }
-  return data.count
+  const data = (await res.json()) as { sumLikeCount: number }
+  return data.sumLikeCount
 }

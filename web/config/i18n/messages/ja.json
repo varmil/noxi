@@ -840,11 +840,10 @@
         "liked": "いいね済み"
       },
       "stats": {
-        "totalAmount": "累計金額",
-        "posterCount": "投稿者数",
-        "peopleCount": "{count}人",
-        "yenSuffix": "円",
-        "peopleSuffix": "人"
+        "postCount": "投稿数",
+        "totalLikes": "総いいね",
+        "postSuffix": "件",
+        "likesSuffix": ""
       },
       "timeline": {
         "title": "ハイパーチャット",

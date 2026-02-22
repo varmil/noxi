@@ -2,9 +2,7 @@ import { PropsWithoutRef } from 'react'
 import { getTranslations } from 'next-intl/server'
 import {
   getHyperChats,
-  getHyperChatsCount,
-  getHyperChatsSumAmount,
-  getHyperChatsUniqueSupporters
+  getHyperChatsCount
 } from 'apis/hyper-chats/getHyperChats'
 import { getChannel } from 'apis/youtube/getChannel'
 import { ScrollRevealFooter } from 'components/footer/ScrollRevealFooter'
@@ -49,19 +47,16 @@ export async function ChannelsIdHyperChatTemplate({
         ]
       : [{ field: 'createdAt', order: 'desc' }]
 
-  const [hyperChats, totalCount, totalAmount, posterCount, channel] =
-    await Promise.all([
-      getHyperChats({
-        channelId,
-        orderBy,
-        limit: PAGE_SIZE,
-        offset: (page - 1) * PAGE_SIZE
-      }),
-      getHyperChatsCount(channelId),
-      getHyperChatsSumAmount(channelId),
-      getHyperChatsUniqueSupporters(channelId),
-      getChannel(channelId)
-    ])
+  const [hyperChats, totalCount, channel] = await Promise.all([
+    getHyperChats({
+      channelId,
+      orderBy,
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE
+    }),
+    getHyperChatsCount(channelId),
+    getChannel(channelId)
+  ])
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
@@ -86,12 +81,7 @@ export async function ChannelsIdHyperChatTemplate({
           className="hidden lg:block lg:col-span-4 lg:sticky lg:top-16 lg:self-start"
           title={t('stats')}
         >
-          <HyperChatStats
-            totalAmount={totalAmount}
-            posterCount={posterCount}
-            channelId={channelId}
-            group={group}
-          />
+          <HyperChatStats channelId={channelId} group={group} />
           <div className="mt-4">
             <HyperChatButton
               channelId={channelId}

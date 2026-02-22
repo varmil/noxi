@@ -167,6 +167,26 @@ export class HyperChatsController {
   }
 
   /**
+   * 条件に一致するHyperChatの合計いいね数を取得
+   */
+  @Get('channels/:channelId/sum-like-count')
+  async getSumLikeCountByChannel(
+    @Param('channelId') channelId: string,
+    @Query() dto: GetHyperChats
+  ) {
+    const sumLikeCount = await this.hyperChatsService.sumLikeCount({
+      where: {
+        channelId: new ChannelId(channelId),
+        group: dto.toGroup(),
+        gender: dto.toGender(),
+        createdAt: dto.toCreatedAt()
+      }
+    })
+
+    return { sumLikeCount }
+  }
+
+  /**
    * 条件に一致するユニークな応援者数を取得
    */
   @Get('channels/:channelId/unique-supporters')

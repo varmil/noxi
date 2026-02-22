@@ -124,6 +124,28 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     return result._sum.amount ?? 0
   }
 
+  sumLikeCount: HyperChatRepository['sumLikeCount'] = async ({ where }) => {
+    const result = await this.prismaInfraService.hyperChat.aggregate({
+      where: {
+        channelId: where.channelId?.get(),
+        userId: where.userId?.get(),
+        group: where.group?.get(),
+        gender: where.gender?.get(),
+        createdAt: where.createdAt
+          ? {
+              gte: where.createdAt.gte,
+              lte: where.createdAt.lte
+            }
+          : undefined
+      },
+      _sum: {
+        likeCount: true
+      }
+    })
+
+    return result._sum.likeCount ?? 0
+  }
+
   countDistinctUsers: HyperChatRepository['countDistinctUsers'] = async ({
     where
   }) => {

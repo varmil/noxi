@@ -829,11 +829,10 @@
         "liked": "Liked"
       },
       "stats": {
-        "totalAmount": "Total Amount",
-        "posterCount": "Posters",
-        "peopleCount": "{count}",
-        "yenSuffix": " yen",
-        "peopleSuffix": ""
+        "postCount": "Posts",
+        "totalLikes": "Total Likes",
+        "postSuffix": "",
+        "likesSuffix": ""
       },
       "timeline": {
         "title": "HyperChat",

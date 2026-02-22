@@ -73,6 +73,11 @@ export interface HyperChatRepository {
   sumAmount: (args: { where: FindAllWhere }) => Promise<number>
 
   /**
+   * 条件に一致するハイパーチャットの合計いいね数を取得
+   */
+  sumLikeCount: (args: { where: FindAllWhere }) => Promise<number>
+
+  /**
    * 条件に一致するユニークユーザー数を取得
    */
   countDistinctUsers: (args: { where: FindAllWhere }) => Promise<number>

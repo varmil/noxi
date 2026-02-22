@@ -36,6 +36,12 @@ export class HyperChatsService {
     return await this.hyperChatRepository.sumAmount(args)
   }
 
+  async sumLikeCount(
+    args: Parameters<HyperChatRepository['sumLikeCount']>[0]
+  ) {
+    return await this.hyperChatRepository.sumLikeCount(args)
+  }
+
   async countDistinctUsers(
     args: Parameters<HyperChatRepository['countDistinctUsers']>[0]
   ) {
