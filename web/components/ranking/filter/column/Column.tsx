@@ -15,7 +15,7 @@ export const ColumnHeader = ({
   showSearch
 }: PropsWithChildren<{ showSearch?: boolean }>) => (
   <div className="flex items-center justify-between py-3 px-4 border-b">
-    <h3 className="font-medium text-sm">{children}</h3>
+    <div className="font-medium text-sm">{children}</div>
     {showSearch ? <Search className="size-4" /> : null}
   </div>
 )
