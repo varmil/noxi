@@ -47,6 +47,10 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
         amount: data.amount.get(),
         message: data.message.get(),
         isAnonymous: data.isAnonymous?.get() ?? false
+      },
+      include: {
+        user: { include: { userProfile: true } },
+        moderation: true
       }
     })
 
@@ -55,7 +59,11 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
 
   findById: HyperChatRepository['findById'] = async id => {
     const row = await this.prismaInfraService.hyperChat.findUnique({
-      where: { id: id.get() }
+      where: { id: id.get() },
+      include: {
+        user: { include: { userProfile: true } },
+        moderation: true
+      }
     })
 
     return row ? this.toDomain(row) : null
@@ -92,7 +100,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       skip: offset
     })
 
-    return new HyperChats(rows.map(row => this.toDomainWithUser(row)))
+    return new HyperChats(rows.map(row => this.toDomain(row)))
   }
 
   count: HyperChatRepository['count'] = async ({ where }) => {
@@ -213,7 +221,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
         if (!grouped.has(channelId)) {
           grouped.set(channelId, [])
         }
-        grouped.get(channelId)!.push(this.toDomainWithUser(row))
+        grouped.get(channelId)!.push(this.toDomain(row))
       }
 
       // HyperChats に変換
@@ -248,7 +256,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       if (unique.length >= limit) break
     }
 
-    return new HyperChats(unique.map(row => this.toDomainWithUser(row)))
+    return new HyperChats(unique.map(row => this.toDomain(row)))
   }
 
   delete: HyperChatRepository['delete'] = async id => {
@@ -258,35 +266,6 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
   }
 
   private toDomain(row: {
-    id: number
-    userId: number
-    channelId: string
-    group: string
-    gender: string
-    tier: string
-    amount: number
-    message: string
-    isAnonymous: boolean
-    likeCount: number
-    createdAt: Date
-  }): HyperChat {
-    return new HyperChat({
-      id: new HyperChatId(row.id),
-      userId: new UserId(row.userId),
-      channelId: new ChannelId(row.channelId),
-      group: new GroupId(row.group),
-      gender: new Gender(row.gender),
-      tier: new Tier(row.tier as TierValue),
-      amount: new Amount(row.amount),
-      message: new Message(row.message),
-      likeCount: new LikeCount(row.likeCount),
-      isAnonymous: new IsAnonymous(row.isAnonymous),
-      createdAt: row.createdAt,
-      author: { name: null, image: null, username: null }
-    })
-  }
-
-  private toDomainWithUser(row: {
     id: number
     userId: number
     channelId: string
