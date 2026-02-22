@@ -83,11 +83,6 @@ export function Footer() {
           external: true
         },
         {
-          label: t('adPurchase'),
-          href: 'https://docs.google.com/forms/d/e/1FAIpQLScnfs5_qawOpmQcODjrR97T2v42MIbuW-uorTg_qeM9WpnL6A/viewform?usp=sharing&ouid=111998141281822399071',
-          external: true
-        },
-        {
           label: t('termsAndPrivacy'),
           href: '/terms-of-use-and-privacy-policy'
         },
