@@ -26,6 +26,7 @@ export const schema = z.object({
   likeCount: z.number(),
   isAnonymous: z.boolean(),
   createdAt: z.coerce.date(),
+  moderationStatus: z.enum(['warn', 'ban']).nullable().optional(),
   author: z.object({
     name: z.string().nullable(),
     image: z.string().nullable(),

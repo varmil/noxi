@@ -835,6 +835,11 @@
       "card": {
         "freeTicket": "無料チケ"
       },
+      "warn": {
+        "message": "スパムの可能性があります",
+        "showContent": "表示する",
+        "hideContent": "非表示にする"
+      },
       "like": {
         "button": "いいね",
         "liked": "いいね済み"

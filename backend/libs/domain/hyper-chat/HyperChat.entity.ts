@@ -7,6 +7,7 @@ import {
   Message,
   Tier
 } from '@domain/hyper-chat'
+import { ModerationStatus } from '@domain/hyper-chat-moderation'
 import { Amount } from '@domain/hyper-chat-order'
 import { FREE_TICKET_POINT } from '@domain/hyper-train/level-config'
 import { Gender } from '@domain/lib'
@@ -53,6 +54,9 @@ export class HyperChat {
 
   public readonly createdAt: Date
 
+  @Transform(({ value }: { value: ModerationStatus }) => value?.get())
+  public readonly moderationStatus?: ModerationStatus
+
   /** 送信者情報（isAnonymous の場合はマスク済み） */
   @Transform(({ value, obj }: { value: HyperChatAuthor; obj: HyperChat }) =>
     obj.isAnonymous.get() ? { name: null, image: null, username: null } : value
@@ -81,6 +85,7 @@ export class HyperChat {
     likeCount: LikeCount
     isAnonymous: IsAnonymous
     createdAt: Date
+    moderationStatus?: ModerationStatus
     author: HyperChatAuthor
   }) {
     this.id = args.id
@@ -94,6 +99,7 @@ export class HyperChat {
     this.likeCount = args.likeCount
     this.isAnonymous = args.isAnonymous
     this.createdAt = args.createdAt
+    this.moderationStatus = args.moderationStatus
     this.author = args.author
   }
 }

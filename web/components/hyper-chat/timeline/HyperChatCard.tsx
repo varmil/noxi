@@ -1,7 +1,10 @@
 'use client'
 
+import { useState } from 'react'
+import { AlertTriangle } from 'lucide-react'
 import { useFormatter, useNow, useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
 import { Link } from 'lib/navigation'
@@ -70,8 +73,10 @@ export function HyperChatCard({
   const format = useFormatter()
   const now = useNow({ updateInterval: 60000 })
   const t = useTranslations('Features.hyperChat')
+  const [warnExpanded, setWarnExpanded] = useState(false)
   const tier = hyperChat.tier
   const isFreeTier = tier === 'free'
+  const isWarned = hyperChat.moderationStatus === 'warn'
   const displayName = hyperChat.isAnonymous
     ? t('anonymous.displayName')
     : hyperChat.author.name || ''
@@ -79,6 +84,31 @@ export function HyperChatCard({
     hyperChat.amount === 0
       ? t('card.freeTicket')
       : `￥${hyperChat.amount.toLocaleString()}`
+
+  if (isWarned && !warnExpanded) {
+    return (
+      <div
+        className={cn(
+          'rounded-lg px-3 py-3 min-h-[56px] flex items-center gap-2 bg-muted/50 border border-dashed border-muted-foreground/30',
+          className
+        )}
+        data-testid="hyper-chat-card"
+      >
+        <AlertTriangle className="h-4 w-4 text-yellow-500 shrink-0" />
+        <span className="text-sm text-muted-foreground">
+          {t('warn.message')}
+        </span>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="ml-auto text-xs"
+          onClick={() => setWarnExpanded(true)}
+        >
+          {t('warn.showContent')}
+        </Button>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -157,7 +187,7 @@ export function HyperChatCard({
         <HyperChatMessage tier={tier} message={hyperChat.message} />
 
         {/* いいねボタン */}
-        <div className="mt-3">
+        <div className="mt-3 flex items-center gap-2">
           <HyperChatLikeButton
             hyperChatId={hyperChat.id}
             channelId={hyperChat.channelId}
@@ -165,6 +195,16 @@ export function HyperChatCard({
             likeCount={hyperChat.likeCount}
             isLiked={isLiked}
           />
+          {isWarned && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="ml-auto text-xs text-muted-foreground"
+              onClick={() => setWarnExpanded(false)}
+            >
+              {t('warn.hideContent')}
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -11,11 +11,25 @@ import {
   Tier,
   TierValue
 } from '@domain/hyper-chat'
+import {
+  ModerationStatus,
+  ModerationStatusValue
+} from '@domain/hyper-chat-moderation'
 import { Amount } from '@domain/hyper-chat-order'
 import { Gender } from '@domain/lib'
 import { UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
+
+/** Ban されていない HyperChat のフィルタ条件 */
+function notBanned() {
+  return {
+    OR: [
+      { moderation: null },
+      { moderation: { status: { not: 'ban' as const } } }
+    ]
+  }
+}
 
 @Injectable()
 export class HyperChatRepositoryImpl implements HyperChatRepository {
@@ -74,9 +88,13 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
               gte: where.createdAt.gte,
               lte: where.createdAt.lte
             }
-          : undefined
+          : undefined,
+        ...notBanned()
       },
-      include: { user: { include: { userProfile: true } } },
+      include: {
+        user: { include: { userProfile: true } },
+        moderation: true
+      },
       orderBy,
       take: limit,
       skip: offset
@@ -97,7 +115,8 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
               gte: where.createdAt.gte,
               lte: where.createdAt.lte
             }
-          : undefined
+          : undefined,
+        ...notBanned()
       }
     })
   }
@@ -114,7 +133,8 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
               gte: where.createdAt.gte,
               lte: where.createdAt.lte
             }
-          : undefined
+          : undefined,
+        ...notBanned()
       },
       _sum: {
         amount: true
@@ -136,7 +156,8 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
               gte: where.createdAt.gte,
               lte: where.createdAt.lte
             }
-          : undefined
+          : undefined,
+        ...notBanned()
       },
       _sum: {
         likeCount: true
@@ -161,7 +182,8 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
               gte: where.createdAt.gte,
               lte: where.createdAt.lte
             }
-          : undefined
+          : undefined,
+        ...notBanned()
       }
     })
 
@@ -175,9 +197,13 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       const rows = await this.prismaInfraService.hyperChat.findMany({
         where: {
           channelId: { in: channelIds.map(id => id.get()) },
-          createdAt: { gte: twentyFourHoursAgo }
+          createdAt: { gte: twentyFourHoursAgo },
+          ...notBanned()
         },
-        include: { user: { include: { userProfile: true } } },
+        include: {
+          user: { include: { userProfile: true } },
+          moderation: true
+        },
         orderBy: [{ amount: 'desc' }, { createdAt: 'desc' }]
       })
 
@@ -211,7 +237,11 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
   }) => {
     // createdAt DESC で多めに取得し、チャンネルごとに最新1件だけ残す
     const rows = await this.prismaInfraService.hyperChat.findMany({
-      include: { user: { include: { userProfile: true } } },
+      where: { ...notBanned() },
+      include: {
+        user: { include: { userProfile: true } },
+        moderation: true
+      },
       orderBy: { createdAt: 'desc' },
       // 最悪全行が同一チャンネルの場合に備えて多めに取得
       take: limit * 5
@@ -281,6 +311,7 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       image: string | null
       userProfile: { username: string } | null
     }
+    moderation?: { status: string } | null
   }): HyperChat {
     return new HyperChat({
       id: new HyperChatId(row.id),
@@ -294,6 +325,9 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
       likeCount: new LikeCount(row.likeCount),
       isAnonymous: new IsAnonymous(row.isAnonymous),
       createdAt: row.createdAt,
+      moderationStatus: row.moderation
+        ? new ModerationStatus(row.moderation.status as ModerationStatusValue)
+        : undefined,
       author: {
         name: row.user.name,
         image: row.user.image,

@@ -50,6 +50,7 @@ model HyperChat {
   user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   likes        HyperChatLike[]
   contribution HyperTrainContribution?
+  moderation   HyperChatModeration?
 
   @@index([channelId, createdAt])
   @@index([userId, createdAt])

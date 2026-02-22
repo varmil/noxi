@@ -7,6 +7,8 @@ import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/ex
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { GroupRegistrationsPresentationModule } from '@presentation/group-registrations/group-registrations.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { HyperChatAdminPresentationModule } from '@presentation/hyper-chat-admin/hyper-chat-admin.presentation.module'
+import { HyperChatModerationsPresentationModule } from '@presentation/hyper-chat-moderations/hyper-chat-moderations.presentation.module'
 import { HyperChatRankingsPresentationModule } from '@presentation/hyper-chat-rankings/hyper-chat-rankings.presentation.module'
 import { HyperChatTicketsPresentationModule } from '@presentation/hyper-chat-tickets/hyper-chat-tickets.presentation.module'
 import { HyperChatsPresentationModule } from '@presentation/hyper-chats/hyper-chats.presentation.module'
@@ -41,6 +43,8 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     ExchangeRatesPresentationModule,
     GroupsPresentationModule,
     GroupRegistrationsPresentationModule,
+    HyperChatAdminPresentationModule,
+    HyperChatModerationsPresentationModule,
     HyperChatRankingsPresentationModule,
     HyperChatsPresentationModule,
     HyperChatTicketsPresentationModule,

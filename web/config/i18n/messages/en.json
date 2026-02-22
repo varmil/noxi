@@ -824,6 +824,11 @@
       "card": {
         "freeTicket": "Free Ticket"
       },
+      "warn": {
+        "message": "This message may be spam",
+        "showContent": "Show",
+        "hideContent": "Hide"
+      },
       "like": {
         "button": "Like",
         "liked": "Liked"
