@@ -1,6 +1,7 @@
-import { Box, Calendar, History } from 'lucide-react'
+import { ArrowRight, Box, Calendar, History } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getMyHyperChats } from 'apis/hyper-chats/getMyHyperChats'
 import { getChannels } from 'apis/youtube/getChannels'
@@ -79,6 +80,12 @@ export default async function TicketUsageHistory() {
               <Box className="size-8 text-muted-foreground" />
             </div>
             <p className="mt-4 text-muted-foreground">{t('noUsageHistory')}</p>
+            <Button asChild variant="outline" size="sm" className="mt-4">
+              <Link href="/groups">
+                {t('findTalent')}
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
           </div>
         )}
       </CardContent>

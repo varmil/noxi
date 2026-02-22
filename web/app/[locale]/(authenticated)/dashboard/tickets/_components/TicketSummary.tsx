@@ -1,4 +1,4 @@
-import { Calendar, Ticket } from 'lucide-react'
+import { Calendar, Tickets } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
@@ -55,7 +55,7 @@ export default async function TicketSummary() {
         ) : (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <div className="rounded-full bg-muted p-4">
-              <Ticket className="size-8 text-muted-foreground" />
+              <Tickets className="size-8 text-muted-foreground" />
             </div>
             <p className="mt-4 text-muted-foreground">{t('noTickets')}</p>
           </div>

@@ -194,6 +194,7 @@
         "noTickets": "No valid tickets available",
         "usageHistory": "Usage History",
         "noUsageHistory": "No usage history yet",
+        "findTalent": "Find your favorite and send a message",
         "usedOn": "Used on {date}"
       }
     },
@@ -1426,11 +1427,9 @@
       "cta": {
         "title": "Send Your Message to Your Favorite",
         "description": "Leave your message on your favorite talent's channel page with HyperChat.",
-        "button": "See latest Hyper Chats",
-        "legal": {
-          "tokushoho": "Commercial Transaction Act Disclosure",
-          "terms": "Terms of Service"
-        }
+        "button": "Find your favorite and send a message",
+        "loginButton": "Sign Up / Log In",
+        "loginHint": "Sign up to get HyperChat tickets"
       }
     }
   }

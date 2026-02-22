@@ -1,9 +1,16 @@
+'use client'
+
+import { useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import AuthModal from 'components/auth/dialog/AuthModal'
 import { Link } from 'lib/navigation'
 
 export default function CtaSection() {
+  const { data: session } = useSession()
   const t = useTranslations('Pages.hyperChatAbout.cta')
+  const [authModalOpen, setAuthModalOpen] = useState(false)
 
   return (
     <section className="py-16 bg-muted">
@@ -12,26 +19,32 @@ export default function CtaSection() {
           <h2 className="mb-4 text-2xl font-bold sm:text-3xl">{t('title')}</h2>
           <p className="mb-8 text-muted-foreground">{t('description')}</p>
 
-          <Button asChild size="lg">
-            <Link href="/hyper-chat">{t('button')}</Link>
-          </Button>
+          {session ? (
+            <Button asChild size="lg" className="rounded-4xl shadow-sm">
+              <Link href="/groups">{t('button')}</Link>
+            </Button>
+          ) : (
+            <>
+              <Button
+                size="lg"
+                className="rounded-4xl shadow-sm"
+                onClick={() => setAuthModalOpen(true)}
+              >
+                {t('loginButton')}
+              </Button>
+              <AuthModal
+                open={authModalOpen}
+                onOpenChange={setAuthModalOpen}
+                redirectTo="/dashboard/tickets"
+              />
+            </>
+          )}
 
-          <div className="mt-6 flex justify-center gap-4 text-xs text-muted-foreground">
-            <Link
-              href="/legal/tokushoho"
-              className="hover:underline"
-              prefetch={false}
-            >
-              {t('legal.tokushoho')}
-            </Link>
-            <Link
-              href="/terms-of-use-and-privacy-policy"
-              className="hover:underline"
-              prefetch={false}
-            >
-              {t('legal.terms')}
-            </Link>
-          </div>
+          {!session && (
+            <p className="mt-6 text-xs sm:text-sm text-muted-foreground">
+              {t('loginHint')}
+            </p>
+          )}
         </div>
       </div>
     </section>
