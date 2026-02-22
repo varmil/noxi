@@ -5,11 +5,7 @@ import { HyperChatsService } from '@app/hyper-chats/hyper-chats.service'
 import { HyperTrainEvaluatorService } from '@app/hyper-trains/hyper-train-evaluator.service'
 import { GroupId } from '@domain/group'
 import { HyperChat, IsAnonymous, Message, Tier } from '@domain/hyper-chat'
-import {
-  Amount,
-  HyperChatOrderId,
-  StripePaymentIntentId
-} from '@domain/hyper-chat-order'
+import { Amount, StripePaymentIntentId } from '@domain/hyper-chat-order'
 import { Gender } from '@domain/lib'
 import { Email, UserId } from '@domain/user'
 import { ChannelId } from '@domain/youtube'
@@ -155,10 +151,4 @@ export class HyperChatsScenario {
     this.logger.log(`Order failed: ${stripePaymentIntentId}`)
   }
 
-  /**
-   * OrderIdからHyperChatを取得
-   */
-  async findByOrderId(orderId: HyperChatOrderId): Promise<HyperChat | null> {
-    return await this.hyperChatsService.findByOrderId(orderId)
-  }
 }

@@ -61,14 +61,6 @@ export class HyperChatRepositoryImpl implements HyperChatRepository {
     return row ? this.toDomain(row) : null
   }
 
-  findByOrderId: HyperChatRepository['findByOrderId'] = async orderId => {
-    const row = await this.prismaInfraService.hyperChat.findUnique({
-      where: { orderId: orderId.get() }
-    })
-
-    return row ? this.toDomain(row) : null
-  }
-
   findAll: HyperChatRepository['findAll'] = async ({
     where,
     orderBy,

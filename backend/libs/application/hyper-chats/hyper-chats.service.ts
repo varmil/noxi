@@ -18,12 +18,6 @@ export class HyperChatsService {
     return await this.hyperChatRepository.findById(args)
   }
 
-  async findByOrderId(
-    args: Parameters<HyperChatRepository['findByOrderId']>[0]
-  ) {
-    return await this.hyperChatRepository.findByOrderId(args)
-  }
-
   async findAll(args: Parameters<HyperChatRepository['findAll']>[0]) {
     return await this.hyperChatRepository.findAll(args)
   }

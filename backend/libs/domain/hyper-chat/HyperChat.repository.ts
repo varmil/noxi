@@ -48,11 +48,6 @@ export interface HyperChatRepository {
   findById: (id: HyperChatId) => Promise<HyperChat | null>
 
   /**
-   * orderId でハイパーチャットを取得
-   */
-  findByOrderId: (orderId: HyperChatOrderId) => Promise<HyperChat | null>
-
-  /**
    * ハイパーチャット一覧を取得
    */
   findAll: (args: {
