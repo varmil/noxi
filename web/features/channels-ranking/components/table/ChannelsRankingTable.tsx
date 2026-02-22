@@ -34,7 +34,7 @@ import {
   getSupersRankingType,
   hasSupersRanking
 } from 'utils/ranking/channels-ranking'
-import { HyperChatDialogTrigger } from './HyperChatDialogTrigger'
+import { HyperChatLink } from './HyperChatLink'
 import ComparedToPreviousPeriod from './cell/ComparedToPreviousPeriod'
 import ChannelsRankingTableHeader from './header/ChannelsRankingTableHeader'
 
@@ -231,11 +231,9 @@ export default async function ChannelsRankingTable({
 
                 {/* HyperChat投稿ボタン */}
                 <TableCell align="center" className="min-w-[32px]">
-                  <HyperChatDialogTrigger
+                  <HyperChatLink
                     channelId={channelId}
-                    channelTitle={channel.basicInfo.title}
                     group={channel.peakX.group}
-                    gender={channel.peakX.gender}
                   />
                 </TableCell>
               </TableRow>
