@@ -1361,7 +1361,7 @@
         "title": "ハイパーチャットとは？",
         "channelPage": {
           "title": "推しのページに投稿",
-          "description": "いつでも推しのチャンネルページにメッセージを残せます。運営と最新AIが徹底的に安全な場をモデレートします。"
+          "description": "いつでも推しのチャンネルページにメッセージを残せます。運営と最新AIが安全な場を徹底します。"
         },
         "standOut": {
           "title": "目立つメッセージ",
@@ -1413,13 +1413,13 @@
           "spreadEffect": {
             "label": "外部への布教効果",
             "labelSub": "認知の拡大",
-            "hyperChat": "新規にリーチ可",
+            "hyperChat": "広く深く伝わる",
             "superChat": "",
             "membership": "",
             "sns": "バズると強い"
           },
           "assetValue": {
-            "label": "応援の「資産性」",
+            "label": "応援の資産性",
             "labelSub": "残るか、流れるか",
             "hyperChat": "見やすく蓄積",
             "superChat": "配信限り",
