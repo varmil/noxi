@@ -25,7 +25,7 @@ const ROWS = [
   },
   {
     key: 'talentBurden',
-    symbols: { hyperChat: '◎', superChat: '△', membership: '△', sns: '△' }
+    symbols: { hyperChat: '◎', superChat: '◯', membership: '△', sns: '△' }
   },
   {
     key: 'safety',

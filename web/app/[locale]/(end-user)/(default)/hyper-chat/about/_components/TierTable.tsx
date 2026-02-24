@@ -1,4 +1,10 @@
+import { CircleHelp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover'
 import {
   Table,
   TableBody,
@@ -26,7 +32,29 @@ export default function TierTable() {
                 {t('maxChars')}
               </TableHead>
               <TableHead className="whitespace-nowrap">
-                {t('displayPriority')}
+                <span className="flex items-center gap-1">
+                  {t('displayPriority')}
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <button
+                        type="button"
+                        className="text-muted-foreground hover:text-foreground"
+                      >
+                        <CircleHelp className="size-4" />
+                      </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-72 p-4 text-sm">
+                      <p className="mb-2 font-semibold">
+                        {t('displayPriorityPopover.title')}
+                      </p>
+                      <ul className="list-disc space-y-1 pl-4 font-normal">
+                        <li>{t('displayPriorityPopover.item1')}</li>
+                        <li>{t('displayPriorityPopover.item2')}</li>
+                        <li>{t('displayPriorityPopover.item3')}</li>
+                      </ul>
+                    </PopoverContent>
+                  </Popover>
+                </span>
               </TableHead>
             </TableRow>
           </TableHeader>

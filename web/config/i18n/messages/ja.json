@@ -1378,7 +1378,13 @@
           "maxChars": "最大文字数",
           "displayPriority": "表示優先度",
           "charsUnit": "{count}文字",
-          "free": "要チケット"
+          "free": "要チケット",
+          "displayPriorityPopover": {
+            "title": "表示優先度について",
+            "item1": "ハイパーチャット、その通知はサービス内の様々な箇所で表示されます。",
+            "item2": "表示優先度が高いほど、投稿はより上方、より前方に表示されます。（新着順は除く）",
+            "item3": "アルゴリズムは読み手満足度の最大化を目標に適宜変更されます。"
+          }
         }
       },
       "comparison": {
@@ -1416,7 +1422,7 @@
             "label": "応援の「資産性」",
             "labelSub": "残るか、流れるか",
             "hyperChat": "見やすく蓄積",
-            "superChat": "一瞬で流れる",
+            "superChat": "配信限り",
             "membership": "コンテンツ次第",
             "sns": "鮮度が命"
           },
@@ -1424,21 +1430,21 @@
             "label": "タレントの負担",
             "labelSub": "準備や読み上げ",
             "hyperChat": "無し",
-            "superChat": "読み上げあり",
+            "superChat": "読み上げ等",
             "membership": "専用準備必要",
-            "sns": "エゴサ疲れ"
+            "sns": "要リサーチ"
           },
           "safety": {
             "label": "安全性・民度",
             "labelSub": "荒れないか",
-            "hyperChat": "人間＋AIのW管理",
+            "hyperChat": "人間＋AIのW運営",
             "superChat": "モデレーター",
             "membership": "クローズド",
             "sns": "地獄"
           }
         },
-        "summaryLine1": "投げ銭/メンバーシップは『今の活動』の土台、",
-        "summaryLine2": "ハイパーチャットは『未来の成長』の土台となります"
+        "summaryLine1": "ハイパーチャットは推しの活躍をもっと目立たせ",
+        "summaryLine2": "推しが今後も選ばれ続ける理由となります。"
       },
       "transparency": {
         "title": "収益の使いみち",
@@ -1452,7 +1458,7 @@
       "cta": {
         "title": "言葉で推しを飛躍させよう",
         "description": "推しのページを熱いメッセージで盛り上げよう",
-        "button": "推しを探してメッセージを送る",
+        "button": "推しを探してメッセージを投稿する",
         "loginButton": "新規登録 / ログイン",
         "loginHint": "新規登録でハイパーチャットチケットを入手できます"
       }

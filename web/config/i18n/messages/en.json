@@ -1374,7 +1374,13 @@
           "maxChars": "Max Characters",
           "displayPriority": "Display Priority",
           "charsUnit": "{count} chars",
-          "free": "Ticket required"
+          "free": "Ticket required",
+          "displayPriorityPopover": {
+            "title": "About Display Priority",
+            "item1": "HyperChat and its notifications are displayed in various places throughout the service.",
+            "item2": "The higher the display priority, the more prominently your post will appear — higher up and further forward.",
+            "item3": "The algorithm is adjusted as needed to maximize reader satisfaction."
+          }
         }
       },
       "comparison": {
@@ -1448,7 +1454,7 @@
       "cta": {
         "title": "Send Your Message to Your Favorite",
         "description": "Leave your message on your favorite talent's channel page with HyperChat.",
-        "button": "Find your favorite and send a message",
+        "button": "Find your Oshi and post a message",
         "loginButton": "Sign Up / Log In",
         "loginHint": "Sign up to get HyperChat tickets"
       }
