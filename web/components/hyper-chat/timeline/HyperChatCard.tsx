@@ -166,7 +166,12 @@ export function HyperChatCard({
             />
           )}
           <span
-            className={cn('font-medium text-nowrap', TIER_TEXT_COLORS[tier])}
+            className={cn(
+              'text-nowrap',
+              isFreeTier
+                ? 'text-muted-foreground'
+                : `font-medium ${TIER_TEXT_COLORS[tier]}`
+            )}
           >
             {amountDisplay}
           </span>

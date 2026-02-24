@@ -72,7 +72,14 @@ export function HyperChatBubble({ hyperChat, className }: Props) {
           >
             {displayName}
           </span>
-          <span className={cn('font-medium', TIER_TEXT_COLORS[tier])}>
+          <span
+            className={cn(
+              'text-nowrap',
+              tier === 'free'
+                ? 'text-muted-foreground'
+                : `font-medium ${TIER_TEXT_COLORS[tier]}`
+            )}
+          >
             {amountDisplay}
           </span>
           <span className={cn('shrink-0', TIER_TEXT_MUTED_COLORS[tier])}>
