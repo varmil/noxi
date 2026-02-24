@@ -1456,7 +1456,8 @@
         "description": "Leave your message on your favorite talent's channel page with HyperChat.",
         "button": "Find your Oshi and post a message",
         "loginButton": "Sign Up / Log In",
-        "loginHint": "Sign up to get HyperChat tickets"
+        "loginHint": "Sign up to get HyperChat tickets",
+        "guidelineLink": "Review posting guidelines"
       }
     }
   }

@@ -40,7 +40,16 @@ export default function CtaSection() {
             </>
           )}
 
-          {!session && (
+          {session ? (
+            <p className="mt-6 text-xs sm:text-sm text-muted-foreground">
+              <Link
+                href="/hyper-chat/guideline"
+                className="underline underline-offset-4 hover:text-foreground"
+              >
+                {t('guidelineLink')}
+              </Link>
+            </p>
+          ) : (
             <p className="mt-6 text-xs sm:text-sm text-muted-foreground">
               {t('loginHint')}
             </p>
