@@ -1,4 +1,5 @@
 import { PropsWithoutRef } from 'react'
+import { CircleHelp } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 import {
   getHyperChats,
@@ -66,6 +67,11 @@ export async function ChannelsIdHyperChatTemplate({
         <Section
           className="lg:col-span-7 w-full max-w-[550px] mx-auto"
           title={t('title', { count: totalCount })}
+          tabs={
+            <Link href="/hyper-chat/about" className="text-muted-foreground hover:text-foreground transition-colors">
+              <CircleHelp className="size-5" />
+            </Link>
+          }
         >
           <SortTabs currentSort={sort} />
           <HyperChatHistoryList hyperChats={hyperChats} />
