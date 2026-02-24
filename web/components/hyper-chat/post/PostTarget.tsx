@@ -26,9 +26,9 @@ export function PostTarget({
   const showAmountChange = mode === 'paid' && totalAmount !== null && price > 0
 
   return (
-    <div className="flex flex-col items-start gap-2">
+    <div className="flex flex-col items-start gap-2 ml-4">
       {/* Title */}
-      <div className="text-xs text-muted-foreground">投稿先</div>
+      <div className="text-xs text-muted-foreground">{t('title')}</div>
       {/* Channel */}
       <div className="flex items-center gap-3">
         <Avatar className="size-8 shrink-0">

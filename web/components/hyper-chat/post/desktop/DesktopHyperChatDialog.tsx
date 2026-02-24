@@ -16,6 +16,7 @@ import {
   UseHyperChatFlowReturn
 } from 'hooks/hyper-chat/useHyperChatFlow'
 import { CompleteStepContent } from '../CompleteStepContent'
+import { HyperChatDisclaimer } from '../HyperChatDisclaimer'
 import { InputStepContent } from '../InputStepContent'
 import { DesktopPaymentForm } from './DesktopPaymentForm'
 
@@ -56,7 +57,7 @@ export function DesktopHyperChatDialog({ dialog, channelTitle }: Props) {
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
-        className="sm:max-w-md max-h-[85vh] overflow-y-auto"
+        className="sm:max-w-[530px] max-h-[90vh] overflow-y-auto"
         onOpenAutoFocus={e => e.preventDefault()}
       >
         {step === 'input' && (
@@ -87,6 +88,8 @@ export function DesktopHyperChatDialog({ dialog, channelTitle }: Props) {
               isAnonymous={isAnonymous}
               onAnonymousChange={setIsAnonymous}
             />
+
+            <HyperChatDisclaimer />
 
             <div className="flex justify-end space-x-2">
               <Button

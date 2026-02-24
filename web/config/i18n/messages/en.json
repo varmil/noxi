@@ -817,8 +817,24 @@
         "useTicket": "Post with Free Ticket",
         "ticketLeft": "left",
         "postTarget": {
+          "title": "Post Target",
           "currentAmount": "Current",
           "afterAmount": "After"
+        },
+        "disclaimer": {
+          "title": "About HyperChat",
+          "noReturn": {
+            "heading": "No direct monetary return to the creator",
+            "body": "Revenue from this feature is not distributed to the VTuber or their agency. For direct financial support, please use official memberships, Super Chat, etc."
+          },
+          "spreadOshi": {
+            "heading": "Help spread your oshi to the world",
+            "body": "Your messages and enthusiasm (amount) are accumulated on VCharts as real evaluations and achievements for your oshi, becoming a powerful force to attract new fans."
+          },
+          "funding": {
+            "heading": "Funds service improvements",
+            "body": "Your funds are used to maintain this neutral and safe data service and to develop features that make supporting your oshi more enjoyable."
+          }
         }
       },
       "card": {

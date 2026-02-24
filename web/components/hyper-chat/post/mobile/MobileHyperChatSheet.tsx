@@ -16,6 +16,7 @@ import {
   UseHyperChatFlowReturn
 } from 'hooks/hyper-chat/useHyperChatFlow'
 import { CompleteStepContent } from '../CompleteStepContent'
+import { HyperChatDisclaimer } from '../HyperChatDisclaimer'
 import { InputStepContent } from '../InputStepContent'
 import { MobilePaymentForm } from './MobilePaymentForm'
 
@@ -68,7 +69,7 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 {t('dialog.description')}
               </SheetDescription>
             </SheetHeader>
-            <div className="px-4 pb-6">
+            <div className="px-4 pb-10">
               <InputStepContent
                 form={form}
                 maxChars={maxChars}
@@ -86,6 +87,8 @@ export function MobileHyperChatSheet({ dialog, channelTitle }: Props) {
                 isAnonymous={isAnonymous}
                 onAnonymousChange={setIsAnonymous}
               />
+
+              <HyperChatDisclaimer />
 
               <div className="flex justify-end space-x-2 mt-4">
                 <Button
