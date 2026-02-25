@@ -518,7 +518,10 @@
       "support": "Support",
       "info": "Info",
       "allGroup": "Overall",
-      "hyperChat": "Hyper Chat"
+      "hyperChat": "Hyper Chat",
+      "hyperChatList": "Hyper Chat List",
+      "hyperChatAbout": "About Hyper Chat",
+      "hyperChatGuideline": "Posting Guidelines"
     },
     "loginBonus": {
       "title": "Daily login bonus!",

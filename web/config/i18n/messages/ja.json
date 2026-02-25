@@ -523,7 +523,10 @@
       "support": "サポート",
       "info": "情報",
       "allGroup": "総合",
-      "hyperChat": "ハイパーチャット"
+      "hyperChat": "ハイパーチャット",
+      "hyperChatList": "ハイパーチャット一覧",
+      "hyperChatAbout": "ハイパーチャットとは",
+      "hyperChatGuideline": "投稿ガイドライン"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",
@@ -1452,7 +1455,7 @@
         "items": {
           "server": "サーバー費用・長期コミットメント",
           "development": "新機能やハイパーチャットの開発",
-          "operation": "安全で安定したサービス・場の運用"
+          "operation": "安全なサービス・場の運用"
         }
       },
       "cta": {
