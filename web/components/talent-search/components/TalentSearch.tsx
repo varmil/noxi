@@ -72,6 +72,7 @@ export function TalentSearch({ className, dropdown }: Props) {
         placeholder="YouTubeチャンネル名を入力..."
         value={query}
         onValueChange={setQuery}
+        className="text-base"
       />
       <CommandList
         className={cn(
