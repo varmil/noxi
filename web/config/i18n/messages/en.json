@@ -194,6 +194,9 @@
         "noTickets": "No valid tickets available",
         "usageHistory": "Usage History",
         "noUsageHistory": "No usage history yet",
+        "noUsageHistoryHint": "Find your favorite talent and send a message",
+        "findFromRanking": "Find from ranking",
+        "findBySearch": "Search",
         "findTalent": "Find your favorite and send a message",
         "usedOn": "Used on {date}"
       }
@@ -861,6 +864,9 @@
       "timeline": {
         "title": "Latest HyperChat",
         "empty": "No HyperChats yet",
+        "emptyHint": "Find your favorite talent and send a message",
+        "findFromRanking": "Find from ranking",
+        "findBySearch": "Search",
         "viewAll": "View All"
       },
       "history": {
@@ -1458,6 +1464,8 @@
         "title": "Send Your Message to Your Favorite",
         "description": "Leave your message on your favorite talent's channel page with HyperChat.",
         "button": "Find your Oshi and post a message",
+        "rankingButton": "Find from ranking",
+        "searchButton": "Search for your favorite",
         "loginButton": "Sign Up / Log In",
         "loginHint": "Sign up to get HyperChat tickets",
         "guidelineLink": "Review posting guidelines"

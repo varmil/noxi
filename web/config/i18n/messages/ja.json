@@ -185,6 +185,9 @@
         "noTickets": "有効なチケットはありません",
         "usageHistory": "使用履歴",
         "noUsageHistory": "使用履歴はまだありません",
+        "noUsageHistoryHint": "推しにメッセージを投稿しよう",
+        "findFromRanking": "ランキングから探す",
+        "findBySearch": "検索して探す",
         "findTalent": "推しを探してメッセージを送る",
         "usedOn": "{date}に使用"
       }
@@ -872,6 +875,9 @@
       "timeline": {
         "title": "最新のハイパーチャット",
         "empty": "まだハイパーチャットはありません",
+        "emptyHint": "推しにメッセージを投稿しよう",
+        "findFromRanking": "ランキングから探す",
+        "findBySearch": "検索して探す",
         "viewAll": "すべて見る"
       },
       "history": {
@@ -882,7 +888,7 @@
       },
       "latestActivity": {
         "title": "新着ハイパーチャット",
-        "empty": "ハイパーチャットを投稿すると、ここに表示されます"
+        "empty": "新着順にハイパーチャットが表示されます"
       },
       "anonymous": {
         "label": "匿名",
@@ -1462,6 +1468,8 @@
         "title": "言葉で推しを飛躍させよう",
         "description": "推しのページを熱いメッセージで盛り上げよう",
         "button": "推しを探してメッセージを投稿する",
+        "rankingButton": "ランキングから推しを探す",
+        "searchButton": "検索して推しを探す",
         "loginButton": "新規登録 / ログイン",
         "loginHint": "新規登録でハイパーチャットチケットを入手できます",
         "guidelineLink": "投稿ガイドラインを確認する"

@@ -1,4 +1,4 @@
-import { ArrowRight, Box, Calendar, History } from 'lucide-react'
+import { Box, Calendar, History, Search, Trophy } from 'lucide-react'
 import { getFormatter, getTranslations } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -79,13 +79,26 @@ export default async function TicketUsageHistory() {
             <div className="rounded-full bg-muted p-4">
               <Box className="size-8 text-muted-foreground" />
             </div>
-            <p className="mt-4 text-muted-foreground">{t('noUsageHistory')}</p>
-            <Button asChild variant="outline" size="sm" className="mt-4">
-              <Link href="/groups">
-                {t('findTalent')}
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
+            <p className="mt-4 font-medium text-foreground/80">
+              {t('noUsageHistory')}
+            </p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {t('noUsageHistoryHint')}
+            </p>
+            <div className="mt-6 flex flex-col gap-2 sm:flex-row sm:gap-3">
+              <Button asChild variant="outline" size="sm">
+                <Link href="/ranking/super-chat/channels/all/last24Hours">
+                  <Trophy className="size-3.5" />
+                  {t('findFromRanking')}
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="sm">
+                <Link href="/groups">
+                  <Search className="size-3.5" />
+                  {t('findBySearch')}
+                </Link>
+              </Button>
+            </div>
           </div>
         )}
       </CardContent>

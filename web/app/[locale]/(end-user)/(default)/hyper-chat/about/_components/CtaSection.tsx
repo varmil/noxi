@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Search, Trophy } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
@@ -20,9 +21,25 @@ export default function CtaSection() {
           <p className="mb-8 text-muted-foreground">{t('description')}</p>
 
           {session ? (
-            <Button asChild size="lg" className="rounded-4xl shadow-sm">
-              <Link href="/groups">{t('button')}</Link>
-            </Button>
+            <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center sm:gap-4">
+              <Button asChild size="lg" className="w-[260px] rounded-4xl">
+                <Link href="/ranking/super-chat/channels/all/last24Hours">
+                  <Trophy className="size-4" />
+                  {t('rankingButton')}
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-[260px] rounded-4xl"
+              >
+                <Link href="/groups">
+                  <Search className="size-4" />
+                  {t('searchButton')}
+                </Link>
+              </Button>
+            </div>
           ) : (
             <>
               <Button
