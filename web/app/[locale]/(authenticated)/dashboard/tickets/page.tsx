@@ -3,6 +3,8 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
+import { auth } from 'lib/auth'
+import { redirect } from 'lib/navigation'
 import TicketSummary from './_components/TicketSummary'
 import TicketUsageHistory from './_components/TicketUsageHistory'
 
@@ -55,7 +57,19 @@ function TicketUsageHistorySkeleton() {
   )
 }
 
-export default async function TicketsPage() {
+type Props = {
+  params: Promise<{ locale: string }>
+}
+
+export default async function TicketsPage(props: Props) {
+  const session = await auth()
+  const locale = (await props.params).locale
+
+  if (!session) {
+    redirect({ href: '/auth/signin', locale: locale as 'ja' | 'en' })
+    return
+  }
+
   const t = await getTranslations('Page.dashboard.tickets')
 
   return (
