@@ -41,7 +41,6 @@
       "wholePeriod": "All-time"
     },
 
-
     "ranking": {
       "filter": {
         "period": "Time Period",
@@ -79,7 +78,9 @@
     "superChatChannelsRanking": "Super Chat Ranking (Channels)",
     "superChatLiveRanking": "Super Chat Ranking (Live)",
     "subscriberRanking": "Subscriber Ranking",
-    "concurrentViewerRanking": "Concurrent Viewer Ranking"
+    "concurrentViewerRanking": "Concurrent Viewer Ranking",
+    "hyperChat": "HyperChat",
+    "posterRanking": "Poster Ranking"
   },
 
   "Page": {
@@ -183,6 +184,21 @@
       "mypage": {
         "title": "Your Public Profile URL",
         "description": "Access this URL to view your profile."
+      },
+      "tickets": {
+        "title": "Tickets",
+        "description": "View your Hyper Chat ticket balance and usage history",
+        "remainingTickets": "Remaining Tickets",
+        "count": "{count} tickets",
+        "nearestExpiration": "Nearest Expiration",
+        "noTickets": "No valid tickets available",
+        "usageHistory": "Usage History",
+        "noUsageHistory": "No usage history yet",
+        "noUsageHistoryHint": "Find your favorite talent and send a message",
+        "findFromRanking": "Find from ranking",
+        "findBySearch": "Search",
+        "findTalent": "Find your favorite and send a message",
+        "usedOn": "Used on {date}"
       }
     },
 
@@ -220,7 +236,7 @@
             "data": { "title": "YouTube Data" },
             "stats": { "title": "Last 30 Days Statistics" },
             "topLives": { "title": "Top 3 Popular Streams (Last 30 Days)" },
-            "topSuperChats": { "title": "Top Super Chats (Last 30 Days)" }
+            "topHyperChats": { "title": "Top Hyper Chats (Last 30 Days)" }
           }
         },
         "superChat": {
@@ -261,23 +277,22 @@
             "title": "Concurrent Viewers Trends"
           }
         },
-        "comments": {
+        "hyperChat": {
           "metadata": {
-            "title": "{channel} Latest comments",
-            "description": "Check out the latest comments on {channel}! Check out the latest live streams and Super Chat rankings all at once. Don't miss your favorite streams! Enjoy!"
+            "title": "{channel} HyperChat History",
+            "description": "View HyperChat history for {channel}. Post your message too!"
           },
-          "section": {
-            "title": "Latest comments"
+          "posterRanking": {
+            "metadata": {
+              "title": "{channel} Poster Ranking",
+              "description": "View the HyperChat poster ranking for {channel}."
+            }
           }
         },
-        "streamTimes": {
+        "hyperTrain": {
           "metadata": {
-            "title": "{channel} Stream Times",
-            "description": "Discover {channel}'s streaming schedule, including active days, time slots, and durations! Access detailed insights to plan your viewing experience and never miss your favorite VTuber's streams."
-          },
-          "section": {
-            "card": { "title": "Live Frequency/Duration - Last 30 Days" },
-            "chart": { "title": "Live streaming time slot" }
+            "title": "{channel} HyperTrain Record",
+            "description": "View {channel}'s best HyperTrain records. Cheer together and level up!"
           }
         }
       },
@@ -449,12 +464,14 @@
       "terms": "By continuing, you agree to VCharts's <terms>Terms of Use</terms> and <pp>Privacy Policy</pp>.",
       "buttonText": "Sign-up / Sign-in",
       "linkText": "Sign-up / Sign-in here",
-      "noGoogleAccount": "Don't have a Google account?"
+      "noGoogleAccount": "Don't have a Google account?",
+      "testLogin": "Test Login"
     },
     "bottomNavigation": {
       "home": "Home",
       "live": "Live Viewer",
-      "channels": "Super Chat",
+      "channels": "Supers",
+      "hyperChat": "Hyper Chat",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
       "groups": "Talents"
@@ -484,7 +501,6 @@
       "neoPorte": "Neo-Porte",
       "allGroups": "View all groups →",
       "xAccount": "Official X",
-      "adPurchase": "Purchase Ad Space",
       "termsAndPrivacy": "Terms of Use and PP",
       "dataMethodology": "Data Methodology",
       "tokushoho": "Tokushoho",
@@ -504,7 +520,11 @@
       "groups": "Groups",
       "support": "Support",
       "info": "Info",
-      "allGroup": "Overall"
+      "allGroup": "Overall",
+      "hyperChat": "Hyper Chat",
+      "hyperChatList": "Hyper Chat List",
+      "hyperChatAbout": "About Hyper Chat",
+      "hyperChatGuideline": "Posting Guidelines"
     },
     "loginBonus": {
       "title": "Daily login bonus!",
@@ -515,6 +535,18 @@
       "tips": "Using tickets for talents will increase your ranking. Log in every day to collect tickets and use them as much as you can!",
       "close": "Close",
       "toastTitle": "Earned cheer tickets"
+    },
+    "hyperChatTicketProgress": {
+      "title": "Login Bonus",
+      "description": "You earned a ticket by logging in 3 days",
+      "progressDescription": "Earn tickets based on your login days",
+      "awarded": "Earned 1 free ticket!",
+      "useInstructions": "Tickets can be used to post HyperChats",
+      "progress": "Next ticket",
+      "nextTicket": "{days} more days to earn next ticket",
+      "close": "Close",
+      "toastTitle": "Ticket Earned",
+      "toastDescription": "You earned 1 HyperChat ticket"
     },
     "pagination": {
       "first": "First page",
@@ -627,10 +659,11 @@
           "maxViewers": "Max {count} viewers",
           "noLives": "No streams available"
         },
-        "topSuperChats": {
+        "topHyperChats": {
           "rank": "#{rank}",
-          "noComments": "No comments available",
-          "noMessage": "No message"
+          "empty": "No Hyper Chat available",
+          "noMessage": "No message",
+          "anonymous": "Anonymous"
         }
       },
       "superChat": {
@@ -655,25 +688,11 @@
         "nav": "Concurrent",
         "card": { "min": "Min", "max": "Max", "median": "Median" }
       },
-      "comments": { "nav": "Comments" },
-      "streamTimes": {
-        "nav": "Stream Times",
-        "card": {
-          "count": "Live Stream Count",
-          "totalDuration": "Total Live Duration",
-          "averageDuration": "Average Live Duration"
-        },
-        "chart": {
-          "countsByDoW": {
-            "title": "Live Stream Counts By Day of the Week",
-            "description": "Shows the count of live streams on each day of the week.",
-            "srOnly": "The bar chart shows the count of live streams on each day of the week. This allows you to analyze which days of the week the channel is most active.",
-            "srOnlyLoop": "{count} is the count of live streams on {DoW}."
-          },
-          "viewersByDoW": {
-            "title": "Viewers By Day of the Week"
-          }
-        }
+      "hyperChat": {
+        "nav": "HyperChat"
+      },
+      "hyperTrain": {
+        "nav": "HyperTrain"
       }
     },
 
@@ -748,7 +767,173 @@
         }
       }
     },
-
+    "hyperChat": {
+      "nav": "HyperChat",
+      "toChannel": "To ",
+      "button": {
+        "label": "Post HyperChat"
+      },
+      "dialog": {
+        "title": "Post HyperChat",
+        "description": "Post a positive message to this channel",
+        "tier": {
+          "free": "Free",
+          "lite": "Lite",
+          "standard": "Standard",
+          "premium": "Premium",
+          "special": "Special"
+        },
+        "tierFeatures": {
+          "free": ["Display priority: Lowest"],
+          "lite": ["Display priority: Low"],
+          "standard": ["Display priority: Standard"],
+          "premium": ["Display priority: High"],
+          "special": ["Display priority: Highest", "HyperTrain guaranteed"]
+        },
+        "price": "¥{price}",
+        "maxChars": "Max {count} characters",
+        "messagePlaceholder": "Enter a message...",
+        "charCount": "{current}/{max} characters",
+        "cancel": "Cancel",
+        "purchase": "Purchase",
+        "payButton": "Pay ¥{price}",
+        "processing": "Processing...",
+        "back": "Back",
+        "close": "Close",
+        "payment": {
+          "title": "Payment",
+          "description": "Select a payment method"
+        },
+        "confirmPayment": "Confirm Payment",
+        "complete": {
+          "title": "Payment completed",
+          "description": "Your HyperChat has been posted successfully."
+        },
+        "loginRequired": {
+          "title": "Login Required",
+          "description": "Please sign in to post a HyperChat"
+        },
+        "error": {
+          "title": "Error",
+          "description": "Failed to post HyperChat. Please try again later."
+        },
+        "maxCharsError": "Message must be {count} characters or less",
+        "profanityError": "Your message contains inappropriate language: {words}",
+        "moderationError": "Your message contains inappropriate content",
+        "useTicket": "Post with Free Ticket",
+        "ticketLeft": "left",
+        "postTarget": {
+          "title": "Post Target",
+          "currentAmount": "Current",
+          "afterAmount": "After"
+        },
+        "disclaimer": {
+          "title": "About HyperChat",
+          "noReturn": {
+            "heading": "No direct monetary return to the creator",
+            "body": "Revenue from this feature is not distributed to the VTuber or their agency. For direct financial support, please use official memberships, Super Chat, etc."
+          },
+          "spreadOshi": {
+            "heading": "Help spread your oshi to the world",
+            "body": "Your messages and enthusiasm (amount) are accumulated on VCharts as real evaluations and achievements for your oshi, becoming a powerful force to attract new fans."
+          },
+          "funding": {
+            "heading": "Funds service improvements",
+            "body": "Your funds are used to maintain this neutral and safe data service and to develop features that make supporting your oshi more enjoyable."
+          }
+        }
+      },
+      "card": {
+        "freeTicket": "Free Ticket"
+      },
+      "warn": {
+        "message": "This message may be spam",
+        "showContent": "Show",
+        "hideContent": "Hide"
+      },
+      "like": {
+        "button": "Like",
+        "liked": "Liked"
+      },
+      "stats": {
+        "postCount": "Posts",
+        "totalLikes": "Total Likes",
+        "postSuffix": "",
+        "likesSuffix": ""
+      },
+      "timeline": {
+        "title": "Latest HyperChat",
+        "empty": "No HyperChats yet",
+        "emptyHint": "Find your favorite talent and send a message",
+        "findFromRanking": "Find from ranking",
+        "findBySearch": "Search",
+        "viewAll": "View All"
+      },
+      "history": {
+        "title": "{count} HyperChats",
+        "stats": "Stats",
+        "sortNewest": "Newest",
+        "sortAmount": "Amount"
+      },
+      "latestActivity": {
+        "title": "Recent HyperChats",
+        "empty": "HyperChats will appear here once posted"
+      },
+      "anonymous": {
+        "label": "Anonymous",
+        "displayName": "Anonymous"
+      },
+      "delete": {
+        "menuLabel": "Delete HyperChat",
+        "title": "Delete this HyperChat?",
+        "description": "Once deleted, this post cannot be recovered. Type \"delete\" to confirm.",
+        "inputPlaceholder": "delete",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "deleting": "Deleting..."
+      },
+      "posterRanking": {
+        "title": "Poster Ranking",
+        "backLink": "Back",
+        "empty": "No HyperChats yet",
+        "yenAmount": "¥{amount}"
+      }
+    },
+    "hyperTrain": {
+      "ticker": {
+        "active": "HyperTrain Active !!"
+      },
+      "card": {
+        "totalPoints": "{points}pt",
+        "contributors": "{count} participants",
+        "nextLevel": "{points}pt to Lv.{level}",
+        "remainingTime": "Time left"
+      },
+      "incoming": {
+        "title": "Train incoming",
+        "description": "{remaining} more to depart",
+        "cooldown": "Cooldown ({time} left)"
+      },
+      "bestRecord": {
+        "title": "Best Record",
+        "empty": "A mythical, super rare train. It is said to appear when Hyper Chat is at its peak. This is where all the highest records that have already been completed are recorded.",
+        "maxLevel": "Max Level",
+        "participants": "Participants",
+        "totalPoints": "Total Points",
+        "date": "Date",
+        "contributorList": "Contributors"
+      },
+      "listSection": {
+        "title": "HyperTrains Active"
+      },
+      "contributorPopover": {
+        "title": "Contributors",
+        "rank": "#{rank}",
+        "points": "{points}pt",
+        "viewProfile": "View Profile",
+        "anonymousTotal": "Anonymous (Total {points} pt)"
+      }
+    },
     "dashboard": {
       "profile": {
         "form": {
@@ -762,6 +947,8 @@
           "minLength": "{type} must be at least {length} characters",
           "maxLength": "{type} can be up to {length} characters",
           "usernameRegex": "Username must be alphanumeric and can only contain underscores (_)",
+          "website": "Website",
+          "websiteInvalid": "Please enter a valid URL",
           "usernameReserved": "This username is not available",
           "usernameAvailable": "This username is available",
           "usernameAlreadyExists": "This username already exists",
@@ -997,6 +1184,24 @@
         "title": "Cheer Stats",
         "consumeCount": "Tickets used",
         "rank": "Fan ranking"
+      },
+      "hyperTrainStats": {
+        "title": "Hyper Train Stats",
+        "participationCount": "Participations",
+        "topContributorCount": "Top Contributor",
+        "totalPoint": "Total Points",
+        "mostContributedTalent": "Most Supported Talent"
+      },
+      "hyperChatTimeline": {
+        "empty": "No hyper chat history",
+        "posted": "Posted a Hyper Chat",
+        "tierDescription": "Posted a Tier {tier} message",
+        "freeTicket": "Free Ticket",
+        "detail": "Details",
+        "amount": "Amount",
+        "destination": "Sent to",
+        "countActivities": "{count} activities",
+        "badge": "Post"
       }
     },
     "schedule": {
@@ -1084,6 +1289,187 @@
       "breadcrumb": "Group Registration Application",
       "formPlaceholder": "Application form will be displayed here",
       "historyPlaceholder": "Application history will be displayed here"
+    },
+    "hyperChatScramble": {
+      "metadata": {
+        "title": "Hyper Chat Timeline",
+        "description": "View hyper chats from all channels."
+      },
+      "title": "Hyper Chat",
+      "aboutLink": "What is Hyper Chat?",
+      "guidelineLink": "Posting Guidelines"
+    },
+    "hyperChatGuideline": {
+      "metadata": {
+        "title": "HyperChat Posting Guidelines",
+        "description": "Learn about the posting rules and content quality management for HyperChat."
+      },
+      "hero": {
+        "title": "Posting Guidelines"
+      },
+      "guideline": {
+        "title": "Guidelines",
+        "recommended": {
+          "title": "Recommended",
+          "items": {
+            "positive": "Positive expressions and celebrations",
+            "original": "Your own words, experiences, and unique perspectives",
+            "insightful": "Interesting information and insightful analysis"
+          }
+        },
+        "acceptable": {
+          "title": "OK",
+          "items": {
+            "introduction": "Introducing a talent's appeal to newcomers",
+            "event": "Event announcements (please include your own thoughts on why you're excited, adding your unique perspective)",
+            "discussion": "Questions and constructive discussions (please be mindful to keep things positive)"
+          }
+        },
+        "prohibited": {
+          "title": "Not Allowed",
+          "items": {
+            "illegal": "Content that violates laws or public order and morals",
+            "rumor": "Speculation, hearsay, falsehoods, or rumors",
+            "offensive": "Content that causes strong shock or discomfort to readers",
+            "irrelevant": "Content unrelated to the talent"
+          }
+        }
+      },
+      "moderation": {
+        "title": "Maintaining and Improving Message Quality",
+        "manual": {
+          "title": "Manual Review by Staff",
+          "description": "At VCharts, we recognize our social responsibility as a media platform that shares user-generated content on the internet, and we strive to avoid any negative impact on society."
+        },
+        "ai": {
+          "title": "Monitoring with Latest AI Models",
+          "description": "We use the latest models provided by OpenAI to check whether text and images are potentially harmful. We take corrective actions such as filtering harmful content and intervening with problematic user accounts."
+        }
+      },
+      "note": {
+        "description": "Posts deemed to be fraudulent or otherwise in violation may be removed in accordance with our Terms of Service."
+      },
+      "backLink": "Back to HyperChat"
+    },
+    "hyperChatAbout": {
+      "metadata": {
+        "title": "What is HyperChat",
+        "description": "HyperChat is a persistent message feature for VTuber fans that lets you leave messages on your favorite talent's channel page."
+      },
+      "hero": {
+        "badge": "For VTuber Fans",
+        "title": "HyperChat",
+        "subtitle1": "Don't just consume your feelings.",
+        "subtitle2": "Leave cumulative messages on your favorite oshi's page."
+      },
+      "features": {
+        "title": "Features",
+        "standOut": {
+          "title": "Stand Out Messages",
+          "description": "Choose a paid tier to display your message in a more prominent color."
+        },
+        "channelPage": {
+          "title": "Post on Channel Pages",
+          "description": "Leave a message on your favorite talent's channel page anytime, not just during live streams."
+        },
+        "anonymous": {
+          "title": "Anonymous Mode",
+          "description": "You can post anonymously. Support your favorites while keeping your privacy."
+        },
+        "tierTable": {
+          "title": "Pricing Plans",
+          "tier": "Tier",
+          "price": "Price",
+          "maxChars": "Max Characters",
+          "displayPriority": "Display Priority",
+          "charsUnit": "{count} chars",
+          "free": "Ticket required",
+          "displayPriorityPopover": {
+            "title": "About Display Priority",
+            "item1": "HyperChat and its notifications are displayed in various places throughout the service.",
+            "item2": "The higher the display priority, the more prominently your post will appear — higher up and further forward.",
+            "item3": "The algorithm is adjusted as needed to maximize reader satisfaction."
+          }
+        }
+      },
+      "comparison": {
+        "title": "Comparison with Other Services",
+        "subtitle": "You don't have to stop using Super Chats or memberships at all. When you want to make your favorite bigger and leave a cheer without burdening them — use HyperChat.",
+        "headers": {
+          "feature": "Feature",
+          "hyperChat": "HyperChat",
+          "hyperChatSub": "",
+          "superChat": "Super Chat",
+          "superChatSub": "YouTube",
+          "membership": "Membership",
+          "membershipSub": "Fan Club",
+          "sns": "SNS",
+          "snsSub": "X, etc."
+        },
+        "rows": {
+          "monetaryReturn": {
+            "label": "Monetary Return",
+            "labelSub": "",
+            "hyperChat": "Goes to operation/dev",
+            "superChat": "~70%",
+            "membership": "~90%",
+            "sns": ""
+          },
+          "spreadEffect": {
+            "label": "Outreach Effect",
+            "labelSub": "Growing awareness",
+            "hyperChat": "Reaches new audiences",
+            "superChat": "",
+            "membership": "",
+            "sns": "Powerful if viral"
+          },
+          "assetValue": {
+            "label": "Support as Asset",
+            "labelSub": "Stays or fades",
+            "hyperChat": "Messages accumulate",
+            "superChat": "Gone in an instant",
+            "membership": "Depends on content",
+            "sns": "Too much, gets buried"
+          },
+          "talentBurden": {
+            "label": "Talent's Burden",
+            "labelSub": "Prep & read-aloud",
+            "hyperChat": "None",
+            "superChat": "Read-aloud required",
+            "membership": "Dedicated prep needed",
+            "sns": "Ego-search chaos"
+          },
+          "safety": {
+            "label": "Safety & Civility",
+            "labelSub": "Risk of toxicity",
+            "hyperChat": "Human + AI moderation",
+            "superChat": "Moderators",
+            "membership": "Closed community",
+            "sns": "Hellscape"
+          }
+        },
+        "summaryLine1": "Super Chats and memberships are the foundation of 'today's activities' —",
+        "summaryLine2": "HyperChat is the foundation of 'future growth'"
+      },
+      "transparency": {
+        "title": "How Revenue is Used",
+        "description": "Revenue from HyperChat is used for the following purposes.",
+        "items": {
+          "server": "Server maintenance and infrastructure costs",
+          "development": "New feature development and improvements",
+          "operation": "Stable service operation"
+        }
+      },
+      "cta": {
+        "title": "Send Your Message to Your Favorite",
+        "description": "Leave your message on your favorite talent's channel page with HyperChat.",
+        "button": "Find your Oshi and post a message",
+        "rankingButton": "Find from ranking",
+        "searchButton": "Search for your favorite",
+        "loginButton": "Sign Up / Log In",
+        "loginHint": "Sign up to get HyperChat tickets",
+        "guidelineLink": "Review posting guidelines"
+      }
     }
   }
 }

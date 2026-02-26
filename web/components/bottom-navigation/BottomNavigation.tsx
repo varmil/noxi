@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Activity, LucideLayoutDashboard, Search } from 'lucide-react'
+import { Activity, MessagesSquare, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -17,11 +17,11 @@ export default function BottomNavigation({ className }: Props) {
   const pathname = usePathname()
 
   const navigation = [
-    {
-      pathname: '/',
-      label: t('home'),
-      icon: LucideLayoutDashboard
-    },
+    // {
+    //   pathname: '/',
+    //   label: t('home'),
+    //   icon: LucideLayoutDashboard
+    // },
     {
       pathname: '/ranking/super-chat/channels/all/last30Days',
       isActive: pathname.startsWith('/ranking/super-chat'),
@@ -33,6 +33,12 @@ export default function BottomNavigation({ className }: Props) {
       isActive: pathname.startsWith('/ranking/concurrent-viewer'),
       label: t('live'),
       icon: Activity
+    },
+    {
+      pathname: '/hyper-chat',
+      isActive: pathname.startsWith('/hyper-chat'),
+      label: t('hyperChat'),
+      icon: MessagesSquare
     },
     {
       pathname: '/groups',
@@ -68,8 +74,10 @@ export default function BottomNavigation({ className }: Props) {
               )}
             >
               <Link href={item.pathname} prefetch={false}>
-                <Icon className="size-6" />
-                <span className="text-xs">{item.label}</span>
+                <Icon className="size-5" />
+                <span className="text-[11px] whitespace-nowrap">
+                  {item.label}
+                </span>
               </Link>
             </Button>
           )

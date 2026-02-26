@@ -83,11 +83,6 @@ export function Footer() {
           external: true
         },
         {
-          label: t('adPurchase'),
-          href: 'https://docs.google.com/forms/d/e/1FAIpQLScnfs5_qawOpmQcODjrR97T2v42MIbuW-uorTg_qeM9WpnL6A/viewform?usp=sharing&ouid=111998141281822399071',
-          external: true
-        },
-        {
           label: t('termsAndPrivacy'),
           href: '/terms-of-use-and-privacy-policy'
         },
@@ -102,7 +97,7 @@ export function Footer() {
   }
 
   return (
-    <footer className="border-t border-border bg-muted/30 mt-8">
+    <footer className="border-t border-border bg-muted/30 mt-0">
       <div className="mx-auto max-w-[1200px] pt-6 pb-3 px-4 sm:px-6 lg:px-8">
         {/* SEO-friendly nav with proper structure */}
         <nav aria-label={t('navigation')}>

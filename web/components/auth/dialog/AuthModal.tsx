@@ -15,9 +15,10 @@ interface Props {
   open: boolean
   onOpenChange: (open: boolean) => void
   trigger?: React.ReactNode
+  redirectTo?: string
 }
 
-export default function AuthModal({ open, onOpenChange, trigger }: Props) {
+export default function AuthModal({ open, onOpenChange, trigger, redirectTo }: Props) {
   const comp = useTranslations('Components.auth')
 
   return (
@@ -34,7 +35,7 @@ export default function AuthModal({ open, onOpenChange, trigger }: Props) {
             {comp('noExtraInput')}
           </DialogDescription>
         </DialogHeader>
-        <AuthForm />
+        <AuthForm redirectTo={redirectTo} />
       </DialogContent>
     </Dialog>
   )

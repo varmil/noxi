@@ -1,0 +1,14 @@
+/**
+ * ハイパーチャットのモデレーション情報
+ * Warn（警告付き表示）/ Ban（完全非表示）を管理
+ */
+model HyperChatModeration {
+  hyperChatId Int      @id
+  status      String // "warn" | "ban"
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt   DateTime @updatedAt @db.Timestamptz(3)
+
+  hyperChat HyperChat @relation(fields: [hyperChatId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}

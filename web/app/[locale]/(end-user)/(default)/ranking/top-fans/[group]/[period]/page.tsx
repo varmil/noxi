@@ -1,81 +1,41 @@
 import { Metadata } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
-import { getGroupName } from 'apis/groups'
+import { setRequestLocale } from 'next-intl/server'
 import { Page } from 'components/page'
-import RankHighlighter from 'components/ranking/highlighter/RankHighlighter'
-import { TopFansSearchParams } from 'features/cheer/top-fans/types/top-fans.type'
-import { TopFansPeriod } from 'types/period'
-import { generateTitleAndDescription } from 'utils/metadata/metadata-generator'
 import IndexTemplate from './_components/IndexTemplate'
 
 type Props = {
   params: Promise<{
     locale: string
-    period: TopFansPeriod
+    period: string
     group: string
   }>
-  searchParams: Promise<TopFansSearchParams>
 }
 
-export async function generateMetadata(props: Props): Promise<Metadata> {
-  const { locale, period, group: groupId } = await props.params
-  const { gender, page } = await props.searchParams
-  const groupName = await getGroupName(groupId, {
-    errorContext: 'top-fans page (metadata)'
-  })
-
+export async function generateMetadata(): Promise<Metadata> {
   return {
-    ...(await generateTitleAndDescription({
-      locale: locale as 'ja' | 'en',
-      pageNamespace: 'Page.ranking.top-fans',
-      featNamespace: 'Features.topFans.dimension',
-      period,
-      dimension: 'top-fans',
-      groupName,
-      gender,
-      page
-    })),
+    title: 'トップファンランキング - VCharts',
     robots: { index: false }
   }
 }
 
 export default async function RankingTopFansPage(props: Props) {
-  const { locale, period, group: groupId } = await props.params
-  const searchParams = await props.searchParams
-  const { gender } = searchParams
+  const { locale } = await props.params
 
   // Enable static rendering
   setRequestLocale(locale as 'ja' | 'en')
-  const [global, feat, groupName] = await Promise.all([
-    getTranslations('Global'),
-    getTranslations('Features.topFans.dimension'),
-    getGroupName(groupId, { errorContext: 'top-fans page' })
-  ])
 
   return (
     <Page
       breadcrumb={[
         {
-          href: `#`,
-          name: feat('top-fans', {
-            period: global(`period.${period}`),
-            group: groupName,
-            gender: gender ? global(`gender.${gender}`) : ''
-          })
-            .replace(/\s+/g, ' ')
-            .trim()
+          href: '#',
+          name: 'トップファンランキング'
         }
       ]}
       noPadding
       fullWidth
     >
-      <RankHighlighter>
-        <IndexTemplate
-          period={period}
-          group={groupId}
-          searchParams={searchParams}
-        />
-      </RankHighlighter>
+      <IndexTemplate />
     </Page>
   )
 }

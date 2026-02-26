@@ -76,6 +76,9 @@ declare global {
       readonly DATABASE_URL: string
 
       readonly OPENAI_API_KEY: string
+
+      /** Secret token for revalidating cache (from backend) */
+      readonly REVALIDATE_SECRET: string
     }
   }
 }

@@ -2,13 +2,17 @@ import { ClassSerializerInterceptor, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
-import { CheerTicketUsagesPresentationModule } from '@presentation/cheer-ticket-usages/cheer-ticket-usages.presentation.module'
-import { CheerTicketsPresentationModule } from '@presentation/cheer-tickets/cheer-tickets.presentation.module'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { GroupRegistrationsPresentationModule } from '@presentation/group-registrations/group-registrations.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
+import { HyperChatAdminPresentationModule } from '@presentation/hyper-chat-admin/hyper-chat-admin.presentation.module'
+import { HyperChatModerationsPresentationModule } from '@presentation/hyper-chat-moderations/hyper-chat-moderations.presentation.module'
+import { HyperChatRankingsPresentationModule } from '@presentation/hyper-chat-rankings/hyper-chat-rankings.presentation.module'
+import { HyperChatTicketsPresentationModule } from '@presentation/hyper-chat-tickets/hyper-chat-tickets.presentation.module'
+import { HyperChatsPresentationModule } from '@presentation/hyper-chats/hyper-chats.presentation.module'
+import { HyperTrainsPresentationModule } from '@presentation/hyper-trains/hyper-trains.presentation.module'
 import { InactiveChannelsPresentationModule } from '@presentation/inactive-channels/inactive-channels.presentation.module'
 import { InsightsPresentationModule } from '@presentation/insights/insights.presentation.module'
 import { LoginBonusesPresentationModule } from '@presentation/login-bonuses/login-bonuses.presentation.module'
@@ -35,12 +39,16 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     LibAppModule,
     ChannelRegistrationsPresentationModule,
     InactiveChannelsPresentationModule,
-    CheerTicketUsagesPresentationModule,
-    CheerTicketsPresentationModule,
     CloudSchedulersPresentationModule,
     ExchangeRatesPresentationModule,
     GroupsPresentationModule,
     GroupRegistrationsPresentationModule,
+    HyperChatAdminPresentationModule,
+    HyperChatModerationsPresentationModule,
+    HyperChatRankingsPresentationModule,
+    HyperChatsPresentationModule,
+    HyperChatTicketsPresentationModule,
+    HyperTrainsPresentationModule,
     LoginBonusesPresentationModule,
     MembershipBundlesPresentationModule,
     MembershipSummariesPresentationModule,

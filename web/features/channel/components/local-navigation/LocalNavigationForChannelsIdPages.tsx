@@ -22,6 +22,11 @@ export default function LocalNavigationForChannelsIdPages({
       items={[
         { name: t('overview.nav'), href: basePath },
         {
+          name: t('hyperChat.nav'),
+          href: `${basePath}/hyper-chat`
+        },
+
+        {
           name: t('superChat.nav'),
           href: `${basePath}/super-chat`
         },
@@ -34,12 +39,8 @@ export default function LocalNavigationForChannelsIdPages({
           href: `${basePath}/concurrent-viewers`
         },
         {
-          name: t('comments.nav'),
-          href: [`${basePath}/comments`]
-        },
-        {
-          name: t('streamTimes.nav'),
-          href: `${basePath}/stream-times`
+          name: t('hyperTrain.nav'),
+          href: `${basePath}/hyper-train`
         }
       ]}
       className="border-b mb-8"

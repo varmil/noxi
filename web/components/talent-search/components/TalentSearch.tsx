@@ -55,7 +55,8 @@ export function TalentSearch({ className, dropdown }: Props) {
     fetchTalents()
   }, [debouncedQuery, queryIsLongEnough])
 
-  const hasResults = loading || talents.length > 0
+  const showList =
+    loading || (queryIsLongEnough && talents.length === 0) || talents.length > 0
 
   return (
     <Command
@@ -71,13 +72,14 @@ export function TalentSearch({ className, dropdown }: Props) {
         placeholder="YouTubeチャンネル名を入力..."
         value={query}
         onValueChange={setQuery}
+        className="text-base"
       />
       <CommandList
         className={cn(
           'max-h-[330px]',
           dropdown &&
             'absolute top-full left-0 right-0 z-50 rounded-md border bg-popover shadow-md',
-          dropdown && !hasResults && 'hidden'
+          dropdown && !showList && 'hidden'
         )}
       >
         {loading && (
@@ -85,11 +87,17 @@ export function TalentSearch({ className, dropdown }: Props) {
             <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
           </div>
         )}
-        {/* {!loading && queryIsLongEnough && !talents.length && (
-          <section className="flex items-center justify-center p-4">
-            該当するタレントが見つかりませんでした
+        {!loading && queryIsLongEnough && !talents.length && (
+          <section className="flex flex-col items-center gap-2 p-4 text-sm text-muted-foreground">
+            <span>該当するチャンネルが見つかりませんでした</span>
+            <Link
+              href="/channels/add"
+              className="underline underline-offset-4 hover:text-primary"
+            >
+              チャンネルを新規追加する
+            </Link>
           </section>
-        )} */}
+        )}
         <CommandItem value="-" className="hidden" />
 
         {talents.length ? (

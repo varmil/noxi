@@ -8,6 +8,7 @@ type Data = {
   username: string
   image?: string
   description: string
+  website: string
 }
 
 export async function saveUserProfile(data: Data): Promise<void> {

@@ -74,7 +74,9 @@
     "superChatChannelsRanking": "スパチャランキング（チャンネル集計）",
     "superChatLiveRanking": "スパチャランキング（ライブ集計）",
     "subscriberRanking": "チャンネル登録者数ランキング",
-    "concurrentViewerRanking": "同接数ランキング"
+    "concurrentViewerRanking": "同接数ランキング",
+    "hyperChat": "ハイパーチャット",
+    "posterRanking": "投稿者ランキング"
   },
   "Page": {
     "index": {
@@ -173,6 +175,21 @@
       "mypage": {
         "title": "公開プロフィールURL",
         "description": "他ユーザーから見たあなたのプロフィールの見え方を確認できます。"
+      },
+      "tickets": {
+        "title": "チケット",
+        "description": "ハイパーチャットチケットの残数と使用履歴",
+        "remainingTickets": "保有無料チケット",
+        "count": "{count}枚",
+        "nearestExpiration": "最短有効期限",
+        "noTickets": "有効なチケットはありません",
+        "usageHistory": "使用履歴",
+        "noUsageHistory": "使用履歴はまだありません",
+        "noUsageHistoryHint": "推しにメッセージを投稿しよう",
+        "findFromRanking": "ランキングから探す",
+        "findBySearch": "検索して探す",
+        "findTalent": "推しを探してメッセージを送る",
+        "usedOn": "{date}に使用"
       }
     },
     "groups": {
@@ -214,8 +231,8 @@
             "topLives": {
               "title": "人気ライブTop3（過去30日間）"
             },
-            "topSuperChats": {
-              "title": "上位スーパーチャット（過去30日間）"
+            "topHyperChats": {
+              "title": "上位ハイパーチャット（過去30日間）"
             }
           }
         },
@@ -261,27 +278,22 @@
             "title": "ライブ同接数の推移"
           }
         },
-        "comments": {
+        "hyperChat": {
           "metadata": {
-            "title": "{channel} 最新のコメント",
-            "description": "{channel}の最新のコメント一覧をチェック！最新のライブ配信やスーパーチャットランキングをまとめて確認。推しの配信を見逃さず楽しもう！"
+            "title": "{channel} ハイパーチャット履歴",
+            "description": "「{channel}」に投稿されたハイパーチャットの履歴を確認できます。あなたもメッセージを投稿しよう！"
           },
-          "section": {
-            "title": "最新のコメント"
+          "posterRanking": {
+            "metadata": {
+              "title": "{channel} 投稿者ランキング",
+              "description": "「{channel}」へのハイパーチャット投稿者ランキングを確認できます。"
+            }
           }
         },
-        "streamTimes": {
+        "hyperTrain": {
           "metadata": {
-            "title": "{channel} 配信時間・配信時間帯・配信曜日",
-            "description": "「{channel}」の配信時間帯、配信時間、配信曜日を徹底解説！視聴スケジュールを立てやすい詳細データを提供。推しの活動時間を見逃さずチェック！"
-          },
-          "section": {
-            "card": {
-              "title": "ライブ頻度・時間 - 過去30日間"
-            },
-            "chart": {
-              "title": "配信時間帯・曜日"
-            }
+            "title": "{channel} ハイパートレイン記録",
+            "description": "「{channel}」のハイパートレインのベストレコードを確認できます。みんなで応援してレベルを上げよう！"
           }
         }
       },
@@ -449,12 +461,14 @@
       "terms": "続行することで、VChartsの<terms>利用規約</terms>と<pp>プライバシーポリシー</pp>に同意したものとみなされます。",
       "buttonText": "新規登録 / ログイン",
       "linkText": "新規登録 / ログインはこちらから",
-      "noGoogleAccount": "Googleアカウントをお持ちでない方"
+      "noGoogleAccount": "Googleアカウントをお持ちでない方",
+      "testLogin": "テストログイン"
     },
     "bottomNavigation": {
       "home": "ホーム",
       "live": "同接数",
-      "channels": "スパチャ金額",
+      "channels": "スパチャ",
+      "hyperChat": "ハイパーチャット",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
       "groups": "タレント検索"
@@ -492,7 +506,6 @@
       "neoPorte": "ネオポルテ",
       "allGroups": "全グループ一覧",
       "xAccount": "公式 X (旧 Twitter)",
-      "adPurchase": "広告掲載枠の購入",
       "termsAndPrivacy": "利用規約/PP",
       "dataMethodology": "データ算出方法",
       "tokushoho": "特定商取引法表記",
@@ -512,7 +525,11 @@
       "groups": "グループ",
       "support": "サポート",
       "info": "情報",
-      "allGroup": "総合"
+      "allGroup": "総合",
+      "hyperChat": "ハイパーチャット",
+      "hyperChatList": "ハイパーチャット一覧",
+      "hyperChatAbout": "ハイパーチャットとは",
+      "hyperChatGuideline": "投稿ガイドライン"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",
@@ -523,6 +540,18 @@
       "tips": "チケットをタレントに使うことでランキングが上昇します。毎日ログインしてチケットを集め、どんどん使ってみましょう！",
       "close": "閉じる",
       "toastTitle": "応援チケットを獲得しました"
+    },
+    "hyperChatTicketProgress": {
+      "title": "ログインボーナス",
+      "description": "3日間のログインでチケットを獲得しました",
+      "progressDescription": "ログイン日数に応じてチケットを獲得できます",
+      "awarded": "無料チケット1枚を獲得！",
+      "useInstructions": "ハイパーチャット投稿に使うことができます",
+      "progress": "次のチケットまで",
+      "nextTicket": "あと{days}日ログインで次のチケット獲得",
+      "close": "閉じる",
+      "toastTitle": "チケット獲得",
+      "toastDescription": "ハイパーチャットチケットを1枚獲得しました"
     },
     "pagination": {
       "first": "最初のページへ",
@@ -634,10 +663,11 @@
           "maxViewers": "最大{count}人",
           "noLives": "配信がありません"
         },
-        "topSuperChats": {
+        "topHyperChats": {
           "rank": "#{rank}",
-          "noComments": "コメントがありません",
-          "noMessage": "メッセージなし"
+          "empty": "直近の投稿がありません。",
+          "noMessage": "メッセージなし",
+          "anonymous": "名無しさん"
         }
       },
       "superChat": {
@@ -670,27 +700,11 @@
           "median": "中央値"
         }
       },
-      "comments": {
-        "nav": "コメント"
+      "hyperChat": {
+        "nav": "ハイパーチャット"
       },
-      "streamTimes": {
-        "nav": "配信時間",
-        "card": {
-          "count": "ライブ回数",
-          "totalDuration": "合計ライブ時間",
-          "averageDuration": "平均ライブ時間"
-        },
-        "chart": {
-          "countsByDoW": {
-            "title": "曜日ごとの配信頻度",
-            "description": "各曜日のライブ回数を表示",
-            "srOnly": "1週間の各曜日におけるライブ配信回数を棒グラフで示しています。これによりチャンネルが活発に活動している曜日を分析できます。",
-            "srOnlyLoop": "{DoW}に{count}本のライブ配信が行われました。"
-          },
-          "viewersByDoW": {
-            "title": "曜日別同接数"
-          }
-        }
+      "hyperTrain": {
+        "nav": "ハイパートレイン"
       }
     },
     "cheerChannel": {
@@ -764,6 +778,173 @@
         }
       }
     },
+    "hyperChat": {
+      "nav": "ハイパーチャット",
+      "toChannel": "To ",
+      "button": {
+        "label": "ハイパーチャットを投稿する"
+      },
+      "dialog": {
+        "title": "ハイパーチャットを投稿",
+        "description": "ポジティブなメッセージを投稿しよう",
+        "tier": {
+          "free": "無料",
+          "lite": "ライト",
+          "standard": "スタンダード",
+          "premium": "プレミアム",
+          "special": "スペシャル"
+        },
+        "tierFeatures": {
+          "free": ["表示優先度：最低"],
+          "lite": ["表示優先度：低"],
+          "standard": ["表示優先度：標準"],
+          "premium": ["表示優先度：高"],
+          "special": ["表示優先度：最高", "ハイパートレイン確定発車"]
+        },
+        "price": "{price}円",
+        "maxChars": "最大{count}文字",
+        "messagePlaceholder": "メッセージを入力...",
+        "charCount": "{current}/{max}文字",
+        "cancel": "キャンセル",
+        "purchase": "購入する",
+        "payButton": "¥{price}を支払う",
+        "processing": "処理中...",
+        "back": "戻る",
+        "close": "閉じる",
+        "payment": {
+          "title": "お支払い",
+          "description": "支払い方法を選択してください"
+        },
+        "confirmPayment": "支払いを確定",
+        "complete": {
+          "title": "決済完了",
+          "description": "ハイパーチャットを投稿しました"
+        },
+        "loginRequired": {
+          "title": "ログインが必要です",
+          "description": "ハイパーチャットを投稿するにはログインしてください"
+        },
+        "error": {
+          "title": "エラーが発生しました",
+          "description": "ハイパーチャットの投稿に失敗しました。後でもう一度お試しください。"
+        },
+        "maxCharsError": "メッセージは{count}文字以内で入力してください",
+        "profanityError": "不適切な表現が含まれています: {words}",
+        "moderationError": "不適切な内容が含まれています",
+        "useTicket": "無料チケットで投稿",
+        "ticketLeft": "枚",
+        "postTarget": {
+          "title": "投稿先",
+          "currentAmount": "現在累計",
+          "afterAmount": "投稿後"
+        },
+        "disclaimer": {
+          "title": "ハイパーチャットについて",
+          "noReturn": {
+            "heading": "ご本人への金銭的な還元はありません",
+            "body": "本機能による収益はVTuberご本人や事務所には分配されません。生活費等の支援は公式メンバーシップ、スーパーチャット等をご利用ください。"
+          },
+          "spreadOshi": {
+            "heading": "外の世界へ \"推し\" を伝える力になります",
+            "body": "皆様のメッセージと熱量（金額）は「推しの信頼できる評判・実績」としてVChartsに蓄積され、新たなファンを獲得する大きな力になります。"
+          },
+          "funding": {
+            "heading": "サービス継続のための資金になります",
+            "body": "いただいた資金は中立で安全なデータサービスを維持し、推し活を楽しくするための機能改善・開発に活用いたします。"
+          }
+        }
+      },
+      "card": {
+        "freeTicket": "無料チケ"
+      },
+      "warn": {
+        "message": "スパムの可能性があります",
+        "showContent": "表示する",
+        "hideContent": "非表示にする"
+      },
+      "like": {
+        "button": "いいね",
+        "liked": "いいね済み"
+      },
+      "stats": {
+        "postCount": "投稿数",
+        "totalLikes": "総いいね",
+        "postSuffix": "件",
+        "likesSuffix": ""
+      },
+      "timeline": {
+        "title": "最新のハイパーチャット",
+        "empty": "まだハイパーチャットはありません",
+        "emptyHint": "推しにメッセージを投稿しよう",
+        "findFromRanking": "ランキングから探す",
+        "findBySearch": "検索して探す",
+        "viewAll": "すべて見る"
+      },
+      "history": {
+        "title": "{count} 件のハイパーチャット",
+        "stats": "投稿状況",
+        "sortNewest": "新着順",
+        "sortAmount": "金額順"
+      },
+      "latestActivity": {
+        "title": "新着ハイパーチャット",
+        "empty": "新着順にハイパーチャットが表示されます"
+      },
+      "anonymous": {
+        "label": "匿名",
+        "displayName": "名無しさん"
+      },
+      "delete": {
+        "menuLabel": "ハイパーチャットを削除",
+        "title": "ハイパーチャットを削除しますか？",
+        "description": "一度削除した投稿は二度と復帰できません。削除するには「delete」と入力してください。",
+        "inputPlaceholder": "delete",
+        "confirm": "削除する",
+        "cancel": "キャンセル",
+        "deleting": "削除中..."
+      },
+      "posterRanking": {
+        "title": "投稿者ランキング",
+        "backLink": "戻る",
+        "empty": "まだハイパーチャットの投稿はありません",
+        "yenAmount": "¥{amount}"
+      }
+    },
+    "hyperTrain": {
+      "ticker": {
+        "active": "ハイパートレイン発生中 !!"
+      },
+      "card": {
+        "totalPoints": "{points}pt",
+        "contributors": "{count}人参加",
+        "nextLevel": "Lv.{level}まで{points}pt",
+        "remainingTime": "残り時間"
+      },
+      "incoming": {
+        "title": "トレイン発車準備中",
+        "description": "トレイン発車まであと{remaining}人",
+        "cooldown": "トレインは帰還中（残り {time}）"
+      },
+      "bestRecord": {
+        "title": "ベストレコード",
+        "empty": "幻の超レアトレイン。ハイパーチャットが最高潮に賑わったとき姿を表すと言われている。ここには終了済みの最高記録がレコードされる。",
+        "maxLevel": "最大到達レベル",
+        "participants": "参加人数",
+        "totalPoints": "総ポイント",
+        "date": "発生日",
+        "contributorList": "貢献者一覧"
+      },
+      "listSection": {
+        "title": "ハイパートレイン発生中"
+      },
+      "contributorPopover": {
+        "title": "貢献者一覧",
+        "rank": "{rank}位",
+        "points": "{points}pt",
+        "viewProfile": "プロフィールを見る",
+        "anonymousTotal": "名無しさん（計 {points} pt）"
+      }
+    },
     "dashboard": {
       "profile": {
         "form": {
@@ -777,6 +958,8 @@
           "minLength": "{type}は{length}文字以上で入力してください",
           "maxLength": "{type}は{length}文字まで入力できます",
           "usernameRegex": "ユーザー名は英数字とアンダースコア(_)のみ使用できます",
+          "website": "ウェブサイト",
+          "websiteInvalid": "有効なURLを入力してください",
           "usernameReserved": "このユーザーネームは使用できません",
           "usernameAvailable": "このユーザーネームは使用可能です",
           "usernameAlreadyExists": "このユーザーネームは既に使用されています",
@@ -1006,6 +1189,24 @@
         "title": "応援スタッツ",
         "consumeCount": "チケット使用数",
         "rank": "ファン順位"
+      },
+      "hyperTrainStats": {
+        "title": "ハイパートレイン参加統計",
+        "participationCount": "参加回数",
+        "topContributorCount": "貢献１位回数",
+        "totalPoint": "総貢献ポイント",
+        "mostContributedTalent": "最も貢献したタレント"
+      },
+      "hyperChatTimeline": {
+        "empty": "ハイパーチャットの履歴はありません",
+        "posted": "ハイパーチャットを投稿",
+        "tierDescription": "Tier {tier} の投稿をしました",
+        "freeTicket": "無料チケット",
+        "detail": "詳細",
+        "amount": "金額",
+        "destination": "投稿先",
+        "countActivities": "{count}件のアクティビティ",
+        "badge": "投稿"
       }
     },
     "schedule": {
@@ -1092,6 +1293,187 @@
       "breadcrumb": "Group登録申請",
       "formPlaceholder": "申請フォームはここに表示されます",
       "historyPlaceholder": "申請履歴はここに表示されます"
+    },
+    "hyperChatScramble": {
+      "metadata": {
+        "title": "ハイパーチャット一覧",
+        "description": "全チャンネルのハイパーチャットを一覧で確認できます。"
+      },
+      "title": "ハイパーチャット",
+      "aboutLink": "ハイパーチャットとは？",
+      "guidelineLink": "投稿ガイドライン"
+    },
+    "hyperChatGuideline": {
+      "metadata": {
+        "title": "ハイパーチャット 投稿ガイドライン",
+        "description": "ハイパーチャットの投稿ルールとコンテンツ品質維持の仕組みについてご案内します。"
+      },
+      "hero": {
+        "title": "投稿ガイドライン"
+      },
+      "guideline": {
+        "title": "健全な場を運営するために",
+        "recommended": {
+          "title": "推奨",
+          "items": {
+            "positive": "ポジティブな気持ちの表現、お祝い",
+            "original": "主観、体験談、ユーモア",
+            "insightful": "推し活の共有、報告"
+          }
+        },
+        "acceptable": {
+          "title": "OK",
+          "items": {
+            "introduction": "新規さんに向けたタレントの魅力紹介",
+            "event": "イベントの告知（ただし自分なりの考察やなぜ期待しているのかなど、あなただからこそ書ける内容を併記ください）",
+            "discussion": "質問や建設的な議論など、いわゆる掲示板的な内容（ただしネガティブにならないよう注意ください）"
+          }
+        },
+        "prohibited": {
+          "title": "NG",
+          "items": {
+            "illegal": "法令違反、公序良俗に反するもの",
+            "rumor": "憶測や伝聞、虚偽、噂",
+            "offensive": "読者に強いショックや不快感を与えるもの",
+            "irrelevant": "タレントに無関係の内容"
+          }
+        }
+      },
+      "moderation": {
+        "title": "投稿のクオリティ維持・向上",
+        "manual": {
+          "title": "運営スタッフによる目視管理",
+          "description": "VChartsでは、UGCをインターネット上で共有するメディアとして、社会に対してネガティブな影響を与えないように努力を行うことが社会的責任であると認識しています。"
+        },
+        "ai": {
+          "title": "最新AIモデルによる投稿の監視",
+          "description": "OpenAI社が提供する最新モデルを利用し、テキストや画像が潜在的に有害かどうかを確認します。有害コンテンツをフィルタリングしたり、問題のあるユーザーアカウントに介入したりするなど、是正措置を講じます。"
+        }
+      },
+      "note": {
+        "description": "皆さまがご投稿くださるハイパーチャットはタレント、ファン双方にとって大変貴重な情報です。「おめでとう」「面白かったよ」の一言でもぜひ投稿してみてください。どんなメッセージであれ積み重ねが「推しの未来の成長」を支える土台となります。いつでもVChartsはあなたの投稿を心からお待ちしております。"
+      },
+      "backLink": "ハイパーチャット一覧ページへ"
+    },
+    "hyperChatAbout": {
+      "metadata": {
+        "title": "ハイパーチャットとは",
+        "description": "ハイパーチャットは、推しのチャンネルページにメッセージを残せるVTuberファン専用の蓄積型メッセージ機能です。"
+      },
+      "hero": {
+        "badge": "VTuberファン専用",
+        "title": "ハイパーチャット",
+        "subtitle1": "想いを儚い「消費」にしない",
+        "subtitle2": "推しのページに残せる蓄積型メッセージ"
+      },
+      "features": {
+        "title": "ハイパーチャットとは？",
+        "channelPage": {
+          "title": "推しのページに投稿",
+          "description": "いつでも推しのチャンネルページにメッセージを残せます。運営と最新AIが安全な場を徹底します。"
+        },
+        "standOut": {
+          "title": "目立つメッセージ",
+          "description": "有料ティアを選ぶとメッセージが目立ちます。さらに金額が『ファンの熱量データ（実績）』として蓄積できます。"
+        },
+        "anonymous": {
+          "title": "匿名モード",
+          "description": "匿名で投稿することもできます。プライバシーを守りながら応援できます。"
+        },
+        "tierTable": {
+          "title": "料金プラン",
+          "tier": "ティア",
+          "price": "料金",
+          "maxChars": "最大文字数",
+          "displayPriority": "表示優先度",
+          "charsUnit": "{count}文字",
+          "free": "要チケット",
+          "displayPriorityPopover": {
+            "title": "表示優先度について",
+            "item1": "ハイパーチャット、その通知はサービス内の様々な箇所で表示されます。",
+            "item2": "表示優先度が高いほど、投稿はより上方、より前方に表示されます。（新着順は除く）",
+            "item3": "アルゴリズムは読み手満足度の最大化を目標に適宜変更されます。"
+          }
+        }
+      },
+      "comparison": {
+        "title": "他サービスとの比較",
+        "subtitle": "投げ銭やメンバーシップをやめる必要はまったくありません。推しのすごさをもっと共有したい。疲弊させずに応援の声を残したい——そう思った時にハイパーチャットを使ってください。",
+        "headers": {
+          "feature": "比較項目",
+          "hyperChat": "ハイパーチャット",
+          "hyperChatSub": "",
+          "superChat": "投げ銭",
+          "superChatSub": "YouTube",
+          "membership": "メンバーシップ",
+          "membershipSub": "ファンクラブ",
+          "sns": "SNS",
+          "snsSub": "X, 好き嫌い.com"
+        },
+        "rows": {
+          "monetaryReturn": {
+            "label": "推しへの金銭還元",
+            "labelSub": "",
+            "hyperChat": "サイト運営/開発費へ",
+            "superChat": "~70%",
+            "membership": "~90%",
+            "sns": ""
+          },
+          "spreadEffect": {
+            "label": "外部への布教効果",
+            "labelSub": "認知の拡大",
+            "hyperChat": "広く深く伝わる",
+            "superChat": "",
+            "membership": "",
+            "sns": "バズると強い"
+          },
+          "assetValue": {
+            "label": "応援の資産性",
+            "labelSub": "残るか、流れるか",
+            "hyperChat": "見やすく蓄積",
+            "superChat": "配信限り",
+            "membership": "コンテンツ次第",
+            "sns": "鮮度が命"
+          },
+          "talentBurden": {
+            "label": "タレントの負担",
+            "labelSub": "準備や読み上げ",
+            "hyperChat": "無し",
+            "superChat": "読み上げ等",
+            "membership": "専用準備必要",
+            "sns": "要リサーチ"
+          },
+          "safety": {
+            "label": "安全性・民度",
+            "labelSub": "荒れないか",
+            "hyperChat": "人間＋AIのW運営",
+            "superChat": "モデレーター",
+            "membership": "クローズド",
+            "sns": "地獄"
+          }
+        },
+        "summaryLine1": "ハイパーチャットは推しの活躍をもっと目立たせ",
+        "summaryLine2": "推しが今後も選ばれ続ける理由となります。"
+      },
+      "transparency": {
+        "title": "収益の使いみち",
+        "description": "収益は以下の目的に使用されます。",
+        "items": {
+          "server": "サーバー費用・長期コミットメント",
+          "development": "新機能やハイパーチャットの開発",
+          "operation": "安全なサービス・場の運用"
+        }
+      },
+      "cta": {
+        "title": "言葉で推しを飛躍させよう",
+        "description": "推しのページを熱いメッセージで盛り上げよう",
+        "button": "推しを探してメッセージを投稿する",
+        "rankingButton": "ランキングから推しを探す",
+        "searchButton": "検索して推しを探す",
+        "loginButton": "新規登録 / ログイン",
+        "loginHint": "新規登録でハイパーチャットチケットを入手できます",
+        "guidelineLink": "投稿ガイドラインを確認する"
+      }
     }
   }
 }

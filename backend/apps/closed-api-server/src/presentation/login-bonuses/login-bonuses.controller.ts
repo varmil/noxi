@@ -1,11 +1,4 @@
-import {
-  
-  Controller,
-  Post,
-  Req,
-  UseGuards,
-  
-} from '@nestjs/common'
+import { Controller, Post, Req, UseGuards } from '@nestjs/common'
 import { JwtAuthGuard } from '@presentation/nestjs/guard/auth/jwt-auth.guard'
 import { LoginBonusesService } from '@app/login-bonuses/login-bonuses.service'
 import type { LoginBonusResult } from '@domain/login-bonus'
@@ -15,6 +8,7 @@ import { User } from '@domain/user'
 export class LoginBonusesController {
   constructor(private readonly loginBonusesService: LoginBonusesService) {}
 
+  /** @deprecated 応援機能は削除予定. ハイパーチャットへ移行 */
   @Post('/daily')
   @UseGuards(JwtAuthGuard)
   async claimDailyLoginBonus(

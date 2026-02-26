@@ -1,10 +1,13 @@
+import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { Separator } from '@/components/ui/separator'
 import { getUserProfileByUsername } from 'apis/user-profiles/getUserProfile'
 import { Page } from 'components/page'
-import { CheerHistoryTabs } from 'features/user-public-profile/components/CheerHistoryTabs'
-import { CheerOverviewThisSeason } from 'features/user-public-profile/components/CheerOverviewThisSeason'
+import { HyperChatTimeline } from 'features/user-public-profile/components/HyperChatTimeline'
+import { HyperChatTimelineSkeleton } from 'features/user-public-profile/components/HyperChatTimelineSkeleton'
+import { HyperTrainStatsCards } from 'features/user-public-profile/components/HyperTrainStatsCards'
+import { HyperTrainStatsSkeleton } from 'features/user-public-profile/components/HyperTrainStatsSkeleton'
 import { ProfileHeader } from './components/ProfileHeader'
 
 type Props = {
@@ -44,12 +47,16 @@ export default async function UserProfilePage({ params }: Props) {
         <ProfileHeader profile={profile} />
         <Separator />
 
-        <div className="flex flex-col gap-y-8 md:flex-row md:gap-4 lg:gap-6 mt-8">
-          <div className="min-w-[215px]">
-            <CheerOverviewThisSeason profile={profile} />
-          </div>
+        <div className="mt-6">
+          <Suspense fallback={<HyperTrainStatsSkeleton />}>
+            <HyperTrainStatsCards userId={profile.userId} />
+          </Suspense>
+        </div>
 
-          <CheerHistoryTabs profile={profile} className="flex-1" />
+        <div className="mt-12">
+          <Suspense fallback={<HyperChatTimelineSkeleton />}>
+            <HyperChatTimeline userId={profile.userId} />
+          </Suspense>
         </div>
       </div>
     </Page>

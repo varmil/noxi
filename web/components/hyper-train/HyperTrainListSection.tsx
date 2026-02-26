@@ -1,0 +1,52 @@
+import { Train } from 'lucide-react'
+import { getTranslations } from 'next-intl/server'
+import { getActiveHyperTrains } from 'apis/hyper-trains/getHyperTrains'
+import { getChannels } from 'apis/youtube/getChannels'
+import { HyperTrainCard } from 'components/hyper-train/HyperTrainCard'
+import { PageXSPX, PageSMPX } from 'components/page'
+
+export async function HyperTrainListSection() {
+  const [trains, t] = await Promise.all([
+    getActiveHyperTrains(),
+    getTranslations('Features.hyperTrain.listSection')
+  ])
+  if (trains.length === 0) return null
+
+  const channels = await getChannels({
+    ids: trains.map(train => train.channelId),
+    limit: trains.length
+  })
+  const channelMap = new Map(
+    channels.map(ch => [ch.basicInfo.id, ch.basicInfo])
+  )
+
+  return (
+    <>
+      <section className={`col-span-full ${PageXSPX} ${PageSMPX}`}>
+        <div className="flex items-center gap-2 mb-3">
+          <Train className="size-5 text-muted-foreground" />
+          <h2 className="text-base font-semibold">{t('title')}</h2>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {trains.map(train => {
+            const channel = channelMap.get(train.channelId)
+            if (!channel) {
+              throw new Error(
+                `Channel not found for channelId: ${train.channelId}`
+              )
+            }
+            return (
+              <HyperTrainCard
+                key={train.id}
+                train={train}
+                channelTitle={channel.title}
+                channelThumbnailUrl={channel.thumbnails.medium?.url}
+                href={`/${train.group}/channels/${train.channelId}/hyper-chat`}
+              />
+            )
+          })}
+        </div>
+      </section>
+    </>
+  )
+}

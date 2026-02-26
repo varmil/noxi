@@ -49,7 +49,11 @@ export default async function Aside({ className }: { className?: string }) {
     groupsAdd: comp('groupsAdd.title'),
     signOut: comp('auth.signOut'),
     groups: comp('header.groups'),
-    support: comp('header.support')
+    support: comp('header.support'),
+    hyperChat: comp('header.hyperChat'),
+    hyperChatList: comp('header.hyperChatList'),
+    hyperChatAbout: comp('header.hyperChatAbout'),
+    hyperChatGuideline: comp('header.hyperChatGuideline')
   }
 
   return (

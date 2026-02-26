@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { Link, usePathname } from 'lib/navigation'
@@ -21,9 +21,53 @@ export default function LocalNavigation({
   linkClassName
 }: Props) {
   const pathname = usePathname()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [showLeftFade, setShowLeftFade] = useState(false)
+  const [showRightFade, setShowRightFade] = useState(false)
+
+  useEffect(() => {
+    const container = containerRef.current
+    const viewport = container?.querySelector<HTMLElement>(
+      '[data-slot="scroll-area-viewport"]'
+    )
+    if (!viewport) return
+
+    const updateFades = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = viewport
+      setShowLeftFade(scrollLeft > 0)
+      setShowRightFade(scrollLeft + clientWidth < scrollWidth - 1)
+    }
+
+    updateFades()
+    viewport.addEventListener('scroll', updateFades)
+    window.addEventListener('resize', updateFades)
+
+    return () => {
+      viewport.removeEventListener('scroll', updateFades)
+      window.removeEventListener('resize', updateFades)
+    }
+  }, [])
 
   return (
-    <div className={`text-sm mx-auto ${className ?? ''}`}>
+    <div
+      ref={containerRef}
+      className={cn('text-sm mx-auto relative', className)}
+    >
+      {/* 左フェード - スクロール可能を示す */}
+      <div
+        className={cn(
+          'pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-r from-background to-transparent transition-opacity',
+          showLeftFade ? 'opacity-100' : 'opacity-0'
+        )}
+      />
+      {/* 右フェード - スクロール可能を示す */}
+      <div
+        className={cn(
+          'pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-8 bg-gradient-to-l from-background to-transparent transition-opacity',
+          showRightFade ? 'opacity-100' : 'opacity-0'
+        )}
+      />
+
       {/* gridが大事 */}
       <ScrollArea className="grid w-full whitespace-nowrap">
         <div className="flex h-auto items-center">
@@ -52,7 +96,7 @@ export default function LocalNavigation({
             )
           })}
         </div>
-        <ScrollBar orientation="horizontal" />
+        <ScrollBar orientation="horizontal" className="hidden" />
       </ScrollArea>
     </div>
   )

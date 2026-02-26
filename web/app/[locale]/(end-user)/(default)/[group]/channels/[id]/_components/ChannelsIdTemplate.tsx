@@ -7,8 +7,8 @@ import {
 } from 'features/channel/components/container/ChannelSection'
 import ChannelData from './ui/channel-data/ChannelData'
 import ChannelOverviewStatsCards from './ui/stats/ChannelOverviewStatsCards'
+import TopHyperChatComments from './ui/top-hyperchats/TopHyperChatComments'
 import TopLiveStreamsGallery from './ui/top-lives/TopLiveStreamsGallery'
-import TopSuperChatComments from './ui/top-superchats/TopSuperChatComments'
 
 type Props = PropsWithoutRef<{ id: string }>
 
@@ -46,12 +46,12 @@ export async function ChannelsIdTemplate({ id }: Props) {
         <TopLiveStreamsGallery channelId={id} />
       </Section>
 
-      {/* 上位スーパーチャットコメント */}
+      {/* 上位ハイパーチャット */}
       <Section
         className="col-span-full lg:order-4"
-        title={page('topSuperChats.title')}
+        title={page('topHyperChats.title')}
       >
-        <TopSuperChatComments channelId={id} />
+        <TopHyperChatComments channelId={id} />
       </Section>
     </Sections>
   )

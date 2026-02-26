@@ -1,89 +1,77 @@
-import { Lightbulb, Tickets } from 'lucide-react'
+import { Suspense } from 'react'
 import { Metadata } from 'next'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import { Badge } from '@/components/ui/badge'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card'
-import { getCheerTicketUsages } from 'apis/cheer-ticket-usages/getCheerTicketUsages'
-import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
-import DashboardTicketsPreview from 'features/dashboard/ticket/Preview'
-import CheerTicketUsages from 'features/user-public-profile/components/CheerTicketUsages'
-import { auth } from 'lib/auth'
+import { getTranslations } from 'next-intl/server'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import TicketSummary from './_components/TicketSummary'
+import TicketUsageHistory from './_components/TicketUsageHistory'
 
 export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations('Page.dashboard.tickets')
   return {
-    title: '応援チケット - マイページ - VCharts'
+    title: `${t('title')} - マイページ - VCharts`
   }
 }
 
-export default async function TicketsPage() {
-  const session = await auth()
-  if (!session) {
-    return <DashboardTicketsPreview />
-  }
+function TicketSummarySkeleton() {
+  return (
+    <Card>
+      <CardContent className="pt-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <Skeleton className="size-20 rounded-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-10 w-16" />
+            </div>
+          </div>
+          <Skeleton className="h-9.5 w-48" />
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
 
-  const [cheerTicket, usages] = await Promise.all([
-    getCheerTicket(),
-    getCheerTicketUsages({
-      userId: session.user.id,
-      orderBy: [
-        {
-          field: 'usedAt',
-          order: 'desc'
-        }
-      ],
-      limit: 30
-    })
-  ])
+function TicketUsageHistorySkeleton() {
+  return (
+    <Card>
+      <CardHeader>
+        <Skeleton className="h-6 w-32" />
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-6">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <div key={i} className="flex items-center gap-4 rounded-lg">
+              <Skeleton className="size-10 rounded-full" />
+              <div className="flex-1 space-y-1">
+                <Skeleton className="h-5 w-40" />
+                <Skeleton className="h-4 w-28" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default async function TicketsPage() {
+  const t = await getTranslations('Page.dashboard.tickets')
 
   return (
     <div className="space-y-6">
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>応援チケット</CardTitle>
-          <CardDescription>
-            応援チケットの残数と使用履歴を確認できます
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center justify-between p-4 bg-primary/10 rounded-lg mb-6">
-            <div className="flex items-center">
-              <Tickets className="h-8 w-8 text-primary mr-4" />
-              <div>
-                <p className="text-sm font-medium">保有チケット</p>
-                <p className="text-2xl font-bold">
-                  {cheerTicket?.totalCount ?? 0}枚
-                </p>
-              </div>
-            </div>
-            <Badge variant="outline" className="">
-              ログインで獲得
-            </Badge>
-          </div>
+      <div>
+        <h1 className="text-2xl font-bold mb-2">{t('title')}</h1>
+        <p className="text-muted-foreground">{t('description')}</p>
+      </div>
 
-          <div>
-            <h3 className="text-base font-medium mb-1">最近の使用履歴</h3>
-            <p className="text-xs text-muted-foreground mb-4">
-              反映に５分程度かかることがあります
-            </p>
-            {usages.length === 0 ? (
-              <Alert>
-                <Lightbulb className="size-5" />
-                <AlertTitle>まだ応援したことがありません</AlertTitle>
-                <AlertDescription>
-                  推しのページに行って「応援チケットを使う」ボタンから応援を行うことができます。応援すればするほど、あなたも推しもランキングに載りやすくなります。
-                </AlertDescription>
-              </Alert>
-            ) : null}
-            <CheerTicketUsages usages={usages} />
-          </div>
-        </CardContent>
-      </Card>
+      <Suspense fallback={<TicketSummarySkeleton />}>
+        <TicketSummary />
+      </Suspense>
+
+      <Suspense fallback={<TicketUsageHistorySkeleton />}>
+        <TicketUsageHistory />
+      </Suspense>
     </div>
   )
 }

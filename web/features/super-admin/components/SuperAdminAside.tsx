@@ -1,4 +1,10 @@
-import { Package2Icon, InboxIcon, TvIcon, UserXIcon } from 'lucide-react'
+import {
+  Package2Icon,
+  InboxIcon,
+  TvIcon,
+  UserXIcon,
+  MessageSquareWarningIcon
+} from 'lucide-react'
 import { Link } from 'lib/navigation'
 
 export function SuperAdminAside() {
@@ -36,6 +42,14 @@ export function SuperAdminAside() {
         >
           <UserXIcon className="h-5 w-5" />
           <span>休止チャンネル管理</span>
+        </Link>
+        <Link
+          href="/super-admin/hyper-chat-moderations"
+          className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-muted transition-colors"
+          prefetch={false}
+        >
+          <MessageSquareWarningIcon className="h-5 w-5" />
+          <span>ハイパーチャット管理</span>
         </Link>
       </nav>
     </aside>

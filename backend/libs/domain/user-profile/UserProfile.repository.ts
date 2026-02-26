@@ -4,6 +4,7 @@ import {
   Image,
   Name,
   Username,
+  Website,
   UserProfile,
   UserProfiles
 } from '@domain/user-profile'
@@ -30,6 +31,7 @@ export interface UserProfileRepository {
       username?: Username
       image?: Image
       description?: Description
+      website?: Website
     }
     where: {
       userId: UserId

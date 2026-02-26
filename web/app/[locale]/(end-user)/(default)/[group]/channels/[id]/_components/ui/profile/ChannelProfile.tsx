@@ -1,14 +1,11 @@
-import { PropsWithChildren } from 'react'
-import { getTranslations } from 'next-intl/server'
-import { getCheeredRank } from 'apis/cheer-ticket-usages/getCheeredRank'
-import { getCheerTicket } from 'apis/cheer-tickets/getCheerTicket'
+import { PropsWithChildren, Suspense } from 'react'
 import { getGroup } from 'apis/groups'
+import { getActiveHyperTrainByChannel } from 'apis/hyper-trains/getHyperTrains'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { MutedCheerStat } from 'components/cheer-stats/MutedCheerStat'
-import CountMotion from 'components/styles/number/CountMotion'
-import { ChannelCheerButton } from 'features/cheer-channel/button/ChannelCheerButton'
-import { auth } from 'lib/auth'
-import dayjs from 'lib/dayjs'
+import { HyperChatButton } from 'components/hyper-chat/post/HyperChatButton'
+import { HyperChatStats } from 'components/hyper-chat/post/HyperChatStats'
+import { ActiveTrainIndicator } from 'components/hyper-train/active/ActiveTrainIndicator'
+import { IncomingTrainIndicator } from 'components/hyper-train/incoming/IncomingTrainIndicator'
 import { ChannelProfileSection } from './ChannelProfileSection'
 
 type Props = {
@@ -21,30 +18,24 @@ export async function ChannelProfile({
   children,
   className
 }: PropsWithChildren<Props>) {
-  const session = await auth()
-  const [global, feat, rank, cheerTicket] = await Promise.all([
-    getTranslations('Global'),
-    getTranslations('Features.cheerChannel'),
-    getCheeredRank({
-      channelId: channel.basicInfo.id,
-      usedAt: { gte: dayjs().subtract(365, 'days').toDate() } // 便宜的に１年にしておく
-    }),
-    session ? getCheerTicket() : undefined
-  ])
   const {
     basicInfo,
     peakX: { group: groupId, gender }
   } = channel
 
-  const group = await getGroup(groupId)
+  const [group, activeTrain] = await Promise.all([
+    getGroup(groupId),
+    getActiveHyperTrainByChannel(basicInfo.id)
+  ])
+
   if (!group) {
     throw new Error('Group not found for channel profile')
   }
   const groupName = group.name
 
   return (
-    <div className={className}>
-      <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
+    <div className={`@container ${className ?? ''}`}>
+      <div className="flex flex-col items-center gap-6 @2xl:flex-row @2xl:items-start">
         {/* Avatar, Name, Group, Description */}
         <ChannelProfileSection
           basicInfo={basicInfo}
@@ -54,43 +45,22 @@ export async function ChannelProfile({
           {children}
         </ChannelProfileSection>
 
-        {/* Cheer Button Section */}
-        <div className="flex flex-col items-center gap-3 md:mt-2 lg:mt-4">
-          <div className="grid grid-cols-2 gap-3 text-center">
-            <MutedCheerStat
-              title={feat('stats.seasonTotal')}
-              description={
-                <CountMotion value={rank?.usedCount ?? 0}>
-                  {feat('profile.cheerCount')}
-                </CountMotion>
-              }
-            />
-            <MutedCheerStat
-              title={feat('stats.seasonRank')}
-              description={
-                rank ? (
-                  <CountMotion value={rank.rank}>
-                    {global('ranking.place', { rank: rank.rank })}
-                  </CountMotion>
-                ) : (
-                  '--'
-                )
-              }
-            />
-          </div>
-
-          <ChannelCheerButton
-            session={session}
-            cheerTicket={cheerTicket}
+        {/* HyperChat Stats & Button Section */}
+        <div className="min-w-[250px] shrink-0 flex flex-col items-center gap-4 @2xl:mt-2">
+          <HyperChatStats channelId={basicInfo.id} group={groupId} />
+          <HyperChatButton
             channelId={basicInfo.id}
             channelTitle={basicInfo.title}
-            groupId={groupId}
+            group={groupId}
             gender={gender}
           />
-          {!session && (
-            <p className="text-xs text-muted-foreground">
-              {feat('profile.signUpForTicket')}
-            </p>
+
+          {activeTrain ? (
+            <ActiveTrainIndicator train={activeTrain} />
+          ) : (
+            <Suspense fallback={null}>
+              <IncomingTrainIndicator channelId={basicInfo.id} />
+            </Suspense>
           )}
         </div>
       </div>

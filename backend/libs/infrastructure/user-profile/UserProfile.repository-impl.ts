@@ -7,7 +7,8 @@ import {
   UserProfile,
   UserProfileRepository,
   UserProfiles,
-  Username
+  Username,
+  Website
 } from '@domain/user-profile'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 
@@ -40,6 +41,7 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
           username: new Username(profile?.username ?? 'ERROR'), // 右辺はありえない
           image: new Image(user.image ?? 'No image'),
           description: new Description(profile?.description ?? ''),
+          website: new Website(profile?.website ?? ''),
           createdAt: user.createdAt
         })
       })
@@ -61,6 +63,7 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
       username: new Username(profile.username),
       image: new Image(user.image ?? 'No image'),
       description: new Description(profile.description),
+      website: new Website(profile.website),
       createdAt: user.createdAt
     })
   }
@@ -79,6 +82,7 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
       username: new Username(profile.username),
       image: new Image(user.image ?? 'No image'),
       description: new Description(profile.description),
+      website: new Website(profile.website),
       createdAt: user.createdAt
     })
   }
@@ -97,11 +101,13 @@ export class UserProfileRepositoryImpl implements UserProfileRepository {
         create: {
           userId: where.userId.get(),
           username: data.username?.get() ?? 'ERROR', // 右辺はありえない
-          description: data.description?.get() ?? ''
+          description: data.description?.get() ?? '',
+          website: data.website?.get() ?? ''
         },
         update: {
           username: data.username?.get() ?? undefined,
-          description: data.description?.get() ?? ''
+          description: data.description?.get() ?? '',
+          website: data.website?.get()
         }
       })
     })

@@ -3,9 +3,11 @@ import { fromQueryStringsToPathParameters } from 'lib/middleware/fromQueryString
 import { stackMiddlewares } from 'lib/middleware/stackMiddlewares'
 import { withBasicAuth } from 'lib/middleware/withBasicAuth'
 import { withIntl } from 'lib/middleware/withIntl'
+import { withMaintenance } from 'lib/middleware/withMaintenance'
 import { withRemoveQueryStrings } from 'lib/middleware/withRemoveQueryStrings'
 
 const middlewares = [
+  withMaintenance,
   withBasicAuth,
   fromQueryStringsToPathParameters,
   withRemoveQueryStrings,

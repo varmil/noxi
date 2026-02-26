@@ -1,0 +1,706 @@
+# ハイパーチャット機能 実装計画
+
+## 概要
+
+YouTubeのスーパーチャットのような有料コメント機能「ハイパーチャット」を実装する。
+既存の「応援チケット」機能を進化・置換する形で導入。
+4つのサブ機能（ハイパーチャット、ハイパートレイン、ハイパーレベル、チケット）で構成。
+
+**関連Issue**:
+
+- 親: #2726 ハイパーチャット機能の開発
+- Sub: #2773 ハイパートレイン、#2774 ハイパーレベル、#2775 チケット、#2893 ギフト機能
+
+この計画ファイルの情報だけでは不十分なことがあるので、適宜上記Issueを参照してください
+
+**アイコン**: `messages-square`（lucide）を一貫して使用
+
+---
+
+## フェーズ分割（7段階リリース）
+
+| Phase | 機能                          | 概要                                  | 依存関係  | 状態    |
+| ----- | ----------------------------- | ------------------------------------- | --------- | ------- |
+| 0     | **既存機能クリーンアップ**    | 応援チケット関連をコメントアウト/削除 | なし      | ✅ 完了 |
+| 1     | **MVP: ハイパーチャット基本** | 購入・保存・決済                      | Phase 0   | ✅ 完了 |
+| 2     | **表示機能**                  | 吹き出し表示、ローテーション、履歴    | Phase 1   | ✅ 完了 |
+| 3     | **エンゲージメント**          | いいね、購入導線追加                  | Phase 2   | ✅ 完了 |
+| 4     | **チケット**                  | 無料チケット配布・使用                | Phase 1   | ✅ 完了 |
+| 5     | **ハイパートレイン**          | 集団応援でトレイン発動                | Phase 1-2 | ✅ 完了 |
+| 6     | **ハイパーレベル**            | VIP制度、バッジ表示                   | Phase 1   |         |
+
+---
+
+## Phase 0: 既存機能クリーンアップ ✅
+
+### 対象（削除済み）
+
+- 応援チケット関連機能すべて
+- ファンランキング
+- 応援ランキング
+- CheerTicket / CheerTicketUsage 関連のUI・API
+
+### 削除したファイル（主要）
+
+- `web/features/cheer-channel/` - 全体
+- `web/features/cheer/` - 全体
+- `web/apis/cheer-tickets/` - 全体
+- `web/apis/cheer-ticket-usages/` - 全体
+
+---
+
+## Phase 1: MVP ✅
+
+### 機能範囲
+
+- Lite(300円)/Standard(1,000円)/Premium(3,000円)/Special(10,000円)の4段階購入
+- メッセージ入力（文字数制限: 60/140/200/300文字）※無言（空メッセージ）も可
+- Stripe都度決済（Stripe Elements）
+- チャンネル詳細ページに購入ボタン・統計情報を配置
+- 基本的な履歴保存
+
+**未実装（将来対応）**: GPTモデレーション + NGワード
+
+### データモデル（Prisma）
+
+```prisma
+// backend/prisma/schema/models/hyper-chat.prisma
+
+/**
+ * ハイパーチャット注文/決済情報
+ * PaymentIntent 作成時に pending で作成され、Webhook で status 更新
+ */
+model HyperChatOrder {
+  id                    Int      @id @default(autoincrement())
+  stripePaymentIntentId String   @unique // pi_xxx
+  userId                Int
+  channelId             String
+  group                 String
+  gender                String
+  tier                  String // "lite", "standard", "premium", "special"
+  amount                Int // 金額（円）
+  message               String
+  status                String   @default("pending") // pending, completed, failed
+  createdAt             DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt             DateTime @updatedAt @db.Timestamptz(3)
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hyperChat HyperChat?
+
+  @@index([userId, createdAt])
+  @@index([status, createdAt])
+}
+
+/**
+ * ハイパーチャット（確定済みのみ）
+ * User -> VTuber への有料コメント
+ * orderId: 購入時は設定、チケット利用時は null
+ */
+model HyperChat {
+  id        Int      @id @default(autoincrement())
+  orderId   Int?     @unique // nullable - 購入時のみ設定、チケット利用時は null
+  userId    Int
+  channelId String
+  group     String
+  gender    String
+  tier      String // "lite", "standard", "max"
+  amount    Int // 金額（円）
+  message   String
+  likeCount Int      @default(0)
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  order HyperChatOrder? @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user  User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  likes HyperChatLike[]
+
+  @@index([channelId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model HyperChatLike {
+  id          Int      @id @default(autoincrement())
+  hyperChatId Int
+  userId      Int
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
+
+  hyperChat HyperChat @relation(fields: [hyperChatId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([hyperChatId, userId])
+  @@index([userId])
+}
+```
+
+### Tier設定（ドメイン層で定義）
+
+```typescript
+export const TIER_CONFIG = {
+  lite: { price: 300, maxChars: 60 },
+  standard: { price: 1000, maxChars: 140 },
+  premium: { price: 3000, maxChars: 200 },
+  special: { price: 10000, maxChars: 300 }
+} as const
+```
+
+### ドメイン層
+
+```
+backend/libs/domain/hyper-chat/
+├── HyperChat.entity.ts
+├── HyperChat.repository.ts
+├── HyperChats.collection.ts
+├── HyperChatId.vo.ts
+├── Tier.vo.ts           // "lite" | "standard" | "premium" | "special" + 設定
+├── Message.vo.ts        // 文字数制限（300文字以内）
+├── LikeCount.vo.ts
+├── Status.vo.ts         // 未使用（HyperChatOrder で管理）
+└── index.ts
+
+backend/libs/domain/hyper-chat-order/
+├── HyperChatOrder.entity.ts
+├── HyperChatOrder.repository.ts
+├── HyperChatOrderId.vo.ts
+├── Amount.vo.ts
+├── StripePaymentIntentId.vo.ts
+└── index.ts
+
+backend/libs/domain/stripe/
+├── StripePaymentId.vo.ts
+└── index.ts
+```
+
+### API エンドポイント
+
+| Method | Endpoint                                                 | 説明                            | 認証 |
+| ------ | -------------------------------------------------------- | ------------------------------- | ---- |
+| POST   | `/api/hyper-chats/payment-intent`                        | PaymentIntent作成（Elements用） | 必須 |
+| GET    | `/api/hyper-chats/channels/:channelId`                   | チャンネル別履歴                | 任意 |
+| GET    | `/api/hyper-chats/channels/:channelId/count`             | 件数取得                        | 任意 |
+| GET    | `/api/hyper-chats/channels/:channelId/sum-amount`        | 合計金額取得                    | 任意 |
+| GET    | `/api/hyper-chats/channels/:channelId/unique-supporters` | ユニーク投稿者数                | 任意 |
+| GET    | `/api/hyper-chats/me`                                    | 自分の送信履歴                  | 必須 |
+
+### Stripe Webhook 拡張
+
+```typescript
+// webhooks-stripe.controller.ts に追加
+case 'payment_intent.succeeded': {
+  const paymentIntent = event.data.object
+  const hyperChatOrderId = paymentIntent.metadata?.hyperChatOrderId
+  if (hyperChatOrderId) {
+    await this.hyperChatsScenario.handlePaymentSuccess({
+      hyperChatOrderId: parseInt(hyperChatOrderId, 10),
+      stripePaymentId: paymentIntent.id
+    })
+  }
+  break
+}
+```
+
+### フロントエンド
+
+**注意**: Phase 2 で `web/features/hyper-chat/` から `web/components/hyper-chat/` に移動済み（ESLint の import 制約のため）。
+
+```
+web/components/hyper-chat/
+├── post/                            # 投稿/購入関連
+│   ├── HyperChatButton.tsx          # 購入ボタン
+│   ├── HyperChatDialog.tsx          # 購入ダイアログ（Stripe Elements統合）
+│   ├── HyperChatStats.tsx           # 統計情報表示（総額・応援者数）
+│   ├── PaymentForm.tsx              # Stripe PaymentElement ラッパー
+│   ├── MessageInput.tsx             # メッセージ入力フィールド
+│   └── AnimatedCheckmark.tsx        # 完了アニメーション
+├── hooks/
+│   ├── useHyperChatForm.ts          # フォーム状態管理
+│   └── useHyperChatMessageSchema.ts # メッセージバリデーション
+
+web/apis/hyper-chats/
+├── hyperChatSchema.ts
+├── createHyperChatPaymentIntent.ts  # Server Action（Elements用）
+├── getHyperChats.ts                 # 履歴・統計取得
+└── revalidateHyperChat.ts           # キャッシュ再検証
+```
+
+### 購入ボタン配置
+
+**チャンネル詳細ページ Base部**:
+
+- ファイル: `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/profile/ChannelProfile.tsx`
+- 応援チケット関連を削除し、「ハイパーチャットを投稿する」ボタンを配置
+- 統計情報: 「累計金額」「投稿者数（ユニークユーザー数）」
+- Container Query (`@container` + `@2xl:`) でレスポンシブ対応
+
+---
+
+## Phase 2: 表示機能 ✅ 完了
+
+**詳細は `.claude/plans/phase-2.md` を参照**
+
+### 機能範囲
+
+- ランキングページ各行に吹き出し表示（過去24時間のデータ）
+- ローテーション表示（Tier優先度ベース、MAXは60分独占）
+- チャンネル詳細ページにハイパーチャット履歴タブ追加
+- タイムラインSheet内に購入ボタンを配置
+
+**注意**: 「ハイパーチャットランキング」機能は今回スコープ外
+
+### API エンドポイント
+
+| Method | Endpoint                  | 説明                                       |
+| ------ | ------------------------- | ------------------------------------------ |
+| GET    | `/api/hyper-chats/recent` | 過去24時間のHyperChat（複数channelId対応） |
+
+### ローテーションロジック
+
+```typescript
+// web/utils/hyper-chat/rotation.ts
+const TIER_PRIORITY = { free: 1, lite: 3, standard: 10, premium: 30, special: 100 }
+const SPECIAL_EXCLUSIVE_MINUTES = 60
+
+// Specialが独占表示中かどうかを判定（投稿から60分以内）
+function isSpecialExclusive(createdAt: Date): boolean
+
+// 独占表示中のSpecialを取得（古い順にソート）
+function getExclusiveSpecials(hyperChats: HyperChatSchema[]): HyperChatSchema[]
+
+// ローテーション表示用リスト生成
+// 独占Specialがあればそれらのみ、なければTier優先度でソート
+function getRotationList(hyperChats: HyperChatSchema[]): HyperChatSchema[]
+```
+
+### 吹き出し仕様
+
+- 背景色: lite=水色、standard=黄色、premium=オレンジ、special=赤色（tier-styles.tsで一元管理）
+- line-clamp: 2行
+- 表示時間: 3秒ごとにフェード切替（embla-carousel-fade使用）
+- 1件のみの場合はカルーセル不使用（シンプル描画）
+- ユーザー情報表示: アバター、表示名、相対時間
+- タップで全ハイパーチャットのタイムラインをSheetで表示
+- タイムラインSheetのフッターに購入ボタン配置
+
+### フロントエンド
+
+```
+web/components/hyper-chat/
+├── post/                            # 投稿系（Phase 1から移動）
+│   ├── HyperChatButton.tsx
+│   ├── HyperChatDialog.tsx
+│   ├── HyperChatStats.tsx
+│   └── ...
+├── timeline/                        # 表示系（Phase 2）
+│   ├── HyperChatBubble.tsx          # 吹き出しUI
+│   ├── HyperChatRotator.tsx         # ローテーション表示
+│   ├── HyperChatTimelineSheet.tsx   # タイムラインSheet + 購入ボタン
+│   ├── HyperChatCard.tsx            # 個別カード
+│   └── HyperChatHistoryList.tsx     # 履歴ページ用リスト
+└── tier-styles.ts                   # Tier別カラー定義
+
+web/utils/hyper-chat/
+└── rotation.ts                      # 優先度計算（MAXは60分独占）
+
+web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/
+├── page.tsx
+└── _components/
+    └── ChannelsIdHyperChatTemplate.tsx
+```
+
+**注意**: `components/hyper-chat/` に配置（Lintルールで features間のインポートが禁止されているため）
+
+### 履歴ページ仕様
+
+- 30件/ページのページング
+- ソートタブ: 新着順（デフォルト）、金額順（amount DESC → likeCount DESC → createdAt DESC）
+- 統計情報表示: 累計金額、投稿者数
+- レスポンシブ対応:
+  - PC: サイドバーにsticky表示（統計情報 + 購入ボタン）
+  - スマホ: ScrollRevealFooter で購入ボタンを固定表示
+
+---
+
+## Phase 3: エンゲージメント機能 ✅ 完了
+
+**詳細は `.claude/plans/phase-3.md` を参照**
+
+### 機能範囲
+
+- いいね機能（1人1回）- メッセージ下に配置、Optimistic UI
+- 購入導線追加（ランキングページ各行）
+
+※ プリセットメッセージは検討の結果、実装しないことになった
+
+### API エンドポイント
+
+| Method | Endpoint                     | 説明                 |
+| ------ | ---------------------------- | -------------------- |
+| POST   | `/api/hyper-chats/:id/like`  | いいね               |
+| DELETE | `/api/hyper-chats/:id/like`  | いいね解除           |
+| GET    | `/api/hyper-chats/liked-ids` | いいね済みID一括取得 |
+
+### 購入導線追加
+
+**ランキングページ各行**:
+
+- ファイル: `web/features/channels-ranking/components/table/ChannelsRankingTable.tsx`
+- 右端に `messages-square` アイコンボタンを追加（HyperChatDialogTrigger）
+- 未ログイン時はAuthModalを表示
+- 対象: `/ranking/[dimension]/channels/[group]/[period]`
+
+---
+
+## Phase 4: ハイパーチャットチケット
+
+### 機能範囲
+
+- 無料チケットの配布機能
+- 30日間有効期限
+- 配布タイミング: リリース時7枚(直SQL)、新規登録時3枚(normalizedEmailで判定)、3日ごとにログインボーナス1枚
+- web/components/hyper-chat/post/HyperChatDialog.tsx 上でチケットがある場合、チケットを利用してハイパーチャット投稿できる
+
+### Tier 設計
+
+**'free' を4つ目のTierとして追加する**
+
+```typescript
+export const TIERS = ['free', 'lite', 'standard', 'premium', 'special'] as const
+
+export const TIER_CONFIG = {
+  free: { price: 0, maxChars: 60 },
+  lite: { price: 300, maxChars: 60 },
+  standard: { price: 1000, maxChars: 140 },
+  premium: { price: 3000, maxChars: 200 },
+  special: { price: 10000, maxChars: 300 }
+} as const
+```
+
+**理由**:
+
+- `amount: 0` で累計金額から自然に除外
+- `TIER_CONFIG['free']` でスタイル定義が一元化
+- 'lite' 扱いにすると「無料か有料か」の複合条件が必要になり複雑化
+
+### データモデル
+
+```prisma
+model HyperChatTicket {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  expiresAt  DateTime  @db.Timestamptz(3)
+  usedAt     DateTime? @db.Timestamptz(3)
+  sourceType String    // "release", "signup", "loginBonus"
+  createdAt  DateTime  @default(now()) @db.Timestamptz(3)
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hyperChat HyperChat? // 使用結果として作成されたHyperChat（1:1）
+
+  @@index([userId, expiresAt, usedAt])
+}
+
+// HyperChat に ticketId を追加
+model HyperChat {
+  id        Int      @id @default(autoincrement())
+  orderId   Int?     @unique  // 購入時のみ
+  ticketId  Int?     @unique  // チケット利用時のみ ← 追加
+  // ... 他のフィールド
+
+  order  HyperChatOrder?   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  ticket HyperChatTicket?  @relation(fields: [ticketId], references: [id])  // ← 追加
+}
+```
+
+**relation 設計のポイント**:
+
+- HyperChatTicket と HyperChat は 1:1
+- 購入時: `orderId` が設定、`ticketId` は null
+- チケット利用時: `ticketId` が設定、`orderId` は null
+- CheerTicketUsage のような中間テーブルは不要（直接 relation で十分）
+
+### 仕様（有料との違い）
+
+- 「累計金額」には含めない（`tier: 'free'`, `amount: 0`）
+- 「投稿者数」には含める（userId ベースのカウントなので自動的に含まれる）
+- 吹き出しの「表示権」は有料・無料で差別しない
+- 吹き出しやCard上の「金額」部分テキストは「無料チケ」とする（￥300としない）
+- 背景色: free 専用のスタイルを定義（例: グレー系 or lite と同じ水色）
+
+### API エンドポイント
+
+| Method | Endpoint                      | 説明             |
+| ------ | ----------------------------- | ---------------- |
+| GET    | `/api/hyper-chat-tickets/me`  | 所持チケット一覧 |
+| POST   | `/api/hyper-chat-tickets/use` | チケット使用     |
+
+---
+
+## Phase 5: ハイパートレイン ✅ 完了
+
+**詳細は `.claude/plans/phase-5.md` を参照**
+
+### 機能範囲
+
+- 60分以内に3人のユニークユーザーがHyperChatを送信 → トレイン発動
+- 例外：Special(10,000円) はソロ・スタート
+- 無料チケットも1アクション/100ptとしてカウント
+- レベル1-10（最大100,000pt）、60分タイマー（レベルアップでリセット）
+- 最大6時間継続、終了後1時間クールダウン
+- グローバルティッカー、チャンネル詳細ページ、DefaultLayout Footer上に表示
+
+### レベル定義
+
+| Lv. | 必要総ポイント | 次のレベルまで |
+| --- | -------------- | -------------- |
+| 1   | 0              | 1,500          |
+| 2   | 1,500          | 3,500          |
+| 3   | 5,000          | 5,000          |
+| 4   | 10,000         | 5,000          |
+| 5   | 15,000         | 15,000         |
+| 6   | 30,000         | 15,000         |
+| 7   | 45,000         | 15,000         |
+| 8   | 60,000         | 20,000         |
+| 9   | 80,000         | 20,000         |
+| 10  | 100,000        | N/A            |
+
+### ポイント計算の設計方針
+
+**HyperChat テーブルにはポイントカラムを追加しない**
+
+ポイントは `amount` と `tier` から計算可能な派生値のため、冗長なデータを避けデータ整合性を保つ：
+
+```typescript
+// backend/libs/domain/hyper-chat/HyperChat.entity.ts
+public getPoint(): number {
+  if (this.tier.get() === 'free') return FREE_TICKET_POINT  // 100
+  return this.amount.get()  // 有料: 1円 = 1pt
+}
+```
+
+**使用箇所**:
+
+- `HyperTrainContribution.point`: HyperChat からポイントを計算して保存
+- `HyperLevel.totalPoint`: 累積ポイントを集計して保存（Phase 6）
+
+### データモデル
+
+```prisma
+model HyperTrain {
+  id         Int      @id @default(autoincrement())
+  channelId  String
+  group      String
+  level      Int      @default(1)
+  totalPoint Int
+  startedAt  DateTime @db.Timestamptz(3)
+  expiresAt  DateTime @db.Timestamptz(3)
+
+  contributions HyperTrainContribution[]
+
+  @@index([channelId, expiresAt])
+  @@index([group, expiresAt])
+}
+
+model HyperTrainContribution {
+  id           Int      @id @default(autoincrement())
+  hyperTrainId Int
+  hyperChatId  Int      @unique
+  userId       Int
+  point        Int      // HyperChat.getPoint() で計算した値を保存
+  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+
+  hyperTrain HyperTrain @relation(fields: [hyperTrainId], references: [id], onDelete: Cascade)
+
+  @@index([hyperTrainId, createdAt])
+}
+```
+
+**設計ポイント**:
+
+- `group` カラム: グループページフィルタ用。channelId→group の毎回解決は非効率
+- `endedAt` カラムなし: トレインの終了は `expiresAt` で管理（lazy expiration）
+- トレイン評価は try-catch で囲む: 課金フローの安定性を最優先
+
+### API エンドポイント
+
+| Method | Endpoint                                     | 説明                                             |
+| ------ | -------------------------------------------- | ------------------------------------------------ |
+| GET    | `/hyper-trains/active`                       | アクティブ一覧（`?group=` フィルタ）             |
+| GET    | `/hyper-trains/channels/:channelId/active`   | チャンネルのアクティブトレイン                   |
+| GET    | `/hyper-trains/channels/:channelId/best`     | ベストレコード（contributors含む）               |
+| GET    | `/hyper-trains/channels/:channelId/incoming` | Incoming状態（uniqueUserCount + cooldownEndsAt） |
+
+### フロントエンド
+
+```
+web/components/hyper-train/
+├── train-styles.ts                   # レベル別カラー定義（Lv.1 blue → Lv.10 rainbow）
+├── HyperTrainCard.tsx                # 一覧表示用カード
+├── HyperTrainContributorAvatars.tsx  # avatar 横並び（最大7+N表示）
+├── HyperTrainLevelBadge.tsx          # レベル数字+色付きバッジ
+├── HyperTrainListSection.tsx         # DefaultLayout Footer上のトレイン一覧
+├── HyperTrainProgressBar.tsx         # 次レベルまでの進捗バー
+├── HyperTrainTimer.tsx               # expiresAt カウントダウン
+├── ticker/
+│   ├── HyperTrainTicker.tsx          # Server（ヘッダ上部固定）
+│   └── HyperTrainTickerClient.tsx    # Client（5秒ローテーション、totalPoint DESC）
+├── active/
+│   └── ActiveTrainIndicator.tsx      # チャンネル詳細のアクティブ表示
+├── incoming/
+│   ├── IncomingTrainIndicator.tsx     # 3ランプ進捗表示
+│   └── CooldownIndicator.tsx         # クールダウンカウントダウン
+└── best/
+    └── HyperTrainBestRecord.tsx       # ベストレコード表示
+
+web/apis/hyper-trains/
+├── hyperTrainSchema.ts
+└── getHyperTrains.ts                 # 4つのデータ取得関数
+
+web/utils/hyper-train/
+└── level-config.ts                   # レベル定数 + ユーティリティ
+
+web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-train/
+├── page.tsx
+└── _components/ChannelsIdHyperTrainTemplate.tsx
+```
+
+### UI 配置
+
+- **グローバルティッカー**: DefaultLayout の Header 上部に `<HyperTrainTicker />` を配置
+- **トレイン一覧**: DefaultLayout の Footer 上セクションに `<HyperTrainListSection />`
+- **チャンネル詳細**: ActiveTrainIndicator（発生中）または IncomingTrainIndicator（未発生時）/ CooldownIndicator（クールダウン中）
+- **ローカルナビ**: hyper-chat の後に hyper-train タブを追加
+
+---
+
+## Phase 6: ハイパーレベル
+
+### 機能範囲
+
+- VIP制度（ユーザー→特定グループへの累積ptでレベル決定）
+- バッジ表示（lucide-iconで色違い）
+- サイト全体での「総合レベル」もサブ指標として保持 (UIには出さない)
+- 無料チケットは100ptとしてポイントに加算。有料ハイパーチャットは1円=1pt
+- 純粋な「金額」ではなくなるのでUI上も「ポイント」「pt」のような表示で一貫する
+
+### レベル定義
+
+| レベル | 累積pt                | バッジ色         |
+| ------ | --------------------- | ---------------- |
+| 1      | 1,000 ~ 10,000pt      | 銅（Bronze）     |
+| 2      | 10,001 ~ 30,000pt     | 銀（Silver）     |
+| 3      | 30,001 ~ 100,000pt    | 金（Gold）       |
+| 4      | 100,001 ~ 300,000pt   | プラチナ（白金） |
+| 5      | 300,001 ~ 1,000,000pt | エメラルド（緑） |
+| 守護神 | 1,000,001pt~          | レインボー/特殊  |
+
+**注意**: 無料チケット分も100ptとして累積に含める
+
+### ポイント計算
+
+Phase 5 と同様、ポイントは `HyperChat.getPoint()` で計算します（HyperChat テーブルには追加しない）：
+
+- 無料チケット: 100pt
+- 有料: 1円 = 1pt
+
+### データモデル
+
+```prisma
+model HyperLevel {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  channelId  String
+  totalPoint Int      @default(0)  // HyperChat.getPoint() の累積値
+  level      Int      @default(0)  // 0-5, 6=守護神
+  updatedAt  DateTime @default(now()) @db.Timestamptz(3)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, channelId])
+  @@index([channelId, level])
+}
+```
+
+---
+
+## Critical Files（変更対象）
+
+### Backend
+
+- `backend/prisma/schema/models/hyper-chat.prisma` - HyperChat スキーマ
+- `backend/prisma/schema/models/hyper-chat-ticket.prisma` - チケットスキーマ（Phase 4）
+- `backend/prisma/schema/models/hyper-train.prisma` - トレインスキーマ（Phase 5）
+- `backend/libs/domain/hyper-chat/` - ドメイン層
+- `backend/libs/domain/hyper-chat-order/` - 注文ドメイン層
+- `backend/libs/domain/hyper-chat-ticket/` - チケットドメイン層（Phase 4）
+- `backend/libs/domain/hyper-train/` - トレインドメイン層（Phase 5）
+- `backend/libs/application/hyper-chats/` - アプリケーション層
+- `backend/libs/application/hyper-chat-orders/` - 注文アプリケーション層
+- `backend/libs/application/hyper-trains/` - トレインアプリケーション層（Phase 5）
+- `backend/libs/infrastructure/hyper-chat/` - インフラ層
+- `backend/libs/infrastructure/hyper-chat-order/` - 注文インフラ層
+- `backend/libs/infrastructure/hyper-train/` - トレインインフラ層（Phase 5）
+- `backend/apps/closed-api-server/src/presentation/hyper-chats/` - HyperChat API
+- `backend/apps/closed-api-server/src/presentation/hyper-chat-tickets/` - チケット API（Phase 4）
+- `backend/apps/closed-api-server/src/presentation/hyper-trains/` - トレイン API（Phase 5）
+- `backend/apps/closed-api-server/src/presentation/webhooks/stripe/webhooks-stripe.controller.ts` - Webhook拡張
+
+### Frontend
+
+- `web/components/hyper-chat/` - HyperChat 共有コンポーネント
+- `web/components/hyper-train/` - トレイン共有コンポーネント（Phase 5）
+- `web/apis/hyper-chats/` - HyperChat API
+- `web/apis/hyper-chat-tickets/` - チケット API（Phase 4）
+- `web/apis/hyper-trains/` - トレイン API（Phase 5）
+- `web/utils/hyper-train/` - トレインユーティリティ（Phase 5）
+- `web/components/layouts/DefaultLayout.tsx` - ティッカー・トレイン一覧配置（Phase 5）
+- `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/_components/ui/profile/ChannelProfile.tsx` - 購入ボタン・トレインインジケーター
+- `web/features/channels-ranking/components/table/ChannelsRankingTable.tsx` - 購入導線追加（Phase 3）
+- `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-chat/` - ハイパーチャットページ（Phase 2）
+- `web/app/[locale]/(end-user)/(default)/[group]/channels/[id]/hyper-train/` - ハイパートレインページ（Phase 5）
+- `web/features/channel/components/local-navigation/LocalNavigationForChannelsIdPages.tsx` - ナビタブ追加（Phase 5）
+
+---
+
+## 検証方法
+
+### Phase 1 完了時
+
+1. **決済フロー**: Stripe テストモードでLite/Standard/Premium/Specialの決済が完了すること
+2. **メッセージ保存**: 決済完了後、DBにHyperChatレコードが作成されること
+3. **文字数制限**: Tierに応じた文字数制限が機能すること
+4. **無言スパチャ**: メッセージなしでも購入できること
+
+### テスト実行
+
+```bash
+# Backend
+cd backend && npm run type-check
+cd backend && npm run lint -- --fix
+cd backend && npm test
+cd backend && npm run test:e2e
+
+# Frontend
+cd web && npm run type-check
+cd web && npm run lint -- --fix
+cd web && npm test
+
+# E2E
+cd e2e && npm test
+```
+
+---
+
+## リスクと対策
+
+| リスク                   | 対策                            |
+| ------------------------ | ------------------------------- |
+| Webhook取りこぼし        | 定期的なセッション照合バッチ    |
+| 高負荷時のローテーション | Redisキャッシュ導入（Phase 2）  |
+| 不正利用（スパム）       | レートリミット + モデレーション |
+| 返金対応                 | Stripeの返金機能活用            |
+
+---
+
+## 備考
+
+- 二次創作ガイドライン、パブリシティ権を尊重しサイト内の表現に注意
+- 「VTuber本人・所属事務所への投げ銭ではなく、VChartsのコメント掲載機能の利用料」と明記
+- 決済はシンプルに都度決済（クレジット型/サブスク型は考慮せず）
+- UIは必要に応じて v0 MCP を活用

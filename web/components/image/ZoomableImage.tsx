@@ -1,7 +1,10 @@
+'use client'
+
 import { ComponentProps, DetailedHTMLProps, ImgHTMLAttributes } from 'react'
 import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
@@ -32,20 +35,23 @@ export default function ZoomableImage({
           height={height}
         />
       </DialogTrigger>
-      <DialogContent className="border-0 bg-transparent p-0 shadow-none">
+      <DialogContent
+        className="max-h-[90dvh] border-0 bg-transparent p-0 shadow-none [&>button]:hidden"
+        onOpenAutoFocus={e => e.preventDefault()}
+      >
         <VisuallyHidden>
           <DialogTitle>xxx</DialogTitle>
           <DialogDescription>xxx</DialogDescription>
         </VisuallyHidden>
-        <>
+        <DialogClose asChild>
           <Image
             src={src}
             alt={alt || ''}
             width={1600}
             height={1600}
-            className="h-full w-full object-contain rounded-md"
+            className="max-h-[90dvh] w-full cursor-pointer rounded-md object-contain"
           />
-        </>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   )

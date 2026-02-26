@@ -6,6 +6,7 @@ export const schema = z.object({
   username: z.string(),
   image: z.string(),
   description: z.string(),
+  website: z.string(),
   createdAt: z.coerce.date()
 })
 export const responseListSchema = z.object({

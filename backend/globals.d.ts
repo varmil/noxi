@@ -34,6 +34,12 @@ declare namespace NodeJS {
     readonly STRIPE_WEBHOOK_SECRET: string
 
     readonly AUTH_SECRET: string
+
+    /** Web server URL (Next.js on Vercel) */
+    readonly WEB_URL: string
+
+    /** Secret token for revalidating Next.js cache */
+    readonly REVALIDATE_SECRET: string
   }
 }
 

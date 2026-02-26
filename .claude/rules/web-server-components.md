@@ -32,7 +32,7 @@ globs: web/**/*
 
 ### データ更新パターン
 
-- **作成/更新/削除後**: `revalidatePath` または `redirect` を使用
+- **作成/更新/削除後**: `revalidateTag` または `redirect` を使用
 - **フォーム処理**: Server Actions を優先
 - **キャッシュ管理**: Next.js の組み込みキャッシュ機能を活用
 
@@ -63,7 +63,7 @@ const schema = z.object({
 
 // ✅ 文字列のまま渡し、Client 側で必要に応じて Date に変換
 const schema = z.object({
-  date: z.string()  // ISO 8601 形式の文字列
+  date: z.string() // ISO 8601 形式の文字列
 })
 ```
 

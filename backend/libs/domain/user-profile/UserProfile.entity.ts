@@ -1,6 +1,12 @@
 import { Transform } from 'class-transformer'
 import { UserId } from '@domain/user'
-import { Description, Image, Name, Username } from '@domain/user-profile'
+import {
+  Description,
+  Image,
+  Name,
+  Username,
+  Website
+} from '@domain/user-profile'
 
 export class UserProfile {
   @Transform(({ value }: { value: UserId }) => value.get())
@@ -18,6 +24,9 @@ export class UserProfile {
   @Transform(({ value }: { value: Description }) => value.get())
   public readonly description: Description
 
+  @Transform(({ value }: { value: Website }) => value.get())
+  public readonly website: Website
+
   public readonly createdAt: Date
 
   constructor(args: {
@@ -26,6 +35,7 @@ export class UserProfile {
     username: Username
     image: Image
     description: Description
+    website: Website
     createdAt: Date
   }) {
     this.userId = args.userId
@@ -33,6 +43,7 @@ export class UserProfile {
     this.username = args.username
     this.image = args.image
     this.description = args.description
+    this.website = args.website
     this.createdAt = args.createdAt
   }
 }

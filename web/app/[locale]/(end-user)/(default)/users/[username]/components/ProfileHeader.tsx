@@ -1,4 +1,4 @@
-import { CalendarDays } from 'lucide-react'
+import { CalendarDays, Link2 } from 'lucide-react'
 import { getFormatter } from 'next-intl/server'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { CardContent } from '@/components/ui/card'
@@ -43,9 +43,25 @@ export async function ProfileHeader({ profile }: ProfileHeaderProps) {
             </p>
           </div>
 
-          <div className="flex items-center text-sm text-muted-foreground pt-2">
-            <CalendarDays className="mr-2 h-4 w-4" />
-            <span>Joined {formattedJoinDate}</span>
+          <div className="pt-2 space-y-0.5">
+            {profile.website && (
+              <div className="flex items-center text-sm text-muted-foreground">
+                <Link2 className="mr-2 h-4 w-4" />
+                <a
+                  href={profile.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-blue-700 dark:text-blue-400 hover:underline line-clamp-1 break-all max-w-xs"
+                >
+                  {profile.website.replace(/^https?:\/\//, '')}
+                </a>
+              </div>
+            )}
+
+            <div className="flex items-center text-sm text-muted-foreground">
+              <CalendarDays className="mr-2 h-4 w-4" />
+              <span>Joined {formattedJoinDate}</span>
+            </div>
           </div>
         </div>
       </div>

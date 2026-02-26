@@ -18,9 +18,6 @@ export const PageXSPX = 'px-4'
 /** Page > SM > Xパディング値 */
 export const PageSMPX = 'sm:px-6'
 
-/** （注意）Page> XS > Xマージン値 | 基本はpaddingを使う */
-export const PageXSMX = 'mx-4'
-
 export function Page({
   breadcrumb,
   h1,
@@ -33,7 +30,7 @@ export function Page({
   const containerClass = fullWidth ? 'w-full mx-auto' : 'container'
 
   return (
-    <main role="main" className="relative z-0 min-h-[80vh] overflow-x-clip">
+    <main role="main" className="relative z-[1] min-h-[80vh] overflow-x-clip">
       {breadcrumb?.length ? (
         <GlobalBreadcrumb items={breadcrumb} className="mt-0.5 mb-4" />
       ) : null}
