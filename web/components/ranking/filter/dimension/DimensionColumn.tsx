@@ -2,8 +2,6 @@
 
 import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
 import SelectButton from 'components/ranking/filter/button/SelectButton'
 import {
   Column,
@@ -30,8 +28,6 @@ const resetGroup = () => {
 const resetPeriod = (dimension: Keys) => {
   return DefaultPeriodByDimension[dimension]
 }
-
-const CHEER_KEYS = ['most-cheered', 'top-fans'] as const
 
 // 表示順: スパチャ金額 → 同接数 → チャンネル登録者数
 const DIMENSION_ITEMS = [
@@ -66,11 +62,13 @@ export default function DimensionColumn() {
           </SelectButton>
         ))}
 
-        <div className="py-2 px-4">
+        {/* @deprecated */}
+        {/* <div className="py-2 px-4">
           <Separator />
-        </div>
+        </div> */}
 
-        {CHEER_KEYS.map(key => (
+        {/* @deprecated */}
+        {/* {CHEER_KEYS.map(key => (
           <SelectButton
             key={key}
             pathname={`/ranking/${key}/${resetGroup()}/${resetPeriod(key)}`}
@@ -84,7 +82,7 @@ export default function DimensionColumn() {
               </Badge>
             </div>
           </SelectButton>
-        ))}
+        ))} */}
       </ColumnContent>
     </Column>
   )
