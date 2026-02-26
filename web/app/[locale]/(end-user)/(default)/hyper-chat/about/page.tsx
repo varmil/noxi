@@ -21,7 +21,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const title = `${page('metadata.title')} - ${global('title')}`
   const description = page('metadata.description')
-  const ogImage = `${getWebUrl()}/images/ogp/ogp-hyper-chat-about.png`
+  const ogImage = `${getWebUrl()}/images/ogp/hyper-chat-about.png`
 
   return {
     title,
