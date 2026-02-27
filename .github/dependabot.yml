@@ -27,8 +27,9 @@ updates:
           - '@eslint/*'
           - 'typescript-eslint'
           - '@typescript-eslint/*'
-          - 'eslint-config-next'
+          - 'eslint-config-*'
           - 'eslint-plugin-*'
+          - 'eslint-import-resolver-*'
       storybook:
         patterns:
           - 'storybook'
@@ -49,6 +50,15 @@ updates:
       time: '11:55'
       timezone: 'Asia/Tokyo'
     groups:
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - '@typescript-eslint/*'
+          - 'eslint-config-*'
+          - 'eslint-plugin-*'
+          - 'eslint-import-resolver-*'
       opentelemetry:
         patterns:
           - '@opentelemetry/*'
