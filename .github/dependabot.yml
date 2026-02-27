@@ -21,6 +21,14 @@ updates:
       time: '11:55'
       timezone: 'Asia/Tokyo'
     groups:
+      eslint:
+        patterns:
+          - 'eslint'
+          - '@eslint/*'
+          - 'typescript-eslint'
+          - '@typescript-eslint/*'
+          - 'eslint-config-next'
+          - 'eslint-plugin-*'
       storybook:
         patterns:
           - 'storybook'
