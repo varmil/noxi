@@ -10,7 +10,7 @@ function getBackgroundFileName(sub: number): string {
   const unit = sub / 10000
   if (unit <= 10) return `${unit}.png`
   if (unit <= 90) return '20-90.png'
-  if (unit === 100) return '100.png'
+  if (unit % 100 === 0) return '100.png'
   return '110-.png'
 }
 
