@@ -31,7 +31,7 @@ export class XMilestoneService {
     const formattedMilestone = milestone.format()
 
     const content = [
-      `🎉【祝】登録者${formattedMilestone}人達成！`,
+      `🎉【祝】登録者${formattedMilestone}人達成`,
       '',
       channelTitle,
       `（${groupName.get()}）`,
