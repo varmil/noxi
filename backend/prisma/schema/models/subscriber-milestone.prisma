@@ -1,0 +1,10 @@
+model ChannelSubscriberMilestone {
+  id        BigInt   @id @default(autoincrement())
+  channelId String
+  milestone Int
+  postedAt  DateTime @default(now()) @db.Timestamptz(3)
+  channel   Channel  @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  @@unique([channelId, milestone])
+  @@index([channelId])
+}

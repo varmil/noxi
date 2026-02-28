@@ -12,6 +12,7 @@ const schema0 = z.union([
   z.literal('delete-chats'),
   z.literal('bundle-chat-events'),
   z.literal('groups/update-channels'),
+  z.literal('post-subscriber-milestones'),
   z.literal('pubsubhubbub'),
   z.literal('summarize-channels'),
   z.literal('update-chats'),

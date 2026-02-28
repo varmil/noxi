@@ -93,6 +93,15 @@
         "tsConfigPath": "apps/update-streams/tsconfig.app.json"
       }
     },
+    "post-subscriber-milestones": {
+      "type": "application",
+      "root": "apps/post-subscriber-milestones",
+      "entryFile": "main",
+      "sourceRoot": "apps/post-subscriber-milestones/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/post-subscriber-milestones/tsconfig.app.json"
+      }
+    },
     "application": {
       "type": "library",
       "root": "libs/application",

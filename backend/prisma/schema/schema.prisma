@@ -46,6 +46,7 @@ model Channel {
   subscriberCountSummary   ChannelSubscriberCountSummary[]
   videoCountSummary        ChannelVideoCountSummary[]
   viewCountSummary         ChannelViewCountSummary[]
+  subscriberMilestones     ChannelSubscriberMilestone[]
 
   @@index([group, id])
   @@index([group, subscriberCount])
