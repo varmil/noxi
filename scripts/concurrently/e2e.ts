@@ -7,6 +7,7 @@ const AppNames = [
   'delete-chats',
   'bundle-chat-events',
   'groups/update-channels',
+  'post-subscriber-milestones',
   'pubsubhubbub',
   'summarize-channels',
   'update-chats',

@@ -15,7 +15,8 @@ export class GroupId extends StringValueObject {
     this.val = val
   }
 
-  // 日本語名を返すメソッド
+  //
+  /** @deprecated DB.Group > name カラムに日本語名があるので原則そっちを使う  */
   toJP(): string {
     const nameMapping: Record<string, string> = {
       '774inc': '774inc',
