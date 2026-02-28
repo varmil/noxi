@@ -2,7 +2,7 @@ import { ImageResponse } from 'next/og'
 import { getChannel } from 'apis/youtube/getChannel'
 import { getWebUrl } from 'utils/web-url'
 
-const font = fetch(new URL('fonts/NotoSansJP-Bold.otf', getWebUrl())).then(
+const font = fetch(new URL('fonts/NotoSansJP-Black.otf', getWebUrl())).then(
   res => res.arrayBuffer()
 )
 
@@ -134,41 +134,41 @@ export async function GET(request: Request) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            minWidth: 650,
+            minWidth: 640,
             maxWidth: 710,
             gap: 5
           }}
         >
           <ShadowText
-            fontSize={120}
+            fontSize={140}
             color="#ff8c00"
             strokeWidth={15}
             shadowOffset={8}
-            shadowColor="rgba(0,0,0,0.6)"
+            shadowColor="rgba(0,0,0,0.35)"
           >
             祝
           </ShadowText>
           <ShadowText
-            fontSize={130}
+            fontSize={140}
             color="#ff4589"
             strokeWidth={10}
             shadowOffset={8}
-            shadowColor="rgba(0,0,0,0.6)"
+            shadowColor="rgba(0,0,0,0.35)"
           >
             <div
               style={{
                 display: 'flex',
-                alignItems: 'baseline',
-                gap: 10,
+                alignItems: 'flex-end',
                 marginBottom: 20
               }}
             >
-              <div style={{ display: 'flex', fontSize: 180 }}>{subNumber}</div>
+              <div style={{ display: 'flex', fontSize: 185 }}>{subNumber}</div>
               <div
                 style={{
                   display: 'flex',
-                  fontSize: 90,
-                  letterSpacing: '0.08em'
+                  fontSize: 110,
+                  letterSpacing: '0.08em',
+                  paddingBottom: 18
                 }}
               >
                 {subUnit}
@@ -176,11 +176,11 @@ export async function GET(request: Request) {
             </div>
           </ShadowText>
           <ShadowText
-            fontSize={130}
+            fontSize={140}
             color="#ff4589"
             strokeWidth={10}
             shadowOffset={8}
-            shadowColor="rgba(0,0,0,0.6)"
+            shadowColor="rgba(0,0,0,0.35)"
           >
             <div style={{ display: 'flex', letterSpacing: '0.15em' }}>登録</div>
           </ShadowText>
@@ -199,8 +199,8 @@ export async function GET(request: Request) {
           <div
             style={{
               display: 'flex',
-              width: 420,
-              height: 420,
+              width: 432,
+              height: 432,
               borderRadius: '50%',
               overflow: 'hidden',
               border: '8px solid white',
@@ -211,8 +211,8 @@ export async function GET(request: Request) {
               src={thumbnailUrl}
               alt={basicInfo.title}
               style={{
-                width: 420,
-                height: 420,
+                width: 432,
+                height: 432,
                 objectFit: 'cover'
               }}
             />
@@ -222,7 +222,7 @@ export async function GET(request: Request) {
               display: 'flex',
               position: 'absolute',
               bottom: -60,
-              left: '55%',
+              left: '50%',
               transform: 'translateX(-50%) rotate(-8deg)'
             }}
           >
@@ -231,7 +231,7 @@ export async function GET(request: Request) {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                letterSpacing: '0.24em'
+                letterSpacing: '0.22em'
               }}
             >
               <ShadowText
@@ -240,7 +240,7 @@ export async function GET(request: Request) {
                 strokeWidth={6}
                 strokeColor="rgba(0,0,0,0.7)"
                 shadowOffset={3}
-                shadowColor="rgba(0,0,0,0.5)"
+                shadowColor="rgba(0,0,0,0.25)"
               >
                 おめでとう
               </ShadowText>
@@ -251,7 +251,7 @@ export async function GET(request: Request) {
                   strokeWidth={6}
                   strokeColor="rgba(0,0,0,0.7)"
                   shadowOffset={3}
-                  shadowColor="rgba(0,0,0,0.5)"
+                  shadowColor="rgba(0,0,0,0.25)"
                 >
                   ございます！
                 </ShadowText>
