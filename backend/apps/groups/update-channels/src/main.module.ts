@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { ChannelRegistrationsAppModule } from '@app/channel-registrations/channel-registrations.app.module'
 import { LibAppModule } from '@app/lib/lib.app.module'
+import { SubscriberMilestoneAppModule } from '@app/subscriber-milestone/subscriber-milestone.app.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 import { MainService } from './main.service'
@@ -13,6 +14,7 @@ import { MainScenario } from './scenario/main.scenario'
     ConfigModule.forRoot({ ignoreEnvFile: !!process.env.ENV_NAME }),
     LibAppModule,
     ChannelRegistrationsAppModule,
+    SubscriberMilestoneAppModule,
     YoutubeAppModule,
     YoutubeInfraModule
   ],

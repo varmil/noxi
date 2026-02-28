@@ -229,7 +229,7 @@
       "channelsId": {
         "index": {
           "metadata": {
-            "title": "{channel} Overview - Super Chat, Live, Concurrent Viewers, Comments and Stream Times",
+            "title": "{channel} Overview",
             "description": "Discover detailed stats, rankings, and live updates for {channel} on VCharts."
           },
           "section": {

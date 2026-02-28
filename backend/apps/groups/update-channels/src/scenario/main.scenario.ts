@@ -1,7 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { ChannelRegistrationsService } from '@app/channel-registrations/channel-registrations.service'
+import { SubscriberMilestoneService } from '@app/subscriber-milestone/subscriber-milestone.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { Status } from '@domain/channel-registration'
+import { Milestone } from '@domain/subscriber-milestone'
 import { ChannelsInfraService } from '@infra/service/youtube-data-api'
 
 @Injectable()
@@ -13,7 +15,8 @@ export class MainScenario {
   constructor(
     private readonly channelsService: ChannelsService,
     private readonly channelRegistrationsService: ChannelRegistrationsService,
-    private readonly channelsInfraService: ChannelsInfraService
+    private readonly channelsInfraService: ChannelsInfraService,
+    private readonly subscriberMilestoneService: SubscriberMilestoneService
   ) {}
 
   async executeRegistrations(): Promise<void> {
@@ -35,6 +38,20 @@ export class MainScenario {
     await this.channelsService.bulkCreate({
       data: channels
     })
+
+    // 新規チャンネルの達成済みマイルストーンを初期化
+    // これをしないと post-subscriber-milestones で既存マイルストーンがポストされる
+    for (const channel of channels) {
+      const achieved = Milestone.calculateAchieved(
+        channel.statistics.subscriberCount
+      )
+      for (const milestone of achieved) {
+        await this.subscriberMilestoneService.create(
+          channel.basicInfo.id,
+          milestone
+        )
+      }
+    }
 
     await this.channelRegistrationsService.updateMany({
       where: { channelIds: channels.ids() },
