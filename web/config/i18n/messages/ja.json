@@ -218,7 +218,7 @@
       "channelsId": {
         "index": {
           "metadata": {
-            "title": "{channel} 概要 - スパチャ、ライブ、同接数、コメント、配信時間",
+            "title": "{channel} 概要",
             "description": "{channel}の人気、スパチャ金額、ライブ分析、同接数推移、配信時間を網羅的にチェック。人気の瞬間や収益データも把握し、ファン必見の情報を見逃さない。"
           },
           "section": {
