@@ -13,9 +13,11 @@ export class ChannelGrowthRankingsController {
     return await this.channelGrowthRankingsService.findAll({
       where: {
         dateRange: dto.toDateRange(),
-        group: dto.toGroupId()
+        group: dto.toGroupId(),
+        minSubscriberCount: dto.minSubscriberCount
       },
-      limit: 20
+      orderBy: dto.orderBy,
+      limit: dto.limit ?? 20
     })
   }
 }

@@ -9,7 +9,8 @@ export const schema = z.object({
   groupName: z.string(),
   diff: z.number(),
   rate: z.number(),
-  subscriberCount: z.number()
+  subscriberCount: z.number(),
+  previousSubscriberCount: z.number()
 })
 
 export const responseSchema = z.object({

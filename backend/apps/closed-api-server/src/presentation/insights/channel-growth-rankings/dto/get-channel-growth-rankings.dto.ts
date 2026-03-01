@@ -12,6 +12,20 @@ export class GetChannelGrowthRankingsDto {
   @IsString()
   group?: string
 
+  @IsOptional()
+  @IsIn(['diff', 'rate'])
+  orderBy?: 'diff' | 'rate'
+
+  @IsOptional()
+  @IsNumber()
+  @Transform(({ value }) => (value !== undefined ? Number(value) : undefined))
+  limit?: number
+
+  @IsOptional()
+  @IsNumber()
+  @Transform(({ value }) => (value !== undefined ? Number(value) : undefined))
+  minSubscriberCount?: number
+
   toDateRange(): { gte: Date; lt: Date } {
     // 日本時間（JST = UTC+9）基準で日付範囲を計算
     // JST 00:00:00 = UTC 前日 15:00:00

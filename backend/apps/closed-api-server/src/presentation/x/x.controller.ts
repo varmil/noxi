@@ -5,6 +5,7 @@ import { PostChannelsRankingWeekly } from '@presentation/x/dto/PostChannelsRanki
 import { ApiKeyGuard } from '@presentation/x/guard/api-key.guard'
 import { XLast24HoursScenario } from '@presentation/x/x-last-24-hours.scenario'
 import { XMonthlyScenario } from '@presentation/x/x-monthly.scenario'
+import { XSubscriberGrowthScenario } from '@presentation/x/x-subscriber-growth.scenario'
 import { XWeeklyScenario } from '@presentation/x/x-weekly.scenario'
 
 @Controller('x')
@@ -13,7 +14,8 @@ export class XController {
   constructor(
     private readonly xLast24HoursScenario: XLast24HoursScenario,
     private readonly xWeeklyScenario: XWeeklyScenario,
-    private readonly xMonthlyScenario: XMonthlyScenario
+    private readonly xMonthlyScenario: XMonthlyScenario,
+    private readonly xSubscriberGrowthScenario: XSubscriberGrowthScenario
   ) {}
 
   @Post('/channels/ranking/last-24-hours')
@@ -37,5 +39,10 @@ export class XController {
     await this.xMonthlyScenario.postChannelsRankingMonthly({
       where: { group: dto.toGroup(), gender: dto.toGender() }
     })
+  }
+
+  @Post('/channels/subscriber-growth/weekly')
+  async postWeeklySubscriberGrowth() {
+    await this.xSubscriberGrowthScenario.postWeeklySubscriberGrowth()
   }
 }
