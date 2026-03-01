@@ -189,7 +189,7 @@ function RankingRow({
         </div>
       </div>
 
-      {/* 週間伸び率（メイン指標：大きく太く赤で強調） */}
+      {/* 週間成長率（メイン指標：大きく太く赤で強調） */}
       <div
         style={{
           display: 'flex',
@@ -246,7 +246,7 @@ function RankingRow({
         />
       </div>
 
-      {/* 現在登録者数 */}
+      {/* 週末登録者数 */}
       <div
         style={{
           display: 'flex',
@@ -316,7 +316,7 @@ function ColumnHeader() {
           fontSize: 16
         }}
       >
-        週間伸び率
+        週間成長率
       </div>
       <div
         style={{
@@ -336,7 +336,7 @@ function ColumnHeader() {
           flexShrink: 0
         }}
       >
-        現在登録者数
+        週末登録者数
       </div>
     </div>
   )
@@ -391,7 +391,7 @@ export async function GET() {
             display: 'flex'
           }}
         >
-          週間YouTube登録者伸び率ランキングTOP40
+          週間YouTube登録者成長率ランキングTOP40
         </div>
         <div
           style={{
