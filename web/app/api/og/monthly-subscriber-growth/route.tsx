@@ -110,11 +110,22 @@ function RankingRow({
         style={{
           display: 'flex',
           width: 44,
+          height: 44,
           fontSize: 26,
           fontWeight: 'bold',
           justifyContent: 'center',
+          alignItems: 'center',
           flexShrink: 0,
-          color: '#333'
+          borderRadius: 8,
+          color: item.rank <= 3 ? 'white' : '#333',
+          background:
+            item.rank === 1
+              ? '#b8860b'
+              : item.rank === 2
+                ? '#8a8a8a'
+                : item.rank === 3
+                  ? '#b45309'
+                  : 'transparent'
         }}
       >
         {item.rank}
@@ -280,7 +291,7 @@ function ColumnHeader() {
         display: 'flex',
         alignItems: 'center',
         padding: '0 12px',
-        background: '#1a202c',
+        background: '#e11d48',
         color: 'white',
         height: 40,
         fontSize: 15,
@@ -372,19 +383,19 @@ export async function GET() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-start',
-          padding: '15px 24px 15px',
+          padding: '16px 24px',
           gap: 32
         }}
       >
         <div
           style={{
-            fontSize: 46,
+            fontSize: 44,
             fontWeight: 'bold',
             color: '#1a202c',
             display: 'flex'
           }}
         >
-          月間YouTube登録者成長率ランキングTOP40
+          チャンネル登録者数成長率ランキングTOP40
         </div>
         <div
           style={{

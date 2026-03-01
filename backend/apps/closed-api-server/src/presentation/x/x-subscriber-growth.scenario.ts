@@ -156,12 +156,11 @@ export class XSubscriberGrowthScenario {
     )
 
     const lines = [
-      `📈${period}VTuber登録者成長率ランキング`,
+      `📈${period}チャンネル成長率ランキング`,
       '',
-      `YouTubeチャンネルTOP5`,
       ...rankingLines,
       '',
-      'TOP40は画像でチェック'
+      '登録者数成長率TOP40は画像にて掲載中'
     ]
 
     return lines.join('\n')
