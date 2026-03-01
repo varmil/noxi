@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { TwitterApi } from 'twitter-api-v2'
-import { GroupId, GroupName } from '@domain/group'
+import { GroupId } from '@domain/group'
 import { Milestone } from '@domain/subscriber-milestone'
 import { ChannelId } from '@domain/youtube'
 
@@ -25,18 +25,13 @@ export class XMilestoneService {
     channelTitle: string
     milestone: Milestone
     groupSlug: GroupId
-    groupName: GroupName
   }) {
-    const { channelId, channelTitle, milestone, groupSlug, groupName } = args
+    const { channelId, channelTitle, milestone, groupSlug } = args
     const formattedMilestone = milestone.format()
 
     const content = [
-      `🎉【祝】登録者${formattedMilestone}人達成`,
-      '',
-      channelTitle,
-      `（${groupName.get()}）`,
-      '',
-      `YouTubeチャンネル登録者数${formattedMilestone}人達成おめでとうございます！`,
+      `${channelTitle}がYouTube登録者数${formattedMilestone}人を達成しました！🎉`,
+      'おめでとうございます！',
       '',
       '画像タップで詳細を表示',
       `https://www.vcharts.net/ja/${groupSlug.get()}/channels/${channelId.get()}?sub=${milestone.get()}`

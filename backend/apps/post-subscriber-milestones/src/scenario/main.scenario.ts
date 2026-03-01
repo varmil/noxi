@@ -85,8 +85,7 @@ export class MainScenario {
             channelId,
             channelTitle: channel.basicInfo.title,
             milestone: maxMilestone,
-            groupSlug: group.id,
-            groupName: group.name
+            groupSlug: group.id
           })
           this.logger.log(
             `Posted milestone ${maxMilestone.get()} for ${channel.basicInfo.title}`
