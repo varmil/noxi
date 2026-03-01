@@ -5,6 +5,7 @@ import {
 import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
+  period?: 'weekly' | 'monthly'
   days?: number
   group?: string
   orderBy?: 'diff' | 'rate'
@@ -13,14 +14,19 @@ type Params = {
 }
 
 export async function getChannelGrowthRankings({
-  days = 28,
+  period,
+  days,
   group,
   orderBy,
   limit,
   minSubscriberCount
 }: Params = {}): Promise<ChannelGrowthRankingsSchema> {
   const params = new URLSearchParams()
-  params.set('days', String(days))
+  if (period) {
+    params.set('period', period)
+  } else {
+    params.set('days', String(days ?? 28))
+  }
   if (group) {
     params.set('group', group)
   }

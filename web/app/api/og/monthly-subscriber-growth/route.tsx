@@ -21,24 +21,17 @@ function formatRate(rate: number): string {
   return `${rate.toFixed(2)}%`
 }
 
-function getDateRangeLabel(): string {
+/** 前月の年月ラベルを返す */
+function getPreviousMonthLabel(): string {
   const now = new Date()
   const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000)
   const year = jstNow.getUTCFullYear()
-  const month = jstNow.getUTCMonth()
-  const day = jstNow.getUTCDate()
+  const month = jstNow.getUTCMonth() // 0-indexed
 
-  const lt = new Date(Date.UTC(year, month, day, -9))
-  const gte = new Date(Date.UTC(year, month, day - 7, -9))
+  const prevYear = month === 0 ? year - 1 : year
+  const prevMonth = month === 0 ? 11 : month - 1
 
-  // 表示用: gte が開始日、lt は排他なので -1日 が終了日
-  const startJst = new Date(gte.getTime() + 9 * 60 * 60 * 1000)
-  const endJst = new Date(lt.getTime() + (9 - 24) * 60 * 60 * 1000)
-
-  const startStr = `${startJst.getUTCMonth() + 1}/${startJst.getUTCDate()}`
-  const endStr = `${endJst.getUTCMonth() + 1}/${endJst.getUTCDate()}`
-
-  return `${startStr}〜${endStr}`
+  return `${prevYear}年${prevMonth + 1}月`
 }
 
 function truncateTitle(title: string, maxLength: number = 16): string {
@@ -189,7 +182,7 @@ function RankingRow({
         </div>
       </div>
 
-      {/* 週間伸び率（メイン指標：大きく太く赤で強調） */}
+      {/* 月間伸び率（メイン指標：大きく太く赤で強調） */}
       <div
         style={{
           display: 'flex',
@@ -215,7 +208,7 @@ function RankingRow({
         <ProgressBar ratio={rateRatio} color={RATE_BAR_COLOR} width={160} />
       </div>
 
-      {/* 週初登録者数 */}
+      {/* 月初登録者数 */}
       <div
         style={{
           display: 'flex',
@@ -316,7 +309,7 @@ function ColumnHeader() {
           fontSize: 16
         }}
       >
-        週間伸び率
+        月間伸び率
       </div>
       <div
         style={{
@@ -326,7 +319,7 @@ function ColumnHeader() {
           flexShrink: 0
         }}
       >
-        週初登録者数
+        月初登録者数
       </div>
       <div
         style={{
@@ -343,14 +336,14 @@ function ColumnHeader() {
 }
 
 export async function GET() {
+  const label = getPreviousMonthLabel()
+
   const ranking = await getChannelGrowthRankings({
-    period: 'weekly',
+    period: 'monthly',
     orderBy: 'rate',
     limit: 40,
     minSubscriberCount: 3000
   })
-
-  const dateRange = getDateRangeLabel()
 
   // 相対プログレスバー用の最大値を算出
   const maxRate = ranking.length > 0 ? ranking[0].rate : 1
@@ -391,7 +384,7 @@ export async function GET() {
             display: 'flex'
           }}
         >
-          週間YouTube登録者伸び率ランキングTOP40
+          月間YouTube登録者伸び率ランキングTOP40
         </div>
         <div
           style={{
@@ -400,7 +393,7 @@ export async function GET() {
             display: 'flex'
           }}
         >
-          {dateRange}
+          {label}
         </div>
       </div>
 
@@ -470,7 +463,7 @@ export async function GET() {
           color: '#888'
         }}
       >
-        ※週初時点で登録者数3,000人以上のチャンネルを対象
+        ※月初時点で登録者数3,000人以上のチャンネルを対象
       </div>
     </div>,
     {

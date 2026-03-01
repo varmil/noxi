@@ -45,4 +45,9 @@ export class XController {
   async postWeeklySubscriberGrowth() {
     await this.xSubscriberGrowthScenario.postWeeklySubscriberGrowth()
   }
+
+  @Post('/channels/subscriber-growth/monthly')
+  async postMonthlySubscriberGrowth() {
+    await this.xSubscriberGrowthScenario.postMonthlySubscriberGrowth()
+  }
 }

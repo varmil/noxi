@@ -3,10 +3,15 @@ import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator'
 import { GroupId } from '@domain/group'
 
 export class GetChannelGrowthRankingsDto {
+  @IsOptional()
+  @IsIn(['weekly', 'monthly'])
+  period?: 'weekly' | 'monthly'
+
+  @IsOptional()
   @IsNumber()
   @IsIn([7, 28, 90])
-  @Transform(({ value }) => Number(value))
-  days = 28
+  @Transform(({ value }) => (value !== undefined ? Number(value) : undefined))
+  days?: number
 
   @IsOptional()
   @IsString()
@@ -27,20 +32,30 @@ export class GetChannelGrowthRankingsDto {
   minSubscriberCount?: number
 
   toDateRange(): { gte: Date; lt: Date } {
-    // 日本時間（JST = UTC+9）基準で日付範囲を計算
-    // JST 00:00:00 = UTC 前日 15:00:00
     const now = new Date()
-    // UTC時刻に9時間足してJSTの日付を取得
     const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000)
     const year = jstNow.getUTCFullYear()
     const month = jstNow.getUTCMonth()
     const day = jstNow.getUTCDate()
 
-    // JST 今日 00:00:00（今日を含まない）
-    const lt = new Date(Date.UTC(year, month, day, -9))
-    // JST (今日 - days日) 00:00:00
-    const gte = new Date(Date.UTC(year, month, day - this.days, -9))
+    if (this.period === 'monthly') {
+      // 前月1日 00:00 JST 〜 当月1日 00:00 JST
+      const lt = new Date(Date.UTC(year, month, 1, -9))
+      const gte = new Date(Date.UTC(year, month - 1, 1, -9))
+      return { gte, lt }
+    }
 
+    if (this.period === 'weekly') {
+      // 今日を含まない過去7日間（例: 3/1実行 → 2/22〜2/28）
+      const lt = new Date(Date.UTC(year, month, day, -9))
+      const gte = new Date(Date.UTC(year, month, day - 7, -9))
+      return { gte, lt }
+    }
+
+    // period 未指定時は days で計算（後方互換）
+    const days = this.days ?? 28
+    const lt = new Date(Date.UTC(year, month, day, -9))
+    const gte = new Date(Date.UTC(year, month, day - days, -9))
     return { gte, lt }
   }
 

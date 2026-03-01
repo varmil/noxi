@@ -45,7 +45,7 @@ export class XSubscriberGrowthScenario {
   }
 
   async postWeeklySubscriberGrowth() {
-    const dateRange = this.getDateRange()
+    const dateRange = this.getWeeklyDateRange()
     const rankings = await this.channelGrowthRankingsService.findAll({
       where: {
         dateRange,
@@ -55,9 +55,9 @@ export class XSubscriberGrowthScenario {
       limit: 40
     })
 
-    const imageBuffer = await this.fetchImage()
+    const imageBuffer = await this.fetchImage('weekly-subscriber-growth')
     const mediaId = await this.uploadImage(imageBuffer)
-    const text = this.buildTweetText(rankings)
+    const text = this.buildTweetText('週間', rankings)
 
     const tweet = await this.xClient.v2.tweet(text, {
       media: { media_ids: [mediaId] }
@@ -70,7 +70,33 @@ export class XSubscriberGrowthScenario {
     }
   }
 
-  private getDateRange(): { gte: Date; lt: Date } {
+  async postMonthlySubscriberGrowth() {
+    const dateRange = this.getMonthlyDateRange()
+    const rankings = await this.channelGrowthRankingsService.findAll({
+      where: {
+        dateRange,
+        minSubscriberCount: 3000
+      },
+      orderBy: 'rate',
+      limit: 40
+    })
+
+    const imageBuffer = await this.fetchImage('monthly-subscriber-growth')
+    const mediaId = await this.uploadImage(imageBuffer)
+    const text = this.buildTweetText('月間', rankings)
+
+    const tweet = await this.xClient.v2.tweet(text, {
+      media: { media_ids: [mediaId] }
+    })
+
+    if (!tweet.errors) {
+      this.logger.log('Posted monthly subscriber growth ranking', tweet.data)
+    } else {
+      this.logger.error('Tweet failed', tweet.errors)
+    }
+  }
+
+  private getWeeklyDateRange(): { gte: Date; lt: Date } {
     const now = new Date()
     const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000)
     const year = jstNow.getUTCFullYear()
@@ -83,9 +109,24 @@ export class XSubscriberGrowthScenario {
     return { gte, lt }
   }
 
-  private async fetchImage(): Promise<Buffer> {
+  /** 前月1日 00:00 JST 〜 当月1日 00:00 JST */
+  private getMonthlyDateRange(): { gte: Date; lt: Date } {
+    const now = new Date()
+    const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000)
+    const year = jstNow.getUTCFullYear()
+    const month = jstNow.getUTCMonth()
+
+    // 当月1日 00:00 JST
+    const lt = new Date(Date.UTC(year, month, 1, -9))
+    // 前月1日 00:00 JST
+    const gte = new Date(Date.UTC(year, month - 1, 1, -9))
+
+    return { gte, lt }
+  }
+
+  private async fetchImage(path: string): Promise<Buffer> {
     const webUrl = process.env.WEB_URL ?? 'http://localhost:3000'
-    const res = await fetch(`${webUrl}/api/og/weekly-subscriber-growth`)
+    const res = await fetch(`${webUrl}/api/og/${path}`)
 
     if (!res.ok) {
       throw new Error(
@@ -104,7 +145,10 @@ export class XSubscriberGrowthScenario {
     return mediaId
   }
 
-  private buildTweetText(rankings: ChannelGrowthRankings): string {
+  private buildTweetText(
+    period: '週間' | '月間',
+    rankings: ChannelGrowthRankings
+  ): string {
     const top5 = rankings.take(5)
 
     const rankingLines = top5.map(
@@ -112,9 +156,9 @@ export class XSubscriberGrowthScenario {
     )
 
     const lines = [
-      '📈週間VTuber登録者伸び率ランキング',
+      `📈${period}VTuber登録者伸び率ランキング`,
       '',
-      'YouTube登録者伸び率TOP5',
+      `チャンネル成長率TOP5`,
       ...rankingLines,
       '',
       'TOP40は画像でチェック'
