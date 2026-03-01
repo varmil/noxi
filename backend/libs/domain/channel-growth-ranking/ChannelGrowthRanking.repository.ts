@@ -6,7 +6,9 @@ export interface ChannelGrowthRankingRepository {
     where: {
       dateRange: { gte: Date; lt: Date }
       group?: GroupId
+      minSubscriberCount?: number
     }
+    orderBy?: 'diff' | 'rate'
     limit?: number
   }) => Promise<ChannelGrowthRankings>
 }

@@ -27,6 +27,7 @@ interface ChannelGrowthRankingRow {
   /** PostgreSQL ROUND returns string */
   rate: string | null
   subscriber_count: number
+  previous_subscriber_count: number
 }
 
 @Injectable()
@@ -36,13 +37,28 @@ export class ChannelGrowthRankingRepositoryImpl
   constructor(private readonly prismaInfraService: PrismaInfraService) {}
 
   async findAll({
-    where: { dateRange, group },
+    where: { dateRange, group, minSubscriberCount },
+    orderBy = 'diff',
     limit = 20
   }: Parameters<ChannelGrowthRankingRepository['findAll']>[0]): Promise<ChannelGrowthRankings> {
-    const groupCondition = group ? `AND c."group" = $4` : ''
-    const params = group
-      ? [dateRange.gte, dateRange.lt, limit, group.get()]
-      : [dateRange.gte, dateRange.lt, limit]
+    const params: unknown[] = [dateRange.gte, dateRange.lt, limit]
+    const conditions: string[] = []
+
+    if (group) {
+      params.push(group.get())
+      conditions.push(`AND c."group" = $${params.length}`)
+    }
+
+    if (minSubscriberCount !== undefined) {
+      params.push(minSubscriberCount)
+      conditions.push(`AND e."count" >= $${params.length}`)
+    }
+
+    const groupCondition = conditions.find(c => c.includes('"group"')) ?? ''
+    const minSubCondition =
+      conditions.find(c => c.includes('"count"')) ?? ''
+
+    const orderColumn = orderBy === 'rate' ? 'g.rate DESC' : 'g.diff DESC'
 
     const rows = await this.prismaInfraService.$queryRawUnsafe<
       ChannelGrowthRankingRow[]
@@ -82,9 +98,10 @@ export class ChannelGrowthRankingRepositoryImpl
         FROM latest_records l
         INNER JOIN earliest_records e ON l."channelId" = e."channelId"
         WHERE l."count" > e."count"
+          ${minSubCondition}
       )
       SELECT
-        ROW_NUMBER() OVER (ORDER BY g.diff DESC) as rank,
+        ROW_NUMBER() OVER (ORDER BY ${orderColumn}) as rank,
         g."channelId" as channel_id,
         c."title" as channel_title,
         (c."thumbnails"::json->'medium'->>'url') as thumbnail_url,
@@ -92,13 +109,14 @@ export class ChannelGrowthRankingRepositoryImpl
         gr."name" as group_name,
         g.diff,
         g.rate,
-        g.latest_count as subscriber_count
+        g.latest_count as subscriber_count,
+        g.earliest_count as previous_subscriber_count
       FROM growth_data g
       INNER JOIN "Channel" c ON g."channelId" = c."id"
       INNER JOIN "Group" gr ON c."group" = gr."id"
       WHERE 1=1
         ${groupCondition}
-      ORDER BY g.diff DESC
+      ORDER BY ${orderColumn}
       LIMIT $3
       `,
       ...params
@@ -118,7 +136,10 @@ export class ChannelGrowthRankingRepositoryImpl
             groupName: new GroupName(row.group_name),
             diff: new Diff(row.diff),
             rate: new Rate(row.rate ?? 0),
-            subscriberCount: new SubscriberCount(row.subscriber_count)
+            subscriberCount: new SubscriberCount(row.subscriber_count),
+            previousSubscriberCount: new SubscriberCount(
+              row.previous_subscriber_count
+            )
           })
       )
     )

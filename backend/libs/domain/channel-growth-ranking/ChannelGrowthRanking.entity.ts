@@ -39,6 +39,9 @@ export class ChannelGrowthRanking {
   @Transform(({ value }: { value: SubscriberCount }) => value.get())
   public readonly subscriberCount: SubscriberCount
 
+  @Transform(({ value }: { value: SubscriberCount }) => value.get())
+  public readonly previousSubscriberCount: SubscriberCount
+
   constructor(args: {
     rank: Rank
     channelId: ChannelId
@@ -49,6 +52,7 @@ export class ChannelGrowthRanking {
     diff: Diff
     rate: Rate
     subscriberCount: SubscriberCount
+    previousSubscriberCount: SubscriberCount
   }) {
     this.rank = args.rank
     this.channelId = args.channelId
@@ -59,5 +63,6 @@ export class ChannelGrowthRanking {
     this.diff = args.diff
     this.rate = args.rate
     this.subscriberCount = args.subscriberCount
+    this.previousSubscriberCount = args.previousSubscriberCount
   }
 }
