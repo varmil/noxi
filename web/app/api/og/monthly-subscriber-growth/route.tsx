@@ -135,8 +135,8 @@ function RankingRow({
       <div
         style={{
           display: 'flex',
-          width: 58,
-          height: 58,
+          width: 68,
+          height: 68,
           borderRadius: 4,
           overflow: 'hidden',
           flexShrink: 0
@@ -146,13 +146,13 @@ function RankingRow({
           <img
             src={item.thumbnailUrl}
             alt=""
-            style={{ width: 58, height: 58, objectFit: 'cover' }}
+            style={{ width: 68, height: 68, objectFit: 'cover' }}
           />
         ) : (
           <div
             style={{
-              width: 58,
-              height: 58,
+              width: 68,
+              height: 68,
               background: '#ddd',
               display: 'flex'
             }}
@@ -172,7 +172,7 @@ function RankingRow({
       >
         <div
           style={{
-            fontSize: 22,
+            fontSize: 26,
             color: '#222',
             lineHeight: 1.2,
             overflow: 'hidden',
