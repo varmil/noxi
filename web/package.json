@@ -61,7 +61,7 @@
     "framer-motion": "^12.34.3",
     "glin-profanity": "^3.3.0",
     "jsonwebtoken": "^9.0.3",
-    "lucide-react": "^0.563.0",
+    "lucide-react": "^0.575.0",
     "next": "^16.1.6",
     "next-auth": "^5.0.0-beta.29",
     "next-intl": "^4.8.3",
