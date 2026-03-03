@@ -1,6 +1,5 @@
 import Script, { type ScriptProps } from 'next/script'
 
-/** @deprecated Adsense使わないので削除してもいいかも */
 export const AdsByGoogleScript: React.FC<ScriptProps> = (
   props: ScriptProps
 ) => {
