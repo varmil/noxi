@@ -48,7 +48,7 @@
     "@uploadthing/react": "^7.3.3",
     "@vercel/edge-config": "^1.4.3",
     "axios": "^1.13.6",
-    "bignumber.js": "^9.3.1",
+    "bignumber.js": "^10.0.2",
     "browser-image-compression": "^2.0.2",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
