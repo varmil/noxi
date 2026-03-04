@@ -126,7 +126,12 @@ export class XSubscriberGrowthScenario {
 
   private async fetchImage(path: string): Promise<Buffer> {
     const webUrl = process.env.WEB_URL ?? 'http://localhost:3000'
-    const res = await fetch(`${webUrl}/api/og/${path}`)
+    const res = await fetch(`${webUrl}/api/og/${path}`, {
+      headers: {
+        'x-og-bypass': 'true'
+      },
+      signal: AbortSignal.timeout(300_000)
+    })
 
     if (!res.ok) {
       throw new Error(
