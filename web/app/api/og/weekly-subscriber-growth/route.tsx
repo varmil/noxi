@@ -402,7 +402,7 @@ export async function GET() {
             display: 'flex'
           }}
         >
-          チャンネル登録者数成長率ランキングTOP40
+          チャンネル登録者推移 - 成長率ランキングTOP40
         </div>
         <div
           style={{
