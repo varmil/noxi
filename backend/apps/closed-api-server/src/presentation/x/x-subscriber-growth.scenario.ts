@@ -3,7 +3,7 @@ import { TwitterApi } from 'twitter-api-v2'
 import { ChannelGrowthRankingsService } from '@app/channel-growth-rankings/channel-growth-rankings.service'
 import { ChannelGrowthRankings } from '@domain/channel-growth-ranking'
 
-const MAX_LENGTH_PER_LINE = 12
+const MAX_LENGTH_PER_LINE = 13
 
 /** 日本語、英語が混在する場合にもスマホXで見やすい適切な長さに切り詰める */
 function truncateTitle(
@@ -161,11 +161,11 @@ export class XSubscriberGrowthScenario {
     )
 
     const lines = [
-      `📈${period}チャンネル成長率ランキング`,
+      `📈${period}チャンネル登録者推移`,
       '',
       ...rankingLines,
       '',
-      '登録者数成長率TOP40は画像にて掲載中'
+      '成長率TOP40は👇️'
     ]
 
     return lines.join('\n')
