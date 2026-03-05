@@ -11,7 +11,7 @@ const WIDTH = 2330
 const HEIGHT = 1670
 const ROWS_PER_COLUMN = 20
 
-const RATE_BAR_COLOR = '#e85454'
+const RATE_BAR_COLOR = '#06b6d4'
 
 function formatNumber(n: number): string {
   return n.toLocaleString('ja-JP')
@@ -298,7 +298,7 @@ function ColumnHeader() {
         display: 'flex',
         alignItems: 'center',
         padding: '0 12px',
-        background: '#e11d48',
+        background: '#0891b2',
         color: 'white',
         height: 40,
         fontSize: 15,
