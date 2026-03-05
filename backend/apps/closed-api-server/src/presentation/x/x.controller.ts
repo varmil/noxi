@@ -6,6 +6,7 @@ import { ApiKeyGuard } from '@presentation/x/guard/api-key.guard'
 import { XLast24HoursScenario } from '@presentation/x/x-last-24-hours.scenario'
 import { XMonthlyScenario } from '@presentation/x/x-monthly.scenario'
 import { XSubscriberGrowthScenario } from '@presentation/x/x-subscriber-growth.scenario'
+import { XViewCountRankingScenario } from '@presentation/x/x-view-count-ranking.scenario'
 import { XWeeklyScenario } from '@presentation/x/x-weekly.scenario'
 
 @Controller('x')
@@ -15,7 +16,8 @@ export class XController {
     private readonly xLast24HoursScenario: XLast24HoursScenario,
     private readonly xWeeklyScenario: XWeeklyScenario,
     private readonly xMonthlyScenario: XMonthlyScenario,
-    private readonly xSubscriberGrowthScenario: XSubscriberGrowthScenario
+    private readonly xSubscriberGrowthScenario: XSubscriberGrowthScenario,
+    private readonly xViewCountRankingScenario: XViewCountRankingScenario
   ) {}
 
   @Post('/channels/ranking/last-24-hours')
@@ -49,5 +51,15 @@ export class XController {
   @Post('/channels/subscriber-growth/monthly')
   async postMonthlySubscriberGrowth() {
     await this.xSubscriberGrowthScenario.postMonthlySubscriberGrowth()
+  }
+
+  @Post('/channels/view-count-ranking/weekly')
+  async postWeeklyViewCountRanking() {
+    await this.xViewCountRankingScenario.postWeeklyViewCountRanking()
+  }
+
+  @Post('/channels/view-count-ranking/monthly')
+  async postMonthlyViewCountRanking() {
+    await this.xViewCountRankingScenario.postMonthlyViewCountRanking()
   }
 }
