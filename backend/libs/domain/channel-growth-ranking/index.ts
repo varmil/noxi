@@ -1,6 +1,5 @@
 export * from './ChannelGrowthRanking.entity'
 export * from './ChannelGrowthRankings.collection'
 export * from './ChannelGrowthRanking.repository'
-export * from './Rank.vo'
-export * from './Diff.vo'
+export { Rank, Diff } from '@domain/ranking'
 export * from './Rate.vo'

@@ -4,13 +4,12 @@ import { Diff, Rank } from '@domain/ranking'
 import {
   ChannelId,
   ChannelTitle,
-  SubscriberCount,
-  ThumbnailUrl
+  ThumbnailUrl,
+  ViewCount
 } from '@domain/youtube/channel'
-import { Rate } from './Rate.vo'
 
-/** チャンネル登録者数増加ランキング */
-export class ChannelGrowthRanking {
+/** チャンネル再生数増加ランキング */
+export class ChannelViewCountRanking {
   @Transform(({ value }: { value: Rank }) => value.get())
   public readonly rank: Rank
 
@@ -20,7 +19,9 @@ export class ChannelGrowthRanking {
   @Transform(({ value }: { value: ChannelTitle }) => value.get())
   public readonly channelTitle: ChannelTitle
 
-  @Transform(({ value }: { value: ThumbnailUrl | null }) => value?.get() ?? null)
+  @Transform(
+    ({ value }: { value: ThumbnailUrl | null }) => value?.get() ?? null
+  )
   public readonly thumbnailUrl: ThumbnailUrl | null
 
   @Transform(({ value }: { value: GroupId }) => value.get())
@@ -32,14 +33,8 @@ export class ChannelGrowthRanking {
   @Transform(({ value }: { value: Diff }) => value.get())
   public readonly diff: Diff
 
-  @Transform(({ value }: { value: Rate }) => value.get())
-  public readonly rate: Rate
-
-  @Transform(({ value }: { value: SubscriberCount }) => value.get())
-  public readonly subscriberCount: SubscriberCount
-
-  @Transform(({ value }: { value: SubscriberCount }) => value.get())
-  public readonly previousSubscriberCount: SubscriberCount
+  @Transform(({ value }: { value: ViewCount }) => value.toString())
+  public readonly viewCount: ViewCount
 
   constructor(args: {
     rank: Rank
@@ -49,9 +44,7 @@ export class ChannelGrowthRanking {
     groupId: GroupId
     groupName: GroupName
     diff: Diff
-    rate: Rate
-    subscriberCount: SubscriberCount
-    previousSubscriberCount: SubscriberCount
+    viewCount: ViewCount
   }) {
     this.rank = args.rank
     this.channelId = args.channelId
@@ -60,8 +53,6 @@ export class ChannelGrowthRanking {
     this.groupId = args.groupId
     this.groupName = args.groupName
     this.diff = args.diff
-    this.rate = args.rate
-    this.subscriberCount = args.subscriberCount
-    this.previousSubscriberCount = args.previousSubscriberCount
+    this.viewCount = args.viewCount
   }
 }

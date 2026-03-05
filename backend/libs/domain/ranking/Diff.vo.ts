@@ -1,7 +1,7 @@
 import { IsInt, IsNotEmpty } from 'class-validator'
 import { NumberValueObject } from '@domain/lib/vo/NumberValueObject'
 
-/** 登録者数の増加数 */
+/** 増加数 */
 export class Diff extends NumberValueObject {
   @IsNotEmpty()
   @IsInt()
