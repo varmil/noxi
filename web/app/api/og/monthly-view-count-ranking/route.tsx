@@ -10,6 +10,7 @@ import {
 
 const HEADER_COLOR = '#e11d48'
 const BAR_COLOR = '#e85454'
+const ZEBRA_COLOR = '#fff1f2'
 
 export async function GET() {
   const ranking = await getChannelViewCountRankings({
@@ -70,6 +71,7 @@ export async function GET() {
           channelTitle={item.channelTitle}
           groupName={item.groupName}
           isEven={i % 2 === 0}
+          zebraColor={ZEBRA_COLOR}
         >
           <div
             style={{

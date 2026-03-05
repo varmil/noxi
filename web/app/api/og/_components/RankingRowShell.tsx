@@ -6,6 +6,7 @@ export function RankingRowShell({
   channelTitle,
   groupName,
   isEven,
+  zebraColor = '#f5f5f5',
   children
 }: {
   rank: number
@@ -13,6 +14,7 @@ export function RankingRowShell({
   channelTitle: string
   groupName: string
   isEven: boolean
+  zebraColor?: string
   children: React.ReactNode
 }) {
   return (
@@ -21,7 +23,7 @@ export function RankingRowShell({
         display: 'flex',
         alignItems: 'center',
         padding: '0 12px',
-        background: isEven ? '#f5f5f5' : 'white',
+        background: isEven ? zebraColor : 'white',
         height: 74,
         gap: 8
       }}
