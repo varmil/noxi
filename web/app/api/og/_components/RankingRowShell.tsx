@@ -99,6 +99,7 @@ export function RankingRowShell({
             color: '#222',
             lineHeight: 1.2,
             overflow: 'hidden',
+            whiteSpace: 'nowrap',
             display: 'flex'
           }}
         >
