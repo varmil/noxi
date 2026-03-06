@@ -77,6 +77,7 @@ export function Footer() {
     siteInfo: {
       title: t('siteInfo'),
       links: [
+        { label: t('about'), href: '/about' },
         {
           label: t('xAccount'),
           href: 'https://x.com/VCharts_net',

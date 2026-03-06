@@ -1,45 +1,53 @@
 import { Metadata } from 'next'
-import { getTranslations, setRequestLocale } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 import { Page } from 'components/page'
 import { getAlternates } from 'utils/metadata/getAlternates'
+import AboutTemplate from './_components/AboutTemplate'
 
 type Props = {
   params: Promise<{ locale: string }>
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
-  const params = await props.params
+  const { locale } = await props.params
+  const [global, page] = await Promise.all([
+    getTranslations({ locale: locale as 'ja' | 'en', namespace: 'Global' }),
+    getTranslations({
+      locale: locale as 'ja' | 'en',
+      namespace: 'Pages.about'
+    })
+  ])
 
-  const { locale } = params
-
-  const tg = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'Global'
-  })
-  const t = await getTranslations({
-    locale: locale as 'ja' | 'en',
-    namespace: 'AboutUs'
-  })
+  const title = `${page('metadata.title')} - ${global('title')}`
+  const description = page('metadata.description')
 
   return {
-    title: `${t('title')} - ${tg('title')}`,
-    description: `${t('description')}`,
-    alternates: getAlternates({ pathname: '/about', locale })
+    title,
+    description,
+    alternates: getAlternates({ pathname: '/about', locale }),
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      siteName: 'VCharts'
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description
+    }
   }
 }
 
-export default async function About(props: Props) {
-  const params = await props.params
-
-  const { locale } = params
-
-  // Enable static rendering
-  setRequestLocale(locale as 'ja' | 'en')
-
+export default async function AboutPage() {
+  const t = await getTranslations('Pages.about')
   return (
-    <Page>
-      <h1>This is the About page</h1>
-      <div className="text-3xl font-bold underline">Hello world!!</div>
+    <Page
+      noPadding
+      fullWidth
+      breadcrumb={[{ href: '/about', name: t('metadata.title') }]}
+    >
+      <AboutTemplate />
     </Page>
   )
 }
