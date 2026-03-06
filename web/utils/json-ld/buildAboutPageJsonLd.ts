@@ -54,11 +54,10 @@ const PERSON: Person = {
     name: 'The University of Tokyo'
   },
   knowsAbout: [
-    'VTuber',
-    'YouTube Analytics',
+    '経営者',
+    'ソフトウェアエンジニア',
     'Web Development',
-    'SaaS',
-    'Startup',
+    'Startup Management',
     'Product Management'
   ],
   sameAs: [
@@ -86,10 +85,7 @@ export function buildAboutPageJsonLd(
     name: siteName,
     url: baseUrl,
     founder: PERSON,
-    sameAs: [
-      'https://x.com/VCharts_net',
-      'https://www.youtube.com/@VChartsJP'
-    ]
+    sameAs: ['https://x.com/VCharts_net', 'https://www.youtube.com/@VChartsJP']
   }
 
   return {
