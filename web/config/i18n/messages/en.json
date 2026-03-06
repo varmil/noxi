@@ -445,12 +445,6 @@
       }
     }
   },
-
-  "AboutUs": {
-    "title": "About Us",
-    "description": "Learn more about our services and beliefs."
-  },
-
   "Components": {
     "auth": {
       "signIn": "Sign In",
@@ -504,6 +498,7 @@
       "termsAndPrivacy": "Terms of Use and PP",
       "dataMethodology": "Data Methodology",
       "tokushoho": "Tokushoho",
+      "about": "About VCharts",
       "emailAlias": "Email Address Guide",
       "copyright": "© {year} VCharts. All rights reserved.",
       "navigation": "Footer Navigation"
@@ -1469,6 +1464,58 @@
         "loginButton": "Sign Up / Log In",
         "loginHint": "Sign up to get HyperChat tickets",
         "guidelineLink": "Review posting guidelines"
+      }
+    },
+    "about": {
+      "metadata": {
+        "title": "About VCharts",
+        "description": "VCharts is an open analytics platform that supports VTuber culture with data. Learn about our mission, operator, and data integrity."
+      },
+      "hero": {
+        "title": "VTuber Culture, Powered by Data.",
+        "subtitle": "VCharts is the open analytics platform built for fans who want to understand the numbers behind their favourite VTubers — Super Chat revenue, concurrent viewers, subscriber growth, and more."
+      },
+      "mission": {
+        "items": {
+          "openData": {
+            "title": "Open",
+            "description": "We share fans' passion and enthusiasm beyond the community."
+          },
+          "factBased": {
+            "title": "Fact-Based",
+            "description": "No speculation, no data manipulation. Every figure traces back to a verifiable source."
+          },
+          "easy": {
+            "title": "Clear & Accessible",
+            "description": "A well-organized site structure and intuitive UI that presents information in an easy-to-understand way."
+          }
+        },
+        "methodologyLink": "Read our full methodology"
+      },
+      "operator": {
+        "title": "Operator",
+        "name": "Akihiro Yamamoto",
+        "role": "Founder & Developer",
+        "bio": "Graduated from the Faculty of Economics, Department of Business Administration, The University of Tokyo. Joined Cygames as a new graduate and worked on frontend/backend development for Granblue Fantasy, winning a newcomer award and runner-up in an internal contest. Later served as lead engineer for a new game project and established a company-wide technical education team. In 2019, co-founded Commune, Inc. as CTO, building the entire product from scratch and contributing to over 7 billion yen in total funding. After growing the engineering team to 30+, shifted focus to launching new business lines and CTO succession planning. Alongside these roles, develops and operates VCharts independently as a VTuber fan.",
+        "experience": {
+          "title": "Experience",
+          "items": {
+            "cygames": "Cygames, Inc. - Engineer → Lead Engineer → Technical Education Team Manager",
+            "commune": "Commune, Inc. - Co-founder / CTO",
+            "vcharts": "VCharts - Founder & Developer"
+          }
+        },
+        "education": "The University of Tokyo, Faculty of Economics, Dept. of Business Administration (Class of 2014)",
+        "from": "From: Nagano, Japan",
+        "socialLinks": {
+          "personalX": "X (Twitter)",
+          "personalLinkedIn": "LinkedIn",
+          "personalFacebook": "Facebook"
+        }
+      },
+      "social": {
+        "title": "Seeing a lot of imp. with X",
+        "subtitle": "26.1M impressions in the past 12 months"
       }
     }
   }

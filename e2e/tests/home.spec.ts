@@ -20,9 +20,9 @@ test.describe('トップページ', () => {
   test('ナビゲーションメニューが表示される', async ({ page }) => {
     await page.goto('/ja')
 
-    // ナビゲーションリンクが存在することを確認
-    await expect(page.getByRole('link', { name: '同接数' })).toBeVisible()
-    await expect(page.getByRole('link', { name: 'スパチャ金額' })).toBeVisible()
+    // ナビゲーションリンクが存在することを確認（モバイルではボトムナビ表示）
+    await expect(page.getByRole('link', { name: 'スパチャ', exact: true })).toBeVisible()
+    await expect(page.getByRole('link', { name: '同接数', exact: true })).toBeVisible()
   })
 
   test('ライブ統計が表示される', async ({ page }) => {

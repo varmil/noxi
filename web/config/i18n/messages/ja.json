@@ -444,10 +444,6 @@
       }
     }
   },
-  "AboutUs": {
-    "title": "私たちに関して",
-    "description": "わたしたちのサービス、信念についてご説明します。"
-  },
   "Components": {
     "auth": {
       "signIn": "ログイン",
@@ -509,6 +505,7 @@
       "termsAndPrivacy": "利用規約/PP",
       "dataMethodology": "データ算出方法",
       "tokushoho": "特定商取引法表記",
+      "about": "VChartsについて",
       "emailAlias": "メールアドレスの仕組み",
       "copyright": "© {year} VCharts. All rights reserved.",
       "navigation": "フッターナビゲーション"
@@ -1473,6 +1470,58 @@
         "loginButton": "新規登録 / ログイン",
         "loginHint": "新規登録でハイパーチャットチケットを入手できます",
         "guidelineLink": "投稿ガイドラインを確認する"
+      }
+    },
+    "about": {
+      "metadata": {
+        "title": "VChartsについて",
+        "description": "VChartsの運営者情報、サービスの理念、信頼性についてご紹介します。"
+      },
+      "hero": {
+        "title": "VTuber文化をデータで支える",
+        "subtitle": "VChartsはスパチャ・同接数・登録者数などのデータを通じて、ファンがもっと推しを応援できるオープンなプラットフォームです。"
+      },
+      "mission": {
+        "items": {
+          "openData": {
+            "title": "オープン",
+            "description": "ファンの想いや熱量をコミュニティの外にも伝えます。"
+          },
+          "factBased": {
+            "title": "憶測ではなく事実",
+            "description": "推測やデータの改竄は行いません。数値は検証可能なソースに基づいています。"
+          },
+          "easy": {
+            "title": "簡単で見やすい",
+            "description": "整理整頓されたサイト構造、見やすいUIで情報をわかりやすく提供します。"
+          }
+        },
+        "methodologyLink": "データ算出方法の詳細を見る"
+      },
+      "operator": {
+        "title": "運営者",
+        "name": "山本 晃大",
+        "role": "Founder & Developer",
+        "bio": "東京大学経済学部経営学科卒。株式会社Cygamesに新卒入社しグランブルーファンタジーのフロントエンド/バックエンド開発に従事、新人賞やグループ内コンテスト準優勝を果たす。その後、新規ゲームPJのリードエンジニアや全社の技術教育チーム設立・マネジメントを経験。2019年に東大同期とコミューン株式会社を共同創業し取締役CTOとしてプロダクトの全開発を担当。累計70億円以上の資金調達に貢献。エンジニア組織が30人を超えた後は新規事業の立上げやCTO移譲・育成にも従事。その傍ら、VTuberファンとしてVChartsを個人で開発・運営している。",
+        "experience": {
+          "title": "経歴",
+          "items": {
+            "cygames": "株式会社Cygames - エンジニア → リードエンジニア → 技術教育チームマネージャー",
+            "commune": "コミューン株式会社 - 共同創業者 / 取締役CTO",
+            "vcharts": "VCharts - Founder & Developer"
+          }
+        },
+        "education": "東京大学 経済学部 経営学科（2014年卒）",
+        "from": "長野県出身",
+        "socialLinks": {
+          "personalX": "X (Twitter)",
+          "personalLinkedIn": "LinkedIn",
+          "personalFacebook": "Facebook"
+        }
+      },
+      "social": {
+        "title": "Xで多くの反響を得ています",
+        "subtitle": "過去12ヶ月間で26.1Mインプレッション"
       }
     }
   }
