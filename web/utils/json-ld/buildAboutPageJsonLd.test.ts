@@ -37,7 +37,7 @@ describe('buildAboutPageJsonLd', () => {
     expect(person.name).toBe('Akihiro Yamamoto')
     expect(person.jobTitle).toBe('Founder & Developer')
     expect(person.alumniOf.name).toBe('The University of Tokyo')
-    expect(person.knowsAbout).toContain('VTuber')
+    expect(person.knowsAbout).toContain('経営者')
     expect(person.sameAs).toContain('https://x.com/ay_at_commmune')
   })
 
