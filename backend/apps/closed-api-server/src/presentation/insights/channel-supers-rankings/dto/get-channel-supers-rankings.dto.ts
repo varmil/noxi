@@ -4,7 +4,7 @@ import { GroupId } from '@domain/group'
 
 export class GetChannelSupersRankingsDto {
   @IsIn(['weekly', 'monthly'])
-  period!: 'weekly' | 'monthly'
+  period: 'weekly' | 'monthly'
 
   @IsOptional()
   @IsString()
