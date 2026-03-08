@@ -16,6 +16,17 @@ export function formatViewCount(n: number): string {
   return n.toLocaleString('ja-JP')
 }
 
+export function formatSuperChatAmount(amountMicros: number): string {
+  const yen = amountMicros / 1_000_000
+  if (yen >= 100_000_000) {
+    return `${(yen / 100_000_000).toFixed(1)}億円`
+  }
+  if (yen >= 10_000) {
+    return `${Math.round(yen / 10_000).toLocaleString('ja-JP')}万円`
+  }
+  return `${Math.round(yen).toLocaleString('ja-JP')}円`
+}
+
 export function truncateTitle(title: string, maxLength: number = 16): string {
   if (title.length > maxLength) {
     return title.slice(0, maxLength) + '…'
