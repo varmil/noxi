@@ -7,8 +7,8 @@ import { XViewCountRankingScenario } from '@presentation/x/x-view-count-ranking.
 import { XController } from '@presentation/x/x.controller'
 import { ChannelGrowthRankingsModule } from '@app/channel-growth-rankings/channel-growth-rankings.module'
 import { ChannelSupersRankingsModule } from '@app/channel-supers-rankings/channel-supers-rankings.module'
-import { StreamsModule } from '@app/streams/streams.module'
 import { ChannelViewCountRankingsModule } from '@app/channel-view-count-rankings/channel-view-count-rankings.module'
+import { StreamsModule } from '@app/streams/streams.module'
 import { SupersBundlesAppModule } from '@app/supers-bundles/supers-bundles.module'
 import { YoutubeAppModule } from '@app/youtube/youtube.app.module'
 
