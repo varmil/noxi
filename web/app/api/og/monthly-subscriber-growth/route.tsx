@@ -27,7 +27,7 @@ export async function GET() {
   )
 
   return createOgRankingImage({
-    title: 'チャンネル登録者推移 - 成長率ランキングTOP40',
+    title: '【月間】チャンネル成長率ランキングTOP40',
     dateLabel: getPreviousMonthLabel(),
     note: '※月初時点で登録者数3,000人以上のチャンネルを対象。毎朝09:00集計',
     headerColor: HEADER_COLOR,
@@ -77,9 +77,7 @@ export async function GET() {
           ? item.previousSubscriberCount / maxSubscriberCount
           : 0
       const currRatio =
-        maxSubscriberCount > 0
-          ? item.subscriberCount / maxSubscriberCount
-          : 0
+        maxSubscriberCount > 0 ? item.subscriberCount / maxSubscriberCount : 0
 
       return (
         <RankingRowShell

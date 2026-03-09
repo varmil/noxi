@@ -161,11 +161,11 @@ export class XSubscriberGrowthScenario {
     )
 
     const lines = [
-      `📈${period}チャンネル登録者推移`,
+      `📈${period}チャンネル成長率ランキングTOP40`,
       '',
       ...rankingLines,
       '',
-      '成長率TOP40は👇️'
+      '伸び率TOP40は👇️'
     ]
 
     return lines.join('\n')

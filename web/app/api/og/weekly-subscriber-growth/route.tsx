@@ -2,7 +2,11 @@ import { getChannelGrowthRankings } from 'apis/insights/getChannelGrowthRankings
 import { ProgressBar } from '../_components/ProgressBar'
 import { RankingRowShell } from '../_components/RankingRowShell'
 import { createOgRankingImage } from '../_components/createOgRankingImage'
-import { formatNumber, formatRate, getWeeklyDateRangeLabel } from '../_components/utils'
+import {
+  formatNumber,
+  formatRate,
+  getWeeklyDateRangeLabel
+} from '../_components/utils'
 
 const HEADER_COLOR = '#0891b2'
 const BAR_COLOR = '#06b6d4'
@@ -23,7 +27,7 @@ export async function GET() {
   )
 
   return createOgRankingImage({
-    title: 'チャンネル登録者推移 - 成長率ランキングTOP40',
+    title: '【週間】チャンネル成長率ランキングTOP40',
     dateLabel: getWeeklyDateRangeLabel(),
     note: '※週初時点で登録者数3,000人以上のチャンネルを対象。毎朝09:00集計',
     headerColor: HEADER_COLOR,
@@ -73,9 +77,7 @@ export async function GET() {
           ? item.previousSubscriberCount / maxSubscriberCount
           : 0
       const currRatio =
-        maxSubscriberCount > 0
-          ? item.subscriberCount / maxSubscriberCount
-          : 0
+        maxSubscriberCount > 0 ? item.subscriberCount / maxSubscriberCount : 0
 
       return (
         <RankingRowShell

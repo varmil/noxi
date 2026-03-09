@@ -24,7 +24,7 @@ export async function GET() {
   )
 
   return createOgRankingImage({
-    title: '週間YouTubeスパチャランキングTOP40',
+    title: '【週間】スパチャランキングTOP40',
     dateLabel: getWeeklyDateRangeLabel(),
     note: '※VCharts登録済みタレントが対象。プレミア公開・待機所分は含まれません。',
     headerColor: HEADER_COLOR,

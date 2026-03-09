@@ -150,7 +150,7 @@ export class XSuperChatRankingScenario {
     )
 
     const lines = [
-      `💴${period}YouTubeスパチャランキング`,
+      `📊${period}スパチャランキングTOP40`,
       '',
       ...rankingLines,
       '',
