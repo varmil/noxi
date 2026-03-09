@@ -17,13 +17,11 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: [
-          'MetaAI',
-          'Meta-AI',
-          'Meta AI',
-          'Meta.AI',
-          'meta-ai',
-          'metaai',
-          'Meta-ExternalAgent'
+          'facebookexternalhit',
+          'meta-webindexer',
+          'meta-externalads',
+          'meta-externalagent',
+          'meta-externalfetcher'
         ],
         disallow: '/'
       },
