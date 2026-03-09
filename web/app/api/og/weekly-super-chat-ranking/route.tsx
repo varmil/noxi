@@ -93,7 +93,7 @@ export async function GET() {
                 alignItems: 'flex-end'
               }}
             >
-              {formatSuperChatAmount(item.currentAmount)}
+              ￥{Math.round(item.currentAmount / 1_000_000).toLocaleString()}
             </div>
             <ProgressBar ratio={currentRatio} color={BAR_COLOR} width={170} />
           </div>
