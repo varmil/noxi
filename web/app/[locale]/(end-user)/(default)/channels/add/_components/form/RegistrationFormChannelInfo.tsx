@@ -39,23 +39,31 @@ export default function RegistrationFormChannelInfo({
               <span>{channelInfo.subscriberCount.toLocaleString()}人</span>
             </div>
           </div>
-          <span className="text-xs text-muted-foreground">1,000人以上必要</span>
+          <span className="text-xs text-muted-foreground">
+            {channelInfo.subscriberCount >= 10000
+              ? '10,000人以上'
+              : '1,000人以上必要'}
+          </span>
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            {channelInfo.meetsLiveStreamRequirement ? (
-              <CheckCircle2 className="h-5 w-5 text-green-500" />
-            ) : (
-              <AlertCircle className="h-5 w-5 text-red-500" />
-            )}
-            <div className="flex flex-col sm:flex-row sm:gap-2 text-sm">
-              <span>直近30日間のライブ:</span>
-              <span>{channelInfo.liveStreamCount}回</span>
+        {channelInfo.subscriberCount < 10000 && (
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {channelInfo.meetsLiveStreamRequirement ? (
+                <CheckCircle2 className="h-5 w-5 text-green-500" />
+              ) : (
+                <AlertCircle className="h-5 w-5 text-red-500" />
+              )}
+              <div className="flex flex-col sm:flex-row sm:gap-2 text-sm">
+                <span>直近30日間のライブ:</span>
+                <span>{channelInfo.liveStreamCount}回</span>
+              </div>
             </div>
+            <span className="text-xs text-muted-foreground">
+              10,000人未満の場合4回以上必要
+            </span>
           </div>
-          <span className="text-xs text-muted-foreground">4回以上必要</span>
-        </div>
+        )}
       </div>
     </div>
   )
