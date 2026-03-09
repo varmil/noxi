@@ -121,14 +121,12 @@ export async function createOgRankingImage<T>({
             display: 'flex',
             flexDirection: 'column',
             flex: 1,
-            borderRadius: 8,
+            borderRadius: 2,
             overflow: 'hidden',
             border: '1px solid #e0e0e0'
           }}
         >
-          <ColumnHeader headerColor={headerColor}>
-            {headerRight}
-          </ColumnHeader>
+          <ColumnHeader headerColor={headerColor}>{headerRight}</ColumnHeader>
           {leftColumn.map((item, i) => renderRow(item, i))}
         </div>
 
@@ -138,14 +136,12 @@ export async function createOgRankingImage<T>({
             display: 'flex',
             flexDirection: 'column',
             flex: 1,
-            borderRadius: 8,
+            borderRadius: 2,
             overflow: 'hidden',
             border: '1px solid #e0e0e0'
           }}
         >
-          <ColumnHeader headerColor={headerColor}>
-            {headerRight}
-          </ColumnHeader>
+          <ColumnHeader headerColor={headerColor}>{headerRight}</ColumnHeader>
           {rightColumn.map((item, i) => renderRow(item, i))}
         </div>
       </div>
