@@ -35,6 +35,25 @@ export function truncateTitle(title: string, maxLength: number = 16): string {
 }
 
 export function getWeeklyDateRangeLabel(): string {
+  const { gte, lt } = getWeeklyDateRange()
+
+  const startJst = new Date(gte.getTime() + 9 * 60 * 60 * 1000)
+  const endJst = new Date(lt.getTime() + (9 - 24) * 60 * 60 * 1000)
+
+  const startStr = `${startJst.getUTCMonth() + 1}/${startJst.getUTCDate()}`
+  const endStr = `${endJst.getUTCMonth() + 1}/${endJst.getUTCDate()}`
+
+  return `${startStr}〜${endStr}`
+}
+
+export function formatConcurrentViewers(n: number): string {
+  if (n >= 10_000) {
+    return `${(n / 10_000).toFixed(1)}万人`
+  }
+  return `${n.toLocaleString('ja-JP')}人`
+}
+
+export function getWeeklyDateRange(): { gte: Date; lt: Date } {
   const now = new Date()
   const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000)
   const year = jstNow.getUTCFullYear()
@@ -44,13 +63,19 @@ export function getWeeklyDateRangeLabel(): string {
   const lt = new Date(Date.UTC(year, month, day, -9))
   const gte = new Date(Date.UTC(year, month, day - 7, -9))
 
-  const startJst = new Date(gte.getTime() + 9 * 60 * 60 * 1000)
-  const endJst = new Date(lt.getTime() + (9 - 24) * 60 * 60 * 1000)
+  return { gte, lt }
+}
 
-  const startStr = `${startJst.getUTCMonth() + 1}/${startJst.getUTCDate()}`
-  const endStr = `${endJst.getUTCMonth() + 1}/${endJst.getUTCDate()}`
+export function getMonthlyDateRange(): { gte: Date; lt: Date } {
+  const now = new Date()
+  const jstNow = new Date(now.getTime() + 9 * 60 * 60 * 1000)
+  const year = jstNow.getUTCFullYear()
+  const month = jstNow.getUTCMonth()
 
-  return `${startStr}〜${endStr}`
+  const lt = new Date(Date.UTC(year, month, 1, -9))
+  const gte = new Date(Date.UTC(year, month - 1, 1, -9))
+
+  return { gte, lt }
 }
 
 export function getPreviousMonthLabel(): string {
