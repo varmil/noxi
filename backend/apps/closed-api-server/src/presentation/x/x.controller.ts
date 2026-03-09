@@ -1,10 +1,10 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common'
 import { PostChannelsRankingInLast24Hours } from '@presentation/x/dto/PostChannelsRankingInLast24Hours.dto'
 import { ApiKeyGuard } from '@presentation/x/guard/api-key.guard'
+import { XConcurrentViewerRankingScenario } from '@presentation/x/x-concurrent-viewer-ranking.scenario'
 import { XLast24HoursScenario } from '@presentation/x/x-last-24-hours.scenario'
 import { XSubscriberGrowthScenario } from '@presentation/x/x-subscriber-growth.scenario'
 import { XSuperChatRankingScenario } from '@presentation/x/x-super-chat-ranking.scenario'
-import { XConcurrentViewerRankingScenario } from '@presentation/x/x-concurrent-viewer-ranking.scenario'
 import { XViewCountRankingScenario } from '@presentation/x/x-view-count-ranking.scenario'
 
 @Controller('x')

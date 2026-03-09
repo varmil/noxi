@@ -43,24 +43,33 @@ export async function getChannelForAdd(
     const subscriberCount =
       Number.parseInt(channel.statistics.subscriberCount, 10) || 0
     const meetsSubscriberRequirement = subscriberCount >= 1000
+    const isHighSubscriber = subscriberCount >= 10000
 
-    // 30日前の日付を計算
-    const thirtyDaysAgo = new Date()
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
-    const thirtyDaysAgoISOString = thirtyDaysAgo.toISOString()
+    // 1万人以上の場合はライブ配信条件を免除（Search APIも省略）
+    let liveStreamCount = 0
+    let meetsLiveStreamRequirement = false
 
-    // 直近30日間のライブ配信を検索
-    const searchResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=completed&publishedAfter=${thirtyDaysAgoISOString}&maxResults=50&key=${API_KEY}`,
-      { next: { revalidate: CACHE_12H } }
-    )
-    if (!searchResponse.ok) {
-      throw new Error('YouTube 検索APIからのレスポンスが正常ではありません')
+    if (isHighSubscriber) {
+      meetsLiveStreamRequirement = true
+    } else {
+      // 30日前の日付を計算
+      const thirtyDaysAgo = new Date()
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
+      const thirtyDaysAgoISOString = thirtyDaysAgo.toISOString()
+
+      // 直近30日間のライブ配信を検索
+      const searchResponse = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&type=video&eventType=completed&publishedAfter=${thirtyDaysAgoISOString}&maxResults=50&key=${API_KEY}`,
+        { next: { revalidate: CACHE_12H } }
+      )
+      if (!searchResponse.ok) {
+        throw new Error('YouTube 検索APIからのレスポンスが正常ではありません')
+      }
+
+      const searchData = await searchResponse.json()
+      liveStreamCount = searchData.items ? searchData.items.length : 0
+      meetsLiveStreamRequirement = liveStreamCount >= 4
     }
-
-    const searchData = await searchResponse.json()
-    const liveStreamCount = searchData.items ? searchData.items.length : 0
-    const meetsLiveStreamRequirement = liveStreamCount >= 4
 
     return {
       title: channel.snippet.title,

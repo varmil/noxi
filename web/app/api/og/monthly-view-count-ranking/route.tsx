@@ -25,7 +25,7 @@ export async function GET() {
   )
 
   return createOgRankingImage({
-    title: '月間YouTube再生数ランキングTOP40',
+    title: '【月間】YouTube再生数ランキングTOP40',
     dateLabel: getPreviousMonthLabel(),
     note: '※VCharts登録済みタレントが対象。毎朝09:00集計',
     headerColor: HEADER_COLOR,
