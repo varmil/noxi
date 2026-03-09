@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       // 特定ボットをブロック
       {
         userAgent: [
-          'AhrefsBot',
+          // 'AhrefsBot',
           'Amazonbot',
           'DotBot',
           'MJ12bot',
