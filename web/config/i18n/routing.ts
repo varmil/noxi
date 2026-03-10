@@ -9,6 +9,10 @@ export const routing = defineRouting({
 
   localePrefix: 'always',
 
+  // getAlternates.ts で HTML <link> タグとして出力するため、
+  // middleware の HTTP Link ヘッダーによる二重出力を防止
+  alternateLinks: false,
+
   // Expire in one year
   localeCookie: {
     maxAge: 60 * 60 * 24 * 365
