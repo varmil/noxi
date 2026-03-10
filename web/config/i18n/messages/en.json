@@ -204,10 +204,10 @@
     "groups": {
       "metadata": {
         "title": "Groups",
-        "description": "Search for VTubers in an instant. Find your favorite VTubers from groups such as affiliated companies or individual groups."
+        "description": "Search for Talents in an instant. Find your favorite Talents from groups such as affiliated companies or individual groups."
       },
       "section": {
-        "vtuberSearch": "VTuber Search",
+        "vtuberSearch": "Talent Search",
         "groupList": "Groups"
       }
     },
@@ -216,13 +216,13 @@
       "index": {
         "metadata": {
           "title": "{group} Overview - Talents and Live Streams",
-          "description": "Discover the latest {group} streams, channel statistics, and upcoming events on VCharts. Stay connected with your favorite VTubers and never miss a moment of their live broadcasts!"
+          "description": "Discover the {group} streams, channel statistics, and upcoming events on VCharts. Stay connected with your favorite talents and never miss a moment of their live broadcasts!"
         }
       },
       "charts": {
         "metadata": {
           "title": "{group} Channel Ranking - Compare Subscribers and Viewers",
-          "description": "Explore comprehensive statistics on {group} channels with VCharts. Analyze performance metrics, track popular VTubers, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
+          "description": "Explore comprehensive statistics on {group} channels with VCharts. Analyze performance metrics, track popular talents, and find insights to enhance your streaming experience. Stay updated on your favorite channels!"
         }
       },
       "channelsId": {
@@ -241,7 +241,7 @@
         "superChat": {
           "metadata": {
             "title": "Super Chat Summary of {channel}",
-            "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite VTuber's support trends effortlessly."
+            "description": "Explore the Super Chat earnings of {channel}! Discover total revenue and rankings for the past X days. Stay updated on your favorite talent's support trends effortlessly."
           },
           "section": {
             "card": { "title": "Super Chat Summary (includes Sticker)" },
@@ -252,7 +252,7 @@
         "asmr": {
           "metadata": {
             "title": "ASMR Videos on {channel}",
-            "description": "Discover the complete list of ASMR from {channel}! Stay updated with their latest ASMR live and members only ASMR broadcasts. Never miss your favorite VTuber's streams!"
+            "description": "Discover the complete list of ASMR from {channel}! Stay updated with their latest ASMR live and members only ASMR broadcasts. Never miss your favorite talent's streams!"
           },
           "section": {
             "title": "ASMR Videos"
@@ -261,7 +261,7 @@
         "live": {
           "metadata": {
             "title": "{channel} Live Streams",
-            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and Super Chat events. Never miss your favorite VTuber's streams!"
+            "description": "Discover the complete list of live streams from {channel}! Stay updated with their latest live events and Super Chat events. Never miss your favorite talent's streams!"
           },
           "section": {
             "title": "Live Streams"
@@ -338,7 +338,7 @@
       "superChatLiveIndex": {
         "metadata": {
           "title": "Super Chat Ranking (Live) - Weekly & Monthly Archive",
-          "description": "Weekly and monthly archives of VTuber Super Chat rankings by live stream. Check past rankings."
+          "description": "Weekly and monthly archives of Super Chat rankings by live stream. Check past rankings."
         },
         "heading": "Super Chat Ranking (Live)",
         "section": {
@@ -357,7 +357,7 @@
       "concurrentViewerLiveIndex": {
         "metadata": {
           "title": "Most Live Viewers - Weekly & Monthly Archive",
-          "description": "Weekly and monthly archives of VTuber most live viewers rankings. Check past rankings."
+          "description": "Weekly and monthly archives of most live viewers rankings. Check past rankings."
         },
         "heading": "Most Live Viewers",
         "section": {
@@ -389,7 +389,7 @@
           "description": {
             "dimension": {
               "concurrent-viewer": {
-                "realtime": "Showing currently live VTubers ranked by viewer count. Check out the most trending streamers in {group} in real-time.",
+                "realtime": "Showing currently live talents ranked by viewer count. Check out the most trending streamers in {group} in real-time.",
                 "last24Hours": "Concurrent viewer ranking for streams from the last 24 hours. Discover yesterday's most popular streams and trending content you may have missed in {group}.",
                 "last7Days": "Streams from the past week ranked by peak concurrent viewers. See the most talked-about streams and streamers in {group} this week at a glance.",
                 "last30Days": "Concurrent viewer ranking for the past 30 days. Analyze trending streamers and popular content within {group}'s recent activity.",
@@ -825,7 +825,7 @@
           "title": "About HyperChat",
           "noReturn": {
             "heading": "No direct monetary return to the creator",
-            "body": "Revenue from this feature is not distributed to the VTuber or their agency. For direct financial support, please use official memberships, Super Chat, etc."
+            "body": "Revenue from this feature is not distributed to the talent or their agency. For direct financial support, please use official memberships, Super Chat, etc."
           },
           "spreadOshi": {
             "heading": "Help spread your oshi to the world",
@@ -1116,7 +1116,7 @@
 
     "supersRanking": {
       "title": "{period} Ranking",
-      "description": "Ranking based on total amount of Super Chat & Sticker. All VTubers are ranked in 3 categories: \"Overall\", \"Gender\", and \"Group\".",
+      "description": "Ranking based on total amount of Super Chat & Sticker. All talents are ranked in 3 categories: \"Overall\", \"Gender\", and \"Group\".",
       "comparedToPreviousPeriod": "vs. Previous Period",
       "more": "See Top 20"
     },
@@ -1279,7 +1279,7 @@
     },
     "groupsAdd": {
       "title": "Group Registration Application",
-      "description": "Application form for registering a new VTuber group",
+      "description": "Application form for registering a new group",
       "breadcrumb": "Group Registration Application",
       "formPlaceholder": "Application form will be displayed here",
       "historyPlaceholder": "Application history will be displayed here"
@@ -1348,10 +1348,10 @@
     "hyperChatAbout": {
       "metadata": {
         "title": "What is HyperChat",
-        "description": "HyperChat is a persistent message feature for VTuber fans that lets you leave messages on your favorite talent's channel page."
+        "description": "HyperChat is a persistent message feature for fans that lets you leave messages on your favorite talent's channel page."
       },
       "hero": {
-        "badge": "For VTuber Fans",
+        "badge": "For Idol Fans",
         "title": "HyperChat",
         "subtitle1": "Don't just consume your feelings.",
         "subtitle2": "Leave cumulative messages on your favorite oshi's page."
@@ -1468,11 +1468,11 @@
     "about": {
       "metadata": {
         "title": "About VCharts",
-        "description": "VCharts is an open analytics platform that supports VTuber culture with data. Learn about our mission, operator, and data integrity."
+        "description": "VCharts is an open analytics platform that supports pop culture with data. Learn about our mission, operator, and data integrity."
       },
       "hero": {
-        "title": "VTuber Culture, Powered by Data.",
-        "subtitle": "VCharts is the open analytics platform built for fans who want to understand the numbers behind their favourite VTubers — Super Chat revenue, concurrent viewers, subscriber growth, and more."
+        "title": "Pop Culture, Powered by Data.",
+        "subtitle": "VCharts is the open analytics platform built for fans who want to understand the numbers behind their favourites — Super Chat revenue, concurrent viewers, subscriber growth, and more."
       },
       "mission": {
         "items": {
