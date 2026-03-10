@@ -53,7 +53,7 @@ export default function MonthlyPassPage() {
               <ul className="space-y-2">
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
-                  <span>VTuberランキングの閲覧</span>
+                  <span>ランキングの限定的な閲覧</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
@@ -104,7 +104,7 @@ export default function MonthlyPassPage() {
               <ul className="space-y-2">
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />
-                  <span>VTuberランキングの閲覧</span>
+                  <span>ランキングの閲覧</span>
                 </li>
                 <li className="flex items-start">
                   <Check className="mr-2 h-5 w-5 text-green-500 shrink-0" />

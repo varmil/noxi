@@ -51,7 +51,7 @@ export default async function SuccessPage({ searchParams, params }: Props) {
               <ul className="w-[244px] text-sm text-muted-foreground text-nowrap space-y-1 text-left">
                 <li>・認証バッジの表示</li>
                 <li>・ログインで毎日追加の応援チケット</li>
-                <li>・VTuberへの応援コメント投稿</li>
+                <li>・タレントへの応援コメント投稿</li>
               </ul>
             </div>
           </CardContent>

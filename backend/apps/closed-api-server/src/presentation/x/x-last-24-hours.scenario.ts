@@ -41,7 +41,7 @@ function getRankPrefix(i: number): string {
 }
 
 function getGroupTitle(group?: GroupId): string {
-  if (!group) return 'VTuber総合'
+  if (!group) return 'タレント総合'
   return group.toJP()
 }
 

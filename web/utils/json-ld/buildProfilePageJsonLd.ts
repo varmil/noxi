@@ -1,8 +1,8 @@
 /**
- * VTuber 詳細ページ用 ProfilePage JSON-LD ビルダー
+ * タレント詳細ページ用 ProfilePage JSON-LD ビルダー
  *
  * Google の「概要ページと詳細ページ」パターンに対応するため、
- * VTuber 詳細ページに ProfilePage + Person 構造化データを追加する
+ * タレント詳細ページに ProfilePage + Person 構造化データを追加する
  *
  * @see https://developers.google.com/search/docs/appearance/structured-data/profile-page
  */
@@ -57,7 +57,7 @@ export type BuildProfilePageParams = {
 }
 
 /**
- * VTuber 詳細ページ用 ProfilePage JSON-LD を構築
+ * タレント詳細ページ用 ProfilePage JSON-LD を構築
  *
  * - mainEntity に Person を設定
  * - sameAs で YouTube チャンネルへのリンクを設定

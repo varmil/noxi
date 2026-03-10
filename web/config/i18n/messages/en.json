@@ -25,7 +25,7 @@
     },
 
     "group": {
-      "all": "VTuber"
+      "all": "All Groups"
     },
 
     "period": {
@@ -86,7 +86,7 @@
   "Page": {
     "index": {
       "metadata": {
-        "title": "VCharts - VTuber Rankings & Statistics",
+        "title": "VCharts - YouTube Rankings & Statistics",
         "description": "Check Super Chat rankings and concurrent viewer rankings. VCharts covers all statistical data for Nijisanji, Hololive, and individual VTubers."
       },
       "section": {

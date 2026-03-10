@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     }),
     group
       ? getGroupName(group, { errorContext: 'daily-ranking og image' })
-      : Promise.resolve('VTuber総合')
+      : Promise.resolve('タレント総合')
   ])
 
   /** 日本時間として解釈した日付 */

@@ -11,7 +11,7 @@ type Props = {
 }
 
 /**
- * VTuber 詳細ページ用 ProfilePage JSON-LD コンポーネント
+ * タレント詳細ページ用 ProfilePage JSON-LD コンポーネント
  *
  * Google の「概要ページと詳細ページ」カルーセルパターンに対応するため、
  * 詳細ページに ProfilePage + Person 構造化データを追加する
