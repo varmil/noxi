@@ -18,3 +18,6 @@ export const HYPER_CHATS_LATEST = 'hyper-chats-latest'
 
 /** ハイパートレイン（アクティブ一覧）の再検証タグ */
 export const HYPER_TRAINS_ACTIVE = 'hyper-trains-active'
+
+/** グループの再検証タグ */
+export const GROUPS = 'groups'
