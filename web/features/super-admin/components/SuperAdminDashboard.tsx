@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { RevalidateTagForm } from 'features/super-admin/components/RevalidateTagForm'
 import { SuperAdminAside } from 'features/super-admin/components/SuperAdminAside'
 
 export function SuperAdminDashboard() {
@@ -11,6 +12,14 @@ export function SuperAdminDashboard() {
           <h1 className="text-lg font-semibold">Super Admin Dashboard</h1>
         </header>
         <main className="flex-1 p-6 grid gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Revalidate Tag</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <RevalidateTagForm />
+            </CardContent>
+          </Card>
           <Card>
             <CardHeader>
               <CardTitle>env</CardTitle>
