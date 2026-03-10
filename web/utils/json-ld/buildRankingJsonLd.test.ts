@@ -21,7 +21,7 @@ describe('buildBreadcrumbList', () => {
     period: 'last30Days',
     canonicalPeriod: 'last30Days',
     dimensionName: 'スパチャランキング',
-    groupName: 'VTuber総合',
+    groupName: 'タレント総合',
     periodName: '過去30日間'
   }
 
@@ -110,7 +110,7 @@ describe('buildChannelItemList', () => {
     baseUrl: 'https://example.com',
     locale: 'ja',
     title: 'スパチャランキング',
-    description: 'VTuber のスパチャランキングです',
+    description: 'スパチャランキング一覧です',
     totalCount: 100,
     currentPage: 1,
     pageSize: 20,
@@ -136,7 +136,7 @@ describe('buildChannelItemList', () => {
     expect(result['@context']).toBe('https://schema.org')
     expect(result['@type']).toBe('ItemList')
     expect(result.name).toBe('スパチャランキング')
-    expect(result.description).toBe('VTuber のスパチャランキングです')
+    expect(result.description).toBe('スパチャランキング一覧です')
     expect(result.itemListOrder).toBe(
       'https://schema.org/ItemListOrderDescending'
     )
@@ -190,7 +190,7 @@ describe('buildSummaryPageItemList', () => {
     baseUrl: 'https://example.com',
     locale: 'ja',
     title: 'スパチャランキング',
-    description: 'VTuber のスパチャランキングです',
+    description: 'スパチャランキング一覧です',
     totalCount: 100,
     currentPage: 1,
     pageSize: 20,
@@ -216,7 +216,7 @@ describe('buildSummaryPageItemList', () => {
     expect(result['@context']).toBe('https://schema.org')
     expect(result['@type']).toBe('ItemList')
     expect(result.name).toBe('スパチャランキング')
-    expect(result.description).toBe('VTuber のスパチャランキングです')
+    expect(result.description).toBe('スパチャランキング一覧です')
     expect(result.itemListOrder).toBe(
       'https://schema.org/ItemListOrderDescending'
     )
@@ -291,7 +291,7 @@ describe('buildStreamItemList', () => {
     baseUrl: 'https://example.com',
     locale: 'ja',
     title: '同接数ランキング',
-    description: 'VTuber の同接数ランキングです',
+    description: '同接数ランキング一覧です',
     totalCount: 50,
     currentPage: 1,
     pageSize: 20,
@@ -320,7 +320,7 @@ describe('buildStreamItemList', () => {
     expect(result['@context']).toBe('https://schema.org')
     expect(result['@type']).toBe('ItemList')
     expect(result.name).toBe('同接数ランキング')
-    expect(result.description).toBe('VTuber の同接数ランキングです')
+    expect(result.description).toBe('同接数ランキング一覧です')
     expect(result.itemListOrder).toBe(
       'https://schema.org/ItemListOrderDescending'
     )
@@ -340,7 +340,9 @@ describe('buildStreamItemList', () => {
     expect(firstItem.item.url).toBe('https://example.com/ja/youtube/live/vid1')
     expect(firstItem.item.thumbnailUrl).toBe('https://example.com/vid1.jpg')
     expect(firstItem.item.uploadDate).toBe('2024-01-15T10:00:00Z')
-    expect(firstItem.item.contentUrl).toBe('https://www.youtube.com/watch?v=vid1')
+    expect(firstItem.item.contentUrl).toBe(
+      'https://www.youtube.com/watch?v=vid1'
+    )
     expect(firstItem.item.author).toEqual({
       '@type': 'Person',
       name: 'チャンネル1',
