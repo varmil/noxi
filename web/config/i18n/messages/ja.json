@@ -21,7 +21,7 @@
       "nonbinary": "ノンバイナリー"
     },
     "group": {
-      "all": "VTuber総合"
+      "all": "タレント総合"
     },
     "period": {
       "realtime": "リアルタイム",
@@ -70,7 +70,6 @@
     "live": "配信中のライブ",
     "scheduled": "配信スケジュール",
     "ended": "過去のライブ配信",
-    "channelsRanking": "VTuber",
     "superChatChannelsRanking": "スパチャランキング（チャンネル集計）",
     "superChatLiveRanking": "スパチャランキング（ライブ集計）",
     "subscriberRanking": "チャンネル登録者数ランキング",
@@ -81,7 +80,7 @@
   "Page": {
     "index": {
       "metadata": {
-        "title": "VCharts - VTuberランキング・統計",
+        "title": "VCharts - タレント・アイドル特化のYouTubeランキング・統計",
         "description": "スパチャランキング、同接数ランキングを瞬時に確認。VChartsはにじさんじ、ホロライブ、個人勢すべての統計データを網羅しています。"
       },
       "section": {
@@ -195,10 +194,10 @@
     "groups": {
       "metadata": {
         "title": "グループ一覧",
-        "description": "VTuberを一瞬で探そう。所属会社や個人勢といったグループからお気に入りのVTuberを見つけよう。"
+        "description": "タレントを一瞬で探そう。所属事務所やグループからお気に入りのタレントを見つけよう。"
       },
       "section": {
-        "vtuberSearch": "VTuber検索",
+        "vtuberSearch": "タレント検索",
         "groupList": "グループ一覧"
       }
     },
@@ -206,7 +205,7 @@
       "index": {
         "metadata": {
           "title": "{group}概要 - タレントとライブ配信",
-          "description": "{group}の最新人気ランキング、同接数、スパチャ金額をVChartsで確認！推しVTuberの人気動向や配信時間帯、注目の配信を見逃さないための完全ガイド。"
+          "description": "{group}の人気ランキング、同接数、スパチャ金額をVChartsで確認！推しの人気動向や配信時間帯、注目の配信を見逃さないための完全ガイド。"
         }
       },
       "charts": {
@@ -306,7 +305,7 @@
       "scheduled": {
         "metadata": {
           "title": "{group} 配信スケジュール",
-          "description": "{group}の今後のライブ配信スケジュールを確認。お気に入りVTuberの配信を事前にチェックして見逃さないようにしよう。"
+          "description": "{group}の今後のライブ配信スケジュールを確認。推しの配信を事前にチェックして見逃さないようにしよう。"
         }
       },
       "ended": {
@@ -320,7 +319,7 @@
       "superChatChannelsIndex": {
         "metadata": {
           "title": "スパチャランキング（チャンネル集計）週間・月間アーカイブ",
-          "description": "VTuberのスーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
+          "description": "スーパーチャットランキングトップページです。週間・月間の過去データ、Top5をまとめて一覧で確認できます。"
         },
         "heading": "スパチャランキング（チャンネル集計）",
         "section": {
@@ -339,7 +338,7 @@
       "superChatLiveIndex": {
         "metadata": {
           "title": "スパチャランキング（ライブ集計）週間・月間アーカイブ",
-          "description": "VTuberのスパチャランキング（ライブ集計）の週間・月間アーカイブ。過去のランキングを確認できます。"
+          "description": "１ライブ配信ごとに集計したスパチャランキングの週間・月間アーカイブ。過去のランキングを確認できます。"
         },
         "heading": "スパチャランキング（ライブ集計）",
         "section": {
@@ -358,7 +357,7 @@
       "concurrentViewerLiveIndex": {
         "metadata": {
           "title": "同接数ランキング 週間・月間アーカイブ",
-          "description": "VTuberの同接数ランキングの週間・月間アーカイブ。過去のランキングを確認できます。"
+          "description": "YouTube同接数ランキングの週間・月間アーカイブ。過去のランキングを確認できます。"
         },
         "heading": "同接数ランキング",
         "section": {
@@ -390,7 +389,7 @@
           "description": {
             "dimension": {
               "concurrent-viewer": {
-                "realtime": "配信中のVTuberを視聴者数順に表示しています。{group}で今勢いのある配信者をチェックできます。",
+                "realtime": "配信中のタレントを視聴者数順に表示しています。{group}で今勢いのある配信者をチェックできます。",
                 "last24Hours": "直近24時間の同接数ランキングです。{group}で昨日勢いのあった人気配信をチェックできます。",
                 "last7Days": "過去1週間の同接数ランキングです。{group}で今週話題になった配信や配信者を一目で確認できます。",
                 "last30Days": "過去30日間の同接数ランキングです。{group}内の直近で特に勢いのある配信を確認できます。",
@@ -839,7 +838,7 @@
           "title": "ハイパーチャットについて",
           "noReturn": {
             "heading": "ご本人への金銭的な還元はありません",
-            "body": "本機能による収益はVTuberご本人や事務所には分配されません。生活費等の支援は公式メンバーシップ、スーパーチャット等をご利用ください。"
+            "body": "本機能による収益はタレントご本人や事務所には分配されません。生活費等の支援は公式メンバーシップ、スーパーチャット等をご利用ください。"
           },
           "spreadOshi": {
             "heading": "外の世界へ \"推し\" を伝える力になります",
@@ -1286,7 +1285,7 @@
     },
     "groupsAdd": {
       "title": "Group登録申請",
-      "description": "新しいVTuberグループを登録するための申請フォーム",
+      "description": "新しいグループ（事務所）を登録するための申請フォーム",
       "breadcrumb": "Group登録申請",
       "formPlaceholder": "申請フォームはここに表示されます",
       "historyPlaceholder": "申請履歴はここに表示されます"
@@ -1355,10 +1354,10 @@
     "hyperChatAbout": {
       "metadata": {
         "title": "ハイパーチャットとは",
-        "description": "ハイパーチャットは、推しのチャンネルページにメッセージを残せるVTuberファン専用の蓄積型メッセージ機能です。"
+        "description": "ハイパーチャットは、推しのチャンネルページにメッセージを残せるファン専用のメッセージ機能です。"
       },
       "hero": {
-        "badge": "VTuberファン専用",
+        "badge": "タレントファン専用",
         "title": "ハイパーチャット",
         "subtitle1": "想いを儚い「消費」にしない",
         "subtitle2": "推しのページに残せる蓄積型メッセージ"
@@ -1478,7 +1477,7 @@
         "description": "VChartsの運営者情報、サービスの理念、信頼性についてご紹介します。"
       },
       "hero": {
-        "title": "VTuber文化をデータで支える",
+        "title": "エンタメ文化をデータで支える",
         "subtitle": "VChartsはスパチャ・同接数・登録者数などのデータを通じて、ファンがもっと推しを応援できるオープンなプラットフォームです。"
       },
       "mission": {

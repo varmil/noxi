@@ -8,7 +8,7 @@ describe('buildAboutPageJsonLd', () => {
   const baseParams: BuildAboutPageParams = {
     baseUrl: 'https://www.vcharts.net',
     siteName: 'VCharts',
-    siteDescription: 'VTuber analytics platform'
+    siteDescription: 'YouTube analytics platform'
   }
 
   it('@context と @graph の基本構造を正しく生成', () => {
@@ -25,7 +25,7 @@ describe('buildAboutPageJsonLd', () => {
     expect(webSite['@type']).toBe('WebSite')
     expect(webSite.name).toBe('VCharts')
     expect(webSite.url).toBe('https://www.vcharts.net')
-    expect(webSite.description).toBe('VTuber analytics platform')
+    expect(webSite.description).toBe('YouTube analytics platform')
     expect(webSite.publisher['@type']).toBe('Person')
   })
 

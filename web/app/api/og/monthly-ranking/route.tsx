@@ -36,7 +36,7 @@ export async function GET(request: Request) {
     }),
     group
       ? getGroupName(group, { errorContext: 'monthly-ranking og image' })
-      : Promise.resolve('VTuber総合')
+      : Promise.resolve('タレント総合')
   ])
 
   return new ImageResponse(

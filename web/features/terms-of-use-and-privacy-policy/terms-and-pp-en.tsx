@@ -122,9 +122,9 @@ export default function TermsAndPPEn() {
             <p>
               5.1 Hyper Chat is a paid comment posting feature provided by
               VCharts. It is not a tip, donation, or direct payment to any
-              VTuber or their affiliated agency. Payments made through Hyper Chat
-              are fees for using VCharts&apos; comment posting service and are
-              not forwarded to VTubers.
+              Talent or their affiliated agency. Payments made through Hyper
+              Chat are fees for using VCharts&apos; comment posting service and
+              are not forwarded to Talents.
             </p>
             <p>
               5.2 Messages posted via Hyper Chat are publicly displayed to other
@@ -164,21 +164,17 @@ export default function TermsAndPPEn() {
               messages:
             </p>
             <ul className="ml-4">
-              <li>
-                - Defamation, slander, insults, or attacks against others
-              </li>
+              <li>- Defamation, slander, insults, or attacks against others</li>
               <li>- Obscene, violent, or discriminatory content</li>
               <li>- Spam or repetitive nuisance postings</li>
               <li>
                 - Content that violates laws or encourages illegal activities
               </li>
               <li>
-                - Actions that infringe upon the rights of VTubers, their
+                - Actions that infringe upon the rights of Talents, their
                 affiliated agencies, or other users
               </li>
-              <li>
-                - Any other conduct deemed inappropriate by us
-              </li>
+              <li>- Any other conduct deemed inappropriate by us</li>
             </ul>
             <p>
               7.2 We reserve the right to hide or delete any comments that we

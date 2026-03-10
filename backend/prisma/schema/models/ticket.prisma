@@ -19,7 +19,7 @@ model CheerTicketLog {
 }
 
 /**
- * User -> VTuberへのチケット使用履歴
+ * User -> タレント へのチケット使用履歴
  */
 model CheerTicketUsage {
   id        String   @id @default(uuid())

@@ -76,7 +76,7 @@ export default function CommentsPage() {
         <CardHeader>
           <CardTitle>コメント履歴</CardTitle>
           <CardDescription>
-            あなたがVTuberに送った応援コメントの履歴です。（最新の30件）
+            あなたがタレントに送った応援コメントの履歴です。（最新の30件）
           </CardDescription>
         </CardHeader>
         <CardContent>

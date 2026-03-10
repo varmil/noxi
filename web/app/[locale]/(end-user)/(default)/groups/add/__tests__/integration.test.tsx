@@ -21,7 +21,7 @@ vi.mock('next-intl', () => ({
       groupIdPlaceholder: '例: my-vtuber-group',
       groupIdDescription: '小文字の英数字とハイフンのみ使用できます',
       nameLabel: 'Group名',
-      namePlaceholder: '例: マイVTuberグループ',
+      namePlaceholder: '例: ホロライブ',
       nameDescription: '表示されるGroup名を入力してください',
       iconSrcLabel: 'アイコンURL',
       iconSrcPlaceholder:
@@ -109,7 +109,7 @@ describe('Group申請フロー統合テスト', () => {
 
     // プレースホルダーテキストが正しく表示されることを確認
     expect(groupIdInput).toHaveAttribute('placeholder', '例: my-vtuber-group')
-    expect(nameInput).toHaveAttribute('placeholder', '例: マイVTuberグループ')
+    expect(nameInput).toHaveAttribute('placeholder', '例: ホロライブ')
     expect(iconSrcInput).toHaveAttribute(
       'placeholder',
       'https://example.com/icon.png または /group/my-group/logo.png'
@@ -129,7 +129,7 @@ describe('Group申請フロー統合テスト', () => {
     // 有効なデータを入力
     await act(async () => {
       fireEvent.change(groupIdInput, { target: { value: 'test-vtuber-group' } })
-      fireEvent.change(nameInput, { target: { value: 'テストVTuberグループ' } })
+      fireEvent.change(nameInput, { target: { value: 'テストグループ' } })
       fireEvent.change(iconSrcInput, {
         target: { value: 'https://example.com/test-icon.png' }
       })
@@ -137,7 +137,7 @@ describe('Group申請フロー統合テスト', () => {
 
     // 入力値が正しく反映されることを確認
     expect(groupIdInput).toHaveValue('test-vtuber-group')
-    expect(nameInput).toHaveValue('テストVTuberグループ')
+    expect(nameInput).toHaveValue('テストグループ')
     expect(iconSrcInput).toHaveValue('https://example.com/test-icon.png')
 
     // アイコンプレビューが表示されることを確認
@@ -148,7 +148,7 @@ describe('Group申請フロー統合テスト', () => {
         'src',
         'https://example.com/test-icon.png'
       )
-      expect(previewImage).toHaveAttribute('alt', 'テストVTuberグループ')
+      expect(previewImage).toHaveAttribute('alt', 'テストグループ')
     })
 
     // フォームを送信
@@ -166,7 +166,7 @@ describe('Group申請フロー統合テスト', () => {
     await waitFor(() => {
       expect(mockCreateGroupRegistration).toHaveBeenCalledWith({
         groupId: 'test-vtuber-group',
-        name: 'テストVTuberグループ',
+        name: 'テストグループ',
         iconSrc: 'https://example.com/test-icon.png'
       })
     })

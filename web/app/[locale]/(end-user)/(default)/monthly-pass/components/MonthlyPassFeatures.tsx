@@ -11,7 +11,7 @@ export function MonthlyPassFeatures() {
           </div>
           <h3 className="text-xl font-medium mb-2">認証バッジ</h3>
           <p className="text-muted-foreground">
-            認証バッジを獲得できます。認証バッジを表示することで信頼性を高め、VTuberの推し活に熱心であることが伝わります。
+            認証バッジを獲得できます。認証バッジを表示することで信頼性を高め、推し活に熱心であることが伝わります。
           </p>
         </div>
         <div className="flex flex-col items-center text-center p-4">

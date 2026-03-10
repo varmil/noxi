@@ -26,27 +26,27 @@ model HyperChatOrder {
 
 /**
  * ハイパーチャット（確定済みのみ）
- * User -> VTuber への有料コメント
+ * User -> タレント への有料コメント
  * orderId: 購入時は設定、チケット利用時は null
  * ticketId: チケット利用時は設定、購入時は null
  */
 model HyperChat {
-  id        Int      @id @default(autoincrement())
-  orderId   Int?     @unique // nullable - 購入時のみ設定、チケット利用時は null
-  ticketId  Int?     @unique // nullable - チケット利用時のみ設定、購入時は null
-  userId    Int
-  channelId String
-  group     String
-  gender    String
-  tier      String // "free", "lite", "standard", "premium", "special"
-  amount    Int // 金額（円）- free tier は 0
+  id          Int      @id @default(autoincrement())
+  orderId     Int?     @unique // nullable - 購入時のみ設定、チケット利用時は null
+  ticketId    Int?     @unique // nullable - チケット利用時のみ設定、購入時は null
+  userId      Int
+  channelId   String
+  group       String
+  gender      String
+  tier        String // "free", "lite", "standard", "premium", "special"
+  amount      Int // 金額（円）- free tier は 0
   message     String
   isAnonymous Boolean  @default(false)
   likeCount   Int      @default(0)
-  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  createdAt   DateTime @default(now()) @db.Timestamptz(3)
 
-  order  HyperChatOrder?  @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  ticket HyperChatTicket? @relation(fields: [ticketId], references: [id])
+  order        HyperChatOrder?         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  ticket       HyperChatTicket?        @relation(fields: [ticketId], references: [id])
   user         User                    @relation(fields: [userId], references: [id], onDelete: Cascade)
   likes        HyperChatLike[]
   contribution HyperTrainContribution?

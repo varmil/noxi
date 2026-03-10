@@ -49,7 +49,7 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
 
   return (
     <>
-      <h1 className="sr-only">VTuberランキング・統計 - VCharts</h1>
+      <h1 className="sr-only">VCharts - YouTubeランキング</h1>
       <Container className="flex flex-col gap-6">
         {/* ライブ統計カード（Above the fold） */}
         <section className="@container w-full">
@@ -114,7 +114,6 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             lazy={true}
           />
         </div> */}
-
       </Container>
     </>
   )

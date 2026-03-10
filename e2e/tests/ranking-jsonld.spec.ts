@@ -9,7 +9,9 @@ import { test, expect, Page } from '@playwright/test'
  */
 
 /** ページから JSON-LD スクリプトを取得してパースする */
-async function getJsonLdScripts(page: Page): Promise<Record<string, unknown>[]> {
+async function getJsonLdScripts(
+  page: Page
+): Promise<Record<string, unknown>[]> {
   const scripts = await page.locator('script[type="application/ld+json"]').all()
   const results: Record<string, unknown>[] = []
 
@@ -84,9 +86,9 @@ test.describe('チャンネルランキング JSON-LD', () => {
   })
 })
 
-test.describe('VTuber 詳細ページ JSON-LD', () => {
+test.describe('タレント 詳細ページ JSON-LD', () => {
   test('ProfilePage が含まれる', async ({ page }) => {
-    // 任意の VTuber 詳細ページにアクセス（ホロライブの兎田ぺこら）
+    // 任意の タレント 詳細ページにアクセス（ホロライブの兎田ぺこら）
     await page.goto('/ja/hololive/channels/UC1DCedRgGHBdm81E1llLhOQ')
 
     const jsonLdList = await getJsonLdScripts(page)
@@ -109,13 +111,14 @@ test.describe('VTuber 詳細ページ JSON-LD', () => {
     expect(sameAs[0]).toContain('youtube.com/channel/')
 
     // interactionStatistic にフォロワー数が含まれる
-    const stats = mainEntity['interactionStatistic'] as Record<string, unknown>[]
+    const stats = mainEntity['interactionStatistic'] as Record<
+      string,
+      unknown
+    >[]
     expect(stats).toBeDefined()
     expect(stats.length).toBeGreaterThan(0)
     expect(stats[0]['@type']).toBe('InteractionCounter')
-    expect(stats[0]['interactionType']).toBe(
-      'https://schema.org/FollowAction'
-    )
+    expect(stats[0]['interactionType']).toBe('https://schema.org/FollowAction')
     expect(stats[0]['userInteractionCount']).toBeGreaterThan(0)
   })
 })
