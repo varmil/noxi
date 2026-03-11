@@ -1,0 +1,12 @@
+model FeatureInterest {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  featureId String
+  comment   String?
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([featureId])
+  @@index([userId])
+}

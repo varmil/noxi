@@ -1,7 +1,7 @@
 'use client'
 
 import { PropsWithoutRef } from 'react'
-import { Activity, MessagesSquare, Search } from 'lucide-react'
+import { Activity, Search, Sparkle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -35,10 +35,10 @@ export default function BottomNavigation({ className }: Props) {
       icon: Activity
     },
     {
-      pathname: '/hyper-chat',
-      isActive: pathname.startsWith('/hyper-chat'),
-      label: t('hyperChat'),
-      icon: MessagesSquare
+      pathname: '/ai',
+      isActive: pathname.startsWith('/ai'),
+      label: t('ai'),
+      icon: Sparkle
     },
     {
       pathname: '/groups',

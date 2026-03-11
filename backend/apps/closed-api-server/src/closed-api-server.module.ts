@@ -4,6 +4,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
+import { FeatureInterestsPresentationModule } from '@presentation/feature-interests/feature-interests.presentation.module'
 import { GroupsPresentationModule } from '@presentation/group/groups.presentation.module'
 import { GroupRegistrationsPresentationModule } from '@presentation/group-registrations/group-registrations.presentation.module'
 import { HealthController } from '@presentation/health/health.controller'
@@ -41,6 +42,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     InactiveChannelsPresentationModule,
     CloudSchedulersPresentationModule,
     ExchangeRatesPresentationModule,
+    FeatureInterestsPresentationModule,
     GroupsPresentationModule,
     GroupRegistrationsPresentationModule,
     HyperChatAdminPresentationModule,

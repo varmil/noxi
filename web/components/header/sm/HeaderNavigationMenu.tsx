@@ -65,13 +65,14 @@ export default function HeaderNavigationMenu({}: {}) {
               asChild
               className={navigationMenuTriggerStyle()}
             >
-              <Link href="/hyper-chat">
+              <Link href="/ai">
                 <div className="flex items-center gap-1">
-                  <span>{comp('hyperChat')}</span>
+                  <span>{comp('ai')}</span>
                 </div>
               </Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
+
         </NavigationMenuList>
       </NavigationMenu>
 

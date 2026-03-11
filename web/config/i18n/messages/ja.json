@@ -463,7 +463,7 @@
       "home": "ホーム",
       "live": "同接数",
       "channels": "スパチャ",
-      "hyperChat": "ハイパーチャット",
+      "ai": "AI - α版",
       "mostCheered": "応援ランキング",
       "topFans": "トップファン",
       "groups": "タレント検索"
@@ -522,10 +522,7 @@
       "support": "サポート",
       "info": "情報",
       "allGroup": "総合",
-      "hyperChat": "ハイパーチャット",
-      "hyperChatList": "ハイパーチャット一覧",
-      "hyperChatAbout": "ハイパーチャットとは",
-      "hyperChatGuideline": "投稿ガイドライン"
+      "ai": "AI - α版"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",
@@ -645,6 +642,76 @@
     }
   },
   "Features": {
+    "aiDemo": {
+      "title": "VCharts AI デモ",
+      "subtitle": "こんにちは、何から始めますか",
+      "newChat": "新しいチャット",
+      "backToVCharts": "VChartsへ戻る",
+      "q1": {
+        "question": "最近の配信トレンドは？",
+        "answer": "直近3ヶ月の配信タイトルとタグから頻出キーワードを抽出しました。「雑談」が安定して最多で、ゲームタイトルではMinecraftが根強い人気を維持しています。注目すべきは3月5日に発売された「ぽこ あ ポケモン」で、発売直後から爆発的に配信数が急増しています。「アークナイツ：エンドフィールド」も2月以降じわじわと伸びています。"
+      },
+      "q2": {
+        "question": "赤城ウェンのチャンネル登録者推移は？",
+        "answer": "赤城ウェンのチャンネル登録者数は、1年前の23万人から現在32万人へと約39%成長しました。特に2025年末〜2026年初にかけて月1万人ペースの増加が続いており、勢いがあります。12月と1月の伸びが最も大きく、年末年始の企画配信が効果的だったと考えられます。"
+      },
+      "q3": {
+        "question": "にじさんじとホロライブを比較して",
+        "answer": "両グループの主要指標を比較しました。平均同接数ではホロライブが8,451人とリードしていますが、配信頻度ではにじさんじも週3.8回と健闘しています。スパチャ収益では大きな差がついており、特にイベント時の盛り上がりに違いが見られます。"
+      },
+      "charts": {
+        "trendTitle": "配信キーワード トレンド（直近3ヶ月）",
+        "trendYAxis": "配信数",
+        "trendKeywords": {
+          "minecraft": "Minecraft",
+          "pokemon": "ぽこ あ ポケモン",
+          "arknights": "アークナイツ：EF",
+          "zatsudan": "雑談"
+        },
+        "subscriberTitle": "赤城ウェン チャンネル登録者推移（直近1年）",
+        "subscriberTotal": "登録者数",
+        "subscriberIncrease": "月間増加数",
+        "comparisonTitle": "グループ比較",
+        "metric": "指標",
+        "groupA": "ホロライブ",
+        "groupB": "にじさんじ",
+        "comparisonLabels": {
+          "avgViewers": "Avg.同接数",
+          "peakViewers": "ピーク同接数",
+          "avgSuperChat": "Avg.スパチャ",
+          "streamFrequency": "週間配信回数",
+          "avgDuration": "Avg.配信時間"
+        }
+      },
+      "subscriptionCard": {
+        "title": "VCharts Pro サブスク（ニーズ調査中）",
+        "description": "有料でも使ってみたい！という場合は これ使いたい！ ボタンを押してください。デモ版による課金は一切発生しません。",
+        "priceLabel": "月額料金（仮）",
+        "perMonth": " /月",
+        "feature1": "AI による無制限の分析",
+        "feature2": "会話履歴の保持と復元",
+        "feature3": "検索・フィルタ機能の強化",
+        "commentPlaceholder": "こんな機能が欲しい、こういう分析をしたい等のご要望があればお聞かせください（任意）",
+        "cta": "これ使いたい！",
+        "submitting": "送信中...",
+        "thanks": "ありがとうございます！",
+        "thanksDetail": "ご意見を今後の開発に活かしていきます"
+      },
+      "chatHistory": {
+        "title": "会話履歴デモ",
+        "search": "チャットを検索",
+        "chats": "チャット",
+        "history": {
+          "todayStreamTrend": "最近のYouTube配信トレンド",
+          "popularChannelAnalysis": "人気チャンネルの成長分析",
+          "superChatRanking": "スパチャランキング推移",
+          "weeklyComparison": "週間グループ別の比較レポート",
+          "monthlyGrowth": "過去１年間で最も人気のタレント",
+          "newChannelDiscovery": "注目の新人VTuberを発掘",
+          "viewerDemographics": "視聴者層の分析"
+        }
+      }
+    },
     "channel": {
       "overview": {
         "nav": "概要",
