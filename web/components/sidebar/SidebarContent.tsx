@@ -2,10 +2,7 @@
 
 import { useState, type JSX } from 'react'
 import {
-  BookOpen,
   ChevronDown,
-  Lightbulb,
-  List,
   LogOut,
   MailIcon,
   MoreHorizontal,
@@ -43,10 +40,6 @@ type Props = {
     signOut: string
     groups: string
     support: string
-    hyperChat: string
-    hyperChatList: string
-    hyperChatAbout: string
-    hyperChatGuideline: string
   }
   isSignedIn: boolean
 }
@@ -242,30 +235,6 @@ export default function SidebarContent({ groups, labels, isSignedIn }: Props) {
 
       {/* メインナビゲーション */}
       <nav className="p-3 pt-5">
-        {/* ハイパーチャット */}
-        <div className="space-y-1">
-          <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-            {labels.hyperChat}
-          </p>
-          <NavLink
-            href="/hyper-chat"
-            icon={<List className="size-4" />}
-            label={labels.hyperChatList}
-          />
-          <NavLink
-            href="/hyper-chat/about"
-            icon={<Lightbulb className="size-4" />}
-            label={labels.hyperChatAbout}
-          />
-          <NavLink
-            href="/hyper-chat/guideline"
-            icon={<BookOpen className="size-4" />}
-            label={labels.hyperChatGuideline}
-          />
-        </div>
-
-        <Separator className="my-4" />
-
         {/* グループセクション */}
         <div className="space-y-1">
           <p className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">

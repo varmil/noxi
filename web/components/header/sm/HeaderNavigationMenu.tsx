@@ -60,18 +60,6 @@ export default function HeaderNavigationMenu({}: {}) {
             </NavigationMenuLink>
           </NavigationMenuItem>
 
-          <NavigationMenuItem className="hidden lg:block">
-            <NavigationMenuLink
-              asChild
-              className={navigationMenuTriggerStyle()}
-            >
-              <Link href="/hyper-chat">
-                <div className="flex items-center gap-1">
-                  <span>{comp('hyperChat')}</span>
-                </div>
-              </Link>
-            </NavigationMenuLink>
-          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 

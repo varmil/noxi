@@ -521,11 +521,7 @@
       "groups": "グループ",
       "support": "サポート",
       "info": "情報",
-      "allGroup": "総合",
-      "hyperChat": "ハイパーチャット",
-      "hyperChatList": "ハイパーチャット一覧",
-      "hyperChatAbout": "ハイパーチャットとは",
-      "hyperChatGuideline": "投稿ガイドライン"
+      "allGroup": "総合"
     },
     "loginBonus": {
       "title": "デイリーログインボーナス！",

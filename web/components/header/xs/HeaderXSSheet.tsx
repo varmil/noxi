@@ -52,10 +52,6 @@ export default async function HeaderXSSheet() {
     groups: comp('header.groups'),
     support: comp('header.support'),
     info: comp('header.info'),
-    hyperChat: comp('header.hyperChat'),
-    hyperChatList: comp('header.hyperChatList'),
-    hyperChatAbout: comp('header.hyperChatAbout'),
-    hyperChatGuideline: comp('header.hyperChatGuideline')
   }
 
   return (
