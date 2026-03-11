@@ -60,6 +60,19 @@ export default function HeaderNavigationMenu({}: {}) {
             </NavigationMenuLink>
           </NavigationMenuItem>
 
+          <NavigationMenuItem className="hidden lg:block">
+            <NavigationMenuLink
+              asChild
+              className={navigationMenuTriggerStyle()}
+            >
+              <Link href="/ai">
+                <div className="flex items-center gap-1">
+                  <span>{comp('ai')}</span>
+                </div>
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
         </NavigationMenuList>
       </NavigationMenu>
 

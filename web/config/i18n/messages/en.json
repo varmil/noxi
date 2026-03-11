@@ -464,7 +464,7 @@
       "home": "Home",
       "live": "Live Viewer",
       "channels": "Supers",
-      "hyperChat": "Hyper Chat",
+      "ai": "AI",
       "mostCheered": "Most Cheered",
       "topFans": "Top Fans",
       "groups": "Talents"
@@ -514,7 +514,8 @@
       "groups": "Groups",
       "support": "Support",
       "info": "Info",
-      "allGroup": "Overall"
+      "allGroup": "Overall",
+      "ai": "AI"
     },
     "loginBonus": {
       "title": "Daily login bonus!",
@@ -635,6 +636,76 @@
   },
 
   "Features": {
+    "aiDemo": {
+      "title": "VCharts AI Demo",
+      "subtitle": "Hello, what would you like to start with?",
+      "newChat": "New chat",
+      "backToVCharts": "Back to VCharts",
+      "q1": {
+        "question": "What are the recent streaming trends?",
+        "answer": "We extracted trending keywords from stream titles and tags over the past 3 months. 'Zatsudan' (casual talk) remains consistently the most popular, while Minecraft maintains strong popularity among game titles. Most notably, 'Poko a Pokemon', released on March 5th, has seen an explosive surge in streams immediately after launch. 'Arknights: Endfield' has also been steadily growing since February."
+      },
+      "q2": {
+        "question": "How is Akagi Wen's subscriber growth?",
+        "answer": "Akagi Wen's channel has grown approximately 39%, from 230K subscribers a year ago to 320K now. The growth momentum has been particularly strong from late 2025 to early 2026, with a pace of about 10K new subscribers per month. December and January showed the largest gains, likely driven by year-end and New Year special streams."
+      },
+      "q3": {
+        "question": "Compare Nijisanji and Hololive",
+        "answer": "We compared the key metrics of both groups. Hololive leads in average concurrent viewers at 8,451, while Nijisanji maintains a respectable 3.8 streams per week. There is a significant gap in Super Chat revenue, with notable differences in engagement during events."
+      },
+      "charts": {
+        "trendTitle": "Stream Keyword Trends (Last 3 Months)",
+        "trendYAxis": "Streams",
+        "trendKeywords": {
+          "minecraft": "Minecraft",
+          "pokemon": "Poko a Pokemon",
+          "arknights": "Arknights: EF",
+          "zatsudan": "Zatsudan"
+        },
+        "subscriberTitle": "Akagi Wen - Subscriber Growth (Last 1 Year)",
+        "subscriberTotal": "Subscribers",
+        "subscriberIncrease": "Monthly Increase",
+        "comparisonTitle": "Group Comparison",
+        "metric": "Metric",
+        "groupA": "Hololive",
+        "groupB": "Nijisanji",
+        "comparisonLabels": {
+          "avgViewers": "Avg. Concurrent Viewers",
+          "peakViewers": "Peak Concurrent Viewers",
+          "avgSuperChat": "Avg. Super Chat Revenue",
+          "streamFrequency": "Streams per Week",
+          "avgDuration": "Avg. Stream Duration"
+        }
+      },
+      "subscriptionCard": {
+        "title": "VCharts Pro Subscription (Demand Assessment in Progress)",
+        "description": "If you'd like to try it even if it costs money, please click the I want to try this! button. There will be no charges for the demo version.",
+        "priceLabel": "Monthly Price",
+        "perMonth": " /mo",
+        "feature1": "Unlimited AI analysis & questions",
+        "feature2": "Chat history retention",
+        "feature3": "Advanced search & filtering",
+        "commentPlaceholder": "Share any feature requests or analysis ideas (optional)",
+        "cta": "I want this!",
+        "submitting": "Submitting...",
+        "thanks": "Thank you!",
+        "thanksDetail": "Your feedback will help shape future development"
+      },
+      "chatHistory": {
+        "title": "Chat History Demo",
+        "search": "Search chats",
+        "chats": "Chats",
+        "history": {
+          "todayStreamTrend": "Recent streaming trend analysis",
+          "popularChannelAnalysis": "Popular channel growth analysis",
+          "superChatRanking": "Super Chat ranking insights",
+          "weeklyComparison": "Weekly group comparison report",
+          "monthlyGrowth": "Monthly growth report",
+          "newChannelDiscovery": "Rising VTuber discovery",
+          "viewerDemographics": "Viewer demographics analysis"
+        }
+      }
+    },
     "channel": {
       "overview": {
         "nav": "Overview",

@@ -57,6 +57,7 @@ model User {
   hyperChatLikes             HyperChatLike[]
   hyperChatTickets           HyperChatTicket[]
   hyperChatTicketProgress    HyperChatTicketProgress?
+  featureInterests           FeatureInterest[]
 
   @@index([normalizedEmail])
   @@map("users")
