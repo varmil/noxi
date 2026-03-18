@@ -22,11 +22,6 @@ export default function LocalNavigationForChannelsIdPages({
       items={[
         { name: t('overview.nav'), href: basePath },
         {
-          name: t('hyperChat.nav'),
-          href: `${basePath}/hyper-chat`
-        },
-
-        {
           name: t('superChat.nav'),
           href: `${basePath}/super-chat`
         },
@@ -39,9 +34,14 @@ export default function LocalNavigationForChannelsIdPages({
           href: `${basePath}/concurrent-viewers`
         },
         {
-          name: t('hyperTrain.nav'),
-          href: `${basePath}/hyper-train`
+          name: t('hyperChat.nav'),
+          href: `${basePath}/hyper-chat`
         }
+        // 2026/03/18 一時的にコメントアウト
+        // {
+        //   name: t('hyperTrain.nav'),
+        //   href: `${basePath}/hyper-train`
+        // }
       ]}
       className="border-b mb-8"
       linkClassName="min-w-20"
