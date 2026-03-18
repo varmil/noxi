@@ -30,7 +30,7 @@ export default async function TopHyperChatComments({ channelId }: Props) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
       {hyperChats.map((hyperChat, index) => (
         <HyperChatCommentCard
           key={hyperChat.id}

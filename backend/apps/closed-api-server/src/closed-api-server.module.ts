@@ -19,6 +19,7 @@ import { InsightsPresentationModule } from '@presentation/insights/insights.pres
 import { LoginBonusesPresentationModule } from '@presentation/login-bonuses/login-bonuses.presentation.module'
 import { MembershipBundlesPresentationModule } from '@presentation/membership-bundles/membership-bundles.presentation.module'
 import { MembershipSummariesPresentationModule } from '@presentation/membership-summaries/membership-summaries.presentation.module'
+import { SubscriberRankTrendsPresentationModule } from '@presentation/subscriber-rank-trends/subscriber-rank-trends.presentation.module'
 import { SupersPresentationModule } from '@presentation/supers/supers.presentation.module'
 import { SupersBundlesPresentationModule } from '@presentation/supers-bundles/supers-bundles.presentation.module'
 import { SupersRankingsPresentationModule } from '@presentation/supers-rankings/supers-rankings.presentation.module'
@@ -63,6 +64,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     UsersPresentationModule,
     WebhooksStripePresentationModule,
     InsightsPresentationModule,
+    SubscriberRankTrendsPresentationModule,
     YoutubePresentationModule,
     XPresentationModule
   ],
