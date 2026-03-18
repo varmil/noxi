@@ -2,8 +2,6 @@ import { PropsWithChildren, Suspense } from 'react'
 import { getGroup } from 'apis/groups'
 import { getActiveHyperTrainByChannel } from 'apis/hyper-trains/getHyperTrains'
 import { ChannelSchema } from 'apis/youtube/schema/channelSchema'
-import { HyperChatButton } from 'components/hyper-chat/post/HyperChatButton'
-import { HyperChatStats } from 'components/hyper-chat/post/HyperChatStats'
 import { ActiveTrainIndicator } from 'components/hyper-train/active/ActiveTrainIndicator'
 import { IncomingTrainIndicator } from 'components/hyper-train/incoming/IncomingTrainIndicator'
 import { ChannelProfileSection } from './ChannelProfileSection'
@@ -20,7 +18,7 @@ export async function ChannelProfile({
 }: PropsWithChildren<Props>) {
   const {
     basicInfo,
-    peakX: { group: groupId, gender }
+    peakX: { group: groupId }
   } = channel
 
   const [group, activeTrain] = await Promise.all([
@@ -47,13 +45,14 @@ export async function ChannelProfile({
 
         {/* HyperChat Stats & Button Section */}
         <div className="min-w-[250px] shrink-0 flex flex-col items-center gap-4 @2xl:mt-2">
-          <HyperChatStats channelId={basicInfo.id} group={groupId} />
+          {/* 2026/03/18: ハイパーチャットがほぼ使われないのでコメントアウト */}
+          {/* <HyperChatStats channelId={basicInfo.id} group={groupId} />
           <HyperChatButton
             channelId={basicInfo.id}
             channelTitle={basicInfo.title}
             group={groupId}
             gender={gender}
-          />
+          /> */}
 
           {activeTrain ? (
             <ActiveTrainIndicator train={activeTrain} />

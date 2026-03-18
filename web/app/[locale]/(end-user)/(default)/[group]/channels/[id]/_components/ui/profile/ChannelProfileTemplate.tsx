@@ -10,7 +10,7 @@ export async function ChannelProfileTemplate({
   channel
 }: PropsWithoutRef<Props>) {
   return (
-    <ChannelProfile className="pt-4 pb-12 px-4 md:px-0" channel={channel}>
+    <ChannelProfile className="pt-4 pb-6 px-4 md:px-0" channel={channel}>
       <div className="text-sm text-muted-foreground">
         {channel.basicInfo.description}
       </div>
