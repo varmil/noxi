@@ -232,6 +232,9 @@
             },
             "topHyperChats": {
               "title": "上位ハイパーチャット（過去30日間）"
+            },
+            "subscriberRankTrend": {
+              "title": "登録者数ランキング推移β"
             }
           }
         },
@@ -1305,6 +1308,23 @@
       "totalDurationHours": "総配信時間 (h)",
       "table": {
         "date": "日付"
+      }
+    },
+    "subscriberRankTrend": {
+      "title": "登録者数ランキング推移",
+      "description": "週次のチャンネル登録者数ランキング推移",
+      "rank": "ランキング",
+      "topPrefix": "上位",
+      "ordinalSuffix": "位",
+      "trend": {
+        "upward": "上昇傾向",
+        "downward": "下降傾向",
+        "stable": "横ばい"
+      },
+      "table": {
+        "week": "週",
+        "rank": "順位",
+        "subscriberCount": "登録者数"
       }
     },
     "concurrentViewerTrend": {
