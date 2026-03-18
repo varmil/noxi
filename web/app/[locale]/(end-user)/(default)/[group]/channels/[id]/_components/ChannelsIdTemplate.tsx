@@ -1,10 +1,12 @@
-import { PropsWithoutRef } from 'react'
+import { PropsWithoutRef, Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 import { getChannel } from 'apis/youtube/getChannel'
 import {
   Section,
   Sections
 } from 'features/channel/components/container/ChannelSection'
+import { SubscriberRankTrendContainer } from 'features/subscriber-rank-trend/components/SubscriberRankTrendContainer'
+import { SubscriberRankTrendSkeleton } from 'features/subscriber-rank-trend/components/SubscriberRankTrendSkeleton'
 import ChannelData from './ui/channel-data/ChannelData'
 import ChannelOverviewStatsCards from './ui/stats/ChannelOverviewStatsCards'
 import TopHyperChatComments from './ui/top-hyperchats/TopHyperChatComments'
@@ -29,9 +31,19 @@ export async function ChannelsIdTemplate({ id }: Props) {
         <ChannelData channel={channel} />
       </Section>
 
-      {/* 統計カード */}
+      {/* 登録者数ランキング推移 */}
       <Section
         className="lg:col-span-3 lg:order-2"
+        title={page('subscriberRankTrend.title')}
+      >
+        <Suspense fallback={<SubscriberRankTrendSkeleton />}>
+          <SubscriberRankTrendContainer channelId={id} />
+        </Suspense>
+      </Section>
+
+      {/* 統計カード */}
+      <Section
+        className="lg:col-span-3 lg:order-3"
         gridClassName="grid-cols-1"
         title={page('stats.title')}
       >
@@ -40,7 +52,7 @@ export async function ChannelsIdTemplate({ id }: Props) {
 
       {/* 人気ライブTop3 */}
       <Section
-        className="lg:col-span-3 lg:order-3"
+        className="lg:col-span-3 lg:order-4"
         title={page('topLives.title')}
       >
         <TopLiveStreamsGallery channelId={id} />
@@ -48,7 +60,7 @@ export async function ChannelsIdTemplate({ id }: Props) {
 
       {/* 上位ハイパーチャット */}
       <Section
-        className="col-span-full lg:order-4"
+        className="lg:col-span-3 lg:order-5"
         title={page('topHyperChats.title')}
       >
         <TopHyperChatComments channelId={id} />
