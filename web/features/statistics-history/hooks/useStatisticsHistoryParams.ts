@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo } from 'react'
+import { startTransition, useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { usePathname, useRouter } from 'lib/navigation'
 import { IntervalType } from '../types/statistics-history'
@@ -23,7 +23,9 @@ export function useStatisticsHistoryParams() {
       if (params.interval) newParams.set('interval', params.interval)
       if (params.start) newParams.set('start', params.start)
       if (params.end) newParams.set('end', params.end)
-      router.push(`${pathname}?${newParams.toString()}`, { scroll: false })
+      startTransition(() => {
+        router.push(`${pathname}?${newParams.toString()}`, { scroll: false })
+      })
     },
     [searchParams, router, pathname]
   )

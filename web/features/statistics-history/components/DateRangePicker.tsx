@@ -61,10 +61,10 @@ export function DateRangePicker({ start, end, onApply }: Props) {
   }, [])
 
   const handleApply = useCallback(() => {
+    setOpen(false)
     if (range?.from && range?.to) {
       onApply(formatDate(range.from), formatDate(range.to))
     }
-    setOpen(false)
   }, [range, onApply])
 
   const handleCancel = useCallback(() => {
