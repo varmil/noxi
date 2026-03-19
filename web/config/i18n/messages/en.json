@@ -236,7 +236,7 @@
             "stats": { "title": "Last 30 Days Statistics" },
             "topLives": { "title": "Top 3 Popular Streams (Last 30 Days)" },
             "subscriberRankTrend": { "title": "Subscribers Rank β" },
-            "subscriberHistory": { "title": "Subscriber Growth" }
+            "subscriberHistory": { "title": "Channel Subscriber Growth" }
           }
         },
         "superChat": {

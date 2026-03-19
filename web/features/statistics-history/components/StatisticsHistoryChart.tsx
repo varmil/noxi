@@ -21,19 +21,27 @@ import {
   ChartTooltipContent
 } from '@/components/ui/chart'
 import ChartTooltipFormatter from 'components/chart/ChartTooltipFormatter'
-import type { StatisticsHistoryPoint } from '../types/statistics-history'
+import type {
+  IntervalType,
+  StatisticsHistoryPoint
+} from '../types/statistics-history'
 import type { NameType } from 'recharts/types/component/DefaultTooltipContent'
 
 interface Props {
   data: StatisticsHistoryPoint[]
   labels: { total: string; diff: string }
+  interval?: IntervalType
 }
 
 const POSITIVE_COLOR = 'hsl(142, 71%, 45%)' // green-500
 const NEGATIVE_COLOR = 'hsl(0, 84%, 60%)' // red-500
 const LINE_COLOR = 'hsl(24, 95%, 53%)' // orange-500
 
-export function StatisticsHistoryChart({ data, labels }: Props) {
+export function StatisticsHistoryChart({
+  data,
+  labels,
+  interval = 'daily'
+}: Props) {
   const format = useFormatter()
 
   const chartConfig: ChartConfig = {
@@ -48,8 +56,21 @@ export function StatisticsHistoryChart({ data, labels }: Props) {
   }
 
   const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr)
-    return `${date.getMonth() + 1}/${date.getDate()}`
+    const d = new Date(dateStr)
+    switch (interval) {
+      case 'yearly':
+        return format.dateTime(d, { year: 'numeric' })
+      case 'monthly':
+        return format.dateTime(d, { year: 'numeric', month: 'long' })
+      case 'weekly': {
+        const end = new Date(d)
+        end.setDate(end.getDate() + 6)
+        return format.dateTime(end, { month: '2-digit', day: '2-digit' })
+      }
+      case 'daily':
+      default:
+        return format.dateTime(d, { month: '2-digit', day: '2-digit' })
+    }
   }
 
   const hasDiff = useMemo(() => data.some(d => d.diff !== 0), [data])
@@ -107,11 +128,7 @@ export function StatisticsHistoryChart({ data, labels }: Props) {
                   | StatisticsHistoryPoint
                   | undefined
                 if (!payload) return ''
-                return format.dateTime(new Date(payload.date), {
-                  year: 'numeric',
-                  month: 'numeric',
-                  day: 'numeric'
-                })
+                return formatDate(payload.date)
               }}
               formatter={(value, name) => {
                 const key = name as string

@@ -63,6 +63,7 @@ export function ChannelsIdSubscribersTemplate({
                 total: feat('chart.total'),
                 diff: feat('chart.diff')
               }}
+              interval={interval}
             />
             <StatisticsHistoryTable
               data={data}
