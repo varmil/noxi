@@ -2,6 +2,7 @@ import { ClassSerializerInterceptor, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { APP_INTERCEPTOR } from '@nestjs/core'
 import { ChannelRegistrationsPresentationModule } from '@presentation/channel-registrations/channel-registrations.presentation.module'
+import { ChannelStatisticsPresentationModule } from '@presentation/channel-statistics/channel-statistics.presentation.module'
 import { CloudSchedulersPresentationModule } from '@presentation/cloud-schedulers/cloud-schedulers.presentation.module'
 import { ExchangeRatesPresentationModule } from '@presentation/exchange-rates/exchange-rates.presentation.module'
 import { FeatureInterestsPresentationModule } from '@presentation/feature-interests/feature-interests.presentation.module'
@@ -64,6 +65,7 @@ import { AppCacheModule, CacheTTLRequiredInterceptor } from './cache'
     UsersPresentationModule,
     WebhooksStripePresentationModule,
     InsightsPresentationModule,
+    ChannelStatisticsPresentationModule,
     SubscriberRankTrendsPresentationModule,
     YoutubePresentationModule,
     XPresentationModule

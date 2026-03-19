@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { GroupsService } from '@app/groups/groups.service'
 import { ChannelsService } from '@app/youtube/channels/channels.service'
-import { ChannelStatisticsSummaryInfraModule } from '@infra/channel-statistics-summary/channel-statistics-summary.infra.module'
+import { ChannelStatisticsInfraModule } from '@infra/channel-statistics/channel-statistics.infra.module'
 import { GroupInfraModule } from '@infra/group/group.infra.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
@@ -9,7 +9,7 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
   imports: [
     GroupInfraModule,
     YoutubeInfraModule,
-    ChannelStatisticsSummaryInfraModule
+    ChannelStatisticsInfraModule
   ],
   controllers: [],
   providers: [ChannelsService, GroupsService],

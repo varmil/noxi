@@ -236,7 +236,8 @@
             "stats": { "title": "Last 30 Days Statistics" },
             "topLives": { "title": "Top 3 Popular Streams (Last 30 Days)" },
             "topHyperChats": { "title": "Top Hyper Chats (Last 30 Days)" },
-            "subscriberRankTrend": { "title": "Subscribers Rank β" }
+            "subscriberRankTrend": { "title": "Subscribers Rank β" },
+            "subscriberHistory": { "title": "Subscriber Growth" }
           }
         },
         "superChat": {
@@ -293,6 +294,12 @@
           "metadata": {
             "title": "{channel} HyperTrain Record",
             "description": "View {channel}'s best HyperTrain records. Cheer together and level up!"
+          }
+        },
+        "subscribers": {
+          "metadata": {
+            "title": "{channel} Subscriber Growth",
+            "description": "View {channel}'s subscriber count growth trend with charts and tables."
           }
         }
       },
@@ -755,6 +762,9 @@
       },
       "hyperTrain": {
         "nav": "HyperTrain"
+      },
+      "subscribers": {
+        "nav": "Subscribers"
       }
     },
 
@@ -1342,6 +1352,34 @@
       "table": {
         "hour": "Hour"
       }
+    },
+    "statisticsHistory": {
+      "interval": {
+        "daily": "Day",
+        "weekly": "Week",
+        "monthly": "Month",
+        "yearly": "Year"
+      },
+      "span": {
+        "last7days": "Last 7 days",
+        "last30days": "Last 30 days",
+        "last90days": "Last 90 days",
+        "last6months": "Last 6 months",
+        "last1year": "Last 1 year",
+        "all": "All"
+      },
+      "chart": {
+        "total": "Total Subscribers",
+        "diff": "New Subscribers"
+      },
+      "table": {
+        "date": "Date",
+        "total": "Total Subscribers",
+        "diff": "New Subscribers"
+      },
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "total": "Total"
     },
     "channelGrowthRanking": {
       "title": "Subscriber Growth Ranking",

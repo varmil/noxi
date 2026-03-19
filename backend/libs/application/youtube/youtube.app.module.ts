@@ -4,11 +4,11 @@ import { ChannelsService } from '@app/youtube/channels/channels.service'
 import { SearchesScenario } from '@app/youtube/searches/searches.scenario'
 import { VideosScenario } from '@app/youtube/videos/scenario/videos.scenario'
 import { VideosService } from '@app/youtube/videos/videos.service'
-import { ChannelStatisticsSummaryInfraModule } from '@infra/channel-statistics-summary/channel-statistics-summary.infra.module'
+import { ChannelStatisticsInfraModule } from '@infra/channel-statistics/channel-statistics.infra.module'
 import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
 
 @Module({
-  imports: [ChannelStatisticsSummaryInfraModule, YoutubeInfraModule],
+  imports: [ChannelStatisticsInfraModule, YoutubeInfraModule],
   controllers: [],
   providers: [
     SearchesScenario,
@@ -18,7 +18,7 @@ import { YoutubeInfraModule } from '@infra/youtube/youtube.infra.module'
     VideosService
   ],
   exports: [
-    ChannelStatisticsSummaryInfraModule,
+    ChannelStatisticsInfraModule,
     YoutubeInfraModule,
     SearchesScenario,
     ChannelsScenario,

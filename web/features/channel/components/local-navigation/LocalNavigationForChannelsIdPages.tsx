@@ -36,6 +36,10 @@ export default function LocalNavigationForChannelsIdPages({
         {
           name: t('hyperChat.nav'),
           href: `${basePath}/hyper-chat`
+        },
+        {
+          name: t('subscribers.nav'),
+          href: `${basePath}/subscribers`
         }
         // 2026/03/18 一時的にコメントアウト
         // {
