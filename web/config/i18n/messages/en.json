@@ -235,7 +235,6 @@
             "data": { "title": "YouTube Data" },
             "stats": { "title": "Last 30 Days Statistics" },
             "topLives": { "title": "Top 3 Popular Streams (Last 30 Days)" },
-            "topHyperChats": { "title": "Top Hyper Chats (Last 30 Days)" },
             "subscriberRankTrend": { "title": "Subscribers Rank β" },
             "subscriberHistory": { "title": "Subscriber Growth" }
           }
@@ -727,12 +726,6 @@
           "rank": "#{rank}",
           "maxViewers": "Max {count} viewers",
           "noLives": "No streams available"
-        },
-        "topHyperChats": {
-          "rank": "#{rank}",
-          "empty": "No Hyper Chat available",
-          "noMessage": "No message",
-          "anonymous": "Anonymous"
         }
       },
       "superChat": {

@@ -230,9 +230,6 @@
             "topLives": {
               "title": "人気ライブTop3（過去30日間）"
             },
-            "topHyperChats": {
-              "title": "上位ハイパーチャット（過去30日間）"
-            },
             "subscriberRankTrend": {
               "title": "登録者数ランキング推移β"
             },
@@ -737,12 +734,6 @@
           "rank": "#{rank}",
           "maxViewers": "最大{count}人",
           "noLives": "配信がありません"
-        },
-        "topHyperChats": {
-          "rank": "#{rank}",
-          "empty": "直近の投稿がありません。",
-          "noMessage": "メッセージなし",
-          "anonymous": "名無しさん"
         }
       },
       "superChat": {

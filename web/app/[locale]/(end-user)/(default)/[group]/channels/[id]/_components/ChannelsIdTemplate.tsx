@@ -11,7 +11,6 @@ import ChannelData from './ui/channel-data/ChannelData'
 import ChannelOverviewStatsCards from './ui/stats/ChannelOverviewStatsCards'
 import { SubscriberHistoryPreview } from './ui/subscriber-history/SubscriberHistoryPreview'
 import { SubscriberHistoryPreviewSkeleton } from './ui/subscriber-history/SubscriberHistoryPreviewSkeleton'
-import TopHyperChatComments from './ui/top-hyperchats/TopHyperChatComments'
 import TopLiveStreamsGallery from './ui/top-lives/TopLiveStreamsGallery'
 
 type Props = PropsWithoutRef<{ id: string }>
@@ -43,19 +42,9 @@ export async function ChannelsIdTemplate({ id }: Props) {
         </Suspense>
       </Section>
 
-      {/* 登録者数推移 */}
-      <Section
-        className="lg:col-span-3 lg:order-3"
-        title={page('subscriberHistory.title')}
-      >
-        <Suspense fallback={<SubscriberHistoryPreviewSkeleton />}>
-          <SubscriberHistoryPreview channelId={id} />
-        </Suspense>
-      </Section>
-
       {/* 統計カード */}
       <Section
-        className="lg:col-span-3 lg:order-4"
+        className="lg:col-span-3 lg:order-3"
         gridClassName="grid-cols-1"
         title={page('stats.title')}
       >
@@ -64,18 +53,20 @@ export async function ChannelsIdTemplate({ id }: Props) {
 
       {/* 人気ライブTop3 */}
       <Section
-        className="lg:col-span-3 lg:order-5"
+        className="lg:col-span-3 lg:order-4"
         title={page('topLives.title')}
       >
         <TopLiveStreamsGallery channelId={id} />
       </Section>
 
-      {/* 上位ハイパーチャット */}
+      {/* 登録者数推移 */}
       <Section
-        className="lg:col-span-3 lg:order-6"
-        title={page('topHyperChats.title')}
+        className="lg:col-span-3 lg:order-5"
+        title={page('subscriberHistory.title')}
       >
-        <TopHyperChatComments channelId={id} />
+        <Suspense fallback={<SubscriberHistoryPreviewSkeleton />}>
+          <SubscriberHistoryPreview channelId={id} />
+        </Suspense>
       </Section>
     </Sections>
   )
