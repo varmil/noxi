@@ -48,7 +48,9 @@ export function DateRangePicker({ start, end, onApply }: Props) {
     from: new Date(start),
     to: new Date(end)
   })
-  const [activePreset, setActivePreset] = useState<string | null>(null)
+  const [activePreset, setActivePreset] = useState<string | null>(() =>
+    detectPreset(start, end)
+  )
 
   const handlePreset = useCallback((preset: Preset) => {
     const today = new Date()
@@ -75,7 +77,7 @@ export function DateRangePicker({ start, end, onApply }: Props) {
     (nextOpen: boolean) => {
       if (nextOpen) {
         setRange({ from: new Date(start), to: new Date(end) })
-        setActivePreset(null)
+        setActivePreset(detectPreset(start, end))
       }
       setOpen(nextOpen)
     },
@@ -159,6 +161,18 @@ export function DateRangePicker({ start, end, onApply }: Props) {
         </div>
       </PopoverContent>
     </Popover>
+  )
+}
+
+function detectPreset(start: string, end: string): string | null {
+  const endDate = new Date(end)
+  const startDate = new Date(start)
+  const diffDays = Math.round(
+    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+  )
+  // ±1日の誤差を許容
+  return (
+    PRESETS.find(p => Math.abs(p.days - diffDays) <= 1)?.key ?? null
   )
 }
 
