@@ -9,18 +9,23 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
-import type { StatisticsHistoryPoint } from '../types/statistics-history'
+import type {
+  IntervalType,
+  StatisticsHistoryPoint
+} from '../types/statistics-history'
 
 interface Props {
   data: StatisticsHistoryPoint[]
   labels: { date: string; total: string; diff: string }
   totalLabel: string
+  interval: IntervalType
 }
 
 export function StatisticsHistoryTable({
   data,
   labels,
-  totalLabel
+  totalLabel,
+  interval
 }: Props) {
   const format = useFormatter()
 
@@ -35,8 +40,8 @@ export function StatisticsHistoryTable({
           <TableHead className="text-right">{labels.total}</TableHead>
         </TableRow>
       </TableHeader>
-      <TableBody>
-        <TableRow className="font-medium">
+      <TableBody className="font-mono">
+        <TableRow className="font-bold">
           <TableCell>{totalLabel}</TableCell>
           <TableCell className="text-right">
             <DiffDisplay value={totalDiff} format={format} />
@@ -45,7 +50,13 @@ export function StatisticsHistoryTable({
         </TableRow>
         {[...data].reverse().map(point => (
           <TableRow key={point.date}>
-            <TableCell>{point.date}</TableCell>
+            <TableCell>
+              <DateLabel
+                date={point.date}
+                interval={interval}
+                format={format}
+              />
+            </TableCell>
             <TableCell className="text-right">
               <DiffDisplay value={point.diff} format={format} />
             </TableCell>
@@ -57,6 +68,36 @@ export function StatisticsHistoryTable({
       </TableBody>
     </Table>
   )
+}
+
+function DateLabel({
+  date,
+  interval,
+  format
+}: {
+  date: string
+  interval: IntervalType
+  format: ReturnType<typeof useFormatter>
+}) {
+  const d = new Date(date)
+  switch (interval) {
+    case 'yearly':
+      return format.dateTime(d, { year: 'numeric' })
+    case 'monthly':
+      return format.dateTime(d, { year: 'numeric', month: 'long' })
+    case 'weekly': {
+      const end = new Date(d)
+      end.setDate(end.getDate() + 6)
+      return `${format.dateTime(d, { year: 'numeric', month: 'numeric', day: '2-digit' })} ~ ${format.dateTime(end, { year: 'numeric', month: 'numeric', day: 'numeric' })}`
+    }
+    case 'daily':
+    default:
+      return format.dateTime(d, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      })
+  }
 }
 
 function DiffDisplay({

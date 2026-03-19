@@ -75,16 +75,21 @@ export class ChannelStatisticsRepositoryImpl
         AggregatedRow[]
       >(
         `
+        WITH grouped AS (
+          SELECT
+            DATE_TRUNC('${dateTrunc}', "createdAt" AT TIME ZONE 'Asia/Tokyo')::date AS date,
+            (ARRAY_AGG("count" ORDER BY "createdAt" DESC))[1] AS total
+          FROM "ChannelSubscriberCountSummary"
+          WHERE "channelId" = $1
+            AND "createdAt" >= $2
+            AND "createdAt" < $3
+          GROUP BY DATE_TRUNC('${dateTrunc}', "createdAt" AT TIME ZONE 'Asia/Tokyo')
+        )
         SELECT
-          DATE_TRUNC('${dateTrunc}', "createdAt" AT TIME ZONE 'Asia/Tokyo')::date AS date,
-          (ARRAY_AGG("count" ORDER BY "createdAt" DESC))[1] AS total,
-          (ARRAY_AGG("count" ORDER BY "createdAt" DESC))[1]
-            - (ARRAY_AGG("count" ORDER BY "createdAt" ASC))[1] AS diff
-        FROM "ChannelSubscriberCountSummary"
-        WHERE "channelId" = $1
-          AND "createdAt" >= $2
-          AND "createdAt" < $3
-        GROUP BY DATE_TRUNC('${dateTrunc}', "createdAt" AT TIME ZONE 'Asia/Tokyo')
+          date,
+          total,
+          total - LAG(total) OVER (ORDER BY date) AS diff
+        FROM grouped
         ORDER BY date ASC
         `,
         channelId.get(),

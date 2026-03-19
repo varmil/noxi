@@ -55,7 +55,7 @@ export function StatisticsHistoryChart({ data, labels }: Props) {
   const hasDiff = useMemo(() => data.some(d => d.diff !== 0), [data])
 
   return (
-    <ChartContainer config={chartConfig} className="h-[250px] sm:h-[350px] w-full">
+    <ChartContainer config={chartConfig} className="w-full">
       <ComposedChart
         data={data}
         margin={{ left: 0, top: 5, right: 0, bottom: 0 }}
@@ -71,24 +71,26 @@ export function StatisticsHistoryChart({ data, labels }: Props) {
           fontSize={12}
         />
         <YAxis
-          yAxisId="diff"
-          orientation="left"
-          tickLine={false}
-          axisLine={false}
-          tickFormatter={(v: number) => format.number(v, { notation: 'compact' })}
-          fontSize={12}
-          width={50}
-        />
-        <YAxis
           yAxisId="total"
-          orientation="right"
+          orientation="left"
+          domain={['dataMin - 0', 'dataMax + 0']}
           tickLine={false}
+          minTickGap={20}
           axisLine={false}
-          tickFormatter={(v: number) => format.number(v, { notation: 'compact' })}
+          tickFormatter={(v: number) =>
+            format.number(v, { notation: 'standard' })
+          }
           fontSize={12}
-          width={60}
+          width={'auto'}
         />
-        {hasDiff && <ReferenceLine yAxisId="diff" y={0} stroke="#888" strokeDasharray="3 3" />}
+        {hasDiff && (
+          <ReferenceLine
+            yAxisId="diff"
+            y={0}
+            stroke="#888"
+            strokeDasharray="3 3"
+          />
+        )}
         <ChartTooltip
           content={
             <ChartTooltipContent
@@ -121,6 +123,7 @@ export function StatisticsHistoryChart({ data, labels }: Props) {
         <Bar
           yAxisId="diff"
           dataKey="diff"
+          fill={POSITIVE_COLOR}
           isAnimationActive={false}
           radius={[2, 2, 0, 0]}
         >

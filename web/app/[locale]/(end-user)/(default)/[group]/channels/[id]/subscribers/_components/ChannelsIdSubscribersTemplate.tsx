@@ -48,7 +48,7 @@ export function ChannelsIdSubscribersTemplate({
   return (
     <Sections>
       <Section>
-        <div className="space-y-6">
+        <div className="space-y-10">
           <StatisticsHistoryFilters
             interval={interval}
             start={start}
@@ -56,22 +56,25 @@ export function ChannelsIdSubscribersTemplate({
             onIntervalChange={handleIntervalChange}
             onDateRangeChange={handleDateRangeChange}
           />
-          <StatisticsHistoryChart
-            data={data}
-            labels={{
-              total: feat('chart.total'),
-              diff: feat('chart.diff')
-            }}
-          />
-          <StatisticsHistoryTable
-            data={data}
-            labels={{
-              date: feat('table.date'),
-              total: feat('table.total'),
-              diff: feat('table.diff')
-            }}
-            totalLabel={feat('total')}
-          />
+          <section className="space-y-6 max-w-6xl mx-auto">
+            <StatisticsHistoryChart
+              data={data}
+              labels={{
+                total: feat('chart.total'),
+                diff: feat('chart.diff')
+              }}
+            />
+            <StatisticsHistoryTable
+              data={data}
+              labels={{
+                date: feat('table.date'),
+                total: feat('table.total'),
+                diff: feat('table.diff')
+              }}
+              totalLabel={feat('total')}
+              interval={interval}
+            />
+          </section>
         </div>
       </Section>
     </Sections>

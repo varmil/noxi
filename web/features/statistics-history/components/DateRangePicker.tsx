@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react'
 import { ja, enUS } from 'date-fns/locale'
 import { CalendarIcon, LockIcon } from 'lucide-react'
-import { useLocale, useTranslations } from 'next-intl'
+import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import { type DateRange } from 'react-day-picker'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
@@ -41,6 +41,7 @@ const PRESETS: Preset[] = [
 
 export function DateRangePicker({ start, end, onApply }: Props) {
   const t = useTranslations('Features.statisticsHistory')
+  const format = useFormatter()
   const locale = useLocale()
   const [open, setOpen] = useState(false)
   const [range, setRange] = useState<DateRange | undefined>({
@@ -49,16 +50,13 @@ export function DateRangePicker({ start, end, onApply }: Props) {
   })
   const [activePreset, setActivePreset] = useState<string | null>(null)
 
-  const handlePreset = useCallback(
-    (preset: Preset) => {
-      const today = new Date()
-      const from = new Date()
-      from.setDate(today.getDate() - preset.days)
-      setRange({ from, to: today })
-      setActivePreset(preset.key)
-    },
-    []
-  )
+  const handlePreset = useCallback((preset: Preset) => {
+    const today = new Date()
+    const from = new Date()
+    from.setDate(today.getDate() - preset.days)
+    setRange({ from, to: today })
+    setActivePreset(preset.key)
+  }, [])
 
   const handleApply = useCallback(() => {
     if (range?.from && range?.to) {
@@ -88,12 +86,22 @@ export function DateRangePicker({ start, end, onApply }: Props) {
     <Popover open={open} onOpenChange={handleOpenChange}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
-          className="justify-start text-left font-normal gap-2"
+          variant="ghost"
+          className="px-0 sm:px-4 justify-start text-left font-normal gap-2 cursor-pointer"
         >
           <CalendarIcon className="size-4" />
           <span>
-            {start} - {end}
+            {format.dateTime(new Date(start), {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+            {' - '}
+            {format.dateTime(new Date(end), {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
           </span>
         </Button>
       </PopoverTrigger>

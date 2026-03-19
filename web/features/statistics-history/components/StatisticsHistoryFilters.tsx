@@ -25,19 +25,15 @@ export function StatisticsHistoryFilters({
   const t = useTranslations('Features.statisticsHistory')
 
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-      <DateRangePicker
-        start={start}
-        end={end}
-        onApply={onDateRangeChange}
-      />
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <DateRangePicker start={start} end={end} onApply={onDateRangeChange} />
       <Tabs
         value={interval}
         onValueChange={v => onIntervalChange(v as IntervalType)}
       >
         <TabsList>
           {INTERVALS.map(i => (
-            <TabsTrigger key={i} value={i}>
+            <TabsTrigger key={i} value={i} className="min-w-12">
               {t(`interval.${i}`)}
             </TabsTrigger>
           ))}
