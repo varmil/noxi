@@ -83,6 +83,7 @@ export function StatisticsHistoryChart({ data, labels }: Props) {
           fontSize={12}
           width={'auto'}
         />
+        <YAxis yAxisId="diff" hide domain={['auto', dataMax => dataMax * 2]} />
         {hasDiff && (
           <ReferenceLine
             yAxisId="diff"
