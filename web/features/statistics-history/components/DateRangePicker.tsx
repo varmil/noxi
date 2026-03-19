@@ -108,13 +108,13 @@ export function DateRangePicker({ start, end, onApply }: Props) {
       <PopoverContent className="w-auto p-0" align="start">
         <div className="flex">
           {/* Left: Presets */}
-          <div className="flex flex-col border-r p-3 gap-1 min-w-[140px]">
+          <div className="flex flex-col border-r p-3 gap-1 min-w-[120px]">
             {PRESETS.map(preset => (
               <Button
                 key={preset.key}
                 variant={activePreset === preset.key ? 'default' : 'ghost'}
                 size="sm"
-                className="justify-start text-sm"
+                className="justify-start text-sm font-normal"
                 onClick={() => handlePreset(preset)}
               >
                 {t(`span.${preset.key}`)}
@@ -132,8 +132,9 @@ export function DateRangePicker({ start, end, onApply }: Props) {
           </div>
 
           {/* Right: Calendar */}
-          <div className="p-3">
+          <div className="p-1.5 sm:p-3 min-w-[200px]">
             <Calendar
+              className="w-full"
               mode="range"
               selected={range}
               onSelect={selected => {
