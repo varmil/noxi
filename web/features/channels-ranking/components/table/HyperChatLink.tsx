@@ -10,7 +10,10 @@ type Props = {
 export function HyperChatLink({ channelId, group }: Props) {
   return (
     <Button variant="outline" size="icon" className="size-8" asChild>
-      <Link href={`/${group}/channels/${channelId}/hyper-chat`}>
+      <Link
+        href={`/${group}/channels/${channelId}/hyper-chat`}
+        prefetch={false}
+      >
         <MessagesSquare className="size-4" />
       </Link>
     </Button>
