@@ -1,10 +1,10 @@
 'use client'
 
 import { useCallback, useState } from 'react'
-import { ja, enUS } from 'date-fns/locale'
 import { CalendarIcon, LockIcon } from 'lucide-react'
 import { useFormatter, useLocale, useTranslations } from 'next-intl'
 import { type DateRange } from 'react-day-picker'
+import { ja, enUS } from 'react-day-picker/locale'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import {
