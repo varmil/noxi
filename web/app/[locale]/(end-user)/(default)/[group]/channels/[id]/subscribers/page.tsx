@@ -7,7 +7,7 @@ import ChannelsIdBasePage, {
 import { ChannelsIdSubscribersTemplate } from './_components/ChannelsIdSubscribersTemplate'
 import type { IntervalType } from 'features/statistics-history/types/statistics-history'
 
-const DEFAULT_INTERVAL: IntervalType = 'daily'
+const DEFAULT_INTERVAL: IntervalType = 'weekly'
 const DEFAULT_DAYS = 90
 
 type Props = ChannelsIdBasePageProps & {
@@ -73,7 +73,5 @@ function toJSTStartOfDay(d: Date): Date {
 }
 
 function toJSTNextDay(d: Date): Date {
-  return new Date(
-    Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() + 1, -9)
-  )
+  return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate() + 1, -9))
 }

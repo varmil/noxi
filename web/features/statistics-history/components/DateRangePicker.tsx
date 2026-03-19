@@ -110,7 +110,7 @@ export function DateRangePicker({ start, end, onApply }: Props) {
       <PopoverContent className="w-auto p-0" align="start">
         <div className="flex">
           {/* Left: Presets */}
-          <div className="flex flex-col border-r p-3 gap-1 min-w-[120px]">
+          <div className="flex flex-col border-r p-3 gap-1 min-w-[120px] sm:min-w-[150px]">
             {PRESETS.map(preset => (
               <Button
                 key={preset.key}
@@ -134,7 +134,7 @@ export function DateRangePicker({ start, end, onApply }: Props) {
           </div>
 
           {/* Right: Calendar */}
-          <div className="p-1.5 sm:p-3 min-w-[200px]">
+          <div className="p-1.5 sm:p-3 min-w-[200px] sm:min-w-[300px]">
             <Calendar
               className="w-full"
               mode="range"
@@ -171,9 +171,7 @@ function detectPreset(start: string, end: string): string | null {
     (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
   )
   // ±1日の誤差を許容
-  return (
-    PRESETS.find(p => Math.abs(p.days - diffDays) <= 1)?.key ?? null
-  )
+  return PRESETS.find(p => Math.abs(p.days - diffDays) <= 1)?.key ?? null
 }
 
 function formatDate(d: Date): string {
