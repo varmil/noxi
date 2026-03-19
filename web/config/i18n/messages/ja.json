@@ -230,11 +230,11 @@
             "topLives": {
               "title": "人気ライブTop3（過去30日間）"
             },
-            "topHyperChats": {
-              "title": "上位ハイパーチャット（過去30日間）"
-            },
             "subscriberRankTrend": {
               "title": "登録者数ランキング推移β"
+            },
+            "subscriberHistory": {
+              "title": "チャンネル登録者数推移（過去90日間）"
             }
           }
         },
@@ -296,6 +296,12 @@
           "metadata": {
             "title": "{channel} ハイパートレイン記録",
             "description": "「{channel}」のハイパートレインのベストレコードを確認できます。みんなで応援してレベルを上げよう！"
+          }
+        },
+        "subscribers": {
+          "metadata": {
+            "title": "{channel} 登録者数推移",
+            "description": "「{channel}」のチャンネル登録者数の増減推移をチャートとテーブルで確認できます。"
           }
         }
       },
@@ -728,12 +734,6 @@
           "rank": "#{rank}",
           "maxViewers": "最大{count}人",
           "noLives": "配信がありません"
-        },
-        "topHyperChats": {
-          "rank": "#{rank}",
-          "empty": "直近の投稿がありません。",
-          "noMessage": "メッセージなし",
-          "anonymous": "名無しさん"
         }
       },
       "superChat": {
@@ -771,6 +771,9 @@
       },
       "hyperTrain": {
         "nav": "ハイパートレイン"
+      },
+      "subscribers": {
+        "nav": "登録者数"
       }
     },
     "cheerChannel": {
@@ -1351,6 +1354,34 @@
       "table": {
         "hour": "時刻"
       }
+    },
+    "statisticsHistory": {
+      "interval": {
+        "daily": "日",
+        "weekly": "週",
+        "monthly": "月",
+        "yearly": "年"
+      },
+      "span": {
+        "last7days": "過去7日間",
+        "last30days": "過去30日間",
+        "last90days": "過去90日間",
+        "last6months": "過去6ヶ月間",
+        "last1year": "過去1年間",
+        "all": "全期間"
+      },
+      "chart": {
+        "total": "累計登録者数",
+        "diff": "新規登録者数"
+      },
+      "table": {
+        "date": "日付",
+        "total": "累計登録者数",
+        "diff": "新規登録者数"
+      },
+      "apply": "適用",
+      "cancel": "キャンセル",
+      "total": "合計"
     },
     "channelGrowthRanking": {
       "title": "チャンネル登録者数増加ランキング",

@@ -34,6 +34,10 @@ export default function LocalNavigationForChannelsIdPages({
           href: `${basePath}/concurrent-viewers`
         },
         {
+          name: t('subscribers.nav'),
+          href: `${basePath}/subscribers`
+        },
+        {
           name: t('hyperChat.nav'),
           href: `${basePath}/hyper-chat`
         }

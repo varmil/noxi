@@ -9,7 +9,8 @@ import { SubscriberRankTrendContainer } from 'features/subscriber-rank-trend/com
 import { SubscriberRankTrendSkeleton } from 'features/subscriber-rank-trend/components/SubscriberRankTrendSkeleton'
 import ChannelData from './ui/channel-data/ChannelData'
 import ChannelOverviewStatsCards from './ui/stats/ChannelOverviewStatsCards'
-import TopHyperChatComments from './ui/top-hyperchats/TopHyperChatComments'
+import { SubscriberHistoryPreview } from './ui/subscriber-history/SubscriberHistoryPreview'
+import { SubscriberHistoryPreviewSkeleton } from './ui/subscriber-history/SubscriberHistoryPreviewSkeleton'
 import TopLiveStreamsGallery from './ui/top-lives/TopLiveStreamsGallery'
 
 type Props = PropsWithoutRef<{ id: string }>
@@ -58,12 +59,14 @@ export async function ChannelsIdTemplate({ id }: Props) {
         <TopLiveStreamsGallery channelId={id} />
       </Section>
 
-      {/* 上位ハイパーチャット */}
+      {/* 登録者数推移 */}
       <Section
         className="lg:col-span-3 lg:order-5"
-        title={page('topHyperChats.title')}
+        title={page('subscriberHistory.title')}
       >
-        <TopHyperChatComments channelId={id} />
+        <Suspense fallback={<SubscriberHistoryPreviewSkeleton />}>
+          <SubscriberHistoryPreview channelId={id} />
+        </Suspense>
       </Section>
     </Sections>
   )
