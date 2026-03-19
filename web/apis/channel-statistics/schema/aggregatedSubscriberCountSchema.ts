@@ -6,6 +6,9 @@ const pointSchema = z.object({
   diff: z.number()
 })
 
-export const responseSchema = z.array(pointSchema)
+export const responseSchema = z.object({
+  list: z.array(pointSchema)
+})
 
-export type AggregatedSubscriberCountSchema = z.infer<typeof responseSchema>
+export type AggregatedSubscriberCountPoint = z.infer<typeof pointSchema>
+export type AggregatedSubscriberCountSchema = AggregatedSubscriberCountPoint[]

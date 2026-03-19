@@ -26,5 +26,5 @@ export async function getAggregatedSubscriberCounts(args: {
     throw new Error('Failed to fetch AggregatedSubscriberCounts')
   }
 
-  return responseSchema.parse(await res.json())
+  return responseSchema.parse(await res.json()).list
 }
