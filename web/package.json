@@ -58,7 +58,7 @@
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-fade": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
-    "framer-motion": "^12.36.0",
+    "framer-motion": "^12.38.0",
     "glin-profanity": "^3.3.0",
     "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.577.0",
