@@ -71,6 +71,10 @@ export class ChannelStatisticsRepositoryImpl
     async ({ where: { channelId, gte, lt }, interval }) => {
       const dateTrunc = interval.toDateTrunc()
 
+      // diff = GREATEST(期間内diff, 前期間とのdiff)
+      //   期間内diff: 期間内の最後 - 最初（weekly/monthly/yearly で有効）
+      //   前期間diff: 期間内の最後 - 前期間の最後（daily で有効）
+      // GREATEST で両方カバーし、interval による分岐を不要にする
       const rows = await this.prismaInfraService.$queryRawUnsafe<
         AggregatedRow[]
       >(
@@ -78,18 +82,29 @@ export class ChannelStatisticsRepositoryImpl
         WITH grouped AS (
           SELECT
             DATE_TRUNC('${dateTrunc}', "createdAt" AT TIME ZONE 'Asia/Tokyo')::date AS date,
-            (ARRAY_AGG("count" ORDER BY "createdAt" DESC))[1] AS total
+            (ARRAY_AGG("count" ORDER BY "createdAt" DESC))[1] AS total,
+            (ARRAY_AGG("count" ORDER BY "createdAt" DESC))[1]
+              - (ARRAY_AGG("count" ORDER BY "createdAt" ASC))[1] AS intra_diff
           FROM "ChannelSubscriberCountSummary"
           WHERE "channelId" = $1
-            AND "createdAt" >= $2
+            AND "createdAt" >= DATE_TRUNC('${dateTrunc}', $2::timestamptz AT TIME ZONE 'Asia/Tokyo')
+                                - INTERVAL '2 ${dateTrunc}'
             AND "createdAt" < $3
           GROUP BY DATE_TRUNC('${dateTrunc}', "createdAt" AT TIME ZONE 'Asia/Tokyo')
+        ),
+        with_diff AS (
+          SELECT
+            date,
+            total,
+            GREATEST(
+              intra_diff,
+              total - LAG(total) OVER (ORDER BY date)
+            ) AS diff
+          FROM grouped
         )
-        SELECT
-          date,
-          total,
-          total - LAG(total) OVER (ORDER BY date) AS diff
-        FROM grouped
+        SELECT date, total, diff
+        FROM with_diff
+        WHERE date >= DATE_TRUNC('${dateTrunc}', $2::timestamptz AT TIME ZONE 'Asia/Tokyo')::date
         ORDER BY date ASC
         `,
         channelId.get(),
