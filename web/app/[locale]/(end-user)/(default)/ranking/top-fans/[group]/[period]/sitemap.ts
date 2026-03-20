@@ -5,6 +5,10 @@ import { TopFansPeriod } from 'types/period'
 
 export const dynamic = 'force-dynamic'
 
+export async function generateSitemaps() {
+  return [{ id: 0 }]
+}
+
 const periods: TopFansPeriod[] = ['last30Days']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

@@ -5,6 +5,10 @@ import { getEntry } from 'config/sitemap/getEntry'
 
 export const dynamic = 'force-dynamic'
 
+export async function generateSitemaps() {
+  return [{ id: 0 }]
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const groups = await getGroups()
 

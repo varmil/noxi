@@ -5,6 +5,10 @@ import { MostCheeredPeriod } from 'types/period'
 
 export const dynamic = 'force-dynamic'
 
+export async function generateSitemaps() {
+  return [{ id: 0 }]
+}
+
 const periods: MostCheeredPeriod[] = ['last30Days']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

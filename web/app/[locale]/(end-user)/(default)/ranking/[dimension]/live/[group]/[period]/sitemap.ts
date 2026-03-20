@@ -5,6 +5,10 @@ import { StreamRankingPeriod } from 'types/period'
 
 export const dynamic = 'force-dynamic'
 
+export async function generateSitemaps() {
+  return [{ id: 0 }]
+}
+
 /** UIで使用される期間（各ページをcanonicalとして登録） */
 const PERIODS: StreamRankingPeriod[] = [
   'realtime',
