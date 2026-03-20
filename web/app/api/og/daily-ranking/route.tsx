@@ -94,7 +94,8 @@ export async function GET(request: Request) {
                 style={{
                   width: 104,
                   height: 104,
-                  objectFit: 'cover'
+                  objectFit: 'cover',
+                  borderRadius: '50%'
                 }}
               />
             </div>
