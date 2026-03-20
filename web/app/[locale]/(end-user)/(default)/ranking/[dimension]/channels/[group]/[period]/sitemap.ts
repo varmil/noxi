@@ -9,6 +9,10 @@ import { Period } from 'types/period'
 
 export const dynamic = 'force-dynamic'
 
+export async function generateSitemaps() {
+  return [{ id: 0 }]
+}
+
 const periods: Period[] = [
   // 'last24Hours'
   // 'last7Days',
