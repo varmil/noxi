@@ -11,6 +11,7 @@ export interface ChannelRegistrationRepository {
   findAll: (args: {
     where: {
       status?: Status
+      statusNot?: Status
     }
     orderBy: {
       appliedAt: 'asc' | 'desc'

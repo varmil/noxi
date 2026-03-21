@@ -28,7 +28,10 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
     offset
   }) => {
     const rows = await this.prismaInfraService.channelRegistration.findMany({
-      where: { status: where.status?.get() },
+      where: {
+        status: where.status?.get(),
+        ...(where.statusNot && { NOT: { status: where.statusNot.get() } })
+      },
       orderBy,
       take: limit,
       skip: offset

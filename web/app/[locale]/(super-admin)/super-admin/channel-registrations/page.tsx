@@ -24,13 +24,19 @@ export default async function ChannelRegistrationsPage(props: Props) {
 
   setRequestLocale(locale as 'ja' | 'en')
 
-  const [registrations, groups] = await Promise.all([
+  const [pendingRegistrations, pastRegistrations, groups] = await Promise.all([
     getChannelRegistrations({
+      status: 'pending',
+      orderBy: { field: 'appliedAt', order: 'desc' }
+    }),
+    getChannelRegistrations({
+      statusNot: 'pending',
       orderBy: { field: 'appliedAt', order: 'desc' },
       limit: 100
     }),
     getGroups()
   ])
+  const registrations = [...pendingRegistrations, ...pastRegistrations]
 
   return (
     <div className="flex min-h-screen w-full">

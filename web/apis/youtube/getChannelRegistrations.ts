@@ -8,6 +8,7 @@ import { fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   status?: string
+  statusNot?: string
   orderBy: {
     field: 'appliedAt'
     order: 'asc' | 'desc'
@@ -18,12 +19,14 @@ type Params = {
 
 export async function getChannelRegistrations({
   status,
+  statusNot,
   orderBy,
   limit,
   offset
 }: Params): Promise<ChannelRegistrationSchema[]> {
   const searchParams = new URLSearchParams({
     ...(status && { status }),
+    ...(statusNot && { statusNot }),
     ...(limit !== undefined && { limit: String(limit) }),
     ...(offset !== undefined && { offset: String(offset) })
   })

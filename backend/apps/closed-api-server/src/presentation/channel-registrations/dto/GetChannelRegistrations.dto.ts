@@ -13,6 +13,10 @@ export class GetChannelRegistrations {
   status?: StatusString
 
   @IsOptional()
+  @IsIn(StatusStrings)
+  statusNot?: StatusString
+
+  @IsOptional()
   @Type(() => OrderByDto)
   orderBy: OrderByDto<'appliedAt'>
 
@@ -27,6 +31,8 @@ export class GetChannelRegistrations {
   offset?: number
 
   toStatus = () => (this.status ? new Status(this.status) : undefined)
+
+  toStatusNot = () => (this.statusNot ? new Status(this.statusNot) : undefined)
 
   toOrderBy = () => ({ appliedAt: this.orderBy?.order })
 
