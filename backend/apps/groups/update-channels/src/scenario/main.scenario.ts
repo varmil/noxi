@@ -20,43 +20,52 @@ export class MainScenario {
   ) {}
 
   async executeRegistrations(): Promise<void> {
-    const channelRegistrations = await this.channelRegistrationsService.findAll(
-      {
-        where: { status: new Status('approved') },
-        orderBy: { appliedAt: 'asc' },
-        limit: this.REGISTRATION_LIMIT
-      }
-    )
-    if (channelRegistrations.length === 0) return
+    let batch = 0
+    while (true) {
+      try {
+        const channelRegistrations =
+          await this.channelRegistrationsService.findAll({
+            where: { status: new Status('approved') },
+            orderBy: { appliedAt: 'asc' },
+            limit: this.REGISTRATION_LIMIT
+          })
+        if (channelRegistrations.length === 0) break
 
-    const channels = (
-      await this.channelsInfraService.list({
-        where: { channelIds: channelRegistrations.ids() }
-      })
-    ).merge(channelRegistrations)
+        this.logger.log(`executeRegistrations batch: ${batch}`)
+        batch++
 
-    await this.channelsService.bulkCreate({
-      data: channels
-    })
+        const channels = (
+          await this.channelsInfraService.list({
+            where: { channelIds: channelRegistrations.ids() }
+          })
+        ).merge(channelRegistrations)
 
-    // 新規チャンネルの達成済みマイルストーンを初期化
-    // これをしないと post-subscriber-milestones で既存マイルストーンがポストされる
-    for (const channel of channels) {
-      const achieved = Milestone.calculateAchieved(
-        channel.statistics.subscriberCount
-      )
-      for (const milestone of achieved) {
-        await this.subscriberMilestoneService.create(
-          channel.basicInfo.id,
-          milestone
-        )
+        await this.channelsService.bulkCreate({
+          data: channels
+        })
+
+        // 新規チャンネルの達成済みマイルストーンを初期化
+        // これをしないと post-subscriber-milestones で既存マイルストーンがポストされる
+        for (const channel of channels) {
+          const achieved = Milestone.calculateAchieved(
+            channel.statistics.subscriberCount
+          )
+          for (const milestone of achieved) {
+            await this.subscriberMilestoneService.create(
+              channel.basicInfo.id,
+              milestone
+            )
+          }
+        }
+
+        await this.channelRegistrationsService.updateMany({
+          where: { channelIds: channels.ids() },
+          data: { status: new Status('done') }
+        })
+      } catch (error) {
+        this.logger.error(`Error in executeRegistrations batch: ${batch}:`, error)
       }
     }
-
-    await this.channelRegistrationsService.updateMany({
-      where: { channelIds: channels.ids() },
-      data: { status: new Status('done') }
-    })
   }
 
   async execute(): Promise<void> {
