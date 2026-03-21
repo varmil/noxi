@@ -27,12 +27,13 @@ export default async function ChannelRegistrationsPage(props: Props) {
   const [pendingRegistrations, pastRegistrations, groups] = await Promise.all([
     getChannelRegistrations({
       status: 'pending',
-      orderBy: { field: 'appliedAt', order: 'desc' }
+      orderBy: { field: 'appliedAt', order: 'desc' },
+      limit: 30
     }),
     getChannelRegistrations({
       statusNot: 'pending',
       orderBy: { field: 'appliedAt', order: 'desc' },
-      limit: 100
+      limit: 30
     }),
     getGroups()
   ])
