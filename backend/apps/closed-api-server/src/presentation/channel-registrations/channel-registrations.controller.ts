@@ -25,7 +25,7 @@ export class ChannelRegistrationsController {
   @Get()
   async getChannelRegistrations(@Query() dto: GetChannelRegistrations) {
     return await this.channelRegistrationsService.findAll({
-      where: { status: dto.toStatus() },
+      where: { status: dto.toStatus(), statusNot: dto.toStatusNot() },
       orderBy: dto.toOrderBy(),
       limit: dto.toLimit(),
       offset: dto.toOffset()
