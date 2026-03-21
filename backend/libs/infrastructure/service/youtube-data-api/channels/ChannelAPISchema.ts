@@ -14,8 +14,7 @@ export const channelAPISchema = z.object({
         height: z.number().optional()
       })
     ),
-    publishedAt: z.string().datetime(),
-    defaultLanguage: z.string().optional()
+    publishedAt: z.string().datetime()
   }),
 
   contentDetails: z.object({

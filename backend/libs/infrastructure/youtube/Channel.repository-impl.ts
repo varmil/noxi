@@ -1,6 +1,6 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
 import { Prisma } from '@prisma/generated/client'
-import { CountryCode, LanguageTag } from '@domain/country'
+import { CountryCode } from '@domain/country'
 import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
@@ -118,7 +118,7 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       contentDetails,
       statistics: { viewCount, subscriberCount, videoCount },
       brandingSettings: { keywords },
-      peakX: { group, country, defaultLanguage, gender } = {}
+      peakX: { group, country, gender } = {}
     } = channel
 
     if (!group) {
@@ -126,9 +126,6 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     }
     if (!country) {
       throw new UnprocessableEntityException('Country is required')
-    }
-    if (!defaultLanguage) {
-      throw new UnprocessableEntityException('Default language is required')
     }
     if (!gender) {
       throw new UnprocessableEntityException('Gender is required')
@@ -148,11 +145,9 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       // VCharts defines
       // * group
       // * country code
-      // * defaultLanguage
       // * gender
       group: group.get(),
       country: country.get(),
-      defaultLanguage: defaultLanguage.get(),
       gender: gender.get()
     }
   }
@@ -164,7 +159,6 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       description,
       thumbnails,
       publishedAt,
-      defaultLanguage,
       playlistId,
       viewCount,
       subscriberCount,
@@ -195,9 +189,6 @@ export class ChannelRepositoryImpl implements ChannelRepository {
       peakX: new PeakXChannelProps({
         group: new GroupId(row.group),
         country: new CountryCode(country),
-        defaultLanguage: defaultLanguage
-          ? new LanguageTag(defaultLanguage)
-          : undefined,
         gender: new Gender(gender)
       })
     })

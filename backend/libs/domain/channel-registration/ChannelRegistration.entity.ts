@@ -1,6 +1,6 @@
 import { Exclude, Transform } from 'class-transformer'
 import { AppliedAt, Status } from '@domain/channel-registration'
-import { CountryCode, LanguageTag } from '@domain/country'
+import { CountryCode } from '@domain/country'
 import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
@@ -17,8 +17,6 @@ export class ChannelRegistration {
   public readonly title: ChannelTitle
   @Transform(({ value }: { value: CountryCode }) => value.get())
   public readonly country: CountryCode
-  @Transform(({ value }: { value: LanguageTag }) => value.get())
-  public readonly defaultLanguage: LanguageTag
   @Transform(({ value }: { value: Gender }) => value.get())
   public readonly gender: Gender
   @Transform(({ value }: { value: GroupId }) => value.get())
@@ -36,7 +34,6 @@ export class ChannelRegistration {
     channelId: ChannelId
     title: ChannelTitle
     country: CountryCode
-    defaultLanguage: LanguageTag
     gender: Gender
     group: GroupId
     subscriberCount: SubscriberCount
@@ -47,7 +44,6 @@ export class ChannelRegistration {
     this.channelId = args.channelId
     this.title = args.title
     this.country = args.country
-    this.defaultLanguage = args.defaultLanguage
     this.gender = args.gender
     this.group = args.group
     this.subscriberCount = args.subscriberCount

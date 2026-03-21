@@ -41,7 +41,6 @@ const mockPendingRegistration = {
   channelId: 'UC1234567890',
   title: 'Test Channel',
   country: 'JP',
-  defaultLanguage: 'ja',
   gender: 'male' as const,
   group: 'hololive',
   subscriberCount: 100000,
@@ -54,7 +53,6 @@ const mockApprovedRegistration = {
   channelId: 'UC0987654321',
   title: 'Approved Channel',
   country: 'JP',
-  defaultLanguage: 'ja',
   gender: 'female' as const,
   group: 'nijisanji',
   subscriberCount: 200000,
@@ -101,7 +99,10 @@ describe('ChannelRegistrationManagement', () => {
   it('審査中と過去の申請両方がある場合に正しく表示される', () => {
     render(
       <ChannelRegistrationManagement
-        initialRegistrations={[mockPendingRegistration, mockApprovedRegistration]}
+        initialRegistrations={[
+          mockPendingRegistration,
+          mockApprovedRegistration
+        ]}
         groups={mockGroups}
       />
     )

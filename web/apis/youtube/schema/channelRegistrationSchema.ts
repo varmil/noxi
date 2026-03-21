@@ -4,7 +4,6 @@ export const schema = z.object({
   channelId: z.string(),
   title: z.string(),
   country: z.string(),
-  defaultLanguage: z.string(),
   gender: z.enum(['male', 'female', 'nonbinary']),
   group: z.string(),
   subscriberCount: z.number().min(0),
