@@ -1,14 +1,12 @@
 import {
   Body,
-  
   ConflictException,
   Controller,
   Get,
   Param,
   Post,
   Put,
-  Query,
-  
+  Query
 } from '@nestjs/common'
 import { GetChannelRegistrations } from '@presentation/channel-registrations/dto/GetChannelRegistrations.dto'
 import { PostChannelRegistration } from '@presentation/channel-registrations/dto/PostChannelRegistration.dto'
@@ -59,7 +57,6 @@ export class ChannelRegistrationsController {
         channelId: dto.toChannelId(),
         title: dto.toTitle(),
         country: dto.toCountry(),
-        defaultLanguage: dto.toDefaultLanguage(),
         gender: dto.toGender(),
         group: dto.toGroup(),
         subscriberCount: dto.toSubscriberCount(),

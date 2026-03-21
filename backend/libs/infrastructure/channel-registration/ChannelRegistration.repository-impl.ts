@@ -6,7 +6,7 @@ import {
   ChannelRegistrations,
   Status
 } from '@domain/channel-registration'
-import { CountryCode, LanguageTag } from '@domain/country'
+import { CountryCode } from '@domain/country'
 import { GroupId } from '@domain/group'
 import { Gender } from '@domain/lib'
 import {
@@ -40,7 +40,6 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
             channelId: new ChannelId(e.channelId),
             title: new ChannelTitle(e.title),
             country: new CountryCode(e.country),
-            defaultLanguage: new LanguageTag(e.defaultLanguage),
             gender: new Gender(e.gender),
             group: new GroupId(e.group),
             subscriberCount: new SubscriberCount(e.subscriberCount),
@@ -61,7 +60,6 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
       channelId: new ChannelId(row.channelId),
       title: new ChannelTitle(row.title),
       country: new CountryCode(row.country),
-      defaultLanguage: new LanguageTag(row.defaultLanguage),
       gender: new Gender(row.gender),
       group: new GroupId(row.group),
       subscriberCount: new SubscriberCount(row.subscriberCount),
@@ -77,7 +75,6 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
       update: {
         title: data.title.get(),
         country: data.country.get(),
-        defaultLanguage: data.defaultLanguage.get(),
         gender: data.gender.get(),
         group: data.group.get(),
         subscriberCount: data.subscriberCount.get(),
@@ -89,7 +86,6 @@ export class ChannelRegistrationRepositoryImpl implements ChannelRegistrationRep
         channelId: data.channelId.get(),
         title: data.title.get(),
         country: data.country.get(),
-        defaultLanguage: data.defaultLanguage.get(),
         gender: data.gender.get(),
         group: data.group.get(),
         subscriberCount: data.subscriberCount.get(),

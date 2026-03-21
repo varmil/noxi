@@ -119,13 +119,6 @@ export function RegistrationHistory({
               }).of(registration.country)}
             </dd>
 
-            <dt className="text-muted-foreground">言語:</dt>
-            <dd>
-              {new Intl.DisplayNames([locale], {
-                type: 'language'
-              }).of(registration.defaultLanguage)}
-            </dd>
-
             <dt className="text-muted-foreground">性別:</dt>
             <dd>{global(`gender.${registration.gender}`)}</dd>
 

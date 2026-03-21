@@ -50,7 +50,6 @@ export class Channels extends Collection<Channel> {
           peakX: {
             group: registration.group,
             country: registration.country,
-            defaultLanguage: registration.defaultLanguage,
             gender: registration.gender
           }
         })
