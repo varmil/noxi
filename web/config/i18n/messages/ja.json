@@ -490,6 +490,14 @@
       "xAccount": "公式 X (旧 Twitter)"
     },
     "group": {},
+    "dataAnalysisStatus": {
+      "sectionTitle": "データ分析ステータス",
+      "channels": "Channels",
+      "videos": "Videos",
+      "lives": "Lives",
+      "promotions": "Promotions",
+      "comingSoon": "Coming soon"
+    },
     "footer": {
       "superChatRanking": "スパチャランキング",
       "viewerRanking": "同接数ランキング",

@@ -14,7 +14,8 @@ import {
   ContentDetails,
   Keyword,
   Keywords,
-  PeakXChannelProps
+  PeakXChannelProps,
+  VideoCount
 } from '@domain/youtube/channel'
 import { PrismaInfraService } from '@infra/service/prisma/prisma.infra.service'
 import type { Channel as PrismaChannel } from '@prisma/generated/client'
@@ -110,6 +111,13 @@ export class ChannelRepositoryImpl implements ChannelRepository {
     )
 
     await this.prismaInfraService.$transaction([...query])
+  }
+
+  sumVideoCount: ChannelRepository['sumVideoCount'] = async () => {
+    const result = await this.prismaInfraService.channel.aggregate({
+      _sum: { videoCount: true }
+    })
+    return new VideoCount(result._sum.videoCount ?? 0)
   }
 
   private toPrisma(channel: Channel) {

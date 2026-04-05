@@ -32,6 +32,13 @@ export class ChannelsController {
     })
   }
 
+  @Get('/video-count-sum')
+  @CacheTTL(86400 * 1000)
+  async getVideoCountSum() {
+    const videoCount = await this.channelsService.sumVideoCount()
+    return videoCount.get()
+  }
+
   @Get(':id')
   @CacheTTL(86400 * 1000)
   async getChannel(@Param('id') id: string) {
