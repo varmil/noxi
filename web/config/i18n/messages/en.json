@@ -481,6 +481,14 @@
     "contact": { "title": "Contact" },
     "aside": { "xAccount": "Official X (formerly Twitter)" },
     "group": {},
+    "dataAnalysisStatus": {
+      "sectionTitle": "Data analysis status",
+      "channels": "Channels",
+      "videos": "Videos",
+      "lives": "Lives",
+      "promotions": "Promotions",
+      "comingSoon": "Coming soon"
+    },
     "footer": {
       "superChatRanking": "Super Chat Ranking",
       "viewerRanking": "Live Viewer Ranking",

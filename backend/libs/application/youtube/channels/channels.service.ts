@@ -3,6 +3,7 @@ import { ChannelStatisticsRepository } from '@domain/channel-statistics/ChannelS
 import { Channel } from '@domain/youtube/channel/Channel.entity'
 import { ChannelRepository } from '@domain/youtube/channel/Channel.repository'
 import { Channels } from '@domain/youtube/channel/Channels.collection'
+import { VideoCount } from '@domain/youtube/channel/statistics/VideoCount.vo'
 
 @Injectable()
 export class ChannelsService {
@@ -29,6 +30,10 @@ export class ChannelsService {
     args: Parameters<ChannelRepository['findById']>[0]
   ): Promise<Channel | null> {
     return await this.channelRepository.findById(args)
+  }
+
+  async sumVideoCount(): Promise<VideoCount> {
+    return await this.channelRepository.sumVideoCount()
   }
 
   /**

@@ -6,7 +6,8 @@ import {
   Channels,
   ChannelId,
   ChannelIds,
-  ChannelTitle
+  ChannelTitle,
+  VideoCount
 } from '@domain/youtube/'
 
 export interface ChannelRepository {
@@ -38,4 +39,6 @@ export interface ChannelRepository {
   bulkCreate: (args: { data: Channels }) => Promise<void>
 
   bulkUpdate: (args: { data: Channels }) => Promise<void>
+
+  sumVideoCount: () => Promise<VideoCount>
 }

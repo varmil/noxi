@@ -1,5 +1,7 @@
 import { PropsWithChildren, Suspense } from 'react'
 import { getGroups } from 'apis/groups'
+import { DataAnalysisStatus } from 'components/data-analysis-status/DataAnalysisStatus'
+import { DataAnalysisStatusSkeleton } from 'components/data-analysis-status/DataAnalysisStatusSkeleton'
 import {
   ChannelGrowthRankingContainer,
   ChannelGrowthRankingSkeleton
@@ -113,7 +115,11 @@ export async function IndexTemplate({ days = DEFAULT_DAYS, group }: Props) {
             className="h-[480px] xl:h-[500px] 2xl:h-[530px]"
             lazy={true}
           />
-        </div> */}
+          </div> */}
+
+        <Suspense fallback={<DataAnalysisStatusSkeleton />}>
+          <DataAnalysisStatus />
+        </Suspense>
       </Container>
     </>
   )
