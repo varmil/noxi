@@ -11,6 +11,7 @@ import StreamGalleryHeader from 'features/group/stream/components/gallery/Stream
 import { StreamGallerySearchParams } from 'features/group/types/stream-gallery'
 
 type Props = StreamGallerySearchParams & {
+  limit?: number
   compact?: boolean
   showHeader?: boolean
   where?: { title?: string; channelId?: string; group?: string }
@@ -18,6 +19,7 @@ type Props = StreamGallerySearchParams & {
 
 export default async function EndedStreamGallery({
   page,
+  limit,
   compact,
   showHeader,
   where
@@ -30,7 +32,7 @@ export default async function EndedStreamGallery({
       group,
       channelId,
       orderBy: [{ field: 'actualEndTime', order: 'desc' }],
-      limit: StreamGalleryPagination.getLimit(compact),
+      limit: limit ?? StreamGalleryPagination.getLimit(compact),
       offset: StreamGalleryPagination.getOffset(page)
     }),
     getTranslations('Features.group.ended'),
