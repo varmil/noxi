@@ -41,7 +41,7 @@ async function Overview({
 
       <div>
         <Suspense fallback={<StreamGallerySkeleton />}>
-          <EndedStreamGallery where={{ channelId }} showHeader />
+          <EndedStreamGallery where={{ channelId }} showHeader limit={3} />
           <SeeMoreLinkSection channelId={channelId} groupId={stream.group} />
         </Suspense>
       </div>
