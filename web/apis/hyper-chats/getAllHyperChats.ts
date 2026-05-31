@@ -5,7 +5,7 @@ import {
   responseSchema
 } from 'apis/hyper-chats/hyperChatSchema'
 import { HYPER_CHATS_LATEST } from 'apis/tags/revalidate-tags'
-import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   userId?: number
@@ -39,7 +39,7 @@ export async function getAllHyperChats({
 
   const res = await fetchAPI(
     `/api/hyper-chats?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D, tags: [HYPER_CHATS_LATEST] } }
+    { next: { revalidate: CACHE_1W, tags: [HYPER_CHATS_LATEST] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch all hyper chats: ${await res.text()}`)
@@ -50,7 +50,7 @@ export async function getAllHyperChats({
 
 export async function getAllHyperChatsCount(): Promise<number> {
   const res = await fetchAPI(`/api/hyper-chats/count`, {
-    next: { revalidate: CACHE_1D, tags: [HYPER_CHATS_LATEST] }
+    next: { revalidate: CACHE_1W, tags: [HYPER_CHATS_LATEST] }
   })
   if (!res.ok) {
     throw new Error(

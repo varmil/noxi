@@ -4,7 +4,7 @@ import {
   ChannelRegistrationSchema,
   listSchema
 } from 'apis/youtube/schema/channelRegistrationSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   status?: string
@@ -36,7 +36,7 @@ export async function getChannelRegistrations({
   }
   const res = await fetchAPI(
     `/api/channel-registrations?${searchParams.toString()}`,
-    { cache: 'no-store' }
+    { next: { revalidate: CACHE_1H } }
   )
 
   if (!res.ok) {

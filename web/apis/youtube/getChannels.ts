@@ -3,7 +3,7 @@ import {
   responseSchema
 } from 'apis/youtube/schema/channelSchema'
 
-import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 
 type Params = {
@@ -44,7 +44,7 @@ export async function getChannels({
 
   const res = await fetchAPI(
     `/api/youtube/channels?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D } }
+    { next: { revalidate: CACHE_1W } }
   )
 
   if (!res.ok) {
@@ -65,7 +65,7 @@ export async function getChannelsCount({
   })
   const res = await fetchAPI(
     `/api/youtube/channels/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D } }
+    { next: { revalidate: CACHE_1W } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

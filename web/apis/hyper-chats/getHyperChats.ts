@@ -5,7 +5,7 @@ import {
   responseSchema
 } from 'apis/hyper-chats/hyperChatSchema'
 import { getHyperChatTag } from 'apis/tags/revalidate-tags'
-import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelId: string
@@ -51,7 +51,7 @@ export async function getHyperChats({
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/hyper-chats/channels/${channelId}?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch hyper chats: ${await res.text()}`)
@@ -67,7 +67,7 @@ export async function getHyperChatsCount(
   const searchParams = createSearchParams(params ?? {})
   const res = await fetchAPI(
     `/api/hyper-chats/channels/${channelId}/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch hyper chats count: ${await res.text()}`)
@@ -83,7 +83,7 @@ export async function getHyperChatsSumAmount(
   const searchParams = createSearchParams(params ?? {})
   const res = await fetchAPI(
     `/api/hyper-chats/channels/${channelId}/sum-amount?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(
@@ -101,7 +101,7 @@ export async function getHyperChatsSumLikeCount(
   const searchParams = createSearchParams(params ?? {})
   const res = await fetchAPI(
     `/api/hyper-chats/channels/${channelId}/sum-like-count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(

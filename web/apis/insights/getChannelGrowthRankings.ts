@@ -2,7 +2,7 @@ import {
   ChannelGrowthRankingsSchema,
   responseSchema
 } from 'apis/insights/schema/channelGrowthRankingSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   period?: 'weekly' | 'monthly'
@@ -43,7 +43,7 @@ export async function getChannelGrowthRankings({
   const res = await fetchAPI(
     `/api/insights/channel-growth-rankings?${params.toString()}`,
     {
-      next: { revalidate: CACHE_1H }
+      next: { revalidate: CACHE_1D }
     }
   )
 

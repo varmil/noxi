@@ -2,7 +2,7 @@ import {
   ChannelViewCountRankingsSchema,
   responseSchema
 } from 'apis/insights/schema/channelViewCountRankingSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   period?: 'weekly' | 'monthly'
@@ -33,7 +33,7 @@ export async function getChannelViewCountRankings({
   const res = await fetchAPI(
     `/api/insights/channel-view-count-rankings?${params.toString()}`,
     {
-      next: { revalidate: CACHE_1H }
+      next: { revalidate: CACHE_1D }
     }
   )
 

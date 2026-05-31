@@ -3,7 +3,7 @@ import {
   CommentThreadsListSchema,
   responseSchema
 } from 'apis/youtube/data-api/schema/commentThreadsSchema'
-import { CACHE_12H } from 'lib/fetchAPI'
+import { CACHE_1D } from 'lib/fetchAPI'
 
 const MaxResultsPerRequest = 100
 
@@ -44,7 +44,7 @@ export async function getCommentThreads({
   })
   const res = await fetch(
     `https://www.googleapis.com/youtube/v3/commentThreads?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_12H } }
+    { next: { revalidate: CACHE_1D } }
   )
   if (!res.ok) {
     if (res.status === 403 || res.status === 404) {

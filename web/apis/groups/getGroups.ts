@@ -1,12 +1,12 @@
 'use server'
 
 import { GROUPS } from 'apis/tags/revalidate-tags'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { groupsResponseSchema, GroupsSchema } from './groupSchema'
 
 export async function getGroups(): Promise<GroupsSchema> {
   const res = await fetchAPI('/api/groups', {
-    next: { revalidate: 86400, tags: [GROUPS] } // 1日キャッシュ
+    next: { revalidate: CACHE_1W, tags: [GROUPS] }
   })
 
   if (!res.ok) {

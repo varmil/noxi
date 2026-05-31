@@ -4,13 +4,13 @@ import {
   ChannelRegistrationSchema,
   schema
 } from 'apis/youtube/schema/channelRegistrationSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 export async function getChannelRegistration(
   id: string
 ): Promise<ChannelRegistrationSchema | undefined> {
   const res = await fetchAPI(`/api/channel-registrations/${id}`, {
-    cache: 'no-store'
+    next: { revalidate: CACHE_1H }
   })
 
   if (!res.ok) {

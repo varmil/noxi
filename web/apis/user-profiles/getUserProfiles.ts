@@ -1,4 +1,4 @@
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 import { responseListSchema, UserProfilesSchema } from './userProfileSchema'
 
 type Params = {
@@ -42,7 +42,7 @@ export async function getUserProfilesCount(
   const searchParams = createSearchParams(params)
   const res = await fetchAPI(
     `/api/user-profiles/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1H } }
+    { next: { revalidate: CACHE_1D } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

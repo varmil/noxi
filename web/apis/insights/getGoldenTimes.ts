@@ -2,7 +2,7 @@ import {
   GoldenTimesSchema,
   responseSchema
 } from 'apis/insights/schema/goldenTimeSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   days?: number
@@ -20,7 +20,7 @@ export async function getGoldenTimes({
   }
 
   const res = await fetchAPI(`/api/insights/golden-times?${params.toString()}`, {
-    next: { revalidate: CACHE_1H }
+    next: { revalidate: CACHE_1D }
   })
 
   if (!res.ok) {

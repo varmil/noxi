@@ -7,7 +7,7 @@ import {
   responseSchema
 } from 'apis/hyper-chat-rankings/posterRankingSchema'
 import { getHyperChatTag } from 'apis/tags/revalidate-tags'
-import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 
 export async function getPosterRanking(
   channelId: string,
@@ -20,7 +20,7 @@ export async function getPosterRanking(
 
   const res = await fetchAPI(
     `/api/hyper-chat-rankings/channels/${channelId}/posters?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch poster ranking: ${await res.text()}`)
@@ -33,7 +33,7 @@ export async function getPosterRankingCount(
 ): Promise<number> {
   const res = await fetchAPI(
     `/api/hyper-chat-rankings/channels/${channelId}/posters/count`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch poster ranking count: ${await res.text()}`)
@@ -47,7 +47,7 @@ export async function getAnonymousPoster(
 ): Promise<AnonymousPosterSchema | null> {
   const res = await fetchAPI(
     `/api/hyper-chat-rankings/channels/${channelId}/anonymous`,
-    { next: { revalidate: CACHE_1D, tags: [getHyperChatTag(channelId)] } }
+    { next: { revalidate: CACHE_1W, tags: [getHyperChatTag(channelId)] } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch anonymous poster: ${await res.text()}`)

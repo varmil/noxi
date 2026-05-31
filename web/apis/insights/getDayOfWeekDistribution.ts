@@ -2,7 +2,7 @@ import {
   DayOfWeekDistributionsSchema,
   responseSchema
 } from 'apis/insights/schema/dayOfWeekDistributionSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   days?: number
@@ -22,7 +22,7 @@ export async function getDayOfWeekDistribution({
   const res = await fetchAPI(
     `/api/insights/day-of-week-distribution?${params.toString()}`,
     {
-      next: { revalidate: CACHE_1H }
+      next: { revalidate: CACHE_1D }
     }
   )
 

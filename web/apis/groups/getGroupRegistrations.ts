@@ -1,6 +1,6 @@
 'use server'
 
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import {
   groupRegistrationsResponseSchema,
   GroupRegistrationsSchema
@@ -15,7 +15,7 @@ export async function getGroupRegistrations(
   }
 
   const res = await fetchAPI(url.toString(), {
-    cache: 'no-store' // 申請履歴は最新の状態を取得
+    next: { revalidate: CACHE_1H }
   })
 
   if (!res.ok) {

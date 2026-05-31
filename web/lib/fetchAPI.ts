@@ -24,7 +24,7 @@ export const fetchAPI = async (
     if (!init) init = {}
     if (!init.next) init.next = {}
     if (init.next.revalidate === undefined) {
-      init.next.revalidate = CACHE_1M
+      init.next.revalidate = CACHE_10M
     }
   }
 

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import { schema, HyperChatSchema } from 'apis/hyper-chats/hyperChatSchema'
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 
 // バックエンドはCollection形式（{ list: [...] }）で返却する
 const listSchema = z.object({ list: z.array(schema) })
@@ -24,10 +24,8 @@ export async function getRecentHyperChats(
     searchParams.append('channelIds[]', id)
   })
 
-  // TODO: cacheしてもよいが、ChannelIdごとにHyperChat更新された場合revalidateが難しい
   const res = await fetchAPI(`/api/hyper-chats/recent?${searchParams}`, {
-    // next: { revalidate: CACHE_10M }
-    cache: 'no-store'
+    next: { revalidate: CACHE_1H }
   })
 
   if (!res.ok) {
