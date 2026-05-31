@@ -2,13 +2,13 @@ import {
   SupersBundleSchema,
   schema
 } from 'apis/youtube/schema/supersBundleSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 export async function getSupersBundle(
   videoId: string
 ): Promise<SupersBundleSchema | undefined> {
   const res = await fetchAPI(`/api/supers-bundles/${videoId}`, {
-    next: { revalidate: CACHE_1H }
+    next: { revalidate: CACHE_1D }
   })
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)

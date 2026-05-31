@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import { responseSchema, StreamSchema } from 'apis/youtube/schema/streamSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 // Custom error class for 404 Not Found errors
 export class NotFoundError extends Error {
@@ -12,7 +12,7 @@ export class NotFoundError extends Error {
 
 export async function getStream(id: string): Promise<StreamSchema> {
   const res = await fetchAPI(`/api/youtube/streams/${id}`, {
-    next: { revalidate: CACHE_1H }
+    next: { revalidate: CACHE_1D }
   })
 
   if (!res.ok) {

@@ -1,4 +1,4 @@
-import { fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
 import {
   inactiveChannelsResponseSchema,
   InactiveChannelsSchema
@@ -9,7 +9,7 @@ export async function getInactiveChannels(
 ): Promise<InactiveChannelsSchema> {
   const res = await fetchAPI(
     `/api/inactive-channels?inactiveMonths=${inactiveMonths}`,
-    { cache: 'no-store' }
+    { next: { revalidate: CACHE_1H } }
   )
 
   if (!res.ok) {

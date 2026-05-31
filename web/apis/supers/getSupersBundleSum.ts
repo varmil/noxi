@@ -2,7 +2,7 @@ import {
   sumSchema,
   SupersBundleSumSchema
 } from 'apis/youtube/schema/supersBundleSchema'
-import { CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, fetchAPI } from 'lib/fetchAPI'
 
 type Params = {
   channelId: string
@@ -23,7 +23,7 @@ export async function getSupersBundleSum({
   })
   const res = await fetchAPI(
     `/api/supers-bundles/sum?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1H } }
+    { next: { revalidate: CACHE_1D } }
   )
 
   if (!res.ok) {

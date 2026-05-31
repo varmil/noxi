@@ -3,7 +3,7 @@ import {
   listSchema
 } from 'apis/youtube/schema/supersBundleSchema'
 
-import { CACHE_1D, CACHE_1H, fetchAPI } from 'lib/fetchAPI'
+import { CACHE_1D, CACHE_1W, fetchAPI } from 'lib/fetchAPI'
 import { Gender } from 'types/gender'
 import { roundDateToDay, roundDateToHour } from 'utils/date'
 
@@ -99,7 +99,7 @@ export async function getSupersBundles({
     createdAtLTE: roundDateToHour(createdAtLTE)
   })
   const res = await fetchAPI(`/api/supers-bundles?${searchParams.toString()}`, {
-    next: { revalidate: CACHE_1H }
+    next: { revalidate: CACHE_1D }
   })
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
@@ -153,7 +153,7 @@ export async function getSupersBundlesCount({
   })
   const res = await fetchAPI(
     `/api/supers-bundles/count?${searchParams.toString()}`,
-    { next: { revalidate: CACHE_1D } }
+    { next: { revalidate: CACHE_1W } }
   )
   if (!res.ok) {
     throw new Error(`Failed to fetch data: ${await res.text()}`)
